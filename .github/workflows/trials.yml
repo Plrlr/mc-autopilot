@@ -36,7 +36,7 @@ jobs:
 
   trial:
     runs-on: ubuntu-latest
-    timeout-minutes: 45
+    timeout-minutes: 120
     strategy:
       fail-fast: false
       matrix:
@@ -50,9 +50,16 @@ jobs:
           java-version: '25'
           cache: gradle
 
-      # Minecraft needs a screen and OpenGL: a virtual X display with Mesa's software renderer.
+      # Minecraft needs a screen and OpenGL (or Vulkan): a virtual X display with Mesa's software
+      # renderers (llvmpipe for OpenGL, lavapipe for Vulkan). libglx-mesa0 is the GLX vendor
+      # library; without it the game finds no GLX visual and never opens a window.
       - name: Install virtual display
-        run: sudo apt-get update -q && sudo apt-get install -y -q xvfb libgl1-mesa-dri mesa-utils
+        run: |
+          sudo apt-get update -q
+          sudo apt-get install -y -q xvfb libgl1 libglx-mesa0 libgl1-mesa-dri libegl1 libegl-mesa0 mesa-utils \
+            libvulkan1 mesa-vulkan-drivers vulkan-tools
+          xvfb-run -a -s "-screen 0 1280x720x24" glxinfo -B || true
+          xvfb-run -a -s "-screen 0 1280x720x24" vulkaninfo --summary 2>&1 | head -n 40 || true
 
       - name: Play
         working-directory: mod
@@ -62,10 +69,25 @@ jobs:
           chmod +x gradlew
           # The game exits with Baritone's known shutdown-watchdog crash after saving, which
           # fails the Gradle task; the summary step below judges the run instead.
-          xvfb-run -a -s "-screen 0 1280x720x24" ./gradlew runClientGameTest --console=plain \
+          setsid xvfb-run -a -s "-screen 0 1280x720x24" ./gradlew runClientGameTest --console=plain \
             -PtestMinutes=${{ inputs.minutes }} -PtestSeed=${{ matrix.seed }} -PtestScenario=${{ inputs.scenario }} \
-            > trial.log 2>&1 || true
+            > trial.log 2>&1 &
+          pid=$!
+          # Watchdog: a game that can't open its window hangs instead of exiting, so stop it if
+          # no test report shows up in time, and stop any run that goes far past its length.
+          start=$(date +%s)
+          limit=$(( ${{ inputs.minutes }} * 4 * 60 + 900 ))
+          while kill -0 $pid 2>/dev/null; do
+            sleep 15
+            el=$(( $(date +%s) - start ))
+            if [ $el -gt 900 ] && ! grep -aq "\[autopilot-test\]" trial.log; then
+              echo "No test report after 15 minutes: stopping the game."; kill -- -$pid 2>/dev/null; pkill -f devlaunchinjector || true; break
+            fi
+            if [ $el -gt $limit ]; then echo "Run took over $limit s: stopping the game."; kill -- -$pid 2>/dev/null; pkill -f devlaunchinjector || true; break; fi
+          done
+          wait $pid || true
           grep -a "autopilot-test" trial.log > autopilot-test.log || true
+          echo "wall time: $(( $(date +%s) - start )) s"
 
       - name: Summary
         working-directory: mod
