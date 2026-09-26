@@ -1,15 +1,24 @@
-# Secrets: API keys live here
+# Secrets (the real config lives in the Minecraft folder, but just in case)
 .env
+*.env
+!*.env.example
 
-# Server jar, world, eula.txt: Mojang doesn't allow redistributing the jar
-server/
+# Build output
+mod/build/
+mod/.gradle/
+mod/run/
+.gradle/
+build/
 *.jar
+!mod/gradle/wrapper/gradle-wrapper.jar
 
-# Run logs and daily usage counters
+# Logs, worlds
 logs/
 *.log
+saves/
 
-node_modules/
-
-# Per-user Claude Code settings
+# Editors and local settings
+.idea/
+.vscode/
+*.iml
 .claude/settings.local.json

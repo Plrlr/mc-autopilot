@@ -1,40 +1,30 @@
 # Start here (for you, not for Claude Code)
 
-## 1. Put the folder somewhere simple
-Unzip so you have `C:\Users\<you>\mc-build-crew` with CLAUDE.md inside it.
+MC Autopilot lets Claude Opus 5.5 play your own character in a normal single-player
+survival world, and try to beat the game.
 
-## 2. Get free API keys (you do this yourself)
-- **Groq (main brain):** make a free account at console.groq.com and create an API key.
-- **Google AI Studio (backup brain):** sign in at aistudio.google.com and create an API key.
-- **Jev (optional):** only if you get access later, through Vercel AI Gateway or TypeSafe.
+## What you need
+- Minecraft Java Edition 26.3 in the official launcher.
+- A Claude plan with Claude Code (Opus runs through it, so no API key is needed).
+- Optional free API keys for faster, cheaper decisions:
+  - **Groq:** make a free account at console.groq.com and create an API key.
+  - **Google AI Studio:** sign in at aistudio.google.com and create an API key.
 
 Keep keys secret. Don't paste them into chats, screenshots, or GitHub.
-After Phase 0 creates your `.env` file, open it in Notepad and paste each key after its `=`.
+Keys go in `%APPDATA%\.minecraft\config\mc-autopilot.env` (copy `mc-autopilot.env.example`
+there). That file is outside this project, so it can never be uploaded by accident.
 
-## 3. Start Claude Code
-Open PowerShell and run:
+## Working with Claude Code
+Open PowerShell in this folder and run `claude`. One phase per session:
 ```
-cd $HOME\mc-build-crew
-claude
+Do Phase 1. Tell me exactly how to test it when you're done.
 ```
-
-## 4. Paste this first prompt
-```
-Read CLAUDE.md. Do Phase 0 and Phase 1 only.
-Check what's already installed and give me the exact commands for anything I need to install myself.
-Before downloading the server, confirm the newest Minecraft version Mineflayer officially supports.
-Stop when the server is running on 127.0.0.1 and tell me how to start it next time.
-```
-
-## 5. After that, one phase per session
-Claude Code reads CLAUDE.md every time, so you only need short prompts:
-```
-Do Phase 2. Tell me exactly how to test it when you're done.
-```
-Then Phase 3, Phase 4, and so on. Test each phase before starting the next.
+Test each phase before starting the next.
 
 ## Good to know
-- Claude Code will ask you to accept Minecraft's EULA yourself. Read it, then say yes.
-- In the game chat or bot console, `!stop` makes every bot stand still.
-- Before your first `git push`, run `git status` and make sure `.env` and `server/` are NOT listed.
+- Use a **new test world** at first. The AI will dig, die, and lose items.
+- The toggle key (default K) turns the autopilot on and off. Pressing any movement key
+  also takes control back instantly.
+- Opus calls count toward your Claude plan's usage limits. The panel shows how many
+  calls were used this hour.
 - If something breaks, paste the error into Claude Code and say "fix this".
