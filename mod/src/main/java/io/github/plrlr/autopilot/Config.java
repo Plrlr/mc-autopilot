@@ -16,9 +16,10 @@ public final class Config {
 	private static final String DEFAULTS = """
 			# MC Autopilot settings. Lines are KEY=value. Restart Minecraft after editing.
 
-			# Tactician brain at startup: opus, mock, groq, or gemini (changeable in the K panel)
-			TACTICIAN=opus
-			# Opus also picks the big goals (strategist). Set to false to use simple rules instead.
+			# Opus picks the goals; the free rules ("mock") pick the actions toward each goal.
+			# Action brain: mock (default, free), opus, groq, or gemini (changeable in the K panel).
+			TACTICIAN=mock
+			# Opus picks the big goals (strategist). Set to false to use simple rules for goals too.
 			OPUS_STRATEGIST=true
 
 			# Opus runs through `claude -p` on your Claude plan (no API key). Calls count toward plan limits.

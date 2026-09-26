@@ -16,8 +16,9 @@ Background facts, limits, and sources are in docs/research-notes.md.
    failed, death, dimension change, stuck for 30 s, or at most every 60 s. A measured call took
    about 7 s (3.4 s API time) on 2026-09-26, which is fine at this rate.
 2. **Tactician: picks the next skill** and its argument from a short candidate list, whenever a
-   skill ends. Swappable: `opus` (same `claude -p` route; slower but smartest), `groq`, `gemini`,
-   or `mock` (rules, free, always works, the fallback for everything).
+   skill ends. Default `mock` (rules, free, always works, the fallback for everything): the user
+   decided on 2026-09-26 that Opus should only set goals, since the steps toward a goal are
+   repetitive. Still swappable to `opus` (same `claude -p` route), `groq` or `gemini`.
 3. **Skills and reflexes: plain Java code, no AI.** Skills do the work (walk, mine, craft, fight),
    using Baritone for pathfinding and mining. Reflexes react instantly in code: eat when hungry,
    fight or back off from mobs in range, step away from lava and fire, stop falling into holes.

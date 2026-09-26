@@ -3,23 +3,24 @@
 Let Claude Opus play **your own character** in a normal single-player Minecraft survival world
 and try to beat the game. Press **K** in your world, switch the autopilot on, and watch.
 
-- **Opus decides.** Opus 5.5 picks the goals ("get iron tools", "find a nether fortress") and,
-  by default, every action. It runs through Claude Code's headless mode (`claude -p`) on your
-  Claude plan, so you don't need an API key.
+- **Opus sets the goals.** Opus 5.5 decides what to work on ("get iron tools", "find a nether
+  fortress") and changes course when something fails. Once the goal is set, free rules work out
+  the steps. Opus runs through Claude Code's headless mode (`claude -p`) on your Claude plan, so
+  you don't need an API key, and it's called at most ~30 times an hour.
 - **Code does the hands.** Walking, mining and pathfinding use [Baritone](https://github.com/cabaletta/baritone).
   Crafting goes through the recipe book, and fighting, eating and sleeping use the normal player controls.
 - **Fair play.** No cheats, no commands, no x-ray. The AI only knows about blocks it has
   actually seen, and Baritone runs in `legitMine` mode.
 - **You stay in control.** Any movement key (WASD, space) instantly gives control back.
-- **$0.** Opus uses your existing plan. Free Groq or Gemini keys and a free rules brain can make
-  the per-action choices instead.
+- **$0.** Opus uses your existing plan. The per-action choices are free rules by default; you can
+  switch them to Opus, or to free Groq or Gemini keys, in the K panel.
 
 ## How it works
 
 ```
 Strategist (Opus via claude -p)   picks the goal from a 13-step ladder, ~once a minute or on events
         |
-Tactician (Opus / Groq / Gemini / rules)   picks the next action from a short list the planner builds
+Tactician (rules by default; or Opus / Groq / Gemini)   picks the next action from the planner's list
         |
 Skills + reflexes (plain Java, Baritone)   collect, craft, smelt, attack, eat, shelter, build_portal, ...
 ```
@@ -69,11 +70,14 @@ this project, so keys can't end up on GitHub.
 
 ## Opus and your plan
 
-Every Opus call counts toward your Claude plan's usage limits. One decision is ~4k tokens in
-(mostly cached) and ~100 out, and takes ~7-13 s. Defaults: at most **30** goal calls and
-**120** action calls per hour (`OPUS_MAX_CALLS_PER_HOUR`, `OPUS_TACTICIAN_MAX_CALLS_PER_HOUR`).
-When a cap or plan limit is hit, the rules take over and the panel says so. If you want Opus
-to spend less, set the action brain to `mock` and keep Opus for the goals.
+Every Opus call counts toward your Claude plan's usage limits. One call is ~10k tokens in
+(mostly cached) and ~250 out, and takes ~7-13 s. By default Opus only sets goals: it's asked when
+a goal is done, when things keep failing or get stuck, after a death or dimension change, and
+every 5 minutes otherwise, never more than **30** times an hour (`OPUS_MAX_CALLS_PER_HOUR`).
+In testing, the rules picked the same action as Opus most of the time, which is why actions
+default to the rules. If you do switch actions to Opus (`!brain opus`), those calls are capped
+separately at 120/hour (`OPUS_TACTICIAN_MAX_CALLS_PER_HOUR`). When a cap or plan limit is hit,
+the rules take over and the panel says so.
 
 ## Logs
 

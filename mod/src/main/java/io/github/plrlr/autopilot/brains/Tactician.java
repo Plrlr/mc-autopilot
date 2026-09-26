@@ -26,7 +26,8 @@ public final class Tactician {
 
 	public Tactician(Map<String, LlmBackend> backends, String initial) {
 		this.backends = backends;
-		this.selected = NAMES.contains(initial) ? initial : "opus";
+		// Actions default to the free rules; Opus is spent on goals.
+		this.selected = NAMES.contains(initial) ? initial : "mock";
 	}
 
 	public String selected() {
