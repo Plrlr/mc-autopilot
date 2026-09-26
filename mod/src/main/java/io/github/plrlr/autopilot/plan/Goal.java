@@ -15,7 +15,7 @@ import java.util.Map;
 public enum Goal {
 	WOOD_TOOLS(1, "Get a crafting table and a wooden pickaxe", Map.of("wooden_pickaxe", 1)),
 	STONE_TOOLS(2, "Get a stone pickaxe and a stone sword", Map.of("stone_pickaxe", 1, "stone_sword", 1)),
-	FOOD(3, "Hunt animals and cook at least 8 food; survive the night", Map.of("food", 8)),
+	FOOD(3, "Hunt animals and cook at least 5 food; survive the night", Map.of("food", 5)),
 	IRON_TOOLS(4, "Mine and smelt iron: iron pickaxe, iron sword, shield, bucket", Map.of("iron_pickaxe", 1, "iron_sword", 1, "shield", 1, "bucket", 1)),
 	IRON_ARMOR(5, "Craft and wear full iron armor", Map.of("iron_helmet", 1, "iron_chestplate", 1, "iron_leggings", 1, "iron_boots", 1)),
 	DIAMONDS(6, "Mine diamonds deep underground and make a diamond pickaxe", Map.of("diamond_pickaxe", 1)),
@@ -82,6 +82,15 @@ public enum Goal {
 	public boolean itemsDone() {
 		for (var e : needs.entrySet()) if (have(e.getKey()) < e.getValue()) return false;
 		return true;
+	}
+
+	/**
+	 * Tool and armor rungs stay done once reached, even after a death loses the items: the
+	 * planner rebuilds any missing tool on the way to the next rung, so dropping back down the
+	 * ladder only wastes time. Later rungs depend on where you are, so they are checked live.
+	 */
+	public boolean sticky() {
+		return milestone >= 1 && milestone <= 6;
 	}
 
 	public static List<Goal> ladder() {

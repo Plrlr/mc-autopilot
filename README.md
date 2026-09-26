@@ -12,15 +12,15 @@ and try to beat the game. Press **K** in your world, switch the autopilot on, an
 - **Fair play.** No cheats, no commands, no x-ray. The AI only knows about blocks it has
   actually seen, and Baritone runs in `legitMine` mode.
 - **You stay in control.** Any movement key (WASD, space) instantly gives control back.
-- **$0.** Opus uses your existing plan. The per-action choices are free rules by default; you can
-  switch them to Opus, or to free Groq or Gemini keys, in the K panel.
+- **$0.** Opus uses your existing plan. The per-action choices go to a free AI (Groq, Cerebras or
+  Gemini) when you paste a free key into the settings file, and to free rules otherwise.
 
 ## How it works
 
 ```
 Strategist (Opus via claude -p)   picks the goal from a 13-step ladder, ~once a minute or on events
         |
-Tactician (rules by default; or Opus / Groq / Gemini)   picks the next action from the planner's list
+Tactician (auto: a free AI if a key is set, else rules)   picks the next action from the planner's list
         |
 Skills + reflexes (plain Java, Baritone)   collect, craft, smelt, attack, eat, shelter, build_portal, ...
 ```
@@ -30,8 +30,17 @@ it builds a short list of sensible options, with the rules' pick first. The tact
 of them, so an LLM can't invent impossible actions. Each answer is checked against the list;
 a bad answer gets one retry, and after that the rules decide.
 
+**Upkeep** is built into the planner, the way a good player does it on the way: eat and heal
+after fights, hunt a nearby animal when food runs low and cook the meat, kill sheep for a bed and
+sleep every night (the bed is packed up again in the morning), grab coal that's in view, and walk
+back for the items after a death. Without a bed, it digs a covered shelter only when it's on the
+surface at night with little armor; underground or armored, it keeps working.
+
+**Exploring** heads in a straight line into ground it hasn't visited, stops the moment it sees
+what it's looking for (animals, trees, a fortress), and turns away from open water.
+
 **Reflexes** don't wait for any AI: fight back when hit, back away from creepers and when low on
-health, eat when starving, and jump out of lava.
+health, eat when starving, swim up when out of air, and jump out of lava.
 
 The goal ladder: 1 wooden tools, 2 stone tools, 3 food and survive a night, 4 iron tools,
 5 iron armor, 6 diamond pickaxe, 7 nether portal, 8 blaze rods, 9 ender pearls, 10 eyes of ender,
@@ -54,17 +63,27 @@ logged in (`claude` works in PowerShell), and Java 25 to build the mod.
 5. Make a **new test world** (the AI will dig, die and lose things), press **K**, click **Autopilot: OFF**.
 
 The first start writes `%APPDATA%\.minecraft\config\mc-autopilot.env`. Open it in Notepad to set
-the brain, Opus call caps, and optional free API keys (Groq / Gemini). That file lives outside
-this project, so keys can't end up on GitHub.
+the brain, Opus call caps, and optional free API keys. That file lives outside this project, so
+keys can't end up on GitHub. Each key needs a free account that you make yourself:
+
+| Provider | Get a key | Free limits (Sept 2026) |
+|---|---|---|
+| Groq | [console.groq.com/keys](https://console.groq.com/keys) | 30 requests/min, 1,000/day |
+| Cerebras | [cloud.cerebras.ai](https://cloud.cerebras.ai) | 5 requests/min, 1M tokens/day |
+| Gemini | [aistudio.google.com/apikey](https://aistudio.google.com/apikey) | Flash-Lite, a few requests/min |
+
+Paste a key after `GROQ_API_KEY=` (or the Cerebras or Gemini line) and restart Minecraft. With
+`TACTICIAN=auto` the first provider with a key is used, the others are the fallback when it hits
+a limit, and the rules take over when all of them are out.
 
 ## Controls
 
 | | |
 |---|---|
-| **K** | panel: on/off, action brain (opus / mock / groq / gemini), goals by Opus or rules, what it's thinking |
+| **K** | panel: on/off, action brain (auto / mock / groq / cerebras / gemini / opus), goals by Opus or rules, what it's thinking |
 | **WASD / space** | take control back immediately |
 | `!stop` `!start` `!status` | chat commands (never sent to the world) |
-| `!brain opus\|mock\|groq\|gemini` | switch the action brain |
+| `!brain auto\|mock\|groq\|cerebras\|gemini\|opus` | switch the action brain |
 | `!goal iron_tools` | force a goal; `!goal` lists them |
 | `!opus on\|off` | goals by Opus or by rules |
 
@@ -75,7 +94,7 @@ Every Opus call counts toward your Claude plan's usage limits. One call is ~10k 
 a goal is done, when things keep failing or get stuck, after a death or dimension change, and
 every 5 minutes otherwise, never more than **30** times an hour (`OPUS_MAX_CALLS_PER_HOUR`).
 In testing, the rules picked the same action as Opus most of the time, which is why actions
-default to the rules. If you do switch actions to Opus (`!brain opus`), those calls are capped
+go to free brains, never to Opus unless you ask. If you do switch actions to Opus (`!brain opus`), those calls are capped
 separately at 120/hour (`OPUS_TACTICIAN_MAX_CALLS_PER_HOUR`). When a cap or plan limit is hit,
 the rules take over and the panel says so.
 
@@ -87,6 +106,8 @@ skill results, deaths and milestones. `progress-<world>.json` keeps the furthest
 
 ## Honest limitations
 
+- Tool and armor milestones stay reached after a death; the planner rebuilds lost tools on the
+  way to the next one instead of starting the ladder over.
 - Early game (wood → stone → iron → armor) is where it's reliable. Diamonds take a long time
   with fair (non-x-ray) branch mining.
 - Obsidian: the AI only mines obsidian it has seen (lava pools with water, ruined portals). It

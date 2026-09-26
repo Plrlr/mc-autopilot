@@ -4,6 +4,7 @@ import baritone.api.BaritoneAPI;
 import baritone.api.IBaritone;
 import baritone.api.Settings;
 import baritone.api.pathing.goals.Goal;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
 import io.github.plrlr.autopilot.Mc;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -46,9 +47,41 @@ public final class Bari {
 		s.avoidance.value = true;
 		// Lets a goal inside a portal actually walk into it.
 		s.enterPortal.value = true;
+		// Pathing speed-ups that are still safe: diagonal steps up and down cut many corners.
+		s.allowDiagonalAscend.value = true;
+		s.allowDiagonalDescend.value = true;
+		// A mining target it can't reach gets skipped instead of retried forever.
+		s.blacklistClosestOnFailure.value = true;
+		// Swimming is slow and brings drowned; prefer land when there's a reasonable way round.
+		s.walkOnWaterOnePenalty.value = 5.0;
+		updateThrowaway();
 		// Our own chat commands start with "!", Baritone's with "#"; keep them apart.
 		if (savedChatControl == null) savedChatControl = s.chatControl.value;
 		s.chatControl.value = false;
+	}
+
+	/** Blocks Baritone may place when it bridges or pillars. */
+	private static final String[] ALWAYS_THROWAWAY = {"dirt", "netherrack", "andesite", "diorite", "granite", "tuff", "calcite"};
+
+	/**
+	 * Cobblestone is only scaffolding once we have plenty: early on, every piece is needed for
+	 * tools and a furnace, and Baritone spending it made crafts fail with "missing ingredients".
+	 */
+	public static void updateThrowaway() {
+		boolean spareStone = Mc.player() != null && Mc.count("stone") >= 24;
+		List<Item> items = new ArrayList<>();
+		for (String id : ALWAYS_THROWAWAY) {
+			Item i = Mc.item(id);
+			if (i != null) items.add(i);
+		}
+		if (spareStone) {
+			for (String id : new String[]{"cobblestone", "cobbled_deepslate"}) {
+				Item i = Mc.item(id);
+				if (i != null) items.add(i);
+			}
+		}
+		List<Item> now = BaritoneAPI.getSettings().acceptableThrowawayItems.value;
+		if (!now.equals(items)) BaritoneAPI.getSettings().acceptableThrowawayItems.value = items;
 	}
 
 	public static void restoreUserSettings() {

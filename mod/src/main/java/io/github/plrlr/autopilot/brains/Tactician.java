@@ -19,19 +19,42 @@ import java.util.function.Consumer;
  * On rate limits it moves down the chain: selected -> other available LLMs -> rules.
  */
 public final class Tactician {
-	public static final List<String> NAMES = List.of("opus", "mock", "groq", "gemini");
+	/** auto = the first free LLM that has a key (groq, cerebras, gemini), else the rules. */
+	public static final List<String> NAMES = List.of("auto", "mock", "groq", "cerebras", "gemini", "opus");
+	private static final List<String> FREE = List.of("groq", "cerebras", "gemini");
 
 	private final Map<String, LlmBackend> backends;
 	private volatile String selected;
+	private volatile boolean toldNoKeys;
 
 	public Tactician(Map<String, LlmBackend> backends, String initial) {
 		this.backends = backends;
-		// Actions default to the free rules; Opus is spent on goals.
-		this.selected = NAMES.contains(initial) ? initial : "mock";
+		// Actions default to free brains; Opus is spent on goals.
+		this.selected = NAMES.contains(initial) ? initial : "auto";
 	}
 
 	public String selected() {
 		return selected;
+	}
+
+	/** What will actually answer: for auto, the first free LLM with a key, else mock. */
+	public String effective() {
+		if (!selected.equals("auto")) return selected;
+		for (String n : FREE) {
+			LlmBackend b = backends.get(n);
+			if (b != null && !hasNoKey(b)) return n;
+		}
+		return "mock";
+	}
+
+	/** True when the selected brain is an LLM (costs a call per decision). */
+	public boolean usesLlm() {
+		return !effective().equals("mock");
+	}
+
+	private static boolean hasNoKey(LlmBackend b) {
+		String u = b.unavailable(0);
+		return u != null && u.startsWith("no ");
 	}
 
 	public void select(String name) {
@@ -49,16 +72,25 @@ public final class Tactician {
 	public CompletableFuture<Decision> decide(JsonObject state, Goal goal, List<String> plan, List<String> recent,
 											  List<Option> options, Consumer<String> notify) {
 		Option rules = options.get(0);
-		if (selected.equals("mock")) return CompletableFuture.completedFuture(Decision.mock(rules, "rules", true));
+		String first = effective();
+		if (first.equals("mock")) {
+			if (selected.equals("auto") && !toldNoKeys) {
+				toldNoKeys = true;
+				notify.accept("No free AI keys in mc-autopilot.env, so the rules pick actions (see START_HERE.md).");
+			}
+			return CompletableFuture.completedFuture(Decision.mock(rules, "rules", true));
+		}
+		// A single sensible option leaves nothing to decide; don't spend a call on it.
+		if (options.size() == 1) return CompletableFuture.completedFuture(Decision.mock(rules, "only option", true));
 
 		String user = userPrompt(state, goal, plan, recent, options);
 		int est = (Prompts.TACTICIAN.length() + user.length()) / 4 + 80;
 		List<LlmBackend> chain = new ArrayList<>();
-		chain.add(backends.get(selected));
-		for (String n : List.of("groq", "gemini", "opus")) {
+		chain.add(backends.get(first));
+		for (String n : FREE) {
 			LlmBackend b = backends.get(n);
-			// Only fall over to a different paid-by-plan brain if it was the one chosen.
-			if (b != null && !chain.contains(b) && !n.equals("opus")) chain.add(b);
+			// Fall over to other free brains only; Opus is used only when chosen.
+			if (b != null && !chain.contains(b) && !hasNoKey(b)) chain.add(b);
 		}
 		return tryChain(chain, 0, user, est, options, notify, new StringBuilder());
 	}

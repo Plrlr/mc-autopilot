@@ -24,15 +24,29 @@ public final class Planner {
 		this.memory = memory;
 	}
 
+	/** Animals worth hunting for food, best first. */
+	public static final String ANIMALS = "cow,pig,sheep,chicken";
+
+	/**
+	 * Options in priority order: survival, getting dropped items back, cheap upkeep that a good
+	 * player does on the way (food, a bed, coal), then the goal's next step, then fallbacks.
+	 */
 	public List<Option> options(Goal goal, Perception seen) {
 		Map<String, Option> out = new LinkedHashMap<>();
-		Option main = goalStep(goal, seen, 0);
-		// Safety first when it matters; these go ahead of the goal step.
 		for (Option o : urgent(seen)) out.putIfAbsent(o.label(), o);
+		Option recover = recoverStep();
+		if (recover != null) out.putIfAbsent(recover.label(), recover);
+		for (Option o : upkeep(seen)) out.putIfAbsent(o.label(), o);
+		Option main = goalStep(goal, seen, 0);
 		if (main != null) out.putIfAbsent(main.label(), main);
-		for (Option o : extras(seen)) out.putIfAbsent(o.label(), o);
+		for (Option o : extras(seen, main)) out.putIfAbsent(o.label(), o);
 		List<Option> list = new ArrayList<>(out.values());
-		return list.size() > 12 ? list.subList(0, 12) : list;
+		return list.size() > 10 ? list.subList(0, 10) : list;
+	}
+
+	/** The goal's own next step, without upkeep or safety options (null if the goal needs nothing now). */
+	public Option mainStep(Goal goal, Perception seen) {
+		return goalStep(goal, seen, 0);
 	}
 
 	/** True if the goal is finished (the strategist should move on). */
@@ -43,7 +57,8 @@ public final class Planner {
 			case IRON_ARMOR -> wornIronCount() == 4;
 			case FIND_STRONGHOLD -> memory.nearest("end_portal_frame") != null || dim.equals("the_end");
 			case ENTER_END -> dim.equals("the_end");
-			case KILL_DRAGON, SURVIVE_NIGHT, EXPLORE -> false;
+			case SURVIVE_NIGHT -> !Mc.dimension().equals("overworld") || !Mc.isNight();
+			case KILL_DRAGON, EXPLORE -> false;
 			default -> goal.itemsDone();
 		};
 	}
@@ -58,10 +73,10 @@ public final class Planner {
 						if (o != null) return o;
 					}
 				}
-				for (String animal : List.of("cow", "pig", "sheep", "chicken")) {
+				for (String animal : ANIMALS.split(",")) {
 					if (seen.nearest(animal) != null) return new Option("attack", animal, "hunt for meat");
 				}
-				return new Option("explore", "random", "look for animals to hunt");
+				return new Option("explore", ANIMALS, "look for animals to hunt");
 			}
 			case IRON_ARMOR -> {
 				Option o = itemsStep(goal);
@@ -79,11 +94,11 @@ public final class Planner {
 				if (!dim.equals("the_nether")) return depth > 2 ? null : goalStep(Goal.NETHER_PORTAL, seen, depth + 1);
 				if (seen.nearest("blaze") != null) return new Option("attack", "blaze", "kill the blaze for rods");
 				if (memory.nearest("nether_bricks") != null) return new Option("goto", "nether_bricks", "go into the fortress to find blazes");
-				return new Option("explore", "random", "look for a nether fortress");
+				return new Option("explore", "nether_bricks,blaze", "look for a nether fortress");
 			}
 			case ENDER_PEARLS -> {
 				if (seen.nearest("enderman") != null) return new Option("attack", "enderman", "kill the enderman for a pearl");
-				return new Option("explore", "random", "look for endermen (more at night)");
+				return new Option("explore", "enderman", "look for endermen (more at night, many in warped forests)");
 			}
 			case FIND_STRONGHOLD -> {
 				if (dim.equals("the_nether") && memory.nearest("nether_portal") != null) return new Option("enter_portal", "overworld", "go back to the overworld");
@@ -114,7 +129,7 @@ public final class Planner {
 				return new Option("shelter", null, "dig a small shelter and wait for morning");
 			}
 			case EXPLORE -> {
-				return new Option("explore", "random", "explore new ground");
+				return new Option("explore", "any", "explore new ground");
 			}
 			default -> {
 				return itemsStep(goal);
@@ -142,7 +157,7 @@ public final class Planner {
 		if (have >= count) return null;
 		int missing = count - have;
 
-		if (item.equals("food")) return goalStep(Goal.FOOD, Perception.look(24), 0);
+		if (item.equals("food")) return goalStep(Goal.FOOD, Perception.look(32), 0);
 
 		TechTree.Recipe r = TechTree.CRAFT.get(item);
 		if (r != null) {
@@ -170,20 +185,27 @@ public final class Planner {
 				return itemStep(TechTree.pickaxeForTier(src.tier()), 1, depth + 1);
 			}
 			if (item.equals("obsidian") && memory.nearest("obsidian") == null) {
-				return new Option("explore", "random", "find obsidian (lava pools touched by water, ruined portals)");
+				return new Option("explore", "obsidian", "find obsidian (lava pools touched by water, ruined portals)");
 			}
-			// Mine a little extra: each trip costs time.
-			int want = Math.min(64, missing + (item.equals("log") ? 2 : 0));
+			// Mine a little extra: each trip costs time. Spare cobblestone also covers a
+			// night shelter and the blocks Baritone places when it bridges or pillars.
+			int extra = switch (item) {
+				case "log" -> 3;
+				case "stone" -> Mc.count("stone") < 24 ? 10 : 0;
+				case "coal" -> 4;
+				default -> 0;
+			};
+			int want = Math.min(64, missing + extra);
 			return new Option("collect", item + ":" + want, "need " + missing + " more " + item);
 		}
 
 		List<String> mobs = TechTree.MOB.get(item);
 		if (mobs != null) {
-			Perception seen = Perception.look(24);
+			Perception seen = Perception.look(32);
 			for (String m : mobs) if (seen.nearest(m) != null) return new Option("attack", m, "drops " + item);
-			return new Option("explore", "random", "find a " + mobs.get(0) + " for " + item);
+			return new Option("explore", String.join(",", mobs), "find a " + mobs.get(0) + " for " + item);
 		}
-		return new Option("explore", "random", "find " + item);
+		return new Option("explore", "any", "find " + item);
 	}
 
 	private Option smeltStep(String item, int missing, int depth) {
@@ -233,18 +255,88 @@ public final class Planner {
 			// Creepers explode in melee range: back off instead of swinging at them.
 			if (hostile.type().equals("creeper")) out.add(new Option("retreat", null, "a creeper is " + Math.round(hostile.dist()) + " blocks away"));
 			else if (pl.getHealth() <= 8) out.add(new Option("retreat", null, "low health and a " + hostile.type() + " is close"));
+			// Skeletons outshoot a fleeing player; closing in fast is safer than running.
 			else out.add(new Option("attack", hostile.type(), hostile.type() + " is " + Math.round(hostile.dist()) + " blocks away"));
 		}
 		if (food <= 14 && hasFood) out.add(new Option("eat", null, "hunger " + food + "/20"));
-		if (Mc.dimension().equals("overworld") && Mc.isNight() && seen.hostilesWithin(16) > 0) {
-			if (Mc.count("bed") > 0) out.add(new Option("sleep", null, "night with monsters around"));
-			else out.add(new Option("shelter", null, "night with monsters around"));
+		// Health only regenerates with a nearly full hunger bar, so top it up after a fight.
+		else if (pl.getHealth() <= 14 && food < 20 && hasFood && seen.hostilesWithin(8) == 0)
+			out.add(new Option("eat", null, "heal up: health " + Math.round(pl.getHealth()) + "/20"));
+		if (Mc.dimension().equals("overworld") && Mc.isNight()) {
+			boolean bed = Mc.count("bed") > 0 || memory.nearestStation("bed") != null;
+			// Sleeping skips the night and sets the respawn point: always worth it.
+			if (bed) out.add(new Option("sleep", null, "sleep through the night"));
+			// On the surface with little armor, monsters win at night; underground or armored, keep working.
+			else if (onSurface() && pl.getArmorValue() < 10 && seen.hostilesWithin(16) > 0)
+				out.add(new Option("shelter", null, "night with monsters around and little armor"));
 		}
 		return out;
 	}
 
+	/** Items dropped at the last death, while they still exist (they vanish after 5 minutes). */
+	private Option recoverStep() {
+		if (memory.nearest("death") == null) return null;
+		return new Option("goto", "death", "get back the items dropped when we died");
+	}
+
+	/**
+	 * Cheap things a good player does on the way: keep some cooked food, get a bed early (it skips
+	 * nights and sets the respawn point), grab coal that's in view. Only when the target is close,
+	 * so upkeep never turns into a long detour.
+	 */
+	private List<Option> upkeep(Perception seen) {
+		List<Option> out = new ArrayList<>();
+		if (seen.hostilesWithin(12) > 0) return out;
+		// Raw meat counts toward the stock: it gets cooked once there's a furnace, so hunting
+		// more before then would only waste time.
+		int readyFood = Mc.count("food");
+		if (readyFood < 4) {
+			for (String raw : Items2.RAW_MEAT) {
+				if (Mc.count(raw) >= 2 && canSmeltNow()) {
+					out.add(new Option("smelt", "cooked_" + raw + ":" + Mc.count(raw), "cook the raw " + raw));
+					break;
+				}
+			}
+			for (String animal : ANIMALS.split(",")) {
+				Perception.Seen a = seen.nearest(animal);
+				if (readyFood + Mc.count("meat") >= 4) break;
+				if (a != null && a.dist() < 20) {
+					out.add(new Option("attack", animal, "food is low and a " + animal + " is close"));
+					break;
+				}
+			}
+		}
+		if (Mc.dimension().equals("overworld") && Items2.bestTier("pickaxe") >= 0 && Mc.count("bed") == 0
+				&& memory.nearestStation("bed") == null) {
+			if (Mc.count("wool") >= 3) {
+				Option o = itemStep("bed", 1, 0);
+				if (o != null && !o.skill().equals("explore")) out.add(new Option(o.skill(), o.arg(), "make a bed: " + o.why()));
+			} else {
+				Perception.Seen sheep = seen.nearest("sheep");
+				if (sheep != null && sheep.dist() < 20) out.add(new Option("attack", "sheep", "wool for a bed (skips nights)"));
+			}
+		}
+		if (Mc.count("coal") < 4 && Items2.bestTier("pickaxe") >= 0) {
+			WorldMemory.Seen coal = memory.nearest("coal_ore");
+			if (coal != null && coal.pos().distSqr(Mc.player().blockPosition()) < 12 * 12)
+				out.add(new Option("collect", "coal:6", "coal ore in view (fuel for smelting)"));
+		}
+		return out;
+	}
+
+	private boolean canSmeltNow() {
+		boolean furnace = memory.nearestStation("furnace") != null || Mc.count("furnace") > 0;
+		boolean fuel = Mc.count("coal") > 0 || Mc.count("planks") >= 2 || Mc.count("log") >= 2;
+		return furnace && fuel;
+	}
+
+	private static boolean onSurface() {
+		LocalPlayer pl = Mc.player();
+		return pl.level().canSeeSky(pl.blockPosition().above());
+	}
+
 	/** Always-available, sometimes-useful options. */
-	private List<Option> extras(Perception seen) {
+	private List<Option> extras(Perception seen, Option main) {
 		List<Option> out = new ArrayList<>();
 		if (betterArmorInInventory()) out.add(new Option("equip", "armor", "armor in the bag that isn't worn"));
 		if (Mc.count("shield") > 0 && !Items2.id(Mc.player().getOffhandItem()).equals("shield"))
@@ -255,11 +347,25 @@ public final class Planner {
 			if (Mc.count("bed") > 0 || memory.nearestStation("bed") != null) out.add(new Option("sleep", null, "skip the night"));
 			else out.add(new Option("shelter", null, "wait out the night safely"));
 		}
-		out.add(new Option("explore", "random", "look around"));
-		out.add(new Option("explore", "north", "look around to the north"));
-		out.add(new Option("explore", "south", "look around to the south"));
-		out.add(new Option("idle", null, "stand still"));
+		out.add(new Option("explore", exploreTarget(main), "look for new ground"));
 		return out;
+	}
+
+	/** What an explore should look for when the goal step can't be done here. */
+	public static String exploreTarget(Option main) {
+		if (main == null || main.arg() == null) return "any";
+		if (main.skill().equals("explore") || main.skill().equals("attack")) return main.arg();
+		if (main.skill().equals("collect")) {
+			String a = main.arg();
+			String item = a.contains(":") ? a.substring(0, a.indexOf(':')) : a;
+			// Surface blocks can be found by walking; ores are underground and found by mining.
+			return switch (item) {
+				case "log", "sand", "gravel", "obsidian" -> item;
+				case "flint" -> "gravel";
+				default -> "any";
+			};
+		}
+		return "any";
 	}
 
 	private boolean betterArmorInInventory() {

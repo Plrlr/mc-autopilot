@@ -2,6 +2,7 @@ package io.github.plrlr.autopilot.skills;
 
 import baritone.api.pathing.goals.GoalBlock;
 import baritone.api.pathing.goals.GoalGetToBlock;
+import baritone.api.pathing.goals.GoalNear;
 import baritone.api.pathing.goals.GoalRunAway;
 import baritone.api.pathing.goals.GoalXZ;
 import io.github.plrlr.autopilot.Mc;
@@ -13,14 +14,23 @@ import net.minecraft.world.entity.item.ItemEntity;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.ThreadLocalRandom;
 
 /** Skills that are mostly "walk somewhere with Baritone". */
 public final class MoveSkills {
 	private MoveSkills() {}
 
-	/** explore north|south|east|west|random: walk ~80 blocks into new ground. */
+	/**
+	 * explore <what to look for>: walk up to ~120 blocks into new ground and stop as soon as the
+	 * thing we need comes into view. The argument is a comma list of mob types or remembered
+	 * block groups ("cow,pig", "log", "nether_bricks,blaze"), or "any". The direction comes from
+	 * WorldMemory: keep heading the same way while the ground is new, turn away from water.
+	 */
 	public static final class Explore extends Skill {
+		private static final int DIST = 120;
+		private List<String> targets = List.of();
+		private int waterTicks;
+		private double startX, startZ;
+
 		@Override
 		public String name() {
 			return "explore";
@@ -28,25 +38,61 @@ public final class MoveSkills {
 
 		@Override
 		protected void start() {
-			timeoutTicks = 20 * 90;
+			timeoutTicks = 20 * 100;
 			LocalPlayer pl = Mc.player();
-			int dist = 80;
-			String dir = arg == null ? "random" : arg;
-			double angle = switch (dir) {
-				case "north" -> Math.PI * 1.5;
-				case "south" -> Math.PI * 0.5;
-				case "east" -> 0;
-				case "west" -> Math.PI;
-				default -> ThreadLocalRandom.current().nextDouble(Math.PI * 2);
-			};
-			int x = (int) (pl.getX() + Math.cos(angle) * dist);
-			int z = (int) (pl.getZ() + Math.sin(angle) * dist);
-			Bari.path(new GoalXZ(x, z));
+			String a = arg == null ? "any" : arg;
+			if (!a.equals("any")) targets = List.of(a.split(","));
+			String already = found();
+			if (already != null) {
+				done("already see " + already);
+				return;
+			}
+			startX = pl.getX();
+			startZ = pl.getZ();
+			int h = memory.exploreHeading(startX, startZ, DIST);
+			double angle = h * Math.PI / 4;
+			Bari.path(new GoalXZ((int) (startX + Math.cos(angle) * DIST), (int) (startZ + Math.sin(angle) * DIST)));
+		}
+
+		/** The first target that's in view now, or null. */
+		private String found() {
+			if (targets.isEmpty()) return null;
+			Perception seen = Perception.look(40);
+			LocalPlayer pl = Mc.player();
+			for (String t : targets) {
+				if (seen.nearest(t) != null) return t;
+				WorldMemory.Seen b = memory.nearest(t);
+				if (b != null && b.pos().distSqr(pl.blockPosition()) < 48 * 48) return t;
+			}
+			return null;
 		}
 
 		@Override
 		protected void tick() {
-			if (ticks > 20 && !Bari.pathing()) done("explored");
+			if (ticks % 10 != 0) return;
+			LocalPlayer pl = Mc.player();
+			String f = found();
+			if (f != null) {
+				done("found " + f);
+				return;
+			}
+			// Swimming across an ocean finds nothing we need and invites drowned; turn around.
+			if (pl.isInWater()) waterTicks += 10;
+			else waterTicks = Math.max(0, waterTicks - 5);
+			if (waterTicks > 20 * 8) {
+				memory.markBadAhead(startX, startZ, DIST);
+				fail("open water ahead; will turn");
+				return;
+			}
+			if (ticks > 20 && !Bari.pathing()) {
+				double moved = Math.hypot(pl.getX() - startX, pl.getZ() - startZ);
+				if (moved < 16) {
+					memory.markBadAhead(startX, startZ, DIST);
+					fail("couldn't make headway that way; will turn");
+				} else {
+					done("explored " + Math.round(moved) + " blocks" + (targets.isEmpty() ? "" : ", no " + String.join("/", targets) + " yet"));
+				}
+			}
 		}
 	}
 
@@ -60,6 +106,16 @@ public final class MoveSkills {
 		@Override
 		protected void start() {
 			timeoutTicks = 20 * 120;
+			if ("death".equals(arg)) {
+				WorldMemory.Seen d = memory.nearest("death");
+				if (d == null) {
+					fail("no death spot in this dimension");
+					return;
+				}
+				// Stand right on the spot: the drops are scattered around it.
+				Bari.path(new GoalNear(d.pos(), 1));
+				return;
+			}
 			if ("end_center".equals(arg)) {
 				Bari.path(new GoalXZ(0, 6));
 				return;
@@ -74,7 +130,19 @@ public final class MoveSkills {
 
 		@Override
 		protected void tick() {
-			if (ticks > 20 && !Bari.pathing()) done("arrived near " + arg);
+			if (ticks > 20 && !Bari.pathing()) {
+				if ("death".equals(arg)) {
+					WorldMemory.Seen d = memory.nearest("death");
+					// Reached or not, don't try again: pickup handles what's in view from here.
+					if (d != null) memory.forget("death", d.pos());
+					LocalPlayer pl = Mc.player();
+					if (d != null && d.pos().distSqr(pl.blockPosition()) > 6 * 6) {
+						fail("couldn't reach the death spot");
+						return;
+					}
+				}
+				done("arrived near " + arg);
+			}
 		}
 	}
 

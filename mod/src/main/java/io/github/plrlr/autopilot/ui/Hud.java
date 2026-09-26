@@ -13,7 +13,7 @@ public final class Hud {
 		Minecraft mc = Minecraft.getInstance();
 		if (!ap.enabled() || mc.player == null) return;
 		String goal = ap.goal() == null ? "..." : ap.goal().key();
-		String text = "Autopilot [" + ap.tactician.selected() + "]  goal: " + goal + "  |  " + ap.status();
+		String text = "Autopilot [" + ap.brainLabel() + "]  goal: " + goal + "  |  " + ap.status();
 		int w = mc.font.width(text);
 		g.fill(2, 2, 8 + w, 15, 0x90000000);
 		g.text(mc.font, text, 5, 5, 0xFFFFD166);

@@ -65,6 +65,64 @@ public final class WorldMemory {
 
 	public void clear() {
 		byGroup.clear();
+		visited.clear();
+		heading = -1;
+	}
+
+	// ---- exploring: where we've been, so explore heads into new ground instead of zigzagging ----
+
+	/** Regions of 64x64 blocks we've stood in (per dimension), with a visit weight. */
+	private final Map<String, Integer> visited = new HashMap<>();
+	/** Current explore direction, 0-7 in 45 degree steps (0 = east, 2 = south); -1 = not chosen yet. */
+	private int heading = -1;
+
+	private static String region(String dim, double x, double z) {
+		return dim + ":" + Math.floorDiv((int) x, 64) + ":" + Math.floorDiv((int) z, 64);
+	}
+
+	private void markVisited(String dim, double x, double z, int weight) {
+		visited.merge(region(dim, x, z), weight, Integer::sum);
+	}
+
+	/**
+	 * The direction to explore next: keep going the same way while the ground ahead is new, and
+	 * turn toward the least-visited direction otherwise. Straight lines find new chunks fastest;
+	 * random directions keep walking back over the same ground.
+	 */
+	public int exploreHeading(double x, double z, int dist) {
+		String dim = Mc.dimension();
+		int best = heading < 0 ? 0 : heading;
+		double bestScore = Double.MAX_VALUE;
+		for (int h = 0; h < 8; h++) {
+			double a = h * Math.PI / 4;
+			double score = 0;
+			for (int step = 1; step <= 3; step++) {
+				double d = dist * step / 3.0;
+				score += visited.getOrDefault(region(dim, x + Math.cos(a) * d, z + Math.sin(a) * d), 0);
+			}
+			if (heading >= 0) {
+				int turn = Math.min(Math.abs(h - heading), 8 - Math.abs(h - heading));
+				// Prefer small turns; never go straight back the way we came unless all else is worse.
+				score += turn * 0.75 + (turn == 4 ? 3 : 0);
+			}
+			if (score < bestScore) {
+				bestScore = score;
+				best = h;
+			}
+		}
+		heading = best;
+		return best;
+	}
+
+	/** The way ahead was blocked (open water, a cliff): count it as visited so we turn away. */
+	public void markBadAhead(double x, double z, int dist) {
+		if (heading < 0) return;
+		double a = heading * Math.PI / 4;
+		String dim = Mc.dimension();
+		for (int step = 1; step <= 3; step++) {
+			double d = dist * step / 3.0;
+			markVisited(dim, x + Math.cos(a) * d, z + Math.sin(a) * d, 6);
+		}
 	}
 
 	private static final int RH = 16, RV = 10, LAYERS_PER_TICK = 3;
@@ -115,8 +173,12 @@ public final class WorldMemory {
 			}
 		}
 		if (layerCursor != -RV) return;
+		markVisited(dim, pl.getX(), pl.getZ(), 1);
 		// Once per full sweep: forget blocks that are gone (mined, burned) when we're close enough to know.
-		for (Map<BlockPos, Seen> m : byGroup.values()) {
+		for (Map.Entry<String, Map<BlockPos, Seen>> g : byGroup.entrySet()) {
+			Map<BlockPos, Seen> m = g.getValue();
+			// Marks we set ourselves (the death spot) aren't blocks; don't check them against the world.
+			if (g.getKey().equals("death")) continue;
 			Iterator<Map.Entry<BlockPos, Seen>> it = m.entrySet().iterator();
 			while (it.hasNext()) {
 				Seen s = it.next().getValue();
@@ -189,6 +251,7 @@ public final class WorldMemory {
 		if (pl == null) return out;
 		List<Map.Entry<String, Integer>> list = new ArrayList<>();
 		for (String g : byGroup.keySet()) {
+			if (g.equals("stone")) continue; // stone is everywhere; not worth tokens
 			Seen s = nearest(g);
 			if (s != null) list.add(Map.entry(g, (int) Math.round(Math.sqrt(Vec3.atCenterOf(s.pos).distanceToSqr(pl.position())))));
 		}

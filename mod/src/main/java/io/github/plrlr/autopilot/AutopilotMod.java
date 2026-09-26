@@ -88,7 +88,7 @@ public class AutopilotMod implements ClientModInitializer {
 				autopilot.strategist.setOpusEnabled(!arg.equals("off"));
 				Mc.say("Goals by " + (autopilot.strategist.opusEnabled() ? "Opus" : "rules"));
 			}
-			default -> Mc.say("Commands: !start !stop !status !brain <opus|mock|groq|gemini> !goal <name> !opus on|off");
+			default -> Mc.say("Commands: !start !stop !status !brain <auto|mock|groq|cerebras|gemini|opus> !goal <name> !opus on|off");
 		}
 	}
 }

@@ -14,7 +14,7 @@ import java.time.Duration;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
-/** The tactician backends: Opus (claude -p), Groq and Gemini. */
+/** The tactician backends: Opus (claude -p), OpenAI-compatible free APIs (Groq, Cerebras) and Gemini. */
 public final class Backends {
 	private Backends() {}
 
@@ -90,12 +90,18 @@ public final class Backends {
 
 	private static final HttpClient HTTP = HttpClient.newBuilder().connectTimeout(Duration.ofSeconds(10)).executor(Brains.POOL).build();
 
-	/** Groq's OpenAI-compatible chat API with strict JSON schema output (free tier). */
-	public static final class Groq implements LlmBackend {
-		private final String key, model;
+	/**
+	 * Any OpenAI-compatible chat API with strict JSON schema output. Groq and Cerebras both work
+	 * this way on their free tiers; only the URL, key and model differ.
+	 */
+	public static final class OpenAiCompat implements LlmBackend {
+		private final String name, url, keyName, key, model;
 		private final RateLimiter limiter;
 
-		public Groq(String key, String model, RateLimiter limiter) {
+		public OpenAiCompat(String name, String url, String keyName, String key, String model, RateLimiter limiter) {
+			this.name = name;
+			this.url = url;
+			this.keyName = keyName;
 			this.key = key;
 			this.model = model;
 			this.limiter = limiter;
@@ -103,13 +109,13 @@ public final class Backends {
 
 		@Override
 		public String name() {
-			return "groq";
+			return name;
 		}
 
 		@Override
 		public String unavailable(int estTokens) {
-			if (key.isBlank()) return "no GROQ_API_KEY in mc-autopilot.env";
-			if (model.isBlank()) return "no GROQ_MODEL in mc-autopilot.env";
+			if (key.isBlank()) return "no " + keyName + " in mc-autopilot.env";
+			if (model.isBlank()) return "no model set for " + name + " in mc-autopilot.env";
 			return limiter.blocked(estTokens);
 		}
 
@@ -124,7 +130,7 @@ public final class Backends {
 			body.add("messages", msgs);
 			body.addProperty("temperature", 0);
 			body.addProperty("max_completion_tokens", 512);
-			if (model.startsWith("openai/gpt-oss")) {
+			if (name.equals("groq") && model.startsWith("openai/gpt-oss")) {
 				// Reasoning tokens would eat the small output budget; keep reasoning short and hidden.
 				body.addProperty("reasoning_effort", "low");
 				body.addProperty("include_reasoning", false);
@@ -137,7 +143,7 @@ public final class Backends {
 			rf.addProperty("type", "json_schema");
 			rf.add("json_schema", js);
 			body.add("response_format", rf);
-			HttpRequest req = HttpRequest.newBuilder(URI.create("https://api.groq.com/openai/v1/chat/completions"))
+			HttpRequest req = HttpRequest.newBuilder(URI.create(url))
 					.timeout(Duration.ofSeconds(20))
 					.header("Authorization", "Bearer " + key)
 					.header("Content-Type", "application/json")
@@ -148,10 +154,15 @@ public final class Backends {
 				if (err != null) return new Reply(null, 0, 0, ms, "network: " + err.getClass().getSimpleName(), false);
 				int code = resp.statusCode();
 				if (code == 429 || code == 503) {
-					limiter.backoff(20_000);
-					return new Reply(null, 0, 0, ms, "groq " + code + " (rate limited)", true);
+					// Jitter so a retry doesn't land on the same second as the limit reset.
+					limiter.backoff(20_000 + (long) (Math.random() * 10_000));
+					return new Reply(null, 0, 0, ms, name + " " + code + " (rate limited)", true);
 				}
-				if (code != 200) return new Reply(null, 0, 0, ms, "groq http " + code, false);
+				if (code == 401 || code == 403) {
+					limiter.backoff(10 * 60_000);
+					return new Reply(null, 0, 0, ms, name + " rejected the API key (http " + code + ")", true);
+				}
+				if (code != 200) return new Reply(null, 0, 0, ms, name + " http " + code, false);
 				try {
 					JsonObject o = JsonParser.parseString(resp.body()).getAsJsonObject();
 					int in = 0, out = 0;
@@ -164,7 +175,7 @@ public final class Backends {
 					return new Reply(JsonParser.parseString(content).getAsJsonObject(), in, out, ms, null, false);
 				} catch (Exception e) {
 					limiter.record(0);
-					return new Reply(null, 0, 0, ms, "groq reply unreadable", false);
+					return new Reply(null, 0, 0, ms, name + " reply unreadable", false);
 				}
 			});
 		}
@@ -233,8 +244,12 @@ public final class Backends {
 				if (err != null) return new Reply(null, 0, 0, ms, "network: " + err.getClass().getSimpleName(), false);
 				int code = resp.statusCode();
 				if (code == 429 || code == 503) {
-					limiter.backoff(30_000);
+					limiter.backoff(30_000 + (long) (Math.random() * 10_000));
 					return new Reply(null, 0, 0, ms, "gemini " + code + " (rate limited)", true);
+				}
+				if (code == 403 || (code == 400 && resp.body().contains("API_KEY_INVALID"))) {
+					limiter.backoff(10 * 60_000);
+					return new Reply(null, 0, 0, ms, "gemini rejected the API key (http " + code + ")", true);
 				}
 				if (code != 200) return new Reply(null, 0, 0, ms, "gemini http " + code, false);
 				try {

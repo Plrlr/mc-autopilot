@@ -41,20 +41,26 @@ public final class Strategist {
 		return limiter;
 	}
 
-	/** Rules: lowest unfinished rung, with night safety first. */
-	public static Plan rules(Predicate<Goal> done, boolean nightDanger, String note) {
-		if (nightDanger) return new Plan(Goal.SURVIVE_NIGHT, "it's night and monsters are around", List.of(), "mock", true, 0, 0, 0, note);
+	/**
+	 * Rules: the lowest unfinished rung. Night safety, food and beds are handled by the planner
+	 * as upkeep, so the goal doesn't flip back and forth with the time of day.
+	 */
+	public static Plan rules(Predicate<Goal> done, String note) {
 		for (Goal g : Goal.ladder()) {
 			if (!done.test(g)) return new Plan(g, "next unfinished goal on the ladder", List.of(), "mock", true, 0, 0, 0, note);
 		}
 		return new Plan(Goal.KILL_DRAGON, "everything else is done", List.of(), "mock", true, 0, 0, 0, note);
 	}
 
-	public CompletableFuture<Plan> plan(JsonObject state, Goal current, Predicate<Goal> done, boolean nightDanger,
-										List<String> recent) {
-		if (!opusEnabled) return CompletableFuture.completedFuture(rules(done, nightDanger, "Opus strategist off"));
+	/**
+	 * context: what the code sees about the situation (the rules' next step, what keeps failing),
+	 * so Opus can spot a blocked plan and pick something that unblocks it.
+	 */
+	public CompletableFuture<Plan> plan(JsonObject state, Goal current, Predicate<Goal> done, List<String> recent,
+										String context) {
+		if (!opusEnabled) return CompletableFuture.completedFuture(rules(done, "Opus strategist off"));
 		String blocked = System.currentTimeMillis() < pausedUntil ? "Claude plan limit reached" : limiter.blocked(0);
-		if (blocked != null) return CompletableFuture.completedFuture(rules(done, nightDanger, blocked));
+		if (blocked != null) return CompletableFuture.completedFuture(rules(done, blocked));
 
 		StringBuilder ladder = new StringBuilder();
 		List<String> keys = new ArrayList<>();
@@ -68,18 +74,24 @@ public final class Strategist {
 				+ "CURRENT GOAL: " + (current == null ? "none yet" : current.key()) + '\n'
 				+ "STATE: " + state + '\n'
 				+ (recent.isEmpty() ? "" : "RECENT ACTIONS: " + String.join(" | ", recent) + '\n')
+				+ (context == null || context.isEmpty() ? "" : "SITUATION: " + context + '\n')
 				+ "Answer as JSON {\"goal\": \"<goal key>\", \"reason\": \"<one sentence>\", \"steps\": [\"<short step>\", ...]}.";
 		limiter.record(0);
 		return cli.ask(Prompts.STRATEGIST, user, schema(keys).toString()).thenApply(r -> {
 			if (!r.ok()) {
 				if (r.error() != null && r.error().toLowerCase().contains("limit")) pausedUntil = System.currentTimeMillis() + 15 * 60_000;
-				Plan p = rules(done, nightDanger, "Opus failed: " + r.error());
+				Plan p = rules(done, "Opus failed: " + r.error());
 				return new Plan(p.goal(), p.reason(), p.steps(), "mock", false, r.ms(), r.tokensIn(), r.tokensOut(), p.note());
 			}
 			JsonObject a = r.answer();
 			Goal g = a.has("goal") ? Goal.byKey(a.get("goal").getAsString()) : null;
 			if (g == null) {
-				Plan p = rules(done, nightDanger, "Opus named an unknown goal");
+				Plan p = rules(done, "Opus named an unknown goal");
+				return new Plan(p.goal(), p.reason(), p.steps(), "mock", false, r.ms(), r.tokensIn(), r.tokensOut(), p.note());
+			}
+			// A finished goal would end at once and bounce straight back to the rules; don't accept it.
+			if (g.milestone > 0 && done.test(g)) {
+				Plan p = rules(done, "Opus picked " + g.key() + ", which is already done");
 				return new Plan(p.goal(), p.reason(), p.steps(), "mock", false, r.ms(), r.tokensIn(), r.tokensOut(), p.note());
 			}
 			List<String> steps = new ArrayList<>();

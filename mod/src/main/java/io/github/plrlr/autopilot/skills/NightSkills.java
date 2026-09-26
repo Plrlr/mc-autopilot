@@ -15,7 +15,7 @@ public final class NightSkills {
 
 	/** shelter: dig 3 blocks down, cover the hole, wait for morning. */
 	public static final class Shelter extends Skill {
-		private enum Phase {DIG, COVER, WAIT}
+		private enum Phase {MOVE, DIG, COVER, WAIT}
 
 		private Phase phase = Phase.DIG;
 		private BlockPos bottom;
@@ -38,21 +38,53 @@ public final class NightSkills {
 				fail("shelter only makes sense in the overworld");
 				return;
 			}
-			if (Mc.count("throwaway") == 0) {
-				fail("need a dirt or cobblestone block to cover the hole");
+			// No cover block needed up front: digging the shaft drops dirt or cobblestone.
+			LocalPlayer pl = Mc.player();
+			BlockPos spot = safeColumnNear(pl.blockPosition());
+			if (spot == null) {
+				fail("no safe ground to dig into nearby");
 				return;
 			}
-			LocalPlayer pl = Mc.player();
-			BlockPos feet = pl.blockPosition();
-			for (int i = 1; i <= 4; i++) {
-				var st = Mc.state(feet.below(i));
-				if (st.liquid() || (i == 4 && !Mc.solid(feet.below(i)))) {
-					fail("ground here isn't safe to dig into");
-					return;
+			bottom = spot.below(3);
+			if (spot.equals(pl.blockPosition())) {
+				Bari.stop();
+			} else {
+				Bari.path(new GoalBlock(spot));
+				phase = Phase.MOVE;
+			}
+		}
+
+		/** A spot within 6 blocks whose next 3 blocks down are diggable solid ground over a solid floor. */
+		private static BlockPos safeColumnNear(BlockPos feet) {
+			for (int r = 0; r <= 6; r++) {
+				for (int dx = -r; dx <= r; dx++) {
+					for (int dz = -r; dz <= r; dz++) {
+						if (Math.max(Math.abs(dx), Math.abs(dz)) != r) continue;
+						for (int dy = 0; dy >= -1; dy--) {
+							BlockPos p = feet.offset(dx, dy, dz);
+							if (Mc.free(p) && Mc.free(p.above()) && safeBelow(p)) return p;
+						}
+					}
 				}
 			}
-			bottom = feet.below(3);
-			Bari.stop();
+			return null;
+		}
+
+		private static boolean safeBelow(BlockPos p) {
+			for (int i = 1; i <= 4; i++) {
+				var st = Mc.state(p.below(i));
+				if (st.liquid() || !Mc.solid(p.below(i))) return false;
+				// Bedrock or obsidian can't be dug by hand in time; falling sand/gravel would bury us.
+				String id = Mc.id(st.getBlock());
+				if (i <= 3 && (id.equals("bedrock") || id.equals("obsidian") || id.contains("sand") || id.equals("gravel"))) return false;
+			}
+			// Water or lava next to the shaft would flow in.
+			for (int i = 1; i <= 3; i++) {
+				for (Direction d : Direction.Plane.HORIZONTAL) {
+					if (Mc.state(p.below(i).relative(d)).liquid()) return false;
+				}
+			}
+			return true;
 		}
 
 		private BlockPos digging;
@@ -61,6 +93,17 @@ public final class NightSkills {
 		protected void tick() {
 			LocalPlayer pl = Mc.player();
 			switch (phase) {
+				case MOVE -> {
+					if (ticks > 20 * 20) {
+						fail("couldn't reach a spot to dig in");
+						return;
+					}
+					if (ticks > 10 && !Bari.pathing()) {
+						BlockPos top = bottom.above(3);
+						if (pl.blockPosition().equals(top)) phase = Phase.DIG;
+						else fail("couldn't reach a spot to dig in");
+					}
+				}
 				case DIG -> {
 					// Dig straight down by hand so the hole is a clean 1x1 shaft mobs can't walk into.
 					BlockPos feet = pl.blockPosition();
@@ -101,7 +144,10 @@ public final class NightSkills {
 						fail("couldn't cover the shelter");
 						return;
 					}
-					Mc.holdItem(Items2.matcher("throwaway"));
+					if (!Mc.holdItem(Items2.matcher("throwaway")) && !Mc.holdItem(Items2.matcher("planks"))) {
+						fail("no block to cover the hole");
+						return;
+					}
 					Mc.placeAt(lid);
 				}
 				case WAIT -> {
@@ -134,11 +180,16 @@ public final class NightSkills {
 		}
 	}
 
-	/** sleep: use a known bed, or place one from the inventory, then sleep till morning. */
+	/**
+	 * sleep: use a known bed, or place one from the inventory, then sleep till morning. A bed we
+	 * placed is picked back up afterwards, so it travels with us for the next night.
+	 */
 	public static final class Sleep extends Skill {
 		private BlockPos bed;
 		private int wait;
 		private boolean slept;
+		private boolean placedByUs;
+		private int breakTicks = -1;
 
 		@Override
 		public String name() {
@@ -179,6 +230,13 @@ public final class NightSkills {
 			Mc.holdItem(Items2.matcher("bed"));
 			Mc.placeAt(spot);
 			bed = spot;
+			placedByUs = true;
+		}
+
+		@Override
+		protected void cleanup() {
+			if (Mc.mc().gameMode != null) Mc.mc().gameMode.stopDestroyBlock();
+			super.cleanup();
 		}
 
 		@Override
@@ -189,7 +247,24 @@ public final class NightSkills {
 				return;
 			}
 			if (slept) {
-				done("slept through the night");
+				if (!placedByUs) {
+					done("slept through the night");
+					return;
+				}
+				// Break our bed (it breaks almost instantly) and let the drop fly to us.
+				if (breakTicks < 0) breakTicks = 0;
+				breakTicks++;
+				boolean gone = !Mc.id(Mc.state(bed).getBlock()).endsWith("_bed");
+				if (!gone && breakTicks < 60) {
+					Mc.lookAt(net.minecraft.world.phys.Vec3.atCenterOf(bed));
+					if (breakTicks == 1) Mc.mc().gameMode.startDestroyBlock(bed, Direction.UP);
+					else Mc.mc().gameMode.continueDestroyBlock(bed, Direction.UP);
+					Mc.swing();
+					return;
+				}
+				if (gone) memory.forget("bed", bed);
+				if (breakTicks < 80 && Mc.count("bed") == 0) return; // give the drop a moment to reach us
+				done("slept through the night" + (Mc.count("bed") > 0 ? " and packed the bed" : ""));
 				return;
 			}
 			if (Bari.pathing() && ticks < 20 * 30) return;

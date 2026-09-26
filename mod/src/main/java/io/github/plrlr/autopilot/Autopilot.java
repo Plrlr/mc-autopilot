@@ -68,6 +68,7 @@ public final class Autopilot {
 	private String goalBrain = "";
 	private CompletableFuture<Strategist.Plan> pendingPlan;
 	private long lastPlanTick = -1_000_000;
+	private long goalSetTick;
 	private String lastDim = "";
 
 	// Skill and tactician
@@ -89,6 +90,8 @@ public final class Autopilot {
 	private Vec3 lastPos;
 	private long lastMoveTick;
 	private long deathTick = -1;
+	/** When the items dropped at the last death despawn (5 minutes of world time after death). */
+	private long deathItemsUntilTick = -1;
 	private long lavaKeysUntil = -1;
 
 	// For the UI
@@ -108,8 +111,12 @@ public final class Autopilot {
 		ClaudeCli cli = new ClaudeCli(config.str("CLAUDE_CMD"), config.str("OPUS_MODEL"), config.integer("OPUS_TIMEOUT_S", 90), home.resolve("claude-cwd"));
 		Map<String, LlmBackend> backends = new LinkedHashMap<>();
 		backends.put("opus", new Backends.Opus(cli, new RateLimiter("opus_tactician", 0, 0, 0, config.integer("OPUS_TACTICIAN_MAX_CALLS_PER_HOUR", 120), usage)));
-		backends.put("groq", new Backends.Groq(config.str("GROQ_API_KEY"), config.str("GROQ_MODEL"),
-				new RateLimiter("groq", config.integer("GROQ_MAX_RPM", 20), config.integer("GROQ_MAX_TPM", 6000), config.integer("GROQ_MAX_PER_DAY", 900), 0, usage)));
+		backends.put("groq", new Backends.OpenAiCompat("groq", "https://api.groq.com/openai/v1/chat/completions", "GROQ_API_KEY",
+				config.str("GROQ_API_KEY"), config.str("GROQ_MODEL"),
+				new RateLimiter("groq", config.integer("GROQ_MAX_RPM", 30), config.integer("GROQ_MAX_TPM", 8000), config.integer("GROQ_MAX_PER_DAY", 1000), 0, usage)));
+		backends.put("cerebras", new Backends.OpenAiCompat("cerebras", "https://api.cerebras.ai/v1/chat/completions", "CEREBRAS_API_KEY",
+				config.str("CEREBRAS_API_KEY"), config.str("CEREBRAS_MODEL"),
+				new RateLimiter("cerebras", config.integer("CEREBRAS_MAX_RPM", 5), config.integer("CEREBRAS_MAX_TPM", 30000), config.integer("CEREBRAS_MAX_PER_DAY", 2000), 0, usage)));
 		backends.put("gemini", new Backends.Gemini(config.str("GEMINI_API_KEY"), config.str("GEMINI_MODEL"),
 				new RateLimiter("gemini", config.integer("GEMINI_MAX_RPM", 5), config.integer("GEMINI_MAX_TPM", 100000), config.integer("GEMINI_MAX_PER_DAY", 900), 0, usage)));
 		this.tactician = new Tactician(backends, config.str("TACTICIAN").toLowerCase());
@@ -146,7 +153,7 @@ public final class Autopilot {
 		failures.clear();
 		lastPos = null;
 		status = "starting";
-		Mc.say("ON. Brain: " + tactician.selected() + (strategist.opusEnabled() ? ", goals by Opus" : ", goals by rules")
+		Mc.say("ON. Actions: " + brainLabel() + (strategist.opusEnabled() ? ", goals by Opus" : ", goals by rules")
 				+ ". Any movement key takes control back; K opens the panel.");
 		log.event("autopilot_on", "tactician=" + tactician.selected() + " strategist_opus=" + strategist.opusEnabled());
 		requestPlan("start", true);
@@ -199,7 +206,12 @@ public final class Autopilot {
 		}
 
 		memory.scan(tick);
-		if (tick % 5 == 0) seen = Perception.look(24);
+		if (tick % 5 == 0) seen = Perception.look(32);
+		if (tick % 20 == 0) Bari.updateThrowaway();
+		if (deathItemsUntilTick >= 0 && tick > deathItemsUntilTick) {
+			deathItemsUntilTick = -1;
+			for (WorldMemory.Seen d : memory.all("death")) memory.forget("death", d.pos());
+		}
 		if (tick % 20 == 0) {
 			int m = progress.update(memory);
 			if (m > 0) {
@@ -218,7 +230,7 @@ public final class Autopilot {
 		trackStuck(pl);
 		collectDecision();
 		triggers(pl);
-		status = skill != null ? skillOption.label() : pendingDecision != null ? "thinking (" + tactician.selected() + ")" : "idle";
+		status = skill != null ? skillOption.label() : pendingDecision != null ? "thinking (" + tactician.effective() + ")" : "idle";
 	}
 
 	private void checkWorld(Minecraft mc) {
@@ -240,7 +252,14 @@ public final class Autopilot {
 				pendingDecision = null;
 				Bari.stop();
 				progress.died();
-				log.event("death", pl.getLastDamageSource() == null ? "unknown" : pl.getLastDamageSource().type().msgId());
+				String cause = pl.getLastDamageSource() == null ? "unknown" : pl.getLastDamageSource().type().msgId();
+				log.event("death", cause);
+				// Drops survive 5 minutes unless lava or the void took them; go back for them.
+				if (!cause.equals("lava") && !cause.equals("outOfWorld") && pl.getY() > pl.level().getMinY()) {
+					for (WorldMemory.Seen d : memory.all("death")) memory.forget("death", d.pos());
+					memory.remember("death", pl.blockPosition(), "death");
+					deathItemsUntilTick = tick + 20 * 60 * 4 + 20 * 30;
+				}
 				Mc.say("Died. Respawning and carrying on.");
 			}
 			if (tick - deathTick == 60) {
@@ -268,14 +287,33 @@ public final class Autopilot {
 
 	// ------------------------------------------------------------------ strategist
 
+	/** Finished goals. Tool and armor rungs stay finished once reached (see Goal.sticky). */
 	private Set<Goal> doneGoals() {
 		Set<Goal> s = EnumSet.noneOf(Goal.class);
-		for (Goal g : Goal.values()) if (planner.goalDone(g)) s.add(g);
+		for (Goal g : Goal.values()) if (goalFinished(g)) s.add(g);
 		return s;
 	}
 
-	private boolean nightDanger() {
-		return Mc.dimension().equals("overworld") && Mc.isNight() && seen.hostilesWithin(16) > 0;
+	private boolean goalFinished(Goal g) {
+		if (g.sticky() && g.milestone <= progress.furthest()) return true;
+		// Opus may send us exploring; two minutes of it is enough before looking again.
+		if (g == Goal.EXPLORE) return g == goal && tick - goalSetTick > 20 * 120;
+		return planner.goalDone(g);
+	}
+
+	/** One line for Opus about what the code sees: the next step and what keeps failing. */
+	private String situation() {
+		StringBuilder sb = new StringBuilder();
+		sb.append("furthest milestone ").append(progress.furthest()).append("/13");
+		if (goal != null) {
+			Option main = planner.mainStep(goal, seen);
+			if (main != null) sb.append("; next step for ").append(goal.key()).append(": ").append(main.label());
+		}
+		List<String> blocked = new ArrayList<>();
+		for (var e : failures.entrySet()) if (tick < e.getValue()[1]) blocked.add(e.getKey());
+		if (!blocked.isEmpty()) sb.append("; keeps failing (paused): ").append(String.join(", ", blocked));
+		if (consecutiveFails > 0) sb.append("; failures in a row: ").append(consecutiveFails);
+		return sb.toString();
 	}
 
 	private void requestPlan(String trigger, boolean force) {
@@ -283,18 +321,17 @@ public final class Autopilot {
 		if (!force && tick - lastPlanTick < 20 * 60) return;
 		lastPlanTick = tick;
 		Set<Goal> done = doneGoals();
-		boolean night = nightDanger();
 		if (goal == null || done.contains(goal)) {
 			// Don't stand around while Opus thinks: start on the rules' pick right away.
-			setGoal(Strategist.rules(done::contains, night, null), "interim");
+			setGoal(Strategist.rules(done::contains, null), "interim");
 		}
 		JsonObject state = buildState();
 		String t = trigger;
-		pendingPlan = strategist.plan(state, goal, done::contains, night, List.copyOf(recent))
+		pendingPlan = strategist.plan(state, goal, done::contains, List.copyOf(recent), situation())
 				.exceptionally(e -> {
 					// Never let a background failure reach the tick loop; fall back to the rules.
 					AutopilotMod.LOGGER.warn("Strategist failed ({})", t, e);
-					return Strategist.rules(done::contains, night, "error: " + e.getClass().getSimpleName());
+					return Strategist.rules(done::contains, "error: " + e.getClass().getSimpleName());
 				});
 		log.event("strategist_request", trigger);
 	}
@@ -326,10 +363,10 @@ public final class Autopilot {
 			lastDim = dim;
 			if (!first) requestPlan("dimension_change", true);
 		}
-		if (goal != null && planner.goalDone(goal)) {
+		if (goal != null && goalFinished(goal)) {
 			// Ask Opus at most once a minute; in between, the rules pick the next rung.
 			if (tick - lastPlanTick >= 20 * 60) requestPlan("goal_done", true);
-			else if (pendingPlan == null) setGoal(Strategist.rules(doneGoals()::contains, nightDanger(), null), "interim");
+			else if (pendingPlan == null) setGoal(Strategist.rules(doneGoals()::contains, null), "interim");
 		}
 		else if (consecutiveFails >= 3) {
 			consecutiveFails = 0;
@@ -344,6 +381,7 @@ public final class Autopilot {
 		goalSteps = p.steps();
 		goalBrain = by;
 		if (changed) {
+			goalSetTick = tick;
 			if (!"interim".equals(by)) Mc.say("Goal: " + goal.description + (goalReason.isEmpty() ? "" : " (" + goalReason + ")"));
 			if (skill != null && skill.interruptible()) requestDecision("goal_changed");
 		}
@@ -363,6 +401,15 @@ public final class Autopilot {
 			lavaKeysUntil = tick + 15;
 			reflexCooldownUntil = lavaKeysUntil;
 			log.event("reflex", "lava");
+			return;
+		}
+		if (pl.isUnderWater() && pl.getAirSupply() < 120) {
+			// Out of breath: stop and swim straight up for a moment (holding jump rises in water).
+			abortSkill("running out of air", false);
+			Mc.mc().options.keyJump.setDown(true);
+			lavaKeysUntil = tick + 30;
+			reflexCooldownUntil = lavaKeysUntil;
+			log.event("reflex", "drowning");
 			return;
 		}
 		Perception.Seen h = seen.nearestHostile();
@@ -476,10 +523,10 @@ public final class Autopilot {
 			return;
 		}
 		long still = tick - lastMoveTick;
-		if (still == 20 * 10) requestDecision("stuck");
-		if (still == 20 * 30) {
-			abortSkill("stuck for 30 s", true);
-			requestPlan("stuck", false);
+		// A fresh start makes Baritone plan a new path from where we are; waiting rarely helps.
+		if (still == 20 * 12) {
+			abortSkill("stuck for 12 s", true);
+			if (consecutiveFails >= 2) requestPlan("stuck", false);
 		}
 	}
 
@@ -498,7 +545,8 @@ public final class Autopilot {
 		if (newHostile && !skill.name().equals("attack")) requestDecision("mob_near");
 		else if (pl.getHealth() < healthAtDecision - 3) requestDecision("hurt");
 		else if (skill.interruptible()) {
-			long heartbeat = tactician.selected().equals("opus") ? 20 * 60 : 20 * 20;
+			String b = tactician.effective();
+			long heartbeat = b.equals("opus") ? 20 * 60 : b.equals("mock") ? 20 * 20 : 20 * 30;
 			if (tick - lastDecisionTick > heartbeat) requestDecision("heartbeat");
 		}
 	}
@@ -511,7 +559,13 @@ public final class Autopilot {
 			long[] f = failures.get(actionKey(o));
 			if (f == null || tick >= f[1]) options.add(o);
 		}
-		if (options.isEmpty()) options.add(new Option("explore", "random", "everything else failed recently"));
+		if (options.isEmpty()) options.add(new Option("explore", "any", "everything else failed recently"));
+		// Routine re-checks while the rules still want what we're doing: nothing to decide,
+		// so don't spend an AI call (or restart the skill) on it.
+		if (skill != null && (trigger.equals("heartbeat") || trigger.equals("goal_changed")) && sameAction(options.get(0), skillOption)) {
+			lastDecisionTick = tick;
+			return;
+		}
 		JsonObject state = buildState();
 		pendingOptions = options;
 		pendingTrigger = trigger;
@@ -613,8 +667,14 @@ public final class Autopilot {
 		requestPlan("user_asked", true);
 	}
 
+	/** "auto (groq)" when auto picked a free brain, else the selected name. */
+	public String brainLabel() {
+		String sel = tactician.selected(), eff = tactician.effective();
+		return sel.equals(eff) ? sel : sel + " (" + eff + ")";
+	}
+
 	public String statusLine() {
-		return "brain " + tactician.selected() + ", goal " + (goal == null ? "none" : goal.key()) + ", doing " + status
+		return "actions " + brainLabel() + ", goal " + (goal == null ? "none" : goal.key()) + ", doing " + status
 				+ ", milestone " + progress.furthest() + "/13, deaths " + progress.deaths()
 				+ ", Opus calls this hour " + opusCallsThisHour() + "/" + opusCapPerHour();
 	}

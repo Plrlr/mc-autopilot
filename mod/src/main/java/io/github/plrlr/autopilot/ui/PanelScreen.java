@@ -35,7 +35,7 @@ public final class PanelScreen extends Screen {
 			ap.toggle();
 			rebuildWidgets();
 		}).bounds(x, y, w, h).build());
-		addRenderableWidget(Button.builder(Component.literal("Action brain: " + ap.tactician.selected()), b -> {
+		addRenderableWidget(Button.builder(Component.literal("Action brain: " + ap.brainLabel()), b -> {
 			List<String> names = Tactician.NAMES;
 			int i = names.indexOf(ap.tactician.selected());
 			ap.tactician.select(names.get((i + 1) % names.size()));

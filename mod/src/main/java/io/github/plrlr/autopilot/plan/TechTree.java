@@ -52,7 +52,8 @@ public final class TechTree {
 		craft("flint_and_steel", 1, false, "iron_ingot", 1, "flint", 1);
 		craft("bow", 1, true, "stick", 3, "string", 3);
 		craft("arrow", 4, true, "flint", 1, "stick", 1, "feather", 1);
-		craft("white_bed", 1, true, "wool", 3, "planks", 3);
+		// Any bed counts; the recipe book picks the color that matches the wool we have.
+		craft("bed", 1, true, "wool", 3, "planks", 3);
 		craft("blaze_powder", 2, false, "blaze_rod", 1);
 		craft("ender_eye", 1, false, "blaze_powder", 1, "ender_pearl", 1);
 

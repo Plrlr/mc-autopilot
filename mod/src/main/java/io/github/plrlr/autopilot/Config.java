@@ -16,9 +16,10 @@ public final class Config {
 	private static final String DEFAULTS = """
 			# MC Autopilot settings. Lines are KEY=value. Restart Minecraft after editing.
 
-			# Opus picks the goals; the free rules ("mock") pick the actions toward each goal.
-			# Action brain: mock (default, free), opus, groq, or gemini (changeable in the K panel).
-			TACTICIAN=mock
+			# Opus picks the goals; a free brain picks the actions toward each goal.
+			# Action brain: auto (default: the first free AI below that has a key, else the rules),
+			# mock (rules only), groq, cerebras, gemini, or opus (changeable in the K panel).
+			TACTICIAN=auto
 			# Opus picks the big goals (strategist). Set to false to use simple rules for goals too.
 			OPUS_STRATEGIST=true
 
@@ -29,16 +30,24 @@ public final class Config {
 			OPUS_TACTICIAN_MAX_CALLS_PER_HOUR=120
 			OPUS_TIMEOUT_S=90
 
-			# Groq (free). A model from Groq's free list that supports strict JSON schema.
+			# Free AI keys for the quick action decisions. Each needs a free account; paste the key after =.
+			# Groq: https://console.groq.com/keys  (free plan: 30 requests/min, 1,000/day, 8,000 tokens/min)
 			GROQ_API_KEY=
 			GROQ_MODEL=openai/gpt-oss-20b
-			GROQ_MAX_RPM=20
-			GROQ_MAX_TPM=6000
-			GROQ_MAX_PER_DAY=900
+			GROQ_MAX_RPM=30
+			GROQ_MAX_TPM=8000
+			GROQ_MAX_PER_DAY=1000
 
-			# Gemini (free). Use a Flash or Flash-Lite model your AI Studio free tier lists.
+			# Cerebras: https://cloud.cerebras.ai  (free trial: 5 requests/min, 1M tokens/day)
+			CEREBRAS_API_KEY=
+			CEREBRAS_MODEL=gpt-oss-120b
+			CEREBRAS_MAX_RPM=5
+			CEREBRAS_MAX_TPM=30000
+			CEREBRAS_MAX_PER_DAY=2000
+
+			# Gemini (Google AI Studio): https://aistudio.google.com/apikey  (free tier: Flash and Flash-Lite)
 			GEMINI_API_KEY=
-			GEMINI_MODEL=
+			GEMINI_MODEL=gemini-3.5-flash-lite
 			GEMINI_MAX_RPM=5
 			GEMINI_MAX_TPM=100000
 			GEMINI_MAX_PER_DAY=900
@@ -60,7 +69,9 @@ public final class Config {
 				Files.writeString(file, DEFAULTS, StandardCharsets.UTF_8);
 			}
 			c.parse(DEFAULTS.lines().toList());
-			c.parse(Files.readAllLines(file, StandardCharsets.UTF_8));
+			List<String> lines = Files.readAllLines(file, StandardCharsets.UTF_8);
+			c.parse(lines);
+			c.addMissingKeys(lines);
 		} catch (IOException e) {
 			AutopilotMod.LOGGER.warn("Could not read {}, using defaults: {}", file, e.toString());
 			c.parse(DEFAULTS.lines().toList());
@@ -77,8 +88,41 @@ public final class Config {
 			String v = line.substring(eq + 1).strip();
 			// Allow KEY="value" so people can paste quoted keys.
 			if (v.length() >= 2 && v.startsWith("\"") && v.endsWith("\"")) v = v.substring(1, v.length() - 1);
-			values.put(line.substring(0, eq).strip(), v);
+			String key = line.substring(0, eq).strip();
+			// A blank setting means "use the default" (keys default to blank anyway).
+			if (v.isEmpty() && values.containsKey(key)) continue;
+			values.put(key, v);
 		}
+	}
+
+	/**
+	 * Settings added in newer versions are appended to the user's file (with their comments),
+	 * so they can see and fill them in. Existing lines are never changed.
+	 */
+	private void addMissingKeys(List<String> existing) throws IOException {
+		java.util.Set<String> have = new java.util.HashSet<>();
+		for (String raw : existing) {
+			String l = raw.strip();
+			int eq = l.indexOf('=');
+			if (!l.startsWith("#") && eq > 0) have.add(l.substring(0, eq).strip());
+		}
+		StringBuilder add = new StringBuilder();
+		StringBuilder comments = new StringBuilder();
+		for (String raw : DEFAULTS.lines().toList()) {
+			String l = raw.strip();
+			if (l.startsWith("#")) comments.append(l).append(System.lineSeparator());
+			else if (l.isEmpty()) comments.setLength(0);
+			else {
+				int eq = l.indexOf('=');
+				if (eq > 0 && !have.contains(l.substring(0, eq).strip())) {
+					add.append(comments).append(l).append(System.lineSeparator());
+				}
+				comments.setLength(0);
+			}
+		}
+		if (add.isEmpty()) return;
+		Files.writeString(file, System.lineSeparator() + "# Added by a newer MC Autopilot version:" + System.lineSeparator() + add,
+				StandardCharsets.UTF_8, java.nio.file.StandardOpenOption.APPEND);
 	}
 
 	public String str(String key) {

@@ -111,16 +111,22 @@ final class Station {
 		return Direction.getApproximateNearest(d.x, d.y, d.z);
 	}
 
-	/** An empty spot next to the player, on solid ground, not where the player stands. */
+	/**
+	 * An empty spot within reach, on something solid to click against, not where the player
+	 * stands. Tries close spots first, at foot level, then one up and one down.
+	 */
 	static BlockPos findSpot(LocalPlayer pl) {
 		BlockPos feet = pl.blockPosition();
-		for (int r = 1; r <= 2; r++) {
-			for (int dx = -r; dx <= r; dx++) {
-				for (int dz = -r; dz <= r; dz++) {
-					if (Math.max(Math.abs(dx), Math.abs(dz)) != r) continue;
-					for (int dy = 0; dy >= -1; dy--) {
+		for (int r = 1; r <= 3; r++) {
+			for (int dy : new int[]{0, -1, 1}) {
+				for (int dx = -r; dx <= r; dx++) {
+					for (int dz = -r; dz <= r; dz++) {
+						if (Math.max(Math.abs(dx), Math.abs(dz)) != r) continue;
 						BlockPos p = feet.offset(dx, dy, dz);
-						if (Mc.free(p) && Mc.solid(p.below()) && Mc.canSee(p.below())) return p;
+						if (p.equals(feet) || p.equals(feet.above())) continue;
+						if (!Mc.free(p) || !Mc.solid(p.below())) continue;
+						if (pl.getEyePosition().distanceTo(Vec3.atCenterOf(p)) > Mc.reach() - 0.3) continue;
+						if (Mc.canSee(p.below()) || Mc.canSee(p)) return p;
 					}
 				}
 			}

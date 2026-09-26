@@ -16,9 +16,10 @@ Background facts, limits, and sources are in docs/research-notes.md.
    failed, death, dimension change, stuck for 30 s, or at most every 60 s. A measured call took
    about 7 s (3.4 s API time) on 2026-09-26, which is fine at this rate.
 2. **Tactician: picks the next skill** and its argument from a short candidate list, whenever a
-   skill ends. Default `mock` (rules, free, always works, the fallback for everything): the user
-   decided on 2026-09-26 that Opus should only set goals, since the steps toward a goal are
-   repetitive. Still swappable to `opus` (same `claude -p` route), `groq` or `gemini`.
+   skill ends. Default `auto`: the first free LLM with a key (groq, cerebras, gemini), else
+   `mock` (rules, free, always works, the fallback for everything). The user decided on
+   2026-09-26 that Opus should only set goals, since the steps toward a goal are repetitive.
+   Still swappable to `opus` (same `claude -p` route) or any single provider.
 3. **Skills and reflexes: plain Java code, no AI.** Skills do the work (walk, mine, craft, fight),
    using Baritone for pathfinding and mining. Reflexes react instantly in code: eat when hungry,
    fight or back off from mobs in range, step away from lava and fire, stop falling into holes.
@@ -87,13 +88,22 @@ Runtime files live in the Minecraft folder, not the repo:
 
 ## In-game UI
 - A keybind (default K, rebindable in Controls) opens a small panel that doesn't pause the game:
-  Autopilot on/off, action brain (opus / mock / groq / gemini), goals by Opus or rules, "ask Opus
+  Autopilot on/off, action brain (auto / mock / groq / cerebras / gemini / opus), goals by Opus or rules, "ask Opus
   for a new goal", the current goal and Opus's reason, recent decisions, Opus calls this hour.
 - A one-line HUD in the corner while autopilot is on: brain, objective, current skill.
 - Chat commands typed by the user (not sent to the world): !start, !stop, !status,
   !brain <name>, !goal <name>, !opus on|off.
 - When autopilot turns on, set pauseOnLostFocus off so alt-tab doesn't pause the world;
   restore the user's setting when it turns off.
+
+## Planner behavior (free, in code)
+- Goals 1-6 (tools, food, armor, diamonds) stay done once Progress has reached them; lost tools
+  are rebuilt through the tech tree on the way to the next goal. Rules never pick survive_night.
+- Option order: urgent (fight, eat, heal, sleep, shelter), recover items at the death spot,
+  upkeep (cook or hunt when food < 4, wool for a bed, coal in view), the goal step, extras.
+- Explore takes what to look for ("cow,pig", "log", "nether_bricks,blaze", "any"), keeps a
+  straight heading into unvisited 64-block regions (WorldMemory), stops when the target is seen.
+- Baritone may only use cobblestone as scaffolding once 24+ are carried (Bari.updateThrowaway).
 
 ## Milestone ladder (the strategist chooses among these; track the furthest one reached)
 1 wood and crafting table, 2 wooden then stone tools, 3 food source and survive the first night,
@@ -142,8 +152,9 @@ Short keys, rounded numbers.
 
 ## When to ask the tactician (event-driven, not every tick)
 A skill finished or failed, a hostile mob came within 8 blocks, health dropped, the objective
-changed, stuck for 10 s, or no decision for 20 s (60 s when Opus is the tactician, to spare
-plan usage) while an interruptible skill runs. Reflexes never wait for an AI.
+changed, stuck for 12 s (the skill is restarted), or no decision for 20 s (30 s for free LLMs,
+60 s for Opus) while an interruptible skill runs. Heartbeats are skipped without a call when the
+rules still want the running action. Reflexes never wait for an AI.
 
 ## Phases (one at a time; stop and report after each, with what the user should test)
 Status 2026-09-26: phases 0-6 have code; the in-game test covers the early game. Late-game

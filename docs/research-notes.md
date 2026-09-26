@@ -27,6 +27,14 @@
 - Gemini (Google AI Studio): free tier covers only Flash and Flash-Lite models, roughly 5-15
   requests/min and up to about 1,000/day. Live quota shows in AI Studio. Free-tier inputs may
   be used for training. https://ai.google.dev/gemini-api/docs/rate-limits
+- Checked 2026-09-26: Groq's strict json_schema works on openai/gpt-oss-20b, gpt-oss-120b and
+  qwen/qwen3.8-27b; free plan 30 RPM, 1,000 RPD, 8,000 TPM, 200k TPD for those.
+  https://console.groq.com/docs/structured-outputs
+- Cerebras (checked 2026-09-26): OpenAI-compatible at https://api.cerebras.ai/v1, strict
+  json_schema with additionalProperties false. Free trial: 5 RPM, 30k TPM, 1M tokens/day;
+  models gpt-oss-120b and qwen-3.8-27b. https://inference-docs.cerebras.ai/support/rate-limits
+- Gemini models (checked 2026-09-26): gemini-3.8-flash, gemini-3.5-flash-lite and
+  gemini-3.1-flash-lite are free of charge on the free tier; 2.0 models are shut down.
 - OpenRouter ":free" models: 20 requests/min but only 50/day unless you've bought credits.
   Not worth it here.
 - Jev (TypeSafe AI): a fast "System One" decision model, $0.042 per 1M input tokens. Signups
