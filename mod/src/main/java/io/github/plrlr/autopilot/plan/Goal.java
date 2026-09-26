@@ -13,21 +13,32 @@ import java.util.Map;
  * the planner turns it into concrete skill options.
  */
 public enum Goal {
-	WOOD_TOOLS(1, "Get a crafting table and a wooden pickaxe", Map.of("wooden_pickaxe", 1)),
-	STONE_TOOLS(2, "Get a stone pickaxe and a stone sword", Map.of("stone_pickaxe", 1, "stone_sword", 1)),
-	FOOD(3, "Hunt animals and cook at least 5 food; survive the night", Map.of("food", 5)),
-	IRON_TOOLS(4, "Mine and smelt iron: iron pickaxe, iron sword, shield, bucket", Map.of("iron_pickaxe", 1, "iron_sword", 1, "shield", 1, "bucket", 1)),
-	IRON_ARMOR(5, "Craft and wear full iron armor", Map.of("iron_helmet", 1, "iron_chestplate", 1, "iron_leggings", 1, "iron_boots", 1)),
-	DIAMONDS(6, "Mine diamonds deep underground and make a diamond pickaxe", Map.of("diamond_pickaxe", 1)),
-	NETHER_PORTAL(7, "Build and light a nether portal and enter the Nether: cast it from a lava pool with a water bucket and a second bucket (no diamonds needed), or place 10 mined obsidian", Map.of("obsidian", 10, "flint_and_steel", 1)),
-	BLAZE_RODS(8, "In the Nether, find a fortress and kill blazes for 6 blaze rods", Map.of("blaze_rod", 6)),
-	ENDER_PEARLS(9, "Kill endermen for 12 ender pearls", Map.of("ender_pearl", 12)),
-	EYES_OF_ENDER(10, "Craft 12 eyes of ender (blaze powder + ender pearl)", Map.of("ender_eye", 12)),
-	FIND_STRONGHOLD(11, "Throw eyes of ender to find the stronghold and its end portal room", Map.of()),
-	ENTER_END(12, "Put eyes of ender in every end portal frame and jump into the portal", Map.of()),
-	KILL_DRAGON(13, "Shoot the end crystals, then kill the Ender Dragon", Map.of()),
-	SURVIVE_NIGHT(0, "Get safe for the night: sleep in a bed or dig a shelter", Map.of()),
-	EXPLORE(0, "Explore to find trees, animals, ores or structures", Map.of());
+	WOOD_TOOLS(1, "Get a crafting table and a wooden pickaxe", needs("wooden_pickaxe", 1)),
+	STONE_TOOLS(2, "Get a stone pickaxe and a stone sword", needs("stone_pickaxe", 1, "stone_sword", 1)),
+	FOOD(3, "Hunt animals and cook at least 5 food; survive the night", needs("food", 5)),
+	IRON_TOOLS(4, "Mine and smelt iron: iron pickaxe, iron sword, shield, bucket", needs("iron_pickaxe", 1, "shield", 1, "bucket", 1, "iron_sword", 1)),
+	IRON_ARMOR(5, "Craft and wear full iron armor", needs("iron_helmet", 1, "iron_chestplate", 1, "iron_leggings", 1, "iron_boots", 1)),
+	DIAMONDS(6, "Mine diamonds deep underground and make a diamond pickaxe", needs("diamond_pickaxe", 1)),
+	NETHER_PORTAL(7, "Build and light a nether portal and enter the Nether: cast it from a lava pool with a water bucket and a second bucket (no diamonds needed), or place 10 mined obsidian", needs("obsidian", 10, "flint_and_steel", 1)),
+	BLAZE_RODS(8, "In the Nether, find a fortress and kill blazes for 6 blaze rods", needs("blaze_rod", 6)),
+	ENDER_PEARLS(9, "Kill endermen for 12 ender pearls", needs("ender_pearl", 12)),
+	EYES_OF_ENDER(10, "Craft 12 eyes of ender (blaze powder + ender pearl)", needs("ender_eye", 12)),
+	FIND_STRONGHOLD(11, "Throw eyes of ender to find the stronghold and its end portal room", needs()),
+	ENTER_END(12, "Put eyes of ender in every end portal frame and jump into the portal", needs()),
+	KILL_DRAGON(13, "Shoot the end crystals, then kill the Ender Dragon", needs()),
+	SURVIVE_NIGHT(0, "Get safe for the night: sleep in a bed or dig a shelter", needs()),
+	EXPLORE(0, "Explore to find trees, animals, ores or structures", needs());
+
+	/**
+	 * Needs in a fixed order: the planner works through them first to last. Map.of iterates in a
+	 * different order on every game start, which made the iron-tools order (and so run times)
+	 * vary between otherwise identical trials. The shield comes right after the pickaxe.
+	 */
+	private static Map<String, Integer> needs(Object... kv) {
+		Map<String, Integer> m = new java.util.LinkedHashMap<>();
+		for (int i = 0; i < kv.length; i += 2) m.put((String) kv[i], (Integer) kv[i + 1]);
+		return java.util.Collections.unmodifiableMap(m);
+	}
 
 	public final int milestone;
 	public final String description;

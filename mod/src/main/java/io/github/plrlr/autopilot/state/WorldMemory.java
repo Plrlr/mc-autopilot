@@ -133,6 +133,9 @@ public final class WorldMemory {
 	 * pool six blocks away was ever checked.
 	 */
 	private static final int[][] COLUMNS;
+	/** Far surface scan radius (see scanFar). */
+	private static final int FAR = 48;
+	private static final int[][] FAR_COLUMNS;
 
 	static {
 		java.util.List<int[]> cols = new java.util.ArrayList<>();
@@ -155,8 +158,6 @@ public final class WorldMemory {
 	 * but the close scan only reaches 16 blocks, so explore walked past pools (batch 6 never found
 	 * one). Only the top block of each column is looked at, and only if it's in line of sight.
 	 */
-	private static final int FAR = 48;
-	private static final int[][] FAR_COLUMNS;
 	private int farCursor;
 
 	private void scanFar(Level level, BlockPos c, String dim, long tick) {

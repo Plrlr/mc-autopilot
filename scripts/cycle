@@ -2,11 +2,11 @@
 # One improvement cycle in one blocking command: push this branch, start the "Trial runs"
 # workflow on it, wait for it, download every artifact, and print the batch summary.
 #
-#   scripts/cycle                                   4 benchmark seeds, 10 game minutes
+#   scripts/cycle                                   8 benchmark seeds (a-h), 20 game minutes (night included)
 #   scripts/cycle -m 20 -x '[{"seed":"a","scenario":"cast"}]'
 #   scripts/cycle -s '[]' -x '[{"seed":"a","id":"furnace","task":"craft furnace:1","give":"cobblestone 8,crafting_table","minutes":"3"}]'
 #
-# Options: -s seeds JSON (default '["a","b","c","d"]'), -m minutes (10), -S scenario (natural),
+# Options: -s seeds JSON (default a-h), -m minutes (20), -S scenario (natural),
 #          -x extra runs JSON ('[]'), -r RUN_ID (skip push/start; fetch and summarize that run),
 #          -o output dir (.trials), -n note for docs/batches.md, -N don't append to docs/batches.md.
 # Needs: git, curl, unzip, python3, and a GitHub token in GH_TOKEN or GITHUB_TOKEN (or `gh`).
@@ -14,7 +14,7 @@
 set -euo pipefail
 
 cd "$(git rev-parse --show-toplevel)"
-SEEDS='["a","b","c","d"]'; MINUTES=10; SCENARIO=natural; EXTRA='[]'; RUN=""; OUT=.trials; NOTE=""; APPEND=1
+SEEDS='["a","b","c","d","e","f","g","h"]'; MINUTES=20; SCENARIO=natural; EXTRA='[]'; RUN=""; OUT=.trials; NOTE=""; APPEND=1
 while getopts "s:m:S:x:r:o:n:N" opt; do
 	case $opt in
 		s) SEEDS=$OPTARG ;; m) MINUTES=$OPTARG ;; S) SCENARIO=$OPTARG ;; x) EXTRA=$OPTARG ;;
