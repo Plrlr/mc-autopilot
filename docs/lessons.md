@@ -54,6 +54,5 @@ workflow's unit-tests job compiles and tests in about a minute, the trial jobs t
   and lighting are still untested. Lava bucket fills failed once in batch 5 (logging added).
 - Lava is rare on the surface: if the far scan isn't enough, look underground (caves near y -54).
 - Smelting 13 iron takes ~130 s of standing still; do nearby work while the furnace runs.
-- Night: runs so far end before the first night (~10.75 min); 30-minute runs will need it.
 - Deaths: 7 in batch 6's four 15-minute runs (arrows, zombies, lava, fire), several while
   retreating. Night starts at ~10.75 game minutes; a bed or underground work is still missing.
