@@ -46,7 +46,7 @@ public final class CollectSkill extends Skill {
 			return;
 		}
 		before = Mc.count(item);
-		lastCount = before;
+		lastCount = before + (item.equals("flint") ? Mc.count("gravel") : 0);
 		// Deep ores take a while to find by branch mining.
 		timeoutTicks = 20 * (src.mineY() != null && src.mineY() < 0 ? 900 : 360);
 		// Ores have a mining depth; everything else is a surface block.
@@ -94,8 +94,10 @@ public final class CollectSkill extends Skill {
 			done("collected " + (now - before) + " " + item);
 			return;
 		}
-		if (now != lastCount) {
-			lastCount = now;
+		// Gravel drops flint only one time in ten: mined gravel is progress toward flint too.
+		int progress = now + (item.equals("flint") ? Mc.count("gravel") : 0);
+		if (progress != lastCount) {
+			lastCount = progress;
 			lastProgressTick = ticks;
 		}
 		// Ores can take a while to find by branch mining; surface blocks shouldn't.
