@@ -3,6 +3,7 @@ package io.github.plrlr.autopilot.plan;
 import io.github.plrlr.autopilot.Items2;
 import io.github.plrlr.autopilot.Mc;
 import io.github.plrlr.autopilot.skills.CastPortal;
+import io.github.plrlr.autopilot.skills.Station;
 import io.github.plrlr.autopilot.state.Perception;
 import io.github.plrlr.autopilot.state.WorldMemory;
 import net.minecraft.client.player.LocalPlayer;
@@ -37,8 +38,8 @@ public final class Planner {
 		for (Option o : urgent(seen)) out.putIfAbsent(o.label(), o);
 		Option recover = recoverStep();
 		if (recover != null) out.putIfAbsent(recover.label(), recover);
-		for (Option o : upkeep(seen)) out.putIfAbsent(o.label(), o);
 		Option main = goalStep(goal, seen, 0);
+		for (Option o : upkeep(seen, main)) out.putIfAbsent(o.label(), o);
 		if (main != null) out.putIfAbsent(main.label(), main);
 		for (Option o : extras(seen, main)) out.putIfAbsent(o.label(), o);
 		List<Option> list = new ArrayList<>(out.values());
@@ -238,6 +239,8 @@ public final class Planner {
 			int extra = switch (item) {
 				// Wood runs out at awkward times (deep in a mine); one trip for plenty is faster.
 				case "log" -> Mc.count("log") < 8 ? 8 : 3;
+				// All the iron the run needs in one trip down, not 2-3 at a time with a furnace each.
+				case "raw_iron" -> Math.max(0, ironStillNeeded() - Mc.count("iron_ingot") - have - missing);
 				case "stone" -> Mc.count("stone") < 24 ? 10 : 0;
 				case "coal" -> 4;
 				default -> 0;
@@ -258,6 +261,8 @@ public final class Planner {
 	private Option smeltStep(String item, int missing, int depth) {
 		String input = TechTree.SMELT.get(item);
 		if (input == null) return null;
+		// Smelt every raw iron we carry at once: one furnace load instead of several.
+		if (input.equals("raw_iron")) missing = Math.max(missing, Mc.count("raw_iron"));
 		if (Mc.count(input) < missing) {
 			Option o = itemStep(input, missing, depth + 1);
 			if (o != null) return o;
@@ -276,6 +281,20 @@ public final class Planner {
 			if (o != null) return o;
 		}
 		return new Option("smelt", item + ":" + missing, "smelt " + input + " into " + item);
+	}
+
+	/**
+	 * Iron ingots the fast route still needs: iron pickaxe 3, iron sword 2, shield 1, two
+	 * buckets 3 each (water, and lava to cast the portal), flint and steel 1.
+	 */
+	public static int ironStillNeeded() {
+		int n = 0;
+		if (Items2.bestTier("pickaxe") < 2) n += 3;
+		if (Items2.bestTier("sword") < 2) n += 2;
+		if (Mc.count("shield") == 0) n += 1;
+		n += 3 * Math.max(0, 2 - Goal.have("bucket"));
+		if (Mc.count("flint_and_steel") == 0) n += 1;
+		return n;
 	}
 
 	private boolean tableAvailable() {
@@ -331,9 +350,14 @@ public final class Planner {
 	 * nights and sets the respawn point), grab coal that's in view. Only when the target is close,
 	 * so upkeep never turns into a long detour.
 	 */
-	private List<Option> upkeep(Perception seen) {
+	private List<Option> upkeep(Perception seen, Option main) {
 		List<Option> out = new ArrayList<>();
 		if (seen.hostilesWithin(12) > 0) return out;
+		// Take our crafting table and furnace along before walking off: leaving them behind
+		// meant crafting new ones (8 cobblestone each) after every trip in trials.
+		boolean usingStation = main != null && (main.skill().equals("craft") || main.skill().equals("smelt"));
+		if (!usingStation && Station.placedNear(Mc.player().blockPosition(), 6))
+			out.add(new Option("pickup", "stations", "take our crafting table and furnace along"));
 		// Raw meat counts toward the stock: it gets cooked once there's a furnace, so hunting
 		// more before then would only waste time.
 		int readyFood = Mc.count("food");
@@ -351,6 +375,12 @@ public final class Planner {
 					out.add(new Option("attack", animal, "food is low and a " + animal + " is close"));
 					break;
 				}
+			}
+			// Getting hungry with nothing ready to eat: food comes first (cook, hunt or search).
+			int hunger = Mc.player().getFoodData().getFoodLevel();
+			if (hunger <= 12 && readyFood == 0) {
+				Option f = goalStep(Goal.FOOD, seen, 0);
+				if (f != null) out.add(new Option(f.skill(), f.arg(), "hungry (" + hunger + "/20): " + f.why()));
 			}
 		}
 		if (Mc.dimension().equals("overworld") && Items2.bestTier("pickaxe") >= 0 && Mc.count("bed") == 0

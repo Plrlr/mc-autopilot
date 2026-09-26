@@ -18,6 +18,12 @@ class StrategistRulesTest {
 	}
 
 	@Test
+	void goesForIronRightAfterStoneTools() {
+		// Food is upkeep, not a rung to stock up on first.
+		assertEquals(Goal.IRON_TOOLS, Strategist.rules(g -> g.milestone >= 1 && g.milestone <= 2, null).goal());
+	}
+
+	@Test
 	void everythingDoneMeansTheDragon() {
 		assertEquals(Goal.KILL_DRAGON, Strategist.rules(g -> true, null).goal());
 	}

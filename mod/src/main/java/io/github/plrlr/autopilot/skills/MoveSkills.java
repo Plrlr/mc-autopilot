@@ -175,11 +175,16 @@ public final class MoveSkills {
 		}
 	}
 
-	/** pickup: walk over dropped items nearby. */
+	/**
+	 * pickup [stations]: walk over dropped items nearby. With "stations", first break the crafting
+	 * table and furnace we placed here (a furnace needs a pickaxe to drop), so they come along.
+	 */
 	public static final class Pickup extends Skill {
 		private ItemEntity current;
 		private int picked;
 		private int sinceRepath;
+		private BlockPos breaking;
+		private int breakTicks;
 
 		@Override
 		public String name() {
@@ -191,8 +196,52 @@ public final class MoveSkills {
 			timeoutTicks = 20 * 30;
 		}
 
+		/** Breaks our stations one by one; true while there's still one to break. */
+		private boolean breakStations() {
+			LocalPlayer pl = Mc.player();
+			if (breaking != null && Mc.free(breaking)) {
+				Mc.mc().gameMode.stopDestroyBlock();
+				breaking = null;
+			}
+			if (breaking == null) {
+				List<BlockPos> ours = Station.placedWithin(pl.blockPosition(), 8);
+				if (ours.isEmpty()) return false;
+				breaking = ours.get(0);
+				breakTicks = 0;
+			}
+			if (pl.getEyePosition().distanceTo(net.minecraft.world.phys.Vec3.atCenterOf(breaking)) > Mc.reach() - 0.5) {
+				if (!Bari.pathing()) Bari.path(new GoalGetToBlock(breaking));
+				return true;
+			}
+			if (Bari.pathing()) Bari.stop();
+			if (pl.containerMenu != pl.inventoryMenu) pl.closeContainer();
+			if (++breakTicks > 20 * 8) {
+				// Can't break it (wrong tool, out of reach): leave it.
+				Station.forget(breaking);
+				breaking = null;
+				return true;
+			}
+			var st = Mc.state(breaking);
+			Mc.lookAt(net.minecraft.world.phys.Vec3.atCenterOf(breaking));
+			if (breakTicks == 1) {
+				NightSkills.Shelter.holdBestTool(st);
+				Mc.mc().gameMode.startDestroyBlock(breaking, net.minecraft.core.Direction.UP);
+			} else {
+				Mc.mc().gameMode.continueDestroyBlock(breaking, net.minecraft.core.Direction.UP);
+			}
+			Mc.swing();
+			return true;
+		}
+
+		@Override
+		protected void cleanup() {
+			if (Mc.mc().gameMode != null) Mc.mc().gameMode.stopDestroyBlock();
+			super.cleanup();
+		}
+
 		@Override
 		protected void tick() {
+			if ("stations".equals(arg) && breakStations()) return;
 			if (current == null || !current.isAlive() || sinceRepath++ > 60) {
 				if (current != null && !current.isAlive()) picked++;
 				List<ItemEntity> items = Perception.look(16).items;

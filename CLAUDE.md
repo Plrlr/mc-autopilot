@@ -80,7 +80,8 @@ mc-build-crew/            (the folder name is historical; the project is MC Auto
     src/main/resources/autopilot-prompts/   strategist.txt, tactician.txt (plain text, easy to tweak)
     src/test/               unit tests (gradlew test)
     src/gametest/           in-game test: fresh survival world, autopilot plays (gradlew runClientGameTest);
-                            -PtestScenario=portal|stronghold|end stages a late-game step with test-world commands
+                            -PtestScenario=portal|cast|stronghold|end stages a late-game step with test-world commands
+.github/workflows/trials.yml  cloud trial batches (one machine per seed, plus staged extras); logs as artifacts
 ```
 Runtime files live in the Minecraft folder, not the repo:
 `%APPDATA%\.minecraft\config\mc-autopilot.env` (settings and API keys, created on first start),
@@ -100,6 +101,11 @@ Runtime files live in the Minecraft folder, not the repo:
 ## Planner behavior (free, in code)
 - Goals 1-6 (tools, food, armor, diamonds) stay done once Progress has reached them; lost tools
   are rebuilt through the tech tree on the way to the next goal. Rules never pick survive_night.
+- Speedrun route (target: beat the game in 30 minutes): the rules skip the optional rungs 3 (food),
+  5 (iron armor) and 6 (diamonds). Food is upkeep when hungry; the nether portal is cast from a
+  lava pool (CastPortal: lava bucket + water bucket against a wall of throwaway blocks), so no
+  diamond pickaxe is needed. Iron is mined and smelted in one batch (Planner.ironStillNeeded).
+- Our own crafting table and furnace are picked back up before walking off (pickup stations).
 - Option order: urgent (fight, eat, heal, sleep, shelter), recover items at the death spot,
   upkeep (cook or hunt when food < 4, wool for a bed, coal in view), the goal step, extras.
 - Explore takes what to look for ("cow,pig", "log", "nether_bricks,blaze", "any"), keeps a
@@ -116,8 +122,8 @@ Be honest in docs: later milestones are very hard for any AI. Report the furthes
 ## Skills (the tactician's menu, 20 max; 20 implemented)
 collect item:n, craft item:n, smelt output:n, attack <mob>, shoot <mob>, eat, equip
 armor|shield|weapon|pickaxe, place <block>, pickup, explore <what to look for>, goto <known
-block>|death, retreat, shelter, sleep, fill_bucket water, make_obsidian obsidian:n,
-build_portal (placed block by block, not Baritone's builder), enter_portal
+block>|death, retreat, shelter, sleep, fill_bucket water|lava, make_obsidian obsidian:n,
+build_portal (placed block by block, not Baritone's builder; cast from lava without 10 obsidian), enter_portal
 nether|overworld|end, locate_stronghold, fill_end_portal. Shelter, sleep, eat, craft, smelt and the portal skills are not
 interruptible by routine re-checks (heartbeat, new goal); danger reflexes still interrupt them.
 Skills are code, not AI. Crafting uses the normal crafting screens (recipe book clicks),

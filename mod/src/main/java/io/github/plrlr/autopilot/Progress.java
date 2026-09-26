@@ -86,9 +86,11 @@ public final class Progress {
 		if (Goal.have("wooden_pickaxe") > 0 || Mc.count("crafting_table") > 0) m = 1;
 		if (m >= 1 && Goal.have("stone_pickaxe") > 0) m = 2;
 		if (m >= 2 && Mc.count("food") >= 5 && nightsSurvived >= 1) m = 3;
-		if (m >= 3 && Goal.have("iron_pickaxe") > 0) m = 4;
+		// Food, armor and diamonds are side rungs of a fast run (Goal.optional): the main line
+		// counts without them.
+		if (m >= 2 && Goal.have("iron_pickaxe") > 0) m = 4;
 		if (m >= 4 && Goal.hasArmor("iron_helmet") && Goal.hasArmor("iron_chestplate") && Goal.hasArmor("iron_leggings") && Goal.hasArmor("iron_boots")) m = 5;
-		if (m >= 5 && Goal.have("diamond_pickaxe") > 0) m = 6;
+		if (m >= 4 && Goal.have("diamond_pickaxe") > 0) m = 6;
 		// Later rungs are proven by where you are or what you hold; reaching them implies the earlier ones mattered less.
 		if (Mc.dimension().equals("the_nether")) m = Math.max(m, 7);
 		if (Goal.have("blaze_rod") > 0) m = Math.max(m, 8);

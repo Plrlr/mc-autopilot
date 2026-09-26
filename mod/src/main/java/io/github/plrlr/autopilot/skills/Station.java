@@ -13,7 +13,31 @@ import net.minecraft.world.phys.Vec3;
  * Gets a crafting table / furnace open: walk to a known one, or place one from the inventory,
  * then right-click it. Used by craft and smelt.
  */
-final class Station {
+public final class Station {
+	/** Stations we placed ourselves (and may pick back up), by position. Cleared per world. */
+	private static final java.util.Map<BlockPos, String> PLACED = new java.util.HashMap<>();
+
+	public static void forgetPlaced() {
+		PLACED.clear();
+	}
+
+	static void forget(BlockPos p) {
+		PLACED.remove(p);
+	}
+
+	/** Our own table or furnace still standing within `r` blocks. */
+	public static boolean placedNear(BlockPos at, int r) {
+		return !placedWithin(at, r).isEmpty();
+	}
+
+	static java.util.List<BlockPos> placedWithin(BlockPos at, int r) {
+		java.util.List<BlockPos> out = new java.util.ArrayList<>();
+		PLACED.entrySet().removeIf(e -> Mc.player() != null && !Mc.id(Mc.state(e.getKey()).getBlock()).equals(e.getValue())
+				&& e.getKey().distSqr(at) < 16 * 16);
+		for (BlockPos p : PLACED.keySet()) if (p.distSqr(at) <= (double) r * r) out.add(p);
+		return out;
+	}
+
 	private enum Phase {FIND, WALK, PLACE, RELOCATE, OPEN, WAIT_OPEN}
 
 	private final String group;
@@ -24,7 +48,9 @@ final class Station {
 	private int wait;
 	private int placeTries;
 	private int relocations;
+	private int airTicks;
 	private BlockPos placing;
+	private BlockPos lastPlaced;
 	String error;
 
 	Station(String group, Class<?> menuClass, WorldMemory memory) {
@@ -68,7 +94,12 @@ final class Station {
 			}
 			case PLACE -> {
 				Bari.stop();
+				// Still falling or climbing (common right after chopping a tree): placing from mid-air
+				// picks a new spot every tick and never lands a click.
+				if (!pl.onGround() && !pl.isInWater() && ++airTicks < 40) return;
 				BlockPos spot = findSpot(pl);
+				// A few clicks here didn't work: try again from open ground.
+				if (spot != null && placeTries >= 4 && relocations < 2) spot = null;
 				if (spot == null) {
 					// Usually we're up a tree or in leaves after chopping: walk to open ground first.
 					BlockPos open = openGround(pl);
@@ -79,6 +110,8 @@ final class Station {
 					Bari.path(new baritone.api.pathing.goals.GoalBlock(open));
 					phase = Phase.RELOCATE;
 					wait = 0;
+					placeTries = 0;
+					airTicks = 0;
 					return;
 				}
 				if (placeTries++ > 5) {
@@ -98,6 +131,7 @@ final class Station {
 				placing = null;
 				Mc.placeAt(spot);
 				pos = spot;
+				lastPlaced = spot;
 				wait = 0;
 				phase = Phase.OPEN;
 			}
@@ -119,6 +153,7 @@ final class Station {
 					return;
 				}
 				memory.remember(group, pos, there);
+				if (placing == null && pos.equals(lastPlaced)) PLACED.put(pos.immutable(), group);
 				Bari.stop();
 				Mc.useOn(pos, faceToward(pl, pos));
 				wait = 0;

@@ -98,11 +98,12 @@ public enum Goal {
 	}
 
 	/**
-	 * Rungs a fast run skips: the portal is cast from lava without a diamond pickaxe, and full
-	 * iron armor takes 24 more iron. Reaching them still counts; they just aren't on the way.
+	 * Rungs a fast run skips: the portal is cast from lava without a diamond pickaxe, full iron
+	 * armor takes 24 more iron, and food is gathered when hunger calls for it (upkeep) instead
+	 * of stocking up first, which cost 3-9 minutes in trials. Reaching them still counts.
 	 */
 	public boolean optional() {
-		return this == IRON_ARMOR || this == DIAMONDS;
+		return this == FOOD || this == IRON_ARMOR || this == DIAMONDS;
 	}
 
 	public static List<Goal> ladder() {

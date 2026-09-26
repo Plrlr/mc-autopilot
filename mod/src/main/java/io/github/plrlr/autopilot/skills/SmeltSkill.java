@@ -83,7 +83,7 @@ public final class SmeltSkill extends Skill {
 				fail("couldn't load the furnace");
 				return;
 			}
-			if (!loadFuel(menu)) {
+			if (!loadFuel(menu, want)) {
 				fail("no fuel");
 				return;
 			}
@@ -109,24 +109,45 @@ public final class SmeltSkill extends Skill {
 		if (!inputLeft && !menu.getSlot(AbstractFurnaceMenu.RESULT_SLOT).hasItem()) {
 			if (made > 0) done("smelted " + made + " " + output);
 			else if (idleTicks > 40) fail("furnace stopped (out of fuel?)");
+		} else if (inputLeft && idleTicks >= 40 && !menu.getSlot(AbstractFurnaceMenu.FUEL_SLOT).hasItem()) {
+			// Ran dry with items left: top it up with whatever fuel we still carry.
+			int left = menu.getSlot(AbstractFurnaceMenu.INGREDIENT_SLOT).getItem().getCount();
+			if (loadFuel(menu, left)) idleTicks = 0;
+			else if (made > 0) done("smelted " + made + " " + output + " (out of fuel)");
+			else fail("out of fuel");
 		} else if (idleTicks > 20 * 15) {
 			fail("furnace isn't burning (no progress for 15 s)");
 		}
 	}
 
-	/** Coal/charcoal smelt 8 items, planks and logs 1.5, sticks 0.5. */
-	private boolean loadFuel(AbstractFurnaceMenu menu) {
+	/**
+	 * Coal/charcoal smelt 8 items, planks and logs 1.5, sticks 0.5. Picks the first fuel we carry
+	 * enough of for the whole load; if none is enough, the one that goes furthest (the furnace
+	 * gets topped up as it runs dry). Loading one plank for five items stalled trial runs.
+	 */
+	private boolean loadFuel(AbstractFurnaceMenu menu, int items) {
 		ItemStack inFuel = menu.getSlot(AbstractFurnaceMenu.FUEL_SLOT).getItem();
 		String[][] options = {{"coal", "8"}, {"planks", "1.5"}, {"log", "1.5"}, {"stick", "0.5"}};
+		Predicate<ItemStack> best = null;
+		int bestNeed = 0;
+		double bestCover = 0;
 		for (String[] o : options) {
 			if (o[0].equals("log") && output.equals("charcoal")) continue;
 			Predicate<ItemStack> fuel = Items2.matcher(o[0]);
 			if (!inFuel.isEmpty() && !fuel.test(inFuel)) continue;
-			if (Mc.count(fuel) == 0) continue;
-			int need = (int) Math.ceil(want / Double.parseDouble(o[1])) - inFuel.getCount();
+			double per = Double.parseDouble(o[1]);
+			int need = (int) Math.ceil(items / per) - inFuel.getCount();
 			if (need <= 0) return true;
-			return moveInto(menu, fuel, AbstractFurnaceMenu.FUEL_SLOT, need);
+			int have = Mc.count(fuel);
+			if (have == 0) continue;
+			if (have >= need) return moveInto(menu, fuel, AbstractFurnaceMenu.FUEL_SLOT, need);
+			if (have * per > bestCover) {
+				bestCover = have * per;
+				best = fuel;
+				bestNeed = have;
+			}
 		}
+		if (best != null) return moveInto(menu, best, AbstractFurnaceMenu.FUEL_SLOT, bestNeed);
 		// Fuel already present counts even if we have none left in the bag.
 		return !inFuel.isEmpty();
 	}

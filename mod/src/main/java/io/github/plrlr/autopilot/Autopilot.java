@@ -245,6 +245,7 @@ public final class Autopilot {
 			worldName = name;
 			memory.clear();
 			PortalSkills.resetThrows();
+			io.github.plrlr.autopilot.skills.Station.forgetPlaced();
 			progress.load(name);
 			goal = null;
 		}
@@ -582,6 +583,12 @@ public final class Autopilot {
 		// Routine re-checks while the rules still want what we're doing: nothing to decide,
 		// so don't spend an AI call (or restart the skill) on it.
 		if (skill != null && (trigger.equals("heartbeat") || trigger.equals("goal_changed")) && sameAction(options.get(0), skillOption)) {
+			lastDecisionTick = tick;
+			return;
+		}
+		// A gathering trip isn't worth breaking off to craft planks or a pickaxe early: the
+		// craft waits a few seconds, a second trip back for the rest costs far more.
+		if (skill != null && trigger.equals("heartbeat") && skillOption.skill().equals("collect") && options.get(0).skill().equals("craft")) {
 			lastDecisionTick = tick;
 			return;
 		}
