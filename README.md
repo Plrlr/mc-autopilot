@@ -6,11 +6,14 @@ and try to beat the game. Press **K** in your world, switch the autopilot on, an
 - **Opus sets the goals.** Opus 5.5 decides what to work on ("get iron tools", "find a nether
   fortress") and changes course when something fails. Once the goal is set, free rules work out
   the steps. Opus runs through Claude Code's headless mode (`claude -p`) on your Claude plan, so
-  you don't need an API key, and it's called at most ~30 times an hour.
+  you don't need an API key, and it's called at most 10 times an hour by default.
 - **Code does the hands.** Walking, mining and pathfinding use [Baritone](https://github.com/cabaletta/baritone).
   Crafting goes through the recipe book, and fighting, eating and sleeping use the normal player controls.
-- **Fair play.** No cheats, no commands, no x-ray. The AI only knows about blocks it has
-  actually seen, and Baritone runs in `legitMine` mode.
+- **Fair play.** No cheats, no commands, no x-ray. Ores are only mined once seen (Baritone runs
+  in `legitMine` mode and otherwise branch-mines). One documented exception: for surface blocks
+  (logs, stone, sand, gravel) Baritone searches the chunks the game has loaded, not only blocks
+  the AI has looked at. A player scanning the horizon finds trees just as fast, but it is wider
+  knowledge than strict line of sight.
 - **You stay in control.** Any movement key (WASD, space) instantly gives control back.
 - **$0.** Opus uses your existing plan. The per-action choices go to a free AI (Groq, Cerebras or
   Gemini) when you paste a free key into the settings file, and to free rules otherwise.
@@ -59,6 +62,9 @@ logged in (`claude` works in PowerShell), and Java 25 to build the mod.
      [Baritone releases](https://github.com/cabaletta/baritone/releases/tag/v1.20.0)
      (the `api` build; the `standalone` one hides the API our mod needs)
    - this mod: build it with `cd mod` then `.\gradlew.bat build`, and copy `mod\build\libs\mc-autopilot-0.1.0.jar`
+
+   Baritone is not inside our jar and never will be: it's a separate mod (LGPL-3.0), so install it
+   yourself from its own release page as above.
 4. Start Minecraft with the **fabric-loader-26.3** profile.
 5. Make a **new test world** (the AI will dig, die and lose things), press **K**, click **Autopilot: OFF**.
 
@@ -92,7 +98,8 @@ a limit, and the rules take over when all of them are out.
 Every Opus call counts toward your Claude plan's usage limits. One call is ~10k tokens in
 (mostly cached) and ~250 out, and takes ~7-13 s. By default Opus only sets goals: it's asked when
 a goal is done, when things keep failing or get stuck, after a death or dimension change, and
-every 5 minutes otherwise, never more than **30** times an hour (`OPUS_MAX_CALLS_PER_HOUR`).
+every 10 minutes otherwise, never more than **10** times an hour (`OPUS_MAX_CALLS_PER_HOUR`;
+settings files made before this change keep their old value of 30 until you edit them).
 In testing, the rules picked the same action as Opus most of the time, which is why actions
 go to free brains, never to Opus unless you ask. If you do switch actions to Opus (`!brain opus`), those calls are capped
 separately at 120/hour (`OPUS_TACTICIAN_MAX_CALLS_PER_HOUR`). When a cap or plan limit is hit,
@@ -110,9 +117,10 @@ skill results, deaths and milestones. `progress-<world>.json` keeps the furthest
   way to the next one instead of starting the ladder over.
 - Early game (wood → stone → iron → armor) is where it's reliable. Diamonds take a long time
   with fair (non-x-ray) branch mining.
-- Obsidian: it fills a bucket with water and pours it beside a lava pool to harden the lava,
-  then mines it with a diamond pickaxe and builds the portal block by block (corners from
-  cobblestone). Tested on a staged lava pool; real pools with odd shapes may still defeat it.
+- Nether portal: without a diamond pickaxe it casts the frame in place next to a lava pool
+  (a lava bucket and a water bucket against a wall of cobblestone, one obsidian at a time).
+  With a diamond pickaxe it can instead harden a pool with water and mine 10 obsidian. Both
+  are tested only on a staged lava pool so far; real pools with odd shapes may defeat them.
 - The dragon fight needs a bow and arrows to destroy the healing crystals, and the planner
   doesn't go out of its way to get them. Without a bow it only hits the dragon when it perches.
 - Nether fortress search, stronghold triangulation and the dragon fight are implemented but

@@ -1,0 +1,214 @@
+MC-AUTOPILOT ROADMAP: OVERWORLD TO ENDER DRAGON
+Recommendations for the improvement loop (written September 26, 2026)
+
+HOW TO USE THIS FILE
+- Save it in the repo as docs/roadmap.txt and mention it in CLAUDE.md so every session reads it.
+- Work top to bottom. Don't start a stage until the previous one is reliable
+  (reached on at least 3 of 4 benchmark seeds).
+- Make one focused change per cycle so you know what helped.
+- If a game fact here disagrees with our Minecraft version, trust the game and note the correction here.
+
+
+======================================================================
+PART 1: LOOP RULES (apply to every stage)
+======================================================================
+
+1. Verify milestones from world state, never from the bot's own report.
+   Use inventory contents, blocks in the world, advancements, and entity death events.
+
+2. Batch scoreboard, per seed:
+   - milestones reached and the time each was reached
+   - deaths and their causes
+   - time breakdown: food, crafting, mining, travel, combat, idle/stuck
+   - top failure reasons from skill results
+
+3. Accept a change only if the target stage improves across the seed set (median time down or
+   success rate up) and no earlier stage gets worse. Otherwise revert it.
+
+4. Seeds: keep 4 fixed benchmark seeds for comparisons. Every ~5 batches, add 1-2 fresh seeds
+   to catch overfitting to the benchmark seeds.
+
+5. Two kinds of runs:
+   - Full runs (honest): no commands, no /locate, no /give. Only these numbers go in the README.
+   - Scenario runs (practice): the harness uses commands to start the bot at a later stage
+     (for example, in the Nether with iron gear near a fortress). Use these to iterate fast on
+     late-game skills. Always label them as scenarios.
+
+6. Code does mechanics; the brain chooses. Anything precise (bucket casting, bridging, crystal
+   shooting, triangulation) must be a deterministic coded skill. The AI brain only picks which
+   skill runs next.
+
+7. Every skill has: preconditions, a postcondition check from world state, a timeout, a max
+   retry count, and a specific failure reason. "Timed out" alone is not a reason.
+
+8. Difficulty: blazes and endermen don't spawn on Peaceful, so the full game is impossible there.
+   Benchmark on Easy or Normal, pick one, and keep it fixed.
+
+9. GitHub Actions jobs stop after 6 hours. Checkpoint the world folder and run state at each
+   milestone (artifact or cache) and resume in the next job. Artifacts on a public repo can be
+   downloaded by anyone, so never include .env or keys.
+
+10. Usage and cost: Opus 5.5 at Medium effort for batch cycles; High only when diagnosing
+    something stuck. Set a hard cap on cycles per day and a dollar cap on the Claude credits.
+    Log the cost of every cycle.
+
+
+======================================================================
+PART 2: CORE SURVIVAL SYSTEMS (fix these before chasing iron)
+======================================================================
+
+FOOD
+- Eat only when food <= 14, or <= 17 when health isn't full (natural regeneration needs
+  food >= 18). Normal food can't be eaten at full hunger; calling eat then just times out.
+- Batch it: hunt 3-5 animals in one trip, then cook everything in one furnace with one fuel load.
+- Carry the crafting table and furnace. Mine them back up after use and reuse them. Never place
+  a new one if one is in inventory or within 32 blocks.
+- Villages: hay bales give 9 wheat each, and bread takes 3 wheat. Villages also have beds and
+  chests, sometimes with iron.
+- Fuel: coal ore near the surface, or charcoal (smelt logs).
+
+BEDS AND NIGHT
+- A bed is 3 wool (sheep) + 3 planks. Sleep to skip the night and set spawn.
+- Never use beds in the Nether or the End; they explode.
+- No bed at night: work underground or wall the bot in.
+
+DEATHS
+- Log the cause from the death chat message.
+- After respawning, go back for items only if it's safe. Dropped items despawn after 5 minutes.
+
+STUCK DETECTION
+- No position change or no progress for N seconds: cancel the skill, log where and why, and
+  pick a different option.
+
+INVENTORY
+- Fixed hotbar layout (sword, pickaxe, axe, blocks, food, bucket, and so on).
+- Drop junk (extra dirt, diorite, granite, andesite) when free slots fall below 5.
+
+MINING SAFETY (everywhere)
+- Never dig straight down or straight up. Use staircases.
+- Before breaking a block, check its neighbors for lava and water, and check above for gravel
+  or sand.
+- Pathfinder settings: avoid lava, limit the safe drop height, allow pillaring with cheap blocks,
+  and don't break blocks that would release water or lava onto the path.
+
+PLUGINS TO EVALUATE
+- mineflayer-pathfinder, mineflayer-collectblock, mineflayer-tool, mineflayer-auto-eat,
+  mineflayer-armor-manager, mineflayer-pvp.
+- Check that each one is maintained and supports our Minecraft version before depending on it.
+
+
+======================================================================
+PART 3: STAGES
+======================================================================
+
+STAGE 1: WOOD AND STONE (target: stone tools in <= 2 minutes; already reached)
+- About 16 logs: planks, sticks, crafting table, wooden pickaxe, then cobblestone for a stone
+  pickaxe, axe, sword, and shovel.
+- Also collect 8 cobblestone for a furnace and 32+ more for building and pillaring.
+
+STAGE 2: STABLE FOOD (target: food never below 10 for a full 10-minute run)
+- Apply the FOOD rules in Part 2.
+
+STAGE 3: IRON (target: 14+ iron ingots)
+- Where: since the 1.18 update, iron ore is most common around Y=16 and is also abundant high
+  up in mountains. It's often exposed in cave walls.
+- How: staircase down to about Y=16, then strip-mine with a 2-high main tunnel and branches every
+  3 blocks, mining every visible ore. Or explore caves (faster but riskier). Test both and keep
+  whichever has the better median time.
+- Spending priority:
+  1. iron pickaxe (3 iron)
+  2. bucket (3 iron)
+  3. shield (1 iron + 6 planks)
+  4. flint and steel (1 iron + flint from gravel)
+  5. armor: chestplate (8), leggings (7), helmet (5), boots (4)
+  6. a second bucket (3) and shears (2) later
+- Collect coal on the way and smelt in batches.
+- From now on, keep the shield in the offhand and use it to block arrows and creeper blasts.
+
+STAGE 4: NETHER PORTAL (target: portal lit)
+- Route A, casting (our "cast" scenario): find a lava pool (surface, caves, or ravines). Pour
+  water over lava SOURCE blocks to make obsidian in the shape of a 4-wide by 5-tall frame
+  (corners are optional, so 10 obsidian). Water on a source makes obsidian; water on flowing
+  lava makes cobblestone, so target sources only. Pick the water back up afterward.
+- Route B: mine obsidian with a diamond pickaxe (diamonds are most common deep, around Y -58).
+  Slower. Use it only if diamonds turn up anyway.
+- Ruined portals often have obsidian and a loot chest (which may include flint and steel,
+  obsidian, or gold). Check them whenever one is spotted.
+- Light the portal with flint and steel. Save the portal's coordinates.
+
+STAGE 5: NETHER PREP CHECKLIST (don't enter without these)
+- At least an iron chestplate (full iron is better), shield, iron sword, iron pickaxe.
+- At least one piece of gold armor: golden boots (4 gold) or golden helmet (5 gold). Piglins
+  attack players who aren't wearing any. Gold sources: ruined portal chests, gold ore (deep
+  underground, and plentiful in badlands), or nether gold ore (drops nuggets; 9 nuggets make
+  1 ingot).
+- 64+ cobblestone. Ghast fireballs don't break it, but they do break netherrack.
+- 16+ cooked food, flint and steel (ghasts can put out the portal), and a crafting table.
+- Water evaporates in the Nether, so don't rely on the water bucket there.
+
+STAGE 6: BLAZE RODS (target: 7-8 rods)
+- Find a Nether fortress (nether brick). Explore at a steady height, stay away from lava lakes,
+  and bridge with cobblestone.
+- Fight blazes near their spawner: block fireballs with the shield, fight from cover (a corner or
+  a cobblestone wall with a gap), and attack when they come close. Retreat and eat when
+  health <= 12.
+- Each rod makes 2 blaze powder, so 7-8 rods cover 12-15 eyes of ender.
+- Nether distances are 1/8 of Overworld distances. Record the return portal's coordinates.
+
+STAGE 7: ENDER PEARLS (target: 12-15 pearls)
+- Best Nether spot: the warped forest biome, which is full of endermen. Overworld nights also
+  work but are slower.
+- Fighting endermen: stand in a 2-block-high space (they're about 3 blocks tall and can't fit)
+  and hit their legs. In the Overworld, standing next to water also helps. Avoid looking at
+  endermen you don't intend to fight.
+- Alternative: bartering gold with piglins. Pearls are a rare trade and it needs a lot of gold,
+  so only try this if gold is plentiful.
+
+STAGE 8: EYES AND STRONGHOLD (target: standing in the end portal room)
+- Craft eyes of ender: blaze powder + ender pearl. Aim for 12-15. Some portal frames already
+  have eyes (each frame has a 10% chance), and a thrown eye breaks about 20% of the time.
+- In Java Edition, the three nearest strongholds are in a ring 1,280-2,816 blocks from the
+  world origin.
+- Bot advantage, triangulate exactly: throw an eye and record its entity position over a few
+  ticks to get a precise bearing. Move 200+ blocks sideways, throw again, compute where the two
+  lines cross, and travel there directly. Throw once more near the target; when the eye dives
+  downward, the bot is above the stronghold.
+- Optional speedup: travel through the Nether (1/8 the distance), then build a new portal near
+  the stronghold.
+- Staircase down, then navigate corridors to the portal room (it has a silverfish spawner and
+  lava under the portal frame). Kill or avoid silverfish.
+- Place a bed near the portal room (in the Overworld) so respawns are close.
+- Fill every empty frame. The portal activates when all 12 have eyes.
+
+STAGE 9: DRAGON PREP CHECKLIST
+- Full iron armor (diamond if available), shield, best sword.
+- Bow (3 sticks + 3 string from spiders) and 64 arrows (flint + stick + feather; feathers come
+  from chickens; skeletons also drop arrows).
+- 64+ cobblestone for pillaring, a water bucket for fall landings, 16+ food, a spare pickaxe.
+- Option to test: wear a carved pumpkin (a pumpkin cut with shears). Endermen won't get angry
+  when the bot looks at them. The bot doesn't need to "see," so it costs nothing except the
+  helmet slot. Compare runs with and without it.
+
+STAGE 10: DRAGON FIGHT (target: the "Free the End" advancement)
+- The bot arrives on an obsidian platform. If it's over the void, bridge carefully to the main
+  island. Falling into the void is an instant loss, so stay away from edges.
+- Destroy all end crystals first; they heal the dragon. There are 10 pillars, and 2 of them are
+  caged with iron bars. Shoot crystals with arrows from range. If pillaring up to a crystal,
+  never break it in melee from right next to it; it explodes.
+- Then the dragon: when it perches on the exit portal (the bedrock fountain in the center),
+  attack its head with the sword. While it's flying, use arrows.
+- Stay out of the purple dragon's breath clouds. The dragon can knock the bot upward, so use
+  the water bucket to land or pillar down carefully.
+- Avoid fighting endermen on the island if possible.
+- Verify the win from the game: the dragon's death event or the "Free the End" advancement.
+
+
+======================================================================
+PART 4: WHAT TO SHOW ON GITHUB
+======================================================================
+- A milestone chart: improvement cycle on the x-axis, time to reach each milestone on the
+  y-axis, one line per seed.
+- Success rates per stage for honest full runs. Put scenario results in a separate section.
+- Clips or a timelapse of the portal casting and the dragon kill.
+- Credits: Mineflayer and its plugins, Voyager, Mindcraft, and other Minecraft agent projects.
+- Honest limits: what's scripted, what the AI decides, the difficulty, and the game version.

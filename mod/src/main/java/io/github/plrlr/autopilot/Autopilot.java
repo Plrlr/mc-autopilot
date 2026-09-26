@@ -127,7 +127,7 @@ public final class Autopilot {
 		backends.put("gemini", new Backends.Gemini(config.str("GEMINI_API_KEY"), config.str("GEMINI_MODEL"),
 				new RateLimiter("gemini", config.integer("GEMINI_MAX_RPM", 5), config.integer("GEMINI_MAX_TPM", 100000), config.integer("GEMINI_MAX_PER_DAY", 900), 0, usage)));
 		this.tactician = new Tactician(backends, config.str("TACTICIAN").toLowerCase());
-		this.strategist = new Strategist(cli, new RateLimiter("opus_strategist", 0, 0, 0, config.integer("OPUS_MAX_CALLS_PER_HOUR", 30), usage),
+		this.strategist = new Strategist(cli, new RateLimiter("opus_strategist", 0, 0, 0, config.integer("OPUS_MAX_CALLS_PER_HOUR", 10), usage),
 				config.bool("OPUS_STRATEGIST", true));
 	}
 
@@ -384,7 +384,9 @@ public final class Autopilot {
 		else if (consecutiveFails >= 3) {
 			consecutiveFails = 0;
 			requestPlan("failing", false);
-		} else if (tick - lastPlanTick > 20 * 300) requestPlan("periodic", false);
+		// Every 10 minutes at most: with the default cap of 10 Opus calls an hour, event calls
+		// (goal done, failing, death) need most of the budget.
+		} else if (tick - lastPlanTick > 20 * 600) requestPlan("periodic", false);
 	}
 
 	private void setGoal(Strategist.Plan p, String by) {

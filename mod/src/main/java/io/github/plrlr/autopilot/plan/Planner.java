@@ -315,7 +315,6 @@ public final class Planner {
 		List<Option> out = new ArrayList<>();
 		LocalPlayer pl = Mc.player();
 		int food = pl.getFoodData().getFoodLevel();
-		boolean hasFood = Mc.count(Items2::isAnyFood) > 0;
 		Perception.Seen hostile = seen.nearestHostile();
 		if (hostile != null && hostile.dist() < 10) {
 			// Creepers explode in melee range: back off instead of swinging at them.
@@ -324,10 +323,12 @@ public final class Planner {
 			// Skeletons outshoot a fleeing player; closing in fast is safer than running.
 			else out.add(new Option("attack", hostile.type(), hostile.type() + " is " + Math.round(hostile.dist()) + " blocks away"));
 		}
-		if (food <= 14 && hasFood) out.add(new Option("eat", null, "hunger " + food + "/20"));
-		// Health only regenerates with a nearly full hunger bar, so top it up after a fight.
-		else if (pl.getHealth() <= 14 && food < 20 && hasFood && seen.hostilesWithin(8) == 0)
-			out.add(new Option("eat", null, "heal up: health " + Math.round(pl.getHealth()) + "/20"));
+		if (wantsToEat()) {
+			// Health only regenerates with 18+ hunger, so hurt means eat a little earlier.
+			boolean hurt = pl.getHealth() < pl.getMaxHealth();
+			if (food <= 14 || seen.hostilesWithin(8) == 0)
+				out.add(new Option("eat", null, hurt && food > 14 ? "heal up: health " + Math.round(pl.getHealth()) + "/20, hunger " + food + "/20" : "hunger " + food + "/20"));
+		}
 		if (Mc.dimension().equals("overworld") && Mc.isNight()) {
 			boolean bed = Mc.count("bed") > 0 || memory.nearestStation("bed") != null;
 			// Sleeping skips the night and sets the respawn point: always worth it.
@@ -338,6 +339,20 @@ public final class Planner {
 		}
 		return out;
 	}
+
+	/**
+	 * Eat at hunger 14 or less, or 17 or less when hurt (regeneration needs 18+). Never at full
+	 * hunger: normal food can't be eaten then and the eat skill would just time out.
+	 */
+	public static boolean wantsToEat() {
+		LocalPlayer pl = Mc.player();
+		int food = pl.getFoodData().getFoodLevel();
+		if (food >= 20 || Mc.count(Items2::isAnyFood) == 0) return false;
+		return food <= 14 || (food <= 17 && pl.getHealth() < pl.getMaxHealth());
+	}
+
+	/** Cooked food to keep in stock (upkeep hunts and cooks toward it). */
+	public static final int FOOD_STOCK = 8;
 
 	/** Items dropped at the last death, while they still exist (they vanish after 5 minutes). */
 	private Option recoverStep() {
@@ -358,27 +373,28 @@ public final class Planner {
 		boolean usingStation = main != null && (main.skill().equals("craft") || main.skill().equals("smelt"));
 		if (!usingStation && Station.placedNear(Mc.player().blockPosition(), 6))
 			out.add(new Option("pickup", "stations", "take our crafting table and furnace along"));
-		// Raw meat counts toward the stock: it gets cooked once there's a furnace, so hunting
-		// more before then would only waste time.
+		// Keep 8+ cooked food. Raw meat counts toward the stock: it gets cooked in one furnace
+		// load once there are a few, so hunting more before then would only waste time.
 		int readyFood = Mc.count("food");
-		if (readyFood < 4) {
-			for (String raw : Items2.RAW_MEAT) {
-				if (Mc.count(raw) >= 2 && canSmeltNow()) {
-					out.add(new Option("smelt", "cooked_" + raw + ":" + Mc.count(raw), "cook the raw " + raw));
-					break;
-				}
-			}
-			for (String animal : ANIMALS.split(",")) {
-				Perception.Seen a = seen.nearest(animal);
-				if (readyFood + Mc.count("meat") >= 4) break;
-				if (a != null && a.dist() < 20) {
-					out.add(new Option("attack", animal, "food is low and a " + animal + " is close"));
-					break;
+		if (readyFood < FOOD_STOCK) {
+			int raw = Mc.count("meat");
+			String most = null;
+			for (String r : Items2.RAW_MEAT) if (Mc.count(r) > 0 && (most == null || Mc.count(r) > Mc.count(most))) most = r;
+			if (most != null && (raw >= 3 || readyFood < 2) && canSmeltNow())
+				out.add(new Option("smelt", "cooked_" + most + ":" + Mc.count(most), "cook the raw " + most + " in one load"));
+			// Batch the hunt: animals in view get taken while the stock is short (3-5 per trip).
+			if (readyFood + raw < FOOD_STOCK) {
+				for (String animal : ANIMALS.split(",")) {
+					Perception.Seen a = seen.nearest(animal);
+					if (a != null && a.dist() < 20) {
+						out.add(new Option("attack", animal, "food stock " + (readyFood + raw) + "/" + FOOD_STOCK + " and a " + animal + " is close"));
+						break;
+					}
 				}
 			}
 			// Getting hungry with nothing ready to eat: food comes first (cook, hunt or search).
 			int hunger = Mc.player().getFoodData().getFoodLevel();
-			if (hunger <= 12 && readyFood == 0) {
+			if (hunger <= 14 && readyFood == 0) {
 				Option f = goalStep(Goal.FOOD, seen, 0);
 				if (f != null) out.add(new Option(f.skill(), f.arg(), "hungry (" + hunger + "/20): " + f.why()));
 			}
@@ -425,7 +441,6 @@ public final class Planner {
 		if (Mc.count("shield") > 0 && !Items2.id(Mc.player().getOffhandItem()).equals("shield"))
 			out.add(new Option("equip", "shield", "hold the shield in the off hand"));
 		if (!seen.items.isEmpty()) out.add(new Option("pickup", null, seen.items.size() + " dropped items nearby"));
-		if (Mc.player().getFoodData().getFoodLevel() < 20 && Mc.count(Items2::isAnyFood) > 0) out.add(new Option("eat", null, "top up hunger"));
 		if (Mc.isNight() && Mc.dimension().equals("overworld")) {
 			if (Mc.count("bed") > 0 || memory.nearestStation("bed") != null) out.add(new Option("sleep", null, "skip the night"));
 			else out.add(new Option("shelter", null, "wait out the night safely"));
