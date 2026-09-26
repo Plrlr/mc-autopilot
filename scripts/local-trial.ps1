@@ -33,8 +33,8 @@ $commit = (git rev-parse --short HEAD).Trim()
 Write-Host "[local-trial] $name on $commit -> $out"
 
 $run = Join-Path $root "mod\build\run\clientGameTest"
-# Start like a cloud run: no progress or lessons from earlier local runs. Every test world is
-# named "New World", so progress-New_World.json would mark the last run's milestones as done.
+# Start like a cloud run: no progress or lessons from earlier local runs. Loom's
+# deleteGameTestRunDir already wipes the run folder; this only guards against a skipped wipe.
 foreach ($p in @("mc-autopilot\progress-*.json", "mc-autopilot\lessons.json")) {
 	Remove-Item -Force -ErrorAction SilentlyContinue (Join-Path $run $p)
 }

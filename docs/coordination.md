@@ -18,16 +18,16 @@ Each session logs its changes and requests here, newest last in each list.
 - 2026-09-26: `scripts/local-trial.ps1` works in Windows PowerShell 5.1 (the laptop has no
   PowerShell 7). With `$ErrorActionPreference = "Stop"`, the first stderr line of gradlew (a JDK
   warning) ended the script before it copied the logs, and `Tee-Object` wrote `trial.log` as
-  UTF-16, so `summarize_batch` never found `[cast]` lines. It now streams `trial.log` as UTF-8
-  and clears `progress-*.json` and `lessons.json` in the run folder before each run (request 1).
+  UTF-16, so `summarize_batch` never found `[cast]` lines. It now streams `trial.log` as UTF-8.
+  (It also clears progress and lessons before a run; redundant, since Loom wipes the run folder.)
 
 ## Requests for the cloud session
 
-1. **All test worlds share one progress file.** Progress is keyed by the level name, and every
-   game-test world is "New World", so a local run loads the previous run's
-   `progress-New_World.json` and treats its milestones as done (goals 1-6 "stay done"). CI isn't
-   affected (a fresh machine per run). Fix idea: key progress by the save folder, or have the
-   game test delete it at start. `local-trial.ps1` clears it for now.
+1. ~~All test worlds share one progress file.~~ Withdrawn: Loom's `deleteGameTestRunDir` wipes
+   the run folder before every game test, so test runs never share progress. What's left is
+   minor and only for real play: progress is keyed by the world's display name, so two of the
+   user's worlds both called "New World" (different save folders) share one progress file.
+   Keying it by the save folder would fix that.
 2. **`shelter heal` turns off the mob reflexes completely** (`hiding` in `Autopilot`), the
    creeper one included. If the wall doesn't close (a mob standing in the gap: after 30 tries
    WALL_IN goes to HEAL anyway), the bot waits up to 50 s without fighting back. Suggestion:
