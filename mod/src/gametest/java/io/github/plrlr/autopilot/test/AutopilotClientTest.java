@@ -36,6 +36,13 @@ public class AutopilotClientTest implements FabricClientGameTest {
 		int minutes = Integer.getInteger("autopilot.test.minutes", 5);
 		String scenario = System.getProperty("autopilot.test.scenario", "natural");
 		String brain = System.getProperty("autopilot.test.brain", "mock");
+		int tickRate = Integer.getInteger("autopilot.test.tickRate", 20);
+		// Small view and simulation distances: far fewer chunks to generate and tick, so the
+		// test world keeps up on a laptop (and a faster tick rate becomes possible).
+		ctx.runOnClient(mc -> {
+			mc.options.renderDistance().set(6);
+			mc.options.simulationDistance().set(5);
+		});
 		// Consistent test settings make a superflat world (no trees); we need a normal one.
 		try (TestSingleplayerContext sp = ctx.worldBuilder().setUseConsistentSettings(false).adjustSettings(s -> {
 			s.setGameMode(WorldCreationUiState.SelectedGameMode.SURVIVAL);
@@ -44,6 +51,8 @@ public class AutopilotClientTest implements FabricClientGameTest {
 		}).create()) {
 			ctx.waitTicks(100);
 			Goal goal = stage(sp, scenario);
+			// Test world only: run the game clock faster to see more play per real minute.
+			if (tickRate != 20) sp.getServer().runCommand("tick rate " + tickRate);
 			ctx.waitTicks(40);
 			ctx.runOnClient(mc -> {
 				Autopilot ap = AutopilotMod.instance();

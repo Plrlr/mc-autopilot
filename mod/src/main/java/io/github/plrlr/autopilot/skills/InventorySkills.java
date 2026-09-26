@@ -59,6 +59,9 @@ public final class InventorySkills {
 			Bari.stop();
 			if (pl.containerMenu != pl.inventoryMenu) pl.closeContainer();
 			Mc.holdItem(Items2.matcher(food));
+			// Right-click eats only if we're not pointing at a furnace, table or animal (that
+			// would open it or feed it instead). Looking straight up avoids them.
+			pl.setXRot(-90f);
 		}
 
 		@Override

@@ -68,7 +68,17 @@ public final class SmeltSkill extends Skill {
 		if (!loaded) {
 			// Leave a tick between loading and reading so the server's slot updates arrive.
 			if (ticks % 5 != 0) return;
-			int alreadyIn = menu.getSlot(AbstractFurnaceMenu.INGREDIENT_SLOT).getItem().getCount();
+			// Leftovers of a different item from an earlier smelt would be smelted instead of ours.
+			ItemStack inSlot = menu.getSlot(AbstractFurnaceMenu.INGREDIENT_SLOT).getItem();
+			if (!inSlot.isEmpty() && !input.test(inSlot)) {
+				Mc.click(menu, AbstractFurnaceMenu.INGREDIENT_SLOT, 0, ContainerInput.QUICK_MOVE);
+				return;
+			}
+			if (menu.getSlot(AbstractFurnaceMenu.RESULT_SLOT).hasItem()) {
+				Mc.click(menu, AbstractFurnaceMenu.RESULT_SLOT, 0, ContainerInput.QUICK_MOVE);
+				return;
+			}
+			int alreadyIn = inSlot.getCount();
 			if (alreadyIn < want && !moveInto(menu, input, AbstractFurnaceMenu.INGREDIENT_SLOT, want - alreadyIn)) {
 				fail("couldn't load the furnace");
 				return;

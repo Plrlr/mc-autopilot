@@ -206,7 +206,8 @@ public final class Planner {
 			// Mine a little extra: each trip costs time. Spare cobblestone also covers a
 			// night shelter and the blocks Baritone places when it bridges or pillars.
 			int extra = switch (item) {
-				case "log" -> 3;
+				// Wood runs out at awkward times (deep in a mine); one trip for plenty is faster.
+				case "log" -> Mc.count("log") < 8 ? 8 : 3;
 				case "stone" -> Mc.count("stone") < 24 ? 10 : 0;
 				case "coal" -> 4;
 				default -> 0;

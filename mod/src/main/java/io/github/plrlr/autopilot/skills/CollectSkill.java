@@ -62,8 +62,10 @@ public final class CollectSkill extends Skill {
 			lastCount = now;
 			lastProgressTick = ticks;
 		}
-		if (ticks - lastProgressTick > 20 * 150) {
-			fail("no progress for 150 s (got " + (now - before) + "/" + want + ")");
+		// Ores can take a while to find by branch mining; surface blocks shouldn't.
+		int patience = Bari.get().getMineProcess() != null && TechTree.MINE.get(item).mineY() != null ? 150 : 60;
+		if (ticks - lastProgressTick > 20 * patience) {
+			fail("no progress for " + patience + " s (got " + (now - before) + "/" + want + ")");
 			return;
 		}
 		if (ticks > 20 && !Bari.get().getMineProcess().isActive()) {

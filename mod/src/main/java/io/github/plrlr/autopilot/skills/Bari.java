@@ -29,6 +29,9 @@ public final class Bari {
 	public static void applyFairPlay() {
 		Settings s = BaritoneAPI.getSettings();
 		s.legitMine.value = true;
+		// Branch mining also notices ores touching the tunnel diagonally, like a player glancing
+		// at the corners: more iron per block dug, still only ores that are actually visible.
+		s.legitMineIncludeDiagonals.value = true;
 		s.allowOnlyExposedOres.value = false;
 		s.exploreForBlocks.value = false;
 		s.allowBreak.value = true;
