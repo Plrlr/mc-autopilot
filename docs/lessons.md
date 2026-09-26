@@ -36,14 +36,24 @@ workflow's unit-tests job compiles and tests in about a minute, the trial jobs t
   ocean's water used the whole raycast budget before a pool 6 blocks away was checked.
 - **Mobs you can see but can't reach** (across water, down a hole) cost 45 s timeouts in a loop
   until attack gave up after 8 s without getting closer.
+- **Portal casting works block by block** (batch 6: lava into the frame spot, water beside it,
+  the lava turned to obsidian). The water must be scooped from a spot whose line of sight
+  doesn't cross the spot that just became obsidian.
+- **WorldMemory's close scan reaches only 16 blocks.** Lava pools 20-50 blocks away were walked
+  past; a surface-only scan to 48 blocks (top block of each column, line of sight) finds them.
+- **Fight or flee needs one threshold.** Reflex fighting above 6 health and the planner fleeing
+  at 8 flipped every decision at 7-8 health and got the bot killed (batch 6). Mobs marked
+  unreachable still have to be fought when they're within 4 blocks.
 - **CI rendering:** Minecraft 26.3 finds no GLX visual under Xvfb even with Mesa; it runs on
   Vulkan through lavapipe (mesa-vulkan-drivers). A game that can't open a window hangs rather
   than exits, hence the workflow's watchdog.
 
 ## Open problems (next candidates)
 
-- Portal casting (cast scenario): wall, lava and water work; scooping the water back failed in
-  batch 4 (logging added). The staged pool wasn't noticed at the start (debug output added).
+- Portal casting (cast scenario): scoop line of sight fixed in batch 7; the full 10-block frame
+  and lighting are still untested. Lava bucket fills failed once in batch 5 (logging added).
+- Lava is rare on the surface: if the far scan isn't enough, look underground (caves near y -54).
 - Smelting 13 iron takes ~130 s of standing still; do nearby work while the furnace runs.
 - Night: runs so far end before the first night (~10.75 min); 30-minute runs will need it.
-- Deaths to zombies and skeletons while retreating (1-2 per batch).
+- Deaths: 7 in batch 6's four 15-minute runs (arrows, zombies, lava, fire), several while
+  retreating. Night starts at ~10.75 game minutes; a bed or underground work is still missing.
