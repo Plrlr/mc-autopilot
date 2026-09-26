@@ -24,7 +24,6 @@ public final class Progress {
 	private int deaths;
 	private boolean sawNight;
 	private int nightsSurvived;
-	private boolean sawDragon;
 	private boolean dragonKilled;
 
 	public Progress(Path dir) {
@@ -76,10 +75,7 @@ public final class Progress {
 		}
 		if (Mc.dimension().equals("the_end")) {
 			for (Entity e : Mc.mc().level.entitiesForRendering()) {
-				if (e instanceof EnderDragon d) {
-					sawDragon = true;
-					if (d.isDeadOrDying()) dragonKilled = true;
-				}
+				if (e instanceof EnderDragon d && d.isDeadOrDying()) dragonKilled = true;
 			}
 		}
 		int m = 0;
@@ -98,19 +94,17 @@ public final class Progress {
 		if (Mc.count("ender_eye") > 0) m = Math.max(m, 10);
 		if (memory.nearest("end_portal_frame") != null) m = Math.max(m, 11);
 		if (Mc.dimension().equals("the_end")) m = Math.max(m, 12);
-		if (dragonKilled || (sawDragon && Mc.dimension().equals("the_end") && noDragonLoaded())) m = Math.max(m, 13);
+		// The kill is proven by the game, not guessed from the dragon being out of view: we saw it
+		// die, or the exit portal on the island is lit (its end_portal blocks only appear once the
+		// dragon is dead).
+		if (Mc.dimension().equals("the_end") && memory.nearest("end_portal") != null) dragonKilled = true;
+		if (dragonKilled) m = Math.max(m, 13);
 		if (m > furthest) {
 			furthest = m;
 			save();
 			return m;
 		}
 		return 0;
-	}
-
-	private static boolean noDragonLoaded() {
-		for (Entity e : Mc.mc().level.entitiesForRendering()) if (e instanceof EnderDragon) return false;
-		// Only trust "no dragon" near the island center, where it would be loaded.
-		return Math.abs(Mc.player().getX()) < 120 && Math.abs(Mc.player().getZ()) < 120;
 	}
 
 	private Path file() {
