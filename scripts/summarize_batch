@@ -100,9 +100,10 @@ def read_run(path):
         busy = sum(run["time"].values())
         run["time"]["idle"] = max(0, run["length"] - busy)
     for f in glob.glob(os.path.join(path, "trial.log")):
-        cast = [l.split("[cast] ", 1)[1].strip() for l in open(f, errors="replace") if "[cast] " in l]
+        cast = [re.sub(r"^.*\[(cast|bucket)\] ", r"\1: ", l).strip() for l in open(f, errors="replace")
+                if "[cast] " in l or "[bucket] " in l]
         if cast:
-            run["cast"] = cast[-6:]
+            run["cast"] = cast[-8:]
     return run
 
 
