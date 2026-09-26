@@ -51,6 +51,8 @@ public final class Station {
 	private int airTicks;
 	private BlockPos placing;
 	private BlockPos lastPlaced;
+	/** Spots where a placing click didn't take; findSpot tries others. */
+	private final java.util.List<BlockPos> badSpots = new java.util.ArrayList<>();
 	String error;
 
 	Station(String group, Class<?> menuClass, WorldMemory memory) {
@@ -97,7 +99,7 @@ public final class Station {
 				// Still falling or climbing (common right after chopping a tree): placing from mid-air
 				// picks a new spot every tick and never lands a click.
 				if (!pl.onGround() && !pl.isInWater() && ++airTicks < 40) return;
-				BlockPos spot = findSpot(pl);
+				BlockPos spot = findSpot(pl, badSpots);
 				// A few clicks here didn't work: try again from open ground.
 				if (spot != null && placeTries >= 4 && relocations < 2) spot = null;
 				if (spot == null) {
@@ -129,7 +131,11 @@ public final class Station {
 					return;
 				}
 				placing = null;
-				Mc.placeAt(spot);
+				boolean accepted = Mc.placeAt(spot);
+				// Trial runs failed to place here often, for no reason the logs showed: record the details.
+				io.github.plrlr.autopilot.AutopilotMod.LOGGER.info("[station] place {} at {} from {} ground={} water={} hand={} accepted={} now={}",
+						group, spot.toShortString(), pl.blockPosition().toShortString(), pl.onGround(), pl.isInWater(),
+						Items2.id(pl.getMainHandItem()), accepted, Mc.id(Mc.state(spot).getBlock()));
 				pos = spot;
 				lastPlaced = spot;
 				wait = 0;
@@ -147,6 +153,10 @@ public final class Station {
 				if (wait++ < 4) return;
 				String there = Mc.id(Mc.state(pos).getBlock());
 				if (!there.equals(group)) {
+					if (pos.equals(lastPlaced)) {
+						badSpots.add(pos);
+						io.github.plrlr.autopilot.AutopilotMod.LOGGER.info("[station] {} not there after placing at {}: found {}", group, pos.toShortString(), there);
+					}
 					memory.forget(group, pos);
 					phase = Mc.count(group) > 0 ? Phase.PLACE : Phase.FIND;
 					if (phase == Phase.FIND) error = group + " disappeared";
@@ -203,6 +213,10 @@ public final class Station {
 	 * stands. Tries close spots first, at foot level, then one up and one down.
 	 */
 	static BlockPos findSpot(LocalPlayer pl) {
+		return findSpot(pl, java.util.List.of());
+	}
+
+	static BlockPos findSpot(LocalPlayer pl, java.util.List<BlockPos> exclude) {
 		BlockPos feet = pl.blockPosition();
 		for (int r = 1; r <= 3; r++) {
 			for (int dy : new int[]{0, -1, 1}) {
@@ -210,7 +224,7 @@ public final class Station {
 					for (int dz = -r; dz <= r; dz++) {
 						if (Math.max(Math.abs(dx), Math.abs(dz)) != r) continue;
 						BlockPos p = feet.offset(dx, dy, dz);
-						if (p.equals(feet) || p.equals(feet.above())) continue;
+						if (p.equals(feet) || p.equals(feet.above()) || exclude.contains(p)) continue;
 						if (!Mc.free(p) || !Mc.solid(p.below()) || !Mc.clearOfPlayer(p)) continue;
 						if (pl.getEyePosition().distanceTo(Vec3.atCenterOf(p)) > Mc.reach() - 0.3) continue;
 						if (Mc.canSee(p.below()) || Mc.canSee(p)) return p;

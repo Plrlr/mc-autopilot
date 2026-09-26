@@ -707,6 +707,8 @@ public final class Autopilot {
 
 	/** Force a goal from chat (!goal name). */
 	public void forceGoal(Goal g) {
+		// Drop a goal decision still on its way; it would overwrite this one a tick later.
+		pendingPlan = null;
 		setGoal(new Strategist.Plan(g, "set by you", List.of(), "user", true, 0, 0, 0, null), "user");
 		lastPlanTick = tick;
 	}
