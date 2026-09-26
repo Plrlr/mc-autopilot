@@ -11,8 +11,9 @@ This will be a public GitHub project. The demo is a timelapse plus a comparison 
 Background facts, limits, and sources are in docs/research-notes.md. Read it before Phase 3.
 
 ## Hard constraints
-- The user's Windows laptop is weak (it barely runs Roblox on low graphics). Keep everything light:
-  no Minecraft client needed, one server plus 1-3 headless bots, flat world, short view distance.
+- The user's Windows laptop runs Minecraft Java at about 60 fps, so they can join the local server
+  in the real game to watch. Still keep things light (one server plus 1-3 headless bots, flat
+  world) and never require the Minecraft client: bots and tests must work without it.
 - Everything must work for $0. The mock brain must always work. Free API limits are tight, so
   respect them with a client-side rate limiter and fall back to mock when a limit is near.
 - The Opus foreman runs through `claude -p` on the user's Claude plan. Call it rarely (see Foreman).
