@@ -45,7 +45,7 @@ if [ -z "$RUN" ]; then
 	STARTED=$(date -u +%Y-%m-%dT%H:%M:%SZ)
 	BODY=$(python3 -c 'import json,sys; print(json.dumps({"ref": sys.argv[1], "inputs": {"seeds": sys.argv[2], "minutes": sys.argv[3], "scenario": sys.argv[4], "extra": sys.argv[5]}}))' \
 		"$BRANCH" "$SEEDS" "$MINUTES" "$SCENARIO" "$EXTRA")
-	code=$(api -o /dev/stderr -w "%{http_code}" -X POST "$API/actions/workflows/trials.yml/dispatches" -d "$BODY" 2>/dev/null || true)
+	code=$(api -o /dev/stderr -w "%{http_code}" -X POST -H "Content-Type: application/json" "$API/actions/workflows/trials.yml/dispatches" -d "$BODY" 2>/dev/null || true)
 	if [ "$code" != "204" ]; then
 		if command -v gh >/dev/null; then
 			gh workflow run trials.yml -R "$REPO" --ref "$BRANCH" -f seeds="$SEEDS" -f minutes="$MINUTES" -f scenario="$SCENARIO" -f extra="$EXTRA"
