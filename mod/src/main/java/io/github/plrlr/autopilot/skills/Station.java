@@ -34,7 +34,8 @@ public final class Station {
 		java.util.List<BlockPos> out = new java.util.ArrayList<>();
 		PLACED.entrySet().removeIf(e -> Mc.player() != null && !Mc.id(Mc.state(e.getKey()).getBlock()).equals(e.getValue())
 				&& e.getKey().distSqr(at) < 16 * 16);
-		for (BlockPos p : PLACED.keySet()) if (p.distSqr(at) <= (double) r * r) out.add(p);
+		// A furnace with our load still cooking stays put.
+		for (BlockPos p : PLACED.keySet()) if (p.distSqr(at) <= (double) r * r && !SmeltSkill.jobAt(p)) out.add(p);
 		return out;
 	}
 
@@ -62,9 +63,22 @@ public final class Station {
 	}
 
 	Station(String group, Class<?> menuClass, WorldMemory memory) {
+		this(group, menuClass, memory, null);
+	}
+
+	/** prefer: use that station (a furnace with our load in it), not just the nearest one. */
+	Station(String group, Class<?> menuClass, WorldMemory memory, BlockPos prefer) {
 		this.group = group;
 		this.menuClass = menuClass;
 		this.memory = memory;
+		this.prefer = prefer;
+	}
+
+	private final BlockPos prefer;
+
+	/** The station's position once found or placed (null before). */
+	BlockPos pos() {
+		return pos;
 	}
 
 	boolean ready() {
@@ -76,7 +90,7 @@ public final class Station {
 		LocalPlayer pl = Mc.player();
 		switch (phase) {
 			case FIND -> {
-				WorldMemory.Seen s = memory.nearestStation(group);
+				WorldMemory.Seen s = prefer != null ? new WorldMemory.Seen(prefer, group, Mc.dimension(), 0) : memory.nearestStation(group);
 				if (s != null) {
 					pos = s.pos();
 					if (inReach(pos)) phase = Phase.OPEN;

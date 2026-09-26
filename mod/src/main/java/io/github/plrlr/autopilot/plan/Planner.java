@@ -3,6 +3,7 @@ package io.github.plrlr.autopilot.plan;
 import io.github.plrlr.autopilot.Items2;
 import io.github.plrlr.autopilot.Mc;
 import io.github.plrlr.autopilot.skills.CastPortal;
+import io.github.plrlr.autopilot.skills.SmeltSkill;
 import io.github.plrlr.autopilot.skills.Station;
 import io.github.plrlr.autopilot.state.Perception;
 import io.github.plrlr.autopilot.state.WorldMemory;
@@ -263,6 +264,15 @@ public final class Planner {
 	private Option smeltStep(String item, int missing, int depth) {
 		String input = TechTree.SMELT.get(item);
 		if (input == null) return null;
+		// A load of ours is cooking: do useful work nearby until it's done, then collect it.
+		SmeltSkill.Job job = SmeltSkill.job(item);
+		if (job != null && Mc.count(input) == 0) {
+			if (!job.ready()) {
+				Option side = sideWork();
+				if (side != null) return new Option(side.skill(), side.arg(), side.why() + " while the furnace works");
+			}
+			return new Option("smelt", item + ":" + job.count(), "collect the " + item + " from the furnace");
+		}
 		// Smelt every raw iron we carry at once: one furnace load instead of several.
 		if (input.equals("raw_iron")) missing = Math.max(missing, Mc.count("raw_iron"));
 		if (Mc.count(input) < missing) {
@@ -286,6 +296,22 @@ public final class Planner {
 	}
 
 	/**
+	 * Work worth doing near the mine while a furnace load cooks, all needed later on the route:
+	 * coal for fuel and torches, blocks for the portal-casting wall, gravel for flint.
+	 */
+	private Option sideWork() {
+		if (Items2.bestTier("pickaxe") < 0) return null;
+		// Only coal already in view: branch-mining for it would climb toward y 45, away from the furnace.
+		WorldMemory.Seen coal = memory.nearest("coal_ore");
+		if (Mc.count("coal") < 8 && coal != null && coal.pos().distSqr(Mc.player().blockPosition()) < 16 * 16)
+			return new Option("collect", "coal:" + (8 - Mc.count("coal")), "coal for fuel");
+		if (Mc.count("throwaway") < CastPortal.BLOCKS_NEEDED)
+			return new Option("collect", "stone:" + (Mc.count("stone") + CastPortal.BLOCKS_NEEDED - Mc.count("throwaway")), "blocks for the portal wall");
+		if (Mc.count("flint_and_steel") == 0 && Mc.count("flint") == 0) return new Option("collect", "flint:1", "flint for flint and steel");
+		return null;
+	}
+
+	/**
 	 * Iron ingots the fast route still needs: iron pickaxe 3, iron sword 2, shield 1, two
 	 * buckets 3 each (water, and lava to cast the portal), flint and steel 1.
 	 */
@@ -296,7 +322,8 @@ public final class Planner {
 		if (Mc.count("shield") == 0) n += 1;
 		n += 3 * Math.max(0, 2 - Goal.have("bucket"));
 		if (Mc.count("flint_and_steel") == 0) n += 1;
-		return n;
+		// Iron already in a furnace we left cooking is on its way.
+		return Math.max(0, n - SmeltSkill.pending("iron_ingot"));
 	}
 
 	private boolean tableAvailable() {

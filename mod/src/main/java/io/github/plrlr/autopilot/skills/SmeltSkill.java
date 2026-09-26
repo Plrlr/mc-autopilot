@@ -4,17 +4,56 @@ import io.github.plrlr.autopilot.Items2;
 import io.github.plrlr.autopilot.Mc;
 import io.github.plrlr.autopilot.plan.TechTree;
 import net.minecraft.client.player.LocalPlayer;
+import net.minecraft.core.BlockPos;
 import net.minecraft.world.inventory.AbstractFurnaceMenu;
 import net.minecraft.world.inventory.ContainerInput;
 import net.minecraft.world.item.ItemStack;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.function.Predicate;
 
 /**
  * smelt output:n. Opens a furnace (known, or placed from the inventory), loads the input and
- * enough fuel with normal slot clicks, waits, and takes the output.
+ * enough fuel with normal slot clicks, and takes the output. A load of 4 or more is left cooking
+ * (a job): the skill ends right after loading so the bot can work nearby, and a later smelt of
+ * the same output, with none of the input left in the bag, walks back and collects it. Standing
+ * at the furnace for 13 iron took ~130 s per run in the trials.
  */
 public final class SmeltSkill extends Skill {
+	/** A furnace load left cooking: where, what, how many, and when it'll be done (player ticks). */
+	public record Job(BlockPos pos, String output, int count, int readyAt, String dim) {
+		public boolean ready() {
+			return Mc.player() != null && Mc.player().tickCount >= readyAt;
+		}
+	}
+
+	private static final Map<String, Job> JOBS = new HashMap<>();
+	/** Loads this big are left to cook while we work (10 s per item). */
+	private static final int LEAVE_AT = 4;
+
+	/** The job cooking this output in this dimension, or null. */
+	public static Job job(String output) {
+		Job j = JOBS.get(output);
+		return j == null || Mc.player() == null || !j.dim().equals(Mc.dimension()) ? null : j;
+	}
+
+	/** Items of this output still in a furnace we left cooking. */
+	public static int pending(String output) {
+		Job j = job(output);
+		return j == null ? 0 : j.count();
+	}
+
+	static boolean jobAt(BlockPos p) {
+		for (Job j : JOBS.values()) if (j.pos().equals(p)) return true;
+		return false;
+	}
+
+	public static void forgetJobs() {
+		JOBS.clear();
+	}
+
+	private boolean collecting;
 	private String output;
 	private int want;
 	private int before;
@@ -46,6 +85,17 @@ public final class SmeltSkill extends Skill {
 		}
 		input = Items2.matcher(in);
 		int have = Mc.count(input);
+		Job j = job(output);
+		if (have == 0 && j != null) {
+			// Back for a load we left cooking: go to that furnace, wait for the rest, take it all.
+			collecting = true;
+			loaded = true;
+			want = j.count();
+			before = Mc.count(output);
+			timeoutTicks = 20 * (90 + want * 11);
+			station = new Station("furnace", AbstractFurnaceMenu.class, memory, j.pos());
+			return;
+		}
 		if (have == 0) {
 			fail(Fail.NEED_ITEM, "no " + in + " to smelt");
 			return;
@@ -88,6 +138,11 @@ public final class SmeltSkill extends Skill {
 				return;
 			}
 			loaded = true;
+			int inFurnace = menu.getSlot(AbstractFurnaceMenu.INGREDIENT_SLOT).getItem().getCount();
+			if (inFurnace >= LEAVE_AT && station.pos() != null) {
+				JOBS.put(output, new Job(station.pos().immutable(), output, inFurnace, pl.tickCount + inFurnace * 200 + 20, Mc.dimension()));
+				done("loaded " + inFurnace + " to smelt into " + output + "; working nearby meanwhile");
+			}
 			return;
 		}
 		if (ticks % 20 != 0) return;
@@ -171,6 +226,8 @@ public final class SmeltSkill extends Skill {
 
 	@Override
 	protected void cleanup() {
+		// A collect trip ends the job either way: done, or the furnace is gone or out of reach.
+		if (collecting) JOBS.remove(output);
 		LocalPlayer pl = Mc.player();
 		if (pl != null && pl.containerMenu != pl.inventoryMenu) pl.closeContainer();
 		super.cleanup();

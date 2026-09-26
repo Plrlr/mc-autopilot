@@ -260,6 +260,7 @@ public final class Autopilot {
 			memory.clear();
 			PortalSkills.resetThrows();
 			io.github.plrlr.autopilot.skills.Station.forgetPlaced();
+			io.github.plrlr.autopilot.skills.SmeltSkill.forgetJobs();
 			progress.load(name);
 			goal = null;
 		}
