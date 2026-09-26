@@ -3,7 +3,6 @@ package io.github.plrlr.autopilot.skills;
 import baritone.api.pathing.goals.GoalBlock;
 import baritone.api.pathing.goals.GoalGetToBlock;
 import baritone.api.pathing.goals.GoalXZ;
-import baritone.api.schematic.ISchematic;
 import io.github.plrlr.autopilot.Items2;
 import io.github.plrlr.autopilot.Mc;
 import io.github.plrlr.autopilot.state.WorldMemory;
@@ -12,7 +11,6 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.projectile.EyeOfEnder;
-import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.EndPortalFrameBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
@@ -24,40 +22,47 @@ import java.util.List;
 public final class PortalSkills {
 	private PortalSkills() {}
 
-	/** A 4x5 obsidian frame (corners optional) with an empty inside, for Baritone's builder. */
-	static final class PortalFrame implements ISchematic {
-		@Override
-		public boolean inSchematic(int x, int y, int z, BlockState current) {
-			boolean corner = (x == 0 || x == 3) && (y == 0 || y == 4);
-			return !corner;
-		}
+	/**
+	 * The frame we're building, kept across runs of the skill so a retry finishes it instead of
+	 * starting over (or mining it back up for its obsidian).
+	 */
+	private static BlockPos frameOrigin;
+	private static Direction frameAlong;
 
-		@Override
-		public BlockState desiredState(int x, int y, int z, BlockState current, List<BlockState> approxPlaceable) {
-			boolean frame = x == 0 || x == 3 || y == 0 || y == 4;
-			return frame ? Blocks.OBSIDIAN.defaultBlockState() : Blocks.AIR.defaultBlockState();
+	/** Obsidian already placed in our unfinished frame; counts toward the 10 we need. */
+	public static int placedFrameObsidian() {
+		if (frameOrigin == null || Mc.player() == null || !Mc.dimension().equals("overworld")) return 0;
+		int n = 0;
+		for (int[] c : FRAME) {
+			if (!corner(c) && Mc.id(Mc.state(at(frameOrigin, frameAlong, c)).getBlock()).equals("obsidian")) n++;
 		}
-
-		@Override
-		public int widthX() {
-			return 4;
-		}
-
-		@Override
-		public int heightY() {
-			return 5;
-		}
-
-		@Override
-		public int lengthZ() {
-			return 1;
-		}
+		return n;
 	}
 
-	/** build_portal: build the frame with Baritone's builder, then light it with flint and steel. */
+	/** Frame cells {x, y} in build order: bottom row, both sides bottom-up, then the top. */
+	private static final int[][] FRAME = {
+			{0, 0}, {1, 0}, {2, 0}, {3, 0},
+			{0, 1}, {0, 2}, {0, 3}, {3, 1}, {3, 2}, {3, 3},
+			{0, 4}, {1, 4}, {2, 4}, {3, 4}};
+
+	private static boolean corner(int[] c) {
+		return (c[0] == 0 || c[0] == 3) && (c[1] == 0 || c[1] == 4);
+	}
+
+	private static BlockPos at(BlockPos origin, Direction along, int[] c) {
+		return origin.relative(along, c[0]).above(c[1]);
+	}
+
+	/**
+	 * build_portal: place a 4x5 frame block by block like a player (obsidian sides, any block
+	 * for the corners so 10 obsidian is enough), then light it with flint and steel.
+	 */
 	public static final class BuildPortal extends Skill {
-		private BlockPos origin;
-		private int lightTries;
+		private enum Phase {SITE, WALK, PLACE, LIGHT, WAIT}
+
+		private Phase phase = Phase.SITE;
+		private BlockPos stand;
+		private int cell, tries, wait;
 
 		@Override
 		public String name() {
@@ -71,57 +76,157 @@ public final class PortalSkills {
 
 		@Override
 		protected void start() {
-			timeoutTicks = 20 * 240;
+			timeoutTicks = 20 * 150;
 			if (!Mc.dimension().equals("overworld")) {
 				fail("build the portal in the overworld");
 				return;
 			}
-			if (Mc.count("obsidian") < 10 || Mc.count("flint_and_steel") == 0) {
+			if (Mc.count("obsidian") + placedFrameObsidian() < 10 || Mc.count("flint_and_steel") == 0) {
 				fail("need 10 obsidian and flint and steel");
 				return;
 			}
-			LocalPlayer pl = Mc.player();
-			BlockPos feet = pl.blockPosition();
-			// Build a few blocks away along X so the player isn't standing inside the frame.
-			origin = feet.offset(-1, 0, 3);
-			Bari.get().getBuilderProcess().build("autopilot_portal", new PortalFrame(), origin);
+			if (Mc.count("throwaway") + Mc.count("planks") < 4 - placedCorners()) {
+				fail("need 4 cobblestone or dirt for the frame corners");
+				return;
+			}
+			Bari.stop();
+		}
+
+		private int placedCorners() {
+			if (frameOrigin == null) return 0;
+			int n = 0;
+			for (int[] c : FRAME) if (corner(c) && Mc.solid(at(frameOrigin, frameAlong, c))) n++;
+			return n;
 		}
 
 		@Override
 		protected void tick() {
-			if (Bari.get().getBuilderProcess().isActive()) return;
-			if (ticks < 20) return;
-			BlockPos insideBottom = origin.offset(1, 1, 0);
-			if (Mc.id(Mc.state(insideBottom).getBlock()).equals("nether_portal")) {
-				memory.remember("nether_portal", insideBottom, "nether_portal");
-				done("nether portal lit");
-				return;
+			LocalPlayer pl = Mc.player();
+			switch (phase) {
+				case SITE -> {
+					if (frameOrigin == null || frameOrigin.distSqr(pl.blockPosition()) > 48 * 48 || !siteStillUsable()) {
+						if (!findSite(pl.blockPosition())) {
+							fail("no flat open ground for a portal here");
+							return;
+						}
+					}
+					stand = frameOrigin.relative(frameAlong, 1).relative(frameAlong.getClockWise(), 2);
+					if (!Mc.free(stand) || !Mc.free(stand.above()) || !Mc.solid(stand.below())) {
+						stand = frameOrigin.relative(frameAlong, 2).relative(frameAlong.getClockWise(), 2);
+					}
+					Bari.path(new GoalBlock(stand));
+					phase = Phase.WALK;
+					wait = 0;
+				}
+				case WALK -> {
+					if (++wait > 20 * 40) {
+						fail("couldn't reach the portal site");
+						return;
+					}
+					if (wait > 10 && !Bari.pathing()) {
+						phase = Phase.PLACE;
+						cell = 0;
+					}
+				}
+				case PLACE -> {
+					if (ticks % 4 != 0) return;
+					while (cell < FRAME.length && Mc.solid(at(frameOrigin, frameAlong, FRAME[cell]))) {
+						cell++;
+						tries = 0;
+					}
+					if (cell >= FRAME.length) {
+						phase = Phase.LIGHT;
+						tries = 0;
+						return;
+					}
+					int[] c = FRAME[cell];
+					BlockPos target = at(frameOrigin, frameAlong, c);
+					if (!Mc.free(target)) {
+						fail("something is in the way of the frame");
+						return;
+					}
+					if (++tries > 8) {
+						// Out of reach: step back to where we can reach, then try again.
+						if (tries > 30) {
+							fail("couldn't place part of the frame");
+							return;
+						}
+						if (!Bari.pathing()) Bari.path(new GoalBlock(stand));
+						return;
+					}
+					boolean held = corner(c)
+							? Mc.holdItem(Items2.matcher("throwaway")) || Mc.holdItem(Items2.matcher("planks"))
+							: Mc.holdItem(st -> Items2.id(st).equals("obsidian"));
+					if (!held) {
+						fail(corner(c) ? "out of blocks for the corners" : "out of obsidian");
+						return;
+					}
+					Mc.placeAt(target);
+				}
+				case LIGHT -> {
+					BlockPos inside = at(frameOrigin, frameAlong, new int[]{1, 1});
+					if (Mc.id(Mc.state(inside).getBlock()).equals("nether_portal")) {
+						memory.remember("nether_portal", inside, "nether_portal");
+						frameOrigin = null;
+						done("nether portal lit");
+						return;
+					}
+					if (ticks % 10 != 0) return;
+					if (++tries > 6) {
+						fail("couldn't light the portal");
+						return;
+					}
+					BlockPos base = at(frameOrigin, frameAlong, new int[]{1, 0});
+					Mc.holdItem(st -> Items2.id(st).equals("flint_and_steel"));
+					Mc.useOn(base, Direction.UP);
+				}
+				case WAIT -> {
+				}
 			}
-			if (!frameComplete()) {
-				fail("the frame isn't complete (builder stopped)");
-				return;
-			}
-			if (ticks % 10 != 0) return;
-			if (lightTries++ > 4) {
-				fail("couldn't light the portal");
-				return;
-			}
-			BlockPos base = origin.offset(1, 0, 0);
-			if (Mc.player().getEyePosition().distanceTo(Vec3.atCenterOf(base)) > 4) {
-				Bari.path(new GoalGetToBlock(base));
-				return;
-			}
-			Mc.holdItem(s -> Items2.id(s).equals("flint_and_steel"));
-			Mc.useOn(base, Direction.UP);
 		}
 
-		private boolean frameComplete() {
-			PortalFrame f = new PortalFrame();
+		/** The remembered frame spot is still ours: every cell is either free or already built. */
+		private boolean siteStillUsable() {
+			for (int[] c : FRAME) {
+				BlockPos p = at(frameOrigin, frameAlong, c);
+				String id = Mc.id(Mc.state(p).getBlock());
+				if (!Mc.free(p) && !id.equals("obsidian") && !(corner(c) && Mc.solid(p))) return false;
+			}
+			return true;
+		}
+
+		/** A flat, open 4-wide strip on solid ground near us, with room in front to stand. */
+		private static boolean findSite(BlockPos feet) {
+			for (int r = 2; r <= 12; r++) {
+				for (int dx = -r; dx <= r; dx++) {
+					for (int dz = -r; dz <= r; dz++) {
+						if (Math.max(Math.abs(dx), Math.abs(dz)) != r) continue;
+						for (int dy = -3; dy <= 3; dy++) {
+							BlockPos o = feet.offset(dx, dy, dz);
+							for (Direction along : new Direction[]{Direction.EAST, Direction.SOUTH}) {
+								if (fits(o, along)) {
+									frameOrigin = o;
+									frameAlong = along;
+									return true;
+								}
+							}
+						}
+					}
+				}
+			}
+			return false;
+		}
+
+		private static boolean fits(BlockPos o, Direction along) {
+			Direction front = along.getClockWise();
 			for (int x = 0; x < 4; x++) {
-				for (int y = 0; y < 5; y++) {
-					if (!f.inSchematic(x, y, 0, null)) continue;
-					boolean frame = x == 0 || x == 3 || y == 0 || y == 4;
-					if (frame && !Mc.id(Mc.state(origin.offset(x, y, 0)).getBlock()).equals("obsidian")) return false;
+				BlockPos col = o.relative(along, x);
+				if (!Mc.solid(col.below()) || Mc.state(col.below()).liquid()) return false;
+				for (int y = 0; y < 5; y++) if (!Mc.free(col.above(y))) return false;
+				// Room in front (where we stand) and flat ground there.
+				for (int f = 1; f <= 2; f++) {
+					BlockPos p = col.relative(front, f);
+					if (!Mc.free(p) || !Mc.free(p.above()) || !Mc.solid(p.below())) return false;
 				}
 			}
 			return true;
@@ -181,6 +286,7 @@ public final class PortalSkills {
 
 	public static void resetThrows() {
 		THROWS.clear();
+		frameOrigin = null;
 	}
 
 	/** locate_stronghold: throw an eye of ender, watch where it flies, walk that way. */

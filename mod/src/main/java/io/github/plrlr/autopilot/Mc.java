@@ -178,6 +178,11 @@ public final class Mc {
 		return s.isSolid() && !s.liquid();
 	}
 
+	/** A block can't be placed where the player's own body is (the hitbox is wider than one block's center). */
+	public static boolean clearOfPlayer(BlockPos pos) {
+		return !player().getBoundingBox().intersects(new net.minecraft.world.phys.AABB(pos));
+	}
+
 	public static boolean free(BlockPos pos) {
 		BlockState s = state(pos);
 		return (s.isAir() || s.canBeReplaced()) && s.getFluidState().isEmpty();

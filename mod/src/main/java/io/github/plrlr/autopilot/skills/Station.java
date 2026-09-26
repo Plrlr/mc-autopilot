@@ -14,7 +14,7 @@ import net.minecraft.world.phys.Vec3;
  * then right-click it. Used by craft and smelt.
  */
 final class Station {
-	private enum Phase {FIND, WALK, PLACE, OPEN, WAIT_OPEN}
+	private enum Phase {FIND, WALK, PLACE, RELOCATE, OPEN, WAIT_OPEN}
 
 	private final String group;
 	private final Class<?> menuClass;
@@ -23,6 +23,8 @@ final class Station {
 	private BlockPos pos;
 	private int wait;
 	private int placeTries;
+	private int relocations;
+	private BlockPos placing;
 	String error;
 
 	Station(String group, Class<?> menuClass, WorldMemory memory) {
@@ -67,18 +69,44 @@ final class Station {
 			case PLACE -> {
 				Bari.stop();
 				BlockPos spot = findSpot(pl);
-				if (spot == null || placeTries++ > 3) {
-					error = "no room to place a " + group;
+				if (spot == null) {
+					// Usually we're up a tree or in leaves after chopping: walk to open ground first.
+					BlockPos open = openGround(pl);
+					if (open == null || relocations++ >= 2) {
+						error = "no room to place a " + group;
+						return;
+					}
+					Bari.path(new baritone.api.pathing.goals.GoalBlock(open));
+					phase = Phase.RELOCATE;
+					wait = 0;
 					return;
 				}
-				if (!Mc.holdItem(Items2.matcher(group))) {
-					error = "no " + group + " to place";
+				if (placeTries++ > 5) {
+					error = "couldn't place the " + group;
 					return;
 				}
+				// Select the item this tick and place on the next, so the server has the right
+				// item in hand when the click arrives.
+				if (placing == null || !placing.equals(spot)) {
+					if (!Mc.holdItem(Items2.matcher(group))) {
+						error = "no " + group + " to place";
+						return;
+					}
+					placing = spot;
+					return;
+				}
+				placing = null;
 				Mc.placeAt(spot);
 				pos = spot;
 				wait = 0;
 				phase = Phase.OPEN;
+			}
+			case RELOCATE -> {
+				if (++wait > 20 * 30) {
+					error = "couldn't reach open ground to place a " + group;
+					return;
+				}
+				if (wait > 10 && !Bari.pathing()) phase = Phase.PLACE;
 			}
 			case OPEN -> {
 				// Give the server a few ticks to confirm a fresh placement before clicking it.
@@ -111,6 +139,30 @@ final class Station {
 		return Direction.getApproximateNearest(d.x, d.y, d.z);
 	}
 
+	/** A nearby spot on real ground (not leaves) with room around it, to stand on while placing. */
+	static BlockPos openGround(LocalPlayer pl) {
+		BlockPos feet = pl.blockPosition();
+		for (int r = 2; r <= 10; r++) {
+			for (int dx = -r; dx <= r; dx++) {
+				for (int dz = -r; dz <= r; dz++) {
+					if (Math.max(Math.abs(dx), Math.abs(dz)) != r) continue;
+					for (int dy = -6; dy <= 2; dy++) {
+						BlockPos p = feet.offset(dx, dy, dz);
+						if (!Mc.free(p) || !Mc.free(p.above()) || !Mc.solid(p.below())) continue;
+						if (Mc.id(Mc.state(p.below()).getBlock()).endsWith("_leaves")) continue;
+						int room = 0;
+						for (Direction d : Direction.Plane.HORIZONTAL) {
+							BlockPos n = p.relative(d);
+							if (Mc.free(n) && Mc.solid(n.below())) room++;
+						}
+						if (room >= 2) return p;
+					}
+				}
+			}
+		}
+		return null;
+	}
+
 	/**
 	 * An empty spot within reach, on something solid to click against, not where the player
 	 * stands. Tries close spots first, at foot level, then one up and one down.
@@ -124,7 +176,7 @@ final class Station {
 						if (Math.max(Math.abs(dx), Math.abs(dz)) != r) continue;
 						BlockPos p = feet.offset(dx, dy, dz);
 						if (p.equals(feet) || p.equals(feet.above())) continue;
-						if (!Mc.free(p) || !Mc.solid(p.below())) continue;
+						if (!Mc.free(p) || !Mc.solid(p.below()) || !Mc.clearOfPlayer(p)) continue;
 						if (pl.getEyePosition().distanceTo(Vec3.atCenterOf(p)) > Mc.reach() - 0.3) continue;
 						if (Mc.canSee(p.below()) || Mc.canSee(p)) return p;
 					}

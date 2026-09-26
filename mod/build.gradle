@@ -67,7 +67,7 @@ jar {
 	}
 }
 
-// Settings for the in-game test run: gradlew runClientGameTest -PtestMinutes=5 -PtestOpus=true
+// Settings for the in-game test run: gradlew runClientGameTest -PtestMinutes=5 -PtestScenario=portal -PtestOpus=true
 loom {
 	runs {
 		configureEach {
@@ -75,6 +75,8 @@ loom {
 				vmArg "-Dautopilot.test.minutes=${findProperty('testMinutes') ?: '5'}"
 				vmArg "-Dautopilot.test.opus=${findProperty('testOpus') ?: 'false'}"
 				vmArg "-Dautopilot.test.seed=${findProperty('testSeed') ?: 'autopilot'}"
+				vmArg "-Dautopilot.test.scenario=${findProperty('testScenario') ?: 'natural'}"
+				vmArg "-Dautopilot.test.brain=${findProperty('testBrain') ?: 'mock'}"
 			}
 		}
 	}

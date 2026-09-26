@@ -110,8 +110,11 @@ skill results, deaths and milestones. `progress-<world>.json` keeps the furthest
   way to the next one instead of starting the ladder over.
 - Early game (wood → stone → iron → armor) is where it's reliable. Diamonds take a long time
   with fair (non-x-ray) branch mining.
-- Obsidian: the AI only mines obsidian it has seen (lava pools with water, ruined portals). It
-  doesn't do bucket-casting yet.
+- Obsidian: it fills a bucket with water and pours it beside a lava pool to harden the lava,
+  then mines it with a diamond pickaxe and builds the portal block by block (corners from
+  cobblestone). Tested on a staged lava pool; real pools with odd shapes may still defeat it.
+- The dragon fight needs a bow and arrows to destroy the healing crystals, and the planner
+  doesn't go out of its way to get them. Without a bow it only hits the dragon when it perches.
 - Nether fortress search, stronghold triangulation and the dragon fight are implemented but
   simple. Expect deaths. Reaching the dragon on its own is a long shot for any AI today.
 - Single-player only on purpose; Baritone on servers can break rules.
@@ -125,6 +128,8 @@ skill results, deaths and milestones. `progress-<world>.json` keeps the furthest
 `cd mod`, then:
 - `.\gradlew.bat test`: unit tests.
 - `.\gradlew.bat runClientGameTest`: starts the game, makes a fresh survival world, and lets the rules brain play for 5 minutes (`-PtestMinutes=10`).
+  `-PtestScenario=portal|stronghold|end` stages one late-game step instead (gear and, for
+  `portal`, a lava pool), using commands in the throwaway test world only.
   Add `-PtestOpus=true` to also run Opus for 2 minutes. Screenshots and logs end up in `mod/build/run/clientGameTest`.
 
 ## Credits

@@ -88,6 +88,11 @@ public final class Planner {
 				if (memory.nearest("nether_portal") != null) return new Option("enter_portal", "nether", "walk into the nether portal");
 				Option o = itemsStep(goal);
 				if (o != null) return o;
+				// The frame corners can be any block; 10 obsidian covers the rest.
+				if (Mc.count("throwaway") + Mc.count("planks") < 4) {
+					Option c = itemStep("stone", Mc.count("stone") + 4, depth + 1);
+					if (c != null) return c;
+				}
 				return new Option("build_portal", null, "build and light the nether portal");
 			}
 			case BLAZE_RODS -> {
@@ -158,6 +163,11 @@ public final class Planner {
 		int missing = count - have;
 
 		if (item.equals("food")) return goalStep(Goal.FOOD, Perception.look(32), 0);
+		if (item.equals("water_bucket")) {
+			if (Goal.have("bucket") == 0) return itemStep("bucket", 1, depth + 1);
+			if (memory.nearest("water") != null) return new Option("fill_bucket", "water", "fill the bucket with water");
+			return new Option("explore", "water", "find water to fill the bucket");
+		}
 
 		TechTree.Recipe r = TechTree.CRAFT.get(item);
 		if (r != null) {
@@ -185,7 +195,13 @@ public final class Planner {
 				return itemStep(TechTree.pickaxeForTier(src.tier()), 1, depth + 1);
 			}
 			if (item.equals("obsidian") && memory.nearest("obsidian") == null) {
-				return new Option("explore", "obsidian", "find obsidian (lava pools touched by water, ruined portals)");
+				// Make it like a player: water bucket poured beside a lava pool hardens the lava.
+				if (Mc.count("water_bucket") == 0) {
+					Option o = itemStep("water_bucket", 1, depth + 1);
+					if (o != null) return o;
+				}
+				if (memory.nearest("lava") != null) return new Option("make_obsidian", "obsidian:" + missing, "harden lava with water into obsidian");
+				return new Option("explore", "lava,obsidian", "find a lava pool to make obsidian from");
 			}
 			// Mine a little extra: each trip costs time. Spare cobblestone also covers a
 			// night shelter and the blocks Baritone places when it bridges or pillars.
@@ -308,13 +324,19 @@ public final class Planner {
 		}
 		if (Mc.dimension().equals("overworld") && Items2.bestTier("pickaxe") >= 0 && Mc.count("bed") == 0
 				&& memory.nearestStation("bed") == null) {
-			if (Mc.count("wool") >= 3) {
+			if (Items2.mostOfOneColor("wool") >= 3) {
 				Option o = itemStep("bed", 1, 0);
 				if (o != null && !o.skill().equals("explore")) out.add(new Option(o.skill(), o.arg(), "make a bed: " + o.why()));
 			} else {
 				Perception.Seen sheep = seen.nearest("sheep");
 				if (sheep != null && sheep.dist() < 20) out.add(new Option("attack", "sheep", "wool for a bed (skips nights)"));
 			}
+		}
+		// Late game: a bow is what destroys the dragon's healing crystals. Make one as soon as
+		// spider string allows (skeleton kills supply the arrows).
+		if (Items2.bestTier("pickaxe") >= 3 && Mc.count("bow") == 0 && Mc.count("string") >= 3) {
+			Option o = itemStep("bow", 1, 0);
+			if (o != null && o.skill().equals("craft")) out.add(new Option(o.skill(), o.arg(), "make a bow for the dragon fight: " + o.why()));
 		}
 		if (Mc.count("coal") < 4 && Items2.bestTier("pickaxe") >= 0) {
 			WorldMemory.Seen coal = memory.nearest("coal_ore");
@@ -355,6 +377,8 @@ public final class Planner {
 	public static String exploreTarget(Option main) {
 		if (main == null || main.arg() == null) return "any";
 		if (main.skill().equals("explore") || main.skill().equals("attack")) return main.arg();
+		if (main.skill().equals("make_obsidian")) return "lava";
+		if (main.skill().equals("fill_bucket")) return "water";
 		if (main.skill().equals("collect")) {
 			String a = main.arg();
 			String item = a.contains(":") ? a.substring(0, a.indexOf(':')) : a;

@@ -42,6 +42,18 @@ public final class Items2 {
 		};
 	}
 
+	/**
+	 * The biggest stack total of one item in a colored group ("wool" -> most white or most red
+	 * wool). A bed needs three wool of the same color.
+	 */
+	public static int mostOfOneColor(String suffix) {
+		java.util.Map<String, Integer> per = new java.util.HashMap<>();
+		for (ItemStack s : Mc.player().getInventory().getNonEquipmentItems()) {
+			if (!s.isEmpty() && id(s).endsWith("_" + suffix)) per.merge(id(s), s.getCount(), Integer::sum);
+		}
+		return per.values().stream().max(Integer::compare).orElse(0);
+	}
+
 	public static final Set<String> RAW_MEAT = Set.of("beef", "porkchop", "mutton", "chicken", "rabbit", "cod", "salmon");
 
 	public static boolean isFuel(String i) {

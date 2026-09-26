@@ -61,6 +61,10 @@ public enum Goal {
 			case "blaze_rod" -> Mc.count("blaze_rod") + (Mc.count("blaze_powder") + Mc.count("ender_eye")) / 2;
 			case "ender_pearl" -> Mc.count("ender_pearl") + Mc.count("ender_eye");
 			case "food" -> Mc.count("food");
+			// Obsidian already set into our half-built portal frame still counts.
+			case "obsidian" -> Mc.count("obsidian") + io.github.plrlr.autopilot.skills.PortalSkills.placedFrameObsidian();
+			// A filled bucket is still our bucket.
+			case "bucket" -> Mc.count("bucket") + Mc.count("water_bucket") + Mc.count("lava_bucket");
 			default -> Mc.count(item);
 		};
 	}

@@ -85,6 +85,7 @@ public final class Autopilot {
 	private int consecutiveFails;
 	private long reflexCooldownUntil;
 	private final Map<String, long[]> failures = new HashMap<>(); // label -> {count, blockedUntilTick}
+	private String lastEndedKey = "";
 
 	// Stuck and death
 	private Vec3 lastPos;
@@ -295,7 +296,8 @@ public final class Autopilot {
 	}
 
 	private boolean goalFinished(Goal g) {
-		if (g.sticky() && g.milestone <= progress.furthest()) return true;
+		// Rungs below the furthest one reached are behind us: what they gave was used to get further.
+		if (g.milestone > 0 && (g.milestone < progress.furthest() || g.sticky() && g.milestone <= progress.furthest())) return true;
 		// Opus may send us exploring; two minutes of it is enough before looking again.
 		if (g == Goal.EXPLORE) return g == goal && tick - goalSetTick > 20 * 120;
 		return planner.goalDone(g);
@@ -480,16 +482,27 @@ public final class Autopilot {
 		j.addProperty("detail", r.detail());
 		j.addProperty("seconds", (tick - skillStartTick) / 20.0);
 		log.write(j);
-		if (r.ok()) {
+		// The same action "succeeding" instantly again and again does nothing (e.g. pickup with
+		// nothing reachable): treat the repeat as a failure so it gets paused instead of looping
+		// every tick.
+		boolean instantRepeat = r.ok() && tick - skillStartTick < 10 && actionKey(skillOption).equals(lastEndedKey);
+		lastEndedKey = actionKey(skillOption);
+		if (r.ok() && !instantRepeat) {
 			consecutiveFails = 0;
 			failures.remove(actionKey(skillOption));
+		} else if (instantRepeat) {
+			long[] f = failures.computeIfAbsent(actionKey(skillOption), k -> new long[2]);
+			if (++f[0] >= 2) {
+				f[0] = 0;
+				f[1] = tick + 20 * 60;
+			}
 		} else if (!r.detail().startsWith("interrupted") && !r.detail().equals("died")) {
 			consecutiveFails++;
 			long[] f = failures.computeIfAbsent(actionKey(skillOption), k -> new long[2]);
-			// Three failures in a row: hide this option for 2 minutes so we don't loop on it.
+			// Three failures in a row: hide this option for a minute so we don't loop on it.
 			if (++f[0] >= 3) {
 				f[0] = 0;
-				f[1] = tick + 20 * 120;
+				f[1] = tick + 20 * 60;
 			}
 		}
 		skill = null;
@@ -517,8 +530,9 @@ public final class Autopilot {
 			lastMoveTick = tick;
 			return;
 		}
-		// Only "stuck" if Baritone is trying to walk and we're not moving.
-		if (!Bari.pathing()) {
+		// Only "stuck" if Baritone is trying to walk and we're not moving. Breaking a block
+		// (obsidian takes 9 s) is standing still on purpose.
+		if (!Bari.pathing() || Mc.mc().gameMode.isDestroying()) {
 			lastMoveTick = tick;
 			return;
 		}

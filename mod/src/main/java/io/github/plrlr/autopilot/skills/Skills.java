@@ -31,7 +31,8 @@ public final class Skills {
 		MENU.put("enter_portal", new Entry(PortalSkills.EnterPortal::new, "walk into a known nether or end portal"));
 		MENU.put("locate_stronghold", new Entry(PortalSkills.LocateStronghold::new, "throw an eye of ender and walk where it points"));
 		MENU.put("fill_end_portal", new Entry(PortalSkills.FillEndPortal::new, "put eyes of ender into empty end portal frames"));
-		MENU.put("idle", new Entry(MoveSkills.Idle::new, "stand still for 3 seconds"));
+		MENU.put("fill_bucket", new Entry(BucketSkills.FillBucket::new, "fill an empty bucket at a known water source"));
+		MENU.put("make_obsidian", new Entry(BucketSkills.MakeObsidian::new, "pour a water bucket next to lava pool sources to harden them into obsidian"));
 	}
 
 	public static Skill create(String name) {

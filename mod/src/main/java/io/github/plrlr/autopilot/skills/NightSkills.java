@@ -74,9 +74,10 @@ public final class NightSkills {
 			for (int i = 1; i <= 4; i++) {
 				var st = Mc.state(p.below(i));
 				if (st.liquid() || !Mc.solid(p.below(i))) return false;
-				// Bedrock or obsidian can't be dug by hand in time; falling sand/gravel would bury us.
+				// Bedrock and obsidian can't be dug in time. (Sand and gravel are fine: we dig through
+				// them downward and nothing is left above to fall.)
 				String id = Mc.id(st.getBlock());
-				if (i <= 3 && (id.equals("bedrock") || id.equals("obsidian") || id.contains("sand") || id.equals("gravel"))) return false;
+				if (i <= 3 && (id.equals("bedrock") || id.equals("obsidian"))) return false;
 			}
 			// Water or lava next to the shaft would flow in.
 			for (int i = 1; i <= 3; i++) {
@@ -219,18 +220,56 @@ public final class NightSkills {
 				fail("no bed");
 				return;
 			}
-			// A bed needs two free blocks in the facing direction.
-			Direction facing = pl.getDirection();
+			Bari.stop();
+			needPlace = true;
+		}
+
+		private boolean needPlace;
+		private int placeTicks;
+		private int relocations;
+
+		/**
+		 * A bed takes two flat free blocks in a row next to us. Looking at the first one turns us
+		 * that way, which is the direction the bed extends in.
+		 */
+		private static BlockPos bedSpot(LocalPlayer pl) {
 			BlockPos feet = pl.blockPosition();
-			BlockPos spot = feet.relative(facing);
-			if (!(Mc.free(spot) && Mc.free(spot.relative(facing)) && Mc.solid(spot.below()) && Mc.solid(spot.relative(facing).below()))) {
-				fail("no flat room for a bed here");
+			for (Direction d : Direction.Plane.HORIZONTAL) {
+				BlockPos a = feet.relative(d), b = a.relative(d);
+				if (Mc.free(a) && Mc.free(b) && Mc.solid(a.below()) && Mc.solid(b.below()) && Mc.clearOfPlayer(a)) return a;
+			}
+			return null;
+		}
+
+		/** Places our bed, walking to open ground first if there's no room here. */
+		private void placeTick(LocalPlayer pl) {
+			if (Bari.pathing()) return;
+			if (placeTicks++ % 5 != 0) return;
+			BlockPos spot = bedSpot(pl);
+			if (spot == null) {
+				BlockPos open = Station.openGround(pl);
+				if (open == null || relocations++ >= 2) {
+					fail("no flat room for a bed nearby");
+					return;
+				}
+				Bari.path(new GoalBlock(open));
 				return;
 			}
-			Mc.holdItem(Items2.matcher("bed"));
+			if (placeTicks > 60) {
+				fail("the bed wouldn't place");
+				return;
+			}
+			if (!Items2.id(pl.getMainHandItem()).endsWith("_bed")) {
+				Mc.holdItem(Items2.matcher("bed"));
+				return;
+			}
 			Mc.placeAt(spot);
-			bed = spot;
-			placedByUs = true;
+			if (Mc.id(Mc.state(spot).getBlock()).endsWith("_bed") || placeTicks > 10) {
+				bed = spot;
+				placedByUs = true;
+				needPlace = false;
+				wait = 0;
+			}
 		}
 
 		@Override
@@ -242,6 +281,10 @@ public final class NightSkills {
 		@Override
 		protected void tick() {
 			LocalPlayer pl = Mc.player();
+			if (needPlace) {
+				placeTick(pl);
+				return;
+			}
 			if (pl.isSleeping()) {
 				slept = true;
 				return;

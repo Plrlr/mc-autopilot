@@ -79,7 +79,8 @@ mc-build-crew/            (the folder name is historical; the project is MC Auto
       ui/                   PanelScreen (K panel), Hud (status line)
     src/main/resources/autopilot-prompts/   strategist.txt, tactician.txt (plain text, easy to tweak)
     src/test/               unit tests (gradlew test)
-    src/gametest/           in-game test: fresh survival world, autopilot plays (gradlew runClientGameTest)
+    src/gametest/           in-game test: fresh survival world, autopilot plays (gradlew runClientGameTest);
+                            -PtestScenario=portal|stronghold|end stages a late-game step with test-world commands
 ```
 Runtime files live in the Minecraft folder, not the repo:
 `%APPDATA%\.minecraft\config\mc-autopilot.env` (settings and API keys, created on first start),
@@ -112,11 +113,12 @@ nether portal, 8 nether fortress and blaze rods, 9 ender pearls, 10 eyes of ende
 11 find the stronghold, 12 activate the end portal, 13 kill the Ender Dragon.
 Be honest in docs: later milestones are very hard for any AI. Report the furthest one reached.
 
-## Skills (the tactician's menu, 20 max; 19 implemented)
+## Skills (the tactician's menu, 20 max; 20 implemented)
 collect item:n, craft item:n, smelt output:n, attack <mob>, shoot <mob>, eat, equip
-armor|shield|weapon|pickaxe, place <block>, pickup, explore <dir>, goto <known block>, retreat,
-shelter, sleep, build_portal, enter_portal nether|overworld|end, locate_stronghold,
-fill_end_portal, idle. Shelter, sleep, eat, craft, smelt and the portal skills are not
+armor|shield|weapon|pickaxe, place <block>, pickup, explore <what to look for>, goto <known
+block>|death, retreat, shelter, sleep, fill_bucket water, make_obsidian obsidian:n,
+build_portal (placed block by block, not Baritone's builder), enter_portal
+nether|overworld|end, locate_stronghold, fill_end_portal. Shelter, sleep, eat, craft, smelt and the portal skills are not
 interruptible by routine re-checks (heartbeat, new goal); danger reflexes still interrupt them.
 Skills are code, not AI. Crafting uses the normal crafting screens (recipe book clicks),
 not commands. Each skill has a timeout and returns {ok, detail}.

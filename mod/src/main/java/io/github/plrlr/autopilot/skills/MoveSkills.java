@@ -44,7 +44,8 @@ public final class MoveSkills {
 			if (!a.equals("any")) targets = List.of(a.split(","));
 			String already = found();
 			if (already != null) {
-				done("already see " + already);
+				// Nothing to explore for: whatever needed this should use what's in view instead.
+				fail("already see " + already);
 				return;
 			}
 			startX = pl.getX();
@@ -57,7 +58,9 @@ public final class MoveSkills {
 		/** The first target that's in view now, or null. */
 		private String found() {
 			if (targets.isEmpty()) return null;
-			Perception seen = Perception.look(40);
+			// Same range the planner looks in: if explore "sees" a cow the planner can't, they'd
+			// hand the job back and forth forever.
+			Perception seen = Perception.look(32);
 			LocalPlayer pl = Mc.player();
 			for (String t : targets) {
 				if (seen.nearest(t) != null) return t;
@@ -79,7 +82,8 @@ public final class MoveSkills {
 			// Swimming across an ocean finds nothing we need and invites drowned; turn around.
 			if (pl.isInWater()) waterTicks += 10;
 			else waterTicks = Math.max(0, waterTicks - 5);
-			if (waterTicks > 20 * 8) {
+			// Rivers take a few seconds to cross; only a long swim means open sea.
+			if (waterTicks > 20 * 20) {
 				memory.markBadAhead(startX, startZ, DIST);
 				fail("open water ahead; will turn");
 				return;
