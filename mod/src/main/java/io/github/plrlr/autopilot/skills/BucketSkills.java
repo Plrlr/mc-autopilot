@@ -144,7 +144,10 @@ public final class BucketSkills {
 				else pickNext();
 				return;
 			}
-			Mc.useItem();
+			boolean accepted = Mc.useItem();
+			io.github.plrlr.autopilot.AutopilotMod.LOGGER.info("[bucket] fill {} at {} from {} hand={} accepted={} dist={}", fluid,
+					source.toShortString(), pl.blockPosition().toShortString(), Items2.id(pl.getMainHandItem()), accepted,
+					String.format("%.1f", pl.getEyePosition().distanceTo(aim)));
 			if (++tries > 8) fail(Fail.USE_FAILED, "the bucket didn't fill");
 		}
 	}
