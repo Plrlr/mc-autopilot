@@ -75,6 +75,7 @@ public class AutopilotClientTest implements FabricClientGameTest {
 				System.out.println("[autopilot-test] FINAL " + scenario + ": " + ap.statusLine() + ", dimension "
 						+ mc.player.level().dimension().identifier().getPath()
 						+ ", milestone times " + (ap.milestoneTimes().isEmpty() ? "none" : String.join(" ", ap.milestoneTimes())));
+				for (String l : ap.lessons.worst(6)) System.out.println("[autopilot-test] LESSON " + l);
 				ap.disable("test finished");
 			});
 		}

@@ -10,6 +10,7 @@ import io.github.plrlr.autopilot.brains.LlmBackend;
 import io.github.plrlr.autopilot.brains.RateLimiter;
 import io.github.plrlr.autopilot.brains.Strategist;
 import io.github.plrlr.autopilot.brains.Tactician;
+import io.github.plrlr.autopilot.log.Lessons;
 import io.github.plrlr.autopilot.log.RunLog;
 import io.github.plrlr.autopilot.plan.Goal;
 import io.github.plrlr.autopilot.plan.Option;
@@ -49,6 +50,8 @@ import java.util.concurrent.ConcurrentLinkedQueue;
 public final class Autopilot {
 	public final Config config;
 	public final RunLog log;
+	/** What worked and what kept failing, across all runs (lessons.json). */
+	public final Lessons lessons;
 	public final WorldMemory memory = new WorldMemory();
 	public final Planner planner = new Planner(memory);
 	public final Progress progress;
@@ -109,6 +112,7 @@ public final class Autopilot {
 		this.config = config;
 		Path home = gameDir.resolve("mc-autopilot");
 		this.log = new RunLog(home.resolve("logs"));
+		this.lessons = new Lessons(home.resolve("lessons.json"));
 		this.progress = new Progress(home);
 		Path usage = home.resolve("logs");
 		ClaudeCli cli = new ClaudeCli(config.str("CLAUDE_CMD"), config.str("OPUS_MODEL"), config.integer("OPUS_TIMEOUT_S", 90), home.resolve("claude-cwd"));
@@ -175,6 +179,7 @@ public final class Autopilot {
 		if (savedPauseOnLostFocus != null && Mc.mc().options != null) Mc.mc().options.pauseOnLostFocus = savedPauseOnLostFocus;
 		savedPauseOnLostFocus = null;
 		status = "off";
+		lessons.save();
 		Mc.say("OFF (" + why + ").");
 		log.event("autopilot_off", why);
 	}
@@ -493,6 +498,9 @@ public final class Autopilot {
 		// every tick.
 		boolean instantRepeat = r.ok() && tick - skillStartTick < 10 && actionKey(skillOption).equals(lastEndedKey);
 		lastEndedKey = actionKey(skillOption);
+		lessons.record(actionKey(skillOption), r.ok() && !instantRepeat, instantRepeat ? "did nothing" : r.detail(), (tick - skillStartTick) / 20.0);
+		// An action that has failed most of the time in past runs gets paused after two fails, not three.
+		int pauseAfter = lessons.failRate(actionKey(skillOption)) >= 0.7 ? 2 : 3;
 		if (r.ok() && !instantRepeat) {
 			consecutiveFails = 0;
 			failures.remove(actionKey(skillOption));
@@ -506,7 +514,7 @@ public final class Autopilot {
 			consecutiveFails++;
 			long[] f = failures.computeIfAbsent(actionKey(skillOption), k -> new long[2]);
 			// Three failures in a row: hide this option for a minute so we don't loop on it.
-			if (++f[0] >= 3) {
+			if (++f[0] >= pauseAfter) {
 				f[0] = 0;
 				f[1] = tick + 20 * 60;
 			}
@@ -638,9 +646,17 @@ public final class Autopilot {
 
 	private JsonObject buildState() {
 		boolean stuck = skill != null && Bari.pathing() && tick - lastMoveTick > 20 * 10;
-		return StateBuilder.build(memory, seen, goal == null ? "none" : goal.key(), recent.isEmpty() ? null : recent.peekLast(),
+		JsonObject state = StateBuilder.build(memory, seen, goal == null ? "none" : goal.key(), recent.isEmpty() ? null : recent.peekLast(),
 				!recent.isEmpty() && recent.peekLast().contains("-> ok"), recent.isEmpty() ? "" : recent.peekLast(), stuck,
 				progress.deaths(), progress.furthest());
+		// Past runs' lessons, so the brains avoid what usually fails.
+		List<String> worst = lessons.worst(3);
+		if (!worst.isEmpty()) {
+			JsonArray l = new JsonArray();
+			worst.forEach(l::add);
+			state.add("often_fails", l);
+		}
+		return state;
 	}
 
 	// ------------------------------------------------------------------ for the UI and chat

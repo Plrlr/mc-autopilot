@@ -99,6 +99,7 @@ jobs:
         run: |
           echo "### ${{ matrix.scenario }} / seed ${{ matrix.seed }}" >> "$GITHUB_STEP_SUMMARY"
           grep -a "FINAL" autopilot-test.log | sed 's/.*FINAL/FINAL/' >> "$GITHUB_STEP_SUMMARY" || true
+          grep -a "LESSON" autopilot-test.log | sed 's/.*LESSON/- /' >> "$GITHUB_STEP_SUMMARY" || true
           grep -ac "Can't keep up" trial.log | sed 's/^/server lag warnings: /' >> "$GITHUB_STEP_SUMMARY" || true
           # No FINAL line means the game never got to play: show the end of the log and fail.
           if ! grep -aq "FINAL" autopilot-test.log; then tail -n 80 trial.log; exit 1; fi
@@ -111,6 +112,7 @@ jobs:
             mod/autopilot-test.log
             mod/trial.log
             mod/build/run/clientGameTest/mc-autopilot/logs/
+            mod/build/run/clientGameTest/mc-autopilot/lessons.json
             mod/build/run/clientGameTest/screenshots/
             mod/build/run/clientGameTest/crash-reports/
           if-no-files-found: warn
