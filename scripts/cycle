@@ -1,0 +1,108 @@
+#!/usr/bin/env bash
+# One improvement cycle in one blocking command: push this branch, start the "Trial runs"
+# workflow on it, wait for it, download every artifact, and print the batch summary.
+#
+#   scripts/cycle                                   4 benchmark seeds, 10 game minutes
+#   scripts/cycle -m 20 -x '[{"seed":"a","scenario":"cast"}]'
+#   scripts/cycle -s '[]' -x '[{"seed":"a","id":"furnace","task":"craft furnace:1","give":"cobblestone 8,crafting_table","minutes":"3"}]'
+#
+# Options: -s seeds JSON (default '["a","b","c","d"]'), -m minutes (10), -S scenario (natural),
+#          -x extra runs JSON ('[]'), -r RUN_ID (skip push/start; fetch and summarize that run),
+#          -o output dir (.trials), -n note for docs/batches.md, -N don't append to docs/batches.md.
+# Needs: git, curl, unzip, python3, and a GitHub token in GH_TOKEN or GITHUB_TOKEN (or `gh`).
+# Output: .trials/<run id>/ (artifacts + summary.md); one line appended to docs/batches.md.
+set -euo pipefail
+
+cd "$(git rev-parse --show-toplevel)"
+SEEDS='["a","b","c","d"]'; MINUTES=10; SCENARIO=natural; EXTRA='[]'; RUN=""; OUT=.trials; NOTE=""; APPEND=1
+while getopts "s:m:S:x:r:o:n:N" opt; do
+	case $opt in
+		s) SEEDS=$OPTARG ;; m) MINUTES=$OPTARG ;; S) SCENARIO=$OPTARG ;; x) EXTRA=$OPTARG ;;
+		r) RUN=$OPTARG ;; o) OUT=$OPTARG ;; n) NOTE=$OPTARG ;; N) APPEND=0 ;;
+		*) sed -n '2,16p' "$0"; exit 2 ;;
+	esac
+done
+
+REPO=$(git remote get-url origin | sed -E 's#(git@github.com:|https://github.com/)##; s#\.git$##; s#^.*/git/##')
+REPO=${REPO#*github.com/}
+BRANCH=$(git rev-parse --abbrev-ref HEAD)
+TOKEN=${GH_TOKEN:-${GITHUB_TOKEN:-}}
+if [ -z "$TOKEN" ] && command -v gh >/dev/null; then TOKEN=$(gh auth token 2>/dev/null || true); fi
+[ -n "$TOKEN" ] || { echo "No GitHub token: set GH_TOKEN or log in with gh." >&2; exit 1; }
+API="https://api.github.com/repos/$REPO"
+api() { curl -sS --retry 3 --max-time 60 -H "Authorization: Bearer $TOKEN" -H "Accept: application/vnd.github+json" "$@"; }
+log() { echo "[cycle $(date +%H:%M:%S)] $*"; }
+
+if [ -z "$RUN" ]; then
+	# 1. Push (retry network hiccups).
+	for wait in 0 2 4 8 16; do
+		sleep $wait
+		if git push -q -u origin "$BRANCH" 2>&1; then break; fi
+		[ $wait = 16 ] && { echo "git push failed" >&2; exit 1; }
+	done
+	SHA=$(git rev-parse HEAD)
+	# 2. Start the workflow on this branch.
+	STARTED=$(date -u +%Y-%m-%dT%H:%M:%SZ)
+	BODY=$(python3 -c 'import json,sys; print(json.dumps({"ref": sys.argv[1], "inputs": {"seeds": sys.argv[2], "minutes": sys.argv[3], "scenario": sys.argv[4], "extra": sys.argv[5]}}))' \
+		"$BRANCH" "$SEEDS" "$MINUTES" "$SCENARIO" "$EXTRA")
+	code=$(api -o /dev/stderr -w "%{http_code}" -X POST "$API/actions/workflows/trials.yml/dispatches" -d "$BODY" 2>/dev/null || true)
+	if [ "$code" != "204" ]; then
+		if command -v gh >/dev/null; then
+			gh workflow run trials.yml -R "$REPO" --ref "$BRANCH" -f seeds="$SEEDS" -f minutes="$MINUTES" -f scenario="$SCENARIO" -f extra="$EXTRA"
+		else
+			echo "Starting the workflow failed (HTTP $code). Start it from the Actions tab, then run: scripts/cycle -r <run id>" >&2
+			exit 1
+		fi
+	fi
+	log "started trials on $BRANCH @ ${SHA:0:7}: seeds=$SEEDS minutes=$MINUTES scenario=$SCENARIO extra=$EXTRA"
+	# 3. Find the run it created.
+	for i in $(seq 1 30); do
+		sleep 5
+		RUN=$(api "$API/actions/runs?branch=$BRANCH&event=workflow_dispatch&per_page=10" | python3 -c '
+import json,sys
+sha, since = sys.argv[1], sys.argv[2]
+for r in json.load(sys.stdin).get("workflow_runs", []):
+    if r["head_sha"] == sha and r["created_at"] >= since and r["path"].endswith("trials.yml"):
+        print(r["id"]); break' "$SHA" "$STARTED" || true)
+		[ -n "$RUN" ] && break
+	done
+	[ -n "$RUN" ] || { echo "Couldn't find the new run." >&2; exit 1; }
+	log "run $RUN: https://github.com/$REPO/actions/runs/$RUN"
+fi
+
+# 4. Wait until it's done, printing only when a job finishes.
+seen=""
+while true; do
+	status=$(api "$API/actions/runs/$RUN" | python3 -c 'import json,sys; d=json.load(sys.stdin); print(d["status"], d.get("conclusion") or "", d["head_sha"])')
+	jobs=$(api "$API/actions/runs/$RUN/jobs?per_page=100" | python3 -c '
+import json,sys
+for j in json.load(sys.stdin).get("jobs", []):
+    if j["status"] == "completed": print(j["name"] + ": " + (j["conclusion"] or ""))' | sort)
+	new=$(comm -13 <(echo "$seen") <(echo "$jobs") | sed '/^$/d')
+	[ -n "$new" ] && echo "$new" | while read -r l; do log "$l"; done
+	seen=$jobs
+	set -- $status
+	[ "$1" = completed ] && { log "run $RUN $2"; SHA=$3; break; }
+	sleep 30
+done
+
+# 5. Download and unpack every artifact.
+DIR="$OUT/$RUN"
+mkdir -p "$DIR"
+api "$API/actions/runs/$RUN/artifacts?per_page=100" | python3 -c '
+import json,sys
+for a in json.load(sys.stdin).get("artifacts", []): print(a["id"], a["name"])' | while read -r id name; do
+	[ -d "$DIR/$name" ] && continue
+	curl -sS -L --retry 3 --max-time 300 -H "Authorization: Bearer $TOKEN" -o "$DIR/$name.zip" "$API/actions/artifacts/$id/zip"
+	mkdir -p "$DIR/$name" && unzip -q -o "$DIR/$name.zip" -d "$DIR/$name" && rm "$DIR/$name.zip"
+done
+log "artifacts in $DIR"
+
+# 6. Summarize; keep the one-line history.
+scripts/summarize_batch "$DIR" --run "$RUN" --commit "$SHA" --line-out "$DIR/batch-line.txt" | tee "$DIR/summary.md"
+if [ "$APPEND" = 1 ] && [ -s "$DIR/batch-line.txt" ] && ! grep -q "^| $RUN |" docs/batches.md 2>/dev/null; then
+	line=$(cat "$DIR/batch-line.txt")
+	line="$line $NOTE |"
+	echo "$line" >> docs/batches.md
+	log "appended to docs/batches.md (add a note on what changed and what was learned)"
+fi

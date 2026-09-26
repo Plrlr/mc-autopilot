@@ -30,7 +30,9 @@ public final class Lessons {
 		int ok;
 		int fail;
 		double secs;
+		/** Failure code -> count, and one example detail per code. */
 		final Map<String, Integer> why = new LinkedHashMap<>();
+		final Map<String, String> example = new LinkedHashMap<>();
 	}
 
 	private static final Gson GSON = new GsonBuilder().setPrettyPrinting().create();
@@ -50,18 +52,19 @@ public final class Lessons {
 	}
 
 	/**
-	 * Records how an action ended. Interruptions, deaths and the end of a test say nothing about
-	 * the action itself, so they aren't counted.
+	 * Records how an action ended, by failure code (Fail) with the detail kept as an example.
+	 * Interruptions and deaths say nothing about the action itself, so they aren't counted.
 	 */
-	public synchronized void record(String action, boolean ok, String detail, double seconds) {
-		if (!ok && (detail.startsWith("interrupted") || detail.equals("died") || detail.equals("test finished")
-				|| detail.equals("turned off") || detail.startsWith("you pressed"))) return;
+	public synchronized void record(String action, boolean ok, String code, String detail, double seconds) {
+		if (!ok && ("INTERRUPTED".equals(code) || "DIED".equals(code))) return;
 		Tally t = tallies.computeIfAbsent(action, k -> new Tally());
 		t.secs += seconds;
 		if (ok) t.ok++;
 		else {
 			t.fail++;
-			t.why.merge(normalize(detail), 1, Integer::sum);
+			String c = code == null ? "UNKNOWN" : code;
+			t.why.merge(c, 1, Integer::sum);
+			t.example.put(c, normalize(detail));
 		}
 		if (++unsaved >= 10) save();
 	}
@@ -74,8 +77,8 @@ public final class Lessons {
 	}
 
 	/**
-	 * The actions that fail most, one short line each: "craft furnace failed 6 of 9 (mostly:
-	 * couldn't place the crafting_table)". Only actions with 3+ failures and a 40%+ fail rate.
+	 * The actions that fail most, one short line each: "craft furnace failed 6 of 9 (mostly
+	 * PLACE_FAILED: couldn't place the crafting_table)". Only 3+ failures at a 40%+ fail rate.
 	 */
 	public synchronized List<String> worst(int max) {
 		List<Map.Entry<String, Tally>> bad = new ArrayList<>();
@@ -89,7 +92,8 @@ public final class Lessons {
 			if (out.size() >= max) break;
 			Tally t = e.getValue();
 			String top = t.why.entrySet().stream().max(Map.Entry.comparingByValue()).map(Map.Entry::getKey).orElse("?");
-			out.add(e.getKey() + " failed " + t.fail + " of " + (t.ok + t.fail) + " (mostly: " + top + ")");
+			String ex = t.example.get(top);
+			out.add(e.getKey() + " failed " + t.fail + " of " + (t.ok + t.fail) + " (mostly " + top + (ex == null ? "" : ": " + ex) + ")");
 		}
 		return out;
 	}
@@ -111,6 +115,7 @@ public final class Lessons {
 				t.fail = o.has("fail") ? o.get("fail").getAsInt() : 0;
 				t.secs = o.has("secs") ? o.get("secs").getAsDouble() : 0;
 				if (o.has("why")) for (var w : o.getAsJsonObject("why").entrySet()) t.why.put(w.getKey(), w.getValue().getAsInt());
+				if (o.has("example")) for (var w : o.getAsJsonObject("example").entrySet()) t.example.put(w.getKey(), w.getValue().getAsString());
 				tallies.put(e.getKey(), t);
 			}
 		} catch (Exception e) {
@@ -132,6 +137,9 @@ public final class Lessons {
 			JsonObject why = new JsonObject();
 			t.why.forEach(why::addProperty);
 			o.add("why", why);
+			JsonObject ex = new JsonObject();
+			t.example.forEach(ex::addProperty);
+			o.add("example", ex);
 			root.add(e.getKey(), o);
 		}
 		String text = GSON.toJson(root);

@@ -33,16 +33,16 @@ public final class CollectSkill extends Skill {
 		want = argCount(1);
 		TechTree.Source src = TechTree.MINE.get(item);
 		if (src == null) {
-			fail("don't know where " + item + " comes from");
+			fail(Fail.NO_RECIPE, "don't know where " + item + " comes from");
 			return;
 		}
 		if (Items2.bestTier("pickaxe") < src.tier()) {
-			fail("need a " + TechTree.pickaxeForTier(src.tier()) + " to mine " + item);
+			fail(Fail.NEED_ITEM, "need a " + TechTree.pickaxeForTier(src.tier()) + " to mine " + item);
 			return;
 		}
 		blocks = Bari.blocks(src.blocks());
 		if (blocks.length == 0) {
-			fail("no blocks for " + item);
+			fail(Fail.NEED_ITEM, "no blocks for " + item);
 			return;
 		}
 		before = Mc.count(item);
@@ -103,13 +103,13 @@ public final class CollectSkill extends Skill {
 		// Ores can take a while to find by branch mining; surface blocks shouldn't.
 		int patience = Bari.get().getMineProcess() != null && TechTree.MINE.get(item).mineY() != null ? 150 : 60;
 		if (ticks - lastProgressTick > 20 * patience) {
-			fail("no progress for " + patience + " s (got " + (now - before) + "/" + want + ")");
+			fail(Fail.NO_PROGRESS, "no progress for " + patience + " s (got " + (now - before) + "/" + want + ")");
 			return;
 		}
 		if (ticks > 20 && !Bari.get().getMineProcess().isActive()) {
 			// Baritone gives up when it knows of no such block; try again a couple of times, then report.
 			if (restarts++ < 2) Bari.get().getMineProcess().mine(blocks);
-			else fail((now - before) > 0 ? "found only " + (now - before) + " " + item : "can't find any " + item + " nearby");
+			else fail((now - before) > 0 ? Fail.NO_PROGRESS : Fail.NOT_FOUND, (now - before) > 0 ? "found only " + (now - before) + " " + item : "can't find any " + item + " nearby");
 		}
 	}
 }

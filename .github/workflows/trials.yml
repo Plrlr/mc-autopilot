@@ -1,26 +1,48 @@
 # Parallel trial runs of the autopilot on GitHub's free Linux machines.
-# Each seed gets its own machine: a fresh survival world (or a staged scenario) is played by the
+# Each run gets its own machine: a fresh survival world (or a staged scenario) is played by the
 # free rules brain for N game minutes; the decision log, screenshots and summary are uploaded.
-# Start it from the Actions tab ("Run workflow") or: gh workflow run trials.yml -f seeds='["a","b"]'
+# Normally started by scripts/cycle (push, run, wait, download, summarize). By hand:
+#   gh workflow run trials.yml -f seeds='["a","b"]' -f extra='[{"seed":"a","scenario":"cast"}]'
+# Quick single-fix test (one skill, given items, stops when the skill ends):
+#   -f seeds='[]' -f extra='[{"seed":"a","id":"furnace","task":"craft furnace:1","give":"cobblestone 8,crafting_table","minutes":"3"}]'
 name: Trial runs
 
 on:
   workflow_dispatch:
     inputs:
       seeds:
-        description: 'World seeds as a JSON list; one parallel machine per seed'
-        default: '["trial-a","trial-b","trial-c","trial-d"]'
+        description: 'World seeds as a JSON list; one machine per seed ([] for extra runs only)'
+        default: '["a","b","c","d"]'
       minutes:
         description: 'Game minutes per run'
         default: '10'
       scenario:
-        description: 'natural, portal, cast, stronghold or end'
+        description: 'Scenario for the seeds: natural, portal, cast, stronghold or end'
         default: 'natural'
       extra:
-        description: 'Extra runs as JSON, e.g. [{"seed":"a","scenario":"cast"}]'
+        description: 'Extra runs as JSON: [{"seed","scenario","task","give","minutes","id"}]'
         default: '[]'
 
 jobs:
+  # Turns the inputs into one list of runs (seeds x scenario, plus the extra runs).
+  plan:
+    runs-on: ubuntu-latest
+    outputs:
+      runs: ${{ steps.plan.outputs.runs }}
+    steps:
+      - id: plan
+        env:
+          SEEDS: ${{ inputs.seeds }}
+          SCENARIO: ${{ inputs.scenario }}
+          EXTRA: ${{ inputs.extra }}
+        run: |
+          runs=$(jq -cn --argjson seeds "$SEEDS" --arg sc "$SCENARIO" --argjson extra "$EXTRA" '
+            [$seeds[] | {seed: ., scenario: $sc}] + $extra
+            | map({seed, scenario: (.scenario // "natural"), task: (.task // ""), give: (.give // ""),
+                   minutes: ((.minutes // "") | tostring), id: (.id // "")}
+                  | .name = (.scenario + "-" + .seed + (if .id != "" then "-" + .id else "" end)))')
+          echo "runs=$runs" | tee -a "$GITHUB_OUTPUT"
+
   # The unit tests (gradlew test) on every batch, so a code change is checked before its trial
   # results are read.
   unit-tests:
@@ -33,19 +55,26 @@ jobs:
           distribution: temurin
           java-version: '25'
           cache: gradle
+          # Gradle and Loom's Minecraft downloads (~460 MB) come from this cache; include the
+          # version file so a new Minecraft/Loom version makes a fresh cache instead of a stale one.
+          cache-dependency-path: |
+            mod/*.gradle*
+            mod/gradle.properties
+            mod/gradle/wrapper/gradle-wrapper.properties
       - name: Unit tests
         working-directory: mod
-        run: chmod +x gradlew && ./gradlew test --console=plain
+        # The in-game test code compiles here too, so a typo fails in a minute, not after a trial.
+        run: chmod +x gradlew && ./gradlew test compileGametestJava --console=plain
 
   trial:
+    needs: plan
+    if: needs.plan.outputs.runs != '[]'
     runs-on: ubuntu-latest
     timeout-minutes: 120
     strategy:
       fail-fast: false
       matrix:
-        seed: ${{ fromJSON(inputs.seeds) }}
-        scenario: ['${{ inputs.scenario }}']
-        include: ${{ fromJSON(inputs.extra) }}
+        include: ${{ fromJSON(needs.plan.outputs.runs) }}
     steps:
       - uses: actions/checkout@v7
 
@@ -54,6 +83,12 @@ jobs:
           distribution: temurin
           java-version: '25'
           cache: gradle
+          # Gradle and Loom's Minecraft downloads (~460 MB) come from this cache; include the
+          # version file so a new Minecraft/Loom version makes a fresh cache instead of a stale one.
+          cache-dependency-path: |
+            mod/*.gradle*
+            mod/gradle.properties
+            mod/gradle/wrapper/gradle-wrapper.properties
 
       # Minecraft needs a screen and OpenGL (or Vulkan): a virtual X display with Mesa's software
       # renderers (llvmpipe for OpenGL, lavapipe for Vulkan). libglx-mesa0 is the GLX vendor
@@ -70,18 +105,23 @@ jobs:
         working-directory: mod
         env:
           LIBGL_ALWAYS_SOFTWARE: '1'
+          MINUTES: ${{ matrix.minutes || inputs.minutes }}
+          SEED: ${{ matrix.seed }}
+          SCENARIO: ${{ matrix.scenario }}
+          TASK: ${{ matrix.task }}
+          GIVE: ${{ matrix.give }}
         run: |
           chmod +x gradlew
           # The game exits with Baritone's known shutdown-watchdog crash after saving, which
           # fails the Gradle task; the summary step below judges the run instead.
           setsid xvfb-run -a -s "-screen 0 1280x720x24" ./gradlew runClientGameTest --console=plain \
-            -PtestMinutes=${{ inputs.minutes }} -PtestSeed=${{ matrix.seed }} -PtestScenario=${{ matrix.scenario }} \
+            -PtestMinutes="$MINUTES" -PtestSeed="$SEED" -PtestScenario="$SCENARIO" -PtestTask="$TASK" -PtestGive="$GIVE" \
             > trial.log 2>&1 &
           pid=$!
           # Watchdog: a game that can't open its window hangs instead of exiting, so stop it if
           # no test report shows up in time, and stop any run that goes far past its length.
           start=$(date +%s)
-          limit=$(( ${{ inputs.minutes }} * 4 * 60 + 900 ))
+          limit=$(( MINUTES * 4 * 60 + 900 ))
           while kill -0 $pid 2>/dev/null; do
             sleep 15
             el=$(( $(date +%s) - start ))
@@ -97,7 +137,8 @@ jobs:
       - name: Summary
         working-directory: mod
         run: |
-          echo "### ${{ matrix.scenario }} / seed ${{ matrix.seed }}" >> "$GITHUB_STEP_SUMMARY"
+          echo "### ${{ matrix.name }}" >> "$GITHUB_STEP_SUMMARY"
+          grep -a "TASK" autopilot-test.log | sed 's/.*TASK/TASK/' >> "$GITHUB_STEP_SUMMARY" || true
           grep -a "FINAL" autopilot-test.log | sed 's/.*FINAL/FINAL/' >> "$GITHUB_STEP_SUMMARY" || true
           grep -a "LESSON" autopilot-test.log | sed 's/.*LESSON/- /' >> "$GITHUB_STEP_SUMMARY" || true
           grep -ac "Can't keep up" trial.log | sed 's/^/server lag warnings: /' >> "$GITHUB_STEP_SUMMARY" || true
@@ -107,7 +148,7 @@ jobs:
       - uses: actions/upload-artifact@v7
         if: always()
         with:
-          name: trial-${{ matrix.scenario }}-${{ matrix.seed }}
+          name: trial-${{ matrix.name }}
           path: |
             mod/autopilot-test.log
             mod/trial.log

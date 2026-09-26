@@ -35,14 +35,14 @@ public final class NightSkills {
 		protected void start() {
 			timeoutTicks = 20 * 60 * 12;
 			if (!Mc.dimension().equals("overworld")) {
-				fail("shelter only makes sense in the overworld");
+				fail(Fail.WRONG_PLACE, "shelter only makes sense in the overworld");
 				return;
 			}
 			// No cover block needed up front: digging the shaft drops dirt or cobblestone.
 			LocalPlayer pl = Mc.player();
 			BlockPos spot = safeColumnNear(pl.blockPosition());
 			if (spot == null) {
-				fail("no safe ground to dig into nearby");
+				fail(Fail.NO_ROOM, "no safe ground to dig into nearby");
 				return;
 			}
 			bottom = spot.below(3);
@@ -96,13 +96,13 @@ public final class NightSkills {
 			switch (phase) {
 				case MOVE -> {
 					if (ticks > 20 * 20) {
-						fail("couldn't reach a spot to dig in");
+						fail(Fail.UNREACHABLE, "couldn't reach a spot to dig in");
 						return;
 					}
 					if (ticks > 10 && !Bari.pathing()) {
 						BlockPos top = bottom.above(3);
 						if (pl.blockPosition().equals(top)) phase = Phase.DIG;
-						else fail("couldn't reach a spot to dig in");
+						else fail(Fail.UNREACHABLE, "couldn't reach a spot to dig in");
 					}
 				}
 				case DIG -> {
@@ -114,13 +114,13 @@ public final class NightSkills {
 						return;
 					}
 					if (ticks > 20 * 30) {
-						fail("couldn't dig down");
+						fail(Fail.USE_FAILED, "couldn't dig down");
 						return;
 					}
 					BlockPos below = feet.below();
 					var st = Mc.state(below);
 					if (st.liquid()) {
-						fail("hit water or lava while digging");
+						fail(Fail.HAZARD, "hit water or lava while digging");
 						return;
 					}
 					if (Mc.free(below)) return; // falling into the hole
@@ -142,11 +142,11 @@ public final class NightSkills {
 						return;
 					}
 					if (coverTries++ > 6) {
-						fail("couldn't cover the shelter");
+						fail(Fail.PLACE_FAILED, "couldn't cover the shelter");
 						return;
 					}
 					if (!Mc.holdItem(Items2.matcher("throwaway")) && !Mc.holdItem(Items2.matcher("planks"))) {
-						fail("no block to cover the hole");
+						fail(Fail.NEED_ITEM, "no block to cover the hole");
 						return;
 					}
 					Mc.placeAt(lid);
@@ -206,7 +206,7 @@ public final class NightSkills {
 		protected void start() {
 			timeoutTicks = 20 * 60;
 			if (!Mc.isNight()) {
-				fail("you can only sleep at night");
+				fail(Fail.WRONG_PLACE, "you can only sleep at night");
 				return;
 			}
 			WorldMemory.Seen known = memory.nearest("bed");
@@ -217,7 +217,7 @@ public final class NightSkills {
 				return;
 			}
 			if (Mc.count("bed") == 0) {
-				fail("no bed");
+				fail(Fail.NEED_ITEM, "no bed");
 				return;
 			}
 			Bari.stop();
@@ -249,14 +249,14 @@ public final class NightSkills {
 			if (spot == null) {
 				BlockPos open = Station.openGround(pl);
 				if (open == null || relocations++ >= 2) {
-					fail("no flat room for a bed nearby");
+					fail(Fail.NO_ROOM, "no flat room for a bed nearby");
 					return;
 				}
 				Bari.path(new GoalBlock(open));
 				return;
 			}
 			if (placeTicks > 60) {
-				fail("the bed wouldn't place");
+				fail(Fail.PLACE_FAILED, "the bed wouldn't place");
 				return;
 			}
 			if (!Items2.id(pl.getMainHandItem()).endsWith("_bed")) {
@@ -314,13 +314,13 @@ public final class NightSkills {
 			if (wait++ % 20 == 5) {
 				if (!Mc.id(Mc.state(bed).getBlock()).endsWith("_bed")) {
 					memory.forget("bed", bed);
-					fail("the bed is gone");
+					fail(Fail.NOT_FOUND, "the bed is gone");
 					return;
 				}
 				memory.remember("bed", bed, Mc.id(Mc.state(bed).getBlock()));
 				Mc.useOn(bed, Direction.UP);
 			}
-			if (wait > 20 * 6) fail("couldn't sleep (monsters nearby?)");
+			if (wait > 20 * 6) fail(Fail.USE_FAILED, "couldn't sleep (monsters nearby?)");
 		}
 	}
 }

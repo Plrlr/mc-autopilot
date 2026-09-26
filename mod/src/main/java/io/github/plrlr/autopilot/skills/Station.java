@@ -54,6 +54,12 @@ public final class Station {
 	/** Spots where a placing click didn't take; findSpot tries others. */
 	private final java.util.List<BlockPos> badSpots = new java.util.ArrayList<>();
 	String error;
+	Fail errorCode;
+
+	private void err(Fail code, String why) {
+		error = why;
+		errorCode = code;
+	}
 
 	Station(String group, Class<?> menuClass, WorldMemory memory) {
 		this.group = group;
@@ -82,7 +88,7 @@ public final class Station {
 				} else if (Mc.count(group) > 0) {
 					phase = Phase.PLACE;
 				} else {
-					error = "no " + group + " nearby or in the inventory";
+					err(Fail.NEED_ITEM, "no " + group + " nearby or in the inventory");
 				}
 			}
 			case WALK -> {
@@ -90,9 +96,9 @@ public final class Station {
 				if (wait > 10 && !Bari.pathing()) {
 					if (inReach(pos)) phase = Phase.OPEN;
 					else if (Mc.count(group) > 0) phase = Phase.PLACE;
-					else error = "couldn't reach the " + group;
+					else err(Fail.UNREACHABLE, "couldn't reach the " + group);
 				}
-				if (wait > 20 * 60) error = "took too long to reach the " + group;
+				if (wait > 20 * 60) err(Fail.UNREACHABLE, "took too long to reach the " + group);
 			}
 			case PLACE -> {
 				Bari.stop();
@@ -106,7 +112,7 @@ public final class Station {
 					// Usually we're up a tree or in leaves after chopping: walk to open ground first.
 					BlockPos open = openGround(pl);
 					if (open == null || relocations++ >= 2) {
-						error = "no room to place a " + group;
+						err(Fail.NO_ROOM, "no room to place a " + group);
 						return;
 					}
 					Bari.path(new baritone.api.pathing.goals.GoalBlock(open));
@@ -117,14 +123,14 @@ public final class Station {
 					return;
 				}
 				if (placeTries++ > 5) {
-					error = "couldn't place the " + group;
+					err(Fail.PLACE_FAILED, "couldn't place the " + group);
 					return;
 				}
 				// Select the item this tick and place on the next, so the server has the right
 				// item in hand when the click arrives.
 				if (placing == null || !placing.equals(spot)) {
 					if (!Mc.holdItem(Items2.matcher(group))) {
-						error = "no " + group + " to place";
+						err(Fail.NEED_ITEM, "no " + group + " to place");
 						return;
 					}
 					placing = spot;
@@ -143,7 +149,7 @@ public final class Station {
 			}
 			case RELOCATE -> {
 				if (++wait > 20 * 30) {
-					error = "couldn't reach open ground to place a " + group;
+					err(Fail.UNREACHABLE, "couldn't reach open ground to place a " + group);
 					return;
 				}
 				if (wait > 10 && !Bari.pathing()) phase = Phase.PLACE;
@@ -159,7 +165,7 @@ public final class Station {
 					}
 					memory.forget(group, pos);
 					phase = Mc.count(group) > 0 ? Phase.PLACE : Phase.FIND;
-					if (phase == Phase.FIND) error = group + " disappeared";
+					if (phase == Phase.FIND) err(Fail.NOT_FOUND, group + " disappeared");
 					return;
 				}
 				memory.remember(group, pos, there);
@@ -170,7 +176,7 @@ public final class Station {
 				phase = Phase.WAIT_OPEN;
 			}
 			case WAIT_OPEN -> {
-				if (++wait > 40) error = "the " + group + " didn't open";
+				if (++wait > 40) err(Fail.USE_FAILED, "the " + group + " didn't open");
 			}
 		}
 	}

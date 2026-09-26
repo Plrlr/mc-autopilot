@@ -1,0 +1,199 @@
+#!/usr/bin/env python3
+"""One-page scoreboard for a trial batch.
+
+Usage: scripts/summarize_batch <batch dir> [--run ID] [--commit SHA] [--line-out FILE]
+
+<batch dir> holds one folder per downloaded artifact (trial-natural-a/, trial-cast-a/, ...), each
+with autopilot-test.log and build/run/clientGameTest/mc-autopilot/logs/run-*.jsonl. Prints markdown:
+milestones and their times per run, deaths and causes, where the time went, the top 10 failures
+(action + failure code, with a count and one example), task results, and which screenshots exist.
+With --line-out, also writes the one-line entry for docs/batches.md to FILE.
+Read this summary first; open raw logs or screenshots only when it points at something.
+"""
+import argparse
+import collections
+import glob
+import json
+import os
+import re
+import statistics
+import sys
+
+ANIMALS = {"cow", "pig", "sheep", "chicken", "rabbit"}
+# Where each skill's time goes. Anything unlisted counts as "other".
+CATEGORY = {
+    "eat": "food", "collect": "mining", "craft": "crafting", "equip": "crafting", "place": "crafting",
+    "explore": "travel", "goto": "travel", "enter_portal": "travel", "locate_stronghold": "travel",
+    "retreat": "combat", "shoot": "combat",
+    "build_portal": "building", "make_obsidian": "building", "fill_bucket": "building",
+    "shelter": "night", "sleep": "night", "fill_end_portal": "building",
+}
+CATEGORIES = ["mining", "crafting", "food", "travel", "combat", "building", "night", "other", "idle"]
+
+
+def category(label):
+    skill, _, arg = label.partition(" ")
+    if skill == "attack":
+        return "food" if arg in ANIMALS else "combat"
+    if skill == "smelt":
+        return "food" if arg.startswith("cooked_") else "crafting"
+    if skill == "pickup":
+        return "crafting" if arg == "stations" else "travel"
+    return CATEGORY.get(skill, "other")
+
+
+def mmss(secs):
+    secs = int(secs)
+    return "%d:%02d" % (secs // 60, secs % 60)
+
+
+def action_of(label):
+    """'collect raw_iron:13' -> 'collect raw_iron' (counts shrink as work gets done)."""
+    skill, _, arg = label.partition(" ")
+    return (skill + " " + arg.split(":")[0]).strip()
+
+
+def read_run(path):
+    name = os.path.basename(path.rstrip("/"))
+    name = name[len("trial-"):] if name.startswith("trial-") else name
+    run = {"name": name, "milestones": [], "deaths": [], "final": None, "task": None, "length": 0,
+           "time": collections.Counter(), "fails": [], "shots": [], "notes": []}
+    test_log = os.path.join(path, "autopilot-test.log")
+    if os.path.exists(test_log):
+        for line in open(test_log, errors="replace"):
+            line = line.split("[autopilot-test] ", 1)[-1].rstrip()
+            m = re.match(r"\S+ (\d+)s: ", line)
+            if m:
+                run["length"] = max(run["length"], int(m.group(1)))
+            if line.startswith("FINAL"):
+                run["final"] = line
+                m = re.search(r"milestone times (.*)$", line)
+                if m and m.group(1) != "none":
+                    run["milestones"] = [(int(a), int(b)) for a, b in re.findall(r"m(\d+)@(\d+)s", m.group(1))]
+            elif line.startswith("TASK"):
+                run["task"] = line[5:]
+            elif line.startswith("NOTE"):
+                run["notes"].append(line[5:])
+    for f in sorted(glob.glob(os.path.join(path, "**", "run-*.jsonl"), recursive=True)):
+        for line in open(f, errors="replace"):
+            try:
+                o = json.loads(line)
+            except ValueError:
+                continue
+            if o.get("event") == "death":
+                run["deaths"].append(o.get("detail", "?"))
+            elif o.get("event") == "skill_end":
+                label = o.get("skill", "?")
+                run["time"][category(label)] += float(o.get("seconds", 0))
+                if not o.get("ok"):
+                    code = o.get("code")
+                    detail = o.get("detail", "")
+                    if code in ("INTERRUPTED", "DIED") or (code is None and (detail.startswith("interrupted")
+                                                                             or detail in ("died", "test finished"))):
+                        continue
+                    if code is None:
+                        code = "text"
+                    run["fails"].append((action_of(label) + " " + code, detail))
+    for f in glob.glob(os.path.join(path, "**", "screenshots", "*.png"), recursive=True):
+        run["shots"].append(re.sub(r"^\d+_", "", os.path.basename(f))[:-4])
+    if run["length"]:
+        busy = sum(run["time"].values())
+        run["time"]["idle"] = max(0, run["length"] - busy)
+    for f in glob.glob(os.path.join(path, "trial.log")):
+        cast = [l.split("[cast] ", 1)[1].strip() for l in open(f, errors="replace") if "[cast] " in l]
+        if cast:
+            run["cast"] = cast[-6:]
+    return run
+
+
+def main():
+    ap = argparse.ArgumentParser()
+    ap.add_argument("dir")
+    ap.add_argument("--run", default="")
+    ap.add_argument("--commit", default="")
+    ap.add_argument("--line-out", default="")
+    a = ap.parse_args()
+    paths = sorted(p for p in glob.glob(os.path.join(a.dir, "*")) if os.path.isdir(p))
+    runs = [read_run(p) for p in paths]
+    if not runs:
+        print("No runs found in " + a.dir)
+        return 1
+    out = []
+    title = "Batch " + (a.run or os.path.basename(a.dir.rstrip("/")))
+    if a.commit:
+        title += " @ " + a.commit[:7]
+    out.append("# " + title + "\n")
+
+    # Milestones: one column per milestone any run reached.
+    reached = sorted({m for r in runs for m, _ in r["milestones"]})
+    out.append("## Milestones (game time since the autopilot started)\n")
+    out.append("| run | " + " | ".join("m%d" % m for m in reached) + " | deaths | length | ended doing |")
+    out.append("|---" * (len(reached) + 4) + "|")
+    for r in runs:
+        times = dict(r["milestones"])
+        cells = [mmss(times[m]) if m in times else "-" for m in reached]
+        doing = ""
+        if r["final"]:
+            m = re.search(r"goal (\S+), doing ([^,]+)", r["final"])
+            if m:
+                doing = m.group(1) + ": " + m.group(2)
+        deaths = ", ".join(r["deaths"]) if r["deaths"] else "0"
+        out.append("| %s | %s | %s | %s | %s |" % (r["name"], " | ".join(cells), deaths,
+                                                   mmss(r["length"]) if r["length"] else "?", doing or "no FINAL line"))
+    for r in runs:
+        for n in r["notes"]:
+            out.append("- NOTE %s: %s" % (r["name"], n))
+    tasks = [r for r in runs if r["task"]]
+    if tasks:
+        out.append("\n## Task tests\n")
+        for r in tasks:
+            out.append("- %s: %s" % (r["name"], r["task"]))
+
+    out.append("\n## Where the time went (seconds)\n")
+    out.append("| run | " + " | ".join(CATEGORIES) + " |")
+    out.append("|---" * (len(CATEGORIES) + 1) + "|")
+    for r in runs:
+        out.append("| %s | %s |" % (r["name"], " | ".join(str(int(r["time"][c])) for c in CATEGORIES)))
+
+    fails = collections.Counter()
+    example = {}
+    for r in runs:
+        for key, detail in r["fails"]:
+            fails[key] += 1
+            example.setdefault(key, "%s: %s" % (r["name"], detail))
+    out.append("\n## Top failures (action + code, count, one example)\n")
+    if not fails:
+        out.append("- none")
+    for key, n in fails.most_common(10):
+        out.append("- %d x %s  (e.g. %s)" % (n, key, example[key]))
+
+    for r in runs:
+        if r.get("cast"):
+            out.append("\n## Portal cast log, %s (last steps)\n" % r["name"])
+            out.extend("- " + c for c in r["cast"])
+    shots = ["%s: %s" % (r["name"], ", ".join(sorted(r["shots"]))) for r in runs if r["shots"]]
+    if shots:
+        out.append("\n## Screenshots (open only if the numbers above point at something visual)\n")
+        out.extend("- " + s for s in shots)
+    print("\n".join(out))
+
+    if a.line_out:
+        natural = [r for r in runs if r["name"].startswith("natural")]
+        def median_time(m):
+            ts = [dict(r["milestones"])[m] for r in natural if m in dict(r["milestones"])]
+            return "%d/%d %s" % (len(ts), len(natural), mmss(statistics.median(ts)) if ts else "-")
+        top = fails.most_common(1)
+        extra = [r["name"] + ": " + ("m%d" % max(dict(r["milestones"])) if r["milestones"] else "-")
+                 for r in runs if not r["name"].startswith("natural") and not r["task"]]
+        extra += [r["name"] + ": " + r["task"].split(" -> ")[-1][:40] for r in tasks]
+        line = "| %s | %s | %s | %s | %s | %s | %d | %s | %s |" % (
+            a.run or "?", (a.commit or "?")[:7], median_time(1), median_time(2), median_time(4), median_time(7),
+            sum(len(r["deaths"]) for r in natural), "; ".join(extra) or "-",
+            ("%s x%d" % top[0]) if top else "-")
+        with open(a.line_out, "w") as f:
+            f.write(line + "\n")
+    return 0
+
+
+if __name__ == "__main__":
+    sys.exit(main())

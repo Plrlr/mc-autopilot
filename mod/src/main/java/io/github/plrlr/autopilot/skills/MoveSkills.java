@@ -45,7 +45,7 @@ public final class MoveSkills {
 			String already = found();
 			if (already != null) {
 				// Nothing to explore for: whatever needed this should use what's in view instead.
-				fail("already see " + already);
+				fail(Fail.ALREADY_DONE, "already see " + already);
 				return;
 			}
 			startX = pl.getX();
@@ -85,14 +85,14 @@ public final class MoveSkills {
 			// Rivers take a few seconds to cross; only a long swim means open sea.
 			if (waterTicks > 20 * 20) {
 				memory.markBadAhead(startX, startZ, DIST);
-				fail("open water ahead; will turn");
+				fail(Fail.HAZARD, "open water ahead; will turn");
 				return;
 			}
 			if (ticks > 20 && !Bari.pathing()) {
 				double moved = Math.hypot(pl.getX() - startX, pl.getZ() - startZ);
 				if (moved < 16) {
 					memory.markBadAhead(startX, startZ, DIST);
-					fail("couldn't make headway that way; will turn");
+					fail(Fail.UNREACHABLE, "couldn't make headway that way; will turn");
 				} else {
 					done("explored " + Math.round(moved) + " blocks" + (targets.isEmpty() ? "" : ", no " + String.join("/", targets) + " yet"));
 				}
@@ -113,7 +113,7 @@ public final class MoveSkills {
 			if ("death".equals(arg)) {
 				WorldMemory.Seen d = memory.nearest("death");
 				if (d == null) {
-					fail("no death spot in this dimension");
+					fail(Fail.NOT_FOUND, "no death spot in this dimension");
 					return;
 				}
 				// Stand right on the spot: the drops are scattered around it.
@@ -126,7 +126,7 @@ public final class MoveSkills {
 			}
 			WorldMemory.Seen s = memory.nearest(arg == null ? "" : arg);
 			if (s == null) {
-				fail("no known " + arg + " in this dimension");
+				fail(Fail.NOT_FOUND, "no known " + arg + " in this dimension");
 				return;
 			}
 			Bari.path(new GoalGetToBlock(s.pos()));
@@ -141,7 +141,7 @@ public final class MoveSkills {
 					if (d != null) memory.forget("death", d.pos());
 					LocalPlayer pl = Mc.player();
 					if (d != null && d.pos().distSqr(pl.blockPosition()) > 6 * 6) {
-						fail("couldn't reach the death spot");
+						fail(Fail.UNREACHABLE, "couldn't reach the death spot");
 						return;
 					}
 				}

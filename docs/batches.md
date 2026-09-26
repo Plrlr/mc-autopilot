@@ -1,0 +1,15 @@
+# Trial batches
+
+One line per batch, newest last. `scripts/cycle` appends the numbers; add the note by hand:
+what changed since the last batch and what the batch taught. Milestone columns show how many
+natural (full, honest) runs reached it and the median game time; scenario and task runs are
+listed separately. A fresh session can resume from this file plus docs/lessons.md.
+
+Seeds a, b, c, d on Easy, rules brain (mock), 10 game minutes unless noted.
+
+| run | commit | m1 wood | m2 stone | m4 iron tools | m7 nether | deaths | scenarios / tasks | top failure | note |
+|---|---|---|---|---|---|---|---|---|---|
+| 36273548847 | 90f48dd | 4/4 0:37 | 4/4 1:17 | 0/4 - | 0/4 - | 1 | - | explore cow,pig,sheep,chicken x6 | Batch 1. Food rung ate 3-9 min; table+furnace rebuilt every trip; iron in 2-3 piece trips. m4 not counted then (needed m3). |
+| 36274555330 | e8683ce | 4/4 0:22 | 4/4 1:13 | 0/4 - | 0/4 - | 0 | cast-a: m2 | craft furnace x18 | Batch 2. Cast scenario's forced goal was overwritten a tick later; "couldn't place" the #1 failure. |
+| 36275608236 | 041bd49 | 4/4 0:52 | 4/4 1:27 | 1/4 8:15 | 0/4 - | 2 | cast-a: m4 | build_portal x15 | Batch 3: food by need, carried stations, one iron trip. Click logging showed every failed placement held the pickaxe (Baritone swaps it back into hotbar slot 0). |
+| 36276814180 | 81b1d3e | 4/4 0:47 | 4/4 1:21 | 2/4 4:34 | 0/4 - | 1 | cast-a: m4 | fill_bucket water x5 | Batch 4: hotbar fix (26/26 placements OK), nearest-first memory, unreachable mobs. Cast: wall + lava + water done, water scoop failed. Legit branch mining wandered the surface at y 60. |

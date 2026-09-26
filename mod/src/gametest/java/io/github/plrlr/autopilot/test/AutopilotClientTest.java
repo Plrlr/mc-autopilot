@@ -3,6 +3,7 @@ package io.github.plrlr.autopilot.test;
 import io.github.plrlr.autopilot.Autopilot;
 import io.github.plrlr.autopilot.AutopilotMod;
 import io.github.plrlr.autopilot.plan.Goal;
+import io.github.plrlr.autopilot.plan.Option;
 import net.fabricmc.fabric.api.client.gametest.v1.FabricClientGameTest;
 import net.fabricmc.fabric.api.client.gametest.v1.context.ClientGameTestContext;
 import net.fabricmc.fabric.api.client.gametest.v1.context.TestSingleplayerContext;
@@ -27,7 +28,6 @@ import java.util.List;
  * -PtestBrain=auto uses the free AI keys from the real config file (costs free-tier calls).
  */
 public class AutopilotClientTest implements FabricClientGameTest {
-	private static final int MINUTE = 20 * 60;
 
 	private static final List<String> GEAR = List.of(
 			"diamond_pickaxe", "diamond_sword", "shield", "iron_helmet", "iron_chestplate", "iron_leggings", "iron_boots",
@@ -53,6 +53,12 @@ public class AutopilotClientTest implements FabricClientGameTest {
 		}).create()) {
 			ctx.waitTicks(100);
 			Goal goal = stage(sp, scenario);
+			// Quick single-fix tests: -PtestTask="craft furnace:1" -PtestGive="cobblestone 8,crafting_table"
+			// runs just that skill with those items, in daylight, and stops when it ends.
+			String task = System.getProperty("autopilot.test.task", "").trim();
+			String give = System.getProperty("autopilot.test.give", "").trim();
+			for (String g : give.isEmpty() ? new String[0] : give.split(",")) sp.getServer().runCommand("give @a " + g.trim());
+			if (!task.isEmpty()) sp.getServer().runCommand("time set 1000");
 			// Test world only: run the game clock faster to see more play per real minute.
 			if (tickRate != 20) sp.getServer().runCommand("tick rate " + tickRate);
 			ctx.waitTicks(40);
@@ -64,12 +70,42 @@ public class AutopilotClientTest implements FabricClientGameTest {
 				ap.enable();
 				if (!ap.enabled()) throw new AssertionError("autopilot didn't turn on");
 				if (goal != null) ap.forceGoal(goal);
+				if (!task.isEmpty()) {
+					int sp1 = task.indexOf(' ');
+					ap.runTask(new Option(sp1 < 0 ? task : task.substring(0, sp1), sp1 < 0 ? null : task.substring(sp1 + 1), "test task"));
+				}
 			});
-			for (int i = 1; i <= minutes * 2; i++) {
-				ctx.waitTicks(MINUTE / 2);
-				report(ctx, scenario + " " + i * 30 + "s");
-				if (i % 4 == 0) ctx.takeScreenshot("autopilot-" + scenario + "-" + i / 2 + "min");
+			// Screenshots only where they explain something: each milestone, each death, a failed
+			// task, and the end.
+			int shotMilestones = 0, shotDeaths = 0;
+			for (int sec = 1; sec <= minutes * 60; sec++) {
+				ctx.waitTicks(20);
+				if (sec % 30 == 0) report(ctx, scenario + " " + sec + "s");
+				int[] st = ctx.computeOnClient(mc -> {
+					Autopilot ap = AutopilotMod.instance();
+					return new int[]{ap.milestoneTimes().size(), ap.progress.deaths(), ap.taskResult() == null ? 0 : ap.taskResult().ok() ? 1 : 2};
+				});
+				if (st[0] > shotMilestones) {
+					shotMilestones = st[0];
+					ctx.takeScreenshot("milestone-" + shotMilestones);
+				}
+				if (st[1] > shotDeaths) {
+					shotDeaths = st[1];
+					ctx.takeScreenshot("death-" + shotDeaths);
+				}
+				if (!task.isEmpty() && st[2] > 0) {
+					int secs = sec;
+					ctx.runOnClient(mc -> {
+						var r = AutopilotMod.instance().taskResult();
+						System.out.println("[autopilot-test] TASK " + task + " -> " + (r.ok() ? "ok" : "failed " + r.code()) + ": " + r.detail() + " after " + secs + " s");
+					});
+					if (st[2] == 2) ctx.takeScreenshot("task-failed");
+					break;
+				}
 			}
+			if (!task.isEmpty() && ctx.computeOnClient(mc -> AutopilotMod.instance().taskResult() == null))
+				System.out.println("[autopilot-test] TASK " + task + " -> failed TIMEOUT: still running when the test ended");
+			ctx.takeScreenshot("final");
 			ctx.runOnClient(mc -> {
 				Autopilot ap = AutopilotMod.instance();
 				if (!ap.enabled()) System.out.println("[autopilot-test] NOTE: autopilot turned itself off during the run");

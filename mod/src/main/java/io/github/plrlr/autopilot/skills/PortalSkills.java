@@ -78,15 +78,15 @@ public final class PortalSkills {
 		protected void start() {
 			timeoutTicks = 20 * 150;
 			if (!Mc.dimension().equals("overworld")) {
-				fail("build the portal in the overworld");
+				fail(Fail.WRONG_PLACE, "build the portal in the overworld");
 				return;
 			}
 			if (Mc.count("obsidian") + placedFrameObsidian() < 10 || Mc.count("flint_and_steel") == 0) {
-				fail("need 10 obsidian and flint and steel");
+				fail(Fail.NEED_ITEM, "need 10 obsidian and flint and steel");
 				return;
 			}
 			if (Mc.count("throwaway") + Mc.count("planks") < 4 - placedCorners()) {
-				fail("need 4 cobblestone or dirt for the frame corners");
+				fail(Fail.NEED_ITEM, "need 4 cobblestone or dirt for the frame corners");
 				return;
 			}
 			Bari.stop();
@@ -106,7 +106,7 @@ public final class PortalSkills {
 				case SITE -> {
 					if (frameOrigin == null || frameOrigin.distSqr(pl.blockPosition()) > 48 * 48 || !siteStillUsable()) {
 						if (!findSite(pl.blockPosition())) {
-							fail("no flat open ground for a portal here");
+							fail(Fail.NO_ROOM, "no flat open ground for a portal here");
 							return;
 						}
 					}
@@ -120,7 +120,7 @@ public final class PortalSkills {
 				}
 				case WALK -> {
 					if (++wait > 20 * 40) {
-						fail("couldn't reach the portal site");
+						fail(Fail.UNREACHABLE, "couldn't reach the portal site");
 						return;
 					}
 					if (wait > 10 && !Bari.pathing()) {
@@ -142,13 +142,13 @@ public final class PortalSkills {
 					int[] c = FRAME[cell];
 					BlockPos target = at(frameOrigin, frameAlong, c);
 					if (!Mc.free(target)) {
-						fail("something is in the way of the frame");
+						fail(Fail.NO_ROOM, "something is in the way of the frame");
 						return;
 					}
 					if (++tries > 8) {
 						// Out of reach: step back to where we can reach, then try again.
 						if (tries > 30) {
-							fail("couldn't place part of the frame");
+							fail(Fail.PLACE_FAILED, "couldn't place part of the frame");
 							return;
 						}
 						if (!Bari.pathing()) Bari.path(new GoalBlock(stand));
@@ -158,7 +158,7 @@ public final class PortalSkills {
 							? Mc.holdItem(Items2.matcher("throwaway")) || Mc.holdItem(Items2.matcher("planks"))
 							: Mc.holdItem(st -> Items2.id(st).equals("obsidian"));
 					if (!held) {
-						fail(corner(c) ? "out of blocks for the corners" : "out of obsidian");
+						fail(Fail.NEED_ITEM, corner(c) ? "out of blocks for the corners" : "out of obsidian");
 						return;
 					}
 					Mc.placeAt(target);
@@ -173,7 +173,7 @@ public final class PortalSkills {
 					}
 					if (ticks % 10 != 0) return;
 					if (++tries > 6) {
-						fail("couldn't light the portal");
+						fail(Fail.USE_FAILED, "couldn't light the portal");
 						return;
 					}
 					BlockPos base = at(frameOrigin, frameAlong, new int[]{1, 0});
@@ -255,7 +255,7 @@ public final class PortalSkills {
 			String group = "end".equals(arg) ? "end_portal" : "nether_portal";
 			WorldMemory.Seen s = memory.nearest(group);
 			if (s == null) {
-				fail("no known " + group + " here");
+				fail(Fail.NOT_FOUND, "no known " + group + " here");
 				return;
 			}
 			portal = s.pos();
@@ -314,11 +314,11 @@ public final class PortalSkills {
 		protected void start() {
 			timeoutTicks = 20 * 150;
 			if (!Mc.dimension().equals("overworld")) {
-				fail("eyes of ender only work in the overworld");
+				fail(Fail.WRONG_PLACE, "eyes of ender only work in the overworld");
 				return;
 			}
 			if (Mc.count("ender_eye") == 0) {
-				fail("no eyes of ender");
+				fail(Fail.NEED_ITEM, "no eyes of ender");
 				return;
 			}
 			Bari.stop();
@@ -347,7 +347,7 @@ public final class PortalSkills {
 							}
 						}
 						if (watch > 20 && eye == null) {
-							fail("the eye didn't fly (no stronghold in range?)");
+							fail(Fail.NOT_FOUND, "the eye didn't fly (no stronghold in range?)");
 						}
 						return;
 					}
@@ -411,7 +411,7 @@ public final class PortalSkills {
 		@Override
 		protected void start() {
 			timeoutTicks = 20 * 120;
-			if (memory.all("end_portal_frame").isEmpty()) fail("no end portal frames seen yet");
+			if (memory.all("end_portal_frame").isEmpty()) fail(Fail.NOT_FOUND, "no end portal frames seen yet");
 		}
 
 		@Override
@@ -435,13 +435,13 @@ public final class PortalSkills {
 				return;
 			}
 			if (Mc.count("ender_eye") == 0) {
-				fail("out of eyes of ender");
+				fail(Fail.NEED_ITEM, "out of eyes of ender");
 				return;
 			}
 			if (Mc.player().getEyePosition().distanceTo(Vec3.atCenterOf(current)) > 4) {
 				if (!Bari.pathing()) Bari.path(new GoalGetToBlock(current));
 				if (++tries > 30) {
-					fail("can't reach a frame");
+					fail(Fail.UNREACHABLE, "can't reach a frame");
 				}
 				return;
 			}

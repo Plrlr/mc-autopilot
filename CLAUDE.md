@@ -8,7 +8,8 @@ reached through `claude -p` on the user's Claude plan (no API key). Free-tier LL
 and a free rule-based brain can stand in for fast, frequent decisions.
 Public GitHub project. The demo: a video of the run, and how far each brain setup gets.
 
-Background facts, limits, and sources are in docs/research-notes.md. Game strategy per stage
+Background facts, limits, and sources are in docs/research-notes.md. Machine setup, versions and
+runtime file locations: docs/setup.md. Decisions and phase history: docs/history.md. Game strategy per stage
 (overworld to dragon) is in docs/roadmap.txt: read it before working on a stage. It was written for
 an older Mineflayer version of this project; its game facts and loop rules apply, its Mineflayer
 and server parts don't.
@@ -16,13 +17,11 @@ and server parts don't.
 ## How it works (three layers)
 1. **Strategist: Opus via `claude -p`.** Picks the current objective from the milestone ladder
    (below), with a short reason and a plan of steps. Called on events only: objective done or
-   failed, death, dimension change, stuck for 30 s, or at most every 60 s. A measured call took
-   about 7 s (3.4 s API time) on 2026-09-26, which is fine at this rate.
+   failed, death, dimension change, stuck, or at most every 10 minutes (~7 s per call).
 2. **Tactician: picks the next skill** and its argument from a short candidate list, whenever a
    skill ends. Default `auto`: the first free LLM with a key (groq, cerebras, gemini), else
-   `mock` (rules, free, always works, the fallback for everything). The user decided on
-   2026-09-26 that Opus should only set goals, since the steps toward a goal are repetitive.
-   Still swappable to `opus` (same `claude -p` route) or any single provider.
+   `mock` (rules, free, always works, the fallback for everything). Opus only sets goals by
+   default; still swappable to `opus` (same `claude -p` route) or any single provider.
 3. **Skills and reflexes: plain Java code, no AI.** Skills do the work (walk, mine, craft, fight),
    using Baritone for pathfinding and mining. Reflexes react instantly in code: eat when hungry,
    fight or back off from mobs in range, step away from lava and fire, stop falling into holes.
@@ -54,23 +53,14 @@ and server parts don't.
   Game state only.
 
 ## Stack
-- Windows 11, PowerShell. Minecraft Java **26.3** (installed in the official launcher).
-- Fabric Loader + Fabric API for 26.3 (Fabric API 0.161.0+26.3 was newest on 2026-09-26).
-- Baritone **v1.20.0** (Fabric build, "For Minecraft 26.3", LGPL-3.0) for pathfinding and mining,
-  used through its API from our mod.
-- Our mod: Java 25, built with Gradle (Fabric Loom, via the Gradle wrapper). Needs a JDK 25 to
-  build (Temurin 25 JDK installed 2026-09-26 in C:\Program Files\Eclipse Adoptium\jdk-25.0.4.101-hotspot;
-  set JAVA_HOME to it when running gradlew).
-- `claude` CLI 2.1.283 (%USERPROFILE%\.local\bin\claude.exe). ClaudeCli finds claude.exe on PATH
-  and starts it directly (cmd /c only for an npm .cmd shim). Java doesn't escape quotes in Windows
-  arguments, so every argument goes through ClaudeCli.winQuote (MSVC rules).
-- Node.js was installed for the old plan and isn't needed now.
+Minecraft Java 26.3, Fabric Loader + Fabric API, Baritone 1.20.0 (installed separately), our mod
+in Java 25 (Gradle, Loom), the `claude` CLI. Versions, install paths and Windows details: docs/setup.md.
 
 ## Project layout
 ```
 mc-build-crew/            (the folder name is historical; the project is MC Autopilot)
   CLAUDE.md  START_HERE.md  README.md  docs/research-notes.md  mc-autopilot.env.example
-  mod/                    Fabric mod (Gradle, Loom 1.17, no mappings: 26.x ships unobfuscated)
+  mod/                    Fabric mod (Gradle, Loom)
     build.gradle          Baritone is read straight from its GitHub release (ivy repo)
     src/main/java/io/github/plrlr/autopilot/
       AutopilotMod.java     entry point: K key, tick loop, HUD, "!" chat commands
@@ -81,18 +71,20 @@ mc-build-crew/            (the folder name is historical; the project is MC Auto
       skills/               Skill base, Skills menu, Bari (Baritone), one class/group per skill
       brains/               ClaudeCli (claude -p), Backends (opus, groq, gemini), Tactician,
                             Strategist, RateLimiter, Decision, Prompts
-      log/RunLog.java       JSONL decision log
+      log/                  RunLog (JSONL decision log), Lessons (failure codes per action, across runs)
       ui/                   PanelScreen (K panel), Hud (status line)
     src/main/resources/autopilot-prompts/   strategist.txt, tactician.txt (plain text, easy to tweak)
     src/test/               unit tests (gradlew test)
     src/gametest/           in-game test: fresh survival world, autopilot plays (gradlew runClientGameTest);
-                            -PtestScenario=portal|cast|stronghold|end stages a late-game step with test-world commands
-.github/workflows/trials.yml  cloud trial batches (one machine per seed, plus staged extras); logs as artifacts
+                            -PtestScenario=portal|cast|stronghold|end stages a late-game step with test-world commands;
+                            -PtestTask="<skill> <arg>" -PtestGive="<items>" runs one skill alone (quick fix check)
+.github/workflows/trials.yml  cloud trial batches (one machine per run); logs as artifacts
+scripts/cycle             push, run a batch, wait, download, summarize (one command)
+scripts/summarize_batch   one-page scoreboard from a batch's logs
+docs/                     batches.md (one line per batch), lessons.md (what the loop learned),
+                          roadmap.txt, setup.md, history.md, research-notes.md
 ```
-Runtime files live in the Minecraft folder, not the repo:
-`%APPDATA%\.minecraft\config\mc-autopilot.env` (settings and API keys, created on first start),
-`%APPDATA%\.minecraft\mc-autopilot\logs\` (run-DATE.jsonl, usage-DATE.json),
-`%APPDATA%\.minecraft\mc-autopilot\progress-<world>.json`, and `claude-cwd/` (empty dir for claude -p).
+Runtime files (settings, logs, lessons.json, progress) live in the Minecraft folder: docs/setup.md.
 
 ## In-game UI
 - A keybind (default K, rebindable in Controls) opens a small panel that doesn't pause the game:
@@ -139,7 +131,9 @@ build_portal (placed block by block, not Baritone's builder; cast from lava with
 nether|overworld|end, locate_stronghold, fill_end_portal. Shelter, sleep, eat, craft, smelt and the portal skills are not
 interruptible by routine re-checks (heartbeat, new goal); danger reflexes still interrupt them.
 Skills are code, not AI. Crafting uses the normal crafting screens (recipe book clicks),
-not commands. Each skill has a timeout and returns {ok, detail}.
+not commands. Each skill has a timeout and returns {ok, code, detail}: code is a fixed failure
+code (skills/Fail: NEED_ITEM, NOT_FOUND, UNREACHABLE, NO_PROGRESS, PLACE_FAILED, ...), detail is
+free text for one example. Logs, lessons and batch summaries count codes, never free text.
 
 ## State sent to the brains (target under 600 tokens)
 Dimension, position, health, food, armor, time of day, weather, inventory summary (item: count),
@@ -200,24 +194,19 @@ rules still want the running action. Reflexes never wait for an AI.
   public: never include the .env file or keys.
 - Cap the cycles per day and log what each cycle cost.
 
-## Phases (one at a time; stop and report after each, with what the user should test)
-Status 2026-09-26: phases 0-6 have code; the in-game test covers the early game. Late-game
-skills (portal, stronghold, dragon) compile and are wired up but are untested in real play.
-0. Reset: new plan (this file), JDK 25, Fabric for 26.3, Fabric API, Baritone. Mod folder ready.
-1. Mod skeleton: Gradle project builds a jar; keybind opens the panel; on/off toggle; HUD line;
-   user-input and toggle kill switch; state snapshot printed to the log. Test in a new world.
-2. Skills and mock brain: Baritone integration (with fair-play settings), reflexes, the core
-   skills (explore, goto, collect, craft, equip_best, eat, pick_up_items), mock tactician,
-   triggers, JSONL log. Test: from spawn to a stone pickaxe on mock alone.
-3. Opus: strategist through claude -p, the ladder, Opus as tactician. Test: reach iron tools.
-4. Free brains: groq and gemini tacticians, limiter, fallback chain, keys in the config file.
-5. Survival depth: smelting, shelter and sleep, combat, armor, diamonds, portal. One milestone
-   at a time, test each.
-6. Late game: nether, blaze rods, pearls, eyes, stronghold, the dragon fight.
-7. Show-off: recording tips, README with setup, results per brain, honest limitations,
-   and credits (docs/research-notes.md).
+## Trial loop (how to iterate cheaply)
+- One command per cycle: `scripts/cycle` (push, start the workflow, wait, download, summarize).
+  Run it in the background; it blocks until the batch is done. Options in the script header.
+- Read the printed summary (.trials/<run>/summary.md) and nothing else by default. Open a run's
+  jsonl or trial.log only for a failure the summary names; open screenshots (taken only at
+  milestones, deaths, a failed task and the end) only when the summary points at something visual.
+- Check a single fix first with a task test or a staged scenario (minutes, not a full batch):
+  `scripts/cycle -s '[]' -x '[{"seed":"a","id":"x","task":"<skill> <arg>","give":"<items>","minutes":"3"}]'`.
+- After each batch: add the note to its line in docs/batches.md, and update docs/lessons.md with
+  anything learned (in the same commit as the fix). A fresh session resumes from those two files.
+- Phases and their status: docs/history.md.
 
 ## Style
 - Small classes, comments that explain why.
 - Every network call and process call has a timeout.
-- Commit after each phase with a clear message.
+- Commit after each change with a clear message (what the trials showed, what changed).

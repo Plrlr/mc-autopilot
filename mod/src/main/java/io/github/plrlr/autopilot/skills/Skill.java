@@ -10,7 +10,8 @@ import net.minecraft.client.KeyMapping;
  * times out. A fresh instance is made for every run so no state leaks between runs.
  */
 public abstract class Skill {
-	public record Result(boolean ok, String detail) {}
+	/** code is null when ok. */
+	public record Result(boolean ok, Fail code, String detail) {}
 
 	protected WorldMemory memory;
 	protected String arg;
@@ -48,32 +49,32 @@ public abstract class Skill {
 			start();
 		} catch (Exception e) {
 			AutopilotMod.LOGGER.warn("Skill {} failed to start", name(), e);
-			fail("error: " + e.getClass().getSimpleName());
+			fail(Fail.ERROR, "error: " + e.getClass().getSimpleName());
 		}
 	}
 
 	public final void update() {
 		if (result != null) return;
 		if (Mc.player() == null) {
-			fail("no player");
+			fail(Fail.ERROR, "no player");
 			return;
 		}
 		if (++ticks > timeoutTicks) {
-			fail("timed out after " + ticks / 20 + " s");
+			fail(Fail.TIMEOUT, "timed out after " + ticks / 20 + " s");
 			return;
 		}
 		try {
 			tick();
 		} catch (Exception e) {
 			AutopilotMod.LOGGER.warn("Skill {} crashed", name(), e);
-			fail("error: " + e.getClass().getSimpleName());
+			fail(Fail.ERROR, "error: " + e.getClass().getSimpleName());
 		}
 	}
 
 	/** Stop from outside (user took over, a reflex, the brain switched). */
-	public final void abort(String why) {
+	public final void abort(Fail code, String why) {
 		if (result == null) {
-			result = new Result(false, why);
+			result = new Result(false, code, why);
 			safeCleanup();
 		}
 	}
@@ -84,14 +85,14 @@ public abstract class Skill {
 
 	protected final void done(String detail) {
 		if (result == null) {
-			result = new Result(true, detail);
+			result = new Result(true, null, detail);
 			safeCleanup();
 		}
 	}
 
-	protected final void fail(String detail) {
+	protected final void fail(Fail code, String detail) {
 		if (result == null) {
-			result = new Result(false, detail);
+			result = new Result(false, code, detail);
 			safeCleanup();
 		}
 	}

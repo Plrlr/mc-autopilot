@@ -67,7 +67,7 @@ public final class CombatSkills {
 				}
 			}
 			if (s == null) {
-				fail("no reachable " + arg + " in sight");
+				fail(Fail.NOT_FOUND, "no reachable " + arg + " in sight");
 				return;
 			}
 			target = s.entity();
@@ -104,7 +104,7 @@ public final class CombatSkills {
 			}
 			if (!Mc.canSee(target) && dist > 4) {
 				if (++unseen > 100) {
-					fail("lost sight of the " + arg);
+					fail(Fail.UNREACHABLE, "lost sight of the " + arg);
 					return;
 				}
 			} else unseen = 0;
@@ -118,7 +118,7 @@ public final class CombatSkills {
 					sinceCloser = 0;
 				} else if (++sinceCloser > 20 * 8) {
 					UNREACHABLE.put(target.getId(), System.currentTimeMillis() + 60_000);
-					fail("can't reach the " + arg + " (" + Math.round(dist) + " blocks away)");
+					fail(Fail.UNREACHABLE, "can't reach the " + arg + " (" + Math.round(dist) + " blocks away)");
 					return;
 				}
 				if (ticks % 10 == 1) Bari.path(new GoalNear(target.blockPosition(), 1));
@@ -149,12 +149,12 @@ public final class CombatSkills {
 		protected void start() {
 			timeoutTicks = 20 * 60;
 			if (Mc.count("bow") == 0 || Mc.count("arrow") == 0) {
-				fail("need a bow and arrows");
+				fail(Fail.NEED_ITEM, "need a bow and arrows");
 				return;
 			}
 			Perception.Seen s = Perception.look(64).nearest(arg == null ? "" : arg);
 			if (s == null) {
-				fail("no " + arg + " in sight");
+				fail(Fail.NOT_FOUND, "no " + arg + " in sight");
 				return;
 			}
 			target = s.entity();
@@ -171,7 +171,7 @@ public final class CombatSkills {
 				return;
 			}
 			if (Mc.count("arrow") == 0 || shots >= 10) {
-				fail(shots >= 10 ? "missed 10 shots" : "out of arrows");
+				fail(shots >= 10 ? Fail.USE_FAILED : Fail.NEED_ITEM, shots >= 10 ? "missed 10 shots" : "out of arrows");
 				return;
 			}
 			if (ticks < 3) return;

@@ -41,13 +41,13 @@ public final class SmeltSkill extends Skill {
 		want = argCount(1);
 		String in = TechTree.SMELT.get(output);
 		if (in == null) {
-			fail("don't know how to smelt " + output);
+			fail(Fail.NO_RECIPE, "don't know how to smelt " + output);
 			return;
 		}
 		input = Items2.matcher(in);
 		int have = Mc.count(input);
 		if (have == 0) {
-			fail("no " + in + " to smelt");
+			fail(Fail.NEED_ITEM, "no " + in + " to smelt");
 			return;
 		}
 		want = Math.min(want, have);
@@ -60,7 +60,7 @@ public final class SmeltSkill extends Skill {
 	protected void tick() {
 		if (!station.ready()) {
 			station.tick();
-			if (station.error != null) fail(station.error);
+			if (station.error != null) fail(station.errorCode, station.error);
 			return;
 		}
 		LocalPlayer pl = Mc.player();
@@ -80,11 +80,11 @@ public final class SmeltSkill extends Skill {
 			}
 			int alreadyIn = inSlot.getCount();
 			if (alreadyIn < want && !moveInto(menu, input, AbstractFurnaceMenu.INGREDIENT_SLOT, want - alreadyIn)) {
-				fail("couldn't load the furnace");
+				fail(Fail.USE_FAILED, "couldn't load the furnace");
 				return;
 			}
 			if (!loadFuel(menu, want)) {
-				fail("no fuel");
+				fail(Fail.NEED_ITEM, "no fuel");
 				return;
 			}
 			loaded = true;
@@ -108,15 +108,15 @@ public final class SmeltSkill extends Skill {
 		lastArrow = arrow;
 		if (!inputLeft && !menu.getSlot(AbstractFurnaceMenu.RESULT_SLOT).hasItem()) {
 			if (made > 0) done("smelted " + made + " " + output);
-			else if (idleTicks > 40) fail("furnace stopped (out of fuel?)");
+			else if (idleTicks > 40) fail(Fail.NO_PROGRESS, "furnace stopped (out of fuel?)");
 		} else if (inputLeft && idleTicks >= 40 && !menu.getSlot(AbstractFurnaceMenu.FUEL_SLOT).hasItem()) {
 			// Ran dry with items left: top it up with whatever fuel we still carry.
 			int left = menu.getSlot(AbstractFurnaceMenu.INGREDIENT_SLOT).getItem().getCount();
 			if (loadFuel(menu, left)) idleTicks = 0;
 			else if (made > 0) done("smelted " + made + " " + output + " (out of fuel)");
-			else fail("out of fuel");
+			else fail(Fail.NEED_ITEM, "out of fuel");
 		} else if (idleTicks > 20 * 15) {
-			fail("furnace isn't burning (no progress for 15 s)");
+			fail(Fail.NO_PROGRESS, "furnace isn't burning (no progress for 15 s)");
 		}
 	}
 

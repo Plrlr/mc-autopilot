@@ -52,7 +52,7 @@ public final class CraftSkill extends Skill {
 		timeoutTicks = 20 * 90;
 		RecipeDisplayEntry e = findRecipe(false);
 		if (e == null) {
-			fail(findRecipe(true) == null ? "no known recipe for " + target + " (not unlocked yet?)" : "missing ingredients for " + target);
+			fail(findRecipe(true) == null ? Fail.NO_RECIPE : Fail.NEED_ITEM, findRecipe(true) == null ? "no known recipe for " + target + " (not unlocked yet?)" : "missing ingredients for " + target);
 			return;
 		}
 		needsTable = !fits2x2(e.display());
@@ -65,7 +65,7 @@ public final class CraftSkill extends Skill {
 		LocalPlayer pl = Mc.player();
 		if (station != null && !station.ready()) {
 			station.tick();
-			if (station.error != null) fail(station.error);
+			if (station.error != null) fail(station.errorCode, station.error);
 			return;
 		}
 		AbstractContainerMenu menu = needsTable ? pl.containerMenu : pl.inventoryMenu;
@@ -84,11 +84,11 @@ public final class CraftSkill extends Skill {
 		RecipeDisplayEntry e = findRecipe(false);
 		if (e == null) {
 			if (made > 0) done("crafted " + made + " " + target + " (ran out of ingredients)");
-			else fail("missing ingredients for " + target);
+			else fail(Fail.NEED_ITEM, "missing ingredients for " + target);
 			return;
 		}
 		if (!needsTable && !fits2x2(e.display())) {
-			fail(target + " needs a crafting table");
+			fail(Fail.NEED_ITEM, target + " needs a crafting table");
 			return;
 		}
 		Mc.mc().gameMode.handlePlaceRecipe(menu.containerId, e.id(), false);

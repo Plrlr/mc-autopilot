@@ -51,7 +51,7 @@ public final class InventorySkills {
 				}
 			}
 			if (best == null) {
-				fail("no food");
+				fail(Fail.NEED_ITEM, "no food");
 				return;
 			}
 			food = Items2.id(best);
@@ -95,7 +95,7 @@ public final class InventorySkills {
 				case "shield" -> {
 					int inv = Mc.findSlot(s -> Items2.id(s).equals("shield"));
 					if (inv < 0) {
-						fail("no shield");
+						fail(Fail.NEED_ITEM, "no shield");
 						return;
 					}
 					// SWAP with button 40 moves the stack to the off hand.
@@ -107,7 +107,7 @@ public final class InventorySkills {
 				case "axe" -> holdBest("axe", null);
 				case "armor" -> {
 				}
-				default -> fail("unknown equip target " + what);
+				default -> fail(Fail.NO_RECIPE, "unknown equip target " + what);
 			}
 		}
 
@@ -115,7 +115,7 @@ public final class InventorySkills {
 			String best = bestOf(type);
 			if (best == null && alt != null) best = bestOf(alt);
 			if (best == null) {
-				fail("no " + type);
+				fail(Fail.NEED_ITEM, "no " + type);
 				return;
 			}
 			String id = best;
@@ -155,13 +155,13 @@ public final class InventorySkills {
 				}
 				if (bestInv < 0) continue;
 				if (++actions > 12) {
-					fail("armor wouldn't move");
+					fail(Fail.USE_FAILED, "armor wouldn't move");
 					return;
 				}
 				// Inventory menu slots 5-8 are head, chest, legs, feet.
 				if (!worn.isEmpty()) {
 					if (pl.getInventory().getFreeSlot() < 0) {
-						fail("inventory full, can't swap armor");
+						fail(Fail.INVENTORY_FULL, "inventory full, can't swap armor");
 						return;
 					}
 					Mc.click(pl.inventoryMenu, 5 + k, 0, ContainerInput.QUICK_MOVE);
@@ -189,7 +189,7 @@ public final class InventorySkills {
 			timeoutTicks = 20 * 5;
 			block = arg == null ? "" : arg;
 			if (Mc.count(block) == 0) {
-				fail("no " + block + " to place");
+				fail(Fail.NEED_ITEM, "no " + block + " to place");
 				return;
 			}
 			Bari.stop();
@@ -197,7 +197,7 @@ public final class InventorySkills {
 			if (pl.containerMenu != pl.inventoryMenu) pl.closeContainer();
 			spot = Station.findSpot(pl);
 			if (spot == null) {
-				fail("no room to place " + block);
+				fail(Fail.NO_ROOM, "no room to place " + block);
 				return;
 			}
 			Mc.holdItem(Items2.matcher(block));
@@ -212,7 +212,7 @@ public final class InventorySkills {
 					memory.remember(block, spot, now);
 					done("placed " + block);
 				} else {
-					fail("the " + block + " didn't place");
+					fail(Fail.PLACE_FAILED, "the " + block + " didn't place");
 				}
 			}
 		}

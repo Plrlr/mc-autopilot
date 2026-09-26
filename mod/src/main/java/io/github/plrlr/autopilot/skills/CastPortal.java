@@ -82,19 +82,19 @@ public final class CastPortal extends Skill {
 	protected void start() {
 		timeoutTicks = 20 * 60 * 6;
 		if (!Mc.dimension().equals("overworld")) {
-			fail("cast the portal in the overworld (water boils in the nether)");
+			fail(Fail.WRONG_PLACE, "cast the portal in the overworld (water boils in the nether)");
 			return;
 		}
 		if (Mc.count("flint_and_steel") == 0) {
-			fail("need flint and steel");
+			fail(Fail.NEED_ITEM, "need flint and steel");
 			return;
 		}
 		if (Mc.count("water_bucket") == 0) {
-			fail("need a water bucket");
+			fail(Fail.NEED_ITEM, "need a water bucket");
 			return;
 		}
 		if (Mc.count("bucket") + Mc.count("lava_bucket") == 0) {
-			fail("need a second bucket for lava");
+			fail(Fail.NEED_ITEM, "need a second bucket for lava");
 			return;
 		}
 		Bari.stop();
@@ -127,7 +127,7 @@ public final class CastPortal extends Skill {
 			case SITE -> {
 				WorldMemory.Seen pool = memory.nearest("lava");
 				if (Mc.count("lava_bucket") == 0 && pool == null) {
-					fail("no known lava pool to cast from");
+					fail(Fail.NOT_FOUND, "no known lava pool to cast from");
 					return;
 				}
 				if (origin != null && (origin.distSqr(pl.blockPosition()) > 40 * 40 || !siteUsable(origin, along))) origin = null;
@@ -143,7 +143,7 @@ public final class CastPortal extends Skill {
 						return;
 					}
 					if (!findSite(pl.blockPosition())) {
-						fail("no flat open ground for a portal near the lava");
+						fail(Fail.NO_ROOM, "no flat open ground for a portal near the lava");
 						return;
 					}
 				}
@@ -152,12 +152,12 @@ public final class CastPortal extends Skill {
 			}
 			case APPROACH -> {
 				if (++wait > approachTicks) {
-					fail("couldn't get near the lava pool");
+					fail(Fail.UNREACHABLE, "couldn't get near the lava pool");
 					return;
 				}
 				if (wait > 10 && !Bari.pathing()) {
 					if (!findSite(pl.blockPosition())) {
-						fail("no flat open ground for a portal near the lava");
+						fail(Fail.NO_ROOM, "no flat open ground for a portal near the lava");
 						return;
 					}
 					phase = Phase.WALL;
@@ -170,14 +170,14 @@ public final class CastPortal extends Skill {
 				fetch.update();
 				if (fetch.result() == null) return;
 				if (!fetch.result().ok()) {
-					fail("couldn't fill a bucket with lava: " + fetch.result().detail());
+					fail(fetch.result().code(), "couldn't fill a bucket with lava: " + fetch.result().detail());
 					return;
 				}
 				phase = Phase.NEXT;
 			}
 			case WALK -> {
 				if (++wait > 20 * 30) {
-					castFailed("couldn't reach a spot to cast from");
+					castFailed(Fail.UNREACHABLE, "couldn't reach a spot to cast from");
 					return;
 				}
 				if (wait > 5 && !Bari.pathing()) {
@@ -195,7 +195,7 @@ public final class CastPortal extends Skill {
 				Aim a = aimAt(pl.getEyePosition(), target);
 				Aim w = water == null ? null : aimAt(pl.getEyePosition(), water);
 				if (a == null || w == null) {
-					castFailed("lost the line of sight to the frame");
+					castFailed(Fail.UNREACHABLE, "lost the line of sight to the frame");
 					return;
 				}
 				lavaAim = a;
@@ -220,7 +220,7 @@ public final class CastPortal extends Skill {
 				}
 				if (!lava(target)) {
 					if (wait > 8) {
-						castFailed("the lava didn't land in the frame");
+						castFailed(Fail.USE_FAILED, "the lava didn't land in the frame");
 					}
 					return;
 				}
@@ -234,13 +234,13 @@ public final class CastPortal extends Skill {
 				wait++;
 				if (wait < 8) return;
 				if (Mc.count("water_bucket") > 0) {
-					if (!obsidian(target)) castFailed("the lava didn't harden");
+					if (!obsidian(target)) castFailed(Fail.USE_FAILED, "the lava didn't harden");
 					else phase = Phase.NEXT;
 					return;
 				}
 				if (wait % 5 != 0) return;
 				if (wait > 60) {
-					fail("couldn't scoop the water back up");
+					fail(Fail.USE_FAILED, "couldn't scoop the water back up");
 					return;
 				}
 				// The water sits in the spot we poured into; take it back for the next block.
@@ -248,7 +248,7 @@ public final class CastPortal extends Skill {
 				if (src == null) {
 					log("no water source near the frame; target is " + Mc.id(Mc.state(target).getBlock()) + ", planned water spot has "
 							+ Mc.id(Mc.state(water).getBlock()));
-					fail("lost the water");
+					fail(Fail.NOT_FOUND, "lost the water");
 					return;
 				}
 				if (wait == 10 || wait == 40) log("scooping water at " + src.toShortString() + " from " + pl.blockPosition().toShortString()
@@ -272,7 +272,7 @@ public final class CastPortal extends Skill {
 					return;
 				}
 				if (++wait > 20 * 15) {
-					fail("couldn't clear a block out of the frame");
+					fail(Fail.USE_FAILED, "couldn't clear a block out of the frame");
 					return;
 				}
 				var st = Mc.state(breaking);
@@ -292,7 +292,7 @@ public final class CastPortal extends Skill {
 						BlockPos p = cell(x, y);
 						if (!Mc.state(p).getFluidState().isEmpty()) {
 							if (++wait > 20 * 8) {
-								fail("water won't drain out of the frame");
+								fail(Fail.USE_FAILED, "water won't drain out of the frame");
 							}
 							return;
 						}
@@ -318,11 +318,11 @@ public final class CastPortal extends Skill {
 				}
 				if (wait++ % 10 != 0) return;
 				if (++tries > 6) {
-					fail("couldn't light the portal");
+					fail(Fail.USE_FAILED, "couldn't light the portal");
 					return;
 				}
 				if (!Mc.holdItem(s -> Items2.id(s).equals("flint_and_steel"))) {
-					fail("lost the flint and steel");
+					fail(Fail.NEED_ITEM, "lost the flint and steel");
 					return;
 				}
 				BlockPos base = cell(1, 0);
@@ -356,7 +356,7 @@ public final class CastPortal extends Skill {
 		if (!pl.blockPosition().equals(stand)) {
 			if (!Bari.pathing()) {
 				if (++wallTries > 12) {
-					fail("couldn't get in front of the portal site");
+					fail(Fail.UNREACHABLE, "couldn't get in front of the portal site");
 					return;
 				}
 				Bari.path(new GoalBlock(stand));
@@ -367,11 +367,11 @@ public final class CastPortal extends Skill {
 		if (!next.equals(lastWall)) tries = 0;
 		lastWall = next;
 		if (++tries > 8) {
-			fail("couldn't build the wall behind the frame");
+			fail(Fail.PLACE_FAILED, "couldn't build the wall behind the frame");
 			return;
 		}
 		if (!Mc.holdItem(Items2.matcher("throwaway"))) {
-			fail("out of blocks for the wall (need about " + BLOCKS_NEEDED + ")");
+			fail(Fail.NEED_ITEM, "out of blocks for the wall (need about " + BLOCKS_NEEDED + ")");
 			return;
 		}
 		Mc.placeAt(next);
@@ -411,11 +411,11 @@ public final class CastPortal extends Skill {
 		}
 		if (!Mc.state(target).getFluidState().isEmpty()) {
 			// Flowing water from the last block drains in a second or two.
-			if (++wait > 20 * 6) castFailed("water won't drain from the frame");
+			if (++wait > 20 * 6) castFailed(Fail.USE_FAILED, "water won't drain from the frame");
 			return;
 		}
 		if (Mc.count("water_bucket") == 0) {
-			fail("lost the water bucket");
+			fail(Fail.NEED_ITEM, "lost the water bucket");
 			return;
 		}
 		if (Mc.count("lava_bucket") == 0) {
@@ -426,7 +426,7 @@ public final class CastPortal extends Skill {
 		}
 		Plan plan = planFor(target, pl);
 		if (plan == null) {
-			castFailed("no spot with a clear aim at the frame");
+			castFailed(Fail.NO_ROOM, "no spot with a clear aim at the frame");
 			return;
 		}
 		water = plan.water().cell();
@@ -444,11 +444,11 @@ public final class CastPortal extends Skill {
 		io.github.plrlr.autopilot.AutopilotMod.LOGGER.info("[cast] {}", s);
 	}
 
-	private void castFailed(String why) {
+	private void castFailed(Fail code, String why) {
 		log("failed: " + why);
 		Bari.stop();
 		if (++castFails > 6) {
-			fail(why);
+			fail(code, why);
 			return;
 		}
 		phase = Phase.NEXT;
@@ -612,7 +612,7 @@ public final class CastPortal extends Skill {
 
 	@Override
 	protected void cleanup() {
-		if (fetch != null && fetch.result() == null) fetch.abort("stopped");
+		if (fetch != null && fetch.result() == null) fetch.abort(Fail.INTERRUPTED, "stopped");
 		if (Mc.mc().gameMode != null) Mc.mc().gameMode.stopDestroyBlock();
 		super.cleanup();
 	}

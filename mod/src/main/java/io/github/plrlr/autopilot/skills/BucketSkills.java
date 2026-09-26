@@ -86,7 +86,7 @@ public final class BucketSkills {
 			timeoutTicks = 20 * 90;
 			fluid = "lava".equals(arg) ? "lava" : "water";
 			if (Mc.count("bucket") == 0) {
-				fail("no empty bucket");
+				fail(Fail.NEED_ITEM, "no empty bucket");
 				return;
 			}
 			before = Mc.count(fluid + "_bucket");
@@ -113,7 +113,7 @@ public final class BucketSkills {
 				memory.forget(fluid, s.pos());
 			}
 			if (source == null) {
-				fail("no known " + fluid + " source with a bank to stand on");
+				fail(Fail.NOT_FOUND, "no known " + fluid + " source with a bank to stand on");
 				return;
 			}
 			List<BlockPos> spots = standSpots(source, Vec3.atCenterOf(source), source);
@@ -131,7 +131,7 @@ public final class BucketSkills {
 			Vec3 aim = Vec3.atCenterOf(source).add(0, 0.3, 0);
 			if (pl.getEyePosition().distanceTo(aim) > Mc.reach()) {
 				skipped.add(source);
-				if (++tries > 6) fail("couldn't get next to the " + fluid);
+				if (++tries > 6) fail(Fail.UNREACHABLE, "couldn't get next to the " + fluid);
 				else pickNext();
 				return;
 			}
@@ -140,12 +140,12 @@ public final class BucketSkills {
 			BlockHitResult hit = trace(aim.add(aim.subtract(pl.getEyePosition()).normalize()), ClipContext.Fluid.SOURCE_ONLY);
 			if (hit.getType() != HitResult.Type.BLOCK || !hit.getBlockPos().equals(source)) {
 				memory.forget(fluid, source);
-				if (++tries > 6) fail("the " + fluid + " is out of sight");
+				if (++tries > 6) fail(Fail.UNREACHABLE, "the " + fluid + " is out of sight");
 				else pickNext();
 				return;
 			}
 			Mc.useItem();
-			if (++tries > 8) fail("the bucket didn't fill");
+			if (++tries > 8) fail(Fail.USE_FAILED, "the bucket didn't fill");
 		}
 	}
 
@@ -178,11 +178,11 @@ public final class BucketSkills {
 			timeoutTicks = 20 * 240;
 			want = argCount(10);
 			if (Mc.count("water_bucket") == 0) {
-				fail("need a water bucket");
+				fail(Fail.NEED_ITEM, "need a water bucket");
 				return;
 			}
 			if (!Mc.dimension().equals("overworld")) {
-				fail("water evaporates outside the overworld");
+				fail(Fail.WRONG_PLACE, "water evaporates outside the overworld");
 			}
 		}
 
@@ -206,12 +206,12 @@ public final class BucketSkills {
 						return;
 					}
 					if (Mc.count("water_bucket") == 0) {
-						fail("lost the water bucket");
+						fail(Fail.NEED_ITEM, "lost the water bucket");
 						return;
 					}
 					if (!pickLava()) {
 						if (obsidianNearby() > 0) done("made " + obsidianNearby() + " obsidian (no more reachable lava here)");
-						else fail("no lava source we can safely pour water next to");
+						else fail(Fail.NOT_FOUND, "no lava source we can safely pour water next to");
 						return;
 					}
 					phase = Phase.WALK;
@@ -265,7 +265,7 @@ public final class BucketSkills {
 					}
 					if (wait++ % 5 != 0) return;
 					if (wait > 60) {
-						fail("couldn't scoop the water back up");
+						fail(Fail.USE_FAILED, "couldn't scoop the water back up");
 						return;
 					}
 					Vec3 aim = Vec3.atCenterOf(pourAt).add(0, 0.3, 0);
@@ -284,7 +284,7 @@ public final class BucketSkills {
 		private void skip(String why) {
 			if (lava != null) skipped.add(lava);
 			Bari.stop();
-			if (++fails > 8) fail("gave up on this lava pool: " + why);
+			if (++fails > 8) fail(Fail.USE_FAILED, "gave up on this lava pool: " + why);
 			else phase = Phase.PICK;
 		}
 

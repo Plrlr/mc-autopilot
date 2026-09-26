@@ -16,6 +16,7 @@ import io.github.plrlr.autopilot.plan.Goal;
 import io.github.plrlr.autopilot.plan.Option;
 import io.github.plrlr.autopilot.plan.Planner;
 import io.github.plrlr.autopilot.skills.Bari;
+import io.github.plrlr.autopilot.skills.Fail;
 import io.github.plrlr.autopilot.skills.PortalSkills;
 import io.github.plrlr.autopilot.skills.Skill;
 import io.github.plrlr.autopilot.skills.Skills;
@@ -89,6 +90,10 @@ public final class Autopilot {
 	private long reflexCooldownUntil;
 	private final Map<String, long[]> failures = new HashMap<>(); // label -> {count, blockedUntilTick}
 	private String lastEndedKey = "";
+
+	// Test harness: one skill run on its own, with no decisions around it
+	private Option testTask;
+	private Skill.Result testTaskResult;
 
 	// Stuck and death
 	private Vec3 lastPos;
@@ -478,20 +483,22 @@ public final class Autopilot {
 	/** askNext: whether to ask the tactician what to do next (false when we already know). */
 	private void abortSkill(String why, boolean askNext) {
 		if (skill == null) return;
-		skill.abort(why);
+		Fail code = why.equals("died") ? Fail.DIED : why.startsWith("stuck") ? Fail.STUCK : Fail.INTERRUPTED;
+		skill.abort(code, why);
 		onSkillEnd(askNext);
 	}
 
 	private void onSkillEnd(boolean askNext) {
 		Skill.Result r = skill.result();
 		String label = skillOption.label();
-		String line = label + " -> " + (r.ok() ? "ok" : "failed") + ": " + r.detail();
+		String line = label + " -> " + (r.ok() ? "ok" : "failed " + r.code()) + ": " + r.detail();
 		recent.addLast(line);
 		while (recent.size() > 6) recent.removeFirst();
 		JsonObject j = new JsonObject();
 		j.addProperty("event", "skill_end");
 		j.addProperty("skill", label);
 		j.addProperty("ok", r.ok());
+		if (r.code() != null) j.addProperty("code", r.code().name());
 		j.addProperty("detail", r.detail());
 		j.addProperty("seconds", (tick - skillStartTick) / 20.0);
 		log.write(j);
@@ -500,7 +507,8 @@ public final class Autopilot {
 		// every tick.
 		boolean instantRepeat = r.ok() && tick - skillStartTick < 10 && actionKey(skillOption).equals(lastEndedKey);
 		lastEndedKey = actionKey(skillOption);
-		lessons.record(actionKey(skillOption), r.ok() && !instantRepeat, instantRepeat ? "did nothing" : r.detail(), (tick - skillStartTick) / 20.0);
+		lessons.record(actionKey(skillOption), r.ok() && !instantRepeat, instantRepeat ? "NO_PROGRESS" : r.code() == null ? null : r.code().name(),
+				instantRepeat ? "did nothing" : r.detail(), (tick - skillStartTick) / 20.0);
 		// An action that has failed most of the time in past runs gets paused after two fails, not three.
 		int pauseAfter = lessons.failRate(actionKey(skillOption)) >= 0.7 ? 2 : 3;
 		if (r.ok() && !instantRepeat) {
@@ -512,7 +520,7 @@ public final class Autopilot {
 				f[0] = 0;
 				f[1] = tick + 20 * 60;
 			}
-		} else if (!r.detail().startsWith("interrupted") && !r.detail().equals("died")) {
+		} else if (r.code() != Fail.INTERRUPTED && r.code() != Fail.DIED) {
 			consecutiveFails++;
 			long[] f = failures.computeIfAbsent(actionKey(skillOption), k -> new long[2]);
 			// Three failures in a row: hide this option for a minute so we don't loop on it.
@@ -521,6 +529,7 @@ public final class Autopilot {
 				f[1] = tick + 20 * 60;
 			}
 		}
+		if (testTask != null && skillOption == testTask) testTaskResult = r;
 		skill = null;
 		skillOption = null;
 		skillIsReflex = false;
@@ -582,6 +591,7 @@ public final class Autopilot {
 	}
 
 	private void requestDecision(String trigger) {
+		if (testTask != null) return;
 		if (pendingDecision != null || !enabled || goal == null) return;
 		if (Mc.player() == null || Mc.player().isDeadOrDying()) return;
 		List<Option> options = new ArrayList<>();
@@ -711,6 +721,21 @@ public final class Autopilot {
 		pendingPlan = null;
 		setGoal(new Strategist.Plan(g, "set by you", List.of(), "user", true, 0, 0, 0, null), "user");
 		lastPlanTick = tick;
+	}
+
+	/**
+	 * Test harness only: run one skill by itself (no brain decisions while it runs) to check a
+	 * single fix quickly. taskResult() is set when it ends.
+	 */
+	public void runTask(Option o) {
+		abortSkill("test task", false);
+		testTask = o;
+		testTaskResult = null;
+		startSkill(o, "test_task", false);
+	}
+
+	public Skill.Result taskResult() {
+		return testTaskResult;
 	}
 
 	public void askOpusNow() {
