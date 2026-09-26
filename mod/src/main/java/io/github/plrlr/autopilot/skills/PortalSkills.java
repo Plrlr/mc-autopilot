@@ -135,6 +135,7 @@ public final class PortalSkills {
 						tries = 0;
 					}
 					if (cell >= FRAME.length) {
+						io.github.plrlr.autopilot.log.Checkpoints.mark("frame_complete");
 						phase = Phase.LIGHT;
 						tries = 0;
 						return;

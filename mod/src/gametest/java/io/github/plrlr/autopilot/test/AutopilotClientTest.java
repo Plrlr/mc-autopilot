@@ -111,7 +111,9 @@ public class AutopilotClientTest implements FabricClientGameTest {
 				if (!ap.enabled()) System.out.println("[autopilot-test] NOTE: autopilot turned itself off during the run");
 				System.out.println("[autopilot-test] FINAL " + scenario + ": " + ap.statusLine() + ", dimension "
 						+ mc.player.level().dimension().identifier().getPath()
-						+ ", milestone times " + (ap.milestoneTimes().isEmpty() ? "none" : String.join(" ", ap.milestoneTimes())));
+						+ ", milestone times " + (ap.milestoneTimes().isEmpty() ? "none" : String.join(" ", ap.milestoneTimes()))
+						+ ", checkpoints " + (io.github.plrlr.autopilot.log.Checkpoints.summary().isEmpty() ? "none"
+						: String.join(" ", io.github.plrlr.autopilot.log.Checkpoints.summary())));
 				for (String l : ap.lessons.worst(6)) System.out.println("[autopilot-test] LESSON " + l);
 				ap.disable("test finished");
 			});

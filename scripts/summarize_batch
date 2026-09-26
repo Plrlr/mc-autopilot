@@ -29,6 +29,9 @@ CATEGORY = {
     "shelter": "night", "sleep": "night", "fill_end_portal": "building",
 }
 CATEGORIES = ["mining", "crafting", "food", "travel", "combat", "building", "night", "other", "idle"]
+# Steps on the way to the Nether (the mod's Checkpoints.PORTAL_PATH), with short column names.
+PORTAL_PATH = [("two_buckets", "2 buckets"), ("flint_and_steel", "flint+steel"), ("lava_seen", "lava seen"),
+               ("obsidian_placed", "obsidian"), ("frame_complete", "frame"), ("portal_lit", "lit")]
 
 
 def category(label):
@@ -56,7 +59,7 @@ def action_of(label):
 def read_run(path):
     name = os.path.basename(path.rstrip("/"))
     name = name[len("trial-"):] if name.startswith("trial-") else name
-    run = {"name": name, "milestones": [], "deaths": [], "final": None, "task": None, "length": 0,
+    run = {"name": name, "milestones": [], "deaths": [], "final": None, "task": None, "length": 0, "checkpoints": {},
            "time": collections.Counter(), "fails": [], "shots": [], "notes": []}
     test_log = os.path.join(path, "autopilot-test.log")
     if os.path.exists(test_log):
@@ -68,8 +71,11 @@ def read_run(path):
             if line.startswith("FINAL"):
                 run["final"] = line
                 m = re.search(r"milestone times (.*)$", line)
-                if m and m.group(1) != "none":
-                    run["milestones"] = [(int(a), int(b)) for a, b in re.findall(r"m(\d+)@(\d+)s", m.group(1))]
+                if m:
+                    run["milestones"] = [(int(a), int(b)) for a, b in re.findall(r"m(\d+)@(\d+)s", m.group(1).split(", checkpoints")[0])]
+                m = re.search(r"checkpoints (.*)$", line)
+                if m:
+                    run["checkpoints"] = {k: int(v) for k, v in re.findall(r"(\w+)@(\d+)s", m.group(1))}
             elif line.startswith("TASK"):
                 run["task"] = line[5:]
             elif line.startswith("NOTE"):
@@ -81,7 +87,9 @@ def read_run(path):
             except ValueError:
                 continue
             if o.get("event") == "death":
-                run["deaths"].append(o.get("detail", "?"))
+                run["deaths"].append((o.get("detail", "?"), run.get("_doing", "?")))
+            elif o.get("event") == "skill_start":
+                run["_doing"] = action_of(o.get("skill", "?"))
             elif o.get("event") == "skill_end":
                 label = o.get("skill", "?")
                 run["time"][category(label)] += float(o.get("seconds", 0))
@@ -105,6 +113,24 @@ def read_run(path):
         if cast:
             run["cast"] = cast[-8:]
     return run
+
+
+def median_cell(natural, m):
+    """'3/8 9:40': how many runs reached milestone m, and the median time with the runs that
+    didn't reach it counted as the full run length (so a batch where fewer runs make it can't
+    look faster just because the slow ones dropped out)."""
+    ts, ok = [], 0
+    for r in natural:
+        t = dict(r["milestones"]).get(m)
+        if t is not None:
+            ok += 1
+            ts.append(t)
+        else:
+            ts.append(r["length"] or 0)
+    if not ok:
+        return "0/%d -" % len(natural)
+    med = statistics.median(ts)
+    return "%d/%d %s%s" % (ok, len(natural), mmss(med), "" if ok == len(natural) else "*")
 
 
 def main():
@@ -138,12 +164,34 @@ def main():
             m = re.search(r"goal (\S+), doing ([^,]+)", r["final"])
             if m:
                 doing = m.group(1) + ": " + m.group(2)
-        deaths = ", ".join(r["deaths"]) if r["deaths"] else "0"
+        deaths = ", ".join(c for c, _ in r["deaths"]) if r["deaths"] else "0"
         out.append("| %s | %s | %s | %s | %s |" % (r["name"], " | ".join(cells), deaths,
                                                    mmss(r["length"]) if r["length"] else "?", doing or "no FINAL line"))
+    natural = [r for r in runs if r["name"].startswith("natural") and not r["task"]]
+    if natural and reached:
+        cells = [median_cell(natural, m) for m in reached]
+        out.append("| **natural: reached, median** | %s | %d | | fails count as the full run length |" % (
+            " | ".join(cells), sum(len(r["deaths"]) for r in natural)))
     for r in runs:
         for n in r["notes"]:
             out.append("- NOTE %s: %s" % (r["name"], n))
+    if any(r["checkpoints"] for r in runs):
+        out.append("\n## Portal path (game time each step was first reached)\n")
+        out.append("| run | " + " | ".join(n for _, n in PORTAL_PATH) + " |")
+        out.append("|---" * (len(PORTAL_PATH) + 1) + "|")
+        for r in runs:
+            if r["task"]:
+                continue
+            out.append("| %s | %s |" % (r["name"], " | ".join(
+                mmss(r["checkpoints"][k]) if k in r["checkpoints"] else "-" for k, _ in PORTAL_PATH)))
+    deaths = [(r["name"], c, d) for r in runs for c, d in r["deaths"]]
+    if deaths:
+        out.append("\n## Deaths by cause (what the bot was doing)\n")
+        by = collections.defaultdict(list)
+        for name, c, d in deaths:
+            by[c].append(d)
+        for c, ds in sorted(by.items(), key=lambda x: -len(x[1])):
+            out.append("- %d x %s (%s)" % (len(ds), c, ", ".join("%s %d" % kv for kv in collections.Counter(ds).most_common())))
     tasks = [r for r in runs if r["task"]]
     if tasks:
         out.append("\n## Task tests\n")
@@ -179,17 +227,17 @@ def main():
     print("\n".join(out))
 
     if a.line_out:
-        natural = [r for r in runs if r["name"].startswith("natural") and not r["task"]]
         def median_time(m):
-            ts = [dict(r["milestones"])[m] for r in natural if m in dict(r["milestones"])]
-            return "%d/%d %s" % (len(ts), len(natural), mmss(statistics.median(ts)) if ts else "-")
+            return median_cell(natural, m) if natural else "-"
+        portal = ", ".join("%s %d" % (n, sum(1 for r in natural if k in r["checkpoints"])) for k, n in PORTAL_PATH)
         top = fails.most_common(1)
         extra = [r["name"] + ": " + ("m%d" % max(dict(r["milestones"])) if r["milestones"] else "-")
                  for r in runs if not r["name"].startswith("natural") and not r["task"]]
         extra += [r["name"] + ": " + r["task"].split(" -> ")[-1][:40] for r in tasks]
-        line = "| %s | %s | %s | %s | %s | %s | %d | %s | %s |" % (
+        line = "| %s | %s | %s | %s | %s | %s | %d | %s | %s | %s |" % (
             a.run or "?", (a.commit or "?")[:7], median_time(1), median_time(2), median_time(4), median_time(7),
-            sum(len(r["deaths"]) for r in natural), "; ".join(extra) or "-",
+            sum(len(r["deaths"]) for r in natural), portal if any(r["checkpoints"] for r in natural) else "-",
+            "; ".join(extra) or "-",
             ("%s x%d" % top[0]) if top else "-")
         with open(a.line_out, "w") as f:
             f.write(line + "\n")

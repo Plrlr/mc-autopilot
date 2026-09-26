@@ -237,8 +237,10 @@ public final class Planner {
 			// Mine a little extra: each trip costs time. Spare cobblestone also covers a
 			// night shelter and the blocks Baritone places when it bridges or pillars.
 			int extra = switch (item) {
-				// Wood runs out at awkward times (deep in a mine); one trip for plenty is faster.
-				case "log" -> Mc.count("log") < 8 ? 8 : 3;
+				// Wood runs out at awkward times (deep in a mine); one trip for plenty is faster. But
+				// not the very first trip: 9 logs before the first table and pickaxe put the crafting
+				// table 15-30 s later on the same seeds (batches 3-6 vs 1-2).
+				case "log" -> Items2.bestTier("pickaxe") < 0 ? 2 : Mc.count("log") < 8 ? 8 : 3;
 				// All the iron the run needs in one trip down, not 2-3 at a time with a furnace each.
 				case "raw_iron" -> Math.max(0, ironStillNeeded() - Mc.count("iron_ingot") - have - missing);
 				case "stone" -> Mc.count("stone") < 24 ? 10 : 0;

@@ -10,6 +10,7 @@ import io.github.plrlr.autopilot.brains.LlmBackend;
 import io.github.plrlr.autopilot.brains.RateLimiter;
 import io.github.plrlr.autopilot.brains.Strategist;
 import io.github.plrlr.autopilot.brains.Tactician;
+import io.github.plrlr.autopilot.log.Checkpoints;
 import io.github.plrlr.autopilot.log.Lessons;
 import io.github.plrlr.autopilot.log.RunLog;
 import io.github.plrlr.autopilot.plan.Goal;
@@ -157,6 +158,7 @@ public final class Autopilot {
 		enabled = true;
 		enableTick = tick;
 		milestoneTimes.clear();
+		Checkpoints.start(tick);
 		Bari.applyFairPlay();
 		savedPauseOnLostFocus = mc.options.pauseOnLostFocus;
 		// Alt-tabbing would pause the world and freeze the AI mid-fight.
@@ -226,6 +228,8 @@ public final class Autopilot {
 			deathItemsUntilTick = -1;
 			for (WorldMemory.Seen d : memory.all("death")) memory.forget("death", d.pos());
 		}
+		Checkpoints.tick(tick);
+		if (tick % 20 == 0) checkpoints();
 		if (tick % 20 == 0) {
 			int m = progress.update(memory);
 			if (m > 0) {
@@ -697,6 +701,15 @@ public final class Autopilot {
 
 	public List<String> recentDecisions() {
 		return List.copyOf(decisions);
+	}
+
+	/** Inventory and memory checkpoints on the way to the portal (skills mark the others). */
+	private void checkpoints() {
+		if (Goal.have("bucket") >= 2 && Checkpoints.mark("two_buckets")) log.event("checkpoint", "two_buckets");
+		if (Mc.count("flint_and_steel") > 0 && Checkpoints.mark("flint_and_steel")) log.event("checkpoint", "flint_and_steel");
+		if (memory.nearest("lava") != null && Checkpoints.mark("lava_seen")) log.event("checkpoint", "lava_seen");
+		if (PortalSkills.placedFrameObsidian() > 0 && Checkpoints.mark("obsidian_placed")) log.event("checkpoint", "obsidian_placed");
+		if (memory.nearest("nether_portal") != null && Checkpoints.mark("portal_lit")) log.event("checkpoint", "portal_lit");
 	}
 
 	public List<String> milestoneTimes() {

@@ -235,7 +235,10 @@ public final class CastPortal extends Skill {
 				if (wait < 8) return;
 				if (Mc.count("water_bucket") > 0) {
 					if (!obsidian(target)) castFailed(Fail.USE_FAILED, "the lava didn't harden");
-					else phase = Phase.NEXT;
+					else {
+						io.github.plrlr.autopilot.log.Checkpoints.mark("obsidian_placed");
+						phase = Phase.NEXT;
+					}
 					return;
 				}
 				if (wait % 5 != 0) return;
@@ -395,6 +398,7 @@ public final class CastPortal extends Skill {
 			}
 		}
 		if (target == null) {
+			io.github.plrlr.autopilot.log.Checkpoints.mark("frame_complete");
 			phase = Phase.CLEAR;
 			wait = 0;
 			return;
