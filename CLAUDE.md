@@ -205,6 +205,8 @@ rules still want the running action. Reflexes never wait for an AI.
 - After each batch: add the note to its line in docs/batches.md, and update docs/lessons.md with
   anything learned (in the same commit as the fix). A fresh session resumes from those two files.
 - Phases and their status: docs/history.md.
+- Two sessions may work at once (cloud: batches and skills; laptop: local Opus runs and tooling):
+  docs/coordination.md says who owns what and holds requests between them. Read it first.
 
 ## Style
 - Small classes, comments that explain why.
