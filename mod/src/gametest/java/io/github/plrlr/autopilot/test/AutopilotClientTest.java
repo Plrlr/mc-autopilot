@@ -71,7 +71,8 @@ public class AutopilotClientTest implements FabricClientGameTest {
 				Autopilot ap = AutopilotMod.instance();
 				if (!ap.enabled()) System.out.println("[autopilot-test] NOTE: autopilot turned itself off during the run");
 				System.out.println("[autopilot-test] FINAL " + scenario + ": " + ap.statusLine() + ", dimension "
-						+ mc.player.level().dimension().identifier().getPath());
+						+ mc.player.level().dimension().identifier().getPath()
+						+ ", milestone times " + (ap.milestoneTimes().isEmpty() ? "none" : String.join(" ", ap.milestoneTimes())));
 				ap.disable("test finished");
 			});
 		}
@@ -115,6 +116,14 @@ public class AutopilotClientTest implements FabricClientGameTest {
 		ctx.runOnClient(mc -> {
 			Autopilot ap = AutopilotMod.instance();
 			System.out.println("[autopilot-test] " + when + ": " + ap.statusLine());
+			// Where we are and what we carry: enough to see from the log alone what went wrong.
+			var pl = mc.player;
+			java.util.Map<String, Integer> inv = new java.util.TreeMap<>();
+			for (var st : pl.getInventory().getNonEquipmentItems()) {
+				if (!st.isEmpty()) inv.merge(io.github.plrlr.autopilot.Items2.id(st), st.getCount(), Integer::sum);
+			}
+			System.out.println("[autopilot-test]    at " + pl.getBlockX() + " " + pl.getBlockY() + " " + pl.getBlockZ()
+					+ " hp " + Math.round(pl.getHealth()) + " food " + pl.getFoodData().getFoodLevel() + " inv " + inv);
 			for (String r : ap.recentResults()) System.out.println("[autopilot-test]    " + r);
 		});
 	}

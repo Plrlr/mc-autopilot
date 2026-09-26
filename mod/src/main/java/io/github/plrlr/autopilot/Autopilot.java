@@ -100,6 +100,8 @@ public final class Autopilot {
 	private final Deque<String> decisions = new ArrayDeque<>();
 	private final ConcurrentLinkedQueue<String> notices = new ConcurrentLinkedQueue<>();
 	private final Map<String, Long> lastNotice = new HashMap<>();
+	/** "m7@412s": when each milestone was first reached in this session, for speed comparisons. */
+	private final List<String> milestoneTimes = new ArrayList<>();
 	private Perception seen = new Perception();
 	private String status = "off";
 
@@ -145,6 +147,7 @@ public final class Autopilot {
 		}
 		enabled = true;
 		enableTick = tick;
+		milestoneTimes.clear();
 		Bari.applyFairPlay();
 		savedPauseOnLostFocus = mc.options.pauseOnLostFocus;
 		// Alt-tabbing would pause the world and freeze the AI mid-fight.
@@ -216,8 +219,10 @@ public final class Autopilot {
 		if (tick % 20 == 0) {
 			int m = progress.update(memory);
 			if (m > 0) {
-				Mc.say("Milestone " + m + " reached!");
-				log.event("milestone", String.valueOf(m));
+				long secs = (tick - enableTick) / 20;
+				milestoneTimes.add("m" + m + "@" + secs + "s");
+				Mc.say("Milestone " + m + " reached after " + secs / 60 + " min " + secs % 60 + " s!");
+				log.event("milestone", m + " at " + secs + " s");
 			}
 		}
 
@@ -655,6 +660,10 @@ public final class Autopilot {
 
 	public List<String> recentDecisions() {
 		return List.copyOf(decisions);
+	}
+
+	public List<String> milestoneTimes() {
+		return List.copyOf(milestoneTimes);
 	}
 
 	public List<String> recentResults() {
