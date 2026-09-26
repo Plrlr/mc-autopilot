@@ -18,6 +18,8 @@ import java.util.List;
  * -PtestScenario picks the start:
  *   natural    a plain new world from spawn (default)
  *   portal     late-game gear and a lava pool nearby; goal: make obsidian, build and enter a portal
+ *   cast       the speedrun kit (iron pickaxe, two buckets, flint and steel, blocks) and a lava pool;
+ *              goal: cast the portal from lava and water without a diamond pickaxe, and enter it
  *   stronghold 12 eyes of ender; goal: find the stronghold
  *   end        placed in the End with gear; goal: kill the dragon
  * The staged scenarios use commands in the throwaway test world only, to skip hours of play and
@@ -83,19 +85,18 @@ public class AutopilotClientTest implements FabricClientGameTest {
 		var server = sp.getServer();
 		if (scenario.equals("natural")) return null;
 		server.runCommand("time set 1000");
+		if (scenario.equals("cast")) {
+			for (String g : List.of("iron_pickaxe", "iron_sword", "bucket 2", "flint_and_steel", "cobblestone 64", "cooked_beef 16"))
+				server.runCommand("give @a " + g);
+			lavaAndWater(server::runCommand);
+			return Goal.NETHER_PORTAL;
+		}
 		for (String g : GEAR) server.runCommand("give @a " + g);
 		switch (scenario) {
 			case "portal" -> {
 				server.runCommand("give @a bucket");
 				server.runCommand("give @a flint_and_steel");
-				// A 4x3 lava pool set into the ground 7 blocks east, with solid ground around it.
-				server.runCommand("execute at @p run fill ~6 ~-2 ~-3 ~11 ~-1 ~3 stone");
-				server.runCommand("execute at @p run fill ~7 ~-1 ~-1 ~10 ~-1 ~1 lava");
-				server.runCommand("execute at @p run fill ~6 ~ ~-3 ~11 ~3 ~3 air");
-				// Water to fill the bucket from, 6 blocks west.
-				server.runCommand("execute at @p run fill ~-8 ~-2 ~-2 ~-5 ~-1 ~2 stone");
-				server.runCommand("execute at @p run fill ~-7 ~-1 ~-1 ~-6 ~-1 ~1 water");
-				server.runCommand("execute at @p run fill ~-8 ~ ~-2 ~-5 ~3 ~2 air");
+				lavaAndWater(server::runCommand);
 				return Goal.NETHER_PORTAL;
 			}
 			case "stronghold" -> {
@@ -110,6 +111,16 @@ public class AutopilotClientTest implements FabricClientGameTest {
 			}
 			default -> throw new AssertionError("unknown scenario " + scenario);
 		}
+	}
+
+	/** A 4x3 lava pool set into the ground 7 blocks east, and water to fill a bucket from 6 blocks west. */
+	private static void lavaAndWater(java.util.function.Consumer<String> run) {
+		run.accept("execute at @p run fill ~6 ~-2 ~-3 ~11 ~-1 ~3 stone");
+		run.accept("execute at @p run fill ~7 ~-1 ~-1 ~10 ~-1 ~1 lava");
+		run.accept("execute at @p run fill ~6 ~ ~-3 ~11 ~3 ~3 air");
+		run.accept("execute at @p run fill ~-8 ~-2 ~-2 ~-5 ~-1 ~2 stone");
+		run.accept("execute at @p run fill ~-7 ~-1 ~-1 ~-6 ~-1 ~1 water");
+		run.accept("execute at @p run fill ~-8 ~ ~-2 ~-5 ~3 ~2 air");
 	}
 
 	private static void report(ClientGameTestContext ctx, String when) {

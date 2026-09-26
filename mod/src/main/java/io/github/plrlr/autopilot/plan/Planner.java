@@ -2,6 +2,7 @@ package io.github.plrlr.autopilot.plan;
 
 import io.github.plrlr.autopilot.Items2;
 import io.github.plrlr.autopilot.Mc;
+import io.github.plrlr.autopilot.skills.CastPortal;
 import io.github.plrlr.autopilot.state.Perception;
 import io.github.plrlr.autopilot.state.WorldMemory;
 import net.minecraft.client.player.LocalPlayer;
@@ -86,6 +87,8 @@ public final class Planner {
 			case NETHER_PORTAL -> {
 				if (dim.equals("the_nether")) return null;
 				if (memory.nearest("nether_portal") != null) return new Option("enter_portal", "nether", "walk into the nether portal");
+				// Speedrun route: without a diamond pickaxe, cast the frame from lava and water.
+				if (Goal.have("obsidian") < 10 && Items2.bestTier("pickaxe") < 3) return castStep(depth);
 				Option o = itemsStep(goal);
 				if (o != null) return o;
 				// The frame corners can be any block; 10 obsidian covers the rest.
@@ -140,6 +143,33 @@ public final class Planner {
 				return itemsStep(goal);
 			}
 		}
+	}
+
+	/**
+	 * What the cast portal needs: flint and steel, two buckets (one full of water), blocks for
+	 * the wall behind the frame, and a lava pool to cast from.
+	 */
+	private Option castStep(int depth) {
+		if (Goal.have("flint_and_steel") == 0) {
+			Option o = itemStep("flint_and_steel", 1, depth + 1);
+			if (o != null) return o;
+		}
+		if (Goal.have("bucket") < 2) {
+			Option o = itemStep("bucket", 2, depth + 1);
+			if (o != null) return o;
+		}
+		if (Mc.count("water_bucket") == 0) {
+			Option o = itemStep("water_bucket", 1, depth + 1);
+			if (o != null) return o;
+		}
+		int blocks = Mc.count("throwaway");
+		if (blocks < CastPortal.BLOCKS_NEEDED) {
+			Option o = itemStep("stone", Mc.count("stone") + CastPortal.BLOCKS_NEEDED - blocks, depth + 1);
+			if (o != null) return o;
+		}
+		if (memory.nearest("lava") == null && Mc.count("lava_bucket") == 0)
+			return new Option("explore", "lava", "find a lava pool to cast the portal from");
+		return new Option("build_portal", null, "cast a nether portal from lava and water (no diamonds needed)");
 	}
 
 	/** First missing need of an item goal, resolved down to an action. */

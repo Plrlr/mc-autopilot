@@ -287,6 +287,7 @@ public final class PortalSkills {
 	public static void resetThrows() {
 		THROWS.clear();
 		frameOrigin = null;
+		CastPortal.reset();
 	}
 
 	/** locate_stronghold: throw an eye of ender, watch where it flies, walk that way. */

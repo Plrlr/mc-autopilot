@@ -27,11 +27,12 @@ public final class Skills {
 		MENU.put("retreat", new Entry(MoveSkills.Retreat::new, "run away from nearby monsters"));
 		MENU.put("shelter", new Entry(NightSkills.Shelter::new, "dig 3 down, cover the hole, wait for morning"));
 		MENU.put("sleep", new Entry(NightSkills.Sleep::new, "sleep in a bed (places one from the inventory if needed)"));
-		MENU.put("build_portal", new Entry(PortalSkills.BuildPortal::new, "build and light a nether portal (10 obsidian + flint and steel)"));
+		MENU.put("build_portal", new Entry(() -> CastPortal.needed() ? new CastPortal() : new PortalSkills.BuildPortal(),
+				"build and light a nether portal: places 10 obsidian, or casts it from a lava pool with two buckets"));
 		MENU.put("enter_portal", new Entry(PortalSkills.EnterPortal::new, "walk into a known nether or end portal"));
 		MENU.put("locate_stronghold", new Entry(PortalSkills.LocateStronghold::new, "throw an eye of ender and walk where it points"));
 		MENU.put("fill_end_portal", new Entry(PortalSkills.FillEndPortal::new, "put eyes of ender into empty end portal frames"));
-		MENU.put("fill_bucket", new Entry(BucketSkills.FillBucket::new, "fill an empty bucket at a known water source"));
+		MENU.put("fill_bucket", new Entry(BucketSkills.FillBucket::new, "fill an empty bucket at a known water or lava source"));
 		MENU.put("make_obsidian", new Entry(BucketSkills.MakeObsidian::new, "pour a water bucket next to lava pool sources to harden them into obsidian"));
 	}
 

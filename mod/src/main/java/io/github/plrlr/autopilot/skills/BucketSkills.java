@@ -60,11 +60,16 @@ public final class BucketSkills {
 		return out;
 	}
 
-	/** fill_bucket water: fill an empty bucket at the nearest known water source. */
+	/**
+	 * fill_bucket water|lava: fill an empty bucket at the nearest known source of that fluid,
+	 * standing on a bank that isn't next to lava.
+	 */
 	public static final class FillBucket extends Skill {
-		private BlockPos water;
+		private String fluid;
+		private BlockPos source;
 		private int tries;
 		private int before;
+		private final List<BlockPos> skipped = new ArrayList<>();
 
 		@Override
 		public String name() {
@@ -79,60 +84,60 @@ public final class BucketSkills {
 		@Override
 		protected void start() {
 			timeoutTicks = 20 * 90;
+			fluid = "lava".equals(arg) ? "lava" : "water";
 			if (Mc.count("bucket") == 0) {
 				fail("no empty bucket");
 				return;
 			}
-			before = Mc.count("water_bucket");
+			before = Mc.count(fluid + "_bucket");
 			pickNext();
 		}
 
 		private void pickNext() {
 			LocalPlayer pl = Mc.player();
-			water = null;
-			List<WorldMemory.Seen> all = new ArrayList<>(memory.all("water"));
+			source = null;
+			List<WorldMemory.Seen> all = new ArrayList<>(memory.all(fluid));
 			all.sort(Comparator.comparingDouble(s -> s.pos().distSqr(pl.blockPosition())));
+			int checked = 0;
 			for (WorldMemory.Seen s : all) {
-				// A source with air above can be scooped from the bank.
-				if (isSource(s.pos(), "water") && Mc.free(s.pos().above())) {
-					water = s.pos();
+				// A source with air above can be scooped from the bank. Only the nearest few: a big
+				// lava lake remembers hundreds of blocks and each check scans stand spots.
+				if (skipped.contains(s.pos())) continue;
+				if (++checked > 24) break;
+				if (isSource(s.pos(), fluid) && Mc.free(s.pos().above()) && !standSpots(s.pos(), Vec3.atCenterOf(s.pos()), s.pos()).isEmpty()) {
+					source = s.pos();
 					break;
 				}
 			}
-			if (water == null) {
-				fail("no known water source");
+			if (source == null) {
+				fail("no known " + fluid + " source with a bank to stand on");
 				return;
 			}
-			List<BlockPos> spots = standSpots(water, Vec3.atCenterOf(water), water);
-			if (spots.isEmpty()) {
-				memory.forget("water", water);
-				if (++tries > 6) fail("couldn't find a bank to scoop water from");
-				else pickNext();
-				return;
-			}
+			List<BlockPos> spots = standSpots(source, Vec3.atCenterOf(source), source);
 			Bari.path(new GoalBlock(spots.get(0)));
 		}
 
 		@Override
 		protected void tick() {
-			if (Mc.count("water_bucket") > before) {
-				done("filled a bucket with water");
+			if (Mc.count(fluid + "_bucket") > before) {
+				done("filled a bucket with " + fluid);
 				return;
 			}
-			if (water == null || Bari.pathing() || ticks % 10 != 0) return;
+			if (source == null || Bari.pathing() || ticks % 10 != 0) return;
 			LocalPlayer pl = Mc.player();
-			Vec3 aim = Vec3.atCenterOf(water).add(0, 0.3, 0);
+			Vec3 aim = Vec3.atCenterOf(source).add(0, 0.3, 0);
 			if (pl.getEyePosition().distanceTo(aim) > Mc.reach()) {
-				if (++tries > 6) fail("couldn't get next to the water");
+				skipped.add(source);
+				if (++tries > 6) fail("couldn't get next to the " + fluid);
 				else pickNext();
 				return;
 			}
 			Mc.holdItem(s -> Items2.id(s).equals("bucket"));
 			Mc.lookAt(aim);
 			BlockHitResult hit = trace(aim.add(aim.subtract(pl.getEyePosition()).normalize()), ClipContext.Fluid.SOURCE_ONLY);
-			if (hit.getType() != HitResult.Type.BLOCK || !hit.getBlockPos().equals(water)) {
-				memory.forget("water", water);
-				if (++tries > 6) fail("the water is out of sight");
+			if (hit.getType() != HitResult.Type.BLOCK || !hit.getBlockPos().equals(source)) {
+				memory.forget(fluid, source);
+				if (++tries > 6) fail("the " + fluid + " is out of sight");
 				else pickNext();
 				return;
 			}

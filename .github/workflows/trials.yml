@@ -14,8 +14,11 @@ on:
         description: 'Game minutes per run'
         default: '10'
       scenario:
-        description: 'natural, portal, stronghold or end'
+        description: 'natural, portal, cast, stronghold or end'
         default: 'natural'
+      extra:
+        description: 'Extra runs as JSON, e.g. [{"seed":"a","scenario":"cast"}]'
+        default: '[]'
 
 jobs:
   # The unit tests (gradlew test) on every batch, so a code change is checked before its trial
@@ -41,6 +44,8 @@ jobs:
       fail-fast: false
       matrix:
         seed: ${{ fromJSON(inputs.seeds) }}
+        scenario: ['${{ inputs.scenario }}']
+        include: ${{ fromJSON(inputs.extra) }}
     steps:
       - uses: actions/checkout@v7
 
@@ -70,7 +75,7 @@ jobs:
           # The game exits with Baritone's known shutdown-watchdog crash after saving, which
           # fails the Gradle task; the summary step below judges the run instead.
           setsid xvfb-run -a -s "-screen 0 1280x720x24" ./gradlew runClientGameTest --console=plain \
-            -PtestMinutes=${{ inputs.minutes }} -PtestSeed=${{ matrix.seed }} -PtestScenario=${{ inputs.scenario }} \
+            -PtestMinutes=${{ inputs.minutes }} -PtestSeed=${{ matrix.seed }} -PtestScenario=${{ matrix.scenario }} \
             > trial.log 2>&1 &
           pid=$!
           # Watchdog: a game that can't open its window hangs instead of exiting, so stop it if
@@ -92,7 +97,7 @@ jobs:
       - name: Summary
         working-directory: mod
         run: |
-          echo "### ${{ inputs.scenario }} / seed ${{ matrix.seed }}" >> "$GITHUB_STEP_SUMMARY"
+          echo "### ${{ matrix.scenario }} / seed ${{ matrix.seed }}" >> "$GITHUB_STEP_SUMMARY"
           grep -a "FINAL" autopilot-test.log | sed 's/.*FINAL/FINAL/' >> "$GITHUB_STEP_SUMMARY" || true
           grep -ac "Can't keep up" trial.log | sed 's/^/server lag warnings: /' >> "$GITHUB_STEP_SUMMARY" || true
           # No FINAL line means the game never got to play: show the end of the log and fail.
@@ -101,7 +106,7 @@ jobs:
       - uses: actions/upload-artifact@v7
         if: always()
         with:
-          name: trial-${{ inputs.scenario }}-${{ matrix.seed }}
+          name: trial-${{ matrix.scenario }}-${{ matrix.seed }}
           path: |
             mod/autopilot-test.log
             mod/trial.log

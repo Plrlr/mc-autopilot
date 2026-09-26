@@ -19,7 +19,7 @@ public enum Goal {
 	IRON_TOOLS(4, "Mine and smelt iron: iron pickaxe, iron sword, shield, bucket", Map.of("iron_pickaxe", 1, "iron_sword", 1, "shield", 1, "bucket", 1)),
 	IRON_ARMOR(5, "Craft and wear full iron armor", Map.of("iron_helmet", 1, "iron_chestplate", 1, "iron_leggings", 1, "iron_boots", 1)),
 	DIAMONDS(6, "Mine diamonds deep underground and make a diamond pickaxe", Map.of("diamond_pickaxe", 1)),
-	NETHER_PORTAL(7, "Get 10 obsidian and flint and steel, build and light a nether portal, enter the Nether", Map.of("obsidian", 10, "flint_and_steel", 1)),
+	NETHER_PORTAL(7, "Build and light a nether portal and enter the Nether: cast it from a lava pool with a water bucket and a second bucket (no diamonds needed), or place 10 mined obsidian", Map.of("obsidian", 10, "flint_and_steel", 1)),
 	BLAZE_RODS(8, "In the Nether, find a fortress and kill blazes for 6 blaze rods", Map.of("blaze_rod", 6)),
 	ENDER_PEARLS(9, "Kill endermen for 12 ender pearls", Map.of("ender_pearl", 12)),
 	EYES_OF_ENDER(10, "Craft 12 eyes of ender (blaze powder + ender pearl)", Map.of("ender_eye", 12)),
@@ -95,6 +95,14 @@ public enum Goal {
 	 */
 	public boolean sticky() {
 		return milestone >= 1 && milestone <= 6;
+	}
+
+	/**
+	 * Rungs a fast run skips: the portal is cast from lava without a diamond pickaxe, and full
+	 * iron armor takes 24 more iron. Reaching them still counts; they just aren't on the way.
+	 */
+	public boolean optional() {
+		return this == IRON_ARMOR || this == DIAMONDS;
 	}
 
 	public static List<Goal> ladder() {

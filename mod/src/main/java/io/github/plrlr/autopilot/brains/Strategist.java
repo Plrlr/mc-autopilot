@@ -47,6 +47,9 @@ public final class Strategist {
 	 */
 	public static Plan rules(Predicate<Goal> done, String note) {
 		for (Goal g : Goal.ladder()) {
+			// Speedrun route: full iron armor and diamonds cost many minutes and the portal can be
+			// cast without them, so the rules skip those rungs (Opus may still pick them).
+			if (g.optional()) continue;
 			if (!done.test(g)) return new Plan(g, "next unfinished goal on the ladder", List.of(), "mock", true, 0, 0, 0, note);
 		}
 		return new Plan(Goal.KILL_DRAGON, "everything else is done", List.of(), "mock", true, 0, 0, 0, note);
@@ -67,7 +70,7 @@ public final class Strategist {
 		for (Goal g : Goal.values()) {
 			keys.add(g.key());
 			ladder.append("- ").append(g.key());
-			if (g.milestone > 0) ladder.append(" (rung ").append(g.milestone).append(done.test(g) ? ", DONE" : "").append(')');
+			if (g.milestone > 0) ladder.append(" (rung ").append(g.milestone).append(done.test(g) ? ", DONE" : g.optional() ? ", optional" : "").append(')');
 			ladder.append(": ").append(g.description).append('\n');
 		}
 		String user = "GOAL LADDER:\n" + ladder
