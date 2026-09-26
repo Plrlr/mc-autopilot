@@ -61,7 +61,9 @@ public final class CombatSkills {
 			timeoutTicks = 20 * 45;
 			Perception.Seen s = null;
 			for (Perception.Seen m : Perception.look(32).mobs) {
-				if (m.type().equals(arg) && !unreachable(m.entity())) {
+				// Up close it's a fight whatever an earlier chase found: refusing it let a zombie
+				// keep hitting us while the attack failed instantly (batch 6).
+				if (m.type().equals(arg) && (m.dist() < 4 || !unreachable(m.entity()))) {
 					s = m;
 					break;
 				}

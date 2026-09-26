@@ -239,7 +239,7 @@ public final class CastPortal extends Skill {
 					return;
 				}
 				if (wait % 5 != 0) return;
-				if (wait > 60) {
+				if (wait > 20 * 20) {
 					fail(Fail.USE_FAILED, "couldn't scoop the water back up");
 					return;
 				}
@@ -253,13 +253,20 @@ public final class CastPortal extends Skill {
 				}
 				if (wait == 10 || wait == 40) log("scooping water at " + src.toShortString() + " from " + pl.blockPosition().toShortString()
 						+ ", target is " + Mc.id(Mc.state(target).getBlock()));
-				// Halfway through without success: move to where the water is in plain view.
-				if (wait == 30) {
-					List<BlockPos> spots = BucketSkills.standSpots(src, Vec3.atCenterOf(src), src);
-					if (!spots.isEmpty()) Bari.path(new GoalBlock(spots.get(0)));
-				}
 				if (Bari.pathing()) return;
-				Vec3 aim = Vec3.atCenterOf(src);
+				// The new obsidian often stands between us and the water (batch 6): aim only at a
+				// point the bucket's own ray really reaches, else walk to where one is.
+				Vec3 aim = scoopAim(pl.getEyePosition(), src);
+				if (aim == null) {
+					for (BlockPos s : BucketSkills.standSpots(src, Vec3.atCenterOf(src), src)) {
+						if (scoopAim(Vec3.atBottomCenterOf(s).add(0, 1.62, 0), src) != null) {
+							Bari.path(new GoalBlock(s));
+							return;
+						}
+					}
+					fail(Fail.UNREACHABLE, "no spot that sees the water to scoop it");
+					return;
+				}
 				Mc.holdItem(s -> Items2.id(s).equals("bucket"));
 				Mc.lookAt(aim);
 				Mc.useItem();
@@ -455,6 +462,26 @@ public final class CastPortal extends Skill {
 		wait = 0;
 	}
 
+	/** A point inside the water source that an empty bucket used from `eye` would pick up, or null. */
+	private static Vec3 scoopAim(Vec3 eye, BlockPos src) {
+		Vec3 c = Vec3.atCenterOf(src);
+		for (Vec3 p : new Vec3[]{c.add(0, 0.35, 0), c, c.add(0.3, 0.3, 0), c.add(-0.3, 0.3, 0), c.add(0, 0.3, 0.3), c.add(0, 0.3, -0.3)}) {
+			if (eye.distanceTo(p) > Mc.reach() - 0.2) continue;
+			Vec3 end = p.add(p.subtract(eye).normalize().scale(0.3));
+			BlockHitResult hit = Mc.player().level().clip(new ClipContext(eye, end, ClipContext.Block.OUTLINE, ClipContext.Fluid.SOURCE_ONLY, Mc.player()));
+			if (hit.getType() == HitResult.Type.BLOCK && hit.getBlockPos().equals(src)) return p;
+		}
+		return null;
+	}
+
+	/** True if the straight line from eye to the middle of `to` stays out of the cell `avoid`. */
+	private static boolean clearOf(Vec3 eye, BlockPos to, BlockPos avoid) {
+		Vec3 end = Vec3.atCenterOf(to);
+		net.minecraft.world.phys.AABB box = new net.minecraft.world.phys.AABB(avoid);
+		for (int i = 0; i <= 40; i++) if (box.contains(eye.lerp(end, i / 40.0))) return false;
+		return true;
+	}
+
 	/** Water source left in or around the frame (it may have spread from where we poured). */
 	private BlockPos findWaterSource() {
 		for (int x = -2; x <= 5; x++) {
@@ -501,6 +528,9 @@ public final class CastPortal extends Skill {
 					if (a == null) continue;
 					for (BlockPos w : waters) {
 						if (w.equals(s) || w.equals(s.above())) continue;
+						// After pouring, the lava spot is obsidian: we must still see the water to
+						// scoop it back, so the line to it can't cross the lava spot.
+						if (!clearOf(eye, w, t)) continue;
 						Aim b = aimAt(eye, w);
 						if (b == null) continue;
 						double d = s.distSqr(pl.blockPosition());

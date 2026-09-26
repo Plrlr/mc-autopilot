@@ -179,7 +179,7 @@ def main():
     print("\n".join(out))
 
     if a.line_out:
-        natural = [r for r in runs if r["name"].startswith("natural")]
+        natural = [r for r in runs if r["name"].startswith("natural") and not r["task"]]
         def median_time(m):
             ts = [dict(r["milestones"])[m] for r in natural if m in dict(r["milestones"])]
             return "%d/%d %s" % (len(ts), len(natural), mmss(statistics.median(ts)) if ts else "-")

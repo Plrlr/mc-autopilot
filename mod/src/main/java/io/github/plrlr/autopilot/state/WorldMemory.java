@@ -139,6 +139,47 @@ public final class WorldMemory {
 		for (int dx = -RH; dx <= RH; dx++) for (int dz = -RH; dz <= RH; dz++) cols.add(new int[]{dx, dz});
 		cols.sort(java.util.Comparator.comparingInt(c -> c[0] * c[0] + c[1] * c[1]));
 		COLUMNS = cols.toArray(new int[0][]);
+		List<int[]> far = new ArrayList<>();
+		for (int dx = -FAR; dx <= FAR; dx++) {
+			for (int dz = -FAR; dz <= FAR; dz++) {
+				int d2 = dx * dx + dz * dz;
+				if (d2 > RH * RH && d2 <= FAR * FAR) far.add(new int[]{dx, dz});
+			}
+		}
+		far.sort(java.util.Comparator.comparingInt(c -> c[0] * c[0] + c[1] * c[1]));
+		FAR_COLUMNS = far.toArray(new int[0][]);
+	}
+
+	/**
+	 * Surface water and lava out to 48 blocks: a lava pool is bright and visible from far away,
+	 * but the close scan only reaches 16 blocks, so explore walked past pools (batch 6 never found
+	 * one). Only the top block of each column is looked at, and only if it's in line of sight.
+	 */
+	private static final int FAR = 48;
+	private static final int[][] FAR_COLUMNS;
+	private int farCursor;
+
+	private void scanFar(Level level, BlockPos c, String dim, long tick) {
+		int rays = 0;
+		BlockPos.MutableBlockPos p = new BlockPos.MutableBlockPos();
+		for (int n = 0; n < 150; n++) {
+			int[] col = FAR_COLUMNS[farCursor];
+			farCursor = (farCursor + 1) % FAR_COLUMNS.length;
+			int x = c.getX() + col[0], z = c.getZ() + col[1];
+			p.set(x, c.getY(), z);
+			if (!level.isLoaded(p)) continue;
+			int top = level.getHeight(net.minecraft.world.level.levelgen.Heightmap.Types.WORLD_SURFACE, x, z) - 1;
+			p.set(x, top, z);
+			BlockState st = level.getBlockState(p);
+			if (!st.liquid() || !st.getFluidState().isSource()) continue;
+			String group = groupOf(Mc.id(st.getBlock()));
+			if (group == null) continue;
+			Map<BlockPos, Seen> m = byGroup.computeIfAbsent(group, k -> new LinkedHashMap<>());
+			if (m.containsKey(p)) continue;
+			if (++rays > 10) break;
+			BlockPos pos = p.immutable();
+			if (Mc.canSee(pos)) m.put(pos, new Seen(pos, Mc.id(st.getBlock()), dim, tick));
+		}
 	}
 	private int layerCursor = -RV;
 	private int raycasts;
@@ -154,7 +195,7 @@ public final class WorldMemory {
 		Level level = pl.level();
 		String dim = Mc.dimension();
 		BlockPos c = pl.blockPosition();
-		int rh = RH;
+		scanFar(level, c, dim, tick);
 		if (layerCursor == -RV) raycasts = 0;
 		int from = layerCursor, to = Math.min(RV, layerCursor + LAYERS_PER_TICK - 1);
 		layerCursor = to >= RV ? -RV : to + 1;

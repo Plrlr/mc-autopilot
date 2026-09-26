@@ -316,6 +316,9 @@ public final class Planner {
 		LocalPlayer pl = Mc.player();
 		int food = pl.getFoodData().getFoodLevel();
 		Perception.Seen hostile = seen.nearestHostile();
+		// A monster an attack just failed to reach: offering to attack it again only fails again
+		// (10 NOT_FOUND fails in batch 6). The reflexes still handle it if it comes close.
+		if (hostile != null && io.github.plrlr.autopilot.skills.CombatSkills.unreachable(hostile.entity())) hostile = null;
 		if (hostile != null && hostile.dist() < 10) {
 			// Creepers explode in melee range: back off instead of swinging at them.
 			if (hostile.type().equals("creeper")) out.add(new Option("retreat", null, "a creeper is " + Math.round(hostile.dist()) + " blocks away"));

@@ -440,7 +440,9 @@ public final class Autopilot {
 				return;
 			}
 			if (h.dist() < 3.5) {
-				if (hp <= 6) startReflex(new Option("retreat", null, "low health"), "reflex_low_hp");
+				// Same line as the planner's retreat (8): with 6 here, health 7-8 flipped between
+				// fighting and fleeing on every decision.
+				if (hp <= 8) startReflex(new Option("retreat", null, "low health"), "reflex_low_hp");
 				else if (skill == null || !skill.name().equals("attack")) startReflex(new Option("attack", h.type(), "it's attacking"), "reflex_fight");
 				return;
 			}
