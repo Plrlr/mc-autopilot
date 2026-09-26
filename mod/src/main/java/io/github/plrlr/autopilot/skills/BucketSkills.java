@@ -108,6 +108,9 @@ public final class BucketSkills {
 					source = s.pos();
 					break;
 				}
+				// No use to a bucket (flowing, covered, no bank): forget it, so explore looks
+				// further instead of "already seeing" water we can't take.
+				memory.forget(fluid, s.pos());
 			}
 			if (source == null) {
 				fail("no known " + fluid + " source with a bank to stand on");

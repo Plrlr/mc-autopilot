@@ -202,6 +202,7 @@ public final class CastPortal extends Skill {
 				waterAim = w;
 				Mc.lookAt(a.point());
 				Mc.useItem();
+				log("lava into " + target.toShortString() + " from " + pl.blockPosition().toShortString() + ", water planned at " + water.toShortString());
 				phase = Phase.POUR;
 				wait = 0;
 			}
@@ -225,6 +226,7 @@ public final class CastPortal extends Skill {
 				}
 				Mc.lookAt(waterAim.point());
 				Mc.useItem();
+				log("water at " + water.toShortString() + " (lava there: " + Mc.id(Mc.state(target).getBlock()) + ")");
 				phase = Phase.SCOOP;
 				wait = 0;
 			}
@@ -244,9 +246,19 @@ public final class CastPortal extends Skill {
 				// The water sits in the spot we poured into; take it back for the next block.
 				BlockPos src = water != null && BucketSkills.isSource(water, "water") ? water : findWaterSource();
 				if (src == null) {
+					log("no water source near the frame; target is " + Mc.id(Mc.state(target).getBlock()) + ", planned water spot has "
+							+ Mc.id(Mc.state(water).getBlock()));
 					fail("lost the water");
 					return;
 				}
+				if (wait == 10 || wait == 40) log("scooping water at " + src.toShortString() + " from " + pl.blockPosition().toShortString()
+						+ ", target is " + Mc.id(Mc.state(target).getBlock()));
+				// Halfway through without success: move to where the water is in plain view.
+				if (wait == 30) {
+					List<BlockPos> spots = BucketSkills.standSpots(src, Vec3.atCenterOf(src), src);
+					if (!spots.isEmpty()) Bari.path(new GoalBlock(spots.get(0)));
+				}
+				if (Bari.pathing()) return;
 				Vec3 aim = Vec3.atCenterOf(src);
 				Mc.holdItem(s -> Items2.id(s).equals("bucket"));
 				Mc.lookAt(aim);
@@ -427,7 +439,13 @@ public final class CastPortal extends Skill {
 		}
 	}
 
+	/** Trial runs showed the cast step by step only in the game log; keep it there. */
+	private static void log(String s) {
+		io.github.plrlr.autopilot.AutopilotMod.LOGGER.info("[cast] {}", s);
+	}
+
 	private void castFailed(String why) {
+		log("failed: " + why);
 		Bari.stop();
 		if (++castFails > 6) {
 			fail(why);
@@ -439,9 +457,9 @@ public final class CastPortal extends Skill {
 
 	/** Water source left in or around the frame (it may have spread from where we poured). */
 	private BlockPos findWaterSource() {
-		for (int x = -1; x <= 4; x++) {
-			for (int y = 0; y < WALL_H; y++) {
-				for (int f = 0; f <= 1; f++) {
+		for (int x = -2; x <= 5; x++) {
+			for (int y = -1; y <= WALL_H + 1; y++) {
+				for (int f = -2; f <= 3; f++) {
 					BlockPos p = cell(x, y).relative(front(), f);
 					if (BucketSkills.isSource(p, "water")) return p;
 				}

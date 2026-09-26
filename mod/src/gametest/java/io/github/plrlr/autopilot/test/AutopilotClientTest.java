@@ -56,6 +56,7 @@ public class AutopilotClientTest implements FabricClientGameTest {
 			// Test world only: run the game clock faster to see more play per real minute.
 			if (tickRate != 20) sp.getServer().runCommand("tick rate " + tickRate);
 			ctx.waitTicks(40);
+			ctx.runOnClient(mc -> System.out.println("[autopilot-test] start at " + mc.player.blockPosition().toShortString()));
 			ctx.runOnClient(mc -> {
 				Autopilot ap = AutopilotMod.instance();
 				ap.tactician.select(brain);
@@ -136,6 +137,10 @@ public class AutopilotClientTest implements FabricClientGameTest {
 			}
 			System.out.println("[autopilot-test]    at " + pl.getBlockX() + " " + pl.getBlockY() + " " + pl.getBlockZ()
 					+ " hp " + Math.round(pl.getHealth()) + " food " + pl.getFoodData().getFoodLevel() + " inv " + inv);
+			var water = ap.memory.nearest("water");
+			var lava = ap.memory.nearest("lava");
+			System.out.println("[autopilot-test]    known water " + (water == null ? "none" : water.pos().toShortString())
+					+ ", lava " + (lava == null ? "none" : lava.pos().toShortString()));
 			for (String r : ap.recentResults()) System.out.println("[autopilot-test]    " + r);
 		});
 	}
