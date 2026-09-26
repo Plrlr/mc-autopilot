@@ -27,7 +27,9 @@ Background facts, limits, and sources are in docs/research-notes.md.
   commands. Only the client gets mods (Fabric + our mod + Baritone). The world save stays vanilla.
 - The AI plays fair: it acts only through the normal player controls and the information a
   player could get (no x-ray, no reading hidden blocks, no seed cracking). Baritone's own
-  x-ray-like helpers (e.g. mining ores it can't see) must be turned off where the setting exists.
+  x-ray-like helpers must be off: legitMine is on for ores (Baritone only targets ores it can
+  see, else branch-mines at a sensible Y). Surface blocks (logs, sand, gravel, stone) use
+  Baritone's normal search of loaded chunks, like a player looking around.
 - The user is always in control: a toggle key turns the autopilot off instantly, and any
   movement key the user presses also turns it off. Fail safe: on any error, stop and stand still.
 - Everything must work for $0. Opus runs on the user's Claude plan through `claude -p`
@@ -49,37 +51,46 @@ Background facts, limits, and sources are in docs/research-notes.md.
 - Baritone **v1.20.0** (Fabric build, "For Minecraft 26.3", LGPL-3.0) for pathfinding and mining,
   used through its API from our mod.
 - Our mod: Java 25, built with Gradle (Fabric Loom, via the Gradle wrapper). Needs a JDK 25 to
-  build (the Temurin 25 JRE is installed; the JDK is not yet).
-- `claude` CLI 2.1.283 on PATH (C:\Users\alexe\.local\bin\claude.exe). Spawn it from Java with
-  ProcessBuilder through `cmd /c` in case it's a .cmd shim.
+  build (Temurin 25 JDK installed 2026-09-26 in C:\Program Files\Eclipse Adoptium\jdk-25.0.4.101-hotspot;
+  set JAVA_HOME to it when running gradlew).
+- `claude` CLI 2.1.283 (C:\Users\alexe\.local\bin\claude.exe). ClaudeCli finds claude.exe on PATH
+  and starts it directly (cmd /c only for an npm .cmd shim). Java doesn't escape quotes in Windows
+  arguments, so every argument goes through ClaudeCli.winQuote (MSVC rules).
 - Node.js was installed for the old plan and isn't needed now.
 
 ## Project layout
 ```
 mc-build-crew/            (the folder name is historical; the project is MC Autopilot)
-  CLAUDE.md  START_HERE.md  docs/research-notes.md
-  mod/                    Fabric mod source (Gradle project)
-    src/main/java/.../
-      AutopilotMod.java     entry point, keybinds, tick hook
-      ui/                   in-game panel (toggle, brain choice, goal) and HUD status line
-      state/                compact JSON game state for the brains
-      skills/               one class per skill; async, with timeout; returns {ok, detail}
-      reflexes/             instant safety reactions in code
-      brains/               Strategist (claude -p), tactician backends: mock, opus, groq, gemini
-      limiter/              per-provider requests/min, tokens/min, daily counts (persisted)
-      log/                  JSONL decision log
-  prompts/                 strategist and tactician prompts (plain text, easy to tweak)
+  CLAUDE.md  START_HERE.md  README.md  docs/research-notes.md  mc-autopilot.env.example
+  mod/                    Fabric mod (Gradle, Loom 1.17, no mappings: 26.x ships unobfuscated)
+    build.gradle          Baritone is read straight from its GitHub release (ivy repo)
+    src/main/java/io/github/plrlr/autopilot/
+      AutopilotMod.java     entry point: K key, tick loop, HUD, "!" chat commands
+      Autopilot.java        main loop: triggers, reflexes, skill lifecycle, death, takeover
+      Config.java Mc.java Items2.java Progress.java
+      state/                WorldMemory (seen blocks, no x-ray), Perception (mobs, items), StateBuilder (JSON)
+      plan/                 Goal (13-rung ladder), TechTree (recipes/sources), Planner (options), Option
+      skills/               Skill base, Skills menu, Bari (Baritone), one class/group per skill
+      brains/               ClaudeCli (claude -p), Backends (opus, groq, gemini), Tactician,
+                            Strategist, RateLimiter, Decision, Prompts
+      log/RunLog.java       JSONL decision log
+      ui/                   PanelScreen (K panel), Hud (status line)
+    src/main/resources/autopilot-prompts/   strategist.txt, tactician.txt (plain text, easy to tweak)
+    src/test/               unit tests (gradlew test)
+    src/gametest/           in-game test: fresh survival world, autopilot plays (gradlew runClientGameTest)
 ```
 Runtime files live in the Minecraft folder, not the repo:
-`%APPDATA%\.minecraft\config\mc-autopilot.env` (API keys and settings, never in the repo) and
-`%APPDATA%\.minecraft\mc-autopilot\logs\` (JSONL logs, daily usage counters).
+`%APPDATA%\.minecraft\config\mc-autopilot.env` (settings and API keys, created on first start),
+`%APPDATA%\.minecraft\mc-autopilot\logs\` (run-DATE.jsonl, usage-DATE.json),
+`%APPDATA%\.minecraft\mc-autopilot\progress-<world>.json`, and `claude-cwd/` (empty dir for claude -p).
 
 ## In-game UI
 - A keybind (default K, rebindable in Controls) opens a small panel that doesn't pause the game:
-  Autopilot on/off, tactician brain (mock / opus / groq / gemini), the current objective and
-  Opus's reason, recent decisions, and Opus calls used this hour.
+  Autopilot on/off, action brain (opus / mock / groq / gemini), goals by Opus or rules, "ask Opus
+  for a new goal", the current goal and Opus's reason, recent decisions, Opus calls this hour.
 - A one-line HUD in the corner while autopilot is on: brain, objective, current skill.
-- Chat commands typed by the user (not sent to the world): !stop, !status, !brain <name>.
+- Chat commands typed by the user (not sent to the world): !start, !stop, !status,
+  !brain <name>, !goal <name>, !opus on|off.
 - When autopilot turns on, set pauseOnLostFocus off so alt-tab doesn't pause the world;
   restore the user's setting when it turns off.
 
@@ -90,10 +101,12 @@ nether portal, 8 nether fortress and blaze rods, 9 ender pearls, 10 eyes of ende
 11 find the stronghold, 12 activate the end portal, 13 kill the Ender Dragon.
 Be honest in docs: later milestones are very hard for any AI. Report the furthest one reached.
 
-## Skills (the tactician's menu, 20 max)
-idle, explore(direction), goto(target), collect(block, n), craft(item, n), smelt(item, n),
-equip_best(tool|weapon|armor), eat, place(block), build_shelter, sleep, attack(entity),
-retreat, pick_up_items, deposit(chest), withdraw(chest, item, n), report_status.
+## Skills (the tactician's menu, 20 max; 19 implemented)
+collect item:n, craft item:n, smelt output:n, attack <mob>, shoot <mob>, eat, equip
+armor|shield|weapon|pickaxe, place <block>, pickup, explore <dir>, goto <known block>, retreat,
+shelter, sleep, build_portal, enter_portal nether|overworld|end, locate_stronghold,
+fill_end_portal, idle. Shelter, sleep, eat, craft, smelt and the portal skills are not
+interruptible by routine re-checks (heartbeat, new goal); danger reflexes still interrupt them.
 Skills are code, not AI. Crafting uses the normal crafting screens (recipe book clicks),
 not commands. Each skill has a timeout and returns {ok, detail}.
 
@@ -116,7 +129,8 @@ Short keys, rounded numbers.
 
 ## Tactician rules (LLM backends)
 - Temperature 0 where the provider allows. Short system prompt. Output about 60 tokens max.
-- JSON only: {"skill": "<one menu name>", "arg": "<one listed candidate or null>"}.
+- JSON only: {"choice": "<one option label, e.g. collect log:3>", "why": "..."}. The planner
+  builds the option list (rules' pick first); the schema's enum is exactly those labels.
   Use the provider's JSON mode or schema option.
 - Validate against the menu and candidates. On invalid output, retry once with a one-line
   correction; if still invalid, use mock for this decision and count it as invalid.
@@ -127,9 +141,12 @@ Short keys, rounded numbers.
 
 ## When to ask the tactician (event-driven, not every tick)
 A skill finished or failed, a hostile mob came within 8 blocks, health dropped, the objective
-changed, stuck for 10 s, or 20 s with no decision (heartbeat). Reflexes never wait for an AI.
+changed, stuck for 10 s, or no decision for 20 s (60 s when Opus is the tactician, to spare
+plan usage) while an interruptible skill runs. Reflexes never wait for an AI.
 
 ## Phases (one at a time; stop and report after each, with what the user should test)
+Status 2026-09-26: phases 0-6 have code; the in-game test covers the early game. Late-game
+skills (portal, stronghold, dragon) compile and are wired up but are untested in real play.
 0. Reset: new plan (this file), JDK 25, Fabric for 26.3, Fabric API, Baritone. Mod folder ready.
 1. Mod skeleton: Gradle project builds a jar; keybind opens the panel; on/off toggle; HUD line;
    user-input and toggle kill switch; state snapshot printed to the log. Test in a new world.

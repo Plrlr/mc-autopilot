@@ -1,0 +1,20 @@
+{
+	"schemaVersion": 1,
+	"id": "autopilot",
+	"version": "${version}",
+	"name": "MC Autopilot",
+	"description": "Lets Claude Opus (through Claude Code) and other AI brains play your character in single-player survival.",
+	"authors": ["Plrlr"],
+	"license": "MIT",
+	"environment": "client",
+	"entrypoints": {
+		"client": ["io.github.plrlr.autopilot.AutopilotMod"]
+	},
+	"depends": {
+		"fabricloader": ">=0.19.5",
+		"minecraft": "~26.3",
+		"java": ">=25",
+		"fabric-api": "*",
+		"baritone": ">=1.20.0"
+	}
+}

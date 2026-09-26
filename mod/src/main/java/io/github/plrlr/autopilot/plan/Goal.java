@@ -1,0 +1,91 @@
+package io.github.plrlr.autopilot.plan;
+
+import io.github.plrlr.autopilot.Items2;
+import io.github.plrlr.autopilot.Mc;
+import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.item.ItemStack;
+
+import java.util.List;
+import java.util.Map;
+
+/**
+ * The milestone ladder toward beating the game. The strategist (Opus or rules) picks one of these;
+ * the planner turns it into concrete skill options.
+ */
+public enum Goal {
+	WOOD_TOOLS(1, "Get a crafting table and a wooden pickaxe", Map.of("wooden_pickaxe", 1)),
+	STONE_TOOLS(2, "Get a stone pickaxe and a stone sword", Map.of("stone_pickaxe", 1, "stone_sword", 1)),
+	FOOD(3, "Hunt animals and cook at least 8 food; survive the night", Map.of("food", 8)),
+	IRON_TOOLS(4, "Mine and smelt iron: iron pickaxe, iron sword, shield, bucket", Map.of("iron_pickaxe", 1, "iron_sword", 1, "shield", 1, "bucket", 1)),
+	IRON_ARMOR(5, "Craft and wear full iron armor", Map.of("iron_helmet", 1, "iron_chestplate", 1, "iron_leggings", 1, "iron_boots", 1)),
+	DIAMONDS(6, "Mine diamonds deep underground and make a diamond pickaxe", Map.of("diamond_pickaxe", 1)),
+	NETHER_PORTAL(7, "Get 10 obsidian and flint and steel, build and light a nether portal, enter the Nether", Map.of("obsidian", 10, "flint_and_steel", 1)),
+	BLAZE_RODS(8, "In the Nether, find a fortress and kill blazes for 6 blaze rods", Map.of("blaze_rod", 6)),
+	ENDER_PEARLS(9, "Kill endermen for 12 ender pearls", Map.of("ender_pearl", 12)),
+	EYES_OF_ENDER(10, "Craft 12 eyes of ender (blaze powder + ender pearl)", Map.of("ender_eye", 12)),
+	FIND_STRONGHOLD(11, "Throw eyes of ender to find the stronghold and its end portal room", Map.of()),
+	ENTER_END(12, "Put eyes of ender in every end portal frame and jump into the portal", Map.of()),
+	KILL_DRAGON(13, "Shoot the end crystals, then kill the Ender Dragon", Map.of()),
+	SURVIVE_NIGHT(0, "Get safe for the night: sleep in a bed or dig a shelter", Map.of()),
+	EXPLORE(0, "Explore to find trees, animals, ores or structures", Map.of());
+
+	public final int milestone;
+	public final String description;
+	public final Map<String, Integer> needs;
+
+	Goal(int milestone, String description, Map<String, Integer> needs) {
+		this.milestone = milestone;
+		this.description = description;
+		this.needs = needs;
+	}
+
+	public String key() {
+		return name().toLowerCase();
+	}
+
+	public static Goal byKey(String key) {
+		for (Goal g : values()) if (g.key().equalsIgnoreCase(key)) return g;
+		return null;
+	}
+
+	/** Items already turned into something later on the ladder still count. */
+	public static int have(String item) {
+		return switch (item) {
+			case "wooden_pickaxe" -> Items2.bestTier("pickaxe") >= 0 ? 1 : 0;
+			case "stone_pickaxe" -> Items2.bestTier("pickaxe") >= 1 ? 1 : 0;
+			case "iron_pickaxe" -> Items2.bestTier("pickaxe") >= 2 ? 1 : 0;
+			case "diamond_pickaxe" -> Items2.bestTier("pickaxe") >= 3 ? 1 : 0;
+			case "stone_sword" -> Items2.bestTier("sword") >= 1 ? 1 : 0;
+			case "iron_sword" -> Items2.bestTier("sword") >= 2 ? 1 : 0;
+			case "iron_helmet", "iron_chestplate", "iron_leggings", "iron_boots" -> hasArmor(item) ? 1 : 0;
+			case "blaze_rod" -> Mc.count("blaze_rod") + (Mc.count("blaze_powder") + Mc.count("ender_eye")) / 2;
+			case "ender_pearl" -> Mc.count("ender_pearl") + Mc.count("ender_eye");
+			case "food" -> Mc.count("food");
+			default -> Mc.count(item);
+		};
+	}
+
+	/** Worn or carried, iron or better, in the right slot type. */
+	public static boolean hasArmor(String ironPiece) {
+		String kind = ironPiece.substring("iron_".length());
+		EquipmentSlot slot = switch (kind) {
+			case "helmet" -> EquipmentSlot.HEAD;
+			case "chestplate" -> EquipmentSlot.CHEST;
+			case "leggings" -> EquipmentSlot.LEGS;
+			default -> EquipmentSlot.FEET;
+		};
+		ItemStack worn = Mc.player().getItemBySlot(slot);
+		if (!worn.isEmpty() && Items2.tier(Items2.id(worn)) >= 2) return true;
+		return Mc.count(s -> Items2.id(s).endsWith("_" + kind) && Items2.tier(Items2.id(s)) >= 2) > 0;
+	}
+
+	public boolean itemsDone() {
+		for (var e : needs.entrySet()) if (have(e.getKey()) < e.getValue()) return false;
+		return true;
+	}
+
+	public static List<Goal> ladder() {
+		return List.of(WOOD_TOOLS, STONE_TOOLS, FOOD, IRON_TOOLS, IRON_ARMOR, DIAMONDS, NETHER_PORTAL, BLAZE_RODS,
+				ENDER_PEARLS, EYES_OF_ENDER, FIND_STRONGHOLD, ENTER_END, KILL_DRAGON);
+	}
+}

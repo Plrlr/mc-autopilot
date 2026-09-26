@@ -1,0 +1,81 @@
+plugins {
+	id 'net.fabricmc.fabric-loom' version "${loom_version}"
+}
+
+repositories {
+	// Baritone isn't on a Maven repo, so read the official GitHub release asset directly.
+	ivy {
+		name = 'Baritone releases'
+		url = 'https://github.com/cabaletta/baritone/releases/download'
+		patternLayout { artifact 'v[revision]/[module]-[revision].[ext]' }
+		metadataSources { artifact() }
+		content { includeGroup 'cabaletta' }
+	}
+}
+
+dependencies {
+	minecraft "com.mojang:minecraft:${project.minecraft_version}"
+	implementation "net.fabricmc:fabric-loader:${project.loader_version}"
+	implementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_api_version}"
+
+	// Baritone is installed by the user as its own mod; we only compile against its API
+	// (and run with it in the dev client). It's not bundled into our jar.
+	compileOnly "cabaletta:baritone-api-fabric:${project.baritone_version}"
+	runtimeOnly "cabaletta:baritone-api-fabric:${project.baritone_version}"
+
+	testImplementation 'org.junit.jupiter:junit-jupiter:5.11.4'
+	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+}
+
+test {
+	useJUnitPlatform()
+}
+
+// In-game tests: `gradlew runClientGameTest` starts a real client, makes a fresh survival
+// world and lets the autopilot play in it (see src/gametest). Single-player only, no server.
+fabricApi {
+	configureTests {
+		createSourceSet = true
+		modId = "autopilot-test"
+		enableGameTests = false
+		enableClientGameTests = true
+	}
+}
+
+processResources {
+	def version = project.version
+	inputs.property "version", version
+
+	filesMatching("fabric.mod.json") {
+		expand "version": version
+	}
+}
+
+tasks.withType(JavaCompile).configureEach {
+	it.options.release = 25
+	it.options.encoding = 'UTF-8'
+}
+
+java {
+	sourceCompatibility = JavaVersion.VERSION_25
+	targetCompatibility = JavaVersion.VERSION_25
+}
+
+jar {
+	from("../LICENSE") {
+		rename { "${it}_mc-autopilot" }
+	}
+}
+
+// Settings for the in-game test run: gradlew runClientGameTest -PtestMinutes=5 -PtestOpus=true
+loom {
+	runs {
+		configureEach {
+			if (name == "clientGameTest") {
+				vmArg "-Dautopilot.test.minutes=${findProperty('testMinutes') ?: '5'}"
+				vmArg "-Dautopilot.test.opus=${findProperty('testOpus') ?: 'false'}"
+				vmArg "-Dautopilot.test.seed=${findProperty('testSeed') ?: 'autopilot'}"
+			}
+		}
+	}
+}

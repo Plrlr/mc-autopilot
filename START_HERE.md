@@ -1,30 +1,43 @@
 # Start here (for you, not for Claude Code)
 
 MC Autopilot lets Claude Opus 5.5 play your own character in a normal single-player
-survival world, and try to beat the game.
+survival world and try to beat the game. Full details are in README.md.
 
-## What you need
-- Minecraft Java Edition 26.3 in the official launcher.
-- A Claude plan with Claude Code (Opus runs through it, so no API key is needed).
-- Optional free API keys for faster, cheaper decisions:
+## Playing
+1. Open the Minecraft Launcher and pick the **fabric-loader-26.3** profile, then Play.
+2. Create a **new survival world** for testing (the AI will dig, die and lose items).
+3. In the world, press **K** and click **Autopilot: OFF** to turn it on.
+4. Watch. The line in the top-left corner shows the brain, the goal and the current action.
+5. To take over, press any movement key (W, A, S, D, space). Press K for the panel.
+
+Chat commands (type T, then the command; they never go to the world):
+`!status`, `!stop`, `!start`, `!brain opus|mock|groq|gemini`, `!goal <name>`, `!opus on|off`.
+
+## Settings and keys
+The first time Minecraft starts with the mod, it creates
+`%APPDATA%\.minecraft\config\mc-autopilot.env`. Open it with Notepad to change:
+- how many Opus calls per hour are allowed (these count toward your Claude plan's limits),
+- the starting brain,
+- optional free keys:
   - **Groq:** make a free account at console.groq.com and create an API key.
-  - **Google AI Studio:** sign in at aistudio.google.com and create an API key.
+  - **Google AI Studio:** sign in at aistudio.google.com, create a key, and set GEMINI_MODEL to
+    a Flash model your free tier lists.
 
-Keep keys secret. Don't paste them into chats, screenshots, or GitHub.
-Keys go in `%APPDATA%\.minecraft\config\mc-autopilot.env` (copy `mc-autopilot.env.example`
-there). That file is outside this project, so it can never be uploaded by accident.
+That file is outside this project, so keys can never be uploaded by accident.
+Don't paste keys into chats, screenshots, or GitHub. Restart Minecraft after editing it.
+
+## Rebuilding the mod after changes
+In PowerShell:
+```
+cd $HOME\OneDrive\Desktop\Python\mc-build-crew\mod
+$env:JAVA_HOME = "C:\Program Files\Eclipse Adoptium\jdk-25.0.4.101-hotspot"
+.\gradlew.bat build
+copy build\libs\mc-autopilot-0.1.0.jar $env:APPDATA\.minecraft\mods\
+```
 
 ## Working with Claude Code
-Open PowerShell in this folder and run `claude`. One phase per session:
+Open PowerShell in this folder and run `claude`. For example:
 ```
-Do Phase 1. Tell me exactly how to test it when you're done.
+The autopilot keeps failing at X. Here's the log line: ... fix it.
 ```
-Test each phase before starting the next.
-
-## Good to know
-- Use a **new test world** at first. The AI will dig, die, and lose items.
-- The toggle key (default K) turns the autopilot on and off. Pressing any movement key
-  also takes control back instantly.
-- Opus calls count toward your Claude plan's usage limits. The panel shows how many
-  calls were used this hour.
-- If something breaks, paste the error into Claude Code and say "fix this".
+Logs are in `%APPDATA%\.minecraft\mc-autopilot\logs\`.
