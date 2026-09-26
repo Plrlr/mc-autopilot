@@ -438,7 +438,9 @@ public final class Autopilot {
 		}
 		Perception.Seen h = seen.nearestHostile();
 		float hp = pl.getHealth();
-		if (h != null && !h.type().equals("enderman")) {
+		// Walled in and healing: a monster on the other side of the blocks is no reason to break out.
+		boolean hiding = skill != null && skill.name().equals("shelter") && "heal".equals(skillOption.arg());
+		if (h != null && !h.type().equals("enderman") && !hiding) {
 			if (h.type().equals("creeper") && h.dist() < 5) {
 				startReflex(new Option("retreat", null, "creeper close"), "reflex_creeper");
 				return;
@@ -446,7 +448,7 @@ public final class Autopilot {
 			if (h.dist() < 3.5) {
 				// Same line as the planner's retreat (8): with 6 here, health 7-8 flipped between
 				// fighting and fleeing on every decision.
-				if (hp <= 8) startReflex(new Option("retreat", null, "low health"), "reflex_low_hp");
+				if (hp <= 8) startReflex(Planner.escape("low health"), "reflex_low_hp");
 				else if (skill == null || !skill.name().equals("attack")) startReflex(new Option("attack", h.type(), "it's attacking"), "reflex_fight");
 				return;
 			}

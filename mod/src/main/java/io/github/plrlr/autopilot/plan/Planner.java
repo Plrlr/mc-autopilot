@@ -324,7 +324,9 @@ public final class Planner {
 		if (hostile != null && hostile.dist() < 10) {
 			// Creepers explode in melee range: back off instead of swinging at them.
 			if (hostile.type().equals("creeper")) out.add(new Option("retreat", null, "a creeper is " + Math.round(hostile.dist()) + " blocks away"));
-			else if (pl.getHealth() <= 8) out.add(new Option("retreat", null, "low health and a " + hostile.type() + " is close"));
+			else if (pl.getHealth() <= 8) out.add(escape("low health and a " + hostile.type() + " is close"));
+			// Underground, two or more closing in wear us down in a tunnel: wall in and heal first.
+			else if (!onSurface() && pl.getHealth() <= 12 && seen.hostilesWithin(6) >= 2) out.add(escape("hurt with monsters closing in"));
 			// Skeletons outshoot a fleeing player; closing in fast is safer than running.
 			else out.add(new Option("attack", hostile.type(), hostile.type() + " is " + Math.round(hostile.dist()) + " blocks away"));
 		}
@@ -420,6 +422,9 @@ public final class Planner {
 			Option o = itemStep("bow", 1, 0);
 			if (o != null && o.skill().equals("craft")) out.add(new Option(o.skill(), o.arg(), "make a bow for the dragon fight: " + o.why()));
 		}
+		// The shield blocks arrows and creeper blasts only from the off hand: put it there at once.
+		if (Mc.count("shield") > 0 && !Items2.id(Mc.player().getOffhandItem()).equals("shield"))
+			out.add(new Option("equip", "shield", "shield into the off hand"));
 		if (Mc.count("coal") < 4 && Items2.bestTier("pickaxe") >= 0) {
 			WorldMemory.Seen coal = memory.nearest("coal_ore");
 			if (coal != null && coal.pos().distSqr(Mc.player().blockPosition()) < 12 * 12)
@@ -432,6 +437,15 @@ public final class Planner {
 		boolean furnace = memory.nearestStation("furnace") != null || Mc.count("furnace") > 0;
 		boolean fuel = Mc.count("coal") > 0 || Mc.count("planks") >= 2 || Mc.count("log") >= 2;
 		return furnace && fuel;
+	}
+
+	/**
+	 * Getting away from monsters: underground, block up the gaps around us and heal (running
+	 * through tunnels got the bot shot and cornered in trials); on the surface, run.
+	 */
+	public static Option escape(String why) {
+		if (!onSurface() && Mc.count("throwaway") >= 6) return new Option("shelter", "heal", why + ": wall in and heal");
+		return new Option("retreat", null, why);
 	}
 
 	private static boolean onSurface() {

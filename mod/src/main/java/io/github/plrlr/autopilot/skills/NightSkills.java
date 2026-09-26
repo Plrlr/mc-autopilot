@@ -9,13 +9,21 @@ import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /** Getting through the night: dig a small shelter, or sleep in a bed. */
 public final class NightSkills {
 	private NightSkills() {}
 
-	/** shelter: dig 3 blocks down, cover the hole, wait for morning. */
+	/**
+	 * shelter: dig 3 blocks down, cover the hole, wait for morning.
+	 * shelter heal: underground with monsters closing in, block up the gaps around us right here
+	 * and wait to heal (eating if needed) instead of running through tunnels, where the trials'
+	 * retreats kept dying to arrows and zombies.
+	 */
 	public static final class Shelter extends Skill {
-		private enum Phase {MOVE, DIG, COVER, WAIT}
+		private enum Phase {MOVE, DIG, COVER, WAIT, WALL_IN, HEAL}
 
 		private Phase phase = Phase.DIG;
 		private BlockPos bottom;
@@ -31,8 +39,16 @@ public final class NightSkills {
 			return false;
 		}
 
+		private int wallTries;
+
 		@Override
 		protected void start() {
+			if ("heal".equals(arg)) {
+				timeoutTicks = 20 * 60;
+				Bari.stop();
+				phase = Phase.WALL_IN;
+				return;
+			}
 			timeoutTicks = 20 * 60 * 12;
 			if (!Mc.dimension().equals("overworld")) {
 				fail(Fail.WRONG_PLACE, "shelter only makes sense in the overworld");
@@ -153,6 +169,41 @@ public final class NightSkills {
 				}
 				case WAIT -> {
 					if (!Mc.isNight()) done("it's morning");
+				}
+				case WALL_IN -> {
+					if (ticks % 3 != 0) return;
+					BlockPos feet = pl.blockPosition();
+					// Feet level first, then head level (it rests on those), then the roof.
+					List<BlockPos> around = new ArrayList<>();
+					for (Direction d : Direction.Plane.HORIZONTAL) around.add(feet.relative(d));
+					for (Direction d : Direction.Plane.HORIZONTAL) around.add(feet.above().relative(d));
+					around.add(feet.above(2));
+					BlockPos gap = null;
+					for (BlockPos p : around) {
+						if (Mc.free(p) && Mc.clearOfPlayer(p)) {
+							gap = p;
+							break;
+						}
+					}
+					// Closed in, or out of blocks or tries (a mob standing in the gap): heal anyway.
+					if (gap == null || ++wallTries > 30 || !Mc.holdItem(Items2.matcher("throwaway"))) {
+						phase = Phase.HEAL;
+						return;
+					}
+					Mc.placeAt(gap);
+				}
+				case HEAL -> {
+					// Health only comes back with 18+ hunger: eat while hiding if we can.
+					boolean hungry = pl.getFoodData().getFoodLevel() < 18 && Mc.count(Items2.matcher("food")) > 0;
+					if (hungry) {
+						if (!Items2.matcher("food").test(pl.getMainHandItem())) Mc.holdItem(Items2.matcher("food"));
+						pl.setXRot(-90f);
+						Mc.mc().options.keyUse.setDown(true);
+					} else {
+						Mc.mc().options.keyUse.setDown(false);
+					}
+					if (pl.getHealth() >= 18) done("healed behind blocks");
+					else if (ticks > 20 * 50) done("waited 50 s behind blocks (health " + Math.round(pl.getHealth()) + ")");
 				}
 			}
 		}
