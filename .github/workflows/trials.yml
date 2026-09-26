@@ -1,0 +1,74 @@
+# Parallel trial runs of the autopilot on GitHub's free Linux machines.
+# Each seed gets its own machine: a fresh survival world (or a staged scenario) is played by the
+# free rules brain for N game minutes; the decision log, screenshots and summary are uploaded.
+# Start it from the Actions tab ("Run workflow") or: gh workflow run trials.yml -f seeds='["a","b"]'
+name: Trial runs
+
+on:
+  workflow_dispatch:
+    inputs:
+      seeds:
+        description: 'World seeds as a JSON list; one parallel machine per seed'
+        default: '["trial-a","trial-b","trial-c","trial-d"]'
+      minutes:
+        description: 'Game minutes per run'
+        default: '10'
+      scenario:
+        description: 'natural, portal, stronghold or end'
+        default: 'natural'
+
+jobs:
+  trial:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    strategy:
+      fail-fast: false
+      matrix:
+        seed: ${{ fromJSON(inputs.seeds) }}
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: actions/setup-java@v6
+        with:
+          distribution: temurin
+          java-version: '25'
+          cache: gradle
+
+      # Minecraft needs a screen and OpenGL: a virtual X display with Mesa's software renderer.
+      - name: Install virtual display
+        run: sudo apt-get update -q && sudo apt-get install -y -q xvfb libgl1-mesa-dri mesa-utils
+
+      - name: Play
+        working-directory: mod
+        env:
+          LIBGL_ALWAYS_SOFTWARE: '1'
+        run: |
+          chmod +x gradlew
+          # The game exits with Baritone's known shutdown-watchdog crash after saving, which
+          # fails the Gradle task; the summary step below judges the run instead.
+          xvfb-run -a -s "-screen 0 1280x720x24" ./gradlew runClientGameTest --console=plain \
+            -PtestMinutes=${{ inputs.minutes }} -PtestSeed=${{ matrix.seed }} -PtestScenario=${{ inputs.scenario }} \
+            > trial.log 2>&1 || true
+          grep -a "autopilot-test" trial.log > autopilot-test.log || true
+
+      - name: Summary
+        working-directory: mod
+        run: |
+          echo "### ${{ inputs.scenario }} / seed ${{ matrix.seed }}" >> "$GITHUB_STEP_SUMMARY"
+          grep -a "FINAL" autopilot-test.log | sed 's/.*FINAL/FINAL/' >> "$GITHUB_STEP_SUMMARY" || true
+          grep -ac "Can't keep up" trial.log | sed 's/^/server lag warnings: /' >> "$GITHUB_STEP_SUMMARY" || true
+          # No FINAL line means the game never got to play: show the end of the log and fail.
+          if ! grep -aq "FINAL" autopilot-test.log; then tail -n 80 trial.log; exit 1; fi
+
+      - uses: actions/upload-artifact@v7
+        if: always()
+        with:
+          name: trial-${{ inputs.scenario }}-${{ matrix.seed }}
+          path: |
+            mod/autopilot-test.log
+            mod/trial.log
+            mod/build/run/clientGameTest/mc-autopilot/logs/
+            mod/build/run/clientGameTest/screenshots/
+            mod/build/run/clientGameTest/crash-reports/
+          if-no-files-found: warn
+          retention-days: 14
