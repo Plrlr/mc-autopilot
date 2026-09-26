@@ -130,6 +130,9 @@ skill results, deaths and milestones. `progress-<world>.json` keeps the furthest
 - `.\gradlew.bat runClientGameTest`: starts the game, makes a fresh survival world, and lets the rules brain play for 5 minutes (`-PtestMinutes=10`).
   `-PtestScenario=portal|stronghold|end` stages one late-game step instead (gear and, for
   `portal`, a lava pool), using commands in the throwaway test world only.
+- **Parallel trials on GitHub (free):** the "Trial runs" workflow plays one world per seed on
+  GitHub's Linux machines at the same time and uploads each decision log and screenshots.
+  Start it from the Actions tab, or `gh workflow run trials.yml -f seeds='["a","b","c"]' -f minutes=10`.
   Add `-PtestOpus=true` to also run Opus for 2 minutes. Screenshots and logs end up in `mod/build/run/clientGameTest`.
 
 ## Credits

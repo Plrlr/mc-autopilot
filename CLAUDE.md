@@ -55,7 +55,7 @@ Background facts, limits, and sources are in docs/research-notes.md.
 - Our mod: Java 25, built with Gradle (Fabric Loom, via the Gradle wrapper). Needs a JDK 25 to
   build (Temurin 25 JDK installed 2026-09-26 in C:\Program Files\Eclipse Adoptium\jdk-25.0.4.101-hotspot;
   set JAVA_HOME to it when running gradlew).
-- `claude` CLI 2.1.283 (C:\Users\alexe\.local\bin\claude.exe). ClaudeCli finds claude.exe on PATH
+- `claude` CLI 2.1.283 (%USERPROFILE%\.local\bin\claude.exe). ClaudeCli finds claude.exe on PATH
   and starts it directly (cmd /c only for an npm .cmd shim). Java doesn't escape quotes in Windows
   arguments, so every argument goes through ClaudeCli.winQuote (MSVC rules).
 - Node.js was installed for the old plan and isn't needed now.
