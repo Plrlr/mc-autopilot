@@ -50,14 +50,12 @@ public final class CastPortal extends Skill {
 	private int wait, tries, wallTries;
 	private BlockPos lastWall;
 	private BlockPos target, water, breaking;
-	private Aim lavaAim, waterAim;
+	private CastGeometry.Aim lavaAim, waterAim;
 	private BucketSkills.FillBucket fetch;
 	private int castFails;
 	private int approachTicks = 20 * 45;
 
-	private record Aim(BlockPos cell, Vec3 point) {}
-
-	private record Plan(BlockPos stand, Aim lava, Aim water) {}
+	private record Plan(BlockPos stand, CastGeometry.Aim lava, CastGeometry.Aim water) {}
 
 	@Override
 	public String name() {
@@ -192,8 +190,8 @@ public final class CastPortal extends Skill {
 					Mc.holdItem(s -> Items2.id(s).equals("lava_bucket"));
 					return;
 				}
-				Aim a = aimAt(pl.getEyePosition(), target);
-				Aim w = water == null ? null : aimAt(pl.getEyePosition(), water);
+				CastGeometry.Aim a = CastGeometry.aimAt(pl.getEyePosition(), target);
+				CastGeometry.Aim w = water == null ? null : CastGeometry.aimAt(pl.getEyePosition(), water);
 				if (a == null || w == null) {
 					castFailed(Fail.UNREACHABLE, "lost the line of sight to the frame");
 					return;
@@ -259,10 +257,10 @@ public final class CastPortal extends Skill {
 				if (Bari.pathing()) return;
 				// The new obsidian often stands between us and the water (batch 6): aim only at a
 				// point the bucket's own ray really reaches, else walk to where one is.
-				Vec3 aim = scoopAim(pl.getEyePosition(), src);
+				Vec3 aim = CastGeometry.scoopAim(pl.getEyePosition(), src);
 				if (aim == null) {
 					for (BlockPos s : BucketSkills.standSpots(src, Vec3.atCenterOf(src), src)) {
-						if (scoopAim(Vec3.atBottomCenterOf(s).add(0, 1.62, 0), src) != null) {
+						if (CastGeometry.scoopAim(Vec3.atBottomCenterOf(s).add(0, 1.62, 0), src) != null) {
 							Bari.path(new GoalBlock(s));
 							return;
 						}
@@ -407,7 +405,7 @@ public final class CastPortal extends Skill {
 			// Our lava from an interrupted try: water finishes it.
 			water = waterSpotFor(target, pl.getEyePosition());
 			if (water != null) {
-				waterAim = aimAt(pl.getEyePosition(), water);
+				waterAim = CastGeometry.aimAt(pl.getEyePosition(), water);
 				phase = Phase.POUR;
 				wait = 0;
 				return;
@@ -466,26 +464,6 @@ public final class CastPortal extends Skill {
 		wait = 0;
 	}
 
-	/** A point inside the water source that an empty bucket used from `eye` would pick up, or null. */
-	private static Vec3 scoopAim(Vec3 eye, BlockPos src) {
-		Vec3 c = Vec3.atCenterOf(src);
-		for (Vec3 p : new Vec3[]{c.add(0, 0.35, 0), c, c.add(0.3, 0.3, 0), c.add(-0.3, 0.3, 0), c.add(0, 0.3, 0.3), c.add(0, 0.3, -0.3)}) {
-			if (eye.distanceTo(p) > Mc.reach() - 0.2) continue;
-			Vec3 end = p.add(p.subtract(eye).normalize().scale(0.3));
-			BlockHitResult hit = Mc.player().level().clip(new ClipContext(eye, end, ClipContext.Block.OUTLINE, ClipContext.Fluid.SOURCE_ONLY, Mc.player()));
-			if (hit.getType() == HitResult.Type.BLOCK && hit.getBlockPos().equals(src)) return p;
-		}
-		return null;
-	}
-
-	/** True if the straight line from eye to the middle of `to` stays out of the cell `avoid`. */
-	private static boolean clearOf(Vec3 eye, BlockPos to, BlockPos avoid) {
-		Vec3 end = Vec3.atCenterOf(to);
-		net.minecraft.world.phys.AABB box = new net.minecraft.world.phys.AABB(avoid);
-		for (int i = 0; i <= 40; i++) if (box.contains(eye.lerp(end, i / 40.0))) return false;
-		return true;
-	}
-
 	/** Water source left in or around the frame (it may have spread from where we poured). */
 	private BlockPos findWaterSource() {
 		for (int x = -2; x <= 5; x++) {
@@ -502,7 +480,7 @@ public final class CastPortal extends Skill {
 	/** Where to put the water for a lava block: an empty spot beside or above it, never below. */
 	private BlockPos waterSpotFor(BlockPos t, Vec3 eye) {
 		for (BlockPos w : waterCandidates(t)) {
-			if (aimAt(eye, w) != null) return w;
+			if (CastGeometry.aimAt(eye, w) != null) return w;
 		}
 		return null;
 	}
@@ -528,14 +506,14 @@ public final class CastPortal extends Skill {
 					if (!BucketSkills.standable(s)) continue;
 					Vec3 eye = Vec3.atBottomCenterOf(s).add(0, 1.62, 0);
 					if (eye.distanceTo(Vec3.atCenterOf(t)) > Mc.reach() + 0.5) continue;
-					Aim a = aimAt(eye, t);
+					CastGeometry.Aim a = CastGeometry.aimAt(eye, t);
 					if (a == null) continue;
 					for (BlockPos w : waters) {
 						if (w.equals(s) || w.equals(s.above())) continue;
 						// After pouring, the lava spot is obsidian: we must still see the water to
 						// scoop it back, so the line to it can't cross the lava spot.
-						if (!clearOf(eye, w, t)) continue;
-						Aim b = aimAt(eye, w);
+						if (!CastGeometry.clearOf(eye, w, t)) continue;
+						CastGeometry.Aim b = CastGeometry.aimAt(eye, w);
 						if (b == null) continue;
 						double d = s.distSqr(pl.blockPosition());
 						if (d < bestD) {
@@ -550,41 +528,6 @@ public final class CastPortal extends Skill {
 		return best;
 	}
 
-	/**
-	 * A point to look at so that using a bucket puts its fluid into `cell`: a spot on the face
-	 * of a solid neighbor, reachable and with nothing solid in the way (fluids don't block).
-	 */
-	private static Aim aimAt(Vec3 eye, BlockPos cell) {
-		LocalPlayer pl = Mc.player();
-		for (Direction d : Direction.values()) {
-			BlockPos n = cell.relative(d);
-			if (!Mc.solid(n) || Mc.isInteractive(n)) continue;
-			Direction face = d.getOpposite();
-			Vec3 c = Vec3.atCenterOf(n).add(face.getStepX() * 0.5, face.getStepY() * 0.5, face.getStepZ() * 0.5);
-			// Try the face's center and points toward its edges: a slightly higher point often
-			// clears the frame block below.
-			for (double[] o : new double[][]{{0, 0}, {0.3, 0}, {-0.3, 0}, {0, 0.3}, {0, -0.3}, {0.3, 0.3}, {-0.3, 0.3}}) {
-				Vec3 p = c.add(offset(face, o[0], o[1]));
-				if (eye.distanceTo(p) > Mc.reach() - 0.3) continue;
-				Vec3 end = p.add(p.subtract(eye).normalize().scale(0.3));
-				BlockHitResult hit = pl.level().clip(new ClipContext(eye, end, ClipContext.Block.OUTLINE, ClipContext.Fluid.NONE, pl));
-				if (hit.getType() == HitResult.Type.BLOCK && hit.getBlockPos().equals(n) && hit.getDirection() == face) {
-					return new Aim(cell, p);
-				}
-			}
-		}
-		return null;
-	}
-
-	/** An offset within the plane of a face: u along the face's horizontal axis, v up (or along z for top/bottom). */
-	private static Vec3 offset(Direction face, double u, double v) {
-		return switch (face.getAxis()) {
-			case X -> new Vec3(0, v, u);
-			case Z -> new Vec3(u, v, 0);
-			case Y -> new Vec3(u, 0, v);
-		};
-	}
-
 	private static boolean findSite(BlockPos feet) {
 		for (int r = 2; r <= 12; r++) {
 			for (int dx = -r; dx <= r; dx++) {
@@ -593,7 +536,7 @@ public final class CastPortal extends Skill {
 					for (int dy = -3; dy <= 3; dy++) {
 						BlockPos o = feet.offset(dx, dy, dz);
 						for (Direction a : new Direction[]{Direction.EAST, Direction.SOUTH, Direction.WEST, Direction.NORTH}) {
-							if (fits(o, a)) {
+							if (CastGeometry.fits(o, a, WALL_H)) {
 								origin = o.immutable();
 								along = a;
 								return true;
@@ -603,36 +546,6 @@ public final class CastPortal extends Skill {
 				}
 			}
 		}
-		return false;
-	}
-
-	/**
-	 * Flat solid ground under the frame, the frame's space and the row above it empty and dry,
-	 * room to stand in front, and the wall's spots either empty or already solid. Away from the
-	 * lava itself, so flowing lava can't reach the frame.
-	 */
-	private static boolean fits(BlockPos o, Direction a) {
-		Direction front = a.getClockWise();
-		for (int x = 0; x < 4; x++) {
-			BlockPos col = o.relative(a, x);
-			if (!Mc.solid(col.below()) || Mc.state(col.below()).liquid()) return false;
-			for (int y = 0; y < WALL_H; y++) if (!Mc.free(col.above(y)) || nearLava(col.above(y))) return false;
-			BlockPos back = col.relative(front.getOpposite());
-			if (!Mc.solid(back.below()) && !Mc.solid(back)) return false;
-			for (int y = 0; y < WALL_H; y++) {
-				BlockPos w = back.above(y);
-				if (!Mc.solid(w) && !Mc.free(w)) return false;
-			}
-			for (int f = 1; f <= 2; f++) {
-				BlockPos p = col.relative(front, f);
-				if (!Mc.free(p) || !Mc.free(p.above()) || !Mc.solid(p.below())) return false;
-			}
-		}
-		return true;
-	}
-
-	private static boolean nearLava(BlockPos p) {
-		for (Direction d : Direction.values()) if (Mc.id(Mc.state(p.relative(d)).getBlock()).equals("lava")) return true;
 		return false;
 	}
 
