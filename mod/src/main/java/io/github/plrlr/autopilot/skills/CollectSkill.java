@@ -1,5 +1,6 @@
 package io.github.plrlr.autopilot.skills;
 
+import baritone.api.pathing.goals.GoalYLevel;
 import io.github.plrlr.autopilot.Items2;
 import io.github.plrlr.autopilot.Mc;
 import io.github.plrlr.autopilot.plan.TechTree;
@@ -17,6 +18,9 @@ public final class CollectSkill extends Skill {
 	private int lastProgressTick;
 	private int restarts;
 	private Block[] blocks;
+	/** Digging down to the ore's depth first (ticks spent, or -1 when not descending). */
+	private int descending = -1;
+	private Integer mineY;
 
 	@Override
 	public String name() {
@@ -48,11 +52,43 @@ public final class CollectSkill extends Skill {
 		// Ores have a mining depth; everything else is a surface block.
 		Bari.setLegitMine(src.mineY() != null);
 		Bari.setMineY(src.mineY());
+		mineY = src.mineY();
+		// Baritone's legit branch mining doesn't go down on its own: from the surface it wandered
+		// 200+ blocks at y 60 looking for iron. Staircase down to the ore's depth first, unless an
+		// ore of this kind is already in view.
+		if (mineY != null && Mc.player().getBlockY() > mineY + 8 && !oreInView(src)) {
+			descending = 0;
+			timeoutTicks += 20 * 120;
+			Bari.path(new GoalYLevel(mineY));
+			return;
+		}
 		Bari.get().getMineProcess().mine(blocks);
+	}
+
+	private boolean oreInView(TechTree.Source src) {
+		for (String b : src.blocks()) {
+			String group = io.github.plrlr.autopilot.state.WorldMemory.groupOf(b);
+			var seen = group == null ? null : memory.nearest(group);
+			if (seen != null && seen.pos().distSqr(Mc.player().blockPosition()) < 24 * 24) return true;
+		}
+		return false;
 	}
 
 	@Override
 	protected void tick() {
+		if (descending >= 0) {
+			descending++;
+			int y = Mc.player().getBlockY();
+			boolean arrived = Math.abs(y - mineY) <= 3;
+			if (arrived || (descending > 20 && !Bari.pathing()) || descending > 20 * 120) {
+				// Down (or as far as the way allowed): branch-mine from here.
+				descending = -1;
+				lastProgressTick = ticks;
+				Bari.stop();
+				Bari.get().getMineProcess().mine(blocks);
+			}
+			return;
+		}
 		int now = Mc.count(item);
 		if (now - before >= want) {
 			done("collected " + (now - before) + " " + item);
