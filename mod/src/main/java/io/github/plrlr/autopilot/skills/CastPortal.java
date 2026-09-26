@@ -53,6 +53,7 @@ public final class CastPortal extends Skill {
 	private Aim lavaAim, waterAim;
 	private BucketSkills.FillBucket fetch;
 	private int castFails;
+	private int approachTicks = 20 * 45;
 
 	private record Aim(BlockPos cell, Vec3 point) {}
 
@@ -125,8 +126,8 @@ public final class CastPortal extends Skill {
 		switch (phase) {
 			case SITE -> {
 				WorldMemory.Seen pool = memory.nearest("lava");
-				if (Mc.count("lava_bucket") == 0 && (pool == null || pool.pos().distSqr(pl.blockPosition()) > 64 * 64)) {
-					fail("no lava pool nearby to cast from");
+				if (Mc.count("lava_bucket") == 0 && pool == null) {
+					fail("no known lava pool to cast from");
 					return;
 				}
 				if (origin != null && (origin.distSqr(pl.blockPosition()) > 40 * 40 || !siteUsable(origin, along))) origin = null;
@@ -136,6 +137,9 @@ public final class CastPortal extends Skill {
 						Bari.path(new GoalNear(pool.pos(), 7));
 						phase = Phase.APPROACH;
 						wait = 0;
+						// Walking takes about a second per 4 blocks; allow for detours.
+						approachTicks = 20 * (30 + (int) Math.sqrt(pool.pos().distSqr(pl.blockPosition())) / 2);
+						timeoutTicks = Math.max(timeoutTicks, ticks + approachTicks + 20 * 60 * 5);
 						return;
 					}
 					if (!findSite(pl.blockPosition())) {
@@ -147,7 +151,7 @@ public final class CastPortal extends Skill {
 				wait = 0;
 			}
 			case APPROACH -> {
-				if (++wait > 20 * 45) {
+				if (++wait > approachTicks) {
 					fail("couldn't get near the lava pool");
 					return;
 				}

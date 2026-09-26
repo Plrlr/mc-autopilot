@@ -116,12 +116,26 @@ public final class Mc {
 			return true;
 		}
 		if (pl.containerMenu != pl.inventoryMenu) pl.closeContainer();
-		int hotbar = inv.getSelectedSlot();
-		// Swap into the selected hotbar slot (button = hotbar index), like pressing 1-9 over a slot.
+		// Baritone's inventory helper keeps the best pickaxe in hotbar slot 0 (and its scaffolding
+		// blocks near the end), swapping them back every tick. Swapping our item into slot 0 had
+		// it undone at once: every failed table/furnace placement in the trials held the pickaxe.
+		int hotbar = swapTarget(inv);
+		inv.setSelectedSlot(hotbar);
+		// Swap into that hotbar slot (button = hotbar index), like pressing 1-9 over a slot.
 		int menuSlot = menuSlotFor(pl.inventoryMenu, slot);
 		if (menuSlot < 0) return false;
 		click(pl.inventoryMenu, menuSlot, hotbar, ContainerInput.SWAP);
 		return true;
+	}
+
+	/** A hotbar slot to swap an item into: an empty one, else one not holding a tool, never 0 or 8. */
+	private static int swapTarget(Inventory inv) {
+		for (int i = 1; i <= 7; i++) if (inv.getItem(i).isEmpty()) return i;
+		for (int i = 7; i >= 1; i--) {
+			String id = Items2.id(inv.getItem(i));
+			if (!id.endsWith("_pickaxe") && !id.endsWith("_sword") && !id.endsWith("_axe")) return i;
+		}
+		return 7;
 	}
 
 	// ---- looking and using ----

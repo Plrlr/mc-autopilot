@@ -126,6 +126,20 @@ public final class WorldMemory {
 	}
 
 	private static final int RH = 16, RV = 10, LAYERS_PER_TICK = 3;
+
+	/**
+	 * The (dx, dz) columns of the scan box, nearest first: the line-of-sight budget per sweep goes
+	 * to what's close. Scanning from one corner let an ocean's water use it all up before a
+	 * pool six blocks away was ever checked.
+	 */
+	private static final int[][] COLUMNS;
+
+	static {
+		java.util.List<int[]> cols = new java.util.ArrayList<>();
+		for (int dx = -RH; dx <= RH; dx++) for (int dz = -RH; dz <= RH; dz++) cols.add(new int[]{dx, dz});
+		cols.sort(java.util.Comparator.comparingInt(c -> c[0] * c[0] + c[1] * c[1]));
+		COLUMNS = cols.toArray(new int[0][]);
+	}
 	private int layerCursor = -RV;
 	private int raycasts;
 
@@ -146,15 +160,18 @@ public final class WorldMemory {
 		layerCursor = to >= RV ? -RV : to + 1;
 		BlockPos.MutableBlockPos p = new BlockPos.MutableBlockPos();
 		for (int dy = from; dy <= to; dy++) {
-			for (int dx = -rh; dx <= rh; dx++) {
-				for (int dz = -rh; dz <= rh; dz++) {
-					p.set(c.getX() + dx, c.getY() + dy, c.getZ() + dz);
+			for (int[] col : COLUMNS) {
+				{
+					p.set(c.getX() + col[0], c.getY() + dy, c.getZ() + col[1]);
 					if (!level.isLoaded(p)) continue;
 					BlockState st = level.getBlockState(p);
 					if (st.isAir()) continue;
 					String id = Mc.id(st.getBlock());
 					String group = groupOf(id);
 					if (group == null) continue;
+					// Water and lava: only sources open to the air, the ones a bucket can take.
+					// An ocean's thousands of other water blocks are no use and cost raycasts.
+					if (st.liquid() && (!st.getFluidState().isSource() || !level.getBlockState(p.above()).isAir())) continue;
 					BlockPos pos = p.immutable();
 					Map<BlockPos, Seen> m = byGroup.computeIfAbsent(group, k -> new LinkedHashMap<>());
 					if (group.equals("stone")) {

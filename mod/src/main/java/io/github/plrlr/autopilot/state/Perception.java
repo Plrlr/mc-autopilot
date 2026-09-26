@@ -39,7 +39,10 @@ public final class Perception {
 			boolean living = e instanceof LivingEntity;
 			if (!living && !type.equals("end_crystal")) continue;
 			if (d > 6 && !(e instanceof EnderDragon) && !Mc.canSee(e)) continue;
-			p.mobs.add(new Seen(e, type, d, e instanceof Enemy && !NEUTRAL.contains(type)));
+			// A monster we just failed to reach isn't a threat from afar; up close it still is.
+			boolean hostile = e instanceof Enemy && !NEUTRAL.contains(type)
+					&& !(d > 4 && io.github.plrlr.autopilot.skills.CombatSkills.unreachable(e));
+			p.mobs.add(new Seen(e, type, d, hostile));
 		}
 		p.mobs.sort(Comparator.comparingDouble(Seen::dist));
 		p.items.sort(Comparator.comparingDouble(i -> i.distanceTo(pl)));

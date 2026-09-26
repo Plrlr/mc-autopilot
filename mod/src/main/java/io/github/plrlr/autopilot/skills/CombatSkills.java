@@ -33,9 +33,20 @@ public final class CombatSkills {
 		return Mc.holdItem(s -> Items2.id(s).equals(id));
 	}
 
+	/** Mobs we couldn't get to (across water, down a hole): entity id -> time (ms) to retry after. */
+	private static final java.util.Map<Integer, Long> UNREACHABLE = new java.util.HashMap<>();
+
+	/** True for a mob an attack recently failed to reach; the planner leaves it alone for a minute. */
+	public static boolean unreachable(Entity e) {
+		Long until = UNREACHABLE.get(e.getId());
+		return until != null && System.currentTimeMillis() < until;
+	}
+
 	/** attack <mob type>: walk up to the nearest one in sight and hit it until it dies. */
 	public static final class Attack extends Skill {
 		private Entity target;
+		private double bestDist = Double.MAX_VALUE;
+		private int sinceCloser;
 		private BlockPos lastSeenAt;
 		private int unseen;
 		private int deadTicks = -1;
@@ -48,9 +59,15 @@ public final class CombatSkills {
 		@Override
 		protected void start() {
 			timeoutTicks = 20 * 45;
-			Perception.Seen s = Perception.look(32).nearest(arg == null ? "" : arg);
+			Perception.Seen s = null;
+			for (Perception.Seen m : Perception.look(32).mobs) {
+				if (m.type().equals(arg) && !unreachable(m.entity())) {
+					s = m;
+					break;
+				}
+			}
 			if (s == null) {
-				fail("no " + arg + " in sight");
+				fail("no reachable " + arg + " in sight");
 				return;
 			}
 			target = s.entity();
@@ -93,6 +110,17 @@ public final class CombatSkills {
 			} else unseen = 0;
 
 			if (dist > 3.0) {
+				// Not getting any closer for 8 s: it's across water or down a hole. Give up on
+				// this one for a minute instead of chasing it until the 45 s timeout (trials lost
+				// 8 minutes to one zombie that way).
+				if (dist < bestDist - 0.5) {
+					bestDist = dist;
+					sinceCloser = 0;
+				} else if (++sinceCloser > 20 * 8) {
+					UNREACHABLE.put(target.getId(), System.currentTimeMillis() + 60_000);
+					fail("can't reach the " + arg + " (" + Math.round(dist) + " blocks away)");
+					return;
+				}
 				if (ticks % 10 == 1) Bari.path(new GoalNear(target.blockPosition(), 1));
 				return;
 			}
