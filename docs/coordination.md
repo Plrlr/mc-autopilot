@@ -35,6 +35,8 @@ B1, B2, B5, B6 to the cloud; B3/B4 are the user's call.
   (Nether and End scenarios; the cloud may still add early-game scenarios, say so here first)
 - CLAIM mod/src/test/java/io/github/plrlr/autopilot/plan/TechTreeTest.java - freebuff (new file)
 - CLAIM mod/src/test/java/io/github/plrlr/autopilot/plan/PlannerPriorityTest.java - freebuff (new file)
+- CLAIM mod/src/main/java/io/github/plrlr/autopilot/Autopilot.java - review (fortress owns all fortress mobs)
+- CLAIM mod/src/main/java/io/github/plrlr/autopilot/plan/Planner.java - review (test hooks, portal step)
 
 
 ## Cloud
