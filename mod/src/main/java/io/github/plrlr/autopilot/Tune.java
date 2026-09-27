@@ -74,7 +74,9 @@ public final class Tune {
 		gene("route.bed", 1, 0, 1, Kind.BOOL, "hunt sheep and make a bed early");
 		// Main loop timing
 		gene("loop.lost_underground_s", 60, 20, 180, Kind.INT, "seconds underground with nothing gained before heading up");
-		gene("loop.stuck_s", 10, 5, 30, Kind.INT, "seconds without moving while pathing that count as stuck");
+		gene("loop.stuck_s", 10, 5, 30, Kind.INT, "seconds without moving that mark the state as stuck for the brains");
+		gene("stuck.window_s", 12, 6, 40, Kind.INT, "a moving skill kept inside the stuck box this long starts the unstuck reflex");
+		gene("stuck.box", 2, 1, 4, Kind.REAL, "the square (blocks) the bot must leave to count as moving");
 		// The learned brain (brains/Learned): how far it may overrule the rules' order.
 		gene("learned.weight", 0, 0, 3, Kind.REAL, "0 = rules order only; higher trusts the learned model more");
 		gene("learned.explore", 0, 0, 0.3, Kind.REAL, "chance to try a non-first option (data for learning)");

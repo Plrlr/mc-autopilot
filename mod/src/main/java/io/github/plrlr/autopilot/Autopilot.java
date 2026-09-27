@@ -606,26 +606,50 @@ public final class Autopilot {
 		return actionKey(a).equals(actionKey(b));
 	}
 
+	/** Where the bot was, once a second, while a moving skill ran (the stuck box check). */
+	private final Deque<Vec3> recentPos = new ArrayDeque<>();
+	/** Skills that are supposed to move the bot. Crafting, smelting, eating, hiding or fighting in place are not stuck. */
+	private static final java.util.Set<String> MOVING = java.util.Set.of("collect", "explore", "goto", "retreat", "pickup",
+			"fill_bucket", "locate_stronghold");
+
+	/**
+	 * Stuck = a moving skill has kept the bot inside a small square (gene stuck.box, 2 blocks) for
+	 * stuck.window_s seconds, whatever Baritone says it's doing. The old check only counted while
+	 * Baritone reported walking, so an idle Baritone (a mine search in open water) left the bot
+	 * standing for minutes (laptop run 2026-09-27: 150 s per try, the same collect again after).
+	 * Mining a block is standing still on purpose. Then the unstuck reflex swims, walks, tunnels or
+	 * climbs out, and the action that got stuck counts as a failure (paused after repeats).
+	 */
 	private void trackStuck(LocalPlayer pl) {
-		if (skill == null) return;
 		Vec3 p = pl.position();
 		if (lastPos == null || p.distanceToSqr(lastPos) > 0.25) {
 			lastPos = p;
 			lastMoveTick = tick;
+		}
+		if (skill == null || skillIsReflex || !MOVING.contains(skill.name()) || Mc.mc().gameMode.isDestroying()) {
+			recentPos.clear();
 			return;
 		}
-		// Only "stuck" if Baritone is trying to walk and we're not moving. Breaking a block
-		// (obsidian takes 9 s) is standing still on purpose.
-		if (!Bari.pathing() || Mc.mc().gameMode.isDestroying()) {
-			lastMoveTick = tick;
-			return;
+		if (tick % 20 != 0) return;
+		recentPos.addLast(p);
+		int window = Tune.i("stuck.window_s");
+		while (recentPos.size() > window) recentPos.removeFirst();
+		if (recentPos.size() < window) return;
+		double minX = 1e9, maxX = -1e9, minY = 1e9, maxY = -1e9, minZ = 1e9, maxZ = -1e9;
+		for (Vec3 v : recentPos) {
+			minX = Math.min(minX, v.x); maxX = Math.max(maxX, v.x);
+			minY = Math.min(minY, v.y); maxY = Math.max(maxY, v.y);
+			minZ = Math.min(minZ, v.z); maxZ = Math.max(maxZ, v.z);
 		}
-		long still = tick - lastMoveTick;
-		// A fresh start makes Baritone plan a new path from where we are; waiting rarely helps.
-		if (still == 20 * 12) {
-			abortSkill("stuck for 12 s", true);
-			if (consecutiveFails >= 2) requestPlan("stuck", false);
-		}
+		double box = Tune.get("stuck.box");
+		if (maxX - minX >= box || maxZ - minZ >= box || maxY - minY >= 1.5) return;
+		recentPos.clear();
+		String what = skillOption.label();
+		log.event("stuck", what + " at " + pl.blockPosition().toShortString() + (pl.isInWater() ? " in water" : ""));
+		abortSkill("stuck: stayed inside " + box + " blocks for " + window + " s", false);
+		startSkill(new Option("unstuck", null, "not moving while " + what), "reflex_stuck", true);
+		reflexCooldownUntil = tick + 40;
+		if (consecutiveFails >= 2) requestPlan("stuck", false);
 	}
 
 	// ------------------------------------------------------------------ tactician
