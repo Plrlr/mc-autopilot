@@ -139,9 +139,9 @@
   }
  },
  "days": {
-  "2026-09-27": 2
+  "2026-09-27": 3
  },
- "gen": 2,
+ "gen": 3,
  "gene_specs": {
   "combat.flee_hp": {
    "def": 8.0,
@@ -799,14 +799,69 @@
    ],
    "parent": "g0",
    "status": "contender"
+  },
+  "g7": {
+   "born": 3,
+   "code": null,
+   "evals": [],
+   "genes": {
+    "food.hunt_dist": 13.0,
+    "plan.hostile_range": 7.515103769812674
+   },
+   "id": "g7",
+   "mutated": [
+    "plan.hostile_range"
+   ],
+   "note": "plan.hostile_range 7.5151",
+   "pairs": [],
+   "parent": "g4",
+   "status": "contender"
   }
  },
  "model_adv_r2": -1.362,
  "model_keys": 23,
  "model_r2": -1.038,
  "model_rows": 2185,
- "next_id": 7,
- "pending": null,
+ "next_id": 8,
+ "pending": {
+  "gen": 3,
+  "lineup": [
+   "g0",
+   "g4",
+   "g6",
+   "g7"
+  ],
+  "runs": [
+   "eval-g0-0",
+   "eval-g0-1",
+   "eval-g0-2",
+   "eval-g0-3",
+   "eval-g4-0",
+   "eval-g4-1",
+   "eval-g4-2",
+   "eval-g4-3",
+   "eval-g6-0",
+   "eval-g6-1",
+   "eval-g6-2",
+   "eval-g6-3",
+   "eval-g7-0",
+   "eval-g7-1",
+   "eval-g7-2",
+   "eval-g7-3",
+   "data-g0-0",
+   "data-g0-1"
+  ],
+  "seeds": [
+   "L3-ezuknu",
+   "L3-ugr9d3",
+   "L3-m3wacc",
+   "L3-7bpqte",
+   "L3-cgz429",
+   "L3-2q7hx3"
+  ],
+  "sha": "71c1c1433461bf68a1a44d3106d90440cef59d7c",
+  "started": "2026-09-27T15:24:16+00:00"
+ },
  "settings": {
   "accept_pairs": 8,
   "accept_t": 2.0,
@@ -822,7 +877,8 @@
   "perf_mods": "",
   "scenario": "natural",
   "seeds_per_gen": 4,
-  "sigma0": 0.15
+  "sigma0": 0.15,
+  "window": ""
  },
  "showcase_runs": 1,
  "sigma": {
