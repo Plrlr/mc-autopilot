@@ -48,6 +48,10 @@ workflow's unit-tests job compiles and tests in about a minute, the trial jobs t
   Vulkan through lavapipe (mesa-vulkan-drivers). A game that can't open a window hangs rather
   than exits, hence the workflow's watchdog.
 
+- **Noise:** the same commit twice (batches 8a/8b, 8 seeds x 20 min) gave iron tools 8/8 vs
+  4/8; the difference was deaths (19 vs 24, most while retreating). Judge small changes over
+  two batches or more seeds, and cut deaths first.
+
 ## Open problems (next candidates)
 
 - Portal casting (cast scenario): scoop line of sight fixed in batch 7; the full 10-block frame
