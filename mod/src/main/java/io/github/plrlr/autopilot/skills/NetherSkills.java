@@ -1,5 +1,7 @@
 package io.github.plrlr.autopilot.skills;
 
+import baritone.api.BaritoneAPI;
+import baritone.api.Settings;
 import baritone.api.pathing.goals.GoalNear;
 import baritone.api.pathing.goals.GoalXZ;
 import io.github.plrlr.autopilot.Items2;
@@ -86,6 +88,37 @@ public final class NetherSkills {
 		private int rodsBefore;
 		private boolean walking;
 
+		// Baritone settings changed while this skill runs, restored in cleanup.
+		private Boolean savedItemSaver;
+		private Double savedBreakPenalty, savedSpawnerAvoid;
+
+		/**
+		 * The first test walked a 200-block leg through solid netherrack near the roof and wore the
+		 * iron pickaxe out; without it the bot dug by hand. Here: stop using a tool before it
+		 * breaks, and in find mode make digging costly so open caves win over tunnels. In blazes
+		 * mode, Baritone's spawner avoidance (16 blocks) would keep us from the one place blazes
+		 * come to, so it's switched off.
+		 */
+		private void tuneBaritone() {
+			Settings st = BaritoneAPI.getSettings();
+			savedItemSaver = st.itemSaver.value;
+			st.itemSaver.value = true;
+			if (findMode) {
+				savedBreakPenalty = st.blockBreakAdditionalPenalty.value;
+				st.blockBreakAdditionalPenalty.value = 12.0;
+			} else {
+				savedSpawnerAvoid = st.mobSpawnerAvoidanceCoefficient.value;
+				st.mobSpawnerAvoidanceCoefficient.value = 1.0;
+			}
+		}
+
+		private void restoreBaritone() {
+			Settings st = BaritoneAPI.getSettings();
+			if (savedItemSaver != null) st.itemSaver.value = savedItemSaver;
+			if (savedBreakPenalty != null) st.blockBreakAdditionalPenalty.value = savedBreakPenalty;
+			if (savedSpawnerAvoid != null) st.mobSpawnerAvoidanceCoefficient.value = savedSpawnerAvoid;
+		}
+
 		@Override
 		public String name() {
 			return "fortress";
@@ -104,6 +137,7 @@ public final class NetherSkills {
 				return;
 			}
 			findMode = !"blazes".equals(argName());
+			tuneBaritone();
 			LocalPlayer pl = Mc.player();
 			if (findMode) {
 				timeoutTicks = 20 * 240;
@@ -204,13 +238,14 @@ public final class NetherSkills {
 			Perception seen = Perception.look(32);
 			Perception.Seen blaze = seen.nearest("blaze");
 			var keyUse = Mc.mc().options.keyUse;
+			if (recover(pl, blaze, keyUse)) return;
 			if (blaze != null) {
+				// Chase and hit. Waiting at the spawner with the shield up (the first design) only
+				// blocked for 105 s: blazes keep their distance. The plain chase killed one every ~6 s.
 				sinceBlaze = 0;
+				keyUse.setDown(false);
 				Entity e = blaze.entity();
-				double dy = e.getY() - pl.getY();
 				if (blaze.dist() <= 3.2) {
-					// In reach: shield down, full-strength swings.
-					keyUse.setDown(false);
 					if (Bari.pathing()) Bari.stop();
 					walking = false;
 					Mc.lookAt(e.getBoundingBox().getCenter());
@@ -220,24 +255,18 @@ public final class NetherSkills {
 					}
 					return;
 				}
-				if (blaze.dist() < 7 && Math.abs(dy) < 2.5 && Mc.canSee(e)) {
-					// Low and close: step in rather than wait.
-					keyUse.setDown(false);
-					if (ticks % 10 == 0) Bari.path(new GoalNear(e.blockPosition(), 1));
+				// Rods first if one is lying close by; otherwise close in on the blaze.
+				if (blaze.dist() > 6 || !rodNearby(pl, seen)) {
+					if (ticks % 10 == 0) Bari.path(new GoalNear(e.blockPosition(), 2));
 					walking = true;
 					return;
-				}
-				// At range: face it with the shield up. Fireballs hit the shield, not us.
-				if (!walking || !Bari.pathing()) {
-					Mc.lookAt(e.getBoundingBox().getCenter());
-					keyUse.setDown(Items2.id(pl.getOffhandItem()).equals("shield"));
 				}
 			} else {
 				keyUse.setDown(false);
 				sinceBlaze++;
 			}
 			// Rods on the ground nearby: pick them up before anything else.
-			if (ticks % 10 == 0 && (blaze == null || blaze.dist() > 8)) {
+			if (ticks % 10 == 0) {
 				for (ItemEntity it : seen.items) {
 					if (Items2.id(it.getItem()).equals("blaze_rod") && it.distanceTo(pl) < 12) {
 						Bari.path(new GoalNear(it.blockPosition(), 0));
@@ -261,9 +290,49 @@ public final class NetherSkills {
 			}
 		}
 
+		private static boolean rodNearby(LocalPlayer pl, Perception seen) {
+			for (ItemEntity it : seen.items) if (Items2.id(it.getItem()).equals("blaze_rod") && it.distanceTo(pl) < 12) return true;
+			return false;
+		}
+
+		private boolean recovering;
+
+		/**
+		 * Low health (12, since burning keeps hurting after we stop): get out of the blazes' sight and heal (eat up to 18+ hunger so health comes
+		 * back), then fight again. Standing still while burning is what killed the first test.
+		 * Returns true while recovering.
+		 */
+		private boolean recover(LocalPlayer pl, Perception.Seen blaze, net.minecraft.client.KeyMapping keyUse) {
+			float hp = pl.getHealth();
+			if (!recovering && hp > 12) return false;
+			if (recovering && hp >= 16) {
+				recovering = false;
+				keyUse.setDown(false);
+				CombatSkills.holdWeapon();
+				return false;
+			}
+			recovering = true;
+			boolean inSight = blaze != null && Mc.canSee(blaze.entity());
+			if (inSight || pl.isOnFire()) {
+				// Run from the nearest blaze (or just move, if burning) until it can't see us.
+				keyUse.setDown(false);
+				BlockPos from = blaze != null ? blaze.entity().blockPosition() : pl.blockPosition();
+				if (ticks % 10 == 0) Bari.path(new baritone.api.pathing.goals.GoalRunAway(14, from));
+				return true;
+			}
+			if (Bari.pathing()) Bari.stop();
+			// Out of sight: eat while hungry, else just wait for health to come back.
+			if (pl.getFoodData().getFoodLevel() < 20 && Mc.count(Items2.matcher("food")) > 0) {
+				if (!Items2.matcher("food").test(pl.getMainHandItem())) Mc.holdItem(Items2.matcher("food"));
+				keyUse.setDown(true);
+			} else keyUse.setDown(false);
+			return true;
+		}
+
 		@Override
 		protected void cleanup() {
 			Mc.mc().options.keyUse.setDown(false);
+			restoreBaritone();
 			super.cleanup();
 		}
 	}
