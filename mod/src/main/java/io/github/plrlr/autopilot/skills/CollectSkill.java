@@ -57,12 +57,15 @@ public final class CollectSkill extends Skill {
 		}
 		before = Mc.count(item);
 		lastCount = before + (item.equals("flint") ? Mc.count("gravel") : 0);
-		// Deep ores take a while to find by branch mining.
-		timeoutTicks = 20 * (src.mineY() != null && src.mineY() < 0 ? 900 : 360);
-		// Ores have a mining depth; everything else is a surface block.
-		Bari.setLegitMine(src.mineY() != null);
-		Bari.setMineY(src.mineY());
+		// Ores have a mining depth (iron and coal: genes, so the loop can trade ore density against
+		// the caves and mobs deeper down); everything else is a surface block.
 		mineY = src.mineY();
+		if (item.equals("raw_iron")) mineY = io.github.plrlr.autopilot.Tune.i("gather.iron_y");
+		if (item.equals("coal")) mineY = io.github.plrlr.autopilot.Tune.i("gather.coal_y");
+		// Deep ores take a while to find by branch mining.
+		timeoutTicks = 20 * (mineY != null && mineY < 0 ? 900 : 360);
+		Bari.setLegitMine(mineY != null);
+		Bari.setMineY(mineY);
 		// Baritone's legit branch mining doesn't go down on its own: from the surface it wandered
 		// 200+ blocks at y 60 looking for iron. Staircase down to the ore's depth first, unless an
 		// ore of this kind is already in view.

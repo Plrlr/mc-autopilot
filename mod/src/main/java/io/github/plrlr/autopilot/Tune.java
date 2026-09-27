@@ -72,6 +72,8 @@ public final class Tune {
 		gene("gather.coal_upkeep_below", 4, 0, 16, Kind.INT, "grab coal in view while carrying fewer than this");
 		gene("gather.coal_view_dist", 12, 4, 24, Kind.INT, "coal (and iron) ore this close counts as in view");
 		gene("gather.iron_in_view", 0, 0, 1, Kind.BOOL, "take iron ore in view while the route still needs iron");
+		gene("gather.iron_y", 16, -16, 64, Kind.INT, "height to branch-mine iron at (16: most ore, most caves)");
+		gene("gather.coal_y", 45, 0, 96, Kind.INT, "height to branch-mine coal at");
 		// Route choices (switches)
 		gene("route.armor_before_portal", 1, 0, 1, Kind.BOOL, "chestplate and helmet before the portal");
 		gene("route.boots_before_portal", 1, 0, 1, Kind.BOOL, "boots too when 4 ingots are spare");
