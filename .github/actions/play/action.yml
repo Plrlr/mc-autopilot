@@ -91,6 +91,12 @@ runs:
             echo "No test report after 15 minutes: stopping the game."; kill -- -$pid 2>/dev/null; pkill -f devlaunchinjector || true; break
           fi
           if [ $el -gt $limit ]; then echo "Run took over $limit s: stopping the game."; kill -- -$pid 2>/dev/null; pkill -f devlaunchinjector || true; break; fi
+          # The report is written: if closing the game hangs (a free run rejoining the test
+          # framework), don't wait for the long limit.
+          if grep -aq "\[autopilot-test\] FINAL" trial.log; then
+            final_at=${final_at:-$el}
+            if [ $(( el - final_at )) -gt 120 ]; then echo "Game still open 2 min after its final report: stopping it."; kill -- -$pid 2>/dev/null; pkill -f devlaunchinjector || true; break; fi
+          fi
         done
         wait $pid || true
         grep -a "autopilot-test" trial.log > autopilot-test.log || true
