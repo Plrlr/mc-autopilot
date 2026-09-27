@@ -119,3 +119,51 @@ laptop-only commits. Nothing here has been run; the findings come from reading t
 - Push safety for this worktree: `review/docs` tracks `origin/claude/autopilot-trial-runs-gdcq8y`;
   the review session pushes with an explicit `origin review/docs` so it never pushes to the
   cloud's branch.
+
+## 2. Late-game readiness (Nether, blazes, pearls, stronghold, dragon)
+
+Read at f7df235: `plan/Planner.java` (goal steps 89-136, bow 446-451), `skills/PortalSkills.java`
+(EnterPortal, LocateStronghold, FillEndPortal), `skills/CombatSkills.java`, `skills/MoveSkills.java`
+(explore, goto), `state/Perception.java`, `Progress.java`, and the staged scenarios in
+`gametest/.../AutopilotClientTest.java:124-163`. No run has reached rung 8 yet. Batch 8a's staged
+cast entered the Nether once and died there, so everything below comes from reading the code.
+
+### What's missing or likely to break, most blocking first
+
+| # | Stage | Problem | Where |
+|---|---|---|---|
+| L1 | Dragon | **The speedrun route never gets a bow or arrows.** The bow is only made with a diamond pickaxe (tier 3) and 3 string already in the bag; the speedrun route skips diamonds. Nothing in the plan fetches string or arrows (arrow needs flint + feather; there's no step for it). Without a bow the crystals keep healing the dragon, and the bot can only hit it while it's perched. | `Planner.java:448`, `:130-135` |
+| L2 | Stronghold | **Eyes lead to the stronghold, not its portal room, and there's no step to search inside.** When the eye drops, the bot digs straight down to y 20 (`GoalBlock`) and stops once it sees a frame. A stronghold is a maze of corridors; ending in the wrong room means throwing again, which only points back to the same spot. | `PortalSkills.java:358-378` |
+| L3 | Stronghold | **Thrown eyes aren't picked back up.** 80% drop to the ground and 20% break. With a throw every ~180 blocks over 1,300-2,800 blocks, several eyes are lost, and the ladder asks for only 12 in total. `fill_end_portal` then fails with NEED_ITEM, and the planner has to go back to the Nether for more rods. | `PortalSkills.java:336-371`, `Goal.java:25` |
+| L4 | Nether, End | **Angry neutral mobs are never fought.** Perception marks enderman, piglin and zombified piglin as neutral, and the reflex skips endermen by name. Without gold armor piglins attack on sight; an enderman we looked at (easy while aiming at crystals) attacks too. There is no "fight back what hit me" reflex: a hit only asks the tactician (`requestDecision("hurt")`), and the options have no attack on a neutral mob. | `Perception.java:20,43`, `Autopilot.java:444,594` |
+| L5 | Blazes | **Melee only.** Blazes hover and shoot. `attack` gives up after 8 s without getting closer (UNREACHABLE), and `shoot` is only offered for the dragon and crystals. Nothing handles fire either: no fire resistance, no retreat from fireballs. Rods drop 0-1 each, so 6 rods take about 12 kills. | `Planner.java:105`, `CombatSkills.java:114-127` |
+| L6 | Nether travel | **Finding a fortress is a random walk.** `explore nether_bricks,blaze` walks 120-block straight lines through lava seas, and Baritone may only use cobblestone as scaffolding (24+) for bridges. Ghasts are hostile and within 10 blocks get an `attack` option (melee on a flying mob). A death in the Nether respawns the bot in the overworld with its gear left in the Nether (the death-spot recovery can't reach it across dimensions). | `MoveSkills.java:23-97`, `Planner.java:351-357` |
+| L7 | Pearls | **12 pearls is about 24 endermen** (0-1 pearl each, no Looting). The step has no dimension or time logic (it explores for endermen wherever it is, e.g. Nether wastes), ignores rain (endermen teleport), and there's no gold bartering (what speedruns use). | `Planner.java:109-111`, `Goal.java:24` |
+| L8 | End arrival | **The real arrival point is the obsidian platform near (100, 49, 0), often out over the void.** Reaching the island may need bridging, and the `end` scenario teleports straight to (0, 80, 40) above the island, so this is never tested. `goto end_center` parks next to the fountain, where the dragon's breath lands. Nothing guards against being knocked into the void. | `AutopilotClientTest.java:149`, `MoveSkills.java:123` |
+| L9 | Portals | **`enter_portal` paths with `GoalBlock` into the portal block itself.** Baritone may refuse to path into portal blocks, and the 90 s timeout ends as a plain timeout. Untested for the End portal (a pit you drop into). | `PortalSkills.java:253-280` |
+| L10 | Scoring | **Milestones 8-10 are counted at the first item** (1 blaze rod, 1 pearl, 1 eye), while the goals need 6/12/12. A run with one blaze rod "reaches rung 8". That's fine as a checkpoint, but the README must say so. | `Progress.java:92-94` |
+| L11 | Safety | `sleep` checks night, not dimension. The planner only offers it in the overworld, but a bed placed in the Nether or End explodes; a one-line guard in the skill would make that impossible. | `NightSkills.java:256-262` |
+
+### Proposed tests (cloud owns the harness; these are suggestions)
+
+Each uses the existing `scripts/cycle -x` format. Task tests (`task`/`give`) run in the normal
+overworld test world. New scenarios need a small `stage()` case in `AutopilotClientTest`.
+
+| Stage | Test | Pass condition (checked from world state) |
+|---|---|---|
+| Eyes | task `craft ender_eye:2`, give `blaze_rod 1,ender_pearl 2`, 2 min | 2 eyes in the bag (blaze powder crafted on the way) |
+| Blaze fight | new scenario `fortress`: gear, then `execute in minecraft:the_nether run locate structure fortress` and tp there; goal BLAZE_RODS, 10 min | `blaze_rod` ≥ 1, then ≥ 6; count deaths by cause |
+| Blaze fight, cheap | new `-PtestSummon` hook: task `attack blaze` with a blaze summoned 6 blocks away in a walled pit, 3 min | kill or a clear code (UNREACHABLE shows L5) |
+| Piglins | scenario `fortress` without gold armor, log hits by piglins | 0 deaths to piglins, or evidence for L4 |
+| Nether travel | scenario `nether`: tp into the Nether 150 blocks from a fortress (locate), goal BLAZE_RODS | `nether_bricks` seen within N min; portal back remembered |
+| Return | scenario `return`: in the Nether next to a lit portal, goal FIND_STRONGHOLD | dimension becomes overworld (tests L9 for nether portals) |
+| Pearls | task `attack enderman` with a summoned enderman at night, 3 min | pearl picked up, or the enderman fought back without a reflex (L4) |
+| Eye throw | task `locate_stronghold`, give `ender_eye 3`, 3 min | skill ends ok ("walked toward the stronghold"), eyes left ≥ 2 (L3). The skill logs nothing about the throw direction yet; a `[stronghold]` line would help. |
+| Stronghold approach | scenario `stronghold_near`: tp 150 blocks from `locate structure stronghold`, give eyes 12, goal FIND_STRONGHOLD, 10 min | `end_portal_frame` seen (tests L2, L3) |
+| Portal room | scenario `portal_room`: `place structure minecraft:stronghold` under the player (check that this command exists in 26.3), goal ENTER_END | end_portal lit, then dimension the_end (tests `fill_end_portal` and L9) |
+| End arrival | change scenario `end` to tp to (100, 49, 0), the real platform | reaches the island without falling (L8) |
+| Crystals | scenario `end` with a bow and 64 arrows, goal KILL_DRAGON, 10 min | end_crystal count goes down (seen from world state) |
+| Dragon without a bow | scenario `end` with no bow (the speedrun route today) | shows whether L1 is fatal; kill proven by the lit exit portal |
+
+The two cheapest and most informative first: `craft ender_eye:2` (no new harness code) and the
+`end` scenario without a bow, which answers whether the speedrun route can win at all without L1.
