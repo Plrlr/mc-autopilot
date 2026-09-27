@@ -128,12 +128,20 @@
   "route.deep_for_lava": {
    "n": 0,
    "sum": 0.0
+  },
+  "stuck.box": {
+   "n": 0,
+   "sum": 0.0
+  },
+  "stuck.window_s": {
+   "n": 0,
+   "sum": 0.0
   }
  },
  "days": {
-  "2026-09-27": 1
+  "2026-09-27": 2
  },
- "gen": 1,
+ "gen": 2,
  "gene_specs": {
   "combat.flee_hp": {
    "def": 8.0,
@@ -263,7 +271,7 @@
   },
   "loop.stuck_s": {
    "def": 10.0,
-   "help": "seconds without moving while pathing that count as stuck",
+   "help": "seconds without moving that mark the state as stuck for the brains",
    "kind": "INT",
    "max": 30.0,
    "min": 5.0
@@ -358,6 +366,20 @@
    "kind": "BOOL",
    "max": 1.0,
    "min": 0.0
+  },
+  "stuck.box": {
+   "def": 2.0,
+   "help": "the square (blocks) the bot must leave to count as moving",
+   "kind": "REAL",
+   "max": 4.0,
+   "min": 1.0
+  },
+  "stuck.window_s": {
+   "def": 12.0,
+   "help": "a moving skill kept inside the stuck box this long starts the unstuck reflex",
+   "kind": "INT",
+   "max": 40.0,
+   "min": 6.0
   }
  },
  "genomes": {
@@ -577,14 +599,106 @@
    ],
    "parent": "g0",
    "status": "rejected"
+  },
+  "g4": {
+   "born": 2,
+   "code": null,
+   "evals": [],
+   "genes": {
+    "food.hunt_dist": 13.0
+   },
+   "id": "g4",
+   "mutated": [
+    "food.hunt_dist"
+   ],
+   "note": "food.hunt_dist 13",
+   "pairs": [],
+   "parent": "g0",
+   "status": "contender"
+  },
+  "g5": {
+   "born": 2,
+   "code": null,
+   "evals": [],
+   "genes": {
+    "gather.coal_upkeep_below": 0.0,
+    "plan.hide_hp": 13.0
+   },
+   "id": "g5",
+   "mutated": [
+    "gather.coal_upkeep_below",
+    "plan.hide_hp"
+   ],
+   "note": "gather.coal_upkeep_below 0, plan.hide_hp 13",
+   "pairs": [],
+   "parent": "g0",
+   "status": "contender"
+  },
+  "g6": {
+   "born": 2,
+   "code": null,
+   "evals": [],
+   "genes": {
+    "death.recover_night_armor": 12.0,
+    "plan.hide_hp": 15.0,
+    "route.armor_before_portal": 0.0
+   },
+   "id": "g6",
+   "mutated": [
+    "death.recover_night_armor",
+    "plan.hide_hp",
+    "route.armor_before_portal"
+   ],
+   "note": "death.recover_night_armor 12, plan.hide_hp 15, route.armor_before_portal 0",
+   "pairs": [],
+   "parent": "g0",
+   "status": "contender"
   }
  },
  "model_adv_r2": -2.974,
  "model_keys": 13,
  "model_r2": -3.253,
  "model_rows": 1100,
- "next_id": 4,
- "pending": null,
+ "next_id": 7,
+ "pending": {
+  "gen": 2,
+  "lineup": [
+   "g0",
+   "g4",
+   "g5",
+   "g6"
+  ],
+  "runs": [
+   "eval-g0-0",
+   "eval-g0-1",
+   "eval-g0-2",
+   "eval-g0-3",
+   "eval-g4-0",
+   "eval-g4-1",
+   "eval-g4-2",
+   "eval-g4-3",
+   "eval-g5-0",
+   "eval-g5-1",
+   "eval-g5-2",
+   "eval-g5-3",
+   "eval-g6-0",
+   "eval-g6-1",
+   "eval-g6-2",
+   "eval-g6-3",
+   "data-g0-0",
+   "data-g0-1"
+  ],
+  "seeds": [
+   "L2-kuk6yv",
+   "L2-wsmn9p",
+   "L2-5vm39f",
+   "L2-74hu7b",
+   "L2-56s65u",
+   "L2-zwjjsp"
+  ],
+  "sha": "82ace596db88ba08ababb205c7f385df8081ade8",
+  "started": "2026-09-27T14:44:48+00:00"
+ },
  "settings": {
   "accept_pairs": 8,
   "accept_t": 2.0,
@@ -635,7 +749,9 @@
   "route.armor_before_portal": 0.1275,
   "route.bed": 0.1275,
   "route.boots_before_portal": 0.15,
-  "route.deep_for_lava": 0.15
+  "route.deep_for_lava": 0.15,
+  "stuck.box": 0.15,
+  "stuck.window_s": 0.15
  },
  "version": 1
 }
