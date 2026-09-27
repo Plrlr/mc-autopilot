@@ -450,6 +450,24 @@ hold there instead of bridging out; and `fortress find` needs the same no-scaffo
 stops dying to falls in the first 30 s (Baritone's Bridging/scaffold placement off in the Nether,
 or a max path-cost cap).
 
+**Follow-up from the completed no-daemon run (nether-20260927-045534, seed a, commit 10161b2):
+two precise failure shapes for the reviewer.**
+1. **The handoff race:** `fortress find` ends ok with "saw a fortress 61 blocks away", and the
+   very next `fortress blazes:8` fails NOT_FOUND "no fortress or blaze known" three times in a
+   row (0.05 s each), then the brain fell back to `explore any`. `fortress find` evidently
+   detects the fortress through Baritone's search without ever seeing nether_bricks in line of
+   sight, so WorldMemory still has nothing and the fight skill's precondition is false. Fix shape:
+   `fortress find` should end with the fortress location handed over (remember it, e.g.
+   `memory.remember("nether_bricks", ...)` from the find result) or `blazeStep`'s `known` should
+   also accept the find skill's last result.
+2. **The burn death away from the fight:** after the NOT_FOUND loop the bot wandered and died
+   `onFire` mid-`explore` near magma cubes/lava; `retreat` was interrupted by the brain choosing
+   `explore any` 4.8 s in. The fire reflex never fired; it burned while walking. Worth a look at
+   why `isOnFire()` didn't produce an urgent option there.
+Also confirmed live: Baritone logged the "cost coefficient is greater than three ... sneak-bridging
+for dozens of blocks ... Path goes for 63 blocks" warning again during `fortress find`, so the
+no-scaffold guard request above stands.
+
 **Infrastructure: `gradlew --stop` in `trial-loop.ps1` kills other sessions' runs.** Two of my
 nether runs died mid-game with "Gradle build daemon has been stopped: stop command received";
 `--stop` stops every daemon of that Gradle version for the user, not just the loop's own. While
