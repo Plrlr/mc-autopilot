@@ -46,8 +46,12 @@ in Java 25 (Gradle, Loom), the `claude` CLI. Versions, install paths and Windows
   (Goal ladder, TechTree, Planner), skills/ (code skills over Baritone), brains/ (Opus, free
   LLMs, rules), state/ (WorldMemory, no x-ray), log/ (JSONL decision log). `src/gametest/`: the
   in-game trial (fresh world or a staged scenario), run by CI.
-- `.github/workflows/trials.yml`: one batch = one machine per run; results committed to the
-  `trial-results` branch (runs/<id>/summary.md and decision logs).
+- The learning loop (docs/learning-loop.md): genes in `Tune.java`, the learned brain in
+  `brains/Learned.java`, `scripts/loop/` (loop.py, train.py, evolve.py, dashboard.html),
+  `.github/workflows/loop.yml` (one generation per run, self-dispatching), state and data in
+  `loop/` on the `trial-results` branch. `scripts/laptop-loop.ps1` is the laptop's part.
+- `.github/workflows/trials.yml`: hand-started batches (one machine per run) and quick task tests;
+  results committed to `trial-results` (runs/<id>/). Both workflows share `.github/actions/play`.
 - `scripts/cycle` (run a batch and summarize), `scripts/summarize_batch`, `scripts/plot_progress`,
   `scripts/local-trial.ps1` (one trial on this PC; never while the user is playing).
 - `docs/`: learning-loop.md (the plan), design.md (how the mod works, per section),
@@ -59,6 +63,9 @@ in Java 25 (Gradle, Loom), the `claude` CLI. Versions, install paths and Windows
 - One branch: `main`, plus the data branch `trial-results`. No coordination between sessions.
 - Save tokens: read a batch's summary.md, not its logs, unless the summary points at a failure.
   Don't read whole large files (Autopilot.java, Planner.java) when a grep will do.
+- Improve the bot through the loop: a new gene, a new skill, a better score or feature, a fix to
+  the harness. A behavior change by hand should still race (put it behind a gene or let it run
+  as a code genome) rather than be judged by eye.
 - Judge changes by the loop's paired-seed score, never one batch against another (noise is
   large: the same code gave iron 8/8 and 4/8). Full natural runs are the only README numbers;
   staged scenario runs are labeled as such.
