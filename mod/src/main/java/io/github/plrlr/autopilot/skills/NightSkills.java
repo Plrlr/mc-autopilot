@@ -40,8 +40,14 @@ public final class NightSkills {
 		}
 
 		private int wallTries;
-		private float healthAtWall = -1;
 		private boolean centered;
+		private boolean sealed;
+		private float sealHealth;
+
+		/** Healing behind blocks with every side closed: the only time the mob reflexes stand down. */
+		public boolean sealed() {
+			return phase == Phase.HEAL && sealed;
+		}
 
 		@Override
 		protected void start() {
@@ -197,21 +203,29 @@ public final class NightSkills {
 					}
 					// Closed in, or out of blocks or tries (a mob standing in the gap): heal anyway.
 					if (gap == null || ++wallTries > 30 || !Mc.holdItem(Items2.matcher("throwaway"))) {
-						if (gap != null) {
-							// A side is still open (usually a mob standing in it): hiding would just
-							// mean standing still while it hits us.
-							fail(Fail.PLACE_FAILED, "couldn't close the wall");
-							return;
-						}
-						healthAtWall = pl.getHealth();
+						// Sealed only if no spot around is open at all: a spot skipped because it
+						// overlaps our hitbox (standing off-center) is still a way in.
+						sealed = true;
+						for (BlockPos p : around) if (Mc.free(p)) sealed = false;
+						sealHealth = pl.getHealth();
 						phase = Phase.HEAL;
 						return;
 					}
 					Mc.placeAt(gap);
 				}
 				case HEAL -> {
-					// Health only comes back with 18+ hunger: eat while hiding if we can.
-					boolean hungry = pl.getFoodData().getFoodLevel() < 18 && Mc.count(Items2.matcher("food")) > 0;
+					// Health only comes back with 18+ hunger; with no food, waiting only lets monsters gather.
+					if (pl.getFoodData().getFoodLevel() < 18 && Mc.count(Items2.matcher("food")) == 0) {
+						fail(Fail.NEED_ITEM, "can't heal: hunger " + pl.getFoodData().getFoodLevel() + " and no food");
+						return;
+					}
+					// Something reaches us through the blocks: hiding isn't working, let the reflexes act.
+					if (pl.getHealth() < sealHealth - 2) {
+						fail(Fail.HAZARD, "hit while hiding (health " + Math.round(pl.getHealth()) + ")");
+						return;
+					}
+					sealHealth = Math.max(sealHealth, pl.getHealth());
+					boolean hungry = pl.getFoodData().getFoodLevel() < 18;
 					if (hungry) {
 						if (!Items2.matcher("food").test(pl.getMainHandItem())) Mc.holdItem(Items2.matcher("food"));
 						pl.setXRot(-90f);
@@ -220,7 +234,6 @@ public final class NightSkills {
 						Mc.mc().options.keyUse.setDown(false);
 					}
 					if (pl.getHealth() >= 18) done("healed behind blocks");
-					else if (pl.getHealth() < healthAtWall - 2) fail(Fail.HAZARD, "still taking damage behind the wall");
 					else if (ticks > 20 * 50) done("waited 50 s behind blocks (health " + Math.round(pl.getHealth()) + ")");
 				}
 			}

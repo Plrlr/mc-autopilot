@@ -420,7 +420,12 @@ public final class Autopilot {
 
 	private void reflexes(LocalPlayer pl) {
 		if (tick < reflexCooldownUntil) return;
-		boolean hiding = skill != null && skill.name().equals("shelter") && "heal".equals(skillOption.arg());
+		// hiding: sealed in and healing (review R1) - the only time reflexes stand down, except the
+		// creeper reflex, which always runs (its blast breaks the wall either way).
+		boolean hiding = skill instanceof io.github.plrlr.autopilot.skills.NightSkills.Shelter sh && sh.sealed();
+		// walling: still building the wall (not yet sealed) with a mob already on us - restarting
+		// the escape would only restart the wall, so fight instead.
+		boolean walling = !hiding && skill != null && skill.name().equals("shelter") && skillOption != null && "heal".equals(skillOption.arg());
 		// A reflex runs to its end, except hiding: a creeper or a mob at arm's length still counts.
 		if (skill != null && skillIsReflex && !hiding) return;
 		if (pl.isInLava()) {
@@ -450,25 +455,34 @@ public final class Autopilot {
 		// got the bot burned to death. Creepers, lava, fire and drowning still get their reflexes.
 		if (h != null && h.type().equals("blaze") && skill != null && skill.name().equals("fortress")
 				&& Mc.dimension().equals("the_nether")) h = null;
-		// Walled in and healing: a monster on the other side of the blocks is no reason to break out.
+		// Walled in on every side and healing: a monster beyond the blocks is no reason to break out.
+		// With a gap left (a mob standing in it) the reflexes still act; a creeper's blast breaks
+		// the wall either way (review R1: hiding used to turn off every reflex).
 		if (h != null && !h.type().equals("enderman")) {
+<<<<<<< HEAD
 			// A creeper blows the wall open: that reflex stays on even while hiding.
 			// From 7 blocks, not 5: a creeper's fuse is 1.5 s, and 4 of batch 10's 25 deaths were
 			// blasts that caught the bot already running from 5.
 			if (h.type().equals("creeper") && h.dist() < 7) {
+=======
+			if (h.type().equals("creeper") && h.dist() < 5) {
+>>>>>>> origin/laptop/opus-and-tooling
 				startReflex(new Option("retreat", null, "creeper close"), "reflex_creeper");
 				return;
 			}
-			if (hiding && h.dist() >= 2) h = null;
-		}
-		if (h != null && !h.type().equals("enderman")) {
-			if (h.dist() < 3.5) {
+			if (!hiding && h.dist() < 3.5) {
 				// Same line as the planner's retreat (8): with 6 here, health 7-8 flipped between
+<<<<<<< HEAD
 				// fighting and fleeing on every decision.
 				// Hiding and one got right up to us: fight it rather than start hiding again.
 				// Run only when outnumbered. One mob at arm's length follows and hits our back
 				// (batch 10: 14 retreats ended in death); fighting it behind the shield wins.
 				if (hp <= 8 && !hiding && seen.hostilesWithin(6) >= 2) startReflex(Planner.escape("low health"), "reflex_low_hp");
+=======
+				// fighting and fleeing on every decision. Already walling in with it next to us:
+				// starting the escape again would only restart the wall, so fight.
+				if (hp <= 8 && !walling) startReflex(Planner.escape("low health"), "reflex_low_hp");
+>>>>>>> origin/laptop/opus-and-tooling
 				else if (skill == null || !skill.name().equals("attack")) startReflex(new Option("attack", h.type(), "it's attacking"), "reflex_fight");
 				return;
 			}
