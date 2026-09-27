@@ -127,6 +127,30 @@ resolved or the user says otherwise.
   fortress fight instead of `attack`). Skills.java +1 line. Both claims released. The menu is now
   21 skills, one over CLAUDE.md's 20; say if you'd rather fold `make_obsidian` into `fill_bucket`.
 
+- 2026-09-27, `ee1fc5c`: `trial-loop.ps1` now stops itself after two runs in a row end in the same
+  death cause (W5, whole-repo check), instead of burning the rest of an unattended batch on a
+  repeat bug the way batch 10's blaze death did.
+
+- 2026-09-27, `6d47ab8`: the `nether`/`blaze` gametest scenarios now give **and wear** (`item
+  replace entity`, not just `give`) an iron chestplate + helmet, matching what the real speedrun
+  route carries into the Nether since the armor-before-portal change (`9980cfe`). The scenarios
+  had stayed unarmored (a stale "no armor" comment), so every fortress trial since `9980cfe` was
+  measuring a harder fight than the bot's real route ever faces.
+
+### For the reviewer: armor didn't stop the blaze/fire death (new, 2026-09-27)
+
+First run after the armor fix (`6d47ab8`, `loop-20260927-0341/1-blaze`, `run-2026-09-27.jsonl`):
+`fortress blazes:8` still ended in `death: onFire` at 33.6s, chestplate + helmet worn the whole
+time. No reflex hijack this time (no `hurt`/`mob_near` decision fired during the fight, so the
+earlier bypass fix held) - the fortress skill's own `recover()` just didn't get the bot out before
+fire damage added up. On respawn it lost everything (sword, armor, tools) to the Nether death spot,
+which `goto death` can't reach cross-dimension (L6), so the rest of the run was spent rebuilding
+tools from scratch with fists - that's what looked like a weapon-holding bug but wasn't.
+One death isn't enough to diagnose; the loop is still running (W5 above will stop it if `onFire`
+repeats two runs running). Worth a look either way: does `recover()` (NetherSkills.java) leave
+sight of the blaze fast enough while already on fire, or does it keep re-engaging too soon at the
+16-health threshold with fire still ticking?
+
 ### For the reviewer: unattended Nether trials (user's request, to save tokens)
 
 The user's usage is at 50%, so the laptop now runs trials unattended and **the reviewer reads the

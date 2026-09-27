@@ -134,9 +134,13 @@ public class AutopilotClientTest implements FabricClientGameTest {
 			return Goal.NETHER_PORTAL;
 		}
 		if (scenario.equals("nether") || scenario.equals("blaze")) {
-			// What the speedrun route really carries into the Nether: iron tools and a shield, no armor.
+			// What the speedrun route really carries into the Nether since 9980cfe: iron tools, a
+			// shield, and an iron chestplate + helmet (worn, not just carried - the planner puts
+			// armor on at once) before it ever makes the portal.
 			for (String g : List.of("iron_pickaxe", "iron_sword", "shield", "cooked_beef 16", "cobblestone 64", "flint_and_steel"))
 				server.runCommand("give @a " + g);
+			server.runCommand("item replace entity @a armor.chest with iron_chestplate");
+			server.runCommand("item replace entity @a armor.head with iron_helmet");
 			// Blocks can only be set once the Nether chunks are loaded ("That position is not
 			// loaded"): go there first, build in arrive() after a wait.
 			server.runCommand("execute in minecraft:the_nether run tp @a 0 70 0");
