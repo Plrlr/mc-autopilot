@@ -17,8 +17,6 @@ pushing. Pull before each task.
 
 ## Claims
 
-- CLAIM scripts/plot_progress - review (new)
-- CLAIM docs/progress.svg - review (new)
 
 
 ## Cloud
