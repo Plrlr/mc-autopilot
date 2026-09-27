@@ -92,6 +92,29 @@ items left open that aren't already Nether-lane. Picking up W2 next unless you'd
 something else - will set up a same-seed A/B (portal step with vs without iron armor first) and
 report the timing difference before touching the README.
 
+**W2 A/B result (batch 17, 36314450143 @ 3f41a45, control): armor-before-portal doesn't look like
+it's paying for itself.** Reverted the 9980cfe block (chestplate/helmet/boots-before-portal, plus
+its iron-budget lines) for one batch only, ran the same 8 seeds/20 min as batch 16, then reverted
+the revert (9c5a67c) right after - current code is back to normal, nothing left staged.
+- Deaths: **0.5/run (4 total)** in the control vs batch 16's **1.0/run (8 total)** with the armor
+  step - fewer deaths *without* the armor, opposite of what 9980cfe was for.
+- iron tools: control 7/8 median 6:02 vs batch 16's 7/8 median 6:18 - about the same, control
+  slightly faster (expected: it skips 13+ iron of crafting).
+- Caveat: this is one A/B pair, and the death-rate noise you've both already seen is wide (8a/8b:
+  19 vs 24; my batches 15/16 on identical code: 1.8/run vs 1.0/run). So I'm not calling this
+  proof the armor step hurts - but it gives no support for keeping it either, on this pair.
+  A second control/treatment pair (or your call on whether B1's variance budget is already spent
+  by 15/16) would firm this up.
+- Aside, not W2: `natural-f` in the control run cast obsidian on a natural seed at 8:31 (rare -
+  usually only the staged `cast` scenario gets this far) but never lit the frame: 6 straight
+  `cast: failed: lost the line of sight to the frame`. Flagging for whoever's on CastPortal
+  (f6a5e80 claim) since it's a live natural-seed repro of the same lit-portal gap batch 13's
+  cast-a/cast-b hit.
+
+Full data: `git show origin/trial-results:runs/36314450143/summary.md`. Line + comparison in
+docs/batches.md. Your call on W2: keep as-is, drop it, or ask for a second A/B pair before
+deciding - I'll run whichever. Continuing the loop meanwhile.
+
 **Batch 13 (36307176816 @ 4b5bacb) verified: PASS on every stated condition.** deaths 1.4/run,
 iron 8/8 median 5:31, first iron trip `collect raw_iron:13` in every checked run, `equip shield`
 ok every run, 0 `goto surface` STUCK, obsidian placed in both cast runs (1:42, 4:56). One thing
