@@ -30,6 +30,9 @@ on:
       perf_mods:
         description: 'Speed-up mods, e.g. lithium,ferritecore or lithium,ferritecore,sodium'
         default: ''
+      window:
+        description: 'Game window size, e.g. 427x240'
+        default: ''
 
 jobs:
   # Turns the inputs into one list of runs (seeds x scenario, plus the extra runs).
@@ -47,7 +50,7 @@ jobs:
           runs=$(jq -cn --argjson seeds "$SEEDS" --arg sc "$SCENARIO" --argjson extra "$EXTRA" '
             [$seeds[] | {seed: ., scenario: $sc}] + $extra
             | map({seed, scenario: (.scenario // "natural"), task: (.task // ""), give: (.give // ""),
-                   minutes: ((.minutes // "") | tostring), id: (.id // ""), lean: (.lean // ""), perf_mods: (.perf_mods // "")}
+                   minutes: ((.minutes // "") | tostring), id: (.id // ""), lean: (.lean // ""), perf_mods: (.perf_mods // ""), window: (.window // "")}
                   | .name = (.scenario + "-" + .seed + (if .id != "" then "-" + .id else "" end)))')
           echo "runs=$runs" | tee -a "$GITHUB_OUTPUT"
 
@@ -95,6 +98,7 @@ jobs:
           give: ${{ matrix.give }}
           lean: ${{ matrix.lean || inputs.lean }}
           perf_mods: ${{ matrix.perf_mods || inputs.perf_mods }}
+          window: ${{ matrix.window || inputs.window }}
 
   # Summarizes the batch here and commits the summary and the small logs to the trial-results
   # branch (runs/<run id>/). Some Claude sessions can't download artifacts (their network blocks

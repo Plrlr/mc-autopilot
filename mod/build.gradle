@@ -99,6 +99,10 @@ loom {
 				vmArg "-Dautopilot.params=${findProperty('testParams') ?: ''}"
 				vmArg "-Dautopilot.learned=${findProperty('testLearned') ?: ''}"
 				vmArg "-Dautopilot.test.lean=${findProperty('testLean') ?: 'false'}"
+				// Window size, e.g. -PtestWindow=427x240: the cloud's software renderer draws every
+				// pixel on the CPU, and the game ticks at most once per frame, so fewer pixels = faster game.
+				def win = (findProperty('testWindow') ?: '').toString()
+				if (win.contains('x')) programArgs "--width", win.split('x')[0], "--height", win.split('x')[1]
 			}
 		}
 	}

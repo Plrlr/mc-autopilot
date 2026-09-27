@@ -46,6 +46,7 @@ DEFAULT_SETTINGS = {
     # 10 fps cap halved the game speed (benchmark 36323172968). Change here to experiment.
     "lean": False,
     "perf_mods": "",
+    "window": "",              # e.g. "427x240": fewer pixels for the software renderer
     "accept_pairs": 8,         # a challenger needs this many paired seeds...
     "accept_t": 2.0,           # ...and a one-sided t this high (many looks per challenger: keep it strict)...
     "min_gain": 0.3,           # ...and a mean gain at least this big (a real difference, not a fluke)
@@ -85,7 +86,10 @@ def new_genome(gid, parent, changed, gen, mutated, note):
 def pick_genes(st, genes, rng, k):
     """Genes to mutate: more often those whose past changes paid off (softmax of mean credit),
     always with some chance for every gene."""
-    names = [n for n in genes if not n.startswith("learned.") or st.get("model_rows", 0) >= 500]
+    # The learned brain's genes only once its model predicts unseen runs better than the baseline
+    # (held-out R2 of the choice part above 0.02): before that, turning it on only wastes a race slot.
+    model_ok = (st.get("model_adv_r2") or -1) > 0.02
+    names = [n for n in genes if not n.startswith("learned.") or model_ok]
     w = []
     for n in names:
         c = st["credit"][n]
@@ -208,7 +212,7 @@ def run_entry(s, gid, seed, role, changed, gen, i, ref):
     return {"name": "%s-%s-%d" % (role, gid, i), "seed": seed, "genome": gid, "role": role, "ref": ref,
             "params": json.dumps({"id": "%s@gen%d" % (gid, gen), "genes": changed}, separators=(",", ":")),
             "minutes": str(s["minutes"]), "scenario": s["scenario"],
-            "lean": "true" if s["lean"] else "false", "perf_mods": s["perf_mods"]}
+            "lean": "true" if s["lean"] else "false", "perf_mods": s["perf_mods"], "window": s.get("window", "")}
 
 
 def fmt(v):

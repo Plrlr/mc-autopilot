@@ -14,6 +14,7 @@ inputs:
   learned: {description: 'Path to a learned model (learning loop)', default: ''}
   lean: {description: 'Cheapest drawing (true on the cloud loop)', default: 'false'}
   perf_mods: {description: 'Speed-up mods for this run, e.g. lithium,ferritecore', default: ''}
+  window: {description: 'Game window size, e.g. 427x240 (smaller draws faster on the cloud)', default: ''}
   retention: {description: 'Days to keep the artifact', default: '14'}
 runs:
   using: composite
@@ -54,13 +55,14 @@ runs:
         LEARNED: ${{ inputs.learned }}
         LEAN: ${{ inputs.lean }}
         PERF: ${{ inputs.perf_mods }}
+        WINDOW: ${{ inputs.window }}
       run: |
         chmod +x gradlew
         # The game exits with Baritone's known shutdown-watchdog crash after saving, which
         # fails the Gradle task; the summary step below judges the run instead.
         setsid xvfb-run -a -s "-screen 0 1280x720x24" ./gradlew runClientGameTest --console=plain \
           -PtestMinutes="$MINUTES" -PtestSeed="$SEED" -PtestScenario="$SCENARIO" -PtestTask="$TASK" -PtestGive="$GIVE" \
-          -PtestParams="$PARAMS" -PtestLearned="$LEARNED" -PtestLean="$LEAN" -PperfMods="$PERF" \
+          -PtestParams="$PARAMS" -PtestLearned="$LEARNED" -PtestLean="$LEAN" -PperfMods="$PERF" -PtestWindow="$WINDOW" \
           > trial.log 2>&1 &
         pid=$!
         # Watchdog: a game that can't open its window hangs instead of exiting, so stop it if
