@@ -1,0 +1,79 @@
+# Marathons: the loop's current champion (genes + learned model) plays full games from a fresh
+# world, 2 game hours each, every 8 hours. The honest "how far does it get" number: no staged
+# starts, no commands. Each game goes to the loop through loop/inbox (training data, checkpoints
+# for the bank, the dashboard's full games), never to the race.
+#   gh workflow run marathon.yml                   (2 games)
+#   gh workflow run marathon.yml -f games=1 -f minutes=150
+name: Marathon
+
+on:
+  workflow_dispatch:
+    inputs:
+      games:
+        description: 'Games to play at once'
+        default: '2'
+      minutes:
+        description: 'Game minutes per game'
+        default: '120'
+  schedule:
+    - cron: '41 */8 * * *'
+
+concurrency:
+  group: marathon
+  cancel-in-progress: false
+
+permissions:
+  contents: write
+
+jobs:
+  plan:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    outputs:
+      games: ${{ steps.p.outputs.games }}
+    steps:
+      - id: p
+        env:
+          GAMES: ${{ inputs.games || '2' }}
+        run: |
+          games=$(python3 -c "import json,random,string; n=int('$GAMES'); print(json.dumps([{'i': i, 'seed': 'M-' + ''.join(random.choice(string.ascii_lowercase) for _ in range(8))} for i in range(n)]))")
+          echo "games=$games" >> "$GITHUB_OUTPUT"
+
+  game:
+    needs: plan
+    runs-on: ubuntu-latest
+    # 2 game hours at the cloud's ~0.6-1x speed, plus setup; GitHub stops jobs at 6 hours.
+    timeout-minutes: 340
+    strategy:
+      fail-fast: false
+      matrix:
+        include: ${{ fromJSON(needs.plan.outputs.games) }}
+    steps:
+      - uses: actions/checkout@v7
+      - name: The champion
+        id: champ
+        run: |
+          git fetch -q --depth 1 origin trial-results
+          mkdir -p "$RUNNER_TEMP/loop"
+          git show FETCH_HEAD:loop/state.json > "$RUNNER_TEMP/loop/state.json" 2>/dev/null || true
+          git show FETCH_HEAD:loop/learned.json > "$RUNNER_TEMP/learned.json" 2>/dev/null || rm -f "$RUNNER_TEMP/learned.json"
+          genome=$(python3 scripts/loop/loop.py export --state "$RUNNER_TEMP/loop" --out "$RUNNER_TEMP/params.json")
+          echo "genome=$genome" >> "$GITHUB_OUTPUT"
+          echo "PARAMS_FILE=$RUNNER_TEMP/params.json" >> "$GITHUB_ENV"
+          echo "LEARNED_FILE=$([ -f "$RUNNER_TEMP/learned.json" ] && echo "$RUNNER_TEMP/learned.json")" >> "$GITHUB_ENV"
+      - uses: ./.github/actions/play
+        with:
+          name: marathon-${{ github.run_id }}-${{ matrix.i }}
+          seed: ${{ matrix.seed }}
+          minutes: ${{ inputs.minutes || '120' }}
+          params: ${{ env.PARAMS_FILE }}
+          learned: ${{ env.LEARNED_FILE }}
+          retention: '14'
+      - name: Send the game to the loop
+        if: always()
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          chmod +x scripts/loop/*.sh
+          scripts/loop/send_run.sh "marathon-${{ github.run_id }}-${{ matrix.i }}" "${{ steps.champ.outputs.genome }}" \
+            "${{ inputs.minutes || '120' }}" marathon

@@ -32,11 +32,14 @@ import shutil
 import sys
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+import bank  # noqa: E402
 import common  # noqa: E402
 
 DEFAULT_SETTINGS = {
     "seeds_per_gen": 4,        # every genome of a generation plays these seeds (paired)
-    "max_genomes": 4,          # champion + contenders + new challengers per generation
+    "max_genomes": 3,          # champion + contenders + new challengers per generation
+    "stage_seeds": 2,          # stage starts per genome (checkpoint bank / scenarios), paired like seeds
+    "bank_keep": 40,           # checkpoints kept per stage
     "data_runs": 2,            # extra champion runs with exploration on: data for the learned brain
     "explore_data": 0.15,      # learned.explore in the data runs
     "minutes": 20,             # game minutes per run
@@ -181,25 +184,32 @@ def cmd_propose(a):
         # A child of a code change (not yet merged into main) plays that code too.
         st["genomes"][gid]["code"] = st["genomes"][parent].get("code")
         lineup.append(gid)
-    seeds = ["L%d-%s" % (gen, "".join(rng.choice("abcdefghjkmnpqrstuvwxyz23456789") for _ in range(6)))
-             for _ in range(s["seeds_per_gen"] + s["data_runs"])]
+    # Tasks every genome plays (paired): fresh worlds from spawn, plus starts at the frontier stage
+    # from the checkpoint bank (or its staged scenario until real checkpoints exist).
+    tasks = [{"kind": "natural", "stage": "spawn", "synthetic": False} for _ in range(s["seeds_per_gen"])]
+    tasks += bank.pick_tasks(st, rng, s.get("stage_seeds", 0))
+    for t in tasks:
+        t["seed"] = bank.random_seed(rng, "L%d" % gen)
+    data_tasks = [{"kind": "natural", "stage": "spawn", "synthetic": False, "seed": bank.random_seed(rng, "D%d" % gen)}
+                  for _ in range(s["data_runs"])]
     runs = []
     for gid in lineup:
-        full = common.full_genes(genes, st["genomes"][gid]["genes"])
-        for i, seed in enumerate(seeds[: s["seeds_per_gen"]]):
-            runs.append(run_entry(s, gid, seed, "eval", st["genomes"][gid]["genes"], gen, i, ref_of(st, gid, a.sha)))
+        for i, t in enumerate(tasks):
+            runs.append(run_entry(s, gid, t, "eval", st["genomes"][gid]["genes"], gen, i, ref_of(st, gid, a.sha)))
     # Data runs: the champion with exploration on, on their own seeds (never scored for the race).
-    for i, seed in enumerate(seeds[s["seeds_per_gen"]:]):
+    for i, t in enumerate(data_tasks):
         g = dict(st["genomes"][champ]["genes"])
         g["learned.explore"] = s["explore_data"]
-        runs.append(run_entry(s, champ, seed, "data", g, gen, i, ref_of(st, champ, a.sha)))
-    st["pending"] = {"gen": gen, "sha": a.sha, "lineup": lineup, "seeds": seeds, "runs": [r["name"] for r in runs],
+        runs.append(run_entry(s, champ, t, "data", g, gen, i, ref_of(st, champ, a.sha)))
+    st["pending"] = {"gen": gen, "sha": a.sha, "lineup": lineup, "tasks": tasks, "data_tasks": data_tasks,
+                     "seeds": [t["seed"] for t in tasks], "runs": [r["name"] for r in runs],
                      "started": datetime.datetime.now(datetime.timezone.utc).isoformat(timespec="seconds")}
     common.write_json(os.path.join(a.state, "state.json"), st)
     out["runs"] = runs
     out["gen"] = gen
     common.write_json(a.out, out)
-    print("generation %d: %s on %d seeds, %d data runs" % (gen, " ".join(lineup), s["seeds_per_gen"], s["data_runs"]))
+    print("generation %d: %s on %d tasks (%s), %d data runs" % (gen, " ".join(lineup), len(tasks),
+          ", ".join(t["stage"] + ("*" if t["synthetic"] else "") for t in tasks), s["data_runs"]))
 
 
 def ref_of(st, gid, main_sha):
@@ -208,10 +218,11 @@ def ref_of(st, gid, main_sha):
     return c["sha"] if c else main_sha
 
 
-def run_entry(s, gid, seed, role, changed, gen, i, ref):
-    return {"name": "%s-%s-%d" % (role, gid, i), "seed": seed, "genome": gid, "role": role, "ref": ref,
+def run_entry(s, gid, task, role, changed, gen, i, ref):
+    return {"name": "%s-%s-%d" % (role, gid, i), "seed": task["seed"], "genome": gid, "role": role, "ref": ref,
             "params": json.dumps({"id": "%s@gen%d" % (gid, gen), "genes": changed}, separators=(",", ":")),
-            "minutes": str(s["minutes"]), "scenario": s["scenario"],
+            "minutes": str(s["minutes"]), "scenario": task.get("scenario", s["scenario"]),
+            "start": task.get("asset", ""),
             "lean": "true" if s["lean"] else "false", "perf_mods": s["perf_mods"], "window": s.get("window", "")}
 
 
@@ -234,6 +245,10 @@ def cmd_update(a):
     gen = p["gen"]
     results = {}
     speeds = []
+    tasks = p.get("tasks") or [{"kind": "natural", "stage": "spawn", "synthetic": False} for _ in p["seeds"]]
+    data_tasks = p.get("data_tasks") or []
+    upload = not os.environ.get("LOOP_NO_UPLOAD")
+    banked = []
     for name in p["runs"]:
         d = os.path.join(a.batch, "trial-" + name)
         if not os.path.isdir(d):
@@ -243,13 +258,22 @@ def cmd_update(a):
         if not r["final"]:
             results[name] = None  # the game never got to play (or crashed): not the genome's fault
             continue
-        results[name] = {"score": common.score_run(r, length), "milestones": r["milestones"],
+        role, gid, i = name.split("-")
+        pool = tasks if role == "eval" else data_tasks
+        task = pool[int(i)] if int(i) < len(pool) else {}
+        skip = 0 if task.get("kind", "natural") == "natural" else 10
+        results[name] = {"score": common.score_run(r, length, skip), "milestones": r["milestones"],
                          "checkpoints": r["checkpoints"], "deaths": len(r["deaths"]),
-                         "death_causes": [c for c, _ in r["deaths"]]}
+                         "death_causes": [c for c, _ in r["deaths"]], "stage": task.get("stage", "spawn")}
         sp = read_speed(d)
         if sp:
             speeds.append(sp)
         save_training_rows(a.state, gen, name, d)
+        start, reached, _ = bank.read_stages(d)
+        bank.record_result(st, start, reached, gen)
+        results[name]["reached_stages"] = reached
+        banked += bank.ingest(st, d, name, gen, gid, bool(task.get("synthetic")), upload)
+    bank.prune(st, s.get("bank_keep", 40), upload)
     champ = p["lineup"][0]
     seeds = p["seeds"]
     by = {}  # (genome, seed index) -> score
@@ -261,13 +285,13 @@ def cmd_update(a):
     # Paired differences against the champion on the same seeds.
     for gid in p["lineup"][1:]:
         g = st["genomes"][gid]
-        for i in range(s["seeds_per_gen"]):
+        for i in range(len(tasks)):
             if (gid, i) in by and (champ, i) in by:
                 g["pairs"].append([gen, seeds[i], round(by[(gid, i)] - by[(champ, i)], 3)])
     decisions = race(st, genes, p["lineup"][1:], champ, gen)
-    showcase = ingest_inbox(a.state, st, sb, gen)
+    showcase = ingest_inbox(a.state, st, sb, gen, upload)
     # History line for the dashboard.
-    gen_scores = {gid: [by[(gid, i)] for i in range(s["seeds_per_gen"]) if (gid, i) in by] for gid in p["lineup"]}
+    gen_scores = {gid: [by[(gid, i)] for i in range(len(tasks)) if (gid, i) in by] for gid in p["lineup"]}
     all_ok = [r for r in results.values() if r]
     reached = {}
     for r in all_ok:
@@ -289,6 +313,9 @@ def cmd_update(a):
         "game_hours": round((prev.get("game_hours", 0) if prev else 0) + len(all_ok) * length / 3600, 2),
         "model_rows": st.get("model_rows", 0),
         "showcase": showcase,
+        "tasks": [t["stage"] + ("*" if t.get("synthetic") else "") for t in tasks],
+        "banked": banked, "frontier": bank.frontier(st), "bank": bank.summary(st),
+        "stage_scores": stage_scores(results),
     }
     with open(os.path.join(a.state, "history.jsonl"), "a", encoding="utf-8") as f:
         f.write(json.dumps(line, separators=(",", ":")) + "\n")
@@ -425,7 +452,16 @@ def last_history(d):
         return None
 
 
-def ingest_inbox(state_dir, st, sb, gen):
+def stage_scores(results):
+    """Mean score per starting stage this generation (all genomes)."""
+    by = {}
+    for r in results.values():
+        if r:
+            by.setdefault(r.get("stage", "spawn"), []).append(r["score"])
+    return {k: round(common.mean(v), 2) for k, v in by.items()}
+
+
+def ingest_inbox(state_dir, st, sb, gen, upload=True):
     """Runs played elsewhere (the laptop's showcase runs of the champion, scripts/laptop-loop.ps1)
     arrive in loop/inbox/<run>/ with the same files a cloud run has. Their decisions become
     training data; their scores are shown, but never used to promote (unpaired, other machine)."""
@@ -439,9 +475,14 @@ def ingest_inbox(state_dir, st, sb, gen):
         r = sb.read_run(d)
         if r["final"]:
             length = int(info.get("minutes", 20)) * 60
-            out.append({"name": name, "genome": info.get("genome", "?"), "score": common.score_run(r, length),
-                        "milestones": r["milestones"], "checkpoints": r["checkpoints"], "deaths": len(r["deaths"])})
+            start, reached, _ = bank.read_stages(d)
+            out.append({"name": name, "genome": info.get("genome", "?"), "machine": info.get("machine", "?"),
+                        "minutes": info.get("minutes"), "score": common.score_run(r, length),
+                        "milestones": r["milestones"], "checkpoints": r["checkpoints"], "deaths": len(r["deaths"]),
+                        "furthest": reached[-1] if reached else start})
             save_training_rows(state_dir, gen, name, d)
+            bank.record_result(st, start, reached, gen)
+            bank.ingest(st, d, name, gen, info.get("genome", "?"), False, upload)
 
         shutil.rmtree(d, ignore_errors=True)
     st["showcase_runs"] = st.get("showcase_runs", 0) + len(out)

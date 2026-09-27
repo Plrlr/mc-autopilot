@@ -50,7 +50,7 @@ jobs:
           runs=$(jq -cn --argjson seeds "$SEEDS" --arg sc "$SCENARIO" --argjson extra "$EXTRA" '
             [$seeds[] | {seed: ., scenario: $sc}] + $extra
             | map({seed, scenario: (.scenario // "natural"), task: (.task // ""), give: (.give // ""),
-                   minutes: ((.minutes // "") | tostring), id: (.id // ""), lean: (.lean // ""), perf_mods: (.perf_mods // ""), window: (.window // "")}
+                   minutes: ((.minutes // "") | tostring), id: (.id // ""), lean: (.lean // ""), perf_mods: (.perf_mods // ""), window: (.window // ""), start: (.start // "")}
                   | .name = (.scenario + "-" + .seed + (if .id != "" then "-" + .id else "" end)))')
           echo "runs=$runs" | tee -a "$GITHUB_OUTPUT"
 
@@ -99,6 +99,8 @@ jobs:
           lean: ${{ matrix.lean || inputs.lean }}
           perf_mods: ${{ matrix.perf_mods || inputs.perf_mods }}
           window: ${{ matrix.window || inputs.window }}
+          start: ${{ matrix.start }}
+          token: ${{ github.token }}
 
   # Summarizes the batch here and commits the summary and the small logs to the trial-results
   # branch (runs/<run id>/). Some Claude sessions can't download artifacts (their network blocks

@@ -66,16 +66,19 @@ CHECKPOINT_POINTS = {"two_buckets": 0.5, "flint_and_steel": 0.5, "lava_seen": 0.
 DEATH_PENALTY = 0.75
 
 
-def score_run(run, length_s):
+def score_run(run, length_s, skip_before=0):
     """One number per run: points for each milestone and checkpoint, up to 50% more the earlier it
     came, minus a penalty per death (they drop the gear the route needs). Higher is better.
-    `run` is summarize_batch.read_run's dict."""
+    `run` is summarize_batch.read_run's dict. Runs started from a checkpoint or scenario pass
+    skip_before: what they already had at the start (reported in the first seconds) scores nothing."""
     s = 0.0
     T = max(1, length_s)
     for m, t in run["milestones"]:
-        s += MILESTONE_POINTS.get(m, 0) * (1 + 0.5 * max(0.0, 1 - t / T))
+        if t > skip_before:
+            s += MILESTONE_POINTS.get(m, 0) * (1 + 0.5 * max(0.0, 1 - t / T))
     for name, t in run["checkpoints"].items():
-        s += CHECKPOINT_POINTS.get(name, 0) * (1 + 0.5 * max(0.0, 1 - t / T))
+        if t > skip_before:
+            s += CHECKPOINT_POINTS.get(name, 0) * (1 + 0.5 * max(0.0, 1 - t / T))
     s -= DEATH_PENALTY * min(len(run["deaths"]), 4)
     return round(s, 3)
 

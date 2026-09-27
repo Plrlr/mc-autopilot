@@ -51,11 +51,14 @@ public class AutopilotClientTest implements FabricClientGameTest {
 			if (Boolean.getBoolean("autopilot.test.lean")) lean(mc.options);
 		});
 		// Consistent test settings make a superflat world (no trees); we need a normal one.
-		try (TestSingleplayerContext sp = ctx.worldBuilder().setUseConsistentSettings(false).adjustSettings(s -> {
+		TestSingleplayerContext created = ctx.worldBuilder().setUseConsistentSettings(false).adjustSettings(s -> {
 			s.setGameMode(WorldCreationUiState.SelectedGameMode.SURVIVAL);
 			s.setDifficulty(Difficulty.EASY);
 			s.setSeed(System.getProperty("autopilot.test.seed", "autopilot"));
-		}).create()) {
+		}).create();
+		// -PtestStart=<checkpoint.zip>: continue from a world a run really reached (the loop's bank).
+		String startZip = System.getProperty("autopilot.test.start", "").trim();
+		try (TestSingleplayerContext sp = startZip.isEmpty() ? created : Bank.restore(ctx, created, java.nio.file.Path.of(startZip))) {
 			ctx.waitTicks(100);
 			Goal goal = stage(sp, scenario);
 			// Quick single-fix tests: -PtestTask="craft furnace:1" -PtestGive="cobblestone 8,crafting_table"
@@ -83,12 +86,23 @@ public class AutopilotClientTest implements FabricClientGameTest {
 					ap.runTask(new Option(sp1 < 0 ? task : task.substring(0, sp1), sp1 < 0 ? null : task.substring(sp1 + 1), "test task"));
 				}
 			});
+				// Checkpoints: the stage we start at, and each further stage the first time it's reached.
+			int startStage = ctx.computeOnClient(Bank::stage);
+			int bankedStage = startStage;
+			System.out.println("[autopilot-test] STAGE start " + Bank.STAGES.get(startStage));
 			// Screenshots only where they explain something: each milestone, each death, a failed
 			// task, and the end.
 			int shotMilestones = 0, shotDeaths = 0;
 			for (int sec = 1; sec <= minutes * 60; sec++) {
 				ctx.waitTicks(20);
 				if (sec % 30 == 0) report(ctx, scenario + " " + sec + "s");
+				if (task.isEmpty()) {
+					int now = ctx.computeOnClient(Bank::stage);
+					if (now > bankedStage) {
+						bankedStage = now;
+						Bank.save(ctx, sp, now, ctx.computeOnClient(mc -> AutopilotMod.instance().gameSeconds()));
+					}
+				}
 				int[] st = ctx.computeOnClient(mc -> {
 					Autopilot ap = AutopilotMod.instance();
 					return new int[]{ap.milestoneTimes().size(), ap.progress.deaths(), ap.taskResult() == null ? 0 : ap.taskResult().ok() ? 1 : 2};

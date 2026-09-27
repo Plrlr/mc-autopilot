@@ -109,6 +109,8 @@ jobs:
           lean: ${{ matrix.lean }}
           perf_mods: ${{ matrix.perf_mods }}
           window: ${{ matrix.window }}
+          start: ${{ matrix.start }}
+          token: ${{ github.token }}
           retention: '5'
 
   update:
@@ -129,6 +131,8 @@ jobs:
           pattern: trial-*
           path: batch
       - name: Score, race, learn
+        env:
+          GH_TOKEN: ${{ github.token }}  # uploads new checkpoints to the checkpoints release
         run: |
           pip install -q numpy || true
           scripts/loop/results.sh checkout results

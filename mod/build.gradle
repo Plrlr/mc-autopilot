@@ -99,6 +99,8 @@ loom {
 				vmArg "-Dautopilot.params=${findProperty('testParams') ?: ''}"
 				vmArg "-Dautopilot.learned=${findProperty('testLearned') ?: ''}"
 				vmArg "-Dautopilot.test.lean=${findProperty('testLean') ?: 'false'}"
+				// Start from a saved world (the loop's checkpoint bank): -PtestStart=path/to/checkpoint.zip
+				vmArg "-Dautopilot.test.start=${findProperty('testStart') ?: ''}"
 				// Window size, e.g. -PtestWindow=427x240: the cloud's software renderer draws every
 				// pixel on the CPU, and the game ticks at most once per frame, so fewer pixels = faster game.
 				def win = (findProperty('testWindow') ?: '').toString()

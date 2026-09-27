@@ -15,6 +15,8 @@ inputs:
   lean: {description: 'Cheapest drawing (true on the cloud loop)', default: 'false'}
   perf_mods: {description: 'Speed-up mods for this run, e.g. lithium,ferritecore', default: ''}
   window: {description: 'Game window size, e.g. 427x240 (smaller draws faster on the cloud)', default: ''}
+  start: {description: 'Checkpoint to start from: an asset of the checkpoints release (learning loop)', default: ''}
+  token: {description: 'Token to download the checkpoint', default: ''}
   retention: {description: 'Days to keep the artifact', default: '14'}
 runs:
   using: composite
@@ -41,6 +43,17 @@ runs:
         sudo apt-get install -y -q xvfb libgl1 libglx-mesa0 libgl1-mesa-dri libegl1 libegl-mesa0 mesa-utils \
           libvulkan1 mesa-vulkan-drivers vulkan-tools
 
+    - name: Start checkpoint
+      if: inputs.start != ''
+      shell: bash
+      env:
+        GH_TOKEN: ${{ inputs.token }}
+        START: ${{ inputs.start }}
+      run: |
+        mkdir -p "$RUNNER_TEMP/start"
+        gh release download checkpoints -R "$GITHUB_REPOSITORY" -p "$START" -D "$RUNNER_TEMP/start" --clobber
+        echo "START_ZIP=$RUNNER_TEMP/start/$START" >> "$GITHUB_ENV"
+
     - name: Play
       shell: bash
       working-directory: mod
@@ -62,7 +75,7 @@ runs:
         # fails the Gradle task; the summary step below judges the run instead.
         setsid xvfb-run -a -s "-screen 0 1280x720x24" ./gradlew runClientGameTest --console=plain \
           -PtestMinutes="$MINUTES" -PtestSeed="$SEED" -PtestScenario="$SCENARIO" -PtestTask="$TASK" -PtestGive="$GIVE" \
-          -PtestParams="$PARAMS" -PtestLearned="$LEARNED" -PtestLean="$LEAN" -PperfMods="$PERF" -PtestWindow="$WINDOW" \
+          -PtestParams="$PARAMS" -PtestLearned="$LEARNED" -PtestLean="$LEAN" -PperfMods="$PERF" -PtestWindow="$WINDOW" -PtestStart="${START_ZIP:-}" \
           > trial.log 2>&1 &
         pid=$!
         # Watchdog: a game that can't open its window hangs instead of exiting, so stop it if
@@ -105,6 +118,7 @@ runs:
           mod/build/run/clientGameTest/mc-autopilot/lessons.json
           mod/build/run/clientGameTest/screenshots/
           mod/build/run/clientGameTest/crash-reports/
+          mod/build/run/clientGameTest/checkpoints/
         if-no-files-found: warn
         retention-days: ${{ inputs.retention }}
 
