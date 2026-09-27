@@ -72,6 +72,9 @@ def load_state(d, genes):
         st["genomes"]["g0"]["status"] = "champion"
     for k, v in DEFAULT_SETTINGS.items():
         st["settings"].setdefault(k, v)
+    # scripts/loop/settings.json (in the repo) wins: settings change by a commit, not by editing state.
+    repo = common.read_json(os.path.join(os.path.dirname(os.path.abspath(__file__)), "settings.json"), {})
+    st["settings"].update({k: v for k, v in repo.items() if not k.startswith("_")})
     st["gene_specs"] = genes  # defaults and limits, for the dashboard
     for n in genes:
         st["sigma"].setdefault(n, st["settings"]["sigma0"])
