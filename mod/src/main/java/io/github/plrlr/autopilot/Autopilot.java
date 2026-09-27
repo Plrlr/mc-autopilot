@@ -454,6 +454,17 @@ public final class Autopilot {
 	// ------------------------------------------------------------------ reflexes
 
 	private void reflexes(LocalPlayer pl) {
+		// Falling far with a water bucket: pour it just before landing (before any cooldown: a fall
+		// lasts a second). Fall deaths showed up in several batches.
+		if (!pl.onGround() && !pl.isInWater() && pl.fallDistance > Tune.get("reflex.clutch_fall")
+				&& Mc.count("water_bucket") > 0 && !Mc.dimension().equals("the_nether")
+				&& (skill == null || !skill.name().equals("clutch"))) {
+			int ground = io.github.plrlr.autopilot.skills.Clutch.groundBelow(pl);
+			if (ground >= 0 && pl.fallDistance + ground > 4) {
+				startReflex(new Option("clutch", null, "falling " + Math.round(pl.fallDistance + ground) + " blocks"), "reflex_fall");
+				return;
+			}
+		}
 		if (tick < reflexCooldownUntil) return;
 		// hiding: sealed in and healing (review R1) - the only time reflexes stand down, except the
 		// creeper reflex, which always runs (its blast breaks the wall either way).

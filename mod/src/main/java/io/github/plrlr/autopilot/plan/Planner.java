@@ -186,6 +186,9 @@ public final class Planner {
 			case FIND_STRONGHOLD -> {
 				if (dim.equals("the_nether") && memory.nearest("nether_portal") != null) return new Option("enter_portal", "overworld", "go back to the overworld");
 				if (memory.nearest("end_portal_frame") != null) return null;
+				// Inside the stronghold already: its portal room is somewhere down the corridors.
+				if (io.github.plrlr.autopilot.skills.SearchStronghold.inStronghold())
+					return new Option("search_stronghold", null, "explore the stronghold's corridors for the portal room");
 				if (Mc.count("ender_eye") == 0) return itemStep("ender_eye", 1, 0);
 				return new Option("locate_stronghold", null, "throw an eye of ender and follow it");
 			}

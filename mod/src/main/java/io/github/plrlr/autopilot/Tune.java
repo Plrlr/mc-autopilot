@@ -50,6 +50,7 @@ public final class Tune {
 		gene("dragon.wait_dist", 10, 5, 20, Kind.REAL, "where to wait while the dragon flies: this far from the fountain");
 		gene("dragon.eat_hp", 12, 4, 18, Kind.INT, "in the End fight, eat at or below this health while it flies");
 		gene("reflex.burning_hp", 12, 4, 20, Kind.INT, "eat while burning at or below this health");
+		gene("reflex.clutch_fall", 4, 2, 12, Kind.REAL, "falling farther than this with a water bucket: pour it before landing");
 		// Planner: danger
 		gene("plan.hostile_range", 10, 5, 18, Kind.REAL, "hostiles within this range get an urgent option");
 		gene("plan.hide_hp", 12, 6, 18, Kind.INT, "underground, wall in at or below this health with 2+ monsters near");

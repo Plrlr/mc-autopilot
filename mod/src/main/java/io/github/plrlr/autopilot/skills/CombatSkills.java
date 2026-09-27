@@ -178,6 +178,47 @@ public final class CombatSkills {
 		}
 	}
 
+	/**
+	 * Yaw and pitch (Minecraft degrees) that put a fully drawn arrow on the target: arrows leave at
+	 * 3 blocks/tick, then each tick move, keep 99% of their speed and drop 0.05 (vanilla AbstractArrow).
+	 * Tries the pitches from low to high and keeps the flattest one that lands within half a block;
+	 * for a moving target, aims where it will be after the flight time. Null if out of range.
+	 */
+	public static float[] ballisticAim(Vec3 eye, Vec3 target, Vec3 targetVel) {
+		Vec3 aim = target;
+		float[] best = null;
+		for (int iter = 0; iter < 3; iter++) {
+			double dx = aim.x - eye.x, dz = aim.z - eye.z, dy = aim.y - (eye.y - 0.1);
+			double h = Math.hypot(dx, dz);
+			best = null;
+			double bestErr = 0.5;
+			int bestTicks = 0;
+			for (double pitch = -60; pitch <= 60; pitch += 0.25) {
+				double rad = Math.toRadians(pitch);
+				double vx = Math.cos(rad) * 3.0, vy = Math.sin(rad) * 3.0, x = 0, y = 0;
+				for (int t = 1; t <= 120; t++) {
+					x += vx;
+					y += vy;
+					vx *= 0.99;
+					vy = vy * 0.99 - 0.05;
+					if (x >= h) {
+						double err = Math.abs(y - dy);
+						if (err < bestErr) {
+							bestErr = err;
+							bestTicks = t;
+							best = new float[]{(float) Math.toDegrees(Math.atan2(-dx, dz)), (float) -pitch};
+						}
+						break;
+					}
+				}
+				if (best != null && bestErr < 0.2) break; // the flattest good arc
+			}
+			if (best == null || targetVel == null) break;
+			aim = target.add(targetVel.scale(bestTicks));
+		}
+		return best;
+	}
+
 	/** shoot <mob type>: bow at a target out of reach, e.g. end crystals or the dragon. */
 	public static final class Shoot extends Skill {
 		private Entity target;
@@ -220,10 +261,15 @@ public final class CombatSkills {
 			}
 			if (ticks < 3) return;
 			LocalPlayer pl = Mc.player();
-			// Full-draw arrows fly ~3 blocks/tick and drop ~d^2/360 blocks over distance d; aim above.
-			Vec3 c = target.getBoundingBox().getCenter();
-			double d = pl.getEyePosition().distanceTo(c);
-			Mc.lookAt(c.add(0, d * d / 360.0, 0));
+			// Aim by simulating the arrow (the old d^2/360 guess missed every crystal on its pillar),
+			// leading a moving target by where it will be when the arrow gets there.
+			float[] rot = ballisticAim(pl.getEyePosition(), target.getBoundingBox().getCenter(), target.getDeltaMovement());
+			if (rot == null) {
+				fail(Fail.UNREACHABLE, "out of bow range");
+				return;
+			}
+			pl.setYRot(rot[0]);
+			pl.setXRot(rot[1]);
 			if (drawTicks < 22) {
 				Mc.mc().options.keyUse.setDown(true);
 				drawTicks++;
