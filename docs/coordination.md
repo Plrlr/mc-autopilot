@@ -35,9 +35,7 @@ B1, B2, B5, B6 to the cloud; B3/B4 are the user's call.
   (Nether and End scenarios; the cloud may still add early-game scenarios, say so here first)
 - CLAIM mod/src/test/java/io/github/plrlr/autopilot/plan/TechTreeTest.java - freebuff (new file)
 - CLAIM mod/src/test/java/io/github/plrlr/autopilot/plan/PlannerPriorityTest.java - freebuff (new file)
-- CLAIM mod/src/main/java/io/github/plrlr/autopilot/skills/SmeltSkill.java - cloud (R4 job-keeping)
-- CLAIM mod/src/main/java/io/github/plrlr/autopilot/plan/Planner.java - cloud (W3 shelter/wool)
-- CLAIM mod/src/main/java/io/github/plrlr/autopilot/Autopilot.java - cloud (W6 cave-escape gain check)
+- CLAIM mod/src/main/java/io/github/plrlr/autopilot/skills/CastPortal.java - review (dig a room to cast in underground)
 
 
 ## Cloud
@@ -375,6 +373,11 @@ them by reflection and auto-activate once they land (skipped until then, so the 
      `surfaceOption()` is fine if six arguments are awkward).
 2. `public static boolean foodSearchWorthIt(int hunger) { return hunger <= 8; }`
    - used in `upkeep()` as `if (f != null && (!f.skill().equals("explore") || foodSearchWorthIt(hunger)))`.
+3. `public static Option blazeStep(boolean knownFortress, boolean blazeSeen)` in `NetherPlan`
+   - the pure decision, with today's `blazeStep(WorldMemory, Perception)` computing both booleans
+     (`known = memory.nearest("spawner") != null || memory.nearest("nether_bricks") != null`,
+     `blazeSeen = seen.nearest("blaze") != null`) and delegating to it. `NetherPlanTest` looks it
+     up by reflection and skips until it lands.
 
 **Bug the tech-tree test found (for the reviewer, in main code):** `TechTree.MOB` has no entries
 for `rabbit`, `cod` or `salmon`, but `TechTree.SMELT` maps `cooked_rabbit`/`cooked_cod`/
@@ -387,6 +390,52 @@ is `@Disabled` with this reason until those entries exist.
 **Update (2026-09-27): the MOB gap is fixed.** At the user's request the freebuff lane made the
 three-line main change itself (`TechTree.java`: `MOB.put("rabbit"/"cod"/"salmon", ...)`) and
 `smeltedItemsHaveTheirRawSource` is enabled again. `gradlew test` stays green.
+
+**Lane change (2026-09-27, user's request):** the freebuff session also now runs the local trial
+runs. Logs land in `.trials/<batch>/trial-<scenario>-<seed>/` (trial.log, autopilot-test.log, the
+jsonl under `build/run/clientGameTest/mc-autopilot/logs/`, screenshots, and a `summary.md` from
+`scripts/summarize_batch`), which is what the reviewer session reads. Re-run with
+`scripts/local-trial.ps1 -Scenario nether -Minutes 10 -Seed a` (or `-Scenario blaze`).
+
+**Bug report for the reviewer (Opus 5.5): blazes outside the fortress turn the fight into fatal
+bridging.** Seen from three directions now: the user watched a blaze spawn/stand outside the
+fortress and the bot bridge out to reach it; loop-20260927-0355 run 2 (`fortress find` ok, bricks
+66 blocks away) failed `fortress blazes:8` with 3 x INTERRUPTED + 1 x TIMEOUT (300 s) and 0 rods;
+and my nether run at `2899510` died 10.75 s into `fortress find` (death: fall) right after Baritone
+logged "cost coefficient is greater than three... sneak-bridging for dozens of blocks; Path goes
+for 84.7 blocks". Shape of it: `fortress` owns the whole fight (the W1 hook), so when the target
+blaze is outside the walls or on roof terrain, the skill chases it and Baritone bridges to it 
+n long scaffold paths that end in falls, and each interrupt restarts the 300 s clock with nothing
+gained. Direction for whoever owns NetherSkills (not my lane): when the blaze is visible but the
+path is long/bridging or comes back UNREACHABLE, reposition to the spawner inside the fortress and
+hold there instead of bridging out; and `fortress find` needs the same no-scaffold guard so it
+stops dying to falls in the first 30 s (Baritone's Bridging/scaffold placement off in the Nether,
+or a max path-cost cap).
+
+**Follow-up from the completed no-daemon run (nether-20260927-045534, seed a, commit 10161b2):
+two precise failure shapes for the reviewer.**
+1. **The handoff race:** `fortress find` ends ok with "saw a fortress 61 blocks away", and the
+   very next `fortress blazes:8` fails NOT_FOUND "no fortress or blaze known" three times in a
+   row (0.05 s each), then the brain fell back to `explore any`. `fortress find` evidently
+   detects the fortress through Baritone's search without ever seeing nether_bricks in line of
+   sight, so WorldMemory still has nothing and the fight skill's precondition is false. Fix shape:
+   `fortress find` should end with the fortress location handed over (remember it, e.g.
+   `memory.remember("nether_bricks", ...)` from the find result) or `blazeStep`'s `known` should
+   also accept the find skill's last result.
+2. **The burn death away from the fight:** after the NOT_FOUND loop the bot wandered and died
+   `onFire` mid-`explore` near magma cubes/lava; `retreat` was interrupted by the brain choosing
+   `explore any` 4.8 s in. The fire reflex never fired; it burned while walking. Worth a look at
+   why `isOnFire()` didn't produce an urgent option there.
+Also confirmed live: Baritone logged the "cost coefficient is greater than three ... sneak-bridging
+for dozens of blocks ... Path goes for 63 blocks" warning again during `fortress find`, so the
+no-scaffold guard request above stands.
+
+**Infrastructure: `gradlew --stop` in `trial-loop.ps1` kills other sessions' runs.** Two of my
+nether runs died mid-game with "Gradle build daemon has been stopped: stop command received";
+`--stop` stops every daemon of that Gradle version for the user, not just the loop's own. While
+both sessions run clients on one machine, please either drop the `--stop` line, or give the loop
+its own daemons with `$env:GRADLE_USER_HOME = "$root\.gradle-loop"` before calling gradlew (then
+its `--stop` only stops its own). Until that lands, my runs use `--no-daemon` so they survive it.
 
 **Loop findings (2026-09-27, trial-loop `loop-20260927-0355`, main checkout at `2c3fdf6`, seed a,
 for the reviewer; I only read the logs):**
