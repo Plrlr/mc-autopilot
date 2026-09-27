@@ -238,13 +238,14 @@ public final class NetherSkills {
 			Perception seen = Perception.look(32);
 			Perception.Seen blaze = seen.nearest("blaze");
 			var keyUse = Mc.mc().options.keyUse;
+			if (recover(pl, blaze, keyUse)) return;
 			if (blaze != null) {
+				// Chase and hit. Waiting at the spawner with the shield up (the first design) only
+				// blocked for 105 s: blazes keep their distance. The plain chase killed one every ~6 s.
 				sinceBlaze = 0;
+				keyUse.setDown(false);
 				Entity e = blaze.entity();
-				double dy = e.getY() - pl.getY();
 				if (blaze.dist() <= 3.2) {
-					// In reach: shield down, full-strength swings.
-					keyUse.setDown(false);
 					if (Bari.pathing()) Bari.stop();
 					walking = false;
 					Mc.lookAt(e.getBoundingBox().getCenter());
@@ -254,24 +255,18 @@ public final class NetherSkills {
 					}
 					return;
 				}
-				if (blaze.dist() < 7 && Math.abs(dy) < 2.5 && Mc.canSee(e)) {
-					// Low and close: step in rather than wait.
-					keyUse.setDown(false);
-					if (ticks % 10 == 0) Bari.path(new GoalNear(e.blockPosition(), 1));
+				// Rods first if one is lying close by; otherwise close in on the blaze.
+				if (blaze.dist() > 6 || !rodNearby(pl, seen)) {
+					if (ticks % 10 == 0) Bari.path(new GoalNear(e.blockPosition(), 2));
 					walking = true;
 					return;
-				}
-				// At range: face it with the shield up. Fireballs hit the shield, not us.
-				if (!walking || !Bari.pathing()) {
-					Mc.lookAt(e.getBoundingBox().getCenter());
-					keyUse.setDown(Items2.id(pl.getOffhandItem()).equals("shield"));
 				}
 			} else {
 				keyUse.setDown(false);
 				sinceBlaze++;
 			}
 			// Rods on the ground nearby: pick them up before anything else.
-			if (ticks % 10 == 0 && (blaze == null || blaze.dist() > 8)) {
+			if (ticks % 10 == 0) {
 				for (ItemEntity it : seen.items) {
 					if (Items2.id(it.getItem()).equals("blaze_rod") && it.distanceTo(pl) < 12) {
 						Bari.path(new GoalNear(it.blockPosition(), 0));
@@ -293,6 +288,45 @@ public final class NetherSkills {
 				}
 				walkTo(anchor);
 			}
+		}
+
+		private static boolean rodNearby(LocalPlayer pl, Perception seen) {
+			for (ItemEntity it : seen.items) if (Items2.id(it.getItem()).equals("blaze_rod") && it.distanceTo(pl) < 12) return true;
+			return false;
+		}
+
+		private boolean recovering;
+
+		/**
+		 * Low health (12, since burning keeps hurting after we stop): get out of the blazes' sight and heal (eat up to 18+ hunger so health comes
+		 * back), then fight again. Standing still while burning is what killed the first test.
+		 * Returns true while recovering.
+		 */
+		private boolean recover(LocalPlayer pl, Perception.Seen blaze, net.minecraft.client.KeyMapping keyUse) {
+			float hp = pl.getHealth();
+			if (!recovering && hp > 12) return false;
+			if (recovering && hp >= 16) {
+				recovering = false;
+				keyUse.setDown(false);
+				CombatSkills.holdWeapon();
+				return false;
+			}
+			recovering = true;
+			boolean inSight = blaze != null && Mc.canSee(blaze.entity());
+			if (inSight || pl.isOnFire()) {
+				// Run from the nearest blaze (or just move, if burning) until it can't see us.
+				keyUse.setDown(false);
+				BlockPos from = blaze != null ? blaze.entity().blockPosition() : pl.blockPosition();
+				if (ticks % 10 == 0) Bari.path(new baritone.api.pathing.goals.GoalRunAway(14, from));
+				return true;
+			}
+			if (Bari.pathing()) Bari.stop();
+			// Out of sight: eat while hungry, else just wait for health to come back.
+			if (pl.getFoodData().getFoodLevel() < 20 && Mc.count(Items2.matcher("food")) > 0) {
+				if (!Items2.matcher("food").test(pl.getMainHandItem())) Mc.holdItem(Items2.matcher("food"));
+				keyUse.setDown(true);
+			} else keyUse.setDown(false);
+			return true;
 		}
 
 		@Override

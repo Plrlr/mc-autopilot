@@ -17,7 +17,6 @@ pushing. Pull before each task.
 
 ## Claims
 
-- CLAIM mod/src/main/java/io/github/plrlr/autopilot/plan/Planner.java - laptop (move the Nether blaze branch above the low-health escapes; released after the push)
 - CLAIM mod/src/main/java/io/github/plrlr/autopilot/skills/NetherSkills.java - laptop (new file)
 - CLAIM mod/src/main/java/io/github/plrlr/autopilot/plan/NetherPlan.java - laptop (new file)
 - CLAIM mod/src/gametest/java/io/github/plrlr/autopilot/test/AutopilotClientTest.java - laptop (new

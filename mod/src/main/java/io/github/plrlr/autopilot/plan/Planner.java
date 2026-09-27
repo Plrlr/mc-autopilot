@@ -368,12 +368,14 @@ public final class Planner {
 		if (hostile != null && hostile.dist() < 10) {
 			// Creepers explode in melee range: back off instead of swinging at them.
 			if (hostile.type().equals("creeper")) out.add(new Option("retreat", null, "a creeper is " + Math.round(hostile.dist()) + " blocks away"));
+			// Blazes hover and shoot fire: the fortress fight waits for them at the spawner and backs
+			// off out of sight to heal itself. Walling in at low health (the Nether has no sky, so it
+			// always counts as underground) burned the bot to death in its first blaze test.
+			else if (NetherPlan.fightInFortress(Mc.dimension(), hostile)) out.add(NetherPlan.blazeStep(memory, seen));
 			else if (pl.getHealth() <= 8) out.add(escape("low health and a " + hostile.type() + " is close"));
 			// Underground, two or more closing in wear us down in a tunnel: wall in and heal first.
 			else if (!onSurface() && pl.getHealth() <= 12 && seen.hostilesWithin(6) >= 2) out.add(escape("hurt with monsters closing in"));
 			// Skeletons outshoot a fleeing player; closing in fast is safer than running.
-			// Blazes hover and shoot: the fortress fight waits for them at the spawner instead of chasing.
-			else if (NetherPlan.fightInFortress(Mc.dimension(), hostile)) out.add(NetherPlan.blazeStep(memory, seen));
 			else out.add(new Option("attack", hostile.type(), hostile.type() + " is " + Math.round(hostile.dist()) + " blocks away"));
 		}
 		if (wantsToEat()) {
@@ -495,7 +497,10 @@ public final class Planner {
 	public static Option escape(String why) {
 		// Healing needs 18+ hunger: without food to get there, hiding is just waiting to be found.
 		boolean canHeal = Mc.player().getFoodData().getFoodLevel() >= 18 || Mc.count(Items2.matcher("food")) > 0;
-		if (!onSurface() && canHeal && Mc.count("throwaway") >= 6) return new Option("shelter", "heal", why + ": wall in and heal");
+		// Not in the Nether (no sky, so it always looks "underground") or while burning: walled in
+		// on fire against blazes, the bot burned to death in the first blaze test.
+		boolean hideOk = !Mc.dimension().equals("the_nether") && !Mc.player().isOnFire();
+		if (!onSurface() && hideOk && canHeal && Mc.count("throwaway") >= 6) return new Option("shelter", "heal", why + ": wall in and heal");
 		return new Option("retreat", null, why);
 	}
 
