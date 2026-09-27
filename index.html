@@ -86,7 +86,7 @@ a { color: var(--s1); }
 
   <div class="card">
     <h2>Champion score per generation</h2>
-    <p class="note">Mean score of the champion on that generation's worlds (x axis: generation). Gray dots are challengers. Points come from milestones and steps toward the Nether portal (more for reaching them early), minus deaths. Stars mark a new champion.</p>
+    <p class="note">Mean score of the champion on that generation's fresh worlds (x axis: generation; from generation 5 on, stage starts are left out: they're on the road to the dragon). Gray dots are challengers. Points come from milestones and steps toward the Nether portal (more for reaching them early), minus deaths. Stars mark a new champion.</p>
     <div id="scoreChart"></div>
   </div>
 
@@ -98,7 +98,7 @@ a { color: var(--s1); }
 
   <div class="card">
     <h2>How far the runs get</h2>
-    <p class="note">Share of each generation's runs that reached a step (all genomes, 20 game minutes each).</p>
+    <p class="note">Share of each generation's runs from a fresh world that reached a step (all genomes, 20 game minutes each). From generation 5 on; earlier points also count the stage starts.</p>
     <div class="legend" id="reachLegend"></div>
     <div id="reachChart"></div>
   </div>
@@ -251,7 +251,7 @@ function reachChart(history) {
   const labels = [];
   STEPS.forEach((s) => {
     const col = css(s.color);
-    const pts = history.map((h) => ({ g: h.gen, v: h.runs_ok ? 100 * ((h.reached || {})[s.key] || 0) / h.runs_ok : 0 }));
+    const pts = history.map((h) => { const n = h.natural_runs ?? h.runs_ok; return { g: h.gen, v: n ? 100 * ((h.reached || {})[s.key] || 0) / n : 0 }; });
     el("path", { d: pts.map((p, i) => (i ? "L" : "M") + f.X(p.g) + " " + f.Y(p.v)).join(" "), fill: "none", stroke: col, "stroke-width": 2, "stroke-linejoin": "round" }, f.svg);
     const lp = pts[pts.length - 1];
     labels.push({ y: f.Y(lp.v), text: `${s.name} ${fmt(lp.v)}%`, x: f.X(lp.g), col });
@@ -259,7 +259,8 @@ function reachChart(history) {
       const hit = el("circle", { cx: f.X(p.g), cy: f.Y(p.v), r: 8, fill: "transparent" }, f.svg);
       hit.addEventListener("mousemove", (e) => showTip(e, `Generation ${p.g}`, STEPS.map((t) => {
         const h = history.find((q) => q.gen === p.g);
-        return `${t.name}: ${fmt(h.runs_ok ? 100 * ((h.reached || {})[t.key] || 0) / h.runs_ok : 0)}%`;
+        const n = h.natural_runs ?? h.runs_ok;
+        return `${t.name}: ${fmt(n ? 100 * ((h.reached || {})[t.key] || 0) / n : 0)}%`;
       })));
       hit.addEventListener("mouseleave", hideTip);
     });
