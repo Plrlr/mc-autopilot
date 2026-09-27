@@ -29,6 +29,8 @@ import net.minecraft.world.phys.Vec3;
  */
 public final class DragonFight extends Skill {
 	private int critWait;
+	/** The dragon was seen dying: only then is "no dragon in sight" a win (it also flies out of view). */
+	private boolean sawDying;
 	private int hits;
 	private String doing = "";
 
@@ -75,14 +77,18 @@ public final class DragonFight extends Skill {
 		LocalPlayer pl = Mc.player();
 		EnderDragon d = dragon();
 		var o = Mc.mc().options;
-		if (d == null || d.getPhaseManager().getCurrentPhase().getPhase() == EnderDragonPhase.DYING) {
-			if (ticks > 40) {
-				done("the dragon is dead (" + hits + " hits)");
-				return;
-			}
+		if (d != null && d.getPhaseManager().getCurrentPhase().getPhase() == EnderDragonPhase.DYING) sawDying = true;
+		if (sawDying && (d == null || !d.isAlive())) {
+			done("the dragon is dead (" + hits + " hits)");
 			return;
 		}
 		BlockPos center = fountain();
+		if (d == null || sawDying) {
+			// Out of sight (far out over the void) or dying: wait by the fountain, safely.
+			if (horizontal(pl.position(), center) > Tune.get("dragon.wait_dist") + 3 && !Bari.pathing())
+				Bari.path(new GoalNear(center.offset((int) Math.round(Tune.get("dragon.wait_dist")), 0, 0), 2));
+			return;
+		}
 		// 1. Safety: the void and the breath come before any attack.
 		if (nearEdge(pl.blockPosition()) || horizontal(pl.position(), center) > Tune.get("dragon.max_center_dist")) {
 			say("back toward the middle");
