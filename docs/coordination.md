@@ -90,6 +90,22 @@ first wood trip get their first batch.
    `laptop/opus-and-tooling` (this file, and a "Local runs" section in `docs/batches.md`), not on
    `claude/laptop-results` / `docs/laptop-results.md` as `docs/laptop-tasks.md` expects.
 
+10. **High: an interrupted collect trip loses the whole furnace load** (seen live, local run
+    seed a, rules, `b3bffeb`). At 3:59 the bot loaded 13 raw iron and left it cooking (8b9843f).
+    At 4:31 it came back (`smelt iron_ingot:13`, collecting), took 1 ingot, and a creeper made
+    the planner choose `retreat` 7 s in. `SmeltSkill.cleanup` runs `if (collecting)
+    JOBS.remove(output)` on *any* end, interrupts included, so the job was forgotten with 12
+    ingots still in the furnace. The planner then wanted 12 more raw iron (`collect raw_iron:12`),
+    a heartbeat switched it to `collect log:9` at y 17 underground, and that failed twice with
+    NO_PROGRESS (60 s each, 0/9; Baritone "unable to find any path to log"). Iron tools were
+    about a minute away and the run lost the rest of its time. The stone pickaxe also wore out
+    meanwhile. Fix: drop the job only on `done` or when the furnace is really gone
+    (NOT_FOUND / "disappeared"), never on INTERRUPTED or DIED. The review's R4 (a normal smelt
+    reusing a job furnace, and `tickCount` resetting) is the same area.
+11. **`collect log` underground with no log in sight burns 60 s per try** (same run). Suggest:
+    underground with no remembered log, fail fast with NOT_FOUND (or go up first), and use
+    planks/coal already carried for fuel before asking for 9 logs.
+
 ### Notes
 
 - `docs/batches.md`: the "Local runs" section goes above the cloud table, because
