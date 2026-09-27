@@ -126,7 +126,19 @@
    "n": 1,
    "sum": 1.3628333333333333
   },
+  "dragon.eat_hp": {
+   "n": 0,
+   "sum": 0.0
+  },
   "dragon.max_center_dist": {
+   "n": 0,
+   "sum": 0.0
+  },
+  "dragon.wait_dist": {
+   "n": 0,
+   "sum": 0.0
+  },
+  "focus.commit": {
    "n": 0,
    "sum": 0.0
   },
@@ -266,6 +278,10 @@
    "n": 0,
    "sum": 0.0
   },
+  "route.diamond_portal": {
+   "n": 0,
+   "sum": 0.0
+  },
   "stuck.box": {
    "n": 0,
    "sum": 0.0
@@ -276,9 +292,9 @@
   }
  },
  "days": {
-  "2026-09-27": 5
+  "2026-09-27": 6
  },
- "gen": 5,
+ "gen": 6,
  "gene_specs": {
   "combat.backstep": {
    "def": 0.0,
@@ -315,12 +331,33 @@
    "max": 20.0,
    "min": 0.0
   },
+  "dragon.eat_hp": {
+   "def": 12.0,
+   "help": "in the End fight, eat at or below this health while it flies",
+   "kind": "INT",
+   "max": 18.0,
+   "min": 4.0
+  },
   "dragon.max_center_dist": {
    "def": 30.0,
    "help": "in the End fight, walk back if farther than this from the fountain",
    "kind": "REAL",
    "max": 60.0,
    "min": 10.0
+  },
+  "dragon.wait_dist": {
+   "def": 10.0,
+   "help": "where to wait while the dragon flies: this far from the fountain",
+   "kind": "REAL",
+   "max": 20.0,
+   "min": 5.0
+  },
+  "focus.commit": {
+   "def": 0.0,
+   "help": "finish the running task before switching, unless the top option is an emergency",
+   "kind": "BOOL",
+   "max": 1.0,
+   "min": 0.0
   },
   "food.eat_at": {
    "def": 14.0,
@@ -556,6 +593,13 @@
   "route.deep_for_lava": {
    "def": 1.0,
    "help": "mine down to lava depth instead of exploring for a pool",
+   "kind": "BOOL",
+   "max": 1.0,
+   "min": 0.0
+  },
+  "route.diamond_portal": {
+   "def": 0.0,
+   "help": "portal the classic way (diamond pickaxe, mine 10 obsidian) instead of casting it",
    "kind": "BOOL",
    "max": 1.0,
    "min": 0.0
@@ -1311,14 +1355,109 @@
    ],
    "parent": "g4",
    "status": "contender"
+  },
+  "g8": {
+   "born": 6,
+   "code": null,
+   "evals": [],
+   "genes": {
+    "death.recover_night_armor": 12.0,
+    "focus.commit": 1.0,
+    "plan.hide_hp": 15.0,
+    "route.armor_before_portal": 0.0
+   },
+   "id": "g8",
+   "mutated": [
+    "focus.commit"
+   ],
+   "note": "suggested: focus.commit 1",
+   "pairs": [],
+   "parent": "g6",
+   "status": "contender"
   }
  },
  "model_adv_r2": 0.017,
  "model_keys": 24,
  "model_r2": 0.178,
  "model_rows": 1963,
- "next_id": 8,
- "pending": null,
+ "next_id": 9,
+ "pending": {
+  "data_tasks": [
+   {
+    "kind": "natural",
+    "seed": "D6-b2gs7u",
+    "stage": "spawn",
+    "synthetic": false
+   }
+  ],
+  "gen": 6,
+  "lineup": [
+   "g6",
+   "g8",
+   "g7"
+  ],
+  "runs": [
+   "eval-g6-0",
+   "eval-g6-1",
+   "eval-g6-2",
+   "eval-g6-3",
+   "eval-g6-4",
+   "eval-g8-0",
+   "eval-g8-1",
+   "eval-g8-2",
+   "eval-g8-3",
+   "eval-g8-4",
+   "eval-g7-0",
+   "eval-g7-1",
+   "eval-g7-2",
+   "eval-g7-3",
+   "eval-g7-4",
+   "data-g6-0"
+  ],
+  "seeds": [
+   "L6-5ue5nd",
+   "L6-nfprdr",
+   "L6-xwzsec",
+   "L6-32cgj8",
+   "L6-ffu9pz"
+  ],
+  "sha": "f0ea7f4d96c6c694ed80aadea71757fb27a630b1",
+  "started": "2026-09-27T17:25:58+00:00",
+  "tasks": [
+   {
+    "kind": "natural",
+    "seed": "L6-5ue5nd",
+    "stage": "spawn",
+    "synthetic": false
+   },
+   {
+    "kind": "natural",
+    "seed": "L6-nfprdr",
+    "stage": "spawn",
+    "synthetic": false
+   },
+   {
+    "kind": "natural",
+    "seed": "L6-xwzsec",
+    "stage": "spawn",
+    "synthetic": false
+   },
+   {
+    "asset": "kit-gen4-eval-g4-2.zip",
+    "kind": "start",
+    "seed": "L6-32cgj8",
+    "stage": "kit",
+    "synthetic": false
+   },
+   {
+    "kind": "scenario",
+    "scenario": "stronghold",
+    "seed": "L6-ffu9pz",
+    "stage": "eyes",
+    "synthetic": true
+   }
+  ]
+ },
  "settings": {
   "accept_pairs": 8,
   "accept_t": 2.0,
@@ -1328,7 +1467,7 @@
   "explore_data": 0.15,
   "lean": false,
   "max_genomes": 3,
-  "max_gens_per_day": 36,
+  "max_gens_per_day": 60,
   "max_pairs": 24,
   "min_gain": 0.3,
   "minutes": 20,
@@ -1338,6 +1477,22 @@
   "sigma0": 0.15,
   "stage_seeds": 2,
   "suggest": [
+   {
+    "focus.commit": 1
+   },
+   {
+    "route.diamond_portal": 1
+   },
+   {
+    "focus.commit": 1,
+    "route.diamond_portal": 1
+   },
+   {
+    "focus.commit": 1,
+    "gather.coal_upkeep_below": 12,
+    "gather.iron_in_view": 1,
+    "night.mine_instead": 1
+   },
    {
     "night.mine_instead": 1
    },
@@ -1378,7 +1533,10 @@
   "combat.flee_hp": 0.15,
   "combat.outnumbered": 0.1275,
   "death.recover_night_armor": 0.21,
+  "dragon.eat_hp": 0.15,
   "dragon.max_center_dist": 0.15,
+  "dragon.wait_dist": 0.15,
+  "focus.commit": 0.15,
   "food.eat_at": 0.1275,
   "food.eat_hurt_at": 0.15,
   "food.hunt_dist": 0.15,
@@ -1413,6 +1571,7 @@
   "route.bed": 0.1275,
   "route.boots_before_portal": 0.15,
   "route.deep_for_lava": 0.15,
+  "route.diamond_portal": 0.15,
   "stuck.box": 0.15,
   "stuck.window_s": 0.15
  },
@@ -1558,6 +1717,8 @@
    ]
   ]
  },
- "suggested": [],
+ "suggested": [
+  "{\"focus.commit\": 1}"
+ ],
  "version": 1
 }
