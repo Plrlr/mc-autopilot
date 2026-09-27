@@ -442,6 +442,11 @@ public final class Autopilot {
 		}
 		Perception.Seen h = seen.nearestHostile();
 		float hp = pl.getHealth();
+		// The fortress fight owns the blazes: it chases, hits, and backs off out of sight to eat on its
+		// own. The generic fight and low-health reflexes took it over in both local blaze runs and
+		// got the bot burned to death. Creepers, lava, fire and drowning still get their reflexes.
+		if (h != null && h.type().equals("blaze") && skill != null && skill.name().equals("fortress")
+				&& Mc.dimension().equals("the_nether")) h = null;
 		// Walled in and healing: a monster on the other side of the blocks is no reason to break out.
 		if (h != null && !h.type().equals("enderman")) {
 			// A creeper blows the wall open: that reflex stays on even while hiding.
