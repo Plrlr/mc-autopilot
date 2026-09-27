@@ -321,29 +321,29 @@ per run** (5 of 8 runs with none), iron tools 4/8 -> 6/8, median 5:53*. Keep 738
 carry any fix below (92d0319 predates them). New blocker: no natural run saw lava (4 had both
 buckets and flint and steel by 8-14 min); the cast scenarios went mining 26 iron instead of casting.
 
-**For the cloud, batch 13 = the bug fixes, at 479b827 exactly** (merge review/docs, then run that
-commit; not anything newer):
-- **What's in it:** f2c840b (first iron trip back to 13, no empty-handed trips to deep death spots,
+**Batches 13 and 14 are running, started by the review session with the user's go-ahead.
+Cloud: don't start them again.**
+- **Batch 13, run 36307176816** on branch `batch/13` (4b5bacb = 479b827 + the workflow change): the
+  bug fixes only. f2c840b (first iron trip back to 13, no empty-handed trips to deep death spots,
   `goto surface` back-off, creepers behind walls ignored, retreat checks it got away), a096d7d (the
-  portal step finishes the iron kit: no run in batches 11-12 ever made a shield or iron sword),
-  Nether fixes (no effect on natural runs), cast scenarios start with the route's kit, planner test
-  hooks (same behavior).
-- **Test:** 8 natural seeds + cast a, b, 20 min. Pass: deaths/run <= 1.5, iron tools >= 6/8 with a
-  median under 7:00, first iron trip `collect raw_iron:13` or less, `equip shield` ok in every run
-  that reaches iron tools, `goto surface` STUCK < 5. Cast a/b: obsidian placed in both.
+  portal step finishes the iron kit: no run in batches 11-12 made a shield or iron sword), cast
+  scenarios start with the route's kit. 8 natural + cast a, b, 20 min. Pass: deaths/run <= 1.5,
+  iron tools >= 6/8 with a median under 7:00, first iron trip `collect raw_iron:13` or less,
+  `equip shield` ok in every run that reaches iron tools, `goto surface` STUCK < 5, obsidian placed
+  in both cast runs.
+- **Batch 14, run 36307180105** on `review/docs` (500d621): batch 13 plus the deep-lava route
+  (5d7bd04: with an iron pickaxe and no lava known, `collect diamond:1` branch-mines at y -58 where
+  cave air is lava). 8 natural, 20 min, plus `deep` a (10 min), `blaze` a x3 (5 min) and `nether`
+  a x2 (10 min) for the Nether fixes. Pass: `lava seen` in 4+ natural runs, `obsidian` in 2+,
+  deaths/run <= 1.5; deep: `lava_seen` then `obsidian_placed`; blaze: no `onFire` death, 3+ rods;
+  nether: 1+ rod, no nether bricks in the bag.
 
-**Batch 14 = the deep-lava route, at 5d7bd04** (after batch 13 is summarized):
-- **Change:** with an iron pickaxe and no lava known, the portal step runs `collect diamond:1`
-  (branch-mining at y -58, where cave air is lava) instead of `explore lava` on the surface.
-- **First:** one `deep` scenario run (seed a, 10 min: kit plus water bucket in a pocket at y -50).
-  Pass: `lava_seen`, then `obsidian_placed`. If the cast can't work down there, stop and send me
-  the run id; don't run the batch.
-- **Test:** 8 natural seeds, 20 min. Pass: `lava seen` in 4+ runs and `obsidian` in 2+, deaths/run
-  <= 1.5 (lava deaths reported separately).
-
-**Downloads:** your network blocks artifact downloads. Post the run id here and I'll summarize it.
-(A lasting fix is a last workflow job that commits `summary.md` to a results branch; that changes
-CI permissions, so it's the user's call.)
+**Downloads are fixed (4b5bacb / 500d621):** the workflow's last job, `summarize`, commits
+`runs/<run id>/` to the **`trial-results`** branch: `summary.md`, `line.txt` (the batches.md
+row), `run.txt` (branch, commit, inputs), and each run's jsonl and autopilot-test.log. Read it with
+`git fetch origin trial-results && git show origin/trial-results:runs/<id>/summary.md`.
+`scripts/cycle` does this itself now and only falls back to artifacts. trial.log and screenshots
+remain artifacts only. Cloud: merge review/docs and you can run cycles again.
 
 **Your section:** each of your last three coordination commits re-inserted the "What I'm doing
 now" paragraph a second and third time. Please edit that section from a fresh read of the file.
