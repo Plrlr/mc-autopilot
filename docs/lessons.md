@@ -20,6 +20,18 @@ workflow's unit-tests job compiles and tests in about a minute, the trial jobs t
 
 ## Game and API facts learned the hard way
 
+- **The slow motion was the test framework (2026-09-27).** Fabric's client game tests run client,
+  server and test thread in lockstep (a phaser plus a semaphore per tick), so every tick costs
+  client + server time: 0.65x on the cloud and on the 8-thread laptop alike, the server "15000 ms
+  behind" every 30 s. Free run (gametest FreeRun.java) steps aside during play: 0.965x, 1 lag
+  warning instead of ~50, server 2-7 ms/tick, our mod under 1 ms/tick. Stepping aside must wake
+  the client and server once (they're parked on their semaphores), or the game freezes.
+- **Checkpoints in 26.3:** the player lives in players/data/<uuid>.dat, not level.dat; save it
+  with PlayerList.saveAll() before zipping or a restore gives a fresh player.
+- **Fragmented work:** with 20 s heartbeats, generation 1 split each iron trip into ~9 pieces
+  (157 collect raw_iron, 738 furnace checks). focus.commit (gene) finishes the running task unless
+  the top option is an emergency.
+
 - **Cloud speed (2026-09-27, run 36323172968, 8 game minutes each):** plain drawing plays at
   0.98x real time on GitHub's machines. A 10 fps cap drops it to exactly 0.50x: in 26.3 the
   client runs one tick per frame at most, so the cap caps the game. Lithium/FerriteCore/Sodium
