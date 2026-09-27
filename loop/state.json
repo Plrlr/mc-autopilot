@@ -381,6 +381,14 @@
    "n": 0,
    "sum": 0.0
   },
+  "pearls.boat_trap": {
+   "n": 0,
+   "sum": 0.0
+  },
+  "pearls.provoke_s": {
+   "n": 0,
+   "sum": 0.0
+  },
   "pearls.target": {
    "n": 0,
    "sum": 0.0
@@ -398,6 +406,10 @@
    "sum": 0.0
   },
   "reflex.burning_hp": {
+   "n": 0,
+   "sum": 0.0
+  },
+  "reflex.clutch_fall": {
    "n": 0,
    "sum": 0.0
   },
@@ -451,9 +463,9 @@
   }
  },
  "days": {
-  "2026-09-27": 9
+  "2026-09-27": 10
  },
- "gen": 9,
+ "gen": 10,
  "gene_specs": {
   "combat.backstep": {
    "def": 0.0,
@@ -686,6 +698,20 @@
    "max": 96.0,
    "min": 0.0
   },
+  "pearls.boat_trap": {
+   "def": 0.0,
+   "help": "trap endermen in a boat before killing them (they can't teleport or hit back)",
+   "kind": "BOOL",
+   "max": 1.0,
+   "min": 0.0
+  },
+  "pearls.provoke_s": {
+   "def": 25.0,
+   "help": "seconds to wait for a stared-at enderman to come into the boat",
+   "kind": "INT",
+   "max": 60.0,
+   "min": 8.0
+  },
   "pearls.target": {
    "def": 14.0,
    "help": "ender pearls to collect (14 eyes: 2-3 to triangulate, 12 for the frames)",
@@ -720,6 +746,13 @@
    "kind": "INT",
    "max": 20.0,
    "min": 4.0
+  },
+  "reflex.clutch_fall": {
+   "def": 4.0,
+   "help": "falling farther than this with a water bucket: pour it before landing",
+   "kind": "REAL",
+   "max": 12.0,
+   "min": 2.0
   },
   "reflex.creeper_dist": {
    "def": 7.0,
@@ -1040,6 +1073,46 @@
    ],
    "parent": "g0",
    "status": "rejected"
+  },
+  "g10": {
+   "born": 10,
+   "code": null,
+   "evals": [],
+   "genes": {
+    "death.recover_night_armor": 12.0,
+    "focus.commit": 1.0,
+    "plan.hide_hp": 15.0,
+    "route.armor_before_portal": 0.0
+   },
+   "id": "g10",
+   "mutated": [
+    "focus.commit"
+   ],
+   "note": "suggested: focus.commit 1, _retry dropped after 5 worlds by a too-hasty rule",
+   "pairs": [],
+   "parent": "g6",
+   "status": "contender"
+  },
+  "g11": {
+   "born": 10,
+   "code": null,
+   "evals": [],
+   "genes": {
+    "combat.crits": 1.0,
+    "death.recover_night_armor": 12.0,
+    "night.shelter_armor": 9.0,
+    "plan.hide_hp": 15.0,
+    "route.armor_before_portal": 0.0
+   },
+   "id": "g11",
+   "mutated": [
+    "combat.crits",
+    "night.shelter_armor"
+   ],
+   "note": "combat.crits 1, night.shelter_armor 9",
+   "pairs": [],
+   "parent": "g6",
+   "status": "contender"
   },
   "g2": {
    "born": 1,
@@ -2092,8 +2165,84 @@
  "model_keys": 47,
  "model_r2": 0.188,
  "model_rows": 5834,
- "next_id": 10,
- "pending": null,
+ "next_id": 12,
+ "pending": {
+  "data_tasks": [
+   {
+    "kind": "natural",
+    "seed": "D10-jrsqrv",
+    "stage": "spawn",
+    "synthetic": false
+   }
+  ],
+  "gen": 10,
+  "lineup": [
+   "g6",
+   "g10",
+   "g11"
+  ],
+  "runs": [
+   "eval-g6-0",
+   "eval-g6-1",
+   "eval-g6-2",
+   "eval-g6-3",
+   "eval-g6-4",
+   "eval-g10-0",
+   "eval-g10-1",
+   "eval-g10-2",
+   "eval-g10-3",
+   "eval-g10-4",
+   "eval-g11-0",
+   "eval-g11-1",
+   "eval-g11-2",
+   "eval-g11-3",
+   "eval-g11-4",
+   "data-g6-0"
+  ],
+  "seeds": [
+   "L10-swuea2",
+   "L10-rvy3nh",
+   "L10-4ezgw5",
+   "L10-4mbsjk",
+   "L10-23rvwg"
+  ],
+  "sha": "a8f7697b826a5e085f51ee5132566dd16783927f",
+  "started": "2026-09-27T20:05:36+00:00",
+  "tasks": [
+   {
+    "kind": "natural",
+    "seed": "L10-swuea2",
+    "stage": "spawn",
+    "synthetic": false
+   },
+   {
+    "kind": "natural",
+    "seed": "L10-rvy3nh",
+    "stage": "spawn",
+    "synthetic": false
+   },
+   {
+    "kind": "natural",
+    "seed": "L10-4ezgw5",
+    "stage": "spawn",
+    "synthetic": false
+   },
+   {
+    "asset": "kit-gen6-eval-g8-1.zip",
+    "kind": "start",
+    "seed": "L10-4mbsjk",
+    "stage": "kit",
+    "synthetic": false
+   },
+   {
+    "kind": "scenario",
+    "scenario": "stronghold",
+    "seed": "L10-23rvwg",
+    "stage": "eyes",
+    "synthetic": true
+   }
+  ]
+ },
  "settings": {
   "accept_pairs": 8,
   "accept_t": 2.0,
@@ -2119,6 +2268,13 @@
    },
    {
     "focus.commit": 1
+   },
+   {
+    "pearls.boat_trap": 1
+   },
+   {
+    "pearls.boat_trap": 1,
+    "route.barter": 1
    },
    {
     "route.diamond_portal": 1
@@ -2204,11 +2360,14 @@
   "night.shelter_max_s": 0.15,
   "night.shelter_radius": 0.15,
   "pearls.barter_ingots": 0.15,
+  "pearls.boat_trap": 0.15,
+  "pearls.provoke_s": 0.15,
   "pearls.target": 0.15,
   "plan.hide_hp": 0.1785,
   "plan.hostile_range": 0.108375,
   "plan.upkeep_calm_radius": 0.15,
   "reflex.burning_hp": 0.15,
+  "reflex.clutch_fall": 0.15,
   "reflex.creeper_dist": 0.15,
   "reflex.melee_dist": 0.15,
   "reflex.starving_food": 0.15,
@@ -2540,7 +2699,8 @@
  },
  "suggested": [
   "{\"focus.commit\": 1}",
-  "{\"route.diamond_portal\": 1}"
+  "{\"route.diamond_portal\": 1}",
+  "{\"_retry\": \"dropped after 5 worlds by a too-hasty rule\", \"focus.commit\": 1}"
  ],
  "version": 1
 }
