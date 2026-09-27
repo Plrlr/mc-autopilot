@@ -1,5 +1,7 @@
 package io.github.plrlr.autopilot.skills;
 
+import baritone.api.BaritoneAPI;
+import baritone.api.Settings;
 import baritone.api.pathing.goals.GoalNear;
 import baritone.api.pathing.goals.GoalXZ;
 import io.github.plrlr.autopilot.Items2;
@@ -86,6 +88,37 @@ public final class NetherSkills {
 		private int rodsBefore;
 		private boolean walking;
 
+		// Baritone settings changed while this skill runs, restored in cleanup.
+		private Boolean savedItemSaver;
+		private Double savedBreakPenalty, savedSpawnerAvoid;
+
+		/**
+		 * The first test walked a 200-block leg through solid netherrack near the roof and wore the
+		 * iron pickaxe out; without it the bot dug by hand. Here: stop using a tool before it
+		 * breaks, and in find mode make digging costly so open caves win over tunnels. In blazes
+		 * mode, Baritone's spawner avoidance (16 blocks) would keep us from the one place blazes
+		 * come to, so it's switched off.
+		 */
+		private void tuneBaritone() {
+			Settings st = BaritoneAPI.getSettings();
+			savedItemSaver = st.itemSaver.value;
+			st.itemSaver.value = true;
+			if (findMode) {
+				savedBreakPenalty = st.blockBreakAdditionalPenalty.value;
+				st.blockBreakAdditionalPenalty.value = 12.0;
+			} else {
+				savedSpawnerAvoid = st.mobSpawnerAvoidanceCoefficient.value;
+				st.mobSpawnerAvoidanceCoefficient.value = 1.0;
+			}
+		}
+
+		private void restoreBaritone() {
+			Settings st = BaritoneAPI.getSettings();
+			if (savedItemSaver != null) st.itemSaver.value = savedItemSaver;
+			if (savedBreakPenalty != null) st.blockBreakAdditionalPenalty.value = savedBreakPenalty;
+			if (savedSpawnerAvoid != null) st.mobSpawnerAvoidanceCoefficient.value = savedSpawnerAvoid;
+		}
+
 		@Override
 		public String name() {
 			return "fortress";
@@ -104,6 +137,7 @@ public final class NetherSkills {
 				return;
 			}
 			findMode = !"blazes".equals(argName());
+			tuneBaritone();
 			LocalPlayer pl = Mc.player();
 			if (findMode) {
 				timeoutTicks = 20 * 240;
@@ -264,6 +298,7 @@ public final class NetherSkills {
 		@Override
 		protected void cleanup() {
 			Mc.mc().options.keyUse.setDown(false);
+			restoreBaritone();
 			super.cleanup();
 		}
 	}
