@@ -124,14 +124,27 @@ public final class CombatSkills {
 					return;
 				}
 				if (ticks % 10 == 1) Bari.path(new GoalNear(target.blockPosition(), 1));
+				// Walking up to it: the shield comes down (a raised shield slows us to a crawl).
+				Mc.mc().options.keyUse.setDown(false);
 				return;
 			}
 			if (Bari.pathing()) Bari.stop();
 			Mc.lookAt(hitBox.getBoundingBox().getCenter());
-			// Wait for a full swing: spamming clicks does almost no damage.
+			// Wait for a full swing: spamming clicks does almost no damage. Between swings, hold the
+			// off-hand shield up toward the target: a raised shield stops melee hits and arrows from
+			// the front (batch 10: 13 of 25 deaths were melee, 6 arrows, the shield never raised).
+			var keyUse = Mc.mc().options.keyUse;
 			if (pl.getAttackStrengthScale(0.5f) >= 0.95f) {
+				if (pl.isUsingItem()) {
+					keyUse.setDown(false);
+					Mc.mc().gameMode.releaseUsingItem(pl);
+				}
 				Mc.mc().gameMode.attack(pl, hitBox);
 				Mc.swing();
+			} else if (Items2.id(pl.getOffhandItem()).equals("shield")
+					// Use goes to the main hand first: with food there it would eat instead.
+					&& (Items2.id(pl.getMainHandItem()).endsWith("_sword") || Items2.id(pl.getMainHandItem()).endsWith("_axe"))) {
+				keyUse.setDown(true);
 			}
 		}
 	}
