@@ -472,7 +472,10 @@ public final class Planner {
 	 * through tunnels got the bot shot and cornered in trials); on the surface, run.
 	 */
 	public static Option escape(String why) {
-		if (!onSurface() && Mc.count("throwaway") >= 6) return new Option("shelter", "heal", why + ": wall in and heal");
+		// Hiding only heals with 18+ hunger or food to eat; otherwise shelter heal fails at once and
+		// this would pick it again.
+		boolean canHeal = Mc.player().getFoodData().getFoodLevel() >= 18 || Mc.count(Items2.matcher("food")) > 0;
+		if (!onSurface() && canHeal && Mc.count("throwaway") >= 6) return new Option("shelter", "heal", why + ": wall in and heal");
 		return new Option("retreat", null, why);
 	}
 

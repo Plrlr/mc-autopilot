@@ -40,6 +40,13 @@ public final class NightSkills {
 		}
 
 		private int wallTries;
+		private boolean sealed;
+		private float sealHealth;
+
+		/** Healing behind blocks with every side closed: the only time the mob reflexes stand down. */
+		public boolean sealed() {
+			return phase == Phase.HEAL && sealed;
+		}
 
 		@Override
 		protected void start() {
@@ -187,14 +194,29 @@ public final class NightSkills {
 					}
 					// Closed in, or out of blocks or tries (a mob standing in the gap): heal anyway.
 					if (gap == null || ++wallTries > 30 || !Mc.holdItem(Items2.matcher("throwaway"))) {
+						// Sealed only if no spot around is open at all: a spot skipped because it
+						// overlaps our hitbox (standing off-center) is still a way in.
+						sealed = true;
+						for (BlockPos p : around) if (Mc.free(p)) sealed = false;
+						sealHealth = pl.getHealth();
 						phase = Phase.HEAL;
 						return;
 					}
 					Mc.placeAt(gap);
 				}
 				case HEAL -> {
-					// Health only comes back with 18+ hunger: eat while hiding if we can.
-					boolean hungry = pl.getFoodData().getFoodLevel() < 18 && Mc.count(Items2.matcher("food")) > 0;
+					// Health only comes back with 18+ hunger; with no food, waiting only lets monsters gather.
+					if (pl.getFoodData().getFoodLevel() < 18 && Mc.count(Items2.matcher("food")) == 0) {
+						fail(Fail.NEED_ITEM, "can't heal: hunger " + pl.getFoodData().getFoodLevel() + " and no food");
+						return;
+					}
+					// Something reaches us through the blocks: hiding isn't working, let the reflexes act.
+					if (pl.getHealth() < sealHealth - 2) {
+						fail(Fail.HAZARD, "hit while hiding (health " + Math.round(pl.getHealth()) + ")");
+						return;
+					}
+					sealHealth = Math.max(sealHealth, pl.getHealth());
+					boolean hungry = pl.getFoodData().getFoodLevel() < 18;
 					if (hungry) {
 						if (!Items2.matcher("food").test(pl.getMainHandItem())) Mc.holdItem(Items2.matcher("food"));
 						pl.setXRot(-90f);

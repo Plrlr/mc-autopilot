@@ -439,17 +439,21 @@ public final class Autopilot {
 		}
 		Perception.Seen h = seen.nearestHostile();
 		float hp = pl.getHealth();
-		// Walled in and healing: a monster on the other side of the blocks is no reason to break out.
-		boolean hiding = skill != null && skill.name().equals("shelter") && "heal".equals(skillOption.arg());
-		if (h != null && !h.type().equals("enderman") && !hiding) {
+		// Walled in on every side and healing: a monster beyond the blocks is no reason to break out.
+		// With a gap left (a mob standing in it) the reflexes still act; a creeper's blast breaks
+		// the wall either way (review R1: hiding used to turn off every reflex).
+		boolean hiding = skill instanceof io.github.plrlr.autopilot.skills.NightSkills.Shelter sh && sh.sealed();
+		boolean walling = !hiding && skill != null && skill.name().equals("shelter") && skillOption != null && "heal".equals(skillOption.arg());
+		if (h != null && !h.type().equals("enderman")) {
 			if (h.type().equals("creeper") && h.dist() < 5) {
 				startReflex(new Option("retreat", null, "creeper close"), "reflex_creeper");
 				return;
 			}
-			if (h.dist() < 3.5) {
+			if (!hiding && h.dist() < 3.5) {
 				// Same line as the planner's retreat (8): with 6 here, health 7-8 flipped between
-				// fighting and fleeing on every decision.
-				if (hp <= 8) startReflex(Planner.escape("low health"), "reflex_low_hp");
+				// fighting and fleeing on every decision. Already walling in with it next to us:
+				// starting the escape again would only restart the wall, so fight.
+				if (hp <= 8 && !walling) startReflex(Planner.escape("low health"), "reflex_low_hp");
 				else if (skill == null || !skill.name().equals("attack")) startReflex(new Option("attack", h.type(), "it's attacking"), "reflex_fight");
 				return;
 			}
