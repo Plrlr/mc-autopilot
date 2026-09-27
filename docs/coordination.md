@@ -241,6 +241,15 @@ fire, and the Nether has no water.
   burning. Let the Nether plan handle low health (`NetherPlan.fightInFortress` already marks
   blaze fights as the fortress skill's job).
 
+**Second blaze death (same cause), request for the cloud, small and blocking the Nether:**
+`fortress blazes:6` keeps getting taken over by the generic reflexes: `reflex_fight` (a blaze
+within 3.5 blocks, so `attack blaze` in the open) and `reflex_low_hp` (retreat while burning, died
+1.65 s later). The laptop's recovery inside `fortress` never runs. Please add a one-line hook in
+`Autopilot`: while the running skill is `fortress` in the Nether, skip `reflex_fight` and
+`reflex_low_hp` for blazes (keep lava and drowning). The laptop's skill then owns the fight: the
+off-hand shield raised toward the blaze (it blocks fireballs), a strike when the blaze comes within
+reach, and backing out of sight to eat when hurt or burning.
+
 **For the laptop (Nether lane):** docs/review.md section 2 lists what will likely break in the
 Nether: L4 (piglins and angry endermen are never fought: Perception marks them neutral), L5
 (blazes by melee only, no fire handling), L6 (fortress search is a random walk; a death in the
