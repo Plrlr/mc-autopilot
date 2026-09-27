@@ -3,10 +3,17 @@
 Let Claude Opus play **your own character** in a normal single-player Minecraft survival world
 and try to beat the game. Press **K** in your world, switch the autopilot on, and watch.
 
-**Where it stands (batch 9, rules brain, Easy):** it reliably gets wood and stone tools, and
-iron tools on 7 of 8 seeds in about 5½ game minutes. No natural run has reached the Nether yet;
-a staged test with a ready lava pool lit a portal and went through once. Everything past the
-Nether portal is code that no run has reached. Details in [Results so far](#results-so-far).
+**It teaches itself.** A learning loop runs on GitHub's free machines around the clock. Every
+generation plays fresh random worlds, races challengers against the current champion on the
+same worlds, and keeps only changes that clearly win: its tunable numbers, its own model
+trained on every decision it has made, and (capped, on your plan) small code changes written by
+Claude. Watch it live: **[plrlr.github.io/mc-autopilot](https://plrlr.github.io/mc-autopilot/)**.
+How it works: [docs/learning-loop.md](docs/learning-loop.md).
+
+**Where it stands (hand-tuned code, before the loop, Easy):** it reliably gets wood and stone
+tools, and iron tools on 7 of 8 seeds in about 6 game minutes. No natural run has reached the
+Nether yet; a staged test with a ready lava pool lit a portal and went through once. Everything
+past the Nether portal is code that no run has reached. Details in [Results so far](#results-so-far).
 
 - **Opus sets the goals.** Opus 5.5 decides what to work on ("get iron tools", "find a nether
   fortress") and changes course when something fails. Free rules work out the steps. Opus runs
