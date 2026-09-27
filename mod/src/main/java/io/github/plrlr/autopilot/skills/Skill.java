@@ -30,6 +30,16 @@ public abstract class Skill {
 		return true;
 	}
 
+	/**
+	 * True for skills that handle their own fighting, eating and dodging (the dragon fight): the
+	 * mob and hunger reflexes and the "hurt" / "mob near" decisions leave them alone. Lava and
+	 * drowning reflexes still act. (A "hurt" decision to eat stopped the dragon fight in the
+	 * breath cloud, and the bot died there.)
+	 */
+	public boolean ownsSafety() {
+		return false;
+	}
+
 	protected abstract void start();
 
 	protected abstract void tick();

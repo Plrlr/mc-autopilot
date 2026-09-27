@@ -196,7 +196,7 @@ public final class CombatSkills {
 				fail(Fail.NEED_ITEM, "need a bow and arrows");
 				return;
 			}
-			Perception.Seen s = Perception.look(64).nearest(arg == null ? "" : arg);
+			Perception.Seen s = Perception.look(96).nearest(arg == null ? "" : arg);
 			if (s == null) {
 				fail(Fail.NOT_FOUND, "no " + arg + " in sight");
 				return;

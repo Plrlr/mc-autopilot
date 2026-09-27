@@ -464,6 +464,7 @@ public final class Autopilot {
 			log.event("reflex", "drowning");
 			return;
 		}
+		if (skill != null && skill.ownsSafety()) return;
 		Perception.Seen h = seen.nearestHostile();
 		float hp = pl.getHealth();
 		// The fortress fight owns every mob in the fortress: it chases blazes, hits whatever is in
@@ -663,7 +664,7 @@ public final class Autopilot {
 			requestDecision("idle");
 			return;
 		}
-		if (skillIsReflex) return;
+		if (skillIsReflex || skill.ownsSafety()) return;
 		// The blaze fight handles getting hurt itself (it backs off out of sight to eat). A "hurt"
 		// decision picked eat and stopped it in the open while burning: the laptop's blaze run
 		// after e2e2ffe died that way 30 s in.

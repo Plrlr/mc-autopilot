@@ -43,6 +43,11 @@ public final class DragonFight extends Skill {
 	}
 
 	@Override
+	public boolean ownsSafety() {
+		return true;
+	}
+
+	@Override
 	protected void start() {
 		timeoutTicks = 20 * 60 * 15;
 		if (!Mc.dimension().equals("the_end")) {
@@ -95,13 +100,31 @@ public final class DragonFight extends Skill {
 		}
 		var phase = d.getPhaseManager().getCurrentPhase();
 		boolean down = phase.isSitting() || phase.getPhase() == EnderDragonPhase.LANDING;
+		// Eat while it's in the air (the test runs sat at 5 health with 32 steak in the bag).
+		boolean hungry = pl.getFoodData().getFoodLevel() < 20 && Mc.count(Items2::isAnyFood) > 0;
+		if (hungry && pl.getHealth() <= Tune.i("dragon.eat_hp") && (!down || pl.distanceTo(d.head) > 8)) {
+			say("eating");
+			if (Bari.pathing()) Bari.stop();
+			if (!Items2.isAnyFood(pl.getMainHandItem())) Mc.holdItem(Items2::isAnyFood);
+			Mc.mc().options.keyUse.setDown(true);
+			return;
+		}
+		if (!Items2.id(pl.getMainHandItem()).endsWith("_sword")) {
+			Mc.mc().options.keyUse.setDown(false);
+			CombatSkills.holdWeapon();
+		}
 		if (!down) {
 			// 2. It's in the air: wait near the fountain for it to land, shield toward it when close.
 			say("waiting for it to land");
 			o.keyJump.setDown(false);
+			// Wait a little way out: the fountain is where it lands and breathes (the first fight
+			// stood right beside it and lost most of its health there).
+			double wait = Tune.get("dragon.wait_dist");
 			double toSpot = horizontal(pl.position(), center);
-			if (toSpot > 7 || toSpot < 3) {
-				if (!Bari.pathing()) Bari.path(new GoalNear(center.offset(5, 0, 0), 1));
+			if (toSpot > wait + 3 || toSpot < wait - 3) {
+				int x = (int) Math.round(wait);
+				int y = pl.level().getHeight(Heightmap.Types.MOTION_BLOCKING, x, 0);
+				if (!Bari.pathing()) Bari.path(new GoalNear(new BlockPos(x, y, 0), 1));
 				Mc.mc().options.keyUse.setDown(false);
 				return;
 			}

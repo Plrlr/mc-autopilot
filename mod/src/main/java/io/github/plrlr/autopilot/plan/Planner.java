@@ -192,7 +192,8 @@ public final class Planner {
 			case KILL_DRAGON -> {
 				if (!dim.equals("the_end")) return depth > 2 ? null : goalStep(Goal.ENTER_END, seen, depth + 1);
 				boolean bow = Mc.count("bow") > 0 && Mc.count("arrow") > 0;
-				if (bow && seen.nearest("end_crystal") != null) return new Option("shoot", "end_crystal", "crystals heal the dragon; destroy them first");
+				// Crystals stand high on the pillars, beyond the usual 32-block look: look farther.
+				if (bow && Perception.look(96).nearest("end_crystal") != null) return new Option("shoot", "end_crystal", "crystals heal the dragon; destroy them first");
 				// The fight itself is one deterministic skill: stay off the edges and out of the
 				// breath, wait by the fountain, hit the head while it sits (skills/DragonFight).
 				return new Option("dragon", null, "fight the dragon: wait by the fountain, hit its head when it lands");
