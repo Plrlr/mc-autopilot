@@ -3,6 +3,7 @@ package io.github.plrlr.autopilot.plan;
 import io.github.plrlr.autopilot.Items2;
 import io.github.plrlr.autopilot.Mc;
 import io.github.plrlr.autopilot.skills.CastPortal;
+import io.github.plrlr.autopilot.skills.MoveSkills;
 import io.github.plrlr.autopilot.skills.SmeltSkill;
 import io.github.plrlr.autopilot.skills.Station;
 import io.github.plrlr.autopilot.state.Perception;
@@ -44,7 +45,7 @@ public final class Planner {
 		// surface (trees, animals, walking to explore): go back up the way we came first.
 		boolean deep = !onSurface() && Mc.dimension().equals("overworld") && memory.surfaceEntry() != null
 				&& memory.surfaceEntry().getY() - Mc.player().getBlockY() > 8;
-		if (lostUnderground || (deep && needsSurface(main)))
+		if ((lostUnderground || (deep && needsSurface(main))) && !MoveSkills.Goto.surfaceBlocked())
 			out.putIfAbsent("goto surface", new Option("goto", "surface",
 					lostUnderground ? "a minute underground without progress: back up the way we came" : "the next step is on the surface"));
 		for (Option o : upkeep(seen, main)) out.putIfAbsent(o.label(), o);
@@ -343,7 +344,8 @@ public final class Planner {
 
 	/**
 	 * Iron ingots the fast route still needs: iron pickaxe 3, iron sword 2, shield 1, two
-	 * buckets 3 each (water, and lava to cast the portal), flint and steel 1.
+	 * buckets 3 each (water, and lava to cast the portal), flint and steel 1. Then chestplate 8
+	 * and helmet 5 for the portal step, as a second trip.
 	 */
 	public static int ironStillNeeded() {
 		int n = 0;
@@ -352,8 +354,12 @@ public final class Planner {
 		if (Mc.count("shield") == 0) n += 1;
 		n += 3 * Math.max(0, 2 - Goal.have("bucket"));
 		if (Mc.count("flint_and_steel") == 0) n += 1;
-		if (!Goal.hasArmor("iron_chestplate")) n += 8;
-		if (!Goal.hasArmor("iron_helmet")) n += 5;
+		// Armor in the first batch doubled the ore to 26 before anything was smelted, and iron
+		// tools fell from 6/8 runs to 4/8 (batch 11).
+		if (n == 0) {
+			if (!Goal.hasArmor("iron_chestplate")) n += 8;
+			if (!Goal.hasArmor("iron_helmet")) n += 5;
+		}
 		// Iron already in a furnace we left cooking is on its way.
 		return Math.max(0, n - SmeltSkill.pending("iron_ingot"));
 	}
@@ -434,10 +440,15 @@ public final class Planner {
 
 	/** Items dropped at the last death, while they still exist (they vanish after 5 minutes). */
 	private Option recoverStep() {
-		if (memory.nearest("death") == null) return null;
+		WorldMemory.Seen death = memory.nearest("death");
+		if (death == null) return null;
 		// Not back into the dark without armor: the monsters that killed us are still there, and
 		// batch 10's runs died 4-6 times each walking back (goto death interrupted 86 times).
 		if (Mc.dimension().equals("overworld") && Mc.isNight() && Mc.player().getArmorValue() < 10) return null;
+		// Not back down a mine without a stone pickaxe: a trip down there can't climb out again
+		// (batch 11, seed d: four deaths at y 0-11, then 12 minutes of goto surface STUCK at y 2).
+		// Rebuilding the tools takes about a minute; the items keep for five.
+		if (death.pos().getY() < Mc.player().getBlockY() - 12 && Items2.bestTier("pickaxe") < 1) return null;
 		return new Option("goto", "death", "get back the items dropped when we died");
 	}
 
