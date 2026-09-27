@@ -172,3 +172,51 @@ overworld test world. New scenarios need a small `stage()` case in `AutopilotCli
 
 The two cheapest and most informative first: `craft ender_eye:2` (no new harness code) and the
 `end` scenario without a bow, which answers whether the speedrun route can win at all without L1.
+
+## 3. Whole-repo check (cloud up to 9980cfe, laptop up to b1cedc7)
+
+Read with docs/outside-review-2.txt in mind; points it already makes (main is stale, A/B batches,
+docs drift) aren't repeated here.
+
+### W1. Blaze fights were owned by two pieces of code (fixed, e2e2ffe on review/docs)
+Both local blaze runs died burning: `reflex_fight` and `reflex_low_hp` in `Autopilot` took the
+fight away from `fortress blazes:n`, so its back-off-and-eat never ran. Now a blaze doesn't
+trigger those two reflexes while `fortress` runs in the Nether. The laptop needs to merge
+review/docs before its next loop run.
+
+### W2. Armor before the portal changes the speedrun route (cloud, high, process)
+9980cfe (outside review A2) makes the portal step craft an iron chestplate and helmet first
+(+13 iron, ~1 more mining and smelting trip). CLAUDE.md still says the rules skip rung 5 and
+cast the portal right after iron tools, and the README says the same. It's a reasonable bet
+(deaths lose the buckets), but it's a route change bundled with three other changes in one
+commit. Measure it as an A/B pair (B1) against the old route, then update CLAUDE.md and the
+README to whichever wins.
+
+### W3. At night, 3 wool can switch off the shelter (cloud, medium)
+`Planner.java:405` (cloud head): `else if (mostOfOneColor("wool") >= 3)` sits between `if (bed)`
+and the shelter branch. If `itemStep("bed")` returns null or an explore, nothing is added and the
+shelter option is skipped for the whole night. Fix: take that branch only when it produced a
+craft option, else fall through to the shelter check.
+
+### W4. 21 skills; CLAUDE.md says 20 max (cloud + laptop, low-medium)
+`fortress` made the menu 21 (`Skills.java`). The cap exists to keep the tactician's prompt and
+enum short. Either raise the cap in CLAUDE.md on purpose or fold `fortress` into an existing
+skill's arguments.
+
+### W5. The trial loop repeats a known death (laptop, medium, cost)
+The loop ran again after a death with a known cause and died the same way. Suggest
+`trial-loop.ps1` stop after two deaths in a row with the same cause (the `death` event's detail),
+and ping the reviewer, instead of spending game time and the user's tokens.
+
+### W6. "Lost in a cave" can't fire while digging (cloud, low)
+`Autopilot.cave()` counts any growth of the inventory total as progress. Baritone digging through
+stone picks up cobblestone, so a bot tunneling around aimlessly never counts as lost. Count a
+finished skill that got what it wanted, or entering an unvisited 64-block region, instead.
+
+### Branches
+- The cloud is 2 commits behind the laptop, and 7 laptop-side commits aren't on the cloud yet;
+  W1's fix is only on review/docs. Next cloud merge should take both.
+- `review/proposals` is obsolete (the cloud's 4b3ff50 did R1 and R2 its own way); it can be
+  deleted.
+- Fair play checked: the fortress sweep (`NetherSkills.look`) uses line-of-sight rays that stop
+  at the first block or fluid, the same rule as WorldMemory.

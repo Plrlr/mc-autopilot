@@ -232,6 +232,15 @@ R2 stone count) are superseded by the cloud's 4b3ff50; `review/docs` now carries
    Suggest: use the job's furnace and add ours on top (my 89f3f47 had a version of this).
 3. R3 still stands: the next batch carries several untested behavior changes.
 
+**Whole-repo check, 2026-09-27 (docs/review.md section 3):**
+- Done: e2e2ffe on review/docs, the fortress reflex hook (W1). **Laptop: merge review/docs before
+  the next loop run. Cloud: take it in your next merge.**
+- Cloud: W2 armor-before-portal is a route change; measure it A/B, then update CLAUDE.md and the
+  README. W3 `Planner.java:405`: 3 wool at night can switch off the shelter option. W6 "lost in
+  a cave" never fires while Baritone digs (cobblestone counts as progress).
+- Laptop: W5 make `trial-loop.ps1` stop after two deaths in a row with the same cause.
+- Both: W4 the menu is at 21 skills, and CLAUDE.md says 20 max.
+
 **Nether death, local `blaze` run (2026-09-26 21:06, laptop log `run-2026-09-26.jsonl`):**
 "burned to a crisp while fighting Blaze". 3 rods in ~2 min, but health sat at 6-13 the whole
 time: after every kill, `fortress blazes:6` restarted at once (hp 9, 7, ...). Then
