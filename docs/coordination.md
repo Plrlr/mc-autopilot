@@ -25,7 +25,6 @@ B1, B2, B5, B6 to the cloud; B3/B4 are the user's call.
 
 ## Claims
 
-- CLAIM mod/src/main/java/io/github/plrlr/autopilot/Autopilot.java - review (one-line fortress reflex hook)
 - CLAIM mod/src/main/java/io/github/plrlr/autopilot/skills/NetherSkills.java - laptop (new file)
 - CLAIM mod/src/main/java/io/github/plrlr/autopilot/plan/NetherPlan.java - laptop (new file)
 - CLAIM mod/src/gametest/java/io/github/plrlr/autopilot/test/AutopilotClientTest.java - laptop (new
