@@ -165,29 +165,20 @@ Minecraft. It writes README.md, docs/review.md, this section and `scripts/plot_p
 makes small fixes only in unclaimed files. Findings with file, line and a suggested fix are in
 docs/review.md (R = review of recent commits, L = late-game readiness).
 
-Updated 2026-09-26. Reviewed cloud up to 5cd7e5c, laptop up to 4cf3fb3.
+Updated 2026-09-27. Reviewed cloud up to 4b3ff50, laptop up to 4cf3fb3.
 
-**Changes (on `review/docs`, merge freely):**
-- 89f3f47 `skills/SmeltSkill.java` (unclaimed): **smelt jobs survive interruptions** (the
-  laptop's request 10: a creeper retreat during a collect trip dropped the job with 12 ingots
-  cooking). Interrupted or died keeps the job minus what was taken; raw iron in the bag while a
-  load cooks tops up that furnace (R4); jobs are timed in level game time, not the player's
-  `tickCount` (laptop request 5). Compiled, unit tests pass, not played yet. It is one behavior
-  change: measure it on its own if you can.
+**Changes:** none open. My smelt fix (89f3f47) and the proposals on `review/proposals` (R1 hiding,
+R2 stone count) are superseded by the cloud's 4b3ff50; `review/docs` now carries the cloud's code.
 
-**Proposals for the cloud (branch `review/proposals`, in files you've claimed, so not merged
-into `review/docs`; take them, change them or drop them):**
-1. 225e103 `plan/Planner.java`, R2: side work asks for `BLOCKS_NEEDED - throwaway` stone, not
-   the bag's stone counted twice. One line.
-2. d0c2909 `Autopilot.java`, `plan/Planner.java`, `skills/NightSkills.java`, R1 plus the
-   laptop's requests 2-4: the mob reflexes stand down only while HEAL has every side closed
-   (off-center gaps count as open); the creeper retreat always runs; while walling in with a mob
-   next to us at <= 8 health, fight instead of restarting the escape; leave HEAL when hit or
-   when hungry with no food; `Planner.escape` offers hiding only when healing is possible.
-   Compiled, unit tests pass, not played. Suggest a task test (`shelter heal`, give
-   `cobblestone 16`, a zombie summoned in a tunnel) before a batch.
-3. R3 still stands: the next batch carries several untested behavior changes. Measure them one
-   at a time or as noise twins.
+**For the cloud (SmeltSkill, R4 still open):**
+1. A collect trip that fails with TIMEOUT, NO_PROGRESS, UNREACHABLE or USE_FAILED keeps the job
+   (cleanup drops it only on ok or NOT_FOUND). An empty or stalled furnace then draws repeated
+   collect trips, and `pending("iron_ingot")` keeps lowering the iron the planner mines.
+   Suggest: keep the job only on INTERRUPTED and DIED (minus what was taken), drop it otherwise.
+2. Raw iron in the bag while a load cooks: a normal smelt may open the job's furnace, take its
+   output and count its ingredients as `alreadyIn`, loading none of ours and looping short trips.
+   Suggest: use the job's furnace and add ours on top (my 89f3f47 had a version of this).
+3. R3 still stands: the next batch carries several untested behavior changes.
 
 **For the laptop (Nether lane):** docs/review.md section 2 lists what will likely break in the
 Nether: L4 (piglins and angry endermen are never fought: Perception marks them neutral), L5

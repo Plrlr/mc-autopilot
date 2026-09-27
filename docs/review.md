@@ -11,7 +11,7 @@ Reviewed: fc5502f..f7df235 on the cloud branch (15 commits) and d3ea19a and 9151
 laptop-only commits. Nothing here has been run; the findings come from reading the code.
 
 ### R1. Hiding turns off every combat reflex, even when the wall-in failed (cloud, high)
-Status: proposal d0c2909 on `review/proposals` (Autopilot.java and Planner.java are claimed by the cloud).
+Status: done by the cloud in 4b3ff50, its own version (creeper reflex kept, centering, fail on an open side or continued damage). My proposal d0c2909 is superseded.
 - `mod/.../Autopilot.java:443`: `hiding` is true for the whole `shelter heal` skill, and while it
   is true the hostile branch is skipped completely, including the creeper retreat and the
   point-blank fight.
@@ -30,7 +30,7 @@ Status: proposal d0c2909 on `review/proposals` (Autopilot.java and Planner.java 
   to a zombie that's been summoned in, in a tunnel.
 
 ### R2. Side work asks for far too much stone (cloud, medium)
-Status: proposal 225e103 on `review/proposals`.
+Status: done by the cloud in 4b3ff50.
 - `mod/.../plan/Planner.java:309`: `collect stone:<Mc.count("stone") + BLOCKS_NEEDED - throwaway>`.
   `collect item:n` means *n more* (`CollectSkill.java:93`: `now - before >= want`), so the
   stone we already carry is counted twice. With 30 stone in the bag the bot goes to mine 30+
@@ -51,7 +51,7 @@ Status: proposal 225e103 on `review/proposals`.
   say so in docs/batches.md.
 
 ### R4. A leftover smelt job can loop or starve the iron count (cloud, medium)
-Status: fixed in 89f3f47 on `review/docs` (SmeltSkill.java), together with the laptop's live-run bug (an interrupted collect dropped the job).
+Status: partly done. The cloud's 4b3ff50 keeps the job on interrupts and times it by the wall clock; it replaced my 89f3f47. Still open: the top-up case (raw iron in the bag while a load cooks), and a collect trip that fails with TIMEOUT, NO_PROGRESS, UNREACHABLE or USE_FAILED keeps the job, so the planner can send the bot back to an empty or stuck furnace again and again, and `pending` keeps lowering the iron it mines.
 - `mod/.../skills/SmeltSkill.java:127-145`: a normal smelt that opens the furnace where a job is
   still cooking takes the job's output (line 128) and counts the job's remaining ingredients as
   `alreadyIn`. If `alreadyIn >= want` it loads none of our raw iron, overwrites the job with the
