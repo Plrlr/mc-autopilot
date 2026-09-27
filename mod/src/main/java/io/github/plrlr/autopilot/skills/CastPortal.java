@@ -27,7 +27,7 @@ import java.util.List;
  * a portal frame doesn't need them.
  */
 public final class CastPortal extends Skill {
-	private enum Phase {SITE, APPROACH, CARVE, WALL, NEXT, FETCH, WALK, LAVA, POUR, SCOOP, REFILL, BREAK, CLEAR, LIGHT}
+	private enum Phase {SITE, APPROACH, CARVE, DIGIN, WALL, NEXT, FETCH, WALK, LAVA, POUR, SCOOP, REFILL, BREAK, CLEAR, LIGHT}
 
 	/** Frame width 4 (x 0..3), height 5 (y 0..4); the wall behind also covers y 5 for the water. */
 	private static final int WALL_H = 6;
@@ -55,6 +55,7 @@ public final class CastPortal extends Skill {
 	private int castFails;
 	private int approachTicks = 20 * 45;
 	private int carveTries;
+	private boolean dugIn;
 
 	private record Plan(BlockPos stand, CastGeometry.Aim lava, CastGeometry.Aim water) {}
 
@@ -142,7 +143,7 @@ public final class CastPortal extends Skill {
 						return;
 					}
 					if (!findSite(pl.blockPosition())) {
-						if (!startCarve(pl)) fail(Fail.NO_ROOM, "no flat open ground for a portal near the lava");
+						if (!startCarve(pl) && !startDigIn(pl)) fail(Fail.NO_ROOM, "no flat open ground for a portal near the lava");
 						return;
 					}
 				}
@@ -156,7 +157,7 @@ public final class CastPortal extends Skill {
 				}
 				if (wait > 10 && !Bari.pathing()) {
 					if (!findSite(pl.blockPosition())) {
-						if (!startCarve(pl)) fail(Fail.NO_ROOM, "no flat open ground for a portal near the lava");
+						if (!startCarve(pl) && !startDigIn(pl)) fail(Fail.NO_ROOM, "no flat open ground for a portal near the lava");
 						return;
 					}
 					phase = Phase.WALL;
@@ -172,6 +173,22 @@ public final class CastPortal extends Skill {
 				if (wait > 20 && !Bari.get().getBuilderProcess().isActive()) {
 					if (!findSite(pl.blockPosition())) {
 						if (!startCarve(pl)) fail(Fail.NO_ROOM, "dug a room but the portal still doesn't fit");
+						return;
+					}
+					phase = Phase.WALL;
+					wait = 0;
+				}
+			}
+			case DIGIN -> {
+				// Dug down into the ground beside the pool: now there's rock for a room.
+				if (++wait > 20 * 40) {
+					Bari.stop();
+					fail(Fail.NO_ROOM, "couldn't dig down beside the lava");
+					return;
+				}
+				if (wait > 20 && !Bari.pathing()) {
+					if (!findSite(pl.blockPosition())) {
+						if (!startCarve(pl)) fail(Fail.NO_ROOM, "dug in, but no room for the portal down here");
 						return;
 					}
 					phase = Phase.WALL;
@@ -590,6 +607,23 @@ public final class CastPortal extends Skill {
 		return false;
 	}
 
+	/**
+	 * On the surface with no flat spot (generation 4: build_portal NO_ROOM x15, lava pools on uneven
+	 * ground): dig 4 blocks down right here, as a player would, and carve the room from there.
+	 */
+	private boolean startDigIn(LocalPlayer pl) {
+		if (dugIn || !pl.level().canSeeSky(pl.blockPosition().above())) return false;
+		BlockPos feet = pl.blockPosition();
+		for (int dy = 1; dy <= 5; dy++) {
+			if (!Mc.state(feet.below(dy)).getFluidState().isEmpty()) return false; // water or lava below
+		}
+		dugIn = true;
+		Bari.path(new GoalBlock(feet.getX(), feet.getY() - 4, feet.getZ()));
+		phase = Phase.DIGIN;
+		wait = 0;
+		return true;
+	}
+
 	private static boolean carvable(BlockPos o, Direction a) {
 		Direction front = a.getClockWise();
 		for (int x = 0; x < 4; x++) {
@@ -613,7 +647,7 @@ public final class CastPortal extends Skill {
 	}
 
 	private static boolean findSite(BlockPos feet) {
-		for (int r = 2; r <= 12; r++) {
+		for (int r = 2; r <= 16; r++) {
 			for (int dx = -r; dx <= r; dx++) {
 				for (int dz = -r; dz <= r; dz++) {
 					if (Math.max(Math.abs(dx), Math.abs(dz)) != r) continue;
