@@ -436,15 +436,23 @@ public final class Planner {
 		}
 		if (Mc.dimension().equals("overworld") && Mc.isNight()) {
 			boolean bed = Mc.count("bed") > 0 || memory.nearestStation("bed") != null;
+			boolean addedBedStep = false;
 			// Sleeping skips the night and sets the respawn point: always worth it.
-			if (bed) out.add(new Option("sleep", null, "sleep through the night"));
-			// No bed but the wool for one: make it now rather than dig in or fight all night.
-			else if (Items2.mostOfOneColor("wool") >= 3) {
+			if (bed) {
+				out.add(new Option("sleep", null, "sleep through the night"));
+				addedBedStep = true;
+			} else if (Items2.mostOfOneColor("wool") >= 3) {
+				// No bed but the wool for one: make it now rather than dig in or fight all night.
 				Option o = itemStep("bed", 1, 0);
-				if (o != null && !o.skill().equals("explore")) out.add(new Option(o.skill(), o.arg(), "night: make a bed (" + o.why() + ")"));
+				if (o != null && !o.skill().equals("explore")) {
+					out.add(new Option(o.skill(), o.arg(), "night: make a bed (" + o.why() + ")"));
+					addedBedStep = true;
+				}
 			}
-			// On the surface with little armor, monsters win at night; underground or armored, keep working.
-			else if (onSurface() && pl.getArmorValue() < 10 && seen.hostilesWithin(16) > 0)
+			// On the surface with little armor, monsters win at night; underground or armored, keep
+			// working. Also falls through here when there was wool but itemStep couldn't turn it
+			// into a real step (W3: 3 wool used to silently switch off shelter too).
+			if (!addedBedStep && onSurface() && pl.getArmorValue() < 10 && seen.hostilesWithin(16) > 0)
 				out.add(new Option("shelter", null, "night with monsters around and little armor"));
 		}
 		return out;

@@ -89,12 +89,20 @@ public final class SmeltSkill extends Skill {
 		input = Items2.matcher(in);
 		int have = Mc.count(input);
 		Job j = job(output);
-		if (have == 0 && j != null) {
-			// Back for a load we left cooking: go to that furnace, wait for the rest, take it all.
-			collecting = true;
-			loaded = true;
-			want = j.count();
+		if (j != null) {
+			// A load is already cooking - possibly at the nearest furnace itself (R4.2): go to it
+			// by position and add any raw iron we're carrying on top of what's already there, via
+			// the normal load-and-wait logic below (it may finish topping up and leave it cooking
+			// again, or fall through to waiting it out). The old code always used the nearest
+			// furnace and read whatever was already loaded there as "ours," so a normal smelt often
+			// loaded none of what we were carrying and reported a short, misleading result.
+			want = j.count() + have;
 			before = Mc.count(output);
+			if (have == 0) {
+				// Nothing of ours to add: just wait here for what's cooking and collect it all.
+				collecting = true;
+				loaded = true;
+			}
 			timeoutTicks = 20 * (90 + want * 11);
 			station = new Station("furnace", AbstractFurnaceMenu.class, memory, j.pos());
 			return;
@@ -231,9 +239,11 @@ public final class SmeltSkill extends Skill {
 	protected void cleanup() {
 		// The job ends when we collected it or the furnace is gone. An interrupted trip (a creeper,
 		// a death) keeps it: dropping it lost 12 ingots in a laptop run and sent the bot back
-		// underground for 12 more raw iron.
+		// underground for 12 more raw iron. But TIMEOUT/NO_PROGRESS/UNREACHABLE/USE_FAILED mean
+		// something is actually wrong reaching or using this furnace (R4): keeping the job there
+		// only draws repeated collect trips while pending(output) keeps the iron budget too low.
 		Result r = result();
-		if (collecting && r != null && (r.ok() || r.code() == Fail.NOT_FOUND)) JOBS.remove(output);
+		if (collecting && r != null && r.code() != Fail.INTERRUPTED && r.code() != Fail.DIED) JOBS.remove(output);
 		LocalPlayer pl = Mc.player();
 		if (pl != null && pl.containerMenu != pl.inventoryMenu) pl.closeContainer();
 		super.cleanup();

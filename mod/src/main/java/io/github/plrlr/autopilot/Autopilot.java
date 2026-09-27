@@ -742,12 +742,18 @@ public final class Autopilot {
 
 	/**
 	 * "Lost in a cave": underground over a minute and nothing gained (no item picked up, no
-	 * skill finished well). The planner then puts goto surface first.
+	 * skill finished well). The planner then puts goto surface first. Cobblestone, stone, dirt
+	 * and the rest of THROWAWAY don't count as a gain (W6): Baritone picks them up by the
+	 * dozen while it digs or branch-mines through anything, which kept resetting the clock and
+	 * meant "lost" never fired even while genuinely wandering with nothing useful found.
 	 */
 	private void cave() {
 		if (tick % 20 != 0) return;
 		int total = 0;
-		for (var st : Mc.player().getInventory().getNonEquipmentItems()) total += st.getCount();
+		for (var st : Mc.player().getInventory().getNonEquipmentItems()) {
+			if (Items2.THROWAWAY.contains(Items2.id(st))) continue;
+			total += st.getCount();
+		}
 		if (total > lastItemTotal) lastGainTick = tick;
 		lastItemTotal = total;
 		planner.lostUnderground = memory.undergroundTicks(tick) > 20 * 60 && tick - lastGainTick > 20 * 60;
