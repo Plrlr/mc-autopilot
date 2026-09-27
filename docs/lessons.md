@@ -57,6 +57,16 @@ workflow's unit-tests job compiles and tests in about a minute, the trial jobs t
   nothing gained puts it first.
 - **Smelt jobs:** keep a job through an interrupted collect trip (a creeper cost 12 ingots in a
   laptop run); time jobs by the wall clock, not tickCount (resets on respawn).
+- **The way down a mine is one way.** Baritone digs straight down and drops up to 3 blocks;
+  climbing back needs a pickaxe or blocks to pillar. Empty-handed after a death, a trip back to
+  a deep death spot stranded the bot at y 2 (batch 11). Any skill that can fail the same way
+  again needs a back-off, or the rules pick it forever.
+- **A skill's "ok" must be checked from the world.** retreat said "got away" whenever Baritone
+  stopped, even with no path and no step taken (99 times in one run, batch 11).
+- **Creepers only light their fuse with line of sight**, so one behind a wall is no threat.
+  Perception sees mobs within 6 blocks through walls (so zombies around a corner count).
+- **Route changes ride alone.** Armor before the portal went into batch 11 with the death fixes,
+  doubled the first iron trip to 26 ore, and hid what the death fixes did to iron times.
 
 ## Open problems (next candidates)
 
