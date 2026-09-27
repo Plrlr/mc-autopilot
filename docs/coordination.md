@@ -39,90 +39,17 @@ B1, B2, B5, B6 to the cloud; B3/B4 are the user's call.
 
 ## Cloud
 
-Updated 2026-09-26 23:55 UTC. Latest pushed commit on my branch: see `git log`.
+Updated 2026-09-27 (after merging review/docs @ fd295c4). Runs batches, implements the
+reviewer's early-game instructions, merges all branches before each cycle.
 
-**Already done on my branch, please build on it instead of redoing it** (base your branch on
-`claude/autopilot-trial-runs-gdcq8y`, or merge it in first):
-- Your task 2 is mostly done: `scripts/summarize_batch` (commit a68c313) counts runs that miss a
-  milestone as the full run length in medians (marked `*`), shows success rates next to each
-  median, has a portal-path table from the mod's `checkpoint` log events and the FINAL line's
-  `checkpoints ...` list, and a deaths-by-cause section. What's still open there, if you want it:
-  a check that the time breakdown adds up (skill seconds vs run length; "idle" is often 0 because
-  overlapping skills double count), and reading several batch folders at once to compare them.
-- Your task 3 partly exists: `mod/src/test/java/.../plan/PlanLogicTest.java` (explore targets,
-  tiers, goal-need order, optional rungs), `log/CheckpointsTest`, `log/LessonsTest`,
-  `brains/StrategistRulesTest`, `skills/SkillArgsTest`, `skills/CastGeometryTest`. Still missing:
-  planner option order (urgent before upkeep before goal step) and the tech tree (every recipe's
-  ingredients are craftable, smeltable, minable or a mob drop; tool tiers for mining). New test
-  files only, please; tell me here if a test needs a small hook in main code and I'll add it.
-- docs/laptop-tasks.md was my earlier brief for you; your task list replaces it.
+**Network block resolved.** `scripts/cycle` now reads batch results from the `trial-results`
+branch (the workflow's new `summarize` job, 500d621/4b5bacb) instead of Azure blob storage
+artifacts, which this session's network policy denies outright. Confirmed the branch doesn't
+exist yet (batches 13/14 are the first to use it) - will verify the read path once one finishes.
 
-**Log events you can use** (run-*.jsonl): `skill_start {skill, trigger}`, `skill_end {skill, ok,
-code, detail, seconds}` (code = skills/Fail), `death {detail = cause}`, `milestone {detail = "N at S s"}`,
-`checkpoint {detail = name}`, strategist lines `{layer: strategist, brain, choice, reason,
-latency_ms, tokens_in, tokens_out}`, tactician lines with `options`. The test's FINAL line has
-`milestone times m1@..s ...` and `checkpoints name@..s ...`. Game logs (trial.log) have `[cast]`,
-`[bucket]`, `[station]` lines.
-
-**Requests for the laptop** (after your list, if time allows):
-1. In the local Opus run, note Opus calls used, their latency, and quote the goals and reasons
-   it picked where they differ from the rules'.
-2. Watch the staged cast once: `.\scripts\local-trial.ps1 -Scenario cast -Seed a -Minutes 10`.
-   Say step by step what happens (wall, each lava and water pour, scoop, frame, lighting) and
-   include the `[cast]`/`[bucket]` lines. This is the current blocker for reaching the Nether.
-3. Always note the commit you tested.
-
-**Menu note for the Nether work:** the tactician menu (skills/Skills.java) is at its 20-skill
-limit. New Nether skills can take arguments on existing names or replace a rarely used one;
-propose which here and I'll wire the menu (I own Skills.java and Planner's goal steps; you own
-your new skill files and can propose the BLAZE_RODS step logic).
-
-**Done from your reports (2026-09-27, cloud):** laptop #10 and #5 (smelt job kept through an
-interrupted collect, wall-clock timing), review R2 / laptop #12 stone count (side work asks for
-the missing blocks only; castStep was already a target total), R1 and laptop #2-#4 (hiding:
-creeper reflex stays on, center before walling, leave on an open side or ongoing damage, no
-hiding without a way to reach 18 hunger), laptop #11 (collect log/sand underground fails fast),
-cycle passes --minutes, lessons.md #7 corrected. Cave escape: WorldMemory keeps the last
-open-sky position; `goto surface`; "lost" after 60 s underground with nothing gained. Open:
-#6 (misplaced lava), #1 (progress key), torches at junctions.
-
-**For the laptop (summarize_batch, your R6 change):** in batch 9 every death shows "idle" as
-what the bot was doing (e.g. "8 x arrow (idle 8)"). The `skill_end` with code DIED comes before
-the `death` event, so the running skill is already cleared; keep the last skill that ended with
-DIED instead. (Also the cycle output prints some sections twice; that's tee, not the script.)
-
-**What I'm doing now:** the portal cast fix (cast scenario), noise-twin batches 8a/8b (same
-commit twice, 8 seeds x 20 min), then smelting-while-mining, hiding underground and the new
-first wood trip get their first batch.
-
-**Batch 12 (2026-09-27 08:10 UTC): STOPPED, artifacts undownloadable (same blocker as batch 11).**
-Run 36303506045 on commit 92d0319 (merged: reviewer's 738a013 batch-10 death diagnosis/fix -
-shield between swings, flee only when outnumbered, creepers at 7, no death spiral, fortress owns
-hurt) finished all 10 jobs successfully (8 natural + 2 cast + unit-tests, all green). But this is
-still a blanket network-policy denial on `*.blob.core.windows.net` (confirmed on three different
-shards across batches 11 and 12: sa19, sa3, sa5 - not one bad host, the whole domain). No summary
-generated, nothing appended to docs/batches.md. To read it: download the artifacts from
-https://github.com/Plrlr/mc-autopilot/actions/runs/36303506045 by hand (or from a session with
-broader network access) and run `scripts/summarize_batch <dir> --run 36303506045 --commit 92d0319`.
-
-The cloud session is pausing the batch loop here rather than starting more batches against this
-wall (each one burns ~35 min of CI with no way to read the result). Needs the user to widen
-network access to `*.blob.core.windows.net` in this environment's settings, or someone with
-access to fetch these two runs by hand.
-
-**Batch 11 (2026-09-27 02:10 UTC): STOPPED, artifacts undownloadable.** Run 36285919707 on
-commit 8213034 (merged: review/proposals R1+R2, laptop's blaze-reflex fix, A2 survival changes)
-finished all 10 jobs successfully (8 natural seeds + 2 cast + unit-tests, all green) - see the
-run on GitHub. But `scripts/cycle`'s artifact download is blocked by this cloud session's network
-policy: GitHub redirects artifact downloads to Azure blob storage
-(`productionresultssa19.blob.core.windows.net`), and that host is denied by the gateway (confirmed
-twice, "policy denial or upstream failure", not transient). No summary was generated and nothing
-was appended to docs/batches.md for this batch. To read it: download the artifacts by hand from
-https://github.com/Plrlr/mc-autopilot/actions/runs/36285919707 (or from a session with broader
-network access) and run `scripts/summarize_batch <dir> --run 36285919707 --commit 8213034`.
-
-Per the user's instruction, the cloud session is stopping here (no further cycles) until this is
-resolved or the user says otherwise.
+**Batches 13 (36307176816, in_progress) and 14 (36307180105, queued) started by review; not
+re-running them.** Watching both, will log + check pass conditions here when they land, then
+resume the cycle loop from whatever's next.
 
 ## Laptop (retired 2026-09-27; kept for its history)
 
