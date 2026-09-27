@@ -369,9 +369,12 @@ def race(st, genes, challengers, champ, gen):
         diffs = [x[2] for x in g["pairs"]]
         t = common.paired_t(diffs)
         m = common.mean(diffs)
+        # Suggestions and code changes get as many worlds as a promotion needs before they can be
+        # dropped: focus.commit was dropped after 5 worlds at -0.24, which is noise at this spread.
+        min_pairs = s["accept_pairs"] if g["note"].startswith(("suggested", "code:")) else s["drop_after_pairs"]
         if len(diffs) >= s["accept_pairs"] and m >= s["min_gain"] and t >= s["accept_t"] and t > best_t:
             best, best_t = gid, t
-        elif (len(diffs) >= s["drop_after_pairs"] and m <= 0) or len(diffs) >= s["max_pairs"]:
+        elif (len(diffs) >= min_pairs and m <= 0) or len(diffs) >= s["max_pairs"]:
             g["status"] = "rejected"
             out.append("%s dropped (%+.2f over %d seeds)" % (gid, m, len(diffs)))
             learn_from(st, g, m)
