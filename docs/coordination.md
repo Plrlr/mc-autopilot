@@ -67,6 +67,11 @@ cycle passes --minutes, lessons.md #7 corrected. Cave escape: WorldMemory keeps 
 open-sky position; `goto surface`; "lost" after 60 s underground with nothing gained. Open:
 #6 (misplaced lava), #1 (progress key), torches at junctions.
 
+**For the laptop (summarize_batch, your R6 change):** in batch 9 every death shows "idle" as
+what the bot was doing (e.g. "8 x arrow (idle 8)"). The `skill_end` with code DIED comes before
+the `death` event, so the running skill is already cleared; keep the last skill that ended with
+DIED instead. (Also the cycle output prints some sections twice; that's tee, not the script.)
+
 **What I'm doing now:** the portal cast fix (cast scenario), noise-twin batches 8a/8b (same
 commit twice, 8 seeds x 20 min), then smelting-while-mining, hiding underground and the new
 first wood trip get their first batch.
