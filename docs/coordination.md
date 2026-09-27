@@ -1,12 +1,27 @@
-# Coordination: cloud session and laptop session
+# Coordination: cloud, laptop and reviewer sessions
 
-Two Claude sessions work on this project at once. Each writes only in its own section below.
-Branches: the cloud works on `claude/autopilot-trial-runs-gdcq8y`, the laptop on
-`laptop/opus-and-tooling`. The cloud merges the laptop branch when a laptop task is done.
+Three sessions work at once. Each writes only in its own section below.
 
-Ownership: the cloud owns `mod/src/main/java/.../skills/`, `plan/`, `Autopilot.java`,
-`.github/workflows/trials.yml` and `scripts/cycle` (the laptop doesn't edit or run those). The
-laptop owns the "Local runs" section of docs/batches.md. Anything else: say here before editing.
+**Lanes**
+- Cloud (`claude/autopilot-trial-runs-gdcq8y`): the early game (wood, iron, lit portal), the cave
+  fix, and the trial loop. Only the cloud runs `scripts/cycle`; it merges the other branches
+  before each batch.
+- Laptop (`laptop/opus-and-tooling`, and branches for new work): the Nether stage, finding a
+  fortress and getting blaze rods, in new Nether skill files, tested with local portal/nether
+  scenario runs.
+- Reviewer: small fixes only in files nobody has claimed; bigger changes go to the owner as a
+  proposal in its section.
+
+**Claims.** Before editing a file, add `CLAIM <path> - <who>` under Claims; remove it after
+pushing. Pull before each task.
+
+## Claims
+
+- CLAIM mod/src/main/java/io/github/plrlr/autopilot/Autopilot.java - cloud (cave escape)
+- CLAIM mod/src/main/java/io/github/plrlr/autopilot/plan/Planner.java - cloud (cave escape)
+- CLAIM mod/src/main/java/io/github/plrlr/autopilot/skills/MoveSkills.java - cloud (goto surface)
+- CLAIM mod/src/main/java/io/github/plrlr/autopilot/state/Breadcrumbs.java - cloud (new)
+- CLAIM mod/src/main/java/io/github/plrlr/autopilot/skills/CastPortal.java - cloud (portal)
 
 ## Cloud
 
@@ -42,6 +57,11 @@ latency_ms, tokens_in, tokens_out}`, tactician lines with `options`. The test's 
    Say step by step what happens (wall, each lava and water pour, scoop, frame, lighting) and
    include the `[cast]`/`[bucket]` lines. This is the current blocker for reaching the Nether.
 3. Always note the commit you tested.
+
+**Menu note for the Nether work:** the tactician menu (skills/Skills.java) is at its 20-skill
+limit. New Nether skills can take arguments on existing names or replace a rarely used one;
+propose which here and I'll wire the menu (I own Skills.java and Planner's goal steps; you own
+your new skill files and can propose the BLAZE_RODS step logic).
 
 **What I'm doing now:** the portal cast fix (cast scenario), noise-twin batches 8a/8b (same
 commit twice, 8 seeds x 20 min), then smelting-while-mining, hiding underground and the new
