@@ -37,10 +37,41 @@ nothing command-like, and compile. The change races like a gene change; a winner
 main. At most 3 calls a day. Needs the `CLAUDE_CODE_OAUTH_TOKEN` secret (below); without it the
 loop runs levels 1 and 2 only.
 
+## The road to the dragon (long-term design, 2026-09-27)
+
+Tuning numbers can't give the bot abilities it lacks, and 20-minute runs from spawn only ever
+practice the first 20 minutes. Five pieces make the whole game learnable:
+
+1. **Checkpoint bank (Go-Explore).** A run that first reaches a stage saves the world: portal kit,
+   Nether, 6 blaze rods, 12 eyes, stronghold found, the End (gametest `Bank.java`). The zips live in
+   the `checkpoints` release (40 per stage, real ones before staged). Go-Explore solved hard
+   exploration games by returning to states it had reached and exploring from there; this is
+   the same idea. https://arxiv.org/abs/1901.10995
+2. **Stage curriculum.** Every genome also plays 2 stage starts per generation: the frontier (the
+   first stage runs don't get past half the time) and one later stage, from real saves or, until
+   those exist, the staged scenario (cast, nether, stronghold, end; labeled synthetic). Stage runs
+   score only what they gain after the start. The race, the model and the code step all see
+   late-game play from the first day.
+3. **Code where the game is lost.** Claude's code step (level 3) gets the frontier stage's
+   failures first, and the files for the skills that failed. Stuck handling shows the kind of
+   change genes can't make: a moving skill that stays inside a 2-block square for 12 s is aborted
+   and the unstuck reflex swims, walks, tunnels or climbs out (user's idea, `Unstuck.java`).
+4. **Marathons** (`marathon.yml`, every 8 hours): the champion plays 2 game hours from a fresh
+   world with no staged starts. The honest number, and the source of real late-game checkpoints.
+5. **A model that covers the whole game.** The learned brain's features include blaze rods,
+   pearls, eyes, gold, known fortress/portal/frame and the dragon, and its progress measure
+   rewards them, so data from stage runs trains it for the late game too.
+
+Next, when the frontier reaches them: gene groups per stage (Nether and End thresholds), a quick
+screening test for code changes before they race (cheap first, like AlphaEvolve's evaluation
+cascade), and more parallel seeds once the cloud's speed is fixed (the renderer sets it:
+~0.63x in 20-minute runs).
+
 ## One generation (`.github/workflows/loop.yml`)
 1. **propose** (`loop.py propose`): the champion, the challengers still racing, and new mutants
    (1-3 genes each; mostly children of the champion, sometimes of another strong genome from the
-   archive), each on the same 4 fresh random seeds, plus 2 data runs. 18 machines.
+   archive), each on the same tasks: 4 fresh random seeds and 2 stage starts; plus 2 data runs.
+   20 machines (GitHub's limit at once).
 2. **trial**: each run plays 20 game minutes of plain vanilla drawing, which already keeps up
    with real time on the cloud (0.98x). A 10 fps cap halved the game speed, so it isn't used.
 3. **update**: scores every run (`common.score_run`: points per milestone and portal step, up to
