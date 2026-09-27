@@ -274,7 +274,9 @@ public final class Planner {
 			if (o != null) return new Option(o.skill(), o.arg(), "gold helmet for trading with piglins: " + o.why());
 		}
 		int budget = Tune.i("pearls.barter_ingots");
-		boolean piglin = seen.nearest("piglin") != null;
+		// Same test as the skill (adult, in sight): a baby or a piglin behind a wall made barter fail
+		// "no adult piglin in sight" 14 times in the second barter test.
+		boolean piglin = io.github.plrlr.autopilot.skills.Barter.piglinToTrade();
 		if (Mc.count("gold_ingot") > 0 && piglin) return new Option("barter", null, "trade gold with the piglins for pearls");
 		if (io.github.plrlr.autopilot.skills.Barter.traded() + Mc.count("gold_ingot") < budget) {
 			Option o = itemStep("gold_ingot", Math.min(budget - io.github.plrlr.autopilot.skills.Barter.traded(), 16), depth + 1);

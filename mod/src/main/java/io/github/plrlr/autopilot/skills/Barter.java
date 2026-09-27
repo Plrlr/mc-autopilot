@@ -65,6 +65,13 @@ public final class Barter extends Skill {
 		goldBefore = Mc.count("gold_ingot");
 	}
 
+	/** An adult piglin in sight within 24 blocks: the same test the planner uses to pick barter. */
+	public static boolean piglinToTrade() {
+		for (Entity e : Mc.mc().level.entitiesForRendering())
+			if (tradable(e) && e.distanceTo(Mc.player()) < 24) return true;
+		return false;
+	}
+
 	private static boolean tradable(Entity e) {
 		return e instanceof Piglin p && p.isAlive() && !p.isBaby() && Mc.canSee(p);
 	}
