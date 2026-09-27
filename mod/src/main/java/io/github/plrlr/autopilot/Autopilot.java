@@ -278,6 +278,7 @@ public final class Autopilot {
 		checkStrategy();
 		cave();
 		reflexes(pl);
+		guard(pl);
 
 		if (skill != null) {
 			skill.update();
@@ -539,6 +540,50 @@ public final class Autopilot {
 				&& (skill == null || !skill.name().equals("eat"))) {
 			startReflex(new Option("eat", null, "starving"), "reflex_hunger");
 		}
+	}
+
+	/** True while guard() holds the shield up (so it lets go of the key itself afterwards). */
+	private boolean guarding;
+
+	/**
+	 * Shield guard (gene combat.shield_guard): skeleton arrows and creeper blasts caused 67 of 181
+	 * deaths in generations 6-9, and a raised shield facing them stops both. A creeper about to
+	 * blow within 5 blocks: everything pauses, face it, block. A skeleton drawing its bow at us in
+	 * sight within 20: face it and block, but only while we're not walking a path (looking at the
+	 * skeleton would steer Baritone off it) or fighting.
+	 */
+	private void guard(LocalPlayer pl) {
+		var o = Mc.mc().options;
+		net.minecraft.world.entity.Entity threat = null;
+		boolean creeper = false;
+		if (Tune.on("combat.shield_guard") && Items2.id(pl.getOffhandItem()).equals("shield")
+				&& !Items2.isAnyFood(pl.getMainHandItem()) && !Items2.id(pl.getMainHandItem()).contains("bucket")
+				&& (skill == null || !java.util.Set.of("eat", "clutch", "build_portal", "fill_bucket", "place", "barter",
+				"enderman_boat", "unstuck", "shelter", "sleep", "craft", "smelt").contains(skill.name()))) {
+			boolean still = skill == null || !Bari.pathing() || skill.name().equals("attack");
+			for (var e : Mc.mc().level.entitiesForRendering()) {
+				double d = e.distanceTo(pl);
+				if (e instanceof net.minecraft.world.entity.monster.Creeper c && d < 5 && (c.isIgnited() || c.getSwellDir() > 0)) {
+					threat = c;
+					creeper = true;
+					break;
+				}
+				if (still && threat == null && e instanceof net.minecraft.world.entity.monster.skeleton.AbstractSkeleton sk && d < 20
+						&& sk.isUsingItem() && Mc.canSee(sk)) threat = sk;
+			}
+		}
+		if (threat == null) {
+			if (guarding) {
+				o.keyUse.setDown(false);
+				guarding = false;
+			}
+			return;
+		}
+		if (creeper && Bari.pathing()) Bari.stop();
+		if (!guarding) log.event("guard", (creeper ? "creeper" : "skeleton") + " at " + Math.round(threat.distanceTo(pl)));
+		guarding = true;
+		Mc.lookAt(threat.getBoundingBox().getCenter());
+		o.keyUse.setDown(true);
 	}
 
 	private void startReflex(Option o, String trigger) {

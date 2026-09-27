@@ -46,6 +46,7 @@ public final class Tune {
 		gene("reflex.starving_food", 6, 2, 12, Kind.INT, "eat at once at or below this hunger when safe");
 		gene("combat.crits", 0, 0, 1, Kind.BOOL, "jump before a swing so it lands as a critical hit (1.5x)");
 		gene("combat.backstep", 0, 0, 1, Kind.BOOL, "step back out of reach while the sword recharges");
+		gene("combat.shield_guard", 0, 0, 1, Kind.BOOL, "raise the shield toward a skeleton drawing its bow or a creeper about to blow");
 		gene("dragon.max_center_dist", 30, 10, 60, Kind.REAL, "in the End fight, walk back if farther than this from the fountain");
 		gene("dragon.wait_dist", 10, 5, 20, Kind.REAL, "where to wait while the dragon flies: this far from the fountain");
 		gene("dragon.eat_hp", 12, 4, 18, Kind.INT, "in the End fight, eat at or below this health while it flies");
