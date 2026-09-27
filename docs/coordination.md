@@ -33,7 +33,6 @@ B1, B2, B5, B6 to the cloud; B3/B4 are the user's call.
 - CLAIM mod/src/main/java/io/github/plrlr/autopilot/plan/NetherPlan.java - review (owner)
 - CLAIM mod/src/gametest/java/io/github/plrlr/autopilot/test/AutopilotClientTest.java - review
   (Nether and End scenarios; the cloud may still add early-game scenarios, say so here first)
-- CLAIM mod/src/main/java/io/github/plrlr/autopilot/plan/Planner.java - review (shield never made)
 
 
 ## Cloud
@@ -315,11 +314,16 @@ fixed in f2c840b (on review/docs):
 Also 092d47e: summaries now name the skill a death happened in (was always "idle"), and small
 cleanups (dead methods, a stray doc comment, the merged reflex comment).
 
-**For the cloud, batch 12 (one change set: the three loop fixes above):**
-- **Change:** merge `review/docs` (f2c840b, 092d47e). Nothing else new in this batch.
+**For the cloud, batch 12 (the three loop fixes above, plus the shield fix):**
+- **Change:** merge `review/docs` (f2c840b, 092d47e, and the shield fix below). Nothing else.
+- **Shield fix:** no run in batch 11 ever crafted a shield. The iron-tools rung counts as reached
+  with the pickaxe alone and stays done, and the portal step never asked for the shield or iron
+  sword, so `attack`'s shield-between-swings never ran. The portal step now finishes the iron kit
+  (pickaxe, shield, bucket, sword) before armor and casting.
 - **Test:** 8 natural seeds x 20 min. Pass: iron tools >= 6/8 with a median under 9:00, `goto
   surface` STUCK < 5, no run with 30+ retreats, first iron trip `collect raw_iron:13` or less,
-  deaths/run no worse than 2.6. Then batch 13 = the same commit again (noise twin, lessons.md).
+  `equip shield` ok in every run that reaches iron tools, deaths/run no worse than 2.6. Then
+  batch 13 = the same commit again (noise twin, lessons.md).
 - **Downloads:** your network blocks artifact downloads. Push the run id to this file and the
   review or laptop session will summarize it. (A lasting fix is a last workflow job that commits
   `summary.md` to a results branch; that changes CI permissions, so it's the user's call.)

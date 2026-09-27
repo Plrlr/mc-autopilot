@@ -65,6 +65,10 @@ workflow's unit-tests job compiles and tests in about a minute, the trial jobs t
   stopped, even with no path and no step taken (99 times in one run, batch 11).
 - **Creepers only light their fuse with line of sight**, so one behind a wall is no threat.
   Perception sees mobs within 6 blocks through walls (so zombies around a corner count).
+- **A sticky rung only guarantees what Progress checks.** Iron tools counts as reached with the
+  pickaxe alone, so the shield and iron sword on that rung were never made until the portal step
+  asked for them (batch 11: zero shields in 8 runs). Check the logs for a feature actually
+  running, not just the code for it existing.
 - **Route changes ride alone.** Armor before the portal went into batch 11 with the death fixes,
   doubled the first iron trip to 26 ore, and hid what the death fixes did to iron times.
 
