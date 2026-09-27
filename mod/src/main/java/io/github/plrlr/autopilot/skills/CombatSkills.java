@@ -11,6 +11,9 @@ import net.minecraft.world.entity.boss.enderdragon.EnderDragon;
 import net.minecraft.world.entity.boss.enderdragon.EnderDragonPart;
 import net.minecraft.world.phys.Vec3;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /** Melee and bow skills. */
 public final class CombatSkills {
 	private CombatSkills() {}
@@ -184,6 +187,78 @@ public final class CombatSkills {
 	 * Tries the pitches from low to high and keeps the flattest one that lands within half a block;
 	 * for a moving target, aims where it will be after the flight time. Null if out of range.
 	 */
+	/**
+	 * Every arc that lands on the target, flattest first: {yaw, pitch, flight ticks}. Flat shots
+	 * and lobs both; the caller picks the first whose path is clear (a crystal on a wide pillar
+	 * can only be hit by a lob or from far away: flat shots from nearby hit the pillar's edge).
+	 */
+	public static List<float[]> ballisticSolutions(Vec3 eye, Vec3 target) {
+		List<float[]> out = new ArrayList<>();
+		double dx = target.x - eye.x, dz = target.z - eye.z, dy = target.y - (eye.y - 0.1);
+		double h = Math.hypot(dx, dz);
+		float yaw = (float) Math.toDegrees(Math.atan2(-dx, dz));
+		double prevErr = Double.NaN, prevPitch = 0;
+		for (double pitch = -60; pitch <= 85; pitch += 0.5) {
+			double err = heightError(pitch, h, dy, null);
+			// A sign change between two pitches brackets a hit: bisect it down to the exact pitch.
+			if (!Double.isNaN(err) && !Double.isNaN(prevErr) && Math.signum(err) != Math.signum(prevErr)) {
+				double lo = prevPitch, hi = pitch, elo = prevErr;
+				for (int i = 0; i < 30; i++) {
+					double mid = (lo + hi) / 2, em = heightError(mid, h, dy, null);
+					if (Double.isNaN(em)) break;
+					if (Math.signum(em) == Math.signum(elo)) {
+						lo = mid;
+						elo = em;
+					} else hi = mid;
+				}
+				int[] ticks = new int[1];
+				heightError((lo + hi) / 2, h, dy, ticks);
+				out.add(new float[]{yaw, (float) -((lo + hi) / 2), ticks[0]});
+			}
+			prevErr = err;
+			prevPitch = pitch;
+		}
+		return out;
+	}
+
+	/** Arrow height minus target height when the arrow reaches horizontal distance h (NaN: never). */
+	private static double heightError(double pitch, double h, double dy, int[] ticksOut) {
+		double rad = Math.toRadians(pitch);
+		double vx = Math.cos(rad) * 3.0, vy = Math.sin(rad) * 3.0, x = 0, y = 0;
+		for (int t = 1; t <= 200; t++) {
+			double nx = x + vx, ny = y + vy;
+			if (nx >= h) {
+				// Interpolate within the tick: the arrow crosses h partway through it.
+				double f = (h - x) / (nx - x);
+				if (ticksOut != null) ticksOut[0] = t;
+				return y + (ny - y) * f - dy;
+			}
+			x = nx;
+			y = ny;
+			vx *= 0.99;
+			vy = vy * 0.99 - 0.05;
+		}
+		return Double.NaN;
+	}
+
+	/** True if an arrow flown on this arc reaches near the target without hitting a block first. */
+	public static boolean clearPath(net.minecraft.world.level.Level level, Vec3 eye, Vec3 target, float[] rot, Entity shooter) {
+		double yaw = Math.toRadians(rot[0]), pitch = Math.toRadians(-rot[1]);
+		double vh = Math.cos(pitch) * 3.0;
+		Vec3 v = new Vec3(-Math.sin(yaw) * vh, Math.sin(pitch) * 3.0, Math.cos(yaw) * vh);
+		Vec3 p = eye.add(0, -0.1, 0);
+		for (int t = 0; t < 160; t++) {
+			Vec3 next = p.add(v);
+			if (next.distanceTo(target) < 1.5 || p.distanceTo(target) < 1.5) return true;
+			var hit = level.clip(new net.minecraft.world.level.ClipContext(p, next, net.minecraft.world.level.ClipContext.Block.COLLIDER,
+					net.minecraft.world.level.ClipContext.Fluid.NONE, shooter));
+			if (hit.getType() != net.minecraft.world.phys.HitResult.Type.MISS) return hit.getLocation().distanceTo(target) < 1.5;
+			p = next;
+			v = new Vec3(v.x * 0.99, v.y * 0.99 - 0.05, v.z * 0.99);
+		}
+		return false;
+	}
+
 	public static float[] ballisticAim(Vec3 eye, Vec3 target, Vec3 targetVel) {
 		Vec3 aim = target;
 		float[] best = null;
@@ -224,6 +299,7 @@ public final class CombatSkills {
 		private Entity target;
 		private int drawTicks;
 		private int shots;
+		private int blocked;
 
 		@Override
 		public String name() {
@@ -263,7 +339,35 @@ public final class CombatSkills {
 			LocalPlayer pl = Mc.player();
 			// Aim by simulating the arrow (the old d^2/360 guess missed every crystal on its pillar),
 			// leading a moving target by where it will be when the arrow gets there.
-			float[] rot = ballisticAim(pl.getEyePosition(), target.getBoundingBox().getCenter(), target.getDeltaMovement());
+			Vec3 aimAt = target.getBoundingBox().getCenter();
+			float[] rot = null;
+			if (target.getDeltaMovement().lengthSqr() > 0.01) {
+				// Moving (the dragon): lead it on the flattest arc.
+				rot = ballisticAim(pl.getEyePosition(), aimAt, target.getDeltaMovement());
+			} else {
+				// Still (a crystal): the first arc, flat or lobbed, whose path is clear of blocks.
+				for (float[] r : ballisticSolutions(pl.getEyePosition(), aimAt)) {
+					if (clearPath(pl.level(), pl.getEyePosition(), aimAt, r, pl)) {
+						rot = r;
+						break;
+					}
+				}
+				if (rot == null) {
+					// No clear arc from here (the pillar's edge is in the way): back off to ~28 blocks
+					// out on the ground, where flatter shots clear it.
+					Mc.mc().options.keyUse.setDown(false);
+					drawTicks = 0;
+					if (++blocked == 10) {
+						Vec3 away = pl.position().subtract(aimAt).multiply(1, 0, 1);
+						Vec3 spot = aimAt.add(away.normalize().scale(28));
+						int y = pl.level().getHeight(net.minecraft.world.level.levelgen.Heightmap.Types.MOTION_BLOCKING, (int) spot.x, (int) spot.z);
+						Bari.path(new GoalNear(new BlockPos((int) spot.x, y, (int) spot.z), 2));
+					}
+					if (blocked > 20 * 30) fail(Fail.UNREACHABLE, "no clear shot at the " + arg);
+					return;
+				}
+				if (Bari.pathing()) Bari.stop();
+			}
 			if (rot == null) {
 				fail(Fail.UNREACHABLE, "out of bow range");
 				return;

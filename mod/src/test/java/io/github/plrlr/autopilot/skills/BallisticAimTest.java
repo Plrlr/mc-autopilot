@@ -46,6 +46,16 @@ class BallisticAimTest {
 	}
 
 	@Test
+	void findsAFlatShotAndALob() {
+		Vec3 eye = new Vec3(0, 64.62, 0);
+		Vec3 crystal = new Vec3(30, 90, 20);
+		var sols = CombatSkills.ballisticSolutions(eye, crystal);
+		assertTrue(sols.size() >= 2, "flat and lobbed arcs, got " + sols.size());
+		for (float[] r : sols) assertTrue(miss(eye, crystal, r) < 1.0, "an arc misses by " + miss(eye, crystal, r));
+		assertTrue(sols.get(0)[1] > sols.get(sols.size() - 1)[1], "flattest first (higher pitch value = lower aim)");
+	}
+
+	@Test
 	void outOfRangeGivesNull() {
 		assertNull(CombatSkills.ballisticAim(new Vec3(0, 64, 0), new Vec3(400, 64, 0), Vec3.ZERO));
 	}
