@@ -1,6 +1,14 @@
 {
  "champion": "g0",
  "credit": {
+  "combat.backstep": {
+   "n": 0,
+   "sum": 0.0
+  },
+  "combat.crits": {
+   "n": 0,
+   "sum": 0.0
+  },
   "combat.flee_hp": {
    "n": 0,
    "sum": 0.0
@@ -10,6 +18,10 @@
    "sum": -0.18249999999999986
   },
   "death.recover_night_armor": {
+   "n": 0,
+   "sum": 0.0
+  },
+  "dragon.max_center_dist": {
    "n": 0,
    "sum": 0.0
   },
@@ -45,9 +57,21 @@
    "n": 0,
    "sum": 0.0
   },
+  "gather.coal_y": {
+   "n": 0,
+   "sum": 0.0
+  },
   "gather.first_logs": {
    "n": 1,
    "sum": -2.8285
+  },
+  "gather.iron_in_view": {
+   "n": 0,
+   "sum": 0.0
+  },
+  "gather.iron_y": {
+   "n": 0,
+   "sum": 0.0
   },
   "gather.log_stock": {
    "n": 0,
@@ -77,7 +101,15 @@
    "n": 0,
    "sum": 0.0
   },
+  "night.mine_instead": {
+   "n": 0,
+   "sum": 0.0
+  },
   "night.shelter_armor": {
+   "n": 0,
+   "sum": 0.0
+  },
+  "night.shelter_max_s": {
    "n": 0,
    "sum": 0.0
   },
@@ -139,10 +171,24 @@
   }
  },
  "days": {
-  "2026-09-27": 3
+  "2026-09-27": 4
  },
- "gen": 3,
+ "gen": 4,
  "gene_specs": {
+  "combat.backstep": {
+   "def": 0.0,
+   "help": "step back out of reach while the sword recharges",
+   "kind": "BOOL",
+   "max": 1.0,
+   "min": 0.0
+  },
+  "combat.crits": {
+   "def": 0.0,
+   "help": "jump before a swing so it lands as a critical hit (1.5x)",
+   "kind": "BOOL",
+   "max": 1.0,
+   "min": 0.0
+  },
   "combat.flee_hp": {
    "def": 8.0,
    "help": "at or below this health, run when outnumbered (reflex and planner share it)",
@@ -163,6 +209,13 @@
    "kind": "INT",
    "max": 20.0,
    "min": 0.0
+  },
+  "dragon.max_center_dist": {
+   "def": 30.0,
+   "help": "in the End fight, walk back if farther than this from the fountain",
+   "kind": "REAL",
+   "max": 60.0,
+   "min": 10.0
   },
   "food.eat_at": {
    "def": 14.0,
@@ -215,10 +268,17 @@
   },
   "gather.coal_view_dist": {
    "def": 12.0,
-   "help": "coal ore this close counts as in view",
+   "help": "coal (and iron) ore this close counts as in view",
    "kind": "INT",
    "max": 24.0,
    "min": 4.0
+  },
+  "gather.coal_y": {
+   "def": 45.0,
+   "help": "height to branch-mine coal at",
+   "kind": "INT",
+   "max": 96.0,
+   "min": 0.0
   },
   "gather.first_logs": {
    "def": 2.0,
@@ -226,6 +286,20 @@
    "kind": "INT",
    "max": 6.0,
    "min": 1.0
+  },
+  "gather.iron_in_view": {
+   "def": 0.0,
+   "help": "take iron ore in view while the route still needs iron",
+   "kind": "BOOL",
+   "max": 1.0,
+   "min": 0.0
+  },
+  "gather.iron_y": {
+   "def": 16.0,
+   "help": "height to branch-mine iron at (16: most ore, most caves)",
+   "kind": "INT",
+   "max": 64.0,
+   "min": -16.0
   },
   "gather.log_stock": {
    "def": 8.0,
@@ -276,12 +350,26 @@
    "max": 30.0,
    "min": 5.0
   },
+  "night.mine_instead": {
+   "def": 0.0,
+   "help": "at night, skip the shelter when the next step is mining underground anyway",
+   "kind": "BOOL",
+   "max": 1.0,
+   "min": 0.0
+  },
   "night.shelter_armor": {
    "def": 10.0,
    "help": "at night on the surface, shelter if armor is below this",
    "kind": "INT",
    "max": 20.0,
    "min": 0.0
+  },
+  "night.shelter_max_s": {
+   "def": 720.0,
+   "help": "longest wait in a night shelter before going back to work",
+   "kind": "INT",
+   "max": 720.0,
+   "min": 60.0
   },
   "night.shelter_radius": {
    "def": 16.0,
@@ -965,30 +1053,143 @@
  "model_r2": -0.628,
  "model_rows": 3473,
  "next_id": 8,
- "pending": null,
+ "pending": {
+  "data_tasks": [
+   {
+    "kind": "natural",
+    "seed": "D4-bshhs2",
+    "stage": "spawn",
+    "synthetic": false
+   }
+  ],
+  "gen": 4,
+  "lineup": [
+   "g0",
+   "g4",
+   "g6"
+  ],
+  "runs": [
+   "eval-g0-0",
+   "eval-g0-1",
+   "eval-g0-2",
+   "eval-g0-3",
+   "eval-g0-4",
+   "eval-g4-0",
+   "eval-g4-1",
+   "eval-g4-2",
+   "eval-g4-3",
+   "eval-g4-4",
+   "eval-g6-0",
+   "eval-g6-1",
+   "eval-g6-2",
+   "eval-g6-3",
+   "eval-g6-4",
+   "data-g0-0"
+  ],
+  "seeds": [
+   "L4-ztyfvd",
+   "L4-za5ahu",
+   "L4-7svx2q",
+   "L4-vkn6n8",
+   "L4-52sgrg"
+  ],
+  "sha": "2c5b25307030c670d500004a81011a62e4ce7745",
+  "started": "2026-09-27T16:15:43+00:00",
+  "tasks": [
+   {
+    "kind": "natural",
+    "seed": "L4-ztyfvd",
+    "stage": "spawn",
+    "synthetic": false
+   },
+   {
+    "kind": "natural",
+    "seed": "L4-za5ahu",
+    "stage": "spawn",
+    "synthetic": false
+   },
+   {
+    "kind": "natural",
+    "seed": "L4-7svx2q",
+    "stage": "spawn",
+    "synthetic": false
+   },
+   {
+    "kind": "scenario",
+    "scenario": "cast",
+    "seed": "L4-vkn6n8",
+    "stage": "kit",
+    "synthetic": true
+   },
+   {
+    "kind": "scenario",
+    "scenario": "stronghold",
+    "seed": "L4-52sgrg",
+    "stage": "eyes",
+    "synthetic": true
+   }
+  ]
+ },
  "settings": {
   "accept_pairs": 8,
   "accept_t": 2.0,
-  "data_runs": 2,
+  "bank_keep": 40,
+  "data_runs": 1,
   "drop_after_pairs": 4,
   "explore_data": 0.15,
   "lean": false,
-  "max_genomes": 4,
+  "max_genomes": 3,
   "max_gens_per_day": 36,
   "max_pairs": 24,
   "min_gain": 0.3,
   "minutes": 20,
   "perf_mods": "",
   "scenario": "natural",
-  "seeds_per_gen": 4,
+  "seeds_per_gen": 3,
   "sigma0": 0.15,
-  "window": ""
+  "stage_seeds": 2,
+  "suggest": [
+   {
+    "night.mine_instead": 1
+   },
+   {
+    "night.mine_instead": 1,
+    "night.shelter_max_s": 150
+   },
+   {
+    "night.shelter_max_s": 150
+   },
+   {
+    "combat.crits": 1
+   },
+   {
+    "combat.backstep": 1
+   },
+   {
+    "combat.backstep": 1,
+    "combat.crits": 1
+   },
+   {
+    "gather.coal_upkeep_below": 12,
+    "gather.iron_in_view": 1
+   },
+   {
+    "route.deep_for_lava": 0
+   },
+   {
+    "gather.iron_y": 40
+   }
+  ],
+  "window": "427x240"
  },
  "showcase_runs": 3,
  "sigma": {
+  "combat.backstep": 0.15,
+  "combat.crits": 0.15,
   "combat.flee_hp": 0.15,
   "combat.outnumbered": 0.1275,
   "death.recover_night_armor": 0.15,
+  "dragon.max_center_dist": 0.15,
   "food.eat_at": 0.1275,
   "food.eat_hurt_at": 0.15,
   "food.hunt_dist": 0.15,
@@ -997,7 +1198,10 @@
   "gather.coal_extra": 0.1275,
   "gather.coal_upkeep_below": 0.1275,
   "gather.coal_view_dist": 0.15,
+  "gather.coal_y": 0.15,
   "gather.first_logs": 0.1275,
+  "gather.iron_in_view": 0.15,
+  "gather.iron_y": 0.15,
   "gather.log_stock": 0.15,
   "gather.stone_extra": 0.15,
   "gather.stone_stock": 0.15,
@@ -1005,7 +1209,9 @@
   "learned.weight": 0.15,
   "loop.lost_underground_s": 0.15,
   "loop.stuck_s": 0.15,
+  "night.mine_instead": 0.15,
   "night.shelter_armor": 0.15,
+  "night.shelter_max_s": 0.15,
   "night.shelter_radius": 0.15,
   "plan.hide_hp": 0.1275,
   "plan.hostile_range": 0.1275,
@@ -1021,5 +1227,6 @@
   "stuck.box": 0.15,
   "stuck.window_s": 0.15
  },
+ "suggested": [],
  "version": 1
 }
