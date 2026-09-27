@@ -7,13 +7,15 @@
 #   .\scripts\laptop-loop.ps1 -PerfMods ""       without the speed-up mods
 #   .\scripts\laptop-loop.ps1 -NoPush            play and keep the logs here only
 #
-# It waits instead of starting a run while the Minecraft Launcher is open (you're playing) or while
-# less than 3 GB of memory is free. Screenshots stay on this PC in .trials\laptop\ (for videos).
+# It waits instead of starting a run while the Minecraft Launcher is open (you're playing).
+# -MinFreeGb 3 also makes it wait for free memory (off by default). Screenshots stay on this PC in
+# .trials\laptop\ (for videos).
 # Needs JAVA_HOME pointing at a JDK 25 (docs/setup.md) and Python 3 on PATH.
 param(
 	[int]$Runs = 0,
 	[int]$Minutes = 20,
 	[string]$PerfMods = "lithium,ferritecore,sodium",
+	[double]$MinFreeGb = 0,
 	[switch]$NoPush
 )
 $ErrorActionPreference = "Stop"
@@ -26,7 +28,7 @@ function Wait-Until-Free {
 	while ($true) {
 		$launcher = Get-Process -Name "MinecraftLauncher" -ErrorAction SilentlyContinue
 		$freeGb = [math]::Round((Get-CimInstance Win32_OperatingSystem).FreePhysicalMemory / 1MB, 1)
-		if (-not $launcher -and $freeGb -ge 3) { return }
+		if (-not $launcher -and $freeGb -ge $MinFreeGb) { return }
 		$why = if ($launcher) { "the Minecraft Launcher is open" } else { "only $freeGb GB of memory free" }
 		Write-Host "[laptop-loop] waiting: $why (checking again in 2 minutes)"
 		Start-Sleep -Seconds 120
