@@ -35,6 +35,9 @@ B1, B2, B5, B6 to the cloud; B3/B4 are the user's call.
   (Nether and End scenarios; the cloud may still add early-game scenarios, say so here first)
 - CLAIM mod/src/test/java/io/github/plrlr/autopilot/plan/TechTreeTest.java - freebuff (new file)
 - CLAIM mod/src/test/java/io/github/plrlr/autopilot/plan/PlannerPriorityTest.java - freebuff (new file)
+- CLAIM mod/src/main/java/io/github/plrlr/autopilot/skills/SmeltSkill.java - cloud (R4 job-keeping)
+- CLAIM mod/src/main/java/io/github/plrlr/autopilot/plan/Planner.java - cloud (W3 shelter/wool)
+- CLAIM mod/src/main/java/io/github/plrlr/autopilot/Autopilot.java - cloud (W6 cave-escape gain check)
 
 
 ## Cloud
