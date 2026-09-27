@@ -193,10 +193,9 @@ public final class Planner {
 				if (!dim.equals("the_end")) return depth > 2 ? null : goalStep(Goal.ENTER_END, seen, depth + 1);
 				boolean bow = Mc.count("bow") > 0 && Mc.count("arrow") > 0;
 				if (bow && seen.nearest("end_crystal") != null) return new Option("shoot", "end_crystal", "crystals heal the dragon; destroy them first");
-				Perception.Seen dragon = seen.nearest("ender_dragon");
-				if (dragon != null && dragon.dist() < 6) return new Option("attack", "ender_dragon", "hit the dragon while it is close");
-				if (bow && dragon != null) return new Option("shoot", "ender_dragon", "shoot the dragon");
-				return new Option("goto", "end_center", "wait near the portal for the dragon to perch");
+				// The fight itself is one deterministic skill: stay off the edges and out of the
+				// breath, wait by the fountain, hit the head while it sits (skills/DragonFight).
+				return new Option("dragon", null, "fight the dragon: wait by the fountain, hit its head when it lands");
 			}
 			case SURVIVE_NIGHT -> {
 				if (Mc.count("bed") > 0 || memory.nearestStation("bed") != null) return new Option("sleep", null, "sleep through the night");

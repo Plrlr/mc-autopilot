@@ -46,6 +46,7 @@ public final class Tune {
 		gene("reflex.starving_food", 6, 2, 12, Kind.INT, "eat at once at or below this hunger when safe");
 		gene("combat.crits", 0, 0, 1, Kind.BOOL, "jump before a swing so it lands as a critical hit (1.5x)");
 		gene("combat.backstep", 0, 0, 1, Kind.BOOL, "step back out of reach while the sword recharges");
+		gene("dragon.max_center_dist", 30, 10, 60, Kind.REAL, "in the End fight, walk back if farther than this from the fountain");
 		gene("reflex.burning_hp", 12, 4, 20, Kind.INT, "eat while burning at or below this health");
 		// Planner: danger
 		gene("plan.hostile_range", 10, 5, 18, Kind.REAL, "hostiles within this range get an urgent option");
