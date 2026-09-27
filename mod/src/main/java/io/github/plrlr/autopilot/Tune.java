@@ -102,6 +102,8 @@ public final class Tune {
 		gene("night.wall_in", 0, 0, 1, Kind.BOOL, "at night, wall in on the spot (fast) instead of digging a shelter hole");
 		gene("reflex.lava_margin", 0, 0, 1, Kind.BOOL, "step away from lava right beside us");
 		gene("combat.deflect", 0, 0, 1, Kind.BOOL, "hit a ghast's fireball back when it comes close");
+		gene("gear.sword_early", 0, 0, 1, Kind.BOOL, "craft a sword matching the pickaxe's tier as soon as possible");
+		gene("combat.wall_in_anywhere", 0, 0, 1, Kind.BOOL, "hurt and outnumbered: wall in and heal on the surface too, instead of running");
 		gene("loop.stuck_s", 10, 5, 30, Kind.INT, "seconds without moving that mark the state as stuck for the brains");
 		gene("stuck.window_s", 12, 6, 40, Kind.INT, "a moving skill kept inside the stuck box this long starts the unstuck reflex");
 		gene("stuck.box", 2, 1, 4, Kind.REAL, "the square (blocks) the bot must leave to count as moving");

@@ -628,6 +628,17 @@ public final class Planner {
 			Option t = itemStep("torch", 8, 0);
 			if (t != null && t.skill().equals("craft")) out.add(new Option(t.skill(), t.arg(), "torches to light caves (mobs spawn only in the dark)"));
 		}
+		// A sword to match the pickaxe (gear.sword_early): 96 of 138 mob deaths in generations 6-9 had
+		// no sword at all; stone costs two cobblestone and a stick.
+		if (Tune.on("gear.sword_early") && Items2.bestTier("pickaxe") >= 0 && Items2.bestTier("sword") < Math.min(2, Items2.bestTier("pickaxe"))) {
+			String sword = switch (Math.min(2, Items2.bestTier("pickaxe"))) {
+				case 2 -> "iron_sword";
+				case 1 -> "stone_sword";
+				default -> "wooden_sword";
+			};
+			Option sw = itemStep(sword, 1, 0);
+			if (sw != null && sw.skill().equals("craft")) out.add(new Option(sw.skill(), sw.arg(), "a sword to fight with: " + sw.why()));
+		}
 		// Armor only protects when worn: put it on as soon as it's in the bag.
 		if (betterArmorInInventory()) out.add(new Option("equip", "armor", "wear the armor we carry"));
 		// The shield blocks arrows and creeper blasts only from the off hand: put it there at once.
@@ -668,7 +679,10 @@ public final class Planner {
 		// Not in the Nether (no sky, so it always looks "underground") or while burning: walled in
 		// on fire against blazes, the bot burned to death in the first blaze test.
 		boolean hideOk = !Mc.dimension().equals("the_nether") && !Mc.player().isOnFire();
-		if (!onSurface() && hideOk && canHeal && Mc.count("throwaway") >= 6) return new Option("shelter", "heal", why + ": wall in and heal");
+		// Underground always; on the surface too with combat.wall_in_anywhere: 56 of 138 mob deaths in
+		// generations 6-9 came while retreating (back turned, ~5 health), running is what got it killed.
+		boolean wallOk = !onSurface() || Tune.on("combat.wall_in_anywhere");
+		if (wallOk && hideOk && canHeal && Mc.count("throwaway") >= 6) return new Option("shelter", "heal", why + ": wall in and heal");
 		return new Option("retreat", null, why);
 	}
 
