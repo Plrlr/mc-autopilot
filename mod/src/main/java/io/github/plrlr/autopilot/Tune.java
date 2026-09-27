@@ -58,6 +58,8 @@ public final class Tune {
 		// Planner: night, death items
 		gene("night.shelter_armor", 10, 0, 20, Kind.INT, "at night on the surface, shelter if armor is below this");
 		gene("night.shelter_radius", 16, 6, 32, Kind.INT, "shelter only with a hostile within this radius");
+		gene("night.mine_instead", 0, 0, 1, Kind.BOOL, "at night, skip the shelter when the next step is mining underground anyway");
+		gene("night.shelter_max_s", 720, 60, 720, Kind.INT, "longest wait in a night shelter before going back to work");
 		gene("death.recover_night_armor", 10, 0, 20, Kind.INT, "go back for dropped items at night only with this much armor");
 		// Planner: gathering amounts
 		gene("gather.first_logs", 2, 1, 6, Kind.INT, "extra logs on the very first wood trip");

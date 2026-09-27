@@ -167,6 +167,27 @@ def cmd_propose(a):
     cont.sort(key=lambda g: -common.paired_t([p[2] for p in g["pairs"]]))
     for g in cont[: s["max_genomes"] - 1]:
         lineup.append(g["id"])
+    # Suggestions (settings.json "suggest": ideas from people or Claude sessions) race first, each
+    # as the champion plus that change, once. The race decides like for any mutation.
+    tried = st.setdefault("suggested", [])
+    for sug in s.get("suggest", []):
+        key = json.dumps(sug, sort_keys=True)
+        if key in tried or len(lineup) >= s["max_genomes"]:
+            continue
+        changed = dict(st["genomes"][champ]["genes"])
+        for n, v in sug.items():
+            if n in genes:
+                changed[n] = common.clamp(genes[n], float(v))
+                if changed[n] == genes[n]["def"]:
+                    changed.pop(n)
+        tried.append(key)
+        gid = "g%d" % st["next_id"]
+        st["next_id"] += 1
+        note = "suggested: " + ", ".join("%s %s" % (n, v) for n, v in sug.items())
+        st["genomes"][gid] = new_genome(gid, champ, changed, gen, [n for n in sug if n in genes], note)
+        st["genomes"][gid]["status"] = "contender"
+        st["genomes"][gid]["code"] = st["genomes"][champ].get("code")
+        lineup.append(gid)
     # New challengers: mutations of the champion, sometimes of another strong genome.
     tries = 0
     while len(lineup) < s["max_genomes"] and tries < 50:

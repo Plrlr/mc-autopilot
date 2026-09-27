@@ -177,6 +177,9 @@ public final class NightSkills {
 				}
 				case WAIT -> {
 					if (!Mc.isNight()) done("it's morning");
+					// Waiting out a whole night costs up to 7 minutes of a run (batch/loop gen 1: up to
+					// 495 s in shelters). A gene bounds it; the loop decides how long hiding pays.
+					else if (ticks > 20 * io.github.plrlr.autopilot.Tune.i("night.shelter_max_s")) done("waited long enough; back to work");
 				}
 				case WALL_IN -> {
 					// Center on the block first: off-center, the hitbox overlaps a side spot and that

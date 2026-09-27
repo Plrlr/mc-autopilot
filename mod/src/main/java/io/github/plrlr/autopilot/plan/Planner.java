@@ -38,7 +38,7 @@ public final class Planner {
 	 */
 	public List<Option> options(Goal goal, Perception seen) {
 		Option main = goalStep(goal, seen, 0);
-		List<Option> urgent = urgent(seen);
+		List<Option> urgent = urgent(seen, main);
 		lastUrgent = urgent.stream().map(Option::label).collect(java.util.stream.Collectors.toSet());
 		return order(urgent, recoverStep(), surfaceOption(main), upkeep(seen, main), main, extras(seen, main));
 	}
@@ -74,6 +74,14 @@ public final class Planner {
 
 	/** Set by the main loop: underground a while with nothing gained (see Autopilot.cave). */
 	public boolean lostUnderground;
+
+	/** Mining that happens below ground anyway: ores, stone, diamonds for lava depth. */
+	private static boolean undergroundWork(Option o) {
+		if (o == null || !o.skill().equals("collect") || o.arg() == null) return false;
+		String item = o.arg().split(":")[0];
+		TechTree.Source src = TechTree.MINE.get(item);
+		return src != null && (src.mineY() != null || item.equals("stone") || item.equals("coal"));
+	}
 
 	/** Steps that only work on the surface: walking to explore, trees, animals. */
 	private static boolean needsSurface(Option o) {
@@ -411,7 +419,7 @@ public final class Planner {
 	}
 
 	/** Life-or-death options that should be considered before the goal. */
-	private List<Option> urgent(Perception seen) {
+	private List<Option> urgent(Perception seen, Option main) {
 		List<Option> out = new ArrayList<>();
 		LocalPlayer pl = Mc.player();
 		int food = pl.getFoodData().getFoodLevel();
@@ -462,7 +470,10 @@ public final class Planner {
 			// On the surface with little armor, monsters win at night; underground or armored, keep
 			// working. Also falls through here when there was wool but itemStep couldn't turn it
 			// into a real step (W3: 3 wool used to silently switch off shelter too).
-			if (!addedBedStep && onSurface() && pl.getArmorValue() < Tune.i("night.shelter_armor") && seen.hostilesWithin(Tune.i("night.shelter_radius")) > 0)
+			// A player with work underground doesn't hide in a hole all night: the mine is the safe place.
+			boolean mineInstead = Tune.on("night.mine_instead") && undergroundWork(main);
+			if (!addedBedStep && !mineInstead && onSurface() && pl.getArmorValue() < Tune.i("night.shelter_armor")
+					&& seen.hostilesWithin(Tune.i("night.shelter_radius")) > 0)
 				out.add(new Option("shelter", null, "night with monsters around and little armor"));
 		}
 		return out;
