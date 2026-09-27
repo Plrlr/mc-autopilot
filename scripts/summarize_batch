@@ -181,8 +181,9 @@ def main():
     natural = [r for r in runs if r["name"].startswith("natural") and not r["task"]]
     if natural and reached:
         cells = [median_cell(natural, m) for m in reached]
-        out.append("| **natural: reached, median** | %s | %d | | fails count as the full run length |" % (
-            " | ".join(cells), sum(len(r["deaths"]) for r in natural)))
+        nd = sum(len(r["deaths"]) for r in natural)
+        out.append("| **natural: reached, median** | %s | %d (%.1f per run) | | fails count as the full run length |" % (
+            " | ".join(cells), nd, nd / len(natural)))
     for r in runs:
         for n in r["notes"]:
             out.append("- NOTE %s: %s" % (r["name"], n))
@@ -245,9 +246,10 @@ def main():
         extra = [r["name"] + ": " + ("m%d" % max(dict(r["milestones"])) if r["milestones"] else "-")
                  for r in runs if not r["name"].startswith("natural") and not r["task"]]
         extra += [r["name"] + ": " + r["task"].split(" -> ")[-1][:40] for r in tasks]
-        line = "| %s | %s | %s | %s | %s | %s | %d | %s | %s | %s |" % (
+        nd = sum(len(r["deaths"]) for r in natural)
+        line = "| %s | %s | %s | %s | %s | %s | %s | %s | %s | %s |" % (
             a.run or "?", (a.commit or "?")[:7], median_time(1), median_time(2), median_time(4), median_time(7),
-            sum(len(r["deaths"]) for r in natural), portal if any(r["checkpoints"] for r in natural) else "-",
+            "%d (%.1f/run)" % (nd, nd / max(1, len(natural))), portal if any(r["checkpoints"] for r in natural) else "-",
             "; ".join(extra) or "-",
             ("%s x%d" % top[0]) if top else "-")
         with open(a.line_out, "w") as f:

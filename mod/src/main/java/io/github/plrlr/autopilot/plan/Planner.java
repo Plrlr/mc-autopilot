@@ -107,6 +107,19 @@ public final class Planner {
 			case NETHER_PORTAL -> {
 				if (dim.equals("the_nether")) return null;
 				if (memory.nearest("nether_portal") != null) return new Option("enter_portal", "nether", "walk into the nether portal");
+				// Survive first (outside review #2, A2): deaths drop the buckets and iron the portal needs,
+				// and 2-3 deaths per run was the norm. Chestplate and helmet (13 iron) before the portal,
+				// boots too when the ingots are already there.
+				for (String piece : new String[]{"iron_chestplate", "iron_helmet"}) {
+					if (!Goal.hasArmor(piece)) {
+						Option o = itemStep(piece, 1, depth + 1);
+						if (o != null) return o;
+					}
+				}
+				if (!Goal.hasArmor("iron_boots") && Mc.count("iron_ingot") >= 4) {
+					Option o = itemStep("iron_boots", 1, depth + 1);
+					if (o != null) return o;
+				}
 				// Speedrun route: without a diamond pickaxe, cast the frame from lava and water.
 				if (Goal.have("obsidian") < 10 && Items2.bestTier("pickaxe") < 3) return castStep(depth);
 				Option o = itemsStep(goal);
@@ -339,6 +352,8 @@ public final class Planner {
 		if (Mc.count("shield") == 0) n += 1;
 		n += 3 * Math.max(0, 2 - Goal.have("bucket"));
 		if (Mc.count("flint_and_steel") == 0) n += 1;
+		if (!Goal.hasArmor("iron_chestplate")) n += 8;
+		if (!Goal.hasArmor("iron_helmet")) n += 5;
 		// Iron already in a furnace we left cooking is on its way.
 		return Math.max(0, n - SmeltSkill.pending("iron_ingot"));
 	}
@@ -386,6 +401,11 @@ public final class Planner {
 			boolean bed = Mc.count("bed") > 0 || memory.nearestStation("bed") != null;
 			// Sleeping skips the night and sets the respawn point: always worth it.
 			if (bed) out.add(new Option("sleep", null, "sleep through the night"));
+			// No bed but the wool for one: make it now rather than dig in or fight all night.
+			else if (Items2.mostOfOneColor("wool") >= 3) {
+				Option o = itemStep("bed", 1, 0);
+				if (o != null && !o.skill().equals("explore")) out.add(new Option(o.skill(), o.arg(), "night: make a bed (" + o.why() + ")"));
+			}
 			// On the surface with little armor, monsters win at night; underground or armored, keep working.
 			else if (onSurface() && pl.getArmorValue() < 10 && seen.hostilesWithin(16) > 0)
 				out.add(new Option("shelter", null, "night with monsters around and little armor"));
@@ -471,6 +491,8 @@ public final class Planner {
 			Option o = itemStep("bow", 1, 0);
 			if (o != null && o.skill().equals("craft")) out.add(new Option(o.skill(), o.arg(), "make a bow for the dragon fight: " + o.why()));
 		}
+		// Armor only protects when worn: put it on as soon as it's in the bag.
+		if (betterArmorInInventory()) out.add(new Option("equip", "armor", "wear the armor we carry"));
 		// The shield blocks arrows and creeper blasts only from the off hand: put it there at once.
 		if (Mc.count("shield") > 0 && !Items2.id(Mc.player().getOffhandItem()).equals("shield"))
 			out.add(new Option("equip", "shield", "shield into the off hand"));
