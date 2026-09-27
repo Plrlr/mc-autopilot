@@ -311,6 +311,14 @@
    "n": 0,
    "sum": 0.0
   },
+  "pearls.barter_ingots": {
+   "n": 0,
+   "sum": 0.0
+  },
+  "pearls.target": {
+   "n": 0,
+   "sum": 0.0
+  },
   "plan.hide_hp": {
    "n": 2,
    "sum": 1.1430833333333332
@@ -343,6 +351,10 @@
    "n": 2,
    "sum": -1.4656666666666667
   },
+  "route.barter": {
+   "n": 0,
+   "sum": 0.0
+  },
   "route.bed": {
    "n": 1,
    "sum": -2.8285
@@ -359,6 +371,10 @@
    "n": 0,
    "sum": 0.0
   },
+  "stronghold.sidestep": {
+   "n": 0,
+   "sum": 0.0
+  },
   "stuck.box": {
    "n": 0,
    "sum": 0.0
@@ -369,9 +385,9 @@
   }
  },
  "days": {
-  "2026-09-27": 7
+  "2026-09-27": 8
  },
- "gen": 7,
+ "gen": 8,
  "gene_specs": {
   "combat.backstep": {
    "def": 0.0,
@@ -597,6 +613,20 @@
    "max": 32.0,
    "min": 6.0
   },
+  "pearls.barter_ingots": {
+   "def": 24.0,
+   "help": "gold ingots to gather and trade before hunting endermen for the rest",
+   "kind": "INT",
+   "max": 96.0,
+   "min": 0.0
+  },
+  "pearls.target": {
+   "def": 14.0,
+   "help": "ender pearls to collect (14 eyes: 2-3 to triangulate, 12 for the frames)",
+   "kind": "INT",
+   "max": 20.0,
+   "min": 12.0
+  },
   "plan.hide_hp": {
    "def": 12.0,
    "help": "underground, wall in at or below this health with 2+ monsters near",
@@ -653,6 +683,13 @@
    "max": 1.0,
    "min": 0.0
   },
+  "route.barter": {
+   "def": 0.0,
+   "help": "get pearls by trading gold with piglins before hunting endermen",
+   "kind": "BOOL",
+   "max": 1.0,
+   "min": 0.0
+  },
   "route.bed": {
    "def": 1.0,
    "help": "hunt sheep and make a bed early",
@@ -680,6 +717,13 @@
    "kind": "BOOL",
    "max": 1.0,
    "min": 0.0
+  },
+  "stronghold.sidestep": {
+   "def": 80.0,
+   "help": "blocks to walk sideways between the two triangulation throws",
+   "kind": "REAL",
+   "max": 200.0,
+   "min": 30.0
   },
   "stuck.box": {
    "def": 2.0,
@@ -1731,7 +1775,83 @@
  "model_r2": 0.037,
  "model_rows": 4388,
  "next_id": 10,
- "pending": null,
+ "pending": {
+  "data_tasks": [
+   {
+    "kind": "natural",
+    "seed": "D8-fykxck",
+    "stage": "spawn",
+    "synthetic": false
+   }
+  ],
+  "gen": 8,
+  "lineup": [
+   "g6",
+   "g9",
+   "g0"
+  ],
+  "runs": [
+   "eval-g6-0",
+   "eval-g6-1",
+   "eval-g6-2",
+   "eval-g6-3",
+   "eval-g6-4",
+   "eval-g9-0",
+   "eval-g9-1",
+   "eval-g9-2",
+   "eval-g9-3",
+   "eval-g9-4",
+   "eval-g0-0",
+   "eval-g0-1",
+   "eval-g0-2",
+   "eval-g0-3",
+   "eval-g0-4",
+   "data-g6-0"
+  ],
+  "seeds": [
+   "L8-38yj4x",
+   "L8-mfdw6x",
+   "L8-hg9s27",
+   "L8-z4cgqg",
+   "L8-cuqwcr"
+  ],
+  "sha": "38ad6c9d766a5e9a8d8f58325c46dc7584f71bd4",
+  "started": "2026-09-27T18:45:33+00:00",
+  "tasks": [
+   {
+    "kind": "natural",
+    "seed": "L8-38yj4x",
+    "stage": "spawn",
+    "synthetic": false
+   },
+   {
+    "kind": "natural",
+    "seed": "L8-mfdw6x",
+    "stage": "spawn",
+    "synthetic": false
+   },
+   {
+    "kind": "natural",
+    "seed": "L8-hg9s27",
+    "stage": "spawn",
+    "synthetic": false
+   },
+   {
+    "asset": "kit-gen5-eval-g4-2.zip",
+    "kind": "start",
+    "seed": "L8-z4cgqg",
+    "stage": "kit",
+    "synthetic": false
+   },
+   {
+    "asset": "nether-gen5-eval-g6-2.zip",
+    "kind": "start",
+    "seed": "L8-cuqwcr",
+    "stage": "nether",
+    "synthetic": false
+   }
+  ]
+ },
  "settings": {
   "accept_pairs": 8,
   "accept_t": 2.0,
@@ -1739,7 +1859,7 @@
   "data_runs": 1,
   "drop_after_pairs": 4,
   "explore_data": 0.15,
-  "lean": false,
+  "lean": true,
   "max_genomes": 3,
   "max_gens_per_day": 60,
   "max_pairs": 24,
@@ -1752,6 +1872,10 @@
   "stage_seeds": 2,
   "suggest": [
    {
+    "_retry": "dropped after 5 worlds by a too-hasty rule",
+    "focus.commit": 1
+   },
+   {
     "focus.commit": 1
    },
    {
@@ -1760,6 +1884,9 @@
    {
     "focus.commit": 1,
     "route.diamond_portal": 1
+   },
+   {
+    "route.barter": 1
    },
    {
     "focus.commit": 1,
@@ -1834,6 +1961,8 @@
   "night.shelter_armor": 0.15,
   "night.shelter_max_s": 0.15,
   "night.shelter_radius": 0.15,
+  "pearls.barter_ingots": 0.15,
+  "pearls.target": 0.15,
   "plan.hide_hp": 0.1785,
   "plan.hostile_range": 0.108375,
   "plan.upkeep_calm_radius": 0.15,
@@ -1842,10 +1971,12 @@
   "reflex.melee_dist": 0.15,
   "reflex.starving_food": 0.15,
   "route.armor_before_portal": 0.1785,
+  "route.barter": 0.15,
   "route.bed": 0.1275,
   "route.boots_before_portal": 0.15,
   "route.deep_for_lava": 0.15,
   "route.diamond_portal": 0.15,
+  "stronghold.sidestep": 0.15,
   "stuck.box": 0.15,
   "stuck.window_s": 0.15
  },
