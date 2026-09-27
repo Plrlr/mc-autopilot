@@ -364,13 +364,15 @@ public final class NetherSkills {
 
 		private boolean recovering;
 		private boolean eating;
+		private boolean shielding;
 
 		/**
-		 * Low health (12, since burning keeps hurting after we stop): eat first, then get out of the
-		 * blazes' sight, then fight again at 16. Eating comes first even in sight and on fire: at full
-		 * hunger with saturation health comes back about 2 a second, faster than burning takes it
-		 * (1 a second, and armor doesn't stop it). Running for cover without eating burned the bot
-		 * to death in a room with no cover (loop 0341, hp 5, hunger 15, 16 steaks carried).
+		 * Low health (12, since burning keeps hurting after we stop): eat, then shield, then fight
+		 * again at 16. Eating comes first even in sight and on fire: health only comes back at 18+
+		 * hunger (loop 0341 burned to death at hunger 15 with 16 steaks). Full, with a blaze in sight,
+		 * stand and hold the shield up at it: a raised shield stops its fireballs, so nothing new
+		 * catches fire while health comes back. Running for cover instead kept the bot burning in a
+		 * room with no cover until it died, twice, even at full hunger (batch 14 blaze runs 1 and 2).
 		 * Returns true while recovering.
 		 */
 		private boolean recover(LocalPlayer pl, Perception.Seen blaze, net.minecraft.client.KeyMapping keyUse) {
@@ -379,14 +381,28 @@ public final class NetherSkills {
 			if (recovering && hp >= 16) {
 				recovering = false;
 				stopEating(keyUse);
+				stopShielding(keyUse);
 				return false;
 			}
 			recovering = true;
-			if (pl.getFoodData().getFoodLevel() < 20 && eat(pl, keyUse)) return true;
+			if (pl.getFoodData().getFoodLevel() < 20 && eat(pl, keyUse)) {
+				shielding = false;
+				return true;
+			}
 			stopEating(keyUse);
 			boolean inSight = blaze != null && Mc.canSee(blaze.entity());
+			if (inSight && Items2.id(pl.getOffhandItem()).equals("shield")) {
+				if (Bari.pathing()) Bari.stop();
+				walking = false;
+				Mc.lookAt(blaze.entity().getBoundingBox().getCenter());
+				// Use goes to the main hand first: the weapon has none, so the off-hand shield rises.
+				keyUse.setDown(true);
+				shielding = true;
+				return true;
+			}
+			stopShielding(keyUse);
 			if (inSight || pl.isOnFire()) {
-				// Run from the nearest blaze (or just move, if burning) until it can't see us.
+				// No shield: run from the nearest blaze (or just move, if burning) until it can't see us.
 				BlockPos from = blaze != null ? blaze.entity().blockPosition() : pl.blockPosition();
 				if (ticks % 10 == 0) Bari.path(new baritone.api.pathing.goals.GoalRunAway(14, from));
 				return true;
@@ -394,6 +410,12 @@ public final class NetherSkills {
 			// Out of sight and full: wait for health to come back.
 			if (Bari.pathing()) Bari.stop();
 			return true;
+		}
+
+		private void stopShielding(net.minecraft.client.KeyMapping keyUse) {
+			if (!shielding) return;
+			shielding = false;
+			keyUse.setDown(false);
 		}
 
 		/** Holds food and keeps eating; false with no food in the bag. Standing still: eating while walking crawls anyway. */

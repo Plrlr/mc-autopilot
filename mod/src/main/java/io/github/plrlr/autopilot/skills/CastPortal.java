@@ -27,7 +27,7 @@ import java.util.List;
  * a portal frame doesn't need them.
  */
 public final class CastPortal extends Skill {
-	private enum Phase {SITE, APPROACH, WALL, NEXT, FETCH, WALK, LAVA, POUR, SCOOP, REFILL, BREAK, CLEAR, LIGHT}
+	private enum Phase {SITE, APPROACH, CARVE, WALL, NEXT, FETCH, WALK, LAVA, POUR, SCOOP, REFILL, BREAK, CLEAR, LIGHT}
 
 	/** Frame width 4 (x 0..3), height 5 (y 0..4); the wall behind also covers y 5 for the water. */
 	private static final int WALL_H = 6;
@@ -54,6 +54,7 @@ public final class CastPortal extends Skill {
 	private BucketSkills.FillBucket fetch;
 	private int castFails;
 	private int approachTicks = 20 * 45;
+	private int carveTries;
 
 	private record Plan(BlockPos stand, CastGeometry.Aim lava, CastGeometry.Aim water) {}
 
@@ -141,7 +142,7 @@ public final class CastPortal extends Skill {
 						return;
 					}
 					if (!findSite(pl.blockPosition())) {
-						fail(Fail.NO_ROOM, "no flat open ground for a portal near the lava");
+						if (!startCarve(pl)) fail(Fail.NO_ROOM, "no flat open ground for a portal near the lava");
 						return;
 					}
 				}
@@ -155,7 +156,22 @@ public final class CastPortal extends Skill {
 				}
 				if (wait > 10 && !Bari.pathing()) {
 					if (!findSite(pl.blockPosition())) {
-						fail(Fail.NO_ROOM, "no flat open ground for a portal near the lava");
+						if (!startCarve(pl)) fail(Fail.NO_ROOM, "no flat open ground for a portal near the lava");
+						return;
+					}
+					phase = Phase.WALL;
+					wait = 0;
+				}
+			}
+			case CARVE -> {
+				if (++wait > 20 * 120) {
+					Bari.stop();
+					fail(Fail.NO_ROOM, "couldn't dig out a room for the portal");
+					return;
+				}
+				if (wait > 20 && !Bari.get().getBuilderProcess().isActive()) {
+					if (!findSite(pl.blockPosition())) {
+						if (!startCarve(pl)) fail(Fail.NO_ROOM, "dug a room but the portal still doesn't fit");
 						return;
 					}
 					phase = Phase.WALL;
@@ -549,6 +565,51 @@ public final class CastPortal extends Skill {
 			}
 		}
 		return best;
+	}
+
+	/**
+	 * Underground there's never flat open ground for the frame (batch 14's deep run found lava in
+	 * 50 s, then failed NO_ROOM 11 times): dig a room instead, 4 wide, 3 deep and as tall as the
+	 * wall, with us standing in its front row. The back row stays rock (the wall), and no room
+	 * cell may touch lava or water, which would flow in. Baritone's builder clears it by mining.
+	 */
+	private boolean startCarve(LocalPlayer pl) {
+		if (pl.level().canSeeSky(pl.blockPosition().above()) || carveTries >= 2) return false;
+		BlockPos feet = pl.blockPosition();
+		for (Direction a : new Direction[]{Direction.EAST, Direction.SOUTH, Direction.WEST, Direction.NORTH}) {
+			Direction front = a.getClockWise();
+			BlockPos o = feet.relative(a, -1).relative(front, -2);
+			if (!carvable(o, a)) continue;
+			carveTries++;
+			Bari.stop();
+			Bari.get().getBuilderProcess().clearArea(o, o.relative(a, 3).relative(front, 2).above(WALL_H - 1));
+			phase = Phase.CARVE;
+			wait = 0;
+			return true;
+		}
+		return false;
+	}
+
+	private static boolean carvable(BlockPos o, Direction a) {
+		Direction front = a.getClockWise();
+		for (int x = 0; x < 4; x++) {
+			for (int f = 0; f < 3; f++) {
+				BlockPos col = o.relative(a, x).relative(front, f);
+				if (!Mc.solid(col.below()) || Mc.state(col.below()).liquid()) return false;
+				for (int y = 0; y < WALL_H; y++) {
+					BlockPos p = col.above(y);
+					if (!Mc.state(p).getFluidState().isEmpty() || CastGeometry.nearLava(p) || nearWater(p)) return false;
+				}
+			}
+			BlockPos back = o.relative(a, x).relative(front.getOpposite());
+			for (int y = 0; y < WALL_H; y++) if (!Mc.solid(back.above(y))) return false;
+		}
+		return true;
+	}
+
+	private static boolean nearWater(BlockPos p) {
+		for (Direction d : Direction.values()) if (Mc.id(Mc.state(p.relative(d)).getBlock()).equals("water")) return true;
+		return false;
 	}
 
 	private static boolean findSite(BlockPos feet) {
