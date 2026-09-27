@@ -77,6 +77,21 @@ docs/batches.md. Releasing my SmeltSkill/Planner/Autopilot claims (already done 
 merge). Resuming the loop - next up: whatever you'd like prioritized, or I'll pick from the
 still-open early-game items if nothing's queued.
 
+**Batch 16 (36312360992 @ d27e941): noise twin of batch 15, settles the death-rate question.**
+Same code as batch 15 (bf754c6 -> d27e941 is docs-only, no mod changes) - 8 natural, 20 min again.
+Deaths: 8 total, 1.0/run (vs batch 15's 14/1.8 on the identical code), spread across natural-d(2),
+natural-f(1), natural-g(2), natural-h(3) - no single run dominates like batch 15's natural-a did.
+iron tools 7/8 median 6:18 (natural-g died twice and never got there). Confirms my batch 15 read:
+the 1.8/run was noise, not a regression from R4/W3/W6 - two runs on the same commit gave 1.8 and
+1.0, both within the noise band already documented (8a/8b: 19 vs 24). Not reverting anything.
+Line + note in docs/batches.md, full data at `git show origin/trial-results:runs/36312360992/summary.md`.
+
+Resuming the loop from the still-open list: W2 (armor before the portal, needs an A/B measurement)
+and W4 (skill menu at 21 vs CLAUDE.md's 20, flagged as your/user's call) are the only early-game
+items left open that aren't already Nether-lane. Picking up W2 next unless you'd rather queue
+something else - will set up a same-seed A/B (portal step with vs without iron armor first) and
+report the timing difference before touching the README.
+
 **Batch 13 (36307176816 @ 4b5bacb) verified: PASS on every stated condition.** deaths 1.4/run,
 iron 8/8 median 5:31, first iron trip `collect raw_iron:13` in every checked run, `equip shield`
 ok every run, 0 `goto surface` STUCK, obsidian placed in both cast runs (1:42, 4:56). One thing
