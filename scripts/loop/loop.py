@@ -292,7 +292,8 @@ def cmd_update(a):
         skip = 0 if task.get("kind", "natural") == "natural" else 10
         results[name] = {"score": common.score_run(r, length, skip), "milestones": r["milestones"],
                          "checkpoints": r["checkpoints"], "deaths": len(r["deaths"]),
-                         "death_causes": [c for c, _ in r["deaths"]], "stage": task.get("stage", "spawn")}
+                         "death_causes": [c for c, _ in r["deaths"]], "stage": task.get("stage", "spawn"),
+                         "natural": task.get("kind", "natural") == "natural"}
         sp = read_speed(d)
         if sp:
             speeds.append(sp)
@@ -321,8 +322,12 @@ def cmd_update(a):
     # History line for the dashboard.
     gen_scores = {gid: [by[(gid, i)] for i in range(len(tasks)) if (gid, i) in by] for gid in p["lineup"]}
     all_ok = [r for r in results.values() if r]
+    # The headline numbers count runs from spawn only: stage runs start with gear and score only
+    # what they add after the start (they're in stage_scores and the bank summary instead).
+    natural_ok = [r for r in all_ok if r.get("natural", True)]
+    natural_idx = [i for i, t in enumerate(tasks) if t.get("kind", "natural") == "natural"]
     reached = {}
-    for r in all_ok:
+    for r in natural_ok:
         for m, _ in r["milestones"]:
             reached["m%d" % m] = reached.get("m%d" % m, 0) + 1
         for c in r["checkpoints"]:
@@ -331,7 +336,9 @@ def cmd_update(a):
     line = {
         "gen": gen, "time": datetime.datetime.now(datetime.timezone.utc).isoformat(timespec="seconds"),
         "sha": p["sha"][:7], "champion": st["champion"], "old_champion": champ,
-        "champion_score": round(common.mean(gen_scores.get(champ, [])), 3),
+        "champion_score": round(common.mean([by[(champ, i)] for i in natural_idx if (champ, i) in by]), 3),
+        "champion_score_all": round(common.mean(gen_scores.get(champ, [])), 3),
+        "natural_runs": len(natural_ok),
         "scores": {g: [round(x, 2) for x in v] for g, v in gen_scores.items()},
         "genomes": {g: st["genomes"][g]["note"] for g in p["lineup"]},
         "decisions": decisions, "runs": len(p["runs"]), "runs_ok": len(all_ok),
