@@ -1,0 +1,270 @@
+package io.github.plrlr.autopilot.skills;
+
+import baritone.api.pathing.goals.GoalNear;
+import baritone.api.pathing.goals.GoalXZ;
+import io.github.plrlr.autopilot.Items2;
+import io.github.plrlr.autopilot.Mc;
+import io.github.plrlr.autopilot.state.Perception;
+import io.github.plrlr.autopilot.state.WorldMemory;
+import net.minecraft.client.player.LocalPlayer;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.item.ItemEntity;
+import net.minecraft.world.level.ClipContext;
+import net.minecraft.world.phys.BlockHitResult;
+import net.minecraft.world.phys.HitResult;
+import net.minecraft.world.phys.Vec3;
+
+import java.util.ArrayList;
+import java.util.List;
+
+/**
+ * The Nether stage: find a fortress, then get blaze rods there.
+ *
+ * fortress find: walk long straight legs through the Nether and look around while walking.
+ * Fortresses are big dark brick structures a player spots from far away, but WorldMemory's close
+ * scan only reaches 16 blocks; here a sweep of view rays (what the camera could see, no x-ray)
+ * remembers nether bricks and spawners out to 96 blocks.
+ *
+ * fortress blazes:n: blazes hover and shoot, so chasing them fails (attack gives up after 8 s
+ * without getting closer). Instead stand at the spawner (or in the fortress), shield up while
+ * they're at range, and hit the ones that drift into reach. Ends when the bag holds n rods.
+ */
+public final class NetherSkills {
+	private NetherSkills() {}
+
+	/** Blocks only fortresses are made of (bastions use blackstone, so they don't count). */
+	static boolean fortressBlock(String id) {
+		return id.equals("nether_bricks") || id.startsWith("nether_brick_");
+	}
+
+	/**
+	 * View ray n of a sweep: yaw goes round in 7.5° steps (48 per turn), and each turn uses the
+	 * next pitch band, from slightly up to well down, so ~8 ticks cover every direction once.
+	 * Returns {yaw, pitch} in degrees (Minecraft: pitch > 0 looks down).
+	 */
+	static float[] sweepRay(int n) {
+		float yaw = (n % 48) * 7.5f;
+		float[] pitches = {-12f, 0f, 10f, 22f, 35f};
+		float pitch = pitches[(n / 48) % pitches.length];
+		return new float[]{yaw, pitch};
+	}
+
+	/** Casts `rays` view rays of the sweep from the eye; remembers fortress blocks and spawners hit. */
+	static int look(WorldMemory memory, int from, int rays, double range) {
+		LocalPlayer pl = Mc.player();
+		Vec3 eye = pl.getEyePosition();
+		int n = from;
+		for (int i = 0; i < rays; i++, n++) {
+			float[] yp = sweepRay(n);
+			Vec3 dir = Vec3.directionFromRotation(yp[1], yp[0]);
+			// Lava is opaque: a lava sea hides what's behind it, so fluids stop the ray too.
+			BlockHitResult r = pl.level().clip(new ClipContext(eye, eye.add(dir.scale(range)), ClipContext.Block.VISUAL,
+					ClipContext.Fluid.ANY, pl));
+			if (r.getType() != HitResult.Type.BLOCK) continue;
+			BlockPos p = r.getBlockPos();
+			String id = Mc.id(Mc.state(p).getBlock());
+			if (fortressBlock(id)) memory.remember("nether_bricks", p.immutable(), id);
+			else if (id.equals("spawner")) memory.remember("spawner", p.immutable(), id);
+		}
+		return n;
+	}
+
+	public static final class Fortress extends Skill {
+		private static final int LEG = 200;
+		private static final double VIEW = 96;
+
+		private boolean findMode;
+		private int want;
+		private int ray;
+		private double startX, startZ;
+
+		// blazes mode
+		private BlockPos anchor;
+		private final List<BlockPos> visitedAnchors = new ArrayList<>();
+		private int sinceBlaze;
+		private int rodsBefore;
+		private boolean walking;
+
+		@Override
+		public String name() {
+			return "fortress";
+		}
+
+		/** A fight in a fortress shouldn't be dropped for a routine re-check; danger still interrupts. */
+		@Override
+		public boolean interruptible() {
+			return findMode;
+		}
+
+		@Override
+		protected void start() {
+			if (!Mc.dimension().equals("the_nether")) {
+				fail(Fail.WRONG_PLACE, "fortresses are in the Nether");
+				return;
+			}
+			findMode = !"blazes".equals(argName());
+			LocalPlayer pl = Mc.player();
+			if (findMode) {
+				timeoutTicks = 20 * 240;
+				if (memory.nearest("nether_bricks") != null) {
+					fail(Fail.ALREADY_DONE, "a fortress is already known");
+					return;
+				}
+				startX = pl.getX();
+				startZ = pl.getZ();
+				// Fortresses and bastions share 432-block regions: long legs reach new regions,
+				// short ones keep circling the same one.
+				int h = memory.exploreHeading(startX, startZ, LEG);
+				double a = h * Math.PI / 4;
+				Bari.path(new GoalXZ((int) (startX + Math.cos(a) * LEG), (int) (startZ + Math.sin(a) * LEG)));
+				return;
+			}
+			timeoutTicks = 20 * 300;
+			want = argCount(6);
+			rodsBefore = Mc.count("blaze_rod");
+			if (rodsBefore >= want) {
+				fail(Fail.ALREADY_DONE, "already have " + rodsBefore + " blaze rods");
+				return;
+			}
+			anchor = pickAnchor();
+			if (anchor == null && Perception.look(32).nearest("blaze") == null) {
+				fail(Fail.NOT_FOUND, "no fortress or blaze known");
+				return;
+			}
+			if (pl.containerMenu != pl.inventoryMenu) pl.closeContainer();
+			CombatSkills.holdWeapon();
+			if (anchor != null) walkTo(anchor);
+		}
+
+		/** The spawner if we know one (blazes appear right there), else the nearest fortress block not yet tried. */
+		private BlockPos pickAnchor() {
+			WorldMemory.Seen s = memory.nearest("spawner");
+			if (s != null && !visitedAnchors.contains(s.pos())) return s.pos();
+			LocalPlayer pl = Mc.player();
+			BlockPos best = null;
+			double bd = Double.MAX_VALUE;
+			for (WorldMemory.Seen b : memory.all("nether_bricks")) {
+				boolean tried = false;
+				for (BlockPos v : visitedAnchors) if (v.distSqr(b.pos()) < 20 * 20) tried = true;
+				if (tried) continue;
+				double d = b.pos().distSqr(pl.blockPosition());
+				if (d < bd) {
+					bd = d;
+					best = b.pos();
+				}
+			}
+			return best;
+		}
+
+		private void walkTo(BlockPos p) {
+			walking = true;
+			Bari.path(new GoalNear(p, 3));
+		}
+
+		@Override
+		protected void tick() {
+			ray = look(memory, ray, 16, VIEW);
+			if (findMode) tickFind();
+			else tickBlazes();
+		}
+
+		private void tickFind() {
+			if (ticks % 10 != 0) return;
+			WorldMemory.Seen b = memory.nearest("nether_bricks");
+			LocalPlayer pl = Mc.player();
+			if (b != null) {
+				done("saw a fortress " + Math.round(Math.sqrt(b.pos().distSqr(pl.blockPosition()))) + " blocks away");
+				return;
+			}
+			if (ticks > 20 && !Bari.pathing()) {
+				double moved = Math.hypot(pl.getX() - startX, pl.getZ() - startZ);
+				if (moved < 16) {
+					memory.markBadAhead(startX, startZ, LEG);
+					fail(Fail.UNREACHABLE, "couldn't make headway that way (lava or cliffs); will turn");
+				} else {
+					done("walked " + Math.round(moved) + " blocks, no fortress in view yet");
+				}
+			}
+		}
+
+		private void tickBlazes() {
+			LocalPlayer pl = Mc.player();
+			int rods = Mc.count("blaze_rod");
+			if (rods >= want) {
+				done("have " + rods + " blaze rods (+" + (rods - rodsBefore) + ")");
+				return;
+			}
+			// A better anchor came into view (the spawner itself): go there instead.
+			WorldMemory.Seen spawner = memory.nearest("spawner");
+			if (spawner != null && !spawner.pos().equals(anchor) && !visitedAnchors.contains(spawner.pos())) {
+				anchor = spawner.pos();
+				walkTo(anchor);
+			}
+			Perception seen = Perception.look(32);
+			Perception.Seen blaze = seen.nearest("blaze");
+			var keyUse = Mc.mc().options.keyUse;
+			if (blaze != null) {
+				sinceBlaze = 0;
+				Entity e = blaze.entity();
+				double dy = e.getY() - pl.getY();
+				if (blaze.dist() <= 3.2) {
+					// In reach: shield down, full-strength swings.
+					keyUse.setDown(false);
+					if (Bari.pathing()) Bari.stop();
+					walking = false;
+					Mc.lookAt(e.getBoundingBox().getCenter());
+					if (pl.getAttackStrengthScale(0.5f) >= 0.95f) {
+						Mc.mc().gameMode.attack(pl, e);
+						Mc.swing();
+					}
+					return;
+				}
+				if (blaze.dist() < 7 && Math.abs(dy) < 2.5 && Mc.canSee(e)) {
+					// Low and close: step in rather than wait.
+					keyUse.setDown(false);
+					if (ticks % 10 == 0) Bari.path(new GoalNear(e.blockPosition(), 1));
+					walking = true;
+					return;
+				}
+				// At range: face it with the shield up. Fireballs hit the shield, not us.
+				if (!walking || !Bari.pathing()) {
+					Mc.lookAt(e.getBoundingBox().getCenter());
+					keyUse.setDown(Items2.id(pl.getOffhandItem()).equals("shield"));
+				}
+			} else {
+				keyUse.setDown(false);
+				sinceBlaze++;
+			}
+			// Rods on the ground nearby: pick them up before anything else.
+			if (ticks % 10 == 0 && (blaze == null || blaze.dist() > 8)) {
+				for (ItemEntity it : seen.items) {
+					if (Items2.id(it.getItem()).equals("blaze_rod") && it.distanceTo(pl) < 12) {
+						Bari.path(new GoalNear(it.blockPosition(), 0));
+						walking = true;
+						return;
+					}
+				}
+			}
+			if (walking && !Bari.pathing()) walking = false;
+			// No blaze for 60 s here: try another part of the fortress.
+			if (sinceBlaze > 20 * 60) {
+				sinceBlaze = 0;
+				if (anchor != null) visitedAnchors.add(anchor);
+				anchor = pickAnchor();
+				if (anchor == null) {
+					if (rods > rodsBefore) done("got " + (rods - rodsBefore) + " blaze rods; no more blazes found here");
+					else fail(Fail.NOT_FOUND, "no blazes in the parts of the fortress we know");
+					return;
+				}
+				walkTo(anchor);
+			}
+		}
+
+		@Override
+		protected void cleanup() {
+			Mc.mc().options.keyUse.setDown(false);
+			super.cleanup();
+		}
+	}
+}

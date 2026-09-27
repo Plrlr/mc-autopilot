@@ -120,9 +120,7 @@ public final class Planner {
 			}
 			case BLAZE_RODS -> {
 				if (!dim.equals("the_nether")) return depth > 2 ? null : goalStep(Goal.NETHER_PORTAL, seen, depth + 1);
-				if (seen.nearest("blaze") != null) return new Option("attack", "blaze", "kill the blaze for rods");
-				if (memory.nearest("nether_bricks") != null) return new Option("goto", "nether_bricks", "go into the fortress to find blazes");
-				return new Option("explore", "nether_bricks,blaze", "look for a nether fortress");
+				return NetherPlan.blazeStep(memory, seen);
 			}
 			case ENDER_PEARLS -> {
 				if (seen.nearest("enderman") != null) return new Option("attack", "enderman", "kill the enderman for a pearl");
@@ -374,6 +372,8 @@ public final class Planner {
 			// Underground, two or more closing in wear us down in a tunnel: wall in and heal first.
 			else if (!onSurface() && pl.getHealth() <= 12 && seen.hostilesWithin(6) >= 2) out.add(escape("hurt with monsters closing in"));
 			// Skeletons outshoot a fleeing player; closing in fast is safer than running.
+			// Blazes hover and shoot: the fortress fight waits for them at the spawner instead of chasing.
+			else if (NetherPlan.fightInFortress(Mc.dimension(), hostile)) out.add(NetherPlan.blazeStep(memory, seen));
 			else out.add(new Option("attack", hostile.type(), hostile.type() + " is " + Math.round(hostile.dist()) + " blocks away"));
 		}
 		if (wantsToEat()) {
