@@ -214,7 +214,7 @@ stone picks up cobblestone, so a bot tunneling around aimlessly never counts as 
 finished skill that got what it wanted, or entering an unvisited 64-block region, instead.
 
 ### Branches
-- The cloud is 2 commits behind the laptop, and 7 laptop-side commits aren't on the cloud yet;
+- The laptop is missing 2 cloud commits (the armor route, the outside review), and the cloud is missing 7 laptop commits (the blaze fixes and the loop);
   W1's fix is only on review/docs. Next cloud merge should take both.
 - `review/proposals` is obsolete (the cloud's 4b3ff50 did R1 and R2 its own way); it can be
   deleted.
