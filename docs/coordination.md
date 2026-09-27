@@ -148,6 +148,43 @@ What to look for: blaze rods gained (inventory lines, `fortress blazes` results)
 number. Fixes to `skills/NetherSkills.java`, `plan/NetherPlan.java` or the Nether scenarios go to
 the laptop as proposals; anything else goes to the cloud.
 
+### For the reviewer: the reflex hook (e2e2ffe) didn't stop the blaze death; a second path does the same thing
+
+Loop run 1-blaze at `d0bdde6` (with the reflex hook merged): burned to death at 30s, faster than
+before. Trace (run-2026-09-26.jsonl):
+
+```
+pick mob_near -> fortress blazes:8          (reflex hook worked: no reflex_fight this time)
+pick hurt -> fortress blazes:8
+pick hurt -> fortress blazes:8
+pick hurt -> eat
+skill_end fortress blazes:8 INTERRUPTED: brain chose eat   (21.7s in)
+eat -> ok: ate cooked_beef
+pick skill_done -> fortress blazes:8        (fresh skill instance)
+skill_end fortress blazes:8 DIED            (7.7s later)
+death onFire
+```
+
+Cause: `Autopilot.java:607`, `else if (pl.getHealth() < healthAtDecision - 3) requestDecision("hurt");`
+fires unconditionally on damage, with no check of `skill.interruptible()`. This is a second path
+around the same protection e2e2ffe added for `reflex_fight`/`reflex_low_hp` — the fortress skill's
+own `recover()` (back off out of the blazes' sight, eat, wait to 16 health) never got to run
+because `hurt` kept discarding the running skill and asking the tactician instead, which picked
+"eat" (a `craft`-like fixed action, not a retreat) while still in the blazes' line of sight and
+on fire. The eat happened, but a *new* Fortress instance then started already low on health and
+died before it could get away.
+
+Suggested fix (Autopilot.java, not a Nether file, so I'm not touching it): either (a) skip the
+`hurt` decision request too when `skill.interruptible()` is false (matching the reflex hook's
+condition), letting the skill's own recovery run instead of being pre-empted, or (b) keep asking
+but only take the tactician's answer if it beats what the skill would already do (compare to
+`NetherPlan`/recover-in-progress) — (a) is simpler and matches "the fortress skill owns the whole
+fight" from the earlier reflex-hook discussion.
+
+Trial loop is still running (started 21:24, not restarted): the underlying bug is unfixed so
+`blaze` scenario runs will likely keep dying the same way, but `nether` (fortress-finding) runs
+are unaffected and still worth collecting. Will restart the loop once this lands.
+
 ### Requests for the cloud session
 
 1. ~~All test worlds share one progress file.~~ Withdrawn: Loom's `deleteGameTestRunDir` wipes
@@ -250,6 +287,26 @@ R2 stone count) are superseded by the cloud's 4b3ff50; `review/docs` now carries
    output and count its ingredients as `alreadyIn`, loading none of ours and looping short trips.
    Suggest: use the job's furnace and add ours on top (my 89f3f47 had a version of this).
 3. R3 still stands: the next batch carries several untested behavior changes.
+
+**Batch 10 diagnosis and batch 11 plan (for the cloud), 2026-09-27:**
+- **Why:** batch 10 (36283822972) had 25 deaths, 3.1/run: 13 melee, 6 arrows, 4 creeper blasts, 1 fall,
+  1 potion. Patterns: 7 died in a melee right after a retreat or hide (fight/flee ping-pong), 14
+  retreats ended in death, 4 blasts caught the bot already running from 5 blocks, and
+  `goto death` was interrupted 86 times (runs died 4-6 times walking back, mostly at night).
+- **Change (done, 738a013 on review/docs; merge it):** `attack` holds the off-hand shield up
+  between swings. Low health runs only when outnumbered (2+ within 6), or in the planner while
+  the one monster is still 4+ blocks away. Creeper reflex from 7 blocks. No `goto death` at night
+  without armor, and a death on the way back gives the items up. The fortress blaze fight gets
+  no hurt/mob_near decisions.
+- **Test:** batch 11 = 8 natural seeds x 20 min on the merge, which also carries 9980cfe (armor
+  before the portal). Pass: deaths/run < 1.75 (batch 9) with iron tools >= 7/8. Report deaths by
+  cause and how many `retreat` ended in DIED. If deaths don't drop, send me the run id; don't
+  guess a second version.
+- **Also look at (yours, 4b3ff50):** `collect log` NOT_FOUND x16 in batch 10. Underground
+  fail-fast for logs fires, then the planner offers `collect log` again. When `collect log`
+  fails NOT_FOUND underground, the next option should be `goto surface`, not `collect log`
+  again. Test: task `collect log:3` started at y 20 in a cave (give a stone pickaxe); pass: it
+  goes up and collects, with no repeated NOT_FOUND.
 
 **New roles (user, 2026-09-27):** the reviewer (Opus) diagnoses and designs; the cloud and laptop
 (Sonnet) implement and run. Every instruction from me below has the same shape: **Change** (file,

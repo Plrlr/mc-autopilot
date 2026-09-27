@@ -387,7 +387,10 @@ public final class Planner {
 			// off out of sight to heal itself. Walling in at low health (the Nether has no sky, so it
 			// always counts as underground) burned the bot to death in its first blaze test.
 			else if (NetherPlan.fightInFortress(Mc.dimension(), hostile)) out.add(NetherPlan.blazeStep(memory, seen));
-			else if (pl.getHealth() <= 8) out.add(escape("low health and a " + hostile.type() + " is close"));
+			// Low health: run when outnumbered, or while the one monster is still far enough away to
+			// get clear. One at arm's length follows and hits our back; the attack's shield does better.
+			else if (pl.getHealth() <= 8 && (seen.hostilesWithin(6) >= 2 || hostile.dist() > 4))
+				out.add(escape("low health and a " + hostile.type() + " is close"));
 			// Underground, two or more closing in wear us down in a tunnel: wall in and heal first.
 			else if (!onSurface() && pl.getHealth() <= 12 && seen.hostilesWithin(6) >= 2) out.add(escape("hurt with monsters closing in"));
 			// Skeletons outshoot a fleeing player; closing in fast is safer than running.
@@ -432,6 +435,9 @@ public final class Planner {
 	/** Items dropped at the last death, while they still exist (they vanish after 5 minutes). */
 	private Option recoverStep() {
 		if (memory.nearest("death") == null) return null;
+		// Not back into the dark without armor: the monsters that killed us are still there, and
+		// batch 10's runs died 4-6 times each walking back (goto death interrupted 86 times).
+		if (Mc.dimension().equals("overworld") && Mc.isNight() && Mc.player().getArmorValue() < 10) return null;
 		return new Option("goto", "death", "get back the items dropped when we died");
 	}
 

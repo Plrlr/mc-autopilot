@@ -271,6 +271,9 @@ public final class Autopilot {
 		if (pl.isDeadOrDying()) {
 			if (deathTick < 0) {
 				deathTick = tick;
+				// Died again on the way back for our items: they aren't worth a third trip.
+				boolean onTheWayBack = skill != null && skill.name().equals("goto") && skillOption != null
+						&& "death".equals(skillOption.arg());
 				abortSkill("died", false);
 				pendingDecision = null;
 				Bari.stop();
@@ -278,8 +281,8 @@ public final class Autopilot {
 				String cause = pl.getLastDamageSource() == null ? "unknown" : pl.getLastDamageSource().type().msgId();
 				log.event("death", cause);
 				// Drops survive 5 minutes unless lava or the void took them; go back for them.
-				if (!cause.equals("lava") && !cause.equals("outOfWorld") && pl.getY() > pl.level().getMinY()) {
-					for (WorldMemory.Seen d : memory.all("death")) memory.forget("death", d.pos());
+				for (WorldMemory.Seen d : memory.all("death")) memory.forget("death", d.pos());
+				if (!onTheWayBack && !cause.equals("lava") && !cause.equals("outOfWorld") && pl.getY() > pl.level().getMinY()) {
 					memory.remember("death", pl.blockPosition(), "death");
 					deathItemsUntilTick = tick + 20 * 60 * 4 + 20 * 30;
 				}
@@ -456,15 +459,20 @@ public final class Autopilot {
 		// With a gap left (a mob standing in it) the reflexes still act; a creeper's blast breaks
 		// the wall either way (review R1: hiding used to turn off every reflex).
 		if (h != null && !h.type().equals("enderman")) {
-			if (h.type().equals("creeper") && h.dist() < 5) {
+			// A creeper blows the wall open: that reflex stays on even while hiding.
+			// From 7 blocks, not 5: a creeper's fuse is 1.5 s, and 4 of batch 10's 25 deaths were
+			// blasts that caught the bot already running from 5.
+			if (h.type().equals("creeper") && h.dist() < 7) {
 				startReflex(new Option("retreat", null, "creeper close"), "reflex_creeper");
 				return;
 			}
 			if (!hiding && h.dist() < 3.5) {
 				// Same line as the planner's retreat (8): with 6 here, health 7-8 flipped between
-				// fighting and fleeing on every decision. Already walling in with it next to us:
-				// starting the escape again would only restart the wall, so fight.
-				if (hp <= 8 && !walling) startReflex(Planner.escape("low health"), "reflex_low_hp");
+				// fighting and fleeing on every decision.
+				// Hiding and one got right up to us: fight it rather than start hiding again.
+				// Run only when outnumbered. One mob at arm's length follows and hits our back
+				// (batch 10: 14 retreats ended in death); fighting it behind the shield wins.
+				if (hp <= 8 && !walling && seen.hostilesWithin(6) >= 2) startReflex(Planner.escape("low health"), "reflex_low_hp");
 				else if (skill == null || !skill.name().equals("attack")) startReflex(new Option("attack", h.type(), "it's attacking"), "reflex_fight");
 				return;
 			}
@@ -606,6 +614,11 @@ public final class Autopilot {
 			return;
 		}
 		if (skillIsReflex) return;
+		// The blaze fight handles getting hurt itself (it backs off out of sight to eat). A "hurt"
+		// decision picked eat and stopped it in the open while burning: the laptop's blaze run
+		// after e2e2ffe died that way 30 s in.
+		if (skill.name().equals("fortress") && skillOption != null && skillOption.arg() != null
+				&& skillOption.arg().startsWith("blazes")) return;
 		if (newHostile && !skill.name().equals("attack")) requestDecision("mob_near");
 		else if (pl.getHealth() < healthAtDecision - 3) requestDecision("hurt");
 		else if (skill.interruptible()) {
