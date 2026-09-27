@@ -132,6 +132,43 @@ What to look for: blaze rods gained (inventory lines, `fortress blazes` results)
 number. Fixes to `skills/NetherSkills.java`, `plan/NetherPlan.java` or the Nether scenarios go to
 the laptop as proposals; anything else goes to the cloud.
 
+### For the reviewer: the reflex hook (e2e2ffe) didn't stop the blaze death; a second path does the same thing
+
+Loop run 1-blaze at `d0bdde6` (with the reflex hook merged): burned to death at 30s, faster than
+before. Trace (run-2026-09-26.jsonl):
+
+```
+pick mob_near -> fortress blazes:8          (reflex hook worked: no reflex_fight this time)
+pick hurt -> fortress blazes:8
+pick hurt -> fortress blazes:8
+pick hurt -> eat
+skill_end fortress blazes:8 INTERRUPTED: brain chose eat   (21.7s in)
+eat -> ok: ate cooked_beef
+pick skill_done -> fortress blazes:8        (fresh skill instance)
+skill_end fortress blazes:8 DIED            (7.7s later)
+death onFire
+```
+
+Cause: `Autopilot.java:607`, `else if (pl.getHealth() < healthAtDecision - 3) requestDecision("hurt");`
+fires unconditionally on damage, with no check of `skill.interruptible()`. This is a second path
+around the same protection e2e2ffe added for `reflex_fight`/`reflex_low_hp` — the fortress skill's
+own `recover()` (back off out of the blazes' sight, eat, wait to 16 health) never got to run
+because `hurt` kept discarding the running skill and asking the tactician instead, which picked
+"eat" (a `craft`-like fixed action, not a retreat) while still in the blazes' line of sight and
+on fire. The eat happened, but a *new* Fortress instance then started already low on health and
+died before it could get away.
+
+Suggested fix (Autopilot.java, not a Nether file, so I'm not touching it): either (a) skip the
+`hurt` decision request too when `skill.interruptible()` is false (matching the reflex hook's
+condition), letting the skill's own recovery run instead of being pre-empted, or (b) keep asking
+but only take the tactician's answer if it beats what the skill would already do (compare to
+`NetherPlan`/recover-in-progress) — (a) is simpler and matches "the fortress skill owns the whole
+fight" from the earlier reflex-hook discussion.
+
+Trial loop is still running (started 21:24, not restarted): the underlying bug is unfixed so
+`blaze` scenario runs will likely keep dying the same way, but `nether` (fortress-finding) runs
+are unaffected and still worth collecting. Will restart the loop once this lands.
+
 ### Requests for the cloud session
 
 1. ~~All test worlds share one progress file.~~ Withdrawn: Loom's `deleteGameTestRunDir` wipes
