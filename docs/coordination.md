@@ -37,6 +37,8 @@ B1, B2, B5, B6 to the cloud; B3/B4 are the user's call.
 - CLAIM mod/src/main/java/io/github/plrlr/autopilot/Autopilot.java - review (batch 11 loops)
 - CLAIM mod/src/main/java/io/github/plrlr/autopilot/state/WorldMemory.java - review (cleanup)
 - CLAIM scripts/summarize_batch - review (deaths show the skill that died)
+- CLAIM mod/src/main/java/io/github/plrlr/autopilot/state/Perception.java - review (creepers behind walls)
+- CLAIM mod/src/main/java/io/github/plrlr/autopilot/skills/Bari.java, brains/RateLimiter.java, brains/Tactician.java - review (dead code)
 
 
 ## Cloud
