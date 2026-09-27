@@ -88,6 +88,8 @@ public class AutopilotClientTest implements FabricClientGameTest {
 			});
 				// Checkpoints: the stage we start at, and each further stage the first time it's reached.
 			int startStage = ctx.computeOnClient(Bank::stage);
+			// Self-test of the bank: -PtestSaveAt=<s> saves a "kit" checkpoint at that second, whatever the stage.
+			int saveAt = Integer.getInteger("autopilot.test.saveAt", 0);
 			int bankedStage = startStage;
 			System.out.println("[autopilot-test] STAGE start " + Bank.STAGES.get(startStage));
 			// Screenshots only where they explain something: each milestone, each death, a failed
@@ -96,6 +98,7 @@ public class AutopilotClientTest implements FabricClientGameTest {
 			for (int sec = 1; sec <= minutes * 60; sec++) {
 				ctx.waitTicks(20);
 				if (sec % 30 == 0) report(ctx, scenario + " " + sec + "s");
+				if (saveAt > 0 && sec == saveAt) Bank.save(ctx, sp, 1, sec);
 				if (task.isEmpty()) {
 					int now = ctx.computeOnClient(Bank::stage);
 					if (now > bankedStage) {

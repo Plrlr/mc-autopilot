@@ -17,6 +17,7 @@ inputs:
   window: {description: 'Game window size, e.g. 427x240 (smaller draws faster on the cloud)', default: ''}
   start: {description: 'Checkpoint to start from: an asset of the checkpoints release (learning loop)', default: ''}
   token: {description: 'Token to download the checkpoint', default: ''}
+  save_at: {description: 'Bank self-test: save a checkpoint at this game second', default: '0'}
   retention: {description: 'Days to keep the artifact', default: '14'}
 runs:
   using: composite
@@ -69,13 +70,14 @@ runs:
         LEAN: ${{ inputs.lean }}
         PERF: ${{ inputs.perf_mods }}
         WINDOW: ${{ inputs.window }}
+        SAVE_AT: ${{ inputs.save_at }}
       run: |
         chmod +x gradlew
         # The game exits with Baritone's known shutdown-watchdog crash after saving, which
         # fails the Gradle task; the summary step below judges the run instead.
         setsid xvfb-run -a -s "-screen 0 1280x720x24" ./gradlew runClientGameTest --console=plain \
           -PtestMinutes="$MINUTES" -PtestSeed="$SEED" -PtestScenario="$SCENARIO" -PtestTask="$TASK" -PtestGive="$GIVE" \
-          -PtestParams="$PARAMS" -PtestLearned="$LEARNED" -PtestLean="$LEAN" -PperfMods="$PERF" -PtestWindow="$WINDOW" -PtestStart="${START_ZIP:-}" \
+          -PtestParams="$PARAMS" -PtestLearned="$LEARNED" -PtestLean="$LEAN" -PperfMods="$PERF" -PtestWindow="$WINDOW" -PtestStart="${START_ZIP:-}" -PtestSaveAt="$SAVE_AT" \
           > trial.log 2>&1 &
         pid=$!
         # Watchdog: a game that can't open its window hangs instead of exiting, so stop it if
