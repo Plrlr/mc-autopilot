@@ -1,0 +1,202 @@
+#!/usr/bin/env python3
+"""Chart the trial batches in docs/batches.md: how many runs reached each milestone, and the
+median game time to reach it, one point per batch. Writes docs/progress.svg (no dependencies).
+
+    python scripts/plot_progress [--batches docs/batches.md] [--out docs/progress.svg]
+
+Reads the cloud table (rows whose first cell is a GitHub run id and whose note names a batch,
+"Batch 6" or "Batch 8a"). Milestone cells look like "3/4 5:30", "4/8 17:07*" or "0/4 -".
+Two panels, not two y-axes: success rate (%) and median time (game minutes). Honest gaps:
+- a milestone the batch didn't measure (its note says "not counted") is left out, not drawn as 0;
+- a median marked * counts runs that missed the milestone as the full run length (from batch 8);
+  before batch 8 medians counted only the runs that got there. Starred points are hollow.
+- the setup changed at batch 8 (4 seeds x 10-15 min -> 8 seeds x 20 min): a divider marks it.
+"""
+import argparse
+import html
+import os
+import re
+import sys
+
+MILESTONES = [("m1", "wood"), ("m2", "stone tools"), ("m4", "iron tools"), ("m7", "Nether")]
+# Categorical slots 1-4 of the dataviz reference palette (validated as adjacent pairs), light/dark.
+COLORS = [("#2a78d6", "#3987e5"), ("#eb6834", "#d95926"), ("#1baf7a", "#199e70"), ("#eda100", "#c98500")]
+
+
+def parse(path):
+    header, batches = None, []
+    for line in open(path, encoding="utf-8"):
+        if not line.startswith("|"):
+            continue
+        cells = [c.strip() for c in line.strip().strip("|").split("|")]
+        if cells[0] == "run":
+            header = cells
+            continue
+        if header is None or not re.fullmatch(r"\d{6,}", cells[0]) or len(cells) != len(header):
+            continue
+        row = dict(zip(header, cells))
+        m = re.search(r"Batch (\d+\w*)", row.get("note", ""))
+        if not m:
+            # scripts/cycle appends the numbers; the "Batch N" note is added by hand afterwards.
+            print("skipped run %s: its note doesn't name the batch yet" % cells[0], file=sys.stderr)
+            continue
+        b = {"name": m.group(1), "run": cells[0], "commit": row.get("commit", ""), "ms": {}}
+        for col, val in row.items():
+            mm = re.match(r"(m\d+) ", col)
+            if not mm:
+                continue
+            c = re.match(r"(\d+)/(\d+) (?:(\d+):(\d+)(\*?)|-)", val)
+            if not c:
+                continue
+            ok, n = int(c.group(1)), int(c.group(2))
+            t = int(c.group(3)) + int(c.group(4)) / 60 if c.group(3) else None
+            b["ms"][mm.group(1)] = {"ok": ok, "n": n, "t": t, "star": c.group(5) == "*", "text": val}
+        # "m4 not counted then": the batch didn't measure it; leave it out rather than plot a 0.
+        for key, _ in MILESTONES:
+            if re.search(r"\b%s not counted" % key, row.get("note", "")):
+                b["ms"].pop(key, None)
+        batches.append(b)
+    # Chronological by batch name: 1, 2, ..., 8a, 8b.
+    batches.sort(key=lambda b: (int(re.match(r"\d+", b["name"]).group()), b["name"]))
+    return batches
+
+
+def fmt_min(t):
+    return "%d:%02d" % (int(t), round((t - int(t)) * 60))
+
+
+def svg(batches):
+    W, left, right, top = 760, 56, 118, 108
+    ph, gap = 190, 78
+    pw = W - left - right
+    H = top + ph + gap + ph + 76
+    xs = {b["name"]: left + (i + 0.5) * pw / len(batches) for i, b in enumerate(batches)}
+    y1 = lambda pct: top + ph - pct / 100 * ph
+    tmax = max([m["t"] for b in batches for m in b["ms"].values() if m["t"] is not None] + [10])
+    tmax = 5 * ((int(tmax) + 4) // 5)
+    top2 = top + ph + gap
+    y2 = lambda t: top2 + ph - t / tmax * ph
+    out = []
+    a = out.append
+    a('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 %d %d" width="%d" height="%d" role="img" '
+      'aria-labelledby="t d" font-family="system-ui, -apple-system, Segoe UI, sans-serif">' % (W, H, W, H))
+    a('<title id="t">MC Autopilot trial progress</title>')
+    a('<desc id="d">Per trial batch (rules brain, Easy): share of natural runs reaching wood, stone tools, '
+      'iron tools and the Nether, and the median game time to reach each. Source: docs/batches.md.</desc>')
+    light = ["--s%d:%s;" % (i + 1, c[0]) for i, c in enumerate(COLORS)]
+    dark = ["--s%d:%s;" % (i + 1, c[1]) for i, c in enumerate(COLORS)]
+    a("<style>"
+      "svg{--bg:#fcfcfb;--ink:#0b0b0b;--ink2:#52514e;--muted:#898781;--grid:#e1e0d9;--axis:#c3c2b7;%s}"
+      "@media (prefers-color-scheme: dark){svg{--bg:#1a1a19;--ink:#ffffff;--ink2:#c3c2b7;--muted:#898781;"
+      "--grid:#2c2c2a;--axis:#383835;%s}}"
+      ".bg{fill:var(--bg)}.h{fill:var(--ink);font-size:15px;font-weight:600}.st{fill:var(--ink2);font-size:12px}"
+      ".lb{fill:var(--ink2);font-size:12px}.tk{fill:var(--muted);font-size:11px}.gr{stroke:var(--grid);stroke-width:1}"
+      ".ax{stroke:var(--axis);stroke-width:1}.ln{fill:none;stroke-width:2;stroke-linejoin:round;stroke-linecap:round}"
+      ".pt{stroke:var(--bg);stroke-width:2}.hollow{fill:var(--bg);stroke-width:2}"
+      "</style>" % ("".join(light), "".join(dark)))
+    a('<rect class="bg" width="%d" height="%d" rx="8"/>' % (W, H))
+    a('<text class="h" x="%d" y="26">Trial batches: how far the rules brain gets</text>' % left)
+    a('<text class="st" x="%d" y="45">Natural runs on Easy, cloud trials. Source: docs/batches.md.</text>' % left)
+
+    # Legend (always present for 2+ series); identity also comes from the right-edge labels.
+    lx = left
+    for i, (key, name) in enumerate(MILESTONES):
+        a('<line x1="%d" y1="%d" x2="%d" y2="%d" class="ln" stroke="var(--s%d)"/>' % (lx, 68, lx + 16, 68, i + 1))
+        a('<text class="lb" x="%d" y="72">%s %s</text>' % (lx + 21, key, name))
+        lx += 24 + 7.2 * len(key + name) + 18
+
+    def panel(y0, title, ticks, yf, fmt):
+        a('<text class="lb" x="%d" y="%d" font-weight="600">%s</text>' % (left, y0 - 10, title))
+        for t in ticks:
+            y = yf(t)
+            a('<line class="gr" x1="%d" x2="%d" y1="%.1f" y2="%.1f"/>' % (left, left + pw, y, y))
+            a('<text class="tk" x="%d" y="%.1f" text-anchor="end">%s</text>' % (left - 8, y + 4, fmt(t)))
+        a('<line class="ax" x1="%d" x2="%d" y1="%d" y2="%d"/>' % (left, left + pw, y0 + ph, y0 + ph))
+        for b in batches:
+            a('<text class="tk" x="%.1f" y="%d" text-anchor="middle">%s</text>' % (xs[b["name"]], y0 + ph + 16, b["name"]))
+        # The setup changed at batch 8: 8 seeds x 20 min instead of 4 seeds x 10-15 min.
+        first8 = next((b["name"] for b in batches if b["name"].startswith("8")), None)
+        if first8:
+            i = [b["name"] for b in batches].index(first8)
+            x = left + i * pw / len(batches)
+            a('<line class="ax" x1="%.1f" x2="%.1f" y1="%d" y2="%d"/>' % (x, x, y0, y0 + ph))
+            # Labels sit above the plot, beside the panel title, so they never cover a line.
+            a('<line class="ax" x1="%.1f" x2="%.1f" y1="%d" y2="%d"/>' % (x, x, y0 - 22, y0))
+            a('<text class="tk" x="%.1f" y="%d">8 seeds, 20 min</text>' % (x + 5, y0 - 10))
+            a('<text class="tk" x="%.1f" y="%d" text-anchor="end">4 seeds, 10-15 min</text>' % (x - 5, y0 - 10))
+
+    panel(top, "Runs that reached the milestone", [0, 25, 50, 75, 100], y1, lambda t: "%d%%" % t)
+    panel(top2, "Median game time to reach it",
+          list(range(0, tmax + 1, 5)), y2, lambda t: "%d min" % t)
+
+    for i, (key, name) in enumerate(MILESTONES):
+        color = "var(--s%d)" % (i + 1)
+        for yf, get in ((y1, lambda m: 100 * m["ok"] / m["n"]), (y2, lambda m: m["t"])):
+            pts = [(xs[b["name"]], b, b["ms"][key]) for b in batches if key in b["ms"] and get(b["ms"][key]) is not None]
+            # Break the line where a batch has no value, so a gap never looks like a trend.
+            seg, segs, prev = [], [], None
+            for x, b, m in pts:
+                idx = batches.index(b)
+                if prev is not None and idx != prev + 1:
+                    segs.append(seg)
+                    seg = []
+                seg.append((x, yf(get(m))))
+                prev = idx
+            segs.append(seg)
+            for s in segs:
+                if len(s) > 1:
+                    a('<polyline class="ln" stroke="%s" points="%s"/>' % (color, " ".join("%.1f,%.1f" % p for p in s)))
+            for x, b, m in pts:
+                tip = "Batch %s (%s): %s %s, %d/%d runs%s" % (
+                    b["name"], b["commit"], key, name, m["ok"], m["n"],
+                    ", median %s%s" % (fmt_min(m["t"]), " (fails counted as full run)" if m["star"] else "") if m["t"] is not None else "")
+                cls = "hollow" if (yf is y2 and m["star"]) else "pt"
+                fill = "" if cls == "hollow" else ' fill="%s"' % color
+                stroke = ' stroke="%s"' % color if cls == "hollow" else ""
+                a('<circle class="%s" cx="%.1f" cy="%.1f" r="4.5"%s%s><title>%s</title></circle>'
+                  % (cls, x, yf(get(m)), fill, stroke, html.escape(tip)))
+            if pts:
+                x, b, m = pts[-1]
+                a('<line class="gr" x1="%.1f" x2="%d" y1="%.1f" y2="%.1f"/>' % (x + 6, left + pw + 6, yf(get(m)), yf(get(m))))
+
+    # Direct labels at the right edge, spread apart so close lines stay readable; the thin
+    # leader above connects each to its line's last point.
+    for yf, get, y0 in ((y1, lambda m: 100 * m["ok"] / m["n"], top), (y2, lambda m: m["t"], top2)):
+        ends = []
+        for i, (key, name) in enumerate(MILESTONES):
+            pts = [b["ms"][key] for b in batches if key in b["ms"] and get(b["ms"][key]) is not None]
+            if pts:
+                ends.append([yf(get(pts[-1])), i, key, name])
+        ends.sort()
+        for j in range(1, len(ends)):
+            ends[j][0] = max(ends[j][0], ends[j - 1][0] + 14)
+        for y, i, key, name in ends:
+            a('<line x1="%d" x2="%d" y1="%.1f" y2="%.1f" class="ln" stroke="var(--s%d)"/>' % (left + pw + 8, left + pw + 18, y, y, i + 1))
+            a('<text class="lb" x="%d" y="%.1f">%s</text>' % (left + pw + 22, y + 4, name))
+
+    missing = [n for n in range(1, int(re.match(r"\d+", batches[-1]["name"]).group()))
+               if not any(re.match(r"%d(?!\d)" % n, b["name"]) for b in batches)]
+    note = "No row for batch %s in docs/batches.md. " % ", ".join(map(str, missing)) if missing else ""
+    a('<text class="tk" x="%d" y="%d">%sBatch 1 did not count m4.</text>' % (left, H - 30, html.escape(note)))
+    a('<text class="tk" x="%d" y="%d">Medians before batch 8 count only the runs that got there; hollow points count failed '
+      'runs as the full run length.</text>' % (left, H - 14))
+    a("</svg>")
+    return "\n".join(out) + "\n"
+
+
+def main():
+    root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+    ap = argparse.ArgumentParser()
+    ap.add_argument("--batches", default=os.path.join(root, "docs", "batches.md"))
+    ap.add_argument("--out", default=os.path.join(root, "docs", "progress.svg"))
+    a = ap.parse_args()
+    batches = parse(a.batches)
+    if not batches:
+        sys.exit("no batch rows found in " + a.batches)
+    with open(a.out, "w", encoding="utf-8", newline="\n") as f:
+        f.write(svg(batches))
+    print("%d batches -> %s" % (len(batches), a.out))
+
+
+if __name__ == "__main__":
+    main()

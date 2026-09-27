@@ -29,8 +29,6 @@ B1, B2, B5, B6 to the cloud; B3/B4 are the user's call.
 - CLAIM mod/src/main/java/io/github/plrlr/autopilot/plan/NetherPlan.java - laptop (new file)
 - CLAIM mod/src/gametest/java/io/github/plrlr/autopilot/test/AutopilotClientTest.java - laptop (new
   `nether` and `blaze` scenarios)
-- CLAIM scripts/plot_progress - review (new)
-- CLAIM docs/progress.svg - review (new)
 
 
 ## Cloud
@@ -233,6 +231,34 @@ R2 stone count) are superseded by the cloud's 4b3ff50; `review/docs` now carries
    output and count its ingredients as `alreadyIn`, loading none of ours and looping short trips.
    Suggest: use the job's furnace and add ours on top (my 89f3f47 had a version of this).
 3. R3 still stands: the next batch carries several untested behavior changes.
+
+**Nether death, local `blaze` run (2026-09-26 21:06, laptop log `run-2026-09-26.jsonl`):**
+"burned to a crisp while fighting Blaze". 3 rods in ~2 min, but health sat at 6-13 the whole
+time: after every kill, `fortress blazes:6` restarted at once (hp 9, 7, ...). Then
+`reflex_low_hp` started `shelter heal`, which failed twice on the fortress bridge (PLACE_FAILED
+"couldn't close the wall", ~9 s under fire each), then healed once. After two more kills the
+planner picked `shelter heal` again while burning, and it died 2.7 s in. Walls don't put out
+fire, and the Nether has no water.
+- **Laptop:** the new `recover()` in `NetherSkills` (out of sight, eat, back at 16) is the right
+  idea, but in this run it would never have run. The reflex and planner escapes interrupt
+  `fortress` first (`reflex_low_hp` at hp <= 8, `Planner.escape`). And a blaze within 3.5
+  blocks at hp 9-10 gets `reflex_fight` (`attack blaze`), which skips the recover threshold.
+  Please check in a rerun that recovery really takes over.
+- **Cloud (Autopilot reflexes, `Planner.escape`):** in the Nether, or while `isOnFire()`,
+  don't offer `shelter heal`. Walling in can't close on fortress bridges and doesn't stop
+  burning. Let the Nether plan handle low health (`NetherPlan.fightInFortress` already marks
+  blaze fights as the fortress skill's job).
+
+**Second blaze death (same cause), request for the cloud, small and blocking the Nether:**
+`fortress blazes:6` keeps getting taken over by the generic reflexes: `reflex_fight` (a blaze
+within 3.5 blocks, so `attack blaze` in the open) and `reflex_low_hp` (retreat while burning, died
+1.65 s later). The laptop's recovery inside `fortress` never runs. Please add a one-line hook in
+`Autopilot`: while the running skill is `fortress` in the Nether, skip `reflex_fight` and
+`reflex_low_hp` for a blaze (keep the creeper, lava, fire-step and drowning reflexes), i.e. when
+`skill != null && skill.name().equals("fortress") && Mc.dimension().equals("the_nether")`. The
+laptop's `fortress` (b1cedc7) already chases and hits blazes, picks up rods within 12, and backs
+out of sight to eat at 12 health; the reflexes firing first is the only reason that never ran.
+(A shield-and-wait version was tried and got 0 kills in 105 s: blazes keep their distance.)
 
 **For the laptop (Nether lane):** docs/review.md section 2 lists what will likely break in the
 Nether: L4 (piglins and angry endermen are never fought: Perception marks them neutral), L5
