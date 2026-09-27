@@ -15,8 +15,18 @@ Three sessions work at once. Each writes only in its own section below.
 **Claims.** Before editing a file, add `CLAIM <path> - <who>` under Claims; remove it after
 pushing. Pull before each task.
 
+**All lanes: read docs/outside-review-2.txt** (outside review #2, 2026-09-26). Work follows its
+Part C order: 1. survival sprint (A2) until deaths per run < 0.5 (cloud); 2. natural runs cast
+and enter the portal on 4/8 seeds (cloud); 3. relay benchmark (B2) and paired A/B batches (B1)
+(cloud); 4. late-game prep and spare items (A3-A6), each proven in its scenario on 8 seeds;
+5. daily full attempts (A1). Assigned: **A5 (gold armor against piglins) and A7 (Nether survival:
+lava, fire, blaze cover) to the laptop**; A1, A2, A3 (cloud part: pearls/eyes counts), A4, A6,
+B1, B2, B5, B6 to the cloud; B3/B4 are the user's call.
+
 ## Claims
 
+- CLAIM mod/src/main/java/io/github/plrlr/autopilot/plan/Planner.java - cloud (A2 survival)
+- CLAIM mod/src/main/java/io/github/plrlr/autopilot/Autopilot.java - cloud (A2 survival)
 - CLAIM mod/src/main/java/io/github/plrlr/autopilot/skills/NetherSkills.java - laptop (new file)
 - CLAIM mod/src/main/java/io/github/plrlr/autopilot/plan/NetherPlan.java - laptop (new file)
 - CLAIM mod/src/gametest/java/io/github/plrlr/autopilot/test/AutopilotClientTest.java - laptop (new

@@ -1,0 +1,112 @@
+MC-AUTOPILOT: OUTSIDE REVIEW #2 (what stands between the bot and the dragon)
+Read on 2026-09-26 from all branches: origin/laptop/opus-and-tooling @938f527 (includes the
+cloud's 729fb82), review/docs @96d5420, review/proposals, and main @d01e8f4.
+Save as docs/outside-review-2.txt. The owner of each item follows docs/coordination.md lanes.
+
+
+WHY THIS IS HARD (for the user and every session)
+- Beating the game is a chain of ~10 stages. Success multiplies: if each stage works 80% of the
+  time, a full run works about 11% of the time (0.8^10). One death or one lost bucket anywhere
+  can end the whole chain. So reliability of every stage matters more than speed of any stage.
+- The bot's decisions are hand-written rules. Planner.java grew from 295 to 576 lines (129 `if`s)
+  and Autopilot.java from 621 to 798 lines (109 `if`s) in one day. Every fix adds a special case,
+  and special cases fight each other (batch 9: food upkeep beat a ready build_portal at night).
+- The full game has never been attempted: natural runs are 20 game minutes, and everything after
+  the portal has only run in staged scenarios, mostly on seed a.
+
+
+PART A: BLOCKERS TO BEATING THE GAME (ranked)
+
+A1. No run can reach the end (cloud, high)
+- trials.yml: trial job timeout-minutes 120 (about 90 game minutes at CI's ~0.75x speed), default
+  20 game minutes, and no checkpoint/resume. A fresh-world run to the dragon will take hours.
+- Fix: add a "full attempt" mode: minutes 240, timeout-minutes 350 (GitHub's limit is 6 hours per
+  job), 8 seeds, started by hand about once a day. Save the world folder and progress at each new
+  milestone as an artifact, and add a `resume` input that restores it, so runs can continue past
+  6 hours. Report the furthest milestone per seed.
+
+A2. Deaths are the biggest multiplier killer (cloud, high)
+- Batches 8a/8b/9: 19, 24 and 14 deaths across 8 runs of 20 minutes (2-3 per run). The same
+  commit gave iron 8/8 in 8a and 4/8 in 8b, mostly from deaths. Every death drops the buckets,
+  iron and flint and steel that the portal needs.
+- Goal.optional() skips IRON_ARMOR entirely (Goal.java:116). Human speedrunners skip armor
+  because they don't make mistakes; this bot does.
+- Fix: before the portal, make an iron chestplate and helmet (13 iron) required, and boots if
+  iron allows. Sleep in a bed every night when one is carried or can be made (3 wool). Make item
+  recovery after a death an urgent option while the items can still be picked up (5 minutes).
+  Track "deaths per run" as a headline number; target under 0.5 before pushing past the portal.
+
+A3. The late-game plan has no spare items (cloud + laptop, high)
+- NetherPlan.RODS = 6 and Goal ENDER_PEARLS = 12, EYES_OF_ENDER = 12: exactly enough to fill all
+  12 frames with nothing left to throw. Eyes thrown to find the stronghold break about 20% of the
+  time, so the bot will come up short and have to go back to the Nether.
+- Fix: 8 rods, 16 pearls, 14+ eyes. Subtract eyes already sitting in frames when filling.
+
+A4. Ender pearls are the weakest stage (cloud, high)
+- Planner.java:125-127: ENDER_PEARLS only attacks a visible enderman or explores for one, which
+  means wandering the Overworld. Nothing targets warped forests (full of endermen), nothing uses
+  the 2-block-high trick (endermen can't fit), and there's no piglin bartering.
+- Fix: while in the Nether, look for warped forest (warped nylium, warped stems) and hunt there.
+  Add an enderman fight skill: dig a 2-high pocket, provoke, fight from inside. Consider bartering
+  gold with piglins when gold is plentiful. Test with a new `pearls` scenario on 8 seeds.
+
+A5. Piglins will attack (laptop, medium-high)
+- No gold armor anywhere in the plan (NetherPlan.java, NetherSkills.java, Planner.java). Without
+  at least one gold armor piece, piglins are hostile.
+- Fix: golden boots (4 gold) or helmet (5 gold) before entering the Nether. Gold sources: ruined
+  portal chests, gold ore at depth, nether gold ore (nuggets, 9 per ingot).
+
+A6. The dragon fight is unprepared (cloud, medium-high)
+- Goal KILL_DRAGON needs() is empty. Planner.java:144-151 shoots crystals only if a bow and arrows
+  happen to be in the bag. Without them the crystals keep healing the dragon forever.
+- Fix: a DRAGON_PREP need list before entering the End: bow, 32+ arrows (string from spiders,
+  feathers from chickens, flint), 64 blocks, a water bucket, 10+ food. Test with the `end`
+  scenario on several seeds, not just one.
+
+A7. Nether survival (laptop, medium)
+- NetherPlan has no lava or fire handling. The local blaze run died burning while walling in
+  (docs/coordination.md). Keep this in the laptop's lane: no walling in while on fire, head for
+  cover out of blaze sight, and never path next to lava edges.
+
+
+PART B: MEASUREMENT AND PROCESS
+
+B1. Batches can't tell what helped (cloud, high)
+- Noise is large (8a vs 8b on the same commit), and batches bundle several changes (review R3).
+- Fix: paired A/B batches. Add a `variant` input to the workflow and a config flag per change,
+  then run 8 seeds x 2 variants in the same batch (jobs run in parallel, so it costs no extra
+  time). Compare the variants side by side instead of against an older batch.
+
+B2. Relay benchmark for every stage (cloud, high)
+- Late stages are tested mostly on seed a, so fixes can overfit one world.
+- Fix: a "relay" batch that runs each staged scenario (cast, nether/blaze, pearls, stronghold,
+  end) on 8 seeds. Report the success rate per stage. Multiply them to estimate full-run odds, and
+  work on whichever stage has the lowest rate.
+
+B3. Coordination overhead (all, medium)
+- About a third of the 81 commits are merges or coordination/review notes, and three sessions
+  touch one Planner. Consider two sessions: the cloud builds and integrates, the reviewer reviews
+  and writes docs. Use the laptop to watch runs and for occasional local scenario checks.
+
+B4. GitHub shows old code (user or cloud, medium)
+- main is at d01e8f4 (before the first trial batch). Visitors see the old README and none of the
+  results. Merge the current work into main, or set the working branch as the default branch.
+
+B5. Docs don't match reality (cloud, low-medium)
+- CLAUDE.md describes Opus as the brain, but every test runs the rules brain (the user decided
+  Opus calls in tests weren't worth it). CLAUDE.md also still says 4 seeds (now 8). Update both,
+  and say plainly in the README that the results so far come from the rules brain.
+
+B6. Optional: Opus as a rescue brain (cloud, low-medium)
+- Rules fail on anything nobody wrote a rule for. A cheap middle path: call Opus only when a run
+  is stuck (no milestone or checkpoint progress for 3+ minutes, or 2 deaths in 5 minutes), with the
+  state and the last 30 log lines, capped at about 3 calls per run. Measure it with a paired A/B
+  batch before keeping it.
+
+
+PART C: ORDER OF WORK
+1. Survival sprint (A2) until deaths per run are under 0.5.
+2. Natural runs cast and enter the portal on 4/8 seeds (batch 9: lava seen 3/8, lit 0/8).
+3. Relay benchmark (B2) and paired A/B batches (B1).
+4. Late-game prep and spare items (A3-A6), each proven in its scenario on 8 seeds.
+5. Full attempt runs (A1) once a day to see how far a fresh world gets.
