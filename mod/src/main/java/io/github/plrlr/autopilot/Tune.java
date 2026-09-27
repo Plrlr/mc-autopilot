@@ -82,6 +82,8 @@ public final class Tune {
 		gene("route.boots_before_portal", 1, 0, 1, Kind.BOOL, "boots too when 4 ingots are spare");
 		gene("route.deep_for_lava", 1, 0, 1, Kind.BOOL, "mine down to lava depth instead of exploring for a pool");
 		gene("route.bed", 1, 0, 1, Kind.BOOL, "hunt sheep and make a bed early");
+		// Focus: finish the running task unless an emergency comes up
+		gene("focus.commit", 0, 0, 1, Kind.BOOL, "finish the running task before switching, unless the top option is an emergency");
 		// Main loop timing
 		gene("loop.lost_underground_s", 60, 20, 180, Kind.INT, "seconds underground with nothing gained before heading up");
 		gene("loop.stuck_s", 10, 5, 30, Kind.INT, "seconds without moving that mark the state as stuck for the brains");

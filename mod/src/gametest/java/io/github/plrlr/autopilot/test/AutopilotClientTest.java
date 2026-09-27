@@ -133,9 +133,10 @@ public class AutopilotClientTest implements FabricClientGameTest {
 			ctx.takeScreenshot("final");
 			// Real speed: game seconds per wall second (1.0 = the machine keeps up with the game).
 			double wall = (System.nanoTime() - wallStart) / 1e9;
-			System.out.printf(java.util.Locale.ROOT, "[autopilot-test] SPEED %.3f game s per wall s (%d game s in %.0f wall s)%n",
+			System.out.printf(java.util.Locale.ROOT, "[autopilot-test] SPEED %.3f game s per wall s (%d game s in %.0f wall s), mod %.2f ms per tick%n",
 					ctx.computeOnClient(mc -> AutopilotMod.instance().gameSeconds()) / wall,
-					ctx.computeOnClient(mc -> AutopilotMod.instance().gameSeconds()), wall);
+					ctx.computeOnClient(mc -> AutopilotMod.instance().gameSeconds()), wall,
+					ctx.computeOnClient(mc -> AutopilotMod.instance().msPerTick()));
 			ctx.runOnClient(mc -> {
 				Autopilot ap = AutopilotMod.instance();
 				if (!ap.enabled()) System.out.println("[autopilot-test] NOTE: autopilot turned itself off during the run");

@@ -209,7 +209,26 @@ public final class Autopilot {
 
 	// ------------------------------------------------------------------ main loop
 
+	/** Time our own code takes per game tick (ms, since the autopilot turned on): is the mod what slows the game? */
+	private long tickNanos, tickCount;
+
+	public double msPerTick() {
+		return tickCount == 0 ? 0 : tickNanos / 1e6 / tickCount;
+	}
+
 	public void tick(Minecraft mc) {
+		long t0 = System.nanoTime();
+		try {
+			tickInner(mc);
+		} finally {
+			if (enabled) {
+				tickNanos += System.nanoTime() - t0;
+				tickCount++;
+			}
+		}
+	}
+
+	private void tickInner(Minecraft mc) {
 		tick++;
 		while (!notices.isEmpty()) {
 			String n = notices.poll();
@@ -689,6 +708,13 @@ public final class Autopilot {
 			if (f == null || tick >= f[1]) options.add(o);
 		}
 		if (options.isEmpty()) options.add(new Option("explore", "any", "everything else failed recently"));
+		// Focus, like a player: a task that's running is finished before the next one, unless the
+		// rules' top choice is an emergency (a mob on us, hunger, a creeper). Generation 1 split
+		// every iron trip into ~9 pieces of ~20 s: each heartbeat let upkeep or a furnace check win.
+		if (skill != null && !skillIsReflex && Tune.on("focus.commit") && !planner.lastUrgent.contains(options.get(0).label())) {
+			lastDecisionTick = tick;
+			return;
+		}
 		// Routine re-checks while the rules still want what we're doing: nothing to decide,
 		// so don't spend an AI call (or restart the skill) on it.
 		if (skill != null && (trigger.equals("heartbeat") || trigger.equals("goal_changed")) && sameAction(options.get(0), skillOption)) {
