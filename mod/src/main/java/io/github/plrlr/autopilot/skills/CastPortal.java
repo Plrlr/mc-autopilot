@@ -27,7 +27,7 @@ import java.util.List;
  * a portal frame doesn't need them.
  */
 public final class CastPortal extends Skill {
-	private enum Phase {SITE, APPROACH, CARVE, DIGIN, WALL, NEXT, FETCH, WALK, LAVA, POUR, SCOOP, REFILL, BREAK, CLEAR, LIGHT}
+	private enum Phase {SITE, APPROACH, CARVE, DIGIN, WALL, NEXT, PILLAR, FETCH, WALK, LAVA, POUR, SCOOP, REFILL, BREAK, CLEAR, LIGHT}
 
 	/** Frame width 4 (x 0..3), height 5 (y 0..4); the wall behind also covers y 5 for the water. */
 	private static final int WALL_H = 6;
@@ -53,6 +53,8 @@ public final class CastPortal extends Skill {
 	private CastGeometry.Aim lavaAim, waterAim;
 	private BucketSkills.FillBucket fetch;
 	private int castFails;
+	/** Blocks placed under us to reach high frame blocks (a player builds up to reach). */
+	private int pillars;
 	private int approachTicks = 20 * 45;
 	private int carveTries;
 	private boolean dugIn;
@@ -197,6 +199,28 @@ public final class CastPortal extends Skill {
 			}
 			case WALL -> wallTick(pl);
 			case NEXT -> nextTick(pl);
+			case PILLAR -> {
+				// Jump and put a block underneath at the top of the jump, then look for an aim again.
+				if (++wait > 20 * 4) {
+					Mc.mc().options.keyJump.setDown(false);
+					phase = Phase.NEXT;
+					wait = 0;
+					return;
+				}
+				if (!Mc.holdItem(io.github.plrlr.autopilot.Items2.matcher("throwaway"))) {
+					Mc.mc().options.keyJump.setDown(false);
+					castFailed(Fail.NEED_ITEM, "no blocks to build up with");
+					return;
+				}
+				pl.setXRot(90f);
+				Mc.mc().options.keyJump.setDown(true);
+				BlockPos below = pl.blockPosition().below();
+				if (!pl.onGround() && Mc.free(below) && Mc.clearOfPlayer(below) && Mc.placeAt(below)) {
+					Mc.mc().options.keyJump.setDown(false);
+					phase = Phase.NEXT;
+					wait = 0;
+				}
+			}
 			case REFILL -> {
 				refill.update();
 				if (refill.result() == null) return;
@@ -477,6 +501,15 @@ public final class CastPortal extends Skill {
 			return;
 		}
 		Plan plan = planFor(target, pl);
+		if (plan == null && pillars < 2 && Mc.count("throwaway") > 0) {
+			// The high blocks of the frame can be out of reach from the ground (seed a of the cast
+			// test failed NO_ROOM 5 times): build up a block, like a player, and try again.
+			pillars++;
+			log("building up a block to reach " + target.toShortString());
+			phase = Phase.PILLAR;
+			wait = 0;
+			return;
+		}
 		if (plan == null) {
 			castFailed(Fail.NO_ROOM, "no spot with a clear aim at the frame");
 			return;
@@ -556,8 +589,8 @@ public final class CastPortal extends Skill {
 		double bestD = Double.MAX_VALUE;
 		List<BlockPos> waters = waterCandidates(t);
 		for (int x = -2; x <= 5; x++) {
-			for (int f = 1; f <= 4; f++) {
-				for (int y = -1; y <= 2; y++) {
+			for (int f = 1; f <= 5; f++) {
+				for (int y = -1; y <= 3; y++) {
 					BlockPos s = origin.relative(along, x).relative(front(), f).above(y);
 					if (!BucketSkills.standable(s)) continue;
 					Vec3 eye = Vec3.atBottomCenterOf(s).add(0, 1.62, 0);
