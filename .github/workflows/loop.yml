@@ -119,8 +119,6 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 45
     env:
-      # Level 3 (code changes by Claude) runs only when this secret exists: see docs/learning-loop.md.
-      HAS_CLAUDE: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN != '' }}
       STATE: ${{ needs.propose.outputs.state }}
     steps:
       - uses: actions/checkout@v7
@@ -140,6 +138,14 @@ jobs:
           python3 scripts/loop/train.py --state "results/$STATE"
       - name: Merge a winning code change into main
         run: python3 scripts/loop/loop.py merge --state "results/$STATE"
+      # Level 3 (code changes by Claude) runs only when this secret exists: see docs/learning-loop.md.
+      # Checked in a step: a secrets comparison in the job's env came out false with the secret set.
+      - name: Is level 3 on?
+        env:
+          T: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
+        run: |
+          if [ -n "$T" ]; then echo "HAS_CLAUDE=true" >> "$GITHUB_ENV"; fi
+          echo "level 3: $([ -n "$T" ] && echo on || echo off)"
       - uses: actions/setup-java@v6
         if: env.HAS_CLAUDE == 'true'
         with:
