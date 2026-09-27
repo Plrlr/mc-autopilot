@@ -459,30 +459,20 @@ public final class Autopilot {
 		// With a gap left (a mob standing in it) the reflexes still act; a creeper's blast breaks
 		// the wall either way (review R1: hiding used to turn off every reflex).
 		if (h != null && !h.type().equals("enderman")) {
-<<<<<<< HEAD
 			// A creeper blows the wall open: that reflex stays on even while hiding.
 			// From 7 blocks, not 5: a creeper's fuse is 1.5 s, and 4 of batch 10's 25 deaths were
 			// blasts that caught the bot already running from 5.
 			if (h.type().equals("creeper") && h.dist() < 7) {
-=======
-			if (h.type().equals("creeper") && h.dist() < 5) {
->>>>>>> origin/laptop/opus-and-tooling
 				startReflex(new Option("retreat", null, "creeper close"), "reflex_creeper");
 				return;
 			}
 			if (!hiding && h.dist() < 3.5) {
 				// Same line as the planner's retreat (8): with 6 here, health 7-8 flipped between
-<<<<<<< HEAD
 				// fighting and fleeing on every decision.
 				// Hiding and one got right up to us: fight it rather than start hiding again.
 				// Run only when outnumbered. One mob at arm's length follows and hits our back
 				// (batch 10: 14 retreats ended in death); fighting it behind the shield wins.
-				if (hp <= 8 && !hiding && seen.hostilesWithin(6) >= 2) startReflex(Planner.escape("low health"), "reflex_low_hp");
-=======
-				// fighting and fleeing on every decision. Already walling in with it next to us:
-				// starting the escape again would only restart the wall, so fight.
-				if (hp <= 8 && !walling) startReflex(Planner.escape("low health"), "reflex_low_hp");
->>>>>>> origin/laptop/opus-and-tooling
+				if (hp <= 8 && !walling && seen.hostilesWithin(6) >= 2) startReflex(Planner.escape("low health"), "reflex_low_hp");
 				else if (skill == null || !skill.name().equals("attack")) startReflex(new Option("attack", h.type(), "it's attacking"), "reflex_fight");
 				return;
 			}
