@@ -95,13 +95,24 @@ public class AutopilotClientTest implements FabricClientGameTest {
 			// Free run (default): client and server in parallel at normal speed; the test only looks
 			// in once a second. -PtestLockstep=true keeps the framework's slow lockstep (and its
 			// milestone and death screenshots).
-			if (!Boolean.getBoolean("autopilot.test.lockstep") && FreeRun.start()) {
+			boolean free = !Boolean.getBoolean("autopilot.test.lockstep") && FreeRun.start();
+			if (free) {
 				try {
 					playFree(minutes * 60L, scenario, task, saveAt, bankedStage, sp);
+					// The whole report before rejoining the framework: if rejoining ever hangs, the
+					// run's results are already in the log (the watchdog then stops the game).
+					String t = task;
+					FreeRun.onClient(() -> {
+						if (!t.isEmpty() && AutopilotMod.instance().taskResult() == null)
+							System.out.println("[autopilot-test] TASK " + t + " -> failed TIMEOUT: still running when the test ended");
+					});
+					double wallF = (System.nanoTime() - wallStart) / 1e9;
+					FreeRun.onClient(() -> finalReport(net.minecraft.client.Minecraft.getInstance(), scenario, wallF));
 				} finally {
 					FreeRun.stop();
 					ctx.waitTicks(5);
 				}
+				ctx.takeScreenshot("final");
 			} else {
 			// Screenshots only where they explain something: each milestone, each death, a failed
 			// task, and the end.
@@ -140,26 +151,13 @@ public class AutopilotClientTest implements FabricClientGameTest {
 				}
 			}
 			}
-			if (!task.isEmpty() && ctx.computeOnClient(mc -> AutopilotMod.instance().taskResult() == null))
-				System.out.println("[autopilot-test] TASK " + task + " -> failed TIMEOUT: still running when the test ended");
-			ctx.takeScreenshot("final");
-			// Real speed: game seconds per wall second (1.0 = the machine keeps up with the game).
-			double wall = (System.nanoTime() - wallStart) / 1e9;
-			System.out.printf(java.util.Locale.ROOT, "[autopilot-test] SPEED %.3f game s per wall s (%d game s in %.0f wall s), mod %.2f ms per tick%n",
-					ctx.computeOnClient(mc -> AutopilotMod.instance().gameSeconds()) / wall,
-					ctx.computeOnClient(mc -> AutopilotMod.instance().gameSeconds()), wall,
-					ctx.computeOnClient(mc -> AutopilotMod.instance().msPerTick()));
-			ctx.runOnClient(mc -> {
-				Autopilot ap = AutopilotMod.instance();
-				if (!ap.enabled()) System.out.println("[autopilot-test] NOTE: autopilot turned itself off during the run");
-				System.out.println("[autopilot-test] FINAL " + scenario + ": " + ap.statusLine() + ", dimension "
-						+ mc.player.level().dimension().identifier().getPath()
-						+ ", milestone times " + (ap.milestoneTimes().isEmpty() ? "none" : String.join(" ", ap.milestoneTimes()))
-						+ ", checkpoints " + (io.github.plrlr.autopilot.log.Checkpoints.summary().isEmpty() ? "none"
-						: String.join(" ", io.github.plrlr.autopilot.log.Checkpoints.summary())));
-				for (String l : ap.lessons.worst(6)) System.out.println("[autopilot-test] LESSON " + l);
-				ap.disable("test finished");
-			});
+			if (!free) {
+				if (!task.isEmpty() && ctx.computeOnClient(mc -> AutopilotMod.instance().taskResult() == null))
+					System.out.println("[autopilot-test] TASK " + task + " -> failed TIMEOUT: still running when the test ended");
+				ctx.takeScreenshot("final");
+				double wall = (System.nanoTime() - wallStart) / 1e9;
+				ctx.runOnClient(mc -> finalReport(mc, scenario, wall));
+			}
 		}
 	}
 
@@ -320,6 +318,21 @@ public class AutopilotClientTest implements FabricClientGameTest {
 				}
 			}
 		}
+	}
+
+	/** Real speed (game seconds per wall second: 1.0 keeps up with the game), then the FINAL line. */
+	private static void finalReport(net.minecraft.client.Minecraft mc, String scenario, double wall) {
+		Autopilot ap = AutopilotMod.instance();
+		System.out.printf(java.util.Locale.ROOT, "[autopilot-test] SPEED %.3f game s per wall s (%d game s in %.0f wall s), mod %.2f ms per tick%n",
+				ap.gameSeconds() / wall, ap.gameSeconds(), wall, ap.msPerTick());
+		if (!ap.enabled()) System.out.println("[autopilot-test] NOTE: autopilot turned itself off during the run");
+		System.out.println("[autopilot-test] FINAL " + scenario + ": " + ap.statusLine() + ", dimension "
+				+ mc.player.level().dimension().identifier().getPath()
+				+ ", milestone times " + (ap.milestoneTimes().isEmpty() ? "none" : String.join(" ", ap.milestoneTimes()))
+				+ ", checkpoints " + (io.github.plrlr.autopilot.log.Checkpoints.summary().isEmpty() ? "none"
+				: String.join(" ", io.github.plrlr.autopilot.log.Checkpoints.summary())));
+		for (String l : ap.lessons.worst(6)) System.out.println("[autopilot-test] LESSON " + l);
+		ap.disable("test finished");
 	}
 
 	private static void report(ClientGameTestContext ctx, String when) {

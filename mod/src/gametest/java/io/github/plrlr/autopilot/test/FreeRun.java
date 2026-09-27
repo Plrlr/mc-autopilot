@@ -42,6 +42,12 @@ final class FreeRun {
 			savedTestThread = (Thread) test.get(null);
 			test.set(null, null);
 			phases.setBoolean(null, false);
+			// Right now the client and server are parked on their semaphores, waiting for the test
+			// thread's next task (it's the test's turn). Wake each once with "no task": they leave
+			// the lockstep and, with no test thread registered, don't wait again.
+			c.getField("taskToRun").set(null, null);
+			((java.util.concurrent.Semaphore) c.getField("CLIENT_SEMAPHORE").get(null)).release();
+			((java.util.concurrent.Semaphore) c.getField("SERVER_SEMAPHORE").get(null)).release();
 			active = true;
 			System.out.println("[autopilot-test] FREE RUN: client and server run in parallel (no lockstep)");
 			return true;
