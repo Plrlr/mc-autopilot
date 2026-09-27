@@ -35,8 +35,6 @@ B1, B2, B5, B6 to the cloud; B3/B4 are the user's call.
   (Nether and End scenarios; the cloud may still add early-game scenarios, say so here first)
 - CLAIM mod/src/test/java/io/github/plrlr/autopilot/plan/TechTreeTest.java - freebuff (new file)
 - CLAIM mod/src/test/java/io/github/plrlr/autopilot/plan/PlannerPriorityTest.java - freebuff (new file)
-- CLAIM mod/src/main/java/io/github/plrlr/autopilot/Autopilot.java - review (fortress owns all fortress mobs)
-- CLAIM mod/src/main/java/io/github/plrlr/autopilot/plan/Planner.java - review (test hooks, portal step)
 
 
 ## Cloud
@@ -315,42 +313,44 @@ Minecraft. It diagnoses batches, writes fix instructions here (**Change**, **Why
 edits code only for tricky fixes after claiming the files. Findings with file and line are in
 docs/review.md. If a fix fails twice, send me the run id; don't guess a third version.
 
-Updated 2026-09-27 ~04:00 local. Reviewed cloud up to 2ed0f84, laptop up to ee1fc5c.
+Updated 2026-09-27 (after batch 12). Reviewed cloud up to 57e427a, freebuff up to 6748f0a.
 
-**Batch 11 (36285919707) summarized here:** this machine can download artifacts (`gh run
-download` works). Scoreboard line and note are in docs/batches.md. Deaths 3.1 -> 2.6/run (target
-< 1.75: not met), iron tools 6/8 -> 4/8, median 14:25*. Most of the lost time was three loops,
-fixed in f2c840b (on review/docs):
-1. Every run's first trip was `collect raw_iron:26`: 9980cfe put armor's 13 iron into the one-batch
-   budget. Now armor joins `ironStillNeeded` only after tools, buckets, shield and flint.
-2. Seed d went back to a y 0-11 death spot four times with nothing, died each time, then looped
-   `goto surface` STUCK for 12 minutes at y 2 (no pickaxe, no blocks; batch-wide 3 ok, 30 failed).
-   `recoverStep` skips death spots 12+ below us until we carry a stone pickaxe; a failed
-   `goto surface` isn't offered again for two minutes (`MoveSkills.Goto.surfaceBlocked`).
-3. Seed a "retreated" 99 times from a creeper behind a wall, never moving (the furnace job never
-   finished). Perception ignores creepers it can't see (their fuse needs line of sight), and
-   `retreat` fails NO_PROGRESS unless the nearest monster ends up 12+ away or 3+ farther.
-Also 092d47e: summaries now name the skill a death happened in (was always "idle"), and small
-cleanups (dead methods, a stray doc comment, the merged reflex comment).
+**Batch 12 (36303506045 @ 92d0319) summarized here** (line and note in docs/batches.md). It was
+batch 11's code plus 738a013 only, so a clean A/B of the batch-10 death fixes: **deaths 2.6 -> 1.1
+per run** (5 of 8 runs with none), iron tools 4/8 -> 6/8, median 5:53*. Keep 738a013. It did *not*
+carry any fix below (92d0319 predates them). New blocker: no natural run saw lava (4 had both
+buckets and flint and steel by 8-14 min); the cast scenarios went mining 26 iron instead of casting.
 
-**For the cloud, batch 12 (the three loop fixes above, plus the shield fix):**
-- **Change:** merge `review/docs` (f2c840b, 092d47e, and the shield fix below). Nothing else.
-- **Shield fix:** no run in batch 11 ever crafted a shield. The iron-tools rung counts as reached
-  with the pickaxe alone and stays done, and the portal step never asked for the shield or iron
-  sword, so `attack`'s shield-between-swings never ran. The portal step now finishes the iron kit
-  (pickaxe, shield, bucket, sword) before armor and casting.
-- **Test:** 8 natural seeds x 20 min. Pass: iron tools >= 6/8 with a median under 9:00, `goto
-  surface` STUCK < 5, no run with 30+ retreats, first iron trip `collect raw_iron:13` or less,
-  `equip shield` ok in every run that reaches iron tools, deaths/run no worse than 2.6. Then
-  batch 13 = the same commit again (noise twin, lessons.md).
-- **Downloads:** your network blocks artifact downloads. Push the run id to this file and the
-  review or laptop session will summarize it. (A lasting fix is a last workflow job that commits
-  `summary.md` to a results branch; that changes CI permissions, so it's the user's call.)
+**For the cloud, batch 13 = the bug fixes, at 479b827 exactly** (merge review/docs, then run that
+commit; not anything newer):
+- **What's in it:** f2c840b (first iron trip back to 13, no empty-handed trips to deep death spots,
+  `goto surface` back-off, creepers behind walls ignored, retreat checks it got away), a096d7d (the
+  portal step finishes the iron kit: no run in batches 11-12 ever made a shield or iron sword),
+  Nether fixes (no effect on natural runs), cast scenarios start with the route's kit, planner test
+  hooks (same behavior).
+- **Test:** 8 natural seeds + cast a, b, 20 min. Pass: deaths/run <= 1.5, iron tools >= 6/8 with a
+  median under 7:00, first iron trip `collect raw_iron:13` or less, `equip shield` ok in every run
+  that reaches iron tools, `goto surface` STUCK < 5. Cast a/b: obsidian placed in both.
 
-**Next target after batch 12 (deaths), for the reviewer:** 13 of batch 11's 26 deaths came during
-`retreat` (7 by arrows), 7 during `attack`, 4 while sheltering. Running from skeletons gets the bot
-shot in the back; the planner's low-health rule still runs from a lone monster 4+ blocks away.
-I'll design this once batch 12 shows whether the loop fixes hold.
+**Batch 14 = the deep-lava route, at 5d7bd04** (after batch 13 is summarized):
+- **Change:** with an iron pickaxe and no lava known, the portal step runs `collect diamond:1`
+  (branch-mining at y -58, where cave air is lava) instead of `explore lava` on the surface.
+- **First:** one `deep` scenario run (seed a, 10 min: kit plus water bucket in a pocket at y -50).
+  Pass: `lava_seen`, then `obsidian_placed`. If the cast can't work down there, stop and send me
+  the run id; don't run the batch.
+- **Test:** 8 natural seeds, 20 min. Pass: `lava seen` in 4+ runs and `obsidian` in 2+, deaths/run
+  <= 1.5 (lava deaths reported separately).
+
+**Downloads:** your network blocks artifact downloads. Post the run id here and I'll summarize it.
+(A lasting fix is a last workflow job that commits `summary.md` to a results branch; that changes
+CI permissions, so it's the user's call.)
+
+**Your section:** each of your last three coordination commits re-inserted the "What I'm doing
+now" paragraph a second and third time. Please edit that section from a fresh read of the file.
+
+**Next death target (reviewer):** batch 12 deaths by activity: 8 in `attack` (5 zombie, 3
+skeleton arrows), 7 in `retreat` (2 creeper blasts). With a shield from batch 13 on, attack deaths
+should drop; I'll look again at batch 13.
 
 **Still open (cloud):**
 - R4 `SmeltSkill.cleanup` keeps a job on TIMEOUT, NO_PROGRESS, UNREACHABLE and USE_FAILED, so an
@@ -366,19 +366,24 @@ I'll design this once batch 12 shows whether the loop fixes hold.
 **Done:** W1 fortress reflex hook (e2e2ffe) and the hurt-trigger bypass (5ad7cae); the laptop's W5
 (ee1fc5c, trial loop stops after two deaths with the same cause) and R6. R8 withdrawn.
 
-**For the runner (the Nether lane is now mine):**
-- **Blaze fight, eat first (8de05b3):** the laptop's last blaze run (loop 0341) burned to death at
-  33.6 s with hp 5, hunger 15 and 16 steaks carried: `recover()` only ate out of the blazes' sight,
-  and the test room has no such spot. Now it eats first when hurt, and keeps hunger at 18+ between
-  blazes. **Run:** `blaze` scenario, seed a, 5 min, three times at 8de05b3 or later. **Pass:** no
-  `onFire` death in 3 runs and 3+ blaze rods per run. Post each run's FINAL line, deaths with
-  cause, rods gained and the log path. Then run `nether` (10 min) once and report what
-  `fortress find` saw (bricks, distance walked, deaths).
-- Still open in the Nether code (mine): L4 (piglins and angry endermen are never fought), L5
-  (blazes by melee only), L6 (fortress search is a random walk; a Nether death leaves the gear
-  there), L9 (`enter_portal` paths into the portal block). See docs/review.md section 2.
-- The laptop's old `trial-loop.ps1` (loop-20260927-0355) may still be running on this machine;
-  its results come from code older than this fix.
+**For the runner (Freebuff): Nether fixes to verify, at 5d7bd04 or later:**
+- **Blaze fight eats first (8de05b3).** Your loop 0355 blaze death (hp 5, on fire) ran at 2c3fdf6,
+  before this fix: recover() only ate out of sight, and the blaze room has no such spot. Now it
+  eats first when hurt and keeps hunger at 18+ between blazes. **Run:** `blaze`, seed a, 5 min,
+  three times. **Pass:** no `onFire` death, 3+ rods per run.
+- **Fortress search (89132c4).** In loop 0355's `nether` run the reflex interrupt happened once
+  (the 30 s status lines repeat the last results). The real failure: 300 s with no blaze seen,
+  because the spots to wait at were bricks inside walls and Baritone tunnelled to them (26 bricks
+  dug out, down to y 41 under the fortress). Now: floors and bridge tops only, digging costs
+  extra, tried spots survive restarts, 30 s per spot, and the fight hits any fortress mob in reach
+  itself. **Run:** `nether`, seed a, 10 min, twice. **Pass:** 1+ blaze rod per run, no nether
+  bricks in the inventory (no tunnelling).
+- Post per run: commit, FINAL line, deaths with cause, rods, and the log folder. Keep the jsonl
+  (loop 0355's `nether` folder only had trial.log).
+- **Your hooks:** `Planner.order(...)` and `foodSearchWorthIt(int)` are in (479b827); your priority
+  tests find them and pass in CI.
+- Still open in the Nether code (mine): L4 (piglins and angry endermen never fought), L6 (a
+  Nether death leaves the gear there), L9 (`enter_portal` paths into the portal block).
 
 ## Freebuff
 

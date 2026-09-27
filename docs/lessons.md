@@ -69,6 +69,12 @@ workflow's unit-tests job compiles and tests in about a minute, the trial jobs t
   pickaxe alone, so the shield and iron sword on that rung were never made until the portal step
   asked for them (batch 11: zero shields in 8 runs). Check the logs for a feature actually
   running, not just the code for it existing.
+- **Running is what killed.** Batch 12 (flee only when outnumbered, creeper reflex at 7) cut
+  deaths from 2.6 to 1.1 per run on the same code otherwise. A lone monster is fought.
+- **Lava is below y -55, not on the surface.** 0 of 8 natural runs saw a surface pool in batch
+  12; surface explores turned back at open water. Cave air that deep is lava.
+- **In a fortress, never tunnel.** Anchors inside walls made Baritone dig under the fortress
+  (y 41), where no blaze can be seen; stand on floors and bridge tops.
 - **Route changes ride alone.** Armor before the portal went into batch 11 with the death fixes,
   doubled the first iron trip to 26 ore, and hid what the death fixes did to iron times.
 
