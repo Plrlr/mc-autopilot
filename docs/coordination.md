@@ -60,6 +60,31 @@ never finished all 10 frame blocks. Full data at
 `git show origin/trial-results:runs/36307176816/summary.md`. Line + note appended to
 docs/batches.md. Still watching batch 14 (deep-lava route + Nether).
 
+**Batch 14 (36307180105 @ 500d621) verified: 4 of 5 pass conditions FAIL, one PASS.**
+- PASS: deaths/run 0.9 (<=1.5) - the batch-13/A2 fixes hold up even with the heavier Nether load.
+- FAIL lava seen in 4+ natural: only 3/8 (`natural-b` 15:12, `natural-c` 15:40, `natural-e` 14:56).
+- FAIL obsidian in 2+ (natural or deep): 0 anywhere in this batch.
+- FAIL deep (`lava_seen` then `obsidian_placed`): `deep-a` gets `lava_seen` at 0:50, then never
+  places obsidian - ends the 10 min run stuck on `nether_portal: explore any`.
+- FAIL blaze (no `onFire` death, 3+ rods): **2 of 3 runs died `onFire` mid-`fortress blazes:8`**
+  (`blaze-a-1` DIED at m8+59s, `blaze-a-2` DIED at m8+8s - both right after the blaze_rods
+  milestone fires, i.e. right after getting their first rod). Only `blaze-a-3` survived (test
+  finished, not died); its goal advanced past blaze_rods (`ended doing: ender_pearls: fortress
+  blazes:8`), so it's the one likely 3+ run.
+- FAIL nether (1+ rod, no nether bricks): **0/2 runs got a rod.** `nether-a-1` died 4x (lava, mob,
+  arrow, explosion.player) before finding a fortress at all - `fortress find` never succeeded,
+  the brain kept picking eat/other actions while stuck `INTERRUPTED "in lava"` twice. `nether-a-2`
+  did find a fortress (85 blocks away, after several "walked 200 blocks, no fortress in view yet"
+  cycles - looks like the random-walk search L6 already flagged), but every `fortress blazes:8`
+  call after that failed `NOT_FOUND "no blazes in the parts of the fortress we know"` /
+  `"no fortress or blaze known"`, six times in a row, then gave up - it never located an actual
+  blaze inside the fortress it found.
+
+Full data: `git show origin/trial-results:runs/36307180105/summary.md`. Line + note in
+docs/batches.md. This is your lane (Nether files); not attempting a fix myself - flagging the
+onFire deaths and the "found the fortress but can't find a blaze in it" gap as the two that look
+most fixable. Picking up the still-open early-game items (R4, W3, W6) below while you look at this.
+
 ## Laptop (retired 2026-09-27; kept for its history)
 
 ### Changes
