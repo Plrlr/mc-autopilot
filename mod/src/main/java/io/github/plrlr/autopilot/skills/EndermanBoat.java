@@ -34,6 +34,10 @@ public final class EndermanBoat extends Skill {
 	private BlockPos spot;
 	private Vec3 deathAt;
 	private int phaseTicks, critWait;
+	/** Spots where the boat wouldn't go down: tried twice, then another one (the test: 18 tries at one spot). */
+	private final java.util.Set<BlockPos> badSpots = new java.util.HashSet<>();
+	private int spotTries;
+	private boolean movedForRoom;
 
 	@Override
 	public String name() {
@@ -87,13 +91,22 @@ public final class EndermanBoat extends Skill {
 					go(Phase.PROVOKE);
 					return;
 				}
-				if (phaseTicks > 60) {
+				if (phaseTicks > 20 * 12) {
 					fail(Fail.PLACE_FAILED, "couldn't put the boat down");
 					return;
 				}
 				if (spot == null) spot = boatSpot(pl);
 				if (spot == null) {
-					fail(Fail.NO_ROOM, "no flat spot beside us for the boat");
+					// Nowhere flat beside us: walk a few blocks toward open ground once, then try again.
+					if (!movedForRoom) {
+						movedForRoom = true;
+						Vec3 away = pl.position().subtract(target.position()).multiply(1, 0, 1).normalize().scale(5);
+						Bari.path(new baritone.api.pathing.goals.GoalNear(BlockPos.containing(pl.position().add(away)), 1));
+						phaseTicks = 0;
+						return;
+					}
+					if (Bari.pathing()) return;
+					fail(Fail.NO_ROOM, "no flat spot for the boat");
 					return;
 				}
 				if (!Items2.matcher("boat").test(pl.getMainHandItem())) {
@@ -116,6 +129,12 @@ public final class EndermanBoat extends Skill {
 				// top of the ground block, then use the boat. useOn against a face didn't place it.
 				Mc.lookAt(Vec3.atCenterOf(spot.below()).add(0, 0.5, 0));
 				if (phaseTicks % 10 == 5) {
+					if (++spotTries > 2) {
+						badSpots.add(spot);
+						spot = null;
+						spotTries = 0;
+						return;
+					}
 					var r = Mc.mc().gameMode.useItem(pl, net.minecraft.world.InteractionHand.MAIN_HAND);
 					// What the game made of it: the result and what the crosshair was on.
 					io.github.plrlr.autopilot.AutopilotMod.LOGGER.info("[boat] use -> {} at {} hand {} crosshair {}", r, spot.toShortString(),
@@ -229,12 +248,12 @@ public final class EndermanBoat extends Skill {
 		// the boat failed to place (the boat test's log: 'use -> Fail, crosshair short_grass').
 		for (Direction d : order) {
 			BlockPos p = feet.relative(d, 2), mid = feet.relative(d);
-			if (Mc.state(p).isAir() && Mc.state(p.above()).isAir() && Mc.solid(p.below()) && !Mc.solid(mid) && Mc.state(mid).isAir()
-					&& Mc.state(feet).isAir()) return p;
+			if (!badSpots.contains(p) && Mc.state(p).isAir() && Mc.state(p.above()).isAir() && Mc.solid(p.below()) && !Mc.solid(mid)
+					&& Mc.state(mid).isAir() && Mc.state(feet).isAir()) return p;
 		}
 		for (Direction d : order) {
 			BlockPos p = feet.relative(d, 2);
-			if (Mc.state(p).isAir() && Mc.state(p.above()).isAir() && Mc.solid(p.below())) return p;
+			if (!badSpots.contains(p) && !Mc.solid(p) && !Mc.solid(p.above()) && Mc.solid(p.below())) return p;
 		}
 		return null;
 	}
