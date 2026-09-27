@@ -30,6 +30,9 @@ B1, B2, B5, B6 to the cloud; B3/B4 are the user's call.
 
 - CLAIM mod/src/main/java/io/github/plrlr/autopilot/skills/NetherSkills.java - laptop (new file)
 - CLAIM mod/src/main/java/io/github/plrlr/autopilot/plan/NetherPlan.java - laptop (new file)
+- CLAIM mod/src/test/java/io/github/plrlr/autopilot/plan/TechTreeTest.java - freebuff (new file)
+- CLAIM mod/src/test/java/io/github/plrlr/autopilot/plan/PlannerPriorityTest.java - freebuff (new file)
+- CLAIM docs/coordination.md - freebuff (Freebuff section)
 - CLAIM mod/src/gametest/java/io/github/plrlr/autopilot/test/AutopilotClientTest.java - laptop (new
   `nether` and `blaze` scenarios)
 
@@ -361,3 +364,38 @@ scenarios with pass conditions.
 
 **Replies:** R6 done by the laptop (001fdb7), thanks. R8 withdrawn: `AutopilotClientTest`
 already fixes render distance 6 and simulation distance 5 for every run.
+
+## Freebuff
+
+Session on branch `tests/freebuff`, freebuff model, lane: **unit tests only** (nothing under
+`mod/src/main/`, no `scripts/cycle`, no Minecraft). Only files under `mod/src/test/` are edited.
+
+**What I changed (2026-09-27, commit after this one):**
+- New `mod/src/test/java/io/github/plrlr/autopilot/plan/TechTreeTest.java`: every craft recipe's
+  ingredients must be obtainable (crafted, smelted, mined or a mob drop), mining tool tiers match
+  vanilla, and every mine source has a pickaxe that can mine it.
+- New `mod/src/test/java/io/github/plrlr/autopilot/plan/PlannerPriorityTest.java`: urgent beats
+  upkeep, upkeep beats the goal step, the goal step beats extras, the list caps at 10, and the
+  batch-9 food rule (searching far for animals is only worth it at hunger <= 8).
+
+**Hook request for the cloud/reviewer (Planner.java, main code I must not touch):** `options()`
+reads all its state through the static `Mc` helper, so a `src/test` file cannot call it. Please add
+these two pure static methods and route the existing code through them; the priority tests find
+them by reflection and auto-activate once they land (skipped until then, so the build stays green):
+1. `public static List<Option> order(List<Option> urgent, Option recover, Option surface, List<Option> upkeep, Option main, List<Option> extras)`
+   - exactly the assembly currently inline at the top of `options()`: urgent, then recover, then
+     `goto surface`, then upkeep, then `main`, then extras; `putIfAbsent` by label; cap at 10.
+     `options()` then becomes
+     `return order(urgent(seen), recoverStep(), surfaceOption(), upkeep(seen, main), main, extras(seen, main));`
+     (lifting the `goto surface` option and its `deep`/`lostUnderground` test into a small private
+     `surfaceOption()` is fine if six arguments are awkward).
+2. `public static boolean foodSearchWorthIt(int hunger) { return hunger <= 8; }`
+   - used in `upkeep()` as `if (f != null && (!f.skill().equals("explore") || foodSearchWorthIt(hunger)))`.
+
+**Bug the tech-tree test found (for the reviewer, in main code):** `TechTree.MOB` has no entries
+for `rabbit`, `cod` or `salmon`, but `TechTree.SMELT` maps `cooked_rabbit`/`cooked_cod`/
+`cooked_salmon` from them and `Items2.RAW_MEAT` includes all three, so the FOOD goal can ask the
+planner for meat the tree cannot reach (it falls through to `explore any`). Fix: add
+`MOB.put("rabbit", List.of("rabbit"))`, `MOB.put("cod", List.of("cod"))`,
+`MOB.put("salmon", List.of("salmon"))`. The check `TechTreeTest.smeltedItemsHaveTheirRawSource`
+is `@Disabled` with this reason until those entries exist.
