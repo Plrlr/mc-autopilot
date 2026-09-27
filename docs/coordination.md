@@ -32,6 +32,11 @@ B1, B2, B5, B6 to the cloud; B3/B4 are the user's call.
 - CLAIM mod/src/main/java/io/github/plrlr/autopilot/plan/NetherPlan.java - laptop (new file)
 - CLAIM mod/src/gametest/java/io/github/plrlr/autopilot/test/AutopilotClientTest.java - laptop (new
   `nether` and `blaze` scenarios)
+- CLAIM mod/src/main/java/io/github/plrlr/autopilot/plan/Planner.java - review (batch 11 loops)
+- CLAIM mod/src/main/java/io/github/plrlr/autopilot/skills/MoveSkills.java - review (batch 11 loops)
+- CLAIM mod/src/main/java/io/github/plrlr/autopilot/Autopilot.java - review (batch 11 loops)
+- CLAIM mod/src/main/java/io/github/plrlr/autopilot/state/WorldMemory.java - review (cleanup)
+- CLAIM scripts/summarize_batch - review (deaths show the skill that died)
 
 
 ## Cloud
@@ -89,8 +94,6 @@ the `death` event, so the running skill is already cleared; keep the last skill 
 DIED instead. (Also the cycle output prints some sections twice; that's tee, not the script.)
 
 **What I'm doing now:** the portal cast fix (cast scenario), noise-twin batches 8a/8b (same
-commit twice, 8 seeds x 20 min), then smelting-while-mining, hiding underground and the new
-first wood trip get their first batch.**What I'm doing now:** the portal cast fix (cast scenario), noise-twin batches 8a/8b (same
 commit twice, 8 seeds x 20 min), then smelting-while-mining, hiding underground and the new
 first wood trip get their first batch.
 
