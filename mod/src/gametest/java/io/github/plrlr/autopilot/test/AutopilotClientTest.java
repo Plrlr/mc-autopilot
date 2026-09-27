@@ -92,6 +92,17 @@ public class AutopilotClientTest implements FabricClientGameTest {
 			int saveAt = Integer.getInteger("autopilot.test.saveAt", 0);
 			int bankedStage = startStage;
 			System.out.println("[autopilot-test] STAGE start " + Bank.STAGES.get(startStage));
+			// Free run (default): client and server in parallel at normal speed; the test only looks
+			// in once a second. -PtestLockstep=true keeps the framework's slow lockstep (and its
+			// milestone and death screenshots).
+			if (!Boolean.getBoolean("autopilot.test.lockstep") && FreeRun.start()) {
+				try {
+					playFree(minutes * 60L, scenario, task, saveAt, bankedStage, sp);
+				} finally {
+					FreeRun.stop();
+					ctx.waitTicks(5);
+				}
+			} else {
 			// Screenshots only where they explain something: each milestone, each death, a failed
 			// task, and the end.
 			int shotMilestones = 0, shotDeaths = 0;
@@ -127,6 +138,7 @@ public class AutopilotClientTest implements FabricClientGameTest {
 					if (st[2] == 2) ctx.takeScreenshot("task-failed");
 					break;
 				}
+			}
 			}
 			if (!task.isEmpty() && ctx.computeOnClient(mc -> AutopilotMod.instance().taskResult() == null))
 				System.out.println("[autopilot-test] TASK " + task + " -> failed TIMEOUT: still running when the test ended");
@@ -255,8 +267,67 @@ public class AutopilotClientTest implements FabricClientGameTest {
 		run.accept("execute at @p run fill ~-8 ~ ~-2 ~-5 ~3 ~2 air");
 	}
 
+	/**
+	 * The play loop in a free run: once a wall second, a few short looks through the client's task
+	 * queue (game time, progress report, stage for the bank, the task's result). Ends at the game
+	 * time asked for, or when a task finishes.
+	 */
+	private static void playFree(long gameSeconds, String scenario, String task, int saveAt, int bankedStage,
+								 TestSingleplayerContext sp) {
+		long lastReport = 0;
+		boolean savedTest = false;
+		long lastGs = -1, stalledSince = System.nanoTime();
+		while (true) {
+			try {
+				Thread.sleep(1000);
+			} catch (InterruptedException e) {
+				Thread.currentThread().interrupt();
+				return;
+			}
+			long gs = FreeRun.onClient(() -> AutopilotMod.instance().gameSeconds());
+			if (gs >= gameSeconds) return;
+			// The game stopped ticking (a hang): give up after 3 minutes rather than wait forever.
+			if (gs != lastGs) {
+				lastGs = gs;
+				stalledSince = System.nanoTime();
+			} else if (System.nanoTime() - stalledSince > 180e9) {
+				System.out.println("[autopilot-test] NOTE: the game stopped advancing at " + gs + " s");
+				return;
+			}
+			if (gs / 30 > lastReport) {
+				lastReport = gs / 30;
+				String when = scenario + " " + (lastReport * 30) + "s";
+				FreeRun.onClient(() -> reportNow(net.minecraft.client.Minecraft.getInstance(), when));
+			}
+			if (saveAt > 0 && gs >= saveAt && !savedTest) {
+				savedTest = true;
+				Bank.save(null, sp, 1, gs);
+			}
+			if (task.isEmpty()) {
+				int now = FreeRun.onClient(() -> Bank.stage(net.minecraft.client.Minecraft.getInstance()));
+				if (now > bankedStage) {
+					bankedStage = now;
+					Bank.save(null, sp, now, gs);
+				}
+			} else {
+				String done = FreeRun.onClient(() -> {
+					var r = AutopilotMod.instance().taskResult();
+					return r == null ? null : (r.ok() ? "ok" : "failed " + r.code()) + ": " + r.detail();
+				});
+				if (done != null) {
+					System.out.println("[autopilot-test] TASK " + task + " -> " + done + " after " + gs + " s");
+					return;
+				}
+			}
+		}
+	}
+
 	private static void report(ClientGameTestContext ctx, String when) {
-		ctx.runOnClient(mc -> {
+		ctx.runOnClient(mc -> reportNow(mc, when));
+	}
+
+	private static void reportNow(net.minecraft.client.Minecraft mc, String when) {
+		{
 			Autopilot ap = AutopilotMod.instance();
 			System.out.println("[autopilot-test] " + when + ": " + ap.statusLine());
 			// Where the time goes: drawn frames (the game ticks at most once per frame), the built-in
@@ -277,6 +348,6 @@ public class AutopilotClientTest implements FabricClientGameTest {
 			System.out.println("[autopilot-test]    known water " + (water == null ? "none" : water.pos().toShortString())
 					+ ", lava " + (lava == null ? "none" : lava.pos().toShortString()));
 			for (String r : ap.recentResults()) System.out.println("[autopilot-test]    " + r);
-		});
+		}
 	}
 }

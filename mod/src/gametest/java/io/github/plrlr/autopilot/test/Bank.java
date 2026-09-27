@@ -47,15 +47,22 @@ final class Bank {
 		return 0;
 	}
 
-	/** Saves the world and zips it to checkpoints/<stage>.zip with a small description next to it. */
+	/**
+	 * Saves the world and zips it to checkpoints/<stage>.zip with a small description next to it.
+	 * ctx is null during a free run (FreeRun): then the server's own task queue does the saving.
+	 */
 	static void save(ClientGameTestContext ctx, TestSingleplayerContext sp, int stage, long gameSeconds) {
 		String name = STAGES.get(stage);
-		sp.getServer().runCommand("save-all flush");
-		// 26.3 keeps the player (inventory, position, dimension) in its own file, not in level.dat
-		// (which only names the owner: singleplayer_uuid), and save-all didn't write it: the first
-		// restore self-test came back with a fresh player. Save the players explicitly.
-		sp.getServer().runOnServer(server -> server.getPlayerList().saveAll());
-		ctx.waitTicks(40);
+		if (ctx == null) {
+			FreeRun.saveWorld();
+		} else {
+			sp.getServer().runCommand("save-all flush");
+			// 26.3 keeps the player (inventory, position, dimension) in its own file, not in level.dat
+			// (which only names the owner: singleplayer_uuid), and save-all didn't write it: the first
+			// restore self-test came back with a fresh player. Save the players explicitly.
+			sp.getServer().runOnServer(server -> server.getPlayerList().saveAll());
+			ctx.waitTicks(40);
+		}
 		Path src = sp.getWorldSave().getSaveDirectory();
 		Path dir = Path.of("checkpoints");
 		try {
@@ -73,13 +80,16 @@ final class Bank {
 					out.closeEntry();
 				}
 			}
-			String inv = ctx.computeOnClient(mc -> {
+			java.util.function.Supplier<String> invF = () -> {
+				Minecraft mc = Minecraft.getInstance();
 				StringBuilder sb = new StringBuilder();
 				for (var st : mc.player.getInventory().getNonEquipmentItems())
 					if (!st.isEmpty()) sb.append(Items2.id(st)).append(' ').append(st.getCount()).append(", ");
 				return sb.toString();
-			});
-			String dim = ctx.computeOnClient(mc -> mc.player.level().dimension().identifier().getPath());
+			};
+			java.util.function.Supplier<String> dimF = () -> Minecraft.getInstance().player.level().dimension().identifier().getPath();
+			String inv = ctx == null ? FreeRun.onClient(invF) : ctx.computeOnClient(mc -> invF.get());
+			String dim = ctx == null ? FreeRun.onClient(dimF) : ctx.computeOnClient(mc -> dimF.get());
 			Files.writeString(dir.resolve(name + ".json"), String.format(
 					"{\"stage\":\"%s\",\"game_seconds\":%d,\"seed\":\"%s\",\"dimension\":\"%s\",\"inventory\":\"%s\",\"bytes\":%d}",
 					name, gameSeconds, System.getProperty("autopilot.test.seed", ""), dim, inv.replace("\"", ""), Files.size(zip)),
