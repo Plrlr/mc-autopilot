@@ -108,6 +108,15 @@ public final class Planner {
 			case NETHER_PORTAL -> {
 				if (dim.equals("the_nether")) return null;
 				if (memory.nearest("nether_portal") != null) return new Option("enter_portal", "nether", "walk into the nether portal");
+				// Finish the iron kit first. The iron-tools rung counts as reached with the pickaxe alone
+				// and stays done, so the shield and iron sword were never made: no run in batch 11 ever
+				// held a shield, though the iron for them was mined (seed g carried 7 spare ingots).
+				for (String item : Goal.IRON_TOOLS.needs.keySet()) {
+					if (Goal.have(item) < Goal.IRON_TOOLS.needs.get(item)) {
+						Option o = itemStep(item, Goal.IRON_TOOLS.needs.get(item), depth + 1);
+						if (o != null) return o;
+					}
+				}
 				// Survive first (outside review #2, A2): deaths drop the buckets and iron the portal needs,
 				// and 2-3 deaths per run was the norm. Chestplate and helmet (13 iron) before the portal,
 				// boots too when the ingots are already there.
