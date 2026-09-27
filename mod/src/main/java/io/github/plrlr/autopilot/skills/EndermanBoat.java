@@ -100,6 +100,18 @@ public final class EndermanBoat extends Skill {
 					Mc.holdItem(Items2.matcher("boat"));
 					return;
 				}
+				// Plants between us and the spot catch the crosshair and the boat fails to place (the
+				// test's log: 'crosshair short_grass'): one punch clears each.
+				for (BlockPos plant : new BlockPos[]{pl.blockPosition(), pl.blockPosition().relative(Direction.getApproximateNearest(
+						spot.getX() - pl.getX(), 0, spot.getZ() - pl.getZ())), spot}) {
+					var st = Mc.state(plant);
+					if (!st.isAir() && !Mc.solid(plant) && st.getFluidState().isEmpty()) {
+						Mc.lookAt(Vec3.atCenterOf(plant));
+						Mc.mc().gameMode.startDestroyBlock(plant, Direction.UP);
+						Mc.swing();
+						return;
+					}
+				}
 				// A boat goes where the crosshair points (BoatItem traces the view itself): look at the
 				// top of the ground block, then use the boat. useOn against a face didn't place it.
 				Mc.lookAt(Vec3.atCenterOf(spot.below()).add(0, 0.5, 0));
@@ -120,9 +132,11 @@ public final class EndermanBoat extends Skill {
 					go(Phase.KILL);
 					return;
 				}
-				// Staring at its eyes makes it come for us; the boat is in its way.
-				Mc.lookAt(target.getEyePosition());
 				boolean angry = target.isCreepy() || target.getTarget() == pl;
+				// Stare until it's angry, then look away: an enderman freezes while it's looked at
+				// (the test: 'angry true, dist 10' for 25 s). Looking down at the boat, it comes.
+				if (angry) Mc.lookAt(Vec3.atCenterOf(boat != null ? boat.blockPosition() : pl.blockPosition().below()));
+				else Mc.lookAt(target.getEyePosition());
 				if (phaseTicks % 40 == 0)
 					io.github.plrlr.autopilot.AutopilotMod.LOGGER.info("[boat] provoking: angry {} dist {}", angry, Math.round(target.distanceTo(pl)));
 				// Still calm after 8 s: step closer while staring (the angle it needs is tighter far away);
