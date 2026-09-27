@@ -1,17 +1,18 @@
-# Coordination: cloud, laptop and reviewer sessions
+# Coordination: cloud, reviewer and runner
 
-Three sessions work at once. Each writes only in its own section below.
+Each session writes only in its own section below.
 
-**Roles (updated 2026-09-27, cost-saving pass)**
-- **Reviewer (Opus):** architect and detective. Diagnoses failures from the cloud's batch
-  summaries and the laptop's scenario results, designs larger fixes, and writes precise fix
-  instructions for the owner here (what to change, where, why, how to test it). Edits code
-  itself only for tricky fixes, after claiming the files.
+**Roles (updated 2026-09-27: the laptop Sonnet session is retired)**
+- **Reviewer (Opus, `review/docs`):** diagnoses the cloud's batches and the runner's scenario
+  results, designs fixes, and writes instructions for the cloud here. **Owns the Nether and End
+  code** (`skills/NetherSkills.java`, `plan/NetherPlan.java`, the `nether`, `blaze`, `portal`,
+  `stronghold` and `end` scenarios in `AutopilotClientTest.java`) and fixes it directly.
 - **Cloud (Sonnet, `claude/autopilot-trial-runs-gdcq8y`):** runs batches (`scripts/cycle`),
   implements the reviewer's instructions for the early game, and merges all branches before each
   batch. If a fix fails twice, hands it to the reviewer instead of guessing further.
-- **Laptop (Sonnet, `laptop/opus-and-tooling`):** runs the Nether and End scenarios, reports
-  results for the reviewer, and makes small fixes in the Nether files only.
+- **Runner (Freebuff):** runs Nether and End scenarios and posts results under "## Runner" at the
+  end of this file: commit, scenario, seed, FINAL line, deaths with cause, and the path of the
+  run's logs. Doesn't edit code.
 
 Everyone keeps the claim rule below and follows docs/outside-review-2.txt Part C.
 
@@ -23,15 +24,15 @@ Part C order: 1. survival sprint (A2) until deaths per run < 0.5 (cloud); 2. nat
 and enter the portal on 4/8 seeds (cloud); 3. relay benchmark (B2) and paired A/B batches (B1)
 (cloud); 4. late-game prep and spare items (A3-A6), each proven in its scenario on 8 seeds;
 5. daily full attempts (A1). Assigned: **A5 (gold armor against piglins) and A7 (Nether survival:
-lava, fire, blaze cover) to the laptop**; A1, A2, A3 (cloud part: pearls/eyes counts), A4, A6,
+lava, fire, blaze cover) to the reviewer** (was the laptop's); A1, A2, A3 (cloud part: pearls/eyes counts), A4, A6,
 B1, B2, B5, B6 to the cloud; B3/B4 are the user's call.
 
 ## Claims
 
-- CLAIM mod/src/main/java/io/github/plrlr/autopilot/skills/NetherSkills.java - laptop (new file)
-- CLAIM mod/src/main/java/io/github/plrlr/autopilot/plan/NetherPlan.java - laptop (new file)
-- CLAIM mod/src/gametest/java/io/github/plrlr/autopilot/test/AutopilotClientTest.java - laptop (new
-  `nether` and `blaze` scenarios)
+- CLAIM mod/src/main/java/io/github/plrlr/autopilot/skills/NetherSkills.java - review (owner)
+- CLAIM mod/src/main/java/io/github/plrlr/autopilot/plan/NetherPlan.java - review (owner)
+- CLAIM mod/src/gametest/java/io/github/plrlr/autopilot/test/AutopilotClientTest.java - review
+  (Nether and End scenarios; the cloud may still add early-game scenarios, say so here first)
 
 
 ## Cloud
@@ -106,7 +107,7 @@ network access) and run `scripts/summarize_batch <dir> --run 36285919707 --commi
 Per the user's instruction, the cloud session is stopping here (no further cycles) until this is
 resolved or the user says otherwise.
 
-## Laptop
+## Laptop (retired 2026-09-27; kept for its history)
 
 ### Changes
 
