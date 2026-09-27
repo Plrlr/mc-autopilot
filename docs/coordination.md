@@ -8,6 +8,35 @@ Ownership: the cloud owns `mod/src/main/java/.../skills/`, `plan/`, `Autopilot.j
 `.github/workflows/trials.yml` and `scripts/cycle` (the laptop doesn't edit or run those). The
 laptop owns the "Local runs" section of docs/batches.md. Anything else: say here before editing.
 
+## Lanes and claims (set by the user, 2026-09-26)
+
+- **Cloud:** the early game (wood → iron → lit portal), the cave fix, and the trial loop. Only the
+  cloud runs `scripts/cycle`, and it merges the other branches before each batch.
+- **Laptop:** the Nether stage, finding a fortress and getting blaze rods, in new Nether skill
+  files. It tests with local portal/nether scenario runs (one Minecraft, rules brain, no Opus).
+- **Reviewer:** small fixes, only in files nobody has claimed. Bigger changes go to the owner as
+  proposals.
+- **Rule for everyone:** before editing a file, claim it below (`CLAIM <path> - <who>`), remove
+  the claim after pushing, and pull before each task.
+
+Cave fix ideas from the user, for the cloud (with docs/route-to-blaze-rods.md Part 1):
+1. Breadcrumbs: record a position every few blocks underground; to leave, path back along them.
+2. Escape mode: after 60 s underground with no progress, staircase up until the sky is visible.
+3. Prefer strip-mining from the bot's own staircase at Y≈16 over free cave exploring, so the
+   way back is always known.
+4. Place torches at cave junctions: they mark the path and reduce mob spawns.
+5. Give each cave trip a time budget.
+
+### Claims
+
+- CLAIM mod/src/main/java/io/github/plrlr/autopilot/skills/NetherSkills.java - laptop (new file)
+- CLAIM mod/src/main/java/io/github/plrlr/autopilot/plan/NetherPlan.java - laptop (new file)
+- CLAIM mod/src/main/java/io/github/plrlr/autopilot/skills/Skills.java - laptop (one menu line: `fortress`)
+- CLAIM mod/src/main/java/io/github/plrlr/autopilot/plan/Planner.java - laptop (small: the BLAZE_RODS
+  case and the urgent "attack blaze" option hand over to NetherPlan; released right after the push)
+- CLAIM mod/src/gametest/java/io/github/plrlr/autopilot/test/AutopilotClientTest.java - laptop (new
+  `nether` and `blaze` scenarios)
+
 ## Cloud
 
 Updated 2026-09-26 23:55 UTC. Latest pushed commit on my branch: see `git log`.
@@ -57,6 +86,10 @@ first wood trip get their first batch.
   warning) ended the script before it copied the logs, and `Tee-Object` wrote `trial.log` as
   UTF-16, so `summarize_batch` never found `[cast]` lines. It now streams `trial.log` as UTF-8.
   (It also clears progress and lessons before a run; redundant, since Loom wipes the run folder.)
+
+- 2026-09-26: local run seed a, rules, 10 min at `b3bffeb`: m1 0:23, m2 1:49, no m4 (the lost
+  furnace load, request 10), 1 death. The Opus run was stopped at 2:00 on the user's word: no
+  Opus calls in test runs ("not worth it"). Rules brain only from now on.
 
 ### Requests for the cloud session
 
@@ -133,3 +166,30 @@ first wood trip get their first batch.
   give a first look at the five untested changes of R3. Their logs will be checked for R1 (deaths
   or health loss during `shelter heal`), R2 (size of `collect stone` side work) and R4 (repeated
   short `smelt iron_ingot` trips).
+
+## Review
+
+A third session: reviewer and documentation, on branch `review/docs`. It never edits `mod/`,
+never runs `scripts/cycle` or Minecraft. It writes README.md, docs/review.md, this section and
+`scripts/plot_progress` (a chart of docs/batches.md into docs/progress.svg). Findings with file,
+line and a suggested fix are in docs/review.md; the top ones are here, addressed to the owner.
+
+Updated 2026-09-26. Reviewed cloud up to f7df235, laptop up to 9151eeb.
+
+**For the cloud:**
+1. **Hiding switches off every combat reflex, even with a gap left open** (R1).
+   `Autopilot.java:443` skips all hostile reflexes (creeper included) for the whole
+   `shelter heal`, and `NightSkills.java:189` goes on to HEAL after 30 failed placements, usually
+   because a mob stands in the gap. At health <= 8 with a mob within 3.5 blocks, that's a bot
+   standing still, looking up to eat, not fighting back. Suggest: hiding only once fully closed
+   in; keep the creeper retreat; leave HEAL if health drops. Task test before the next batch.
+2. **Side work mines far too much stone** (R2). `Planner.java:309` passes
+   `Mc.count("stone") + BLOCKS_NEEDED - throwaway` to collect, but `collect n` means n *more*.
+   Suggest `BLOCKS_NEEDED - Mc.count("throwaway")`.
+3. **Five untested behavior changes will share one batch** (R3): a68c313, 39195b7, 00fb412,
+   8b9843f, 8bb11ae. With iron 8/8 vs 4/8 from noise alone (8a/8b), a bundled batch can't show
+   which one helped. Suggest task tests for hide/heal and smelt-while-mining first, then
+   separate batches or noise twins.
+
+**For the laptop:** R8: keep render and simulation distance the same as CI in local runs, or
+local and cloud results won't compare (loaded chunks decide what memory and Baritone find).
