@@ -623,6 +623,11 @@ public final class Planner {
 			Option o = itemStep("bow", 1, 0);
 			if (o != null && o.skill().equals("craft")) out.add(new Option(o.skill(), o.arg(), "make a bow for the dragon fight: " + o.why()));
 		}
+		// Torches for the caves (gene cave.torches): craft a stock when coal and sticks are at hand.
+		if (Tune.on("cave.torches") && Mc.count("torch") < 4 && Mc.count("coal") > 0) {
+			Option t = itemStep("torch", 8, 0);
+			if (t != null && t.skill().equals("craft")) out.add(new Option(t.skill(), t.arg(), "torches to light caves (mobs spawn only in the dark)"));
+		}
 		// Armor only protects when worn: put it on as soon as it's in the bag.
 		if (betterArmorInInventory()) out.add(new Option("equip", "armor", "wear the armor we carry"));
 		// The shield blocks arrows and creeper blasts only from the off hand: put it there at once.

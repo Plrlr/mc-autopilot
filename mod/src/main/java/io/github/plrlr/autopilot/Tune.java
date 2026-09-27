@@ -96,6 +96,12 @@ public final class Tune {
 		gene("focus.commit", 0, 0, 1, Kind.BOOL, "finish the running task before switching, unless the top option is an emergency");
 		// Main loop timing
 		gene("loop.lost_underground_s", 60, 20, 180, Kind.INT, "seconds underground with nothing gained before heading up");
+		// Survival: caves, night, lava, ghasts
+		gene("cave.torches", 0, 0, 1, Kind.BOOL, "place a torch wherever it's dark underground (mobs spawn only in the dark)");
+		gene("cave.torch_light", 3, 0, 7, Kind.INT, "place a torch when block light at our feet is at or below this");
+		gene("night.wall_in", 0, 0, 1, Kind.BOOL, "at night, wall in on the spot (fast) instead of digging a shelter hole");
+		gene("reflex.lava_margin", 0, 0, 1, Kind.BOOL, "step away from lava right beside us");
+		gene("combat.deflect", 0, 0, 1, Kind.BOOL, "hit a ghast's fireball back when it comes close");
 		gene("loop.stuck_s", 10, 5, 30, Kind.INT, "seconds without moving that mark the state as stuck for the brains");
 		gene("stuck.window_s", 12, 6, 40, Kind.INT, "a moving skill kept inside the stuck box this long starts the unstuck reflex");
 		gene("stuck.box", 2, 1, 4, Kind.REAL, "the square (blocks) the bot must leave to count as moving");

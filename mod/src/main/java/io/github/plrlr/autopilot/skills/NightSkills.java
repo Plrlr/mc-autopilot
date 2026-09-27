@@ -42,11 +42,13 @@ public final class NightSkills {
 		private int wallTries;
 		private boolean centered;
 		private boolean sealed;
+		/** Walled in for the night (not to heal): wait for morning once sealed. */
+		private boolean nightWall;
 		private float sealHealth;
 
 		/** Healing behind blocks with every side closed: the only time the mob reflexes stand down. */
 		public boolean sealed() {
-			return phase == Phase.HEAL && sealed;
+			return (phase == Phase.HEAL || phase == Phase.WAIT && nightWall) && sealed;
 		}
 
 		@Override
@@ -58,6 +60,15 @@ public final class NightSkills {
 				return;
 			}
 			timeoutTicks = 20 * 60 * 12;
+			// Faster than digging a hole (gene night.wall_in): four sides and a roof right here,
+			// a few seconds with 9 blocks, then wait for morning inside.
+			if (io.github.plrlr.autopilot.Tune.on("night.wall_in") && Mc.count(Items2.matcher("throwaway")) >= 9
+					&& Mc.dimension().equals("overworld")) {
+				nightWall = true;
+				Bari.stop();
+				phase = Phase.WALL_IN;
+				return;
+			}
 			if (!Mc.dimension().equals("overworld")) {
 				fail(Fail.WRONG_PLACE, "shelter only makes sense in the overworld");
 				return;
@@ -211,7 +222,7 @@ public final class NightSkills {
 						sealed = true;
 						for (BlockPos p : around) if (Mc.free(p)) sealed = false;
 						sealHealth = pl.getHealth();
-						phase = Phase.HEAL;
+						phase = nightWall ? Phase.WAIT : Phase.HEAL;
 						return;
 					}
 					Mc.placeAt(gap);

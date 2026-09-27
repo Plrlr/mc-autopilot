@@ -94,6 +94,7 @@ public final class Autopilot {
 	private boolean hostileWasNear;
 	private int consecutiveFails;
 	private long reflexCooldownUntil;
+	private long lavaMarginTick = -1000;
 	private final Map<String, long[]> failures = new HashMap<>(); // label -> {count, blockedUntilTick}
 	private String lastEndedKey = "";
 
@@ -279,6 +280,7 @@ public final class Autopilot {
 		cave();
 		reflexes(pl);
 		guard(pl);
+		lighting(pl);
 
 		if (skill != null) {
 			skill.update();
@@ -495,6 +497,30 @@ public final class Autopilot {
 			log.event("reflex", "drowning");
 			return;
 		}
+		// Lava beside us or one step down (gene reflex.lava_margin): step straight away from it,
+		// except in the skills that work next to lava on purpose.
+		if (Tune.on("reflex.lava_margin") && tick - lavaMarginTick > 20 * 10
+				&& (skill == null || !java.util.Set.of("build_portal", "fill_bucket", "make_obsidian", "clutch").contains(skill.name()))) {
+			BlockPos feet = pl.blockPosition();
+			double ax = 0, az = 0;
+			for (int dx = -1; dx <= 1; dx++)
+				for (int dz = -1; dz <= 1; dz++)
+					for (int dy = -1; dy <= 0; dy++)
+						if ((dx != 0 || dz != 0) && Mc.state(feet.offset(dx, dy, dz)).getFluidState().is(net.minecraft.tags.FluidTags.LAVA)) {
+							ax -= dx;
+							az -= dz;
+						}
+			if (ax != 0 || az != 0) {
+				abortSkill("lava right beside us", false);
+				pl.setYRot((float) Math.toDegrees(Math.atan2(-ax, az)));
+				Mc.mc().options.keyUp.setDown(true);
+				lavaKeysUntil = tick + 6;
+				reflexCooldownUntil = lavaKeysUntil;
+				lavaMarginTick = tick;
+				log.event("reflex", "lava beside us");
+				return;
+			}
+		}
 		if (skill != null && skill.ownsSafety()) return;
 		Perception.Seen h = seen.nearestHostile();
 		float hp = pl.getHealth();
@@ -542,6 +568,31 @@ public final class Autopilot {
 		}
 	}
 
+	private long lastTorchTick = -1000;
+	/** Skills that need the hand or stand still on purpose: no torch in the middle of them. */
+	private static final java.util.Set<String> TORCH_BUSY = java.util.Set.of("eat", "craft", "smelt", "build_portal", "fill_bucket",
+			"place", "clutch", "shelter", "sleep", "barter", "enderman_boat", "attack", "retreat", "make_obsidian");
+
+	/**
+	 * Torches in the dark (gene cave.torches): 129 of 165 deaths in generations 6-9 were
+	 * underground, most to mobs, arrows and creepers in dark caves while mining. Monsters spawn only
+	 * in darkness (block light 0), so a torch on the floor wherever block light at our feet is at
+	 * or below cave.torch_light keeps the tunnels we work in empty, as players do.
+	 */
+	private void lighting(LocalPlayer pl) {
+		if (!Tune.on("cave.torches") || tick % 10 != 0 || tick - lastTorchTick < 30) return;
+		if (!Mc.dimension().equals("overworld") || pl.level().canSeeSky(pl.blockPosition().above())) return;
+		if (skill != null && TORCH_BUSY.contains(skill.name())) return;
+		if (Mc.count("torch") == 0 || !pl.onGround()) return;
+		BlockPos feet = pl.blockPosition();
+		if (pl.level().getBrightness(net.minecraft.world.level.LightLayer.BLOCK, feet) > Tune.i("cave.torch_light")) return;
+		if (!Mc.state(feet).isAir() || !Mc.solid(feet.below())) return;
+		if (!Mc.holdItem(s -> Items2.id(s).equals("torch"))) return;
+		Mc.useOn(feet.below(), net.minecraft.core.Direction.UP);
+		lastTorchTick = tick;
+		log.event("torch", feet.toShortString());
+	}
+
 	/** True while guard() holds the shield up (so it lets go of the key itself afterwards). */
 	private boolean guarding;
 
@@ -554,6 +605,19 @@ public final class Autopilot {
 	 */
 	private void guard(LocalPlayer pl) {
 		var o = Mc.mc().options;
+		// A ghast's fireball coming at us: a hit sends it back (gene combat.deflect).
+		if (Tune.on("combat.deflect") && tick % 4 == 0) {
+			for (var e : Mc.mc().level.entitiesForRendering()) {
+				if (e instanceof net.minecraft.world.entity.projectile.hurtingprojectile.LargeFireball fb && fb.distanceTo(pl) < 4.5
+						&& fb.getDeltaMovement().dot(pl.position().subtract(fb.position())) > 0) {
+					Mc.lookAt(fb.getBoundingBox().getCenter());
+					Mc.mc().gameMode.attack(pl, fb);
+					Mc.swing();
+					log.event("guard", "fireball hit back");
+					return;
+				}
+			}
+		}
 		net.minecraft.world.entity.Entity threat = null;
 		boolean creeper = false;
 		if (Tune.on("combat.shield_guard") && Items2.id(pl.getOffhandItem()).equals("shield")
