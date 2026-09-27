@@ -51,6 +51,15 @@ exist yet (batches 13/14 are the first to use it) - will verify the read path on
 re-running them.** Watching both, will log + check pass conditions here when they land, then
 resume the cycle loop from whatever's next.
 
+**Batch 13 (36307176816 @ 4b5bacb) verified: PASS on every stated condition.** deaths 1.4/run,
+iron 8/8 median 5:31, first iron trip `collect raw_iron:13` in every checked run, `equip shield`
+ok every run, 0 `goto surface` STUCK, obsidian placed in both cast runs (1:42, 4:56). One thing
+outside the pass criteria worth a look: **neither cast run lit the portal** - cast-a looped 6x on
+`water won't drain from the frame` (never got past that), cast-b kept scooping/re-pouring but
+never finished all 10 frame blocks. Full data at
+`git show origin/trial-results:runs/36307176816/summary.md`. Line + note appended to
+docs/batches.md. Still watching batch 14 (deep-lava route + Nether).
+
 ## Laptop (retired 2026-09-27; kept for its history)
 
 ### Changes
