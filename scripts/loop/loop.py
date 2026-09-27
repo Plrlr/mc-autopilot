@@ -162,17 +162,16 @@ def cmd_propose(a):
     st["days"][today()] = st["days"].get(today(), 0) + 1
     champ = st["champion"]
     lineup = [champ]
-    # Contenders still in the race, most promising first.
-    cont = [g for g in st["genomes"].values() if g["status"] == "contender"]
-    cont.sort(key=lambda g: -common.paired_t([p[2] for p in g["pairs"]]))
-    for g in cont[: s["max_genomes"] - 1]:
-        lineup.append(g["id"])
-    # Suggestions (settings.json "suggest": ideas from people or Claude sessions) race first, each
-    # as the champion plus that change, once. The race decides like for any mutation.
+    # Suggestions (settings.json "suggest": ideas from people or Claude sessions) get one slot per
+    # generation ahead of everything else, each as the champion plus that change, raced once like
+    # any mutation. (Before, contenders filled every slot and no suggestion ever got to race.)
     tried = st.setdefault("suggested", [])
+    racing_suggestions = [g for g in st["genomes"].values() if g["status"] == "contender" and g["note"].startswith("suggested")]
+    for g in racing_suggestions[:1]:
+        lineup.append(g["id"])
     for sug in s.get("suggest", []):
         key = json.dumps(sug, sort_keys=True)
-        if key in tried or len(lineup) >= s["max_genomes"]:
+        if key in tried or len(lineup) >= min(2, s["max_genomes"]):
             continue
         changed = dict(st["genomes"][champ]["genes"])
         for n, v in sug.items():
@@ -188,6 +187,11 @@ def cmd_propose(a):
         st["genomes"][gid]["status"] = "contender"
         st["genomes"][gid]["code"] = st["genomes"][champ].get("code")
         lineup.append(gid)
+    # Contenders still in the race, most promising first.
+    cont = [g for g in st["genomes"].values() if g["status"] == "contender" and g["id"] not in lineup]
+    cont.sort(key=lambda g: -common.paired_t([p[2] for p in g["pairs"]]))
+    for g in cont[: s["max_genomes"] - len(lineup)]:
+        lineup.append(g["id"])
     # New challengers: mutations of the champion, sometimes of another strong genome.
     tries = 0
     while len(lineup) < s["max_genomes"] and tries < 50:
