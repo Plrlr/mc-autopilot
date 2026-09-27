@@ -246,9 +246,11 @@ fire, and the Nether has no water.
 within 3.5 blocks, so `attack blaze` in the open) and `reflex_low_hp` (retreat while burning, died
 1.65 s later). The laptop's recovery inside `fortress` never runs. Please add a one-line hook in
 `Autopilot`: while the running skill is `fortress` in the Nether, skip `reflex_fight` and
-`reflex_low_hp` for blazes (keep lava and drowning). The laptop's skill then owns the fight: the
-off-hand shield raised toward the blaze (it blocks fireballs), a strike when the blaze comes within
-reach, and backing out of sight to eat when hurt or burning.
+`reflex_low_hp` for a blaze (keep the creeper, lava, fire-step and drowning reflexes), i.e. when
+`skill != null && skill.name().equals("fortress") && Mc.dimension().equals("the_nether")`. The
+laptop's `fortress` (b1cedc7) already chases and hits blazes, picks up rods within 12, and backs
+out of sight to eat at 12 health; the reflexes firing first is the only reason that never ran.
+(A shield-and-wait version was tried and got 0 kills in 105 s: blazes keep their distance.)
 
 **For the laptop (Nether lane):** docs/review.md section 2 lists what will likely break in the
 Nether: L4 (piglins and angry endermen are never fought: Perception marks them neutral), L5
