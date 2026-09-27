@@ -238,6 +238,7 @@ public final class NetherSkills {
 			Perception seen = Perception.look(32);
 			Perception.Seen blaze = seen.nearest("blaze");
 			var keyUse = Mc.mc().options.keyUse;
+			if (recover(pl, blaze, keyUse)) return;
 			if (blaze != null) {
 				sinceBlaze = 0;
 				Entity e = blaze.entity();
@@ -293,6 +294,40 @@ public final class NetherSkills {
 				}
 				walkTo(anchor);
 			}
+		}
+
+		private boolean recovering;
+
+		/**
+		 * Low health: get out of the blazes' sight and heal (eat up to 18+ hunger so health comes
+		 * back), then fight again. Standing still while burning is what killed the first test.
+		 * Returns true while recovering.
+		 */
+		private boolean recover(LocalPlayer pl, Perception.Seen blaze, net.minecraft.client.KeyMapping keyUse) {
+			float hp = pl.getHealth();
+			if (!recovering && hp > 10) return false;
+			if (recovering && hp >= 16) {
+				recovering = false;
+				keyUse.setDown(false);
+				CombatSkills.holdWeapon();
+				return false;
+			}
+			recovering = true;
+			boolean inSight = blaze != null && Mc.canSee(blaze.entity());
+			if (inSight || pl.isOnFire()) {
+				// Run from the nearest blaze (or just move, if burning) until it can't see us.
+				keyUse.setDown(false);
+				BlockPos from = blaze != null ? blaze.entity().blockPosition() : pl.blockPosition();
+				if (ticks % 10 == 0) Bari.path(new baritone.api.pathing.goals.GoalRunAway(14, from));
+				return true;
+			}
+			if (Bari.pathing()) Bari.stop();
+			// Out of sight: eat while hungry, else just wait for health to come back.
+			if (pl.getFoodData().getFoodLevel() < 20 && Mc.count(Items2.matcher("food")) > 0) {
+				if (!Items2.matcher("food").test(pl.getMainHandItem())) Mc.holdItem(Items2.matcher("food"));
+				keyUse.setDown(true);
+			} else keyUse.setDown(false);
+			return true;
 		}
 
 		@Override
