@@ -347,9 +347,9 @@
   }
  },
  "days": {
-  "2026-09-27": 6
+  "2026-09-27": 7
  },
- "gen": 6,
+ "gen": 7,
  "gene_specs": {
   "combat.backstep": {
    "def": 0.0,
@@ -1556,14 +1556,109 @@
    ],
    "parent": "g6",
    "status": "rejected"
+  },
+  "g9": {
+   "born": 7,
+   "code": null,
+   "evals": [],
+   "genes": {
+    "death.recover_night_armor": 12.0,
+    "plan.hide_hp": 15.0,
+    "route.armor_before_portal": 0.0,
+    "route.diamond_portal": 1.0
+   },
+   "id": "g9",
+   "mutated": [
+    "route.diamond_portal"
+   ],
+   "note": "suggested: route.diamond_portal 1",
+   "pairs": [],
+   "parent": "g6",
+   "status": "contender"
   }
  },
  "model_adv_r2": -0.001,
  "model_keys": 29,
  "model_r2": 0.146,
  "model_rows": 3252,
- "next_id": 9,
- "pending": null,
+ "next_id": 10,
+ "pending": {
+  "data_tasks": [
+   {
+    "kind": "natural",
+    "seed": "D7-xddrvz",
+    "stage": "spawn",
+    "synthetic": false
+   }
+  ],
+  "gen": 7,
+  "lineup": [
+   "g6",
+   "g9",
+   "g7"
+  ],
+  "runs": [
+   "eval-g6-0",
+   "eval-g6-1",
+   "eval-g6-2",
+   "eval-g6-3",
+   "eval-g6-4",
+   "eval-g9-0",
+   "eval-g9-1",
+   "eval-g9-2",
+   "eval-g9-3",
+   "eval-g9-4",
+   "eval-g7-0",
+   "eval-g7-1",
+   "eval-g7-2",
+   "eval-g7-3",
+   "eval-g7-4",
+   "data-g6-0"
+  ],
+  "seeds": [
+   "L7-jkcqtx",
+   "L7-s7q34b",
+   "L7-ewn5js",
+   "L7-c73pb9",
+   "L7-b7t6px"
+  ],
+  "sha": "e5b55e24a98a326fa3ac2df3746f36613a56c876",
+  "started": "2026-09-27T18:05:10+00:00",
+  "tasks": [
+   {
+    "kind": "natural",
+    "seed": "L7-jkcqtx",
+    "stage": "spawn",
+    "synthetic": false
+   },
+   {
+    "kind": "natural",
+    "seed": "L7-s7q34b",
+    "stage": "spawn",
+    "synthetic": false
+   },
+   {
+    "kind": "natural",
+    "seed": "L7-ewn5js",
+    "stage": "spawn",
+    "synthetic": false
+   },
+   {
+    "asset": "kit-gen6-eval-g8-0.zip",
+    "kind": "start",
+    "seed": "L7-c73pb9",
+    "stage": "kit",
+    "synthetic": false
+   },
+   {
+    "asset": "nether-gen5-eval-g6-2.zip",
+    "kind": "start",
+    "seed": "L7-b7t6px",
+    "stage": "nether",
+    "synthetic": false
+   }
+  ]
+ },
  "settings": {
   "accept_pairs": 8,
   "accept_t": 2.0,
@@ -1888,7 +1983,8 @@
   ]
  },
  "suggested": [
-  "{\"focus.commit\": 1}"
+  "{\"focus.commit\": 1}",
+  "{\"route.diamond_portal\": 1}"
  ],
  "version": 1
 }
