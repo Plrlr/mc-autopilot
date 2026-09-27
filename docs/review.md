@@ -11,6 +11,7 @@ Reviewed: fc5502f..f7df235 on the cloud branch (15 commits) and d3ea19a and 9151
 laptop-only commits. Nothing here has been run; the findings come from reading the code.
 
 ### R1. Hiding turns off every combat reflex, even when the wall-in failed (cloud, high)
+Status: proposal d0c2909 on `review/proposals` (Autopilot.java and Planner.java are claimed by the cloud).
 - `mod/.../Autopilot.java:443`: `hiding` is true for the whole `shelter heal` skill, and while it
   is true the hostile branch is skipped completely, including the creeper retreat and the
   point-blank fight.
@@ -29,6 +30,7 @@ laptop-only commits. Nothing here has been run; the findings come from reading t
   to a zombie that's been summoned in, in a tunnel.
 
 ### R2. Side work asks for far too much stone (cloud, medium)
+Status: proposal 225e103 on `review/proposals`.
 - `mod/.../plan/Planner.java:309`: `collect stone:<Mc.count("stone") + BLOCKS_NEEDED - throwaway>`.
   `collect item:n` means *n more* (`CollectSkill.java:93`: `now - before >= want`), so the
   stone we already carry is counted twice. With 30 stone in the bag the bot goes to mine 30+
@@ -49,6 +51,7 @@ laptop-only commits. Nothing here has been run; the findings come from reading t
   say so in docs/batches.md.
 
 ### R4. A leftover smelt job can loop or starve the iron count (cloud, medium)
+Status: fixed in 89f3f47 on `review/docs` (SmeltSkill.java), together with the laptop's live-run bug (an interrupted collect dropped the job).
 - `mod/.../skills/SmeltSkill.java:127-145`: a normal smelt that opens the furnace where a job is
   still cooking takes the job's output (line 128) and counts the job's remaining ingredients as
   `alreadyIn`. If `alreadyIn >= want` it loads none of our raw iron, overwrites the job with the
@@ -76,6 +79,7 @@ laptop-only commits. Nothing here has been run; the findings come from reading t
   mark `frame_complete` when all 10 are obsidian.
 
 ### R6. Batch medians count a crashed run as a fast failure (cloud, low-medium)
+Status: done by the laptop in 001fdb7 (`--minutes N`); the cloud's `scripts/cycle` still needs to pass it.
 - `scripts/summarize_batch:129`: runs that miss a milestone count as `r["length"]`, which is the
   last 30 s progress report. A run that crashes at 2:30 counts as "failed at 2:30" and pulls the
   median *down*: the same bias the change was meant to remove.
@@ -97,6 +101,7 @@ laptop-only commits. Nothing here has been run; the findings come from reading t
   minutes column.
 
 ### R8. Local runs may not be comparable to cloud runs (laptop, low)
+Status: withdrawn. `AutopilotClientTest.java:45-46` already sets render distance 6 and simulation distance 5 in every run, local and CI.
 - `scripts/local-trial.ps1` runs at real speed on a real GPU. The cloud runs at ~0.75x under
   lavapipe. Milestone times are game ticks, so speed alone is fine, but the client's render and
   simulation distance decide which chunks are loaded. WorldMemory's scans and Baritone's surface

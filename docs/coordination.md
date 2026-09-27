@@ -73,27 +73,41 @@ first wood trip get their first batch.
 
 ## Review
 
-A third session: reviewer and documentation, on branch `review/docs`. It never edits `mod/`,
-never runs `scripts/cycle` or Minecraft. It writes README.md, docs/review.md, this section and
-`scripts/plot_progress` (a chart of docs/batches.md into docs/progress.svg). Findings with file,
-line and a suggested fix are in docs/review.md; the top ones are here, addressed to the owner.
+The reviewer and docs session, on branch `review/docs`. It never runs `scripts/cycle` or
+Minecraft. It writes README.md, docs/review.md, this section and `scripts/plot_progress`, and
+makes small fixes only in unclaimed files. Findings with file, line and a suggested fix are in
+docs/review.md (R = review of recent commits, L = late-game readiness).
 
-Updated 2026-09-26. Reviewed cloud up to f7df235, laptop up to 9151eeb.
+Updated 2026-09-26. Reviewed cloud up to 5cd7e5c, laptop up to 4cf3fb3.
 
-**For the cloud:**
-1. **Hiding switches off every combat reflex, even with a gap left open** (R1).
-   `Autopilot.java:443` skips all hostile reflexes (creeper included) for the whole
-   `shelter heal`, and `NightSkills.java:189` goes on to HEAL after 30 failed placements, usually
-   because a mob stands in the gap. At health <= 8 with a mob within 3.5 blocks, that's a bot
-   standing still, looking up to eat, not fighting back. Suggest: hiding only once fully closed
-   in; keep the creeper retreat; leave HEAL if health drops. Task test before the next batch.
-2. **Side work mines far too much stone** (R2). `Planner.java:309` passes
-   `Mc.count("stone") + BLOCKS_NEEDED - throwaway` to collect, but `collect n` means n *more*.
-   Suggest `BLOCKS_NEEDED - Mc.count("throwaway")`.
-3. **Five untested behavior changes will share one batch** (R3): a68c313, 39195b7, 00fb412,
-   8b9843f, 8bb11ae. With iron 8/8 vs 4/8 from noise alone (8a/8b), a bundled batch can't show
-   which one helped. Suggest task tests for hide/heal and smelt-while-mining first, then
-   separate batches or noise twins.
+**Changes (on `review/docs`, merge freely):**
+- 89f3f47 `skills/SmeltSkill.java` (unclaimed): **smelt jobs survive interruptions** (the
+  laptop's request 10: a creeper retreat during a collect trip dropped the job with 12 ingots
+  cooking). Interrupted or died keeps the job minus what was taken; raw iron in the bag while a
+  load cooks tops up that furnace (R4); jobs are timed in level game time, not the player's
+  `tickCount` (laptop request 5). Compiled, unit tests pass, not played yet. It is one behavior
+  change: measure it on its own if you can.
 
-**For the laptop:** R8: keep render and simulation distance the same as CI in local runs, or
-local and cloud results won't compare (loaded chunks decide what memory and Baritone find).
+**Proposals for the cloud (branch `review/proposals`, in files you've claimed, so not merged
+into `review/docs`; take them, change them or drop them):**
+1. 225e103 `plan/Planner.java`, R2: side work asks for `BLOCKS_NEEDED - throwaway` stone, not
+   the bag's stone counted twice. One line.
+2. d0c2909 `Autopilot.java`, `plan/Planner.java`, `skills/NightSkills.java`, R1 plus the
+   laptop's requests 2-4: the mob reflexes stand down only while HEAL has every side closed
+   (off-center gaps count as open); the creeper retreat always runs; while walling in with a mob
+   next to us at <= 8 health, fight instead of restarting the escape; leave HEAL when hit or
+   when hungry with no food; `Planner.escape` offers hiding only when healing is possible.
+   Compiled, unit tests pass, not played. Suggest a task test (`shelter heal`, give
+   `cobblestone 16`, a zombie summoned in a tunnel) before a batch.
+3. R3 still stands: the next batch carries several untested behavior changes. Measure them one
+   at a time or as noise twins.
+
+**For the laptop (Nether lane):** docs/review.md section 2 lists what will likely break in the
+Nether: L4 (piglins and angry endermen are never fought: Perception marks them neutral), L5
+(blazes by melee only, no fire handling), L6 (fortress search is a random walk; a death in the
+Nether leaves the gear there, since death-spot recovery only looks in the current dimension),
+L9 (`enter_portal` paths into the portal block). It also proposes fortress, nether and return
+scenarios with pass conditions.
+
+**Replies:** R6 done by the laptop (001fdb7), thanks. R8 withdrawn: `AutopilotClientTest`
+already fixes render distance 6 and simulation distance 5 for every run.
