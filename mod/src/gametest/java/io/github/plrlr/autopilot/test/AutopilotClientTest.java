@@ -131,6 +131,21 @@ public class AutopilotClientTest implements FabricClientGameTest {
 			lavaAndWater(server::runCommand);
 			return Goal.NETHER_PORTAL;
 		}
+		if (scenario.equals("nether") || scenario.equals("blaze")) {
+			// What the speedrun route really carries into the Nether: iron tools and a shield, no armor.
+			for (String g : List.of("iron_pickaxe", "iron_sword", "shield", "cooked_beef 16", "cobblestone 64", "flint_and_steel"))
+				server.runCommand("give @a " + g);
+			// A pocket of air on a netherrack floor, so the arrival spot isn't inside rock or over lava.
+			server.runCommand("execute in minecraft:the_nether run fill -3 70 -3 3 74 3 air");
+			server.runCommand("execute in minecraft:the_nether run fill -3 69 -3 3 69 3 netherrack");
+			server.runCommand("execute in minecraft:the_nether run tp @a 0 70 0");
+			if (scenario.equals("blaze")) {
+				// A small walled nether-brick room with a blaze spawner 4 blocks away: the fight alone.
+				server.runCommand("execute in minecraft:the_nether run fill -6 69 -6 6 76 6 nether_bricks hollow");
+				server.runCommand("execute in minecraft:the_nether run setblock 4 70 0 spawner{SpawnData:{entity:{id:\"minecraft:blaze\"}}}");
+			}
+			return Goal.BLAZE_RODS;
+		}
 		for (String g : GEAR) server.runCommand("give @a " + g);
 		switch (scenario) {
 			case "portal" -> {

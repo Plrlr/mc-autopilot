@@ -120,9 +120,7 @@ public final class Planner {
 			}
 			case BLAZE_RODS -> {
 				if (!dim.equals("the_nether")) return depth > 2 ? null : goalStep(Goal.NETHER_PORTAL, seen, depth + 1);
-				if (seen.nearest("blaze") != null) return new Option("attack", "blaze", "kill the blaze for rods");
-				if (memory.nearest("nether_bricks") != null) return new Option("goto", "nether_bricks", "go into the fortress to find blazes");
-				return new Option("explore", "nether_bricks,blaze", "look for a nether fortress");
+				return NetherPlan.blazeStep(memory, seen);
 			}
 			case ENDER_PEARLS -> {
 				if (seen.nearest("enderman") != null) return new Option("attack", "enderman", "kill the enderman for a pearl");
@@ -374,6 +372,8 @@ public final class Planner {
 			// Underground, two or more closing in wear us down in a tunnel: wall in and heal first.
 			else if (!onSurface() && pl.getHealth() <= 12 && seen.hostilesWithin(6) >= 2) out.add(escape("hurt with monsters closing in"));
 			// Skeletons outshoot a fleeing player; closing in fast is safer than running.
+			// Blazes hover and shoot: the fortress fight waits for them at the spawner instead of chasing.
+			else if (NetherPlan.fightInFortress(Mc.dimension(), hostile)) out.add(NetherPlan.blazeStep(memory, seen));
 			else out.add(new Option("attack", hostile.type(), hostile.type() + " is " + Math.round(hostile.dist()) + " blocks away"));
 		}
 		if (wantsToEat()) {
@@ -449,7 +449,10 @@ public final class Planner {
 			int hunger = Mc.player().getFoodData().getFoodLevel();
 			if (hunger <= 14 && readyFood == 0) {
 				Option f = goalStep(Goal.FOOD, seen, 0);
-				if (f != null) out.add(new Option(f.skill(), f.arg(), "hungry (" + hunger + "/20): " + f.why()));
+				// Searching far for animals only when really hungry: at 9-14 it beat a ready
+				// build_portal seven times in a night (batch 9, seed b) and found nothing.
+				if (f != null && (!f.skill().equals("explore") || hunger <= 8))
+					out.add(new Option(f.skill(), f.arg(), "hungry (" + hunger + "/20): " + f.why()));
 			}
 		}
 		if (Mc.dimension().equals("overworld") && Items2.bestTier("pickaxe") >= 0 && Mc.count("bed") == 0

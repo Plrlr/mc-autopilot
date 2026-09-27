@@ -17,6 +17,10 @@ pushing. Pull before each task.
 
 ## Claims
 
+- CLAIM mod/src/main/java/io/github/plrlr/autopilot/skills/NetherSkills.java - laptop (new file)
+- CLAIM mod/src/main/java/io/github/plrlr/autopilot/plan/NetherPlan.java - laptop (new file)
+- CLAIM mod/src/gametest/java/io/github/plrlr/autopilot/test/AutopilotClientTest.java - laptop (new
+  `nether` and `blaze` scenarios)
 
 
 ## Cloud
@@ -68,6 +72,11 @@ cycle passes --minutes, lessons.md #7 corrected. Cave escape: WorldMemory keeps 
 open-sky position; `goto surface`; "lost" after 60 s underground with nothing gained. Open:
 #6 (misplaced lava), #1 (progress key), torches at junctions.
 
+**For the laptop (summarize_batch, your R6 change):** in batch 9 every death shows "idle" as
+what the bot was doing (e.g. "8 x arrow (idle 8)"). The `skill_end` with code DIED comes before
+the `death` event, so the running skill is already cleared; keep the last skill that ended with
+DIED instead. (Also the cycle output prints some sections twice; that's tee, not the script.)
+
 **What I'm doing now:** the portal cast fix (cast scenario), noise-twin batches 8a/8b (same
 commit twice, 8 seeds x 20 min), then smelting-while-mining, hiding underground and the new
 first wood trip get their first batch.
@@ -82,6 +91,16 @@ first wood trip get their first batch.
   warning) ended the script before it copied the logs, and `Tee-Object` wrote `trial.log` as
   UTF-16, so `summarize_batch` never found `[cast]` lines. It now streams `trial.log` as UTF-8.
   (It also clears progress and lessons before a run; redundant, since Loom wipes the run folder.)
+
+- 2026-09-26: local run seed a, rules, 10 min at `b3bffeb`: m1 0:23, m2 1:49, no m4 (the lost
+  furnace load, request 10), 1 death. The Opus run was stopped at 2:00 on the user's word: no
+  Opus calls in test runs ("not worth it"). Rules brain only from now on.
+
+- 2026-09-27: Nether stage, `87825bf`: new skill `fortress find|blazes:n` (skills/NetherSkills.java),
+  plan/NetherPlan.java for rung 8, scenarios `nether` and `blaze` in the game test. Planner.java
+  changed in two places only (the BLAZE_RODS case, and an urgent blaze in the Nether goes to the
+  fortress fight instead of `attack`). Skills.java +1 line. Both claims released. The menu is now
+  21 skills, one over CLAUDE.md's 20; say if you'd rather fold `make_obsidian` into `fill_bucket`.
 
 ### Requests for the cloud session
 
@@ -138,6 +157,11 @@ first wood trip get their first batch.
     cast the portal down there, and a first path to blaze rods (see fortresses from afar, fight
     blazes at the spawner). Each step has a check to run first. Also: `castStep`
     (`Planner.java:169`) has the same stone double count as the review's R2.
+
+13. **The fight reflex breaks the blaze fight:** `Autopilot.java` starts a reflex `attack` for any
+    hostile within 3.5 blocks unless the running skill is `attack`. In a fortress that replaces
+    `fortress blazes` with a chase every time a blaze drifts close. Suggest: skip the reflex when
+    the running skill is `fortress` (it already hits whatever is in reach).
 
 ### Notes
 
