@@ -259,6 +259,11 @@ public class AutopilotClientTest implements FabricClientGameTest {
 		ctx.runOnClient(mc -> {
 			Autopilot ap = AutopilotMod.instance();
 			System.out.println("[autopilot-test] " + when + ": " + ap.statusLine());
+			// Where the time goes: drawn frames (the game ticks at most once per frame), the built-in
+			// server's time per tick (50 ms is the budget), and our mod's own time per tick.
+			var server = mc.getSingleplayerServer();
+			System.out.printf(java.util.Locale.ROOT, "[autopilot-test]    perf fps %d, server %.1f ms/tick, mod %.2f ms/tick%n",
+					mc.getFps(), server == null ? -1 : server.getAverageTickTimeNanos() / 1e6, ap.msPerTick());
 			// Where we are and what we carry: enough to see from the log alone what went wrong.
 			var pl = mc.player;
 			java.util.Map<String, Integer> inv = new java.util.TreeMap<>();
