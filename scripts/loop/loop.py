@@ -42,8 +42,10 @@ DEFAULT_SETTINGS = {
     "minutes": 20,             # game minutes per run
     "scenario": "natural",
     "max_gens_per_day": 36,
-    "lean": True,              # cheap drawing on the cloud (the game still ticks at 20/s)
-    "perf_mods": "lithium,ferritecore",
+    # Plain drawing, no extra mods: the cloud already plays at 0.98x real time that way, and a
+    # 10 fps cap halved the game speed (benchmark 36323172968). Change here to experiment.
+    "lean": False,
+    "perf_mods": "",
     "accept_pairs": 8,         # a challenger needs this many paired seeds...
     "accept_t": 2.0,           # ...and a one-sided t this high (many looks per challenger: keep it strict)...
     "min_gain": 0.3,           # ...and a mean gain at least this big (a real difference, not a fluke)
@@ -129,6 +131,8 @@ def same_genes(a, b):
 def cmd_propose(a):
     genes = common.load_genes()
     st = load_state(a.state, genes)
+    if a.override:
+        st["settings"].update(json.loads(a.override))
     s = st["settings"]
     out = {"runs": [], "gen": st["gen"], "reason": ""}
     if os.path.exists(os.path.join(a.state, "STOP")):
@@ -514,6 +518,7 @@ def main():
     p1.add_argument("--state", required=True)
     p1.add_argument("--sha", required=True)
     p1.add_argument("--out", required=True)
+    p1.add_argument("--override", default="", help="settings to change, as JSON (smoke tests)")
     p2 = sub.add_parser("update")
     p2.add_argument("--state", required=True)
     p2.add_argument("--batch", required=True)

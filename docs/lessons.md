@@ -20,6 +20,12 @@ workflow's unit-tests job compiles and tests in about a minute, the trial jobs t
 
 ## Game and API facts learned the hard way
 
+- **Cloud speed (2026-09-27, run 36323172968, 8 game minutes each):** plain drawing plays at
+  0.98x real time on GitHub's machines. A 10 fps cap drops it to exactly 0.50x: in 26.3 the
+  client runs one tick per frame at most, so the cap caps the game. Lithium/FerriteCore/Sodium
+  showed no gain under the cap (untested uncapped). `/tick rate` above 20 speeds the world but
+  not the player, so it would distort play; not used.
+
 - **Baritone owns hotbar slot 0.** With allowInventory on, its inventory helper swaps the best
   pickaxe back into slot 0 every tick. Anything we swap into slot 0 is undone before the click:
   every "couldn't place the crafting_table" in batches 1-3 held the pickaxe. Mc.holdItem uses an

@@ -27,7 +27,7 @@ import java.util.List;
  * test one late-game step. The mod itself never uses commands.
  * -PtestBrain=auto uses the free AI keys from the real config file (costs free-tier calls).
  * -PtestParams=<file> plays with the learning loop's genes; -PtestLearned=<file> loads a learned model.
- * -PtestLean=true (cloud) draws as little as possible: fast graphics, 10 fps, no clouds, particles,
+ * -PtestLean=true draws less: fast graphics, no clouds, particles,
  * shadows or sound. The game still ticks at 20 per second; only the drawing is cheaper, so a
  * software renderer has CPU left for the game itself. What the bot perceives doesn't change.
  */
@@ -136,7 +136,8 @@ public class AutopilotClientTest implements FabricClientGameTest {
 	/** Cheapest drawing that still shows the world in screenshots (cloud runs). */
 	private static void lean(net.minecraft.client.Options o) {
 		o.applyGraphicsPreset(net.minecraft.client.GraphicsPreset.FAST);
-		o.framerateLimit().set(10);
+		// No frame cap: in 26.3 a 10 fps cap also held the game to 10 ticks a second (0.50x game
+		// speed on the cloud, against 0.98x uncapped; benchmark 36323172968).
 		o.enableVsync().set(false);
 		o.cloudStatus().set(net.minecraft.client.CloudStatus.OFF);
 		o.particles().set(net.minecraft.server.level.ParticleStatus.MINIMAL);

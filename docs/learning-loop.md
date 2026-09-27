@@ -41,8 +41,8 @@ loop runs levels 1 and 2 only.
 1. **propose** (`loop.py propose`): the champion, the challengers still racing, and new mutants
    (1-3 genes each; mostly children of the champion, sometimes of another strong genome from the
    archive), each on the same 4 fresh random seeds, plus 2 data runs. 18 machines.
-2. **trial**: each run plays 20 game minutes with lean drawing (fast graphics, 10 fps, no sound;
-   the game still ticks at 20/s and the bot perceives the same world) and Lithium + FerriteCore.
+2. **trial**: each run plays 20 game minutes of plain vanilla drawing, which already keeps up
+   with real time on the cloud (0.98x). A 10 fps cap halved the game speed, so it isn't used.
 3. **update**: scores every run (`common.score_run`: points per milestone and portal step, up to
    50% more the earlier, minus 0.75 per death), races, retrains the model, merges a winning code
    change, maybe asks Claude for one, writes `loop/history.jsonl` and the dashboard, and starts

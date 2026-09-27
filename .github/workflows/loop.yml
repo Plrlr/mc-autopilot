@@ -17,6 +17,9 @@ on:
       generations:
         description: 'Generations to run, then stop (0 = keep going until the daily cap or loop/STOP)'
         default: '0'
+      smoke:
+        description: 'Plumbing test: one tiny generation (2 game minutes) in loop-smoke/, no next generation'
+        default: 'false'
   schedule:
     - cron: '23 * * * *'
 
@@ -37,12 +40,14 @@ jobs:
       runs: ${{ steps.p.outputs.runs }}
       gen: ${{ steps.p.outputs.gen }}
       results: ${{ steps.p.outputs.results }}
+      state: ${{ steps.p.outputs.state }}
     steps:
       - uses: actions/checkout@v7
       - id: p
         env:
           GH_TOKEN: ${{ github.token }}
           EVENT: ${{ github.event_name }}
+          SMOKE: ${{ inputs.smoke || 'false' }}
         run: |
           echo "runs=[]" >> "$GITHUB_OUTPUT"
           # The hourly schedule only restarts a broken chain: if the last loop run ended less than
@@ -55,7 +60,13 @@ jobs:
             fi
           fi
           scripts/loop/results.sh checkout results
-          python3 scripts/loop/loop.py propose --state results/loop --sha "$GITHUB_SHA" --out runs.json
+          state=loop; override=""
+          if [ "$SMOKE" = "true" ]; then
+            state=loop-smoke; override='{"minutes":2,"seeds_per_gen":1,"max_genomes":2,"data_runs":1}'
+          fi
+          echo "state=$state" >> "$GITHUB_OUTPUT"
+          mkdir -p "results/$state"
+          python3 scripts/loop/loop.py propose --state "results/$state" --sha "$GITHUB_SHA" --out runs.json --override "$override"
           runs=$(jq -c .runs runs.json)
           [ "$runs" = "[]" ] && exit 0
           scripts/loop/results.sh commit results "Loop generation $(jq -r .gen runs.json): proposed"
@@ -105,8 +116,9 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 45
     env:
-      # Level 2 (code changes by Claude) runs only when this secret exists: see docs/learning-loop.md.
+      # Level 3 (code changes by Claude) runs only when this secret exists: see docs/learning-loop.md.
       HAS_CLAUDE: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN != '' }}
+      STATE: ${{ needs.propose.outputs.state }}
     steps:
       - uses: actions/checkout@v7
         with:
@@ -119,10 +131,10 @@ jobs:
         run: |
           pip install -q numpy || true
           scripts/loop/results.sh checkout results
-          python3 scripts/loop/loop.py update --state results/loop --batch batch
-          python3 scripts/loop/train.py --state results/loop
+          python3 scripts/loop/loop.py update --state "results/$STATE" --batch batch
+          python3 scripts/loop/train.py --state "results/$STATE"
       - name: Merge a winning code change into main
-        run: python3 scripts/loop/loop.py merge --state results/loop
+        run: python3 scripts/loop/loop.py merge --state "results/$STATE"
       - uses: actions/setup-java@v6
         if: env.HAS_CLAUDE == 'true'
         with:
@@ -142,10 +154,10 @@ jobs:
           curl -fsSL https://claude.ai/install.sh | bash
           export PATH="$HOME/.local/bin:$PATH"
           chmod +x mod/gradlew
-          python3 scripts/loop/evolve.py --state results/loop --batch batch || echo "evolve step failed; the loop goes on"
+          python3 scripts/loop/evolve.py --state "results/$STATE" --batch batch || echo "evolve step failed; the loop goes on"
       - name: Publish
         run: |
-          python3 scripts/loop/loop.py status --state results/loop | tee -a "$GITHUB_STEP_SUMMARY"
+          python3 scripts/loop/loop.py status --state "results/$STATE" | tee -a "$GITHUB_STEP_SUMMARY"
           # The dashboard lives next to its data (GitHub Pages serves the trial-results branch).
           cp scripts/loop/dashboard.html results/index.html
           touch results/.nojekyll
@@ -155,6 +167,7 @@ jobs:
           GH_TOKEN: ${{ github.token }}
           LEFT: ${{ inputs.generations || '0' }}
         run: |
+          if [ "${{ inputs.smoke }}" = "true" ]; then echo "Smoke test: no next generation."; exit 0; fi
           if [ "$LEFT" = "1" ]; then echo "Last requested generation done."; exit 0; fi
           next=$(( LEFT > 1 ? LEFT - 1 : 0 ))
           gh workflow run loop.yml --ref main -f generations="$next"
