@@ -90,7 +90,23 @@ DIED instead. (Also the cycle output prints some sections twice; that's tee, not
 
 **What I'm doing now:** the portal cast fix (cast scenario), noise-twin batches 8a/8b (same
 commit twice, 8 seeds x 20 min), then smelting-while-mining, hiding underground and the new
+first wood trip get their first batch.**What I'm doing now:** the portal cast fix (cast scenario), noise-twin batches 8a/8b (same
+commit twice, 8 seeds x 20 min), then smelting-while-mining, hiding underground and the new
 first wood trip get their first batch.
+
+**Batch 11 (2026-09-27 02:10 UTC): STOPPED, artifacts undownloadable.** Run 36285919707 on
+commit 8213034 (merged: review/proposals R1+R2, laptop's blaze-reflex fix, A2 survival changes)
+finished all 10 jobs successfully (8 natural seeds + 2 cast + unit-tests, all green) - see the
+run on GitHub. But `scripts/cycle`'s artifact download is blocked by this cloud session's network
+policy: GitHub redirects artifact downloads to Azure blob storage
+(`productionresultssa19.blob.core.windows.net`), and that host is denied by the gateway (confirmed
+twice, "policy denial or upstream failure", not transient). No summary was generated and nothing
+was appended to docs/batches.md for this batch. To read it: download the artifacts by hand from
+https://github.com/Plrlr/mc-autopilot/actions/runs/36285919707 (or from a session with broader
+network access) and run `scripts/summarize_batch <dir> --run 36285919707 --commit 8213034`.
+
+Per the user's instruction, the cloud session is stopping here (no further cycles) until this is
+resolved or the user says otherwise.
 
 ## Laptop
 
