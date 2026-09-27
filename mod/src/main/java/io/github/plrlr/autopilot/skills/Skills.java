@@ -35,6 +35,7 @@ public final class Skills {
 		MENU.put("fill_bucket", new Entry(BucketSkills.FillBucket::new, "fill an empty bucket at a known water or lava source"));
 		MENU.put("fortress", new Entry(NetherSkills.Fortress::new, "Nether: find (walk and look for a fortress) or blazes:n (fight blazes at the spawner until n rods)"));
 		MENU.put("barter", new Entry(Barter::new, "Nether: trade gold ingots with adult piglins for ender pearls (wear gold armor)"));
+		MENU.put("enderman_boat", new Entry(EndermanBoat::new, "trap an enderman in a boat (it can't move, teleport or hit back), kill it, take the boat back"));
 		MENU.put("search_stronghold", new Entry(SearchStronghold::new, "inside a stronghold: explore the corridors in sight until the portal room shows up"));
 		MENU.put("clutch", new Entry(Clutch::new, "falling far: pour the water bucket just before landing, then scoop it back (a reflex)"));
 		MENU.put("dragon", new Entry(DragonFight::new, "the End fight: stay off the edges, wait by the fountain, hit the dragon's head when it lands"));

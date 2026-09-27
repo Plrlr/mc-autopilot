@@ -31,6 +31,7 @@ public final class Items2 {
 			case "planks" -> s -> id(s).endsWith("_planks");
 			case "wool" -> s -> id(s).endsWith("_wool");
 			case "bed" -> s -> id(s).endsWith("_bed");
+			case "boat" -> s -> { String i = id(s); return (i.endsWith("_boat") || i.endsWith("_raft")) && !i.contains("chest"); };
 			case "stone" -> s -> { String i = id(s); return i.equals("cobblestone") || i.equals("cobbled_deepslate") || i.equals("blackstone"); };
 			case "coal" -> s -> { String i = id(s); return i.equals("coal") || i.equals("charcoal"); };
 			case "fuel" -> s -> isFuel(id(s));

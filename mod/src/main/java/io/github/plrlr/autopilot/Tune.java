@@ -89,6 +89,8 @@ public final class Tune {
 		gene("pearls.barter_ingots", 24, 0, 96, Kind.INT, "gold ingots to gather and trade before hunting endermen for the rest");
 		gene("pearls.target", 14, 12, 20, Kind.INT, "ender pearls to collect (14 eyes: 2-3 to triangulate, 12 for the frames)");
 		gene("stronghold.sidestep", 80, 30, 200, Kind.REAL, "blocks to walk sideways between the two triangulation throws");
+		gene("pearls.boat_trap", 0, 0, 1, Kind.BOOL, "trap endermen in a boat before killing them (they can't teleport or hit back)");
+		gene("pearls.provoke_s", 25, 8, 60, Kind.INT, "seconds to wait for a stared-at enderman to come into the boat");
 		// Focus: finish the running task unless an emergency comes up
 		gene("focus.commit", 0, 0, 1, Kind.BOOL, "finish the running task before switching, unless the top option is an emergency");
 		// Main loop timing

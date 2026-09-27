@@ -32,6 +32,36 @@ public final class CraftSkill extends Skill {
 	private boolean needsTable;
 	private Station station;
 	private int step;
+	/** No recipe-book entry (locked until an unlock trigger): lay the pattern out by hand. */
+	private Manual manual;
+	private int manualWait;
+	/** Each pattern letter's ingredient; planks narrowed to one wood (a boat needs 5 of the same). */
+	private final java.util.Map<Character, Predicate<ItemStack>> manualWant = new java.util.HashMap<>();
+
+	/**
+	 * Hand-laid recipes for the route's crafts whose recipe-book entry may still be locked (a boat
+	 * unlocks on first entering water; the stronghold test failed "no known recipe for
+	 * blaze_powder"). Rows of a 3x3 grid; each letter is an item group (Items2.matcher).
+	 */
+	record Manual(String[] rows, java.util.Map<Character, String> keys) {
+		int needed(char k) {
+			int n = 0;
+			for (String r : rows) for (char c : r.toCharArray()) if (c == k) n++;
+			return n;
+		}
+	}
+
+	private static final java.util.Map<String, Manual> MANUAL = java.util.Map.of(
+			"boat", new Manual(new String[]{"P.P", "PPP"}, java.util.Map.of('P', "planks")),
+			"blaze_powder", new Manual(new String[]{"R"}, java.util.Map.of('R', "blaze_rod")),
+			"ender_eye", new Manual(new String[]{"EB"}, java.util.Map.of('E', "ender_pearl", 'B', "blaze_powder")),
+			"gold_ingot", new Manual(new String[]{"NNN", "NNN", "NNN"}, java.util.Map.of('N', "gold_nugget")),
+			"golden_helmet", new Manual(new String[]{"GGG", "G.G"}, java.util.Map.of('G', "gold_ingot")));
+
+	private static boolean haveFor(Manual m) {
+		for (var e : m.keys().entrySet()) if (Mc.count(Items2.matcher(e.getValue())) < m.needed(e.getKey())) return false;
+		return true;
+	}
 
 	@Override
 	public String name() {
@@ -51,6 +81,30 @@ public final class CraftSkill extends Skill {
 		before = Mc.count(matches);
 		timeoutTicks = 20 * 90;
 		RecipeDisplayEntry e = findRecipe(false);
+		if (e == null && findRecipe(true) == null && MANUAL.containsKey(target) && haveFor(MANUAL.get(target))) {
+			// Locked in the recipe book: a crafting table and our own hands.
+			manual = MANUAL.get(target);
+			for (var k : manual.keys().entrySet()) {
+				Predicate<ItemStack> m = Items2.matcher(k.getValue());
+				if (k.getValue().equals("planks")) {
+					String most = null;
+					for (int i = 0; i < 36; i++) {
+						String id = Items2.id(Mc.player().getInventory().getItem(i));
+						if (id.endsWith("_planks") && (most == null || Mc.count(id) > Mc.count(most))) most = id;
+					}
+					if (most == null || Mc.count(most) < manual.needed(k.getKey())) {
+						fail(Fail.NEED_ITEM, "need " + manual.needed(k.getKey()) + " planks of one wood for a " + target);
+						return;
+					}
+					String one = most;
+					m = st -> Items2.id(st).equals(one);
+				}
+				manualWant.put(k.getKey(), m);
+			}
+			needsTable = true;
+			station = new Station("crafting_table", CraftingMenu.class, memory);
+			return;
+		}
 		if (e == null) {
 			fail(findRecipe(true) == null ? Fail.NO_RECIPE : Fail.NEED_ITEM, findRecipe(true) == null ? "no known recipe for " + target + " (not unlocked yet?)" : "missing ingredients for " + target);
 			return;
@@ -79,6 +133,10 @@ public final class CraftSkill extends Skill {
 		Slot result = menu.getSlot(0);
 		if (result.hasItem() && matches.test(result.getItem())) {
 			Mc.click(menu, 0, 0, ContainerInput.QUICK_MOVE);
+			return;
+		}
+		if (manual != null) {
+			manualStep(menu, made);
 			return;
 		}
 		RecipeDisplayEntry e = findRecipe(false);
@@ -130,6 +188,64 @@ public final class CraftSkill extends Skill {
 			}
 		}
 		return ignoreIngredients ? fallback : null;
+	}
+
+	/**
+	 * One click of laying the pattern out by hand: pick up a stack of the next missing ingredient,
+	 * right-click one into its grid slot (table slots 1-9, row by row), put the rest back; when
+	 * the grid is full, the result appears in slot 0 and the caller takes it.
+	 */
+	private void manualStep(AbstractContainerMenu menu, int made) {
+		ItemStack carried = menu.getCarried();
+		for (int r = 0; r < manual.rows().length; r++) {
+			String row = manual.rows()[r];
+			for (int c = 0; c < row.length(); c++) {
+				char k = row.charAt(c);
+				if (k == '.') continue;
+				int slot = 1 + r * 3 + c;
+				if (menu.getSlot(slot).hasItem()) continue;
+				Predicate<ItemStack> want = manualWant.get(k);
+				if (!carried.isEmpty() && want.test(carried)) {
+					Mc.click(menu, slot, 1, ContainerInput.PICKUP); // right click: one item
+					return;
+				}
+				if (!carried.isEmpty()) {
+					putBack(menu);
+					return;
+				}
+				for (Slot s : menu.slots) {
+					if (s.index >= 10 && s.hasItem() && want.test(s.getItem())) {
+						Mc.click(menu, s.index, 0, ContainerInput.PICKUP);
+						return;
+					}
+				}
+				if (made > 0) done("crafted " + made + " " + target + " by hand (ran out)");
+				else fail(Fail.NEED_ITEM, "missing " + manual.keys().get(k) + " for " + target);
+				return;
+			}
+		}
+		if (!carried.isEmpty()) {
+			putBack(menu);
+			return;
+		}
+		// Grid full: the result shows up once the server has it.
+		if (++manualWait > 30) fail(Fail.USE_FAILED, "laid out " + target + " by hand but no result appeared");
+	}
+
+	/** Carried leftovers back into the bag: onto a matching stack, else an empty slot. */
+	private static void putBack(AbstractContainerMenu menu) {
+		ItemStack carried = menu.getCarried();
+		for (Slot s : menu.slots)
+			if (s.index >= 10 && s.hasItem() && ItemStack.isSameItemSameComponents(s.getItem(), carried)
+					&& s.getItem().getCount() < s.getItem().getMaxStackSize()) {
+				Mc.click(menu, s.index, 0, ContainerInput.PICKUP);
+				return;
+			}
+		for (Slot s : menu.slots)
+			if (s.index >= 10 && !s.hasItem()) {
+				Mc.click(menu, s.index, 0, ContainerInput.PICKUP);
+				return;
+			}
 	}
 
 	private static boolean fits2x2(RecipeDisplay d) {

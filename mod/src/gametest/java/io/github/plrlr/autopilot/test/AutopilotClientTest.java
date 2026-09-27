@@ -205,6 +205,16 @@ public class AutopilotClientTest implements FabricClientGameTest {
 			server.runCommand("execute at @p run tp @p ~ -50 ~");
 			return Goal.NETHER_PORTAL;
 		}
+		if (scenario.equals("enderman")) {
+			// Pearls from endermen: a boat, planks for another, a sword; two endermen 8-10 blocks out.
+			for (String g : List.of("iron_sword", "oak_boat", "oak_planks 10", "cooked_beef 16", "crafting_table"))
+				server.runCommand("give @a " + g);
+			server.runCommand("item replace entity @a armor.chest with iron_chestplate");
+			server.runCommand("time set 14000");
+			server.runCommand("execute at @p run summon enderman ~10 ~ ~");
+			server.runCommand("execute at @p run summon enderman ~-8 ~ ~6");
+			return Goal.ENDER_PEARLS;
+		}
 		if (scenario.equals("barter")) {
 			// Trading alone: in the Nether with gold and a gold helmet on; piglins are added in arrive().
 			for (String g : List.of("iron_pickaxe", "iron_sword", "cooked_beef 16", "cobblestone 64", "gold_ingot 32"))

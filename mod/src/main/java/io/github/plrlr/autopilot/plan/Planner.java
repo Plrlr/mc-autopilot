@@ -180,6 +180,12 @@ public final class Planner {
 			case ENDER_PEARLS -> {
 				Option trade = barterStep(seen, depth);
 				if (trade != null) return trade;
+				// The boat trap (speedrunners'): an enderman in a boat can't move, teleport or hit back.
+				if (seen.nearest("enderman") != null && Tune.on("pearls.boat_trap")) {
+					if (Mc.count("boat") > 0) return new Option("enderman_boat", null, "trap the enderman in our boat, then kill it");
+					Option b = itemStep("boat", 1, depth + 1);
+					if (b != null && !b.skill().equals("explore")) return new Option(b.skill(), b.arg(), "a boat to trap endermen: " + b.why());
+				}
 				if (seen.nearest("enderman") != null) return new Option("attack", "enderman", "kill the enderman for a pearl");
 				return new Option("explore", "enderman", "look for endermen (more at night, many in warped forests)");
 			}

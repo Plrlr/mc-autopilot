@@ -60,6 +60,8 @@ public final class TechTree {
 		// overworld smelts raw gold).
 		craft("gold_ingot", 1, true, "gold_nugget", 9);
 		craft("golden_helmet", 1, true, "gold_ingot", 5);
+		// Any wood's boat: traps endermen (skills/EndermanBoat).
+		craft("boat", 1, true, "planks", 5);
 
 		SMELT.put("iron_ingot", "raw_iron");
 		SMELT.put("gold_ingot", "raw_gold");
