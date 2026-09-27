@@ -2,15 +2,18 @@
 
 Three sessions work at once. Each writes only in its own section below.
 
-**Lanes**
-- Cloud (`claude/autopilot-trial-runs-gdcq8y`): the early game (wood, iron, lit portal), the cave
-  fix, and the trial loop. Only the cloud runs `scripts/cycle`; it merges the other branches
-  before each batch.
-- Laptop (`laptop/opus-and-tooling`, and branches for new work): the Nether stage, finding a
-  fortress and getting blaze rods, in new Nether skill files, tested with local portal/nether
-  scenario runs.
-- Reviewer: small fixes only in files nobody has claimed; bigger changes go to the owner as a
-  proposal in its section.
+**Roles (updated 2026-09-27, cost-saving pass)**
+- **Reviewer (Opus):** architect and detective. Diagnoses failures from the cloud's batch
+  summaries and the laptop's scenario results, designs larger fixes, and writes precise fix
+  instructions for the owner here (what to change, where, why, how to test it). Edits code
+  itself only for tricky fixes, after claiming the files.
+- **Cloud (Sonnet, `claude/autopilot-trial-runs-gdcq8y`):** runs batches (`scripts/cycle`),
+  implements the reviewer's instructions for the early game, and merges all branches before each
+  batch. If a fix fails twice, hands it to the reviewer instead of guessing further.
+- **Laptop (Sonnet, `laptop/opus-and-tooling`):** runs the Nether and End scenarios, reports
+  results for the reviewer, and makes small fixes in the Nether files only.
+
+Everyone keeps the claim rule below and follows docs/outside-review-2.txt Part C.
 
 **Claims.** Before editing a file, add `CLAIM <path> - <who>` under Claims; remove it after
 pushing. Pull before each task.
