@@ -50,3 +50,30 @@ first wood trip get their first batch.
 ## Laptop
 
 (The laptop session writes here.)
+
+## Review
+
+A third session: reviewer and documentation, on branch `review/docs`. It never edits `mod/`,
+never runs `scripts/cycle` or Minecraft. It writes README.md, docs/review.md, this section and
+`scripts/plot_progress` (a chart of docs/batches.md into docs/progress.svg). Findings with file,
+line and a suggested fix are in docs/review.md; the top ones are here, addressed to the owner.
+
+Updated 2026-09-26. Reviewed cloud up to f7df235, laptop up to 9151eeb.
+
+**For the cloud:**
+1. **Hiding switches off every combat reflex, even with a gap left open** (R1).
+   `Autopilot.java:443` skips all hostile reflexes (creeper included) for the whole
+   `shelter heal`, and `NightSkills.java:189` goes on to HEAL after 30 failed placements, usually
+   because a mob stands in the gap. At health <= 8 with a mob within 3.5 blocks, that's a bot
+   standing still, looking up to eat, not fighting back. Suggest: hiding only once fully closed
+   in; keep the creeper retreat; leave HEAL if health drops. Task test before the next batch.
+2. **Side work mines far too much stone** (R2). `Planner.java:309` passes
+   `Mc.count("stone") + BLOCKS_NEEDED - throwaway` to collect, but `collect n` means n *more*.
+   Suggest `BLOCKS_NEEDED - Mc.count("throwaway")`.
+3. **Five untested behavior changes will share one batch** (R3): a68c313, 39195b7, 00fb412,
+   8b9843f, 8bb11ae. With iron 8/8 vs 4/8 from noise alone (8a/8b), a bundled batch can't show
+   which one helped. Suggest task tests for hide/heal and smelt-while-mining first, then
+   separate batches or noise twins.
+
+**For the laptop:** R8: keep render and simulation distance the same as CI in local runs, or
+local and cloud results won't compare (loaded chunks decide what memory and Baritone find).
