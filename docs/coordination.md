@@ -32,6 +32,7 @@ B1, B2, B5, B6 to the cloud; B3/B4 are the user's call.
 - CLAIM mod/src/main/java/io/github/plrlr/autopilot/plan/NetherPlan.java - laptop (new file)
 - CLAIM mod/src/test/java/io/github/plrlr/autopilot/plan/TechTreeTest.java - freebuff (new file)
 - CLAIM mod/src/test/java/io/github/plrlr/autopilot/plan/PlannerPriorityTest.java - freebuff (new file)
+- CLAIM mod/src/main/java/io/github/plrlr/autopilot/plan/TechTree.java - freebuff (MOB entries, at the user's request - outside my usual lane)
 - CLAIM docs/coordination.md - freebuff (Freebuff section)
 - CLAIM mod/src/gametest/java/io/github/plrlr/autopilot/test/AutopilotClientTest.java - laptop (new
   `nether` and `blaze` scenarios)
@@ -418,3 +419,7 @@ planner for meat the tree cannot reach (it falls through to `explore any`). Fix:
 `MOB.put("rabbit", List.of("rabbit"))`, `MOB.put("cod", List.of("cod"))`,
 `MOB.put("salmon", List.of("salmon"))`. The check `TechTreeTest.smeltedItemsHaveTheirRawSource`
 is `@Disabled` with this reason until those entries exist.
+
+**Update (2026-09-27): the MOB gap is fixed.** At the user's request the freebuff lane made the
+three-line main change itself (`TechTree.java`: `MOB.put("rabbit"/"cod"/"salmon", ...)`) and
+`smeltedItemsHaveTheirRawSource` is enabled again. `gradlew test` stays green.

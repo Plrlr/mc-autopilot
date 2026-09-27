@@ -1,7 +1,6 @@
 package io.github.plrlr.autopilot.plan;
 
 import io.github.plrlr.autopilot.Items2;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import java.util.LinkedHashSet;
@@ -67,13 +66,8 @@ class TechTreeTest {
 		assertEquals("diamond_pickaxe", TechTree.pickaxeForTier(3));
 	}
 
-	/**
-	 * Same reachability rule for the smelt inputs. Disabled because main is missing the mob
-	 * entries (rabbit, cod, salmon); see the Freebuff section of docs/coordination.md. Flip to
-	 * enabled once those three MOB entries land.
-	 */
+	/** Same reachability rule for the smelt inputs (raw fish and rabbit are mob drops too). */
 	@Test
-	@Disabled("TechTree.MOB has no rabbit/cod/salmon; see docs/coordination.md, Freebuff")
 	void smeltedItemsHaveTheirRawSource() {
 		Set<String> ok = obtainable();
 		for (var e : TechTree.SMELT.entrySet()) {
