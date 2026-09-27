@@ -335,7 +335,7 @@ public final class Planner {
 		if (Mc.count("coal") < 8 && coal != null && coal.pos().distSqr(Mc.player().blockPosition()) < 16 * 16)
 			return new Option("collect", "coal:" + (8 - Mc.count("coal")), "coal for fuel");
 		if (Mc.count("throwaway") < CastPortal.BLOCKS_NEEDED)
-			// collect's count is how many more to get, not a total.
+			// collect n means n more: the stone we carry is already in "throwaway".
 			return new Option("collect", "stone:" + (CastPortal.BLOCKS_NEEDED - Mc.count("throwaway")), "blocks for the portal wall");
 		if (Mc.count("flint_and_steel") == 0 && Mc.count("flint") == 0) return new Option("collect", "flint:1", "flint for flint and steel");
 		return null;
@@ -515,7 +515,8 @@ public final class Planner {
 	 * through tunnels got the bot shot and cornered in trials); on the surface, run.
 	 */
 	public static Option escape(String why) {
-		// Healing needs 18+ hunger: without food to get there, hiding is just waiting to be found.
+		// Hiding only heals with 18+ hunger or food to eat; otherwise shelter heal fails at once and
+		// this would pick it again.
 		boolean canHeal = Mc.player().getFoodData().getFoodLevel() >= 18 || Mc.count(Items2.matcher("food")) > 0;
 		if (!onSurface() && canHeal && Mc.count("throwaway") >= 6) return new Option("shelter", "heal", why + ": wall in and heal");
 		return new Option("retreat", null, why);
