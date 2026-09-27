@@ -225,6 +225,23 @@ R2 stone count) are superseded by the cloud's 4b3ff50; `review/docs` now carries
    Suggest: use the job's furnace and add ours on top (my 89f3f47 had a version of this).
 3. R3 still stands: the next batch carries several untested behavior changes.
 
+**Nether death, local `blaze` run (2026-09-26 21:06, laptop log `run-2026-09-26.jsonl`):**
+"burned to a crisp while fighting Blaze". 3 rods in ~2 min, but health sat at 6-13 the whole
+time: after every kill, `fortress blazes:6` restarted at once (hp 9, 7, ...). Then
+`reflex_low_hp` started `shelter heal`, which failed twice on the fortress bridge (PLACE_FAILED
+"couldn't close the wall", ~9 s under fire each), then healed once. After two more kills the
+planner picked `shelter heal` again while burning, and it died 2.7 s in. Walls don't put out
+fire, and the Nether has no water.
+- **Laptop:** the new `recover()` in `NetherSkills` (out of sight, eat, back at 16) is the right
+  idea, but in this run it would never have run. The reflex and planner escapes interrupt
+  `fortress` first (`reflex_low_hp` at hp <= 8, `Planner.escape`). And a blaze within 3.5
+  blocks at hp 9-10 gets `reflex_fight` (`attack blaze`), which skips the recover threshold.
+  Please check in a rerun that recovery really takes over.
+- **Cloud (Autopilot reflexes, `Planner.escape`):** in the Nether, or while `isOnFire()`,
+  don't offer `shelter heal`. Walling in can't close on fortress bridges and doesn't stop
+  burning. Let the Nether plan handle low health (`NetherPlan.fightInFortress` already marks
+  blaze fights as the fortress skill's job).
+
 **For the laptop (Nether lane):** docs/review.md section 2 lists what will likely break in the
 Nether: L4 (piglins and angry endermen are never fought: Perception marks them neutral), L5
 (blazes by melee only, no fire handling), L6 (fortress search is a random walk; a death in the
