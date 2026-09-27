@@ -4,8 +4,11 @@ import io.github.plrlr.autopilot.Mc;
 import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.world.level.ClipContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.phys.BlockHitResult;
+import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
 
 import java.util.ArrayList;
@@ -184,6 +187,51 @@ public final class WorldMemory {
 			if (Mc.canSee(pos)) m.put(pos, new Seen(pos, Mc.id(st.getBlock()), dim, tick));
 		}
 	}
+	/**
+	 * Long-range sight: a few rays from the eyes each tick, a full sweep of the view every ~15
+	 * ticks, out to 96 blocks. Each ray remembers the first block it hits if it's one we track:
+	 * exactly what a player sees, no x-ray. A fortress, a lava pool or an end portal frame 90 blocks
+	 * away shows up the way it would on screen (the block scan only reaches 16).
+	 */
+	private static final double SIGHT = 96;
+	private static final int RAYS_PER_TICK = 16;
+	private static final Vec3[] DIRS;
+	/** A group this big stops growing (an ocean's surface is all water sources). */
+	private static final int GROUP_CAP = 600;
+	private int rayCursor;
+
+	static {
+		List<Vec3> dirs = new ArrayList<>();
+		for (int pitch = -50; pitch <= 40; pitch += 10) {
+			int steps = Math.max(8, (int) Math.round(36 * Math.cos(Math.toRadians(pitch))));
+			for (int i = 0; i < steps; i++) {
+				double yaw = 2 * Math.PI * i / steps + pitch * 0.07;
+				double cp = Math.cos(Math.toRadians(pitch));
+				dirs.add(new Vec3(Math.cos(yaw) * cp, Math.sin(Math.toRadians(pitch)), Math.sin(yaw) * cp));
+			}
+		}
+		DIRS = dirs.toArray(new Vec3[0]);
+	}
+
+	private void scanSight(LocalPlayer pl, Level level, String dim, long tick) {
+		Vec3 eye = pl.getEyePosition();
+		for (int i = 0; i < RAYS_PER_TICK; i++) {
+			Vec3 d = DIRS[rayCursor];
+			rayCursor = (rayCursor + 1) % DIRS.length;
+			BlockHitResult r = level.clip(new ClipContext(eye, eye.add(d.scale(SIGHT)), ClipContext.Block.VISUAL,
+					ClipContext.Fluid.SOURCE_ONLY, pl));
+			if (r.getType() != HitResult.Type.BLOCK) continue;
+			BlockPos p = r.getBlockPos();
+			String id = Mc.id(level.getBlockState(p).getBlock());
+			String group = groupOf(id);
+			if (group == null || group.equals("stone") || group.equals("gravel") || group.equals("sand")) continue;
+			Map<BlockPos, Seen> m = byGroup.computeIfAbsent(group, k -> new LinkedHashMap<>());
+			if (m.size() >= GROUP_CAP && !m.containsKey(p)) continue;
+			BlockPos pos = p.immutable();
+			m.put(pos, new Seen(pos, id, dim, tick));
+		}
+	}
+
 	private int layerCursor = -RV;
 	private int raycasts;
 
@@ -231,6 +279,7 @@ public final class WorldMemory {
 		String dim = Mc.dimension();
 		BlockPos c = pl.blockPosition();
 		scanFar(level, c, dim, tick);
+		scanSight(pl, level, dim, tick);
 		if (layerCursor == -RV) raycasts = 0;
 		int from = layerCursor, to = Math.min(RV, layerCursor + LAYERS_PER_TICK - 1);
 		layerCursor = to >= RV ? -RV : to + 1;
