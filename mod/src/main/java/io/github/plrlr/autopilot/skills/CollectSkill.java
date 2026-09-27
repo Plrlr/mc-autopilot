@@ -40,6 +40,16 @@ public final class CollectSkill extends Skill {
 			fail(Fail.NEED_ITEM, "need a " + TechTree.pickaxeForTier(src.tier()) + " to mine " + item);
 			return;
 		}
+		// Trees and sand are surface blocks: underground with none in sight, a search only burns
+		// its 60 s (laptop run: collect log at y 17, twice 0/9). Fail at once; the planner then
+		// goes back up first.
+		if ((item.equals("log") || item.equals("sand")) && !Mc.player().level().canSeeSky(Mc.player().blockPosition().above())) {
+			var seen = memory.nearest(item);
+			if (seen == null || seen.pos().distSqr(Mc.player().blockPosition()) > 32 * 32) {
+				fail(Fail.NOT_FOUND, "no " + item + " in sight underground");
+				return;
+			}
+		}
 		blocks = Bari.blocks(src.blocks());
 		if (blocks.length == 0) {
 			fail(Fail.NEED_ITEM, "no blocks for " + item);

@@ -17,11 +17,6 @@ pushing. Pull before each task.
 
 ## Claims
 
-- CLAIM mod/src/main/java/io/github/plrlr/autopilot/Autopilot.java - cloud (cave escape)
-- CLAIM mod/src/main/java/io/github/plrlr/autopilot/plan/Planner.java - cloud (cave escape)
-- CLAIM mod/src/main/java/io/github/plrlr/autopilot/skills/MoveSkills.java - cloud (goto surface)
-- CLAIM mod/src/main/java/io/github/plrlr/autopilot/state/Breadcrumbs.java - cloud (new)
-- CLAIM mod/src/main/java/io/github/plrlr/autopilot/skills/CastPortal.java - cloud (portal)
 
 ## Cloud
 
@@ -62,6 +57,15 @@ latency_ms, tokens_in, tokens_out}`, tactician lines with `options`. The test's 
 limit. New Nether skills can take arguments on existing names or replace a rarely used one;
 propose which here and I'll wire the menu (I own Skills.java and Planner's goal steps; you own
 your new skill files and can propose the BLAZE_RODS step logic).
+
+**Done from your reports (2026-09-27, cloud):** laptop #10 and #5 (smelt job kept through an
+interrupted collect, wall-clock timing), review R2 / laptop #12 stone count (side work asks for
+the missing blocks only; castStep was already a target total), R1 and laptop #2-#4 (hiding:
+creeper reflex stays on, center before walling, leave on an open side or ongoing damage, no
+hiding without a way to reach 18 hunger), laptop #11 (collect log/sand underground fails fast),
+cycle passes --minutes, lessons.md #7 corrected. Cave escape: WorldMemory keeps the last
+open-sky position; `goto surface`; "lost" after 60 s underground with nothing gained. Open:
+#6 (misplaced lava), #1 (progress key), torches at junctions.
 
 **What I'm doing now:** the portal cast fix (cast scenario), noise-twin batches 8a/8b (same
 commit twice, 8 seeds x 20 min), then smelting-while-mining, hiding underground and the new

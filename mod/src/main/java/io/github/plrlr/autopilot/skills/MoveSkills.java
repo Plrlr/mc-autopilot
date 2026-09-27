@@ -110,6 +110,17 @@ public final class MoveSkills {
 		@Override
 		protected void start() {
 			timeoutTicks = 20 * 120;
+			if ("surface".equals(arg)) {
+				// Out of a cave the way we came in; with no known entry, dig up toward the sky.
+				LocalPlayer pl = Mc.player();
+				if (pl.level().canSeeSky(pl.blockPosition().above())) {
+					done("already under open sky");
+					return;
+				}
+				BlockPos entry = memory.surfaceEntry();
+				Bari.path(entry != null ? new GoalBlock(entry) : new baritone.api.pathing.goals.GoalYLevel(Math.max(70, pl.getBlockY() + 30)));
+				return;
+			}
 			if ("death".equals(arg)) {
 				WorldMemory.Seen d = memory.nearest("death");
 				if (d == null) {
@@ -134,6 +145,15 @@ public final class MoveSkills {
 
 		@Override
 		protected void tick() {
+			if ("surface".equals(arg)) {
+				LocalPlayer pl = Mc.player();
+				if (ticks % 10 == 0 && pl.level().canSeeSky(pl.blockPosition().above())) {
+					done("back under open sky");
+					return;
+				}
+				if (ticks > 20 && !Bari.pathing()) fail(Fail.UNREACHABLE, "couldn't find the way up");
+				return;
+			}
 			if (ticks > 20 && !Bari.pathing()) {
 				if ("death".equals(arg)) {
 					WorldMemory.Seen d = memory.nearest("death");

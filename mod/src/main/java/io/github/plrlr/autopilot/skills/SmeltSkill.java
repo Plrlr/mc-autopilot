@@ -21,10 +21,13 @@ import java.util.function.Predicate;
  * at the furnace for 13 iron took ~130 s per run in the trials.
  */
 public final class SmeltSkill extends Skill {
-	/** A furnace load left cooking: where, what, how many, and when it'll be done (player ticks). */
-	public record Job(BlockPos pos, String output, int count, int readyAt, String dim) {
+	/**
+	 * A furnace load left cooking: where, what, how many, and when it'll be done (wall clock:
+	 * the player's tickCount restarts at 0 after a respawn). Coming back early just means waiting.
+	 */
+	public record Job(BlockPos pos, String output, int count, long readyAtMs, String dim) {
 		public boolean ready() {
-			return Mc.player() != null && Mc.player().tickCount >= readyAt;
+			return System.currentTimeMillis() >= readyAtMs;
 		}
 	}
 
@@ -140,7 +143,7 @@ public final class SmeltSkill extends Skill {
 			loaded = true;
 			int inFurnace = menu.getSlot(AbstractFurnaceMenu.INGREDIENT_SLOT).getItem().getCount();
 			if (inFurnace >= LEAVE_AT && station.pos() != null) {
-				JOBS.put(output, new Job(station.pos().immutable(), output, inFurnace, pl.tickCount + inFurnace * 200 + 20, Mc.dimension()));
+				JOBS.put(output, new Job(station.pos().immutable(), output, inFurnace, System.currentTimeMillis() + inFurnace * 10_000L + 1_000, Mc.dimension()));
 				done("loaded " + inFurnace + " to smelt into " + output + "; working nearby meanwhile");
 			}
 			return;
@@ -226,8 +229,11 @@ public final class SmeltSkill extends Skill {
 
 	@Override
 	protected void cleanup() {
-		// A collect trip ends the job either way: done, or the furnace is gone or out of reach.
-		if (collecting) JOBS.remove(output);
+		// The job ends when we collected it or the furnace is gone. An interrupted trip (a creeper,
+		// a death) keeps it: dropping it lost 12 ingots in a laptop run and sent the bot back
+		// underground for 12 more raw iron.
+		Result r = result();
+		if (collecting && r != null && (r.ok() || r.code() == Fail.NOT_FOUND)) JOBS.remove(output);
 		LocalPlayer pl = Mc.player();
 		if (pl != null && pl.containerMenu != pl.inventoryMenu) pl.closeContainer();
 		super.cleanup();
