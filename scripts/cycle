@@ -10,7 +10,8 @@
 #          -x extra runs JSON ('[]'), -r RUN_ID (skip push/start; fetch and summarize that run),
 #          -o output dir (.trials), -n note for docs/batches.md, -N don't append to docs/batches.md.
 # Needs: git, curl, unzip, python3, and a GitHub token in GH_TOKEN or GITHUB_TOKEN (or `gh`).
-# Output: .trials/<run id>/ (artifacts + summary.md); one line appended to docs/batches.md.
+# Output: .trials/<run id>/ (summary.md and decision logs from the trial-results branch, or the
+# artifacts if that's missing); one line appended to docs/batches.md.
 set -euo pipefail
 
 cd "$(git rev-parse --show-toplevel)"
@@ -86,20 +87,30 @@ for j in json.load(sys.stdin).get("jobs", []):
 	sleep 30
 done
 
-# 5. Download and unpack every artifact.
+# 5. The summary. The workflow's last job commits it (and the decision logs) to the trial-results
+# branch, which a plain git fetch reaches even where artifact downloads are blocked. Artifacts
+# (trial.log, screenshots) are the fallback.
 DIR="$OUT/$RUN"
 mkdir -p "$DIR"
-api "$API/actions/runs/$RUN/artifacts?per_page=100" | python3 -c '
+if git fetch -q origin trial-results 2>/dev/null && git cat-file -e "origin/trial-results:runs/$RUN/summary.md" 2>/dev/null; then
+	git archive origin/trial-results "runs/$RUN" | tar -x -C "$DIR" --strip-components=2
+	cp "$DIR/line.txt" "$DIR/batch-line.txt"
+	log "summary and decision logs from trial-results in $DIR"
+	cat "$DIR/summary.md"
+else
+	log "no summary on trial-results; downloading artifacts"
+	api "$API/actions/runs/$RUN/artifacts?per_page=100" | python3 -c '
 import json,sys
 for a in json.load(sys.stdin).get("artifacts", []): print(a["id"], a["name"])' | while read -r id name; do
-	[ -d "$DIR/$name" ] && continue
-	curl -sS -L --retry 3 --max-time 300 -H "Authorization: Bearer $TOKEN" -o "$DIR/$name.zip" "$API/actions/artifacts/$id/zip"
-	mkdir -p "$DIR/$name" && unzip -q -o "$DIR/$name.zip" -d "$DIR/$name" && rm "$DIR/$name.zip"
-done
-log "artifacts in $DIR"
+		[ -d "$DIR/$name" ] && continue
+		curl -sS -L --retry 3 --max-time 300 -H "Authorization: Bearer $TOKEN" -o "$DIR/$name.zip" "$API/actions/artifacts/$id/zip"
+		mkdir -p "$DIR/$name" && unzip -q -o "$DIR/$name.zip" -d "$DIR/$name" && rm "$DIR/$name.zip"
+	done
+	log "artifacts in $DIR"
+	scripts/summarize_batch "$DIR" --run "$RUN" --commit "$SHA" --minutes "$MINUTES" --line-out "$DIR/batch-line.txt" | tee "$DIR/summary.md"
+fi
 
-# 6. Summarize; keep the one-line history.
-scripts/summarize_batch "$DIR" --run "$RUN" --commit "$SHA" --minutes "$MINUTES" --line-out "$DIR/batch-line.txt" | tee "$DIR/summary.md"
+# 6. Keep the one-line history.
 if [ "$APPEND" = 1 ] && [ -s "$DIR/batch-line.txt" ] && ! grep -q "^| $RUN |" docs/batches.md 2>/dev/null; then
 	line=$(cat "$DIR/batch-line.txt")
 	line="$line $NOTE |"
