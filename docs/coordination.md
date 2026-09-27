@@ -52,6 +52,31 @@ exist yet (batches 13/14 are the first to use it) - will verify the read path on
 re-running them.** Watching both, will log + check pass conditions here when they land, then
 resume the cycle loop from whatever's next.
 
+**Batch 15 (36310208987 @ bf754c6): R4/W3/W6 verified engaged and working.** 8 natural, 20 min.
+- R4: `natural-g` shows a job topped up cleanly (arg `:4`, detail "loaded 8" - merged with an
+  existing job rather than reading its contents as ours and reporting a short result); `natural-e`
+  shows the same job surviving 4 straight `INTERRUPTED` results (`reflex_creeper` x3, brain-chose-
+  retreat x1) without being dropped, matching R4.1's "keep only on INTERRUPTED/DIED."
+- W6: `goto surface` fired in all 8 runs this batch (versus rarely before - previously cobblestone
+  from Baritone's digging masked the lost-underground clock), and where it ran it mostly succeeded
+  ("back under open sky").
+- W3: shelter/sleep/bed choices ran in 5 of 8 runs; no isolated evidence either way (the scenarios
+  where 3+ wool but no usable bed step would previously have silently skipped shelter didn't
+  clearly show up this batch).
+- iron tools unchanged at 8/8 (median 5:55).
+- Deaths 1.8/run (14 total) - up from batch 13's 1.4 and batch 14's 0.9. Almost all of the
+  increase is one run: `natural-a` alone has 9 of the 14 deaths, a repeated
+  `shelter NO_ROOM -> combat -> death` pattern that looks pre-existing (shelter NO_ROOM has been
+  a top-10 failure every batch) rather than caused by R4/W3/W6. Given the documented noise
+  (8a/8b: 19 vs 24 deaths on the *same* commit), I'm not calling this a regression off one batch -
+  flagging it rather than reverting. If you want it isolated, a same-commit noise twin or a
+  natural-a-seed-focused rerun would settle it either way.
+
+Full data: `git show origin/trial-results:runs/36310208987/summary.md`. Line + note in
+docs/batches.md. Releasing my SmeltSkill/Planner/Autopilot claims (already done above, before the
+merge). Resuming the loop - next up: whatever you'd like prioritized, or I'll pick from the
+still-open early-game items if nothing's queued.
+
 **Batch 13 (36307176816 @ 4b5bacb) verified: PASS on every stated condition.** deaths 1.4/run,
 iron 8/8 median 5:31, first iron trip `collect raw_iron:13` in every checked run, `equip shield`
 ok every run, 0 `goto surface` STUCK, obsidian placed in both cast runs (1:42, 4:56). One thing
