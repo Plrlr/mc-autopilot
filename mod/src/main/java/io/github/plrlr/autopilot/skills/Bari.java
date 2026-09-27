@@ -48,6 +48,10 @@ public final class Bari {
 		s.disconnectOnArrival.value = false;
 		s.maxFallHeightNoWater.value = 3;
 		s.avoidance.value = true;
+		// Route around monsters instead of through them (genes; the run that beat the dragon raised
+		// its avoidance to 2-3x after a death and fought only in defense).
+		s.mobAvoidanceCoefficient.value = io.github.plrlr.autopilot.Tune.get("nav.mob_avoid_coef");
+		s.mobAvoidanceRadius.value = io.github.plrlr.autopilot.Tune.i("nav.mob_avoid_radius");
 		// Lets a goal inside a portal actually walk into it.
 		s.enterPortal.value = true;
 		// Pathing speed-ups that are still safe: diagonal steps up and down cut many corners.

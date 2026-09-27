@@ -103,6 +103,8 @@ public final class Tune {
 		gene("reflex.lava_margin", 0, 0, 1, Kind.BOOL, "step away from lava right beside us");
 		gene("combat.deflect", 0, 0, 1, Kind.BOOL, "hit a ghast's fireball back when it comes close");
 		gene("gear.sword_early", 0, 0, 1, Kind.BOOL, "craft a sword matching the pickaxe's tier as soon as possible");
+		gene("nav.mob_avoid_coef", 1.5, 1, 5, Kind.REAL, "how much Baritone's paths avoid monsters (1 = not at all)");
+		gene("nav.mob_avoid_radius", 8, 4, 16, Kind.INT, "radius around monsters that paths avoid");
 		gene("combat.wall_in_anywhere", 0, 0, 1, Kind.BOOL, "hurt and outnumbered: wall in and heal on the surface too, instead of running");
 		gene("loop.stuck_s", 10, 5, 30, Kind.INT, "seconds without moving that mark the state as stuck for the brains");
 		gene("stuck.window_s", 12, 6, 40, Kind.INT, "a moving skill kept inside the stuck box this long starts the unstuck reflex");
