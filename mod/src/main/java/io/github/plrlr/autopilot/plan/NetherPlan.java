@@ -8,8 +8,8 @@ import io.github.plrlr.autopilot.state.WorldMemory;
  * apart from Planner so the Nether stage can change without touching the early game.
  */
 public final class NetherPlan {
-	/** Rods the rung needs: 12 eyes of ender take 6 rods (one rod makes two powder). */
-	public static final int RODS = 6;
+	/** Rods the rung needs: 12 eyes take 6 rods (one rod makes two powder), plus 2 spare for eyes that break when thrown (outside review A3). */
+	public static final int RODS = 8;
 
 	private NetherPlan() {}
 
