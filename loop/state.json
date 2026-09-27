@@ -518,9 +518,9 @@
   }
  },
  "days": {
-  "2026-09-27": 10
+  "2026-09-27": 11
  },
- "gen": 10,
+ "gen": 11,
  "gene_specs": {
   "combat.backstep": {
    "def": 0.0,
@@ -2350,13 +2350,94 @@
  "model_r2": 0.162,
  "model_rows": 7089,
  "next_id": 12,
- "pending": null,
+ "pending": {
+  "data_tasks": [
+   {
+    "kind": "natural",
+    "seed": "D11-ad42fd",
+    "stage": "spawn",
+    "synthetic": false
+   }
+  ],
+  "gen": 11,
+  "lineup": [
+   "g6",
+   "g10",
+   "g11"
+  ],
+  "runs": [
+   "eval-g6-0",
+   "eval-g6-1",
+   "eval-g6-2",
+   "eval-g6-3",
+   "eval-g6-4",
+   "eval-g10-0",
+   "eval-g10-1",
+   "eval-g10-2",
+   "eval-g10-3",
+   "eval-g10-4",
+   "eval-g11-0",
+   "eval-g11-1",
+   "eval-g11-2",
+   "eval-g11-3",
+   "eval-g11-4",
+   "data-g6-0"
+  ],
+  "seeds": [
+   "L11-p6zvdn",
+   "L11-5zrube",
+   "L11-vchh26",
+   "L11-gtznag",
+   "L11-ua36up"
+  ],
+  "sha": "3c0fb8b40b6bdbb5e798b6bcc5962c0b18313c8e",
+  "started": "2026-09-27T20:45:51+00:00",
+  "tasks": [
+   {
+    "kind": "natural",
+    "seed": "L11-p6zvdn",
+    "stage": "spawn",
+    "synthetic": false
+   },
+   {
+    "kind": "natural",
+    "seed": "L11-5zrube",
+    "stage": "spawn",
+    "synthetic": false
+   },
+   {
+    "kind": "natural",
+    "seed": "L11-vchh26",
+    "stage": "spawn",
+    "synthetic": false
+   },
+   {
+    "asset": "kit-gen5-eval-g4-2.zip",
+    "kind": "start",
+    "seed": "L11-gtznag",
+    "stage": "kit",
+    "synthetic": false
+   },
+   {
+    "kind": "scenario",
+    "scenario": "end",
+    "seed": "L11-ua36up",
+    "stage": "end",
+    "synthetic": true
+   }
+  ]
+ },
  "settings": {
   "accept_pairs": 8,
   "accept_t": 2.0,
   "bank_keep": 40,
   "data_runs": 1,
   "drop_after_pairs": 4,
+  "evolve": {
+   "max_per_day": 12,
+   "max_prompt_chars": 160000,
+   "plateau_gens": 2
+  },
   "explore_data": 0.15,
   "lean": true,
   "max_genomes": 3,
