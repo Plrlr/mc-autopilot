@@ -36,23 +36,34 @@ public final class Planner {
 	 * player does on the way (food, a bed, coal), then the goal's next step, then fallbacks.
 	 */
 	public List<Option> options(Goal goal, Perception seen) {
-		Map<String, Option> out = new LinkedHashMap<>();
-		for (Option o : urgent(seen)) out.putIfAbsent(o.label(), o);
-		Option recover = recoverStep();
-		if (recover != null) out.putIfAbsent(recover.label(), recover);
 		Option main = goalStep(goal, seen, 0);
-		// Lost in a cave (a minute down here with nothing gained), or the next step needs the
-		// surface (trees, animals, walking to explore): go back up the way we came first.
-		boolean deep = !onSurface() && Mc.dimension().equals("overworld") && memory.surfaceEntry() != null
-				&& memory.surfaceEntry().getY() - Mc.player().getBlockY() > 8;
-		if ((lostUnderground || (deep && needsSurface(main))) && !MoveSkills.Goto.surfaceBlocked())
-			out.putIfAbsent("goto surface", new Option("goto", "surface",
-					lostUnderground ? "a minute underground without progress: back up the way we came" : "the next step is on the surface"));
-		for (Option o : upkeep(seen, main)) out.putIfAbsent(o.label(), o);
+		return order(urgent(seen), recoverStep(), surfaceOption(main), upkeep(seen, main), main, extras(seen, main));
+	}
+
+	/** The phase order, first label wins, at most 10. Pure, so unit tests can check it. */
+	public static List<Option> order(List<Option> urgent, Option recover, Option surface, List<Option> upkeep, Option main,
+									 List<Option> extras) {
+		Map<String, Option> out = new LinkedHashMap<>();
+		for (Option o : urgent) out.putIfAbsent(o.label(), o);
+		if (recover != null) out.putIfAbsent(recover.label(), recover);
+		if (surface != null) out.putIfAbsent(surface.label(), surface);
+		for (Option o : upkeep) out.putIfAbsent(o.label(), o);
 		if (main != null) out.putIfAbsent(main.label(), main);
-		for (Option o : extras(seen, main)) out.putIfAbsent(o.label(), o);
+		for (Option o : extras) out.putIfAbsent(o.label(), o);
 		List<Option> list = new ArrayList<>(out.values());
 		return list.size() > 10 ? list.subList(0, 10) : list;
+	}
+
+	/**
+	 * Lost in a cave (a minute down here with nothing gained), or the next step needs the surface
+	 * (trees, animals, walking to explore): go back up the way we came first.
+	 */
+	private Option surfaceOption(Option main) {
+		boolean deep = !onSurface() && Mc.dimension().equals("overworld") && memory.surfaceEntry() != null
+				&& memory.surfaceEntry().getY() - Mc.player().getBlockY() > 8;
+		if (!(lostUnderground || (deep && needsSurface(main))) || MoveSkills.Goto.surfaceBlocked()) return null;
+		return new Option("goto", "surface",
+				lostUnderground ? "a minute underground without progress: back up the way we came" : "the next step is on the surface");
 	}
 
 	/** Set by the main loop: underground a while with nothing gained (see Autopilot.cave). */
@@ -444,6 +455,11 @@ public final class Planner {
 		return food <= 14 || (food <= 17 && pl.getHealth() < pl.getMaxHealth());
 	}
 
+	/** Searching far for animals only when really hungry (batch 9: at 9-14 it beat a ready portal step). */
+	public static boolean foodSearchWorthIt(int hunger) {
+		return hunger <= 8;
+	}
+
 	/** Cooked food to keep in stock (upkeep hunts and cooks toward it). */
 	public static final int FOOD_STOCK = 8;
 
@@ -499,7 +515,7 @@ public final class Planner {
 				Option f = goalStep(Goal.FOOD, seen, 0);
 				// Searching far for animals only when really hungry: at 9-14 it beat a ready
 				// build_portal seven times in a night (batch 9, seed b) and found nothing.
-				if (f != null && (!f.skill().equals("explore") || hunger <= 8))
+				if (f != null && (!f.skill().equals("explore") || foodSearchWorthIt(hunger)))
 					out.add(new Option(f.skill(), f.arg(), "hungry (" + hunger + "/20): " + f.why()));
 			}
 		}

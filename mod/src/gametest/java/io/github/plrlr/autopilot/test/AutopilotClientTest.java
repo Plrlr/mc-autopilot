@@ -128,8 +128,12 @@ public class AutopilotClientTest implements FabricClientGameTest {
 		if (scenario.equals("natural")) return null;
 		server.runCommand("time set 1000");
 		if (scenario.equals("cast")) {
-			for (String g : List.of("iron_pickaxe", "iron_sword", "bucket 2", "flint_and_steel", "cobblestone 64", "cooked_beef 16"))
+			// The full kit the route carries by the cast (shield, chestplate, helmet worn): without
+			// them the portal step sent the bot mining 26 iron instead of casting (batch 12).
+			for (String g : List.of("iron_pickaxe", "iron_sword", "shield", "bucket 2", "flint_and_steel", "cobblestone 64", "cooked_beef 16"))
 				server.runCommand("give @a " + g);
+			server.runCommand("item replace entity @a armor.chest with iron_chestplate");
+			server.runCommand("item replace entity @a armor.head with iron_helmet");
 			lavaAndWater(server::runCommand);
 			return Goal.NETHER_PORTAL;
 		}
