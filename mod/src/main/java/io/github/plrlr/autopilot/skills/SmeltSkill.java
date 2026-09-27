@@ -22,12 +22,12 @@ import java.util.function.Predicate;
  */
 public final class SmeltSkill extends Skill {
 	/**
-	 * A furnace load left cooking: where, what, how many, and when it'll be done. Timed in level
-	 * game time: the player's tickCount restarts at 0 with the new player entity after a death.
+	 * A furnace load left cooking: where, what, how many, and when it'll be done (wall clock:
+	 * the player's tickCount restarts at 0 after a respawn). Coming back early just means waiting.
 	 */
-	public record Job(BlockPos pos, String output, int count, long readyAt, String dim) {
+	public record Job(BlockPos pos, String output, int count, long readyAtMs, String dim) {
 		public boolean ready() {
-			return Mc.player() != null && Mc.player().level().getGameTime() >= readyAt;
+			return System.currentTimeMillis() >= readyAtMs;
 		}
 	}
 
@@ -57,8 +57,6 @@ public final class SmeltSkill extends Skill {
 	}
 
 	private boolean collecting;
-	/** A load of ours is already cooking in the furnace we use: add to it instead of counting it as ours. */
-	private boolean topUp;
 	private String output;
 	private int want;
 	private int before;
@@ -107,12 +105,8 @@ public final class SmeltSkill extends Skill {
 		}
 		want = Math.min(want, have);
 		before = Mc.count(output);
-		// More input while a load cooks: use that furnace and add to its load. Another furnace (or
-		// this one counted as ours) left the job pointing at output someone already took.
-		topUp = j != null;
-		// The job's furnace may be a walk away, like a collect trip.
-		timeoutTicks = 20 * ((topUp ? 90 : 40) + want * 11);
-		station = new Station("furnace", AbstractFurnaceMenu.class, memory, topUp ? j.pos() : null);
+		timeoutTicks = 20 * (40 + want * 11);
+		station = new Station("furnace", AbstractFurnaceMenu.class, memory);
 	}
 
 	@Override
@@ -138,19 +132,18 @@ public final class SmeltSkill extends Skill {
 				return;
 			}
 			int alreadyIn = inSlot.getCount();
-			int toLoad = topUp ? want : want - alreadyIn;
-			if (toLoad > 0 && !moveInto(menu, input, AbstractFurnaceMenu.INGREDIENT_SLOT, toLoad)) {
+			if (alreadyIn < want && !moveInto(menu, input, AbstractFurnaceMenu.INGREDIENT_SLOT, want - alreadyIn)) {
 				fail(Fail.USE_FAILED, "couldn't load the furnace");
 				return;
 			}
-			if (!loadFuel(menu, topUp ? alreadyIn + want : want)) {
+			if (!loadFuel(menu, want)) {
 				fail(Fail.NEED_ITEM, "no fuel");
 				return;
 			}
 			loaded = true;
 			int inFurnace = menu.getSlot(AbstractFurnaceMenu.INGREDIENT_SLOT).getItem().getCount();
 			if (inFurnace >= LEAVE_AT && station.pos() != null) {
-				JOBS.put(output, new Job(station.pos().immutable(), output, inFurnace, pl.level().getGameTime() + inFurnace * 200L + 20, Mc.dimension()));
+				JOBS.put(output, new Job(station.pos().immutable(), output, inFurnace, System.currentTimeMillis() + inFurnace * 10_000L + 1_000, Mc.dimension()));
 				done("loaded " + inFurnace + " to smelt into " + output + "; working nearby meanwhile");
 			}
 			return;
@@ -234,32 +227,13 @@ public final class SmeltSkill extends Skill {
 		return moved > 0;
 	}
 
-	/**
-	 * What a finished trip means for the job. Stopped from outside (a creeper, a death) with items
-	 * still cooking: keep it, minus what we took, so the planner comes back instead of mining the
-	 * whole load again (a local run lost 12 iron ingots that way). Done, or the furnace is gone or
-	 * empty: forget it.
-	 */
-	private void endJob() {
-		Job j = JOBS.get(output);
-		if (j == null || result() == null) return;
-		boolean ours = collecting || topUp;
-		if (!ours) return;
-		Fail code = result().code();
-		if (code == Fail.INTERRUPTED || code == Fail.DIED) {
-			int left = j.count() - Math.max(0, Mc.player() == null ? 0 : Mc.count(output) - before);
-			if (!collecting) return;
-			if (left > 0) JOBS.put(output, new Job(j.pos(), output, left, j.readyAt(), j.dim()));
-			else JOBS.remove(output);
-			return;
-		}
-		// A top-up that loaded re-registered the job with the new total; anything else ends it.
-		if (collecting || !result().ok()) JOBS.remove(output);
-	}
-
 	@Override
 	protected void cleanup() {
-		endJob();
+		// The job ends when we collected it or the furnace is gone. An interrupted trip (a creeper,
+		// a death) keeps it: dropping it lost 12 ingots in a laptop run and sent the bot back
+		// underground for 12 more raw iron.
+		Result r = result();
+		if (collecting && r != null && (r.ok() || r.code() == Fail.NOT_FOUND)) JOBS.remove(output);
 		LocalPlayer pl = Mc.player();
 		if (pl != null && pl.containerMenu != pl.inventoryMenu) pl.closeContainer();
 		super.cleanup();

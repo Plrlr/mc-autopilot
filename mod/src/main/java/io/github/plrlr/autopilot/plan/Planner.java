@@ -40,11 +40,29 @@ public final class Planner {
 		Option recover = recoverStep();
 		if (recover != null) out.putIfAbsent(recover.label(), recover);
 		Option main = goalStep(goal, seen, 0);
+		// Lost in a cave (a minute down here with nothing gained), or the next step needs the
+		// surface (trees, animals, walking to explore): go back up the way we came first.
+		boolean deep = !onSurface() && Mc.dimension().equals("overworld") && memory.surfaceEntry() != null
+				&& memory.surfaceEntry().getY() - Mc.player().getBlockY() > 8;
+		if (lostUnderground || (deep && needsSurface(main)))
+			out.putIfAbsent("goto surface", new Option("goto", "surface",
+					lostUnderground ? "a minute underground without progress: back up the way we came" : "the next step is on the surface"));
 		for (Option o : upkeep(seen, main)) out.putIfAbsent(o.label(), o);
 		if (main != null) out.putIfAbsent(main.label(), main);
 		for (Option o : extras(seen, main)) out.putIfAbsent(o.label(), o);
 		List<Option> list = new ArrayList<>(out.values());
 		return list.size() > 10 ? list.subList(0, 10) : list;
+	}
+
+	/** Set by the main loop: underground a while with nothing gained (see Autopilot.cave). */
+	public boolean lostUnderground;
+
+	/** Steps that only work on the surface: walking to explore, trees, animals. */
+	private static boolean needsSurface(Option o) {
+		if (o == null) return false;
+		String a = o.arg() == null ? "" : o.arg();
+		return o.skill().equals("explore") || (o.skill().equals("collect") && (a.startsWith("log") || a.startsWith("sand")))
+				|| (o.skill().equals("attack") && ANIMALS.contains(a.split(",")[0]));
 	}
 
 	/** The goal's own next step, without upkeep or safety options (null if the goal needs nothing now). */
@@ -306,7 +324,8 @@ public final class Planner {
 		if (Mc.count("coal") < 8 && coal != null && coal.pos().distSqr(Mc.player().blockPosition()) < 16 * 16)
 			return new Option("collect", "coal:" + (8 - Mc.count("coal")), "coal for fuel");
 		if (Mc.count("throwaway") < CastPortal.BLOCKS_NEEDED)
-			return new Option("collect", "stone:" + (Mc.count("stone") + CastPortal.BLOCKS_NEEDED - Mc.count("throwaway")), "blocks for the portal wall");
+			// collect's count is how many more to get, not a total.
+			return new Option("collect", "stone:" + (CastPortal.BLOCKS_NEEDED - Mc.count("throwaway")), "blocks for the portal wall");
 		if (Mc.count("flint_and_steel") == 0 && Mc.count("flint") == 0) return new Option("collect", "flint:1", "flint for flint and steel");
 		return null;
 	}
@@ -471,7 +490,9 @@ public final class Planner {
 	 * through tunnels got the bot shot and cornered in trials); on the surface, run.
 	 */
 	public static Option escape(String why) {
-		if (!onSurface() && Mc.count("throwaway") >= 6) return new Option("shelter", "heal", why + ": wall in and heal");
+		// Healing needs 18+ hunger: without food to get there, hiding is just waiting to be found.
+		boolean canHeal = Mc.player().getFoodData().getFoodLevel() >= 18 || Mc.count(Items2.matcher("food")) > 0;
+		if (!onSurface() && canHeal && Mc.count("throwaway") >= 6) return new Option("shelter", "heal", why + ": wall in and heal");
 		return new Option("retreat", null, why);
 	}
 

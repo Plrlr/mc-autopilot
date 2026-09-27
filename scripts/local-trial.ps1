@@ -32,19 +32,34 @@ New-Item -ItemType Directory -Force $out | Out-Null
 $commit = (git rev-parse --short HEAD).Trim()
 Write-Host "[local-trial] $name on $commit -> $out"
 
+$run = Join-Path $root "mod\build\run\clientGameTest"
+# Start like a cloud run: no progress or lessons from earlier local runs. Loom's
+# deleteGameTestRunDir already wipes the run folder; this only guards against a skipped wipe.
+foreach ($p in @("mc-autopilot\progress-*.json", "mc-autopilot\lessons.json")) {
+	Remove-Item -Force -ErrorAction SilentlyContinue (Join-Path $run $p)
+}
+
 Push-Location (Join-Path $root "mod")
+$log = Join-Path $out "trial.log"
+# Plain UTF-8, streamed: Tee-Object in Windows PowerShell 5.1 writes UTF-16, which summarize_batch
+# can't search for [cast] lines.
+$writer = New-Object System.IO.StreamWriter($log, $false, (New-Object System.Text.UTF8Encoding($false)))
+# In Windows PowerShell 5.1 every stderr line of a native command is an error record, and with
+# "Stop" the first one (a JDK warning) would end the script before the logs are copied.
+$ErrorActionPreference = "Continue"
 try {
 	$gradleArgs = @("runClientGameTest", "--console=plain", "-PtestMinutes=$Minutes", "-PtestSeed=$Seed",
 		"-PtestScenario=$Scenario", "-PtestBrain=$Brain", "-PtestOpus=$($Opus.IsPresent.ToString().ToLower())",
 		"-PtestTask=$Task", "-PtestGive=$Give")
 	# The game exits with Baritone's known shutdown-watchdog crash after saving; that's expected.
-	& .\gradlew.bat @gradleArgs 2>&1 | Tee-Object -FilePath (Join-Path $out "trial.log")
+	& .\gradlew.bat @gradleArgs 2>&1 | ForEach-Object { $line = "$_"; $writer.WriteLine($line); $writer.Flush(); $line }
 } finally {
+	$writer.Close()
+	$ErrorActionPreference = "Stop"
 	Pop-Location
 }
 
-$run = Join-Path $root "mod\build\run\clientGameTest"
-Select-String -Path (Join-Path $out "trial.log") -Pattern "autopilot-test" | ForEach-Object { $_.Line } |
+Select-String -Path $log -Pattern "autopilot-test" | ForEach-Object { $_.Line } |
 	Set-Content (Join-Path $out "autopilot-test.log")
 # The run folder is wiped at the next start: copy what the summary reads.
 foreach ($p in @("mc-autopilot\logs", "mc-autopilot\lessons.json", "screenshots", "crash-reports")) {
@@ -57,5 +72,5 @@ foreach ($p in @("mc-autopilot\logs", "mc-autopilot\lessons.json", "screenshots"
 }
 Select-String -Path (Join-Path $out "autopilot-test.log") -Pattern "FINAL|TASK|LESSON" | ForEach-Object { $_.Line }
 if (Get-Command python -ErrorAction SilentlyContinue) {
-	python (Join-Path $root "scripts\summarize_batch") (Split-Path $out) --run $Batch --commit $commit
+	python (Join-Path $root "scripts\summarize_batch") (Split-Path $out) --run $Batch --commit $commit --minutes $Minutes
 }

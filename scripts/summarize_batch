@@ -92,6 +92,8 @@ def read_run(path):
                 run["_doing"] = action_of(o.get("skill", "?"))
             elif o.get("event") == "skill_end":
                 label = o.get("skill", "?")
+                # A death between skills is not the last skill's fault.
+                run["_doing"] = "idle"
                 run["time"][category(label)] += float(o.get("seconds", 0))
                 if not o.get("ok"):
                     code = o.get("code")
@@ -115,6 +117,10 @@ def read_run(path):
     return run
 
 
+# Seconds a natural run lasts (--minutes); 0 = use each run's last progress report.
+FULL_LENGTH = 0
+
+
 def median_cell(natural, m):
     """'3/8 9:40': how many runs reached milestone m, and the median time with the runs that
     didn't reach it counted as the full run length (so a batch where fewer runs make it can't
@@ -126,7 +132,9 @@ def median_cell(natural, m):
             ok += 1
             ts.append(t)
         else:
-            ts.append(r["length"] or 0)
+            # The configured run length when known: a run that crashed at 2:30 isn't a fast
+            # failure, and its last progress report would pull the median down.
+            ts.append(FULL_LENGTH or r["length"] or 0)
     if not ok:
         return "0/%d -" % len(natural)
     med = statistics.median(ts)
@@ -139,7 +147,10 @@ def main():
     ap.add_argument("--run", default="")
     ap.add_argument("--commit", default="")
     ap.add_argument("--line-out", default="")
+    ap.add_argument("--minutes", type=float, default=0, help="configured game minutes per natural run")
     a = ap.parse_args()
+    global FULL_LENGTH
+    FULL_LENGTH = int(a.minutes * 60)
     paths = sorted(p for p in glob.glob(os.path.join(a.dir, "*")) if os.path.isdir(p))
     runs = [read_run(p) for p in paths]
     if not runs:

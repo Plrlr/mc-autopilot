@@ -52,10 +52,17 @@ workflow's unit-tests job compiles and tests in about a minute, the trial jobs t
   4/8; the difference was deaths (19 vs 24, most while retreating). Judge small changes over
   two batches or more seeds, and cut deaths first.
 
+- **Caves:** bots got lost underground (collect log at y 17, surface skills from a mine). The
+  memory keeps where we last saw the sky; goto surface walks back; a minute underground with
+  nothing gained puts it first.
+- **Smelt jobs:** keep a job through an interrupted collect trip (a creeper cost 12 ingots in a
+  laptop run); time jobs by the wall clock, not tickCount (resets on respawn).
+
 ## Open problems (next candidates)
 
-- Portal casting (cast scenario): scoop line of sight fixed in batch 7; the full 10-block frame
-  and lighting are still untested. Lava bucket fills failed once in batch 5 (logging added).
+- Portal casting (cast scenario): batch 8a's cast on seed a built, lit and entered a portal (3:13);
+  seed b stalled on the scoop (refill fallback added for batch 10). Batch 7 never compiled, so
+  nothing was measured there. Lava bucket fills failed once in batch 5 (logging added).
 - Lava is rare on the surface: if the far scan isn't enough, look underground (caves near y -54).
 - Smelting 13 iron takes ~130 s of standing still; do nearby work while the furnace runs.
 - Deaths: 7 in batch 6's four 15-minute runs (arrows, zombies, lava, fire), several while

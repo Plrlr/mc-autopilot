@@ -99,7 +99,7 @@ done
 log "artifacts in $DIR"
 
 # 6. Summarize; keep the one-line history.
-scripts/summarize_batch "$DIR" --run "$RUN" --commit "$SHA" --line-out "$DIR/batch-line.txt" | tee "$DIR/summary.md"
+scripts/summarize_batch "$DIR" --run "$RUN" --commit "$SHA" --minutes "$MINUTES" --line-out "$DIR/batch-line.txt" | tee "$DIR/summary.md"
 if [ "$APPEND" = 1 ] && [ -s "$DIR/batch-line.txt" ] && ! grep -q "^| $RUN |" docs/batches.md 2>/dev/null; then
 	line=$(cat "$DIR/batch-line.txt")
 	line="$line $NOTE |"
