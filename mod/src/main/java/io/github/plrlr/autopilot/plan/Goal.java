@@ -106,7 +106,10 @@ public enum Goal {
 	 * ladder only wastes time. Later rungs depend on where you are, so they are checked live.
 	 */
 	public boolean sticky() {
-		return milestone >= 1 && milestone <= 6;
+		// 8-10 too: rods become powder, pearls become eyes, and eyes get thrown on purpose while
+		// finding the stronghold (the stronghold test went back to "craft 14 eyes" at 12). If they
+		// run out, the stronghold step makes more itself.
+		return milestone >= 1 && milestone <= 6 || milestone >= 8 && milestone <= 10;
 	}
 
 	/**
