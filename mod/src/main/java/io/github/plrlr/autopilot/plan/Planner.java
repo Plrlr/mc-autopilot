@@ -128,19 +128,8 @@ public final class Planner {
 						if (o != null) return o;
 					}
 				}
-				// Survive first (outside review #2, A2): deaths drop the buckets and iron the portal needs,
-				// and 2-3 deaths per run was the norm. Chestplate and helmet (13 iron) before the portal,
-				// boots too when the ingots are already there.
-				for (String piece : new String[]{"iron_chestplate", "iron_helmet"}) {
-					if (!Goal.hasArmor(piece)) {
-						Option o = itemStep(piece, 1, depth + 1);
-						if (o != null) return o;
-					}
-				}
-				if (!Goal.hasArmor("iron_boots") && Mc.count("iron_ingot") >= 4) {
-					Option o = itemStep("iron_boots", 1, depth + 1);
-					if (o != null) return o;
-				}
+				// W2 A/B control (docs/coordination.md): armor-before-portal (9980cfe) reverted here
+				// to measure it against the old route. Restore this block right after the batch.
 				// Speedrun route: without a diamond pickaxe, cast the frame from lava and water.
 				if (Goal.have("obsidian") < 10 && Items2.bestTier("pickaxe") < 3) return castStep(depth);
 				Option o = itemsStep(goal);
@@ -380,12 +369,7 @@ public final class Planner {
 		if (Mc.count("shield") == 0) n += 1;
 		n += 3 * Math.max(0, 2 - Goal.have("bucket"));
 		if (Mc.count("flint_and_steel") == 0) n += 1;
-		// Armor in the first batch doubled the ore to 26 before anything was smelted, and iron
-		// tools fell from 6/8 runs to 4/8 (batch 11).
-		if (n == 0) {
-			if (!Goal.hasArmor("iron_chestplate")) n += 8;
-			if (!Goal.hasArmor("iron_helmet")) n += 5;
-		}
+		// W2 A/B control: armor-before-portal iron budget reverted along with the block above.
 		// Iron already in a furnace we left cooking is on its way.
 		return Math.max(0, n - SmeltSkill.pending("iron_ingot"));
 	}
