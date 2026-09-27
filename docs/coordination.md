@@ -409,6 +409,11 @@ them by reflection and auto-activate once they land (skipped until then, so the 
      `surfaceOption()` is fine if six arguments are awkward).
 2. `public static boolean foodSearchWorthIt(int hunger) { return hunger <= 8; }`
    - used in `upkeep()` as `if (f != null && (!f.skill().equals("explore") || foodSearchWorthIt(hunger)))`.
+3. `public static Option blazeStep(boolean knownFortress, boolean blazeSeen)` in `NetherPlan`
+   - the pure decision, with today's `blazeStep(WorldMemory, Perception)` computing both booleans
+     (`known = memory.nearest("spawner") != null || memory.nearest("nether_bricks") != null`,
+     `blazeSeen = seen.nearest("blaze") != null`) and delegating to it. `NetherPlanTest` looks it
+     up by reflection and skips until it lands.
 
 **Bug the tech-tree test found (for the reviewer, in main code):** `TechTree.MOB` has no entries
 for `rabbit`, `cod` or `salmon`, but `TechTree.SMELT` maps `cooked_rabbit`/`cooked_cod`/
@@ -421,6 +426,12 @@ is `@Disabled` with this reason until those entries exist.
 **Update (2026-09-27): the MOB gap is fixed.** At the user's request the freebuff lane made the
 three-line main change itself (`TechTree.java`: `MOB.put("rabbit"/"cod"/"salmon", ...)`) and
 `smeltedItemsHaveTheirRawSource` is enabled again. `gradlew test` stays green.
+
+**Lane change (2026-09-27, user's request):** the freebuff session also now runs the local trial
+runs. Logs land in `.trials/<batch>/trial-<scenario>-<seed>/` (trial.log, autopilot-test.log, the
+jsonl under `build/run/clientGameTest/mc-autopilot/logs/`, screenshots, and a `summary.md` from
+`scripts/summarize_batch`), which is what the reviewer session reads. Re-run with
+`scripts/local-trial.ps1 -Scenario nether -Minutes 10 -Seed a` (or `-Scenario blaze`).
 
 **Loop findings (2026-09-27, trial-loop `loop-20260927-0355`, main checkout at `2c3fdf6`, seed a,
 for the reviewer; I only read the logs):**
