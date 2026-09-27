@@ -106,6 +106,14 @@ first wood trip get their first batch.
     underground with no remembered log, fail fast with NOT_FOUND (or go up first), and use
     planks/coal already carried for fuel before asking for 9 logs.
 
+12. **Route proposal: docs/route-to-blaze-rods.md** (user's request: "we are stuck on the
+    starting phase ... always getting lost when in a cave"). It covers three things: stop getting
+    lost in caves (keep the furnace job, pack ~8 logs before going down, coal as fuel underground,
+    fail fast on surface blocks, `goto surface`), find lava at y -55 where cave air is lava and
+    cast the portal down there, and a first path to blaze rods (see fortresses from afar, fight
+    blazes at the spawner). Each step has a check to run first. Also: `castStep`
+    (`Planner.java:169`) has the same stone double count as the review's R2.
+
 ### Notes
 
 - `docs/batches.md`: the "Local runs" section goes above the cloud table, because
