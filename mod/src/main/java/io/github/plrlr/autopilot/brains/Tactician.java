@@ -47,11 +47,6 @@ public final class Tactician {
 		return "mock";
 	}
 
-	/** True when the selected brain is an LLM (costs a call per decision). */
-	public boolean usesLlm() {
-		return !effective().equals("mock");
-	}
-
 	private static boolean hasNoKey(LlmBackend b) {
 		String u = b.unavailable(0);
 		return u != null && u.startsWith("no ");

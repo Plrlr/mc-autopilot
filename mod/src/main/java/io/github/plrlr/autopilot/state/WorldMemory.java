@@ -188,10 +188,6 @@ public final class WorldMemory {
 	private int raycasts;
 
 	/**
-	 * Scans a few horizontal layers of the box around the player each tick, so the full box is
-	 * covered about every 7 ticks without a frame-time spike.
-	 */
-	/**
 	 * Where we last stood under open sky, and since when we've been underground: the way out of
 	 * a cave (goto surface walks back there) and the clock for "lost down here".
 	 */
@@ -222,6 +218,10 @@ public final class WorldMemory {
 		}
 	}
 
+	/**
+	 * Scans a few horizontal layers of the box around the player each tick, so the full box is
+	 * covered about every 7 ticks without a frame-time spike.
+	 */
 	public void scan(long tick) {
 		LocalPlayer pl = Mc.player();
 		if (pl == null) return;
