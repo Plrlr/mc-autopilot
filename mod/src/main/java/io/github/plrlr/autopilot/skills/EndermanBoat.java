@@ -63,6 +63,13 @@ public final class EndermanBoat extends Skill {
 		Bari.stop();
 	}
 
+	/** An enderman in sight within 32 blocks: the planner's check, the same as the skill's. */
+	public static boolean endermanInSight() {
+		for (Entity e : Mc.mc().level.entitiesForRendering())
+			if (e instanceof Enderman en && en.isAlive() && Mc.canSee(en) && en.distanceTo(Mc.player()) < 32) return true;
+		return false;
+	}
+
 	private void go(Phase p) {
 		phase = p;
 		phaseTicks = 0;
@@ -93,7 +100,10 @@ public final class EndermanBoat extends Skill {
 					Mc.holdItem(Items2.matcher("boat"));
 					return;
 				}
-				if (phaseTicks % 10 == 5) Mc.useOn(spot.below(), Direction.UP);
+				// A boat goes where the crosshair points (BoatItem traces the view itself): look at the
+				// top of the ground block, then use the boat. useOn against a face didn't place it.
+				Mc.lookAt(Vec3.atCenterOf(spot.below()).add(0, 0.5, 0));
+				if (phaseTicks % 10 == 5) Mc.useItem();
 			}
 			case PROVOKE -> {
 				if (!target.isAlive()) {

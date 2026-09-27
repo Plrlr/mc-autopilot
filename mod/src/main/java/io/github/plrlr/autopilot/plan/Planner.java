@@ -181,7 +181,7 @@ public final class Planner {
 				Option trade = barterStep(seen, depth);
 				if (trade != null) return trade;
 				// The boat trap (speedrunners'): an enderman in a boat can't move, teleport or hit back.
-				if (seen.nearest("enderman") != null && Tune.on("pearls.boat_trap")) {
+				if (Tune.on("pearls.boat_trap") && io.github.plrlr.autopilot.skills.EndermanBoat.endermanInSight()) {
 					if (Mc.count("boat") > 0) return new Option("enderman_boat", null, "trap the enderman in our boat, then kill it");
 					Option b = itemStep("boat", 1, depth + 1);
 					if (b != null && !b.skill().equals("explore")) return new Option(b.skill(), b.arg(), "a boat to trap endermen: " + b.why());
