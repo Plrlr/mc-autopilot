@@ -15,13 +15,20 @@ class BallisticAimTest {
 		double x = eye.x, y = eye.y - 0.1, z = eye.z;
 		double h = Math.hypot(target.x - eye.x, target.z - eye.z);
 		for (int t = 0; t < 200; t++) {
-			x += vx;
-			y += vy;
-			z += vz;
+			double nx = x + vx, ny = y + vy, nz = z + vz;
+			double d0 = Math.hypot(x - eye.x, z - eye.z), d1 = Math.hypot(nx - eye.x, nz - eye.z);
+			if (d1 >= h) {
+				// Where the arrow crosses the target's distance, partway through this tick.
+				double f = (h - d0) / (d1 - d0);
+				double cx = x + (nx - x) * f, cy = y + (ny - y) * f, cz = z + (nz - z) * f;
+				return Math.abs(cy - target.y) + Math.hypot(cx - target.x, cz - target.z) * 0.1;
+			}
+			x = nx;
+			y = ny;
+			z = nz;
 			vx *= 0.99;
 			vz *= 0.99;
 			vy = vy * 0.99 - 0.05;
-			if (Math.hypot(x - eye.x, z - eye.z) >= h) return Math.abs(y - target.y) + Math.hypot(x - target.x, z - target.z) * 0.1;
 		}
 		return Double.MAX_VALUE;
 	}
