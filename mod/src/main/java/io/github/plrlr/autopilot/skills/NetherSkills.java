@@ -81,9 +81,10 @@ public final class NetherSkills {
 		private int ray;
 		private double startX, startZ;
 
-		// blazes mode
+		// blazes mode. Tried anchors outlive one run of the skill: a reflex or an eat restarts it,
+		// and a fresh list sent it back to the same empty corner (loop 0355).
 		private BlockPos anchor;
-		private final List<BlockPos> visitedAnchors = new ArrayList<>();
+		private static final List<BlockPos> visitedAnchors = new ArrayList<>();
 		private int sinceBlaze;
 		private int rodsBefore;
 		private boolean walking;
@@ -95,18 +96,18 @@ public final class NetherSkills {
 		/**
 		 * The first test walked a 200-block leg through solid netherrack near the roof and wore the
 		 * iron pickaxe out; without it the bot dug by hand. Here: stop using a tool before it
-		 * breaks, and in find mode make digging costly so open caves win over tunnels. In blazes
-		 * mode, Baritone's spawner avoidance (16 blocks) would keep us from the one place blazes
-		 * come to, so it's switched off.
+		 * breaks, and make digging costly so open caves and corridors win over tunnels (in blazes
+		 * mode Baritone dug 26 bricks out of the fortress and sank to y 41 under it, where no blaze
+		 * can be seen; loop 0355). In blazes mode, Baritone's spawner avoidance (16 blocks) would
+		 * keep us from the one place blazes come to, so it's switched off.
 		 */
 		private void tuneBaritone() {
 			Settings st = BaritoneAPI.getSettings();
 			savedItemSaver = st.itemSaver.value;
 			st.itemSaver.value = true;
-			if (findMode) {
-				savedBreakPenalty = st.blockBreakAdditionalPenalty.value;
-				st.blockBreakAdditionalPenalty.value = 12.0;
-			} else {
+			savedBreakPenalty = st.blockBreakAdditionalPenalty.value;
+			st.blockBreakAdditionalPenalty.value = 12.0;
+			if (!findMode) {
 				savedSpawnerAvoid = st.mobSpawnerAvoidanceCoefficient.value;
 				st.mobSpawnerAvoidanceCoefficient.value = 1.0;
 			}
@@ -145,6 +146,7 @@ public final class NetherSkills {
 					fail(Fail.ALREADY_DONE, "a fortress is already known");
 					return;
 				}
+				visitedAnchors.clear();
 				startX = pl.getX();
 				startZ = pl.getZ();
 				// Fortresses and bastions share 432-block regions: long legs reach new regions,
@@ -179,6 +181,9 @@ public final class NetherSkills {
 			BlockPos best = null;
 			double bd = Double.MAX_VALUE;
 			for (WorldMemory.Seen b : memory.all("nether_bricks")) {
+				// Floors and bridge tops only: a brick in a wall or under the floor made Baritone
+				// tunnel into the fortress, out of sight of every blaze.
+				if (!Mc.free(b.pos().above()) || !Mc.free(b.pos().above(2))) continue;
 				boolean tried = false;
 				for (BlockPos v : visitedAnchors) if (v.distSqr(b.pos()) < 20 * 20) tried = true;
 				if (tried) continue;
@@ -243,6 +248,20 @@ public final class NetherSkills {
 			// doesn't regenerate at all (loop 0341 fought at hunger 15 with 16 steaks in the bag).
 			if (pl.getFoodData().getFoodLevel() < 18 && (blaze == null || blaze.dist() > 6) && eat(pl, keyUse)) return;
 			stopEating(keyUse);
+			// Wither skeletons and other fortress mobs walk up and hit us: fight them here. Leaving
+			// them to the generic reflex restarted this skill every time (loop 0355).
+			Perception.Seen close = seen.nearestHostile();
+			if (close != null && close.dist() <= 3.2 && !close.type().equals("blaze")) {
+				keyUse.setDown(false);
+				if (Bari.pathing()) Bari.stop();
+				walking = false;
+				Mc.lookAt(close.entity().getBoundingBox().getCenter());
+				if (pl.getAttackStrengthScale(0.5f) >= 0.95f) {
+					Mc.mc().gameMode.attack(pl, close.entity());
+					Mc.swing();
+				}
+				return;
+			}
 			if (blaze != null) {
 				// Chase and hit. Waiting at the spawner with the shield up (the first design) only
 				// blocked for 105 s: blazes keep their distance. The plain chase killed one every ~6 s.
@@ -280,10 +299,11 @@ public final class NetherSkills {
 				}
 			}
 			if (walking && !Bari.pathing()) walking = false;
-			// No blaze for 60 s here: try another part of the fortress.
-			if (sinceBlaze > 20 * 60) {
+			// No blaze for 30 s here: try another part of the fortress (blazes spawn all over it).
+			if (sinceBlaze > 20 * 30) {
 				sinceBlaze = 0;
 				if (anchor != null) visitedAnchors.add(anchor);
+				visitedAnchors.add(pl.blockPosition().immutable());
 				anchor = pickAnchor();
 				if (anchor == null) {
 					if (rods > rodsBefore) done("got " + (rods - rodsBefore) + " blaze rods; no more blazes found here");
