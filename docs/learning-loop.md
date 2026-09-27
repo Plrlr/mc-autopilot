@@ -28,13 +28,13 @@ a gene (`learned.weight`, 0 = pure rules), so it only gets used if the race show
 Emergencies (fight, flee, eat when starving) always stay with the rules. Data runs (champion +
 `learned.explore` 0.15) try other options on purpose, so the model sees more than the rules' habits.
 
-**3. Code changes by Claude (plan, capped).** When the gene search stalls (no new champion for 6
+**3. Code changes by Claude (plan, capped).** When the gene search stalls (no new champion for 2
 generations), `evolve.py` makes one `claude -p` call with the generation's failures, the worst
 traces, every earlier attempt with its result and lesson (ExpeL-style memory), and the files the
 failures point to. Its edits must apply exactly, stay out of frozen files (genes, model features,
 logs, the harness, the scorer; DGM showed self-editing agents learn to fool their own judge), use
 nothing command-like, and compile. The change races like a gene change; a winner is merged into
-main. At most 3 calls a day. Needs the `CLAUDE_CODE_OAUTH_TOKEN` secret (below); without it the
+main. At most 12 calls a day, after 2 generations without a new champion (scripts/loop/settings.json "evolve"). Needs the `CLAUDE_CODE_OAUTH_TOKEN` secret (below); without it the
 loop runs levels 1 and 2 only.
 
 ## The road to the dragon (long-term design, 2026-09-27)

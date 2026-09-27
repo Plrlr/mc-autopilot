@@ -72,5 +72,11 @@
  "max_gens_per_day": 60,
  "_max_gens": "~25 min per generation since the free-run speed fix: 60 a day keeps it going around the clock.",
  "lean": true,
- "_lean": "Lean drawing (fast graphics, no clouds/particles; no frame cap). Since the free run the cloud's game speed is set by its software renderer's fps (15-30)."
+ "_lean": "Lean drawing (fast graphics, no clouds/particles; no frame cap). Since the free run the cloud's game speed is set by its software renderer's fps (15-30).",
+ "evolve": {
+  "max_per_day": 12,
+  "plateau_gens": 2,
+  "max_prompt_chars": 160000
+ },
+ "_evolve": "Level 3 (Claude code changes): at most max_per_day calls a day (~40k tokens each on your plan), tried once the gene search has gone plateau_gens generations without a new champion; one code change races at a time."
 }
