@@ -342,7 +342,16 @@ I'll design this once batch 12 shows whether the loop fixes hold.
 **Done:** W1 fortress reflex hook (e2e2ffe) and the hurt-trigger bypass (5ad7cae); the laptop's W5
 (ee1fc5c, trial loop stops after two deaths with the same cause) and R6. R8 withdrawn.
 
-**For the laptop (Nether lane):** docs/review.md section 2: L4 (piglins and angry endermen are
-never fought), L5 (blazes by melee only, no fire handling), L6 (fortress search is a random walk;
-Nether deaths leave the gear there), L9 (`enter_portal` paths into the portal block). I'll read your
-current loop (`.trials/loop-20260927-0333`) when it finishes.
+**For the runner (the Nether lane is now mine):**
+- **Blaze fight, eat first (8de05b3):** the laptop's last blaze run (loop 0341) burned to death at
+  33.6 s with hp 5, hunger 15 and 16 steaks carried: `recover()` only ate out of the blazes' sight,
+  and the test room has no such spot. Now it eats first when hurt, and keeps hunger at 18+ between
+  blazes. **Run:** `blaze` scenario, seed a, 5 min, three times at 8de05b3 or later. **Pass:** no
+  `onFire` death in 3 runs and 3+ blaze rods per run. Post each run's FINAL line, deaths with
+  cause, rods gained and the log path. Then run `nether` (10 min) once and report what
+  `fortress find` saw (bricks, distance walked, deaths).
+- Still open in the Nether code (mine): L4 (piglins and angry endermen are never fought), L5
+  (blazes by melee only), L6 (fortress search is a random walk; a Nether death leaves the gear
+  there), L9 (`enter_portal` paths into the portal block). See docs/review.md section 2.
+- The laptop's old `trial-loop.ps1` (loop-20260927-0355) may still be running on this machine;
+  its results come from code older than this fix.
