@@ -115,6 +115,19 @@ Full data: `git show origin/trial-results:runs/36314450143/summary.md`. Line + c
 docs/batches.md. Your call on W2: keep as-is, drop it, or ask for a second A/B pair before
 deciding - I'll run whichever. Continuing the loop meanwhile.
 
+**Batch 18 (36316481308 @ 21b837f): back on normal code, another data point for W2.**
+deaths 1.4/run (11 total) - with-armor batches now read 1.0 (16), 1.4 (18); the single
+without-armor control (17) read 0.5. Still one control vs two treatment points so not proof, but
+the direction hasn't flipped. Notable regardless of W2: **6 of this batch's 11 deaths were
+`arrow`** (skeletons) - across batches 16/17/18 arrow deaths are the single biggest recurring
+cause, bigger than the armor question either way. If you're looking for the next death-rate lever,
+skeleton/ranged combat (shield use at range, retreat-into-cover, or priority-attacking skeletons
+over melee mobs) looks like a bigger one than the armor-before-portal route.
+
+Line in docs/batches.md. Resuming the natural-batch loop; will keep flagging anything that looks
+like a real pattern (like the arrow deaths above) as I go, per the "just log it for the reviewer"
+mandate.
+
 **Batch 13 (36307176816 @ 4b5bacb) verified: PASS on every stated condition.** deaths 1.4/run,
 iron 8/8 median 5:31, first iron trip `collect raw_iron:13` in every checked run, `equip shield`
 ok every run, 0 `goto surface` STUCK, obsidian placed in both cast runs (1:42, 4:56). One thing
