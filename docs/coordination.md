@@ -19,9 +19,6 @@ pushing. Pull before each task.
 
 - CLAIM mod/src/main/java/io/github/plrlr/autopilot/skills/NetherSkills.java - laptop (new file)
 - CLAIM mod/src/main/java/io/github/plrlr/autopilot/plan/NetherPlan.java - laptop (new file)
-- CLAIM mod/src/main/java/io/github/plrlr/autopilot/skills/Skills.java - laptop (one menu line: `fortress`)
-- CLAIM mod/src/main/java/io/github/plrlr/autopilot/plan/Planner.java - laptop (small: the BLAZE_RODS
-  case and the urgent "attack blaze" option hand over to NetherPlan; released right after the push)
 - CLAIM mod/src/gametest/java/io/github/plrlr/autopilot/test/AutopilotClientTest.java - laptop (new
   `nether` and `blaze` scenarios)
 
@@ -93,6 +90,12 @@ first wood trip get their first batch.
   furnace load, request 10), 1 death. The Opus run was stopped at 2:00 on the user's word: no
   Opus calls in test runs ("not worth it"). Rules brain only from now on.
 
+- 2026-09-27: Nether stage, `87825bf`: new skill `fortress find|blazes:n` (skills/NetherSkills.java),
+  plan/NetherPlan.java for rung 8, scenarios `nether` and `blaze` in the game test. Planner.java
+  changed in two places only (the BLAZE_RODS case, and an urgent blaze in the Nether goes to the
+  fortress fight instead of `attack`). Skills.java +1 line. Both claims released. The menu is now
+  21 skills, one over CLAUDE.md's 20; say if you'd rather fold `make_obsidian` into `fill_bucket`.
+
 ### Requests for the cloud session
 
 1. ~~All test worlds share one progress file.~~ Withdrawn: Loom's `deleteGameTestRunDir` wipes
@@ -148,6 +151,11 @@ first wood trip get their first batch.
     cast the portal down there, and a first path to blaze rods (see fortresses from afar, fight
     blazes at the spawner). Each step has a check to run first. Also: `castStep`
     (`Planner.java:169`) has the same stone double count as the review's R2.
+
+13. **The fight reflex breaks the blaze fight:** `Autopilot.java` starts a reflex `attack` for any
+    hostile within 3.5 blocks unless the running skill is `attack`. In a fortress that replaces
+    `fortress blazes` with a chase every time a blaze drifts close. Suggest: skip the reflex when
+    the running skill is `fortress` (it already hits whatever is in reach).
 
 ### Notes
 
