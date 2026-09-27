@@ -122,6 +122,16 @@ public final class EndermanBoat extends Skill {
 				}
 				// Staring at its eyes makes it come for us; the boat is in its way.
 				Mc.lookAt(target.getEyePosition());
+				boolean angry = target.isCreepy() || target.getTarget() == pl;
+				if (phaseTicks % 40 == 0)
+					io.github.plrlr.autopilot.AutopilotMod.LOGGER.info("[boat] provoking: angry {} dist {}", angry, Math.round(target.distanceTo(pl)));
+				// Still calm after 8 s: step closer while staring (the angle it needs is tighter far away);
+				// after 16 s, a hit makes it come for sure.
+				if (!angry && phaseTicks == 20 * 8 && target.distanceTo(pl) > 6) Bari.path(new baritone.api.pathing.goals.GoalNear(target.blockPosition(), 5));
+				if (!angry && phaseTicks > 20 * 16 && target.distanceTo(pl) < 4 && pl.getAttackStrengthScale(0.5f) > 0.9f) {
+					Mc.mc().gameMode.attack(pl, target);
+					Mc.swing();
+				}
 				if (target.distanceTo(pl) < 2.2 && phaseTicks > 20 * 3) go(Phase.FIGHT);
 				if (phaseTicks > 20 * Tune.i("pearls.provoke_s")) fail(Fail.NOT_FOUND, "the enderman didn't come to the boat");
 			}
@@ -201,9 +211,16 @@ public final class EndermanBoat extends Skill {
 		Vec3 to = target.position().subtract(pl.position());
 		Direction first = Direction.getApproximateNearest(to.x, 0, to.z);
 		Direction[] order = {first, first.getClockWise(), first.getCounterClockWise(), first.getOpposite()};
+		// Two blocks out, on clean ground: a tuft of grass in our own square caught the crosshair and
+		// the boat failed to place (the boat test's log: 'use -> Fail, crosshair short_grass').
 		for (Direction d : order) {
-			BlockPos p = feet.relative(d);
-			if (Mc.free(p) && Mc.free(p.above()) && Mc.solid(p.below()) && Mc.state(p).getFluidState().isEmpty()) return p;
+			BlockPos p = feet.relative(d, 2), mid = feet.relative(d);
+			if (Mc.state(p).isAir() && Mc.state(p.above()).isAir() && Mc.solid(p.below()) && !Mc.solid(mid) && Mc.state(mid).isAir()
+					&& Mc.state(feet).isAir()) return p;
+		}
+		for (Direction d : order) {
+			BlockPos p = feet.relative(d, 2);
+			if (Mc.state(p).isAir() && Mc.state(p.above()).isAir() && Mc.solid(p.below())) return p;
 		}
 		return null;
 	}
