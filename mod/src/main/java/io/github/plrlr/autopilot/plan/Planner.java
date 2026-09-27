@@ -156,7 +156,14 @@ public final class Planner {
 					if (o != null) return o;
 				}
 				// Speedrun route: without a diamond pickaxe, cast the frame from lava and water.
-				if (Goal.have("obsidian") < 10 && Items2.bestTier("pickaxe") < 3) return castStep(depth);
+				// Two routes to the frame: cast it from lava and water (no diamonds; the speedrunners'
+				// way), or the classic way: diamond pickaxe, harden lava into obsidian, mine 10 blocks.
+				// A gene picks; the race decides which gets to the Nether sooner.
+				if (Goal.have("obsidian") < 10 && Items2.bestTier("pickaxe") < 3) {
+					if (!Tune.on("route.diamond_portal")) return castStep(depth);
+					Option o = itemStep("diamond_pickaxe", 1, depth + 1);
+					if (o != null) return o;
+				}
 				Option o = itemsStep(goal);
 				if (o != null) return o;
 				// The frame corners can be any block; 10 obsidian covers the rest.

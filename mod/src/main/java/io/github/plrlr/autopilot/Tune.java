@@ -81,6 +81,7 @@ public final class Tune {
 		gene("route.armor_before_portal", 1, 0, 1, Kind.BOOL, "chestplate and helmet before the portal");
 		gene("route.boots_before_portal", 1, 0, 1, Kind.BOOL, "boots too when 4 ingots are spare");
 		gene("route.deep_for_lava", 1, 0, 1, Kind.BOOL, "mine down to lava depth instead of exploring for a pool");
+		gene("route.diamond_portal", 0, 0, 1, Kind.BOOL, "portal the classic way (diamond pickaxe, mine 10 obsidian) instead of casting it");
 		gene("route.bed", 1, 0, 1, Kind.BOOL, "hunt sheep and make a bed early");
 		// Focus: finish the running task unless an emergency comes up
 		gene("focus.commit", 0, 0, 1, Kind.BOOL, "finish the running task before switching, unless the top option is an emergency");
