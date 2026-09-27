@@ -51,6 +51,10 @@ final class Bank {
 	static void save(ClientGameTestContext ctx, TestSingleplayerContext sp, int stage, long gameSeconds) {
 		String name = STAGES.get(stage);
 		sp.getServer().runCommand("save-all flush");
+		// 26.3 keeps the player (inventory, position, dimension) in its own file, not in level.dat
+		// (which only names the owner: singleplayer_uuid), and save-all didn't write it: the first
+		// restore self-test came back with a fresh player. Save the players explicitly.
+		sp.getServer().runOnServer(server -> server.getPlayerList().saveAll());
 		ctx.waitTicks(40);
 		Path src = sp.getWorldSave().getSaveDirectory();
 		Path dir = Path.of("checkpoints");
