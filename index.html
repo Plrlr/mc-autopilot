@@ -63,6 +63,15 @@ td.num { font-variant-numeric: tabular-nums; text-align: right; }
 .tablewrap { overflow-x: auto; }
 .empty { color: var(--muted); padding: 24px 0; text-align: center; }
 a { color: var(--s1); }
+.ladder { display: grid; grid-template-columns: repeat(6, 1fr); gap: 8px; }
+@media (max-width: 760px) { .ladder { grid-template-columns: repeat(2, 1fr); } }
+.rung { border: 1px solid var(--ring); border-radius: 10px; padding: 10px 12px; }
+.rung.front { border-color: var(--s1); box-shadow: inset 0 0 0 1px var(--s1); }
+.rung .k { color: var(--muted); font-size: 11.5px; text-transform: uppercase; letter-spacing: 0.04em; }
+.rung .v { font-size: 20px; font-weight: 600; margin-top: 2px; }
+.rung .n { color: var(--ink2); font-size: 12px; }
+.bar { height: 6px; border-radius: 3px; background: var(--grid); margin: 6px 0 4px; overflow: hidden; }
+.bar i { display: block; height: 100%; background: var(--s1); border-radius: 3px; }
 .toggle { float: right; background: none; border: 1px solid var(--ring); color: var(--ink2); border-radius: 8px; padding: 4px 10px; cursor: pointer; font: inherit; font-size: 12.5px; }
 </style>
 </head>
@@ -79,6 +88,12 @@ a { color: var(--s1); }
     <h2>Champion score per generation</h2>
     <p class="note">Mean score of the champion on that generation's worlds (x axis: generation). Gray dots are challengers. Points come from milestones and steps toward the Nether portal (more for reaching them early), minus deaths. Stars mark a new champion.</p>
     <div id="scoreChart"></div>
+  </div>
+
+  <div class="card">
+    <h2>The road to the dragon</h2>
+    <p class="note">Runs save the world when they first reach a stage. Every generation also starts some runs from those saved worlds at the frontier (outlined), so later stages get practice before the early game is perfect. The bar shows how often a start at that stage got past it. "Staged" means a test-world setup, used until real saves exist.</p>
+    <div class="ladder" id="ladder"></div>
   </div>
 
   <div class="card">
@@ -106,6 +121,12 @@ a { color: var(--s1); }
     <p class="note">Every genome tried, placed by the generation it was born in. Lines join a child to its parent. Blue marks the champions' line of descent, orange marks challengers still racing, and gray marks dropped ones.</p>
     <div class="legend"><span><i class="dot" style="background:var(--s1)"></i>champion line</span><span><i class="dot" style="background:var(--s2)"></i>racing</span><span><i class="dot" style="background:var(--faint)"></i>dropped</span></div>
     <div id="tree"></div>
+  </div>
+
+  <div class="card">
+    <h2>Full games</h2>
+    <p class="note">The champion playing from a fresh world with no staged starts: 2-hour marathons on the cloud and runs on the laptop. The honest measure of how far it gets.</p>
+    <div class="tablewrap"><table id="games"></table></div>
   </div>
 
   <div class="card">
@@ -319,12 +340,39 @@ function tree(state) {
   });
 }
 
+const STAGE_NAMES = { kit: "Portal kit", nether: "Nether", rods: "Blaze rods", eyes: "12 eyes", stronghold: "Stronghold", end: "The End" };
+
+function ladder(state, history) {
+  const last = history[history.length - 1] || {};
+  const bank = last.bank || {};
+  const front = last.frontier;
+  $("ladder").innerHTML = Object.keys(STAGE_NAMES).map((k) => {
+    const b = bank[k] || { real: 0, synthetic: 0, tries: 0, past: null };
+    const pct = b.past == null ? null : Math.round(b.past * 100);
+    return `<div class="rung ${k === front ? "front" : ""}"><div class="k">${esc(STAGE_NAMES[k])}${k === front ? " · frontier" : ""}</div>
+      <div class="v">${b.real} saved</div>
+      <div class="bar"><i style="width:${pct || 0}%"></i></div>
+      <div class="n">${b.tries ? `${pct}% of ${b.tries} starts got past` : "no starts yet"}${b.synthetic ? ` · ${b.synthetic} staged` : ""}</div></div>`;
+  }).join("");
+}
+
+function games(history) {
+  const all = history.flatMap((h) => (h.showcase || []).map((g) => ({ ...g, gen: h.gen })));
+  const rows = all.slice(-30).reverse();
+  $("games").innerHTML = "<tr><th>Gen</th><th>Where</th><th>Champion</th><th class='num'>Minutes</th><th>Furthest stage</th><th>Milestones</th><th class='num'>Deaths</th><th class='num'>Score</th></tr>" +
+    (rows.length ? rows.map((g) => `<tr><td class="num">${g.gen}</td><td>${esc(g.machine || "?")}</td><td>${esc(g.genome)}</td><td class="num">${g.minutes ?? ""}</td><td>${esc(STAGE_NAMES[g.furthest] || g.furthest || "–")}</td><td>${esc((g.milestones || []).map((m) => "m" + m[0]).join(" "))}</td><td class="num">${g.deaths}</td><td class="num">${fmt(g.score, 2)}</td></tr>`).join("")
+      : "<tr><td colspan='8' class='empty'>No full games yet: marathons run every 8 hours.</td></tr>");
+}
+
 function render(data) {
   const { history, state, model } = data;
   const last = history[history.length - 1];
   const champ = state ? state.genomes[state.champion] : null;
   const ago = last ? Math.round((Date.now() - Date.parse(last.time)) / 60000) : null;
   const furthest = (() => {
+    // A stage some real run reached (a real save in the bank) counts first.
+    const bank = (last && last.bank) || {};
+    for (const k of ["end", "stronghold", "eyes", "rods", "nether", "kit"]) if (bank[k] && bank[k].real > 0) return STAGE_NAMES[k];
     const order = [["m7", "the Nether"], ["portal_lit", "portal lit"], ["frame_complete", "portal frame"], ["obsidian_placed", "obsidian placed"], ["lava_seen", "lava found"], ["two_buckets", "portal kit"], ["m4", "iron tools"], ["m2", "stone tools"], ["m1", "wood"]];
     for (const [k, n] of order) if (history.some((h) => (h.reached || {})[k])) return n;
     return "–";
@@ -348,6 +396,8 @@ function render(data) {
     ["Trust (weight)", fmt(w || 0, 2), (w || 0) > 0 ? "the champion uses it" : "not used yet (rules decide)"],
   ];
   $("modelTiles").innerHTML = mt.map(([k, v, n]) => `<div class="tile"><div class="k">${esc(k)}</div><div class="v">${esc(v)}</div><div class="n">${esc(n)}</div></div>`).join("");
+  ladder(state, history);
+  games(history);
   scoreChart(history);
   reachChart(history);
   genesChart(state, (state && state.gene_specs) || {});
