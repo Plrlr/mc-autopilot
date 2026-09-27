@@ -1,0 +1,456 @@
+{"event":"autopilot_on","detail":"tactician\u003dmock strategist_opus\u003dfalse","t":1790498834038}
+{"event":"strategist_request","detail":"start","t":1790498834042}
+{"layer":"strategist","brain":"mock","choice":"wood_tools","reason":"next unfinished goal on the ladder","valid":true,"latency_ms":0,"tokens_in":0,"tokens_out":0,"note":"Opus strategist off","t":1790498834048}
+{"layer":"tactician","brain":"mock","selected":"mock","trigger":"idle","goal":"wood_tools","options":["collect log:3","explore log"],"choice":"collect log:3","valid":true,"latency_ms":0,"tokens_in":0,"tokens_out":0,"note":"rules","t":1790498834125}
+{"event":"skill_start","skill":"collect log:3","trigger":"idle","t":1790498834706}
+{"event":"skill_end","skill":"collect log:3","ok":true,"detail":"collected 3 log","seconds":11.55,"t":1790498849268}
+{"layer":"tactician","brain":"mock","selected":"mock","trigger":"skill_done","goal":"wood_tools","options":["craft planks:4","pickup","explore any"],"choice":"craft planks:4","valid":true,"latency_ms":0,"tokens_in":0,"tokens_out":0,"note":"rules","t":1790498849269}
+{"event":"skill_start","skill":"craft planks:4","trigger":"skill_done","t":1790498849273}
+{"event":"skill_end","skill":"craft planks:4","ok":true,"detail":"crafted 4 planks","seconds":0.45,"t":1790498849701}
+{"layer":"tactician","brain":"mock","selected":"mock","trigger":"skill_done","goal":"wood_tools","options":["craft stick:4","explore any"],"choice":"craft stick:4","valid":true,"latency_ms":0,"tokens_in":0,"tokens_out":0,"note":"rules","t":1790498849702}
+{"event":"skill_start","skill":"craft stick:4","trigger":"skill_done","t":1790498849702}
+{"event":"skill_end","skill":"craft stick:4","ok":true,"detail":"crafted 4 stick","seconds":0.45,"t":1790498850163}
+{"layer":"tactician","brain":"mock","selected":"mock","trigger":"skill_done","goal":"wood_tools","options":["craft planks:4","explore any"],"choice":"craft planks:4","valid":true,"latency_ms":0,"tokens_in":0,"tokens_out":0,"note":"rules","t":1790498850163}
+{"event":"skill_start","skill":"craft planks:4","trigger":"skill_done","t":1790498850164}
+{"event":"skill_end","skill":"craft planks:4","ok":true,"detail":"crafted 4 planks","seconds":0.45,"t":1790498850613}
+{"layer":"tactician","brain":"mock","selected":"mock","trigger":"skill_done","goal":"wood_tools","options":["craft crafting_table:1","explore any"],"choice":"craft crafting_table:1","valid":true,"latency_ms":0,"tokens_in":0,"tokens_out":0,"note":"rules","t":1790498850613}
+{"event":"skill_start","skill":"craft crafting_table:1","trigger":"skill_done","t":1790498850614}
+{"event":"skill_end","skill":"craft crafting_table:1","ok":true,"detail":"crafted 1 crafting_table","seconds":0.45,"t":1790498851061}
+{"layer":"tactician","brain":"mock","selected":"mock","trigger":"skill_done","goal":"wood_tools","options":["craft planks:4","explore any"],"choice":"craft planks:4","valid":true,"latency_ms":0,"tokens_in":0,"tokens_out":0,"note":"rules","t":1790498851061}
+{"event":"skill_start","skill":"craft planks:4","trigger":"skill_done","t":1790498851062}
+{"event":"milestone","detail":"1 at 13 s","t":1790498851210}
+{"event":"skill_end","skill":"craft planks:4","ok":true,"detail":"crafted 4 planks","seconds":0.45,"t":1790498851507}
+{"layer":"tactician","brain":"mock","selected":"mock","trigger":"skill_done","goal":"stone_tools","options":["craft wooden_pickaxe:1","explore any"],"choice":"craft wooden_pickaxe:1","valid":true,"latency_ms":0,"tokens_in":0,"tokens_out":0,"note":"rules","t":1790498851507}
+{"event":"skill_start","skill":"craft wooden_pickaxe:1","trigger":"skill_done","t":1790498851508}
+{"event":"skill_end","skill":"craft wooden_pickaxe:1","ok":true,"detail":"crafted 1 wooden_pickaxe","seconds":0.9,"t":1790498852680}
+{"layer":"tactician","brain":"mock","selected":"mock","trigger":"skill_done","goal":"stone_tools","options":["pickup stations","collect stone:13","explore any"],"choice":"pickup stations","valid":true,"latency_ms":0,"tokens_in":0,"tokens_out":0,"note":"rules","t":1790498852681}
+{"event":"skill_start","skill":"pickup stations","trigger":"skill_done","t":1790498852681}
+{"event":"skill_end","skill":"pickup stations","ok":true,"detail":"nothing left to pick up","seconds":3.9,"t":1790498857681}
+{"layer":"tactician","brain":"mock","selected":"mock","trigger":"skill_done","goal":"stone_tools","options":["collect stone:13","explore any"],"choice":"collect stone:13","valid":true,"latency_ms":0,"tokens_in":0,"tokens_out":0,"note":"rules","t":1790498857682}
+{"event":"skill_start","skill":"collect stone:13","trigger":"skill_done","t":1790498857685}
+{"event":"skill_end","skill":"collect stone:13","ok":true,"detail":"collected 13 stone","seconds":29.1,"t":1790498891083}
+{"layer":"tactician","brain":"mock","selected":"mock","trigger":"skill_done","goal":"stone_tools","options":["craft stone_pickaxe:1","pickup","explore any"],"choice":"craft stone_pickaxe:1","valid":true,"latency_ms":0,"tokens_in":0,"tokens_out":0,"note":"rules","t":1790498891084}
+{"event":"skill_start","skill":"craft stone_pickaxe:1","trigger":"skill_done","t":1790498891084}
+{"event":"milestone","detail":"2 at 48 s","t":1790498891860}
+{"event":"skill_end","skill":"craft stone_pickaxe:1","ok":true,"detail":"crafted 1 stone_pickaxe","seconds":0.9,"t":1790498891972}
+{"layer":"tactician","brain":"mock","selected":"mock","trigger":"skill_done","goal":"iron_tools","options":["pickup stations","collect raw_iron:13","pickup","explore any"],"choice":"pickup stations","valid":true,"latency_ms":0,"tokens_in":0,"tokens_out":0,"note":"rules","t":1790498891973}
+{"event":"skill_start","skill":"pickup stations","trigger":"skill_done","t":1790498891973}
+{"event":"skill_end","skill":"pickup stations","ok":true,"detail":"picked up 3 stacks","seconds":5.15,"t":1790498897283}
+{"layer":"tactician","brain":"mock","selected":"mock","trigger":"skill_done","goal":"iron_tools","options":["collect raw_iron:13","explore any"],"choice":"collect raw_iron:13","valid":true,"latency_ms":0,"tokens_in":0,"tokens_out":0,"note":"rules","t":1790498897283}
+{"event":"skill_start","skill":"collect raw_iron:13","trigger":"skill_done","t":1790498897283}
+{"layer":"tactician","brain":"mock","selected":"mock","trigger":"mob_near","goal":"iron_tools","options":["attack zombie_villager","collect raw_iron:13","explore any"],"choice":"attack zombie_villager","valid":true,"latency_ms":0,"tokens_in":0,"tokens_out":0,"note":"rules","t":1790498955654}
+{"event":"skill_end","skill":"collect raw_iron:13","ok":false,"code":"INTERRUPTED","detail":"interrupted: brain chose attack zombie_villager","seconds":58.05,"t":1790498955656}
+{"event":"skill_start","skill":"attack zombie_villager","trigger":"mob_near","t":1790498955656}
+{"layer":"tactician","brain":"mock","selected":"mock","trigger":"hurt","goal":"iron_tools","options":["attack zombie","collect raw_iron:13","explore any"],"choice":"attack zombie","valid":true,"latency_ms":0,"tokens_in":0,"tokens_out":0,"note":"rules","t":1790498959763}
+{"event":"skill_end","skill":"attack zombie_villager","ok":false,"code":"INTERRUPTED","detail":"interrupted: brain chose attack zombie","seconds":4.05,"t":1790498959763}
+{"event":"skill_start","skill":"attack zombie","trigger":"hurt","t":1790498959763}
+{"layer":"tactician","brain":"mock","selected":"mock","trigger":"hurt","goal":"iron_tools","options":["shelter heal","collect raw_iron:13","explore any"],"choice":"shelter heal","valid":true,"latency_ms":0,"tokens_in":0,"tokens_out":0,"note":"rules","t":1790498961261}
+{"event":"skill_end","skill":"attack zombie","ok":false,"code":"INTERRUPTED","detail":"interrupted: brain chose shelter heal","seconds":1.5,"t":1790498961261}
+{"event":"skill_start","skill":"shelter heal","trigger":"hurt","t":1790498961262}
+{"event":"skill_end","skill":"shelter heal","ok":false,"code":"INTERRUPTED","detail":"interrupted by reflex_fight","seconds":0.05,"t":1790498961330}
+{"event":"skill_start","skill":"attack zombie_villager","trigger":"reflex_fight","t":1790498961330}
+{"event":"skill_end","skill":"attack zombie_villager","ok":false,"code":"DIED","detail":"died","seconds":4.3,"t":1790498965608}
+{"event":"death","detail":"mob","t":1790498965609}
+{"event":"strategist_request","detail":"respawned","t":1790498968741}
+{"layer":"strategist","brain":"mock","choice":"iron_tools","reason":"next unfinished goal on the ladder","valid":true,"latency_ms":0,"tokens_in":0,"tokens_out":0,"note":"Opus strategist off","t":1790498968742}
+{"event":"skill_start","skill":"attack zombie","trigger":"reflex_fight","t":1790498968742}
+{"event":"skill_end","skill":"attack zombie","ok":false,"code":"NOT_FOUND","detail":"no reachable zombie in sight","seconds":0.0,"t":1790498968742}
+{"layer":"tactician","brain":"mock","selected":"mock","trigger":"skill_failed","goal":"iron_tools","options":["attack zombie","collect log:3","explore log"],"choice":"attack zombie","valid":true,"latency_ms":0,"tokens_in":0,"tokens_out":0,"note":"rules","t":1790498968744}
+{"event":"skill_start","skill":"attack zombie","trigger":"skill_failed","t":1790498968744}
+{"event":"skill_end","skill":"attack zombie","ok":false,"code":"NOT_FOUND","detail":"no reachable zombie in sight","seconds":0.05,"t":1790498968799}
+{"layer":"tactician","brain":"mock","selected":"mock","trigger":"skill_failed","goal":"iron_tools","options":["attack zombie","collect log:3","explore log"],"choice":"attack zombie","valid":true,"latency_ms":0,"tokens_in":0,"tokens_out":0,"note":"rules","t":1790498968799}
+{"event":"skill_start","skill":"attack zombie","trigger":"skill_failed","t":1790498968799}
+{"event":"skill_end","skill":"attack zombie","ok":false,"code":"NOT_FOUND","detail":"no reachable zombie in sight","seconds":0.05,"t":1790498968908}
+{"layer":"tactician","brain":"mock","selected":"mock","trigger":"skill_failed","goal":"iron_tools","options":["collect log:3","explore log"],"choice":"collect log:3","valid":true,"latency_ms":0,"tokens_in":0,"tokens_out":0,"note":"rules","t":1790498968911}
+{"event":"skill_start","skill":"collect log:3","trigger":"skill_failed","t":1790498968914}
+{"event":"skill_end","skill":"collect log:3","ok":true,"detail":"collected 3 log","seconds":12.8,"t":1790498983621}
+{"layer":"tactician","brain":"mock","selected":"mock","trigger":"skill_done","goal":"iron_tools","options":["craft planks:4","pickup","explore any"],"choice":"craft planks:4","valid":true,"latency_ms":0,"tokens_in":0,"tokens_out":0,"note":"rules","t":1790498983621}
+{"event":"skill_start","skill":"craft planks:4","trigger":"skill_done","t":1790498983622}
+{"event":"skill_end","skill":"craft planks:4","ok":true,"detail":"crafted 4 planks","seconds":0.45,"t":1790498984055}
+{"layer":"tactician","brain":"mock","selected":"mock","trigger":"skill_done","goal":"iron_tools","options":["craft stick:4","explore any"],"choice":"craft stick:4","valid":true,"latency_ms":0,"tokens_in":0,"tokens_out":0,"note":"rules","t":1790498984055}
+{"event":"skill_start","skill":"craft stick:4","trigger":"skill_done","t":1790498984055}
+{"event":"skill_end","skill":"craft stick:4","ok":true,"detail":"crafted 4 stick","seconds":0.45,"t":1790498984521}
+{"layer":"tactician","brain":"mock","selected":"mock","trigger":"skill_done","goal":"iron_tools","options":["craft planks:4","explore any"],"choice":"craft planks:4","valid":true,"latency_ms":0,"tokens_in":0,"tokens_out":0,"note":"rules","t":1790498984521}
+{"event":"skill_start","skill":"craft planks:4","trigger":"skill_done","t":1790498984522}
+{"event":"skill_end","skill":"craft planks:4","ok":true,"detail":"crafted 4 planks","seconds":0.45,"t":1790498984954}
+{"layer":"tactician","brain":"mock","selected":"mock","trigger":"skill_done","goal":"iron_tools","options":["craft crafting_table:1","explore any"],"choice":"craft crafting_table:1","valid":true,"latency_ms":0,"tokens_in":0,"tokens_out":0,"note":"rules","t":1790498984955}
+{"event":"skill_start","skill":"craft crafting_table:1","trigger":"skill_done","t":1790498984955}
+{"event":"skill_end","skill":"craft crafting_table:1","ok":true,"detail":"crafted 1 crafting_table","seconds":0.45,"t":1790498985421}
+{"layer":"tactician","brain":"mock","selected":"mock","trigger":"skill_done","goal":"iron_tools","options":["craft planks:4","explore any"],"choice":"craft planks:4","valid":true,"latency_ms":0,"tokens_in":0,"tokens_out":0,"note":"rules","t":1790498985422}
+{"event":"skill_start","skill":"craft planks:4","trigger":"skill_done","t":1790498985422}
+{"event":"skill_end","skill":"craft planks:4","ok":true,"detail":"crafted 4 planks","seconds":0.45,"t":1790498985855}
+{"layer":"tactician","brain":"mock","selected":"mock","trigger":"skill_done","goal":"iron_tools","options":["craft wooden_pickaxe:1","explore any"],"choice":"craft wooden_pickaxe:1","valid":true,"latency_ms":0,"tokens_in":0,"tokens_out":0,"note":"rules","t":1790498985855}
+{"event":"skill_start","skill":"craft wooden_pickaxe:1","trigger":"skill_done","t":1790498985856}
+{"event":"skill_end","skill":"craft wooden_pickaxe:1","ok":true,"detail":"crafted 1 wooden_pickaxe","seconds":0.9,"t":1790498986753}
+{"layer":"tactician","brain":"mock","selected":"mock","trigger":"skill_done","goal":"iron_tools","options":["pickup stations","collect stone:13","explore any"],"choice":"pickup stations","valid":true,"latency_ms":0,"tokens_in":0,"tokens_out":0,"note":"rules","t":1790498986754}
+{"event":"skill_start","skill":"pickup stations","trigger":"skill_done","t":1790498986754}
+{"event":"skill_end","skill":"pickup stations","ok":true,"detail":"nothing left to pick up","seconds":3.9,"t":1790498990860}
+{"layer":"tactician","brain":"mock","selected":"mock","trigger":"skill_done","goal":"iron_tools","options":["collect stone:13","explore any"],"choice":"collect stone:13","valid":true,"latency_ms":0,"tokens_in":0,"tokens_out":0,"note":"rules","t":1790498990861}
+{"event":"skill_start","skill":"collect stone:13","trigger":"skill_done","t":1790498990862}
+{"layer":"tactician","brain":"mock","selected":"mock","trigger":"heartbeat","goal":"iron_tools","options":["collect coal:6","craft stone_pickaxe:1","pickup","explore any"],"choice":"collect coal:6","valid":true,"latency_ms":0,"tokens_in":0,"tokens_out":0,"note":"rules","t":1790499011578}
+{"event":"skill_end","skill":"collect stone:13","ok":false,"code":"INTERRUPTED","detail":"interrupted: brain chose collect coal:6","seconds":20.1,"t":1790499011578}
+{"event":"skill_start","skill":"collect coal:6","trigger":"heartbeat","t":1790499011579}
+{"event":"skill_end","skill":"collect coal:6","ok":true,"detail":"collected 6 coal","seconds":17.25,"t":1790499028906}
+{"layer":"tactician","brain":"mock","selected":"mock","trigger":"skill_done","goal":"iron_tools","options":["craft stone_pickaxe:1","pickup","explore any"],"choice":"craft stone_pickaxe:1","valid":true,"latency_ms":0,"tokens_in":0,"tokens_out":0,"note":"rules","t":1790499028907}
+{"event":"skill_start","skill":"craft stone_pickaxe:1","trigger":"skill_done","t":1790499028907}
+{"event":"skill_end","skill":"craft stone_pickaxe:1","ok":true,"detail":"crafted 1 stone_pickaxe","seconds":0.9,"t":1790499029820}
+{"layer":"tactician","brain":"mock","selected":"mock","trigger":"skill_done","goal":"iron_tools","options":["goto death","pickup stations","collect raw_iron:13","explore any"],"choice":"goto death","valid":true,"latency_ms":0,"tokens_in":0,"tokens_out":0,"note":"rules","t":1790499029821}
+{"event":"skill_start","skill":"goto death","trigger":"skill_done","t":1790499029821}
+{"layer":"tactician","brain":"mock","selected":"mock","trigger":"mob_near","goal":"iron_tools","options":["attack zombie","goto death","collect raw_iron:13","pickup","explore any"],"choice":"attack zombie","valid":true,"latency_ms":0,"tokens_in":0,"tokens_out":0,"note":"rules","t":1790499044107}
+{"event":"skill_end","skill":"goto death","ok":false,"code":"INTERRUPTED","detail":"interrupted: brain chose attack zombie","seconds":14.3,"t":1790499044112}
+{"event":"skill_start","skill":"attack zombie","trigger":"mob_near","t":1790499044113}
+{"layer":"tactician","brain":"mock","selected":"mock","trigger":"hurt","goal":"iron_tools","options":["attack spider","goto death","collect raw_iron:13","explore any"],"choice":"attack spider","valid":true,"latency_ms":0,"tokens_in":0,"tokens_out":0,"note":"rules","t":1790499052740}
+{"event":"skill_end","skill":"attack zombie","ok":false,"code":"INTERRUPTED","detail":"interrupted: brain chose attack spider","seconds":8.6,"t":1790499052741}
+{"event":"skill_start","skill":"attack spider","trigger":"hurt","t":1790499052741}
+{"layer":"tactician","brain":"mock","selected":"mock","trigger":"hurt","goal":"iron_tools","options":["attack zombie","goto death","collect raw_iron:13","explore any"],"choice":"attack zombie","valid":true,"latency_ms":0,"tokens_in":0,"tokens_out":0,"note":"rules","t":1790499054874}
+{"event":"skill_end","skill":"attack spider","ok":false,"code":"INTERRUPTED","detail":"interrupted: brain chose attack zombie","seconds":2.15,"t":1790499054874}
+{"event":"skill_start","skill":"attack zombie","trigger":"hurt","t":1790499054874}
+{"event":"skill_end","skill":"attack zombie","ok":false,"code":"INTERRUPTED","detail":"interrupted by reflex_low_hp","seconds":1.95,"t":1790499056810}
+{"event":"skill_start","skill":"shelter heal","trigger":"reflex_low_hp","t":1790499056810}
+{"event":"skill_end","skill":"shelter heal","ok":false,"code":"DIED","detail":"died","seconds":5.0,"t":1790499061826}
+{"event":"death","detail":"mob","t":1790499061826}
+{"event":"strategist_request","detail":"respawned","t":1790499064990}
+{"layer":"strategist","brain":"mock","choice":"iron_tools","reason":"next unfinished goal on the ladder","valid":true,"latency_ms":0,"tokens_in":0,"tokens_out":0,"note":"Opus strategist off","t":1790499064991}
+{"event":"skill_start","skill":"attack spider","trigger":"reflex_fight","t":1790499064991}
+{"event":"skill_end","skill":"attack spider","ok":false,"code":"NOT_FOUND","detail":"no reachable spider in sight","seconds":0.0,"t":1790499064991}
+{"layer":"tactician","brain":"mock","selected":"mock","trigger":"skill_failed","goal":"iron_tools","options":["attack spider","collect log:3","explore log"],"choice":"attack spider","valid":true,"latency_ms":0,"tokens_in":0,"tokens_out":0,"note":"rules","t":1790499064992}
+{"event":"skill_start","skill":"attack spider","trigger":"skill_failed","t":1790499064993}
+{"event":"skill_end","skill":"attack spider","ok":false,"code":"NOT_FOUND","detail":"no reachable spider in sight","seconds":0.05,"t":1790499065079}
+{"layer":"tactician","brain":"mock","selected":"mock","trigger":"skill_failed","goal":"iron_tools","options":["attack spider","collect log:3","explore log"],"choice":"attack spider","valid":true,"latency_ms":0,"tokens_in":0,"tokens_out":0,"note":"rules","t":1790499065080}
+{"event":"skill_start","skill":"attack spider","trigger":"skill_failed","t":1790499065080}
+{"event":"skill_end","skill":"attack spider","ok":false,"code":"NOT_FOUND","detail":"no reachable spider in sight","seconds":0.05,"t":1790499065147}
+{"layer":"tactician","brain":"mock","selected":"mock","trigger":"skill_failed","goal":"iron_tools","options":["collect log:3","explore log"],"choice":"collect log:3","valid":true,"latency_ms":0,"tokens_in":0,"tokens_out":0,"note":"rules","t":1790499065151}
+{"event":"skill_start","skill":"collect log:3","trigger":"skill_failed","t":1790499065158}
+{"event":"skill_end","skill":"collect log:3","ok":true,"detail":"collected 3 log","seconds":11.45,"t":1790499079008}
+{"layer":"tactician","brain":"mock","selected":"mock","trigger":"skill_done","goal":"iron_tools","options":["craft planks:4","pickup","explore any"],"choice":"craft planks:4","valid":true,"latency_ms":0,"tokens_in":0,"tokens_out":0,"note":"rules","t":1790499079008}
+{"event":"skill_start","skill":"craft planks:4","trigger":"skill_done","t":1790499079008}
+{"event":"skill_end","skill":"craft planks:4","ok":true,"detail":"crafted 4 planks","seconds":0.45,"t":1790499079474}
+{"layer":"tactician","brain":"mock","selected":"mock","trigger":"skill_done","goal":"iron_tools","options":["craft stick:4","explore any"],"choice":"craft stick:4","valid":true,"latency_ms":0,"tokens_in":0,"tokens_out":0,"note":"rules","t":1790499079474}
+{"event":"skill_start","skill":"craft stick:4","trigger":"skill_done","t":1790499079475}
+{"event":"skill_end","skill":"craft stick:4","ok":true,"detail":"crafted 4 stick","seconds":0.45,"t":1790499079908}
+{"layer":"tactician","brain":"mock","selected":"mock","trigger":"skill_done","goal":"iron_tools","options":["craft planks:4","explore any"],"choice":"craft planks:4","valid":true,"latency_ms":0,"tokens_in":0,"tokens_out":0,"note":"rules","t":1790499079908}
+{"event":"skill_start","skill":"craft planks:4","trigger":"skill_done","t":1790499079909}
+{"event":"skill_end","skill":"craft planks:4","ok":true,"detail":"crafted 4 planks","seconds":0.45,"t":1790499080374}
+{"layer":"tactician","brain":"mock","selected":"mock","trigger":"skill_done","goal":"iron_tools","options":["craft wooden_pickaxe:1","explore any"],"choice":"craft wooden_pickaxe:1","valid":true,"latency_ms":0,"tokens_in":0,"tokens_out":0,"note":"rules","t":1790499080374}
+{"event":"skill_start","skill":"craft wooden_pickaxe:1","trigger":"skill_done","t":1790499080375}
+{"event":"skill_end","skill":"craft wooden_pickaxe:1","ok":true,"detail":"crafted 1 wooden_pickaxe","seconds":49.25,"t":1790499129764}
+{"layer":"tactician","brain":"mock","selected":"mock","trigger":"skill_done","goal":"iron_tools","options":["pickup stations","collect coal:6","collect stone:13","explore any"],"choice":"pickup stations","valid":true,"latency_ms":0,"tokens_in":0,"tokens_out":0,"note":"rules","t":1790499129765}
+{"event":"skill_start","skill":"pickup stations","trigger":"skill_done","t":1790499129765}
+{"event":"skill_end","skill":"pickup stations","ok":true,"detail":"nothing left to pick up","seconds":3.9,"t":1790499133666}
+{"layer":"tactician","brain":"mock","selected":"mock","trigger":"skill_done","goal":"iron_tools","options":["goto death","collect coal:6","collect stone:13","explore any"],"choice":"goto death","valid":true,"latency_ms":0,"tokens_in":0,"tokens_out":0,"note":"rules","t":1790499133667}
+{"event":"skill_start","skill":"goto death","trigger":"skill_done","t":1790499133667}
+{"event":"skill_end","skill":"goto death","ok":true,"detail":"arrived near death","seconds":3.85,"t":1790499137519}
+{"layer":"tactician","brain":"mock","selected":"mock","trigger":"skill_done","goal":"iron_tools","options":["collect raw_iron:13","pickup","explore any"],"choice":"collect raw_iron:13","valid":true,"latency_ms":0,"tokens_in":0,"tokens_out":0,"note":"rules","t":1790499137520}
+{"event":"skill_start","skill":"collect raw_iron:13","trigger":"skill_done","t":1790499137521}
+{"layer":"tactician","brain":"mock","selected":"mock","trigger":"mob_near","goal":"iron_tools","options":["retreat","collect raw_iron:13","pickup","explore any"],"choice":"retreat","valid":true,"latency_ms":0,"tokens_in":0,"tokens_out":0,"note":"rules","t":1790499141569}
+{"event":"skill_end","skill":"collect raw_iron:13","ok":false,"code":"INTERRUPTED","detail":"interrupted: brain chose retreat","seconds":4.05,"t":1790499141570}
+{"event":"skill_start","skill":"retreat","trigger":"mob_near","t":1790499141570}
+{"event":"skill_end","skill":"retreat","ok":false,"code":"INTERRUPTED","detail":"interrupted by reflex_creeper","seconds":0.45,"t":1790499142160}
+{"event":"skill_start","skill":"retreat","trigger":"reflex_creeper","t":1790499142160}
+{"event":"skill_end","skill":"retreat","ok":true,"detail":"got away","seconds":5.95,"t":1790499148084}
+{"layer":"tactician","brain":"mock","selected":"mock","trigger":"skill_done","goal":"iron_tools","options":["collect coal:6","collect raw_iron:13","explore any"],"choice":"collect coal:6","valid":true,"latency_ms":0,"tokens_in":0,"tokens_out":0,"note":"rules","t":1790499148084}
+{"event":"skill_start","skill":"collect coal:6","trigger":"skill_done","t":1790499148084}
+{"layer":"tactician","brain":"mock","selected":"mock","trigger":"mob_near","goal":"iron_tools","options":["retreat","collect raw_iron:13","explore any"],"choice":"retreat","valid":true,"latency_ms":0,"tokens_in":0,"tokens_out":0,"note":"rules","t":1790499151187}
+{"event":"skill_end","skill":"collect coal:6","ok":false,"code":"INTERRUPTED","detail":"interrupted: brain chose retreat","seconds":3.1,"t":1790499151187}
+{"event":"skill_start","skill":"retreat","trigger":"mob_near","t":1790499151187}
+{"event":"skill_end","skill":"retreat","ok":false,"code":"INTERRUPTED","detail":"interrupted by reflex_creeper","seconds":0.2,"t":1790499151386}
+{"event":"skill_start","skill":"retreat","trigger":"reflex_creeper","t":1790499151387}
+{"event":"skill_end","skill":"retreat","ok":true,"detail":"got away","seconds":6.6,"t":1790499158126}
+{"layer":"tactician","brain":"mock","selected":"mock","trigger":"skill_done","goal":"iron_tools","options":["collect raw_iron:13","pickup","explore any"],"choice":"collect raw_iron:13","valid":true,"latency_ms":0,"tokens_in":0,"tokens_out":0,"note":"rules","t":1790499158126}
+{"event":"skill_start","skill":"collect raw_iron:13","trigger":"skill_done","t":1790499158127}
+{"layer":"tactician","brain":"mock","selected":"mock","trigger":"mob_near","goal":"iron_tools","options":["retreat","craft furnace:1","explore any"],"choice":"retreat","valid":true,"latency_ms":0,"tokens_in":0,"tokens_out":0,"note":"rules","t":1790499213686}
+{"event":"skill_end","skill":"collect raw_iron:13","ok":false,"code":"INTERRUPTED","detail":"interrupted: brain chose retreat","seconds":50.95,"t":1790499213686}
+{"event":"skill_start","skill":"retreat","trigger":"mob_near","t":1790499213686}
+{"event":"skill_end","skill":"retreat","ok":true,"detail":"got away","seconds":3.7,"t":1790499217384}
+{"layer":"tactician","brain":"mock","selected":"mock","trigger":"skill_done","goal":"iron_tools","options":["craft furnace:1","explore any"],"choice":"craft furnace:1","valid":true,"latency_ms":0,"tokens_in":0,"tokens_out":0,"note":"rules","t":1790499217384}
+{"event":"skill_start","skill":"craft furnace:1","trigger":"skill_done","t":1790499217384}
+{"event":"skill_end","skill":"craft furnace:1","ok":true,"detail":"crafted 1 furnace","seconds":0.95,"t":1790499218317}
+{"layer":"tactician","brain":"mock","selected":"mock","trigger":"skill_done","goal":"iron_tools","options":["smelt iron_ingot:3","explore any"],"choice":"smelt iron_ingot:3","valid":true,"latency_ms":0,"tokens_in":0,"tokens_out":0,"note":"rules","t":1790499218318}
+{"event":"skill_start","skill":"smelt iron_ingot:3","trigger":"skill_done","t":1790499218318}
+{"event":"skill_end","skill":"smelt iron_ingot:3","ok":true,"detail":"smelted 3 iron_ingot","seconds":31.0,"t":1790499249321}
+{"layer":"tactician","brain":"mock","selected":"mock","trigger":"skill_done","goal":"iron_tools","options":["craft iron_pickaxe:1","explore any"],"choice":"craft iron_pickaxe:1","valid":true,"latency_ms":0,"tokens_in":0,"tokens_out":0,"note":"rules","t":1790499249321}
+{"event":"skill_start","skill":"craft iron_pickaxe:1","trigger":"skill_done","t":1790499249321}
+{"event":"skill_end","skill":"craft iron_pickaxe:1","ok":true,"detail":"crafted 1 iron_pickaxe","seconds":0.8,"t":1790499250120}
+{"layer":"tactician","brain":"mock","selected":"mock","trigger":"skill_done","goal":"iron_tools","options":["craft planks:4","explore any"],"choice":"craft planks:4","valid":true,"latency_ms":0,"tokens_in":0,"tokens_out":0,"note":"rules","t":1790499250121}
+{"event":"skill_start","skill":"craft planks:4","trigger":"skill_done","t":1790499250121}
+{"event":"skill_end","skill":"craft planks:4","ok":true,"detail":"crafted 4 planks","seconds":0.45,"t":1790499250586}
+{"layer":"tactician","brain":"mock","selected":"mock","trigger":"skill_done","goal":"iron_tools","options":["pickup stations","collect raw_iron:10","explore any"],"choice":"pickup stations","valid":true,"latency_ms":0,"tokens_in":0,"tokens_out":0,"note":"rules","t":1790499250587}
+{"event":"skill_start","skill":"pickup stations","trigger":"skill_done","t":1790499250587}
+{"event":"milestone","detail":"4 at 396 s","t":1790499250888}
+{"event":"strategist_request","detail":"goal_done","t":1790499250888}
+{"layer":"strategist","brain":"mock","choice":"nether_portal","reason":"next unfinished goal on the ladder","valid":true,"latency_ms":0,"tokens_in":0,"tokens_out":0,"note":"Opus strategist off","t":1790499250920}
+{"event":"skill_end","skill":"pickup stations","ok":true,"detail":"picked up 1 stacks","seconds":5.65,"t":1790499256220}
+{"layer":"tactician","brain":"mock","selected":"mock","trigger":"skill_done","goal":"nether_portal","options":["collect raw_iron:10","pickup","explore any"],"choice":"collect raw_iron:10","valid":true,"latency_ms":0,"tokens_in":0,"tokens_out":0,"note":"rules","t":1790499256221}
+{"event":"skill_start","skill":"collect raw_iron:10","trigger":"skill_done","t":1790499256221}
+{"layer":"tactician","brain":"mock","selected":"mock","trigger":"mob_near","goal":"nether_portal","options":["retreat","collect raw_iron:10","explore any"],"choice":"retreat","valid":true,"latency_ms":0,"tokens_in":0,"tokens_out":0,"note":"rules","t":1790499259665}
+{"event":"skill_end","skill":"collect raw_iron:10","ok":false,"code":"INTERRUPTED","detail":"interrupted: brain chose retreat","seconds":3.45,"t":1790499259666}
+{"event":"skill_start","skill":"retreat","trigger":"mob_near","t":1790499259666}
+{"event":"skill_end","skill":"retreat","ok":false,"code":"INTERRUPTED","detail":"interrupted by reflex_creeper","seconds":0.2,"t":1790499259865}
+{"event":"skill_start","skill":"retreat","trigger":"reflex_creeper","t":1790499259865}
+{"event":"skill_end","skill":"retreat","ok":true,"detail":"got away","seconds":4.15,"t":1790499264031}
+{"layer":"tactician","brain":"mock","selected":"mock","trigger":"skill_done","goal":"nether_portal","options":["collect raw_iron:10","explore any"],"choice":"collect raw_iron:10","valid":true,"latency_ms":0,"tokens_in":0,"tokens_out":0,"note":"rules","t":1790499264031}
+{"event":"skill_start","skill":"collect raw_iron:10","trigger":"skill_done","t":1790499264031}
+{"layer":"tactician","brain":"mock","selected":"mock","trigger":"mob_near","goal":"nether_portal","options":["retreat","collect raw_iron:10","explore any"],"choice":"retreat","valid":true,"latency_ms":0,"tokens_in":0,"tokens_out":0,"note":"rules","t":1790499266412}
+{"event":"skill_end","skill":"collect raw_iron:10","ok":false,"code":"INTERRUPTED","detail":"interrupted: brain chose retreat","seconds":2.4,"t":1790499266412}
+{"event":"skill_start","skill":"retreat","trigger":"mob_near","t":1790499266412}
+{"event":"skill_end","skill":"retreat","ok":false,"code":"INTERRUPTED","detail":"interrupted by reflex_creeper","seconds":0.2,"t":1790499266612}
+{"event":"skill_start","skill":"retreat","trigger":"reflex_creeper","t":1790499266612}
+{"event":"skill_end","skill":"retreat","ok":true,"detail":"got away","seconds":4.7,"t":1790499271333}
+{"layer":"tactician","brain":"mock","selected":"mock","trigger":"skill_done","goal":"nether_portal","options":["collect raw_iron:10","explore any"],"choice":"collect raw_iron:10","valid":true,"latency_ms":0,"tokens_in":0,"tokens_out":0,"note":"rules","t":1790499271334}
+{"event":"skill_start","skill":"collect raw_iron:10","trigger":"skill_done","t":1790499271334}
+{"layer":"tactician","brain":"mock","selected":"mock","trigger":"mob_near","goal":"nether_portal","options":["retreat","collect raw_iron:10","pickup","explore any"],"choice":"retreat","valid":true,"latency_ms":0,"tokens_in":0,"tokens_out":0,"note":"rules","t":1790499277410}
+{"event":"skill_end","skill":"collect raw_iron:10","ok":false,"code":"INTERRUPTED","detail":"interrupted: brain chose retreat","seconds":6.1,"t":1790499277410}
+{"event":"skill_start","skill":"retreat","trigger":"mob_near","t":1790499277411}
+{"event":"skill_end","skill":"retreat","ok":false,"code":"INTERRUPTED","detail":"interrupted by reflex_creeper","seconds":0.2,"t":1790499277610}
+{"event":"skill_start","skill":"retreat","trigger":"reflex_creeper","t":1790499277610}
+{"event":"skill_end","skill":"retreat","ok":true,"detail":"got away","seconds":13.6,"t":1790499291271}
+{"layer":"tactician","brain":"mock","selected":"mock","trigger":"skill_done","goal":"nether_portal","options":["collect raw_iron:10","explore any"],"choice":"collect raw_iron:10","valid":true,"latency_ms":0,"tokens_in":0,"tokens_out":0,"note":"rules","t":1790499291272}
+{"event":"skill_start","skill":"collect raw_iron:10","trigger":"skill_done","t":1790499291272}
+{"layer":"tactician","brain":"mock","selected":"mock","trigger":"heartbeat","goal":"nether_portal","options":["smelt iron_ingot:1","explore any"],"choice":"smelt iron_ingot:1","valid":true,"latency_ms":0,"tokens_in":0,"tokens_out":0,"note":"rules","t":1790499311484}
+{"event":"skill_end","skill":"collect raw_iron:10","ok":false,"code":"INTERRUPTED","detail":"interrupted: brain chose smelt iron_ingot:1","seconds":20.1,"t":1790499311484}
+{"event":"skill_start","skill":"smelt iron_ingot:1","trigger":"heartbeat","t":1790499311484}
+{"event":"skill_end","skill":"smelt iron_ingot:1","ok":false,"code":"NO_ROOM","detail":"no room to place a furnace","seconds":0.15,"t":1790499311618}
+{"layer":"tactician","brain":"mock","selected":"mock","trigger":"skill_failed","goal":"nether_portal","options":["smelt iron_ingot:1","pickup","explore any"],"choice":"smelt iron_ingot:1","valid":true,"latency_ms":0,"tokens_in":0,"tokens_out":0,"note":"rules","t":1790499311618}
+{"event":"skill_start","skill":"smelt iron_ingot:1","trigger":"skill_failed","t":1790499311618}
+{"event":"skill_end","skill":"smelt iron_ingot:1","ok":false,"code":"NO_ROOM","detail":"no room to place a furnace","seconds":0.1,"t":1790499311717}
+{"layer":"tactician","brain":"mock","selected":"mock","trigger":"skill_failed","goal":"nether_portal","options":["smelt iron_ingot:1","pickup","explore any"],"choice":"smelt iron_ingot:1","valid":true,"latency_ms":0,"tokens_in":0,"tokens_out":0,"note":"rules","t":1790499311717}
+{"event":"skill_start","skill":"smelt iron_ingot:1","trigger":"skill_failed","t":1790499311717}
+{"event":"skill_end","skill":"smelt iron_ingot:1","ok":false,"code":"NO_ROOM","detail":"no room to place a furnace","seconds":0.1,"t":1790499311817}
+{"layer":"tactician","brain":"mock","selected":"mock","trigger":"skill_failed","goal":"nether_portal","options":["pickup","explore any"],"choice":"pickup","valid":true,"latency_ms":0,"tokens_in":0,"tokens_out":0,"note":"rules","t":1790499311817}
+{"event":"skill_start","skill":"pickup","trigger":"skill_failed","t":1790499311817}
+{"event":"skill_end","skill":"pickup","ok":true,"detail":"picked up 1 stacks","seconds":0.15,"t":1790499311983}
+{"layer":"tactician","brain":"mock","selected":"mock","trigger":"skill_done","goal":"nether_portal","options":["pickup","explore any"],"choice":"pickup","valid":true,"latency_ms":0,"tokens_in":0,"tokens_out":0,"note":"rules","t":1790499311983}
+{"event":"skill_start","skill":"pickup","trigger":"skill_done","t":1790499311983}
+{"event":"skill_end","skill":"pickup","ok":true,"detail":"nothing left to pick up","seconds":0.05,"t":1790499312016}
+{"layer":"tactician","brain":"mock","selected":"mock","trigger":"skill_done","goal":"nether_portal","options":["explore any"],"choice":"explore any","valid":true,"latency_ms":0,"tokens_in":0,"tokens_out":0,"note":"rules","t":1790499312017}
+{"event":"skill_start","skill":"explore any","trigger":"skill_done","t":1790499312017}
+{"event":"skill_end","skill":"explore any","ok":true,"detail":"explored 121 blocks","seconds":57.5,"t":1790499373941}
+{"layer":"tactician","brain":"mock","selected":"mock","trigger":"skill_done","goal":"nether_portal","options":["explore any"],"choice":"explore any","valid":true,"latency_ms":0,"tokens_in":0,"tokens_out":0,"note":"rules","t":1790499373942}
+{"event":"skill_start","skill":"explore any","trigger":"skill_done","t":1790499373942}
+{"layer":"tactician","brain":"mock","selected":"mock","trigger":"heartbeat","goal":"nether_portal","options":["attack cow","smelt iron_ingot:1","explore any"],"choice":"attack cow","valid":true,"latency_ms":0,"tokens_in":0,"tokens_out":0,"note":"rules","t":1790499395660}
+{"event":"skill_end","skill":"explore any","ok":false,"code":"INTERRUPTED","detail":"interrupted: brain chose attack cow","seconds":20.1,"t":1790499395661}
+{"event":"skill_start","skill":"attack cow","trigger":"heartbeat","t":1790499395661}
+{"event":"skill_end","skill":"attack cow","ok":true,"detail":"killed the cow","seconds":9.85,"t":1790499410488}
+{"layer":"tactician","brain":"mock","selected":"mock","trigger":"skill_done","goal":"nether_portal","options":["eat","smelt cooked_beef:2","smelt iron_ingot:1","explore any"],"choice":"eat","valid":true,"latency_ms":0,"tokens_in":0,"tokens_out":0,"note":"rules","t":1790499410488}
+{"event":"skill_start","skill":"eat","trigger":"skill_done","t":1790499410489}
+{"event":"skill_end","skill":"eat","ok":true,"detail":"ate beef","seconds":1.85,"t":1790499414189}
+{"layer":"tactician","brain":"mock","selected":"mock","trigger":"skill_done","goal":"nether_portal","options":["eat","smelt cooked_beef:1","smelt iron_ingot:1","explore any"],"choice":"eat","valid":true,"latency_ms":0,"tokens_in":0,"tokens_out":0,"note":"rules","t":1790499414189}
+{"event":"skill_start","skill":"eat","trigger":"skill_done","t":1790499414189}
+{"event":"skill_end","skill":"eat","ok":true,"detail":"ate beef","seconds":1.85,"t":1790499417888}
+{"layer":"tactician","brain":"mock","selected":"mock","trigger":"skill_done","goal":"nether_portal","options":["smelt iron_ingot:1","explore any"],"choice":"smelt iron_ingot:1","valid":true,"latency_ms":0,"tokens_in":0,"tokens_out":0,"note":"rules","t":1790499417888}
+{"event":"skill_start","skill":"smelt iron_ingot:1","trigger":"skill_done","t":1790499417888}
+{"event":"skill_end","skill":"smelt iron_ingot:1","ok":true,"detail":"smelted 1 iron_ingot","seconds":11.0,"t":1790499439888}
+{"layer":"tactician","brain":"mock","selected":"mock","trigger":"skill_done","goal":"nether_portal","options":["craft shield:1","explore any"],"choice":"craft shield:1","valid":true,"latency_ms":0,"tokens_in":0,"tokens_out":0,"note":"rules","t":1790499439888}
+{"event":"skill_start","skill":"craft shield:1","trigger":"skill_done","t":1790499439888}
+{"event":"skill_end","skill":"craft shield:1","ok":true,"detail":"crafted 1 shield","seconds":0.9,"t":1790499441688}
+{"layer":"tactician","brain":"mock","selected":"mock","trigger":"skill_done","goal":"nether_portal","options":["pickup stations","equip shield","collect raw_iron:9","explore any"],"choice":"pickup stations","valid":true,"latency_ms":0,"tokens_in":0,"tokens_out":0,"note":"rules","t":1790499441688}
+{"event":"skill_start","skill":"pickup stations","trigger":"skill_done","t":1790499441688}
+{"event":"skill_end","skill":"pickup stations","ok":true,"detail":"picked up 2 stacks","seconds":5.65,"t":1790499453002}
+{"layer":"tactician","brain":"mock","selected":"mock","trigger":"skill_done","goal":"nether_portal","options":["equip shield","collect raw_iron:9","pickup","explore any"],"choice":"equip shield","valid":true,"latency_ms":0,"tokens_in":0,"tokens_out":0,"note":"rules","t":1790499453003}
+{"event":"skill_start","skill":"equip shield","trigger":"skill_done","t":1790499453004}
+{"event":"skill_end","skill":"equip shield","ok":true,"detail":"shield in off hand","seconds":0.05,"t":1790499453101}
+{"layer":"tactician","brain":"mock","selected":"mock","trigger":"skill_done","goal":"nether_portal","options":["collect raw_iron:9","explore any"],"choice":"collect raw_iron:9","valid":true,"latency_ms":0,"tokens_in":0,"tokens_out":0,"note":"rules","t":1790499453102}
+{"event":"skill_start","skill":"collect raw_iron:9","trigger":"skill_done","t":1790499453103}
+{"layer":"tactician","brain":"mock","selected":"mock","trigger":"heartbeat","goal":"nether_portal","options":["collect coal:6","collect raw_iron:9","pickup","explore any"],"choice":"collect coal:6","valid":true,"latency_ms":0,"tokens_in":0,"tokens_out":0,"note":"rules","t":1790499533612}
+{"event":"skill_end","skill":"collect raw_iron:9","ok":false,"code":"INTERRUPTED","detail":"interrupted: brain chose collect coal:6","seconds":40.15,"t":1790499533612}
+{"event":"skill_start","skill":"collect coal:6","trigger":"heartbeat","t":1790499533612}
+{"event":"skill_end","skill":"collect coal:6","ok":true,"detail":"collected 6 coal","seconds":18.85,"t":1790499571314}
+{"layer":"tactician","brain":"mock","selected":"mock","trigger":"skill_done","goal":"nether_portal","options":["collect raw_iron:9","explore any"],"choice":"collect raw_iron:9","valid":true,"latency_ms":0,"tokens_in":0,"tokens_out":0,"note":"rules","t":1790499571315}
+{"event":"skill_start","skill":"collect raw_iron:9","trigger":"skill_done","t":1790499571315}
+{"layer":"tactician","brain":"mock","selected":"mock","trigger":"mob_near","goal":"nether_portal","options":["retreat","collect raw_iron:9","shelter","explore any"],"choice":"retreat","valid":true,"latency_ms":0,"tokens_in":0,"tokens_out":0,"note":"rules","t":1790499639922}
+{"event":"skill_end","skill":"collect raw_iron:9","ok":false,"code":"INTERRUPTED","detail":"interrupted: brain chose retreat","seconds":34.3,"t":1790499639923}
+{"event":"skill_start","skill":"retreat","trigger":"mob_near","t":1790499639923}
+{"layer":"tactician","brain":"mock","selected":"mock","trigger":"mob_near","goal":"nether_portal","options":["retreat","collect raw_iron:9","pickup","shelter","explore any"],"choice":"retreat","valid":true,"latency_ms":0,"tokens_in":0,"tokens_out":0,"note":"rules","t":1790499643413}
+{"layer":"tactician","brain":"mock","selected":"mock","trigger":"mob_near","goal":"nether_portal","options":["retreat","collect raw_iron:9","shelter","explore any"],"choice":"retreat","valid":true,"latency_ms":0,"tokens_in":0,"tokens_out":0,"note":"rules","t":1790499650913}
+{"event":"skill_end","skill":"retreat","ok":false,"code":"INTERRUPTED","detail":"interrupted by reflex_creeper","seconds":5.95,"t":1790499651814}
+{"event":"skill_start","skill":"retreat","trigger":"reflex_creeper","t":1790499651814}
+{"event":"skill_end","skill":"retreat","ok":false,"code":"DIED","detail":"died","seconds":2.35,"t":1790499656516}
+{"event":"death","detail":"explosion.player","t":1790499656517}
+{"event":"strategist_request","detail":"respawned","t":1790499662814}
+{"layer":"strategist","brain":"mock","choice":"nether_portal","reason":"next unfinished goal on the ladder","valid":true,"latency_ms":0,"tokens_in":0,"tokens_out":0,"note":"Opus strategist off","t":1790499662818}
+{"event":"skill_start","skill":"retreat","trigger":"reflex_creeper","t":1790499662818}
+{"event":"skill_end","skill":"retreat","ok":true,"detail":"nothing to run from","seconds":0.0,"t":1790499662818}
+{"layer":"tactician","brain":"mock","selected":"mock","trigger":"skill_done","goal":"nether_portal","options":["retreat","shelter","collect log:3","explore log"],"choice":"retreat","valid":true,"latency_ms":0,"tokens_in":0,"tokens_out":0,"note":"rules","t":1790499662819}
+{"event":"skill_start","skill":"retreat","trigger":"skill_done","t":1790499662819}
+{"event":"skill_end","skill":"retreat","ok":true,"detail":"nothing to run from","seconds":0.05,"t":1790499662912}
+{"layer":"tactician","brain":"mock","selected":"mock","trigger":"skill_done","goal":"nether_portal","options":["collect log:3","shelter","explore log"],"choice":"collect log:3","valid":true,"latency_ms":0,"tokens_in":0,"tokens_out":0,"note":"rules","t":1790499662913}
+{"event":"skill_start","skill":"collect log:3","trigger":"skill_done","t":1790499662915}
+{"event":"skill_end","skill":"collect log:3","ok":true,"detail":"collected 3 log","seconds":15.75,"t":1790499694425}
+{"layer":"tactician","brain":"mock","selected":"mock","trigger":"skill_done","goal":"nether_portal","options":["craft planks:4","shelter","explore any"],"choice":"craft planks:4","valid":true,"latency_ms":0,"tokens_in":0,"tokens_out":0,"note":"rules","t":1790499694426}
+{"event":"skill_start","skill":"craft planks:4","trigger":"skill_done","t":1790499694426}
+{"event":"skill_end","skill":"craft planks:4","ok":true,"detail":"crafted 4 planks","seconds":0.45,"t":1790499695325}
+{"layer":"tactician","brain":"mock","selected":"mock","trigger":"skill_done","goal":"nether_portal","options":["craft stick:4","shelter","explore any"],"choice":"craft stick:4","valid":true,"latency_ms":0,"tokens_in":0,"tokens_out":0,"note":"rules","t":1790499695326}
+{"event":"skill_start","skill":"craft stick:4","trigger":"skill_done","t":1790499695326}
+{"event":"skill_end","skill":"craft stick:4","ok":true,"detail":"crafted 4 stick","seconds":0.45,"t":1790499696225}
+{"layer":"tactician","brain":"mock","selected":"mock","trigger":"skill_done","goal":"nether_portal","options":["craft planks:4","shelter","explore any"],"choice":"craft planks:4","valid":true,"latency_ms":0,"tokens_in":0,"tokens_out":0,"note":"rules","t":1790499696226}
+{"event":"skill_start","skill":"craft planks:4","trigger":"skill_done","t":1790499696226}
+{"event":"skill_end","skill":"craft planks:4","ok":true,"detail":"crafted 4 planks","seconds":0.45,"t":1790499697125}
+{"layer":"tactician","brain":"mock","selected":"mock","trigger":"skill_done","goal":"nether_portal","options":["craft crafting_table:1","shelter","explore any"],"choice":"craft crafting_table:1","valid":true,"latency_ms":0,"tokens_in":0,"tokens_out":0,"note":"rules","t":1790499697126}
+{"event":"skill_start","skill":"craft crafting_table:1","trigger":"skill_done","t":1790499697126}
+{"event":"skill_end","skill":"craft crafting_table:1","ok":true,"detail":"crafted 1 crafting_table","seconds":0.45,"t":1790499698026}
+{"layer":"tactician","brain":"mock","selected":"mock","trigger":"skill_done","goal":"nether_portal","options":["craft planks:4","shelter","explore any"],"choice":"craft planks:4","valid":true,"latency_ms":0,"tokens_in":0,"tokens_out":0,"note":"rules","t":1790499698026}
+{"event":"skill_start","skill":"craft planks:4","trigger":"skill_done","t":1790499698027}
+{"event":"skill_end","skill":"craft planks:4","ok":true,"detail":"crafted 4 planks","seconds":0.45,"t":1790499698926}
+{"layer":"tactician","brain":"mock","selected":"mock","trigger":"skill_done","goal":"nether_portal","options":["craft wooden_pickaxe:1","shelter","explore any"],"choice":"craft wooden_pickaxe:1","valid":true,"latency_ms":0,"tokens_in":0,"tokens_out":0,"note":"rules","t":1790499698926}
+{"event":"skill_start","skill":"craft wooden_pickaxe:1","trigger":"skill_done","t":1790499698927}
+{"event":"skill_end","skill":"craft wooden_pickaxe:1","ok":true,"detail":"crafted 1 wooden_pickaxe","seconds":0.9,"t":1790499700726}
+{"layer":"tactician","brain":"mock","selected":"mock","trigger":"skill_done","goal":"nether_portal","options":["pickup stations","collect coal:6","collect stone:13","shelter","explore any"],"choice":"pickup stations","valid":true,"latency_ms":0,"tokens_in":0,"tokens_out":0,"note":"rules","t":1790499700726}
+{"event":"skill_start","skill":"pickup stations","trigger":"skill_done","t":1790499700727}
+{"event":"skill_end","skill":"pickup stations","ok":true,"detail":"nothing left to pick up","seconds":3.9,"t":1790499708526}
+{"layer":"tactician","brain":"mock","selected":"mock","trigger":"skill_done","goal":"nether_portal","options":["collect coal:6","collect stone:13","shelter","explore any"],"choice":"collect coal:6","valid":true,"latency_ms":0,"tokens_in":0,"tokens_out":0,"note":"rules","t":1790499708526}
+{"event":"skill_start","skill":"collect coal:6","trigger":"skill_done","t":1790499708526}
+{"event":"skill_end","skill":"collect coal:6","ok":true,"detail":"collected 6 coal","seconds":19.85,"t":1790499748241}
+{"layer":"tactician","brain":"mock","selected":"mock","trigger":"skill_done","goal":"nether_portal","options":["attack zombie","collect stone:11","pickup","shelter","explore any"],"choice":"attack zombie","valid":true,"latency_ms":0,"tokens_in":0,"tokens_out":0,"note":"rules","t":1790499748242}
+{"event":"skill_start","skill":"attack zombie","trigger":"skill_done","t":1790499748242}
+{"layer":"tactician","brain":"mock","selected":"mock","trigger":"hurt","goal":"nether_portal","options":["attack zombie","collect stone:11","pickup","shelter","explore any"],"choice":"attack zombie","valid":true,"latency_ms":0,"tokens_in":0,"tokens_out":0,"note":"rules","t":1790499755326}
+{"event":"skill_end","skill":"attack zombie","ok":false,"code":"INTERRUPTED","detail":"interrupted by reflex_creeper","seconds":3.85,"t":1790499755926}
+{"event":"skill_start","skill":"retreat","trigger":"reflex_creeper","t":1790499755926}
+{"event":"skill_end","skill":"retreat","ok":true,"detail":"got away","seconds":9.2,"t":1790499774326}
+{"layer":"tactician","brain":"mock","selected":"mock","trigger":"skill_done","goal":"nether_portal","options":["collect stone:11","shelter","explore any"],"choice":"collect stone:11","valid":true,"latency_ms":0,"tokens_in":0,"tokens_out":0,"note":"rules","t":1790499774326}
+{"event":"skill_start","skill":"collect stone:11","trigger":"skill_done","t":1790499774328}
+{"event":"skill_end","skill":"collect stone:11","ok":true,"detail":"collected 11 stone","seconds":19.9,"t":1790499814127}
+{"layer":"tactician","brain":"mock","selected":"mock","trigger":"skill_done","goal":"nether_portal","options":["eat","goto surface","collect log:9","pickup","shelter","explore log"],"choice":"eat","valid":true,"latency_ms":0,"tokens_in":0,"tokens_out":0,"note":"rules","t":1790499814127}
+{"event":"skill_start","skill":"eat","trigger":"skill_done","t":1790499814127}
+{"event":"skill_end","skill":"eat","ok":true,"detail":"ate rotten_flesh","seconds":1.85,"t":1790499817826}
+{"layer":"tactician","brain":"mock","selected":"mock","trigger":"skill_done","goal":"nether_portal","options":["goto surface","collect log:9","shelter","explore log"],"choice":"goto surface","valid":true,"latency_ms":0,"tokens_in":0,"tokens_out":0,"note":"rules","t":1790499817827}
+{"event":"skill_start","skill":"goto surface","trigger":"skill_done","t":1790499817827}
+{"layer":"tactician","brain":"mock","selected":"mock","trigger":"mob_near","goal":"nether_portal","options":["attack zombie","goto surface","collect log:9","pickup","shelter","explore log"],"choice":"attack zombie","valid":true,"latency_ms":0,"tokens_in":0,"tokens_out":0,"note":"rules","t":1790499836526}
+{"event":"skill_end","skill":"goto surface","ok":false,"code":"INTERRUPTED","detail":"interrupted: brain chose attack zombie","seconds":9.35,"t":1790499836526}
+{"event":"skill_start","skill":"attack zombie","trigger":"mob_near","t":1790499836526}
+{"layer":"tactician","brain":"mock","selected":"mock","trigger":"hurt","goal":"nether_portal","options":["attack zombie","goto surface","collect log:9","pickup","shelter","explore log"],"choice":"attack zombie","valid":true,"latency_ms":0,"tokens_in":0,"tokens_out":0,"note":"rules","t":1790499845936}
+{"layer":"tactician","brain":"mock","selected":"mock","trigger":"hurt","goal":"nether_portal","options":["attack zombie","goto surface","collect log:9","pickup","shelter","explore log"],"choice":"attack zombie","valid":true,"latency_ms":0,"tokens_in":0,"tokens_out":0,"note":"rules","t":1790499854436}
+{"event":"skill_end","skill":"attack zombie","ok":true,"detail":"killed the zombie","seconds":13.4,"t":1790499863336}
+{"layer":"tactician","brain":"mock","selected":"mock","trigger":"skill_done","goal":"nether_portal","options":["eat","goto surface","collect log:9","pickup","shelter","explore log"],"choice":"eat","valid":true,"latency_ms":0,"tokens_in":0,"tokens_out":0,"note":"rules","t":1790499863336}
+{"event":"skill_start","skill":"eat","trigger":"skill_done","t":1790499863336}
+{"event":"skill_end","skill":"eat","ok":true,"detail":"ate rotten_flesh","seconds":1.85,"t":1790499867036}
+{"layer":"tactician","brain":"mock","selected":"mock","trigger":"skill_done","goal":"nether_portal","options":["goto surface","collect log:9","pickup","shelter","explore log"],"choice":"goto surface","valid":true,"latency_ms":0,"tokens_in":0,"tokens_out":0,"note":"rules","t":1790499867036}
+{"event":"skill_start","skill":"goto surface","trigger":"skill_done","t":1790499867036}
+{"layer":"tactician","brain":"mock","selected":"mock","trigger":"mob_near","goal":"nether_portal","options":["attack skeleton","goto surface","collect log:9","pickup","shelter","explore log"],"choice":"attack skeleton","valid":true,"latency_ms":0,"tokens_in":0,"tokens_out":0,"note":"rules","t":1790499899536}
+{"event":"skill_end","skill":"goto surface","ok":false,"code":"INTERRUPTED","detail":"interrupted: brain chose attack skeleton","seconds":16.25,"t":1790499899536}
+{"event":"skill_start","skill":"attack skeleton","trigger":"mob_near","t":1790499899537}
+{"event":"skill_end","skill":"attack skeleton","ok":false,"code":"INTERRUPTED","detail":"interrupted by reflex_low_hp","seconds":2.2,"t":1790499903936}
+{"event":"skill_start","skill":"retreat","trigger":"reflex_low_hp","t":1790499903936}
+{"event":"skill_end","skill":"retreat","ok":false,"code":"TIMEOUT","detail":"timed out after 15 s","seconds":15.0,"t":1790499933937}
+{"layer":"tactician","brain":"mock","selected":"mock","trigger":"skill_failed","goal":"nether_portal","options":["retreat","goto surface","collect log:9","shelter","explore log"],"choice":"retreat","valid":true,"latency_ms":0,"tokens_in":0,"tokens_out":0,"note":"rules","t":1790499933938}
+{"event":"skill_start","skill":"retreat","trigger":"skill_failed","t":1790499933938}
+{"event":"skill_end","skill":"retreat","ok":false,"code":"INTERRUPTED","detail":"interrupted by reflex_fight","seconds":1.25,"t":1790499936436}
+{"event":"skill_start","skill":"attack zombie","trigger":"reflex_fight","t":1790499936436}
+{"event":"skill_end","skill":"attack zombie","ok":false,"code":"DIED","detail":"died","seconds":1.9,"t":1790499940237}
+{"event":"death","detail":"mob","t":1790499940237}
+{"event":"strategist_request","detail":"respawned","t":1790499946536}
+{"layer":"strategist","brain":"mock","choice":"nether_portal","reason":"next unfinished goal on the ladder","valid":true,"latency_ms":0,"tokens_in":0,"tokens_out":0,"note":"Opus strategist off","t":1790499946536}
+{"layer":"tactician","brain":"mock","selected":"mock","trigger":"idle","goal":"nether_portal","options":["collect log:3","shelter","explore log"],"choice":"collect log:3","valid":true,"latency_ms":0,"tokens_in":0,"tokens_out":0,"note":"rules","t":1790499946636}
+{"event":"skill_start","skill":"collect log:3","trigger":"idle","t":1790499946638}
+{"event":"skill_end","skill":"collect log:3","ok":true,"detail":"collected 3 log","seconds":12.45,"t":1790499971637}
+{"layer":"tactician","brain":"mock","selected":"mock","trigger":"skill_done","goal":"nether_portal","options":["craft planks:4","shelter","explore any"],"choice":"craft planks:4","valid":true,"latency_ms":0,"tokens_in":0,"tokens_out":0,"note":"rules","t":1790499971637}
+{"event":"skill_start","skill":"craft planks:4","trigger":"skill_done","t":1790499971638}
+{"event":"skill_end","skill":"craft planks:4","ok":true,"detail":"crafted 4 planks","seconds":0.45,"t":1790499972536}
+{"layer":"tactician","brain":"mock","selected":"mock","trigger":"skill_done","goal":"nether_portal","options":["craft stick:4","shelter","explore any"],"choice":"craft stick:4","valid":true,"latency_ms":0,"tokens_in":0,"tokens_out":0,"note":"rules","t":1790499972537}
+{"event":"skill_start","skill":"craft stick:4","trigger":"skill_done","t":1790499972547}
+{"event":"skill_end","skill":"craft stick:4","ok":true,"detail":"crafted 4 stick","seconds":0.45,"t":1790499973436}
+{"layer":"tactician","brain":"mock","selected":"mock","trigger":"skill_done","goal":"nether_portal","options":["craft planks:4","shelter","explore any"],"choice":"craft planks:4","valid":true,"latency_ms":0,"tokens_in":0,"tokens_out":0,"note":"rules","t":1790499973437}
+{"event":"skill_start","skill":"craft planks:4","trigger":"skill_done","t":1790499973437}
+{"event":"skill_end","skill":"craft planks:4","ok":true,"detail":"crafted 4 planks","seconds":0.45,"t":1790499974336}
+{"layer":"tactician","brain":"mock","selected":"mock","trigger":"skill_done","goal":"nether_portal","options":["craft crafting_table:1","shelter","explore any"],"choice":"craft crafting_table:1","valid":true,"latency_ms":0,"tokens_in":0,"tokens_out":0,"note":"rules","t":1790499974337}
+{"event":"skill_start","skill":"craft crafting_table:1","trigger":"skill_done","t":1790499974337}
+{"event":"skill_end","skill":"craft crafting_table:1","ok":true,"detail":"crafted 1 crafting_table","seconds":0.45,"t":1790499975236}
+{"layer":"tactician","brain":"mock","selected":"mock","trigger":"skill_done","goal":"nether_portal","options":["craft planks:4","shelter","explore any"],"choice":"craft planks:4","valid":true,"latency_ms":0,"tokens_in":0,"tokens_out":0,"note":"rules","t":1790499975236}
+{"event":"skill_start","skill":"craft planks:4","trigger":"skill_done","t":1790499975236}
+{"event":"skill_end","skill":"craft planks:4","ok":true,"detail":"crafted 4 planks","seconds":0.45,"t":1790499976136}
+{"layer":"tactician","brain":"mock","selected":"mock","trigger":"skill_done","goal":"nether_portal","options":["craft wooden_pickaxe:1","shelter","explore any"],"choice":"craft wooden_pickaxe:1","valid":true,"latency_ms":0,"tokens_in":0,"tokens_out":0,"note":"rules","t":1790499976136}
+{"event":"skill_start","skill":"craft wooden_pickaxe:1","trigger":"skill_done","t":1790499976137}
+{"event":"skill_end","skill":"craft wooden_pickaxe:1","ok":true,"detail":"crafted 1 wooden_pickaxe","seconds":0.9,"t":1790499977936}
+{"layer":"tactician","brain":"mock","selected":"mock","trigger":"skill_done","goal":"nether_portal","options":["pickup stations","collect stone:13","shelter","explore any"],"choice":"pickup stations","valid":true,"latency_ms":0,"tokens_in":0,"tokens_out":0,"note":"rules","t":1790499977937}
+{"event":"skill_start","skill":"pickup stations","trigger":"skill_done","t":1790499977937}
+{"event":"skill_end","skill":"pickup stations","ok":true,"detail":"nothing left to pick up","seconds":3.9,"t":1790499985736}
+{"layer":"tactician","brain":"mock","selected":"mock","trigger":"skill_done","goal":"nether_portal","options":["collect stone:13","shelter","explore any"],"choice":"collect stone:13","valid":true,"latency_ms":0,"tokens_in":0,"tokens_out":0,"note":"rules","t":1790499985737}
+{"event":"skill_start","skill":"collect stone:13","trigger":"skill_done","t":1790499985737}
+{"layer":"tactician","brain":"mock","selected":"mock","trigger":"heartbeat","goal":"nether_portal","options":["collect log:9","pickup","shelter","explore log"],"choice":"collect log:9","valid":true,"latency_ms":0,"tokens_in":0,"tokens_out":0,"note":"rules","t":1790500025937}
+{"event":"skill_end","skill":"collect stone:13","ok":false,"code":"INTERRUPTED","detail":"interrupted: brain chose collect log:9","seconds":20.1,"t":1790500025937}
+{"event":"skill_start","skill":"collect log:9","trigger":"heartbeat","t":1790500025939}
+{"layer":"tactician","brain":"mock","selected":"mock","trigger":"heartbeat","goal":"nether_portal","options":["collect coal:6","craft planks:4","pickup","shelter","explore any"],"choice":"collect coal:6","valid":true,"latency_ms":0,"tokens_in":0,"tokens_out":0,"note":"rules","t":1790500066037}
+{"event":"skill_end","skill":"collect log:9","ok":false,"code":"INTERRUPTED","detail":"interrupted: brain chose collect coal:6","seconds":20.05,"t":1790500066037}
+{"event":"skill_start","skill":"collect coal:6","trigger":"heartbeat","t":1790500066037}
+{"event":"skill_end","skill":"collect coal:6","ok":true,"detail":"collected 6 coal","seconds":14.25,"t":1790500094548}
+{"layer":"tactician","brain":"mock","selected":"mock","trigger":"skill_done","goal":"nether_portal","options":["attack zombie","craft planks:4","pickup","shelter","explore any"],"choice":"attack zombie","valid":true,"latency_ms":0,"tokens_in":0,"tokens_out":0,"note":"rules","t":1790500094549}
+{"event":"skill_start","skill":"attack zombie","trigger":"skill_done","t":1790500094549}
+{"event":"skill_end","skill":"attack zombie","ok":true,"detail":"killed the zombie","seconds":10.7,"t":1790500115937}
+{"layer":"tactician","brain":"mock","selected":"mock","trigger":"skill_done","goal":"nether_portal","options":["craft crafting_table:1","pickup","shelter","explore any"],"choice":"craft crafting_table:1","valid":true,"latency_ms":0,"tokens_in":0,"tokens_out":0,"note":"rules","t":1790500115937}
+{"event":"skill_start","skill":"craft crafting_table:1","trigger":"skill_done","t":1790500115937}
+{"event":"skill_end","skill":"craft crafting_table:1","ok":true,"detail":"crafted 1 crafting_table","seconds":0.45,"t":1790500116837}
+{"layer":"tactician","brain":"mock","selected":"mock","trigger":"skill_done","goal":"nether_portal","options":["craft stone_pickaxe:1","pickup","shelter","explore any"],"choice":"craft stone_pickaxe:1","valid":true,"latency_ms":0,"tokens_in":0,"tokens_out":0,"note":"rules","t":1790500116837}
+{"event":"skill_start","skill":"craft stone_pickaxe:1","trigger":"skill_done","t":1790500116838}
+{"event":"skill_end","skill":"craft stone_pickaxe:1","ok":true,"detail":"crafted 1 stone_pickaxe","seconds":0.9,"t":1790500118637}
+{"layer":"tactician","brain":"mock","selected":"mock","trigger":"skill_done","goal":"nether_portal","options":["pickup stations","collect raw_iron:13","pickup","shelter","explore any"],"choice":"pickup stations","valid":true,"latency_ms":0,"tokens_in":0,"tokens_out":0,"note":"rules","t":1790500118637}
+{"event":"skill_start","skill":"pickup stations","trigger":"skill_done","t":1790500118637}
+{"event":"skill_end","skill":"pickup stations","ok":true,"detail":"picked up 1 stacks","seconds":4.9,"t":1790500128436}
+{"layer":"tactician","brain":"mock","selected":"mock","trigger":"skill_done","goal":"nether_portal","options":["collect raw_iron:13","pickup","shelter","explore any"],"choice":"collect raw_iron:13","valid":true,"latency_ms":0,"tokens_in":0,"tokens_out":0,"note":"rules","t":1790500128437}
+{"event":"skill_start","skill":"collect raw_iron:13","trigger":"skill_done","t":1790500128437}
+{"event":"skill_end","skill":"collect raw_iron:13","ok":true,"detail":"collected 13 raw_iron","seconds":63.7,"t":1790500255837}
+{"layer":"tactician","brain":"mock","selected":"mock","trigger":"skill_done","goal":"nether_portal","options":["craft planks:4","pickup","shelter","explore any"],"choice":"craft planks:4","valid":true,"latency_ms":0,"tokens_in":0,"tokens_out":0,"note":"rules","t":1790500255838}
+{"event":"skill_start","skill":"craft planks:4","trigger":"skill_done","t":1790500255839}
+{"event":"skill_end","skill":"craft planks:4","ok":true,"detail":"crafted 4 planks","seconds":0.45,"t":1790500256736}
+{"layer":"tactician","brain":"mock","selected":"mock","trigger":"skill_done","goal":"nether_portal","options":["craft crafting_table:1","shelter","explore any"],"choice":"craft crafting_table:1","valid":true,"latency_ms":0,"tokens_in":0,"tokens_out":0,"note":"rules","t":1790500256737}
+{"event":"skill_start","skill":"craft crafting_table:1","trigger":"skill_done","t":1790500256737}
+{"event":"skill_end","skill":"craft crafting_table:1","ok":true,"detail":"crafted 1 crafting_table","seconds":0.45,"t":1790500257636}
+{"layer":"tactician","brain":"mock","selected":"mock","trigger":"skill_done","goal":"nether_portal","options":["craft furnace:1","shelter","explore any"],"choice":"craft furnace:1","valid":true,"latency_ms":0,"tokens_in":0,"tokens_out":0,"note":"rules","t":1790500257637}
+{"event":"skill_start","skill":"craft furnace:1","trigger":"skill_done","t":1790500257637}
+{"event":"skill_end","skill":"craft furnace:1","ok":true,"detail":"crafted 1 furnace","seconds":0.9,"t":1790500259436}
+{"layer":"tactician","brain":"mock","selected":"mock","trigger":"skill_done","goal":"nether_portal","options":["smelt iron_ingot:13","shelter","explore any"],"choice":"smelt iron_ingot:13","valid":true,"latency_ms":0,"tokens_in":0,"tokens_out":0,"note":"rules","t":1790500259437}
+{"event":"skill_start","skill":"smelt iron_ingot:13","trigger":"skill_done","t":1790500259437}
+{"event":"skill_end","skill":"smelt iron_ingot:13","ok":true,"detail":"loaded 13 to smelt into iron_ingot; working nearby meanwhile","seconds":0.5,"t":1790500260439}
+{"layer":"tactician","brain":"mock","selected":"mock","trigger":"skill_done","goal":"nether_portal","options":["pickup stations","collect coal:4","shelter","explore any"],"choice":"pickup stations","valid":true,"latency_ms":0,"tokens_in":0,"tokens_out":0,"note":"rules","t":1790500260440}
+{"event":"skill_start","skill":"pickup stations","trigger":"skill_done","t":1790500260440}
+{"event":"skill_end","skill":"pickup stations","ok":true,"detail":"nothing left to pick up","seconds":3.9,"t":1790500268236}
+{"layer":"tactician","brain":"mock","selected":"mock","trigger":"skill_done","goal":"nether_portal","options":["collect coal:4","shelter","explore any"],"choice":"collect coal:4","valid":true,"latency_ms":0,"tokens_in":0,"tokens_out":0,"note":"rules","t":1790500268237}
+{"event":"skill_start","skill":"collect coal:4","trigger":"skill_done","t":1790500268237}
+{"event":"skill_end","skill":"collect coal:4","ok":true,"detail":"collected 4 coal","seconds":13.65,"t":1790500295537}
+{"layer":"tactician","brain":"mock","selected":"mock","trigger":"skill_done","goal":"nether_portal","options":["collect flint:1","pickup","shelter","explore gravel"],"choice":"collect flint:1","valid":true,"latency_ms":0,"tokens_in":0,"tokens_out":0,"note":"rules","t":1790500295538}
+{"event":"skill_start","skill":"collect flint:1","trigger":"skill_done","t":1790500295540}
+{"event":"skill_end","skill":"collect flint:1","ok":true,"detail":"collected 1 flint","seconds":6.5,"t":1790500308539}
+{"layer":"tactician","brain":"mock","selected":"mock","trigger":"skill_done","goal":"nether_portal","options":["eat","smelt iron_ingot:13","pickup","shelter","explore any"],"choice":"eat","valid":true,"latency_ms":0,"tokens_in":0,"tokens_out":0,"note":"rules","t":1790500308540}
+{"event":"skill_start","skill":"eat","trigger":"skill_done","t":1790500308540}
+{"event":"skill_end","skill":"eat","ok":true,"detail":"ate rotten_flesh","seconds":1.85,"t":1790500312236}
+{"layer":"tactician","brain":"mock","selected":"mock","trigger":"skill_done","goal":"nether_portal","options":["smelt iron_ingot:13","shelter","explore any"],"choice":"smelt iron_ingot:13","valid":true,"latency_ms":0,"tokens_in":0,"tokens_out":0,"note":"rules","t":1790500312237}
+{"event":"skill_start","skill":"smelt iron_ingot:13","trigger":"skill_done","t":1790500312237}
+{"event":"skill_end","skill":"smelt iron_ingot:13","ok":true,"detail":"smelted 13 iron_ingot","seconds":105.0,"t":1790500522237}
+{"layer":"tactician","brain":"mock","selected":"mock","trigger":"skill_done","goal":"nether_portal","options":["eat","craft iron_pickaxe:1","shelter","explore any"],"choice":"eat","valid":true,"latency_ms":0,"tokens_in":0,"tokens_out":0,"note":"rules","t":1790500522237}
+{"event":"skill_start","skill":"eat","trigger":"skill_done","t":1790500522238}
+{"event":"skill_end","skill":"eat","ok":true,"detail":"ate rotten_flesh","seconds":1.85,"t":1790500525937}
+{"layer":"tactician","brain":"mock","selected":"mock","trigger":"skill_done","goal":"nether_portal","options":["craft iron_pickaxe:1","shelter","explore any"],"choice":"craft iron_pickaxe:1","valid":true,"latency_ms":0,"tokens_in":0,"tokens_out":0,"note":"rules","t":1790500525937}
+{"event":"skill_start","skill":"craft iron_pickaxe:1","trigger":"skill_done","t":1790500525937}
+{"event":"skill_end","skill":"craft iron_pickaxe:1","ok":true,"detail":"crafted 1 iron_pickaxe","seconds":0.9,"t":1790500527737}
+{"layer":"tactician","brain":"mock","selected":"mock","trigger":"skill_done","goal":"nether_portal","options":["craft planks:4","shelter","explore any"],"choice":"craft planks:4","valid":true,"latency_ms":0,"tokens_in":0,"tokens_out":0,"note":"rules","t":1790500527737}
+{"event":"skill_start","skill":"craft planks:4","trigger":"skill_done","t":1790500527737}
+{"event":"skill_end","skill":"craft planks:4","ok":true,"detail":"crafted 4 planks","seconds":0.45,"t":1790500528636}
+{"layer":"tactician","brain":"mock","selected":"mock","trigger":"skill_done","goal":"nether_portal","options":["craft shield:1","shelter","explore any"],"choice":"craft shield:1","valid":true,"latency_ms":0,"tokens_in":0,"tokens_out":0,"note":"rules","t":1790500528637}
+{"event":"skill_start","skill":"craft shield:1","trigger":"skill_done","t":1790500528637}
+{"event":"skill_end","skill":"craft shield:1","ok":true,"detail":"crafted 1 shield","seconds":0.8,"t":1790500530236}
+{"layer":"tactician","brain":"mock","selected":"mock","trigger":"skill_done","goal":"nether_portal","options":["equip shield","craft bucket:1","shelter","explore any"],"choice":"equip shield","valid":true,"latency_ms":0,"tokens_in":0,"tokens_out":0,"note":"rules","t":1790500530237}
+{"event":"skill_start","skill":"equip shield","trigger":"skill_done","t":1790500530237}
+{"event":"skill_end","skill":"equip shield","ok":true,"detail":"shield in off hand","seconds":0.05,"t":1790500530337}
+{"layer":"tactician","brain":"mock","selected":"mock","trigger":"skill_done","goal":"nether_portal","options":["craft bucket:1","shelter","explore any"],"choice":"craft bucket:1","valid":true,"latency_ms":0,"tokens_in":0,"tokens_out":0,"note":"rules","t":1790500530337}
+{"event":"skill_start","skill":"craft bucket:1","trigger":"skill_done","t":1790500530338}
+{"event":"skill_end","skill":"craft bucket:1","ok":true,"detail":"crafted 1 bucket","seconds":0.8,"t":1790500531936}
+{"layer":"tactician","brain":"mock","selected":"mock","trigger":"skill_done","goal":"nether_portal","options":["craft planks:4","shelter","explore any"],"choice":"craft planks:4","valid":true,"latency_ms":0,"tokens_in":0,"tokens_out":0,"note":"rules","t":1790500531937}
+{"event":"skill_start","skill":"craft planks:4","trigger":"skill_done","t":1790500531937}
+{"event":"skill_end","skill":"craft planks:4","ok":true,"detail":"crafted 4 planks","seconds":0.45,"t":1790500532836}
+{"layer":"tactician","brain":"mock","selected":"mock","trigger":"skill_done","goal":"nether_portal","options":["craft stick:4","shelter","explore any"],"choice":"craft stick:4","valid":true,"latency_ms":0,"tokens_in":0,"tokens_out":0,"note":"rules","t":1790500532837}
+{"event":"skill_start","skill":"craft stick:4","trigger":"skill_done","t":1790500532837}
+{"event":"skill_end","skill":"craft stick:4","ok":true,"detail":"crafted 4 stick","seconds":0.45,"t":1790500533736}
+{"layer":"tactician","brain":"mock","selected":"mock","trigger":"skill_done","goal":"nether_portal","options":["craft iron_sword:1","shelter","explore any"],"choice":"craft iron_sword:1","valid":true,"latency_ms":0,"tokens_in":0,"tokens_out":0,"note":"rules","t":1790500533737}
+{"event":"skill_start","skill":"craft iron_sword:1","trigger":"skill_done","t":1790500533737}
+{"event":"skill_end","skill":"craft iron_sword:1","ok":true,"detail":"crafted 1 iron_sword","seconds":0.8,"t":1790500535337}
+{"layer":"tactician","brain":"mock","selected":"mock","trigger":"skill_done","goal":"nether_portal","options":["pickup stations","collect raw_iron:4","shelter","explore any"],"choice":"pickup stations","valid":true,"latency_ms":0,"tokens_in":0,"tokens_out":0,"note":"rules","t":1790500535337}
+{"event":"skill_start","skill":"pickup stations","trigger":"skill_done","t":1790500535337}
+{"event":"skill_end","skill":"pickup stations","ok":true,"detail":"nothing left to pick up","seconds":5.15,"t":1790500545636}
+{"layer":"tactician","brain":"mock","selected":"mock","trigger":"skill_done","goal":"nether_portal","options":["collect raw_iron:4","shelter","explore any"],"choice":"collect raw_iron:4","valid":true,"latency_ms":0,"tokens_in":0,"tokens_out":0,"note":"rules","t":1790500545637}
+{"event":"skill_start","skill":"collect raw_iron:4","trigger":"skill_done","t":1790500545637}
+{"layer":"tactician","brain":"mock","selected":"mock","trigger":"heartbeat","goal":"nether_portal","options":["eat","collect raw_iron:1","explore any"],"choice":"eat","valid":true,"latency_ms":0,"tokens_in":0,"tokens_out":0,"note":"rules","t":1790500666053}
+{"event":"skill_end","skill":"collect raw_iron:4","ok":false,"code":"INTERRUPTED","detail":"interrupted: brain chose eat","seconds":60.2,"t":1790500666054}
+{"event":"skill_start","skill":"eat","trigger":"heartbeat","t":1790500666054}
+{"event":"skill_end","skill":"eat","ok":true,"detail":"ate rotten_flesh","seconds":1.85,"t":1790500669753}
+{"layer":"tactician","brain":"mock","selected":"mock","trigger":"skill_done","goal":"nether_portal","options":["collect raw_iron:1","explore any"],"choice":"collect raw_iron:1","valid":true,"latency_ms":0,"tokens_in":0,"tokens_out":0,"note":"rules","t":1790500669753}
+{"event":"skill_start","skill":"collect raw_iron:1","trigger":"skill_done","t":1790500669753}
+{"event":"skill_end","skill":"collect raw_iron:1","ok":false,"code":"INTERRUPTED","detail":"test finished","seconds":26.35,"t":1790500722551}
+{"event":"autopilot_off","detail":"test finished","t":1790500722552}
