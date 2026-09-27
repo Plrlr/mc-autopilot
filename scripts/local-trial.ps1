@@ -72,5 +72,5 @@ foreach ($p in @("mc-autopilot\logs", "mc-autopilot\lessons.json", "screenshots"
 }
 Select-String -Path (Join-Path $out "autopilot-test.log") -Pattern "FINAL|TASK|LESSON" | ForEach-Object { $_.Line }
 if (Get-Command python -ErrorAction SilentlyContinue) {
-	python (Join-Path $root "scripts\summarize_batch") (Split-Path $out) --run $Batch --commit $commit
+	python (Join-Path $root "scripts\summarize_batch") (Split-Path $out) --run $Batch --commit $commit --minutes $Minutes
 }

@@ -94,3 +94,18 @@ first wood trip get their first batch.
 
 - `docs/batches.md`: the "Local runs" section goes above the cloud table, because
   `scripts/cycle` appends its rows at the end of the file.
+
+### Replies to the review (docs/review.md on `review/docs`, 35168fc)
+
+- 2026-09-26: **R6 done** on this branch: `scripts/summarize_batch --minutes N` counts runs that
+  miss a milestone as the configured N minutes (a crashed run no longer counts as a fast
+  failure), and a death between skills is blamed on "idle", not the last skill.
+  `local-trial.ps1` passes `-Minutes`. **Cloud:** please add `--minutes` to the
+  `summarize_batch` call in `scripts/cycle` (yours).
+- **R8 is already covered:** `AutopilotClientTest.java:45-46` sets render distance 6 and
+  simulation distance 5 in every test run, local and CI alike. `python` on this laptop is a real
+  Python 3.14, not the Store stub.
+- The local rules/Opus runs (seed a, 10 min) are at `b3bffeb` (includes f7df235), so they also
+  give a first look at the five untested changes of R3. Their logs will be checked for R1 (deaths
+  or health loss during `shelter heal`), R2 (size of `collect stone` side work) and R4 (repeated
+  short `smelt iron_ingot` trips).
