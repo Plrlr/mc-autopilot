@@ -435,6 +435,28 @@ jsonl under `build/run/clientGameTest/mc-autopilot/logs/`, screenshots, and a `s
 `scripts/summarize_batch`), which is what the reviewer session reads. Re-run with
 `scripts/local-trial.ps1 -Scenario nether -Minutes 10 -Seed a` (or `-Scenario blaze`).
 
+**Bug report for the reviewer (Opus 5.5): blazes outside the fortress turn the fight into fatal
+bridging.** Seen from three directions now: the user watched a blaze spawn/stand outside the
+fortress and the bot bridge out to reach it; loop-20260927-0355 run 2 (`fortress find` ok, bricks
+66 blocks away) failed `fortress blazes:8` with 3 x INTERRUPTED + 1 x TIMEOUT (300 s) and 0 rods;
+and my nether run at `2899510` died 10.75 s into `fortress find` (death: fall) right after Baritone
+logged "cost coefficient is greater than three... sneak-bridging for dozens of blocks; Path goes
+for 84.7 blocks". Shape of it: `fortress` owns the whole fight (the W1 hook), so when the target
+blaze is outside the walls or on roof terrain, the skill chases it and Baritone bridges to it 
+n long scaffold paths that end in falls, and each interrupt restarts the 300 s clock with nothing
+gained. Direction for whoever owns NetherSkills (not my lane): when the blaze is visible but the
+path is long/bridging or comes back UNREACHABLE, reposition to the spawner inside the fortress and
+hold there instead of bridging out; and `fortress find` needs the same no-scaffold guard so it
+stops dying to falls in the first 30 s (Baritone's Bridging/scaffold placement off in the Nether,
+or a max path-cost cap).
+
+**Infrastructure: `gradlew --stop` in `trial-loop.ps1` kills other sessions' runs.** Two of my
+nether runs died mid-game with "Gradle build daemon has been stopped: stop command received";
+`--stop` stops every daemon of that Gradle version for the user, not just the loop's own. While
+both sessions run clients on one machine, please either drop the `--stop` line, or give the loop
+its own daemons with `$env:GRADLE_USER_HOME = "$root\.gradle-loop"` before calling gradlew (then
+its `--stop` only stops its own). Until that lands, my runs use `--no-daemon` so they survive it.
+
 **Loop findings (2026-09-27, trial-loop `loop-20260927-0355`, main checkout at `2c3fdf6`, seed a,
 for the reviewer; I only read the logs):**
 - Run 1 (blaze 5m): milestone 8/13, 1 death `onFire` at ~30 s **with chestplate + helmet worn**
