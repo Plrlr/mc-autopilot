@@ -27,7 +27,7 @@ import java.util.List;
  * a portal frame doesn't need them.
  */
 public final class CastPortal extends Skill {
-	private enum Phase {SITE, APPROACH, WALL, NEXT, FETCH, WALK, LAVA, POUR, SCOOP, BREAK, CLEAR, LIGHT}
+	private enum Phase {SITE, APPROACH, WALL, NEXT, FETCH, WALK, LAVA, POUR, SCOOP, REFILL, BREAK, CLEAR, LIGHT}
 
 	/** Frame width 4 (x 0..3), height 5 (y 0..4); the wall behind also covers y 5 for the water. */
 	private static final int WALL_H = 6;
@@ -164,6 +164,16 @@ public final class CastPortal extends Skill {
 			}
 			case WALL -> wallTick(pl);
 			case NEXT -> nextTick(pl);
+			case REFILL -> {
+				refill.update();
+				if (refill.result() == null) return;
+				if (!refill.result().ok()) {
+					fail(refill.result().code(), "couldn't get water back: " + refill.result().detail());
+					return;
+				}
+				if (obsidian(target)) io.github.plrlr.autopilot.log.Checkpoints.mark("obsidian_placed");
+				phase = Phase.NEXT;
+			}
 			case FETCH -> {
 				fetch.update();
 				if (fetch.result() == null) return;
@@ -241,7 +251,7 @@ public final class CastPortal extends Skill {
 				}
 				if (wait % 5 != 0) return;
 				if (wait > 20 * 20) {
-					fail(Fail.USE_FAILED, "couldn't scoop the water back up");
+					refillWater("the scoop timed out");
 					return;
 				}
 				// The water sits in the spot we poured into; take it back for the next block.
@@ -249,7 +259,7 @@ public final class CastPortal extends Skill {
 				if (src == null) {
 					log("no water source near the frame; target is " + Mc.id(Mc.state(target).getBlock()) + ", planned water spot has "
 							+ Mc.id(Mc.state(water).getBlock()));
-					fail(Fail.NOT_FOUND, "lost the water");
+					refillWater("lost the poured water");
 					return;
 				}
 				if (wait == 10 || wait == 40) log("scooping water at " + src.toShortString() + " from " + pl.blockPosition().toShortString()
@@ -265,7 +275,7 @@ public final class CastPortal extends Skill {
 							return;
 						}
 					}
-					fail(Fail.UNREACHABLE, "no spot that sees the water to scoop it");
+					refillWater("no spot sees the poured water");
 					return;
 				}
 				Mc.holdItem(s -> Items2.id(s).equals("bucket"));
@@ -453,6 +463,19 @@ public final class CastPortal extends Skill {
 		io.github.plrlr.autopilot.AutopilotMod.LOGGER.info("[cast] {}", s);
 	}
 
+	/**
+	 * The poured water couldn't be taken back (batch 8, seed b): leave it and fill the bucket at
+	 * the nearest water we know instead (the poured source itself or the pool), then go on.
+	 */
+	private void refillWater(String why) {
+		log("refilling the water bucket elsewhere: " + why);
+		refill = new BucketSkills.FillBucket();
+		refill.begin(memory, "water");
+		phase = Phase.REFILL;
+	}
+
+	private BucketSkills.FillBucket refill;
+
 	private void castFailed(Fail code, String why) {
 		log("failed: " + why);
 		Bari.stop();
@@ -560,6 +583,7 @@ public final class CastPortal extends Skill {
 	@Override
 	protected void cleanup() {
 		if (fetch != null && fetch.result() == null) fetch.abort(Fail.INTERRUPTED, "stopped");
+		if (refill != null && refill.result() == null) refill.abort(Fail.INTERRUPTED, "stopped");
 		if (Mc.mc().gameMode != null) Mc.mc().gameMode.stopDestroyBlock();
 		super.cleanup();
 	}

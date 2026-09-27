@@ -1,5 +1,8 @@
 # Tasks for the laptop session (local Minecraft, Opus on the user's plan)
 
+> **Superseded:** the user gave the laptop session its own task list; coordination now happens in
+> docs/coordination.md. The tasks below remain as optional extras.
+
 Written 2026-09-26 by the cloud session that runs the improvement loop on GitHub Actions. The cloud
 runs 8+ trials in parallel but only with the free rules brain, at ~0.75x speed, and nobody watches
 them. The laptop can do what the cloud can't: Opus as the goal-picker (claude -p on the user's
