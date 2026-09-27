@@ -128,15 +128,34 @@ public class AutopilotClientTest implements FabricClientGameTest {
 		if (scenario.equals("natural")) return null;
 		server.runCommand("time set 1000");
 		if (scenario.equals("cast")) {
-			for (String g : List.of("iron_pickaxe", "iron_sword", "bucket 2", "flint_and_steel", "cobblestone 64", "cooked_beef 16"))
+			// The full kit the route carries by the cast (shield, chestplate, helmet worn): without
+			// them the portal step sent the bot mining 26 iron instead of casting (batch 12).
+			for (String g : List.of("iron_pickaxe", "iron_sword", "shield", "bucket 2", "flint_and_steel", "cobblestone 64", "cooked_beef 16"))
 				server.runCommand("give @a " + g);
+			server.runCommand("item replace entity @a armor.chest with iron_chestplate");
+			server.runCommand("item replace entity @a armor.head with iron_helmet");
 			lavaAndWater(server::runCommand);
 			return Goal.NETHER_PORTAL;
 		}
+		if (scenario.equals("deep")) {
+			// The deep-lava route: full kit with water already scooped, dropped into a small pocket
+			// at y -50. The bot has to find lava down here by itself and cast the portal.
+			for (String g : List.of("iron_pickaxe", "iron_sword", "shield", "bucket", "water_bucket", "flint_and_steel", "cobblestone 64", "cooked_beef 16"))
+				server.runCommand("give @a " + g);
+			server.runCommand("item replace entity @a armor.chest with iron_chestplate");
+			server.runCommand("item replace entity @a armor.head with iron_helmet");
+			server.runCommand("execute at @p run fill ~-2 -50 ~-2 ~2 -47 ~2 air");
+			server.runCommand("execute at @p run tp @p ~ -50 ~");
+			return Goal.NETHER_PORTAL;
+		}
 		if (scenario.equals("nether") || scenario.equals("blaze")) {
-			// What the speedrun route really carries into the Nether: iron tools and a shield, no armor.
+			// What the speedrun route really carries into the Nether since 9980cfe: iron tools, a
+			// shield, and an iron chestplate + helmet (worn, not just carried - the planner puts
+			// armor on at once) before it ever makes the portal.
 			for (String g : List.of("iron_pickaxe", "iron_sword", "shield", "cooked_beef 16", "cobblestone 64", "flint_and_steel"))
 				server.runCommand("give @a " + g);
+			server.runCommand("item replace entity @a armor.chest with iron_chestplate");
+			server.runCommand("item replace entity @a armor.head with iron_helmet");
 			// Blocks can only be set once the Nether chunks are loaded ("That position is not
 			// loaded"): go there first, build in arrive() after a wait.
 			server.runCommand("execute in minecraft:the_nether run tp @a 0 70 0");

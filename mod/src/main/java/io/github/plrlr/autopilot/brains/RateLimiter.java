@@ -74,11 +74,6 @@ public final class RateLimiter {
 		return hour.size();
 	}
 
-	public synchronized int callsToday() {
-		rollDay();
-		return today;
-	}
-
 	public int perHour() {
 		return perHour;
 	}

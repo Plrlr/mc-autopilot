@@ -92,8 +92,9 @@ def read_run(path):
                 run["_doing"] = action_of(o.get("skill", "?"))
             elif o.get("event") == "skill_end":
                 label = o.get("skill", "?")
-                # A death between skills is not the last skill's fault.
-                run["_doing"] = "idle"
+                # A death between skills is not the last skill's fault. A skill that ended with
+                # DIED is what the bot was doing: its skill_end comes just before the death event.
+                run["_doing"] = action_of(label) if o.get("code") == "DIED" else "idle"
                 run["time"][category(label)] += float(o.get("seconds", 0))
                 if not o.get("ok"):
                     code = o.get("code")

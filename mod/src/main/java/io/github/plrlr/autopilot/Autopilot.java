@@ -450,11 +450,14 @@ public final class Autopilot {
 		}
 		Perception.Seen h = seen.nearestHostile();
 		float hp = pl.getHealth();
-		// The fortress fight owns the blazes: it chases, hits, and backs off out of sight to eat on its
-		// own. The generic fight and low-health reflexes took it over in both local blaze runs and
-		// got the bot burned to death. Creepers, lava, fire and drowning still get their reflexes.
-		if (h != null && h.type().equals("blaze") && skill != null && skill.name().equals("fortress")
-				&& Mc.dimension().equals("the_nether")) h = null;
+		// The fortress fight owns every mob in the fortress: it chases blazes, hits whatever is in
+		// reach, and backs off to eat on its own. The generic reflexes took it over for blazes (burned
+		// to death twice) and wither skeletons (restarted it, loop 0355). Lava, fire and drowning
+		// still get their reflexes.
+		// (fortress find doesn't fight, so there only blazes are left alone).
+		boolean fortressFight = skill != null && skill.name().equals("fortress") && Mc.dimension().equals("the_nether")
+				&& skillOption != null && skillOption.arg() != null && skillOption.arg().startsWith("blazes");
+		if (h != null && (fortressFight || h.type().equals("blaze") && skill != null && skill.name().equals("fortress"))) h = null;
 		// Walled in on every side and healing: a monster beyond the blocks is no reason to break out.
 		// With a gap left (a mob standing in it) the reflexes still act; a creeper's blast breaks
 		// the wall either way (review R1: hiding used to turn off every reflex).
@@ -467,11 +470,10 @@ public final class Autopilot {
 				return;
 			}
 			if (!hiding && h.dist() < 3.5) {
-				// Same line as the planner's retreat (8): with 6 here, health 7-8 flipped between
-				// fighting and fleeing on every decision.
-				// Hiding and one got right up to us: fight it rather than start hiding again.
-				// Run only when outnumbered. One mob at arm's length follows and hits our back
-				// (batch 10: 14 retreats ended in death); fighting it behind the shield wins.
+				// Run only when outnumbered: one mob at arm's length follows and hits our back (batch
+				// 10: 14 retreats ended in death), and fighting it behind the shield wins. Not while
+				// walling in either, which would only restart the wall. Health 8 is the planner's line
+				// too: with 6 here, health 7-8 flipped between fighting and fleeing on every decision.
 				if (hp <= 8 && !walling && seen.hostilesWithin(6) >= 2) startReflex(Planner.escape("low health"), "reflex_low_hp");
 				else if (skill == null || !skill.name().equals("attack")) startReflex(new Option("attack", h.type(), "it's attacking"), "reflex_fight");
 				return;

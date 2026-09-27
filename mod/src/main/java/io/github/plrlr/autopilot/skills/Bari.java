@@ -113,12 +113,6 @@ public final class Bari {
 		return get().getCustomGoalProcess().isActive() || get().getPathingBehavior().isPathing();
 	}
 
-	public static boolean anyActive() {
-		IBaritone b = get();
-		return b.getCustomGoalProcess().isActive() || b.getMineProcess().isActive() || b.getExploreProcess().isActive()
-				|| b.getGetToBlockProcess().isActive() || b.getBuilderProcess().isActive() || b.getPathingBehavior().isPathing();
-	}
-
 	public static void stop() {
 		try {
 			IBaritone b = get();

@@ -3,6 +3,7 @@ package io.github.plrlr.autopilot.plan;
 import io.github.plrlr.autopilot.Items2;
 import io.github.plrlr.autopilot.Mc;
 import io.github.plrlr.autopilot.skills.CastPortal;
+import io.github.plrlr.autopilot.skills.MoveSkills;
 import io.github.plrlr.autopilot.skills.SmeltSkill;
 import io.github.plrlr.autopilot.skills.Station;
 import io.github.plrlr.autopilot.state.Perception;
@@ -35,23 +36,34 @@ public final class Planner {
 	 * player does on the way (food, a bed, coal), then the goal's next step, then fallbacks.
 	 */
 	public List<Option> options(Goal goal, Perception seen) {
-		Map<String, Option> out = new LinkedHashMap<>();
-		for (Option o : urgent(seen)) out.putIfAbsent(o.label(), o);
-		Option recover = recoverStep();
-		if (recover != null) out.putIfAbsent(recover.label(), recover);
 		Option main = goalStep(goal, seen, 0);
-		// Lost in a cave (a minute down here with nothing gained), or the next step needs the
-		// surface (trees, animals, walking to explore): go back up the way we came first.
-		boolean deep = !onSurface() && Mc.dimension().equals("overworld") && memory.surfaceEntry() != null
-				&& memory.surfaceEntry().getY() - Mc.player().getBlockY() > 8;
-		if (lostUnderground || (deep && needsSurface(main)))
-			out.putIfAbsent("goto surface", new Option("goto", "surface",
-					lostUnderground ? "a minute underground without progress: back up the way we came" : "the next step is on the surface"));
-		for (Option o : upkeep(seen, main)) out.putIfAbsent(o.label(), o);
+		return order(urgent(seen), recoverStep(), surfaceOption(main), upkeep(seen, main), main, extras(seen, main));
+	}
+
+	/** The phase order, first label wins, at most 10. Pure, so unit tests can check it. */
+	public static List<Option> order(List<Option> urgent, Option recover, Option surface, List<Option> upkeep, Option main,
+									 List<Option> extras) {
+		Map<String, Option> out = new LinkedHashMap<>();
+		for (Option o : urgent) out.putIfAbsent(o.label(), o);
+		if (recover != null) out.putIfAbsent(recover.label(), recover);
+		if (surface != null) out.putIfAbsent(surface.label(), surface);
+		for (Option o : upkeep) out.putIfAbsent(o.label(), o);
 		if (main != null) out.putIfAbsent(main.label(), main);
-		for (Option o : extras(seen, main)) out.putIfAbsent(o.label(), o);
+		for (Option o : extras) out.putIfAbsent(o.label(), o);
 		List<Option> list = new ArrayList<>(out.values());
 		return list.size() > 10 ? list.subList(0, 10) : list;
+	}
+
+	/**
+	 * Lost in a cave (a minute down here with nothing gained), or the next step needs the surface
+	 * (trees, animals, walking to explore): go back up the way we came first.
+	 */
+	private Option surfaceOption(Option main) {
+		boolean deep = !onSurface() && Mc.dimension().equals("overworld") && memory.surfaceEntry() != null
+				&& memory.surfaceEntry().getY() - Mc.player().getBlockY() > 8;
+		if (!(lostUnderground || (deep && needsSurface(main))) || MoveSkills.Goto.surfaceBlocked()) return null;
+		return new Option("goto", "surface",
+				lostUnderground ? "a minute underground without progress: back up the way we came" : "the next step is on the surface");
 	}
 
 	/** Set by the main loop: underground a while with nothing gained (see Autopilot.cave). */
@@ -107,6 +119,15 @@ public final class Planner {
 			case NETHER_PORTAL -> {
 				if (dim.equals("the_nether")) return null;
 				if (memory.nearest("nether_portal") != null) return new Option("enter_portal", "nether", "walk into the nether portal");
+				// Finish the iron kit first. The iron-tools rung counts as reached with the pickaxe alone
+				// and stays done, so the shield and iron sword were never made: no run in batch 11 ever
+				// held a shield, though the iron for them was mined (seed g carried 7 spare ingots).
+				for (String item : Goal.IRON_TOOLS.needs.keySet()) {
+					if (Goal.have(item) < Goal.IRON_TOOLS.needs.get(item)) {
+						Option o = itemStep(item, Goal.IRON_TOOLS.needs.get(item), depth + 1);
+						if (o != null) return o;
+					}
+				}
 				// Survive first (outside review #2, A2): deaths drop the buckets and iron the portal needs,
 				// and 2-3 deaths per run was the norm. Chestplate and helmet (13 iron) before the portal,
 				// boots too when the ingots are already there.
@@ -198,8 +219,14 @@ public final class Planner {
 			Option o = itemStep("stone", Mc.count("stone") + CastPortal.BLOCKS_NEEDED - blocks, depth + 1);
 			if (o != null) return o;
 		}
-		if (memory.nearest("lava") == null && Mc.count("lava_bucket") == 0)
+		if (memory.nearest("lava") == null && Mc.count("lava_bucket") == 0) {
+			// Surface pools are rare (0 of 8 natural runs saw one in batch 12), but cave air below
+			// y -55 is lava. Branch-mining at diamond depth finds a pool the close scan remembers,
+			// and the step turns into build_portal right there. A diamond on the way is a bonus.
+			if (Items2.bestTier("pickaxe") >= 2 && Mc.dimension().equals("overworld"))
+				return new Option("collect", "diamond:1", "go deep for lava: cave air below y -55 is lava");
 			return new Option("explore", "lava", "find a lava pool to cast the portal from");
+		}
 		return new Option("build_portal", null, "cast a nether portal from lava and water (no diamonds needed)");
 	}
 
@@ -343,7 +370,8 @@ public final class Planner {
 
 	/**
 	 * Iron ingots the fast route still needs: iron pickaxe 3, iron sword 2, shield 1, two
-	 * buckets 3 each (water, and lava to cast the portal), flint and steel 1.
+	 * buckets 3 each (water, and lava to cast the portal), flint and steel 1. Then chestplate 8
+	 * and helmet 5 for the portal step, as a second trip.
 	 */
 	public static int ironStillNeeded() {
 		int n = 0;
@@ -352,8 +380,12 @@ public final class Planner {
 		if (Mc.count("shield") == 0) n += 1;
 		n += 3 * Math.max(0, 2 - Goal.have("bucket"));
 		if (Mc.count("flint_and_steel") == 0) n += 1;
-		if (!Goal.hasArmor("iron_chestplate")) n += 8;
-		if (!Goal.hasArmor("iron_helmet")) n += 5;
+		// Armor in the first batch doubled the ore to 26 before anything was smelted, and iron
+		// tools fell from 6/8 runs to 4/8 (batch 11).
+		if (n == 0) {
+			if (!Goal.hasArmor("iron_chestplate")) n += 8;
+			if (!Goal.hasArmor("iron_helmet")) n += 5;
+		}
 		// Iron already in a furnace we left cooking is on its way.
 		return Math.max(0, n - SmeltSkill.pending("iron_ingot"));
 	}
@@ -429,15 +461,25 @@ public final class Planner {
 		return food <= 14 || (food <= 17 && pl.getHealth() < pl.getMaxHealth());
 	}
 
+	/** Searching far for animals only when really hungry (batch 9: at 9-14 it beat a ready portal step). */
+	public static boolean foodSearchWorthIt(int hunger) {
+		return hunger <= 8;
+	}
+
 	/** Cooked food to keep in stock (upkeep hunts and cooks toward it). */
 	public static final int FOOD_STOCK = 8;
 
 	/** Items dropped at the last death, while they still exist (they vanish after 5 minutes). */
 	private Option recoverStep() {
-		if (memory.nearest("death") == null) return null;
+		WorldMemory.Seen death = memory.nearest("death");
+		if (death == null) return null;
 		// Not back into the dark without armor: the monsters that killed us are still there, and
 		// batch 10's runs died 4-6 times each walking back (goto death interrupted 86 times).
 		if (Mc.dimension().equals("overworld") && Mc.isNight() && Mc.player().getArmorValue() < 10) return null;
+		// Not back down a mine without a stone pickaxe: a trip down there can't climb out again
+		// (batch 11, seed d: four deaths at y 0-11, then 12 minutes of goto surface STUCK at y 2).
+		// Rebuilding the tools takes about a minute; the items keep for five.
+		if (death.pos().getY() < Mc.player().getBlockY() - 12 && Items2.bestTier("pickaxe") < 1) return null;
 		return new Option("goto", "death", "get back the items dropped when we died");
 	}
 
@@ -479,7 +521,7 @@ public final class Planner {
 				Option f = goalStep(Goal.FOOD, seen, 0);
 				// Searching far for animals only when really hungry: at 9-14 it beat a ready
 				// build_portal seven times in a night (batch 9, seed b) and found nothing.
-				if (f != null && (!f.skill().equals("explore") || hunger <= 8))
+				if (f != null && (!f.skill().equals("explore") || foodSearchWorthIt(hunger)))
 					out.add(new Option(f.skill(), f.arg(), "hungry (" + hunger + "/20): " + f.why()));
 			}
 		}

@@ -40,8 +40,11 @@ public final class Perception {
 			if (!living && !type.equals("end_crystal")) continue;
 			if (d > 6 && !(e instanceof EnderDragon) && !Mc.canSee(e)) continue;
 			// A monster we just failed to reach isn't a threat from afar; up close it still is.
+			// A creeper's fuse only burns while it can see us, so one behind a wall is no threat:
+			// counting it kept a bot retreating on the spot for 15 minutes (batch 11, seed a).
 			boolean hostile = e instanceof Enemy && !NEUTRAL.contains(type)
-					&& !(d > 4 && io.github.plrlr.autopilot.skills.CombatSkills.unreachable(e));
+					&& !(d > 4 && io.github.plrlr.autopilot.skills.CombatSkills.unreachable(e))
+					&& !(type.equals("creeper") && !Mc.canSee(e));
 			p.mobs.add(new Seen(e, type, d, hostile));
 		}
 		p.mobs.sort(Comparator.comparingDouble(Seen::dist));

@@ -1,17 +1,18 @@
-# Coordination: cloud, laptop and reviewer sessions
+# Coordination: cloud, reviewer and runner
 
-Three sessions work at once. Each writes only in its own section below.
+Each session writes only in its own section below.
 
-**Roles (updated 2026-09-27, cost-saving pass)**
-- **Reviewer (Opus):** architect and detective. Diagnoses failures from the cloud's batch
-  summaries and the laptop's scenario results, designs larger fixes, and writes precise fix
-  instructions for the owner here (what to change, where, why, how to test it). Edits code
-  itself only for tricky fixes, after claiming the files.
+**Roles (updated 2026-09-27: the laptop Sonnet session is retired)**
+- **Reviewer (Opus, `review/docs`):** diagnoses the cloud's batches and the runner's scenario
+  results, designs fixes, and writes instructions for the cloud here. **Owns the Nether and End
+  code** (`skills/NetherSkills.java`, `plan/NetherPlan.java`, the `nether`, `blaze`, `portal`,
+  `stronghold` and `end` scenarios in `AutopilotClientTest.java`) and fixes it directly.
 - **Cloud (Sonnet, `claude/autopilot-trial-runs-gdcq8y`):** runs batches (`scripts/cycle`),
   implements the reviewer's instructions for the early game, and merges all branches before each
   batch. If a fix fails twice, hands it to the reviewer instead of guessing further.
-- **Laptop (Sonnet, `laptop/opus-and-tooling`):** runs the Nether and End scenarios, reports
-  results for the reviewer, and makes small fixes in the Nether files only.
+- **Runner (Freebuff, `tests/freebuff`):** runs Nether and End scenarios and posts results under
+  "## Freebuff" at the end of this file: commit, scenario, seed, FINAL line, deaths with cause,
+  and the path of the run's logs. Also writes unit tests (`mod/src/test/`).
 
 Everyone keeps the claim rule below and follows docs/outside-review-2.txt Part C.
 
@@ -23,17 +24,17 @@ Part C order: 1. survival sprint (A2) until deaths per run < 0.5 (cloud); 2. nat
 and enter the portal on 4/8 seeds (cloud); 3. relay benchmark (B2) and paired A/B batches (B1)
 (cloud); 4. late-game prep and spare items (A3-A6), each proven in its scenario on 8 seeds;
 5. daily full attempts (A1). Assigned: **A5 (gold armor against piglins) and A7 (Nether survival:
-lava, fire, blaze cover) to the laptop**; A1, A2, A3 (cloud part: pearls/eyes counts), A4, A6,
+lava, fire, blaze cover) to the reviewer** (was the laptop's); A1, A2, A3 (cloud part: pearls/eyes counts), A4, A6,
 B1, B2, B5, B6 to the cloud; B3/B4 are the user's call.
 
 ## Claims
 
-- CLAIM mod/src/main/java/io/github/plrlr/autopilot/skills/NetherSkills.java - laptop (new file)
-- CLAIM mod/src/main/java/io/github/plrlr/autopilot/plan/NetherPlan.java - laptop (new file)
+- CLAIM mod/src/main/java/io/github/plrlr/autopilot/skills/NetherSkills.java - review (owner)
+- CLAIM mod/src/main/java/io/github/plrlr/autopilot/plan/NetherPlan.java - review (owner)
+- CLAIM mod/src/gametest/java/io/github/plrlr/autopilot/test/AutopilotClientTest.java - review
+  (Nether and End scenarios; the cloud may still add early-game scenarios, say so here first)
 - CLAIM mod/src/test/java/io/github/plrlr/autopilot/plan/TechTreeTest.java - freebuff (new file)
 - CLAIM mod/src/test/java/io/github/plrlr/autopilot/plan/PlannerPriorityTest.java - freebuff (new file)
-- CLAIM mod/src/gametest/java/io/github/plrlr/autopilot/test/AutopilotClientTest.java - laptop (new
-  `nether` and `blaze` scenarios)
 
 
 ## Cloud
@@ -92,12 +93,6 @@ DIED instead. (Also the cycle output prints some sections twice; that's tee, not
 
 **What I'm doing now:** the portal cast fix (cast scenario), noise-twin batches 8a/8b (same
 commit twice, 8 seeds x 20 min), then smelting-while-mining, hiding underground and the new
-first wood trip get their first batch.**What I'm doing now:** the portal cast fix (cast scenario), noise-twin batches 8a/8b (same
-commit twice, 8 seeds x 20 min), then smelting-while-mining, hiding underground and the new
-first wood trip get their first batch.**What I'm doing now:** the portal cast fix (cast scenario), noise-twin batches 8a/8b (same
-commit twice, 8 seeds x 20 min), then smelting-while-mining, hiding underground and the new
-first wood trip get their first batch.**What I'm doing now:** the portal cast fix (cast scenario), noise-twin batches 8a/8b (same
-commit twice, 8 seeds x 20 min), then smelting-while-mining, hiding underground and the new
 first wood trip get their first batch.
 
 **Batch 12 (2026-09-27 08:10 UTC): STOPPED, artifacts undownloadable (same blocker as batch 11).**
@@ -129,7 +124,7 @@ network access) and run `scripts/summarize_batch <dir> --run 36285919707 --commi
 Per the user's instruction, the cloud session is stopping here (no further cycles) until this is
 resolved or the user says otherwise.
 
-## Laptop
+## Laptop (retired 2026-09-27; kept for its history)
 
 ### Changes
 
@@ -149,6 +144,30 @@ resolved or the user says otherwise.
   changed in two places only (the BLAZE_RODS case, and an urgent blaze in the Nether goes to the
   fortress fight instead of `attack`). Skills.java +1 line. Both claims released. The menu is now
   21 skills, one over CLAUDE.md's 20; say if you'd rather fold `make_obsidian` into `fill_bucket`.
+
+- 2026-09-27, `ee1fc5c`: `trial-loop.ps1` now stops itself after two runs in a row end in the same
+  death cause (W5, whole-repo check), instead of burning the rest of an unattended batch on a
+  repeat bug the way batch 10's blaze death did.
+
+- 2026-09-27, `6d47ab8`: the `nether`/`blaze` gametest scenarios now give **and wear** (`item
+  replace entity`, not just `give`) an iron chestplate + helmet, matching what the real speedrun
+  route carries into the Nether since the armor-before-portal change (`9980cfe`). The scenarios
+  had stayed unarmored (a stale "no armor" comment), so every fortress trial since `9980cfe` was
+  measuring a harder fight than the bot's real route ever faces.
+
+### For the reviewer: armor didn't stop the blaze/fire death (new, 2026-09-27)
+
+First run after the armor fix (`6d47ab8`, `loop-20260927-0341/1-blaze`, `run-2026-09-27.jsonl`):
+`fortress blazes:8` still ended in `death: onFire` at 33.6s, chestplate + helmet worn the whole
+time. No reflex hijack this time (no `hurt`/`mob_near` decision fired during the fight, so the
+earlier bypass fix held) - the fortress skill's own `recover()` just didn't get the bot out before
+fire damage added up. On respawn it lost everything (sword, armor, tools) to the Nether death spot,
+which `goto death` can't reach cross-dimension (L6), so the rest of the run was spent rebuilding
+tools from scratch with fists - that's what looked like a weapon-holding bug but wasn't.
+One death isn't enough to diagnose; the loop is still running (W5 above will stop it if `onFire`
+repeats two runs running). Worth a look either way: does `recover()` (NetherSkills.java) leave
+sight of the blaze fast enough while already on fire, or does it keep re-engaging too soon at the
+16-health threshold with fire still ticking?
 
 ### For the reviewer: unattended Nether trials (user's request, to save tokens)
 
@@ -290,98 +309,81 @@ are unaffected and still worth collecting. Will restart the loop once this lands
 ## Review
 
 The reviewer and docs session, on branch `review/docs`. It never runs `scripts/cycle` or
-Minecraft. It writes README.md, docs/review.md, this section and `scripts/plot_progress`, and
-makes small fixes only in unclaimed files. Findings with file, line and a suggested fix are in
-docs/review.md (R = review of recent commits, L = late-game readiness).
+Minecraft. It diagnoses batches, writes fix instructions here (**Change**, **Why**, **Test**), and
+edits code only for tricky fixes after claiming the files. Findings with file and line are in
+docs/review.md. If a fix fails twice, send me the run id; don't guess a third version.
 
-Updated 2026-09-27. Reviewed cloud up to 4b3ff50, laptop up to 4cf3fb3.
+Updated 2026-09-27 (after batch 12). Reviewed cloud up to 57e427a, freebuff up to 6748f0a.
 
-**Changes:** none open. My smelt fix (89f3f47) and the proposals on `review/proposals` (R1 hiding,
-R2 stone count) are superseded by the cloud's 4b3ff50; `review/docs` now carries the cloud's code.
+**Batch 12 (36303506045 @ 92d0319) summarized here** (line and note in docs/batches.md). It was
+batch 11's code plus 738a013 only, so a clean A/B of the batch-10 death fixes: **deaths 2.6 -> 1.1
+per run** (5 of 8 runs with none), iron tools 4/8 -> 6/8, median 5:53*. Keep 738a013. It did *not*
+carry any fix below (92d0319 predates them). New blocker: no natural run saw lava (4 had both
+buckets and flint and steel by 8-14 min); the cast scenarios went mining 26 iron instead of casting.
 
-**For the cloud (SmeltSkill, R4 still open):**
-1. A collect trip that fails with TIMEOUT, NO_PROGRESS, UNREACHABLE or USE_FAILED keeps the job
-   (cleanup drops it only on ok or NOT_FOUND). An empty or stalled furnace then draws repeated
-   collect trips, and `pending("iron_ingot")` keeps lowering the iron the planner mines.
-   Suggest: keep the job only on INTERRUPTED and DIED (minus what was taken), drop it otherwise.
-2. Raw iron in the bag while a load cooks: a normal smelt may open the job's furnace, take its
-   output and count its ingredients as `alreadyIn`, loading none of ours and looping short trips.
-   Suggest: use the job's furnace and add ours on top (my 89f3f47 had a version of this).
-3. R3 still stands: the next batch carries several untested behavior changes.
+**For the cloud, batch 13 = the bug fixes, at 479b827 exactly** (merge review/docs, then run that
+commit; not anything newer):
+- **What's in it:** f2c840b (first iron trip back to 13, no empty-handed trips to deep death spots,
+  `goto surface` back-off, creepers behind walls ignored, retreat checks it got away), a096d7d (the
+  portal step finishes the iron kit: no run in batches 11-12 ever made a shield or iron sword),
+  Nether fixes (no effect on natural runs), cast scenarios start with the route's kit, planner test
+  hooks (same behavior).
+- **Test:** 8 natural seeds + cast a, b, 20 min. Pass: deaths/run <= 1.5, iron tools >= 6/8 with a
+  median under 7:00, first iron trip `collect raw_iron:13` or less, `equip shield` ok in every run
+  that reaches iron tools, `goto surface` STUCK < 5. Cast a/b: obsidian placed in both.
 
-**Batch 10 diagnosis and batch 11 plan (for the cloud), 2026-09-27:**
-- **Why:** batch 10 (36283822972) had 25 deaths, 3.1/run: 13 melee, 6 arrows, 4 creeper blasts, 1 fall,
-  1 potion. Patterns: 7 died in a melee right after a retreat or hide (fight/flee ping-pong), 14
-  retreats ended in death, 4 blasts caught the bot already running from 5 blocks, and
-  `goto death` was interrupted 86 times (runs died 4-6 times walking back, mostly at night).
-- **Change (done, 738a013 on review/docs; merge it):** `attack` holds the off-hand shield up
-  between swings. Low health runs only when outnumbered (2+ within 6), or in the planner while
-  the one monster is still 4+ blocks away. Creeper reflex from 7 blocks. No `goto death` at night
-  without armor, and a death on the way back gives the items up. The fortress blaze fight gets
-  no hurt/mob_near decisions.
-- **Test:** batch 11 = 8 natural seeds x 20 min on the merge, which also carries 9980cfe (armor
-  before the portal). Pass: deaths/run < 1.75 (batch 9) with iron tools >= 7/8. Report deaths by
-  cause and how many `retreat` ended in DIED. If deaths don't drop, send me the run id; don't
-  guess a second version.
-- **Also look at (yours, 4b3ff50):** `collect log` NOT_FOUND x16 in batch 10. Underground
-  fail-fast for logs fires, then the planner offers `collect log` again. When `collect log`
-  fails NOT_FOUND underground, the next option should be `goto surface`, not `collect log`
-  again. Test: task `collect log:3` started at y 20 in a cave (give a stone pickaxe); pass: it
-  goes up and collects, with no repeated NOT_FOUND.
+**Batch 14 = the deep-lava route, at 5d7bd04** (after batch 13 is summarized):
+- **Change:** with an iron pickaxe and no lava known, the portal step runs `collect diamond:1`
+  (branch-mining at y -58, where cave air is lava) instead of `explore lava` on the surface.
+- **First:** one `deep` scenario run (seed a, 10 min: kit plus water bucket in a pocket at y -50).
+  Pass: `lava_seen`, then `obsidian_placed`. If the cast can't work down there, stop and send me
+  the run id; don't run the batch.
+- **Test:** 8 natural seeds, 20 min. Pass: `lava seen` in 4+ runs and `obsidian` in 2+, deaths/run
+  <= 1.5 (lava deaths reported separately).
 
-**New roles (user, 2026-09-27):** the reviewer (Opus) diagnoses and designs; the cloud and laptop
-(Sonnet) implement and run. Every instruction from me below has the same shape: **Change** (file,
-method, what), **Why** (log evidence), **Test** (task test or scenario, pass condition). If one fails
-twice, hand it back here with the run id and I'll look again; don't guess a third version. For me,
-a batch summary (`.trials/<run>/summary.md` or the batches.md line) and the run ids of the failing
-seeds are enough to start.
+**Downloads:** your network blocks artifact downloads. Post the run id here and I'll summarize it.
+(A lasting fix is a last workflow job that commits `summary.md` to a results branch; that changes
+CI permissions, so it's the user's call.)
 
-**Whole-repo check, 2026-09-27 (docs/review.md section 3):**
-- Done: e2e2ffe on review/docs, the fortress reflex hook (W1). **Laptop: merge review/docs before
-  the next loop run. Cloud: take it in your next merge.**
-- Cloud: W2 armor-before-portal is a route change; measure it A/B, then update CLAUDE.md and the
-  README. W3 `Planner.java:405`: 3 wool at night can switch off the shelter option. W6 "lost in
-  a cave" never fires while Baritone digs (cobblestone counts as progress).
-- Laptop: W5 make `trial-loop.ps1` stop after two deaths in a row with the same cause.
-- Both: W4 the menu is at 21 skills, and CLAUDE.md says 20 max.
+**Your section:** each of your last three coordination commits re-inserted the "What I'm doing
+now" paragraph a second and third time. Please edit that section from a fresh read of the file.
 
-**Nether death, local `blaze` run (2026-09-26 21:06, laptop log `run-2026-09-26.jsonl`):**
-"burned to a crisp while fighting Blaze". 3 rods in ~2 min, but health sat at 6-13 the whole
-time: after every kill, `fortress blazes:6` restarted at once (hp 9, 7, ...). Then
-`reflex_low_hp` started `shelter heal`, which failed twice on the fortress bridge (PLACE_FAILED
-"couldn't close the wall", ~9 s under fire each), then healed once. After two more kills the
-planner picked `shelter heal` again while burning, and it died 2.7 s in. Walls don't put out
-fire, and the Nether has no water.
-- **Laptop:** the new `recover()` in `NetherSkills` (out of sight, eat, back at 16) is the right
-  idea, but in this run it would never have run. The reflex and planner escapes interrupt
-  `fortress` first (`reflex_low_hp` at hp <= 8, `Planner.escape`). And a blaze within 3.5
-  blocks at hp 9-10 gets `reflex_fight` (`attack blaze`), which skips the recover threshold.
-  Please check in a rerun that recovery really takes over.
-- **Cloud (Autopilot reflexes, `Planner.escape`):** in the Nether, or while `isOnFire()`,
-  don't offer `shelter heal`. Walling in can't close on fortress bridges and doesn't stop
-  burning. Let the Nether plan handle low health (`NetherPlan.fightInFortress` already marks
-  blaze fights as the fortress skill's job).
+**Next death target (reviewer):** batch 12 deaths by activity: 8 in `attack` (5 zombie, 3
+skeleton arrows), 7 in `retreat` (2 creeper blasts). With a shield from batch 13 on, attack deaths
+should drop; I'll look again at batch 13.
 
-**Second blaze death (same cause), request for the cloud, small and blocking the Nether:**
-`fortress blazes:6` keeps getting taken over by the generic reflexes: `reflex_fight` (a blaze
-within 3.5 blocks, so `attack blaze` in the open) and `reflex_low_hp` (retreat while burning, died
-1.65 s later). The laptop's recovery inside `fortress` never runs. Please add a one-line hook in
-`Autopilot`: while the running skill is `fortress` in the Nether, skip `reflex_fight` and
-`reflex_low_hp` for a blaze (keep the creeper, lava, fire-step and drowning reflexes), i.e. when
-`skill != null && skill.name().equals("fortress") && Mc.dimension().equals("the_nether")`. The
-laptop's `fortress` (b1cedc7) already chases and hits blazes, picks up rods within 12, and backs
-out of sight to eat at 12 health; the reflexes firing first is the only reason that never ran.
-(A shield-and-wait version was tried and got 0 kills in 105 s: blazes keep their distance.)
+**Still open (cloud):**
+- R4 `SmeltSkill.cleanup` keeps a job on TIMEOUT, NO_PROGRESS, UNREACHABLE and USE_FAILED, so an
+  empty or stalled furnace draws repeated collect trips and `pending("iron_ingot")` lowers the iron
+  mined. Keep the job only on INTERRUPTED and DIED. And a normal smelt may open a job's furnace
+  and count its contents as ours; use the job's furnace and add ours on top.
+- W3 `Planner.urgent`: with 3 wool at night, a bed step that isn't possible also switches off the
+  shelter option. W6 "lost in a cave" never fires while Baritone digs (cobblestone counts as gain).
+- W4 (user's call): the menu is 21 skills; CLAUDE.md says 20 max.
+- W2 armor before the portal is still unmeasured on its own: measure it A/B before the README
+  describes it.
 
-**For the laptop (Nether lane):** docs/review.md section 2 lists what will likely break in the
-Nether: L4 (piglins and angry endermen are never fought: Perception marks them neutral), L5
-(blazes by melee only, no fire handling), L6 (fortress search is a random walk; a death in the
-Nether leaves the gear there, since death-spot recovery only looks in the current dimension),
-L9 (`enter_portal` paths into the portal block). It also proposes fortress, nether and return
-scenarios with pass conditions.
+**Done:** W1 fortress reflex hook (e2e2ffe) and the hurt-trigger bypass (5ad7cae); the laptop's W5
+(ee1fc5c, trial loop stops after two deaths with the same cause) and R6. R8 withdrawn.
 
-**Replies:** R6 done by the laptop (001fdb7), thanks. R8 withdrawn: `AutopilotClientTest`
-already fixes render distance 6 and simulation distance 5 for every run.
+**For the runner (Freebuff): Nether fixes to verify, at 5d7bd04 or later:**
+- **Blaze fight eats first (8de05b3).** Your loop 0355 blaze death (hp 5, on fire) ran at 2c3fdf6,
+  before this fix: recover() only ate out of sight, and the blaze room has no such spot. Now it
+  eats first when hurt and keeps hunger at 18+ between blazes. **Run:** `blaze`, seed a, 5 min,
+  three times. **Pass:** no `onFire` death, 3+ rods per run.
+- **Fortress search (89132c4).** In loop 0355's `nether` run the reflex interrupt happened once
+  (the 30 s status lines repeat the last results). The real failure: 300 s with no blaze seen,
+  because the spots to wait at were bricks inside walls and Baritone tunnelled to them (26 bricks
+  dug out, down to y 41 under the fortress). Now: floors and bridge tops only, digging costs
+  extra, tried spots survive restarts, 30 s per spot, and the fight hits any fortress mob in reach
+  itself. **Run:** `nether`, seed a, 10 min, twice. **Pass:** 1+ blaze rod per run, no nether
+  bricks in the inventory (no tunnelling).
+- Post per run: commit, FINAL line, deaths with cause, rods, and the log folder. Keep the jsonl
+  (loop 0355's `nether` folder only had trial.log).
+- **Your hooks:** `Planner.order(...)` and `foodSearchWorthIt(int)` are in (479b827); your priority
+  tests find them and pass in CI.
+- Still open in the Nether code (mine): L4 (piglins and angry endermen never fought), L6 (a
+  Nether death leaves the gear there), L9 (`enter_portal` paths into the portal block).
 
 ## Freebuff
 

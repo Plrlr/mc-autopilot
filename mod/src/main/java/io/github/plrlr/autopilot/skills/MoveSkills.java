@@ -102,9 +102,28 @@ public final class MoveSkills {
 
 	/** goto <known block group> | end_center: walk to a remembered place. */
 	public static final class Goto extends Skill {
+		/** When goto surface last failed to climb (ms). */
+		private static long surfaceFailedAt;
+
+		/**
+		 * True for two minutes after goto surface failed: without a pickaxe or blocks Baritone
+		 * can't climb, and offering it again looped STUCK for 12 minutes (batch 11, seed d).
+		 */
+		public static boolean surfaceBlocked() {
+			return System.currentTimeMillis() - surfaceFailedAt < 120_000;
+		}
+
 		@Override
 		public String name() {
 			return "goto";
+		}
+
+		@Override
+		protected void cleanup() {
+			super.cleanup();
+			Result r = result();
+			if ("surface".equals(arg) && r != null && !r.ok() && r.code() != Fail.INTERRUPTED && r.code() != Fail.DIED)
+				surfaceFailedAt = System.currentTimeMillis();
 		}
 
 		@Override
@@ -172,6 +191,8 @@ public final class MoveSkills {
 
 	/** retreat: run away from nearby hostiles. */
 	public static final class Retreat extends Skill {
+		private double startDist;
+
 		@Override
 		public String name() {
 			return "retreat";
@@ -186,12 +207,23 @@ public final class MoveSkills {
 				done("nothing to run from");
 				return;
 			}
+			startDist = nearestThreat();
 			Bari.path(new GoalRunAway(24, threats.toArray(new BlockPos[0])));
 		}
 
 		@Override
 		protected void tick() {
-			if (ticks > 20 && !Bari.pathing()) done("got away");
+			if (ticks <= 20 || Bari.pathing()) return;
+			// Baritone stopping isn't the same as getting away: with no path it stops where it
+			// stands, and 99 "got away" retreats in batch 11 (seed a) never moved the bot.
+			double now = nearestThreat();
+			if (now >= 12 || now > startDist + 3) done("got away");
+			else fail(Fail.NO_PROGRESS, "couldn't get away (nearest monster " + Math.round(now) + " blocks)");
+		}
+
+		private static double nearestThreat() {
+			Perception.Seen h = Perception.look(20).nearestHostile();
+			return h == null ? Double.MAX_VALUE : h.dist();
 		}
 	}
 
