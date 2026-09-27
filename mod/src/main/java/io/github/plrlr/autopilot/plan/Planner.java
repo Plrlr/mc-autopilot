@@ -2,6 +2,7 @@ package io.github.plrlr.autopilot.plan;
 
 import io.github.plrlr.autopilot.Items2;
 import io.github.plrlr.autopilot.Mc;
+import io.github.plrlr.autopilot.Tune;
 import io.github.plrlr.autopilot.skills.CastPortal;
 import io.github.plrlr.autopilot.skills.MoveSkills;
 import io.github.plrlr.autopilot.skills.SmeltSkill;
@@ -37,8 +38,13 @@ public final class Planner {
 	 */
 	public List<Option> options(Goal goal, Perception seen) {
 		Option main = goalStep(goal, seen, 0);
-		return order(urgent(seen), recoverStep(), surfaceOption(main), upkeep(seen, main), main, extras(seen, main));
+		List<Option> urgent = urgent(seen);
+		lastUrgent = urgent.stream().map(Option::label).collect(java.util.stream.Collectors.toSet());
+		return order(urgent, recoverStep(), surfaceOption(main), upkeep(seen, main), main, extras(seen, main));
 	}
+
+	/** Labels of the life-or-death options in the last list: the learned brain never overrules them. */
+	public java.util.Set<String> lastUrgent = java.util.Set.of();
 
 	/** The phase order, first label wins, at most 10. Pure, so unit tests can check it. */
 	public static List<Option> order(List<Option> urgent, Option recover, Option surface, List<Option> upkeep, Option main,
@@ -132,12 +138,12 @@ public final class Planner {
 				// and 2-3 deaths per run was the norm. Chestplate and helmet (13 iron) before the portal,
 				// boots too when the ingots are already there.
 				for (String piece : new String[]{"iron_chestplate", "iron_helmet"}) {
-					if (!Goal.hasArmor(piece)) {
+					if (Tune.on("route.armor_before_portal") && !Goal.hasArmor(piece)) {
 						Option o = itemStep(piece, 1, depth + 1);
 						if (o != null) return o;
 					}
 				}
-				if (!Goal.hasArmor("iron_boots") && Mc.count("iron_ingot") >= 4) {
+				if (Tune.on("route.boots_before_portal") && !Goal.hasArmor("iron_boots") && Mc.count("iron_ingot") >= 4) {
 					Option o = itemStep("iron_boots", 1, depth + 1);
 					if (o != null) return o;
 				}
@@ -223,7 +229,7 @@ public final class Planner {
 			// Surface pools are rare (0 of 8 natural runs saw one in batch 12), but cave air below
 			// y -55 is lava. Branch-mining at diamond depth finds a pool the close scan remembers,
 			// and the step turns into build_portal right there. A diamond on the way is a bonus.
-			if (Items2.bestTier("pickaxe") >= 2 && Mc.dimension().equals("overworld"))
+			if (Tune.on("route.deep_for_lava") && Items2.bestTier("pickaxe") >= 2 && Mc.dimension().equals("overworld"))
 				return new Option("collect", "diamond:1", "go deep for lava: cave air below y -55 is lava");
 			return new Option("explore", "lava", "find a lava pool to cast the portal from");
 		}
@@ -297,11 +303,12 @@ public final class Planner {
 				// Wood runs out at awkward times (deep in a mine); one trip for plenty is faster. But
 				// not the very first trip: 9 logs before the first table and pickaxe put the crafting
 				// table 15-30 s later on the same seeds (batches 3-6 vs 1-2).
-				case "log" -> Items2.bestTier("pickaxe") < 0 ? 2 : Mc.count("log") < 8 ? 8 : 3;
+				case "log" -> Items2.bestTier("pickaxe") < 0 ? Tune.i("gather.first_logs")
+						: Mc.count("log") < Tune.i("gather.log_stock") ? Tune.i("gather.log_stock") : 3;
 				// All the iron the run needs in one trip down, not 2-3 at a time with a furnace each.
 				case "raw_iron" -> Math.max(0, ironStillNeeded() - Mc.count("iron_ingot") - have - missing);
-				case "stone" -> Mc.count("stone") < 24 ? 10 : 0;
-				case "coal" -> 4;
+				case "stone" -> Mc.count("stone") < Tune.i("gather.stone_stock") ? Tune.i("gather.stone_extra") : 0;
+				case "coal" -> Tune.i("gather.coal_extra");
 				default -> 0;
 			};
 			int want = Math.min(64, missing + extra);
@@ -382,7 +389,7 @@ public final class Planner {
 		if (Mc.count("flint_and_steel") == 0) n += 1;
 		// Armor in the first batch doubled the ore to 26 before anything was smelted, and iron
 		// tools fell from 6/8 runs to 4/8 (batch 11).
-		if (n == 0) {
+		if (n == 0 && Tune.on("route.armor_before_portal")) {
 			if (!Goal.hasArmor("iron_chestplate")) n += 8;
 			if (!Goal.hasArmor("iron_helmet")) n += 5;
 		}
@@ -414,7 +421,7 @@ public final class Planner {
 		if (hostile != null && io.github.plrlr.autopilot.skills.CombatSkills.unreachable(hostile.entity())) hostile = null;
 		// In the Nether only what's on top of us: chasing a magma cube 8 blocks off walked the bot
 		// into lava, and it burned to death (freebuff nether run 0455). Blazes go to the fortress fight.
-		double range = hostile != null && Mc.dimension().equals("the_nether") && !hostile.type().equals("blaze") ? 4 : 10;
+		double range = hostile != null && Mc.dimension().equals("the_nether") && !hostile.type().equals("blaze") ? 4 : Tune.get("plan.hostile_range");
 		if (hostile != null && hostile.dist() < range) {
 			// Creepers explode in melee range: back off instead of swinging at them.
 			if (hostile.type().equals("creeper")) out.add(new Option("retreat", null, "a creeper is " + Math.round(hostile.dist()) + " blocks away"));
@@ -424,18 +431,18 @@ public final class Planner {
 			else if (NetherPlan.fightInFortress(Mc.dimension(), hostile)) out.add(NetherPlan.blazeStep(memory, seen));
 			// Low health: run when outnumbered, or while the one monster is still far enough away to
 			// get clear. One at arm's length follows and hits our back; the attack's shield does better.
-			else if (pl.getHealth() <= 8 && (seen.hostilesWithin(6) >= 2 || hostile.dist() > 4))
+			else if (pl.getHealth() <= Tune.i("combat.flee_hp") && (seen.hostilesWithin(6) >= Tune.i("combat.outnumbered") || hostile.dist() > 4))
 				out.add(escape("low health and a " + hostile.type() + " is close"));
 			// Underground, two or more closing in wear us down in a tunnel: wall in and heal first.
-			else if (!onSurface() && pl.getHealth() <= 12 && seen.hostilesWithin(6) >= 2) out.add(escape("hurt with monsters closing in"));
+			else if (!onSurface() && pl.getHealth() <= Tune.i("plan.hide_hp") && seen.hostilesWithin(6) >= 2) out.add(escape("hurt with monsters closing in"));
 			// Skeletons outshoot a fleeing player; closing in fast is safer than running.
 			else out.add(new Option("attack", hostile.type(), hostile.type() + " is " + Math.round(hostile.dist()) + " blocks away"));
 		}
 		if (wantsToEat()) {
 			// Health only regenerates with 18+ hunger, so hurt means eat a little earlier.
 			boolean hurt = pl.getHealth() < pl.getMaxHealth();
-			if (food <= 14 || seen.hostilesWithin(8) == 0)
-				out.add(new Option("eat", null, hurt && food > 14 ? "heal up: health " + Math.round(pl.getHealth()) + "/20, hunger " + food + "/20" : "hunger " + food + "/20"));
+			if (food <= Tune.i("food.eat_at") || seen.hostilesWithin(8) == 0)
+				out.add(new Option("eat", null, hurt && food > Tune.i("food.eat_at") ? "heal up: health " + Math.round(pl.getHealth()) + "/20, hunger " + food + "/20" : "hunger " + food + "/20"));
 		}
 		if (Mc.dimension().equals("overworld") && Mc.isNight()) {
 			boolean bed = Mc.count("bed") > 0 || memory.nearestStation("bed") != null;
@@ -455,7 +462,7 @@ public final class Planner {
 			// On the surface with little armor, monsters win at night; underground or armored, keep
 			// working. Also falls through here when there was wool but itemStep couldn't turn it
 			// into a real step (W3: 3 wool used to silently switch off shelter too).
-			if (!addedBedStep && onSurface() && pl.getArmorValue() < 10 && seen.hostilesWithin(16) > 0)
+			if (!addedBedStep && onSurface() && pl.getArmorValue() < Tune.i("night.shelter_armor") && seen.hostilesWithin(Tune.i("night.shelter_radius")) > 0)
 				out.add(new Option("shelter", null, "night with monsters around and little armor"));
 		}
 		return out;
@@ -469,16 +476,18 @@ public final class Planner {
 		LocalPlayer pl = Mc.player();
 		int food = pl.getFoodData().getFoodLevel();
 		if (food >= 20 || Mc.count(Items2::isAnyFood) == 0) return false;
-		return food <= 14 || (food <= 17 && pl.getHealth() < pl.getMaxHealth());
+		return food <= Tune.i("food.eat_at") || (food <= Tune.i("food.eat_hurt_at") && pl.getHealth() < pl.getMaxHealth());
 	}
 
 	/** Searching far for animals only when really hungry (batch 9: at 9-14 it beat a ready portal step). */
 	public static boolean foodSearchWorthIt(int hunger) {
-		return hunger <= 8;
+		return hunger <= Tune.i("food.search_hunger");
 	}
 
 	/** Cooked food to keep in stock (upkeep hunts and cooks toward it). */
-	public static final int FOOD_STOCK = 8;
+	public static int foodStock() {
+		return Tune.i("food.stock");
+	}
 
 	/** Items dropped at the last death, while they still exist (they vanish after 5 minutes). */
 	private Option recoverStep() {
@@ -486,7 +495,7 @@ public final class Planner {
 		if (death == null) return null;
 		// Not back into the dark without armor: the monsters that killed us are still there, and
 		// batch 10's runs died 4-6 times each walking back (goto death interrupted 86 times).
-		if (Mc.dimension().equals("overworld") && Mc.isNight() && Mc.player().getArmorValue() < 10) return null;
+		if (Mc.dimension().equals("overworld") && Mc.isNight() && Mc.player().getArmorValue() < Tune.i("death.recover_night_armor")) return null;
 		// Not back down a mine without a stone pickaxe: a trip down there can't climb out again
 		// (batch 11, seed d: four deaths at y 0-11, then 12 minutes of goto surface STUCK at y 2).
 		// Rebuilding the tools takes about a minute; the items keep for five.
@@ -501,7 +510,7 @@ public final class Planner {
 	 */
 	private List<Option> upkeep(Perception seen, Option main) {
 		List<Option> out = new ArrayList<>();
-		if (seen.hostilesWithin(12) > 0) return out;
+		if (seen.hostilesWithin(Tune.i("plan.upkeep_calm_radius")) > 0) return out;
 		// Take our crafting table and furnace along before walking off: leaving them behind
 		// meant crafting new ones (8 cobblestone each) after every trip in trials.
 		boolean usingStation = main != null && (main.skill().equals("craft") || main.skill().equals("smelt"));
@@ -510,25 +519,26 @@ public final class Planner {
 		// Keep 8+ cooked food. Raw meat counts toward the stock: it gets cooked in one furnace
 		// load once there are a few, so hunting more before then would only waste time.
 		int readyFood = Mc.count("food");
-		if (readyFood < FOOD_STOCK) {
+		int stock = foodStock();
+		if (readyFood < stock) {
 			int raw = Mc.count("meat");
 			String most = null;
 			for (String r : Items2.RAW_MEAT) if (Mc.count(r) > 0 && (most == null || Mc.count(r) > Mc.count(most))) most = r;
 			if (most != null && (raw >= 3 || readyFood < 2) && canSmeltNow())
 				out.add(new Option("smelt", "cooked_" + most + ":" + Mc.count(most), "cook the raw " + most + " in one load"));
 			// Batch the hunt: animals in view get taken while the stock is short (3-5 per trip).
-			if (readyFood + raw < FOOD_STOCK) {
+			if (readyFood + raw < stock) {
 				for (String animal : ANIMALS.split(",")) {
 					Perception.Seen a = seen.nearest(animal);
-					if (a != null && a.dist() < 20) {
-						out.add(new Option("attack", animal, "food stock " + (readyFood + raw) + "/" + FOOD_STOCK + " and a " + animal + " is close"));
+					if (a != null && a.dist() < Tune.i("food.hunt_dist")) {
+						out.add(new Option("attack", animal, "food stock " + (readyFood + raw) + "/" + stock + " and a " + animal + " is close"));
 						break;
 					}
 				}
 			}
 			// Getting hungry with nothing ready to eat: food comes first (cook, hunt or search).
 			int hunger = Mc.player().getFoodData().getFoodLevel();
-			if (hunger <= 14 && readyFood == 0) {
+			if (hunger <= Tune.i("food.eat_at") && readyFood == 0) {
 				Option f = goalStep(Goal.FOOD, seen, 0);
 				// Searching far for animals only when really hungry: at 9-14 it beat a ready
 				// build_portal seven times in a night (batch 9, seed b) and found nothing.
@@ -536,7 +546,7 @@ public final class Planner {
 					out.add(new Option(f.skill(), f.arg(), "hungry (" + hunger + "/20): " + f.why()));
 			}
 		}
-		if (Mc.dimension().equals("overworld") && Items2.bestTier("pickaxe") >= 0 && Mc.count("bed") == 0
+		if (Tune.on("route.bed") && Mc.dimension().equals("overworld") && Items2.bestTier("pickaxe") >= 0 && Mc.count("bed") == 0
 				&& memory.nearestStation("bed") == null) {
 			if (Items2.mostOfOneColor("wool") >= 3) {
 				Option o = itemStep("bed", 1, 0);
@@ -557,9 +567,10 @@ public final class Planner {
 		// The shield blocks arrows and creeper blasts only from the off hand: put it there at once.
 		if (Mc.count("shield") > 0 && !Items2.id(Mc.player().getOffhandItem()).equals("shield"))
 			out.add(new Option("equip", "shield", "shield into the off hand"));
-		if (Mc.count("coal") < 4 && Items2.bestTier("pickaxe") >= 0) {
+		if (Mc.count("coal") < Tune.i("gather.coal_upkeep_below") && Items2.bestTier("pickaxe") >= 0) {
 			WorldMemory.Seen coal = memory.nearest("coal_ore");
-			if (coal != null && coal.pos().distSqr(Mc.player().blockPosition()) < 12 * 12)
+			int view = Tune.i("gather.coal_view_dist");
+			if (coal != null && coal.pos().distSqr(Mc.player().blockPosition()) < view * view)
 				out.add(new Option("collect", "coal:6", "coal ore in view (fuel for smelting)"));
 		}
 		return out;

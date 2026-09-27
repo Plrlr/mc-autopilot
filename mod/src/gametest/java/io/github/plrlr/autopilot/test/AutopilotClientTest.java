@@ -26,6 +26,10 @@ import java.util.List;
  * The staged scenarios use commands in the throwaway test world only, to skip hours of play and
  * test one late-game step. The mod itself never uses commands.
  * -PtestBrain=auto uses the free AI keys from the real config file (costs free-tier calls).
+ * -PtestParams=<file> plays with the learning loop's genes; -PtestLearned=<file> loads a learned model.
+ * -PtestLean=true (cloud) draws as little as possible: fast graphics, 10 fps, no clouds, particles,
+ * shadows or sound. The game still ticks at 20 per second; only the drawing is cheaper, so a
+ * software renderer has CPU left for the game itself. What the bot perceives doesn't change.
  */
 public class AutopilotClientTest implements FabricClientGameTest {
 
@@ -44,6 +48,7 @@ public class AutopilotClientTest implements FabricClientGameTest {
 		ctx.runOnClient(mc -> {
 			mc.options.renderDistance().set(6);
 			mc.options.simulationDistance().set(5);
+			if (Boolean.getBoolean("autopilot.test.lean")) lean(mc.options);
 		});
 		// Consistent test settings make a superflat world (no trees); we need a normal one.
 		try (TestSingleplayerContext sp = ctx.worldBuilder().setUseConsistentSettings(false).adjustSettings(s -> {
@@ -65,6 +70,7 @@ public class AutopilotClientTest implements FabricClientGameTest {
 			arrive(sp, scenario);
 			ctx.waitTicks(20);
 			ctx.runOnClient(mc -> System.out.println("[autopilot-test] start at " + mc.player.blockPosition().toShortString()));
+			long wallStart = System.nanoTime();
 			ctx.runOnClient(mc -> {
 				Autopilot ap = AutopilotMod.instance();
 				ap.tactician.select(brain);
@@ -108,6 +114,11 @@ public class AutopilotClientTest implements FabricClientGameTest {
 			if (!task.isEmpty() && ctx.computeOnClient(mc -> AutopilotMod.instance().taskResult() == null))
 				System.out.println("[autopilot-test] TASK " + task + " -> failed TIMEOUT: still running when the test ended");
 			ctx.takeScreenshot("final");
+			// Real speed: game seconds per wall second (1.0 = the machine keeps up with the game).
+			double wall = (System.nanoTime() - wallStart) / 1e9;
+			System.out.printf(java.util.Locale.ROOT, "[autopilot-test] SPEED %.3f game s per wall s (%d game s in %.0f wall s)%n",
+					ctx.computeOnClient(mc -> AutopilotMod.instance().gameSeconds()) / wall,
+					ctx.computeOnClient(mc -> AutopilotMod.instance().gameSeconds()), wall);
 			ctx.runOnClient(mc -> {
 				Autopilot ap = AutopilotMod.instance();
 				if (!ap.enabled()) System.out.println("[autopilot-test] NOTE: autopilot turned itself off during the run");
@@ -120,6 +131,23 @@ public class AutopilotClientTest implements FabricClientGameTest {
 				ap.disable("test finished");
 			});
 		}
+	}
+
+	/** Cheapest drawing that still shows the world in screenshots (cloud runs). */
+	private static void lean(net.minecraft.client.Options o) {
+		o.applyGraphicsPreset(net.minecraft.client.GraphicsPreset.FAST);
+		o.framerateLimit().set(10);
+		o.enableVsync().set(false);
+		o.cloudStatus().set(net.minecraft.client.CloudStatus.OFF);
+		o.particles().set(net.minecraft.server.level.ParticleStatus.MINIMAL);
+		o.entityShadows().set(false);
+		o.ambientOcclusion().set(false);
+		o.improvedTransparency().set(false);
+		o.biomeBlendRadius().set(0);
+		o.mipmapLevels().set(0);
+		o.chunkSectionFadeInTime().set(0.0);
+		o.menuBackgroundBlurriness().set(0);
+		o.getSoundSourceOptionInstance(net.minecraft.sounds.SoundSource.MASTER).set(0.0);
 	}
 
 	/** Sets up the scenario with test-world commands; returns the goal to force, or null. */

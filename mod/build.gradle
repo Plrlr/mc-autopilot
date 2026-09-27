@@ -11,6 +11,11 @@ repositories {
 		metadataSources { artifact() }
 		content { includeGroup 'cabaletta' }
 	}
+	// Modrinth's Maven: only for the optional speed-up mods in trial runs.
+	maven {
+		url = 'https://api.modrinth.com/maven'
+		content { includeGroup 'maven.modrinth' }
+	}
 }
 
 dependencies {
@@ -22,6 +27,14 @@ dependencies {
 	// (and run with it in the dev client). It's not bundled into our jar.
 	compileOnly "cabaletta:baritone-api-fabric:${project.baritone_version}"
 	runtimeOnly "cabaletta:baritone-api-fabric:${project.baritone_version}"
+
+	// Optional speed-up mods for trial runs only (-PperfMods=lithium,ferritecore,sodium): never in
+	// our jar. Lithium and FerriteCore keep vanilla behavior (game logic and memory); Sodium only
+	// changes how chunks are drawn. Versions for 26.3 checked on Modrinth 2026-09-27.
+	def perf = (findProperty('perfMods') ?: '').toString().split(',')*.trim()
+	if ('lithium' in perf) runtimeOnly 'maven.modrinth:lithium:mc26.3-0.26.1-fabric'
+	if ('ferritecore' in perf) runtimeOnly 'maven.modrinth:ferrite-core:9.0.0-fabric'
+	if ('sodium' in perf) runtimeOnly 'maven.modrinth:sodium:mc26.3-0.9.2-fabric'
 
 	testImplementation 'org.junit.jupiter:junit-jupiter:5.11.4'
 	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
@@ -82,6 +95,10 @@ loom {
 				// Quick single-fix tests: run one skill with some items (see AutopilotClientTest).
 				vmArg "-Dautopilot.test.task=${findProperty('testTask') ?: ''}"
 				vmArg "-Dautopilot.test.give=${findProperty('testGive') ?: ''}"
+				// The learning loop: genes (params.json), a learned model, and lean drawing on the cloud.
+				vmArg "-Dautopilot.params=${findProperty('testParams') ?: ''}"
+				vmArg "-Dautopilot.learned=${findProperty('testLearned') ?: ''}"
+				vmArg "-Dautopilot.test.lean=${findProperty('testLean') ?: 'false'}"
 			}
 		}
 	}

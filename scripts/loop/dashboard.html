@@ -1,0 +1,367 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Autopilot Learning Loop</title>
+<meta name="description" content="A Minecraft bot that improves itself: every generation plays fresh worlds, keeps what clearly helps, and trains its own model on everything it has played.">
+<style>
+:root {
+  color-scheme: light;
+  --page: #f9f9f7; --surface: #fcfcfb; --ink: #0b0b0b; --ink2: #52514e; --muted: #898781;
+  --grid: #e1e0d9; --axis: #c3c2b7; --ring: rgba(11,11,11,0.10); --good: #006300;
+  --s1: #2a78d6; --s2: #eb6834; --s3: #1baf7a; --s4: #eda100; --faint: #c3c2b7;
+}
+@media (prefers-color-scheme: dark) {
+  :root:where(:not([data-theme="light"])) {
+    color-scheme: dark;
+    --page: #0d0d0d; --surface: #1a1a19; --ink: #ffffff; --ink2: #c3c2b7; --muted: #898781;
+    --grid: #2c2c2a; --axis: #383835; --ring: rgba(255,255,255,0.10); --good: #0ca30c;
+    --s1: #3987e5; --s2: #d95926; --s3: #199e70; --s4: #c98500; --faint: #52514e;
+  }
+}
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --page: #0d0d0d; --surface: #1a1a19; --ink: #ffffff; --ink2: #c3c2b7; --muted: #898781;
+  --grid: #2c2c2a; --axis: #383835; --ring: rgba(255,255,255,0.10); --good: #0ca30c;
+  --s1: #3987e5; --s2: #d95926; --s3: #199e70; --s4: #c98500; --faint: #52514e;
+}
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--page); color: var(--ink); font: 15px/1.5 system-ui, -apple-system, "Segoe UI", sans-serif; }
+main { max-width: 1080px; margin: 0 auto; padding: 32px 16px 64px; }
+h1 { font-size: 28px; line-height: 1.2; margin: 0 0 6px; letter-spacing: -0.01em; }
+h2 { font-size: 17px; margin: 0 0 2px; }
+.sub { color: var(--ink2); margin: 0 0 4px; max-width: 70ch; }
+.status { color: var(--muted); font-size: 13px; margin: 0 0 24px; }
+.status b { color: var(--ink2); font-weight: 600; }
+.tiles { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 12px; margin-bottom: 20px; }
+.tile, .card { background: var(--surface); border: 1px solid var(--ring); border-radius: 12px; }
+.tile { padding: 14px 16px; }
+.tile .k { color: var(--muted); font-size: 12px; text-transform: uppercase; letter-spacing: 0.04em; }
+.tile .v { font-size: 26px; font-weight: 600; margin-top: 2px; }
+.tile .n { color: var(--ink2); font-size: 12.5px; }
+.card { padding: 18px 18px 14px; margin-bottom: 16px; }
+.card .note { color: var(--ink2); font-size: 13.5px; margin: 0 0 10px; max-width: 80ch; }
+.grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+@media (max-width: 760px) { .grid2 { grid-template-columns: 1fr; } }
+.grid2 .card { margin-bottom: 0; }
+svg { display: block; width: 100%; height: auto; overflow: visible; }
+svg text { font: 11.5px system-ui, -apple-system, "Segoe UI", sans-serif; fill: var(--muted); }
+svg .lbl { fill: var(--ink2); font-size: 12px; }
+.legend { display: flex; flex-wrap: wrap; gap: 6px 16px; margin: 0 0 8px; color: var(--ink2); font-size: 13px; }
+.legend i { display: inline-block; width: 14px; height: 3px; border-radius: 2px; vertical-align: middle; margin-right: 6px; }
+.legend i.dot { width: 8px; height: 8px; border-radius: 50%; }
+#tip { position: fixed; pointer-events: none; background: var(--surface); color: var(--ink); border: 1px solid var(--ring);
+  box-shadow: 0 4px 16px rgba(0,0,0,0.12); border-radius: 8px; padding: 8px 10px; font-size: 12.5px; max-width: 320px;
+  display: none; z-index: 5; }
+#tip .t { font-weight: 600; margin-bottom: 2px; }
+#tip .r { color: var(--ink2); }
+table { width: 100%; border-collapse: collapse; font-size: 13px; }
+th { text-align: left; color: var(--muted); font-weight: 500; padding: 6px 8px; border-bottom: 1px solid var(--grid); }
+td { padding: 6px 8px; border-bottom: 1px solid var(--grid); vertical-align: top; color: var(--ink2); }
+td.num { font-variant-numeric: tabular-nums; text-align: right; }
+.tablewrap { overflow-x: auto; }
+.empty { color: var(--muted); padding: 24px 0; text-align: center; }
+a { color: var(--s1); }
+.toggle { float: right; background: none; border: 1px solid var(--ring); color: var(--ink2); border-radius: 8px; padding: 4px 10px; cursor: pointer; font: inherit; font-size: 12.5px; }
+</style>
+</head>
+<body>
+<main>
+  <button class="toggle" id="theme" type="button">Theme</button>
+  <h1>A Minecraft bot that teaches itself</h1>
+  <p class="sub">Every generation plays fresh random worlds on GitHub's machines. Challengers race the champion on the same worlds, and only a clear win takes the crown. Every decision it makes also trains its own model. Nobody tunes it by hand.</p>
+  <p class="status" id="status">Loading…</p>
+
+  <div class="tiles" id="tiles"></div>
+
+  <div class="card">
+    <h2>Champion score per generation</h2>
+    <p class="note">Mean score of the champion on that generation's worlds (x axis: generation). Gray dots are challengers. Points come from milestones and steps toward the Nether portal (more for reaching them early), minus deaths. Stars mark a new champion.</p>
+    <div id="scoreChart"></div>
+  </div>
+
+  <div class="card">
+    <h2>How far the runs get</h2>
+    <p class="note">Share of each generation's runs that reached a step (all genomes, 20 game minutes each).</p>
+    <div class="legend" id="reachLegend"></div>
+    <div id="reachChart"></div>
+  </div>
+
+  <div class="grid2">
+    <div class="card">
+      <h2>What the champion changed</h2>
+      <p class="note">Each gene the champion has moved away from the hand-tuned default, as a share of the gene's allowed range.</p>
+      <div id="genesChart"></div>
+    </div>
+    <div class="card">
+      <h2>Its own model</h2>
+      <p class="note">A model trained only on this bot's runs: which action pays off in which situation. It can reorder the rules' options only as far as the champion's <code>learned.weight</code> allows.</p>
+      <div class="tiles" id="modelTiles" style="margin:0"></div>
+    </div>
+  </div>
+
+  <div class="card" style="margin-top:16px">
+    <h2>Family tree</h2>
+    <p class="note">Every genome tried, placed by the generation it was born in. Lines join a child to its parent. Blue marks the champions' line of descent, orange marks challengers still racing, and gray marks dropped ones.</p>
+    <div class="legend"><span><i class="dot" style="background:var(--s1)"></i>champion line</span><span><i class="dot" style="background:var(--s2)"></i>racing</span><span><i class="dot" style="background:var(--faint)"></i>dropped</span></div>
+    <div id="tree"></div>
+  </div>
+
+  <div class="card">
+    <h2>Generations</h2>
+    <div class="tablewrap"><table id="table"></table></div>
+  </div>
+  <p class="status">Source: <a href="https://github.com/Plrlr/mc-autopilot">github.com/Plrlr/mc-autopilot</a>. Data: <code>loop/</code> on the <code>trial-results</code> branch. Refreshes every 5 minutes.</p>
+</main>
+<div id="tip"></div>
+<script>
+const $ = (id) => document.getElementById(id);
+const css = (v) => getComputedStyle(document.documentElement).getPropertyValue(v).trim();
+const NS = "http://www.w3.org/2000/svg";
+const el = (tag, attrs = {}, parent) => { const e = document.createElementNS(NS, tag); for (const k in attrs) e.setAttribute(k, attrs[k]); if (parent) parent.appendChild(e); return e; };
+const esc = (s) => String(s).replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+const fmt = (n, d = 0) => n == null ? "–" : Number(n).toLocaleString(undefined, { maximumFractionDigits: d, minimumFractionDigits: d });
+
+// Theme toggle (remembered per viewer; the page works without storage).
+(function () {
+  let t = null; try { t = localStorage.getItem("theme"); } catch (e) {}
+  if (t) document.documentElement.dataset.theme = t;
+  $("theme").onclick = () => {
+    const dark = document.documentElement.dataset.theme ? document.documentElement.dataset.theme === "dark" : matchMedia("(prefers-color-scheme: dark)").matches;
+    const next = dark ? "light" : "dark";
+    document.documentElement.dataset.theme = next;
+    try { localStorage.setItem("theme", next); } catch (e) {}
+    if (window.__data) render(window.__data);
+  };
+})();
+
+const tip = $("tip");
+function showTip(ev, title, rows) {
+  tip.innerHTML = `<div class="t">${esc(title)}</div>` + rows.map((r) => `<div class="r">${esc(r)}</div>`).join("");
+  tip.style.display = "block";
+  const w = tip.offsetWidth, h = tip.offsetHeight;
+  let x = ev.clientX + 14, y = ev.clientY + 14;
+  if (x + w > innerWidth - 8) x = ev.clientX - w - 14;
+  if (y + h > innerHeight - 8) y = ev.clientY - h - 14;
+  tip.style.left = x + "px"; tip.style.top = y + "px";
+}
+const hideTip = () => { tip.style.display = "none"; };
+
+async function load() {
+  const get = async (p, json) => { try { const r = await fetch(p + "?t=" + Date.now()); if (!r.ok) return null; return json ? r.json() : r.text(); } catch (e) { return null; } };
+  const [hist, state, model] = await Promise.all([get("loop/history.jsonl"), get("loop/state.json", true), get("loop/learned.json", true)]);
+  const history = (hist || "").split("\n").filter((l) => l.trim()).map((l) => { try { return JSON.parse(l); } catch (e) { return null; } }).filter(Boolean);
+  return { history, state, model };
+}
+
+function niceMax(v) { if (v <= 0) return 1; const p = Math.pow(10, Math.floor(Math.log10(v))); for (const m of [1, 2, 2.5, 5, 10]) if (m * p >= v) return m * p; return 10 * p; }
+
+// A line chart frame: x = generation, one y axis.
+function frame(host, H, xs, yMax, yLabel, yFmt) {
+  host.innerHTML = "";
+  const W = Math.max(320, host.clientWidth || 800);
+  const m = { l: 44, r: 110, t: 10, b: 28 };
+  const svg = el("svg", { viewBox: `0 0 ${W} ${H}`, role: "img" }, host);
+  const x0 = Math.min(...xs), x1 = Math.max(...xs);
+  const X = (g) => m.l + (x1 === x0 ? (W - m.l - m.r) / 2 : (g - x0) / (x1 - x0) * (W - m.l - m.r));
+  const Y = (v) => m.t + (1 - v / yMax) * (H - m.t - m.b);
+  for (let i = 0; i <= 4; i++) {
+    const v = yMax * i / 4, y = Y(v);
+    el("line", { x1: m.l, x2: W - m.r, y1: y, y2: y, stroke: i ? css("--grid") : css("--axis"), "stroke-width": 1 }, svg);
+    el("text", { x: m.l - 8, y: y + 4, "text-anchor": "end" }, svg).textContent = yFmt(v);
+  }
+  const step = Math.max(1, Math.ceil((x1 - x0) / 8));
+  for (let g = x0; g <= x1; g += step) el("text", { x: X(g), y: H - 8, "text-anchor": "middle" }, svg).textContent = g;
+  return { svg, X, Y, W, H, m };
+}
+
+function scoreChart(history) {
+  const host = $("scoreChart");
+  if (!history.length) { host.innerHTML = '<div class="empty">The first generation is still playing.</div>'; return; }
+  const xs = history.map((h) => h.gen);
+  const all = history.flatMap((h) => Object.values(h.scores || {}).flat());
+  const yMax = niceMax(Math.max(1, ...all.map((v) => Math.max(0, v))));
+  const f = frame(host, 280, xs, yMax, "score", (v) => fmt(v, Number.isInteger(v) ? 0 : 1));
+  const s1 = css("--s1"), surf = css("--surface"), faint = css("--faint");
+  // Challengers: faint dots (their mean on this generation's worlds).
+  history.forEach((h) => {
+    for (const [g, sc] of Object.entries(h.scores || {})) {
+      if (g === h.old_champion || !sc.length) continue;
+      const mean = sc.reduce((a, b) => a + b, 0) / sc.length;
+      const c = el("circle", { cx: f.X(h.gen), cy: f.Y(Math.max(0, mean)), r: 3.5, fill: faint }, f.svg);
+      c.addEventListener("mousemove", (e) => showTip(e, `${g} (challenger), gen ${h.gen}`, [`mean ${fmt(mean, 2)} on ${sc.length} worlds`, (h.genomes || {})[g] || ""]));
+      c.addEventListener("mouseleave", hideTip);
+    }
+  });
+  const pts = history.filter((h) => h.champion_score != null);
+  const d = pts.map((h, i) => (i ? "L" : "M") + f.X(h.gen) + " " + f.Y(Math.max(0, h.champion_score))).join(" ");
+  el("path", { d, fill: "none", stroke: s1, "stroke-width": 2, "stroke-linejoin": "round", "stroke-linecap": "round" }, f.svg);
+  pts.forEach((h) => {
+    const promoted = h.champion !== h.old_champion;
+    const cx = f.X(h.gen), cy = f.Y(Math.max(0, h.champion_score));
+    if (promoted) {
+      const t = el("text", { x: cx, y: cy - 10, "text-anchor": "middle", class: "lbl" }, f.svg);
+      t.textContent = "★ " + h.champion;
+    }
+    const c = el("circle", { cx, cy, r: promoted ? 5 : 4, fill: s1, stroke: surf, "stroke-width": 2 }, f.svg);
+    const hit = el("circle", { cx, cy, r: 10, fill: "transparent" }, f.svg);
+    const rows = [`champion ${h.old_champion}: ${fmt(h.champion_score, 2)}`, ...(h.decisions || [])];
+    hit.addEventListener("mousemove", (e) => showTip(e, `Generation ${h.gen}`, rows));
+    hit.addEventListener("mouseleave", hideTip);
+  });
+  const last = pts[pts.length - 1];
+  if (last) el("text", { x: f.X(last.gen) + 10, y: f.Y(Math.max(0, last.champion_score)) + 4, class: "lbl" }, f.svg).textContent = "champion " + fmt(last.champion_score, 2);
+}
+
+const STEPS = [
+  { key: "m4", name: "iron tools", color: "--s1" },
+  { key: "two_buckets", name: "portal kit", color: "--s2" },
+  { key: "obsidian_placed", name: "obsidian placed", color: "--s3" },
+  { key: "portal_lit", name: "portal lit", color: "--s4" },
+];
+
+function reachChart(history) {
+  const host = $("reachChart");
+  $("reachLegend").innerHTML = STEPS.map((s) => `<span><i style="background:var(${s.color})"></i>${s.name}</span>`).join("");
+  if (!history.length) { host.innerHTML = '<div class="empty">No generations yet.</div>'; return; }
+  const f = frame(host, 240, history.map((h) => h.gen), 100, "%", (v) => v + "%");
+  const surf = css("--surface");
+  const labels = [];
+  STEPS.forEach((s) => {
+    const col = css(s.color);
+    const pts = history.map((h) => ({ g: h.gen, v: h.runs_ok ? 100 * ((h.reached || {})[s.key] || 0) / h.runs_ok : 0 }));
+    el("path", { d: pts.map((p, i) => (i ? "L" : "M") + f.X(p.g) + " " + f.Y(p.v)).join(" "), fill: "none", stroke: col, "stroke-width": 2, "stroke-linejoin": "round" }, f.svg);
+    const lp = pts[pts.length - 1];
+    labels.push({ y: f.Y(lp.v), text: `${s.name} ${fmt(lp.v)}%`, x: f.X(lp.g), col });
+    pts.forEach((p) => {
+      const hit = el("circle", { cx: f.X(p.g), cy: f.Y(p.v), r: 8, fill: "transparent" }, f.svg);
+      hit.addEventListener("mousemove", (e) => showTip(e, `Generation ${p.g}`, STEPS.map((t) => {
+        const h = history.find((q) => q.gen === p.g);
+        return `${t.name}: ${fmt(h.runs_ok ? 100 * ((h.reached || {})[t.key] || 0) / h.runs_ok : 0)}%`;
+      })));
+      hit.addEventListener("mouseleave", hideTip);
+    });
+    el("circle", { cx: f.X(lp.g), cy: f.Y(lp.v), r: 4, fill: col, stroke: surf, "stroke-width": 2 }, f.svg);
+  });
+  // End labels, nudged apart so they never overlap.
+  labels.sort((a, b) => a.y - b.y);
+  for (let i = 1; i < labels.length; i++) if (labels[i].y - labels[i - 1].y < 14) labels[i].y = labels[i - 1].y + 14;
+  // Pushed past the bottom of the plot: slide the stack back up.
+  const over = labels.length ? labels[labels.length - 1].y - f.Y(0) : 0;
+  if (over > 0) labels.forEach((l) => (l.y -= over));
+  labels.forEach((l) => { el("text", { x: l.x + 10, y: l.y + 4, class: "lbl" }, f.svg).textContent = l.text; });
+}
+
+function genesChart(state, genes) {
+  const host = $("genesChart");
+  host.innerHTML = "";
+  if (!state) { host.innerHTML = '<div class="empty">No loop state yet.</div>'; return; }
+  const ch = state.genomes[state.champion];
+  const changed = Object.entries(ch.genes || {});
+  if (!changed.length) { host.innerHTML = '<div class="empty">The champion is still the hand-tuned defaults (' + esc(ch.id) + ').</div>'; return; }
+  const rows = changed.map(([n, v]) => {
+    const g = genes[n] || {};
+    const span = (g.max - g.min) || 1;
+    return { n, v, def: g.def, frac: g.def == null ? 0 : (v - g.def) / span };
+  }).sort((a, b) => Math.abs(b.frac) - Math.abs(a.frac));
+  const W = Math.max(300, host.clientWidth || 480), rowH = 26, H = rows.length * rowH + 8;
+  const svg = el("svg", { viewBox: `0 0 ${W} ${H}` }, host);
+  const lw = Math.min(190, W * 0.45), mid = lw + (W - lw - 60) / 2, half = (W - lw - 60) / 2;
+  el("line", { x1: mid, x2: mid, y1: 0, y2: H, stroke: css("--axis") }, svg);
+  rows.forEach((r, i) => {
+    const y = 4 + i * rowH;
+    el("text", { x: lw - 8, y: y + 15, "text-anchor": "end", class: "lbl" }, svg).textContent = r.n;
+    const w = Math.max(2, Math.abs(r.frac) * half);
+    const x = r.frac >= 0 ? mid : mid - w;
+    const col = css(r.frac >= 0 ? "--s1" : "--s2");
+    const b = el("rect", { x, y: y + 5, width: w, height: 14, rx: 4, fill: col }, svg);
+    const t = el("text", { x: r.frac >= 0 ? mid + w + 6 : mid - w - 6, y: y + 16, "text-anchor": r.frac >= 0 ? "start" : "end" }, svg);
+    t.textContent = `${+r.v.toFixed(2)} (was ${r.def})`;
+    const hit = el("rect", { x: 0, y, width: W, height: rowH, fill: "transparent" }, svg);
+    hit.addEventListener("mousemove", (e) => showTip(e, r.n, [`champion: ${+r.v.toFixed(3)}`, `default: ${r.def}`, (genes[r.n] || {}).help || ""]));
+    hit.addEventListener("mouseleave", hideTip);
+  });
+}
+
+function tree(state) {
+  const host = $("tree");
+  host.innerHTML = "";
+  if (!state) return;
+  const gs = Object.values(state.genomes);
+  const line = new Set();
+  // The champions' line: every genome that was ever champion, and their ancestors.
+  for (const g of gs) if (g.status === "champion" || g.crowned != null || g.id === "g0") {
+    let c = g; while (c && !line.has(c.id)) { line.add(c.id); c = state.genomes[c.parent]; }
+  }
+  const byGen = {};
+  gs.forEach((g) => (byGen[g.born] = byGen[g.born] || []).push(g));
+  const gens = Object.keys(byGen).map(Number).sort((a, b) => a - b);
+  const maxCol = Math.max(...gens.map((k) => byGen[k].length));
+  const W = Math.max(320, host.clientWidth || 800), H = Math.max(140, Math.min(360, 40 + maxCol * 22));
+  const svg = el("svg", { viewBox: `0 0 ${W} ${H}` }, host);
+  const g0 = gens[0], g1 = gens[gens.length - 1] || 1;
+  const X = (b) => 20 + (g1 === g0 ? 0 : (b - g0) / (g1 - g0)) * (W - 40);
+  const pos = {};
+  gens.forEach((k) => byGen[k].forEach((g, i) => { pos[g.id] = { x: X(k), y: 20 + (i + 0.5) * (H - 40) / byGen[k].length }; }));
+  const s1 = css("--s1"), s2 = css("--s2"), faint = css("--faint"), surf = css("--surface");
+  gs.forEach((g) => { const p = state.genomes[g.parent]; if (p && pos[p.id]) el("line", { x1: pos[p.id].x, y1: pos[p.id].y, x2: pos[g.id].x, y2: pos[g.id].y, stroke: line.has(g.id) ? s1 : css("--grid"), "stroke-width": line.has(g.id) ? 2 : 1 }, svg); });
+  gs.forEach((g) => {
+    const col = line.has(g.id) ? s1 : g.status === "contender" ? s2 : faint;
+    const r = g.status === "champion" ? 7 : 4.5;
+    el("circle", { cx: pos[g.id].x, cy: pos[g.id].y, r, fill: col, stroke: surf, "stroke-width": 2 }, svg);
+    if (g.status === "champion") el("text", { x: pos[g.id].x + 10, y: pos[g.id].y + 4, class: "lbl" }, svg).textContent = g.id + " (champion)";
+    const hit = el("circle", { cx: pos[g.id].x, cy: pos[g.id].y, r: 10, fill: "transparent" }, svg);
+    const d = (g.pairs || []).map((p) => p[2]);
+    const mean = d.length ? d.reduce((a, b) => a + b, 0) / d.length : null;
+    hit.addEventListener("mousemove", (e) => showTip(e, `${g.id} · ${g.status}`, [g.note || "", `born gen ${g.born}` + (g.parent ? `, parent ${g.parent}` : ""), mean == null ? "" : `vs champion: ${mean >= 0 ? "+" : ""}${mean.toFixed(2)} over ${d.length} worlds`].filter(Boolean)));
+    hit.addEventListener("mouseleave", hideTip);
+  });
+}
+
+function render(data) {
+  const { history, state, model } = data;
+  const last = history[history.length - 1];
+  const champ = state ? state.genomes[state.champion] : null;
+  const ago = last ? Math.round((Date.now() - Date.parse(last.time)) / 60000) : null;
+  const furthest = (() => {
+    const order = [["m7", "the Nether"], ["portal_lit", "portal lit"], ["frame_complete", "portal frame"], ["obsidian_placed", "obsidian placed"], ["lava_seen", "lava found"], ["two_buckets", "portal kit"], ["m4", "iron tools"], ["m2", "stone tools"], ["m1", "wood"]];
+    for (const [k, n] of order) if (history.some((h) => (h.reached || {})[k])) return n;
+    return "–";
+  })();
+  $("status").innerHTML = last
+    ? `Generation <b>${last.gen}</b> scored ${ago < 90 ? `<b>${ago} min ago</b>` : `${Math.round(ago / 60)} h ago`}. Real speed ${last.speed ? fmt(last.speed, 2) + "× game time" : "–"}. Code <code>${esc(last.sha || "")}</code>.`
+    : "Waiting for the first generation to finish.";
+  const tiles = [
+    ["Generations", last ? fmt(last.gen) : "0", state && state.pending ? "one is playing now" : ""],
+    ["Runs played", last ? fmt(last.total_runs) : "0", "20 game minutes each"],
+    ["Game time", last ? fmt(last.game_hours, 1) + " h" : "0 h", "of Minecraft played"],
+    ["Champion", champ ? champ.id : "g0", champ ? (champ.id === "g0" ? "hand-tuned defaults" : champ.note) : ""],
+    ["Furthest step", furthest, "reached in any run"],
+  ];
+  $("tiles").innerHTML = tiles.map(([k, v, n]) => `<div class="tile"><div class="k">${esc(k)}</div><div class="v">${esc(v)}</div><div class="n">${esc(n)}</div></div>`).join("");
+  const w = champ && champ.genes ? champ.genes["learned.weight"] : 0;
+  const mt = [
+    ["Decisions learned from", model ? fmt(model.rows) : "0", model ? `from ${fmt(model.runs)} runs` : "no model yet"],
+    ["Action kinds", model ? fmt(Object.keys(model.keys || {}).length) : "0", "each with its own model"],
+    ["Tells choices apart", model && model.adv_r2_heldout != null ? fmt(model.adv_r2_heldout, 3) : "–", "R² on unseen runs, choice part"],
+    ["Trust (weight)", fmt(w || 0, 2), (w || 0) > 0 ? "the champion uses it" : "not used yet (rules decide)"],
+  ];
+  $("modelTiles").innerHTML = mt.map(([k, v, n]) => `<div class="tile"><div class="k">${esc(k)}</div><div class="v">${esc(v)}</div><div class="n">${esc(n)}</div></div>`).join("");
+  scoreChart(history);
+  reachChart(history);
+  genesChart(state, (state && state.gene_specs) || {});
+  tree(state);
+  const rows = history.slice(-40).reverse();
+  $("table").innerHTML = "<tr><th>Gen</th><th>Finished</th><th class='num'>Champion score</th><th>Champion</th><th class='num'>Runs</th><th class='num'>Deaths</th><th>What happened</th></tr>" +
+    (rows.length ? rows.map((h) => `<tr><td class="num">${h.gen}</td><td>${esc(new Date(h.time).toLocaleString())}</td><td class="num">${fmt(h.champion_score, 2)}</td><td>${esc(h.champion)}</td><td class="num">${h.runs_ok}/${h.runs}</td><td class="num">${h.deaths}</td><td>${esc((h.decisions || []).join("; ") || "no change")}</td></tr>`).join("")
+      : "<tr><td colspan='7' class='empty'>No generations yet.</td></tr>");
+}
+
+async function refresh() { const d = await load(); window.__data = d; render(d); }
+refresh();
+setInterval(refresh, 5 * 60 * 1000);
+let rt; addEventListener("resize", () => { clearTimeout(rt); rt = setTimeout(() => window.__data && render(window.__data), 150); });
+</script>
+</body>
+</html>

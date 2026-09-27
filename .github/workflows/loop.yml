@@ -1,0 +1,128 @@
+# The learning loop, unattended: each run of this workflow is one generation.
+#   propose: read loop/state.json from the trial-results branch, pick the champion, the
+#            challengers still racing and new mutants, and fresh random seeds (scripts/loop/loop.py)
+#   trial:   play every (genome, seed) pair on its own machine, lean drawing, 20 game minutes
+#   update:  score the runs, race the challengers, retrain the learned brain, write the history
+#            and the dashboard to trial-results, then start the next generation
+# Start:  gh workflow run loop.yml            (runs until the daily cap in loop/state.json)
+#         gh workflow run loop.yml -f generations=3
+# Stop:   put a file named STOP in loop/ on the trial-results branch (scripts/loop/stop), or
+#         disable the workflow in the Actions tab. The hourly schedule restarts a chain that broke
+#         (a cancelled run); it does nothing while a generation is running.
+name: Learning loop
+
+on:
+  workflow_dispatch:
+    inputs:
+      generations:
+        description: 'Generations to run, then stop (0 = keep going until the daily cap or loop/STOP)'
+        default: '0'
+  schedule:
+    - cron: '23 * * * *'
+
+# One generation at a time. A second start waits (at most one waits; a newer one replaces it).
+concurrency:
+  group: learning-loop
+  cancel-in-progress: false
+
+permissions:
+  contents: write
+  actions: write
+
+jobs:
+  propose:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    outputs:
+      runs: ${{ steps.p.outputs.runs }}
+      gen: ${{ steps.p.outputs.gen }}
+      results: ${{ steps.p.outputs.results }}
+    steps:
+      - uses: actions/checkout@v7
+      - id: p
+        env:
+          GH_TOKEN: ${{ github.token }}
+          EVENT: ${{ github.event_name }}
+        run: |
+          echo "runs=[]" >> "$GITHUB_OUTPUT"
+          # The hourly schedule only restarts a broken chain: if the last loop run ended less than
+          # 90 minutes ago, the chain is alive (the next generation is already on its way).
+          if [ "$EVENT" = "schedule" ]; then
+            last=$(gh run list --workflow loop.yml --limit 20 --json databaseId,updatedAt,status \
+              --jq "[.[] | select(.databaseId != ${{ github.run_id }})][0].updatedAt // empty")
+            if [ -n "$last" ] && [ $(( $(date +%s) - $(date -d "$last" +%s) )) -lt 5400 ]; then
+              echo "The loop ran recently; the schedule has nothing to restart."; exit 0
+            fi
+          fi
+          scripts/loop/results.sh checkout results
+          python3 scripts/loop/loop.py propose --state results/loop --sha "$GITHUB_SHA" --out runs.json
+          runs=$(jq -c .runs runs.json)
+          [ "$runs" = "[]" ] && exit 0
+          scripts/loop/results.sh commit results "Loop generation $(jq -r .gen runs.json): proposed"
+          echo "runs=$runs" >> "$GITHUB_OUTPUT"
+          echo "gen=$(jq -r .gen runs.json)" >> "$GITHUB_OUTPUT"
+          echo "results=$(git -C results rev-parse HEAD)" >> "$GITHUB_OUTPUT"
+
+  trial:
+    needs: propose
+    if: needs.propose.outputs.runs != '[]'
+    runs-on: ubuntu-latest
+    timeout-minutes: 150
+    strategy:
+      fail-fast: false
+      matrix:
+        include: ${{ fromJSON(needs.propose.outputs.runs) }}
+    steps:
+      - uses: actions/checkout@v7
+      - name: Genes and the learned model
+        env:
+          PARAMS: ${{ matrix.params }}
+          RESULTS: ${{ needs.propose.outputs.results }}
+        run: |
+          printf '%s' "$PARAMS" > "$RUNNER_TEMP/params.json"
+          git fetch -q --depth 1 origin "$RESULTS"
+          git show FETCH_HEAD:loop/learned.json > "$RUNNER_TEMP/learned.json" 2>/dev/null || rm -f "$RUNNER_TEMP/learned.json"
+          echo "PARAMS_FILE=$RUNNER_TEMP/params.json" >> "$GITHUB_ENV"
+          echo "LEARNED_FILE=$([ -f "$RUNNER_TEMP/learned.json" ] && echo "$RUNNER_TEMP/learned.json")" >> "$GITHUB_ENV"
+      - uses: ./.github/actions/play
+        with:
+          name: ${{ matrix.name }}
+          seed: ${{ matrix.seed }}
+          minutes: ${{ matrix.minutes }}
+          scenario: ${{ matrix.scenario }}
+          params: ${{ env.PARAMS_FILE }}
+          learned: ${{ env.LEARNED_FILE }}
+          lean: ${{ matrix.lean }}
+          perf_mods: ${{ matrix.perf_mods }}
+          retention: '5'
+
+  update:
+    needs: [propose, trial]
+    if: always() && needs.propose.outputs.runs != '[]' && needs.propose.outputs.runs != ''
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/download-artifact@v8
+        with:
+          pattern: trial-*
+          path: batch
+      - name: Score, race, learn
+        run: |
+          pip install -q numpy || true
+          scripts/loop/results.sh checkout results
+          python3 scripts/loop/loop.py update --state results/loop --batch batch
+          python3 scripts/loop/train.py --state results/loop
+          python3 scripts/loop/loop.py status --state results/loop | tee -a "$GITHUB_STEP_SUMMARY"
+          # The dashboard lives next to its data (GitHub Pages serves the trial-results branch).
+          cp scripts/loop/dashboard.html results/index.html
+          touch results/.nojekyll
+          scripts/loop/results.sh commit results "Loop generation ${{ needs.propose.outputs.gen }}: scored"
+      - name: Next generation
+        env:
+          GH_TOKEN: ${{ github.token }}
+          LEFT: ${{ inputs.generations || '0' }}
+        run: |
+          if [ "$LEFT" = "1" ]; then echo "Last requested generation done."; exit 0; fi
+          next=$(( LEFT > 1 ? LEFT - 1 : 0 ))
+          gh workflow run loop.yml --ref "$GITHUB_REF_NAME" -f generations="$next"

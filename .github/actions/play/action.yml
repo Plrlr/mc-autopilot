@@ -1,0 +1,113 @@
+# Plays one trial on this machine: a virtual display with a software renderer, then the in-game
+# test (mod/src/gametest) for N game minutes. Shared by trials.yml (hand-started batches) and
+# loop.yml (the learning loop). The caller checks out the code first.
+name: Play one trial
+description: Run the autopilot's in-game test once and upload its logs
+inputs:
+  name: {description: 'Run name (artifact trial-<name>)', required: true}
+  seed: {description: 'World seed', required: true}
+  minutes: {description: 'Game minutes', default: '20'}
+  scenario: {description: 'natural, cast, portal, deep, nether, blaze, stronghold or end', default: 'natural'}
+  task: {description: 'One skill to run alone (quick fix checks)', default: ''}
+  give: {description: 'Items for the task', default: ''}
+  params: {description: 'Path to a params.json with genes (learning loop)', default: ''}
+  learned: {description: 'Path to a learned model (learning loop)', default: ''}
+  lean: {description: 'Cheapest drawing (true on the cloud loop)', default: 'false'}
+  perf_mods: {description: 'Speed-up mods for this run, e.g. lithium,ferritecore', default: ''}
+  retention: {description: 'Days to keep the artifact', default: '14'}
+runs:
+  using: composite
+  steps:
+    - uses: actions/setup-java@v6
+      with:
+        distribution: temurin
+        java-version: '25'
+        cache: gradle
+        # Gradle and Loom's Minecraft downloads (~460 MB) come from this cache; include the
+        # version file so a new Minecraft/Loom version makes a fresh cache instead of a stale one.
+        cache-dependency-path: |
+          mod/*.gradle*
+          mod/gradle.properties
+          mod/gradle/wrapper/gradle-wrapper.properties
+
+    # Minecraft needs a screen and OpenGL (or Vulkan): a virtual X display with Mesa's software
+    # renderers (llvmpipe for OpenGL, lavapipe for Vulkan). libglx-mesa0 is the GLX vendor
+    # library; without it the game finds no GLX visual and never opens a window.
+    - name: Install virtual display
+      shell: bash
+      run: |
+        sudo apt-get update -q
+        sudo apt-get install -y -q xvfb libgl1 libglx-mesa0 libgl1-mesa-dri libegl1 libegl-mesa0 mesa-utils \
+          libvulkan1 mesa-vulkan-drivers vulkan-tools
+
+    - name: Play
+      shell: bash
+      working-directory: mod
+      env:
+        LIBGL_ALWAYS_SOFTWARE: '1'
+        MINUTES: ${{ inputs.minutes }}
+        SEED: ${{ inputs.seed }}
+        SCENARIO: ${{ inputs.scenario }}
+        TASK: ${{ inputs.task }}
+        GIVE: ${{ inputs.give }}
+        PARAMS: ${{ inputs.params }}
+        LEARNED: ${{ inputs.learned }}
+        LEAN: ${{ inputs.lean }}
+        PERF: ${{ inputs.perf_mods }}
+      run: |
+        chmod +x gradlew
+        # The game exits with Baritone's known shutdown-watchdog crash after saving, which
+        # fails the Gradle task; the summary step below judges the run instead.
+        setsid xvfb-run -a -s "-screen 0 1280x720x24" ./gradlew runClientGameTest --console=plain \
+          -PtestMinutes="$MINUTES" -PtestSeed="$SEED" -PtestScenario="$SCENARIO" -PtestTask="$TASK" -PtestGive="$GIVE" \
+          -PtestParams="$PARAMS" -PtestLearned="$LEARNED" -PtestLean="$LEAN" -PperfMods="$PERF" \
+          > trial.log 2>&1 &
+        pid=$!
+        # Watchdog: a game that can't open its window hangs instead of exiting, so stop it if
+        # no test report shows up in time, and stop any run that goes far past its length.
+        start=$(date +%s)
+        limit=$(( MINUTES * 4 * 60 + 900 ))
+        while kill -0 $pid 2>/dev/null; do
+          sleep 15
+          el=$(( $(date +%s) - start ))
+          if [ $el -gt 900 ] && ! grep -aq "\[autopilot-test\]" trial.log; then
+            echo "No test report after 15 minutes: stopping the game."; kill -- -$pid 2>/dev/null; pkill -f devlaunchinjector || true; break
+          fi
+          if [ $el -gt $limit ]; then echo "Run took over $limit s: stopping the game."; kill -- -$pid 2>/dev/null; pkill -f devlaunchinjector || true; break; fi
+        done
+        wait $pid || true
+        grep -a "autopilot-test" trial.log > autopilot-test.log || true
+        echo "wall time: $(( $(date +%s) - start )) s"
+
+    - name: Summary
+      shell: bash
+      working-directory: mod
+      run: |
+        echo "### ${{ inputs.name }}" >> "$GITHUB_STEP_SUMMARY"
+        grep -a "TASK" autopilot-test.log | sed 's/.*TASK/TASK/' >> "$GITHUB_STEP_SUMMARY" || true
+        grep -a "SPEED" autopilot-test.log | sed 's/.*SPEED/SPEED/' >> "$GITHUB_STEP_SUMMARY" || true
+        grep -a "FINAL" autopilot-test.log | sed 's/.*FINAL/FINAL/' >> "$GITHUB_STEP_SUMMARY" || true
+        grep -a "LESSON" autopilot-test.log | sed 's/.*LESSON/- /' >> "$GITHUB_STEP_SUMMARY" || true
+        grep -ac "Can't keep up" trial.log | sed 's/^/server lag warnings: /' >> "$GITHUB_STEP_SUMMARY" || true
+        # No FINAL line means the game never got to play: show the end of the log.
+        if ! grep -aq "FINAL" autopilot-test.log; then tail -n 80 trial.log; fi
+
+    - uses: actions/upload-artifact@v7
+      if: always()
+      with:
+        name: trial-${{ inputs.name }}
+        path: |
+          mod/autopilot-test.log
+          mod/trial.log
+          mod/build/run/clientGameTest/mc-autopilot/logs/
+          mod/build/run/clientGameTest/mc-autopilot/lessons.json
+          mod/build/run/clientGameTest/screenshots/
+          mod/build/run/clientGameTest/crash-reports/
+        if-no-files-found: warn
+        retention-days: ${{ inputs.retention }}
+
+    # A run that never played fails its job (after the logs are uploaded), so it shows red.
+    - name: Check the run played
+      shell: bash
+      working-directory: mod
+      run: grep -aq "FINAL" autopilot-test.log

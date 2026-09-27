@@ -22,8 +22,14 @@ on:
         description: 'Scenario for the seeds: natural, portal, cast, stronghold or end'
         default: 'natural'
       extra:
-        description: 'Extra runs as JSON: [{"seed","scenario","task","give","minutes","id"}]'
+        description: 'Extra runs as JSON: [{"seed","scenario","task","give","minutes","id","lean","perf_mods"}]'
         default: '[]'
+      lean:
+        description: 'Cheapest drawing (fast graphics, 10 fps, no sound): true or false'
+        default: 'false'
+      perf_mods:
+        description: 'Speed-up mods, e.g. lithium,ferritecore or lithium,ferritecore,sodium'
+        default: ''
 
 jobs:
   # Turns the inputs into one list of runs (seeds x scenario, plus the extra runs).
@@ -41,7 +47,7 @@ jobs:
           runs=$(jq -cn --argjson seeds "$SEEDS" --arg sc "$SCENARIO" --argjson extra "$EXTRA" '
             [$seeds[] | {seed: ., scenario: $sc}] + $extra
             | map({seed, scenario: (.scenario // "natural"), task: (.task // ""), give: (.give // ""),
-                   minutes: ((.minutes // "") | tostring), id: (.id // "")}
+                   minutes: ((.minutes // "") | tostring), id: (.id // ""), lean: (.lean // ""), perf_mods: (.perf_mods // "")}
                   | .name = (.scenario + "-" + .seed + (if .id != "" then "-" + .id else "" end)))')
           echo "runs=$runs" | tee -a "$GITHUB_OUTPUT"
 
@@ -79,87 +85,16 @@ jobs:
         include: ${{ fromJSON(needs.plan.outputs.runs) }}
     steps:
       - uses: actions/checkout@v7
-
-      - uses: actions/setup-java@v6
+      - uses: ./.github/actions/play
         with:
-          distribution: temurin
-          java-version: '25'
-          cache: gradle
-          # Gradle and Loom's Minecraft downloads (~460 MB) come from this cache; include the
-          # version file so a new Minecraft/Loom version makes a fresh cache instead of a stale one.
-          cache-dependency-path: |
-            mod/*.gradle*
-            mod/gradle.properties
-            mod/gradle/wrapper/gradle-wrapper.properties
-
-      # Minecraft needs a screen and OpenGL (or Vulkan): a virtual X display with Mesa's software
-      # renderers (llvmpipe for OpenGL, lavapipe for Vulkan). libglx-mesa0 is the GLX vendor
-      # library; without it the game finds no GLX visual and never opens a window.
-      - name: Install virtual display
-        run: |
-          sudo apt-get update -q
-          sudo apt-get install -y -q xvfb libgl1 libglx-mesa0 libgl1-mesa-dri libegl1 libegl-mesa0 mesa-utils \
-            libvulkan1 mesa-vulkan-drivers vulkan-tools
-          xvfb-run -a -s "-screen 0 1280x720x24" glxinfo -B || true
-          xvfb-run -a -s "-screen 0 1280x720x24" vulkaninfo --summary 2>&1 | head -n 40 || true
-
-      - name: Play
-        working-directory: mod
-        env:
-          LIBGL_ALWAYS_SOFTWARE: '1'
-          MINUTES: ${{ matrix.minutes || inputs.minutes }}
-          SEED: ${{ matrix.seed }}
-          SCENARIO: ${{ matrix.scenario }}
-          TASK: ${{ matrix.task }}
-          GIVE: ${{ matrix.give }}
-        run: |
-          chmod +x gradlew
-          # The game exits with Baritone's known shutdown-watchdog crash after saving, which
-          # fails the Gradle task; the summary step below judges the run instead.
-          setsid xvfb-run -a -s "-screen 0 1280x720x24" ./gradlew runClientGameTest --console=plain \
-            -PtestMinutes="$MINUTES" -PtestSeed="$SEED" -PtestScenario="$SCENARIO" -PtestTask="$TASK" -PtestGive="$GIVE" \
-            > trial.log 2>&1 &
-          pid=$!
-          # Watchdog: a game that can't open its window hangs instead of exiting, so stop it if
-          # no test report shows up in time, and stop any run that goes far past its length.
-          start=$(date +%s)
-          limit=$(( MINUTES * 4 * 60 + 900 ))
-          while kill -0 $pid 2>/dev/null; do
-            sleep 15
-            el=$(( $(date +%s) - start ))
-            if [ $el -gt 900 ] && ! grep -aq "\[autopilot-test\]" trial.log; then
-              echo "No test report after 15 minutes: stopping the game."; kill -- -$pid 2>/dev/null; pkill -f devlaunchinjector || true; break
-            fi
-            if [ $el -gt $limit ]; then echo "Run took over $limit s: stopping the game."; kill -- -$pid 2>/dev/null; pkill -f devlaunchinjector || true; break; fi
-          done
-          wait $pid || true
-          grep -a "autopilot-test" trial.log > autopilot-test.log || true
-          echo "wall time: $(( $(date +%s) - start )) s"
-
-      - name: Summary
-        working-directory: mod
-        run: |
-          echo "### ${{ matrix.name }}" >> "$GITHUB_STEP_SUMMARY"
-          grep -a "TASK" autopilot-test.log | sed 's/.*TASK/TASK/' >> "$GITHUB_STEP_SUMMARY" || true
-          grep -a "FINAL" autopilot-test.log | sed 's/.*FINAL/FINAL/' >> "$GITHUB_STEP_SUMMARY" || true
-          grep -a "LESSON" autopilot-test.log | sed 's/.*LESSON/- /' >> "$GITHUB_STEP_SUMMARY" || true
-          grep -ac "Can't keep up" trial.log | sed 's/^/server lag warnings: /' >> "$GITHUB_STEP_SUMMARY" || true
-          # No FINAL line means the game never got to play: show the end of the log and fail.
-          if ! grep -aq "FINAL" autopilot-test.log; then tail -n 80 trial.log; exit 1; fi
-
-      - uses: actions/upload-artifact@v7
-        if: always()
-        with:
-          name: trial-${{ matrix.name }}
-          path: |
-            mod/autopilot-test.log
-            mod/trial.log
-            mod/build/run/clientGameTest/mc-autopilot/logs/
-            mod/build/run/clientGameTest/mc-autopilot/lessons.json
-            mod/build/run/clientGameTest/screenshots/
-            mod/build/run/clientGameTest/crash-reports/
-          if-no-files-found: warn
-          retention-days: 14
+          name: ${{ matrix.name }}
+          seed: ${{ matrix.seed }}
+          minutes: ${{ matrix.minutes || inputs.minutes }}
+          scenario: ${{ matrix.scenario }}
+          task: ${{ matrix.task }}
+          give: ${{ matrix.give }}
+          lean: ${{ matrix.lean || inputs.lean }}
+          perf_mods: ${{ matrix.perf_mods || inputs.perf_mods }}
 
   # Summarizes the batch here and commits the summary and the small logs to the trial-results
   # branch (runs/<run id>/). Some Claude sessions can't download artifacts (their network blocks

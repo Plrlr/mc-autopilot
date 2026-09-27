@@ -6,6 +6,7 @@ import com.mojang.blaze3d.platform.InputConstants;
 import io.github.plrlr.autopilot.brains.Backends;
 import io.github.plrlr.autopilot.brains.ClaudeCli;
 import io.github.plrlr.autopilot.brains.Decision;
+import io.github.plrlr.autopilot.brains.Learned;
 import io.github.plrlr.autopilot.brains.LlmBackend;
 import io.github.plrlr.autopilot.brains.RateLimiter;
 import io.github.plrlr.autopilot.brains.Strategist;
@@ -84,6 +85,10 @@ public final class Autopilot {
 	private CompletableFuture<Decision> pendingDecision;
 	private List<Option> pendingOptions;
 	private String pendingTrigger;
+	/** The state features and the learned brain's pick for the pending decision (logged for training). */
+	private double[] pendingX;
+	private Learned.Pick pendingPick;
+	public final Learned learned = new Learned();
 	private long lastDecisionTick;
 	private float healthAtDecision = 20;
 	private boolean hostileWasNear;
@@ -114,9 +119,12 @@ public final class Autopilot {
 	private Perception seen = new Perception();
 	private String status = "off";
 
+	/** The mod's folder in the Minecraft directory (logs, lessons, params.json, the learned model). */
+	private final Path home;
+
 	public Autopilot(Config config, Path gameDir) {
 		this.config = config;
-		Path home = gameDir.resolve("mc-autopilot");
+		this.home = gameDir.resolve("mc-autopilot");
 		this.log = new RunLog(home.resolve("logs"));
 		this.lessons = new Lessons(home.resolve("lessons.json"));
 		this.progress = new Progress(home);
@@ -159,6 +167,12 @@ public final class Autopilot {
 		enableTick = tick;
 		milestoneTimes.clear();
 		Checkpoints.start(tick);
+		// The learning loop's genes: a params file from the test harness, else the user's own
+		// mc-autopilot/params.json (e.g. the loop's current champion), else the defaults.
+		String params = System.getProperty("autopilot.params", "");
+		String paramsLine = Tune.load(params.isBlank() ? home.resolve("params.json") : Path.of(params));
+		String model = System.getProperty("autopilot.learned", "");
+		String learnedLine = learned.load(model.isBlank() ? home.resolve("learned.json") : Path.of(model));
 		Bari.applyFairPlay();
 		savedPauseOnLostFocus = mc.options.pauseOnLostFocus;
 		// Alt-tabbing would pause the world and freeze the AI mid-fight.
@@ -171,6 +185,8 @@ public final class Autopilot {
 		Mc.say("ON. Actions: " + brainLabel() + (strategist.opusEnabled() ? ", goals by Opus" : ", goals by rules")
 				+ ". Any movement key takes control back; K opens the panel.");
 		log.event("autopilot_on", "tactician=" + tactician.selected() + " strategist_opus=" + strategist.opusEnabled());
+		log.event("params", paramsLine + " changed=" + Tune.changed());
+		log.event("learned", learnedLine);
 		requestPlan("start", true);
 	}
 
@@ -465,16 +481,16 @@ public final class Autopilot {
 			// A creeper blows the wall open: that reflex stays on even while hiding.
 			// From 7 blocks, not 5: a creeper's fuse is 1.5 s, and 4 of batch 10's 25 deaths were
 			// blasts that caught the bot already running from 5.
-			if (h.type().equals("creeper") && h.dist() < 7) {
+			if (h.type().equals("creeper") && h.dist() < Tune.get("reflex.creeper_dist")) {
 				startReflex(new Option("retreat", null, "creeper close"), "reflex_creeper");
 				return;
 			}
-			if (!hiding && h.dist() < 3.5) {
+			if (!hiding && h.dist() < Tune.get("reflex.melee_dist")) {
 				// Run only when outnumbered: one mob at arm's length follows and hits our back (batch
 				// 10: 14 retreats ended in death), and fighting it behind the shield wins. Not while
 				// walling in either, which would only restart the wall. Health 8 is the planner's line
 				// too: with 6 here, health 7-8 flipped between fighting and fleeing on every decision.
-				if (hp <= 8 && !walling && seen.hostilesWithin(6) >= 2) startReflex(Planner.escape("low health"), "reflex_low_hp");
+				if (hp <= Tune.i("combat.flee_hp") && !walling && seen.hostilesWithin(6) >= Tune.i("combat.outnumbered")) startReflex(Planner.escape("low health"), "reflex_low_hp");
 				else if (skill == null || !skill.name().equals("attack")) startReflex(new Option("attack", h.type(), "it's attacking"), "reflex_fight");
 				return;
 			}
@@ -483,12 +499,12 @@ public final class Autopilot {
 		// takes it; walking on burning killed the bot mid-explore (freebuff nether run 0455). The
 		// fortress fight eats on its own.
 		boolean eating = skill != null && (skill.name().equals("eat") || skill.name().equals("fortress"));
-		if (pl.isOnFire() && hp <= 12 && pl.getFoodData().getFoodLevel() < 20 && Mc.count(Items2::isAnyFood) > 0 && !eating) {
+		if (pl.isOnFire() && hp <= Tune.i("reflex.burning_hp") && pl.getFoodData().getFoodLevel() < 20 && Mc.count(Items2::isAnyFood) > 0 && !eating) {
 			startReflex(new Option("eat", null, "burning"), "reflex_burning");
 			return;
 		}
 		boolean safe = seen.hostilesWithin(6) == 0;
-		if (pl.getFoodData().getFoodLevel() <= 6 && safe && Mc.count(Items2::isAnyFood) > 0
+		if (pl.getFoodData().getFoodLevel() <= Tune.i("reflex.starving_food") && safe && Mc.count(Items2::isAnyFood) > 0
 				&& (skill == null || !skill.name().equals("eat"))) {
 			startReflex(new Option("eat", null, "starving"), "reflex_hunger");
 		}
@@ -665,6 +681,19 @@ public final class Autopilot {
 		pendingTrigger = trigger;
 		lastDecisionTick = tick;
 		healthAtDecision = Mc.player().getHealth();
+		pendingX = Learned.features(memory, seen, progress.deaths(), progress.furthest(), goal);
+		pendingPick = null;
+		// With the rules deciding, the learned brain may re-rank the options (weight and exploration
+		// 0 give exactly the rules' choice). An LLM brain, when one is picked, decides as before.
+		boolean learnedActive = Tune.get("learned.weight") > 0 || Tune.get("learned.explore") > 0;
+		if (learnedActive && tactician.effective().equals("mock")) {
+			Learned.Pick p = learned.choose(options, pendingX, planner.lastUrgent);
+			pendingPick = p;
+			Option c = options.get(p.index());
+			pendingDecision = java.util.concurrent.CompletableFuture.completedFuture(p.index() == 0 && p.why().equals("rules")
+					? Decision.mock(c, "rules", true) : new Decision(c, p.why(), "learned", true, 0, 0, 0, learned.modelId()));
+			return;
+		}
 		pendingDecision = tactician.decide(state, goal, goalSteps, List.copyOf(recent), options, notices::add)
 				.exceptionally(e -> {
 					AutopilotMod.LOGGER.warn("Tactician failed", e);
@@ -679,6 +708,7 @@ public final class Autopilot {
 		if (d == null) return;
 		JsonObject o = new JsonObject();
 		o.addProperty("layer", "tactician");
+		o.addProperty("gs", (tick - enableTick) / 20); // game seconds, for the trainer's time horizon
 		o.addProperty("brain", d.brain());
 		o.addProperty("selected", tactician.selected());
 		o.addProperty("trigger", pendingTrigger);
@@ -692,6 +722,17 @@ public final class Autopilot {
 		o.addProperty("tokens_in", d.tokensIn());
 		o.addProperty("tokens_out", d.tokensOut());
 		if (d.note() != null) o.addProperty("note", d.note());
+		// Training data for the learned brain: the state, which option was taken, and how likely it was.
+		if (pendingX != null) {
+			JsonArray x = new JsonArray();
+			for (double v : pendingX) x.add(Math.round(v * 1000) / 1000.0);
+			o.add("x", x);
+			o.addProperty("idx", pendingOptions.indexOf(d.choice()));
+			o.addProperty("prop", pendingPick == null ? 1 : Math.round(pendingPick.propensity() * 1000) / 1000.0);
+			JsonArray urg = new JsonArray();
+			for (Option op : pendingOptions) if (planner.lastUrgent.contains(op.label())) urg.add(op.label());
+			if (!urg.isEmpty()) o.add("urgent", urg);
+		}
 		log.write(o);
 
 		decisions.addLast(d.brain() + ": " + d.choice().label() + (d.why() == null || d.why().isEmpty() ? "" : " - " + d.why()));
@@ -705,7 +746,7 @@ public final class Autopilot {
 	}
 
 	private JsonObject buildState() {
-		boolean stuck = skill != null && Bari.pathing() && tick - lastMoveTick > 20 * 10;
+		boolean stuck = skill != null && Bari.pathing() && tick - lastMoveTick > 20L * Tune.i("loop.stuck_s");
 		JsonObject state = StateBuilder.build(memory, seen, goal == null ? "none" : goal.key(), recent.isEmpty() ? null : recent.peekLast(),
 				!recent.isEmpty() && recent.peekLast().contains("-> ok"), recent.isEmpty() ? "" : recent.peekLast(), stuck,
 				progress.deaths(), progress.furthest());
@@ -764,7 +805,8 @@ public final class Autopilot {
 		}
 		if (total > lastItemTotal) lastGainTick = tick;
 		lastItemTotal = total;
-		planner.lostUnderground = memory.undergroundTicks(tick) > 20 * 60 && tick - lastGainTick > 20 * 60;
+		long lost = 20L * Tune.i("loop.lost_underground_s");
+		planner.lostUnderground = memory.undergroundTicks(tick) > lost && tick - lastGainTick > lost;
 	}
 
 	/** Inventory and memory checkpoints on the way to the portal (skills mark the others). */
@@ -774,6 +816,11 @@ public final class Autopilot {
 		if (memory.nearest("lava") != null && Checkpoints.mark("lava_seen")) log.event("checkpoint", "lava_seen");
 		if (PortalSkills.placedFrameObsidian() > 0 && Checkpoints.mark("obsidian_placed")) log.event("checkpoint", "obsidian_placed");
 		if (memory.nearest("nether_portal") != null && Checkpoints.mark("portal_lit")) log.event("checkpoint", "portal_lit");
+	}
+
+	/** Game seconds since the autopilot turned on (client ticks / 20). */
+	public long gameSeconds() {
+		return (tick - enableTick) / 20;
 	}
 
 	public List<String> milestoneTimes() {
