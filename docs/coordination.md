@@ -10,9 +10,9 @@ Each session writes only in its own section below.
 - **Cloud (Sonnet, `claude/autopilot-trial-runs-gdcq8y`):** runs batches (`scripts/cycle`),
   implements the reviewer's instructions for the early game, and merges all branches before each
   batch. If a fix fails twice, hands it to the reviewer instead of guessing further.
-- **Runner (Freebuff):** runs Nether and End scenarios and posts results under "## Runner" at the
-  end of this file: commit, scenario, seed, FINAL line, deaths with cause, and the path of the
-  run's logs. Doesn't edit code.
+- **Runner (Freebuff, `tests/freebuff`):** runs Nether and End scenarios and posts results under
+  "## Freebuff" at the end of this file: commit, scenario, seed, FINAL line, deaths with cause,
+  and the path of the run's logs. Also writes unit tests (`mod/src/test/`).
 
 Everyone keeps the claim rule below and follows docs/outside-review-2.txt Part C.
 
@@ -33,6 +33,8 @@ B1, B2, B5, B6 to the cloud; B3/B4 are the user's call.
 - CLAIM mod/src/main/java/io/github/plrlr/autopilot/plan/NetherPlan.java - review (owner)
 - CLAIM mod/src/gametest/java/io/github/plrlr/autopilot/test/AutopilotClientTest.java - review
   (Nether and End scenarios; the cloud may still add early-game scenarios, say so here first)
+- CLAIM mod/src/test/java/io/github/plrlr/autopilot/plan/TechTreeTest.java - freebuff (new file)
+- CLAIM mod/src/test/java/io/github/plrlr/autopilot/plan/PlannerPriorityTest.java - freebuff (new file)
 
 
 ## Cloud
@@ -92,6 +94,21 @@ DIED instead. (Also the cycle output prints some sections twice; that's tee, not
 **What I'm doing now:** the portal cast fix (cast scenario), noise-twin batches 8a/8b (same
 commit twice, 8 seeds x 20 min), then smelting-while-mining, hiding underground and the new
 first wood trip get their first batch.
+
+**Batch 12 (2026-09-27 08:10 UTC): STOPPED, artifacts undownloadable (same blocker as batch 11).**
+Run 36303506045 on commit 92d0319 (merged: reviewer's 738a013 batch-10 death diagnosis/fix -
+shield between swings, flee only when outnumbered, creepers at 7, no death spiral, fortress owns
+hurt) finished all 10 jobs successfully (8 natural + 2 cast + unit-tests, all green). But this is
+still a blanket network-policy denial on `*.blob.core.windows.net` (confirmed on three different
+shards across batches 11 and 12: sa19, sa3, sa5 - not one bad host, the whole domain). No summary
+generated, nothing appended to docs/batches.md. To read it: download the artifacts from
+https://github.com/Plrlr/mc-autopilot/actions/runs/36303506045 by hand (or from a session with
+broader network access) and run `scripts/summarize_batch <dir> --run 36303506045 --commit 92d0319`.
+
+The cloud session is pausing the batch loop here rather than starting more batches against this
+wall (each one burns ~35 min of CI with no way to read the result). Needs the user to widen
+network access to `*.blob.core.windows.net` in this environment's settings, or someone with
+access to fetch these two runs by hand.
 
 **Batch 11 (2026-09-27 02:10 UTC): STOPPED, artifacts undownloadable.** Run 36285919707 on
 commit 8213034 (merged: review/proposals R1+R2, laptop's blaze-reflex fix, A2 survival changes)
@@ -360,3 +377,58 @@ I'll design this once batch 12 shows whether the loop fixes hold.
   there), L9 (`enter_portal` paths into the portal block). See docs/review.md section 2.
 - The laptop's old `trial-loop.ps1` (loop-20260927-0355) may still be running on this machine;
   its results come from code older than this fix.
+
+## Freebuff
+
+Session on branch `tests/freebuff`, freebuff model, lane: **unit tests only** (nothing under
+`mod/src/main/`, no `scripts/cycle`, no Minecraft). Only files under `mod/src/test/` are edited.
+
+**What I changed (2026-09-27, commit after this one):**
+- New `mod/src/test/java/io/github/plrlr/autopilot/plan/TechTreeTest.java`: every craft recipe's
+  ingredients must be obtainable (crafted, smelted, mined or a mob drop), mining tool tiers match
+  vanilla, and every mine source has a pickaxe that can mine it.
+- New `mod/src/test/java/io/github/plrlr/autopilot/plan/PlannerPriorityTest.java`: urgent beats
+  upkeep, upkeep beats the goal step, the goal step beats extras, the list caps at 10, and the
+  batch-9 food rule (searching far for animals is only worth it at hunger <= 8).
+
+**Hook request for the cloud/reviewer (Planner.java, main code I must not touch):** `options()`
+reads all its state through the static `Mc` helper, so a `src/test` file cannot call it. Please add
+these two pure static methods and route the existing code through them; the priority tests find
+them by reflection and auto-activate once they land (skipped until then, so the build stays green):
+1. `public static List<Option> order(List<Option> urgent, Option recover, Option surface, List<Option> upkeep, Option main, List<Option> extras)`
+   - exactly the assembly currently inline at the top of `options()`: urgent, then recover, then
+     `goto surface`, then upkeep, then `main`, then extras; `putIfAbsent` by label; cap at 10.
+     `options()` then becomes
+     `return order(urgent(seen), recoverStep(), surfaceOption(), upkeep(seen, main), main, extras(seen, main));`
+     (lifting the `goto surface` option and its `deep`/`lostUnderground` test into a small private
+     `surfaceOption()` is fine if six arguments are awkward).
+2. `public static boolean foodSearchWorthIt(int hunger) { return hunger <= 8; }`
+   - used in `upkeep()` as `if (f != null && (!f.skill().equals("explore") || foodSearchWorthIt(hunger)))`.
+
+**Bug the tech-tree test found (for the reviewer, in main code):** `TechTree.MOB` has no entries
+for `rabbit`, `cod` or `salmon`, but `TechTree.SMELT` maps `cooked_rabbit`/`cooked_cod`/
+`cooked_salmon` from them and `Items2.RAW_MEAT` includes all three, so the FOOD goal can ask the
+planner for meat the tree cannot reach (it falls through to `explore any`). Fix: add
+`MOB.put("rabbit", List.of("rabbit"))`, `MOB.put("cod", List.of("cod"))`,
+`MOB.put("salmon", List.of("salmon"))`. The check `TechTreeTest.smeltedItemsHaveTheirRawSource`
+is `@Disabled` with this reason until those entries exist.
+
+**Update (2026-09-27): the MOB gap is fixed.** At the user's request the freebuff lane made the
+three-line main change itself (`TechTree.java`: `MOB.put("rabbit"/"cod"/"salmon", ...)`) and
+`smeltedItemsHaveTheirRawSource` is enabled again. `gradlew test` stays green.
+
+**Loop findings (2026-09-27, trial-loop `loop-20260927-0355`, main checkout at `2c3fdf6`, seed a,
+for the reviewer; I only read the logs):**
+- Run 1 (blaze 5m): milestone 8/13, 1 death `onFire` at ~30 s **with chestplate + helmet worn**
+  (the `6d47ab8` armor fix). Same shape as the 03:41 loop: fire damage adds up faster than
+  `Fortress.recover()` gets the bot out of sight. The armor didn't change the outcome; the open
+  question from coordination.md stands (recover() re-engages too soon at 16 hp while still
+  burning).
+- Run 2 (nether 10m): FINAL 7/13, 0 deaths, `fortress find` ok (fortress seen 66 blocks away) —
+  but `fortress blazes:8` failed **3 x INTERRUPTED (reflex_fight) + 1 TIMEOUT (300 s)**, 0 rods.
+  At 04:10:43 the reflex interrupt is immediately followed by `attack wither_skeleton -> ok`, so
+  the W1 blaze-only hook (`Autopilot.java:456`, nulls the hostile only when it is a blaze) does
+  **not** cover other fortress mobs: a wither skeleton within range still breaks the fight, and
+  each interrupt restarts the 300 s clock. Suggested for the owner (not my lane): while
+  `fortress blazes:*` runs in the Nether, skip `reflex_fight`/`reflex_low_hp` for any hostile
+  (keep creeper/lava/fire/drowning), letting Fortress's own recover() decide.

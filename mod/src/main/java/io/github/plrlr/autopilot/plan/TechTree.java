@@ -88,6 +88,12 @@ public final class TechTree {
 		MOB.put("string", List.of("spider"));
 		MOB.put("blaze_rod", List.of("blaze"));
 		MOB.put("ender_pearl", List.of("enderman"));
+		// Raw fish and rabbit are in Items2.RAW_MEAT and get cooked, so the tree has to know where
+		// they come from: without these, planning for cooked_cod/rabbit/salmon fell through to
+		// "explore any" forever.
+		MOB.put("rabbit", List.of("rabbit"));
+		MOB.put("cod", List.of("cod"));
+		MOB.put("salmon", List.of("salmon"));
 		MOB.put("meat", List.of("cow", "pig", "sheep", "chicken"));
 	}
 
