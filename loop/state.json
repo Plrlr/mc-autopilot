@@ -348,11 +348,23 @@
  },
  "champion": "g6",
  "credit": {
+  "cave.torch_light": {
+   "n": 0,
+   "sum": 0.0
+  },
+  "cave.torches": {
+   "n": 0,
+   "sum": 0.0
+  },
   "combat.backstep": {
    "n": 0,
    "sum": 0.0
   },
   "combat.crits": {
+   "n": 0,
+   "sum": 0.0
+  },
+  "combat.deflect": {
    "n": 0,
    "sum": 0.0
   },
@@ -363,6 +375,14 @@
   "combat.outnumbered": {
    "n": 1,
    "sum": -0.18249999999999986
+  },
+  "combat.shield_guard": {
+   "n": 0,
+   "sum": 0.0
+  },
+  "combat.wall_in_anywhere": {
+   "n": 0,
+   "sum": 0.0
   },
   "death.recover_night_armor": {
    "n": 1,
@@ -444,6 +464,10 @@
    "n": 0,
    "sum": 0.0
   },
+  "gear.sword_early": {
+   "n": 0,
+   "sum": 0.0
+  },
   "learned.explore": {
    "n": 0,
    "sum": 0.0
@@ -460,6 +484,14 @@
    "n": 0,
    "sum": 0.0
   },
+  "nav.mob_avoid_coef": {
+   "n": 0,
+   "sum": 0.0
+  },
+  "nav.mob_avoid_radius": {
+   "n": 0,
+   "sum": 0.0
+  },
   "night.mine_instead": {
    "n": 0,
    "sum": 0.0
@@ -473,6 +505,10 @@
    "sum": 0.0
   },
   "night.shelter_radius": {
+   "n": 0,
+   "sum": 0.0
+  },
+  "night.wall_in": {
    "n": 0,
    "sum": 0.0
   },
@@ -513,6 +549,10 @@
    "sum": 0.0
   },
   "reflex.creeper_dist": {
+   "n": 0,
+   "sum": 0.0
+  },
+  "reflex.lava_margin": {
    "n": 0,
    "sum": 0.0
   },
@@ -562,10 +602,24 @@
   }
  },
  "days": {
-  "2026-09-27": 11
+  "2026-09-27": 12
  },
- "gen": 11,
+ "gen": 12,
  "gene_specs": {
+  "cave.torch_light": {
+   "def": 3.0,
+   "help": "place a torch when block light at our feet is at or below this",
+   "kind": "INT",
+   "max": 7.0,
+   "min": 0.0
+  },
+  "cave.torches": {
+   "def": 0.0,
+   "help": "place a torch wherever it's dark underground (mobs spawn only in the dark)",
+   "kind": "BOOL",
+   "max": 1.0,
+   "min": 0.0
+  },
   "combat.backstep": {
    "def": 0.0,
    "help": "step back out of reach while the sword recharges",
@@ -576,6 +630,13 @@
   "combat.crits": {
    "def": 0.0,
    "help": "jump before a swing so it lands as a critical hit (1.5x)",
+   "kind": "BOOL",
+   "max": 1.0,
+   "min": 0.0
+  },
+  "combat.deflect": {
+   "def": 0.0,
+   "help": "hit a ghast's fireball back when it comes close",
    "kind": "BOOL",
    "max": 1.0,
    "min": 0.0
@@ -593,6 +654,20 @@
    "kind": "INT",
    "max": 4.0,
    "min": 1.0
+  },
+  "combat.shield_guard": {
+   "def": 0.0,
+   "help": "raise the shield toward a skeleton drawing its bow or a creeper about to blow",
+   "kind": "BOOL",
+   "max": 1.0,
+   "min": 0.0
+  },
+  "combat.wall_in_anywhere": {
+   "def": 0.0,
+   "help": "hurt and outnumbered: wall in and heal on the surface too, instead of running",
+   "kind": "BOOL",
+   "max": 1.0,
+   "min": 0.0
   },
   "death.recover_night_armor": {
    "def": 10.0,
@@ -734,6 +809,13 @@
    "max": 48.0,
    "min": 8.0
   },
+  "gear.sword_early": {
+   "def": 0.0,
+   "help": "craft a sword matching the pickaxe's tier as soon as possible",
+   "kind": "BOOL",
+   "max": 1.0,
+   "min": 0.0
+  },
   "learned.explore": {
    "def": 0.0,
    "help": "chance to try a non-first option (data for learning)",
@@ -762,6 +844,20 @@
    "max": 30.0,
    "min": 5.0
   },
+  "nav.mob_avoid_coef": {
+   "def": 1.5,
+   "help": "how much Baritone's paths avoid monsters (1 = not at all)",
+   "kind": "REAL",
+   "max": 5.0,
+   "min": 1.0
+  },
+  "nav.mob_avoid_radius": {
+   "def": 8.0,
+   "help": "radius around monsters that paths avoid",
+   "kind": "INT",
+   "max": 16.0,
+   "min": 4.0
+  },
   "night.mine_instead": {
    "def": 0.0,
    "help": "at night, skip the shelter when the next step is mining underground anyway",
@@ -789,6 +885,13 @@
    "kind": "INT",
    "max": 32.0,
    "min": 6.0
+  },
+  "night.wall_in": {
+   "def": 0.0,
+   "help": "at night, wall in on the spot (fast) instead of digging a shelter hole",
+   "kind": "BOOL",
+   "max": 1.0,
+   "min": 0.0
   },
   "pearls.barter_ingots": {
    "def": 24.0,
@@ -859,6 +962,13 @@
    "kind": "REAL",
    "max": 12.0,
    "min": 4.0
+  },
+  "reflex.lava_margin": {
+   "def": 0.0,
+   "help": "step away from lava right beside us",
+   "kind": "BOOL",
+   "max": 1.0,
+   "min": 0.0
   },
   "reflex.melee_dist": {
    "def": 3.5,
@@ -2519,7 +2629,83 @@
  "model_r2": 0.168,
  "model_rows": 10589,
  "next_id": 12,
- "pending": null,
+ "pending": {
+  "data_tasks": [
+   {
+    "kind": "natural",
+    "seed": "D12-nf9843",
+    "stage": "spawn",
+    "synthetic": false
+   }
+  ],
+  "gen": 12,
+  "lineup": [
+   "g6",
+   "g10",
+   "g11"
+  ],
+  "runs": [
+   "eval-g6-0",
+   "eval-g6-1",
+   "eval-g6-2",
+   "eval-g6-3",
+   "eval-g6-4",
+   "eval-g10-0",
+   "eval-g10-1",
+   "eval-g10-2",
+   "eval-g10-3",
+   "eval-g10-4",
+   "eval-g11-0",
+   "eval-g11-1",
+   "eval-g11-2",
+   "eval-g11-3",
+   "eval-g11-4",
+   "data-g6-0"
+  ],
+  "seeds": [
+   "L12-fmtn49",
+   "L12-ucpzd4",
+   "L12-fuwtwb",
+   "L12-qm2hfc",
+   "L12-bbxm5c"
+  ],
+  "sha": "5c4b188c1aa146462d0a5dd0b09b8126cc1fee96",
+  "started": "2026-09-27T21:24:11+00:00",
+  "tasks": [
+   {
+    "kind": "natural",
+    "seed": "L12-fmtn49",
+    "stage": "spawn",
+    "synthetic": false
+   },
+   {
+    "kind": "natural",
+    "seed": "L12-ucpzd4",
+    "stage": "spawn",
+    "synthetic": false
+   },
+   {
+    "kind": "natural",
+    "seed": "L12-fuwtwb",
+    "stage": "spawn",
+    "synthetic": false
+   },
+   {
+    "asset": "kit-gen6-eval-g8-0.zip",
+    "kind": "start",
+    "seed": "L12-qm2hfc",
+    "stage": "kit",
+    "synthetic": false
+   },
+   {
+    "kind": "scenario",
+    "scenario": "stronghold",
+    "seed": "L12-bbxm5c",
+    "stage": "eyes",
+    "synthetic": true
+   }
+  ]
+ },
  "settings": {
   "accept_pairs": 8,
   "accept_t": 2.0,
@@ -2544,6 +2730,52 @@
   "sigma0": 0.15,
   "stage_seeds": 2,
   "suggest": [
+   {
+    "nav.mob_avoid_coef": 3,
+    "plan.hostile_range": 4
+   },
+   {
+    "cave.torches": 1,
+    "combat.shield_guard": 1,
+    "gear.sword_early": 1,
+    "nav.mob_avoid_coef": 3,
+    "plan.hostile_range": 4
+   },
+   {
+    "food.stock": 16
+   },
+   {
+    "gear.sword_early": 1
+   },
+   {
+    "combat.wall_in_anywhere": 1,
+    "gear.sword_early": 1
+   },
+   {
+    "cave.torches": 1,
+    "combat.shield_guard": 1,
+    "gear.sword_early": 1,
+    "route.armor_before_portal": 1
+   },
+   {
+    "cave.torches": 1
+   },
+   {
+    "cave.torches": 1,
+    "combat.shield_guard": 1
+   },
+   {
+    "night.wall_in": 1
+   },
+   {
+    "reflex.lava_margin": 1
+   },
+   {
+    "combat.deflect": 1
+   },
+   {
+    "combat.shield_guard": 1
+   },
    {
     "_retry": "dropped after 5 worlds by a too-hasty rule",
     "focus.commit": 1
@@ -2609,10 +2841,15 @@
  },
  "showcase_runs": 6,
  "sigma": {
+  "cave.torch_light": 0.15,
+  "cave.torches": 0.15,
   "combat.backstep": 0.15,
   "combat.crits": 0.15,
+  "combat.deflect": 0.15,
   "combat.flee_hp": 0.15,
   "combat.outnumbered": 0.1275,
+  "combat.shield_guard": 0.15,
+  "combat.wall_in_anywhere": 0.15,
   "death.recover_night_armor": 0.21,
   "dragon.eat_hp": 0.15,
   "dragon.max_center_dist": 0.15,
@@ -2633,14 +2870,18 @@
   "gather.log_stock": 0.15,
   "gather.stone_extra": 0.15,
   "gather.stone_stock": 0.15,
+  "gear.sword_early": 0.15,
   "learned.explore": 0.15,
   "learned.weight": 0.15,
   "loop.lost_underground_s": 0.15,
   "loop.stuck_s": 0.15,
+  "nav.mob_avoid_coef": 0.15,
+  "nav.mob_avoid_radius": 0.15,
   "night.mine_instead": 0.15,
   "night.shelter_armor": 0.15,
   "night.shelter_max_s": 0.15,
   "night.shelter_radius": 0.15,
+  "night.wall_in": 0.15,
   "pearls.barter_ingots": 0.15,
   "pearls.boat_trap": 0.15,
   "pearls.provoke_s": 0.15,
@@ -2651,6 +2892,7 @@
   "reflex.burning_hp": 0.15,
   "reflex.clutch_fall": 0.15,
   "reflex.creeper_dist": 0.15,
+  "reflex.lava_margin": 0.15,
   "reflex.melee_dist": 0.15,
   "reflex.starving_food": 0.15,
   "route.armor_before_portal": 0.1785,
