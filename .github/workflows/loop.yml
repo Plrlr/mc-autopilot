@@ -73,7 +73,10 @@ jobs:
       matrix:
         include: ${{ fromJSON(needs.propose.outputs.runs) }}
     steps:
+      # A genome with a code change (Level 2) plays its own commit; the rest play this generation's main.
       - uses: actions/checkout@v7
+        with:
+          ref: ${{ matrix.ref }}
       - name: Genes and the learned model
         env:
           PARAMS: ${{ matrix.params }}
@@ -100,9 +103,14 @@ jobs:
     needs: [propose, trial]
     if: always() && needs.propose.outputs.runs != '[]' && needs.propose.outputs.runs != ''
     runs-on: ubuntu-latest
-    timeout-minutes: 30
+    timeout-minutes: 45
+    env:
+      # Level 2 (code changes by Claude) runs only when this secret exists: see docs/learning-loop.md.
+      HAS_CLAUDE: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN != '' }}
     steps:
       - uses: actions/checkout@v7
+        with:
+          fetch-depth: 0
       - uses: actions/download-artifact@v8
         with:
           pattern: trial-*
@@ -113,6 +121,30 @@ jobs:
           scripts/loop/results.sh checkout results
           python3 scripts/loop/loop.py update --state results/loop --batch batch
           python3 scripts/loop/train.py --state results/loop
+      - name: Merge a winning code change into main
+        run: python3 scripts/loop/loop.py merge --state results/loop
+      - uses: actions/setup-java@v6
+        if: env.HAS_CLAUDE == 'true'
+        with:
+          distribution: temurin
+          java-version: '25'
+          cache: gradle
+          cache-dependency-path: |
+            mod/*.gradle*
+            mod/gradle.properties
+            mod/gradle/wrapper/gradle-wrapper.properties
+      - name: Claude writes a code change (when the gene search has stalled)
+        if: env.HAS_CLAUDE == 'true'
+        env:
+          CLAUDE_CODE_OAUTH_TOKEN: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
+        run: |
+          git fetch -q origin main && git checkout -q --detach FETCH_HEAD
+          curl -fsSL https://claude.ai/install.sh | bash
+          export PATH="$HOME/.local/bin:$PATH"
+          chmod +x mod/gradlew
+          python3 scripts/loop/evolve.py --state results/loop --batch batch || echo "evolve step failed; the loop goes on"
+      - name: Publish
+        run: |
           python3 scripts/loop/loop.py status --state results/loop | tee -a "$GITHUB_STEP_SUMMARY"
           # The dashboard lives next to its data (GitHub Pages serves the trial-results branch).
           cp scripts/loop/dashboard.html results/index.html
@@ -125,4 +157,4 @@ jobs:
         run: |
           if [ "$LEFT" = "1" ]; then echo "Last requested generation done."; exit 0; fi
           next=$(( LEFT > 1 ? LEFT - 1 : 0 ))
-          gh workflow run loop.yml --ref "$GITHUB_REF_NAME" -f generations="$next"
+          gh workflow run loop.yml --ref main -f generations="$next"

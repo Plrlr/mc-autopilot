@@ -28,6 +28,7 @@ import gzip
 import json
 import os
 import random
+import shutil
 import sys
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
@@ -169,6 +170,8 @@ def cmd_propose(a):
         desc = ", ".join("%s %s" % (n, fmt(common.full_genes(genes, changed)[n])) for n in chosen)
         st["genomes"][gid] = new_genome(gid, parent, changed, gen, chosen, desc)
         st["genomes"][gid]["status"] = "contender"
+        # A child of a code change (not yet merged into main) plays that code too.
+        st["genomes"][gid]["code"] = st["genomes"][parent].get("code")
         lineup.append(gid)
     seeds = ["L%d-%s" % (gen, "".join(rng.choice("abcdefghjkmnpqrstuvwxyz23456789") for _ in range(6)))
              for _ in range(s["seeds_per_gen"] + s["data_runs"])]
@@ -176,12 +179,12 @@ def cmd_propose(a):
     for gid in lineup:
         full = common.full_genes(genes, st["genomes"][gid]["genes"])
         for i, seed in enumerate(seeds[: s["seeds_per_gen"]]):
-            runs.append(run_entry(s, gid, seed, "eval", st["genomes"][gid]["genes"], gen, i))
+            runs.append(run_entry(s, gid, seed, "eval", st["genomes"][gid]["genes"], gen, i, ref_of(st, gid, a.sha)))
     # Data runs: the champion with exploration on, on their own seeds (never scored for the race).
     for i, seed in enumerate(seeds[s["seeds_per_gen"]:]):
         g = dict(st["genomes"][champ]["genes"])
         g["learned.explore"] = s["explore_data"]
-        runs.append(run_entry(s, champ, seed, "data", g, gen, i))
+        runs.append(run_entry(s, champ, seed, "data", g, gen, i, ref_of(st, champ, a.sha)))
     st["pending"] = {"gen": gen, "sha": a.sha, "lineup": lineup, "seeds": seeds, "runs": [r["name"] for r in runs],
                      "started": datetime.datetime.now(datetime.timezone.utc).isoformat(timespec="seconds")}
     common.write_json(os.path.join(a.state, "state.json"), st)
@@ -191,8 +194,14 @@ def cmd_propose(a):
     print("generation %d: %s on %d seeds, %d data runs" % (gen, " ".join(lineup), s["seeds_per_gen"], s["data_runs"]))
 
 
-def run_entry(s, gid, seed, role, changed, gen, i):
-    return {"name": "%s-%s-%d" % (role, gid, i), "seed": seed, "genome": gid, "role": role,
+def ref_of(st, gid, main_sha):
+    """The commit a genome plays: its own code change if it has one, else this generation's main."""
+    c = st["genomes"][gid].get("code")
+    return c["sha"] if c else main_sha
+
+
+def run_entry(s, gid, seed, role, changed, gen, i, ref):
+    return {"name": "%s-%s-%d" % (role, gid, i), "seed": seed, "genome": gid, "role": role, "ref": ref,
             "params": json.dumps({"id": "%s@gen%d" % (gid, gen), "genes": changed}, separators=(",", ":")),
             "minutes": str(s["minutes"]), "scenario": s["scenario"],
             "lean": "true" if s["lean"] else "false", "perf_mods": s["perf_mods"]}
@@ -248,6 +257,7 @@ def cmd_update(a):
             if (gid, i) in by and (champ, i) in by:
                 g["pairs"].append([gen, seeds[i], round(by[(gid, i)] - by[(champ, i)], 3)])
     decisions = race(st, genes, p["lineup"][1:], champ, gen)
+    showcase = ingest_inbox(a.state, st, sb, gen)
     # History line for the dashboard.
     gen_scores = {gid: [by[(gid, i)] for i in range(s["seeds_per_gen"]) if (gid, i) in by] for gid in p["lineup"]}
     all_ok = [r for r in results.values() if r]
@@ -270,6 +280,7 @@ def cmd_update(a):
         "total_runs": (prev.get("total_runs", 0) if prev else 0) + len(all_ok),
         "game_hours": round((prev.get("game_hours", 0) if prev else 0) + len(all_ok) * length / 3600, 2),
         "model_rows": st.get("model_rows", 0),
+        "showcase": showcase,
     }
     with open(os.path.join(a.state, "history.jsonl"), "a", encoding="utf-8") as f:
         f.write(json.dumps(line, separators=(",", ":")) + "\n")
@@ -305,6 +316,8 @@ def race(st, genes, challengers, champ, gen):
         old["note"] = old["note"].split(" (defending")[0] + " (defending)"
         g["status"] = "champion"
         g["crowned"] = gen
+        if g.get("code"):
+            st["merge"] = dict(g["code"], genome=best)  # the workflow merges it into main (loop.py merge)
         st["champion"] = best
         out.append("%s is the new champion (%+.2f over %d seeds, t %.1f): %s" % (best, m, len(g["pairs"]), best_t, g["note"]))
         learn_from(st, g, m)
@@ -404,6 +417,79 @@ def last_history(d):
         return None
 
 
+def ingest_inbox(state_dir, st, sb, gen):
+    """Runs played elsewhere (the laptop's showcase runs of the champion, scripts/laptop-loop.ps1)
+    arrive in loop/inbox/<run>/ with the same files a cloud run has. Their decisions become
+    training data; their scores are shown, but never used to promote (unpaired, other machine)."""
+    inbox = os.path.join(state_dir, "inbox")
+    out = []
+    for d in sorted(glob.glob(os.path.join(inbox, "*"))):
+        if not os.path.isdir(d):
+            continue
+        name = os.path.basename(d)
+        info = common.read_json(os.path.join(d, "run.json"), {})
+        r = sb.read_run(d)
+        if r["final"]:
+            length = int(info.get("minutes", 20)) * 60
+            out.append({"name": name, "genome": info.get("genome", "?"), "score": common.score_run(r, length),
+                        "milestones": r["milestones"], "checkpoints": r["checkpoints"], "deaths": len(r["deaths"])})
+            save_training_rows(state_dir, gen, name, d)
+
+        shutil.rmtree(d, ignore_errors=True)
+    st["showcase_runs"] = st.get("showcase_runs", 0) + len(out)
+    return out
+
+
+def cmd_merge(a):
+    """A code change that won the race goes into main: fast-forward when main hasn't moved, else a
+    merge commit. On a conflict the change stays on its branch (the champion keeps playing it)."""
+    import subprocess
+    st_path = os.path.join(a.state, "state.json")
+    st = common.read_json(st_path)
+    m = st.get("merge") if st else None
+    if not m:
+        print("merge: nothing to merge")
+        return
+
+    def git(*args, check=True):
+        return subprocess.run(["git", *args], cwd=common.ROOT, check=check, capture_output=True, text=True)
+    git("fetch", "-q", "origin", "main")
+    main = git("rev-parse", "FETCH_HEAD").stdout.strip()
+    ok = False
+    if git("merge-base", "--is-ancestor", main, m["sha"], check=False).returncode == 0:
+        ok = git("push", "-q", "origin", "%s:refs/heads/main" % m["sha"], check=False).returncode == 0
+    else:
+        git("checkout", "-q", "--detach", main)
+        r = git("-c", "user.name=github-actions[bot]", "-c", "user.email=41898282+github-actions[bot]@users.noreply.github.com",
+                "merge", "--no-ff", "-m", "Merge %s: won the loop's race (%s)" % (m["branch"], m["summary"]), m["sha"], check=False)
+        if r.returncode == 0:
+            ok = git("push", "-q", "origin", "HEAD:refs/heads/main", check=False).returncode == 0
+        else:
+            git("merge", "--abort", check=False)
+    g = st["genomes"].get(m["genome"], {})
+    if ok:
+        # It's in main now: every genome carrying this change plays main from here on.
+        for other in st["genomes"].values():
+            if other.get("code") and other["code"]["sha"] == m["sha"]:
+                other["code_merged"] = other["code"]
+                other["code"] = None
+        print("merge: %s is in main" % m["branch"])
+    else:
+        g["merge_failed"] = True
+        print("merge: couldn't merge %s into main; it keeps racing from its branch" % m["branch"])
+    st["merge"] = None
+    common.write_json(st_path, st)
+
+
+def cmd_export(a):
+    """The champion's genes as a params file (for the laptop, or the user's own game)."""
+    genes = common.load_genes()
+    st = load_state(a.state, genes)
+    ch = st["genomes"][st["champion"]]
+    common.write_json(a.out, {"id": "%s@gen%d" % (ch["id"], st["gen"]), "genes": ch["genes"]})
+    print(ch["id"])
+
+
 # ---------------------------------------------------------------------------------- status
 
 def cmd_status(a):
@@ -433,8 +519,13 @@ def main():
     p2.add_argument("--batch", required=True)
     p3 = sub.add_parser("status")
     p3.add_argument("--state", required=True)
+    p4 = sub.add_parser("export")
+    p4.add_argument("--state", required=True)
+    p4.add_argument("--out", required=True)
+    p5 = sub.add_parser("merge")
+    p5.add_argument("--state", required=True)
     a = ap.parse_args()
-    {"propose": cmd_propose, "update": cmd_update, "status": cmd_status}[a.cmd](a)
+    {"propose": cmd_propose, "update": cmd_update, "status": cmd_status, "export": cmd_export, "merge": cmd_merge}[a.cmd](a)
 
 
 if __name__ == "__main__":
