@@ -1,0 +1,527 @@
+{
+ "champion": "g0",
+ "credit": {
+  "combat.flee_hp": {
+   "n": 0,
+   "sum": 0.0
+  },
+  "combat.outnumbered": {
+   "n": 0,
+   "sum": 0.0
+  },
+  "death.recover_night_armor": {
+   "n": 0,
+   "sum": 0.0
+  },
+  "food.eat_at": {
+   "n": 0,
+   "sum": 0.0
+  },
+  "food.eat_hurt_at": {
+   "n": 0,
+   "sum": 0.0
+  },
+  "food.hunt_dist": {
+   "n": 0,
+   "sum": 0.0
+  },
+  "food.search_hunger": {
+   "n": 0,
+   "sum": 0.0
+  },
+  "food.stock": {
+   "n": 0,
+   "sum": 0.0
+  },
+  "gather.coal_extra": {
+   "n": 0,
+   "sum": 0.0
+  },
+  "gather.coal_upkeep_below": {
+   "n": 0,
+   "sum": 0.0
+  },
+  "gather.coal_view_dist": {
+   "n": 0,
+   "sum": 0.0
+  },
+  "gather.first_logs": {
+   "n": 0,
+   "sum": 0.0
+  },
+  "gather.log_stock": {
+   "n": 0,
+   "sum": 0.0
+  },
+  "gather.stone_extra": {
+   "n": 0,
+   "sum": 0.0
+  },
+  "gather.stone_stock": {
+   "n": 0,
+   "sum": 0.0
+  },
+  "learned.explore": {
+   "n": 0,
+   "sum": 0.0
+  },
+  "learned.weight": {
+   "n": 0,
+   "sum": 0.0
+  },
+  "loop.lost_underground_s": {
+   "n": 0,
+   "sum": 0.0
+  },
+  "loop.stuck_s": {
+   "n": 0,
+   "sum": 0.0
+  },
+  "night.shelter_armor": {
+   "n": 0,
+   "sum": 0.0
+  },
+  "night.shelter_radius": {
+   "n": 0,
+   "sum": 0.0
+  },
+  "plan.hide_hp": {
+   "n": 0,
+   "sum": 0.0
+  },
+  "plan.hostile_range": {
+   "n": 0,
+   "sum": 0.0
+  },
+  "plan.upkeep_calm_radius": {
+   "n": 0,
+   "sum": 0.0
+  },
+  "reflex.burning_hp": {
+   "n": 0,
+   "sum": 0.0
+  },
+  "reflex.creeper_dist": {
+   "n": 0,
+   "sum": 0.0
+  },
+  "reflex.melee_dist": {
+   "n": 0,
+   "sum": 0.0
+  },
+  "reflex.starving_food": {
+   "n": 0,
+   "sum": 0.0
+  },
+  "route.armor_before_portal": {
+   "n": 0,
+   "sum": 0.0
+  },
+  "route.bed": {
+   "n": 0,
+   "sum": 0.0
+  },
+  "route.boots_before_portal": {
+   "n": 0,
+   "sum": 0.0
+  },
+  "route.deep_for_lava": {
+   "n": 0,
+   "sum": 0.0
+  }
+ },
+ "days": {
+  "2026-09-27": 1
+ },
+ "gen": 1,
+ "gene_specs": {
+  "combat.flee_hp": {
+   "def": 8.0,
+   "help": "at or below this health, run when outnumbered (reflex and planner share it)",
+   "kind": "INT",
+   "max": 14.0,
+   "min": 3.0
+  },
+  "combat.outnumbered": {
+   "def": 2.0,
+   "help": "hostiles within 6 blocks that count as outnumbered",
+   "kind": "INT",
+   "max": 4.0,
+   "min": 1.0
+  },
+  "death.recover_night_armor": {
+   "def": 10.0,
+   "help": "go back for dropped items at night only with this much armor",
+   "kind": "INT",
+   "max": 20.0,
+   "min": 0.0
+  },
+  "food.eat_at": {
+   "def": 14.0,
+   "help": "eat at or below this hunger",
+   "kind": "INT",
+   "max": 18.0,
+   "min": 8.0
+  },
+  "food.eat_hurt_at": {
+   "def": 17.0,
+   "help": "eat at or below this hunger when health isn't full",
+   "kind": "INT",
+   "max": 19.0,
+   "min": 14.0
+  },
+  "food.hunt_dist": {
+   "def": 20.0,
+   "help": "hunt animals in view within this distance for the stock",
+   "kind": "INT",
+   "max": 40.0,
+   "min": 6.0
+  },
+  "food.search_hunger": {
+   "def": 8.0,
+   "help": "explore far for animals only at or below this hunger",
+   "kind": "INT",
+   "max": 16.0,
+   "min": 3.0
+  },
+  "food.stock": {
+   "def": 8.0,
+   "help": "cooked food to keep in stock",
+   "kind": "INT",
+   "max": 20.0,
+   "min": 0.0
+  },
+  "gather.coal_extra": {
+   "def": 4.0,
+   "help": "extra coal per coal trip",
+   "kind": "INT",
+   "max": 16.0,
+   "min": 0.0
+  },
+  "gather.coal_upkeep_below": {
+   "def": 4.0,
+   "help": "grab coal in view while carrying fewer than this",
+   "kind": "INT",
+   "max": 16.0,
+   "min": 0.0
+  },
+  "gather.coal_view_dist": {
+   "def": 12.0,
+   "help": "coal ore this close counts as in view",
+   "kind": "INT",
+   "max": 24.0,
+   "min": 4.0
+  },
+  "gather.first_logs": {
+   "def": 2.0,
+   "help": "extra logs on the very first wood trip",
+   "kind": "INT",
+   "max": 6.0,
+   "min": 1.0
+  },
+  "gather.log_stock": {
+   "def": 8.0,
+   "help": "keep this many logs once there is a pickaxe",
+   "kind": "INT",
+   "max": 20.0,
+   "min": 3.0
+  },
+  "gather.stone_extra": {
+   "def": 10.0,
+   "help": "extra stone per trip while short of the stock",
+   "kind": "INT",
+   "max": 32.0,
+   "min": 0.0
+  },
+  "gather.stone_stock": {
+   "def": 24.0,
+   "help": "stone stock the extra fills toward",
+   "kind": "INT",
+   "max": 48.0,
+   "min": 8.0
+  },
+  "learned.explore": {
+   "def": 0.0,
+   "help": "chance to try a non-first option (data for learning)",
+   "kind": "REAL",
+   "max": 0.3,
+   "min": 0.0
+  },
+  "learned.weight": {
+   "def": 0.0,
+   "help": "0 = rules order only; higher trusts the learned model more",
+   "kind": "REAL",
+   "max": 3.0,
+   "min": 0.0
+  },
+  "loop.lost_underground_s": {
+   "def": 60.0,
+   "help": "seconds underground with nothing gained before heading up",
+   "kind": "INT",
+   "max": 180.0,
+   "min": 20.0
+  },
+  "loop.stuck_s": {
+   "def": 10.0,
+   "help": "seconds without moving while pathing that count as stuck",
+   "kind": "INT",
+   "max": 30.0,
+   "min": 5.0
+  },
+  "night.shelter_armor": {
+   "def": 10.0,
+   "help": "at night on the surface, shelter if armor is below this",
+   "kind": "INT",
+   "max": 20.0,
+   "min": 0.0
+  },
+  "night.shelter_radius": {
+   "def": 16.0,
+   "help": "shelter only with a hostile within this radius",
+   "kind": "INT",
+   "max": 32.0,
+   "min": 6.0
+  },
+  "plan.hide_hp": {
+   "def": 12.0,
+   "help": "underground, wall in at or below this health with 2+ monsters near",
+   "kind": "INT",
+   "max": 18.0,
+   "min": 6.0
+  },
+  "plan.hostile_range": {
+   "def": 10.0,
+   "help": "hostiles within this range get an urgent option",
+   "kind": "REAL",
+   "max": 18.0,
+   "min": 5.0
+  },
+  "plan.upkeep_calm_radius": {
+   "def": 12.0,
+   "help": "no upkeep while a hostile is within this radius",
+   "kind": "INT",
+   "max": 24.0,
+   "min": 6.0
+  },
+  "reflex.burning_hp": {
+   "def": 12.0,
+   "help": "eat while burning at or below this health",
+   "kind": "INT",
+   "max": 20.0,
+   "min": 4.0
+  },
+  "reflex.creeper_dist": {
+   "def": 7.0,
+   "help": "back off from a creeper closer than this",
+   "kind": "REAL",
+   "max": 12.0,
+   "min": 4.0
+  },
+  "reflex.melee_dist": {
+   "def": 3.5,
+   "help": "a hostile this close triggers the fight/flee reflex",
+   "kind": "REAL",
+   "max": 5.0,
+   "min": 2.0
+  },
+  "reflex.starving_food": {
+   "def": 6.0,
+   "help": "eat at once at or below this hunger when safe",
+   "kind": "INT",
+   "max": 12.0,
+   "min": 2.0
+  },
+  "route.armor_before_portal": {
+   "def": 1.0,
+   "help": "chestplate and helmet before the portal",
+   "kind": "BOOL",
+   "max": 1.0,
+   "min": 0.0
+  },
+  "route.bed": {
+   "def": 1.0,
+   "help": "hunt sheep and make a bed early",
+   "kind": "BOOL",
+   "max": 1.0,
+   "min": 0.0
+  },
+  "route.boots_before_portal": {
+   "def": 1.0,
+   "help": "boots too when 4 ingots are spare",
+   "kind": "BOOL",
+   "max": 1.0,
+   "min": 0.0
+  },
+  "route.deep_for_lava": {
+   "def": 1.0,
+   "help": "mine down to lava depth instead of exploring for a pool",
+   "kind": "BOOL",
+   "max": 1.0,
+   "min": 0.0
+  }
+ },
+ "genomes": {
+  "g0": {
+   "born": 0,
+   "code": null,
+   "evals": [],
+   "genes": {},
+   "id": "g0",
+   "mutated": [],
+   "note": "the hand-tuned defaults (pre-loop code)",
+   "pairs": [],
+   "parent": null,
+   "status": "champion"
+  },
+  "g1": {
+   "born": 1,
+   "code": null,
+   "evals": [],
+   "genes": {
+    "combat.outnumbered": 1.0,
+    "food.eat_at": 15.0
+   },
+   "id": "g1",
+   "mutated": [
+    "food.eat_at",
+    "combat.outnumbered"
+   ],
+   "note": "food.eat_at 15, combat.outnumbered 1",
+   "pairs": [],
+   "parent": "g0",
+   "status": "contender"
+  },
+  "g2": {
+   "born": 1,
+   "code": null,
+   "evals": [],
+   "genes": {
+    "gather.first_logs": 1.0,
+    "route.armor_before_portal": 0.0,
+    "route.bed": 0.0
+   },
+   "id": "g2",
+   "mutated": [
+    "route.bed",
+    "route.armor_before_portal",
+    "gather.first_logs"
+   ],
+   "note": "route.bed 0, route.armor_before_portal 0, gather.first_logs 1",
+   "pairs": [],
+   "parent": "g0",
+   "status": "contender"
+  },
+  "g3": {
+   "born": 1,
+   "code": null,
+   "evals": [],
+   "genes": {
+    "food.stock": 3.0,
+    "gather.coal_extra": 9.0,
+    "plan.hostile_range": 9.658778560254559
+   },
+   "id": "g3",
+   "mutated": [
+    "food.stock",
+    "gather.coal_extra",
+    "plan.hostile_range"
+   ],
+   "note": "food.stock 3, gather.coal_extra 9, plan.hostile_range 9.65878",
+   "pairs": [],
+   "parent": "g0",
+   "status": "contender"
+  }
+ },
+ "next_id": 4,
+ "pending": {
+  "gen": 1,
+  "lineup": [
+   "g0",
+   "g1",
+   "g2",
+   "g3"
+  ],
+  "runs": [
+   "eval-g0-0",
+   "eval-g0-1",
+   "eval-g0-2",
+   "eval-g0-3",
+   "eval-g1-0",
+   "eval-g1-1",
+   "eval-g1-2",
+   "eval-g1-3",
+   "eval-g2-0",
+   "eval-g2-1",
+   "eval-g2-2",
+   "eval-g2-3",
+   "eval-g3-0",
+   "eval-g3-1",
+   "eval-g3-2",
+   "eval-g3-3",
+   "data-g0-0",
+   "data-g0-1"
+  ],
+  "seeds": [
+   "L1-7ygn35",
+   "L1-qxjn5f",
+   "L1-gw5n9k",
+   "L1-3rpeme",
+   "L1-d4mdtf",
+   "L1-mvz772"
+  ],
+  "sha": "8f054da1cdf9b36744dbfa0a47f554c3b64ddebf",
+  "started": "2026-09-27T14:06:51+00:00"
+ },
+ "settings": {
+  "accept_pairs": 8,
+  "accept_t": 2.0,
+  "data_runs": 2,
+  "drop_after_pairs": 4,
+  "explore_data": 0.15,
+  "lean": false,
+  "max_genomes": 4,
+  "max_gens_per_day": 36,
+  "max_pairs": 24,
+  "min_gain": 0.3,
+  "minutes": 20,
+  "perf_mods": "",
+  "scenario": "natural",
+  "seeds_per_gen": 4,
+  "sigma0": 0.15
+ },
+ "sigma": {
+  "combat.flee_hp": 0.15,
+  "combat.outnumbered": 0.15,
+  "death.recover_night_armor": 0.15,
+  "food.eat_at": 0.15,
+  "food.eat_hurt_at": 0.15,
+  "food.hunt_dist": 0.15,
+  "food.search_hunger": 0.15,
+  "food.stock": 0.15,
+  "gather.coal_extra": 0.15,
+  "gather.coal_upkeep_below": 0.15,
+  "gather.coal_view_dist": 0.15,
+  "gather.first_logs": 0.15,
+  "gather.log_stock": 0.15,
+  "gather.stone_extra": 0.15,
+  "gather.stone_stock": 0.15,
+  "learned.explore": 0.15,
+  "learned.weight": 0.15,
+  "loop.lost_underground_s": 0.15,
+  "loop.stuck_s": 0.15,
+  "night.shelter_armor": 0.15,
+  "night.shelter_radius": 0.15,
+  "plan.hide_hp": 0.15,
+  "plan.hostile_range": 0.15,
+  "plan.upkeep_calm_radius": 0.15,
+  "reflex.burning_hp": 0.15,
+  "reflex.creeper_dist": 0.15,
+  "reflex.melee_dist": 0.15,
+  "reflex.starving_food": 0.15,
+  "route.armor_before_portal": 0.15,
+  "route.bed": 0.15,
+  "route.boots_before_portal": 0.15,
+  "route.deep_for_lava": 0.15
+ },
+ "version": 1
+}
