@@ -95,7 +95,26 @@ DIED instead. (Also the cycle output prints some sections twice; that's tee, not
 commit twice, 8 seeds x 20 min), then smelting-while-mining, hiding underground and the new
 first wood trip get their first batch.**What I'm doing now:** the portal cast fix (cast scenario), noise-twin batches 8a/8b (same
 commit twice, 8 seeds x 20 min), then smelting-while-mining, hiding underground and the new
+first wood trip get their first batch.**What I'm doing now:** the portal cast fix (cast scenario), noise-twin batches 8a/8b (same
+commit twice, 8 seeds x 20 min), then smelting-while-mining, hiding underground and the new
+first wood trip get their first batch.**What I'm doing now:** the portal cast fix (cast scenario), noise-twin batches 8a/8b (same
+commit twice, 8 seeds x 20 min), then smelting-while-mining, hiding underground and the new
 first wood trip get their first batch.
+
+**Batch 12 (2026-09-27 08:10 UTC): STOPPED, artifacts undownloadable (same blocker as batch 11).**
+Run 36303506045 on commit 92d0319 (merged: reviewer's 738a013 batch-10 death diagnosis/fix -
+shield between swings, flee only when outnumbered, creepers at 7, no death spiral, fortress owns
+hurt) finished all 10 jobs successfully (8 natural + 2 cast + unit-tests, all green). But this is
+still a blanket network-policy denial on `*.blob.core.windows.net` (confirmed on three different
+shards across batches 11 and 12: sa19, sa3, sa5 - not one bad host, the whole domain). No summary
+generated, nothing appended to docs/batches.md. To read it: download the artifacts from
+https://github.com/Plrlr/mc-autopilot/actions/runs/36303506045 by hand (or from a session with
+broader network access) and run `scripts/summarize_batch <dir> --run 36303506045 --commit 92d0319`.
+
+The cloud session is pausing the batch loop here rather than starting more batches against this
+wall (each one burns ~35 min of CI with no way to read the result). Needs the user to widen
+network access to `*.blob.core.windows.net` in this environment's settings, or someone with
+access to fetch these two runs by hand.
 
 **Batch 11 (2026-09-27 02:10 UTC): STOPPED, artifacts undownloadable.** Run 36285919707 on
 commit 8213034 (merged: review/proposals R1+R2, laptop's blaze-reflex fix, A2 survival changes)
