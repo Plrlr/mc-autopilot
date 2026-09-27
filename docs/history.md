@@ -3,6 +3,10 @@
 Moved out of CLAUDE.md; CLAUDE.md links here. Batch-by-batch results are in docs/batches.md.
 
 ## Decisions
+- 2026-09-27: restart around a self-improving loop (docs/learning-loop.md). 19 cloud batches of
+  hand-diagnosed fixes by four coordinating sessions plateaued at iron tools (~6:00, ~1.2
+  deaths/run, no natural portal) and cost the most tokens. Branches consolidated into main;
+  the multi-session docs moved to docs/archive/.
 - 2026-09-26: Opus only sets goals (strategist); the per-action choices go to free LLMs or rules,
   since the steps toward a goal are repetitive. A measured `claude -p` call took about 7 s
   (3.4 s API time), fine at event-driven rates.

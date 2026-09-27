@@ -50,7 +50,15 @@
 - rudrasingh500/jev_minecraft: Jev-driven Mineflayer bot aiming for the Ender Dragon.
 - rmalde/minecraft-agent: a planner plus Jev controller in Minecraft.
 
+- Reported Ender Dragon kills (checked 2026-09-27), all single runs with no learning across runs,
+  none meeting Manifold's bar (random seeds, < 150 min, player-visible info only):
+  Opus-5 over 37 MCP tools, 1.21.4 server, fixed seed, ~4 h
+  (huggingface.co/datasets/aibengineering/beat-the-game-minecraft); GPT-6 Astra + Jev on a
+  1.16.5 server with seed/route data, 8:43, reproduced in 7:45
+  (github.com/teknium1/hermes-and-jev-play-minecraft). SeekerCraft (Rust/Azalea, DeepSeek)
+  reached diamonds, dragon pending.
+
 What would be new here: the AI drives the user's own character in an unmodified vanilla
 single-player world, toggled from an in-game panel, with Opus as strategist through the user's
-Claude plan (no API key), running for $0, and a published comparison of brain setups by
-furthest milestone reached.
+Claude plan (no API key), running for $0, and a bot that improves itself across trials on
+random seeds (docs/learning-loop.md), measured by furthest milestone reached.
