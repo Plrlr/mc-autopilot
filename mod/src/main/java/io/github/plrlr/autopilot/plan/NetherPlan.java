@@ -15,8 +15,12 @@ public final class NetherPlan {
 
 	/** The next step toward blaze rods, for a player already in the Nether. */
 	public static Option blazeStep(WorldMemory memory, Perception seen) {
-		boolean known = memory.nearest("spawner") != null || memory.nearest("nether_bricks") != null;
-		if (known || seen.nearest("blaze") != null)
+		return blazeStep(memory.nearest("spawner") != null || memory.nearest("nether_bricks") != null, seen.nearest("blaze") != null);
+	}
+
+	/** The decision itself, pure so unit tests can check it. */
+	public static Option blazeStep(boolean knownFortress, boolean blazeSeen) {
+		if (knownFortress || blazeSeen)
 			return new Option("fortress", "blazes:" + RODS, "fight blazes at the fortress for " + RODS + " rods");
 		return new Option("fortress", "find", "look for a nether fortress");
 	}

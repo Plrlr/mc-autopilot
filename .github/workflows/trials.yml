@@ -1,6 +1,8 @@
 # Parallel trial runs of the autopilot on GitHub's free Linux machines.
 # Each run gets its own machine: a fresh survival world (or a staged scenario) is played by the
 # free rules brain for N game minutes; the decision log, screenshots and summary are uploaded.
+# The last job commits the batch summary and decision logs to the trial-results branch
+# (runs/<run id>/summary.md), readable with a plain `git fetch origin trial-results`.
 # Normally started by scripts/cycle (push, run, wait, download, summarize). By hand:
 #   gh workflow run trials.yml -f seeds='["a","b"]' -f extra='[{"seed":"a","scenario":"cast"}]'
 # Quick single-fix test (one skill, given items, stops when the skill ends):
@@ -158,3 +160,64 @@ jobs:
             mod/build/run/clientGameTest/crash-reports/
           if-no-files-found: warn
           retention-days: 14
+
+  # Summarizes the batch here and commits the summary and the small logs to the trial-results
+  # branch (runs/<run id>/). Some Claude sessions can't download artifacts (their network blocks
+  # the blob storage artifacts are served from) but can always git fetch.
+  summarize:
+    needs: [plan, trial]
+    if: always() && needs.plan.outputs.runs != '[]'
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/download-artifact@v8
+        with:
+          pattern: trial-*
+          path: batch
+      - name: Summarize
+        env:
+          MINUTES: ${{ inputs.minutes }}
+        run: |
+          python3 scripts/summarize_batch batch --run "${{ github.run_id }}" --commit "${GITHUB_SHA:0:7}" \
+            --minutes "$MINUTES" --line-out line.txt > summary.md
+          cat summary.md >> "$GITHUB_STEP_SUMMARY"
+      - name: Commit to trial-results
+        env:
+          TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          SEEDS: ${{ inputs.seeds }}
+          SCENARIO: ${{ inputs.scenario }}
+          EXTRA: ${{ inputs.extra }}
+          MINUTES: ${{ inputs.minutes }}
+        run: |
+          url="https://x-access-token:${TOKEN}@github.com/${GITHUB_REPOSITORY}.git"
+          cd "$RUNNER_TEMP"
+          if git ls-remote --exit-code --heads "$url" trial-results >/dev/null; then
+            git clone -q --depth 1 --branch trial-results "$url" results
+          else
+            git init -q -b trial-results results && git -C results remote add origin "$url"
+          fi
+          cd results
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          d="runs/${GITHUB_RUN_ID}"
+          mkdir -p "$d"
+          cp "$GITHUB_WORKSPACE/summary.md" "$GITHUB_WORKSPACE/line.txt" "$d/"
+          # The decision logs and test reports (small); trial.log and screenshots stay artifacts.
+          for a in "$GITHUB_WORKSPACE"/batch/*/; do
+            n=$(basename "$a"); mkdir -p "$d/$n"
+            cp "$a/autopilot-test.log" "$d/$n/" 2>/dev/null || true
+            cp "$a"/build/run/clientGameTest/mc-autopilot/logs/*.jsonl "$d/$n/" 2>/dev/null || true
+          done
+          printf 'run %s\nbranch %s\ncommit %s\nseeds %s\nscenario %s\nminutes %s\nextra %s\n' \
+            "$GITHUB_RUN_ID" "$GITHUB_REF_NAME" "$GITHUB_SHA" "$SEEDS" "$SCENARIO" "$MINUTES" "$EXTRA" > "$d/run.txt"
+          git add runs
+          git commit -q -m "Batch $GITHUB_RUN_ID on $GITHUB_REF_NAME @ ${GITHUB_SHA:0:7}"
+          # Parallel batches may push at the same moment: rebase and retry.
+          for i in 1 2 3 4 5; do
+            git push -q origin trial-results && exit 0
+            sleep $((i * 5)); git pull -q --rebase origin trial-results || true
+          done
+          exit 1

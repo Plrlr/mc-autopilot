@@ -479,6 +479,14 @@ public final class Autopilot {
 				return;
 			}
 		}
+		// Burning after lava or a fireball: eat. At full hunger health comes back faster than fire
+		// takes it; walking on burning killed the bot mid-explore (freebuff nether run 0455). The
+		// fortress fight eats on its own.
+		boolean eating = skill != null && (skill.name().equals("eat") || skill.name().equals("fortress"));
+		if (pl.isOnFire() && hp <= 12 && pl.getFoodData().getFoodLevel() < 20 && Mc.count(Items2::isAnyFood) > 0 && !eating) {
+			startReflex(new Option("eat", null, "burning"), "reflex_burning");
+			return;
+		}
 		boolean safe = seen.hostilesWithin(6) == 0;
 		if (pl.getFoodData().getFoodLevel() <= 6 && safe && Mc.count(Items2::isAnyFood) > 0
 				&& (skill == null || !skill.name().equals("eat"))) {
