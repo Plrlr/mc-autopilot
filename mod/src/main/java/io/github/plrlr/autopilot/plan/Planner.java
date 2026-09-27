@@ -306,7 +306,8 @@ public final class Planner {
 		if (Mc.count("coal") < 8 && coal != null && coal.pos().distSqr(Mc.player().blockPosition()) < 16 * 16)
 			return new Option("collect", "coal:" + (8 - Mc.count("coal")), "coal for fuel");
 		if (Mc.count("throwaway") < CastPortal.BLOCKS_NEEDED)
-			return new Option("collect", "stone:" + (Mc.count("stone") + CastPortal.BLOCKS_NEEDED - Mc.count("throwaway")), "blocks for the portal wall");
+			// collect n means n more: the stone we carry is already in "throwaway".
+			return new Option("collect", "stone:" + (CastPortal.BLOCKS_NEEDED - Mc.count("throwaway")), "blocks for the portal wall");
 		if (Mc.count("flint_and_steel") == 0 && Mc.count("flint") == 0) return new Option("collect", "flint:1", "flint for flint and steel");
 		return null;
 	}
