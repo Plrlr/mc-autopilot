@@ -1,0 +1,17 @@
+{"event":"autopilot_on","detail":"tactician\u003dmock strategist_opus\u003dfalse","t":1790498834417}
+{"event":"strategist_request","detail":"start","t":1790498834423}
+{"event":"checkpoint","detail":"flint_and_steel","t":1790498834436}
+{"event":"milestone","detail":"7 at 0 s","t":1790498834439}
+{"layer":"tactician","brain":"mock","selected":"mock","trigger":"idle","goal":"blaze_rods","options":["equip shield","fortress find","explore any"],"choice":"equip shield","valid":true,"latency_ms":0,"tokens_in":0,"tokens_out":0,"note":"rules","t":1790498834538}
+{"event":"skill_start","skill":"equip shield","trigger":"idle","t":1790498834567}
+{"event":"skill_end","skill":"equip shield","ok":true,"detail":"shield in off hand","seconds":0.05,"t":1790498834672}
+{"layer":"tactician","brain":"mock","selected":"mock","trigger":"skill_done","goal":"blaze_rods","options":["fortress find","explore any"],"choice":"fortress find","valid":true,"latency_ms":0,"tokens_in":0,"tokens_out":0,"note":"rules","t":1790498834677}
+{"event":"skill_start","skill":"fortress find","trigger":"skill_done","t":1790498834678}
+{"layer":"tactician","brain":"mock","selected":"mock","trigger":"mob_near","goal":"blaze_rods","options":["fortress blazes:8","explore any"],"choice":"fortress blazes:8","valid":true,"latency_ms":0,"tokens_in":0,"tokens_out":0,"note":"rules","t":1790498835269}
+{"event":"skill_end","skill":"fortress find","ok":false,"code":"INTERRUPTED","detail":"interrupted: brain chose fortress blazes:8","seconds":0.2,"t":1790498835270}
+{"event":"skill_start","skill":"fortress blazes:8","trigger":"mob_near","t":1790498835277}
+{"event":"milestone","detail":"8 at 38 s","t":1790498886188}
+{"event":"strategist_request","detail":"goal_done","t":1790499059363}
+{"layer":"strategist","brain":"mock","choice":"ender_pearls","reason":"next unfinished goal on the ladder","valid":true,"latency_ms":0,"tokens_in":0,"tokens_out":0,"note":"Opus strategist off","t":1790499059422}
+{"event":"skill_end","skill":"fortress blazes:8","ok":false,"code":"INTERRUPTED","detail":"test finished","seconds":299.95,"t":1790499173850}
+{"event":"autopilot_off","detail":"test finished","t":1790499173851}

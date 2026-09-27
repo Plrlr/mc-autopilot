@@ -1,0 +1,79 @@
+{"event":"autopilot_on","detail":"tactician\u003dmock strategist_opus\u003dfalse","t":1790498863110}
+{"event":"strategist_request","detail":"start","t":1790498863116}
+{"event":"checkpoint","detail":"flint_and_steel","t":1790498863186}
+{"event":"milestone","detail":"7 at 0 s","t":1790498863189}
+{"layer":"tactician","brain":"mock","selected":"mock","trigger":"idle","goal":"blaze_rods","options":["equip shield","fortress find","explore any"],"choice":"equip shield","valid":true,"latency_ms":0,"tokens_in":0,"tokens_out":0,"note":"rules","t":1790498863189}
+{"event":"skill_start","skill":"equip shield","trigger":"idle","t":1790498863215}
+{"event":"skill_end","skill":"equip shield","ok":true,"detail":"shield in off hand","seconds":0.05,"t":1790498863302}
+{"layer":"tactician","brain":"mock","selected":"mock","trigger":"skill_done","goal":"blaze_rods","options":["fortress find","explore any"],"choice":"fortress find","valid":true,"latency_ms":0,"tokens_in":0,"tokens_out":0,"note":"rules","t":1790498863310}
+{"event":"skill_start","skill":"fortress find","trigger":"skill_done","t":1790498863312}
+{"layer":"tactician","brain":"mock","selected":"mock","trigger":"mob_near","goal":"blaze_rods","options":["fortress blazes:8","explore any"],"choice":"fortress blazes:8","valid":true,"latency_ms":0,"tokens_in":0,"tokens_out":0,"note":"rules","t":1790498863781}
+{"event":"skill_end","skill":"fortress find","ok":false,"code":"INTERRUPTED","detail":"interrupted: brain chose fortress blazes:8","seconds":0.25,"t":1790498863787}
+{"event":"skill_start","skill":"fortress blazes:8","trigger":"mob_near","t":1790498863799}
+{"event":"milestone","detail":"8 at 8 s","t":1790498874605}
+{"event":"skill_end","skill":"fortress blazes:8","ok":false,"code":"DIED","detail":"died","seconds":125.05,"t":1790498995562}
+{"event":"death","detail":"onFire","t":1790498995563}
+{"event":"strategist_request","detail":"respawned","t":1790498999084}
+{"layer":"strategist","brain":"mock","choice":"blaze_rods","reason":"next unfinished goal on the ladder","valid":true,"latency_ms":0,"tokens_in":0,"tokens_out":0,"note":"Opus strategist off","t":1790498999085}
+{"layer":"tactician","brain":"mock","selected":"mock","trigger":"idle","goal":"blaze_rods","options":["attack blaze","collect log:3","explore log"],"choice":"attack blaze","valid":true,"latency_ms":0,"tokens_in":0,"tokens_out":0,"note":"rules","t":1790498999149}
+{"event":"skill_start","skill":"attack blaze","trigger":"idle","t":1790498999149}
+{"event":"skill_end","skill":"attack blaze","ok":false,"code":"NOT_FOUND","detail":"no reachable blaze in sight","seconds":0.05,"t":1790498999202}
+{"layer":"tactician","brain":"mock","selected":"mock","trigger":"skill_failed","goal":"blaze_rods","options":["collect log:3","pickup","explore log"],"choice":"collect log:3","valid":true,"latency_ms":0,"tokens_in":0,"tokens_out":0,"note":"rules","t":1790498999204}
+{"event":"skill_start","skill":"collect log:3","trigger":"skill_failed","t":1790498999705}
+{"event":"strategist_request","detail":"dimension_change","t":1790499000321}
+{"layer":"strategist","brain":"mock","choice":"blaze_rods","reason":"next unfinished goal on the ladder","valid":true,"latency_ms":0,"tokens_in":0,"tokens_out":0,"note":"Opus strategist off","t":1790499000348}
+{"layer":"tactician","brain":"mock","selected":"mock","trigger":"heartbeat","goal":"blaze_rods","options":["attack sheep","craft planks:4","explore any"],"choice":"attack sheep","valid":true,"latency_ms":0,"tokens_in":0,"tokens_out":0,"note":"rules","t":1790499022023}
+{"event":"skill_end","skill":"collect log:3","ok":false,"code":"INTERRUPTED","detail":"interrupted: brain chose attack sheep","seconds":20.1,"t":1790499022023}
+{"event":"skill_start","skill":"attack sheep","trigger":"heartbeat","t":1790499022023}
+{"event":"skill_end","skill":"attack sheep","ok":true,"detail":"killed the sheep","seconds":13.1,"t":1790499035744}
+{"layer":"tactician","brain":"mock","selected":"mock","trigger":"skill_done","goal":"blaze_rods","options":["craft planks:4","explore any"],"choice":"craft planks:4","valid":true,"latency_ms":0,"tokens_in":0,"tokens_out":0,"note":"rules","t":1790499035744}
+{"event":"skill_start","skill":"craft planks:4","trigger":"skill_done","t":1790499035749}
+{"event":"skill_end","skill":"craft planks:4","ok":true,"detail":"crafted 4 planks","seconds":0.45,"t":1790499036226}
+{"layer":"tactician","brain":"mock","selected":"mock","trigger":"skill_done","goal":"blaze_rods","options":["craft stick:4","explore any"],"choice":"craft stick:4","valid":true,"latency_ms":0,"tokens_in":0,"tokens_out":0,"note":"rules","t":1790499036226}
+{"event":"skill_start","skill":"craft stick:4","trigger":"skill_done","t":1790499036226}
+{"event":"skill_end","skill":"craft stick:4","ok":true,"detail":"crafted 4 stick","seconds":0.45,"t":1790499036645}
+{"layer":"tactician","brain":"mock","selected":"mock","trigger":"skill_done","goal":"blaze_rods","options":["craft planks:4","explore any"],"choice":"craft planks:4","valid":true,"latency_ms":0,"tokens_in":0,"tokens_out":0,"note":"rules","t":1790499036645}
+{"event":"skill_start","skill":"craft planks:4","trigger":"skill_done","t":1790499036646}
+{"event":"skill_end","skill":"craft planks:4","ok":true,"detail":"crafted 4 planks","seconds":0.45,"t":1790499037096}
+{"layer":"tactician","brain":"mock","selected":"mock","trigger":"skill_done","goal":"blaze_rods","options":["craft crafting_table:1","explore any"],"choice":"craft crafting_table:1","valid":true,"latency_ms":0,"tokens_in":0,"tokens_out":0,"note":"rules","t":1790499037096}
+{"event":"skill_start","skill":"craft crafting_table:1","trigger":"skill_done","t":1790499037097}
+{"event":"skill_end","skill":"craft crafting_table:1","ok":true,"detail":"crafted 1 crafting_table","seconds":0.45,"t":1790499037545}
+{"layer":"tactician","brain":"mock","selected":"mock","trigger":"skill_done","goal":"blaze_rods","options":["collect log:3","explore log"],"choice":"collect log:3","valid":true,"latency_ms":0,"tokens_in":0,"tokens_out":0,"note":"rules","t":1790499037545}
+{"event":"skill_start","skill":"collect log:3","trigger":"skill_done","t":1790499037549}
+{"event":"skill_end","skill":"collect log:3","ok":true,"detail":"collected 3 log","seconds":28.55,"t":1790499066868}
+{"layer":"tactician","brain":"mock","selected":"mock","trigger":"skill_done","goal":"blaze_rods","options":["craft planks:4","pickup","explore any"],"choice":"craft planks:4","valid":true,"latency_ms":0,"tokens_in":0,"tokens_out":0,"note":"rules","t":1790499066869}
+{"event":"skill_start","skill":"craft planks:4","trigger":"skill_done","t":1790499066870}
+{"event":"skill_end","skill":"craft planks:4","ok":true,"detail":"crafted 4 planks","seconds":0.45,"t":1790499067320}
+{"layer":"tactician","brain":"mock","selected":"mock","trigger":"skill_done","goal":"blaze_rods","options":["craft wooden_pickaxe:1","explore any"],"choice":"craft wooden_pickaxe:1","valid":true,"latency_ms":0,"tokens_in":0,"tokens_out":0,"note":"rules","t":1790499067321}
+{"event":"skill_start","skill":"craft wooden_pickaxe:1","trigger":"skill_done","t":1790499067322}
+{"event":"skill_end","skill":"craft wooden_pickaxe:1","ok":true,"detail":"crafted 1 wooden_pickaxe","seconds":0.9,"t":1790499068228}
+{"layer":"tactician","brain":"mock","selected":"mock","trigger":"skill_done","goal":"blaze_rods","options":["pickup stations","collect stone:13","explore any"],"choice":"pickup stations","valid":true,"latency_ms":0,"tokens_in":0,"tokens_out":0,"note":"rules","t":1790499068230}
+{"event":"skill_start","skill":"pickup stations","trigger":"skill_done","t":1790499068230}
+{"event":"skill_end","skill":"pickup stations","ok":true,"detail":"nothing left to pick up","seconds":3.9,"t":1790499072107}
+{"layer":"tactician","brain":"mock","selected":"mock","trigger":"skill_done","goal":"blaze_rods","options":["collect stone:13","explore any"],"choice":"collect stone:13","valid":true,"latency_ms":0,"tokens_in":0,"tokens_out":0,"note":"rules","t":1790499072107}
+{"event":"skill_start","skill":"collect stone:13","trigger":"skill_done","t":1790499072109}
+{"layer":"tactician","brain":"mock","selected":"mock","trigger":"heartbeat","goal":"blaze_rods","options":["collect coal:6","craft stone_pickaxe:1","pickup","explore any"],"choice":"collect coal:6","valid":true,"latency_ms":0,"tokens_in":0,"tokens_out":0,"note":"rules","t":1790499092206}
+{"event":"skill_end","skill":"collect stone:13","ok":false,"code":"INTERRUPTED","detail":"interrupted: brain chose collect coal:6","seconds":20.1,"t":1790499092207}
+{"event":"skill_start","skill":"collect coal:6","trigger":"heartbeat","t":1790499092208}
+{"event":"skill_end","skill":"collect coal:6","ok":true,"detail":"collected 6 coal","seconds":23.95,"t":1790499116159}
+{"layer":"tactician","brain":"mock","selected":"mock","trigger":"skill_done","goal":"blaze_rods","options":["craft stone_pickaxe:1","pickup","explore any"],"choice":"craft stone_pickaxe:1","valid":true,"latency_ms":0,"tokens_in":0,"tokens_out":0,"note":"rules","t":1790499116160}
+{"event":"skill_start","skill":"craft stone_pickaxe:1","trigger":"skill_done","t":1790499116160}
+{"event":"skill_end","skill":"craft stone_pickaxe:1","ok":true,"detail":"crafted 1 stone_pickaxe","seconds":0.9,"t":1790499117046}
+{"layer":"tactician","brain":"mock","selected":"mock","trigger":"skill_done","goal":"blaze_rods","options":["pickup stations","collect raw_iron:13","explore any"],"choice":"pickup stations","valid":true,"latency_ms":0,"tokens_in":0,"tokens_out":0,"note":"rules","t":1790499117047}
+{"event":"skill_start","skill":"pickup stations","trigger":"skill_done","t":1790499117047}
+{"event":"skill_end","skill":"pickup stations","ok":true,"detail":"nothing left to pick up","seconds":3.9,"t":1790499120951}
+{"layer":"tactician","brain":"mock","selected":"mock","trigger":"skill_done","goal":"blaze_rods","options":["collect raw_iron:13","explore any"],"choice":"collect raw_iron:13","valid":true,"latency_ms":0,"tokens_in":0,"tokens_out":0,"note":"rules","t":1790499120952}
+{"event":"skill_start","skill":"collect raw_iron:13","trigger":"skill_done","t":1790499120952}
+{"event":"skill_end","skill":"collect raw_iron:13","ok":false,"code":"INTERRUPTED","detail":"interrupted by reflex_creeper","seconds":44.55,"t":1790499165572}
+{"event":"skill_start","skill":"retreat","trigger":"reflex_creeper","t":1790499165573}
+{"event":"skill_end","skill":"retreat","ok":true,"detail":"got away","seconds":4.2,"t":1790499169770}
+{"layer":"tactician","brain":"mock","selected":"mock","trigger":"skill_done","goal":"blaze_rods","options":["collect raw_iron:13","explore any"],"choice":"collect raw_iron:13","valid":true,"latency_ms":0,"tokens_in":0,"tokens_out":0,"note":"rules","t":1790499169771}
+{"event":"skill_start","skill":"collect raw_iron:13","trigger":"skill_done","t":1790499169771}
+{"layer":"tactician","brain":"mock","selected":"mock","trigger":"mob_near","goal":"blaze_rods","options":["retreat","collect raw_iron:13","explore any"],"choice":"retreat","valid":true,"latency_ms":0,"tokens_in":0,"tokens_out":0,"note":"rules","t":1790499170617}
+{"event":"skill_end","skill":"collect raw_iron:13","ok":false,"code":"INTERRUPTED","detail":"interrupted: brain chose retreat","seconds":0.85,"t":1790499170617}
+{"event":"skill_start","skill":"retreat","trigger":"mob_near","t":1790499170618}
+{"event":"skill_end","skill":"retreat","ok":true,"detail":"got away","seconds":3.6,"t":1790499174219}
+{"layer":"tactician","brain":"mock","selected":"mock","trigger":"skill_done","goal":"blaze_rods","options":["collect raw_iron:13","explore any"],"choice":"collect raw_iron:13","valid":true,"latency_ms":0,"tokens_in":0,"tokens_out":0,"note":"rules","t":1790499174219}
+{"event":"skill_start","skill":"collect raw_iron:13","trigger":"skill_done","t":1790499174220}
+{"event":"skill_end","skill":"collect raw_iron:13","ok":false,"code":"INTERRUPTED","detail":"test finished","seconds":0.85,"t":1790499175126}
+{"event":"autopilot_off","detail":"test finished","t":1790499175127}

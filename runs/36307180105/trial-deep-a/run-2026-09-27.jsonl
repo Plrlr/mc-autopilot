@@ -1,0 +1,183 @@
+{"event":"autopilot_on","detail":"tactician\u003dmock strategist_opus\u003dfalse","t":1790498832491}
+{"event":"strategist_request","detail":"start","t":1790498832497}
+{"layer":"tactician","brain":"mock","selected":"mock","trigger":"idle","goal":"nether_portal","options":["equip shield","collect diamond:1","explore any"],"choice":"equip shield","valid":true,"latency_ms":0,"tokens_in":0,"tokens_out":0,"note":"rules","t":1790498832538}
+{"event":"skill_start","skill":"equip shield","trigger":"idle","t":1790498832554}
+{"event":"skill_end","skill":"equip shield","ok":true,"detail":"shield in off hand","seconds":0.05,"t":1790498832594}
+{"layer":"tactician","brain":"mock","selected":"mock","trigger":"skill_done","goal":"nether_portal","options":["collect diamond:1","explore any"],"choice":"collect diamond:1","valid":true,"latency_ms":0,"tokens_in":0,"tokens_out":0,"note":"rules","t":1790498832595}
+{"event":"skill_start","skill":"collect diamond:1","trigger":"skill_done","t":1790498833315}
+{"event":"checkpoint","detail":"two_buckets","t":1790498834590}
+{"event":"checkpoint","detail":"flint_and_steel","t":1790498834590}
+{"event":"milestone","detail":"4 at 1 s","t":1790498834595}
+{"layer":"tactician","brain":"mock","selected":"mock","trigger":"mob_near","goal":"nether_portal","options":["attack skeleton","collect diamond:1","explore any"],"choice":"attack skeleton","valid":true,"latency_ms":0,"tokens_in":0,"tokens_out":0,"note":"rules","t":1790498874409}
+{"event":"skill_end","skill":"collect diamond:1","ok":false,"code":"INTERRUPTED","detail":"interrupted: brain chose attack skeleton","seconds":39.65,"t":1790498874410}
+{"event":"skill_start","skill":"attack skeleton","trigger":"mob_near","t":1790498874411}
+{"event":"skill_end","skill":"attack skeleton","ok":true,"detail":"killed the skeleton","seconds":5.45,"t":1790498880032}
+{"layer":"tactician","brain":"mock","selected":"mock","trigger":"skill_done","goal":"nether_portal","options":["collect diamond:1","explore any"],"choice":"collect diamond:1","valid":true,"latency_ms":0,"tokens_in":0,"tokens_out":0,"note":"rules","t":1790498880033}
+{"event":"skill_start","skill":"collect diamond:1","trigger":"skill_done","t":1790498880033}
+{"event":"checkpoint","detail":"lava_seen","t":1790498885247}
+{"layer":"tactician","brain":"mock","selected":"mock","trigger":"heartbeat","goal":"nether_portal","options":["build_portal","explore any"],"choice":"build_portal","valid":true,"latency_ms":0,"tokens_in":0,"tokens_out":0,"note":"rules","t":1790498900597}
+{"event":"skill_end","skill":"collect diamond:1","ok":false,"code":"INTERRUPTED","detail":"interrupted: brain chose build_portal","seconds":20.1,"t":1790498900597}
+{"event":"skill_start","skill":"build_portal","trigger":"heartbeat","t":1790498900598}
+{"event":"skill_end","skill":"build_portal","ok":false,"code":"NO_ROOM","detail":"no flat open ground for a portal near the lava","seconds":5.8,"t":1790498906420}
+{"layer":"tactician","brain":"mock","selected":"mock","trigger":"skill_failed","goal":"nether_portal","options":["build_portal","explore any"],"choice":"build_portal","valid":true,"latency_ms":0,"tokens_in":0,"tokens_out":0,"note":"rules","t":1790498906421}
+{"event":"skill_start","skill":"build_portal","trigger":"skill_failed","t":1790498906421}
+{"event":"skill_end","skill":"build_portal","ok":false,"code":"NO_ROOM","detail":"no flat open ground for a portal near the lava","seconds":0.05,"t":1790498906455}
+{"layer":"tactician","brain":"mock","selected":"mock","trigger":"skill_failed","goal":"nether_portal","options":["build_portal","explore any"],"choice":"build_portal","valid":true,"latency_ms":0,"tokens_in":0,"tokens_out":0,"note":"rules","t":1790498906456}
+{"event":"skill_start","skill":"build_portal","trigger":"skill_failed","t":1790498906456}
+{"event":"skill_end","skill":"build_portal","ok":false,"code":"NO_ROOM","detail":"no flat open ground for a portal near the lava","seconds":0.05,"t":1790498906483}
+{"layer":"tactician","brain":"mock","selected":"mock","trigger":"skill_failed","goal":"nether_portal","options":["explore any"],"choice":"explore any","valid":true,"latency_ms":0,"tokens_in":0,"tokens_out":0,"note":"rules","t":1790498906485}
+{"event":"skill_start","skill":"explore any","trigger":"skill_failed","t":1790498906485}
+{"event":"strategist_request","detail":"failing","t":1790498907288}
+{"layer":"strategist","brain":"mock","choice":"nether_portal","reason":"next unfinished goal on the ladder","valid":true,"latency_ms":0,"tokens_in":0,"tokens_out":0,"note":"Opus strategist off","t":1790498907354}
+{"layer":"tactician","brain":"mock","selected":"mock","trigger":"mob_near","goal":"nether_portal","options":["attack zombie","explore any"],"choice":"attack zombie","valid":true,"latency_ms":0,"tokens_in":0,"tokens_out":0,"note":"rules","t":1790498917358}
+{"event":"skill_end","skill":"explore any","ok":false,"code":"INTERRUPTED","detail":"interrupted: brain chose attack zombie","seconds":10.8,"t":1790498917358}
+{"event":"skill_start","skill":"attack zombie","trigger":"mob_near","t":1790498917358}
+{"event":"skill_end","skill":"attack zombie","ok":true,"detail":"killed the zombie","seconds":9.95,"t":1790498927312}
+{"layer":"tactician","brain":"mock","selected":"mock","trigger":"skill_done","goal":"nether_portal","options":["explore any"],"choice":"explore any","valid":true,"latency_ms":0,"tokens_in":0,"tokens_out":0,"note":"rules","t":1790498927313}
+{"event":"skill_start","skill":"explore any","trigger":"skill_done","t":1790498927313}
+{"layer":"tactician","brain":"mock","selected":"mock","trigger":"heartbeat","goal":"nether_portal","options":["build_portal","pickup","explore any"],"choice":"build_portal","valid":true,"latency_ms":0,"tokens_in":0,"tokens_out":0,"note":"rules","t":1790498967706}
+{"event":"skill_end","skill":"explore any","ok":false,"code":"INTERRUPTED","detail":"interrupted: brain chose build_portal","seconds":40.15,"t":1790498967706}
+{"event":"skill_start","skill":"build_portal","trigger":"heartbeat","t":1790498967706}
+{"layer":"tactician","brain":"mock","selected":"mock","trigger":"mob_near","goal":"nether_portal","options":["retreat","build_portal","explore any"],"choice":"retreat","valid":true,"latency_ms":0,"tokens_in":0,"tokens_out":0,"note":"rules","t":1790498995435}
+{"event":"skill_end","skill":"build_portal","ok":false,"code":"INTERRUPTED","detail":"interrupted: brain chose retreat","seconds":27.65,"t":1790498995436}
+{"event":"skill_start","skill":"retreat","trigger":"mob_near","t":1790498995436}
+{"event":"skill_end","skill":"retreat","ok":false,"code":"INTERRUPTED","detail":"interrupted by reflex_creeper","seconds":0.2,"t":1790498995642}
+{"event":"skill_start","skill":"retreat","trigger":"reflex_creeper","t":1790498995642}
+{"event":"skill_end","skill":"retreat","ok":true,"detail":"got away","seconds":5.55,"t":1790499001187}
+{"layer":"tactician","brain":"mock","selected":"mock","trigger":"skill_done","goal":"nether_portal","options":["build_portal","explore any"],"choice":"build_portal","valid":true,"latency_ms":0,"tokens_in":0,"tokens_out":0,"note":"rules","t":1790499001187}
+{"event":"skill_start","skill":"build_portal","trigger":"skill_done","t":1790499001187}
+{"event":"skill_end","skill":"build_portal","ok":false,"code":"INTERRUPTED","detail":"interrupted by reflex_creeper","seconds":5.45,"t":1790499006651}
+{"event":"skill_start","skill":"retreat","trigger":"reflex_creeper","t":1790499006651}
+{"event":"skill_end","skill":"retreat","ok":true,"detail":"got away","seconds":6.2,"t":1790499012834}
+{"layer":"tactician","brain":"mock","selected":"mock","trigger":"skill_done","goal":"nether_portal","options":["build_portal","explore any"],"choice":"build_portal","valid":true,"latency_ms":0,"tokens_in":0,"tokens_out":0,"note":"rules","t":1790499012835}
+{"event":"skill_start","skill":"build_portal","trigger":"skill_done","t":1790499012835}
+{"event":"skill_end","skill":"build_portal","ok":false,"code":"NO_ROOM","detail":"no flat open ground for a portal near the lava","seconds":17.65,"t":1790499030562}
+{"layer":"tactician","brain":"mock","selected":"mock","trigger":"skill_failed","goal":"nether_portal","options":["eat","build_portal","explore any"],"choice":"eat","valid":true,"latency_ms":0,"tokens_in":0,"tokens_out":0,"note":"rules","t":1790499030563}
+{"event":"skill_start","skill":"eat","trigger":"skill_failed","t":1790499030563}
+{"event":"skill_end","skill":"eat","ok":true,"detail":"ate cooked_beef","seconds":1.85,"t":1790499032393}
+{"layer":"tactician","brain":"mock","selected":"mock","trigger":"skill_done","goal":"nether_portal","options":["build_portal","explore any"],"choice":"build_portal","valid":true,"latency_ms":0,"tokens_in":0,"tokens_out":0,"note":"rules","t":1790499032395}
+{"event":"skill_start","skill":"build_portal","trigger":"skill_done","t":1790499032395}
+{"event":"skill_end","skill":"build_portal","ok":false,"code":"NO_ROOM","detail":"no flat open ground for a portal near the lava","seconds":0.05,"t":1790499032463}
+{"layer":"tactician","brain":"mock","selected":"mock","trigger":"skill_failed","goal":"nether_portal","options":["explore any"],"choice":"explore any","valid":true,"latency_ms":0,"tokens_in":0,"tokens_out":0,"note":"rules","t":1790499032463}
+{"event":"skill_start","skill":"explore any","trigger":"skill_failed","t":1790499032463}
+{"layer":"tactician","brain":"mock","selected":"mock","trigger":"heartbeat","goal":"nether_portal","options":["build_portal","pickup","explore any"],"choice":"build_portal","valid":true,"latency_ms":0,"tokens_in":0,"tokens_out":0,"note":"rules","t":1790499093055}
+{"event":"skill_end","skill":"explore any","ok":false,"code":"INTERRUPTED","detail":"interrupted: brain chose build_portal","seconds":60.2,"t":1790499093055}
+{"event":"skill_start","skill":"build_portal","trigger":"heartbeat","t":1790499093055}
+{"event":"skill_end","skill":"build_portal","ok":false,"code":"INTERRUPTED","detail":"interrupted by reflex_creeper","seconds":28.05,"t":1790499121098}
+{"event":"skill_start","skill":"retreat","trigger":"reflex_creeper","t":1790499121098}
+{"event":"skill_end","skill":"retreat","ok":true,"detail":"got away","seconds":6.8,"t":1790499127991}
+{"layer":"tactician","brain":"mock","selected":"mock","trigger":"skill_done","goal":"nether_portal","options":["build_portal","explore any"],"choice":"build_portal","valid":true,"latency_ms":0,"tokens_in":0,"tokens_out":0,"note":"rules","t":1790499127992}
+{"event":"skill_start","skill":"build_portal","trigger":"skill_done","t":1790499127992}
+{"layer":"tactician","brain":"mock","selected":"mock","trigger":"mob_near","goal":"nether_portal","options":["attack zombie","build_portal","explore any"],"choice":"attack zombie","valid":true,"latency_ms":0,"tokens_in":0,"tokens_out":0,"note":"rules","t":1790499129288}
+{"event":"skill_end","skill":"build_portal","ok":false,"code":"INTERRUPTED","detail":"interrupted: brain chose attack zombie","seconds":1.25,"t":1790499129288}
+{"event":"skill_start","skill":"attack zombie","trigger":"mob_near","t":1790499129288}
+{"event":"skill_end","skill":"attack zombie","ok":true,"detail":"killed the zombie","seconds":5.45,"t":1790499134754}
+{"layer":"tactician","brain":"mock","selected":"mock","trigger":"skill_done","goal":"nether_portal","options":["attack zombie","build_portal","explore any"],"choice":"attack zombie","valid":true,"latency_ms":0,"tokens_in":0,"tokens_out":0,"note":"rules","t":1790499134755}
+{"event":"skill_start","skill":"attack zombie","trigger":"skill_done","t":1790499134755}
+{"event":"skill_end","skill":"attack zombie","ok":true,"detail":"killed the zombie","seconds":5.55,"t":1790499140286}
+{"layer":"tactician","brain":"mock","selected":"mock","trigger":"skill_done","goal":"nether_portal","options":["build_portal","explore any"],"choice":"build_portal","valid":true,"latency_ms":0,"tokens_in":0,"tokens_out":0,"note":"rules","t":1790499140287}
+{"event":"skill_start","skill":"build_portal","trigger":"skill_done","t":1790499140287}
+{"event":"skill_end","skill":"build_portal","ok":false,"code":"INTERRUPTED","detail":"interrupted by reflex_creeper","seconds":1.95,"t":1790499142235}
+{"event":"skill_start","skill":"retreat","trigger":"reflex_creeper","t":1790499142235}
+{"event":"skill_end","skill":"retreat","ok":true,"detail":"got away","seconds":5.6,"t":1790499147857}
+{"layer":"tactician","brain":"mock","selected":"mock","trigger":"skill_done","goal":"nether_portal","options":["build_portal","explore any"],"choice":"build_portal","valid":true,"latency_ms":0,"tokens_in":0,"tokens_out":0,"note":"rules","t":1790499147857}
+{"event":"skill_start","skill":"build_portal","trigger":"skill_done","t":1790499147857}
+{"event":"skill_end","skill":"build_portal","ok":false,"code":"INTERRUPTED","detail":"interrupted by reflex_creeper","seconds":2.15,"t":1790499150003}
+{"event":"skill_start","skill":"retreat","trigger":"reflex_creeper","t":1790499150003}
+{"event":"skill_end","skill":"retreat","ok":true,"detail":"got away","seconds":4.0,"t":1790499154007}
+{"layer":"tactician","brain":"mock","selected":"mock","trigger":"skill_done","goal":"nether_portal","options":["build_portal","explore any"],"choice":"build_portal","valid":true,"latency_ms":0,"tokens_in":0,"tokens_out":0,"note":"rules","t":1790499154008}
+{"event":"skill_start","skill":"build_portal","trigger":"skill_done","t":1790499154008}
+{"layer":"tactician","brain":"mock","selected":"mock","trigger":"mob_near","goal":"nether_portal","options":["retreat","build_portal","explore any"],"choice":"retreat","valid":true,"latency_ms":0,"tokens_in":0,"tokens_out":0,"note":"rules","t":1790499156545}
+{"event":"skill_end","skill":"build_portal","ok":false,"code":"INTERRUPTED","detail":"interrupted: brain chose retreat","seconds":2.55,"t":1790499156545}
+{"event":"skill_start","skill":"retreat","trigger":"mob_near","t":1790499156545}
+{"event":"skill_end","skill":"retreat","ok":true,"detail":"got away","seconds":6.85,"t":1790499163405}
+{"layer":"tactician","brain":"mock","selected":"mock","trigger":"skill_done","goal":"nether_portal","options":["build_portal","explore any"],"choice":"build_portal","valid":true,"latency_ms":0,"tokens_in":0,"tokens_out":0,"note":"rules","t":1790499163406}
+{"event":"skill_start","skill":"build_portal","trigger":"skill_done","t":1790499163406}
+{"event":"skill_end","skill":"build_portal","ok":false,"code":"INTERRUPTED","detail":"interrupted by reflex_creeper","seconds":2.6,"t":1790499166090}
+{"event":"skill_start","skill":"retreat","trigger":"reflex_creeper","t":1790499166091}
+{"event":"skill_end","skill":"retreat","ok":true,"detail":"got away","seconds":6.55,"t":1790499172642}
+{"layer":"tactician","brain":"mock","selected":"mock","trigger":"skill_done","goal":"nether_portal","options":["build_portal","explore any"],"choice":"build_portal","valid":true,"latency_ms":0,"tokens_in":0,"tokens_out":0,"note":"rules","t":1790499172643}
+{"event":"skill_start","skill":"build_portal","trigger":"skill_done","t":1790499172643}
+{"event":"skill_end","skill":"build_portal","ok":false,"code":"NO_ROOM","detail":"no flat open ground for a portal near the lava","seconds":16.4,"t":1790499189063}
+{"layer":"tactician","brain":"mock","selected":"mock","trigger":"skill_failed","goal":"nether_portal","options":["build_portal","explore any"],"choice":"build_portal","valid":true,"latency_ms":0,"tokens_in":0,"tokens_out":0,"note":"rules","t":1790499189064}
+{"event":"skill_start","skill":"build_portal","trigger":"skill_failed","t":1790499189064}
+{"event":"skill_end","skill":"build_portal","ok":false,"code":"NO_ROOM","detail":"no flat open ground for a portal near the lava","seconds":0.05,"t":1790499189096}
+{"layer":"tactician","brain":"mock","selected":"mock","trigger":"skill_failed","goal":"nether_portal","options":["explore any"],"choice":"explore any","valid":true,"latency_ms":0,"tokens_in":0,"tokens_out":0,"note":"rules","t":1790499189097}
+{"event":"skill_start","skill":"explore any","trigger":"skill_failed","t":1790499189097}
+{"layer":"tactician","brain":"mock","selected":"mock","trigger":"mob_near","goal":"nether_portal","options":["attack zombie","explore any"],"choice":"attack zombie","valid":true,"latency_ms":0,"tokens_in":0,"tokens_out":0,"note":"rules","t":1790499197390}
+{"event":"skill_end","skill":"explore any","ok":false,"code":"INTERRUPTED","detail":"interrupted: brain chose attack zombie","seconds":8.3,"t":1790499197390}
+{"event":"skill_start","skill":"attack zombie","trigger":"mob_near","t":1790499197390}
+{"event":"skill_end","skill":"attack zombie","ok":true,"detail":"killed the zombie","seconds":5.85,"t":1790499203238}
+{"layer":"tactician","brain":"mock","selected":"mock","trigger":"skill_done","goal":"nether_portal","options":["explore any"],"choice":"explore any","valid":true,"latency_ms":0,"tokens_in":0,"tokens_out":0,"note":"rules","t":1790499203239}
+{"event":"skill_start","skill":"explore any","trigger":"skill_done","t":1790499203239}
+{"layer":"tactician","brain":"mock","selected":"mock","trigger":"heartbeat","goal":"nether_portal","options":["eat","explore any"],"choice":"eat","valid":true,"latency_ms":0,"tokens_in":0,"tokens_out":0,"note":"rules","t":1790499243805}
+{"event":"skill_end","skill":"explore any","ok":false,"code":"INTERRUPTED","detail":"interrupted: brain chose eat","seconds":40.15,"t":1790499243806}
+{"event":"skill_start","skill":"eat","trigger":"heartbeat","t":1790499243806}
+{"event":"skill_end","skill":"eat","ok":true,"detail":"ate cooked_beef","seconds":1.85,"t":1790499245639}
+{"layer":"tactician","brain":"mock","selected":"mock","trigger":"skill_done","goal":"nether_portal","options":["explore any"],"choice":"explore any","valid":true,"latency_ms":0,"tokens_in":0,"tokens_out":0,"note":"rules","t":1790499245640}
+{"event":"skill_start","skill":"explore any","trigger":"skill_done","t":1790499245640}
+{"layer":"tactician","brain":"mock","selected":"mock","trigger":"heartbeat","goal":"nether_portal","options":["build_portal","explore any"],"choice":"build_portal","valid":true,"latency_ms":0,"tokens_in":0,"tokens_out":0,"note":"rules","t":1790499266499}
+{"event":"skill_end","skill":"explore any","ok":false,"code":"INTERRUPTED","detail":"interrupted: brain chose build_portal","seconds":20.1,"t":1790499266499}
+{"event":"skill_start","skill":"build_portal","trigger":"heartbeat","t":1790499266499}
+{"event":"skill_end","skill":"build_portal","ok":false,"code":"INTERRUPTED","detail":"interrupted by reflex_creeper","seconds":8.75,"t":1790499275256}
+{"event":"skill_start","skill":"retreat","trigger":"reflex_creeper","t":1790499275256}
+{"event":"skill_end","skill":"retreat","ok":true,"detail":"got away","seconds":3.7,"t":1790499278956}
+{"layer":"tactician","brain":"mock","selected":"mock","trigger":"skill_done","goal":"nether_portal","options":["build_portal","explore any"],"choice":"build_portal","valid":true,"latency_ms":0,"tokens_in":0,"tokens_out":0,"note":"rules","t":1790499278957}
+{"event":"skill_start","skill":"build_portal","trigger":"skill_done","t":1790499278957}
+{"layer":"tactician","brain":"mock","selected":"mock","trigger":"mob_near","goal":"nether_portal","options":["retreat","build_portal","explore any"],"choice":"retreat","valid":true,"latency_ms":0,"tokens_in":0,"tokens_out":0,"note":"rules","t":1790499280562}
+{"event":"skill_end","skill":"build_portal","ok":false,"code":"INTERRUPTED","detail":"interrupted: brain chose retreat","seconds":1.6,"t":1790499280562}
+{"event":"skill_start","skill":"retreat","trigger":"mob_near","t":1790499280563}
+{"event":"skill_end","skill":"retreat","ok":false,"code":"INTERRUPTED","detail":"interrupted by reflex_creeper","seconds":0.2,"t":1790499280763}
+{"event":"skill_start","skill":"retreat","trigger":"reflex_creeper","t":1790499280763}
+{"event":"skill_end","skill":"retreat","ok":true,"detail":"got away","seconds":4.15,"t":1790499284895}
+{"layer":"tactician","brain":"mock","selected":"mock","trigger":"skill_done","goal":"nether_portal","options":["build_portal","explore any"],"choice":"build_portal","valid":true,"latency_ms":0,"tokens_in":0,"tokens_out":0,"note":"rules","t":1790499284895}
+{"event":"skill_start","skill":"build_portal","trigger":"skill_done","t":1790499284895}
+{"layer":"tactician","brain":"mock","selected":"mock","trigger":"mob_near","goal":"nether_portal","options":["retreat","build_portal","explore any"],"choice":"retreat","valid":true,"latency_ms":0,"tokens_in":0,"tokens_out":0,"note":"rules","t":1790499286529}
+{"event":"skill_end","skill":"build_portal","ok":false,"code":"INTERRUPTED","detail":"interrupted: brain chose retreat","seconds":1.65,"t":1790499286529}
+{"event":"skill_start","skill":"retreat","trigger":"mob_near","t":1790499286529}
+{"event":"skill_end","skill":"retreat","ok":false,"code":"INTERRUPTED","detail":"interrupted by reflex_creeper","seconds":0.2,"t":1790499286729}
+{"event":"skill_start","skill":"retreat","trigger":"reflex_creeper","t":1790499286729}
+{"event":"skill_end","skill":"retreat","ok":true,"detail":"got away","seconds":6.45,"t":1790499293195}
+{"layer":"tactician","brain":"mock","selected":"mock","trigger":"skill_done","goal":"nether_portal","options":["build_portal","explore any"],"choice":"build_portal","valid":true,"latency_ms":0,"tokens_in":0,"tokens_out":0,"note":"rules","t":1790499293196}
+{"event":"skill_start","skill":"build_portal","trigger":"skill_done","t":1790499293196}
+{"layer":"tactician","brain":"mock","selected":"mock","trigger":"mob_near","goal":"nether_portal","options":["attack spider","build_portal","explore any"],"choice":"attack spider","valid":true,"latency_ms":0,"tokens_in":0,"tokens_out":0,"note":"rules","t":1790499296038}
+{"event":"skill_end","skill":"build_portal","ok":false,"code":"INTERRUPTED","detail":"interrupted: brain chose attack spider","seconds":2.85,"t":1790499296038}
+{"event":"skill_start","skill":"attack spider","trigger":"mob_near","t":1790499296039}
+{"event":"skill_end","skill":"attack spider","ok":true,"detail":"killed the spider","seconds":4.85,"t":1790499300889}
+{"layer":"tactician","brain":"mock","selected":"mock","trigger":"skill_done","goal":"nether_portal","options":["build_portal","explore any"],"choice":"build_portal","valid":true,"latency_ms":0,"tokens_in":0,"tokens_out":0,"note":"rules","t":1790499300890}
+{"event":"skill_start","skill":"build_portal","trigger":"skill_done","t":1790499300890}
+{"layer":"tactician","brain":"mock","selected":"mock","trigger":"mob_near","goal":"nether_portal","options":["attack zombie","build_portal","explore any"],"choice":"attack zombie","valid":true,"latency_ms":0,"tokens_in":0,"tokens_out":0,"note":"rules","t":1790499322308}
+{"event":"skill_end","skill":"build_portal","ok":false,"code":"INTERRUPTED","detail":"interrupted: brain chose attack zombie","seconds":21.4,"t":1790499322308}
+{"event":"skill_start","skill":"attack zombie","trigger":"mob_near","t":1790499322308}
+{"event":"skill_end","skill":"attack zombie","ok":true,"detail":"killed the zombie","seconds":6.05,"t":1790499328346}
+{"layer":"tactician","brain":"mock","selected":"mock","trigger":"skill_done","goal":"nether_portal","options":["build_portal","pickup","explore any"],"choice":"build_portal","valid":true,"latency_ms":0,"tokens_in":0,"tokens_out":0,"note":"rules","t":1790499328347}
+{"event":"skill_start","skill":"build_portal","trigger":"skill_done","t":1790499328347}
+{"event":"skill_end","skill":"build_portal","ok":false,"code":"NO_ROOM","detail":"no flat open ground for a portal near the lava","seconds":26.65,"t":1790499355003}
+{"layer":"tactician","brain":"mock","selected":"mock","trigger":"skill_failed","goal":"nether_portal","options":["build_portal","explore any"],"choice":"build_portal","valid":true,"latency_ms":0,"tokens_in":0,"tokens_out":0,"note":"rules","t":1790499355003}
+{"event":"skill_start","skill":"build_portal","trigger":"skill_failed","t":1790499355003}
+{"event":"skill_end","skill":"build_portal","ok":false,"code":"NO_ROOM","detail":"no flat open ground for a portal near the lava","seconds":0.05,"t":1790499355035}
+{"layer":"tactician","brain":"mock","selected":"mock","trigger":"skill_failed","goal":"nether_portal","options":["explore any"],"choice":"explore any","valid":true,"latency_ms":0,"tokens_in":0,"tokens_out":0,"note":"rules","t":1790499355035}
+{"event":"skill_start","skill":"explore any","trigger":"skill_failed","t":1790499355035}
+{"layer":"tactician","brain":"mock","selected":"mock","trigger":"mob_near","goal":"nether_portal","options":["attack skeleton","explore any"],"choice":"attack skeleton","valid":true,"latency_ms":0,"tokens_in":0,"tokens_out":0,"note":"rules","t":1790499368292}
+{"event":"skill_end","skill":"explore any","ok":false,"code":"INTERRUPTED","detail":"interrupted: brain chose attack skeleton","seconds":13.25,"t":1790499368292}
+{"event":"skill_start","skill":"attack skeleton","trigger":"mob_near","t":1790499368292}
+{"event":"skill_end","skill":"attack skeleton","ok":true,"detail":"killed the skeleton","seconds":5.5,"t":1790499373784}
+{"layer":"tactician","brain":"mock","selected":"mock","trigger":"skill_done","goal":"nether_portal","options":["explore any"],"choice":"explore any","valid":true,"latency_ms":0,"tokens_in":0,"tokens_out":0,"note":"rules","t":1790499373785}
+{"event":"skill_start","skill":"explore any","trigger":"skill_done","t":1790499373785}
+{"layer":"tactician","brain":"mock","selected":"mock","trigger":"heartbeat","goal":"nether_portal","options":["eat","explore any"],"choice":"eat","valid":true,"latency_ms":0,"tokens_in":0,"tokens_out":0,"note":"rules","t":1790499393881}
+{"event":"skill_end","skill":"explore any","ok":false,"code":"INTERRUPTED","detail":"interrupted: brain chose eat","seconds":20.1,"t":1790499393882}
+{"event":"skill_start","skill":"eat","trigger":"heartbeat","t":1790499393882}
+{"event":"skill_end","skill":"eat","ok":true,"detail":"ate cooked_beef","seconds":1.85,"t":1790499395747}
+{"layer":"tactician","brain":"mock","selected":"mock","trigger":"skill_done","goal":"nether_portal","options":["explore any"],"choice":"explore any","valid":true,"latency_ms":0,"tokens_in":0,"tokens_out":0,"note":"rules","t":1790499395748}
+{"event":"skill_start","skill":"explore any","trigger":"skill_done","t":1790499395748}
+{"layer":"tactician","brain":"mock","selected":"mock","trigger":"heartbeat","goal":"nether_portal","options":["build_portal","explore any"],"choice":"build_portal","valid":true,"latency_ms":0,"tokens_in":0,"tokens_out":0,"note":"rules","t":1790499433357}
+{"event":"skill_end","skill":"explore any","ok":false,"code":"INTERRUPTED","detail":"interrupted: brain chose build_portal","seconds":20.1,"t":1790499433357}
+{"event":"skill_start","skill":"build_portal","trigger":"heartbeat","t":1790499433357}
+{"event":"skill_end","skill":"build_portal","ok":false,"code":"NO_ROOM","detail":"no flat open ground for a portal near the lava","seconds":3.15,"t":1790499439661}
+{"layer":"tactician","brain":"mock","selected":"mock","trigger":"skill_failed","goal":"nether_portal","options":["build_portal","explore any"],"choice":"build_portal","valid":true,"latency_ms":0,"tokens_in":0,"tokens_out":0,"note":"rules","t":1790499439662}
+{"event":"skill_start","skill":"build_portal","trigger":"skill_failed","t":1790499439662}
+{"event":"skill_end","skill":"build_portal","ok":false,"code":"NO_ROOM","detail":"no flat open ground for a portal near the lava","seconds":0.05,"t":1790499439761}
+{"layer":"tactician","brain":"mock","selected":"mock","trigger":"skill_failed","goal":"nether_portal","options":["explore any"],"choice":"explore any","valid":true,"latency_ms":0,"tokens_in":0,"tokens_out":0,"note":"rules","t":1790499439761}
+{"event":"skill_start","skill":"explore any","trigger":"skill_failed","t":1790499439761}
+{"event":"skill_end","skill":"explore any","ok":false,"code":"INTERRUPTED","detail":"test finished","seconds":18.65,"t":1790499477159}
+{"event":"autopilot_off","detail":"test finished","t":1790499477160}

@@ -1,0 +1,144 @@
+{"event":"autopilot_on","detail":"tactician\u003dmock strategist_opus\u003dfalse","t":1790498813198}
+{"event":"strategist_request","detail":"start","t":1790498813204}
+{"layer":"tactician","brain":"mock","selected":"mock","trigger":"idle","goal":"blaze_rods","options":["equip shield","fortress find","explore any"],"choice":"equip shield","valid":true,"latency_ms":0,"tokens_in":0,"tokens_out":0,"note":"rules","t":1790498813261}
+{"event":"skill_start","skill":"equip shield","trigger":"idle","t":1790498813276}
+{"event":"skill_end","skill":"equip shield","ok":true,"detail":"shield in off hand","seconds":0.05,"t":1790498813329}
+{"layer":"tactician","brain":"mock","selected":"mock","trigger":"skill_done","goal":"blaze_rods","options":["fortress find","explore any"],"choice":"fortress find","valid":true,"latency_ms":0,"tokens_in":0,"tokens_out":0,"note":"rules","t":1790498813330}
+{"event":"skill_start","skill":"fortress find","trigger":"skill_done","t":1790498813332}
+{"event":"checkpoint","detail":"flint_and_steel","t":1790498813691}
+{"event":"milestone","detail":"7 at 0 s","t":1790498813697}
+{"event":"checkpoint","detail":"lava_seen","t":1790498848015}
+{"event":"skill_end","skill":"fortress find","ok":true,"detail":"walked 200 blocks, no fortress in view yet","seconds":76.0,"t":1790498897513}
+{"layer":"tactician","brain":"mock","selected":"mock","trigger":"skill_done","goal":"blaze_rods","options":["eat","fortress find","explore any"],"choice":"eat","valid":true,"latency_ms":0,"tokens_in":0,"tokens_out":0,"note":"rules","t":1790498897514}
+{"event":"skill_start","skill":"eat","trigger":"skill_done","t":1790498897514}
+{"event":"skill_end","skill":"eat","ok":true,"detail":"ate cooked_beef","seconds":1.85,"t":1790498899420}
+{"layer":"tactician","brain":"mock","selected":"mock","trigger":"skill_done","goal":"blaze_rods","options":["fortress find","explore any"],"choice":"fortress find","valid":true,"latency_ms":0,"tokens_in":0,"tokens_out":0,"note":"rules","t":1790498899420}
+{"event":"skill_start","skill":"fortress find","trigger":"skill_done","t":1790498899421}
+{"event":"skill_end","skill":"fortress find","ok":false,"code":"INTERRUPTED","detail":"in lava","seconds":29.3,"t":1790498929180}
+{"event":"reflex","detail":"lava","t":1790498929180}
+{"layer":"tactician","brain":"mock","selected":"mock","trigger":"idle","goal":"blaze_rods","options":["fortress find","explore any"],"choice":"fortress find","valid":true,"latency_ms":0,"tokens_in":0,"tokens_out":0,"note":"rules","t":1790498930009}
+{"event":"skill_start","skill":"fortress find","trigger":"idle","t":1790498930009}
+{"layer":"tactician","brain":"mock","selected":"mock","trigger":"hurt","goal":"blaze_rods","options":["attack ghast","fortress find","explore any"],"choice":"attack ghast","valid":true,"latency_ms":0,"tokens_in":0,"tokens_out":0,"note":"rules","t":1790498938051}
+{"event":"skill_end","skill":"fortress find","ok":false,"code":"INTERRUPTED","detail":"interrupted: brain chose attack ghast","seconds":7.45,"t":1790498938052}
+{"event":"skill_start","skill":"attack ghast","trigger":"hurt","t":1790498938052}
+{"layer":"tactician","brain":"mock","selected":"mock","trigger":"hurt","goal":"blaze_rods","options":["fortress find","explore any"],"choice":"fortress find","valid":true,"latency_ms":0,"tokens_in":0,"tokens_out":0,"note":"rules","t":1790498942179}
+{"event":"skill_end","skill":"attack ghast","ok":false,"code":"INTERRUPTED","detail":"interrupted: brain chose fortress find","seconds":3.05,"t":1790498942180}
+{"event":"skill_start","skill":"fortress find","trigger":"hurt","t":1790498942180}
+{"layer":"tactician","brain":"mock","selected":"mock","trigger":"hurt","goal":"blaze_rods","options":["eat","fortress find","explore any"],"choice":"eat","valid":true,"latency_ms":0,"tokens_in":0,"tokens_out":0,"note":"rules","t":1790498948294}
+{"event":"skill_end","skill":"fortress find","ok":false,"code":"INTERRUPTED","detail":"interrupted: brain chose eat","seconds":4.8,"t":1790498948295}
+{"event":"skill_start","skill":"eat","trigger":"hurt","t":1790498948295}
+{"event":"skill_end","skill":"eat","ok":true,"detail":"ate cooked_beef","seconds":1.85,"t":1790498950229}
+{"layer":"tactician","brain":"mock","selected":"mock","trigger":"skill_done","goal":"blaze_rods","options":["fortress find","explore any"],"choice":"fortress find","valid":true,"latency_ms":0,"tokens_in":0,"tokens_out":0,"note":"rules","t":1790498950229}
+{"event":"skill_start","skill":"fortress find","trigger":"skill_done","t":1790498950229}
+{"layer":"tactician","brain":"mock","selected":"mock","trigger":"hurt","goal":"blaze_rods","options":["fortress find","explore any"],"choice":"fortress find","valid":true,"latency_ms":0,"tokens_in":0,"tokens_out":0,"note":"rules","t":1790498950650}
+{"event":"skill_end","skill":"fortress find","ok":true,"detail":"walked 52 blocks, no fortress in view yet","seconds":19.5,"t":1790498975280}
+{"layer":"tactician","brain":"mock","selected":"mock","trigger":"skill_done","goal":"blaze_rods","options":["eat","fortress find","explore any"],"choice":"eat","valid":true,"latency_ms":0,"tokens_in":0,"tokens_out":0,"note":"rules","t":1790498975281}
+{"event":"skill_start","skill":"eat","trigger":"skill_done","t":1790498975281}
+{"event":"skill_end","skill":"eat","ok":true,"detail":"ate cooked_beef","seconds":1.85,"t":1790498977112}
+{"layer":"tactician","brain":"mock","selected":"mock","trigger":"skill_done","goal":"blaze_rods","options":["fortress find","explore any"],"choice":"fortress find","valid":true,"latency_ms":0,"tokens_in":0,"tokens_out":0,"note":"rules","t":1790498977112}
+{"event":"skill_start","skill":"fortress find","trigger":"skill_done","t":1790498977112}
+{"event":"skill_end","skill":"fortress find","ok":false,"code":"UNREACHABLE","detail":"couldn\u0027t make headway that way (lava or cliffs); will turn","seconds":2.5,"t":1790498979666}
+{"layer":"tactician","brain":"mock","selected":"mock","trigger":"skill_failed","goal":"blaze_rods","options":["fortress find","explore any"],"choice":"fortress find","valid":true,"latency_ms":0,"tokens_in":0,"tokens_out":0,"note":"rules","t":1790498979670}
+{"event":"skill_start","skill":"fortress find","trigger":"skill_failed","t":1790498979670}
+{"layer":"tactician","brain":"mock","selected":"mock","trigger":"heartbeat","goal":"blaze_rods","options":["eat","fortress find","explore any"],"choice":"eat","valid":true,"latency_ms":0,"tokens_in":0,"tokens_out":0,"note":"rules","t":1790499070640}
+{"event":"skill_end","skill":"fortress find","ok":false,"code":"INTERRUPTED","detail":"interrupted: brain chose eat","seconds":80.25,"t":1790499070641}
+{"event":"skill_start","skill":"eat","trigger":"heartbeat","t":1790499070641}
+{"event":"skill_end","skill":"eat","ok":true,"detail":"ate cooked_beef","seconds":1.85,"t":1790499072456}
+{"layer":"tactician","brain":"mock","selected":"mock","trigger":"skill_done","goal":"blaze_rods","options":["fortress find","explore any"],"choice":"fortress find","valid":true,"latency_ms":0,"tokens_in":0,"tokens_out":0,"note":"rules","t":1790499072457}
+{"event":"skill_start","skill":"fortress find","trigger":"skill_done","t":1790499072457}
+{"event":"skill_end","skill":"fortress find","ok":true,"detail":"walked 200 blocks, no fortress in view yet","seconds":69.0,"t":1790499142726}
+{"layer":"tactician","brain":"mock","selected":"mock","trigger":"skill_done","goal":"blaze_rods","options":["fortress find","explore any"],"choice":"fortress find","valid":true,"latency_ms":0,"tokens_in":0,"tokens_out":0,"note":"rules","t":1790499142726}
+{"event":"skill_start","skill":"fortress find","trigger":"skill_done","t":1790499142727}
+{"event":"skill_end","skill":"fortress find","ok":true,"detail":"walked 199 blocks, no fortress in view yet","seconds":72.5,"t":1790499227588}
+{"layer":"tactician","brain":"mock","selected":"mock","trigger":"skill_done","goal":"blaze_rods","options":["fortress find","explore any"],"choice":"fortress find","valid":true,"latency_ms":0,"tokens_in":0,"tokens_out":0,"note":"rules","t":1790499227590}
+{"event":"skill_start","skill":"fortress find","trigger":"skill_done","t":1790499227590}
+{"event":"skill_end","skill":"fortress find","ok":true,"detail":"saw a fortress 85 blocks away","seconds":18.0,"t":1790499246625}
+{"layer":"tactician","brain":"mock","selected":"mock","trigger":"skill_done","goal":"blaze_rods","options":["fortress blazes:8","explore any"],"choice":"fortress blazes:8","valid":true,"latency_ms":0,"tokens_in":0,"tokens_out":0,"note":"rules","t":1790499246625}
+{"event":"skill_start","skill":"fortress blazes:8","trigger":"skill_done","t":1790499246626}
+{"event":"skill_end","skill":"fortress blazes:8","ok":false,"code":"NOT_FOUND","detail":"no blazes in the parts of the fortress we know","seconds":31.75,"t":1790499280488}
+{"layer":"tactician","brain":"mock","selected":"mock","trigger":"skill_failed","goal":"blaze_rods","options":["fortress blazes:8","explore any"],"choice":"fortress blazes:8","valid":true,"latency_ms":0,"tokens_in":0,"tokens_out":0,"note":"rules","t":1790499280489}
+{"event":"skill_start","skill":"fortress blazes:8","trigger":"skill_failed","t":1790499280489}
+{"event":"skill_end","skill":"fortress blazes:8","ok":false,"code":"NOT_FOUND","detail":"no fortress or blaze known","seconds":0.05,"t":1790499280541}
+{"layer":"tactician","brain":"mock","selected":"mock","trigger":"skill_failed","goal":"blaze_rods","options":["fortress blazes:8","explore any"],"choice":"fortress blazes:8","valid":true,"latency_ms":0,"tokens_in":0,"tokens_out":0,"note":"rules","t":1790499280542}
+{"event":"skill_start","skill":"fortress blazes:8","trigger":"skill_failed","t":1790499280542}
+{"event":"skill_end","skill":"fortress blazes:8","ok":false,"code":"NOT_FOUND","detail":"no fortress or blaze known","seconds":0.05,"t":1790499280596}
+{"layer":"tactician","brain":"mock","selected":"mock","trigger":"skill_failed","goal":"blaze_rods","options":["explore any"],"choice":"explore any","valid":true,"latency_ms":0,"tokens_in":0,"tokens_out":0,"note":"rules","t":1790499280599}
+{"event":"skill_start","skill":"explore any","trigger":"skill_failed","t":1790499280599}
+{"event":"strategist_request","detail":"failing","t":1790499281447}
+{"layer":"strategist","brain":"mock","choice":"blaze_rods","reason":"next unfinished goal on the ladder","valid":true,"latency_ms":0,"tokens_in":0,"tokens_out":0,"note":"Opus strategist off","t":1790499281503}
+{"layer":"tactician","brain":"mock","selected":"mock","trigger":"heartbeat","goal":"blaze_rods","options":["pickup","explore any"],"choice":"pickup","valid":true,"latency_ms":0,"tokens_in":0,"tokens_out":0,"note":"rules","t":1790499301896}
+{"event":"skill_end","skill":"explore any","ok":false,"code":"INTERRUPTED","detail":"interrupted: brain chose pickup","seconds":20.1,"t":1790499301896}
+{"event":"skill_start","skill":"pickup","trigger":"heartbeat","t":1790499301896}
+{"event":"skill_end","skill":"pickup","ok":true,"detail":"picked up 2 stacks","seconds":0.85,"t":1790499302725}
+{"layer":"tactician","brain":"mock","selected":"mock","trigger":"skill_done","goal":"blaze_rods","options":["explore any"],"choice":"explore any","valid":true,"latency_ms":0,"tokens_in":0,"tokens_out":0,"note":"rules","t":1790499302725}
+{"event":"skill_start","skill":"explore any","trigger":"skill_done","t":1790499302726}
+{"layer":"tactician","brain":"mock","selected":"mock","trigger":"heartbeat","goal":"blaze_rods","options":["attack magma_cube","explore any"],"choice":"attack magma_cube","valid":true,"latency_ms":0,"tokens_in":0,"tokens_out":0,"note":"rules","t":1790499322926}
+{"event":"skill_end","skill":"explore any","ok":false,"code":"INTERRUPTED","detail":"interrupted: brain chose attack magma_cube","seconds":20.1,"t":1790499322927}
+{"event":"skill_start","skill":"attack magma_cube","trigger":"heartbeat","t":1790499322927}
+{"event":"skill_end","skill":"attack magma_cube","ok":true,"detail":"killed the magma_cube","seconds":4.05,"t":1790499327034}
+{"layer":"tactician","brain":"mock","selected":"mock","trigger":"skill_done","goal":"blaze_rods","options":["explore any"],"choice":"explore any","valid":true,"latency_ms":0,"tokens_in":0,"tokens_out":0,"note":"rules","t":1790499327034}
+{"event":"skill_start","skill":"explore any","trigger":"skill_done","t":1790499327034}
+{"layer":"tactician","brain":"mock","selected":"mock","trigger":"heartbeat","goal":"blaze_rods","options":["fortress blazes:8","explore any"],"choice":"fortress blazes:8","valid":true,"latency_ms":0,"tokens_in":0,"tokens_out":0,"note":"rules","t":1790499351907}
+{"event":"skill_end","skill":"explore any","ok":false,"code":"INTERRUPTED","detail":"interrupted: brain chose fortress blazes:8","seconds":20.1,"t":1790499351908}
+{"event":"skill_start","skill":"fortress blazes:8","trigger":"heartbeat","t":1790499351908}
+{"event":"skill_end","skill":"fortress blazes:8","ok":false,"code":"NOT_FOUND","detail":"no fortress or blaze known","seconds":0.05,"t":1790499351995}
+{"layer":"tactician","brain":"mock","selected":"mock","trigger":"skill_failed","goal":"blaze_rods","options":["fortress blazes:8","explore any"],"choice":"fortress blazes:8","valid":true,"latency_ms":0,"tokens_in":0,"tokens_out":0,"note":"rules","t":1790499351996}
+{"event":"skill_start","skill":"fortress blazes:8","trigger":"skill_failed","t":1790499351996}
+{"event":"skill_end","skill":"fortress blazes:8","ok":false,"code":"NOT_FOUND","detail":"no fortress or blaze known","seconds":0.05,"t":1790499352043}
+{"layer":"tactician","brain":"mock","selected":"mock","trigger":"skill_failed","goal":"blaze_rods","options":["explore any"],"choice":"explore any","valid":true,"latency_ms":0,"tokens_in":0,"tokens_out":0,"note":"rules","t":1790499352044}
+{"event":"skill_start","skill":"explore any","trigger":"skill_failed","t":1790499352044}
+{"event":"skill_end","skill":"explore any","ok":false,"code":"INTERRUPTED","detail":"in lava","seconds":4.6,"t":1790499357032}
+{"event":"reflex","detail":"lava","t":1790499357032}
+{"layer":"tactician","brain":"mock","selected":"mock","trigger":"idle","goal":"blaze_rods","options":["explore any"],"choice":"explore any","valid":true,"latency_ms":0,"tokens_in":0,"tokens_out":0,"note":"rules","t":1790499357838}
+{"event":"skill_start","skill":"explore any","trigger":"idle","t":1790499357838}
+{"layer":"tactician","brain":"mock","selected":"mock","trigger":"hurt","goal":"blaze_rods","options":["explore any"],"choice":"explore any","valid":true,"latency_ms":0,"tokens_in":0,"tokens_out":0,"note":"rules","t":1790499367493}
+{"layer":"tactician","brain":"mock","selected":"mock","trigger":"hurt","goal":"blaze_rods","options":["eat","explore any"],"choice":"eat","valid":true,"latency_ms":0,"tokens_in":0,"tokens_out":0,"note":"rules","t":1790499375432}
+{"event":"skill_end","skill":"explore any","ok":false,"code":"INTERRUPTED","detail":"interrupted: brain chose eat","seconds":14.05,"t":1790499375433}
+{"event":"skill_start","skill":"eat","trigger":"hurt","t":1790499375433}
+{"event":"skill_end","skill":"eat","ok":true,"detail":"ate cooked_beef","seconds":1.85,"t":1790499378095}
+{"layer":"tactician","brain":"mock","selected":"mock","trigger":"skill_done","goal":"blaze_rods","options":["explore any"],"choice":"explore any","valid":true,"latency_ms":0,"tokens_in":0,"tokens_out":0,"note":"rules","t":1790499378095}
+{"event":"skill_start","skill":"explore any","trigger":"skill_done","t":1790499378095}
+{"layer":"tactician","brain":"mock","selected":"mock","trigger":"heartbeat","goal":"blaze_rods","options":["eat","explore any"],"choice":"eat","valid":true,"latency_ms":0,"tokens_in":0,"tokens_out":0,"note":"rules","t":1790499418306}
+{"event":"skill_end","skill":"explore any","ok":false,"code":"INTERRUPTED","detail":"interrupted: brain chose eat","seconds":20.1,"t":1790499418306}
+{"event":"skill_start","skill":"eat","trigger":"heartbeat","t":1790499418306}
+{"event":"skill_end","skill":"eat","ok":true,"detail":"ate cooked_beef","seconds":1.85,"t":1790499422006}
+{"layer":"tactician","brain":"mock","selected":"mock","trigger":"skill_done","goal":"blaze_rods","options":["explore any"],"choice":"explore any","valid":true,"latency_ms":0,"tokens_in":0,"tokens_out":0,"note":"rules","t":1790499422007}
+{"event":"skill_start","skill":"explore any","trigger":"skill_done","t":1790499422007}
+{"layer":"tactician","brain":"mock","selected":"mock","trigger":"mob_near","goal":"blaze_rods","options":["attack magma_cube","explore any"],"choice":"attack magma_cube","valid":true,"latency_ms":0,"tokens_in":0,"tokens_out":0,"note":"rules","t":1790499439940}
+{"event":"skill_end","skill":"explore any","ok":false,"code":"INTERRUPTED","detail":"interrupted: brain chose attack magma_cube","seconds":8.95,"t":1790499439940}
+{"event":"skill_start","skill":"attack magma_cube","trigger":"mob_near","t":1790499439941}
+{"event":"skill_end","skill":"attack magma_cube","ok":true,"detail":"killed the magma_cube","seconds":4.75,"t":1790499449441}
+{"layer":"tactician","brain":"mock","selected":"mock","trigger":"skill_done","goal":"blaze_rods","options":["attack magma_cube","explore any"],"choice":"attack magma_cube","valid":true,"latency_ms":0,"tokens_in":0,"tokens_out":0,"note":"rules","t":1790499449442}
+{"event":"skill_start","skill":"attack magma_cube","trigger":"skill_done","t":1790499449442}
+{"event":"skill_end","skill":"attack magma_cube","ok":true,"detail":"killed the magma_cube","seconds":2.7,"t":1790499454843}
+{"layer":"tactician","brain":"mock","selected":"mock","trigger":"skill_done","goal":"blaze_rods","options":["attack magma_cube","explore any"],"choice":"attack magma_cube","valid":true,"latency_ms":0,"tokens_in":0,"tokens_out":0,"note":"rules","t":1790499454843}
+{"event":"skill_start","skill":"attack magma_cube","trigger":"skill_done","t":1790499454843}
+{"event":"skill_end","skill":"attack magma_cube","ok":true,"detail":"killed the magma_cube","seconds":2.7,"t":1790499460242}
+{"layer":"tactician","brain":"mock","selected":"mock","trigger":"skill_done","goal":"blaze_rods","options":["attack magma_cube","fortress blazes:8","explore any"],"choice":"attack magma_cube","valid":true,"latency_ms":0,"tokens_in":0,"tokens_out":0,"note":"rules","t":1790499460243}
+{"event":"skill_start","skill":"attack magma_cube","trigger":"skill_done","t":1790499460243}
+{"event":"skill_end","skill":"attack magma_cube","ok":true,"detail":"killed the magma_cube","seconds":3.3,"t":1790499466842}
+{"layer":"tactician","brain":"mock","selected":"mock","trigger":"skill_done","goal":"blaze_rods","options":["fortress blazes:8","explore any"],"choice":"fortress blazes:8","valid":true,"latency_ms":0,"tokens_in":0,"tokens_out":0,"note":"rules","t":1790499466843}
+{"event":"skill_start","skill":"fortress blazes:8","trigger":"skill_done","t":1790499466843}
+{"event":"skill_end","skill":"fortress blazes:8","ok":false,"code":"NOT_FOUND","detail":"no fortress or blaze known","seconds":0.05,"t":1790499466942}
+{"layer":"tactician","brain":"mock","selected":"mock","trigger":"skill_failed","goal":"blaze_rods","options":["fortress blazes:8","explore any"],"choice":"fortress blazes:8","valid":true,"latency_ms":0,"tokens_in":0,"tokens_out":0,"note":"rules","t":1790499466942}
+{"event":"skill_start","skill":"fortress blazes:8","trigger":"skill_failed","t":1790499466943}
+{"event":"skill_end","skill":"fortress blazes:8","ok":false,"code":"NOT_FOUND","detail":"no fortress or blaze known","seconds":0.05,"t":1790499467043}
+{"layer":"tactician","brain":"mock","selected":"mock","trigger":"skill_failed","goal":"blaze_rods","options":["explore any"],"choice":"explore any","valid":true,"latency_ms":0,"tokens_in":0,"tokens_out":0,"note":"rules","t":1790499467043}
+{"event":"skill_start","skill":"explore any","trigger":"skill_failed","t":1790499467043}
+{"layer":"tactician","brain":"mock","selected":"mock","trigger":"heartbeat","goal":"blaze_rods","options":["attack magma_cube","explore any"],"choice":"attack magma_cube","valid":true,"latency_ms":0,"tokens_in":0,"tokens_out":0,"note":"rules","t":1790499507431}
+{"event":"skill_end","skill":"explore any","ok":false,"code":"INTERRUPTED","detail":"interrupted: brain chose attack magma_cube","seconds":20.1,"t":1790499507431}
+{"event":"skill_start","skill":"attack magma_cube","trigger":"heartbeat","t":1790499507431}
+{"event":"skill_end","skill":"attack magma_cube","ok":true,"detail":"killed the magma_cube","seconds":6.5,"t":1790499520430}
+{"layer":"tactician","brain":"mock","selected":"mock","trigger":"skill_done","goal":"blaze_rods","options":["attack magma_cube","pickup","explore any"],"choice":"attack magma_cube","valid":true,"latency_ms":0,"tokens_in":0,"tokens_out":0,"note":"rules","t":1790499520431}
+{"event":"skill_start","skill":"attack magma_cube","trigger":"skill_done","t":1790499520431}
+{"event":"skill_end","skill":"attack magma_cube","ok":true,"detail":"killed the magma_cube","seconds":3.3,"t":1790499527041}
+{"layer":"tactician","brain":"mock","selected":"mock","trigger":"skill_done","goal":"blaze_rods","options":["attack magma_cube","pickup","explore any"],"choice":"attack magma_cube","valid":true,"latency_ms":0,"tokens_in":0,"tokens_out":0,"note":"rules","t":1790499527041}
+{"event":"skill_start","skill":"attack magma_cube","trigger":"skill_done","t":1790499527041}
+{"event":"skill_end","skill":"attack magma_cube","ok":true,"detail":"killed the magma_cube","seconds":2.7,"t":1790499532441}
+{"layer":"tactician","brain":"mock","selected":"mock","trigger":"skill_done","goal":"blaze_rods","options":["pickup","explore any"],"choice":"pickup","valid":true,"latency_ms":0,"tokens_in":0,"tokens_out":0,"note":"rules","t":1790499532442}
+{"event":"skill_start","skill":"pickup","trigger":"skill_done","t":1790499532442}
+{"event":"skill_end","skill":"pickup","ok":true,"detail":"picked up 1 stacks","seconds":0.3,"t":1790499533042}
+{"layer":"tactician","brain":"mock","selected":"mock","trigger":"skill_done","goal":"blaze_rods","options":["explore any"],"choice":"explore any","valid":true,"latency_ms":0,"tokens_in":0,"tokens_out":0,"note":"rules","t":1790499533043}
+{"event":"skill_start","skill":"explore any","trigger":"skill_done","t":1790499533043}
+{"event":"skill_end","skill":"explore any","ok":false,"code":"INTERRUPTED","detail":"test finished","seconds":13.7,"t":1790499560627}
+{"event":"autopilot_off","detail":"test finished","t":1790499560628}
