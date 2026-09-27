@@ -60,7 +60,10 @@ in Java 25 (Gradle, Loom), the `claude` CLI. Versions, install paths and Windows
   multi-session process; read only if asked.
 
 ## Working rules
-- One branch: `main`, plus the data branch `trial-results`. No coordination between sessions.
+- Branches: `main` (what the loop plays), `dev` (work in progress), and the data branch
+  `trial-results`. Build and test on `dev` (compile check: `gh workflow run trials.yml --ref dev -f
+  seeds='[]' -f extra='[]'`; scenario tests with `-f extra=...`), then merge into `main` in batches
+  every few generations with one summary: each push to main changes the next generation's code.
 - Save tokens: read a batch's summary.md, not its logs, unless the summary points at a failure.
   Don't read whole large files (Autopilot.java, Planner.java) when a grep will do.
 - Improve the bot through the loop: a new gene, a new skill, a better score or feature, a fix to
