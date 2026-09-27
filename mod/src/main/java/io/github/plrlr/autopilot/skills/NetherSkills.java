@@ -90,7 +90,7 @@ public final class NetherSkills {
 		private boolean walking;
 
 		// Baritone settings changed while this skill runs, restored in cleanup.
-		private Boolean savedItemSaver;
+		private Boolean savedItemSaver, savedAllowPlace;
 		private Double savedBreakPenalty, savedSpawnerAvoid;
 
 		/**
@@ -105,6 +105,10 @@ public final class NetherSkills {
 			Settings st = BaritoneAPI.getSettings();
 			savedItemSaver = st.itemSaver.value;
 			st.itemSaver.value = true;
+			// No bridging or pillaring here: Baritone planned 80-block sneak-bridges over the Nether's
+			// drops, and a fortress search died to a fall 10 s in. Paths it can't walk fail and turn.
+			savedAllowPlace = st.allowPlace.value;
+			st.allowPlace.value = false;
 			savedBreakPenalty = st.blockBreakAdditionalPenalty.value;
 			st.blockBreakAdditionalPenalty.value = 12.0;
 			if (!findMode) {
@@ -116,6 +120,7 @@ public final class NetherSkills {
 		private void restoreBaritone() {
 			Settings st = BaritoneAPI.getSettings();
 			if (savedItemSaver != null) st.itemSaver.value = savedItemSaver;
+			if (savedAllowPlace != null) st.allowPlace.value = savedAllowPlace;
 			if (savedBreakPenalty != null) st.blockBreakAdditionalPenalty.value = savedBreakPenalty;
 			if (savedSpawnerAvoid != null) st.mobSpawnerAvoidanceCoefficient.value = savedSpawnerAvoid;
 		}
@@ -178,22 +183,27 @@ public final class NetherSkills {
 			WorldMemory.Seen s = memory.nearest("spawner");
 			if (s != null && !visitedAnchors.contains(s.pos())) return s.pos();
 			LocalPlayer pl = Mc.player();
-			BlockPos best = null;
-			double bd = Double.MAX_VALUE;
+			// Floors and bridge tops first: a brick in a wall or under the floor made Baritone tunnel
+			// into the fortress, out of sight of every blaze. Seen from afar, though, a fortress is
+			// only wall faces (the fight found no anchor at all, NOT_FOUND x3 right after "saw a
+			// fortress 61 blocks away"), so then walk to the nearest brick; floors come into view.
+			BlockPos best = null, bestAny = null;
+			double bd = Double.MAX_VALUE, bdAny = Double.MAX_VALUE;
 			for (WorldMemory.Seen b : memory.all("nether_bricks")) {
-				// Floors and bridge tops only: a brick in a wall or under the floor made Baritone
-				// tunnel into the fortress, out of sight of every blaze.
-				if (!Mc.free(b.pos().above()) || !Mc.free(b.pos().above(2))) continue;
 				boolean tried = false;
 				for (BlockPos v : visitedAnchors) if (v.distSqr(b.pos()) < 20 * 20) tried = true;
 				if (tried) continue;
 				double d = b.pos().distSqr(pl.blockPosition());
-				if (d < bd) {
+				if (d < bdAny) {
+					bdAny = d;
+					bestAny = b.pos();
+				}
+				if (d < bd && Mc.free(b.pos().above()) && Mc.free(b.pos().above(2))) {
 					bd = d;
 					best = b.pos();
 				}
 			}
-			return best;
+			return best != null ? best : bestAny;
 		}
 
 		private void walkTo(BlockPos p) {
@@ -241,7 +251,7 @@ public final class NetherSkills {
 				walkTo(anchor);
 			}
 			Perception seen = Perception.look(32);
-			Perception.Seen blaze = seen.nearest("blaze");
+			Perception.Seen blaze = reachableBlaze(seen);
 			var keyUse = Mc.mc().options.keyUse;
 			if (recover(pl, blaze, keyUse)) return;
 			// Between blazes, keep hunger at 18+ so health comes back between hits: below 18 it
@@ -280,6 +290,7 @@ public final class NetherSkills {
 				}
 				// Rods first if one is lying close by; otherwise close in on the blaze.
 				if (blaze.dist() > 6 || !rodNearby(pl, seen)) {
+					trackChase(blaze);
 					if (ticks % 10 == 0) Bari.path(new GoalNear(e.blockPosition(), 2));
 					walking = true;
 					return;
@@ -312,6 +323,38 @@ public final class NetherSkills {
 				}
 				walkTo(anchor);
 			}
+		}
+
+		private Entity chased;
+		private double chaseBest;
+		private int chaseStale;
+
+		/**
+		 * A blaze we got no closer to in 10 s is out over lava or outside the walls: leave it for a
+		 * minute (CombatSkills' unreachable list) and wait for one inside. Chasing those is what
+		 * made Baritone bridge out of the fortress (a death) and kept the fight from ever moving on.
+		 */
+		private void trackChase(Perception.Seen blaze) {
+			if (blaze.entity() != chased) {
+				chased = blaze.entity();
+				chaseBest = blaze.dist();
+				chaseStale = 0;
+			} else if (blaze.dist() < chaseBest - 0.5) {
+				chaseBest = blaze.dist();
+				chaseStale = 0;
+			} else if (++chaseStale > 20 * 10) {
+				CombatSkills.markUnreachable(chased);
+				chased = null;
+				Bari.stop();
+				walking = false;
+			}
+		}
+
+		/** The nearest blaze, skipping ones we couldn't reach unless they came close. */
+		private static Perception.Seen reachableBlaze(Perception seen) {
+			for (Perception.Seen m : seen.mobs)
+				if (m.type().equals("blaze") && (m.dist() < 4 || !CombatSkills.unreachable(m.entity()))) return m;
+			return null;
 		}
 
 		private static boolean rodNearby(LocalPlayer pl, Perception seen) {

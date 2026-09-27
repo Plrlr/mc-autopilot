@@ -412,7 +412,10 @@ public final class Planner {
 		// A monster an attack just failed to reach: offering to attack it again only fails again
 		// (10 NOT_FOUND fails in batch 6). The reflexes still handle it if it comes close.
 		if (hostile != null && io.github.plrlr.autopilot.skills.CombatSkills.unreachable(hostile.entity())) hostile = null;
-		if (hostile != null && hostile.dist() < 10) {
+		// In the Nether only what's on top of us: chasing a magma cube 8 blocks off walked the bot
+		// into lava, and it burned to death (freebuff nether run 0455). Blazes go to the fortress fight.
+		double range = hostile != null && Mc.dimension().equals("the_nether") && !hostile.type().equals("blaze") ? 4 : 10;
+		if (hostile != null && hostile.dist() < range) {
 			// Creepers explode in melee range: back off instead of swinging at them.
 			if (hostile.type().equals("creeper")) out.add(new Option("retreat", null, "a creeper is " + Math.round(hostile.dist()) + " blocks away"));
 			// Blazes hover and shoot fire: the fortress fight waits for them at the spawner and backs

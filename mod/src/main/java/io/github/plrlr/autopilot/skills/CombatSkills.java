@@ -42,6 +42,11 @@ public final class CombatSkills {
 		return until != null && System.currentTimeMillis() < until;
 	}
 
+	/** Leave this mob alone for a minute (another skill couldn't reach it either). */
+	static void markUnreachable(Entity e) {
+		UNREACHABLE.put(e.getId(), System.currentTimeMillis() + 60_000);
+	}
+
 	/** attack <mob type>: walk up to the nearest one in sight and hit it until it dies. */
 	public static final class Attack extends Skill {
 		private Entity target;

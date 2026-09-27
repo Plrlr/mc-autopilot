@@ -46,11 +46,10 @@ for ($n = 1; $n -le $Runs; $n++) {
 		"`nStopped after run $n`: same death cause ('$thisDeathCause') twice in a row - likely a bug, not bad luck." |
 			Add-Content -Encoding utf8 $index
 		Write-Host "[trial-loop] stopping: '$thisDeathCause' twice in a row (run $($n - 1) and $n)"
-		& (Join-Path $root "mod\gradlew.bat") -p (Join-Path $root "mod") --stop 2>$null | Out-Null
 		return
 	}
 	$lastDeathCause = $thisDeathCause
-	# Free the Gradle daemon's memory between runs (the laptop has 7.7 GB).
-	& (Join-Path $root "mod\gradlew.bat") -p (Join-Path $root "mod") --stop 2>$null | Out-Null
+	# No `gradlew --stop` here: it stops every Gradle daemon of this user, including the game of
+	# another session's run on the same machine. Idle daemons exit on their own.
 }
 "`nDone: $Runs runs." | Add-Content -Encoding utf8 $index
