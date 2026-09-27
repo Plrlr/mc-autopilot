@@ -668,9 +668,9 @@
   }
  },
  "days": {
-  "2026-09-27": 12
+  "2026-09-27": 13
  },
- "gen": 12,
+ "gen": 13,
  "gene_specs": {
   "cave.torch_light": {
    "def": 3.0,
@@ -1616,6 +1616,28 @@
    "note": "combat.crits 1, night.shelter_armor 9",
    "pairs": [],
    "parent": "g6",
+   "status": "contender"
+  },
+  "g12": {
+   "born": 13,
+   "code": null,
+   "evals": [],
+   "genes": {
+    "death.recover_night_armor": 12.0,
+    "focus.commit": 1.0,
+    "nav.mob_avoid_coef": 3.0,
+    "plan.hide_hp": 15.0,
+    "plan.hostile_range": 5.0,
+    "route.armor_before_portal": 0.0
+   },
+   "id": "g12",
+   "mutated": [
+    "nav.mob_avoid_coef",
+    "plan.hostile_range"
+   ],
+   "note": "suggested: nav.mob_avoid_coef 3, plan.hostile_range 4",
+   "pairs": [],
+   "parent": "g10",
    "status": "contender"
   },
   "g2": {
@@ -2653,8 +2675,84 @@
  "model_keys": 49,
  "model_r2": 0.156,
  "model_rows": 11672,
- "next_id": 12,
- "pending": null,
+ "next_id": 13,
+ "pending": {
+  "data_tasks": [
+   {
+    "kind": "natural",
+    "seed": "D13-sqz83t",
+    "stage": "spawn",
+    "synthetic": false
+   }
+  ],
+  "gen": 13,
+  "lineup": [
+   "g10",
+   "g12",
+   "g11"
+  ],
+  "runs": [
+   "eval-g10-0",
+   "eval-g10-1",
+   "eval-g10-2",
+   "eval-g10-3",
+   "eval-g10-4",
+   "eval-g12-0",
+   "eval-g12-1",
+   "eval-g12-2",
+   "eval-g12-3",
+   "eval-g12-4",
+   "eval-g11-0",
+   "eval-g11-1",
+   "eval-g11-2",
+   "eval-g11-3",
+   "eval-g11-4",
+   "data-g10-0"
+  ],
+  "seeds": [
+   "L13-dp4k43",
+   "L13-5veyqa",
+   "L13-8za8s8",
+   "L13-8mtsfy",
+   "L13-6k33yy"
+  ],
+  "sha": "bc32c9d84122ed8a22b00ac59ba086f836beb0d4",
+  "started": "2026-09-27T22:03:13+00:00",
+  "tasks": [
+   {
+    "kind": "natural",
+    "seed": "L13-dp4k43",
+    "stage": "spawn",
+    "synthetic": false
+   },
+   {
+    "kind": "natural",
+    "seed": "L13-5veyqa",
+    "stage": "spawn",
+    "synthetic": false
+   },
+   {
+    "kind": "natural",
+    "seed": "L13-8za8s8",
+    "stage": "spawn",
+    "synthetic": false
+   },
+   {
+    "asset": "kit-gen4-eval-g0-2.zip",
+    "kind": "start",
+    "seed": "L13-8mtsfy",
+    "stage": "kit",
+    "synthetic": false
+   },
+   {
+    "asset": "nether-gen5-eval-g6-2.zip",
+    "kind": "start",
+    "seed": "L13-6k33yy",
+    "stage": "nether",
+    "synthetic": false
+   }
+  ]
+ },
  "settings": {
   "accept_pairs": 8,
   "accept_t": 2.0,
@@ -3245,7 +3343,8 @@
  "suggested": [
   "{\"focus.commit\": 1}",
   "{\"route.diamond_portal\": 1}",
-  "{\"_retry\": \"dropped after 5 worlds by a too-hasty rule\", \"focus.commit\": 1}"
+  "{\"_retry\": \"dropped after 5 worlds by a too-hasty rule\", \"focus.commit\": 1}",
+  "{\"nav.mob_avoid_coef\": 3, \"plan.hostile_range\": 4}"
  ],
  "version": 1
 }
