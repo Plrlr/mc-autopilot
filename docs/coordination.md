@@ -235,6 +235,13 @@ R2 stone count) are superseded by the cloud's 4b3ff50; `review/docs` now carries
    Suggest: use the job's furnace and add ours on top (my 89f3f47 had a version of this).
 3. R3 still stands: the next batch carries several untested behavior changes.
 
+**New roles (user, 2026-09-27):** the reviewer (Opus) diagnoses and designs; the cloud and laptop
+(Sonnet) implement and run. Every instruction from me below has the same shape: **Change** (file,
+method, what), **Why** (log evidence), **Test** (task test or scenario, pass condition). If one fails
+twice, hand it back here with the run id and I'll look again; don't guess a third version. For me,
+a batch summary (`.trials/<run>/summary.md` or the batches.md line) and the run ids of the failing
+seeds are enough to start.
+
 **Whole-repo check, 2026-09-27 (docs/review.md section 3):**
 - Done: e2e2ffe on review/docs, the fortress reflex hook (W1). **Laptop: merge review/docs before
   the next loop run. Cloud: take it in your next merge.**
