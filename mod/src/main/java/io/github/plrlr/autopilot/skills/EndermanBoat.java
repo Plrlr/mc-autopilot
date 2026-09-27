@@ -103,7 +103,13 @@ public final class EndermanBoat extends Skill {
 				// A boat goes where the crosshair points (BoatItem traces the view itself): look at the
 				// top of the ground block, then use the boat. useOn against a face didn't place it.
 				Mc.lookAt(Vec3.atCenterOf(spot.below()).add(0, 0.5, 0));
-				if (phaseTicks % 10 == 5) Mc.useItem();
+				if (phaseTicks % 10 == 5) {
+					var r = Mc.mc().gameMode.useItem(pl, net.minecraft.world.InteractionHand.MAIN_HAND);
+					// What the game made of it: the result and what the crosshair was on.
+					io.github.plrlr.autopilot.AutopilotMod.LOGGER.info("[boat] use -> {} at {} hand {} crosshair {}", r, spot.toShortString(),
+							Items2.id(pl.getMainHandItem()), Mc.mc().hitResult == null ? "none" : Mc.mc().hitResult.getType()
+							+ (Mc.mc().hitResult instanceof net.minecraft.world.phys.BlockHitResult b ? " " + b.getBlockPos().toShortString() + " " + Mc.id(Mc.state(b.getBlockPos()).getBlock()) : ""));
+				}
 			}
 			case PROVOKE -> {
 				if (!target.isAlive()) {
