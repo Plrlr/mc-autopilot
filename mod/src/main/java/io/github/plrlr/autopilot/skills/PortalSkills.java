@@ -291,15 +291,28 @@ public final class PortalSkills {
 		CastPortal.reset();
 	}
 
-	/** locate_stronghold: throw an eye of ender, watch where it flies, walk that way. */
+	/**
+	 * locate_stronghold: triangulate like a speedrunner, 2-3 eyes in all.
+	 *
+	 *   THROW    throw an eye and watch where it flies (its horizontal direction is the bearing)
+	 *   PICKUP   walk to where it dropped and take it back (80% of eyes survive a throw)
+	 *   SIDESTEP after the first throw, walk ~60 blocks at right angles to the bearing
+	 *   THROW    second throw: the two bearings cross at the stronghold (triangulate)
+	 *   WALK     go to the crossing point, then throw once more close by: when the eye goes down
+	 *            instead of away, the stronghold is right below, so dig down
+	 *
+	 * The old version threw, walked 180 blocks along the same bearing and threw again: two lines
+	 * that never cross, so it followed eyes one throw at a time and never picked them back up.
+	 */
 	public static final class LocateStronghold extends Skill {
-		private enum Phase {THROW, WATCH, WALK}
+		private enum Phase {THROW, WATCH, PICKUP, SIDESTEP, WALK, DIG}
 
 		private Phase phase = Phase.THROW;
 		private Vec3 from;
 		private EyeOfEnder eye;
-		private Vec3 eyeStart;
-		private int watch;
+		private Vec3 eyeStart, eyeLast;
+		private int watch, phaseTicks;
+		private Phase after;
 
 		@Override
 		public String name() {
@@ -313,7 +326,7 @@ public final class PortalSkills {
 
 		@Override
 		protected void start() {
-			timeoutTicks = 20 * 150;
+			timeoutTicks = 20 * 60 * 6;
 			if (!Mc.dimension().equals("overworld")) {
 				fail(Fail.WRONG_PLACE, "eyes of ender only work in the overworld");
 				return;
@@ -322,21 +335,34 @@ public final class PortalSkills {
 				fail(Fail.NEED_ITEM, "no eyes of ender");
 				return;
 			}
+			// A fresh search: bearings from an earlier, unfinished one may be far away and stale.
+			if (!THROWS.isEmpty() && THROWS.get(THROWS.size() - 1).from.distanceTo(Mc.player().position()) > 400) THROWS.clear();
 			Bari.stop();
 		}
 
 		@Override
 		protected void tick() {
 			LocalPlayer pl = Mc.player();
+			phaseTicks++;
+			if (memory.nearest("end_portal_frame") != null) {
+				done("found the end portal frames (" + THROWS.size() + " throws)");
+				return;
+			}
 			switch (phase) {
 				case THROW -> {
-					if (ticks < 5) return;
+					if (phaseTicks < 5) return;
+					if (Mc.count("ender_eye") == 0) {
+						fail(Fail.NEED_ITEM, "out of eyes of ender");
+						return;
+					}
 					Mc.holdItem(s -> Items2.id(s).equals("ender_eye"));
-					if (ticks < 8) return;
+					if (phaseTicks < 8) return;
 					from = pl.position();
 					pl.setXRot(-10f);
 					Mc.useItem();
-					phase = Phase.WATCH;
+					eye = null;
+					watch = 0;
+					go(Phase.WATCH);
 				}
 				case WATCH -> {
 					watch++;
@@ -347,49 +373,96 @@ public final class PortalSkills {
 								eyeStart = ee.position();
 							}
 						}
-						if (watch > 20 && eye == null) {
-							fail(Fail.NOT_FOUND, "the eye didn't fly (no stronghold in range?)");
-						}
+						if (watch > 20 && eye == null) fail(Fail.NOT_FOUND, "the eye didn't fly (no stronghold in range?)");
 						return;
 					}
-					if (watch < 35 && eye.isAlive()) return;
-					Vec3 move = eye.position().subtract(eyeStart);
+					if (eye.isAlive()) {
+						eyeLast = eye.position();
+						// A good bearing needs ~1.5 s of flight; the eye flies about 3 s in all.
+						if (watch < 70) return;
+					}
+					Vec3 move = (eyeLast == null ? eye.position() : eyeLast).subtract(eyeStart);
 					Vec3 flat = new Vec3(move.x, 0, move.z);
 					if (flat.length() < 1.5) {
-						// The eye went down instead of away: the stronghold is right below.
+						// It went down instead of away: the stronghold is right below.
+						go(Phase.DIG);
 						BlockPos below = pl.blockPosition();
 						Bari.path(new GoalBlock(below.getX(), Math.max(pl.level().getMinY() + 10, 20), below.getZ()));
-						phase = Phase.WALK;
 						timeoutTicks = ticks + 20 * 120;
 						return;
 					}
 					Vec3 dir = flat.normalize();
 					THROWS.add(new Throw(from, dir));
 					Vec3 goal = triangulate();
-					if (goal == null) goal = from.add(dir.scale(180));
-					Bari.path(new GoalXZ((int) goal.x, (int) goal.z));
-					phase = Phase.WALK;
+					if (goal != null) {
+						// Two crossing bearings: walk there, then one close throw to confirm.
+						after = Phase.WALK;
+						target = goal;
+					} else {
+						// First bearing: step sideways so the next one crosses it.
+						after = Phase.SIDESTEP;
+						Vec3 side = new Vec3(-dir.z, 0, dir.x).scale(io.github.plrlr.autopilot.Tune.get("stronghold.sidestep"));
+						target = from.add(side);
+					}
+					go(Phase.PICKUP);
 				}
-				case WALK -> {
-					if (memory.nearest("end_portal_frame") != null) {
-						done("found the end portal frames");
+				case PICKUP -> {
+					// The eye drops as an item where it stopped, unless it shattered.
+					net.minecraft.world.entity.item.ItemEntity drop = null;
+					for (Entity e : Mc.mc().level.entitiesForRendering()) {
+						if (e instanceof net.minecraft.world.entity.item.ItemEntity it && Items2.id(it.getItem()).equals("ender_eye")
+								&& eyeLast != null && it.position().distanceTo(eyeLast) < 6) drop = it;
+					}
+					if (drop == null || phaseTicks > 20 * 12) {
+						if (phaseTicks < 30 && drop == null) return; // it drops a moment after it stops
+						startLeg();
 						return;
 					}
-					if (ticks > 40 && !Bari.pathing()) done("walked toward the stronghold; throw again");
+					if (phaseTicks % 20 == 1) Bari.path(new GoalBlock(drop.blockPosition()));
+				}
+				case SIDESTEP -> {
+					if (phaseTicks > 20 && !Bari.pathing() || phaseTicks > 20 * 40) {
+						Bari.stop();
+						go(Phase.THROW);
+					}
+				}
+				case WALK -> {
+					double left = Math.hypot(target.x - pl.getX(), target.z - pl.getZ());
+					if (left < 24 || (phaseTicks > 40 && !Bari.pathing())) {
+						// Close (or as close as the way allows): one more throw pins it down.
+						Bari.stop();
+						THROWS.clear();
+						go(Phase.THROW);
+					}
+				}
+				case DIG -> {
+					if (phaseTicks > 40 && !Bari.pathing()) done("dug down where the eye went into the ground");
 				}
 			}
 		}
 
-		/** Crossing point of the last two throws' lines, if they're far enough apart to trust. */
+		private Vec3 target;
+
+		private void startLeg() {
+			Bari.path(new GoalXZ((int) target.x, (int) target.z));
+			go(after);
+		}
+
+		private void go(Phase p) {
+			phase = p;
+			phaseTicks = 0;
+		}
+
+		/** Crossing point of the last two throws' bearings, if they're far enough apart to trust. */
 		private static Vec3 triangulate() {
 			if (THROWS.size() < 2) return null;
 			Throw a = THROWS.get(THROWS.size() - 2), b = THROWS.get(THROWS.size() - 1);
-			if (a.from.distanceTo(b.from) < 60) return null;
+			if (a.from.distanceTo(b.from) < 30) return null;
 			double cross = a.dir.x * b.dir.z - a.dir.z * b.dir.x;
-			if (Math.abs(cross) < 0.05) return null;
+			if (Math.abs(cross) < 0.01) return null;
 			double dx = b.from.x - a.from.x, dz = b.from.z - a.from.z;
 			double t = (dx * b.dir.z - dz * b.dir.x) / cross;
-			if (t < 0 || t > 3000) return null;
+			if (t < 0 || t > 4000) return null;
 			return a.from.add(a.dir.scale(t));
 		}
 	}

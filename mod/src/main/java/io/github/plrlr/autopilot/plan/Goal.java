@@ -20,9 +20,10 @@ public enum Goal {
 	IRON_ARMOR(5, "Craft and wear full iron armor", needs("iron_helmet", 1, "iron_chestplate", 1, "iron_leggings", 1, "iron_boots", 1)),
 	DIAMONDS(6, "Mine diamonds deep underground and make a diamond pickaxe", needs("diamond_pickaxe", 1)),
 	NETHER_PORTAL(7, "Build and light a nether portal and enter the Nether: cast it from a lava pool with a water bucket and a second bucket (no diamonds needed), or place 10 mined obsidian", needs("obsidian", 10, "flint_and_steel", 1)),
-	BLAZE_RODS(8, "In the Nether, find a fortress and kill blazes for 6 blaze rods", needs("blaze_rod", 6)),
-	ENDER_PEARLS(9, "Kill endermen for 12 ender pearls", needs("ender_pearl", 12)),
-	EYES_OF_ENDER(10, "Craft 12 eyes of ender (blaze powder + ender pearl)", needs("ender_eye", 12)),
+	BLAZE_RODS(8, "In the Nether, find a fortress and kill blazes for 6 blaze rods", needs("blaze_rod", 7)),
+	// 14 eyes: 2-3 to triangulate the stronghold, 12 in case no frame has an eye yet.
+	ENDER_PEARLS(9, "Get 14 ender pearls: trade gold with piglins, kill endermen", needs("ender_pearl", 14)),
+	EYES_OF_ENDER(10, "Craft 14 eyes of ender (blaze powder + ender pearl)", needs("ender_eye", 14)),
 	FIND_STRONGHOLD(11, "Throw eyes of ender to find the stronghold and its end portal room", needs()),
 	ENTER_END(12, "Put eyes of ender in every end portal frame and jump into the portal", needs()),
 	KILL_DRAGON(13, "Shoot the end crystals, then kill the Ender Dragon", needs()),

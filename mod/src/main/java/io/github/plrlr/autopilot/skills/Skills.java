@@ -34,6 +34,7 @@ public final class Skills {
 		MENU.put("fill_end_portal", new Entry(PortalSkills.FillEndPortal::new, "put eyes of ender into empty end portal frames"));
 		MENU.put("fill_bucket", new Entry(BucketSkills.FillBucket::new, "fill an empty bucket at a known water or lava source"));
 		MENU.put("fortress", new Entry(NetherSkills.Fortress::new, "Nether: find (walk and look for a fortress) or blazes:n (fight blazes at the spawner until n rods)"));
+		MENU.put("barter", new Entry(Barter::new, "Nether: trade gold ingots with adult piglins for ender pearls (wear gold armor)"));
 		MENU.put("dragon", new Entry(DragonFight::new, "the End fight: stay off the edges, wait by the fountain, hit the dragon's head when it lands"));
 		MENU.put("unstuck", new Entry(Unstuck::new, "get out of a spot the bot stopped moving in: swim, walk, tunnel or climb (a reflex)"));
 		MENU.put("make_obsidian", new Entry(BucketSkills.MakeObsidian::new, "pour a water bucket next to lava pool sources to harden them into obsidian"));

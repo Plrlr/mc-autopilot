@@ -50,7 +50,7 @@ jobs:
           runs=$(jq -cn --argjson seeds "$SEEDS" --arg sc "$SCENARIO" --argjson extra "$EXTRA" '
             [$seeds[] | {seed: ., scenario: $sc}] + $extra
             | map({seed, scenario: (.scenario // "natural"), task: (.task // ""), give: (.give // ""),
-                   minutes: ((.minutes // "") | tostring), id: (.id // ""), lean: (.lean // ""), perf_mods: (.perf_mods // ""), window: (.window // ""), start: (.start // ""), save_at: ((.save_at // "0") | tostring)}
+                   minutes: ((.minutes // "") | tostring), id: (.id // ""), lean: (.lean // ""), perf_mods: (.perf_mods // ""), window: (.window // ""), start: (.start // ""), save_at: ((.save_at // "0") | tostring), genes: ((.genes // {}) | tojson)}
                   | .name = (.scenario + "-" + .seed + (if .id != "" then "-" + .id else "" end)))')
           echo "runs=$runs" | tee -a "$GITHUB_OUTPUT"
 
@@ -88,9 +88,19 @@ jobs:
         include: ${{ fromJSON(needs.plan.outputs.runs) }}
     steps:
       - uses: actions/checkout@v7
+      # Genes for this run (extra runs' "genes": {"route.barter": 1}), like the loop's params.
+      - name: Genes
+        env:
+          GENES: ${{ matrix.genes }}
+        run: |
+          if [ -n "$GENES" ] && [ "$GENES" != "{}" ]; then
+            printf '{"id":"trial","genes":%s}' "$GENES" > "$RUNNER_TEMP/params.json"
+            echo "PARAMS_FILE=$RUNNER_TEMP/params.json" >> "$GITHUB_ENV"
+          fi
       - uses: ./.github/actions/play
         with:
           name: ${{ matrix.name }}
+          params: ${{ env.PARAMS_FILE }}
           seed: ${{ matrix.seed }}
           minutes: ${{ matrix.minutes || inputs.minutes }}
           scenario: ${{ matrix.scenario }}

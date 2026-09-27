@@ -178,6 +178,8 @@ public final class Planner {
 				return NetherPlan.blazeStep(memory, seen);
 			}
 			case ENDER_PEARLS -> {
+				Option trade = barterStep(seen, depth);
+				if (trade != null) return trade;
 				if (seen.nearest("enderman") != null) return new Option("attack", "enderman", "kill the enderman for a pearl");
 				return new Option("explore", "enderman", "look for endermen (more at night, many in warped forests)");
 			}
@@ -251,6 +253,34 @@ public final class Planner {
 		return new Option("build_portal", null, "cast a nether portal from lava and water (no diamonds needed)");
 	}
 
+	/**
+	 * Pearls from piglins (route.barter): a gold helmet first (piglins attack players without gold
+	 * armor), then gold ingots up to the budget (nether gold ore -> nuggets -> ingots), then trade
+	 * with adult piglins in sight, or look for some. Null when trading isn't the step now; the
+	 * enderman hunt covers the rest.
+	 */
+	private Option barterStep(Perception seen, int depth) {
+		if (!Tune.on("route.barter") || !Mc.dimension().equals("the_nether")) return null;
+		if (Mc.count("ender_pearl") >= Tune.i("pearls.target")) return null;
+		boolean goldWorn = false;
+		for (EquipmentSlot s : new EquipmentSlot[]{EquipmentSlot.HEAD, EquipmentSlot.CHEST, EquipmentSlot.LEGS, EquipmentSlot.FEET})
+			if (Items2.id(Mc.player().getItemBySlot(s)).startsWith("golden_")) goldWorn = true;
+		if (!goldWorn) {
+			if (Mc.count("golden_helmet") > 0) return new Option("equip", "armor", "gold helmet on: piglins leave you alone");
+			Option o = itemStep("golden_helmet", 1, depth + 1);
+			if (o != null) return new Option(o.skill(), o.arg(), "gold helmet for trading with piglins: " + o.why());
+		}
+		int budget = Tune.i("pearls.barter_ingots");
+		boolean piglin = seen.nearest("piglin") != null;
+		if (Mc.count("gold_ingot") > 0 && piglin) return new Option("barter", null, "trade gold with the piglins for pearls");
+		if (io.github.plrlr.autopilot.skills.Barter.traded() + Mc.count("gold_ingot") < budget) {
+			Option o = itemStep("gold_ingot", Math.min(budget - io.github.plrlr.autopilot.skills.Barter.traded(), 16), depth + 1);
+			if (o != null) return new Option(o.skill(), o.arg(), "gold to trade for pearls: " + o.why());
+		}
+		if (Mc.count("gold_ingot") > 0) return new Option("explore", "piglin", "find piglins to trade with");
+		return null;
+	}
+
 	/** First missing need of an item goal, resolved down to an action. */
 	private Option itemsStep(Goal goal) {
 		for (var e : goal.needs.entrySet()) {
@@ -279,6 +309,8 @@ public final class Planner {
 		}
 
 		TechTree.Recipe r = TechTree.CRAFT.get(item);
+		// Gold ingots from nuggets only in the Nether; in the overworld raw gold gets smelted.
+		if (r != null && item.equals("gold_ingot") && !Mc.dimension().equals("the_nether")) r = null;
 		if (r != null) {
 			int crafts = (missing + r.yield() - 1) / r.yield();
 			for (var ing : r.in().entrySet()) {
@@ -685,6 +717,8 @@ public final class Planner {
 	}
 
 	public static int armorTier(String id) {
+		// Trading in the Nether: the gold helmet beats any helmet (piglins attack without gold).
+		if (id.equals("golden_helmet") && Tune.on("route.barter") && Mc.player() != null && Mc.dimension().equals("the_nether")) return 9;
 		if (id.startsWith("leather_")) return 0;
 		if (id.startsWith("golden_") || id.startsWith("chainmail_")) return 1;
 		if (id.startsWith("iron_")) return 2;

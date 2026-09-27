@@ -205,6 +205,15 @@ public class AutopilotClientTest implements FabricClientGameTest {
 			server.runCommand("execute at @p run tp @p ~ -50 ~");
 			return Goal.NETHER_PORTAL;
 		}
+		if (scenario.equals("barter")) {
+			// Trading alone: in the Nether with gold and a gold helmet on; piglins are added in arrive().
+			for (String g : List.of("iron_pickaxe", "iron_sword", "cooked_beef 16", "cobblestone 64", "gold_ingot 32"))
+				server.runCommand("give @a " + g);
+			server.runCommand("item replace entity @a armor.head with golden_helmet");
+			server.runCommand("item replace entity @a armor.chest with iron_chestplate");
+			server.runCommand("execute in minecraft:the_nether run tp @a 0 70 0");
+			return Goal.ENDER_PEARLS;
+		}
 		if (scenario.equals("nether") || scenario.equals("blaze")) {
 			// What the speedrun route really carries into the Nether since 9980cfe: iron tools, a
 			// shield, and an iron chestplate + helmet (worn, not just carried - the planner puts
@@ -227,7 +236,7 @@ public class AutopilotClientTest implements FabricClientGameTest {
 				return Goal.NETHER_PORTAL;
 			}
 			case "stronghold" -> {
-				server.runCommand("give @a ender_eye 12");
+				server.runCommand("give @a ender_eye 14");
 				return Goal.FIND_STRONGHOLD;
 			}
 			case "end" -> {
@@ -243,10 +252,18 @@ public class AutopilotClientTest implements FabricClientGameTest {
 	/** Building for scenarios that teleport first: runs after the player has arrived and chunks are loaded. */
 	private static void arrive(TestSingleplayerContext sp, String scenario) {
 		var server = sp.getServer();
-		if (!scenario.equals("nether") && !scenario.equals("blaze")) return;
+		if (!scenario.equals("nether") && !scenario.equals("blaze") && !scenario.equals("barter")) return;
 		// A pocket of air on a netherrack floor, so the arrival spot isn't inside rock or over lava.
 		server.runCommand("execute in minecraft:the_nether run fill -3 70 -3 3 74 3 air");
 		server.runCommand("execute in minecraft:the_nether run fill -3 69 -3 3 69 3 netherrack");
+		if (scenario.equals("barter")) {
+			// A walled room with three adult piglins that won't turn into zombies here.
+			server.runCommand("execute in minecraft:the_nether run fill -8 69 -8 8 75 8 netherrack hollow");
+			server.runCommand("execute in minecraft:the_nether run fill -7 70 -7 7 74 7 air");
+			for (int i = 0; i < 3; i++)
+				server.runCommand("execute in minecraft:the_nether run summon piglin " + (3 + i) + " 70 " + (2 - 2 * i)
+						+ " {IsImmuneToZombification:1b}");
+		}
 		if (scenario.equals("blaze")) {
 			// A small walled nether-brick room with a blaze spawner 4 blocks away: the fight alone.
 			server.runCommand("execute in minecraft:the_nether run fill -6 69 -6 6 76 6 nether_bricks hollow");

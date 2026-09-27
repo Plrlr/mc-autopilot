@@ -56,6 +56,10 @@ public final class TechTree {
 		craft("bed", 1, true, "wool", 3, "planks", 3);
 		craft("blaze_powder", 2, false, "blaze_rod", 1);
 		craft("ender_eye", 1, false, "blaze_powder", 1, "ender_pearl", 1);
+		// In the Nether, ingots come from nuggets (the planner only uses this there; the
+		// overworld smelts raw gold).
+		craft("gold_ingot", 1, true, "gold_nugget", 9);
+		craft("golden_helmet", 1, true, "gold_ingot", 5);
 
 		SMELT.put("iron_ingot", "raw_iron");
 		SMELT.put("gold_ingot", "raw_gold");
@@ -73,7 +77,10 @@ public final class TechTree {
 		MINE.put("coal", new Source(List.of("coal_ore", "deepslate_coal_ore"), 0, 45));
 		MINE.put("raw_iron", new Source(List.of("iron_ore", "deepslate_iron_ore"), 1, 16));
 		MINE.put("diamond", new Source(List.of("diamond_ore", "deepslate_diamond_ore"), 2, -58));
-		MINE.put("raw_gold", new Source(List.of("gold_ore", "deepslate_gold_ore", "nether_gold_ore"), 2, -16));
+		MINE.put("raw_gold", new Source(List.of("gold_ore", "deepslate_gold_ore"), 2, -16));
+		// Nether gold ore drops nuggets (2-6), not raw gold, and any pickaxe mines it. Legit mining
+		// at y 45: ores in sight first, else branch-mining above the lava sea.
+		MINE.put("gold_nugget", new Source(List.of("nether_gold_ore"), 0, 45));
 		MINE.put("flint", new Source(List.of("gravel"), -1, null));
 		MINE.put("obsidian", new Source(List.of("obsidian"), 3, null));
 		MINE.put("dirt", new Source(List.of("dirt", "grass_block"), -1, null));

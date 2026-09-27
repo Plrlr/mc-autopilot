@@ -83,6 +83,11 @@ public final class Tune {
 		gene("route.deep_for_lava", 1, 0, 1, Kind.BOOL, "mine down to lava depth instead of exploring for a pool");
 		gene("route.diamond_portal", 0, 0, 1, Kind.BOOL, "portal the classic way (diamond pickaxe, mine 10 obsidian) instead of casting it");
 		gene("route.bed", 1, 0, 1, Kind.BOOL, "hunt sheep and make a bed early");
+		// Pearls and the stronghold
+		gene("route.barter", 0, 0, 1, Kind.BOOL, "get pearls by trading gold with piglins before hunting endermen");
+		gene("pearls.barter_ingots", 24, 0, 96, Kind.INT, "gold ingots to gather and trade before hunting endermen for the rest");
+		gene("pearls.target", 14, 12, 20, Kind.INT, "ender pearls to collect (14 eyes: 2-3 to triangulate, 12 for the frames)");
+		gene("stronghold.sidestep", 80, 30, 200, Kind.REAL, "blocks to walk sideways between the two triangulation throws");
 		// Focus: finish the running task unless an emergency comes up
 		gene("focus.commit", 0, 0, 1, Kind.BOOL, "finish the running task before switching, unless the top option is an emergency");
 		// Main loop timing

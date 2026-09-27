@@ -40,8 +40,8 @@ final class Bank {
 		String dim = mc.player.level().dimension().identifier().getPath();
 		if (dim.equals("the_end")) return 6;
 		if (AutopilotMod.instance().memory.nearest("end_portal_frame") != null) return 5;
-		if (Mc.count("ender_eye") >= 12) return 4;
-		if (Mc.count("blaze_rod") >= 6) return 3;
+		if (Mc.count("ender_eye") >= 14) return 4;
+		if (Mc.count("blaze_rod") >= 7) return 3;
 		if (dim.equals("the_nether")) return 2;
 		if (Items2.bestTier("pickaxe") >= 2 && Goal.have("bucket") >= 2 && Mc.count("flint_and_steel") > 0) return 1;
 		return 0;
