@@ -38,6 +38,10 @@ public final class Barter extends Skill {
 	}
 	private int ingotsGiven;
 	private int pearlsBefore;
+	private int goldBefore;
+	/** Barter loot that isn't worth a slot: a full bag breaks other skills (a test run took 66 gravel). */
+	private static final java.util.Set<String> JUNK = java.util.Set.of("gravel", "blackstone", "soul_sand", "netherrack",
+			"basalt", "nether_brick", "soul_soil", "magma_cream", "gold_ingot");
 	private int lastGiveTick;
 	private Piglin current;
 
@@ -58,6 +62,7 @@ public final class Barter extends Skill {
 			return;
 		}
 		pearlsBefore = Mc.count("ender_pearl");
+		goldBefore = Mc.count("gold_ingot");
 	}
 
 	private static boolean tradable(Entity e) {
@@ -68,6 +73,12 @@ public final class Barter extends Skill {
 	protected void tick() {
 		LocalPlayer pl = Mc.player();
 		int pearls = Mc.count("ender_pearl") - pearlsBefore;
+		// Ingots the piglins took (the inventory catches up a tick after the server takes one).
+		int gone = Math.max(0, goldBefore - Mc.count("gold_ingot"));
+		if (gone > ingotsGiven) {
+			tradedTotal += gone - ingotsGiven;
+			ingotsGiven = gone;
+		}
 		if (Mc.count("ender_pearl") >= Tune.i("pearls.target")) {
 			done("enough pearls: " + Mc.count("ender_pearl") + " (" + ingotsGiven + " ingots traded)");
 			return;
@@ -118,10 +129,6 @@ public final class Barter extends Skill {
 		int before = Mc.count("gold_ingot");
 		Mc.mc().gameMode.interact(pl, current, new EntityHitResult(current), InteractionHand.MAIN_HAND);
 		Mc.swing();
-		if (Mc.count("gold_ingot") < before || pl.getMainHandItem().getCount() < before) {
-			ingotsGiven++;
-			tradedTotal++;
-		}
 		given.put(current.getId(), ticks);
 		lastGiveTick = ticks;
 		current = null;
@@ -137,8 +144,8 @@ public final class Barter extends Skill {
 		double bd = 12;
 		for (Entity e : Mc.mc().level.entitiesForRendering()) {
 			if (!(e instanceof ItemEntity it) || !it.isAlive()) continue;
-			// Not gold we'd hand back anyway, and not what we dropped ourselves.
-			if (Items2.id(it.getItem()).equals("gold_ingot") || it.getAge() < 10) continue;
+			// Only loot worth a slot, and not what we dropped ourselves.
+			if (JUNK.contains(Items2.id(it.getItem())) || it.getAge() < 10) continue;
 			double d = e.distanceTo(pl);
 			if (d < bd) {
 				bd = d;

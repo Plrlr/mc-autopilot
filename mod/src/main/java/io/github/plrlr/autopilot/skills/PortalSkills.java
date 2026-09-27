@@ -307,6 +307,12 @@ public final class PortalSkills {
 	public static final class LocateStronghold extends Skill {
 		private enum Phase {THROW, WATCH, PICKUP, SIDESTEP, WALK, DIG}
 
+		/**
+		 * The crossing point of the last triangulation, kept across runs of this skill: a long walk
+		 * outlasts one run, and starting over threw new eyes and forgot the target (stronghold test).
+		 */
+		private static Vec3 known;
+
 		private Phase phase = Phase.THROW;
 		private Vec3 from;
 		private EyeOfEnder eye;
@@ -338,6 +344,12 @@ public final class PortalSkills {
 			// A fresh search: bearings from an earlier, unfinished one may be far away and stale.
 			if (!THROWS.isEmpty() && THROWS.get(THROWS.size() - 1).from.distanceTo(Mc.player().position()) > 400) THROWS.clear();
 			Bari.stop();
+			if (known != null && Math.hypot(known.x - Mc.player().getX(), known.z - Mc.player().getZ()) > 24) {
+				// Still on the way to where the bearings crossed: keep walking, no new eyes.
+				target = known;
+				after = Phase.WALK;
+				startLeg();
+			}
 		}
 
 		@Override
@@ -398,6 +410,7 @@ public final class PortalSkills {
 						// Two crossing bearings: walk there, then one close throw to confirm.
 						after = Phase.WALK;
 						target = goal;
+						known = goal;
 					} else {
 						// First bearing: step sideways so the next one crosses it.
 						after = Phase.SIDESTEP;
@@ -432,6 +445,7 @@ public final class PortalSkills {
 						// Close (or as close as the way allows): one more throw pins it down.
 						Bari.stop();
 						THROWS.clear();
+						if (left < 24) known = null;
 						go(Phase.THROW);
 					}
 				}
@@ -446,6 +460,9 @@ public final class PortalSkills {
 		private void startLeg() {
 			Bari.path(new GoalXZ((int) target.x, (int) target.z));
 			go(after);
+			// Time for the walk: ~3.5 blocks a second with detours, plus a margin.
+			double dist = Math.hypot(target.x - Mc.player().getX(), target.z - Mc.player().getZ());
+			timeoutTicks = Math.max(timeoutTicks, ticks + (int) (20 * (dist / 3.5 + 90)));
 		}
 
 		private void go(Phase p) {
