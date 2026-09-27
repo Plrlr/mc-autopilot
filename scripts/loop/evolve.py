@@ -27,6 +27,7 @@ import subprocess
 import sys
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+import bank  # noqa: E402
 import common  # noqa: E402
 
 SRC = "mod/src/main/java/io/github/plrlr/autopilot/"
@@ -43,6 +44,8 @@ SKILL_FILES = {
     "pickup": "skills/InventorySkills.java", "place": "skills/InventorySkills.java",
     "fill_bucket": "skills/BucketSkills.java", "make_obsidian": "skills/BucketSkills.java",
     "build_portal": "skills/CastPortal.java", "enter_portal": "skills/PortalSkills.java",
+    "fortress": "skills/NetherSkills.java", "locate_stronghold": "skills/PortalSkills.java",
+    "fill_end_portal": "skills/PortalSkills.java", "unstuck": "skills/Unstuck.java",
 }
 SETTINGS = {"plateau_gens": 6, "max_per_day": 3, "max_prompt_chars": 160000}
 
@@ -77,15 +80,21 @@ def git(*a, cwd=common.ROOT, check=True):
     return subprocess.run(["git", *a], cwd=cwd, check=check, capture_output=True, text=True).stdout.strip()
 
 
-def evidence(batch, champ):
+def evidence(batch, champ, frontier=None):
     sb = common.summarizer()
     fails, deaths, runs = {}, {}, []
+    front_fails, front_runs = {}, 0
     for d in sorted(os.listdir(batch)) if os.path.isdir(batch) else []:
         if not d.startswith("trial-"):
             continue
         r = sb.read_run(os.path.join(batch, d))
         for key, detail in r["fails"]:
             fails.setdefault(key, [0, detail])[0] += 1
+        start, _, _ = bank.read_stages(os.path.join(batch, d))
+        if frontier and start == frontier:
+            front_runs += 1
+            for key, detail in r["fails"]:
+                front_fails.setdefault(key, [0, detail])[0] += 1
         for cause, doing in r["deaths"]:
             k = "%s while %s" % (cause, doing)
             deaths[k] = deaths.get(k, 0) + 1
@@ -100,6 +109,12 @@ def evidence(batch, champ):
     for score, name, r in runs[:2]:
         lines.append("Worst champion run %s (score %.2f): milestones %s, checkpoints %s" % (name, score, r["milestones"], r["checkpoints"]))
         lines += ["  " + t for t in trace(os.path.join(batch, name))[-45:]]
+    if front_runs:
+        # The frontier is where the game is lost now: these failures come first.
+        ftop = sorted(front_fails.items(), key=lambda kv: -kv[1][0])[:10]
+        lines = ["FRONTIER stage '%s' (%d runs started there; runs rarely get past it). Its failures:" % (frontier, front_runs)] + \
+                ["- %s: %d (%s)" % (k, v[0], v[1][:140]) for k, v in ftop] + [""] + lines
+        top = ftop + top
     skills = [k.split()[0] for k, _ in top[:4]]
     return "\n".join(lines), skills
 
@@ -222,7 +237,7 @@ def main():
             print("evolve: the gene search is still finding things (last champion at gen %d)" % last_crown); return
         if racing:
             print("evolve: %s is already racing" % racing[0]["id"]); return
-    ev, skills = evidence(a.batch, champ["id"])
+    ev, skills = evidence(a.batch, champ["id"], bank.frontier(st))
     files = ["plan/Planner.java"]
     for sk in skills:
         f = SKILL_FILES.get(sk)

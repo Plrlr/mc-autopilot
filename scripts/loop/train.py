@@ -35,7 +35,8 @@ POTENTIAL = {
     "pick": 3.0, "sword": 1.0, "shield": 1.0, "armor": 2.0, "log": 0.5, "planks": 0.2, "blocks": 0.5,
     "iron": 2.0, "raw_iron": 1.0, "coal": 0.5, "cooked": 1.0, "buckets": 3.0, "water_bucket": 1.0,
     "lava_bucket": 1.0, "flint_steel": 2.0, "obsidian": 3.0, "milestone": 13.0, "checkpoints": 6.0,
-    "nether": 5.0, "end": 10.0,
+    "nether": 5.0, "end": 10.0, "rods": 6.0, "pearls": 4.0, "eyes": 8.0, "fortress_known": 2.0,
+    "portal_known": 3.0, "frame_known": 5.0,
 }
 DEATH = 3.0
 MIN_ROWS = 40      # an action kind needs this many examples to get its own model

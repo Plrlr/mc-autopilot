@@ -133,6 +133,29 @@ while ($Runs -eq 0 -or $done -lt $Runs) {
 	Copy-Item (Join-Path $out "logs\*.jsonl") (Join-Path $inbox "logs") -ErrorAction SilentlyContinue
 	@{ genome = $genome; minutes = $Minutes; seed = $seed; machine = "laptop"; commit = $commit } | ConvertTo-Json |
 		Set-Content -Encoding ascii (Join-Path $inbox "run.json")
+	# Stages this run reached: the saved worlds go to the checkpoints release (gh, your login), a
+	# small json naming each one to the inbox, and the loop adds them to its bank.
+	$cps = Join-Path $runDir "checkpoints"
+	if ((Test-Path $cps) -and (Get-Command gh -ErrorAction SilentlyContinue)) {
+		New-Item -ItemType Directory -Force (Join-Path $inbox "checkpoints") | Out-Null
+		foreach ($z in Get-ChildItem $cps -Filter *.zip) {
+			$stage = $z.BaseName
+			$asset = "$stage-$name.zip"
+			$tmp = Join-Path $env:TEMP $asset
+			Copy-Item $z.FullName $tmp -Force
+			$ErrorActionPreference = "Continue"
+			& gh release upload checkpoints $tmp --clobber -R Plrlr/mc-autopilot 2>&1 | Out-Null
+			$ok = $LASTEXITCODE -eq 0
+			$ErrorActionPreference = "Stop"
+			Remove-Item $tmp -ErrorAction SilentlyContinue
+			if ($ok) {
+				$meta = Get-Content (Join-Path $cps "$stage.json") -Raw | ConvertFrom-Json
+				$meta | Add-Member -NotePropertyName asset -NotePropertyValue $asset -Force
+				$meta | ConvertTo-Json -Compress | Set-Content -Encoding ascii (Join-Path $inbox "checkpoints\$stage.json")
+				Write-Host "[laptop-loop] checkpoint $stage saved to the bank"
+			}
+		}
+	}
 	if (Push-Run $name) { Write-Host "[laptop-loop] sent $name to the loop" }
 	else { Write-Host "[laptop-loop] couldn't push $name; it stays in $inbox and goes with the next run" }
 }

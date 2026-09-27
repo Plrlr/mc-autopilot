@@ -45,7 +45,9 @@ public final class Learned {
 			"hp", "food", "armor", "night", "underground", "y", "nether", "end",
 			"pick", "sword", "shield", "log", "planks", "blocks", "iron", "raw_iron", "coal", "cooked",
 			"raw_meat", "buckets", "water_bucket", "lava_bucket", "flint_steel", "obsidian",
-			"hostiles8", "hostile_dist", "lava_known", "water_known", "deaths", "milestone", "checkpoints", "goal");
+			"hostiles8", "hostile_dist", "lava_known", "water_known", "deaths", "milestone", "checkpoints", "goal",
+			// The late game (added 2026-09-27, before much data existed).
+			"rods", "pearls", "eyes", "gold", "fortress_known", "portal_known", "frame_known", "dragon");
 
 	private final Random rng = new Random();
 	private Map<String, double[]> weights = Map.of();
@@ -100,7 +102,11 @@ public final class Learned {
 				Mc.count("lava_bucket") > 0 ? 1 : 0, Mc.count("flint_and_steel") > 0 ? 1 : 0, cap(Mc.count("obsidian"), 10),
 				cap(seen.hostilesWithin(8), 4), h == null ? 1 : Math.min(1, h.dist() / 16.0),
 				memory.nearest("lava") != null ? 1 : 0, memory.nearest("water") != null ? 1 : 0,
-				cap(deaths, 5), milestone / 13.0, Checkpoints.summary().size() / 6.0, goal == null ? 0 : goal.milestone / 13.0};
+				cap(deaths, 5), milestone / 13.0, Checkpoints.summary().size() / 6.0, goal == null ? 0 : goal.milestone / 13.0,
+				cap(Mc.count("blaze_rod"), 6), cap(Mc.count("ender_pearl"), 12), cap(Mc.count("ender_eye"), 12),
+				cap(Mc.count("gold_ingot"), 16), memory.nearest("nether_bricks") != null ? 1 : 0,
+				memory.nearest("nether_portal") != null ? 1 : 0, memory.nearest("end_portal_frame") != null ? 1 : 0,
+				seen.nearest("ender_dragon") != null ? 1 : 0};
 		return x;
 	}
 
