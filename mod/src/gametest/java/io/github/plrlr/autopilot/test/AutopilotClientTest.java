@@ -62,6 +62,8 @@ public class AutopilotClientTest implements FabricClientGameTest {
 			// Test world only: run the game clock faster to see more play per real minute.
 			if (tickRate != 20) sp.getServer().runCommand("tick rate " + tickRate);
 			ctx.waitTicks(40);
+			arrive(sp, scenario);
+			ctx.waitTicks(20);
 			ctx.runOnClient(mc -> System.out.println("[autopilot-test] start at " + mc.player.blockPosition().toShortString()));
 			ctx.runOnClient(mc -> {
 				Autopilot ap = AutopilotMod.instance();
@@ -135,15 +137,9 @@ public class AutopilotClientTest implements FabricClientGameTest {
 			// What the speedrun route really carries into the Nether: iron tools and a shield, no armor.
 			for (String g : List.of("iron_pickaxe", "iron_sword", "shield", "cooked_beef 16", "cobblestone 64", "flint_and_steel"))
 				server.runCommand("give @a " + g);
-			// A pocket of air on a netherrack floor, so the arrival spot isn't inside rock or over lava.
-			server.runCommand("execute in minecraft:the_nether run fill -3 70 -3 3 74 3 air");
-			server.runCommand("execute in minecraft:the_nether run fill -3 69 -3 3 69 3 netherrack");
+			// Blocks can only be set once the Nether chunks are loaded ("That position is not
+			// loaded"): go there first, build in arrive() after a wait.
 			server.runCommand("execute in minecraft:the_nether run tp @a 0 70 0");
-			if (scenario.equals("blaze")) {
-				// A small walled nether-brick room with a blaze spawner 4 blocks away: the fight alone.
-				server.runCommand("execute in minecraft:the_nether run fill -6 69 -6 6 76 6 nether_bricks hollow");
-				server.runCommand("execute in minecraft:the_nether run setblock 4 70 0 spawner{SpawnData:{entity:{id:\"minecraft:blaze\"}}}");
-			}
 			return Goal.BLAZE_RODS;
 		}
 		for (String g : GEAR) server.runCommand("give @a " + g);
@@ -166,6 +162,21 @@ public class AutopilotClientTest implements FabricClientGameTest {
 			}
 			default -> throw new AssertionError("unknown scenario " + scenario);
 		}
+	}
+
+	/** Building for scenarios that teleport first: runs after the player has arrived and chunks are loaded. */
+	private static void arrive(TestSingleplayerContext sp, String scenario) {
+		var server = sp.getServer();
+		if (!scenario.equals("nether") && !scenario.equals("blaze")) return;
+		// A pocket of air on a netherrack floor, so the arrival spot isn't inside rock or over lava.
+		server.runCommand("execute in minecraft:the_nether run fill -3 70 -3 3 74 3 air");
+		server.runCommand("execute in minecraft:the_nether run fill -3 69 -3 3 69 3 netherrack");
+		if (scenario.equals("blaze")) {
+			// A small walled nether-brick room with a blaze spawner 4 blocks away: the fight alone.
+			server.runCommand("execute in minecraft:the_nether run fill -6 69 -6 6 76 6 nether_bricks hollow");
+			server.runCommand("execute in minecraft:the_nether run setblock 4 70 0 spawner{SpawnData:{entity:{id:\"minecraft:blaze\"}}}");
+		}
+		server.runCommand("execute in minecraft:the_nether run tp @a 0 70 0");
 	}
 
 	/** A 4x3 lava pool set into the ground 7 blocks east, and water to fill a bucket from 6 blocks west. */
