@@ -219,8 +219,14 @@ public final class Planner {
 			Option o = itemStep("stone", Mc.count("stone") + CastPortal.BLOCKS_NEEDED - blocks, depth + 1);
 			if (o != null) return o;
 		}
-		if (memory.nearest("lava") == null && Mc.count("lava_bucket") == 0)
+		if (memory.nearest("lava") == null && Mc.count("lava_bucket") == 0) {
+			// Surface pools are rare (0 of 8 natural runs saw one in batch 12), but cave air below
+			// y -55 is lava. Branch-mining at diamond depth finds a pool the close scan remembers,
+			// and the step turns into build_portal right there. A diamond on the way is a bonus.
+			if (Items2.bestTier("pickaxe") >= 2 && Mc.dimension().equals("overworld"))
+				return new Option("collect", "diamond:1", "go deep for lava: cave air below y -55 is lava");
 			return new Option("explore", "lava", "find a lava pool to cast the portal from");
+		}
 		return new Option("build_portal", null, "cast a nether portal from lava and water (no diamonds needed)");
 	}
 
