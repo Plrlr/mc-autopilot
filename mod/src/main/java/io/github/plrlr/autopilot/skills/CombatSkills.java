@@ -55,6 +55,8 @@ public final class CombatSkills {
 		private BlockPos lastSeenAt;
 		private int unseen;
 		private int deadTicks = -1;
+		/** Ticks spent waiting for the fall of a crit jump (strike anyway after a few). */
+		private int critWait;
 
 		@Override
 		public String name() {
@@ -129,8 +131,12 @@ public final class CombatSkills {
 					return;
 				}
 				if (ticks % 10 == 1) Bari.path(new GoalNear(target.blockPosition(), 1));
-				// Walking up to it: the shield comes down (a raised shield slows us to a crawl).
+				// Walking up to it: the shield comes down (a raised shield slows us to a crawl), and
+				// the crit jump and step back let go so they don't fight Baritone's walking.
 				Mc.mc().options.keyUse.setDown(false);
+				Mc.mc().options.keyDown.setDown(false);
+				Mc.mc().options.keyJump.setDown(false);
+				critWait = 0;
 				return;
 			}
 			if (Bari.pathing()) Bari.stop();
@@ -139,7 +145,25 @@ public final class CombatSkills {
 			// off-hand shield up toward the target: a raised shield stops melee hits and arrows from
 			// the front (batch 10: 13 of 25 deaths were melee, 6 arrows, the shield never raised).
 			var keyUse = Mc.mc().options.keyUse;
-			if (pl.getAttackStrengthScale(0.5f) >= 0.95f) {
+			var o = Mc.mc().options;
+			boolean ready = pl.getAttackStrengthScale(0.5f) >= 0.95f;
+			// Like a player: a jump before the swing makes it a critical hit (1.5x) when it lands on
+			// the way down; between swings, a step back takes us out of a zombie's reach.
+			boolean crits = io.github.plrlr.autopilot.Tune.on("combat.crits") && !pl.isInWater() && !pl.onClimbable()
+					&& !(target instanceof EnderDragon);
+			o.keyDown.setDown(!ready && dist < 2.4 && io.github.plrlr.autopilot.Tune.on("combat.backstep"));
+			if (ready && crits && critWait < 12) {
+				critWait++;
+				if (pl.onGround()) {
+					o.keyJump.setDown(true);
+					return;
+				}
+				o.keyJump.setDown(false);
+				if (pl.getDeltaMovement().y >= 0) return; // still rising: strike on the way down
+			}
+			if (ready) {
+				critWait = 0;
+				o.keyJump.setDown(false);
 				if (pl.isUsingItem()) {
 					keyUse.setDown(false);
 					Mc.mc().gameMode.releaseUsingItem(pl);

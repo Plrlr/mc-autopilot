@@ -578,6 +578,15 @@ public final class Planner {
 		// The shield blocks arrows and creeper blasts only from the off hand: put it there at once.
 		if (Mc.count("shield") > 0 && !Items2.id(Mc.player().getOffhandItem()).equals("shield"))
 			out.add(new Option("equip", "shield", "shield into the off hand"));
+		// Iron ore we can see, while the route still needs iron: take it now instead of a trip later.
+		if (Tune.on("gather.iron_in_view") && Items2.bestTier("pickaxe") >= 1
+				&& ironStillNeeded() > Mc.count("iron_ingot") + Mc.count("raw_iron")) {
+			WorldMemory.Seen iron = memory.nearest("iron_ore");
+			int view = Tune.i("gather.coal_view_dist");
+			if (iron != null && iron.pos().distSqr(Mc.player().blockPosition()) < view * view)
+				out.add(new Option("collect", "raw_iron:" + Math.min(8, ironStillNeeded() - Mc.count("iron_ingot") - Mc.count("raw_iron")),
+						"iron ore in view (the route needs it)"));
+		}
 		if (Mc.count("coal") < Tune.i("gather.coal_upkeep_below") && Items2.bestTier("pickaxe") >= 0) {
 			WorldMemory.Seen coal = memory.nearest("coal_ore");
 			int view = Tune.i("gather.coal_view_dist");

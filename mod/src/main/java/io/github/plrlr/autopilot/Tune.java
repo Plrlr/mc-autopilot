@@ -44,6 +44,8 @@ public final class Tune {
 		gene("combat.flee_hp", 8, 3, 14, Kind.INT, "at or below this health, run when outnumbered (reflex and planner share it)");
 		gene("combat.outnumbered", 2, 1, 4, Kind.INT, "hostiles within 6 blocks that count as outnumbered");
 		gene("reflex.starving_food", 6, 2, 12, Kind.INT, "eat at once at or below this hunger when safe");
+		gene("combat.crits", 0, 0, 1, Kind.BOOL, "jump before a swing so it lands as a critical hit (1.5x)");
+		gene("combat.backstep", 0, 0, 1, Kind.BOOL, "step back out of reach while the sword recharges");
 		gene("reflex.burning_hp", 12, 4, 20, Kind.INT, "eat while burning at or below this health");
 		// Planner: danger
 		gene("plan.hostile_range", 10, 5, 18, Kind.REAL, "hostiles within this range get an urgent option");
@@ -68,7 +70,8 @@ public final class Tune {
 		gene("gather.stone_stock", 24, 8, 48, Kind.INT, "stone stock the extra fills toward");
 		gene("gather.coal_extra", 4, 0, 16, Kind.INT, "extra coal per coal trip");
 		gene("gather.coal_upkeep_below", 4, 0, 16, Kind.INT, "grab coal in view while carrying fewer than this");
-		gene("gather.coal_view_dist", 12, 4, 24, Kind.INT, "coal ore this close counts as in view");
+		gene("gather.coal_view_dist", 12, 4, 24, Kind.INT, "coal (and iron) ore this close counts as in view");
+		gene("gather.iron_in_view", 0, 0, 1, Kind.BOOL, "take iron ore in view while the route still needs iron");
 		// Route choices (switches)
 		gene("route.armor_before_portal", 1, 0, 1, Kind.BOOL, "chestplate and helmet before the portal");
 		gene("route.boots_before_portal", 1, 0, 1, Kind.BOOL, "boots too when 4 ingots are spare");
