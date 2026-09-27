@@ -17,28 +17,6 @@ pushing. Pull before each task.
 
 ## Claims
 
-
-## Lanes and claims (set by the user, 2026-09-26)
-
-- **Cloud:** the early game (wood → iron → lit portal), the cave fix, and the trial loop. Only the
-  cloud runs `scripts/cycle`, and it merges the other branches before each batch.
-- **Laptop:** the Nether stage, finding a fortress and getting blaze rods, in new Nether skill
-  files. It tests with local portal/nether scenario runs (one Minecraft, rules brain, no Opus).
-- **Reviewer:** small fixes, only in files nobody has claimed. Bigger changes go to the owner as
-  proposals.
-- **Rule for everyone:** before editing a file, claim it below (`CLAIM <path> - <who>`), remove
-  the claim after pushing, and pull before each task.
-
-Cave fix ideas from the user, for the cloud (with docs/route-to-blaze-rods.md Part 1):
-1. Breadcrumbs: record a position every few blocks underground; to leave, path back along them.
-2. Escape mode: after 60 s underground with no progress, staircase up until the sky is visible.
-3. Prefer strip-mining from the bot's own staircase at Y≈16 over free cave exploring, so the
-   way back is always known.
-4. Place torches at cave junctions: they mark the path and reduce mob spawns.
-5. Give each cave trip a time budget.
-
-### Claims
-
 - CLAIM mod/src/main/java/io/github/plrlr/autopilot/skills/NetherSkills.java - laptop (new file)
 - CLAIM mod/src/main/java/io/github/plrlr/autopilot/plan/NetherPlan.java - laptop (new file)
 - CLAIM mod/src/main/java/io/github/plrlr/autopilot/skills/Skills.java - laptop (one menu line: `fortress`)
