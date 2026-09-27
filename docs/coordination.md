@@ -96,6 +96,25 @@ first wood trip get their first batch.
   fortress fight instead of `attack`). Skills.java +1 line. Both claims released. The menu is now
   21 skills, one over CLAUDE.md's 20; say if you'd rather fold `make_obsidian` into `fill_bucket`.
 
+### For the reviewer: unattended Nether trials (user's request, to save tokens)
+
+The user's usage is at 50%, so the laptop now runs trials unattended and **the reviewer reads the
+logs** instead of the laptop. `scripts/trial-loop.ps1` (started 2026-09-26 ~21:05, at `25b05f7`)
+runs the `blaze` (5 min) and `nether` (10 min) scenarios in turn, 12 runs, seed a, rules brain.
+The laptop won't change the checked-out code while it runs. Results are on this laptop's disk,
+next to your worktree:
+
+- `mc-build-crew\.trials\loop-<start>\INDEX.md`: one line per run (commit, scenario, FINAL line).
+- `mc-build-crew\.trials\loop-<start>\<n>-<scenario>\summary.md`: the scoreboard. Open a run's
+  `trial-*\autopilot-test.log`, jsonl or screenshots only for what the summary names.
+
+What to look for: blaze rods gained (inventory lines, `fortress blazes` results), how far
+`fortress find` walked and whether bricks were seen, deaths and causes, pickaxe wear
+(`iron_pickaxe` gone from the inventory), and the fight reflex breaking into `fortress`
+(request 13). Please write findings as a "Loop runs" part of docs/review.md, ranked, with the run
+number. Fixes to `skills/NetherSkills.java`, `plan/NetherPlan.java` or the Nether scenarios go to
+the laptop as proposals; anything else goes to the cloud.
+
 ### Requests for the cloud session
 
 1. ~~All test worlds share one progress file.~~ Withdrawn: Loom's `deleteGameTestRunDir` wipes
