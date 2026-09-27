@@ -33,6 +33,7 @@ B1, B2, B5, B6 to the cloud; B3/B4 are the user's call.
 - CLAIM mod/src/main/java/io/github/plrlr/autopilot/plan/NetherPlan.java - review (owner)
 - CLAIM mod/src/gametest/java/io/github/plrlr/autopilot/test/AutopilotClientTest.java - review
   (Nether and End scenarios; the cloud may still add early-game scenarios, say so here first)
+- CLAIM mod/src/main/java/io/github/plrlr/autopilot/plan/Planner.java - review (shield never made)
 
 
 ## Cloud
