@@ -67,6 +67,8 @@ public final class WorldMemory {
 		byGroup.clear();
 		visited.clear();
 		heading = -1;
+		surfaceEntry = null;
+		undergroundSince = -1;
 	}
 
 	// ---- exploring: where we've been, so explore heads into new ground instead of zigzagging ----
@@ -189,10 +191,42 @@ public final class WorldMemory {
 	 * Scans a few horizontal layers of the box around the player each tick, so the full box is
 	 * covered about every 7 ticks without a frame-time spike.
 	 */
+	/**
+	 * Where we last stood under open sky, and since when we've been underground: the way out of
+	 * a cave (goto surface walks back there) and the clock for "lost down here".
+	 */
+	private BlockPos surfaceEntry;
+	private String surfaceDim = "";
+	private long undergroundSince = -1;
+
+	public BlockPos surfaceEntry() {
+		return surfaceDim.equals(Mc.dimension()) ? surfaceEntry : null;
+	}
+
+	/** Ticks spent underground since we last saw the sky (0 on the surface). */
+	public long undergroundTicks(long tick) {
+		return undergroundSince < 0 ? 0 : tick - undergroundSince;
+	}
+
+	private void updateSurface(LocalPlayer pl, long tick) {
+		if (!Mc.dimension().equals("overworld")) {
+			undergroundSince = -1;
+			return;
+		}
+		if (pl.level().canSeeSky(pl.blockPosition().above())) {
+			surfaceEntry = pl.blockPosition().immutable();
+			surfaceDim = Mc.dimension();
+			undergroundSince = -1;
+		} else if (undergroundSince < 0) {
+			undergroundSince = tick;
+		}
+	}
+
 	public void scan(long tick) {
 		LocalPlayer pl = Mc.player();
 		if (pl == null) return;
 		scanTick = tick;
+		if (tick % 10 == 0) updateSurface(pl, tick);
 		Level level = pl.level();
 		String dim = Mc.dimension();
 		BlockPos c = pl.blockPosition();

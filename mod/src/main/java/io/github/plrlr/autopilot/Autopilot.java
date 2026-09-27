@@ -241,6 +241,7 @@ public final class Autopilot {
 		}
 
 		checkStrategy();
+		cave();
 		reflexes(pl);
 
 		if (skill != null) {
@@ -416,7 +417,9 @@ public final class Autopilot {
 
 	private void reflexes(LocalPlayer pl) {
 		if (tick < reflexCooldownUntil) return;
-		if (skill != null && skillIsReflex) return;
+		boolean hiding = skill != null && skill.name().equals("shelter") && "heal".equals(skillOption.arg());
+		// A reflex runs to its end, except hiding: a creeper or a mob at arm's length still counts.
+		if (skill != null && skillIsReflex && !hiding) return;
 		if (pl.isInLava()) {
 			// Stop everything, then jump and push forward for a moment (aborting releases keys,
 			// so press them after). A new decision is asked once the keys are let go.
@@ -440,16 +443,20 @@ public final class Autopilot {
 		Perception.Seen h = seen.nearestHostile();
 		float hp = pl.getHealth();
 		// Walled in and healing: a monster on the other side of the blocks is no reason to break out.
-		boolean hiding = skill != null && skill.name().equals("shelter") && "heal".equals(skillOption.arg());
-		if (h != null && !h.type().equals("enderman") && !hiding) {
+		if (h != null && !h.type().equals("enderman")) {
+			// A creeper blows the wall open: that reflex stays on even while hiding.
 			if (h.type().equals("creeper") && h.dist() < 5) {
 				startReflex(new Option("retreat", null, "creeper close"), "reflex_creeper");
 				return;
 			}
+			if (hiding && h.dist() >= 2) h = null;
+		}
+		if (h != null && !h.type().equals("enderman")) {
 			if (h.dist() < 3.5) {
 				// Same line as the planner's retreat (8): with 6 here, health 7-8 flipped between
 				// fighting and fleeing on every decision.
-				if (hp <= 8) startReflex(Planner.escape("low health"), "reflex_low_hp");
+				// Hiding and one got right up to us: fight it rather than start hiding again.
+				if (hp <= 8 && !hiding) startReflex(Planner.escape("low health"), "reflex_low_hp");
 				else if (skill == null || !skill.name().equals("attack")) startReflex(new Option("attack", h.type(), "it's attacking"), "reflex_fight");
 				return;
 			}
@@ -521,6 +528,7 @@ public final class Autopilot {
 		// An action that has failed most of the time in past runs gets paused after two fails, not three.
 		int pauseAfter = lessons.failRate(actionKey(skillOption)) >= 0.7 ? 2 : 3;
 		if (r.ok() && !instantRepeat) {
+			lastGainTick = tick;
 			consecutiveFails = 0;
 			failures.remove(actionKey(skillOption));
 		} else if (instantRepeat) {
@@ -704,6 +712,22 @@ public final class Autopilot {
 
 	public List<String> recentDecisions() {
 		return List.copyOf(decisions);
+	}
+
+	private int lastItemTotal = -1;
+	private long lastGainTick;
+
+	/**
+	 * "Lost in a cave": underground over a minute and nothing gained (no item picked up, no
+	 * skill finished well). The planner then puts goto surface first.
+	 */
+	private void cave() {
+		if (tick % 20 != 0) return;
+		int total = 0;
+		for (var st : Mc.player().getInventory().getNonEquipmentItems()) total += st.getCount();
+		if (total > lastItemTotal) lastGainTick = tick;
+		lastItemTotal = total;
+		planner.lostUnderground = memory.undergroundTicks(tick) > 20 * 60 && tick - lastGainTick > 20 * 60;
 	}
 
 	/** Inventory and memory checkpoints on the way to the portal (skills mark the others). */

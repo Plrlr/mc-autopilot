@@ -40,6 +40,8 @@ public final class NightSkills {
 		}
 
 		private int wallTries;
+		private float healthAtWall = -1;
+		private boolean centered;
 
 		@Override
 		protected void start() {
@@ -171,6 +173,14 @@ public final class NightSkills {
 					if (!Mc.isNight()) done("it's morning");
 				}
 				case WALL_IN -> {
+					// Center on the block first: off-center, the hitbox overlaps a side spot and that
+					// side would stay open (laptop review).
+					if (!centered) {
+						centered = true;
+						Bari.path(new GoalBlock(pl.blockPosition()));
+						return;
+					}
+					if (Bari.pathing() && ticks < 20 * 3) return;
 					if (ticks % 3 != 0) return;
 					BlockPos feet = pl.blockPosition();
 					// Feet level first, then head level (it rests on those), then the roof.
@@ -187,6 +197,13 @@ public final class NightSkills {
 					}
 					// Closed in, or out of blocks or tries (a mob standing in the gap): heal anyway.
 					if (gap == null || ++wallTries > 30 || !Mc.holdItem(Items2.matcher("throwaway"))) {
+						if (gap != null) {
+							// A side is still open (usually a mob standing in it): hiding would just
+							// mean standing still while it hits us.
+							fail(Fail.PLACE_FAILED, "couldn't close the wall");
+							return;
+						}
+						healthAtWall = pl.getHealth();
 						phase = Phase.HEAL;
 						return;
 					}
@@ -203,6 +220,7 @@ public final class NightSkills {
 						Mc.mc().options.keyUse.setDown(false);
 					}
 					if (pl.getHealth() >= 18) done("healed behind blocks");
+					else if (pl.getHealth() < healthAtWall - 2) fail(Fail.HAZARD, "still taking damage behind the wall");
 					else if (ticks > 20 * 50) done("waited 50 s behind blocks (health " + Math.round(pl.getHealth()) + ")");
 				}
 			}

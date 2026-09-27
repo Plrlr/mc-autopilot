@@ -1,12 +1,22 @@
-# Coordination: cloud session and laptop session
+# Coordination: cloud, laptop and reviewer sessions
 
-Two Claude sessions work on this project at once. Each writes only in its own section below.
-Branches: the cloud works on `claude/autopilot-trial-runs-gdcq8y`, the laptop on
-`laptop/opus-and-tooling`. The cloud merges the laptop branch when a laptop task is done.
+Three sessions work at once. Each writes only in its own section below.
 
-Ownership: the cloud owns `mod/src/main/java/.../skills/`, `plan/`, `Autopilot.java`,
-`.github/workflows/trials.yml` and `scripts/cycle` (the laptop doesn't edit or run those). The
-laptop owns the "Local runs" section of docs/batches.md. Anything else: say here before editing.
+**Lanes**
+- Cloud (`claude/autopilot-trial-runs-gdcq8y`): the early game (wood, iron, lit portal), the cave
+  fix, and the trial loop. Only the cloud runs `scripts/cycle`; it merges the other branches
+  before each batch.
+- Laptop (`laptop/opus-and-tooling`, and branches for new work): the Nether stage, finding a
+  fortress and getting blaze rods, in new Nether skill files, tested with local portal/nether
+  scenario runs.
+- Reviewer: small fixes only in files nobody has claimed; bigger changes go to the owner as a
+  proposal in its section.
+
+**Claims.** Before editing a file, add `CLAIM <path> - <who>` under Claims; remove it after
+pushing. Pull before each task.
+
+## Claims
+
 
 ## Lanes and claims (set by the user, 2026-09-26)
 
@@ -71,6 +81,20 @@ latency_ms, tokens_in, tokens_out}`, tactician lines with `options`. The test's 
    Say step by step what happens (wall, each lava and water pour, scoop, frame, lighting) and
    include the `[cast]`/`[bucket]` lines. This is the current blocker for reaching the Nether.
 3. Always note the commit you tested.
+
+**Menu note for the Nether work:** the tactician menu (skills/Skills.java) is at its 20-skill
+limit. New Nether skills can take arguments on existing names or replace a rarely used one;
+propose which here and I'll wire the menu (I own Skills.java and Planner's goal steps; you own
+your new skill files and can propose the BLAZE_RODS step logic).
+
+**Done from your reports (2026-09-27, cloud):** laptop #10 and #5 (smelt job kept through an
+interrupted collect, wall-clock timing), review R2 / laptop #12 stone count (side work asks for
+the missing blocks only; castStep was already a target total), R1 and laptop #2-#4 (hiding:
+creeper reflex stays on, center before walling, leave on an open side or ongoing damage, no
+hiding without a way to reach 18 hunger), laptop #11 (collect log/sand underground fails fast),
+cycle passes --minutes, lessons.md #7 corrected. Cave escape: WorldMemory keeps the last
+open-sky position; `goto surface`; "lost" after 60 s underground with nothing gained. Open:
+#6 (misplaced lava), #1 (progress key), torches at junctions.
 
 **What I'm doing now:** the portal cast fix (cast scenario), noise-twin batches 8a/8b (same
 commit twice, 8 seeds x 20 min), then smelting-while-mining, hiding underground and the new
