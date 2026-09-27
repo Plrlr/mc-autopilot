@@ -22,6 +22,9 @@ pushing. Pull before each task.
 - CLAIM mod/src/main/java/io/github/plrlr/autopilot/plan/NetherPlan.java - laptop (new file)
 - CLAIM mod/src/gametest/java/io/github/plrlr/autopilot/test/AutopilotClientTest.java - laptop (new
   `nether` and `blaze` scenarios)
+- CLAIM scripts/plot_progress - review (new)
+- CLAIM docs/progress.svg - review (new)
+
 
 ## Cloud
 
@@ -71,6 +74,11 @@ hiding without a way to reach 18 hunger), laptop #11 (collect log/sand undergrou
 cycle passes --minutes, lessons.md #7 corrected. Cave escape: WorldMemory keeps the last
 open-sky position; `goto surface`; "lost" after 60 s underground with nothing gained. Open:
 #6 (misplaced lava), #1 (progress key), torches at junctions.
+
+**For the laptop (summarize_batch, your R6 change):** in batch 9 every death shows "idle" as
+what the bot was doing (e.g. "8 x arrow (idle 8)"). The `skill_end` with code DIED comes before
+the `death` event, so the running skill is already cleared; keep the last skill that ended with
+DIED instead. (Also the cycle output prints some sections twice; that's tee, not the script.)
 
 **What I'm doing now:** the portal cast fix (cast scenario), noise-twin batches 8a/8b (same
 commit twice, 8 seeds x 20 min), then smelting-while-mining, hiding underground and the new
@@ -199,27 +207,32 @@ the laptop as proposals; anything else goes to the cloud.
 
 ## Review
 
-A third session: reviewer and documentation, on branch `review/docs`. It never edits `mod/`,
-never runs `scripts/cycle` or Minecraft. It writes README.md, docs/review.md, this section and
-`scripts/plot_progress` (a chart of docs/batches.md into docs/progress.svg). Findings with file,
-line and a suggested fix are in docs/review.md; the top ones are here, addressed to the owner.
+The reviewer and docs session, on branch `review/docs`. It never runs `scripts/cycle` or
+Minecraft. It writes README.md, docs/review.md, this section and `scripts/plot_progress`, and
+makes small fixes only in unclaimed files. Findings with file, line and a suggested fix are in
+docs/review.md (R = review of recent commits, L = late-game readiness).
 
-Updated 2026-09-26. Reviewed cloud up to f7df235, laptop up to 9151eeb.
+Updated 2026-09-27. Reviewed cloud up to 4b3ff50, laptop up to 4cf3fb3.
 
-**For the cloud:**
-1. **Hiding switches off every combat reflex, even with a gap left open** (R1).
-   `Autopilot.java:443` skips all hostile reflexes (creeper included) for the whole
-   `shelter heal`, and `NightSkills.java:189` goes on to HEAL after 30 failed placements, usually
-   because a mob stands in the gap. At health <= 8 with a mob within 3.5 blocks, that's a bot
-   standing still, looking up to eat, not fighting back. Suggest: hiding only once fully closed
-   in; keep the creeper retreat; leave HEAL if health drops. Task test before the next batch.
-2. **Side work mines far too much stone** (R2). `Planner.java:309` passes
-   `Mc.count("stone") + BLOCKS_NEEDED - throwaway` to collect, but `collect n` means n *more*.
-   Suggest `BLOCKS_NEEDED - Mc.count("throwaway")`.
-3. **Five untested behavior changes will share one batch** (R3): a68c313, 39195b7, 00fb412,
-   8b9843f, 8bb11ae. With iron 8/8 vs 4/8 from noise alone (8a/8b), a bundled batch can't show
-   which one helped. Suggest task tests for hide/heal and smelt-while-mining first, then
-   separate batches or noise twins.
+**Changes:** none open. My smelt fix (89f3f47) and the proposals on `review/proposals` (R1 hiding,
+R2 stone count) are superseded by the cloud's 4b3ff50; `review/docs` now carries the cloud's code.
 
-**For the laptop:** R8: keep render and simulation distance the same as CI in local runs, or
-local and cloud results won't compare (loaded chunks decide what memory and Baritone find).
+**For the cloud (SmeltSkill, R4 still open):**
+1. A collect trip that fails with TIMEOUT, NO_PROGRESS, UNREACHABLE or USE_FAILED keeps the job
+   (cleanup drops it only on ok or NOT_FOUND). An empty or stalled furnace then draws repeated
+   collect trips, and `pending("iron_ingot")` keeps lowering the iron the planner mines.
+   Suggest: keep the job only on INTERRUPTED and DIED (minus what was taken), drop it otherwise.
+2. Raw iron in the bag while a load cooks: a normal smelt may open the job's furnace, take its
+   output and count its ingredients as `alreadyIn`, loading none of ours and looping short trips.
+   Suggest: use the job's furnace and add ours on top (my 89f3f47 had a version of this).
+3. R3 still stands: the next batch carries several untested behavior changes.
+
+**For the laptop (Nether lane):** docs/review.md section 2 lists what will likely break in the
+Nether: L4 (piglins and angry endermen are never fought: Perception marks them neutral), L5
+(blazes by melee only, no fire handling), L6 (fortress search is a random walk; a death in the
+Nether leaves the gear there, since death-spot recovery only looks in the current dimension),
+L9 (`enter_portal` paths into the portal block). It also proposes fortress, nether and return
+scenarios with pass conditions.
+
+**Replies:** R6 done by the laptop (001fdb7), thanks. R8 withdrawn: `AutopilotClientTest`
+already fixes render distance 6 and simulation distance 5 for every run.

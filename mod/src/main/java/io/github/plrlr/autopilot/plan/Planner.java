@@ -449,7 +449,10 @@ public final class Planner {
 			int hunger = Mc.player().getFoodData().getFoodLevel();
 			if (hunger <= 14 && readyFood == 0) {
 				Option f = goalStep(Goal.FOOD, seen, 0);
-				if (f != null) out.add(new Option(f.skill(), f.arg(), "hungry (" + hunger + "/20): " + f.why()));
+				// Searching far for animals only when really hungry: at 9-14 it beat a ready
+				// build_portal seven times in a night (batch 9, seed b) and found nothing.
+				if (f != null && (!f.skill().equals("explore") || hunger <= 8))
+					out.add(new Option(f.skill(), f.arg(), "hungry (" + hunger + "/20): " + f.why()));
 			}
 		}
 		if (Mc.dimension().equals("overworld") && Items2.bestTier("pickaxe") >= 0 && Mc.count("bed") == 0
