@@ -21,6 +21,7 @@ pushing. Pull before each task.
 - CLAIM mod/src/main/java/io/github/plrlr/autopilot/plan/NetherPlan.java - laptop (new file)
 - CLAIM mod/src/gametest/java/io/github/plrlr/autopilot/test/AutopilotClientTest.java - laptop (new
   `nether` and `blaze` scenarios)
+- CLAIM README.md - review (task 4: how it works, results, limitations)
 
 
 ## Cloud
