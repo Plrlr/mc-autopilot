@@ -32,8 +32,6 @@ B1, B2, B5, B6 to the cloud; B3/B4 are the user's call.
 - CLAIM mod/src/main/java/io/github/plrlr/autopilot/plan/NetherPlan.java - laptop (new file)
 - CLAIM mod/src/test/java/io/github/plrlr/autopilot/plan/TechTreeTest.java - freebuff (new file)
 - CLAIM mod/src/test/java/io/github/plrlr/autopilot/plan/PlannerPriorityTest.java - freebuff (new file)
-- CLAIM mod/src/main/java/io/github/plrlr/autopilot/plan/TechTree.java - freebuff (MOB entries, at the user's request - outside my usual lane)
-- CLAIM docs/coordination.md - freebuff (Freebuff section)
 - CLAIM mod/src/gametest/java/io/github/plrlr/autopilot/test/AutopilotClientTest.java - laptop (new
   `nether` and `blaze` scenarios)
 
@@ -423,3 +421,19 @@ is `@Disabled` with this reason until those entries exist.
 **Update (2026-09-27): the MOB gap is fixed.** At the user's request the freebuff lane made the
 three-line main change itself (`TechTree.java`: `MOB.put("rabbit"/"cod"/"salmon", ...)`) and
 `smeltedItemsHaveTheirRawSource` is enabled again. `gradlew test` stays green.
+
+**Loop findings (2026-09-27, trial-loop `loop-20260927-0355`, main checkout at `2c3fdf6`, seed a,
+for the reviewer; I only read the logs):**
+- Run 1 (blaze 5m): milestone 8/13, 1 death `onFire` at ~30 s **with chestplate + helmet worn**
+  (the `6d47ab8` armor fix). Same shape as the 03:41 loop: fire damage adds up faster than
+  `Fortress.recover()` gets the bot out of sight. The armor didn't change the outcome; the open
+  question from coordination.md stands (recover() re-engages too soon at 16 hp while still
+  burning).
+- Run 2 (nether 10m): FINAL 7/13, 0 deaths, `fortress find` ok (fortress seen 66 blocks away) —
+  but `fortress blazes:8` failed **3 x INTERRUPTED (reflex_fight) + 1 TIMEOUT (300 s)**, 0 rods.
+  At 04:10:43 the reflex interrupt is immediately followed by `attack wither_skeleton -> ok`, so
+  the W1 blaze-only hook (`Autopilot.java:456`, nulls the hostile only when it is a blaze) does
+  **not** cover other fortress mobs: a wither skeleton within range still breaks the fight, and
+  each interrupt restarts the 300 s clock. Suggested for the owner (not my lane): while
+  `fortress blazes:*` runs in the Nether, skip `reflex_fight`/`reflex_low_hp` for any hostile
+  (keep creeper/lava/fire/drowning), letting Fortress's own recover() decide.
