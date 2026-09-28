@@ -19,14 +19,18 @@ https://plrlr.github.io/mc-autopilot/ (the `trial-results` branch, served by Git
 health, creeper distance, eating, food stock, gathering amounts, night and route switches, loop
 timings), with hard limits. Defaults are the old values, so no params file means unchanged play.
 
-**2. Its own model (free).** Every decision logs 32 state features, the option taken and its
-probability. `train.py` learns, per action kind ("collect:log", "explore:lava"...), how much
-progress follows in the next 2 game minutes (tools, key items, milestones, checkpoints, minus
-deaths): a baseline value of the state plus each action's advantage over it (ridge regression,
-inverse-propensity weighted). `Learned.java` re-ranks the rules' options by it. Its say is itself
-a gene (`learned.weight`, 0 = pure rules), so it only gets used if the race shows it helps.
-Emergencies (fight, flee, eat when starving) always stay with the rules. Data runs (champion +
-`learned.explore` 0.15) try other options on purpose, so the model sees more than the rules' habits.
+**2. Its own model (free).** Every decision logs 40 state features, the option taken and its
+probability. `train.py` learns how much progress follows in the next 2 game minutes (tools, key
+items, milestones, checkpoints, minus deaths): a baseline of boosted trees for the state
+(`gbt.py`, plain numpy), then small boosted trees per action kind ("collect:log", "explore:lava"...)
+for its advantage over that baseline (inverse-propensity weighted, early-stopped on held-out runs).
+Only the advantage trees ship; `Learned.java` (with `TreeModel.java`) re-ranks the rules' options
+by them in microseconds. Its say is itself a gene (`learned.weight`, 0 = pure rules), and those
+genes only race once the model's held-out advantage R2 passes `model_gate`. Emergencies (fight,
+flee, eat when starving) always stay with the rules. Data runs (champion + `learned.explore` 0.15)
+try other options on purpose, so the model sees more than the rules' habits. Honest state
+(2026-09-28): on a shared tree baseline every model kind explains only ~2% of the choice part,
+because the rules pick nearly the same option in the same state; the data runs are what can fix it.
 
 **3. Code changes by Claude (plan, capped).** When the gene search stalls (no new champion for 2
 generations), `evolve.py` makes one `claude -p` call with the generation's failures, the worst

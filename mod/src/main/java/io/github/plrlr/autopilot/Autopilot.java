@@ -136,7 +136,7 @@ public final class Autopilot {
 		String params = System.getProperty("autopilot.params", "");
 		String paramsLine = Tune.load(params.isBlank() ? home.resolve("params.json") : Path.of(params));
 		String model = System.getProperty("autopilot.learned", "");
-		String learnedLine = learned.load(model.isBlank() ? home.resolve("learned.json") : Path.of(model));
+		learned.loadAsync(model.isBlank() ? home.resolve("learned.json") : Path.of(model));
 		Bari.applyFairPlay();
 		savedPauseOnLostFocus = mc.options.pauseOnLostFocus;
 		// Alt-tabbing would pause the world and freeze the AI mid-fight.
@@ -148,7 +148,6 @@ public final class Autopilot {
 		Mc.say("ON (" + brain.label() + "). Any movement key takes control back; K opens the panel.");
 		log.event("autopilot_on", "brain=" + brain.label());
 		log.event("params", paramsLine + " changed=" + Tune.changed());
-		log.event("learned", learnedLine);
 		chooseGoal("start");
 	}
 
@@ -205,6 +204,8 @@ public final class Autopilot {
 		}
 		checkWorld(mc);
 		if (!enabled) return;
+		String learnedLine = learned.takeLoadedLine();
+		if (learnedLine != null) log.event("learned", learnedLine);
 		LocalPlayer pl = mc.player;
 		// Death first: the death screen must never block the respawn.
 		if (handleDeath(pl)) return;
