@@ -1,0 +1,60 @@
+# Human play from the internet as training data: OpenAI's VPT contractor logs (scripts/loop/vpt.py).
+# Each job reads a share of the action logs (never the videos) and keeps only the converted rows,
+# a few KB per 5-minute segment. The compare job then tests whether those rows help the learned
+# brain predict the bot's own held-out games. Nothing goes into the loop's data until that says so.
+name: VPT data
+
+on:
+  workflow_dispatch:
+    inputs:
+      per_shard:
+        description: 'Random segments per shard (0 = the whole shard)'
+        default: '0'
+
+permissions:
+  contents: read
+
+jobs:
+  fetch:
+    runs-on: ubuntu-latest
+    timeout-minutes: 150
+    strategy:
+      fail-fast: false
+      matrix:
+        index: ['7', '10']
+        shard: [0, 1, 2, 3, 4, 5]
+    steps:
+      - uses: actions/checkout@v7
+      - name: Fetch and convert
+        run: |
+          python3 scripts/loop/vpt.py fetch --index ${{ matrix.index }} --shard ${{ matrix.shard }} --shards 6 \
+            --n ${{ inputs.per_shard }} --out rows | tee -a "$GITHUB_STEP_SUMMARY"
+      - uses: actions/upload-artifact@v7
+        with:
+          name: vpt-${{ matrix.index }}-${{ matrix.shard }}
+          path: rows
+          retention-days: 30
+
+  compare:
+    needs: fetch
+    if: always()
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/download-artifact@v8
+        with:
+          pattern: vpt-*
+          path: vpt
+          merge-multiple: true
+      - name: Bot data
+        run: |
+          git fetch -q --depth 1 origin trial-results
+          mkdir -p bot && git archive FETCH_HEAD loop/data | tar -x -C bot
+      - name: Compare
+        run: python3 scripts/loop/vpt.py compare --bot bot/loop/data --vpt vpt | tee -a "$GITHUB_STEP_SUMMARY"
+      - uses: actions/upload-artifact@v7
+        with:
+          name: vpt-rows
+          path: vpt
+          retention-days: 30
