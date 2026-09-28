@@ -746,13 +746,13 @@
  },
  "days": {
   "2026-09-27": 15,
-  "2026-09-28": 11
+  "2026-09-28": 12
  },
  "evolve_days": {
   "2026-09-27": 1,
   "2026-09-28": 5
  },
- "gen": 26,
+ "gen": 27,
  "gene_specs": {
   "cave.torch_light": {
    "def": 3.0,
@@ -3786,6 +3786,26 @@
    "parent": "g10",
    "status": "contender"
   },
+  "g24": {
+   "born": 27,
+   "code": null,
+   "evals": [],
+   "genes": {
+    "cave.torches": 1.0,
+    "death.recover_night_armor": 12.0,
+    "focus.commit": 1.0,
+    "plan.hide_hp": 15.0,
+    "route.armor_before_portal": 0.0
+   },
+   "id": "g24",
+   "mutated": [
+    "cave.torches"
+   ],
+   "note": "suggested: cave.torches 1",
+   "pairs": [],
+   "parent": "g10",
+   "status": "contender"
+  },
   "g3": {
    "born": 1,
    "code": null,
@@ -4818,8 +4838,84 @@
  "model_keys": 54,
  "model_r2": 0.2,
  "model_rows": 27183,
- "next_id": 24,
- "pending": null,
+ "next_id": 25,
+ "pending": {
+  "data_tasks": [
+   {
+    "kind": "natural",
+    "seed": "D27-3wxjec",
+    "stage": "spawn",
+    "synthetic": false
+   }
+  ],
+  "gen": 27,
+  "lineup": [
+   "g10",
+   "g24",
+   "g23"
+  ],
+  "runs": [
+   "eval-g10-0",
+   "eval-g10-1",
+   "eval-g10-2",
+   "eval-g10-3",
+   "eval-g10-4",
+   "eval-g24-0",
+   "eval-g24-1",
+   "eval-g24-2",
+   "eval-g24-3",
+   "eval-g24-4",
+   "eval-g23-0",
+   "eval-g23-1",
+   "eval-g23-2",
+   "eval-g23-3",
+   "eval-g23-4",
+   "data-g10-0"
+  ],
+  "seeds": [
+   "L27-s4ppes",
+   "L27-kcwbat",
+   "L27-rafrtc",
+   "L27-msrxwg",
+   "L27-jnfhh6"
+  ],
+  "sha": "bc32c9d84122ed8a22b00ac59ba086f836beb0d4",
+  "started": "2026-09-28T07:22:48+00:00",
+  "tasks": [
+   {
+    "kind": "natural",
+    "seed": "L27-s4ppes",
+    "stage": "spawn",
+    "synthetic": false
+   },
+   {
+    "kind": "natural",
+    "seed": "L27-kcwbat",
+    "stage": "spawn",
+    "synthetic": false
+   },
+   {
+    "kind": "natural",
+    "seed": "L27-rafrtc",
+    "stage": "spawn",
+    "synthetic": false
+   },
+   {
+    "asset": "kit-gen18-eval-g10-2.zip",
+    "kind": "start",
+    "seed": "L27-msrxwg",
+    "stage": "kit",
+    "synthetic": false
+   },
+   {
+    "kind": "scenario",
+    "scenario": "end",
+    "seed": "L27-jnfhh6",
+    "stage": "end",
+    "synthetic": true
+   }
+  ]
+ },
  "settings": {
   "accept_pairs": 8,
   "accept_t": 2.0,
@@ -5636,7 +5732,8 @@
   "{\"food.stock\": 16}",
   "{\"gear.sword_early\": 1}",
   "{\"combat.wall_in_anywhere\": 1, \"gear.sword_early\": 1}",
-  "{\"cave.torches\": 1, \"combat.shield_guard\": 1, \"gear.sword_early\": 1, \"route.armor_before_portal\": 1}"
+  "{\"cave.torches\": 1, \"combat.shield_guard\": 1, \"gear.sword_early\": 1, \"route.armor_before_portal\": 1}",
+  "{\"cave.torches\": 1}"
  ],
  "version": 1
 }
