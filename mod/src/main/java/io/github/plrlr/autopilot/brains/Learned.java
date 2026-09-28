@@ -55,8 +55,8 @@ public final class Learned {
 
 	private final Random rng = new Random();
 	/** One loaded model, swapped in whole so the game thread never sees half of one. */
-	private record Model(Map<String, double[]> weights, Map<String, TreeModel> trees, double scale, String id) {
-		static final Model NONE = new Model(Map.of(), Map.of(), 1, "none");
+	private record Model(Map<String, double[]> weights, Map<String, TreeModel> trees, double scale, String id, HazardModel hazard) {
+		static final Model NONE = new Model(Map.of(), Map.of(), 1, "none", null);
 	}
 
 	private volatile Model model = Model.NONE;
@@ -130,8 +130,10 @@ public final class Learned {
 			}
 			double scale = o.has("scale") ? Math.max(1e-6, o.get("scale").getAsDouble()) : 1;
 			String id = o.has("id") ? o.get("id").getAsString() : "unnamed";
-			return new Loaded(new Model(w, tm, scale, id),
-					"learned model: " + id + " (" + (isTrees ? tm.size() + " action kinds, trees" : w.size() + " action kinds") + ")");
+			HazardModel hz = o.has("hazard") ? new HazardModel(o.getAsJsonObject("hazard"), FEATURES.size()) : null;
+			return new Loaded(new Model(w, tm, scale, id, hz),
+					"learned model: " + id + " (" + (isTrees ? tm.size() + " action kinds, trees" : w.size() + " action kinds")
+							+ (hz == null ? "" : String.format(", danger model AUC %.2f", hz.auc)) + ")");
 		} catch (Exception e) {
 			return new Loaded(none, "learned model: couldn't read (" + e + ")");
 		}
@@ -189,6 +191,32 @@ public final class Learned {
 		double v = w[0];
 		for (int i = 0; i < x.length; i++) v += w[i + 1] * x[i];
 		return v;
+	}
+
+	/** An option to take instead of the planned one, and both death risks (for the log). */
+	public record Safer(int index, double riskPlanned, double riskSafer) {}
+
+	/**
+	 * The option clearly less likely to get us killed than options[planned], or null. With gene
+	 * safety.hazard on, the danger model may overrule even emergencies: those are where the bot
+	 * dies (of 1,800 deaths in the first 598 loop games, the last planned choice was retreat 650
+	 * times, attack 433, shelter 248). "Clearly" is the margin gene: a small difference is noise.
+	 */
+	public Safer safer(List<Option> options, int planned, double[] x) {
+		HazardModel hz = model.hazard();
+		if (hz == null || x == null || options.size() < 2 || !Tune.on("safety.hazard")) return null;
+		double r0 = hz.risk(options.get(planned), x);
+		int best = -1;
+		double rb = r0 - Tune.get("safety.hazard_margin");
+		for (int i = 0; i < Math.min(options.size(), 6); i++) {
+			if (i == planned) continue;
+			double r = hz.risk(options.get(i), x);
+			if (r < rb) {
+				rb = r;
+				best = i;
+			}
+		}
+		return best < 0 ? null : new Safer(best, r0, rb);
 	}
 
 	/** The pick, the probability it had, and why (for the log). */

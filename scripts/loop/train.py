@@ -44,6 +44,7 @@ DEATH = 3.0
 MIN_ROWS = 40      # an action kind needs this many examples to get its own model
 RIDGE = 2.0
 MAX_WEIGHT = 5.0   # inverse-propensity weight cap
+HAZARD_S = 45      # the danger model predicts death within this many game seconds
 
 
 def potential(x, idx):
@@ -140,10 +141,12 @@ def main():
     rng = random.Random(7)
     part = {f: rng.random() for f in files}
     rows = list(examples(files, feats, a.horizon))
+    hazard = None
     try:
         import numpy  # noqa: F401
         keys, stats = train_trees(rows, part)
         kind = "trees"
+        hazard = train_hazard(files, feats, part)
     except ImportError:
         keys, stats = train_linear(rows, part)
         kind = "linear"
@@ -156,6 +159,8 @@ def main():
              "horizon": a.horizon, "rows": len(ys), "runs": len(files), "r2_heldout": stats["r2"],
              "adv_r2_heldout": stats["adv_r2"],
              "trained": datetime.datetime.now(datetime.timezone.utc).isoformat(timespec="seconds")}
+    if hazard:
+        model["hazard"] = hazard
     common.write_json(os.path.join(a.state, "learned.json"), model)
     if st:
         st["model_rows"] = len(ys)
@@ -163,9 +168,83 @@ def main():
         st["model_adv_r2"] = stats["adv_r2"]
         st["model_keys"] = len(keys)
         st["model_kind"] = kind
+        st["hazard_auc"] = hazard["auc"] if hazard else None
         common.write_json(st_path, st)
     print("learned model m%d (%s): %d decisions from %d runs, %d action kinds, held-out R2 %s (choice part %s)"
           % (gen, kind, len(ys), len(files), len(keys), stats["r2"], stats["adv_r2"]))
+    if hazard:
+        print("danger model: %d decisions (%d followed by a death), held-out AUC %s, %d trees"
+              % (hazard["rows"], hazard["death_rows"], hazard["auc"], len(hazard["trees"])))
+
+
+def train_hazard(files, feats, part):
+    """The danger model: the chance of dying within HAZARD_S game seconds after a decision, from
+    the state and the action kind (one-hot). Every decision counts here, emergencies and reflexes
+    most of all: that's where the bot dies. Deaths are frequent (about 3 per game) and their label
+    is exact, so this learns fast; on the first 598 games held-out AUC was 0.87 (2026-09-28)."""
+    import numpy as np
+    import gbt
+    rows = []
+    for f in files:
+        try:
+            with gzip.open(f, "rt", encoding="utf-8") as fh:
+                rs = [json.loads(l) for l in fh if l.strip()]
+        except (OSError, ValueError):
+            continue
+        deaths = [r["gs"] for r in rs if r["k"] == "death"]
+        for r in rs:
+            if r["k"] == "d" and len(r["x"]) == len(feats):
+                died = any(r["gs"] < t <= r["gs"] + HAZARD_S for t in deaths)
+                rows.append((part[f], r["a"], r["x"], 1.0 if died else 0.0))
+    counts = {}
+    for p, k, _, _ in rows:
+        if p >= 0.35:
+            counts[k] = counts.get(k, 0) + 1
+    keys = sorted(k for k, n in counts.items() if n >= 30)
+    col = {k: i for i, k in enumerate(keys)}
+
+    def arr(rs):
+        X = np.zeros((len(rs), len(feats) + len(keys)))
+        for i, (_, k, x, _) in enumerate(rs):
+            X[i, :len(feats)] = x
+            if k in col:
+                X[i, len(feats) + col[k]] = 1
+        return X, np.array([r[3] for r in rs])
+
+    tr = [r for r in rows if r[0] >= 0.35]
+    va = [r for r in rows if 0.2 <= r[0] < 0.35]
+    te = [r for r in rows if r[0] < 0.2]
+    if len(tr) < MIN_ROWS or len(va) < MIN_ROWS or sum(r[3] for r in tr) < 20:
+        return None
+    Xt, yt = arr(tr)
+    Xv, yv = arr(va)
+    m = gbt.fit(Xt, yt, np.ones(len(yt)), Xv, yv, np.ones(len(yv)), trees=300, depth=4, lr=0.05, min_leaf=40)
+    auc = None
+    if te:
+        Xe, ye = arr(te)
+        auc = roc_auc(gbt.predict(m, Xe), ye)
+    # The bias goes into the first tree's leaves: the game adds up trees only.
+    if m["trees"]:
+        m["trees"][0]["v"] = [round(v + m["bias"], 6) for v in m["trees"][0]["v"]]
+    return {"keys": keys, "trees": m["trees"], "horizon": HAZARD_S, "auc": auc,
+            "rows": len(rows), "death_rows": int(sum(r[3] for r in rows))}
+
+
+def roc_auc(p, y):
+    """Chance a random death-row is ranked riskier than a random safe row (ties count half)."""
+    import numpy as np
+    pos = y == 1
+    if pos.sum() < 10 or (~pos).sum() < 10:
+        return None
+    order = np.argsort(p, kind="mergesort")
+    ranks = np.empty(len(p))
+    ranks[order] = np.arange(1, len(p) + 1)
+    # average ranks over ties
+    for v in np.unique(p):
+        tie = p == v
+        if tie.sum() > 1:
+            ranks[tie] = ranks[tie].mean()
+    return round(float((ranks[pos].sum() - pos.sum() * (pos.sum() + 1) / 2) / (pos.sum() * (~pos).sum())), 3)
 
 
 def by_key_rows(rows, part, lo, hi):

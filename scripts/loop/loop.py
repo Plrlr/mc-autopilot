@@ -448,7 +448,9 @@ def save_training_rows(state_dir, gen, name, d):
                 o = json.loads(line)
             except ValueError:
                 continue
-            if o.get("layer") == "tactician" and "x" in o and "gs" in o:
+            # Reflex rows (fights and escapes, logged since 2026-09-28) are emergencies: the
+            # advantage trees skip them, the danger model learns from them most of all.
+            if o.get("layer") in ("tactician", "reflex") and "x" in o and "gs" in o:
                 wall_to_gs.append((o["t"], o["gs"]))
                 opts = o.get("options", [])
                 idx = o.get("idx", 0)

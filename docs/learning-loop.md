@@ -32,6 +32,14 @@ try other options on purpose, so the model sees more than the rules' habits. Hon
 (2026-09-28): on a shared tree baseline every model kind explains only ~2% of the choice part,
 because the rules pick nearly the same option in the same state; the data runs are what can fix it.
 
+**2b. Its danger model (free, learns fastest).** `train.py` also learns, from every decision and
+every reflex (fights and escapes are logged since 2026-09-28), the chance of dying in the next 45
+game seconds after taking an action in a state. Deaths are frequent (~3 per game) and their label
+is exact, so this model is strong where the progress model is weak: held-out AUC 0.87 on the first
+598 games. With gene `safety.hazard` the brain swaps any pick, emergencies included, for one whose
+death risk is lower by at least `safety.hazard_margin` (at 0.1 that swaps ~2% of fight/flee/shelter
+choices, at 0.05 ~21%). It is retrained every generation, so each game's deaths teach the next.
+
 **3. Code changes by Claude (plan, capped).** When the gene search stalls (no new champion for 2
 generations), `evolve.py` makes one `claude -p` call with the generation's failures, the worst
 traces, every earlier attempt with its result and lesson (ExpeL-style memory), and the files the
