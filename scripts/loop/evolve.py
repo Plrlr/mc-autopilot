@@ -98,7 +98,8 @@ def evidence(batch, champ, frontier=None):
         for cause, doing in r["deaths"]:
             k = "%s while %s" % (cause, doing)
             deaths[k] = deaths.get(k, 0) + 1
-        if r["final"] and ("-%s-" % champ) in d:
+        # Combat drills have their own score (fights); the worst-run traces are about the route.
+        if r["final"] and ("-%s-" % champ) in d and not r["fights"]:
             runs.append((common.score_run(r, 1200), d, r))
     runs.sort()
     top = sorted(fails.items(), key=lambda kv: -kv[1][0])[:12]

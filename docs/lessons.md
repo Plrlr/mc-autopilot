@@ -115,6 +115,12 @@ workflow's unit-tests job compiles and tests in about a minute, the trial jobs t
   Most deaths were underground. `survival.danger_v2` gives planner, reflexes and retreat one
   terrain-aware verdict; its default stays off until paired-seed results justify promotion.
 
+- **Combat tactics need separate races.** The one-life loop gives no credit for progress after
+  death, and generations 30-37 lost 152 of 162 runs. Mob, arrow, and creeper deaths dominated.
+  The attack cooldown, footwork, sprint hit, creeper exchange, skeleton approach, and target
+  choice now have separate suggestions so their survival effect can be measured. Targeting may
+  use our own observed swings as an estimate of prior damage, but never a mob's hidden health.
+
 ## Open problems (next candidates)
 
 - **Food and iron preparation (generations 30-37, not yet raced):** 152 of 162 runs died, with

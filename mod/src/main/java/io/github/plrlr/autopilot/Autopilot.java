@@ -481,8 +481,11 @@ public final class Autopilot {
 			// From 7 blocks, not 5: a creeper's fuse is 1.5 s, and 4 of batch 10's 25 deaths were
 			// blasts that caught the bot already running from 5.
 			if (h.type().equals("creeper") && h.dist() < Tune.get("reflex.creeper_dist")) {
-				if (!reconsiderCombat || !skill.name().equals("retreat"))
-					startReflex(new Option("retreat", null, "creeper close"), "reflex_creeper");
+				Option response = io.github.plrlr.autopilot.skills.CombatSkills.canHitCreeper(h)
+						? new Option("attack", "creeper", "hit and back off")
+						: new Option("retreat", null, "creeper close");
+				if (!reconsiderCombat || skillOption == null || !response.label().equals(skillOption.label()))
+					startReflex(response, "reflex_creeper");
 				return;
 			}
 			if (!hiding && (h.dist() < Tune.get("reflex.melee_dist") || Tune.on("combat.no_close_retreat") && h.dist() <= 4)) {
