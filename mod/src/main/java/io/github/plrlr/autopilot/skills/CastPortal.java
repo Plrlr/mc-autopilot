@@ -4,6 +4,7 @@ import baritone.api.pathing.goals.GoalBlock;
 import baritone.api.pathing.goals.GoalNear;
 import io.github.plrlr.autopilot.Items2;
 import io.github.plrlr.autopilot.Mc;
+import io.github.plrlr.autopilot.Tune;
 import io.github.plrlr.autopilot.state.WorldMemory;
 import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.core.BlockPos;
@@ -27,7 +28,7 @@ import java.util.List;
  * a portal frame doesn't need them.
  */
 public final class CastPortal extends Skill {
-	private enum Phase {SITE, APPROACH, CARVE, DIGIN, WALL, NEXT, PILLAR, FETCH, WALK, LAVA, POUR, SCOOP, REFILL, BREAK, CLEAR, LIGHT}
+	private enum Phase {SITE, APPROACH, PREPARE, RESERVE_BUCKET, CARVE, DIGIN, WALL, NEXT, PILLAR, FETCH, WALK, LAVA, POUR, SCOOP, REFILL, BREAK, CLEAR, LIGHT}
 
 	/** Frame width 4 (x 0..3), height 5 (y 0..4); the wall behind also covers y 5 for the water. */
 	private static final int WALL_H = 6;
@@ -50,6 +51,8 @@ public final class CastPortal extends Skill {
 	private int wait, tries, wallTries;
 	private BlockPos lastWall;
 	private BlockPos target, water, breaking;
+	private BlockPos plannedStand, lastTarget;
+	private final List<BlockPos> blockedCastStands = new ArrayList<>();
 	private CastGeometry.Aim lavaAim, waterAim;
 	private BucketSkills.FillBucket fetch;
 	private int castFails;
@@ -58,8 +61,19 @@ public final class CastPortal extends Skill {
 	private int approachTicks = 20 * 45;
 	private int carveTries;
 	private boolean dugIn;
+	private PortalWorkArea.Site workArea;
+	private int prepareFailures;
+	private BlockPos spareWaterSpot;
 
 	private record Plan(BlockPos stand, CastGeometry.Aim lava, CastGeometry.Aim water) {}
+	/** A water bucket cannot carry lava; preserve one and empty a spare only with the gene. */
+	enum BucketPlan {READY, EMPTY_SPARE, MISSING}
+
+	static BucketPlan bucketPlan(int water, int empty, int lava, boolean reserveSpare) {
+		if (water < 1) return BucketPlan.MISSING;
+		if (empty + lava > 0) return BucketPlan.READY;
+		return reserveSpare && water >= 2 ? BucketPlan.EMPTY_SPARE : BucketPlan.MISSING;
+	}
 
 	@Override
 	public String name() {
@@ -95,9 +109,14 @@ public final class CastPortal extends Skill {
 			fail(Fail.NEED_ITEM, "need a water bucket");
 			return;
 		}
-		if (Mc.count("bucket") + Mc.count("lava_bucket") == 0) {
-			fail(Fail.NEED_ITEM, "need a second bucket for lava");
-			return;
+		switch (bucketPlan(Mc.count("water_bucket"), Mc.count("bucket"), Mc.count("lava_bucket"),
+				Tune.on("portal.reserve_lava_bucket"))) {
+			case READY -> {}
+			case EMPTY_SPARE -> phase = Phase.RESERVE_BUCKET;
+			case MISSING -> {
+				fail(Fail.NEED_ITEM, "need a second bucket for lava");
+				return;
+			}
 		}
 		Bari.stop();
 	}
@@ -145,7 +164,7 @@ public final class CastPortal extends Skill {
 						return;
 					}
 					if (!findSite(pl.blockPosition())) {
-						if (!startCarve(pl) && !startDigIn(pl)) fail(Fail.NO_ROOM, "no flat open ground for a portal near the lava");
+						if (!startPrepare(pl) && !startCarve(pl) && !startDigIn(pl)) fail(Fail.NO_ROOM, "no flat open ground for a portal near the lava");
 						return;
 					}
 				}
@@ -159,13 +178,15 @@ public final class CastPortal extends Skill {
 				}
 				if (wait > 10 && !Bari.pathing()) {
 					if (!findSite(pl.blockPosition())) {
-						if (!startCarve(pl) && !startDigIn(pl)) fail(Fail.NO_ROOM, "no flat open ground for a portal near the lava");
+						if (!startPrepare(pl) && !startCarve(pl) && !startDigIn(pl)) fail(Fail.NO_ROOM, "no flat open ground for a portal near the lava");
 						return;
 					}
 					phase = Phase.WALL;
 					wait = 0;
 				}
 			}
+			case RESERVE_BUCKET -> reserveBucketTick(pl);
+			case PREPARE -> prepareTick(pl);
 			case CARVE -> {
 				if (++wait > 20 * 120) {
 					Bari.stop();
@@ -228,7 +249,11 @@ public final class CastPortal extends Skill {
 					fail(refill.result().code(), "couldn't get water back: " + refill.result().detail());
 					return;
 				}
-				if (obsidian(target)) io.github.plrlr.autopilot.log.Checkpoints.mark("obsidian_placed");
+				if (obsidian(target)) {
+					io.github.plrlr.autopilot.log.Checkpoints.mark("obsidian_placed");
+					log("obsidian at " + target.toShortString() + "; water refilled");
+					if (Tune.on("portal.retry_cast_view")) castFails = 0;
+				}
 				phase = Phase.NEXT;
 			}
 			case FETCH -> {
@@ -260,6 +285,10 @@ public final class CastPortal extends Skill {
 				CastGeometry.Aim a = CastGeometry.aimAt(pl.getEyePosition(), target);
 				CastGeometry.Aim w = water == null ? null : CastGeometry.aimAt(pl.getEyePosition(), water);
 				if (a == null || w == null) {
+					if (Tune.on("portal.retry_cast_view") && plannedStand != null && !blockedCastStands.contains(plannedStand)) {
+						// Baritone can stop off center. Do not pick the same nominal stand on the next try.
+						blockedCastStands.add(plannedStand);
+					}
 					castFailed(Fail.UNREACHABLE, "lost the line of sight to the frame");
 					return;
 				}
@@ -302,6 +331,8 @@ public final class CastPortal extends Skill {
 					if (!obsidian(target)) castFailed(Fail.USE_FAILED, "the lava didn't harden");
 					else {
 						io.github.plrlr.autopilot.log.Checkpoints.mark("obsidian_placed");
+						log("obsidian at " + target.toShortString() + "; water recovered");
+						if (Tune.on("portal.retry_cast_view")) castFails = 0;
 						phase = Phase.NEXT;
 					}
 					return;
@@ -388,6 +419,7 @@ public final class CastPortal extends Skill {
 				if (Mc.id(Mc.state(inside).getBlock()).equals("nether_portal")) {
 					memory.remember("nether_portal", inside, "nether_portal");
 					origin = null;
+					log("portal lit");
 					done("cast and lit a nether portal");
 					return;
 				}
@@ -410,6 +442,90 @@ public final class CastPortal extends Skill {
 		}
 	}
 
+	private boolean startPrepare(LocalPlayer pl) {
+		if (!Tune.on("portal.prepare_work_area")) return false;
+		// Reserve 24 blocks for the backing wall; repair only a few shallow holes.
+		workArea = PortalWorkArea.choose(pl.blockPosition(), Mc.count("throwaway") - 24);
+		if (workArea == null) return false;
+		prepareFailures = 0;
+		wait = 0;
+		phase = Phase.PREPARE;
+		log("preparing a dry portal floor at " + workArea.origin().toShortString());
+		return true;
+	}
+
+	private void prepareTick(LocalPlayer pl) {
+		if (++wait > 20 * 90) {
+			fail(Fail.NO_ROOM, "couldn't prepare the portal work area");
+			return;
+		}
+		BlockPos next = null;
+		for (BlockPos p : workArea.floor()) if (!Mc.solid(p)) { next = p; break; }
+		if (next == null) {
+			if (!CastGeometry.fits(workArea.origin(), workArea.along(), WALL_H)) {
+				fail(Fail.NO_ROOM, "prepared floor still has no usable portal site");
+				return;
+			}
+			origin = workArea.origin();
+			along = workArea.along();
+			log("portal site ready at " + origin.toShortString());
+			phase = Phase.WALL;
+			wait = 0;
+			return;
+		}
+		if (!Mc.free(next) || !Mc.solid(next.below()) || CastGeometry.nearLava(next)) {
+			fail(Fail.NO_ROOM, "portal floor became unsafe");
+			return;
+		}
+		if (pl.getEyePosition().distanceTo(Vec3.atCenterOf(next)) > Mc.reach() - 0.5) {
+			if (!Bari.pathing()) Bari.path(new GoalNear(next, 2));
+			return;
+		}
+		if (Bari.pathing()) Bari.stop();
+		if (wait % 5 != 0) return;
+		if (!Mc.holdItem(Items2.matcher("throwaway")) || !Mc.placeAt(next)) {
+			if (++prepareFailures > 12) fail(Fail.PLACE_FAILED, "couldn't lay the portal floor");
+		}
+	}
+
+	private void reserveBucketTick(LocalPlayer pl) {
+		if (Mc.count("bucket") + Mc.count("lava_bucket") > 0) {
+			spareWaterSpot = null;
+			phase = Phase.SITE;
+			wait = 0;
+			return;
+		}
+		if (++wait > 20 * 8) {
+			fail(Fail.NO_ROOM, "no safe spot to empty a spare water bucket");
+			return;
+		}
+		if (spareWaterSpot == null) spareWaterSpot = safeWaterSpot(pl.blockPosition(), pl.getEyePosition());
+		if (spareWaterSpot == null) {
+			fail(Fail.NO_ROOM, "no safe visible spot for the spare water");
+			return;
+		}
+		if (wait % 5 == 0 && Mc.holdItem(s -> Items2.id(s).equals("water_bucket")))
+			Mc.placeAt(spareWaterSpot);
+	}
+
+	private static BlockPos safeWaterSpot(BlockPos feet, Vec3 eye) {
+		for (int r = 1; r <= 2; r++) {
+			for (int dx = -r; dx <= r; dx++) for (int dz = -r; dz <= r; dz++) {
+				if (Math.max(Math.abs(dx), Math.abs(dz)) != r) continue;
+				BlockPos p = feet.offset(dx, 0, dz);
+				if (!Mc.free(p) || !Mc.solid(p.below()) || !Mc.clearOfPlayer(p)
+						|| eye.distanceTo(Vec3.atCenterOf(p)) > Mc.reach() - 0.5 || !Mc.canSee(p)) continue;
+				boolean lavaNear = false;
+				for (int x = -2; x <= 2 && !lavaNear; x++)
+					for (int z = -2; z <= 2 && !lavaNear; z++)
+						for (int y = -1; y <= 1; y++)
+							if (Mc.id(Mc.state(p.offset(x, y, z)).getBlock()).equals("lava")) { lavaNear = true; break; }
+				if (!lavaNear) return p.immutable();
+			}
+		}
+		return null;
+	}
+
 	/** Puts up the wall behind the frame, bottom row first so every block has something to rest on. */
 	private void wallTick(LocalPlayer pl) {
 		if (ticks % 4 != 0) return;
@@ -424,6 +540,7 @@ public final class CastPortal extends Skill {
 			}
 		}
 		if (next == null) {
+			log("backing wall ready at " + origin.toShortString());
 			phase = Phase.NEXT;
 			return;
 		}
@@ -464,9 +581,15 @@ public final class CastPortal extends Skill {
 		}
 		if (target == null) {
 			io.github.plrlr.autopilot.log.Checkpoints.mark("frame_complete");
+			log("frame complete at " + origin.toShortString());
 			phase = Phase.CLEAR;
 			wait = 0;
 			return;
+		}
+		if (!target.equals(lastTarget)) {
+			lastTarget = target;
+			plannedStand = null;
+			blockedCastStands.clear();
 		}
 		if (lava(target) && BucketSkills.isSource(target, "lava")) {
 			// Our lava from an interrupted try: water finishes it.
@@ -495,6 +618,7 @@ public final class CastPortal extends Skill {
 			return;
 		}
 		if (Mc.count("lava_bucket") == 0) {
+			log("fetching lava for " + target.toShortString());
 			fetch = new BucketSkills.FillBucket();
 			fetch.begin(memory, "lava");
 			phase = Phase.FETCH;
@@ -515,6 +639,8 @@ public final class CastPortal extends Skill {
 			return;
 		}
 		water = plan.water().cell();
+		plannedStand = plan.stand();
+		log("cast " + target.toShortString() + " from " + plannedStand.toShortString() + ", water at " + water.toShortString());
 		wait = 0;
 		if (pl.blockPosition().equals(plan.stand())) {
 			phase = Phase.LAVA;
@@ -592,6 +718,7 @@ public final class CastPortal extends Skill {
 			for (int f = 1; f <= 5; f++) {
 				for (int y = -1; y <= 3; y++) {
 					BlockPos s = origin.relative(along, x).relative(front(), f).above(y);
+					if (Tune.on("portal.retry_cast_view") && blockedCastStands.contains(s)) continue;
 					if (!BucketSkills.standable(s)) continue;
 					Vec3 eye = Vec3.atBottomCenterOf(s).add(0, 1.62, 0);
 					if (eye.distanceTo(Vec3.atCenterOf(t)) > Mc.reach() + 0.5) continue;
@@ -690,6 +817,7 @@ public final class CastPortal extends Skill {
 							if (CastGeometry.fits(o, a, WALL_H)) {
 								origin = o.immutable();
 								along = a;
+								log("portal site ready at " + origin.toShortString());
 								return true;
 							}
 						}

@@ -23,6 +23,8 @@ import java.util.List;
  *              goal: cast the portal from lava and water without a diamond pickaxe, and enter it
  *   stronghold 12 eyes of ender; goal: find the stronghold
  *   end        placed in the End with gear; goal: kill the dragon
+ *   combat     the combat drill: short staged fights in a lit stone arena, one FIGHT line each
+ *              (CombatDrill; free run only)
  * The staged scenarios use commands in the throwaway test world only, to skip hours of play and
  * test one late-game step. The mod itself never uses commands.
  * -PtestBrain=auto uses the free AI keys from the real config file (costs free-tier calls).
@@ -41,7 +43,6 @@ public class AutopilotClientTest implements FabricClientGameTest {
 	public void runTest(ClientGameTestContext ctx) {
 		int minutes = Integer.getInteger("autopilot.test.minutes", 5);
 		String scenario = System.getProperty("autopilot.test.scenario", "natural");
-		String brain = System.getProperty("autopilot.test.brain", "mock");
 		int tickRate = Integer.getInteger("autopilot.test.tickRate", 20);
 		// Small view and simulation distances: far fewer chunks to generate and tick, so the
 		// test world keeps up on a laptop (and a faster tick rate becomes possible).
@@ -76,8 +77,6 @@ public class AutopilotClientTest implements FabricClientGameTest {
 			long wallStart = System.nanoTime();
 			ctx.runOnClient(mc -> {
 				Autopilot ap = AutopilotMod.instance();
-				ap.tactician.select(brain);
-				ap.strategist.setOpusEnabled(Boolean.getBoolean("autopilot.test.opus"));
 				ap.enable();
 				if (!ap.enabled()) throw new AssertionError("autopilot didn't turn on");
 				if (goal != null) ap.forceGoal(goal);
@@ -98,7 +97,8 @@ public class AutopilotClientTest implements FabricClientGameTest {
 			boolean free = !Boolean.getBoolean("autopilot.test.lockstep") && FreeRun.start();
 			if (free) {
 				try {
-					playFree(minutes * 60L, scenario, task, saveAt, bankedStage, sp);
+					if (scenario.equals("combat")) CombatDrill.play(minutes * 60L, System.getProperty("autopilot.test.seed", "autopilot"));
+					else playFree(minutes * 60L, scenario, task, saveAt, bankedStage, sp);
 					// The whole report before rejoining the framework: if rejoining ever hangs, the
 					// run's results are already in the log (the watchdog then stops the game).
 					String t = task;
@@ -182,7 +182,8 @@ public class AutopilotClientTest implements FabricClientGameTest {
 	/** Sets up the scenario with test-world commands; returns the goal to force, or null. */
 	private static Goal stage(TestSingleplayerContext sp, String scenario) {
 		var server = sp.getServer();
-		if (scenario.equals("natural")) return null;
+		// The combat drill stages each round itself (CombatDrill), in a natural world.
+		if (scenario.equals("natural") || scenario.equals("combat")) return null;
 		server.runCommand("time set 1000");
 		if (scenario.equals("cast")) {
 			// The full kit the route carries by the cast (shield, chestplate, helmet worn): without

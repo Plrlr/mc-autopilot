@@ -19,14 +19,26 @@ https://plrlr.github.io/mc-autopilot/ (the `trial-results` branch, served by Git
 health, creeper distance, eating, food stock, gathering amounts, night and route switches, loop
 timings), with hard limits. Defaults are the old values, so no params file means unchanged play.
 
-**2. Its own model (free).** Every decision logs 32 state features, the option taken and its
-probability. `train.py` learns, per action kind ("collect:log", "explore:lava"...), how much
-progress follows in the next 2 game minutes (tools, key items, milestones, checkpoints, minus
-deaths): a baseline value of the state plus each action's advantage over it (ridge regression,
-inverse-propensity weighted). `Learned.java` re-ranks the rules' options by it. Its say is itself
-a gene (`learned.weight`, 0 = pure rules), so it only gets used if the race shows it helps.
-Emergencies (fight, flee, eat when starving) always stay with the rules. Data runs (champion +
-`learned.explore` 0.15) try other options on purpose, so the model sees more than the rules' habits.
+**2. Its own model (free).** Every decision logs 40 state features, the option taken and its
+probability. `train.py` learns how much progress follows in the next 2 game minutes (tools, key
+items, milestones, checkpoints, minus deaths): a baseline of boosted trees for the state
+(`gbt.py`, plain numpy), then small boosted trees per action kind ("collect:log", "explore:lava"...)
+for its advantage over that baseline (inverse-propensity weighted, early-stopped on held-out runs).
+Only the advantage trees ship; `Learned.java` (with `TreeModel.java`) re-ranks the rules' options
+by them in microseconds. Its say is itself a gene (`learned.weight`, 0 = pure rules), and those
+genes only race once the model's held-out advantage R2 passes `model_gate`. Emergencies (fight,
+flee, eat when starving) always stay with the rules. Data runs (champion + `learned.explore` 0.15)
+try other options on purpose, so the model sees more than the rules' habits. Honest state
+(2026-09-28): on a shared tree baseline every model kind explains only ~2% of the choice part,
+because the rules pick nearly the same option in the same state; the data runs are what can fix it.
+
+**2b. Its danger model (free, learns fastest).** `train.py` also learns, from every decision and
+every reflex (fights and escapes are logged since 2026-09-28), the chance of dying in the next 45
+game seconds after taking an action in a state. Deaths are frequent (~3 per game) and their label
+is exact, so this model is strong where the progress model is weak: held-out AUC 0.87 on the first
+598 games. With gene `safety.hazard` the brain swaps any pick, emergencies included, for one whose
+death risk is lower by at least `safety.hazard_margin` (at 0.1 that swaps ~2% of fight/flee/shelter
+choices, at 0.05 ~21%). It is retrained every generation, so each game's deaths teach the next.
 
 **3. Code changes by Claude (plan, capped).** When the gene search stalls (no new champion for 2
 generations), `evolve.py` makes one `claude -p` call with the generation's failures, the worst
@@ -75,7 +87,8 @@ cascade), and more parallel seeds once the cloud's speed is fixed (the renderer 
 2. **trial**: each run plays 20 game minutes of plain vanilla drawing, which already keeps up
    with real time on the cloud (0.98x). A 10 fps cap halved the game speed, so it isn't used.
 3. **update**: scores every run (`common.score_run`: points per milestone and portal step, up to
-   50% more the earlier, minus 0.75 per death), races, retrains the model, merges a winning code
+   50% more the earlier; one life: only what came before the first death counts, plus up to 2
+   points for the share of the run lived, minus 1 for dying), races, retrains the model, merges a winning code
    change, maybe asks Claude for one, writes `loop/history.jsonl` and the dashboard, and starts
    the next generation.
 

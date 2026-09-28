@@ -7,7 +7,10 @@ import io.github.plrlr.autopilot.skills.CastPortal;
 import io.github.plrlr.autopilot.skills.MoveSkills;
 import io.github.plrlr.autopilot.skills.SmeltSkill;
 import io.github.plrlr.autopilot.skills.Station;
+import io.github.plrlr.autopilot.skills.ShoreSkill;
 import io.github.plrlr.autopilot.state.Perception;
+import io.github.plrlr.autopilot.state.Danger;
+import io.github.plrlr.autopilot.state.DangerSense;
 import io.github.plrlr.autopilot.state.WorldMemory;
 import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.world.entity.EquipmentSlot;
@@ -37,10 +40,32 @@ public final class Planner {
 	 * player does on the way (food, a bed, coal), then the goal's next step, then fallbacks.
 	 */
 	public List<Option> options(Goal goal, Perception seen) {
-		Option main = goalStep(goal, seen, 0);
+		Option main = axeFirst(goalStep(goal, seen, 0));
+		if (Mc.dimension().equals("overworld") && goal.milestone >= Goal.IRON_TOOLS.milestone
+				&& goal.milestone <= Goal.NETHER_PORTAL.milestone && Items2.bestTier("pickaxe") >= 1) {
+			Option prep = Tune.on("food.early_stock") ? earlyFoodStep(seen) : null;
+			if (prep == null && Tune.on("gear.armor_first")) prep = earlyGearStep();
+			if (prep == null && Tune.on("gear.shield_early")) prep = earlyShieldStep();
+			if (prep != null) main = prep;
+		}
 		List<Option> urgent = urgent(seen, main);
+		if (Tune.on("move.shore_first") && ShoreSkill.needed()
+				&& (groundWork(main) || urgent.stream().anyMatch(Planner::groundWork))) {
+			// One shared decision prevents collect, station, shelter and explore from handing the
+			// same watery spot back and forth. Combat and eating can still take precedence.
+			List<Option> shore = new ArrayList<>();
+			for (Option o : urgent) if (o.skill().equals("attack") || o.skill().equals("retreat") || o.skill().equals("eat")) shore.add(o);
+			Option move = new Option("shore", null, "reach seen dry ground before " + (main == null ? "working" : main.label()));
+			shore.add(move);
+			lastUrgent = shore.stream().map(Option::label).collect(java.util.stream.Collectors.toSet());
+			return shore;
+		}
 		lastUrgent = urgent.stream().map(Option::label).collect(java.util.stream.Collectors.toSet());
 		return order(urgent, recoverStep(), surfaceOption(main), upkeep(seen, main), main, extras(seen, main));
+	}
+
+	private static boolean groundWork(Option o) {
+		return o != null && java.util.Set.of("collect", "craft", "smelt", "shelter", "sleep", "explore").contains(o.skill());
 	}
 
 	/** Labels of the life-or-death options in the last list: the learned brain never overrules them. */
@@ -89,6 +114,54 @@ public final class Planner {
 		String a = o.arg() == null ? "" : o.arg();
 		return o.skill().equals("explore") || (o.skill().equals("collect") && (a.startsWith("log") || a.startsWith("sand")))
 				|| (o.skill().equals("attack") && ANIMALS.contains(a.split(",")[0]));
+	}
+
+	/** The optional FOOD rung is skipped by the fast route; this gene makes its stock a real step. */
+	private Option earlyFoodStep(Perception seen) {
+		int ready = Mc.count("food");
+		if (ready >= 8) return null;
+		// Loading the furnace removes raw meat from inventory. Keep collecting that batch instead
+		// of wandering off to hunt while its cooked food is still waiting at our station.
+		for (String meat : Items2.RAW_MEAT) {
+			String cooked = "cooked_" + meat;
+			SmeltSkill.Job job = SmeltSkill.job(cooked);
+			if (job != null) return new Option("smelt", cooked + ":" + job.count(), "collect cooked food before the iron trip");
+		}
+		int raw = Mc.count("meat");
+		String most = null;
+		for (String meat : Items2.RAW_MEAT)
+			if (Mc.count(meat) > 0 && (most == null || Mc.count(meat) > Mc.count(most))) most = meat;
+		if (most != null && (ready + raw >= 8 || Mc.player().getFoodData().getFoodLevel() < 18)) {
+			Option cook = smeltStep("cooked_" + most, Mc.count(most), 0);
+			if (cook != null) return cook;
+		}
+		for (String animal : ANIMALS.split(",")) {
+			Perception.Seen mob = seen.nearest(animal);
+			if (mob != null && Mc.canSee(mob.entity()))
+				return new Option("attack", animal, "stock food before the iron trip (" + ready + "/8 cooked)");
+		}
+		// On sparse starts a compulsory animal search can replace the iron route forever.
+		return null;
+	}
+
+	/** Spend iron in survivability order; the pickaxe still comes first so iron can be mined. */
+	private Option earlyGearStep() {
+		if (betterArmorInInventory()) return new Option("equip", "armor", "wear the armor we carry");
+		if (Items2.bestTier("pickaxe") < 2) return itemStep("iron_pickaxe", 1, 0);
+		for (String item : new String[]{"iron_chestplate", "iron_sword", "iron_helmet", "iron_boots"}) {
+			if (item.endsWith("_sword") ? Items2.bestTier("sword") >= 2 : Goal.hasArmor(item)) continue;
+			Option step = itemStep(item, 1, 0);
+			if (step != null) return step;
+		}
+		return null;
+	}
+
+	/** A shield only helps when equipped in the off hand. */
+	private Option earlyShieldStep() {
+		if (Items2.id(Mc.player().getOffhandItem()).equals("shield")) return null;
+		if (Mc.count("shield") > 0) return new Option("equip", "shield", "shield into the off hand");
+		if (Mc.count("iron_ingot") + Mc.count("raw_iron") == 0) return null;
+		return itemStep("shield", 1, 0);
 	}
 
 	/** The goal's own next step, without upkeep or safety options (null if the goal needs nothing now). */
@@ -159,6 +232,13 @@ public final class Planner {
 				// Two routes to the frame: cast it from lava and water (no diamonds; the speedrunners'
 				// way), or the classic way: diamond pickaxe, harden lava into obsidian, mine 10 blocks.
 				// A gene picks; the race decides which gets to the Nether sooner.
+				// Diamonds found on the way down for lava: three make a diamond pickaxe, and with it the
+				// classic portal (water on a lava pool, mine 10 obsidian) needs only the lava we're after.
+				if (Tune.on("tools.diamond_pick_if_found") && Goal.have("obsidian") < 10 && Items2.bestTier("pickaxe") < 3
+						&& Mc.count("diamond") >= 3) {
+					Option o = itemStep("diamond_pickaxe", 1, depth + 1);
+					if (o != null) return o;
+				}
 				if (Goal.have("obsidian") < 10 && Items2.bestTier("pickaxe") < 3) {
 					if (!Tune.on("route.diamond_portal")) return castStep(depth);
 					Option o = itemStep("diamond_pickaxe", 1, depth + 1);
@@ -256,7 +336,7 @@ public final class Planner {
 			// y -55 is lava. Branch-mining at diamond depth finds a pool the close scan remembers,
 			// and the step turns into build_portal right there. A diamond on the way is a bonus.
 			if (Tune.on("route.deep_for_lava") && Items2.bestTier("pickaxe") >= 2 && Mc.dimension().equals("overworld"))
-				return new Option("collect", "diamond:1", "go deep for lava: cave air below y -55 is lava");
+				return new Option("collect", "diamond:1:lava", "go deep for lava: cave air below y -55 is lava");
 			return new Option("explore", "lava", "find a lava pool to cast the portal from");
 		}
 		return new Option("build_portal", null, "cast a nether portal from lava and water (no diamonds needed)");
@@ -395,7 +475,8 @@ public final class Planner {
 			return new Option("smelt", item + ":" + job.count(), "collect the " + item + " from the furnace");
 		}
 		// Smelt every raw iron we carry at once: one furnace load instead of several.
-		if (input.equals("raw_iron")) missing = Math.max(missing, Mc.count("raw_iron"));
+		if (input.equals("raw_iron") && !(Tune.on("gear.shield_early") && Mc.count("shield") == 0 && missing == 1))
+			missing = Math.max(missing, Mc.count("raw_iron"));
 		if (Mc.count(input) < missing) {
 			Option o = itemStep(input, missing, depth + 1);
 			if (o != null) return o;
@@ -414,6 +495,18 @@ public final class Planner {
 			if (o != null) return o;
 		}
 		return new Option("smelt", item + ":" + missing, "smelt " + input + " into " + item);
+	}
+
+	/**
+	 * A stone axe before more wood: logs break about three times faster than by hand, and it costs
+	 * three cobblestone and two sticks once there is a stone pickaxe (gene tools.stone_axe).
+	 */
+	Option axeFirst(Option main) {
+		if (main == null || !main.skill().equals("collect") || main.arg() == null || !main.arg().startsWith("log")) return main;
+		if (!Tune.on("tools.stone_axe") || Items2.bestTier("axe") >= 1 || Items2.bestTier("pickaxe") < 1) return main;
+		if (Mc.count("throwaway") < 3 && Mc.count("cobblestone") < 3) return main;
+		Option step = itemStep("stone_axe", 1, 1);
+		return step == null ? main : step;
 	}
 
 	/**
@@ -439,6 +532,14 @@ public final class Planner {
 	 * and helmet 5 for the portal step, as a second trip.
 	 */
 	public static int ironStillNeeded() {
+		if (Tune.on("gear.armor_first") && Mc.dimension().equals("overworld")) {
+			int next = Items2.bestTier("pickaxe") < 2 ? 3
+					: !Goal.hasArmor("iron_chestplate") ? 8
+					: Items2.bestTier("sword") < 2 ? 2
+					: !Goal.hasArmor("iron_helmet") ? 5
+					: !Goal.hasArmor("iron_boots") ? 4 : 0;
+			if (next > 0) return Math.max(0, next - SmeltSkill.pending("iron_ingot"));
+		}
 		int n = 0;
 		if (Items2.bestTier("pickaxe") < 2) n += 3;
 		if (Items2.bestTier("sword") < 2) n += 2;
@@ -481,8 +582,13 @@ public final class Planner {
 		// into lava, and it burned to death (freebuff nether run 0455). Blazes go to the fortress fight.
 		double range = hostile != null && Mc.dimension().equals("the_nether") && !hostile.type().equals("blaze") ? 4 : Tune.get("plan.hostile_range");
 		if (hostile != null && hostile.dist() < range) {
+			Option verdict = Tune.on("survival.danger_v2") && !NetherPlan.fightInFortress(Mc.dimension(), hostile)
+					? dangerOption(DangerSense.assess(seen), "visible danger") : null;
+			if (verdict != null) out.add(verdict);
 			// Creepers explode in melee range: back off instead of swinging at them.
-			if (hostile.type().equals("creeper")) out.add(new Option("retreat", null, "a creeper is " + Math.round(hostile.dist()) + " blocks away"));
+			else if (hostile.type().equals("creeper")) out.add(io.github.plrlr.autopilot.skills.CombatSkills.canHitCreeper(hostile)
+					? new Option("attack", "creeper", "hit and back off from a visible creeper")
+					: new Option("retreat", null, "a creeper is " + Math.round(hostile.dist()) + " blocks away"));
 			// Blazes hover and shoot fire: the fortress fight waits for them at the spawner and backs
 			// off out of sight to heal itself. Walling in at low health (the Nether has no sky, so it
 			// always counts as underground) burned the bot to death in its first blaze test.
@@ -536,7 +642,12 @@ public final class Planner {
 	public static boolean wantsToEat() {
 		LocalPlayer pl = Mc.player();
 		int food = pl.getFoodData().getFoodLevel();
-		if (food >= 20 || Mc.count(Items2::isAnyFood) == 0) return false;
+		if (food >= 20) return false;
+		if (Tune.on("food.keep_full")) {
+			// Raw chicken and other risky food are a last resort, not routine regeneration fuel.
+			if (Mc.count(s -> Items2.isGoodFood(s) || food <= 6 && Items2.isAnyFood(s)) == 0) return false;
+			if (food < 18) return true;
+		} else if (Mc.count(Items2::isAnyFood) == 0) return false;
 		return food <= Tune.i("food.eat_at") || (food <= Tune.i("food.eat_hurt_at") && pl.getHealth() < pl.getMaxHealth());
 	}
 
@@ -673,6 +784,34 @@ public final class Planner {
 	 * through tunnels got the bot shot and cornered in trials); on the surface, run.
 	 */
 	public static Option escape(Perception seen, String why) {
+		if (Tune.on("survival.danger_v2")) {
+			Option verdict = dangerOption(DangerSense.assess(seen), why);
+			if (verdict != null) return verdict;
+		}
+		return escape(seen, canHide(), why);
+	}
+
+	/**
+	 * The rules' pick first, then the other ways to deal with the nearest monster that are possible
+	 * here: fight it, run, or wall in and heal. The learned danger model (gene safety.hazard) picks
+	 * among them; without it the first is taken, exactly as before.
+	 */
+	public static List<Option> escapeChoices(Perception seen, Option rulesPick) {
+		List<Option> out = new ArrayList<>();
+		out.add(rulesPick);
+		Perception.Seen h = seen.nearestHostile();
+		String why = rulesPick.why();
+		if (h != null && !h.type().equals("creeper") && h.dist() <= 6) out.add(new Option("attack", h.type(), why + ": fight it"));
+		out.add(new Option("retreat", null, why + ": run"));
+		if (canHide()) out.add(new Option("shelter", "heal", why + ": wall in and heal"));
+		List<Option> unique = new ArrayList<>();
+		for (Option o : out)
+			if (unique.stream().noneMatch(u -> u.label().equals(o.label()))) unique.add(o);
+		return unique;
+	}
+
+	/** Whether walling in to heal can work here (the same test the rules' escape uses). */
+	private static boolean canHide() {
 		// Hiding only heals with 18+ hunger or food to eat; otherwise shelter heal fails at once and
 		// this would pick it again.
 		boolean canHeal = Mc.player().getFoodData().getFoodLevel() >= 18 || Mc.count(Items2.matcher("food")) > 0;
@@ -682,7 +821,18 @@ public final class Planner {
 		// Underground always; on the surface too with combat.wall_in_anywhere: 56 of 138 mob deaths in
 		// generations 6-9 came while retreating (back turned, ~5 health), running is what got it killed.
 		boolean wallOk = !onSurface() || Tune.on("combat.wall_in_anywhere");
-		return escape(seen, wallOk && hideOk && canHeal && Mc.count("throwaway") >= 6, why);
+		return wallOk && hideOk && canHeal && Mc.count("throwaway") >= 6;
+	}
+
+
+	/** Translate the one verdict to existing skill names, preserving the decision log schema. */
+	public static Option dangerOption(Danger.Verdict verdict, String why) {
+		return switch (verdict.kind()) {
+			case FIGHT -> new Option("attack", verdict.target(), why + ": fight");
+			case RETREAT -> new Option("retreat", null, why + ": safe retreat");
+			case WALL_IN -> new Option("shelter", "heal", why + ": wall in");
+			case AVOID_HAZARD, NONE -> null;
+		};
 	}
 
 	/** Same perceived threats for the planner and reflex; no extra scan or hidden information. */

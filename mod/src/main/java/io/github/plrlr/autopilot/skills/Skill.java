@@ -40,6 +40,14 @@ public abstract class Skill {
 		return false;
 	}
 
+	/**
+	 * True while the skill means to stand still (placing and breaking gravel for flint): the stuck
+	 * detector leaves it alone. It cut the flint loop off three times in one laptop run.
+	 */
+	public boolean workingInPlace() {
+		return false;
+	}
+
 	protected abstract void start();
 
 	protected abstract void tick();

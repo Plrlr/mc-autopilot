@@ -9,8 +9,10 @@ stats into DIR/state.json ("model_rows", "model_r2").
 For each decision it measures what happened next: progress over the following `horizon` game
 seconds, from a potential function of the state features (tools, key items, milestones and
 checkpoints; losing the inventory to a death shows up as a drop) minus a penalty per death in that
-window. Then one ridge regression per action kind ("collect:log", "explore:lava", ...) predicts that
-progress from the state. The mod ranks options by those predictions (brains/Learned.java).
+window. A tree model (gbt.py) learns how much progress follows a state whatever is chosen, then small
+trees per action kind ("collect:log", "explore:lava", ...) learn each one's advantage over that. The
+mod ranks options by the advantages (brains/Learned.java). Without numpy it falls back to the old
+ridge regression per action kind.
 
 This is the "direct method" of off-policy learning: it compares actions across all the states they
 were taken in. Exploration runs (learned.explore) make sure the rules' second and third choices
@@ -42,6 +44,7 @@ DEATH = 3.0
 MIN_ROWS = 40      # an action kind needs this many examples to get its own model
 RIDGE = 2.0
 MAX_WEIGHT = 5.0   # inverse-propensity weight cap
+HAZARD_S = 45      # the danger model predicts death within this many game seconds
 
 
 def potential(x, idx):
@@ -133,43 +136,208 @@ def main():
     a = ap.parse_args()
     feats = common.load_features()
     files = sorted(glob.glob(os.path.join(a.state, "data", "**", "*.jsonl.gz"), recursive=True))
-    # Hold out a fifth of the runs (by file) to check the model predicts runs it hasn't seen.
+    # Split by run, never by row: rows of one run are alike, so a row split would flatter the model.
+    # A fifth is the test set (the R2 the loop's gate reads); 15% stops the tree boosting early.
     rng = random.Random(7)
-    held = {f for f in files if rng.random() < 0.2}
-    by_key, test = {}, []
-    for f, key, x, y, w in examples(files, feats, a.horizon):
-        if f in held:
-            test.append((key, x, y))
+    part = {f: rng.random() for f in files}
+    rows = list(examples(files, feats, a.horizon))
+    hazard = None
+    try:
+        import numpy  # noqa: F401
+        keys, stats = train_trees(rows, part)
+        kind = "trees"
+        hazard = train_hazard(files, feats, part)
+    except ImportError:
+        keys, stats = train_linear(rows, part)
+        kind = "linear"
+    ys = [y for _, _, _, y, _ in rows]
+    scale = max(0.1, statistics_std(ys))
+    st_path = os.path.join(a.state, "state.json")
+    st = common.read_json(st_path, {})
+    gen = st.get("gen", 0)
+    model = {"id": "m%d" % gen, "kind": kind, "features": feats, "keys": keys, "scale": round(scale, 4),
+             "horizon": a.horizon, "rows": len(ys), "runs": len(files), "r2_heldout": stats["r2"],
+             "adv_r2_heldout": stats["adv_r2"],
+             "trained": datetime.datetime.now(datetime.timezone.utc).isoformat(timespec="seconds")}
+    if hazard:
+        model["hazard"] = hazard
+    common.write_json(os.path.join(a.state, "learned.json"), model)
+    if st:
+        st["model_rows"] = len(ys)
+        st["model_r2"] = stats["r2"]
+        st["model_adv_r2"] = stats["adv_r2"]
+        st["model_keys"] = len(keys)
+        st["model_kind"] = kind
+        st["hazard_auc"] = hazard["auc"] if hazard else None
+        common.write_json(st_path, st)
+    print("learned model m%d (%s): %d decisions from %d runs, %d action kinds, held-out R2 %s (choice part %s)"
+          % (gen, kind, len(ys), len(files), len(keys), stats["r2"], stats["adv_r2"]))
+    if hazard:
+        print("danger model: %d decisions (%d followed by a death), held-out AUC %s, %d trees"
+              % (hazard["rows"], hazard["death_rows"], hazard["auc"], len(hazard["trees"])))
+
+
+def train_hazard(files, feats, part):
+    """The danger model: the chance of dying within HAZARD_S game seconds after a decision, from
+    the state and the action kind (one-hot). Every decision counts here, emergencies and reflexes
+    most of all: that's where the bot dies. Deaths are frequent (about 3 per game) and their label
+    is exact, so this learns fast; on the first 598 games held-out AUC was 0.87 (2026-09-28)."""
+    import numpy as np
+    import gbt
+    rows = []
+    for f in files:
+        try:
+            with gzip.open(f, "rt", encoding="utf-8") as fh:
+                rs = [json.loads(l) for l in fh if l.strip()]
+        except (OSError, ValueError):
             continue
-        for k in (key, key.split(":")[0]):  # per action kind, and per skill as a fallback
-            by_key.setdefault(k, ([], [], []))
-            by_key[k][0].append(x)
-            by_key[k][1].append(y)
-            by_key[k][2].append(w)
-    # Baseline: how much progress follows this state whatever is chosen. Much of it is just the
-    # state (little in the bag -> much to gain). Each action kind then learns its advantage over
-    # the baseline, which is what separates choices at the same moment.
+        deaths = [r["gs"] for r in rs if r["k"] == "death"]
+        for r in rs:
+            if r["k"] == "d" and len(r["x"]) == len(feats):
+                died = any(r["gs"] < t <= r["gs"] + HAZARD_S for t in deaths)
+                rows.append((part[f], r["a"], r["x"], 1.0 if died else 0.0))
+    counts = {}
+    for p, k, _, _ in rows:
+        if p >= 0.35:
+            counts[k] = counts.get(k, 0) + 1
+    keys = sorted(k for k, n in counts.items() if n >= 30)
+    col = {k: i for i, k in enumerate(keys)}
+
+    def arr(rs):
+        X = np.zeros((len(rs), len(feats) + len(keys)))
+        for i, (_, k, x, _) in enumerate(rs):
+            X[i, :len(feats)] = x
+            if k in col:
+                X[i, len(feats) + col[k]] = 1
+        return X, np.array([r[3] for r in rs])
+
+    tr = [r for r in rows if r[0] >= 0.35]
+    va = [r for r in rows if 0.2 <= r[0] < 0.35]
+    te = [r for r in rows if r[0] < 0.2]
+    if len(tr) < MIN_ROWS or len(va) < MIN_ROWS or sum(r[3] for r in tr) < 20:
+        return None
+    Xt, yt = arr(tr)
+    Xv, yv = arr(va)
+    m = gbt.fit(Xt, yt, np.ones(len(yt)), Xv, yv, np.ones(len(yv)), trees=300, depth=4, lr=0.05, min_leaf=40)
+    auc = None
+    if te:
+        Xe, ye = arr(te)
+        auc = roc_auc(gbt.predict(m, Xe), ye)
+    # The bias goes into the first tree's leaves: the game adds up trees only.
+    if m["trees"]:
+        m["trees"][0]["v"] = [round(v + m["bias"], 6) for v in m["trees"][0]["v"]]
+    return {"keys": keys, "trees": m["trees"], "horizon": HAZARD_S, "auc": auc,
+            "rows": len(rows), "death_rows": int(sum(r[3] for r in rows))}
+
+
+def roc_auc(p, y):
+    """Chance a random death-row is ranked riskier than a random safe row (ties count half)."""
+    import numpy as np
+    pos = y == 1
+    if pos.sum() < 10 or (~pos).sum() < 10:
+        return None
+    order = np.argsort(p, kind="mergesort")
+    ranks = np.empty(len(p))
+    ranks[order] = np.arange(1, len(p) + 1)
+    # average ranks over ties
+    for v in np.unique(p):
+        tie = p == v
+        if tie.sum() > 1:
+            ranks[tie] = ranks[tie].mean()
+    return round(float((ranks[pos].sum() - pos.sum() * (pos.sum() + 1) / 2) / (pos.sum() * (~pos).sum())), 3)
+
+
+def by_key_rows(rows, part, lo, hi):
+    """Rows of runs whose split number is in [lo, hi), grouped per action kind and per skill."""
+    out = {}
+    for f, key, x, y, w in rows:
+        if lo <= part[f] < hi:
+            for k in (key, key.split(":")[0]):
+                out.setdefault(k, []).append((x, y, w))
+    return out
+
+
+def train_trees(rows, part):
+    """A tree baseline V(state) for the progress that follows whatever is chosen, then per action
+    kind small trees for its advantage over V. In the game only differences between options count,
+    so V cancels out and only the advantage trees ship (brains/Learned.java).
+
+    adv_r2 is measured against the same tree baseline for every model kind. The old linear model
+    was measured against its own, weaker, linear baseline, which let state effects it missed pass
+    for choice effects: 0.05 there was about 0.02 here on the same data (2026-09-28)."""
+    import numpy as np
+    import gbt
+
+    def arr(rs):
+        return (np.array([r[0] for r in rs], dtype=float), np.array([r[1] for r in rs], dtype=float),
+                np.array([r[2] for r in rs], dtype=float))
+
+    def split(lo, hi):
+        return [(k, x, y, w) for f, k, x, y, w in rows if lo <= part[f] < hi]
+
+    tr, va, te = split(0.35, 1.01), split(0.2, 0.35), split(0, 0.2)
+    if len(tr) < MIN_ROWS or len(va) < MIN_ROWS:
+        return {}, {"r2": None, "adv_r2": None}
+    Xt, yt, wt = arr([r[1:] for r in tr])
+    Xv, yv, wv = arr([r[1:] for r in va])
+    V = gbt.fit(Xt, yt, wt, Xv, yv, wv, depth=4, lr=0.05, min_leaf=40)
+    groups_t, groups_v = {}, {}
+    for (k, x, y, w), b in zip(tr, gbt.predict(V, Xt)):
+        for g in (k, k.split(":")[0]):
+            groups_t.setdefault(g, []).append((x, y - b, w))
+    for (k, x, y, w), b in zip(va, gbt.predict(V, Xv)):
+        for g in (k, k.split(":")[0]):
+            groups_v.setdefault(g, []).append((x, y - b, w))
+    keys = {}
+    for g, rs in groups_t.items():
+        if len(rs) < 2 * MIN_ROWS:
+            continue
+        X, r, w = arr(rs)
+        vs = groups_v.get(g, [])
+        if len(vs) >= 30:
+            Xv2, rv2, wv2 = arr(vs)
+            m = gbt.fit(X, r, w, Xv2, rv2, wv2, trees=80, depth=3, lr=0.1, min_leaf=30, patience=15,
+                        init=(np.zeros(len(r)), np.zeros(len(rv2))))
+            if not m["trees"]:
+                continue  # its advantage doesn't hold up on other runs: the key gets no say
+        else:
+            m = gbt.fit(X, r, w, trees=10, depth=2, lr=0.1, min_leaf=30, init=(np.zeros(len(r)), None))
+        keys[g] = {"trees": m["trees"]}
+    # Held-out check on runs neither the baseline nor the advantage trees saw.
+    r2 = adv_r2 = None
+    if te:
+        Xe, ye, _ = arr([r[1:] for r in te])
+        be = gbt.predict(V, Xe)
+        adv = np.zeros(len(te))
+        for i, (k, x, _, _) in enumerate(te):
+            m = keys.get(k) or keys.get(k.split(":")[0])
+            if m:
+                adv[i] = gbt.predict({"bias": 0.0, "trees": m["trees"]}, Xe[i:i + 1])[0]
+        r2 = rsq(list(zip(be + adv, ye)))
+        adv_r2 = rsq(list(zip(adv, ye - be)))
+    return keys, {"r2": r2, "adv_r2": adv_r2}
+
+
+def train_linear(rows, part):
+    """The old model, kept for machines without numpy: ridge baseline plus per-key ridge advantage."""
+    by_key = by_key_rows(rows, part, 0.2, 1.01)
+    test = [(k, x, y) for f, k, x, y, w in rows if part[f] < 0.2]
     allX, allY, allW = [], [], []
-    for k, (X, Y, W) in by_key.items():
+    for k, rs in by_key.items():
         if ":" not in k:
-            allX += X
-            allY += Y
-            allW += W
-    models = {}
-    base = None
+            allX += [r[0] for r in rs]
+            allY += [r[1] for r in rs]
+            allW += [r[2] for r in rs]
+    models, base = {}, None
     if len(allX) >= MIN_ROWS:
         base = ridge(allX, allY, allW, RIDGE)
-        for k, (X, Y, W) in by_key.items():
-            if len(X) < MIN_ROWS:
+        for k, rs in by_key.items():
+            if len(rs) < MIN_ROWS:
                 continue
+            X, Y, W = [r[0] for r in rs], [r[1] for r in rs], [r[2] for r in rs]
             resid = [y - predict(base, x) for x, y in zip(X, Y)]
             adv = ridge(X, resid, W, RIDGE * 4)
             models[k] = [round(b + a, 5) for b, a in zip(base, adv)]
-    ys = [y for k, v in by_key.items() if ":" not in k for y in v[1]]
-    scale = max(0.1, statistics_std(ys))
-    # R^2 on held-out runs: how much of the variation the model explains. r2 is for progress as a
-    # whole (flattered: the state alone predicts much of it); adv_r2 is for the part the choice
-    # makes, beyond the baseline - the honest measure of whether the model tells actions apart.
     r2 = adv_r2 = None
     if test and base:
         preds, advs = [], []
@@ -180,21 +348,7 @@ def main():
                 preds.append((p, y))
                 advs.append((p - b, y - b))
         r2, adv_r2 = rsq(preds), rsq(advs)
-    st_path = os.path.join(a.state, "state.json")
-    st = common.read_json(st_path, {})
-    gen = st.get("gen", 0)
-    model = {"id": "m%d" % gen, "features": feats, "keys": models, "scale": round(scale, 4),
-             "horizon": a.horizon, "rows": len(ys), "runs": len(files), "r2_heldout": r2, "adv_r2_heldout": adv_r2,
-             "trained": datetime.datetime.now(datetime.timezone.utc).isoformat(timespec="seconds")}
-    common.write_json(os.path.join(a.state, "learned.json"), model)
-    if st:
-        st["model_rows"] = len(ys)
-        st["model_r2"] = r2
-        st["model_adv_r2"] = adv_r2
-        st["model_keys"] = len(models)
-        common.write_json(st_path, st)
-    print("learned model m%d: %d decisions from %d runs, %d action kinds, held-out R2 %s (choice part %s)"
-          % (gen, len(ys), len(files), len(models), r2, adv_r2))
+    return models, {"r2": r2, "adv_r2": adv_r2}
 
 
 def rsq(pairs):

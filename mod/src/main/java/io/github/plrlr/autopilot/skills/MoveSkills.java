@@ -6,6 +6,9 @@ import baritone.api.pathing.goals.GoalNear;
 import baritone.api.pathing.goals.GoalRunAway;
 import baritone.api.pathing.goals.GoalXZ;
 import io.github.plrlr.autopilot.Mc;
+import io.github.plrlr.autopilot.Tune;
+import io.github.plrlr.autopilot.state.Danger;
+import io.github.plrlr.autopilot.state.DangerSense;
 import io.github.plrlr.autopilot.state.Perception;
 import io.github.plrlr.autopilot.state.WorldMemory;
 import net.minecraft.client.player.LocalPlayer;
@@ -64,8 +67,10 @@ public final class MoveSkills {
 			LocalPlayer pl = Mc.player();
 			for (String t : targets) {
 				if (seen.nearest(t) != null) return t;
-				WorldMemory.Seen b = memory.nearest(t);
-				if (b != null && b.pos().distSqr(pl.blockPosition()) < 48 * 48) return t;
+				// Not the ones collect just failed to reach, or the two keep handing the job back.
+				for (WorldMemory.Seen b : memory.all(t)) {
+					if (b.dim().equals(Mc.dimension()) && b.pos().distSqr(pl.blockPosition()) < 48 * 48 && !SeenMiner.unreachable(b.pos())) return t;
+				}
 			}
 			return null;
 		}
@@ -85,7 +90,8 @@ public final class MoveSkills {
 			// Rivers take a few seconds to cross; only a long swim means open sea.
 			if (waterTicks > 20 * 20) {
 				memory.markBadAhead(startX, startZ, DIST);
-				fail(Fail.HAZARD, "open water ahead; will turn");
+				if (io.github.plrlr.autopilot.Tune.on("move.shore_first")) done("open water ahead; find shore");
+				else fail(Fail.HAZARD, "open water ahead; will turn");
 				return;
 			}
 			if (ticks > 20 && !Bari.pathing()) {
@@ -201,6 +207,11 @@ public final class MoveSkills {
 		@Override
 		protected void start() {
 			timeoutTicks = 20 * 15;
+			if (Tune.on("survival.danger_v2")) {
+				startDist = nearestThreat();
+				Bari.stop();
+				return;
+			}
 			List<BlockPos> threats = new ArrayList<>();
 			for (Perception.Seen s : Perception.look(20).mobs) if (s.hostile()) threats.add(s.entity().blockPosition());
 			if (threats.isEmpty()) {
@@ -213,6 +224,23 @@ public final class MoveSkills {
 
 		@Override
 		protected void tick() {
+			if (Tune.on("survival.danger_v2")) {
+				Perception seen = Perception.look(20);
+				Danger.Verdict verdict = DangerSense.assess(seen);
+				if (verdict.kind() != Danger.Kind.RETREAT || verdict.dx() == 0 && verdict.dz() == 0) {
+					Mc.mc().options.keyUp.setDown(false);
+					Perception.Seen threat = seen.nearestHostile();
+					if (threat == null || threat.dist() >= 12 || threat.dist() > startDist + 3
+							|| threat.type().equals("skeleton") && !Mc.canSee(threat.entity())) done("got away");
+					else fail(Fail.NO_PROGRESS, "no safe retreat step");
+					return;
+				}
+				// Recheck the next block every tick. A long Baritone escape can cross an unseen ledge.
+				Mc.player().setYRot((float) Math.toDegrees(Math.atan2(-verdict.dx(), verdict.dz())));
+				Mc.mc().options.keyUp.setDown(true);
+				if (nearestThreat() >= 12 || nearestThreat() > startDist + 3) done("got away");
+				return;
+			}
 			if (ticks <= 20 || Bari.pathing()) return;
 			// Baritone stopping isn't the same as getting away: with no path it stops where it
 			// stands, and 99 "got away" retreats in batch 11 (seed a) never moved the bot.

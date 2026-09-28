@@ -99,9 +99,9 @@ public final class Bari {
 	}
 
 	/**
-	 * Fair mining for ores only: with legitMine Baritone targets an ore only once it can really
-	 * see it, and branch-mines otherwise. Trees, sand, gravel and stone are visible surface
-	 * features, so for those it may use its normal search of loaded chunks.
+	 * Fair mining: with legitMine Baritone targets a block only once it can really see it, and
+	 * branch-mines otherwise. It's always on now: logs, sand, gravel and seen ores are mined by
+	 * our own SeenMiner / FlintSteps from WorldMemory, so Baritone never searches loaded chunks.
 	 */
 	public static void setLegitMine(boolean on) {
 		BaritoneAPI.getSettings().legitMine.value = on;

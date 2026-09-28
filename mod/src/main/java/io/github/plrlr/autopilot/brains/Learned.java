@@ -22,13 +22,17 @@ import java.util.List;
 import java.util.Map;
 import java.util.Random;
 import java.util.Set;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.TimeUnit;
+import java.util.concurrent.atomic.AtomicInteger;
 
 /**
  * The learned brain: our own model, trained only on this bot's trial runs (scripts/loop/train.py).
- * For each kind of action ("collect:log", "explore:lava", "attack:zombie", ...) a linear model
- * predicts the progress the bot makes in the next two minutes after choosing it in a given state
- * (inventory value, milestones and checkpoints gained, minus deaths). It re-ranks the rules'
- * options by that prediction:
+ * For each kind of action ("collect:log", "explore:lava", "attack:zombie", ...) a model predicts
+ * the progress the bot makes in the next two minutes after choosing it in a given state
+ * (inventory value, milestones and checkpoints gained, minus deaths). Since 2026-09-28 the models
+ * are small boosted trees predicting each action's advantage over the state's baseline (TreeModel);
+ * older files hold one linear formula per action and still load. It re-ranks the rules' options:
  *
  *   score(i) = -i + learned.weight * (Q(option i) - Q(option 0)) / scale
  *
@@ -50,39 +54,88 @@ public final class Learned {
 			"rods", "pearls", "eyes", "gold", "fortress_known", "portal_known", "frame_known", "dragon");
 
 	private final Random rng = new Random();
-	private Map<String, double[]> weights = Map.of();
-	private double scale = 1;
-	private String modelId = "none";
-
-	public String modelId() {
-		return modelId;
+	/** One loaded model, swapped in whole so the game thread never sees half of one. */
+	private record Model(Map<String, double[]> weights, Map<String, TreeModel> trees, double scale, String id, HazardModel hazard) {
+		static final Model NONE = new Model(Map.of(), Map.of(), 1, "none", null);
 	}
 
-	/** Loads mc-autopilot/learned.json (or the test harness's file). Returns a line for the log. */
+	private volatile Model model = Model.NONE;
+	private volatile String loadedLine;
+	private final AtomicInteger loads = new AtomicInteger();
+
+	public String modelId() {
+		return model.id();
+	}
+
+	/**
+	 * Starts loading the model off the game thread: a tree model is hundreds of KB of JSON, too
+	 * much to parse between two frames. The rules play alone until it's in; a load that takes over
+	 * 10 s, or is overtaken by a newer one, is dropped. The result line waits in takeLoadedLine().
+	 */
+	public void loadAsync(Path file) {
+		int n = loads.incrementAndGet();
+		model = Model.NONE;
+		CompletableFuture.supplyAsync(() -> read(file))
+				.orTimeout(10, TimeUnit.SECONDS)
+				.whenComplete((r, err) -> {
+					if (loads.get() != n) return;
+					if (err != null) {
+						loadedLine = "learned model: not loaded (" + err + ")";
+						return;
+					}
+					model = r.model();
+					loadedLine = r.line();
+				});
+	}
+
+	/** The last load's line for the log, once; null while loading. Game thread (the log isn't thread-safe). */
+	public String takeLoadedLine() {
+		String l = loadedLine;
+		loadedLine = null;
+		return l;
+	}
+
+	/** Loads mc-autopilot/learned.json (or the test harness's file) now. Returns a line for the log. */
 	public String load(Path file) {
-		weights = Map.of();
-		modelId = "none";
-		if (file == null || !Files.exists(file)) return "learned model: none";
+		Loaded r = read(file);
+		model = r.model();
+		return r.line();
+	}
+
+	private record Loaded(Model model, String line) {}
+
+	private static Loaded read(Path file) {
+		Model none = Model.NONE;
+		if (file == null || !Files.exists(file)) return new Loaded(none, "learned model: none");
 		try {
 			JsonObject o = JsonParser.parseString(Files.readString(file, StandardCharsets.UTF_8)).getAsJsonObject();
 			JsonArray names = o.getAsJsonArray("features");
-			if (names == null || names.size() != FEATURES.size()) return "learned model: ignored (feature list changed)";
+			if (names == null || names.size() != FEATURES.size()) return new Loaded(none, "learned model: ignored (feature list changed)");
 			for (int i = 0; i < names.size(); i++)
-				if (!names.get(i).getAsString().equals(FEATURES.get(i))) return "learned model: ignored (feature " + i + " differs)";
+				if (!names.get(i).getAsString().equals(FEATURES.get(i)))
+					return new Loaded(none, "learned model: ignored (feature " + i + " differs)");
+			boolean isTrees = o.has("kind") && o.get("kind").getAsString().equals("trees");
 			Map<String, double[]> w = new HashMap<>();
+			Map<String, TreeModel> tm = new HashMap<>();
 			for (Map.Entry<String, JsonElement> e : o.getAsJsonObject("keys").entrySet()) {
+				if (isTrees) {
+					tm.put(e.getKey(), TreeModel.parse(e.getValue().getAsJsonObject(), FEATURES.size()));
+					continue;
+				}
 				JsonArray a = e.getValue().getAsJsonArray();
 				if (a.size() != FEATURES.size() + 1) continue; // bias + one weight per feature
 				double[] v = new double[a.size()];
 				for (int i = 0; i < v.length; i++) v[i] = a.get(i).getAsDouble();
 				w.put(e.getKey(), v);
 			}
-			weights = w;
-			scale = o.has("scale") ? Math.max(1e-6, o.get("scale").getAsDouble()) : 1;
-			modelId = o.has("id") ? o.get("id").getAsString() : "unnamed";
-			return "learned model: " + modelId + " (" + w.size() + " action kinds)";
+			double scale = o.has("scale") ? Math.max(1e-6, o.get("scale").getAsDouble()) : 1;
+			String id = o.has("id") ? o.get("id").getAsString() : "unnamed";
+			HazardModel hz = o.has("hazard") ? new HazardModel(o.getAsJsonObject("hazard"), FEATURES.size()) : null;
+			return new Loaded(new Model(w, tm, scale, id, hz),
+					"learned model: " + id + " (" + (isTrees ? tm.size() + " action kinds, trees" : w.size() + " action kinds")
+							+ (hz == null ? "" : String.format(", danger model AUC %.2f", hz.auc)) + ")");
 		} catch (Exception e) {
-			return "learned model: couldn't read (" + e + ")";
+			return new Loaded(none, "learned model: couldn't read (" + e + ")");
 		}
 	}
 
@@ -126,13 +179,44 @@ public final class Learned {
 		return o.skill() + ":" + a.substring(0, cut);
 	}
 
-	private double q(Option o, double[] x) {
-		double[] w = weights.get(key(o));
-		if (w == null) w = weights.get(o.skill());
+	private static double q(Model m, Option o, double[] x) {
+		if (!m.trees().isEmpty()) {
+			TreeModel t = m.trees().get(key(o));
+			if (t == null) t = m.trees().get(o.skill());
+			return t == null ? Double.NaN : t.predict(x);
+		}
+		double[] w = m.weights().get(key(o));
+		if (w == null) w = m.weights().get(o.skill());
 		if (w == null) return Double.NaN;
 		double v = w[0];
 		for (int i = 0; i < x.length; i++) v += w[i + 1] * x[i];
 		return v;
+	}
+
+	/** An option to take instead of the planned one, and both death risks (for the log). */
+	public record Safer(int index, double riskPlanned, double riskSafer) {}
+
+	/**
+	 * The option clearly less likely to get us killed than options[planned], or null. With gene
+	 * safety.hazard on, the danger model may overrule even emergencies: those are where the bot
+	 * dies (of 1,800 deaths in the first 598 loop games, the last planned choice was retreat 650
+	 * times, attack 433, shelter 248). "Clearly" is the margin gene: a small difference is noise.
+	 */
+	public Safer safer(List<Option> options, int planned, double[] x) {
+		HazardModel hz = model.hazard();
+		if (hz == null || x == null || options.size() < 2 || !Tune.on("safety.hazard")) return null;
+		double r0 = hz.risk(options.get(planned), x);
+		int best = -1;
+		double rb = r0 - Tune.get("safety.hazard_margin");
+		for (int i = 0; i < Math.min(options.size(), 6); i++) {
+			if (i == planned) continue;
+			double r = hz.risk(options.get(i), x);
+			if (r < rb) {
+				rb = r;
+				best = i;
+			}
+		}
+		return best < 0 ? null : new Safer(best, r0, rb);
 	}
 
 	/** The pick, the probability it had, and why (for the log). */
@@ -156,14 +240,15 @@ public final class Learned {
 		}
 		int best = 0;
 		String why = "rules";
-		if (weight > 0 && !weights.isEmpty()) {
-			double q0 = q(options.get(0), x);
+		Model m = model;
+		if (weight > 0 && (!m.weights().isEmpty() || !m.trees().isEmpty())) {
+			double q0 = q(m, options.get(0), x);
 			double bestScore = 0;
 			for (int k = 1; k < n; k++) {
 				int i = cand[k];
-				double qi = q(options.get(i), x);
+				double qi = q(m, options.get(i), x);
 				if (Double.isNaN(q0) || Double.isNaN(qi)) continue;
-				double score = -i + weight * (qi - q0) / scale;
+				double score = -i + weight * (qi - q0) / m.scale();
 				if (score > bestScore) {
 					bestScore = score;
 					best = i;

@@ -23,7 +23,7 @@ final class FlintSteps {
 	private static final int MAX_WATER_ABOVE = 2;
 	private static final int MAX_TRIES = 40;
 
-	private enum Phase { FIND, WALK, DIG, PICKUP, PLACE, BREAK, COLLECT }
+	private enum Phase { FIND, WALK, DIG, PICKUP, PLACE, BREAK, COLLECT, LOOK }
 
 	private final CollectSkill skill;
 	private final WorldMemory memory;
@@ -32,12 +32,19 @@ final class FlintSteps {
 	private BlockPos target;
 	private int wait;
 	private int tries;
+	/** Gravel in the bag while the block is being broken: the drop counts once this goes up. */
+	private int gravelHeld;
 
 	FlintSteps(CollectSkill skill, WorldMemory memory) {
 		this.skill = skill;
 		this.memory = memory;
 		this.before = Mc.count("flint");
 		skill.timeoutTicks = 20 * 240;
+	}
+
+	/** Placing, breaking or picking up next to us: standing still is the job. */
+	boolean inPlace() {
+		return phase == Phase.PLACE || phase == Phase.BREAK || phase == Phase.COLLECT || phase == Phase.DIG;
 	}
 
 	void tick() {
@@ -52,6 +59,7 @@ final class FlintSteps {
 			case DIG, BREAK -> dig();
 			case PICKUP, COLLECT -> pickup();
 			case PLACE -> place();
+			case LOOK -> look();
 		}
 	}
 
@@ -67,11 +75,48 @@ final class FlintSteps {
 		}
 		target = nearestReachableGravel();
 		if (target == null) {
-			skill.fail(Fail.NOT_FOUND, "no gravel seen yet (lake and river beds often have it)");
+			// Water in sight but no gravel: go and look at its bed. Otherwise collect says "no
+			// gravel" and explore says "already see water", back and forth (a test run, 3x each).
+			BlockPos water = nearestUncheckedWater();
+			if (water == null) {
+				skill.fail(Fail.NOT_FOUND, "no gravel seen yet (lake and river beds often have it)");
+				return;
+			}
+			target = water;
+			Bari.path(new GoalNear(water, 2));
+			to(Phase.LOOK);
 			return;
 		}
 		Bari.path(new GoalGetToBlock(target));
 		to(Phase.WALK);
+	}
+
+	private BlockPos nearestUncheckedWater() {
+		BlockPos me = Mc.player().blockPosition();
+		BlockPos best = null;
+		double bestD = 96 * 96;
+		for (WorldMemory.Seen s : memory.all("water")) {
+			if (!s.dim().equals(Mc.dimension()) || SeenMiner.unreachable(s.pos())) continue;
+			double d = s.pos().distSqr(me);
+			if (d < bestD) {
+				bestD = d;
+				best = s.pos();
+			}
+		}
+		return best;
+	}
+
+	/** At the water's edge: a couple of seconds for the scan to see the bed, then set it aside. */
+	private void look() {
+		boolean arrived = wait > 20 && !Bari.pathing();
+		if (!arrived && wait < 20 * 40) return;
+		if (Bari.pathing()) Bari.stop();
+		Mc.lookAt(net.minecraft.world.phys.Vec3.atCenterOf(target.below()));
+		if (wait < (arrived ? 60 : 20 * 40)) return;
+		for (WorldMemory.Seen s : memory.all("water")) {
+			if (s.pos().distSqr(target) < 16 * 16) SeenMiner.setAside(s.pos());
+		}
+		to(Phase.FIND);
 	}
 
 	/** Seen gravel, nearest first, a block of water above counting as 16 blocks of walking. */
@@ -102,6 +147,7 @@ final class FlintSteps {
 		}
 		if (inReach(target)) {
 			Bari.stop();
+			gravelHeld = Mc.count("gravel");
 			to(Phase.DIG);
 			return;
 		}
@@ -129,8 +175,8 @@ final class FlintSteps {
 			return;
 		}
 		Mc.lookAt(Vec3.atCenterOf(target));
+		NightSkills.Shelter.holdBestTool(Mc.state(target));
 		if (wait == 1) {
-			NightSkills.Shelter.holdBestTool(Mc.state(target));
 			Mc.mc().gameMode.startDestroyBlock(target, Direction.UP);
 		} else {
 			Mc.mc().gameMode.continueDestroyBlock(target, Direction.UP);
@@ -140,12 +186,21 @@ final class FlintSteps {
 
 	/** The drop lands where the block was: walk onto it if it didn't come to us. */
 	private void pickup() {
-		if (Mc.count("gravel") > 0) {
+		// Breaking isn't collecting: only the bag counts. (With spare gravel the old check went
+		// straight back to placing and left every drop, flint included, on the ground.)
+		if (Mc.count("gravel") > gravelHeld) {
 			Bari.stop();
 			to(Phase.PLACE);
 			return;
 		}
-		if (wait == 15) Bari.path(new GoalNear(target, 0));
+		var drop = SeenMiner.nearestDrop(target);
+		if (drop != null && wait % 10 == 1) Bari.path(new GoalNear(drop.blockPosition(), 0));
+		if (drop == null && wait > 20 && Mc.count("gravel") > 0) {
+			// Nothing left on the ground (it may have been the flint, which tick() counts).
+			Bari.stop();
+			to(Phase.PLACE);
+			return;
+		}
 		if (wait > 20 * 8) {
 			Bari.stop();
 			if (phase == Phase.COLLECT && tries >= MAX_TRIES) {
@@ -182,6 +237,7 @@ final class FlintSteps {
 		}
 		if (Mc.id(Mc.state(target).getBlock()).equals("gravel")) {
 			tries++;
+			gravelHeld = Mc.count("gravel");
 			to(Phase.BREAK);
 		} else if (wait > 20) {
 			to(Phase.PLACE);

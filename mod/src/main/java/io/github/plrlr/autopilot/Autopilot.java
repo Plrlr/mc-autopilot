@@ -3,18 +3,13 @@ package io.github.plrlr.autopilot;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.mojang.blaze3d.platform.InputConstants;
-import io.github.plrlr.autopilot.brains.Backends;
-import io.github.plrlr.autopilot.brains.ClaudeCli;
-import io.github.plrlr.autopilot.brains.Decision;
+import io.github.plrlr.autopilot.brains.Brain;
 import io.github.plrlr.autopilot.brains.Learned;
-import io.github.plrlr.autopilot.brains.LlmBackend;
-import io.github.plrlr.autopilot.brains.RateLimiter;
-import io.github.plrlr.autopilot.brains.Strategist;
-import io.github.plrlr.autopilot.brains.Tactician;
 import io.github.plrlr.autopilot.log.Checkpoints;
 import io.github.plrlr.autopilot.log.Lessons;
 import io.github.plrlr.autopilot.log.RunLog;
 import io.github.plrlr.autopilot.plan.Goal;
+import io.github.plrlr.autopilot.plan.GoalLadder;
 import io.github.plrlr.autopilot.plan.Option;
 import io.github.plrlr.autopilot.plan.Planner;
 import io.github.plrlr.autopilot.skills.Bari;
@@ -23,7 +18,8 @@ import io.github.plrlr.autopilot.skills.PortalSkills;
 import io.github.plrlr.autopilot.skills.Skill;
 import io.github.plrlr.autopilot.skills.Skills;
 import io.github.plrlr.autopilot.state.Perception;
-import io.github.plrlr.autopilot.state.StateBuilder;
+import io.github.plrlr.autopilot.state.Danger;
+import io.github.plrlr.autopilot.state.DangerSense;
 import io.github.plrlr.autopilot.state.WorldMemory;
 import net.fabricmc.fabric.api.client.keymapping.v1.KeyMappingHelper;
 import net.minecraft.client.KeyMapping;
@@ -38,29 +34,26 @@ import java.util.ArrayList;
 import java.util.Deque;
 import java.util.EnumSet;
 import java.util.HashMap;
-import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
 /**
  * The autopilot's main loop, run once per client tick (20/s) on the game thread.
- * Reflexes react instantly in code; the tactician is asked only on events (skill ended, mob
- * close, hurt, goal changed, stuck, heartbeat); the strategist only on bigger events.
- * AI calls run in the background; the loop just checks whether an answer has arrived.
+ * Reflexes react instantly in code. The brain (rules, re-ranked by the learned model) picks the
+ * next skill on events: a skill ended, a mob came close, we got hurt, the goal changed, stuck, or
+ * a heartbeat. The goal is the lowest unfinished rung of the ladder.
  */
 public final class Autopilot {
-	public final Config config;
 	public final RunLog log;
 	/** What worked and what kept failing, across all runs (lessons.json). */
 	public final Lessons lessons;
 	public final WorldMemory memory = new WorldMemory();
 	public final Planner planner = new Planner(memory);
 	public final Progress progress;
-	public final Tactician tactician;
-	public final Strategist strategist;
+	public final Learned learned = new Learned();
+	public final Brain brain = new Brain(learned);
 
 	private boolean enabled;
 	private long tick;
@@ -68,33 +61,21 @@ public final class Autopilot {
 	private String worldName;
 	private Boolean savedPauseOnLostFocus;
 
-	// Goal (strategist)
+	// Goal
 	private Goal goal;
-	private String goalReason = "";
-	private List<String> goalSteps = List.of();
-	private String goalBrain = "";
-	private CompletableFuture<Strategist.Plan> pendingPlan;
-	private long lastPlanTick = -1_000_000;
 	private long goalSetTick;
 	private String lastDim = "";
 
-	// Skill and tactician
+	// Skill and decisions
 	private Skill skill;
 	private Option skillOption;
 	private long skillStartTick;
 	private boolean skillIsReflex;
-	private CompletableFuture<Decision> pendingDecision;
-	private List<Option> pendingOptions;
-	private String pendingTrigger;
-	/** The state features and the learned brain's pick for the pending decision (logged for training). */
-	private double[] pendingX;
-	private Learned.Pick pendingPick;
-	public final Learned learned = new Learned();
 	private long lastDecisionTick;
 	private float healthAtDecision = 20;
 	private boolean hostileWasNear;
-	private int consecutiveFails;
 	private long reflexCooldownUntil;
+	private long dangerReflexUntil;
 	private long lavaMarginTick = -1000;
 	private final Map<String, long[]> failures = new HashMap<>(); // label -> {count, blockedUntilTick}
 	private String lastEndedKey = "";
@@ -124,27 +105,11 @@ public final class Autopilot {
 	/** The mod's folder in the Minecraft directory (logs, lessons, params.json, the learned model). */
 	private final Path home;
 
-	public Autopilot(Config config, Path gameDir) {
-		this.config = config;
+	public Autopilot(Path gameDir) {
 		this.home = gameDir.resolve("mc-autopilot");
 		this.log = new RunLog(home.resolve("logs"));
 		this.lessons = new Lessons(home.resolve("lessons.json"));
 		this.progress = new Progress(home);
-		Path usage = home.resolve("logs");
-		ClaudeCli cli = new ClaudeCli(config.str("CLAUDE_CMD"), config.str("OPUS_MODEL"), config.integer("OPUS_TIMEOUT_S", 90), home.resolve("claude-cwd"));
-		Map<String, LlmBackend> backends = new LinkedHashMap<>();
-		backends.put("opus", new Backends.Opus(cli, new RateLimiter("opus_tactician", 0, 0, 0, config.integer("OPUS_TACTICIAN_MAX_CALLS_PER_HOUR", 120), usage)));
-		backends.put("groq", new Backends.OpenAiCompat("groq", "https://api.groq.com/openai/v1/chat/completions", "GROQ_API_KEY",
-				config.str("GROQ_API_KEY"), config.str("GROQ_MODEL"),
-				new RateLimiter("groq", config.integer("GROQ_MAX_RPM", 30), config.integer("GROQ_MAX_TPM", 8000), config.integer("GROQ_MAX_PER_DAY", 1000), 0, usage)));
-		backends.put("cerebras", new Backends.OpenAiCompat("cerebras", "https://api.cerebras.ai/v1/chat/completions", "CEREBRAS_API_KEY",
-				config.str("CEREBRAS_API_KEY"), config.str("CEREBRAS_MODEL"),
-				new RateLimiter("cerebras", config.integer("CEREBRAS_MAX_RPM", 5), config.integer("CEREBRAS_MAX_TPM", 30000), config.integer("CEREBRAS_MAX_PER_DAY", 2000), 0, usage)));
-		backends.put("gemini", new Backends.Gemini(config.str("GEMINI_API_KEY"), config.str("GEMINI_MODEL"),
-				new RateLimiter("gemini", config.integer("GEMINI_MAX_RPM", 5), config.integer("GEMINI_MAX_TPM", 100000), config.integer("GEMINI_MAX_PER_DAY", 900), 0, usage)));
-		this.tactician = new Tactician(backends, config.str("TACTICIAN").toLowerCase());
-		this.strategist = new Strategist(cli, new RateLimiter("opus_strategist", 0, 0, 0, config.integer("OPUS_MAX_CALLS_PER_HOUR", 10), usage),
-				config.bool("OPUS_STRATEGIST", true));
 	}
 
 	// ------------------------------------------------------------------ on / off
@@ -174,30 +139,25 @@ public final class Autopilot {
 		String params = System.getProperty("autopilot.params", "");
 		String paramsLine = Tune.load(params.isBlank() ? home.resolve("params.json") : Path.of(params));
 		String model = System.getProperty("autopilot.learned", "");
-		String learnedLine = learned.load(model.isBlank() ? home.resolve("learned.json") : Path.of(model));
+		learned.loadAsync(model.isBlank() ? home.resolve("learned.json") : Path.of(model));
 		Bari.applyFairPlay();
 		savedPauseOnLostFocus = mc.options.pauseOnLostFocus;
 		// Alt-tabbing would pause the world and freeze the AI mid-fight.
 		mc.options.pauseOnLostFocus = false;
 		goal = null;
-		consecutiveFails = 0;
 		failures.clear();
 		lastPos = null;
 		status = "starting";
-		Mc.say("ON. Actions: " + brainLabel() + (strategist.opusEnabled() ? ", goals by Opus" : ", goals by rules")
-				+ ". Any movement key takes control back; K opens the panel.");
-		log.event("autopilot_on", "tactician=" + tactician.selected() + " strategist_opus=" + strategist.opusEnabled());
+		Mc.say("ON (" + brain.label() + "). Any movement key takes control back; K opens the panel.");
+		log.event("autopilot_on", "brain=" + brain.label());
 		log.event("params", paramsLine + " changed=" + Tune.changed());
-		log.event("learned", learnedLine);
-		requestPlan("start", true);
+		chooseGoal("start");
 	}
 
 	public void disable(String why) {
 		if (!enabled) return;
 		enabled = false;
 		abortSkill(why, false);
-		pendingDecision = null;
-		pendingPlan = null;
 		Bari.stop();
 		Bari.restoreUserSettings();
 		Skill.releaseKeys();
@@ -247,6 +207,8 @@ public final class Autopilot {
 		}
 		checkWorld(mc);
 		if (!enabled) return;
+		String learnedLine = learned.takeLoadedLine();
+		if (learnedLine != null) log.event("learned", learnedLine);
 		LocalPlayer pl = mc.player;
 		// Death first: the death screen must never block the respawn.
 		if (handleDeath(pl)) return;
@@ -277,7 +239,7 @@ public final class Autopilot {
 			}
 		}
 
-		checkStrategy();
+		checkGoal();
 		cave();
 		reflexes(pl);
 		guard(pl);
@@ -288,9 +250,8 @@ public final class Autopilot {
 			if (skill.result() != null) onSkillEnd(true);
 		}
 		trackStuck(pl);
-		collectDecision();
 		triggers(pl);
-		status = skill != null ? skillOption.label() : pendingDecision != null ? "thinking (" + tactician.effective() + ")" : "idle";
+		status = skill != null ? skillOption.label() : "idle";
 	}
 
 	private void checkWorld(Minecraft mc) {
@@ -314,7 +275,6 @@ public final class Autopilot {
 				boolean onTheWayBack = skill != null && skill.name().equals("goto") && skillOption != null
 						&& "death".equals(skillOption.arg());
 				abortSkill("died", false);
-				pendingDecision = null;
 				Bari.stop();
 				progress.died();
 				String cause = pl.getLastDamageSource() == null ? "unknown" : pl.getLastDamageSource().type().msgId();
@@ -335,7 +295,7 @@ public final class Autopilot {
 		}
 		if (deathTick >= 0) {
 			deathTick = -1;
-			requestPlan("respawned", true);
+			chooseGoal("respawned");
 		}
 		return false;
 	}
@@ -362,97 +322,39 @@ public final class Autopilot {
 	private boolean goalFinished(Goal g) {
 		// Rungs below the furthest one reached are behind us: what they gave was used to get further.
 		if (g.milestone > 0 && (g.milestone < progress.furthest() || g.sticky() && g.milestone <= progress.furthest())) return true;
-		// Opus may send us exploring; two minutes of it is enough before looking again.
+		// A forced explore goal (chat !goal explore) lasts two minutes.
 		if (g == Goal.EXPLORE) return g == goal && tick - goalSetTick > 20 * 120;
 		return planner.goalDone(g);
 	}
 
-	/** One line for Opus about what the code sees: the next step and what keeps failing. */
-	private String situation() {
-		StringBuilder sb = new StringBuilder();
-		sb.append("furthest milestone ").append(progress.furthest()).append("/13");
-		if (goal != null) {
-			Option main = planner.mainStep(goal, seen);
-			if (main != null) sb.append("; next step for ").append(goal.key()).append(": ").append(main.label());
-		}
-		List<String> blocked = new ArrayList<>();
-		for (var e : failures.entrySet()) if (tick < e.getValue()[1]) blocked.add(e.getKey());
-		if (!blocked.isEmpty()) sb.append("; keeps failing (paused): ").append(String.join(", ", blocked));
-		if (consecutiveFails > 0) sb.append("; failures in a row: ").append(consecutiveFails);
-		return sb.toString();
+	/** The goal: the lowest unfinished rung. Logged so a run's goal changes can be read back. */
+	private void chooseGoal(String trigger) {
+		setGoal(GoalLadder.next(doneGoals()::contains), trigger);
 	}
 
-	private void requestPlan(String trigger, boolean force) {
-		if (pendingPlan != null) return;
-		if (!force && tick - lastPlanTick < 20 * 60) return;
-		lastPlanTick = tick;
-		Set<Goal> done = doneGoals();
-		if (goal == null || done.contains(goal)) {
-			// Don't stand around while Opus thinks: start on the rules' pick right away.
-			setGoal(Strategist.rules(done::contains, null), "interim");
-		}
-		JsonObject state = buildState();
-		String t = trigger;
-		pendingPlan = strategist.plan(state, goal, done::contains, List.copyOf(recent), situation())
-				.exceptionally(e -> {
-					// Never let a background failure reach the tick loop; fall back to the rules.
-					AutopilotMod.LOGGER.warn("Strategist failed ({})", t, e);
-					return Strategist.rules(done::contains, "error: " + e.getClass().getSimpleName());
-				});
-		log.event("strategist_request", trigger);
-	}
-
-	private void checkStrategy() {
-		if (pendingPlan != null && pendingPlan.isDone()) {
-			Strategist.Plan p = pendingPlan.getNow(null);
-			pendingPlan = null;
-			if (p != null) {
-				JsonObject o = new JsonObject();
-				o.addProperty("layer", "strategist");
-				o.addProperty("brain", p.brain());
-				o.addProperty("choice", p.goal().key());
-				o.addProperty("reason", p.reason());
-				o.addProperty("valid", p.valid());
-				o.addProperty("latency_ms", p.ms());
-				o.addProperty("tokens_in", p.tokensIn());
-				o.addProperty("tokens_out", p.tokensOut());
-				if (p.note() != null) o.addProperty("note", p.note());
-				log.write(o);
-				if (p.note() != null && p.brain().equals("mock") && strategist.opusEnabled()) notices.add("Goals by rules for now: " + p.note());
-				setGoal(p, p.brain());
-			}
-		}
+	private void checkGoal() {
 		if (tick % 20 != 0) return;
 		String dim = Mc.dimension();
 		if (!dim.equals(lastDim)) {
 			boolean first = lastDim.isEmpty();
 			lastDim = dim;
-			if (!first) requestPlan("dimension_change", true);
+			if (!first) chooseGoal("dimension_change");
 		}
-		if (goal != null && goalFinished(goal)) {
-			// Ask Opus at most once a minute; in between, the rules pick the next rung.
-			if (tick - lastPlanTick >= 20 * 60) requestPlan("goal_done", true);
-			else if (pendingPlan == null) setGoal(Strategist.rules(doneGoals()::contains, null), "interim");
-		}
-		else if (consecutiveFails >= 3) {
-			consecutiveFails = 0;
-			requestPlan("failing", false);
-		// Every 10 minutes at most: with the default cap of 10 Opus calls an hour, event calls
-		// (goal done, failing, death) need most of the budget.
-		} else if (tick - lastPlanTick > 20 * 600) requestPlan("periodic", false);
+		if (goal != null && goalFinished(goal)) chooseGoal("goal_done");
 	}
 
-	private void setGoal(Strategist.Plan p, String by) {
-		boolean changed = p.goal() != goal;
-		goal = p.goal();
-		goalReason = p.reason();
-		goalSteps = p.steps();
-		goalBrain = by;
-		if (changed) {
-			goalSetTick = tick;
-			if (!"interim".equals(by)) Mc.say("Goal: " + goal.description + (goalReason.isEmpty() ? "" : " (" + goalReason + ")"));
-			if (skill != null && skill.interruptible()) requestDecision("goal_changed");
-		}
+	private void setGoal(Goal g, String trigger) {
+		if (g == goal) return;
+		goal = g;
+		goalSetTick = tick;
+		JsonObject o = new JsonObject();
+		o.addProperty("layer", "strategist");
+		o.addProperty("brain", "rules");
+		o.addProperty("choice", g.key());
+		o.addProperty("reason", trigger);
+		log.write(o);
+		Mc.say("Goal: " + g.description);
+		if (skill != null && skill.interruptible()) requestDecision("goal_changed");
 	}
 
 	// ------------------------------------------------------------------ reflexes
@@ -469,6 +371,26 @@ public final class Autopilot {
 				return;
 			}
 		}
+		Danger.Verdict danger = Tune.on("survival.danger_v2") ? DangerSense.assess(seen) : null;
+		boolean lavaWork = skill != null && java.util.Set.of("build_portal", "fill_bucket", "make_obsidian", "clutch").contains(skill.name());
+		if (danger != null && pl.isOnFire() && !lavaWork && !Mc.dimension().equals("the_nether")
+				&& Mc.count("water_bucket") > 0 && Mc.holdItem(s -> Items2.id(s).equals("water_bucket"))) {
+			abortSkill("put out fire", false);
+			Mc.useOn(pl.blockPosition().below(), net.minecraft.core.Direction.UP);
+		}
+		if (danger != null && pl.isOnFire() && skill != null && skill.name().equals("collect"))
+			abortSkill("burning while mining", false);
+		if (danger != null && danger.kind() == Danger.Kind.AVOID_HAZARD && !pl.isInLava()
+				&& (!lavaWork || pl.isOnFire())) {
+			// Fire underfoot must interrupt mining immediately; water is the fastest extinguish.
+			if (danger.dx() != 0 || danger.dz() != 0) {
+				abortSkill("move off fire or lava", false);
+				pl.setYRot((float) Math.toDegrees(Math.atan2(-danger.dx(), danger.dz())));
+				Mc.mc().options.keyUp.setDown(true);
+				lavaKeysUntil = tick + 4;
+			} else abortSkill("unsafe footing", false);
+			return;
+		}
 		if (tick < reflexCooldownUntil) return;
 		// hiding: sealed in and healing (review R1) - the only time reflexes stand down, except the
 		// creeper reflex, which always runs (its blast breaks the wall either way).
@@ -477,7 +399,7 @@ public final class Autopilot {
 		// the escape would only restart the wall, so fight instead.
 		boolean walling = !hiding && skill != null && skill.name().equals("shelter") && skillOption != null && "heal".equals(skillOption.arg());
 		// Recheck combat with the gene: a pursuer can catch up and a creeper can approach mid-fight.
-		boolean reconsiderCombat = Tune.on("combat.no_close_retreat") && skill != null
+		boolean reconsiderCombat = (Tune.on("combat.no_close_retreat") || Tune.on("survival.danger_v2")) && skill != null
 				&& (skill.name().equals("retreat") || skill.name().equals("attack"));
 		if (skill != null && skillIsReflex && !hiding && !reconsiderCombat) return;
 		if (pl.isInLava()) {
@@ -542,13 +464,28 @@ public final class Autopilot {
 		// Walled in on every side and healing: a monster beyond the blocks is no reason to break out.
 		// With a gap left (a mob standing in it) the reflexes still act; a creeper's blast breaks
 		// the wall either way (review R1: hiding used to turn off every reflex).
-		if (h != null && !h.type().equals("enderman")) {
+		if (danger != null && !fortressFight && danger.kind() != Danger.Kind.NONE) {
+			Option action = Planner.dangerOption(danger, "visible danger");
+			boolean blastThreat = Planner.escapeCreeper(seen) != null;
+			boolean urgentSwitch = danger.kind() == Danger.Kind.AVOID_HAZARD
+					|| blastThreat && danger.kind() == Danger.Kind.RETREAT;
+			if (action != null && (!hiding || blastThreat) && (!walling || blastThreat)
+					&& (!skillIsReflex || tick >= dangerReflexUntil || urgentSwitch)
+					&& (skillOption == null || !action.label().equals(skillOption.label()))) {
+				startReflex(action, "reflex_danger");
+				return;
+			}
+		}
+		if (danger == null && h != null && !h.type().equals("enderman")) {
 			// A creeper blows the wall open: that reflex stays on even while hiding.
 			// From 7 blocks, not 5: a creeper's fuse is 1.5 s, and 4 of batch 10's 25 deaths were
 			// blasts that caught the bot already running from 5.
 			if (h.type().equals("creeper") && h.dist() < Tune.get("reflex.creeper_dist")) {
-				if (!reconsiderCombat || !skill.name().equals("retreat"))
-					startReflex(new Option("retreat", null, "creeper close"), "reflex_creeper");
+				Option response = io.github.plrlr.autopilot.skills.CombatSkills.canHitCreeper(h)
+						? new Option("attack", "creeper", "hit and back off")
+						: new Option("retreat", null, "creeper close");
+				if (!reconsiderCombat || skillOption == null || !response.label().equals(skillOption.label()))
+					startReflex(response, "reflex_creeper");
 				return;
 			}
 			if (!hiding && (h.dist() < Tune.get("reflex.melee_dist") || Tune.on("combat.no_close_retreat") && h.dist() <= 4)) {
@@ -557,12 +494,21 @@ public final class Autopilot {
 				// walling in either, which would only restart the wall. Health 8 is the planner's line
 				// too: with 6 here, health 7-8 flipped between fighting and fleeing on every decision.
 				if (hp <= Tune.i("combat.flee_hp") && !walling && seen.hostilesWithin(6) >= Tune.i("combat.outnumbered")) {
-					Option escape = Planner.escape(seen, "low health");
+					List<Option> choices = Planner.escapeChoices(seen, Planner.escape(seen, "low health"));
+					double[] x = Tune.on("safety.hazard") ? features() : null;
+					Brain.Choice c = brain.decideReflex(choices, x);
 					// Keep swinging at the same target instead of resetting the attack every reflex.
 					if (!Tune.on("combat.no_close_retreat") || skill == null || skillOption == null
-							|| !escape.label().equals(skillOption.label())) startReflex(escape, "reflex_low_hp");
+							|| !c.option().label().equals(skillOption.label())) startReflex(choices, c, x, "reflex_low_hp");
 				}
-				else if (skill == null || !skill.name().equals("attack")) startReflex(new Option("attack", h.type(), "it's attacking"), "reflex_fight");
+				else {
+					List<Option> choices = Planner.escapeChoices(seen, new Option("attack", h.type(), "it's attacking"));
+					double[] x = Tune.on("safety.hazard") ? features() : null;
+					Brain.Choice c = brain.decideReflex(choices, x);
+					boolean already = skill != null && (c.option().skill().equals("attack") ? skill.name().equals("attack")
+							: skillOption != null && c.option().label().equals(skillOption.label()));
+					if (!already) startReflex(choices, c, x, "reflex_fight");
+				}
 				return;
 			}
 		}
@@ -664,9 +610,24 @@ public final class Autopilot {
 	}
 
 	private void startReflex(Option o, String trigger) {
+		startReflex(List.of(o), new Brain.Choice(o, 0, 1, "rules", o.why()), null, trigger);
+	}
+
+	/**
+	 * Reflexes are logged like decisions (layer "reflex"): most fights and escapes start here, and
+	 * the danger model can only learn which of them get the bot killed if it sees them.
+	 */
+	private void startReflex(List<Option> choices, Brain.Choice c, double[] x, String trigger) {
+		logDecision("reflex", trigger, choices, x == null ? features() : x, c, choices);
 		abortSkill("interrupted by " + trigger, false);
-		startSkill(o, trigger, true);
+		startSkill(c.option(), trigger, true);
+		// The normal reflex cooldown is two seconds; one more second avoids toggling at its edge.
+		dangerReflexUntil = trigger.equals("reflex_danger") ? tick + 60 : 0;
 		reflexCooldownUntil = tick + 40;
+	}
+
+	private double[] features() {
+		return Learned.features(memory, seen, progress.deaths(), progress.furthest(), goal);
 	}
 
 	// ------------------------------------------------------------------ skills
@@ -724,7 +685,6 @@ public final class Autopilot {
 		int pauseAfter = lessons.failRate(actionKey(skillOption)) >= 0.7 ? 2 : 3;
 		if (r.ok() && !instantRepeat) {
 			lastGainTick = tick;
-			consecutiveFails = 0;
 			failures.remove(actionKey(skillOption));
 		} else if (instantRepeat) {
 			long[] f = failures.computeIfAbsent(actionKey(skillOption), k -> new long[2]);
@@ -733,7 +693,6 @@ public final class Autopilot {
 				f[1] = tick + 20 * 60;
 			}
 		} else if (r.code() != Fail.INTERRUPTED && r.code() != Fail.DIED) {
-			consecutiveFails++;
 			long[] f = failures.computeIfAbsent(actionKey(skillOption), k -> new long[2]);
 			// Three failures in a row: hide this option for a minute so we don't loop on it.
 			if (++f[0] >= pauseAfter) {
@@ -762,7 +721,7 @@ public final class Autopilot {
 	/** Where the bot was, once a second, while a moving skill ran (the stuck box check). */
 	private final Deque<Vec3> recentPos = new ArrayDeque<>();
 	/** Skills that are supposed to move the bot. Crafting, smelting, eating, hiding or fighting in place are not stuck. */
-	private static final java.util.Set<String> MOVING = java.util.Set.of("collect", "explore", "goto", "retreat", "pickup",
+	private static final java.util.Set<String> MOVING = java.util.Set.of("collect", "explore", "shore", "goto", "retreat", "pickup",
 			"fill_bucket", "locate_stronghold");
 
 	/**
@@ -779,7 +738,7 @@ public final class Autopilot {
 			lastPos = p;
 			lastMoveTick = tick;
 		}
-		if (skill == null || skillIsReflex || !MOVING.contains(skill.name()) || Mc.mc().gameMode.isDestroying()) {
+		if (skill == null || skillIsReflex || !MOVING.contains(skill.name()) || Mc.mc().gameMode.isDestroying() || skill.workingInPlace()) {
 			recentPos.clear();
 			return;
 		}
@@ -802,7 +761,6 @@ public final class Autopilot {
 		abortSkill("stuck: stayed inside " + box + " blocks for " + window + " s", false);
 		startSkill(new Option("unstuck", null, "not moving while " + what), "reflex_stuck", true);
 		reflexCooldownUntil = tick + 40;
-		if (consecutiveFails >= 2) requestPlan("stuck", false);
 	}
 
 	// ------------------------------------------------------------------ tactician
@@ -824,16 +782,17 @@ public final class Autopilot {
 				&& skillOption.arg().startsWith("blazes")) return;
 		if (newHostile && !skill.name().equals("attack")) requestDecision("mob_near");
 		else if (pl.getHealth() < healthAtDecision - 3) requestDecision("hurt");
+		else if (Tune.on("food.keep_full") && !hostileNear && skill.interruptible() && !skill.name().equals("eat")
+				&& tick - lastDecisionTick > 5 * 20 && pl.getFoodData().getFoodLevel() < 18 && Planner.wantsToEat())
+			requestDecision("hunger below regeneration");
 		else if (skill.interruptible()) {
-			String b = tactician.effective();
-			long heartbeat = b.equals("opus") ? 20 * 60 : b.equals("mock") ? 20 * 20 : 20 * 30;
-			if (tick - lastDecisionTick > heartbeat) requestDecision("heartbeat");
+			if (tick - lastDecisionTick > 20 * 20) requestDecision("heartbeat");
 		}
 	}
 
 	private void requestDecision(String trigger) {
 		if (testTask != null) return;
-		if (pendingDecision != null || !enabled || goal == null) return;
+		if (!enabled || goal == null) return;
 		if (Mc.player() == null || Mc.player().isDeadOrDying()) return;
 		List<Option> options = new ArrayList<>();
 		for (Option o : planner.options(goal, seen)) {
@@ -860,88 +819,46 @@ public final class Autopilot {
 			lastDecisionTick = tick;
 			return;
 		}
-		JsonObject state = buildState();
-		pendingOptions = options;
-		pendingTrigger = trigger;
 		lastDecisionTick = tick;
 		healthAtDecision = Mc.player().getHealth();
-		pendingX = Learned.features(memory, seen, progress.deaths(), progress.furthest(), goal);
-		pendingPick = null;
-		// With the rules deciding, the learned brain may re-rank the options (weight and exploration
-		// 0 give exactly the rules' choice). An LLM brain, when one is picked, decides as before.
-		boolean learnedActive = Tune.get("learned.weight") > 0 || Tune.get("learned.explore") > 0;
-		if (learnedActive && tactician.effective().equals("mock")) {
-			Learned.Pick p = learned.choose(options, pendingX, planner.lastUrgent);
-			pendingPick = p;
-			Option c = options.get(p.index());
-			pendingDecision = java.util.concurrent.CompletableFuture.completedFuture(p.index() == 0 && p.why().equals("rules")
-					? Decision.mock(c, "rules", true) : new Decision(c, p.why(), "learned", true, 0, 0, 0, learned.modelId()));
-			return;
+		double[] x = features();
+		Brain.Choice c = brain.decide(options, x, planner.lastUrgent);
+		List<Option> urgent = options.stream().filter(op -> planner.lastUrgent.contains(op.label())).toList();
+		logDecision("tactician", trigger, options, x, c, urgent);
+		decisions.addLast(c.by() + ": " + c.option().label() + (c.why() == null || c.why().isEmpty() ? "" : " - " + c.why()));
+		while (decisions.size() > 8) decisions.removeFirst();
+		if (skill != null) {
+			if (skillIsReflex || sameAction(c.option(), skillOption)) return; // keep going
+			abortSkill("interrupted: brain chose " + c.option().label(), false);
 		}
-		pendingDecision = tactician.decide(state, goal, goalSteps, List.copyOf(recent), options, notices::add)
-				.exceptionally(e -> {
-					AutopilotMod.LOGGER.warn("Tactician failed", e);
-					return Decision.mock(options.get(0), "error: " + e.getClass().getSimpleName(), false);
-				});
+		startSkill(c.option(), trigger, false);
 	}
 
-	private void collectDecision() {
-		if (pendingDecision == null || !pendingDecision.isDone()) return;
-		Decision d = pendingDecision.getNow(null);
-		pendingDecision = null;
-		if (d == null) return;
+	/**
+	 * One line per decision. The loop's trainer reads layer "tactician" and "reflex" rows: the game
+	 * second, the state features, which option was taken and how likely it was, and the emergencies.
+	 */
+	private void logDecision(String layer, String trigger, List<Option> options, double[] x, Brain.Choice c, List<Option> urgent) {
 		JsonObject o = new JsonObject();
-		o.addProperty("layer", "tactician");
-		o.addProperty("gs", (tick - enableTick) / 20); // game seconds, for the trainer's time horizon
-		o.addProperty("brain", d.brain());
-		o.addProperty("selected", tactician.selected());
-		o.addProperty("trigger", pendingTrigger);
+		o.addProperty("layer", layer);
+		o.addProperty("gs", (tick - enableTick) / 20);
+		o.addProperty("brain", c.by());
+		o.addProperty("trigger", trigger);
 		o.addProperty("goal", goal == null ? "" : goal.key());
 		JsonArray opts = new JsonArray();
-		pendingOptions.forEach(op -> opts.add(op.label()));
+		options.forEach(op -> opts.add(op.label()));
 		o.add("options", opts);
-		o.addProperty("choice", d.choice().label());
-		o.addProperty("valid", d.valid());
-		o.addProperty("latency_ms", d.latencyMs());
-		o.addProperty("tokens_in", d.tokensIn());
-		o.addProperty("tokens_out", d.tokensOut());
-		if (d.note() != null) o.addProperty("note", d.note());
-		// Training data for the learned brain: the state, which option was taken, and how likely it was.
-		if (pendingX != null) {
-			JsonArray x = new JsonArray();
-			for (double v : pendingX) x.add(Math.round(v * 1000) / 1000.0);
-			o.add("x", x);
-			o.addProperty("idx", pendingOptions.indexOf(d.choice()));
-			o.addProperty("prop", pendingPick == null ? 1 : Math.round(pendingPick.propensity() * 1000) / 1000.0);
-			JsonArray urg = new JsonArray();
-			for (Option op : pendingOptions) if (planner.lastUrgent.contains(op.label())) urg.add(op.label());
-			if (!urg.isEmpty()) o.add("urgent", urg);
-		}
+		o.addProperty("choice", c.option().label());
+		if (!c.by().equals("rules")) o.addProperty("why", c.why());
+		JsonArray xs = new JsonArray();
+		for (double v : x) xs.add(Math.round(v * 1000) / 1000.0);
+		o.add("x", xs);
+		o.addProperty("idx", c.index());
+		o.addProperty("prop", Math.round(c.propensity() * 1000) / 1000.0);
+		JsonArray urg = new JsonArray();
+		for (Option op : urgent) urg.add(op.label());
+		if (!urg.isEmpty()) o.add("urgent", urg);
 		log.write(o);
-
-		decisions.addLast(d.brain() + ": " + d.choice().label() + (d.why() == null || d.why().isEmpty() ? "" : " - " + d.why()));
-		while (decisions.size() > 8) decisions.removeFirst();
-
-		if (skill != null) {
-			if (skillIsReflex || sameAction(d.choice(), skillOption)) return; // keep going
-			abortSkill("interrupted: brain chose " + d.choice().label(), false);
-		}
-		startSkill(d.choice(), pendingTrigger == null ? "decision" : pendingTrigger, false);
-	}
-
-	private JsonObject buildState() {
-		boolean stuck = skill != null && Bari.pathing() && tick - lastMoveTick > 20L * Tune.i("loop.stuck_s");
-		JsonObject state = StateBuilder.build(memory, seen, goal == null ? "none" : goal.key(), recent.isEmpty() ? null : recent.peekLast(),
-				!recent.isEmpty() && recent.peekLast().contains("-> ok"), recent.isEmpty() ? "" : recent.peekLast(), stuck,
-				progress.deaths(), progress.furthest());
-		// Past runs' lessons, so the brains avoid what usually fails.
-		List<String> worst = lessons.worst(3);
-		if (!worst.isEmpty()) {
-			JsonArray l = new JsonArray();
-			worst.forEach(l::add);
-			state.add("often_fails", l);
-		}
-		return state;
 	}
 
 	// ------------------------------------------------------------------ for the UI and chat
@@ -952,18 +869,6 @@ public final class Autopilot {
 
 	public Goal goal() {
 		return goal;
-	}
-
-	public String goalReason() {
-		return goalReason;
-	}
-
-	public String goalBrain() {
-		return goalBrain;
-	}
-
-	public List<String> goalSteps() {
-		return goalSteps;
 	}
 
 	public List<String> recentDecisions() {
@@ -1015,22 +920,9 @@ public final class Autopilot {
 		return List.copyOf(recent);
 	}
 
-	public int opusCallsThisHour() {
-		RateLimiter t = ((Backends.Opus) tactician.backend("opus")).limiter();
-		return t.callsThisHour() + strategist.limiter().callsThisHour();
-	}
-
-	public int opusCapPerHour() {
-		RateLimiter t = ((Backends.Opus) tactician.backend("opus")).limiter();
-		return t.perHour() + strategist.limiter().perHour();
-	}
-
 	/** Force a goal from chat (!goal name). */
 	public void forceGoal(Goal g) {
-		// Drop a goal decision still on its way; it would overwrite this one a tick later.
-		pendingPlan = null;
-		setGoal(new Strategist.Plan(g, "set by you", List.of(), "user", true, 0, 0, 0, null), "user");
-		lastPlanTick = tick;
+		setGoal(g, "user");
 	}
 
 	/**
@@ -1048,19 +940,8 @@ public final class Autopilot {
 		return testTaskResult;
 	}
 
-	public void askOpusNow() {
-		requestPlan("user_asked", true);
-	}
-
-	/** "auto (groq)" when auto picked a free brain, else the selected name. */
-	public String brainLabel() {
-		String sel = tactician.selected(), eff = tactician.effective();
-		return sel.equals(eff) ? sel : sel + " (" + eff + ")";
-	}
-
 	public String statusLine() {
-		return "actions " + brainLabel() + ", goal " + (goal == null ? "none" : goal.key()) + ", doing " + status
-				+ ", milestone " + progress.furthest() + "/13, deaths " + progress.deaths()
-				+ ", Opus calls this hour " + opusCallsThisHour() + "/" + opusCapPerHour();
+		return "brain " + brain.label() + ", goal " + (goal == null ? "none" : goal.key()) + ", doing " + status
+				+ ", milestone " + progress.furthest() + "/13, deaths " + progress.deaths();
 	}
 }

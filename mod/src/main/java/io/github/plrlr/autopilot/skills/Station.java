@@ -39,7 +39,7 @@ public final class Station {
 		return out;
 	}
 
-	private enum Phase {FIND, WALK, PLACE, RELOCATE, OPEN, WAIT_OPEN}
+	private enum Phase {FIND, WALK, PLACE, RELOCATE, DIG, OPEN, WAIT_OPEN}
 
 	private final String group;
 	private final Class<?> menuClass;
@@ -50,6 +50,9 @@ public final class Station {
 	private int placeTries;
 	private int relocations;
 	private int airTicks;
+	/** A block dug out of the wall beside us to make room (underground in a one-block shaft). */
+	private BlockPos nook;
+	private int nooks;
 	private BlockPos placing;
 	private BlockPos lastPlaced;
 	/** Spots where a placing click didn't take; findSpot tries others. */
@@ -122,6 +125,14 @@ public final class Station {
 				BlockPos spot = findSpot(pl, badSpots);
 				// A few clicks here didn't work: try again from open ground.
 				if (spot != null && placeTries >= 4 && relocations < 2) spot = null;
+				if (spot == null && nooks < 2 && (nook = nookSpot(pl)) != null) {
+					// In a shaft after mining stone: dig a spot into the wall, like a player would,
+					// instead of wandering off for open ground (a laptop run lost 90 s that way).
+					nooks++;
+					phase = Phase.DIG;
+					wait = 0;
+					return;
+				}
 				if (spot == null) {
 					// Usually we're up a tree or in leaves after chopping: walk to open ground first.
 					BlockPos open = openGround(pl);
@@ -160,6 +171,24 @@ public final class Station {
 				lastPlaced = spot;
 				wait = 0;
 				phase = Phase.OPEN;
+			}
+			case DIG -> {
+				if (Mc.free(nook)) {
+					Mc.mc().gameMode.stopDestroyBlock();
+					phase = Phase.PLACE;
+					placeTries = 0;
+					return;
+				}
+				if (++wait > 20 * 8) {
+					Mc.mc().gameMode.stopDestroyBlock();
+					phase = Phase.PLACE;
+					return;
+				}
+				Mc.lookAt(Vec3.atCenterOf(nook));
+				NightSkills.Shelter.holdBestTool(Mc.state(nook));
+				if (wait == 1) Mc.mc().gameMode.startDestroyBlock(nook, Direction.UP);
+				else Mc.mc().gameMode.continueDestroyBlock(nook, Direction.UP);
+				Mc.swing();
 			}
 			case RELOCATE -> {
 				if (++wait > 20 * 30) {
@@ -205,6 +234,22 @@ public final class Station {
 	}
 
 	/** A nearby spot on real ground (not leaves) with room around it, to stand on while placing. */
+	/** A plain block at foot level beside us, solid below, no fluid around, that can be dug out. */
+	static BlockPos nookSpot(LocalPlayer pl) {
+		BlockPos feet = pl.blockPosition();
+		for (Direction d : Direction.Plane.HORIZONTAL) {
+			BlockPos p = feet.relative(d);
+			var st = Mc.state(p);
+			if (!Mc.solid(p) || !Mc.solid(p.below()) || Mc.isInteractive(p)) continue;
+			float hard = st.getDestroySpeed(pl.level(), p);
+			if (hard < 0 || hard > 3.5f) continue; // bedrock, obsidian
+			boolean wet = false;
+			for (Direction n : Direction.values()) if (!Mc.state(p.relative(n)).getFluidState().isEmpty()) wet = true;
+			if (!wet) return p;
+		}
+		return null;
+	}
+
 	static BlockPos openGround(LocalPlayer pl) {
 		BlockPos feet = pl.blockPosition();
 		for (int r = 2; r <= 10; r++) {

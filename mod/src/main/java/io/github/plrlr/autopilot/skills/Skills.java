@@ -23,6 +23,7 @@ public final class Skills {
 		MENU.put("place", new Entry(InventorySkills.Place::new, "place a crafting_table, furnace, chest or torch next to you"));
 		MENU.put("pickup", new Entry(MoveSkills.Pickup::new, "walk over dropped items nearby"));
 		MENU.put("explore", new Entry(MoveSkills.Explore::new, "walk ~80 blocks in a direction to find new things"));
+		MENU.put("shore", new Entry(ShoreSkill::new, "swim to seen dry ground with room to work"));
 		MENU.put("goto", new Entry(MoveSkills.Goto::new, "walk to a remembered block (crafting_table, furnace, nether_bricks...)"));
 		MENU.put("retreat", new Entry(MoveSkills.Retreat::new, "run away from nearby monsters"));
 		MENU.put("shelter", new Entry(NightSkills.Shelter::new, "dig 3 down, cover the hole, wait for morning"));

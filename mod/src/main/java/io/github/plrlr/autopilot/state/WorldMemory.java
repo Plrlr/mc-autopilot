@@ -68,6 +68,9 @@ public final class WorldMemory {
 
 	public void clear() {
 		byGroup.clear();
+		seenLand.clear();
+		badLand.clear();
+		badHeadings.clear();
 		visited.clear();
 		heading = -1;
 		surfaceEntry = null;
@@ -80,6 +83,7 @@ public final class WorldMemory {
 	private final Map<String, Integer> visited = new HashMap<>();
 	/** Current explore direction, 0-7 in 45 degree steps (0 = east, 2 = south); -1 = not chosen yet. */
 	private int heading = -1;
+	private final Map<String, int[]> badHeadings = new HashMap<>();
 
 	private static String region(String dim, double x, double z) {
 		return dim + ":" + Math.floorDiv((int) x, 64) + ":" + Math.floorDiv((int) z, 64);
@@ -110,6 +114,8 @@ public final class WorldMemory {
 				// Prefer small turns; never go straight back the way we came unless all else is worse.
 				score += turn * 0.75 + (turn == 4 ? 3 : 0);
 			}
+			if (io.github.plrlr.autopilot.Tune.on("move.shore_first"))
+				score += badHeadings.computeIfAbsent(dim, k -> new int[8])[h];
 			if (score < bestScore) {
 				bestScore = score;
 				best = h;
@@ -124,6 +130,8 @@ public final class WorldMemory {
 		if (heading < 0) return;
 		double a = heading * Math.PI / 4;
 		String dim = Mc.dimension();
+		if (io.github.plrlr.autopilot.Tune.on("move.shore_first"))
+			badHeadings.computeIfAbsent(dim, k -> new int[8])[heading] += 6;
 		for (int step = 1; step <= 3; step++) {
 			double d = dist * step / 3.0;
 			markVisited(dim, x + Math.cos(a) * d, z + Math.sin(a) * d, 6);
@@ -222,6 +230,9 @@ public final class WorldMemory {
 					ClipContext.Fluid.SOURCE_ONLY, pl));
 			if (r.getType() != HitResult.Type.BLOCK) continue;
 			BlockPos p = r.getBlockPos();
+			// This ray hit the ground itself; no hidden terrain is sampled for a shore target.
+			if (io.github.plrlr.autopilot.Tune.on("move.shore_first") && i % 4 == 0 && Mc.canSee(p.above())
+					&& Mc.canSee(p.above(2))) rememberLand(p.above(), tick);
 			String id = Mc.id(level.getBlockState(p).getBlock());
 			String group = groupOf(id);
 			if (group == null || group.equals("stone") || group.equals("gravel") || group.equals("sand")) continue;
@@ -232,6 +243,54 @@ public final class WorldMemory {
 		}
 	}
 
+	private void rememberLand(BlockPos feet, long tick) {
+		Level level = Mc.player().level();
+		if (!level.isLoaded(feet) || !level.isLoaded(feet.above()) || !level.isLoaded(feet.below())) return;
+		if (!Mc.free(feet) || !Mc.free(feet.above()) || !Mc.solid(feet.below())) return;
+		if (Mc.id(Mc.state(feet.below()).getBlock()).endsWith("_leaves")) return;
+		BlockPos p = feet.immutable();
+		seenLand.put(p, new Seen(p, "land", Mc.dimension(), tick));
+		while (seenLand.size() > 600) seenLand.remove(seenLand.keySet().iterator().next());
+	}
+
+	/** Closest seen ground with space around it; a lone island block is not a work area. */
+	public BlockPos nearestLand(java.util.Set<BlockPos> aside) {
+		LocalPlayer pl = Mc.player();
+		BlockPos best = null;
+		double bestDist = Double.MAX_VALUE;
+		BlockPos fallback = null;
+		double fallbackDist = Double.MAX_VALUE;
+		for (Seen s : seenLand.values()) {
+			BlockPos p = s.pos();
+			if (!s.dim().equals(Mc.dimension()) || aside.contains(p) || badLand.getOrDefault(p, 0L) > scanTick) continue;
+			double d = p.distSqr(pl.blockPosition());
+			if (landRoom(p)) {
+				if (d < bestDist) { bestDist = d; best = p; }
+			} else if ((pl.isInWater() || d > 9) && d < fallbackDist) {
+				// A sparse sight scan may have seen only one block of shore so far. Visit it,
+				// then check the room at our feet instead of assuming it is another island.
+				fallbackDist = d;
+				fallback = p;
+			}
+		}
+		return best != null ? best : fallback;
+	}
+
+	/** Leave an unreachable shore aside long enough for the next attempt to choose another. */
+	public void markBadLand(BlockPos p) {
+		badLand.put(p, scanTick + 20 * 120);
+	}
+
+	/** Only confirmed, visible foot positions count as neighboring dry room. */
+	private boolean landRoom(BlockPos p) {
+		int neighbors = 0;
+		for (Direction d : Direction.Plane.HORIZONTAL) {
+			Seen n = seenLand.get(p.relative(d));
+			if (n != null && n.dim().equals(Mc.dimension())) neighbors++;
+		}
+		return neighbors >= 2;
+	}
+
 	private int layerCursor = -RV;
 	private int raycasts;
 
@@ -240,6 +299,9 @@ public final class WorldMemory {
 	 * a cave (goto surface walks back there) and the clock for "lost down here".
 	 */
 	private BlockPos surfaceEntry;
+	/** Foot positions backed by ground the player saw through a sight ray or stood on. */
+	private final Map<BlockPos, Seen> seenLand = new LinkedHashMap<>();
+	private final Map<BlockPos, Long> badLand = new HashMap<>();
 	private String surfaceDim = "";
 	private long undergroundSince = -1;
 
@@ -253,6 +315,14 @@ public final class WorldMemory {
 	}
 
 	private void updateSurface(LocalPlayer pl, long tick) {
+		if (io.github.plrlr.autopilot.Tune.on("move.shore_first") && pl.onGround() && !pl.isInWater()) {
+			BlockPos feet = pl.blockPosition();
+			rememberLand(feet, tick);
+			for (Direction d : Direction.Plane.HORIZONTAL) {
+				BlockPos n = feet.relative(d);
+				if (Mc.canSee(n.below()) && Mc.canSee(n) && Mc.canSee(n.above())) rememberLand(n, tick);
+			}
+		}
 		if (!Mc.dimension().equals("overworld")) {
 			undergroundSince = -1;
 			return;
@@ -301,7 +371,12 @@ public final class WorldMemory {
 					Map<BlockPos, Seen> m = byGroup.computeIfAbsent(group, k -> new LinkedHashMap<>());
 					if (group.equals("stone")) {
 						// Stone is everywhere; only remember a little of it, no raycast needed if exposed.
-						if (m.size() < 64 && exposed(level, pos)) m.put(pos, new Seen(pos, id, dim, tick));
+						// Full: drop the oldest, so what's remembered is stone near where we are now
+						// (a full list from spawn left none "seen" 200 blocks later).
+						if (!m.containsKey(pos) && exposed(level, pos)) {
+							if (m.size() >= 64) m.remove(m.keySet().iterator().next());
+							m.put(pos, new Seen(pos, id, dim, tick));
+						}
 						continue;
 					}
 					if (m.containsKey(pos)) {

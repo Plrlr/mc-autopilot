@@ -96,6 +96,11 @@ workflow's unit-tests job compiles and tests in about a minute, the trial jobs t
 - **Route changes ride alone.** Armor before the portal went into batch 11 with the death fixes,
   doubled the first iron trip to 26 ore, and hid what the death fixes did to iron times.
 
+- **Water refusals need a route out.** In batch 36422415520, collect log refused water 32 times,
+  crafting had no room 31 times, shelter had no safe ground 27 times, and explore turned from
+  open water 45 times. Two runs spent over 1,000 seconds traveling without stone tools. A shared
+  shore step is queued behind `move.shore_first`; the loop must judge whether it improves progress.
+
 - **Close retreat candidate (generations 18-28, not yet raced):** 216 of 537 deaths (40%) were
   during retreat, about 3.3 deaths per 20-minute game; median death around 12 minutes, the first
   night. The reported causes were mobs 50%, skeleton arrows 29%, creepers 10%. g23 tried
@@ -105,11 +110,32 @@ workflow's unit-tests job compiles and tests in about a minute, the trial jobs t
   taking priority. Combat reflexes can reconsider when a pursuer catches up or a creeper
   approaches. Defaults stay unchanged; the queued paired-seed race must judge the result.
 
+- **Survival candidate (generations 30-37, not yet raced):** 152 of 162 runs died; 87% of deaths
+  came from mobs, arrows or creepers, often during retreat, attack or shelter-heal at about 7 health.
+  Most deaths were underground. `survival.danger_v2` gives planner, reflexes and retreat one
+  terrain-aware verdict; its default stays off until paired-seed results justify promotion.
+
+- **Combat tactics need separate races.** The one-life loop gives no credit for progress after
+  death, and generations 30-37 lost 152 of 162 runs. Mob, arrow, and creeper deaths dominated.
+  The attack cooldown, footwork, sprint hit, creeper exchange, skeleton approach, and target
+  choice now have separate suggestions so their survival effect can be measured. Targeting may
+  use our own observed swings as an estimate of prior damage, but never a mob's hidden health.
+
 ## Open problems (next candidates)
+
+- **Food and iron preparation (generations 30-37, not yet raced):** 152 of 162 runs died, with
+  food inventory near zero and hunger around 15/20 at the last decision. Health cannot regenerate
+  below 18 hunger. The FOOD rung is optional and upkeep only hunts animals already nearby, so the
+  bot can enter a mine without meals. Separate genes now race eating below 18, an eight-meal early
+  stock, staged iron armor and sword, and a shield after the first iron.
 
 - Portal casting (cast scenario): batch 8a's cast on seed a built, lit and entered a portal (3:13);
   seed b stalled on the scoop (refill fallback added for batch 10). Batch 7 never compiled, so
   nothing was measured there. Lava bucket fills failed once in batch 5 (logging added).
+- Cast sight retries: batch 17's natural-f placed obsidian but lost sight of the next frame cell
+  six times. A bucket aim checked from the center of a planned stand can be blocked where Baritone
+  actually stops. The queued `portal.retry_cast_view` candidate excludes that stand after a failed
+  aim and tries another; its effect still needs the paired-seed race.
 - Lava is rare on the surface: if the far scan isn't enough, look underground (caves near y -54).
 - Smelting 13 iron takes ~130 s of standing still; do nearby work while the furnace runs.
 - Deaths: 7 in batch 6's four 15-minute runs (arrows, zombies, lava, fire), several while

@@ -46,6 +46,17 @@ public final class Tune {
 		gene("reflex.starving_food", 6, 2, 12, Kind.INT, "eat at once at or below this hunger when safe");
 		gene("combat.crits", 0, 0, 1, Kind.BOOL, "jump before a swing so it lands as a critical hit (1.5x)");
 		gene("combat.backstep", 0, 0, 1, Kind.BOOL, "step back out of reach while the sword recharges");
+		gene("combat.swing_at", 0.95, 0.6, 1.0, Kind.REAL, "attack cooldown fraction required before a melee swing");
+		gene("combat.keep_dist", 2.4, 1.5, 3.5, Kind.REAL, "backstep inside this distance while a melee weapon recharges");
+		gene("combat.strafe", 0, 0, 30, Kind.INT, "ticks between side-step direction changes while recharging; zero disables");
+		gene("combat.sprint_hit", 0, 0, 1, Kind.BOOL, "sprint into the first melee hit for knockback");
+		gene("combat.sprint_hit_dist", 4, 2.5, 6, Kind.REAL, "distance at which the first sprint hit begins");
+		gene("combat.creeper_hit", 0, 0, 1, Kind.BOOL, "hit a visible creeper once, then back off before its fuse completes");
+		gene("combat.creeper_gap", 6, 4, 8, Kind.REAL, "distance to regain after hitting a creeper");
+		gene("combat.skeleton_approach", 0, 0, 1, Kind.BOOL, "zig-zag toward a visible skeleton, guarding with an off-hand shield");
+		gene("combat.skeleton_zigzag", 12, 4, 30, Kind.INT, "ticks between direction changes during skeleton approach");
+		gene("combat.target_rule", 0, 0, 2, Kind.INT, "target nearest, most previously hit, or a nearby creeper first");
+		gene("combat.creeper_priority_range", 5, 3, 8, Kind.REAL, "range for preferring a creeper among several visible hostiles");
 		gene("combat.shield_guard", 0, 0, 1, Kind.BOOL, "raise the shield toward a skeleton drawing its bow or a creeper about to blow");
 		gene("dragon.max_center_dist", 30, 10, 60, Kind.REAL, "in the End fight, walk back if farther than this from the fountain");
 		gene("dragon.wait_dist", 10, 5, 20, Kind.REAL, "where to wait while the dragon flies: this far from the fountain");
@@ -60,6 +71,8 @@ public final class Tune {
 		gene("food.eat_at", 14, 8, 18, Kind.INT, "eat at or below this hunger");
 		gene("food.eat_hurt_at", 17, 14, 19, Kind.INT, "eat at or below this hunger when health isn't full");
 		gene("food.stock", 8, 0, 20, Kind.INT, "cooked food to keep in stock");
+		gene("food.keep_full", 0, 0, 1, Kind.BOOL, "eat carried food below 18 hunger so health can regenerate");
+		gene("food.early_stock", 0, 0, 1, Kind.BOOL, "stock eight cooked meals before the first iron trip");
 		gene("food.search_hunger", 8, 3, 16, Kind.INT, "explore far for animals only at or below this hunger");
 		gene("food.hunt_dist", 20, 6, 40, Kind.INT, "hunt animals in view within this distance for the stock");
 		// Planner: night, death items
@@ -103,16 +116,29 @@ public final class Tune {
 		gene("reflex.lava_margin", 0, 0, 1, Kind.BOOL, "step away from lava right beside us");
 		gene("combat.deflect", 0, 0, 1, Kind.BOOL, "hit a ghast's fireball back when it comes close");
 		gene("gear.sword_early", 0, 0, 1, Kind.BOOL, "craft a sword matching the pickaxe's tier as soon as possible");
+		gene("gear.armor_first", 0, 0, 1, Kind.BOOL, "after the iron pickaxe, make chestplate, sword, helmet and boots before portal work");
+		gene("gear.shield_early", 0, 0, 1, Kind.BOOL, "craft and equip a shield after the first iron ingot");
 		gene("nav.mob_avoid_coef", 1.5, 1, 5, Kind.REAL, "how much Baritone's paths avoid monsters (1 = not at all)");
 		gene("nav.mob_avoid_radius", 8, 4, 16, Kind.INT, "radius around monsters that paths avoid");
+		gene("move.shore_first", 0, 0, 1, Kind.BOOL, "reach seen dry ground before ground work or exploring from water");
 		gene("combat.wall_in_anywhere", 0, 0, 1, Kind.BOOL, "hurt and outnumbered: wall in and heal on the surface too, instead of running");
 		gene("combat.no_close_retreat", 0, 0, 1, Kind.BOOL, "fight or wall in within four blocks; keep retreating from nearby creepers");
+		gene("survival.danger_v2", 0, 0, 1, Kind.BOOL, "use one terrain-aware survival verdict in planner, reflexes and retreat");
+		gene("survival.melee_lock", 3, 2, 4, Kind.REAL, "within this distance, fight a melee mob instead of turning to run");
+		gene("tools.diamond_pick_if_found", 1, 0, 1, Kind.BOOL, "3+ diamonds in the bag: make a diamond pickaxe and portal the classic way");
+		gene("tools.stone_axe", 1, 0, 1, Kind.BOOL, "craft a stone axe before chopping more wood (logs break ~3x faster)");
+		gene("nether.pie_chart", 1, 0, 1, Kind.BOOL, "look for a fortress where the F3 pie chart shows spawners, like speedrunners (pie-ray)");
+		gene("portal.prepare_work_area", 0, 0, 1, Kind.BOOL, "prepare a dry floor for the portal frame when no natural site fits");
+		gene("portal.reserve_lava_bucket", 0, 0, 1, Kind.BOOL, "empty a spare water bucket safely to keep one bucket available for lava");
+		gene("portal.retry_cast_view", 0, 0, 1, Kind.BOOL, "after losing the bucket view, try a different stand for the same frame block");
 		gene("loop.stuck_s", 10, 5, 30, Kind.INT, "seconds without moving that mark the state as stuck for the brains");
 		gene("stuck.window_s", 12, 6, 40, Kind.INT, "a moving skill kept inside the stuck box this long starts the unstuck reflex");
 		gene("stuck.box", 2, 1, 4, Kind.REAL, "the square (blocks) the bot must leave to count as moving");
 		// The learned brain (brains/Learned): how far it may overrule the rules' order.
 		gene("learned.weight", 0, 0, 3, Kind.REAL, "0 = rules order only; higher trusts the learned model more");
 		gene("learned.explore", 0, 0, 0.3, Kind.REAL, "chance to try a non-first option (data for learning)");
+		gene("safety.hazard", 0, 0, 1, Kind.BOOL, "the learned danger model may swap a pick (emergencies too) for a clearly safer option");
+		gene("safety.hazard_margin", 0.1, 0.03, 0.4, Kind.REAL, "how much lower the death risk must be to swap (0.1 = 10 points)");
 		reset();
 	}
 
