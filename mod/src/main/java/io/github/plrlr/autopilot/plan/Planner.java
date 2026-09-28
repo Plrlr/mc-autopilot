@@ -118,6 +118,13 @@ public final class Planner {
 	private Option earlyFoodStep(Perception seen) {
 		int ready = Mc.count("food");
 		if (ready >= 8) return null;
+		// Loading the furnace removes raw meat from inventory. Keep collecting that batch instead
+		// of wandering off to hunt while its cooked food is still waiting at our station.
+		for (String meat : Items2.RAW_MEAT) {
+			String cooked = "cooked_" + meat;
+			SmeltSkill.Job job = SmeltSkill.job(cooked);
+			if (job != null) return new Option("smelt", cooked + ":" + job.count(), "collect cooked food before the iron trip");
+		}
 		int raw = Mc.count("meat");
 		String most = null;
 		for (String meat : Items2.RAW_MEAT)
