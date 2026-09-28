@@ -159,6 +159,13 @@ public final class Planner {
 				// Two routes to the frame: cast it from lava and water (no diamonds; the speedrunners'
 				// way), or the classic way: diamond pickaxe, harden lava into obsidian, mine 10 blocks.
 				// A gene picks; the race decides which gets to the Nether sooner.
+				// Diamonds found on the way down for lava: three make a diamond pickaxe, and with it the
+				// classic portal (water on a lava pool, mine 10 obsidian) needs only the lava we're after.
+				if (Tune.on("tools.diamond_pick_if_found") && Goal.have("obsidian") < 10 && Items2.bestTier("pickaxe") < 3
+						&& Mc.count("diamond") >= 3) {
+					Option o = itemStep("diamond_pickaxe", 1, depth + 1);
+					if (o != null) return o;
+				}
 				if (Goal.have("obsidian") < 10 && Items2.bestTier("pickaxe") < 3) {
 					if (!Tune.on("route.diamond_portal")) return castStep(depth);
 					Option o = itemStep("diamond_pickaxe", 1, depth + 1);
@@ -256,7 +263,7 @@ public final class Planner {
 			// y -55 is lava. Branch-mining at diamond depth finds a pool the close scan remembers,
 			// and the step turns into build_portal right there. A diamond on the way is a bonus.
 			if (Tune.on("route.deep_for_lava") && Items2.bestTier("pickaxe") >= 2 && Mc.dimension().equals("overworld"))
-				return new Option("collect", "diamond:1", "go deep for lava: cave air below y -55 is lava");
+				return new Option("collect", "diamond:1:lava", "go deep for lava: cave air below y -55 is lava");
 			return new Option("explore", "lava", "find a lava pool to cast the portal from");
 		}
 		return new Option("build_portal", null, "cast a nether portal from lava and water (no diamonds needed)");

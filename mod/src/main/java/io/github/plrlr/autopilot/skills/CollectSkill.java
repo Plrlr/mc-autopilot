@@ -24,6 +24,8 @@ public final class CollectSkill extends Skill {
 	private static final java.util.Set<String> SEEN_ONLY = java.util.Set.of("log", "sand", "obsidian");
 	private static final int SEEN_RANGE = 64;
 	private boolean seenOnly;
+	/** "diamond:1:lava": mining deep to find lava, so lava in sight ends it (a laptop run dug on 45 s past a pool). */
+	private boolean untilLava;
 	private SeenMiner seenMiner;
 	/** Flint has its own way: one seen gravel, placed and broken until flint drops. */
 	private FlintSteps flint;
@@ -37,6 +39,7 @@ public final class CollectSkill extends Skill {
 	protected void start() {
 		item = argName();
 		want = argCount(1);
+		untilLava = arg != null && arg.endsWith(":lava");
 		TechTree.Source src = TechTree.MINE.get(item);
 		if (src == null) {
 			fail(Fail.NO_RECIPE, "don't know where " + item + " comes from");
@@ -114,6 +117,10 @@ public final class CollectSkill extends Skill {
 	protected void tick() {
 		if (flint != null) {
 			flint.tick();
+			return;
+		}
+		if (untilLava && memory.nearest("lava") != null) {
+			done("lava in sight");
 			return;
 		}
 		if (seenMiner != null) {
