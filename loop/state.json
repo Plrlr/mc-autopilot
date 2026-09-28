@@ -746,13 +746,13 @@
  },
  "days": {
   "2026-09-27": 15,
-  "2026-09-28": 9
+  "2026-09-28": 10
  },
  "evolve_days": {
   "2026-09-27": 1,
   "2026-09-28": 4
  },
- "gen": 24,
+ "gen": 25,
  "gene_specs": {
   "cave.torch_light": {
    "def": 3.0,
@@ -3480,6 +3480,30 @@
    "parent": "g10",
    "status": "contender"
   },
+  "g22": {
+   "born": 25,
+   "code": null,
+   "evals": [],
+   "genes": {
+    "cave.torches": 1.0,
+    "combat.shield_guard": 1.0,
+    "death.recover_night_armor": 12.0,
+    "focus.commit": 1.0,
+    "gear.sword_early": 1.0,
+    "plan.hide_hp": 15.0
+   },
+   "id": "g22",
+   "mutated": [
+    "gear.sword_early",
+    "cave.torches",
+    "combat.shield_guard",
+    "route.armor_before_portal"
+   ],
+   "note": "suggested: gear.sword_early 1, cave.torches 1, combat.shield_guard 1, route.armor_before_portal 1",
+   "pairs": [],
+   "parent": "g10",
+   "status": "contender"
+  },
   "g3": {
    "born": 1,
    "code": null,
@@ -4511,8 +4535,84 @@
  "model_keys": 53,
  "model_r2": 0.191,
  "model_rows": 25036,
- "next_id": 22,
- "pending": null,
+ "next_id": 23,
+ "pending": {
+  "data_tasks": [
+   {
+    "kind": "natural",
+    "seed": "D25-kbh3ck",
+    "stage": "spawn",
+    "synthetic": false
+   }
+  ],
+  "gen": 25,
+  "lineup": [
+   "g10",
+   "g22",
+   "g21"
+  ],
+  "runs": [
+   "eval-g10-0",
+   "eval-g10-1",
+   "eval-g10-2",
+   "eval-g10-3",
+   "eval-g10-4",
+   "eval-g22-0",
+   "eval-g22-1",
+   "eval-g22-2",
+   "eval-g22-3",
+   "eval-g22-4",
+   "eval-g21-0",
+   "eval-g21-1",
+   "eval-g21-2",
+   "eval-g21-3",
+   "eval-g21-4",
+   "data-g10-0"
+  ],
+  "seeds": [
+   "L25-ewuvhb",
+   "L25-ftfy2c",
+   "L25-zcrpy8",
+   "L25-xhw8us",
+   "L25-khjam5"
+  ],
+  "sha": "bc32c9d84122ed8a22b00ac59ba086f836beb0d4",
+  "started": "2026-09-28T06:03:16+00:00",
+  "tasks": [
+   {
+    "kind": "natural",
+    "seed": "L25-ewuvhb",
+    "stage": "spawn",
+    "synthetic": false
+   },
+   {
+    "kind": "natural",
+    "seed": "L25-ftfy2c",
+    "stage": "spawn",
+    "synthetic": false
+   },
+   {
+    "kind": "natural",
+    "seed": "L25-zcrpy8",
+    "stage": "spawn",
+    "synthetic": false
+   },
+   {
+    "asset": "kit-gen18-eval-g15-1.zip",
+    "kind": "start",
+    "seed": "L25-xhw8us",
+    "stage": "kit",
+    "synthetic": false
+   },
+   {
+    "asset": "nether-gen12-eval-g10-3.zip",
+    "kind": "start",
+    "seed": "L25-khjam5",
+    "stage": "nether",
+    "synthetic": false
+   }
+  ]
+ },
  "settings": {
   "accept_pairs": 8,
   "accept_t": 2.0,
@@ -5304,7 +5404,8 @@
   "{\"cave.torches\": 1, \"combat.shield_guard\": 1, \"gear.sword_early\": 1, \"nav.mob_avoid_coef\": 3, \"plan.hostile_range\": 4}",
   "{\"food.stock\": 16}",
   "{\"gear.sword_early\": 1}",
-  "{\"combat.wall_in_anywhere\": 1, \"gear.sword_early\": 1}"
+  "{\"combat.wall_in_anywhere\": 1, \"gear.sword_early\": 1}",
+  "{\"cave.torches\": 1, \"combat.shield_guard\": 1, \"gear.sword_early\": 1, \"route.armor_before_portal\": 1}"
  ],
  "version": 1
 }
