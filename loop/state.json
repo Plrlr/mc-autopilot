@@ -978,6 +978,18 @@
    "n": 0,
    "sum": 0.0
   },
+  "combat.creeper_gap": {
+   "n": 0,
+   "sum": 0.0
+  },
+  "combat.creeper_hit": {
+   "n": 0,
+   "sum": 0.0
+  },
+  "combat.creeper_priority_range": {
+   "n": 0,
+   "sum": 0.0
+  },
   "combat.crits": {
    "n": 1,
    "sum": -0.042400000000000014
@@ -987,6 +999,10 @@
    "sum": 0.0
   },
   "combat.flee_hp": {
+   "n": 0,
+   "sum": 0.0
+  },
+  "combat.keep_dist": {
    "n": 0,
    "sum": 0.0
   },
@@ -1001,6 +1017,34 @@
   "combat.shield_guard": {
    "n": 3,
    "sum": -1.0097875
+  },
+  "combat.skeleton_approach": {
+   "n": 0,
+   "sum": 0.0
+  },
+  "combat.skeleton_zigzag": {
+   "n": 0,
+   "sum": 0.0
+  },
+  "combat.sprint_hit": {
+   "n": 0,
+   "sum": 0.0
+  },
+  "combat.sprint_hit_dist": {
+   "n": 0,
+   "sum": 0.0
+  },
+  "combat.strafe": {
+   "n": 0,
+   "sum": 0.0
+  },
+  "combat.swing_at": {
+   "n": 0,
+   "sum": 0.0
+  },
+  "combat.target_rule": {
+   "n": 0,
+   "sum": 0.0
   },
   "combat.wall_in_anywhere": {
    "n": 1,
@@ -1026,6 +1070,10 @@
    "n": 3,
    "sum": 0.7997444444444444
   },
+  "food.early_stock": {
+   "n": 0,
+   "sum": 0.0
+  },
   "food.eat_at": {
    "n": 1,
    "sum": -0.18249999999999986
@@ -1037,6 +1085,10 @@
   "food.hunt_dist": {
    "n": 1,
    "sum": -0.20219999999999994
+  },
+  "food.keep_full": {
+   "n": 0,
+   "sum": 0.0
   },
   "food.search_hunger": {
    "n": 0,
@@ -1086,6 +1138,14 @@
    "n": 0,
    "sum": 0.0
   },
+  "gear.armor_first": {
+   "n": 0,
+   "sum": 0.0
+  },
+  "gear.shield_early": {
+   "n": 0,
+   "sum": 0.0
+  },
   "gear.sword_early": {
    "n": 4,
    "sum": -1.0332666666666666
@@ -1106,11 +1166,19 @@
    "n": 0,
    "sum": 0.0
   },
+  "move.shore_first": {
+   "n": 0,
+   "sum": 0.0
+  },
   "nav.mob_avoid_coef": {
    "n": 2,
    "sum": -0.6695666666666665
   },
   "nav.mob_avoid_radius": {
+   "n": 0,
+   "sum": 0.0
+  },
+  "nether.pie_chart": {
    "n": 0,
    "sum": 0.0
   },
@@ -1162,6 +1230,18 @@
    "n": 0,
    "sum": 0.0
   },
+  "portal.prepare_work_area": {
+   "n": 0,
+   "sum": 0.0
+  },
+  "portal.reserve_lava_bucket": {
+   "n": 0,
+   "sum": 0.0
+  },
+  "portal.retry_cast_view": {
+   "n": 0,
+   "sum": 0.0
+  },
   "reflex.burning_hp": {
    "n": 0,
    "sum": 0.0
@@ -1210,6 +1290,14 @@
    "n": 1,
    "sum": -0.2883333333333334
   },
+  "safety.hazard": {
+   "n": 0,
+   "sum": 0.0
+  },
+  "safety.hazard_margin": {
+   "n": 0,
+   "sum": 0.0
+  },
   "stronghold.sidestep": {
    "n": 0,
    "sum": 0.0
@@ -1221,17 +1309,33 @@
   "stuck.window_s": {
    "n": 0,
    "sum": 0.0
+  },
+  "survival.danger_v2": {
+   "n": 0,
+   "sum": 0.0
+  },
+  "survival.melee_lock": {
+   "n": 0,
+   "sum": 0.0
+  },
+  "tools.diamond_pick_if_found": {
+   "n": 0,
+   "sum": 0.0
+  },
+  "tools.stone_axe": {
+   "n": 0,
+   "sum": 0.0
   }
  },
  "days": {
   "2026-09-27": 15,
-  "2026-09-28": 25
+  "2026-09-28": 26
  },
  "evolve_days": {
   "2026-09-27": 1,
   "2026-09-28": 6
  },
- "gen": 40,
+ "gen": 41,
  "gene_specs": {
   "cave.torch_light": {
    "def": 3.0,
@@ -1254,6 +1358,27 @@
    "max": 1.0,
    "min": 0.0
   },
+  "combat.creeper_gap": {
+   "def": 6.0,
+   "help": "distance to regain after hitting a creeper",
+   "kind": "REAL",
+   "max": 8.0,
+   "min": 4.0
+  },
+  "combat.creeper_hit": {
+   "def": 0.0,
+   "help": "hit a visible creeper once, then back off before its fuse completes",
+   "kind": "BOOL",
+   "max": 1.0,
+   "min": 0.0
+  },
+  "combat.creeper_priority_range": {
+   "def": 5.0,
+   "help": "range for preferring a creeper among several visible hostiles",
+   "kind": "REAL",
+   "max": 8.0,
+   "min": 3.0
+  },
   "combat.crits": {
    "def": 0.0,
    "help": "jump before a swing so it lands as a critical hit (1.5x)",
@@ -1275,6 +1400,13 @@
    "max": 14.0,
    "min": 3.0
   },
+  "combat.keep_dist": {
+   "def": 2.4,
+   "help": "backstep inside this distance while a melee weapon recharges",
+   "kind": "REAL",
+   "max": 3.5,
+   "min": 1.5
+  },
   "combat.no_close_retreat": {
    "def": 0.0,
    "help": "fight or wall in within four blocks; keep retreating from nearby creepers",
@@ -1294,6 +1426,55 @@
    "help": "raise the shield toward a skeleton drawing its bow or a creeper about to blow",
    "kind": "BOOL",
    "max": 1.0,
+   "min": 0.0
+  },
+  "combat.skeleton_approach": {
+   "def": 0.0,
+   "help": "zig-zag toward a visible skeleton, guarding with an off-hand shield",
+   "kind": "BOOL",
+   "max": 1.0,
+   "min": 0.0
+  },
+  "combat.skeleton_zigzag": {
+   "def": 12.0,
+   "help": "ticks between direction changes during skeleton approach",
+   "kind": "INT",
+   "max": 30.0,
+   "min": 4.0
+  },
+  "combat.sprint_hit": {
+   "def": 0.0,
+   "help": "sprint into the first melee hit for knockback",
+   "kind": "BOOL",
+   "max": 1.0,
+   "min": 0.0
+  },
+  "combat.sprint_hit_dist": {
+   "def": 4.0,
+   "help": "distance at which the first sprint hit begins",
+   "kind": "REAL",
+   "max": 6.0,
+   "min": 2.5
+  },
+  "combat.strafe": {
+   "def": 0.0,
+   "help": "ticks between side-step direction changes while recharging; zero disables",
+   "kind": "INT",
+   "max": 30.0,
+   "min": 0.0
+  },
+  "combat.swing_at": {
+   "def": 0.95,
+   "help": "attack cooldown fraction required before a melee swing",
+   "kind": "REAL",
+   "max": 1.0,
+   "min": 0.6
+  },
+  "combat.target_rule": {
+   "def": 0.0,
+   "help": "target nearest, most previously hit, or a nearby creeper first",
+   "kind": "INT",
+   "max": 2.0,
    "min": 0.0
   },
   "combat.wall_in_anywhere": {
@@ -1338,6 +1519,13 @@
    "max": 1.0,
    "min": 0.0
   },
+  "food.early_stock": {
+   "def": 0.0,
+   "help": "stock eight cooked meals before the first iron trip",
+   "kind": "BOOL",
+   "max": 1.0,
+   "min": 0.0
+  },
   "food.eat_at": {
    "def": 14.0,
    "help": "eat at or below this hunger",
@@ -1358,6 +1546,13 @@
    "kind": "INT",
    "max": 40.0,
    "min": 6.0
+  },
+  "food.keep_full": {
+   "def": 0.0,
+   "help": "eat carried food below 18 hunger so health can regenerate",
+   "kind": "BOOL",
+   "max": 1.0,
+   "min": 0.0
   },
   "food.search_hunger": {
    "def": 8.0,
@@ -1443,6 +1638,20 @@
    "max": 48.0,
    "min": 8.0
   },
+  "gear.armor_first": {
+   "def": 0.0,
+   "help": "after the iron pickaxe, make chestplate, sword, helmet and boots before portal work",
+   "kind": "BOOL",
+   "max": 1.0,
+   "min": 0.0
+  },
+  "gear.shield_early": {
+   "def": 0.0,
+   "help": "craft and equip a shield after the first iron ingot",
+   "kind": "BOOL",
+   "max": 1.0,
+   "min": 0.0
+  },
   "gear.sword_early": {
    "def": 0.0,
    "help": "craft a sword matching the pickaxe's tier as soon as possible",
@@ -1478,6 +1687,13 @@
    "max": 30.0,
    "min": 5.0
   },
+  "move.shore_first": {
+   "def": 0.0,
+   "help": "reach seen dry ground before ground work or exploring from water",
+   "kind": "BOOL",
+   "max": 1.0,
+   "min": 0.0
+  },
   "nav.mob_avoid_coef": {
    "def": 1.5,
    "help": "how much Baritone's paths avoid monsters (1 = not at all)",
@@ -1491,6 +1707,13 @@
    "kind": "INT",
    "max": 16.0,
    "min": 4.0
+  },
+  "nether.pie_chart": {
+   "def": 1.0,
+   "help": "look for a fortress where the F3 pie chart shows spawners, like speedrunners (pie-ray)",
+   "kind": "BOOL",
+   "max": 1.0,
+   "min": 0.0
   },
   "night.mine_instead": {
    "def": 0.0,
@@ -1576,6 +1799,27 @@
    "max": 24.0,
    "min": 6.0
   },
+  "portal.prepare_work_area": {
+   "def": 0.0,
+   "help": "prepare a dry floor for the portal frame when no natural site fits",
+   "kind": "BOOL",
+   "max": 1.0,
+   "min": 0.0
+  },
+  "portal.reserve_lava_bucket": {
+   "def": 0.0,
+   "help": "empty a spare water bucket safely to keep one bucket available for lava",
+   "kind": "BOOL",
+   "max": 1.0,
+   "min": 0.0
+  },
+  "portal.retry_cast_view": {
+   "def": 0.0,
+   "help": "after losing the bucket view, try a different stand for the same frame block",
+   "kind": "BOOL",
+   "max": 1.0,
+   "min": 0.0
+  },
   "reflex.burning_hp": {
    "def": 12.0,
    "help": "eat while burning at or below this health",
@@ -1660,6 +1904,20 @@
    "max": 1.0,
    "min": 0.0
   },
+  "safety.hazard": {
+   "def": 0.0,
+   "help": "the learned danger model may swap a pick (emergencies too) for a clearly safer option",
+   "kind": "BOOL",
+   "max": 1.0,
+   "min": 0.0
+  },
+  "safety.hazard_margin": {
+   "def": 0.1,
+   "help": "how much lower the death risk must be to swap (0.1 = 10 points)",
+   "kind": "REAL",
+   "max": 0.4,
+   "min": 0.03
+  },
   "stronghold.sidestep": {
    "def": 80.0,
    "help": "blocks to walk sideways between the two triangulation throws",
@@ -1680,6 +1938,34 @@
    "kind": "INT",
    "max": 40.0,
    "min": 6.0
+  },
+  "survival.danger_v2": {
+   "def": 0.0,
+   "help": "use one terrain-aware survival verdict in planner, reflexes and retreat",
+   "kind": "BOOL",
+   "max": 1.0,
+   "min": 0.0
+  },
+  "survival.melee_lock": {
+   "def": 3.0,
+   "help": "within this distance, fight a melee mob instead of turning to run",
+   "kind": "REAL",
+   "max": 4.0,
+   "min": 2.0
+  },
+  "tools.diamond_pick_if_found": {
+   "def": 1.0,
+   "help": "3+ diamonds in the bag: make a diamond pickaxe and portal the classic way",
+   "kind": "BOOL",
+   "max": 1.0,
+   "min": 0.0
+  },
+  "tools.stone_axe": {
+   "def": 1.0,
+   "help": "craft a stone axe before chopping more wood (logs break ~3x faster)",
+   "kind": "BOOL",
+   "max": 1.0,
+   "min": 0.0
   }
  },
  "genomes": {
@@ -1827,33 +2113,7 @@
    "id": "g0",
    "mutated": [],
    "note": "the hand-tuned defaults (pre-loop code) (defending)",
-   "pairs": [
-    [
-     8,
-     "L8-38yj4x",
-     -3.813
-    ],
-    [
-     8,
-     "L8-mfdw6x",
-     -1.863
-    ],
-    [
-     8,
-     "L8-hg9s27",
-     -4.097
-    ],
-    [
-     8,
-     "L8-z4cgqg",
-     -0.751
-    ],
-    [
-     8,
-     "L8-cuqwcr",
-     4.46
-    ]
-   ],
+   "pairs": [],
    "parent": null,
    "status": "rejected"
   },
@@ -1892,28 +2152,7 @@
     "combat.outnumbered"
    ],
    "note": "food.eat_at 15, combat.outnumbered 1",
-   "pairs": [
-    [
-     1,
-     "L1-7ygn35",
-     -0.668
-    ],
-    [
-     1,
-     "L1-qxjn5f",
-     2.519
-    ],
-    [
-     1,
-     "L1-gw5n9k",
-     -4.943
-    ],
-    [
-     1,
-     "L1-3rpeme",
-     2.362
-    ]
-   ],
+   "pairs": [],
    "parent": "g0",
    "status": "rejected"
   },
@@ -2499,98 +2738,7 @@
     "focus.commit"
    ],
    "note": "suggested: focus.commit 1, _retry dropped after 5 worlds by a too-hasty rule (defending)",
-   "pairs": [
-    [
-     29,
-     "L29-xywvzh",
-     -0.403
-    ],
-    [
-     29,
-     "L29-4c93u4",
-     -0.558
-    ],
-    [
-     29,
-     "L29-55gsmv",
-     -1.409
-    ],
-    [
-     29,
-     "L29-77bjcq",
-     7.808
-    ],
-    [
-     29,
-     "L29-k45gmd",
-     -0.623
-    ],
-    [
-     30,
-     "L30-68ct9m",
-     -4.404
-    ],
-    [
-     30,
-     "L30-634854",
-     1.297
-    ],
-    [
-     30,
-     "L30-t9zupw",
-     3.113
-    ],
-    [
-     30,
-     "L30-ckfasv",
-     -0.751
-    ],
-    [
-     30,
-     "L30-b6yhs3",
-     -1.5
-    ],
-    [
-     31,
-     "L31-u3j9jd",
-     -0.736
-    ],
-    [
-     31,
-     "L31-uuvgd3",
-     -1.952
-    ],
-    [
-     31,
-     "L31-syqg3a",
-     -0.892
-    ],
-    [
-     31,
-     "L31-a7qaqq",
-     -4.666
-    ],
-    [
-     31,
-     "L31-mdwy79",
-     -0.011
-    ],
-    [
-     31,
-     "L31-ebm9xf",
-     -0.013
-    ],
-    [
-     31,
-     "L31-px3wrp",
-     -1.519
-    ],
-    [
-     31,
-     "L31-zj6w2e",
-     -0.84
-    ]
-   ],
+   "pairs": [],
    "parent": "g6",
    "status": "rejected"
   },
@@ -2712,33 +2860,7 @@
     "night.shelter_armor"
    ],
    "note": "combat.crits 1, night.shelter_armor 9",
-   "pairs": [
-    [
-     13,
-     "L13-dp4k43",
-     -2.241
-    ],
-    [
-     13,
-     "L13-5veyqa",
-     0.392
-    ],
-    [
-     13,
-     "L13-8za8s8",
-     6.098
-    ],
-    [
-     13,
-     "L13-8mtsfy",
-     -2.25
-    ],
-    [
-     13,
-     "L13-6k33yy",
-     -2.211
-    ]
-   ],
+   "pairs": [],
    "parent": "g6",
    "status": "rejected"
   },
@@ -2836,83 +2958,7 @@
     "plan.hostile_range"
    ],
    "note": "suggested: nav.mob_avoid_coef 3, plan.hostile_range 4",
-   "pairs": [
-    [
-     13,
-     "L13-dp4k43",
-     4.516
-    ],
-    [
-     13,
-     "L13-5veyqa",
-     0.667
-    ],
-    [
-     13,
-     "L13-8za8s8",
-     3.709
-    ],
-    [
-     13,
-     "L13-8mtsfy",
-     -1.5
-    ],
-    [
-     13,
-     "L13-6k33yy",
-     -2.211
-    ],
-    [
-     14,
-     "L14-5g9gr6",
-     4.592
-    ],
-    [
-     14,
-     "L14-rtd6ep",
-     -6.347
-    ],
-    [
-     14,
-     "L14-cxp8yh",
-     -0.357
-    ],
-    [
-     14,
-     "L14-f8dmbz",
-     0.0
-    ],
-    [
-     14,
-     "L14-crf9mj",
-     -2.934
-    ],
-    [
-     15,
-     "L15-3s2g9q",
-     2.63
-    ],
-    [
-     15,
-     "L15-e7sjnc",
-     -2.889
-    ],
-    [
-     15,
-     "L15-235wz2",
-     -4.332
-    ],
-    [
-     15,
-     "L15-r4tkz9",
-     -2.158
-    ],
-    [
-     15,
-     "L15-755hvm",
-     -2.243
-    ]
-   ],
+   "pairs": [],
    "parent": "g10",
    "status": "rejected"
   },
@@ -3015,83 +3061,7 @@
     "code"
    ],
    "note": "code: Underground, the planner no longer picks \"shelter heal\" when a monster is already within melee range. The reflex_fight reflex cancelled that shelter straight away, so the bot kept stopping and restarting its attack on the zombie and died.",
-   "pairs": [
-    [
-     15,
-     "L15-3s2g9q",
-     -0.677
-    ],
-    [
-     15,
-     "L15-e7sjnc",
-     1.803
-    ],
-    [
-     15,
-     "L15-235wz2",
-     -1.929
-    ],
-    [
-     15,
-     "L15-r4tkz9",
-     -1.472
-    ],
-    [
-     15,
-     "L15-755hvm",
-     -3.743
-    ],
-    [
-     16,
-     "L16-ue6m5y",
-     1.644
-    ],
-    [
-     16,
-     "L16-j3k3a7",
-     2.164
-    ],
-    [
-     16,
-     "L16-znsfys",
-     2.087
-    ],
-    [
-     16,
-     "L16-xht2z7",
-     -2.32
-    ],
-    [
-     16,
-     "L16-zfgvyb",
-     3.502
-    ],
-    [
-     17,
-     "L17-jq3x64",
-     0.513
-    ],
-    [
-     17,
-     "L17-7rphww",
-     2.007
-    ],
-    [
-     17,
-     "L17-mav8at",
-     -2.149
-    ],
-    [
-     17,
-     "L17-58azbk",
-     -2.26
-    ],
-    [
-     17,
-     "L17-wv6nyg",
-     -1.5
-    ]
-   ],
+   "pairs": [],
    "parent": "g10",
    "status": "rejected"
   },
@@ -3170,58 +3140,7 @@
     "combat.shield_guard"
    ],
    "note": "suggested: nav.mob_avoid_coef 3, plan.hostile_range 4, gear.sword_early 1, cave.torches 1, combat.shield_guard 1",
-   "pairs": [
-    [
-     16,
-     "L16-ue6m5y",
-     -0.86
-    ],
-    [
-     16,
-     "L16-j3k3a7",
-     -0.536
-    ],
-    [
-     16,
-     "L16-znsfys",
-     2.677
-    ],
-    [
-     16,
-     "L16-xht2z7",
-     -1.438
-    ],
-    [
-     16,
-     "L16-zfgvyb",
-     0.0
-    ],
-    [
-     17,
-     "L17-jq3x64",
-     1.783
-    ],
-    [
-     17,
-     "L17-7rphww",
-     2.49
-    ],
-    [
-     17,
-     "L17-mav8at",
-     -2.666
-    ],
-    [
-     17,
-     "L17-58azbk",
-     -1.491
-    ],
-    [
-     17,
-     "L17-wv6nyg",
-     -0.75
-    ]
-   ],
+   "pairs": [],
    "parent": "g10",
    "status": "rejected"
   },
@@ -3299,58 +3218,7 @@
     "code"
    ],
    "note": "code: Attack skill fights a recently-unreachable mob whenever it is inside the melee reflex's range (not just under a fixed 4 blocks), so reflex_fight attacks stop failing instantly with NOT_FOUND while the zombie keeps hitting us.",
-   "pairs": [
-    [
-     18,
-     "L18-qbn789",
-     -0.001
-    ],
-    [
-     18,
-     "L18-kxc2h4",
-     -2.107
-    ],
-    [
-     18,
-     "L18-spqbek",
-     -1.341
-    ],
-    [
-     18,
-     "L18-5vsxdv",
-     0.741
-    ],
-    [
-     18,
-     "L18-y6dwg8",
-     -1.5
-    ],
-    [
-     19,
-     "L19-ynwcme",
-     0.106
-    ],
-    [
-     19,
-     "L19-wxfv89",
-     2.736
-    ],
-    [
-     19,
-     "L19-x7fnrn",
-     0.266
-    ],
-    [
-     19,
-     "L19-kh6527",
-     -4.75
-    ],
-    [
-     19,
-     "L19-5vq66j",
-     0.664
-    ]
-   ],
+   "pairs": [],
    "parent": "g10",
    "status": "rejected"
   },
@@ -3421,58 +3289,7 @@
     "food.stock"
    ],
    "note": "suggested: food.stock 16",
-   "pairs": [
-    [
-     18,
-     "L18-qbn789",
-     0.002
-    ],
-    [
-     18,
-     "L18-kxc2h4",
-     -1.5
-    ],
-    [
-     18,
-     "L18-spqbek",
-     -0.699
-    ],
-    [
-     18,
-     "L18-5vsxdv",
-     2.24
-    ],
-    [
-     18,
-     "L18-y6dwg8",
-     0.0
-    ],
-    [
-     19,
-     "L19-ynwcme",
-     0.339
-    ],
-    [
-     19,
-     "L19-wxfv89",
-     -0.049
-    ],
-    [
-     19,
-     "L19-x7fnrn",
-     0.233
-    ],
-    [
-     19,
-     "L19-kh6527",
-     -6.227
-    ],
-    [
-     19,
-     "L19-5vq66j",
-     -2.242
-    ]
-   ],
+   "pairs": [],
    "parent": "g10",
    "status": "rejected"
   },
@@ -3550,58 +3367,7 @@
     "code"
    ],
    "note": "code: Stuck detection ignores the 2-block box check while a moving skill keeps gaining inventory items (mining in place is progress), so collect stone/raw_iron/log stop failing STUCK and triggering costly unstuck reflexes.",
-   "pairs": [
-    [
-     20,
-     "L20-r2ehby",
-     -1.478
-    ],
-    [
-     20,
-     "L20-28pypc",
-     2.654
-    ],
-    [
-     20,
-     "L20-nvd36r",
-     -2.499
-    ],
-    [
-     20,
-     "L20-a2cvk4",
-     1.768
-    ],
-    [
-     20,
-     "L20-htspnm",
-     2.97
-    ],
-    [
-     21,
-     "L21-n4bjnd",
-     -2.734
-    ],
-    [
-     21,
-     "L21-nnvv9a",
-     -4.137
-    ],
-    [
-     21,
-     "L21-m7guea",
-     -3.357
-    ],
-    [
-     21,
-     "L21-b6bhcx",
-     0.22
-    ],
-    [
-     21,
-     "L21-eymj6v",
-     -2.243
-    ]
-   ],
+   "pairs": [],
    "parent": "g10",
    "status": "rejected"
   },
@@ -3672,58 +3438,7 @@
     "gear.sword_early"
    ],
    "note": "suggested: gear.sword_early 1",
-   "pairs": [
-    [
-     20,
-     "L20-r2ehby",
-     1.602
-    ],
-    [
-     20,
-     "L20-28pypc",
-     2.747
-    ],
-    [
-     20,
-     "L20-nvd36r",
-     -1.071
-    ],
-    [
-     20,
-     "L20-a2cvk4",
-     1.499
-    ],
-    [
-     20,
-     "L20-htspnm",
-     2.469
-    ],
-    [
-     21,
-     "L21-n4bjnd",
-     -2.764
-    ],
-    [
-     21,
-     "L21-nnvv9a",
-     -3.05
-    ],
-    [
-     21,
-     "L21-m7guea",
-     0.738
-    ],
-    [
-     21,
-     "L21-b6bhcx",
-     -2.015
-    ],
-    [
-     21,
-     "L21-eymj6v",
-     -2.993
-    ]
-   ],
+   "pairs": [],
    "parent": "g10",
    "status": "rejected"
   },
@@ -3801,58 +3516,7 @@
     "code"
    ],
    "note": "code: Underground portal carving searches nearby offsets (within 4 blocks, \u00b11 y) for a carvable room instead of only the one position anchored at the bot's feet, so build_portal stops failing NO_ROOM when the bot stands right at the lava's edge.",
-   "pairs": [
-    [
-     22,
-     "L22-gk9yhx",
-     -2.638
-    ],
-    [
-     22,
-     "L22-775a8f",
-     2.377
-    ],
-    [
-     22,
-     "L22-qmpf9d",
-     2.367
-    ],
-    [
-     22,
-     "L22-3nmeyr",
-     -1.54
-    ],
-    [
-     22,
-     "L22-pvb7w9",
-     0.0
-    ],
-    [
-     23,
-     "L23-av459m",
-     -1.274
-    ],
-    [
-     23,
-     "L23-83e2fy",
-     -2.04
-    ],
-    [
-     23,
-     "L23-8hdzky",
-     -1.88
-    ],
-    [
-     23,
-     "L23-6d9v7q",
-     -0.75
-    ],
-    [
-     23,
-     "L23-jxhasg",
-     -0.575
-    ]
-   ],
+   "pairs": [],
    "parent": "g10",
    "status": "rejected"
   },
@@ -3893,28 +3557,7 @@
     "gather.first_logs"
    ],
    "note": "route.bed 0, route.armor_before_portal 0, gather.first_logs 1",
-   "pairs": [
-    [
-     1,
-     "L1-7ygn35",
-     -8.288
-    ],
-    [
-     1,
-     "L1-qxjn5f",
-     -0.362
-    ],
-    [
-     1,
-     "L1-gw5n9k",
-     -4.193
-    ],
-    [
-     1,
-     "L1-3rpeme",
-     1.529
-    ]
-   ],
+   "pairs": [],
    "parent": "g0",
    "status": "rejected"
   },
@@ -4012,83 +3655,7 @@
     "combat.wall_in_anywhere"
    ],
    "note": "suggested: gear.sword_early 1, combat.wall_in_anywhere 1",
-   "pairs": [
-    [
-     22,
-     "L22-gk9yhx",
-     2.841
-    ],
-    [
-     22,
-     "L22-775a8f",
-     -0.687
-    ],
-    [
-     22,
-     "L22-qmpf9d",
-     -0.432
-    ],
-    [
-     22,
-     "L22-3nmeyr",
-     -1.498
-    ],
-    [
-     22,
-     "L22-pvb7w9",
-     -3.0
-    ],
-    [
-     23,
-     "L23-av459m",
-     -2.468
-    ],
-    [
-     23,
-     "L23-83e2fy",
-     8.06
-    ],
-    [
-     23,
-     "L23-8hdzky",
-     -0.752
-    ],
-    [
-     23,
-     "L23-6d9v7q",
-     -0.75
-    ],
-    [
-     23,
-     "L23-jxhasg",
-     0.924
-    ],
-    [
-     24,
-     "L24-quebch",
-     -1.494
-    ],
-    [
-     24,
-     "L24-3p52nu",
-     -3.614
-    ],
-    [
-     24,
-     "L24-t9v46u",
-     -3.179
-    ],
-    [
-     24,
-     "L24-uhwcwn",
-     2.242
-    ],
-    [
-     24,
-     "L24-yd98k3",
-     1.904
-    ]
-   ],
+   "pairs": [],
    "parent": "g10",
    "status": "rejected"
   },
@@ -4166,58 +3733,7 @@
     "code"
    ],
    "note": "code: fill_bucket water falls back to a visible water source within reach of where the bot stands (swimming or in the shallows) when no remembered source has a dry bank, breaking the fill_bucket NOT_FOUND / explore water ALREADY_DONE / explore HAZARD loop at the ocean.",
-   "pairs": [
-    [
-     24,
-     "L24-quebch",
-     0.092
-    ],
-    [
-     24,
-     "L24-3p52nu",
-     0.606
-    ],
-    [
-     24,
-     "L24-t9v46u",
-     -6.231
-    ],
-    [
-     24,
-     "L24-uhwcwn",
-     0.0
-    ],
-    [
-     24,
-     "L24-yd98k3",
-     3.234
-    ],
-    [
-     25,
-     "L25-ewuvhb",
-     3.092
-    ],
-    [
-     25,
-     "L25-ftfy2c",
-     2.472
-    ],
-    [
-     25,
-     "L25-zcrpy8",
-     -4.759
-    ],
-    [
-     25,
-     "L25-xhw8us",
-     -5.03
-    ],
-    [
-     25,
-     "L25-khjam5",
-     0.0
-    ]
-   ],
+   "pairs": [],
    "parent": "g10",
    "status": "rejected"
   },
@@ -4292,58 +3808,7 @@
     "route.armor_before_portal"
    ],
    "note": "suggested: gear.sword_early 1, cave.torches 1, combat.shield_guard 1, route.armor_before_portal 1",
-   "pairs": [
-    [
-     25,
-     "L25-ewuvhb",
-     4.731
-    ],
-    [
-     25,
-     "L25-ftfy2c",
-     3.243
-    ],
-    [
-     25,
-     "L25-zcrpy8",
-     -1.831
-    ],
-    [
-     25,
-     "L25-xhw8us",
-     -4.413
-    ],
-    [
-     25,
-     "L25-khjam5",
-     1.496
-    ],
-    [
-     26,
-     "L26-pvqgc5",
-     -0.667
-    ],
-    [
-     26,
-     "L26-aqnu6h",
-     -2.687
-    ],
-    [
-     26,
-     "L26-ur6mp9",
-     -2.31
-    ],
-    [
-     26,
-     "L26-jx4wjf",
-     -0.754
-    ],
-    [
-     26,
-     "L26-vydfez",
-     -2.243
-    ]
-   ],
+   "pairs": [],
    "parent": "g10",
    "status": "rejected"
   },
@@ -4422,58 +3887,7 @@
     "code"
    ],
    "note": "code: When a monster is already within melee range at low health, escape only if escape() would wall in (shelter heal). Otherwise fight instead of starting a retreat that can't get away. The change is made in both the planner and the low-HP reflex so their thresholds match.",
-   "pairs": [
-    [
-     26,
-     "L26-pvqgc5",
-     -2.333
-    ],
-    [
-     26,
-     "L26-aqnu6h",
-     -4.3
-    ],
-    [
-     26,
-     "L26-ur6mp9",
-     -2.035
-    ],
-    [
-     26,
-     "L26-jx4wjf",
-     -0.75
-    ],
-    [
-     26,
-     "L26-vydfez",
-     -0.837
-    ],
-    [
-     27,
-     "L27-s4ppes",
-     4.501
-    ],
-    [
-     27,
-     "L27-kcwbat",
-     4.191
-    ],
-    [
-     27,
-     "L27-rafrtc",
-     -1.419
-    ],
-    [
-     27,
-     "L27-msrxwg",
-     -0.75
-    ],
-    [
-     27,
-     "L27-jnfhh6",
-     1.663
-    ]
-   ],
+   "pairs": [],
    "parent": "g10",
    "status": "rejected"
   },
@@ -4995,58 +4409,7 @@
     "cave.torches"
    ],
    "note": "suggested: cave.torches 1",
-   "pairs": [
-    [
-     27,
-     "L27-s4ppes",
-     4.821
-    ],
-    [
-     27,
-     "L27-kcwbat",
-     3.839
-    ],
-    [
-     27,
-     "L27-rafrtc",
-     0.325
-    ],
-    [
-     27,
-     "L27-msrxwg",
-     0.75
-    ],
-    [
-     27,
-     "L27-jnfhh6",
-     1.663
-    ],
-    [
-     28,
-     "L28-dm2pc4",
-     6.126
-    ],
-    [
-     28,
-     "L28-egb58g",
-     3.815
-    ],
-    [
-     28,
-     "L28-tbxjxg",
-     1.817
-    ],
-    [
-     28,
-     "L28-4w593w",
-     0.702
-    ],
-    [
-     28,
-     "L28-866fb6",
-     0.0
-    ]
-   ],
+   "pairs": [],
    "parent": "g10",
    "status": "champion"
   },
@@ -5149,58 +4512,7 @@
     "code"
    ],
    "note": "code: The melee reflex skips a mob an attack just found unreachable when that mob sits in water, we're on dry ground and it's more than 2.5 blocks off. This breaks the attack-drowned UNREACHABLE loop that kept stopping explore at the shore.",
-   "pairs": [
-    [
-     29,
-     "L29-xywvzh",
-     1.807
-    ],
-    [
-     29,
-     "L29-4c93u4",
-     -0.553
-    ],
-    [
-     29,
-     "L29-55gsmv",
-     -0.071
-    ],
-    [
-     29,
-     "L29-77bjcq",
-     -0.75
-    ],
-    [
-     29,
-     "L29-k45gmd",
-     -2.183
-    ],
-    [
-     30,
-     "L30-68ct9m",
-     -4.405
-    ],
-    [
-     30,
-     "L30-634854",
-     2.777
-    ],
-    [
-     30,
-     "L30-t9zupw",
-     4.749
-    ],
-    [
-     30,
-     "L30-ckfasv",
-     1.942
-    ],
-    [
-     30,
-     "L30-b6yhs3",
-     3.793
-    ]
-   ],
+   "pairs": [],
    "parent": "g10",
    "status": "contender"
   },
@@ -5382,168 +4694,7 @@
     "combat.no_close_retreat"
    ],
    "note": "suggested: combat.no_close_retreat 1",
-   "pairs": [
-    [
-     32,
-     "L32-8bf8fk",
-     2.178
-    ],
-    [
-     32,
-     "L32-hrqkck",
-     3.98
-    ],
-    [
-     32,
-     "L32-ugwywb",
-     -2.99
-    ],
-    [
-     32,
-     "L32-y8xz2q",
-     2.86
-    ],
-    [
-     32,
-     "L32-vgc8eq",
-     -0.035
-    ],
-    [
-     32,
-     "L32-euuhdr",
-     -0.717
-    ],
-    [
-     32,
-     "L32-yngpqt",
-     1.291
-    ],
-    [
-     32,
-     "L32-xy3sr6",
-     -0.712
-    ],
-    [
-     33,
-     "L33-6rgsew",
-     2.704
-    ],
-    [
-     33,
-     "L33-rct5u9",
-     1.226
-    ],
-    [
-     33,
-     "L33-kg7x6b",
-     0.448
-    ],
-    [
-     33,
-     "L33-pv4wuu",
-     -5.092
-    ],
-    [
-     33,
-     "L33-32nsja",
-     1.5
-    ],
-    [
-     33,
-     "L33-mdrnnj",
-     2.199
-    ],
-    [
-     33,
-     "L33-gz8bkx",
-     3.305
-    ],
-    [
-     33,
-     "L33-a4dhwz",
-     -0.007
-    ],
-    [
-     34,
-     "L34-cr27qa",
-     0.22
-    ],
-    [
-     34,
-     "L34-yqbndq",
-     -1.542
-    ],
-    [
-     34,
-     "L34-g2n25h",
-     0.008
-    ],
-    [
-     34,
-     "L34-5aqbjk",
-     0.82
-    ],
-    [
-     34,
-     "L34-maz2nz",
-     0.0
-    ],
-    [
-     34,
-     "L34-mp886w",
-     3.491
-    ],
-    [
-     34,
-     "L34-k3tkyv",
-     5.203
-    ],
-    [
-     34,
-     "L34-tw6a3a",
-     -1.5
-    ],
-    [
-     35,
-     "L35-852eq9",
-     -0.617
-    ],
-    [
-     35,
-     "L35-z8cf98",
-     0.85
-    ],
-    [
-     35,
-     "L35-g2wumt",
-     0.733
-    ],
-    [
-     35,
-     "L35-g325uq",
-     -0.546
-    ],
-    [
-     35,
-     "L35-jcncgx",
-     0.754
-    ],
-    [
-     35,
-     "L35-rzvw2p",
-     -0.512
-    ],
-    [
-     35,
-     "L35-dw6ad4",
-     0.75
-    ],
-    [
-     35,
-     "L35-wr34jh",
-     1.5
-    ]
-   ],
+   "pairs": [],
    "parent": "g24",
    "status": "rejected"
   },
@@ -5726,168 +4877,7 @@
     "combat.shield_guard"
    ],
    "note": "suggested: cave.torches 1, combat.shield_guard 1",
-   "pairs": [
-    [
-     36,
-     "L36-5xtdfe",
-     4.142
-    ],
-    [
-     36,
-     "L36-u83ex7",
-     2.818
-    ],
-    [
-     36,
-     "L36-v2uvpj",
-     0.416
-    ],
-    [
-     36,
-     "L36-s4fu79",
-     -0.573
-    ],
-    [
-     36,
-     "L36-yu7aqx",
-     -0.731
-    ],
-    [
-     36,
-     "L36-edxzg5",
-     0.0
-    ],
-    [
-     36,
-     "L36-cjj72g",
-     0.75
-    ],
-    [
-     36,
-     "L36-zh8h8c",
-     0.0
-    ],
-    [
-     37,
-     "L37-59nzrw",
-     0.0
-    ],
-    [
-     37,
-     "L37-5q92y9",
-     0.425
-    ],
-    [
-     37,
-     "L37-35xq3j",
-     0.515
-    ],
-    [
-     37,
-     "L37-zmyc5e",
-     -2.672
-    ],
-    [
-     37,
-     "L37-rxjhgc",
-     -5.778
-    ],
-    [
-     37,
-     "L37-bxq669",
-     0.751
-    ],
-    [
-     37,
-     "L37-rgyvsc",
-     1.228
-    ],
-    [
-     37,
-     "L37-t5qfzz",
-     0.75
-    ],
-    [
-     38,
-     "L38-kfnfyk",
-     -2.521
-    ],
-    [
-     38,
-     "L38-ngu2n5",
-     -1.379
-    ],
-    [
-     38,
-     "L38-4q3hja",
-     1.839
-    ],
-    [
-     38,
-     "L38-t7zsqd",
-     -1.475
-    ],
-    [
-     38,
-     "L38-qhpg64",
-     0.67
-    ],
-    [
-     38,
-     "L38-6vefxk",
-     -0.006
-    ],
-    [
-     38,
-     "L38-g5rgzm",
-     3.642
-    ],
-    [
-     38,
-     "L38-x9snme",
-     1.5
-    ],
-    [
-     39,
-     "L39-rva9vy",
-     -17.092
-    ],
-    [
-     39,
-     "L39-yynqhx",
-     1.382
-    ],
-    [
-     39,
-     "L39-v325b7",
-     -3.517
-    ],
-    [
-     39,
-     "L39-s7fkj3",
-     -0.302
-    ],
-    [
-     39,
-     "L39-5qz8qw",
-     0.0
-    ],
-    [
-     39,
-     "L39-ek886j",
-     0.706
-    ],
-    [
-     39,
-     "L39-vpwgr7",
-     -0.117
-    ],
-    [
-     39,
-     "L39-7sk92b",
-     2.239
-    ]
-   ],
+   "pairs": [],
    "parent": "g24",
    "status": "rejected"
   },
@@ -5949,48 +4939,7 @@
     "night.wall_in"
    ],
    "note": "suggested: night.wall_in 1",
-   "pairs": [
-    [
-     40,
-     "L40-4647v4",
-     -2.67
-    ],
-    [
-     40,
-     "L40-9999dk",
-     -0.374
-    ],
-    [
-     40,
-     "L40-jtqnr2",
-     -4.25
-    ],
-    [
-     40,
-     "L40-dx2emd",
-     4.523
-    ],
-    [
-     40,
-     "L40-4ksda8",
-     -0.761
-    ],
-    [
-     40,
-     "L40-6y8579",
-     1.474
-    ],
-    [
-     40,
-     "L40-vbmg42",
-     1.44
-    ],
-    [
-     40,
-     "L40-2dwrz4",
-     3.686
-    ]
-   ],
+   "pairs": [],
    "parent": "g24",
    "status": "contender"
   },
@@ -6031,28 +4980,7 @@
     "plan.hostile_range"
    ],
    "note": "food.stock 3, gather.coal_extra 9, plan.hostile_range 9.65878",
-   "pairs": [
-    [
-     1,
-     "L1-7ygn35",
-     -2.609
-    ],
-    [
-     1,
-     "L1-qxjn5f",
-     1.728
-    ],
-    [
-     1,
-     "L1-gw5n9k",
-     -0.683
-    ],
-    [
-     1,
-     "L1-3rpeme",
-     -3.595
-    ]
-   ],
+   "pairs": [],
    "parent": "g0",
    "status": "rejected"
   },
@@ -6184,33 +5112,7 @@
     "food.hunt_dist"
    ],
    "note": "food.hunt_dist 13",
-   "pairs": [
-    [
-     9,
-     "L9-bvdjd8",
-     -1.521
-    ],
-    [
-     9,
-     "L9-myazj8",
-     -1.896
-    ],
-    [
-     9,
-     "L9-cyf2dz",
-     0.906
-    ],
-    [
-     9,
-     "L9-gsvmwk",
-     0.75
-    ],
-    [
-     9,
-     "L9-r2e872",
-     0.75
-    ]
-   ],
+   "pairs": [],
    "parent": "g0",
    "status": "rejected"
   },
@@ -6249,28 +5151,7 @@
     "plan.hide_hp"
    ],
    "note": "gather.coal_upkeep_below 0, plan.hide_hp 13",
-   "pairs": [
-    [
-     2,
-     "L2-kuk6yv",
-     -0.314
-    ],
-    [
-     2,
-     "L2-wsmn9p",
-     -1.689
-    ],
-    [
-     2,
-     "L2-5vm39f",
-     0.797
-    ],
-    [
-     2,
-     "L2-74hu7b",
-     0.327
-    ]
-   ],
+   "pairs": [],
    "parent": "g0",
    "status": "rejected"
   },
@@ -6582,33 +5463,7 @@
     "route.armor_before_portal"
    ],
    "note": "death.recover_night_armor 12, plan.hide_hp 15, route.armor_before_portal 0 (defending)",
-   "pairs": [
-    [
-     14,
-     "L14-5g9gr6",
-     2.827
-    ],
-    [
-     14,
-     "L14-rtd6ep",
-     -7.084
-    ],
-    [
-     14,
-     "L14-cxp8yh",
-     -1.077
-    ],
-    [
-     14,
-     "L14-f8dmbz",
-     0.647
-    ],
-    [
-     14,
-     "L14-crf9mj",
-     -2.214
-    ]
-   ],
+   "pairs": [],
    "parent": "g0",
    "status": "rejected"
   },
@@ -6696,78 +5551,7 @@
     "plan.hostile_range"
    ],
    "note": "plan.hostile_range 7.5151",
-   "pairs": [
-    [
-     3,
-     "L3-ezuknu",
-     4.199
-    ],
-    [
-     3,
-     "L3-ugr9d3",
-     2.679
-    ],
-    [
-     3,
-     "L3-m3wacc",
-     -1.462
-    ],
-    [
-     3,
-     "L3-7bpqte",
-     -1.769
-    ],
-    [
-     6,
-     "L6-5ue5nd",
-     -0.016
-    ],
-    [
-     6,
-     "L6-nfprdr",
-     -0.034
-    ],
-    [
-     6,
-     "L6-xwzsec",
-     -1.527
-    ],
-    [
-     6,
-     "L6-32cgj8",
-     -0.667
-    ],
-    [
-     6,
-     "L6-ffu9pz",
-     -0.75
-    ],
-    [
-     7,
-     "L7-jkcqtx",
-     -1.646
-    ],
-    [
-     7,
-     "L7-s7q34b",
-     0.526
-    ],
-    [
-     7,
-     "L7-ewn5js",
-     0.733
-    ],
-    [
-     7,
-     "L7-c73pb9",
-     -2.934
-    ],
-    [
-     7,
-     "L7-b7t6px",
-     -0.732
-    ]
-   ],
+   "pairs": [],
    "parent": "g4",
    "status": "rejected"
   },
@@ -6812,33 +5596,7 @@
     "focus.commit"
    ],
    "note": "suggested: focus.commit 1",
-   "pairs": [
-    [
-     6,
-     "L6-5ue5nd",
-     -0.854
-    ],
-    [
-     6,
-     "L6-nfprdr",
-     1.333
-    ],
-    [
-     6,
-     "L6-xwzsec",
-     1.247
-    ],
-    [
-     6,
-     "L6-32cgj8",
-     0.053
-    ],
-    [
-     6,
-     "L6-ffu9pz",
-     -3.0
-    ]
-   ],
+   "pairs": [],
    "parent": "g6",
    "status": "rejected"
   },
@@ -6933,83 +5691,7 @@
     "route.diamond_portal"
    ],
    "note": "suggested: route.diamond_portal 1",
-   "pairs": [
-    [
-     7,
-     "L7-jkcqtx",
-     0.121
-    ],
-    [
-     7,
-     "L7-s7q34b",
-     -1.725
-    ],
-    [
-     7,
-     "L7-ewn5js",
-     7.015
-    ],
-    [
-     7,
-     "L7-c73pb9",
-     -0.744
-    ],
-    [
-     7,
-     "L7-b7t6px",
-     0.0
-    ],
-    [
-     8,
-     "L8-38yj4x",
-     -0.388
-    ],
-    [
-     8,
-     "L8-mfdw6x",
-     -0.58
-    ],
-    [
-     8,
-     "L8-hg9s27",
-     -2.481
-    ],
-    [
-     8,
-     "L8-z4cgqg",
-     -0.759
-    ],
-    [
-     8,
-     "L8-cuqwcr",
-     0.75
-    ],
-    [
-     9,
-     "L9-bvdjd8",
-     -4.323
-    ],
-    [
-     9,
-     "L9-myazj8",
-     -2.732
-    ],
-    [
-     9,
-     "L9-cyf2dz",
-     0.962
-    ],
-    [
-     9,
-     "L9-gsvmwk",
-     2.047
-    ],
-    [
-     9,
-     "L9-r2e872",
-     -1.488
-    ]
-   ],
+   "pairs": [],
    "parent": "g6",
    "status": "rejected"
   }
@@ -7028,12 +5710,122 @@
  "model_r2": 0.223,
  "model_rows": 42381,
  "next_id": 29,
- "pending": null,
+ "pending": {
+  "data_tasks": [
+   {
+    "kind": "natural",
+    "seed": "D41-gw3kcn",
+    "stage": "spawn",
+    "synthetic": false
+   },
+   {
+    "kind": "natural",
+    "seed": "D41-erg2fj",
+    "stage": "spawn",
+    "synthetic": false
+   }
+  ],
+  "gen": 41,
+  "lineup": [
+   "g24",
+   "g28"
+  ],
+  "runs": [
+   "eval-g24-0",
+   "eval-g24-1",
+   "eval-g24-2",
+   "eval-g24-3",
+   "eval-g24-4",
+   "eval-g24-5",
+   "eval-g24-6",
+   "eval-g24-7",
+   "eval-g28-0",
+   "eval-g28-1",
+   "eval-g28-2",
+   "eval-g28-3",
+   "eval-g28-4",
+   "eval-g28-5",
+   "eval-g28-6",
+   "eval-g28-7",
+   "data-g24-0",
+   "data-g24-1"
+  ],
+  "seeds": [
+   "L41-jm7rbq",
+   "L41-p3sa82",
+   "L41-c9bnqx",
+   "L41-3sutqf",
+   "L41-xne2y5",
+   "L41-mspqgn",
+   "L41-jbxvhk",
+   "L41-6v975g"
+  ],
+  "sha": "5b152c1d131fbb418ecdf05cf62a8b7a6047eb13",
+  "started": "2026-09-28T18:30:24+00:00",
+  "tasks": [
+   {
+    "kind": "natural",
+    "seed": "L41-jm7rbq",
+    "stage": "spawn",
+    "synthetic": false
+   },
+   {
+    "kind": "natural",
+    "seed": "L41-p3sa82",
+    "stage": "spawn",
+    "synthetic": false
+   },
+   {
+    "kind": "natural",
+    "seed": "L41-c9bnqx",
+    "stage": "spawn",
+    "synthetic": false
+   },
+   {
+    "kind": "natural",
+    "seed": "L41-3sutqf",
+    "stage": "spawn",
+    "synthetic": false
+   },
+   {
+    "asset": "lava-gen34-eval-g26-7.zip",
+    "kind": "start",
+    "seed": "L41-xne2y5",
+    "stage": "lava",
+    "synthetic": false
+   },
+   {
+    "asset": "lava-gen34-eval-g24-6.zip",
+    "kind": "start",
+    "seed": "L41-mspqgn",
+    "stage": "lava",
+    "synthetic": false
+   },
+   {
+    "asset": "lava-gen38-eval-g24-4.zip",
+    "kind": "start",
+    "seed": "L41-jbxvhk",
+    "stage": "lava",
+    "synthetic": false
+   },
+   {
+    "kind": "combat",
+    "minutes": 10,
+    "scenario": "combat",
+    "seed": "L41-6v975g",
+    "stage": "combat",
+    "synthetic": false
+   }
+  ]
+ },
+ "score_version": 2,
  "settings": {
   "accept_pairs": 16,
   "accept_t": 2.5,
   "bank_keep": 40,
-  "data_runs": 0,
+  "combat_minutes": 10,
+  "combat_seeds": 1,
+  "data_runs": 2,
   "drop_after_pairs": 8,
   "evolve": {
    "max_per_day": 12,
@@ -7053,8 +5845,41 @@
   "seeds_per_gen": 4,
   "sigma0": 0.15,
   "stage_lookahead": false,
-  "stage_seeds": 4,
+  "stage_seeds": 3,
   "suggest": [
+   {
+    "survival.danger_v2": 1,
+    "survival.melee_lock": 3
+   },
+   {
+    "move.shore_first": 1
+   },
+   {
+    "safety.hazard": 1,
+    "safety.hazard_margin": 0.05
+   },
+   {
+    "safety.hazard": 1
+   },
+   {
+    "food.keep_full": 1
+   },
+   {
+    "food.early_stock": 1
+   },
+   {
+    "gear.armor_first": 1
+   },
+   {
+    "gear.shield_early": 1
+   },
+   {
+    "portal.prepare_work_area": 1,
+    "portal.reserve_lava_bucket": 1
+   },
+   {
+    "portal.retry_cast_view": 1
+   },
    {
     "combat.no_close_retreat": 1
    },
@@ -7145,6 +5970,34 @@
     "combat.crits": 1
    },
    {
+    "combat.swing_at": 0.85
+   },
+   {
+    "combat.backstep": 1,
+    "combat.keep_dist": 2.8,
+    "combat.strafe": 12
+   },
+   {
+    "combat.sprint_hit": 1,
+    "combat.sprint_hit_dist": 4
+   },
+   {
+    "combat.creeper_gap": 6,
+    "combat.creeper_hit": 1
+   },
+   {
+    "combat.skeleton_approach": 1,
+    "combat.skeleton_zigzag": 12
+   },
+   {
+    "combat.target_rule": 1
+   },
+   {
+    "combat.creeper_hit": 1,
+    "combat.creeper_priority_range": 5,
+    "combat.target_rule": 2
+   },
+   {
     "gather.coal_upkeep_below": 12,
     "gather.iron_in_view": 1
    },
@@ -7172,21 +6025,34 @@
   "cave.torch_light": 0.15,
   "cave.torches": 0.12896625,
   "combat.backstep": 0.15,
+  "combat.creeper_gap": 0.15,
+  "combat.creeper_hit": 0.15,
+  "combat.creeper_priority_range": 0.15,
   "combat.crits": 0.1275,
   "combat.deflect": 0.15,
   "combat.flee_hp": 0.15,
+  "combat.keep_dist": 0.15,
   "combat.no_close_retreat": 0.21,
   "combat.outnumbered": 0.1275,
   "combat.shield_guard": 0.09211875,
+  "combat.skeleton_approach": 0.15,
+  "combat.skeleton_zigzag": 0.15,
+  "combat.sprint_hit": 0.15,
+  "combat.sprint_hit_dist": 0.15,
+  "combat.strafe": 0.15,
+  "combat.swing_at": 0.15,
+  "combat.target_rule": 0.15,
   "combat.wall_in_anywhere": 0.1275,
   "death.recover_night_armor": 0.1785,
   "dragon.eat_hp": 0.15,
   "dragon.max_center_dist": 0.15,
   "dragon.wait_dist": 0.15,
   "focus.commit": 0.151725,
+  "food.early_stock": 0.15,
   "food.eat_at": 0.1275,
   "food.eat_hurt_at": 0.15,
   "food.hunt_dist": 0.1275,
+  "food.keep_full": 0.15,
   "food.search_hunger": 0.15,
   "food.stock": 0.108375,
   "gather.coal_extra": 0.1275,
@@ -7199,13 +6065,17 @@
   "gather.log_stock": 0.15,
   "gather.stone_extra": 0.15,
   "gather.stone_stock": 0.15,
+  "gear.armor_first": 0.15,
+  "gear.shield_early": 0.15,
   "gear.sword_early": 0.0783009375,
   "learned.explore": 0.15,
   "learned.weight": 0.15,
   "loop.lost_underground_s": 0.15,
   "loop.stuck_s": 0.15,
+  "move.shore_first": 0.15,
   "nav.mob_avoid_coef": 0.108375,
   "nav.mob_avoid_radius": 0.15,
+  "nether.pie_chart": 0.15,
   "night.mine_instead": 0.15,
   "night.shelter_armor": 0.1275,
   "night.shelter_max_s": 0.15,
@@ -7218,6 +6088,9 @@
   "plan.hide_hp": 0.151725,
   "plan.hostile_range": 0.0783009375,
   "plan.upkeep_calm_radius": 0.15,
+  "portal.prepare_work_area": 0.15,
+  "portal.reserve_lava_bucket": 0.15,
+  "portal.retry_cast_view": 0.15,
   "reflex.burning_hp": 0.15,
   "reflex.clutch_fall": 0.15,
   "reflex.creeper_dist": 0.15,
@@ -7230,9 +6103,15 @@
   "route.boots_before_portal": 0.15,
   "route.deep_for_lava": 0.15,
   "route.diamond_portal": 0.1275,
+  "safety.hazard": 0.15,
+  "safety.hazard_margin": 0.15,
   "stronghold.sidestep": 0.15,
   "stuck.box": 0.15,
-  "stuck.window_s": 0.15
+  "stuck.window_s": 0.15,
+  "survival.danger_v2": 0.15,
+  "survival.melee_lock": 0.15,
+  "tools.diamond_pick_if_found": 0.15,
+  "tools.stone_axe": 0.15
  },
  "stage_stats": {
   "end": [
