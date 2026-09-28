@@ -302,6 +302,9 @@ public class AutopilotClientTest implements FabricClientGameTest {
 		long lastReport = 0;
 		boolean savedTest = false;
 		long lastGs = -1, stalledSince = System.nanoTime();
+		// A restored world comes without the bot's memory of what it saw: a "lava" start looks like
+		// a kit until the lava is seen again. So the start stage is settled 10 s in, then banking begins.
+		boolean settled = false;
 		while (true) {
 			try {
 				Thread.sleep(1000);
@@ -328,9 +331,15 @@ public class AutopilotClientTest implements FabricClientGameTest {
 				savedTest = true;
 				Bank.save(null, sp, 1, gs);
 			}
-			if (task.isEmpty()) {
+			if (task.isEmpty() && gs >= 10) {
 				int now = FreeRun.onClient(() -> Bank.stage(net.minecraft.client.Minecraft.getInstance()));
-				if (now > bankedStage) {
+				if (!settled) {
+					settled = true;
+					if (now > bankedStage) {
+						bankedStage = now;
+						System.out.println("[autopilot-test] STAGE start " + Bank.STAGES.get(now));
+					}
+				} else if (now > bankedStage) {
 					bankedStage = now;
 					Bank.save(null, sp, now, gs);
 				}

@@ -16,9 +16,10 @@ import shutil
 import subprocess
 import tempfile
 
-STAGES = ["spawn", "kit", "nether", "rods", "eyes", "stronghold", "end"]
+# Same list as Bank.java. "lava" (kit with lava in reach) came in at gen 30: the wall is lava to obsidian.
+STAGES = ["spawn", "kit", "lava", "nether", "rods", "eyes", "stronghold", "end"]
 # Staged scenarios (test-world commands) standing in for a stage until real checkpoints exist.
-SYNTHETIC = {"kit": "cast", "nether": "nether", "eyes": "stronghold", "end": "end"}
+SYNTHETIC = {"kit": "cast", "lava": "cast", "nether": "nether", "eyes": "stronghold", "end": "end"}
 RELEASE = "checkpoints"
 
 
@@ -35,6 +36,14 @@ def read_stages(run_dir):
                 reached.append(m.group(1))
                 when[m.group(1)] = int(m.group(2))
     return start, reached, when
+
+
+def migrate(st):
+    """Stage list v2 (the lava stage): getting past the kit used to mean reaching the Nether and now
+    means reaching lava, so the kit's old record (all zeros) no longer says anything."""
+    if st.get("stages_version", 1) < 2:
+        st.setdefault("stage_stats", {}).pop("kit", None)
+        st["stages_version"] = 2
 
 
 def record_result(st, start, reached, gen):

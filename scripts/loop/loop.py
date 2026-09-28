@@ -78,6 +78,7 @@ def load_state(d, genes):
     repo = common.read_json(os.path.join(os.path.dirname(os.path.abspath(__file__)), "settings.json"), {})
     st["settings"].update({k: v for k, v in repo.items() if not k.startswith("_")})
     st["gene_specs"] = genes  # defaults and limits, for the dashboard
+    bank.migrate(st)
     for n in genes:
         st["sigma"].setdefault(n, st["settings"]["sigma0"])
         st["credit"].setdefault(n, {"n": 0, "sum": 0.0})
@@ -502,13 +503,19 @@ def last_history(d):
 
 
 def portal_drill(results):
-    """The wall (0 of 16 kit starts got past it by gen 28): of the runs started from the iron kit,
-    how many got each portal step. Watched directly, since the race's score mixes it with deaths."""
-    kit = [r for r in results.values() if r and r.get("stage") == "kit"]
-    out = {"tries": len(kit)}
-    for c in ("lava_seen", "obsidian_placed", "frame_complete", "portal_lit"):
-        out[c] = sum(1 for r in kit if c in r["checkpoints"])
-    out["nether"] = sum(1 for r in kit if "nether" in (r.get("reached_stages") or []))
+    """The wall (0 of 16 kit starts got past it by gen 28): of the runs started from the iron kit
+    or beside lava, how many got each portal step. Watched directly, since the race's score mixes
+    it with deaths."""
+    out = {}
+    for stage in ("kit", "lava"):
+        runs = [r for r in results.values() if r and r.get("stage") == stage]
+        if not runs:
+            continue
+        d = {"tries": len(runs)}
+        for c in ("lava_seen", "obsidian_placed", "frame_complete", "portal_lit"):
+            d[c] = sum(1 for r in runs if c in r["checkpoints"])
+        d["nether"] = sum(1 for r in runs if "nether" in (r.get("reached_stages") or []))
+        out[stage] = d
     return out
 
 
