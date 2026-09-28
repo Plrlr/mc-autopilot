@@ -87,7 +87,8 @@ cascade), and more parallel seeds once the cloud's speed is fixed (the renderer 
 2. **trial**: each run plays 20 game minutes of plain vanilla drawing, which already keeps up
    with real time on the cloud (0.98x). A 10 fps cap halved the game speed, so it isn't used.
 3. **update**: scores every run (`common.score_run`: points per milestone and portal step, up to
-   50% more the earlier, minus 0.75 per death), races, retrains the model, merges a winning code
+   50% more the earlier; one life: only what came before the first death counts, plus up to 2
+   points for the share of the run lived, minus 1 for dying), races, retrains the model, merges a winning code
    change, maybe asks Claude for one, writes `loop/history.jsonl` and the dashboard, and starts
    the next generation.
 

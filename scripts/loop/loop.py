@@ -79,6 +79,12 @@ def load_state(d, genes):
     st["settings"].update({k: v for k, v in repo.items() if not k.startswith("_")})
     st["gene_specs"] = genes  # defaults and limits, for the dashboard
     bank.migrate(st)
+    # A new scorer measures something else: differences scored the old way can't be added to new
+    # ones, so every race starts over (the champion keeps its crown until beaten the new way).
+    if st.get("score_version", 1) != common.SCORE_VERSION:
+        for g in st["genomes"].values():
+            g["pairs"] = []
+        st["score_version"] = common.SCORE_VERSION
     for n in genes:
         st["sigma"].setdefault(n, st["settings"]["sigma0"])
         st["credit"].setdefault(n, {"n": 0, "sum": 0.0})
