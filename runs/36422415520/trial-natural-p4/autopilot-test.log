@@ -1,0 +1,398 @@
+	- autopilot-test 0.1.0
+[12:34:22] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test] start at 13, 63, 76
+[12:34:22] [Test thread/INFO] (Minecraft) [STDOUT]: [autopilot-test] STAGE start spawn
+[12:34:22] [Test thread/INFO] (Minecraft) [STDOUT]: [autopilot-test] FREE RUN: client and server run in parallel (no lockstep)
+[12:35:03] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test] natural 30s: brain rules, goal wood_tools, doing explore any, milestone 0/13, deaths 0
+[autopilot-test]    perf fps 21, server 6.1 ms/tick, mod 0.95 ms/tick
+[12:35:03] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    at -1 64 171 hp 20 food 20 inv {}
+[12:35:03] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    known water 15, 62, 77, lava none
+[12:35:03] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    collect log:3 -> failed NOT_FOUND: no log seen nearby
+[12:35:03] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    collect log:3 -> failed NOT_FOUND: no log seen nearby
+[12:35:03] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    explore log -> ok: found log
+[12:35:03] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    explore log -> failed ALREADY_DONE: already see log
+[12:35:03] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    explore log -> failed ALREADY_DONE: already see log
+[12:35:03] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    explore log -> failed ALREADY_DONE: already see log
+[12:35:36] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test] natural 60s: brain rules, goal wood_tools, doing explore any, milestone 0/13, deaths 0
+[autopilot-test]    perf fps 18, server 5.9 ms/tick, mod 0.78 ms/tick
+[12:35:36] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    at 76 64 290 hp 20 food 19 inv {sugar_cane=2}
+[12:35:36] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    known water 15, 62, 77, lava none
+[12:35:36] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    collect log:3 -> failed NOT_FOUND: no log seen nearby
+[12:35:36] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    explore log -> ok: found log
+[12:35:36] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    explore log -> failed ALREADY_DONE: already see log
+[12:35:36] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    explore log -> failed ALREADY_DONE: already see log
+[12:35:36] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    explore log -> failed ALREADY_DONE: already see log
+[12:35:36] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    explore any -> ok: explored 119 blocks
+[12:36:09] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test] natural 90s: brain rules, goal wood_tools, doing collect log:3, milestone 0/13, deaths 0
+[autopilot-test]    perf fps 25, server 4.7 ms/tick, mod 0.75 ms/tick
+[12:36:09] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    at 145 77 358 hp 20 food 17 inv {spruce_log=1, sugar_cane=2}
+[12:36:09] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    known water 15, 62, 77, lava none
+[12:36:09] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    explore log -> failed ALREADY_DONE: already see log
+[12:36:09] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    explore log -> failed ALREADY_DONE: already see log
+[12:36:09] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    explore log -> failed ALREADY_DONE: already see log
+[12:36:09] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    explore any -> ok: explored 119 blocks
+[12:36:09] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    explore any -> ok: explored 120 blocks
+[12:36:09] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    explore any -> failed INTERRUPTED: interrupted: brain chose collect log:3
+[12:36:39] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test] natural 120s: brain rules, goal stone_tools, doing collect stone:13, milestone 1/13, deaths 0
+[autopilot-test]    perf fps 30, server 2.7 ms/tick, mod 0.73 ms/tick
+[12:36:39] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    at 108 62 362 hp 20 food 16 inv {crafting_table=1, dirt=4, spruce_planks=3, stick=2, sugar_cane=2, wooden_pickaxe=1}
+[12:36:39] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    known water 15, 62, 77, lava none
+[12:36:39] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    craft stick:4 -> ok: crafted 4 stick
+[12:36:39] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    craft planks:4 -> ok: crafted 4 planks
+[12:36:39] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    craft crafting_table:1 -> ok: crafted 1 crafting_table
+[12:36:39] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    craft planks:4 -> ok: crafted 4 planks
+[12:36:39] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    craft wooden_pickaxe:1 -> ok: crafted 1 wooden_pickaxe
+[12:36:39] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    pickup stations -> ok: picked up 1 stacks
+[12:37:10] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test] natural 150s: brain rules, goal stone_tools, doing collect coal:6, milestone 1/13, deaths 0
+[autopilot-test]    perf fps 30, server 2.4 ms/tick, mod 0.75 ms/tick
+[12:37:10] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    at 108 60 362 hp 20 food 16 inv {coal=1, cobblestone=4, crafting_table=1, dirt=4, spruce_planks=3, stick=2, sugar_cane=2, wooden_pickaxe=1}
+[12:37:10] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    known water 106, 61, 362, lava none
+[12:37:10] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    craft crafting_table:1 -> ok: crafted 1 crafting_table
+[12:37:10] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    craft planks:4 -> ok: crafted 4 planks
+[12:37:10] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    craft wooden_pickaxe:1 -> ok: crafted 1 wooden_pickaxe
+[12:37:10] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    pickup stations -> ok: picked up 1 stacks
+[12:37:10] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    collect stone:13 -> failed INTERRUPTED: interrupted: brain chose collect coal:6
+[12:37:10] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    collect coal:6 -> failed INTERRUPTED: running out of air
+[12:37:39] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test] natural 180s: brain rules, goal stone_tools, doing idle, milestone 1/13, deaths 0
+[autopilot-test]    perf fps 30, server 2.1 ms/tick, mod 0.76 ms/tick
+[12:37:39] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    at 108 61 362 hp 20 food 16 inv {coal=1, cobblestone=4, crafting_table=1, dirt=5, spruce_planks=3, stick=2, sugar_cane=2, wooden_pickaxe=1}
+[12:37:39] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    known water 106, 61, 362, lava none
+[12:37:39] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    pickup stations -> ok: picked up 1 stacks
+[12:37:39] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    collect stone:13 -> failed INTERRUPTED: interrupted: brain chose collect coal:6
+[12:37:39] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    collect coal:6 -> failed INTERRUPTED: running out of air
+[12:37:39] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    collect coal:6 -> failed INTERRUPTED: running out of air
+[12:37:39] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    collect coal:6 -> failed INTERRUPTED: running out of air
+[12:37:39] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    collect coal:6 -> failed INTERRUPTED: running out of air
+[12:38:09] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test] natural 210s: brain rules, goal stone_tools, doing collect coal:6, milestone 1/13, deaths 0
+[autopilot-test]    perf fps 30, server 2.2 ms/tick, mod 0.76 ms/tick
+[12:38:09] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    at 108 60 362 hp 20 food 16 inv {coal=1, cobblestone=4, crafting_table=1, dirt=5, spruce_planks=3, stick=2, sugar_cane=2, wooden_pickaxe=1}
+[12:38:09] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    known water 106, 61, 362, lava none
+[12:38:09] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    collect coal:6 -> failed INTERRUPTED: running out of air
+[12:38:09] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    collect coal:6 -> failed INTERRUPTED: running out of air
+[12:38:09] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    collect coal:6 -> failed INTERRUPTED: running out of air
+[12:38:09] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    collect coal:6 -> failed INTERRUPTED: running out of air
+[12:38:09] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    collect coal:6 -> failed INTERRUPTED: running out of air
+[12:38:09] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    collect coal:6 -> failed INTERRUPTED: running out of air
+[12:38:40] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test] natural 240s: brain rules, goal stone_tools, doing collect coal:6, milestone 1/13, deaths 0
+[autopilot-test]    perf fps 30, server 2.5 ms/tick, mod 0.76 ms/tick
+[12:38:40] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    at 108 60 362 hp 20 food 16 inv {coal=1, cobblestone=4, crafting_table=1, dirt=5, spruce_planks=3, stick=2, sugar_cane=2, wooden_pickaxe=1}
+[12:38:40] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    known water 106, 61, 362, lava none
+[12:38:40] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    collect coal:6 -> failed INTERRUPTED: running out of air
+[12:38:40] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    collect coal:6 -> failed INTERRUPTED: running out of air
+[12:38:40] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    collect coal:6 -> failed INTERRUPTED: running out of air
+[12:38:40] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    collect coal:6 -> failed INTERRUPTED: running out of air
+[12:38:40] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    collect coal:6 -> failed INTERRUPTED: running out of air
+[12:38:40] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    collect coal:6 -> failed INTERRUPTED: running out of air
+[12:39:10] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test] natural 270s: brain rules, goal stone_tools, doing collect coal:6, milestone 1/13, deaths 0
+[autopilot-test]    perf fps 30, server 2.4 ms/tick, mod 0.76 ms/tick
+[12:39:10] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    at 108 60 362 hp 20 food 16 inv {coal=1, cobblestone=4, crafting_table=1, dirt=5, spruce_planks=3, stick=2, sugar_cane=2, wooden_pickaxe=1}
+[12:39:10] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    known water 106, 61, 362, lava none
+[12:39:10] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    collect coal:6 -> failed INTERRUPTED: running out of air
+[12:39:10] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    collect coal:6 -> failed INTERRUPTED: running out of air
+[12:39:10] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    collect coal:6 -> failed INTERRUPTED: running out of air
+[12:39:10] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    collect coal:6 -> failed INTERRUPTED: running out of air
+[12:39:10] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    collect coal:6 -> failed INTERRUPTED: running out of air
+[12:39:10] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    collect coal:6 -> failed INTERRUPTED: running out of air
+[12:39:39] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test] natural 300s: brain rules, goal stone_tools, doing collect coal:6, milestone 1/13, deaths 0
+[autopilot-test]    perf fps 30, server 2.1 ms/tick, mod 0.76 ms/tick
+[12:39:39] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    at 108 60 362 hp 20 food 16 inv {coal=1, cobblestone=4, crafting_table=1, dirt=5, spruce_planks=3, stick=2, sugar_cane=2, wooden_pickaxe=1}
+[12:39:39] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    known water 106, 61, 362, lava none
+[12:39:39] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    collect coal:6 -> failed INTERRUPTED: running out of air
+[12:39:39] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    collect coal:6 -> failed INTERRUPTED: running out of air
+[12:39:39] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    collect coal:6 -> failed INTERRUPTED: running out of air
+[12:39:39] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    collect coal:6 -> failed INTERRUPTED: running out of air
+[12:39:39] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    collect coal:6 -> failed INTERRUPTED: running out of air
+[12:39:39] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    collect coal:6 -> failed INTERRUPTED: running out of air
+[12:40:09] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test] natural 330s: brain rules, goal stone_tools, doing collect coal:6, milestone 1/13, deaths 0
+[autopilot-test]    perf fps 30, server 1.7 ms/tick, mod 0.76 ms/tick
+[12:40:09] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    at 108 60 362 hp 20 food 16 inv {coal=1, cobblestone=4, crafting_table=1, dirt=5, spruce_planks=3, stick=2, sugar_cane=2, wooden_pickaxe=1}
+[12:40:09] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    known water 106, 61, 362, lava none
+[12:40:09] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    collect coal:6 -> failed INTERRUPTED: running out of air
+[12:40:09] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    collect coal:6 -> failed INTERRUPTED: running out of air
+[12:40:09] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    collect coal:6 -> failed INTERRUPTED: running out of air
+[12:40:09] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    collect coal:6 -> failed INTERRUPTED: running out of air
+[12:40:09] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    collect coal:6 -> failed INTERRUPTED: running out of air
+[12:40:09] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    collect coal:6 -> failed INTERRUPTED: running out of air
+[12:40:39] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test] natural 360s: brain rules, goal stone_tools, doing collect coal:6, milestone 1/13, deaths 0
+[autopilot-test]    perf fps 29, server 1.7 ms/tick, mod 0.76 ms/tick
+[12:40:39] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    at 108 62 362 hp 20 food 16 inv {coal=1, cobblestone=4, crafting_table=1, dirt=5, spruce_planks=3, stick=2, sugar_cane=2, wooden_pickaxe=1}
+[12:40:39] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    known water 106, 62, 362, lava none
+[12:40:39] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    collect coal:6 -> failed INTERRUPTED: running out of air
+[12:40:39] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    collect coal:6 -> failed INTERRUPTED: running out of air
+[12:40:39] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    collect coal:6 -> failed INTERRUPTED: running out of air
+[12:40:39] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    collect coal:6 -> failed INTERRUPTED: running out of air
+[12:40:39] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    collect coal:6 -> failed INTERRUPTED: running out of air
+[12:40:39] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    collect coal:6 -> failed INTERRUPTED: running out of air
+[12:41:10] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test] natural 390s: brain rules, goal stone_tools, doing collect coal:6, milestone 1/13, deaths 0
+[autopilot-test]    perf fps 30, server 1.6 ms/tick, mod 0.76 ms/tick
+[12:41:10] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    at 108 60 362 hp 20 food 16 inv {coal=1, cobblestone=4, crafting_table=1, dirt=5, spruce_planks=3, stick=2, sugar_cane=2, wooden_pickaxe=1}
+[12:41:10] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    known water 106, 61, 362, lava none
+[12:41:10] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    collect coal:6 -> failed INTERRUPTED: running out of air
+[12:41:10] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    collect coal:6 -> failed INTERRUPTED: running out of air
+[12:41:10] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    collect coal:6 -> failed INTERRUPTED: running out of air
+[12:41:10] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    collect coal:6 -> failed INTERRUPTED: running out of air
+[12:41:10] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    collect coal:6 -> failed INTERRUPTED: running out of air
+[12:41:10] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    collect coal:6 -> failed INTERRUPTED: running out of air
+[12:41:39] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test] natural 420s: brain rules, goal stone_tools, doing collect coal:6, milestone 1/13, deaths 0
+[autopilot-test]    perf fps 30, server 1.8 ms/tick, mod 0.76 ms/tick
+[12:41:39] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    at 108 60 362 hp 20 food 15 inv {coal=1, cobblestone=4, crafting_table=1, dirt=6, spruce_planks=3, stick=2, sugar_cane=2, wooden_pickaxe=1}
+[12:41:39] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    known water 106, 61, 362, lava none
+[12:41:39] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    collect coal:6 -> failed INTERRUPTED: running out of air
+[12:41:39] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    collect coal:6 -> failed INTERRUPTED: running out of air
+[12:41:39] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    collect coal:6 -> failed INTERRUPTED: running out of air
+[12:41:39] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    collect coal:6 -> failed INTERRUPTED: running out of air
+[12:41:39] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    collect coal:6 -> failed INTERRUPTED: running out of air
+[12:41:39] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    collect coal:6 -> failed INTERRUPTED: running out of air
+[12:42:09] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test] natural 450s: brain rules, goal stone_tools, doing collect coal:6, milestone 1/13, deaths 0
+[autopilot-test]    perf fps 30, server 1.5 ms/tick, mod 0.76 ms/tick
+[12:42:09] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    at 108 60 362 hp 20 food 15 inv {coal=1, cobblestone=4, crafting_table=1, dirt=6, spruce_planks=3, stick=2, sugar_cane=2, wooden_pickaxe=1}
+[12:42:09] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    known water 106, 61, 362, lava none
+[12:42:09] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    collect coal:6 -> failed INTERRUPTED: running out of air
+[12:42:09] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    collect coal:6 -> failed INTERRUPTED: running out of air
+[12:42:09] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    collect coal:6 -> failed INTERRUPTED: running out of air
+[12:42:09] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    collect coal:6 -> failed INTERRUPTED: running out of air
+[12:42:09] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    collect coal:6 -> failed INTERRUPTED: running out of air
+[12:42:09] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    collect coal:6 -> failed INTERRUPTED: running out of air
+[12:42:39] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test] natural 480s: brain rules, goal stone_tools, doing collect coal:6, milestone 1/13, deaths 0
+[autopilot-test]    perf fps 30, server 1.7 ms/tick, mod 0.76 ms/tick
+[12:42:39] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    at 108 60 362 hp 20 food 15 inv {coal=1, cobblestone=4, crafting_table=1, dirt=6, spruce_planks=3, stick=2, sugar_cane=2, wooden_pickaxe=1}
+[12:42:39] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    known water 106, 61, 362, lava none
+[12:42:39] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    collect coal:6 -> failed INTERRUPTED: running out of air
+[12:42:39] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    collect coal:6 -> failed INTERRUPTED: running out of air
+[12:42:39] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    collect coal:6 -> failed INTERRUPTED: running out of air
+[12:42:39] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    collect coal:6 -> failed INTERRUPTED: running out of air
+[12:42:39] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    collect coal:6 -> failed INTERRUPTED: running out of air
+[12:42:39] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    collect coal:6 -> failed INTERRUPTED: running out of air
+[12:43:09] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test] natural 510s: brain rules, goal stone_tools, doing collect coal:6, milestone 1/13, deaths 0
+[autopilot-test]    perf fps 30, server 1.6 ms/tick, mod 0.75 ms/tick
+[12:43:09] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    at 108 60 362 hp 20 food 15 inv {coal=1, cobblestone=4, crafting_table=1, dirt=6, spruce_planks=3, stick=2, sugar_cane=2, wooden_pickaxe=1}
+[12:43:09] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    known water 106, 61, 362, lava none
+[12:43:09] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    collect coal:6 -> failed INTERRUPTED: running out of air
+[12:43:09] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    collect coal:6 -> failed INTERRUPTED: running out of air
+[12:43:09] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    collect coal:6 -> failed INTERRUPTED: running out of air
+[12:43:09] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    collect coal:6 -> failed INTERRUPTED: running out of air
+[12:43:09] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    collect coal:6 -> failed INTERRUPTED: running out of air
+[12:43:09] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    collect coal:6 -> failed INTERRUPTED: running out of air
+[12:43:40] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test] natural 540s: brain rules, goal stone_tools, doing idle, milestone 1/13, deaths 0
+[autopilot-test]    perf fps 30, server 1.5 ms/tick, mod 0.75 ms/tick
+[12:43:40] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    at 108 60 362 hp 20 food 15 inv {coal=1, cobblestone=4, crafting_table=1, dirt=6, spruce_planks=3, stick=2, sugar_cane=2, wooden_pickaxe=1}
+[12:43:40] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    known water 106, 61, 362, lava none
+[12:43:40] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    collect coal:6 -> failed INTERRUPTED: running out of air
+[12:43:40] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    collect coal:6 -> failed INTERRUPTED: running out of air
+[12:43:40] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    collect coal:6 -> failed INTERRUPTED: running out of air
+[12:43:40] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    collect coal:6 -> failed INTERRUPTED: running out of air
+[12:43:40] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    collect coal:6 -> failed INTERRUPTED: running out of air
+[12:43:40] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    collect coal:6 -> failed INTERRUPTED: running out of air
+[12:44:36] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test] natural 570s: brain rules, goal stone_tools, doing collect coal:6, milestone 1/13, deaths 0
+[autopilot-test]    perf fps 10, server 1.5 ms/tick, mod 0.75 ms/tick
+[12:44:36] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    at 108 60 362 hp 20 food 15 inv {coal=1, cobblestone=4, crafting_table=1, dirt=6, spruce_planks=3, stick=2, sugar_cane=2, wooden_pickaxe=1}
+[12:44:36] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    known water 106, 61, 362, lava none
+[12:44:36] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    collect coal:6 -> failed INTERRUPTED: running out of air
+[12:44:36] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    collect coal:6 -> failed INTERRUPTED: running out of air
+[12:44:36] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    collect coal:6 -> failed INTERRUPTED: running out of air
+[12:44:36] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    collect coal:6 -> failed INTERRUPTED: running out of air
+[12:44:36] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    collect coal:6 -> failed INTERRUPTED: running out of air
+[12:44:36] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    collect coal:6 -> failed INTERRUPTED: running out of air
+[12:45:36] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test] natural 600s: brain rules, goal stone_tools, doing collect coal:6, milestone 1/13, deaths 0
+[autopilot-test]    perf fps 10, server 1.3 ms/tick, mod 0.75 ms/tick
+[12:45:36] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    at 108 60 362 hp 20 food 15 inv {coal=1, cobblestone=4, crafting_table=1, dirt=6, spruce_planks=3, stick=2, sugar_cane=2, wooden_pickaxe=1}
+[12:45:36] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    known water 106, 61, 362, lava none
+[12:45:36] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    collect coal:6 -> failed INTERRUPTED: running out of air
+[12:45:36] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    collect coal:6 -> failed INTERRUPTED: running out of air
+[12:45:36] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    collect coal:6 -> failed INTERRUPTED: running out of air
+[12:45:36] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    collect coal:6 -> failed INTERRUPTED: running out of air
+[12:45:36] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    collect coal:6 -> failed INTERRUPTED: running out of air
+[12:45:36] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    collect coal:6 -> failed INTERRUPTED: running out of air
+[12:46:36] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test] natural 630s: brain rules, goal stone_tools, doing idle, milestone 1/13, deaths 0
+[autopilot-test]    perf fps 10, server 1.2 ms/tick, mod 0.75 ms/tick
+[12:46:36] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    at 108 61 362 hp 20 food 15 inv {coal=1, cobblestone=4, crafting_table=1, dirt=6, spruce_planks=3, stick=2, sugar_cane=2, wooden_pickaxe=1}
+[12:46:36] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    known water 106, 61, 362, lava none
+[12:46:36] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    collect coal:6 -> failed INTERRUPTED: running out of air
+[12:46:36] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    collect coal:6 -> failed INTERRUPTED: running out of air
+[12:46:36] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    collect coal:6 -> failed INTERRUPTED: running out of air
+[12:46:36] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    collect coal:6 -> failed INTERRUPTED: running out of air
+[12:46:36] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    collect coal:6 -> failed INTERRUPTED: running out of air
+[12:46:36] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    collect coal:6 -> failed INTERRUPTED: running out of air
+[12:47:35] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test] natural 660s: brain rules, goal stone_tools, doing collect coal:6, milestone 1/13, deaths 0
+[autopilot-test]    perf fps 10, server 1.4 ms/tick, mod 0.75 ms/tick
+[12:47:35] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    at 108 60 362 hp 20 food 15 inv {coal=1, cobblestone=4, crafting_table=1, dirt=6, spruce_planks=3, stick=2, sugar_cane=2, wooden_pickaxe=1}
+[12:47:35] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    known water 106, 61, 362, lava none
+[12:47:35] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    collect coal:6 -> failed INTERRUPTED: running out of air
+[12:47:35] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    collect coal:6 -> failed INTERRUPTED: running out of air
+[12:47:35] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    collect coal:6 -> failed INTERRUPTED: running out of air
+[12:47:35] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    collect coal:6 -> failed INTERRUPTED: running out of air
+[12:47:35] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    collect coal:6 -> failed INTERRUPTED: running out of air
+[12:47:35] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    collect coal:6 -> failed INTERRUPTED: running out of air
+[12:48:35] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test] natural 690s: brain rules, goal stone_tools, doing collect coal:6, milestone 1/13, deaths 0
+[autopilot-test]    perf fps 10, server 1.3 ms/tick, mod 0.75 ms/tick
+[12:48:35] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    at 108 60 362 hp 20 food 15 inv {coal=1, cobblestone=4, crafting_table=1, dirt=6, spruce_planks=3, stick=2, sugar_cane=2, wooden_pickaxe=1}
+[12:48:35] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    known water 106, 61, 362, lava none
+[12:48:35] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    collect coal:6 -> failed INTERRUPTED: running out of air
+[12:48:35] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    collect coal:6 -> failed INTERRUPTED: running out of air
+[12:48:35] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    collect coal:6 -> failed INTERRUPTED: running out of air
+[12:48:35] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    collect coal:6 -> failed INTERRUPTED: running out of air
+[12:48:35] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    collect coal:6 -> failed INTERRUPTED: running out of air
+[12:48:35] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    collect coal:6 -> failed INTERRUPTED: running out of air
+[12:49:35] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test] natural 720s: brain rules, goal stone_tools, doing collect coal:6, milestone 1/13, deaths 0
+[autopilot-test]    perf fps 10, server 1.2 ms/tick, mod 0.75 ms/tick
+[12:49:35] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    at 108 61 362 hp 20 food 15 inv {coal=1, cobblestone=4, crafting_table=1, dirt=6, spruce_planks=3, stick=2, sugar_cane=2, wooden_pickaxe=1}
+[12:49:35] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    known water 106, 61, 362, lava none
+[12:49:35] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    collect coal:6 -> failed INTERRUPTED: running out of air
+[12:49:35] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    collect coal:6 -> failed INTERRUPTED: running out of air
+[12:49:35] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    collect coal:6 -> failed INTERRUPTED: running out of air
+[12:49:35] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    collect coal:6 -> failed INTERRUPTED: running out of air
+[12:49:35] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    collect coal:6 -> failed INTERRUPTED: running out of air
+[12:49:35] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    collect coal:6 -> failed INTERRUPTED: running out of air
+[12:50:35] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test] natural 750s: brain rules, goal stone_tools, doing collect coal:6, milestone 1/13, deaths 0
+[autopilot-test]    perf fps 10, server 1.3 ms/tick, mod 0.74 ms/tick
+[12:50:35] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    at 108 60 362 hp 20 food 15 inv {coal=1, cobblestone=4, crafting_table=1, dirt=6, spruce_planks=3, stick=2, sugar_cane=2, wooden_pickaxe=1}
+[12:50:35] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    known water 106, 61, 362, lava none
+[12:50:35] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    collect coal:6 -> failed INTERRUPTED: running out of air
+[12:50:35] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    collect coal:6 -> failed INTERRUPTED: running out of air
+[12:50:35] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    collect coal:6 -> failed INTERRUPTED: running out of air
+[12:50:35] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    collect coal:6 -> failed INTERRUPTED: running out of air
+[12:50:35] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    collect coal:6 -> failed INTERRUPTED: running out of air
+[12:50:35] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    collect coal:6 -> failed INTERRUPTED: running out of air
+[12:51:35] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test] natural 780s: brain rules, goal stone_tools, doing collect coal:6, milestone 1/13, deaths 0
+[autopilot-test]    perf fps 10, server 1.2 ms/tick, mod 0.74 ms/tick
+[12:51:35] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    at 108 60 362 hp 20 food 15 inv {coal=1, cobblestone=4, crafting_table=1, dirt=6, spruce_planks=3, stick=2, sugar_cane=2, wooden_pickaxe=1}
+[12:51:35] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    known water 106, 61, 362, lava none
+[12:51:35] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    collect coal:6 -> failed INTERRUPTED: running out of air
+[12:51:35] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    collect coal:6 -> failed INTERRUPTED: running out of air
+[12:51:35] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    collect coal:6 -> failed INTERRUPTED: running out of air
+[12:51:35] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    collect coal:6 -> failed INTERRUPTED: running out of air
+[12:51:35] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    collect coal:6 -> failed INTERRUPTED: running out of air
+[12:51:35] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    collect coal:6 -> failed INTERRUPTED: running out of air
+[12:52:35] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test] natural 810s: brain rules, goal stone_tools, doing idle, milestone 1/13, deaths 0
+[autopilot-test]    perf fps 10, server 1.2 ms/tick, mod 0.74 ms/tick
+[12:52:35] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    at 108 60 362 hp 20 food 15 inv {coal=1, cobblestone=4, crafting_table=1, dirt=6, spruce_planks=3, stick=2, sugar_cane=2, wooden_pickaxe=1}
+[12:52:35] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    known water 106, 61, 362, lava none
+[12:52:35] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    collect coal:6 -> failed INTERRUPTED: running out of air
+[12:52:35] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    collect coal:6 -> failed INTERRUPTED: running out of air
+[12:52:35] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    collect coal:6 -> failed INTERRUPTED: running out of air
+[12:52:35] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    collect coal:6 -> failed INTERRUPTED: running out of air
+[12:52:35] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    collect coal:6 -> failed INTERRUPTED: running out of air
+[12:52:35] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    collect coal:6 -> failed INTERRUPTED: running out of air
+[12:53:35] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test] natural 840s: brain rules, goal stone_tools, doing collect coal:6, milestone 1/13, deaths 0
+[autopilot-test]    perf fps 10, server 1.2 ms/tick, mod 0.74 ms/tick
+[12:53:35] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    at 108 61 362 hp 20 food 15 inv {coal=1, cobblestone=4, crafting_table=1, dirt=6, spruce_planks=3, stick=2, sugar_cane=2, wooden_pickaxe=1}
+[12:53:35] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    known water 106, 61, 362, lava none
+[12:53:35] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    collect coal:6 -> failed INTERRUPTED: running out of air
+[12:53:35] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    collect coal:6 -> failed INTERRUPTED: running out of air
+[12:53:35] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    collect coal:6 -> failed INTERRUPTED: running out of air
+[12:53:35] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    collect coal:6 -> failed INTERRUPTED: running out of air
+[12:53:35] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    collect coal:6 -> failed INTERRUPTED: running out of air
+[12:53:35] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    collect coal:6 -> failed INTERRUPTED: running out of air
+[12:54:36] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test] natural 870s: brain rules, goal stone_tools, doing idle, milestone 1/13, deaths 0
+[autopilot-test]    perf fps 10, server 1.2 ms/tick, mod 0.74 ms/tick
+[12:54:36] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    at 108 61 362 hp 20 food 15 inv {coal=1, cobblestone=4, crafting_table=1, dirt=6, spruce_planks=3, stick=2, sugar_cane=2, wooden_pickaxe=1}
+[12:54:36] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    known water 106, 61, 362, lava none
+[12:54:36] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    collect coal:6 -> failed INTERRUPTED: running out of air
+[12:54:36] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    collect coal:6 -> failed INTERRUPTED: running out of air
+[12:54:36] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    collect coal:6 -> failed INTERRUPTED: running out of air
+[12:54:36] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    collect coal:6 -> failed INTERRUPTED: running out of air
+[12:54:36] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    collect coal:6 -> failed INTERRUPTED: running out of air
+[12:54:36] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    collect coal:6 -> failed INTERRUPTED: running out of air
+[12:55:36] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test] natural 900s: brain rules, goal stone_tools, doing collect coal:6, milestone 1/13, deaths 0
+[autopilot-test]    perf fps 10, server 1.1 ms/tick, mod 0.74 ms/tick
+[12:55:36] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    at 108 60 362 hp 20 food 15 inv {coal=1, cobblestone=4, crafting_table=1, dirt=6, spruce_planks=3, stick=2, sugar_cane=2, wooden_pickaxe=1}
+[12:55:36] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    known water 106, 61, 362, lava none
+[12:55:36] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    collect coal:6 -> failed INTERRUPTED: running out of air
+[12:55:36] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    collect coal:6 -> failed INTERRUPTED: running out of air
+[12:55:36] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    collect coal:6 -> failed INTERRUPTED: running out of air
+[12:55:36] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    collect coal:6 -> failed INTERRUPTED: running out of air
+[12:55:36] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    collect coal:6 -> failed INTERRUPTED: running out of air
+[12:55:36] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    collect coal:6 -> failed INTERRUPTED: running out of air
+[12:56:36] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test] natural 930s: brain rules, goal stone_tools, doing collect coal:6, milestone 1/13, deaths 0
+[autopilot-test]    perf fps 10, server 1.1 ms/tick, mod 0.74 ms/tick
+[12:56:36] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    at 108 60 362 hp 20 food 15 inv {coal=1, cobblestone=4, crafting_table=1, dirt=6, spruce_planks=3, stick=2, sugar_cane=2, wooden_pickaxe=1}
+[12:56:36] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    known water 106, 61, 362, lava none
+[12:56:36] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    collect coal:6 -> failed INTERRUPTED: running out of air
+[12:56:36] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    collect coal:6 -> failed INTERRUPTED: running out of air
+[12:56:36] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    collect coal:6 -> failed INTERRUPTED: running out of air
+[12:56:36] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    collect coal:6 -> failed INTERRUPTED: running out of air
+[12:56:36] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    collect coal:6 -> failed INTERRUPTED: running out of air
+[12:56:36] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    collect coal:6 -> failed INTERRUPTED: running out of air
+[12:57:36] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test] natural 960s: brain rules, goal stone_tools, doing collect coal:6, milestone 1/13, deaths 0
+[autopilot-test]    perf fps 10, server 1.2 ms/tick, mod 0.74 ms/tick
+[12:57:36] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    at 108 60 362 hp 20 food 15 inv {coal=1, cobblestone=4, crafting_table=1, dirt=6, spruce_planks=3, stick=2, sugar_cane=2, wooden_pickaxe=1}
+[12:57:36] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    known water 106, 61, 362, lava none
+[12:57:36] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    collect coal:6 -> failed INTERRUPTED: running out of air
+[12:57:36] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    collect coal:6 -> failed INTERRUPTED: running out of air
+[12:57:36] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    collect coal:6 -> failed INTERRUPTED: running out of air
+[12:57:36] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    collect coal:6 -> failed INTERRUPTED: running out of air
+[12:57:36] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    collect coal:6 -> failed INTERRUPTED: running out of air
+[12:57:36] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    collect coal:6 -> failed INTERRUPTED: running out of air
+[12:58:36] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test] natural 990s: brain rules, goal stone_tools, doing collect coal:6, milestone 1/13, deaths 0
+[autopilot-test]    perf fps 10, server 1.1 ms/tick, mod 0.74 ms/tick
+[12:58:36] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    at 108 60 362 hp 20 food 15 inv {coal=1, cobblestone=4, crafting_table=1, dirt=6, spruce_planks=3, stick=2, sugar_cane=2, wooden_pickaxe=1}
+[12:58:36] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    known water 106, 61, 362, lava none
+[12:58:36] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    collect coal:6 -> failed INTERRUPTED: running out of air
+[12:58:36] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    collect coal:6 -> failed INTERRUPTED: running out of air
+[12:58:36] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    collect coal:6 -> failed INTERRUPTED: running out of air
+[12:58:36] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    collect coal:6 -> failed INTERRUPTED: running out of air
+[12:58:36] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    collect coal:6 -> failed INTERRUPTED: running out of air
+[12:58:36] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    collect coal:6 -> failed INTERRUPTED: running out of air
+[12:59:36] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test] natural 1020s: brain rules, goal stone_tools, doing collect coal:6, milestone 1/13, deaths 0
+[autopilot-test]    perf fps 10, server 1.2 ms/tick, mod 0.74 ms/tick
+[12:59:36] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    at 108 60 362 hp 20 food 15 inv {coal=1, cobblestone=4, crafting_table=1, dirt=6, spruce_planks=3, stick=2, sugar_cane=2, wooden_pickaxe=1}
+[12:59:36] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    known water 106, 61, 362, lava none
+[12:59:36] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    collect coal:6 -> failed INTERRUPTED: running out of air
+[12:59:36] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    collect coal:6 -> failed INTERRUPTED: running out of air
+[12:59:36] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    collect coal:6 -> failed INTERRUPTED: running out of air
+[12:59:36] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    collect coal:6 -> failed INTERRUPTED: running out of air
+[12:59:36] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    collect coal:6 -> failed INTERRUPTED: running out of air
+[12:59:36] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    collect coal:6 -> failed INTERRUPTED: running out of air
+[13:00:36] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test] natural 1050s: brain rules, goal stone_tools, doing collect coal:6, milestone 1/13, deaths 0
+[autopilot-test]    perf fps 10, server 1.0 ms/tick, mod 0.74 ms/tick
+[13:00:36] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    at 108 60 362 hp 20 food 15 inv {coal=1, cobblestone=4, crafting_table=1, dirt=6, spruce_planks=3, stick=2, sugar_cane=2, wooden_pickaxe=1}
+[13:00:36] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    known water 106, 61, 362, lava none
+[13:00:36] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    collect coal:6 -> failed INTERRUPTED: running out of air
+[13:00:36] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    collect coal:6 -> failed INTERRUPTED: running out of air
+[13:00:36] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    collect coal:6 -> failed INTERRUPTED: running out of air
+[13:00:36] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    collect coal:6 -> failed INTERRUPTED: running out of air
+[13:00:36] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    collect coal:6 -> failed INTERRUPTED: running out of air
+[13:00:36] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    collect coal:6 -> failed INTERRUPTED: running out of air
+[13:01:36] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test] natural 1080s: brain rules, goal stone_tools, doing collect coal:6, milestone 1/13, deaths 0
+[autopilot-test]    perf fps 10, server 1.0 ms/tick, mod 0.74 ms/tick
+[13:01:36] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    at 108 61 362 hp 20 food 15 inv {coal=1, cobblestone=4, crafting_table=1, dirt=6, spruce_planks=3, stick=2, sugar_cane=2, wooden_pickaxe=1}
+[13:01:36] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    known water 106, 61, 362, lava none
+[13:01:36] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    collect coal:6 -> failed INTERRUPTED: running out of air
+[13:01:36] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    collect coal:6 -> failed INTERRUPTED: running out of air
+[13:01:36] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    collect coal:6 -> failed INTERRUPTED: running out of air
+[13:01:36] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    collect coal:6 -> failed INTERRUPTED: running out of air
+[13:01:36] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    collect coal:6 -> failed INTERRUPTED: running out of air
+[13:01:36] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    collect coal:6 -> failed INTERRUPTED: running out of air
+[13:02:36] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test] natural 1110s: brain rules, goal stone_tools, doing collect coal:6, milestone 1/13, deaths 0
+[autopilot-test]    perf fps 10, server 1.1 ms/tick, mod 0.74 ms/tick
+[13:02:36] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    at 108 60 362 hp 20 food 15 inv {coal=1, cobblestone=4, crafting_table=1, dirt=6, spruce_planks=3, stick=2, sugar_cane=2, wooden_pickaxe=1}
+[13:02:36] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    known water 106, 61, 362, lava none
+[13:02:36] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    collect coal:6 -> failed INTERRUPTED: running out of air
+[13:02:36] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    collect coal:6 -> failed INTERRUPTED: running out of air
+[13:02:36] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    collect coal:6 -> failed INTERRUPTED: running out of air
+[13:02:36] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    collect coal:6 -> failed INTERRUPTED: running out of air
+[13:02:36] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    collect coal:6 -> failed INTERRUPTED: running out of air
+[13:02:36] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    collect coal:6 -> failed INTERRUPTED: running out of air
+[13:03:35] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test] natural 1140s: brain rules, goal stone_tools, doing collect coal:6, milestone 1/13, deaths 0
+[autopilot-test]    perf fps 10, server 1.0 ms/tick, mod 0.74 ms/tick
+[13:03:35] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    at 108 60 362 hp 20 food 15 inv {coal=1, cobblestone=4, crafting_table=1, dirt=6, spruce_planks=3, stick=2, sugar_cane=2, wooden_pickaxe=1}
+[13:03:35] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    known water 106, 61, 362, lava none
+[13:03:35] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    collect coal:6 -> failed INTERRUPTED: running out of air
+[13:03:35] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    collect coal:6 -> failed INTERRUPTED: running out of air
+[13:03:35] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    collect coal:6 -> failed INTERRUPTED: running out of air
+[13:03:35] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    collect coal:6 -> failed INTERRUPTED: running out of air
+[13:03:35] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    collect coal:6 -> failed INTERRUPTED: running out of air
+[13:03:35] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    collect coal:6 -> failed INTERRUPTED: running out of air
+[13:04:35] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test] natural 1170s: brain rules, goal stone_tools, doing collect coal:6, milestone 1/13, deaths 0
+[autopilot-test]    perf fps 10, server 1.2 ms/tick, mod 0.74 ms/tick
+[13:04:35] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    at 108 60 362 hp 20 food 15 inv {coal=1, cobblestone=4, crafting_table=1, dirt=6, spruce_planks=3, stick=2, sugar_cane=2, wooden_pickaxe=1}
+[13:04:35] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    known water 106, 61, 362, lava none
+[13:04:35] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    collect coal:6 -> failed INTERRUPTED: running out of air
+[13:04:35] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    collect coal:6 -> failed INTERRUPTED: running out of air
+[13:04:35] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    collect coal:6 -> failed INTERRUPTED: running out of air
+[13:04:35] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    collect coal:6 -> failed INTERRUPTED: running out of air
+[13:04:35] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    collect coal:6 -> failed INTERRUPTED: running out of air
+[13:04:35] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    collect coal:6 -> failed INTERRUPTED: running out of air
+[autopilot-test] SPEED 0.641 game s per wall s (1200 game s in 1873 wall s), mod 0.74 ms per tick
+[13:05:35] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test] FINAL natural: brain rules, goal stone_tools, doing idle, milestone 1/13, deaths 0, dimension overworld, milestone times m1@98s, checkpoints none
+[13:05:35] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test] LESSON collect log failed 3 of 4 (mostly NOT_FOUND: no log seen nearby)
+[13:05:35] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test] LESSON explore log failed 3 of 4 (mostly ALREADY_DONE: already see log)
