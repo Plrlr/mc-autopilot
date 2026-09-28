@@ -490,9 +490,9 @@ public final class Planner {
 			// Low health: run when outnumbered, or while the one monster is still far enough away to
 			// get clear. One at arm's length follows and hits our back; the attack's shield does better.
 			else if (pl.getHealth() <= Tune.i("combat.flee_hp") && (seen.hostilesWithin(6) >= Tune.i("combat.outnumbered") || hostile.dist() > 4))
-				out.add(escape("low health and a " + hostile.type() + " is close"));
+				out.add(escape(seen, "low health and a " + hostile.type() + " is close"));
 			// Underground, two or more closing in wear us down in a tunnel: wall in and heal first.
-			else if (!onSurface() && pl.getHealth() <= Tune.i("plan.hide_hp") && seen.hostilesWithin(6) >= 2) out.add(escape("hurt with monsters closing in"));
+			else if (!onSurface() && pl.getHealth() <= Tune.i("plan.hide_hp") && seen.hostilesWithin(6) >= 2) out.add(escape(seen, "hurt with monsters closing in"));
 			// Skeletons outshoot a fleeing player; closing in fast is safer than running.
 			else out.add(new Option("attack", hostile.type(), hostile.type() + " is " + Math.round(hostile.dist()) + " blocks away"));
 		}
@@ -672,7 +672,7 @@ public final class Planner {
 	 * Getting away from monsters: underground, block up the gaps around us and heal (running
 	 * through tunnels got the bot shot and cornered in trials); on the surface, run.
 	 */
-	public static Option escape(String why) {
+	public static Option escape(Perception seen, String why) {
 		// Hiding only heals with 18+ hunger or food to eat; otherwise shelter heal fails at once and
 		// this would pick it again.
 		boolean canHeal = Mc.player().getFoodData().getFoodLevel() >= 18 || Mc.count(Items2.matcher("food")) > 0;
@@ -682,7 +682,25 @@ public final class Planner {
 		// Underground always; on the surface too with combat.wall_in_anywhere: 56 of 138 mob deaths in
 		// generations 6-9 came while retreating (back turned, ~5 health), running is what got it killed.
 		boolean wallOk = !onSurface() || Tune.on("combat.wall_in_anywhere");
-		if (wallOk && hideOk && canHeal && Mc.count("throwaway") >= 6) return new Option("shelter", "heal", why + ": wall in and heal");
+		return escape(seen, wallOk && hideOk && canHeal && Mc.count("throwaway") >= 6, why);
+	}
+
+	/** Same perceived threats for the planner and reflex; no extra scan or hidden information. */
+	public static Perception.Seen escapeCreeper(Perception seen) {
+		for (Perception.Seen mob : seen.mobs)
+			if (mob.hostile() && mob.type().equals("creeper") && mob.dist() < Tune.get("reflex.creeper_dist")) return mob;
+		return null;
+	}
+
+	static Option escape(Perception seen, boolean canShelter, String why) {
+		boolean noCloseRetreat = Tune.on("combat.no_close_retreat");
+		// A second mob can be a creeper: don't wall in or fight with a blast about to happen.
+		if (noCloseRetreat && escapeCreeper(seen) != null) return new Option("retreat", null, why + ": creeper close");
+		if (canShelter) return new Option("shelter", "heal", why + ": wall in and heal");
+		Perception.Seen hostile = seen.nearestHostile();
+		// Keep the four-block danger zone even if the fight reflex's distance gene is lower.
+		if (noCloseRetreat && hostile != null && hostile.dist() <= 4 && !hostile.type().equals("creeper"))
+			return new Option("attack", hostile.type(), why + ": too close to turn our back");
 		return new Option("retreat", null, why);
 	}
 
