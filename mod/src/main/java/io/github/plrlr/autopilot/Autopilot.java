@@ -742,6 +742,9 @@ public final class Autopilot {
 				&& skillOption.arg().startsWith("blazes")) return;
 		if (newHostile && !skill.name().equals("attack")) requestDecision("mob_near");
 		else if (pl.getHealth() < healthAtDecision - 3) requestDecision("hurt");
+		else if (Tune.on("food.keep_full") && !hostileNear && skill.interruptible() && !skill.name().equals("eat")
+				&& pl.getFoodData().getFoodLevel() < 18 && Mc.count(Items2::isAnyFood) > 0)
+			requestDecision("hunger below regeneration");
 		else if (skill.interruptible()) {
 			if (tick - lastDecisionTick > 20 * 20) requestDecision("heartbeat");
 		}

@@ -112,6 +112,12 @@ workflow's unit-tests job compiles and tests in about a minute, the trial jobs t
 
 ## Open problems (next candidates)
 
+- **Food and iron preparation (generations 30-37, not yet raced):** 152 of 162 runs died, with
+  food inventory near zero and hunger around 15/20 at the last decision. Health cannot regenerate
+  below 18 hunger. The FOOD rung is optional and upkeep only hunts animals already nearby, so the
+  bot can enter a mine without meals. Separate genes now race eating below 18, an eight-meal early
+  stock, staged iron armor and sword, and a shield after the first iron.
+
 - Portal casting (cast scenario): batch 8a's cast on seed a built, lit and entered a portal (3:13);
   seed b stalled on the scoop (refill fallback added for batch 10). Batch 7 never compiled, so
   nothing was measured there. Lava bucket fills failed once in batch 5 (logging added).

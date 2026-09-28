@@ -39,6 +39,13 @@ public final class Planner {
 	 */
 	public List<Option> options(Goal goal, Perception seen) {
 		Option main = axeFirst(goalStep(goal, seen, 0));
+		if (Mc.dimension().equals("overworld") && goal.milestone >= Goal.IRON_TOOLS.milestone
+				&& goal.milestone <= Goal.NETHER_PORTAL.milestone && Items2.bestTier("pickaxe") >= 1) {
+			Option prep = Tune.on("food.early_stock") ? earlyFoodStep(seen) : null;
+			if (prep == null && Tune.on("gear.armor_first")) prep = earlyGearStep();
+			if (prep == null && Tune.on("gear.shield_early")) prep = earlyShieldStep();
+			if (prep != null) main = prep;
+		}
 		List<Option> urgent = urgent(seen, main);
 		if (Tune.on("move.shore_first") && ShoreSkill.needed()
 				&& (groundWork(main) || urgent.stream().anyMatch(Planner::groundWork))) {
@@ -105,6 +112,46 @@ public final class Planner {
 		String a = o.arg() == null ? "" : o.arg();
 		return o.skill().equals("explore") || (o.skill().equals("collect") && (a.startsWith("log") || a.startsWith("sand")))
 				|| (o.skill().equals("attack") && ANIMALS.contains(a.split(",")[0]));
+	}
+
+	/** The optional FOOD rung is skipped by the fast route; this gene makes its stock a real step. */
+	private Option earlyFoodStep(Perception seen) {
+		int ready = Mc.count("food");
+		if (ready >= 8) return null;
+		int raw = Mc.count("meat");
+		String most = null;
+		for (String meat : Items2.RAW_MEAT)
+			if (Mc.count(meat) > 0 && (most == null || Mc.count(meat) > Mc.count(most))) most = meat;
+		if (most != null && (ready + raw >= 8 || Mc.player().getFoodData().getFoodLevel() < 18)) {
+			Option cook = smeltStep("cooked_" + most, Mc.count(most), 0);
+			if (cook != null) return cook;
+		}
+		for (String animal : ANIMALS.split(",")) {
+			Perception.Seen mob = seen.nearest(animal);
+			if (mob != null && Mc.canSee(mob.entity()))
+				return new Option("attack", animal, "stock food before the iron trip (" + ready + "/8 cooked)");
+		}
+		return new Option("explore", ANIMALS, "find visible animals before the iron trip (" + ready + "/8 cooked)");
+	}
+
+	/** Spend iron in survivability order; the pickaxe still comes first so iron can be mined. */
+	private Option earlyGearStep() {
+		if (betterArmorInInventory()) return new Option("equip", "armor", "wear the armor we carry");
+		if (Items2.bestTier("pickaxe") < 2) return itemStep("iron_pickaxe", 1, 0);
+		for (String item : new String[]{"iron_chestplate", "iron_sword", "iron_helmet", "iron_boots"}) {
+			if (item.endsWith("_sword") ? Items2.bestTier("sword") >= 2 : Goal.hasArmor(item)) continue;
+			Option step = itemStep(item, 1, 0);
+			if (step != null) return step;
+		}
+		return null;
+	}
+
+	/** A shield only helps when equipped in the off hand. */
+	private Option earlyShieldStep() {
+		if (Items2.id(Mc.player().getOffhandItem()).equals("shield")) return null;
+		if (Mc.count("shield") > 0) return new Option("equip", "shield", "shield into the off hand");
+		if (Mc.count("iron_ingot") + Mc.count("raw_iron") == 0) return null;
+		return itemStep("shield", 1, 0);
 	}
 
 	/** The goal's own next step, without upkeep or safety options (null if the goal needs nothing now). */
@@ -418,7 +465,8 @@ public final class Planner {
 			return new Option("smelt", item + ":" + job.count(), "collect the " + item + " from the furnace");
 		}
 		// Smelt every raw iron we carry at once: one furnace load instead of several.
-		if (input.equals("raw_iron")) missing = Math.max(missing, Mc.count("raw_iron"));
+		if (input.equals("raw_iron") && !(Tune.on("gear.shield_early") && Mc.count("shield") == 0 && missing == 1))
+			missing = Math.max(missing, Mc.count("raw_iron"));
 		if (Mc.count(input) < missing) {
 			Option o = itemStep(input, missing, depth + 1);
 			if (o != null) return o;
@@ -474,6 +522,14 @@ public final class Planner {
 	 * and helmet 5 for the portal step, as a second trip.
 	 */
 	public static int ironStillNeeded() {
+		if (Tune.on("gear.armor_first") && Mc.dimension().equals("overworld")) {
+			int next = Items2.bestTier("pickaxe") < 2 ? 3
+					: !Goal.hasArmor("iron_chestplate") ? 8
+					: Items2.bestTier("sword") < 2 ? 2
+					: !Goal.hasArmor("iron_helmet") ? 5
+					: !Goal.hasArmor("iron_boots") ? 4 : 0;
+			if (next > 0) return Math.max(0, next - SmeltSkill.pending("iron_ingot"));
+		}
 		int n = 0;
 		if (Items2.bestTier("pickaxe") < 2) n += 3;
 		if (Items2.bestTier("sword") < 2) n += 2;
@@ -572,6 +628,7 @@ public final class Planner {
 		LocalPlayer pl = Mc.player();
 		int food = pl.getFoodData().getFoodLevel();
 		if (food >= 20 || Mc.count(Items2::isAnyFood) == 0) return false;
+		if (Tune.on("food.keep_full") && food < 18) return true;
 		return food <= Tune.i("food.eat_at") || (food <= Tune.i("food.eat_hurt_at") && pl.getHealth() < pl.getMaxHealth());
 	}
 

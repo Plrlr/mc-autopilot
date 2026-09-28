@@ -60,6 +60,8 @@ public final class Tune {
 		gene("food.eat_at", 14, 8, 18, Kind.INT, "eat at or below this hunger");
 		gene("food.eat_hurt_at", 17, 14, 19, Kind.INT, "eat at or below this hunger when health isn't full");
 		gene("food.stock", 8, 0, 20, Kind.INT, "cooked food to keep in stock");
+		gene("food.keep_full", 0, 0, 1, Kind.BOOL, "eat carried food below 18 hunger so health can regenerate");
+		gene("food.early_stock", 0, 0, 1, Kind.BOOL, "stock eight cooked meals before the first iron trip");
 		gene("food.search_hunger", 8, 3, 16, Kind.INT, "explore far for animals only at or below this hunger");
 		gene("food.hunt_dist", 20, 6, 40, Kind.INT, "hunt animals in view within this distance for the stock");
 		// Planner: night, death items
@@ -103,6 +105,8 @@ public final class Tune {
 		gene("reflex.lava_margin", 0, 0, 1, Kind.BOOL, "step away from lava right beside us");
 		gene("combat.deflect", 0, 0, 1, Kind.BOOL, "hit a ghast's fireball back when it comes close");
 		gene("gear.sword_early", 0, 0, 1, Kind.BOOL, "craft a sword matching the pickaxe's tier as soon as possible");
+		gene("gear.armor_first", 0, 0, 1, Kind.BOOL, "after the iron pickaxe, make chestplate, sword, helmet and boots before portal work");
+		gene("gear.shield_early", 0, 0, 1, Kind.BOOL, "craft and equip a shield after the first iron ingot");
 		gene("nav.mob_avoid_coef", 1.5, 1, 5, Kind.REAL, "how much Baritone's paths avoid monsters (1 = not at all)");
 		gene("nav.mob_avoid_radius", 8, 4, 16, Kind.INT, "radius around monsters that paths avoid");
 		gene("move.shore_first", 0, 0, 1, Kind.BOOL, "reach seen dry ground before ground work or exploring from water");
