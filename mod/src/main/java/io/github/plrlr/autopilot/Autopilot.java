@@ -18,6 +18,8 @@ import io.github.plrlr.autopilot.skills.PortalSkills;
 import io.github.plrlr.autopilot.skills.Skill;
 import io.github.plrlr.autopilot.skills.Skills;
 import io.github.plrlr.autopilot.state.Perception;
+import io.github.plrlr.autopilot.state.Danger;
+import io.github.plrlr.autopilot.state.DangerSense;
 import io.github.plrlr.autopilot.state.WorldMemory;
 import net.fabricmc.fabric.api.client.keymapping.v1.KeyMappingHelper;
 import net.minecraft.client.KeyMapping;
@@ -73,6 +75,7 @@ public final class Autopilot {
 	private float healthAtDecision = 20;
 	private boolean hostileWasNear;
 	private long reflexCooldownUntil;
+	private long dangerReflexUntil;
 	private long lavaMarginTick = -1000;
 	private final Map<String, long[]> failures = new HashMap<>(); // label -> {count, blockedUntilTick}
 	private String lastEndedKey = "";
@@ -368,6 +371,26 @@ public final class Autopilot {
 				return;
 			}
 		}
+		Danger.Verdict danger = Tune.on("survival.danger_v2") ? DangerSense.assess(seen) : null;
+		boolean lavaWork = skill != null && java.util.Set.of("build_portal", "fill_bucket", "make_obsidian", "clutch").contains(skill.name());
+		if (danger != null && pl.isOnFire() && !lavaWork && !Mc.dimension().equals("the_nether")
+				&& Mc.count("water_bucket") > 0 && Mc.holdItem(s -> Items2.id(s).equals("water_bucket"))) {
+			abortSkill("put out fire", false);
+			Mc.useOn(pl.blockPosition().below(), net.minecraft.core.Direction.UP);
+		}
+		if (danger != null && pl.isOnFire() && skill != null && skill.name().equals("collect"))
+			abortSkill("burning while mining", false);
+		if (danger != null && danger.kind() == Danger.Kind.AVOID_HAZARD && !pl.isInLava()
+				&& (!lavaWork || pl.isOnFire())) {
+			// Fire underfoot must interrupt mining immediately; water is the fastest extinguish.
+			if (danger.dx() != 0 || danger.dz() != 0) {
+				abortSkill("move off fire or lava", false);
+				pl.setYRot((float) Math.toDegrees(Math.atan2(-danger.dx(), danger.dz())));
+				Mc.mc().options.keyUp.setDown(true);
+				lavaKeysUntil = tick + 4;
+			} else abortSkill("unsafe footing", false);
+			return;
+		}
 		if (tick < reflexCooldownUntil) return;
 		// hiding: sealed in and healing (review R1) - the only time reflexes stand down, except the
 		// creeper reflex, which always runs (its blast breaks the wall either way).
@@ -376,7 +399,7 @@ public final class Autopilot {
 		// the escape would only restart the wall, so fight instead.
 		boolean walling = !hiding && skill != null && skill.name().equals("shelter") && skillOption != null && "heal".equals(skillOption.arg());
 		// Recheck combat with the gene: a pursuer can catch up and a creeper can approach mid-fight.
-		boolean reconsiderCombat = Tune.on("combat.no_close_retreat") && skill != null
+		boolean reconsiderCombat = (Tune.on("combat.no_close_retreat") || Tune.on("survival.danger_v2")) && skill != null
 				&& (skill.name().equals("retreat") || skill.name().equals("attack"));
 		if (skill != null && skillIsReflex && !hiding && !reconsiderCombat) return;
 		if (pl.isInLava()) {
@@ -441,7 +464,19 @@ public final class Autopilot {
 		// Walled in on every side and healing: a monster beyond the blocks is no reason to break out.
 		// With a gap left (a mob standing in it) the reflexes still act; a creeper's blast breaks
 		// the wall either way (review R1: hiding used to turn off every reflex).
-		if (h != null && !h.type().equals("enderman")) {
+		if (danger != null && !fortressFight && danger.kind() != Danger.Kind.NONE) {
+			Option action = Planner.dangerOption(danger, "visible danger");
+			boolean blastThreat = Planner.escapeCreeper(seen) != null;
+			boolean urgentSwitch = danger.kind() == Danger.Kind.AVOID_HAZARD
+					|| blastThreat && danger.kind() == Danger.Kind.RETREAT;
+			if (action != null && (!hiding || blastThreat) && (!walling || blastThreat)
+					&& (!skillIsReflex || tick >= dangerReflexUntil || urgentSwitch)
+					&& (skillOption == null || !action.label().equals(skillOption.label()))) {
+				startReflex(action, "reflex_danger");
+				return;
+			}
+		}
+		if (danger == null && h != null && !h.type().equals("enderman")) {
 			// A creeper blows the wall open: that reflex stays on even while hiding.
 			// From 7 blocks, not 5: a creeper's fuse is 1.5 s, and 4 of batch 10's 25 deaths were
 			// blasts that caught the bot already running from 5.
@@ -583,6 +618,8 @@ public final class Autopilot {
 		logDecision("reflex", trigger, choices, x == null ? features() : x, c, choices);
 		abortSkill("interrupted by " + trigger, false);
 		startSkill(c.option(), trigger, true);
+		// The normal reflex cooldown is two seconds; one more second avoids toggling at its edge.
+		dangerReflexUntil = trigger.equals("reflex_danger") ? tick + 60 : 0;
 		reflexCooldownUntil = tick + 40;
 	}
 

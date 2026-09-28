@@ -108,6 +108,8 @@ public final class Tune {
 		gene("move.shore_first", 0, 0, 1, Kind.BOOL, "reach seen dry ground before ground work or exploring from water");
 		gene("combat.wall_in_anywhere", 0, 0, 1, Kind.BOOL, "hurt and outnumbered: wall in and heal on the surface too, instead of running");
 		gene("combat.no_close_retreat", 0, 0, 1, Kind.BOOL, "fight or wall in within four blocks; keep retreating from nearby creepers");
+		gene("survival.danger_v2", 0, 0, 1, Kind.BOOL, "use one terrain-aware survival verdict in planner, reflexes and retreat");
+		gene("survival.melee_lock", 3, 2, 4, Kind.REAL, "within this distance, fight a melee mob instead of turning to run");
 		gene("tools.diamond_pick_if_found", 1, 0, 1, Kind.BOOL, "3+ diamonds in the bag: make a diamond pickaxe and portal the classic way");
 		gene("tools.stone_axe", 1, 0, 1, Kind.BOOL, "craft a stone axe before chopping more wood (logs break ~3x faster)");
 		gene("nether.pie_chart", 1, 0, 1, Kind.BOOL, "look for a fortress where the F3 pie chart shows spawners, like speedrunners (pie-ray)");

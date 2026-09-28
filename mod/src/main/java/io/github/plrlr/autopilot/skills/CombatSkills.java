@@ -136,7 +136,10 @@ public final class CombatSkills {
 				if (ticks % 10 == 1) Bari.path(new GoalNear(target.blockPosition(), 1));
 				// Walking up to it: the shield comes down (a raised shield slows us to a crawl), and
 				// the crit jump and step back let go so they don't fight Baritone's walking.
-				Mc.mc().options.keyUse.setDown(false);
+				boolean guardedApproach = io.github.plrlr.autopilot.Tune.on("survival.danger_v2")
+						&& Mc.id(target).equals("skeleton")
+						&& Items2.id(pl.getOffhandItem()).equals("shield");
+				Mc.mc().options.keyUse.setDown(guardedApproach);
 				Mc.mc().options.keyDown.setDown(false);
 				Mc.mc().options.keyJump.setDown(false);
 				critWait = 0;
