@@ -67,9 +67,15 @@ public final class CollectSkill extends Skill {
 		// first; then legit branch mining, which only digs toward ores it can actually see.
 		String group = io.github.plrlr.autopilot.state.WorldMemory.groupOf(src.blocks().get(0).replace("*", "oak"));
 		seenOnly = SEEN_ONLY.contains(item);
-		if (group != null && (seenOnly || src.mineY() != null) && SeenMiner.anySeen(memory, group, SEEN_RANGE)) {
+		// Stone too: it's nearly always in view, and digging down from where we stand went badly
+		// in water (a laptop run dug under a lake, ran out of air, surfaced, dug again, for minutes).
+		if (group != null && (seenOnly || src.mineY() != null || item.equals("stone")) && SeenMiner.anySeen(memory, group, SEEN_RANGE)) {
 			seenMiner = new SeenMiner(memory, group, SEEN_RANGE);
 			timeoutTicks = 20 * 360;
+			return;
+		}
+		if (Mc.player().isInWater() && src.mineY() == null) {
+			fail(Fail.WRONG_PLACE, "in water: " + item + " is dug from dry ground");
 			return;
 		}
 		if (seenOnly) {

@@ -301,7 +301,12 @@ public final class WorldMemory {
 					Map<BlockPos, Seen> m = byGroup.computeIfAbsent(group, k -> new LinkedHashMap<>());
 					if (group.equals("stone")) {
 						// Stone is everywhere; only remember a little of it, no raycast needed if exposed.
-						if (m.size() < 64 && exposed(level, pos)) m.put(pos, new Seen(pos, id, dim, tick));
+						// Full: drop the oldest, so what's remembered is stone near where we are now
+						// (a full list from spawn left none "seen" 200 blocks later).
+						if (!m.containsKey(pos) && exposed(level, pos)) {
+							if (m.size() >= 64) m.remove(m.keySet().iterator().next());
+							m.put(pos, new Seen(pos, id, dim, tick));
+						}
 						continue;
 					}
 					if (m.containsKey(pos)) {
