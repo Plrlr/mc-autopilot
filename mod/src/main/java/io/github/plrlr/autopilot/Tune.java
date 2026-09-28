@@ -105,6 +105,7 @@ public final class Tune {
 		gene("gear.sword_early", 0, 0, 1, Kind.BOOL, "craft a sword matching the pickaxe's tier as soon as possible");
 		gene("nav.mob_avoid_coef", 1.5, 1, 5, Kind.REAL, "how much Baritone's paths avoid monsters (1 = not at all)");
 		gene("nav.mob_avoid_radius", 8, 4, 16, Kind.INT, "radius around monsters that paths avoid");
+		gene("move.shore_first", 0, 0, 1, Kind.BOOL, "reach seen dry ground before ground work or exploring from water");
 		gene("combat.wall_in_anywhere", 0, 0, 1, Kind.BOOL, "hurt and outnumbered: wall in and heal on the surface too, instead of running");
 		gene("combat.no_close_retreat", 0, 0, 1, Kind.BOOL, "fight or wall in within four blocks; keep retreating from nearby creepers");
 		gene("tools.diamond_pick_if_found", 1, 0, 1, Kind.BOOL, "3+ diamonds in the bag: make a diamond pickaxe and portal the classic way");

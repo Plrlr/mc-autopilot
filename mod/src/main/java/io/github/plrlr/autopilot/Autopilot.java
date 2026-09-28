@@ -659,7 +659,7 @@ public final class Autopilot {
 	/** Where the bot was, once a second, while a moving skill ran (the stuck box check). */
 	private final Deque<Vec3> recentPos = new ArrayDeque<>();
 	/** Skills that are supposed to move the bot. Crafting, smelting, eating, hiding or fighting in place are not stuck. */
-	private static final java.util.Set<String> MOVING = java.util.Set.of("collect", "explore", "goto", "retreat", "pickup",
+	private static final java.util.Set<String> MOVING = java.util.Set.of("collect", "explore", "shore", "goto", "retreat", "pickup",
 			"fill_bucket", "locate_stronghold");
 
 	/**

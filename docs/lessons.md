@@ -96,6 +96,11 @@ workflow's unit-tests job compiles and tests in about a minute, the trial jobs t
 - **Route changes ride alone.** Armor before the portal went into batch 11 with the death fixes,
   doubled the first iron trip to 26 ore, and hid what the death fixes did to iron times.
 
+- **Water refusals need a route out.** In batch 36422415520, collect log refused water 32 times,
+  crafting had no room 31 times, shelter had no safe ground 27 times, and explore turned from
+  open water 45 times. Two runs spent over 1,000 seconds traveling without stone tools. A shared
+  shore step is queued behind `move.shore_first`; the loop must judge whether it improves progress.
+
 - **Close retreat candidate (generations 18-28, not yet raced):** 216 of 537 deaths (40%) were
   during retreat, about 3.3 deaths per 20-minute game; median death around 12 minutes, the first
   night. The reported causes were mobs 50%, skeleton arrows 29%, creepers 10%. g23 tried

@@ -87,7 +87,8 @@ public final class MoveSkills {
 			// Rivers take a few seconds to cross; only a long swim means open sea.
 			if (waterTicks > 20 * 20) {
 				memory.markBadAhead(startX, startZ, DIST);
-				fail(Fail.HAZARD, "open water ahead; will turn");
+				if (io.github.plrlr.autopilot.Tune.on("move.shore_first")) done("open water ahead; find shore");
+				else fail(Fail.HAZARD, "open water ahead; will turn");
 				return;
 			}
 			if (ticks > 20 && !Bari.pathing()) {
