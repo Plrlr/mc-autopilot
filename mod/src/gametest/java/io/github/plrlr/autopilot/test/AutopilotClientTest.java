@@ -41,7 +41,6 @@ public class AutopilotClientTest implements FabricClientGameTest {
 	public void runTest(ClientGameTestContext ctx) {
 		int minutes = Integer.getInteger("autopilot.test.minutes", 5);
 		String scenario = System.getProperty("autopilot.test.scenario", "natural");
-		String brain = System.getProperty("autopilot.test.brain", "mock");
 		int tickRate = Integer.getInteger("autopilot.test.tickRate", 20);
 		// Small view and simulation distances: far fewer chunks to generate and tick, so the
 		// test world keeps up on a laptop (and a faster tick rate becomes possible).
@@ -76,8 +75,6 @@ public class AutopilotClientTest implements FabricClientGameTest {
 			long wallStart = System.nanoTime();
 			ctx.runOnClient(mc -> {
 				Autopilot ap = AutopilotMod.instance();
-				ap.tactician.select(brain);
-				ap.strategist.setOpusEnabled(Boolean.getBoolean("autopilot.test.opus"));
 				ap.enable();
 				if (!ap.enabled()) throw new AssertionError("autopilot didn't turn on");
 				if (goal != null) ap.forceGoal(goal);

@@ -1,7 +1,7 @@
 # Start here (for you, not for Claude Code)
 
-MC Autopilot lets Claude Opus 5.5 play your own character in a normal single-player
-survival world and try to beat the game. Full details are in README.md.
+MC Autopilot is a self-learning bot that plays your own character in a normal single-player
+survival world and tries to beat the game. Full details are in README.md.
 
 ## Playing
 1. Open the Minecraft Launcher and pick the **fabric-loader-26.3** profile, then Play.
@@ -11,24 +11,12 @@ survival world and try to beat the game. Full details are in README.md.
 5. To take over, press any movement key (W, A, S, D, space). Press K for the panel.
 
 Chat commands (type T, then the command; they never go to the world):
-`!status`, `!stop`, `!start`, `!brain auto|mock|groq|cerebras|gemini|opus`, `!goal <name>`, `!opus on|off`.
+`!status`, `!stop`, `!start`, `!goal <name>`.
 
-## Settings and keys
-The first time Minecraft starts with the mod, it creates
-`%APPDATA%\.minecraft\config\mc-autopilot.env`. Open it with Notepad to change:
-- how many Opus calls per hour are allowed (these count toward your Claude plan's limits),
-- the starting brain,
-- optional free keys for the quick action decisions (you make these accounts yourself; one
-  key is enough, more keys give a fallback when one hits its limit):
-  - **Groq:** sign in at https://console.groq.com/keys, click Create API Key, paste it after `GROQ_API_KEY=`.
-  - **Cerebras:** sign in at https://cloud.cerebras.ai, open API Keys, paste it after `CEREBRAS_API_KEY=`.
-  - **Google AI Studio:** sign in at https://aistudio.google.com/apikey, create a key, paste it
-    after `GEMINI_API_KEY=`.
-  With `TACTICIAN=auto` (the default) the first one with a key is used. With no keys, the free
-  rules decide, which works fine too.
-
-That file is outside this project, so keys can never be uploaded by accident.
-Don't paste keys into chats, screenshots, or GitHub. Restart Minecraft after editing it.
+## Settings
+There are none to fill in: no API keys, no accounts. The bot learns on GitHub (the learning loop);
+its current best genes and model can be copied into `%APPDATA%\.minecraft\mc-autopilot\` as
+`params.json` and `learned.json`.
 
 ## Rebuilding the mod after changes
 In PowerShell:
