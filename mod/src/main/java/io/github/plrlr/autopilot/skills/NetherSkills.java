@@ -7,6 +7,7 @@ import baritone.api.pathing.goals.GoalXZ;
 import io.github.plrlr.autopilot.Items2;
 import io.github.plrlr.autopilot.Mc;
 import io.github.plrlr.autopilot.state.Perception;
+import io.github.plrlr.autopilot.state.PieChart;
 import io.github.plrlr.autopilot.state.WorldMemory;
 import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.core.BlockPos;
@@ -80,6 +81,11 @@ public final class NetherSkills {
 		private int want;
 		private int ray;
 		private double startX, startZ;
+		/** Pie-ray: turning in steps, reading the spawner slice at each (-1 when not sweeping). */
+		private static final int SWEEP_STEPS = 12;
+		private int sweep = -1;
+		private int legStart;
+		private final int[] spawnerSlice = new int[SWEEP_STEPS];
 
 		// blazes mode. Tried anchors outlive one run of the skill: a reflex or an eat restarts it,
 		// and a fresh list sent it back to the same empty corner (loop 0355).
@@ -154,11 +160,8 @@ public final class NetherSkills {
 				visitedAnchors.clear();
 				startX = pl.getX();
 				startZ = pl.getZ();
-				// Fortresses and bastions share 432-block regions: long legs reach new regions,
-				// short ones keep circling the same one.
-				int h = memory.exploreHeading(startX, startZ, LEG);
-				double a = h * Math.PI / 4;
-				Bari.path(new GoalXZ((int) (startX + Math.cos(a) * LEG), (int) (startZ + Math.sin(a) * LEG)));
+				if (io.github.plrlr.autopilot.Tune.on("nether.pie_chart")) sweep = 0;
+				else walkLeg(null);
 				return;
 			}
 			timeoutTicks = 20 * 300;
@@ -218,7 +221,43 @@ public final class NetherSkills {
 			else tickBlazes();
 		}
 
+		/** A leg toward the pie chart's spawners (yaw), else toward new ground. */
+		private void walkLeg(Float yaw) {
+			if (yaw != null) {
+				double r = Math.toRadians(yaw);
+				Bari.path(new GoalXZ((int) (startX - Math.sin(r) * LEG), (int) (startZ + Math.cos(r) * LEG)));
+				return;
+			}
+			// Fortresses and bastions share 432-block regions: long legs reach new regions,
+			// short ones keep circling the same one.
+			int h = memory.exploreHeading(startX, startZ, LEG);
+			double a = h * Math.PI / 4;
+			Bari.path(new GoalXZ((int) (startX + Math.cos(a) * LEG), (int) (startZ + Math.sin(a) * LEG)));
+		}
+
+		/** Turn a full circle in 30-degree steps and read the spawner slice at each, like a runner. */
+		private boolean tickSweep() {
+			if (sweep < 0) return false;
+			if (ticks % 3 != 0) return true;
+			float yaw = sweep * (360f / SWEEP_STEPS);
+			if (sweep > 0) spawnerSlice[sweep - 1] = PieChart.spawnersInView(Mc.player().getYRot());
+			if (sweep == SWEEP_STEPS) {
+				int best = 0;
+				for (int i = 1; i < SWEEP_STEPS; i++) if (spawnerSlice[i] > spawnerSlice[best]) best = i;
+				sweep = -1;
+				Float toward = spawnerSlice[best] > 0 ? best * (360f / SWEEP_STEPS) : null;
+				if (toward != null) Mc.say("Pie chart shows spawners that way; heading there.");
+				walkLeg(toward);
+				legStart = ticks;
+				return true;
+			}
+			Mc.player().setYRot(yaw);
+			sweep++;
+			return true;
+		}
+
 		private void tickFind() {
+			if (tickSweep()) return;
 			if (ticks % 10 != 0) return;
 			WorldMemory.Seen b = memory.nearest("nether_bricks");
 			LocalPlayer pl = Mc.player();
@@ -226,7 +265,7 @@ public final class NetherSkills {
 				done("saw a fortress " + Math.round(Math.sqrt(b.pos().distSqr(pl.blockPosition()))) + " blocks away");
 				return;
 			}
-			if (ticks > 20 && !Bari.pathing()) {
+			if (ticks - legStart > 20 && !Bari.pathing()) {
 				double moved = Math.hypot(pl.getX() - startX, pl.getZ() - startZ);
 				if (moved < 16) {
 					memory.markBadAhead(startX, startZ, LEG);

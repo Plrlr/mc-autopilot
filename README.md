@@ -27,6 +27,8 @@ past the Nether portal is code that no run has reached. Details in [Results so f
   Logs, sand and ores it has spotted (say, in a cave wall) are mined only from blocks it has
   actually seen; with none in sight it explores, or branch-mines for ores and stone. Baritone is
   never asked to search the loaded chunks, and it draws no path or goal markers on screen.
+  In the Nether it reads the F3 pie chart the way speedrunners do (turning and watching the
+  spawner slice) to get the direction of a fortress: a direction, never a position.
 - **You stay in control.** Any movement key (WASD, space) instantly gives control back.
 - **$0.** Opus uses your existing plan. The per-action choices go to a free AI (Groq, Cerebras or
   Gemini) when you paste a free key into the settings file, and to free rules otherwise.
