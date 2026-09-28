@@ -21,6 +21,8 @@ public final class CollectSkill extends Skill {
 	/** Digging down to the ore's depth first (ticks spent, or -1 when not descending). */
 	private int descending = -1;
 	private Integer mineY;
+	/** Flint has its own way: one seen gravel, placed and broken until flint drops. */
+	private FlintSteps flint;
 
 	@Override
 	public String name() {
@@ -34,6 +36,10 @@ public final class CollectSkill extends Skill {
 		TechTree.Source src = TechTree.MINE.get(item);
 		if (src == null) {
 			fail(Fail.NO_RECIPE, "don't know where " + item + " comes from");
+			return;
+		}
+		if (item.equals("flint")) {
+			flint = new FlintSteps(this, memory);
 			return;
 		}
 		if (Items2.bestTier("pickaxe") < src.tier()) {
@@ -56,7 +62,7 @@ public final class CollectSkill extends Skill {
 			return;
 		}
 		before = Mc.count(item);
-		lastCount = before + (item.equals("flint") ? Mc.count("gravel") : 0);
+		lastCount = before;
 		// Ores have a mining depth (iron and coal: genes, so the loop can trade ore density against
 		// the caves and mobs deeper down); everything else is a surface block.
 		mineY = src.mineY();
@@ -89,6 +95,10 @@ public final class CollectSkill extends Skill {
 
 	@Override
 	protected void tick() {
+		if (flint != null) {
+			flint.tick();
+			return;
+		}
 		if (descending >= 0) {
 			descending++;
 			int y = Mc.player().getBlockY();
@@ -107,8 +117,7 @@ public final class CollectSkill extends Skill {
 			done("collected " + (now - before) + " " + item);
 			return;
 		}
-		// Gravel drops flint only one time in ten: mined gravel is progress toward flint too.
-		int progress = now + (item.equals("flint") ? Mc.count("gravel") : 0);
+		int progress = now;
 		if (progress != lastCount) {
 			lastCount = progress;
 			lastProgressTick = ticks;

@@ -736,7 +736,8 @@ public final class Planner {
 			// Surface blocks can be found by walking; ores are underground and found by mining.
 			return switch (item) {
 				case "log", "sand", "gravel", "obsidian" -> item;
-				case "flint" -> "gravel";
+				// Lake and river beds are often gravel, seen through clear water.
+				case "flint" -> "gravel,water";
 				default -> "any";
 			};
 		}

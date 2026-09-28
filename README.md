@@ -22,9 +22,11 @@ past the Nether portal is code that no run has reached. Details in [Results so f
 - **Code does the hands.** Walking, mining and pathfinding use [Baritone](https://github.com/cabaletta/baritone).
   Crafting goes through the recipe book, and fighting, eating and sleeping use the normal player controls.
 - **Fair play.** No cheats, no commands, no x-ray. Ores are only mined once seen (Baritone runs
-  in `legitMine` mode and otherwise branch-mines). One documented exception: for surface blocks
-  (logs, stone, sand, gravel) Baritone searches the chunks the game has loaded, not only blocks
-  the AI has looked at. That is wider knowledge than strict line of sight.
+  in `legitMine` mode and otherwise branch-mines). Gravel for flint comes only from gravel the AI
+  has seen (lake and river beds included), and one gravel is placed and broken until flint drops.
+  One documented exception remains: for logs, stone and sand Baritone searches the chunks the game
+  has loaded, not only blocks the AI has looked at. That is wider knowledge than strict line of
+  sight. Baritone draws no path or goal markers on screen.
 - **You stay in control.** Any movement key (WASD, space) instantly gives control back.
 - **$0.** Opus uses your existing plan. The per-action choices go to a free AI (Groq, Cerebras or
   Gemini) when you paste a free key into the settings file, and to free rules otherwise.

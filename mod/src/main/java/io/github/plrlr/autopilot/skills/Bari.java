@@ -43,8 +43,10 @@ public final class Bari {
 		s.allowDownward.value = true;
 		s.mineScanDroppedItems.value = true;
 		s.antiCheatCompatibility.value = true;
-		s.renderPath.value = true;
-		s.renderGoal.value = true;
+		// Nothing on screen marks where Baritone is headed: a goal box on a block the player can't
+		// see would give away what's hidden.
+		s.renderPath.value = false;
+		s.renderGoal.value = false;
 		s.disconnectOnArrival.value = false;
 		s.maxFallHeightNoWater.value = 3;
 		s.avoidance.value = true;

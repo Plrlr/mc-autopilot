@@ -14,7 +14,7 @@ class PlanLogicTest {
 	void exploreLooksForWhatTheStepNeeds() {
 		assertEquals("cow,pig", Planner.exploreTarget(new Option("explore", "cow,pig", "")));
 		assertEquals("log", Planner.exploreTarget(new Option("collect", "log:9", "")));
-		assertEquals("gravel", Planner.exploreTarget(new Option("collect", "flint:1", "")));
+		assertEquals("gravel,water", Planner.exploreTarget(new Option("collect", "flint:1", "")));
 		// Ores are found by mining, not by walking around.
 		assertEquals("any", Planner.exploreTarget(new Option("collect", "raw_iron:13", "")));
 		assertEquals("lava", Planner.exploreTarget(new Option("make_obsidian", "obsidian:10", "")));
