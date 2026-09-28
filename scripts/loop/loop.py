@@ -39,6 +39,8 @@ DEFAULT_SETTINGS = {
     "seeds_per_gen": 4,        # every genome of a generation plays these seeds (paired)
     "max_genomes": 3,          # champion + contenders + new challengers per generation
     "stage_seeds": 2,          # stage starts per genome (checkpoint bank / scenarios), paired like seeds
+    "combat_seeds": 0,         # combat drills per genome (CombatDrill.java: short staged fights), paired
+    "combat_minutes": 10,      # game minutes per combat drill (a fight every ~30-60 s)
     "bank_keep": 40,           # checkpoints kept per stage
     "data_runs": 2,            # extra champion runs with exploration on: data for the learned brain
     "explore_data": 0.15,      # learned.explore in the data runs
@@ -233,6 +235,11 @@ def cmd_propose(a):
     # from the checkpoint bank (or its staged scenario until real checkpoints exist).
     tasks = [{"kind": "natural", "stage": "spawn", "synthetic": False} for _ in range(s["seeds_per_gen"])]
     tasks += bank.pick_tasks(st, rng, s.get("stage_seeds", 0), s.get("stage_lookahead", True))
+    # Combat drills: many short fights, scored on their own (common.score_fights). Deaths to mobs
+    # are the wall (152 of 162 runs in gens 28-37 died), and a full run holds too few fights to
+    # tell a better fighter from luck.
+    tasks += [{"kind": "combat", "stage": "combat", "synthetic": False, "scenario": "combat",
+               "minutes": s.get("combat_minutes", 10)} for _ in range(s.get("combat_seeds", 0))]
     for t in tasks:
         t["seed"] = bank.random_seed(rng, "L%d" % gen)
     data_tasks = [{"kind": "natural", "stage": "spawn", "synthetic": False, "seed": bank.random_seed(rng, "D%d" % gen)}
@@ -266,7 +273,7 @@ def ref_of(st, gid, main_sha):
 def run_entry(s, gid, task, role, changed, gen, i, ref):
     return {"name": "%s-%s-%d" % (role, gid, i), "seed": task["seed"], "genome": gid, "role": role, "ref": ref,
             "params": json.dumps({"id": "%s@gen%d" % (gid, gen), "genes": changed}, separators=(",", ":")),
-            "minutes": str(s["minutes"]), "scenario": task.get("scenario", s["scenario"]),
+            "minutes": str(task.get("minutes", s["minutes"])), "scenario": task.get("scenario", s["scenario"]),
             "start": task.get("asset", ""),
             "lean": "true" if s["lean"] else "false", "perf_mods": s["perf_mods"], "window": s.get("window", "")}
 
@@ -307,7 +314,9 @@ def cmd_update(a):
         pool = tasks if role == "eval" else data_tasks
         task = pool[int(i)] if int(i) < len(pool) else {}
         skip = 0 if task.get("kind", "natural") == "natural" else 10
-        results[name] = {"score": common.score_run(r, length, skip), "milestones": r["milestones"],
+        combat = task.get("kind") == "combat"
+        score = common.score_fights(r) if combat else common.score_run(r, length, skip)
+        results[name] = {"score": score, "milestones": r["milestones"], "fights": r["fights"],
                          "checkpoints": r["checkpoints"], "deaths": len(r["deaths"]),
                          "death_causes": [c for c, _ in r["deaths"]], "stage": task.get("stage", "spawn"),
                          "natural": task.get("kind", "natural") == "natural"}
@@ -315,6 +324,8 @@ def cmd_update(a):
         if sp:
             speeds.append(sp)
         save_training_rows(a.state, gen, name, d)
+        if combat:
+            continue  # an arena isn't a stage of the route: nothing for the checkpoint bank
         start, reached, _ = bank.read_stages(d)
         bank.record_result(st, start, reached, gen)
         results[name]["reached_stages"] = reached
@@ -359,7 +370,7 @@ def cmd_update(a):
         "scores": {g: [round(x, 2) for x in v] for g, v in gen_scores.items()},
         "genomes": {g: st["genomes"][g]["note"] for g in p["lineup"]},
         "decisions": decisions, "runs": len(p["runs"]), "runs_ok": len(all_ok),
-        "reached": reached, "deaths": sum(r["deaths"] for r in all_ok),
+        "reached": reached, "deaths": sum(r["deaths"] for r in all_ok if not r["fights"]),
         "speed": round(common.mean(speeds), 3) if speeds else None,
         "total_runs": (prev.get("total_runs", 0) if prev else 0) + len(all_ok),
         "game_hours": round((prev.get("game_hours", 0) if prev else 0) + len(all_ok) * length / 3600, 2),
@@ -369,6 +380,7 @@ def cmd_update(a):
         "banked": banked, "frontier": bank.frontier(st), "bank": bank.summary(st),
         "stage_scores": stage_scores(results),
         "portal_drill": portal_drill(results),
+        "combat_drill": combat_drill(results),
     }
     with open(os.path.join(a.state, "history.jsonl"), "a", encoding="utf-8") as f:
         f.write(json.dumps(line, separators=(",", ":")) + "\n")
@@ -525,6 +537,17 @@ def portal_drill(results):
         d["nether"] = sum(1 for r in runs if "nether" in (r.get("reached_stages") or []))
         out[stage] = d
     return out
+
+
+def combat_drill(results):
+    """This generation's combat drills (all genomes): fights, monsters killed of those summoned,
+    deaths, and mean health lost per fight."""
+    fights = [f for r in results.values() if r for f in r.get("fights", [])]
+    if not fights:
+        return {}
+    return {"fights": len(fights), "kills": sum(f["kills"] for f in fights), "of": sum(f["of"] for f in fights),
+            "deaths": sum(1 for f in fights if f["died"]),
+            "damage": round(common.mean([f["damage"] for f in fights]), 1)}
 
 
 def stage_scores(results):

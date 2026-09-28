@@ -103,6 +103,19 @@ def score_run(run, length_s, skip_before=0):
     return round(s, 3)
 
 
+def score_fights(run):
+    """Combat drill score: the mean over its fights of 2 x the share of monsters killed, minus the
+    health lost / 20, minus 2 for dying: from -3 (died having lost everything) to +2 (clean kill).
+    A mean, not a sum: the same seed stages the same fights for both genomes of a pair, and the
+    faster one just plays a few more. On the same scale as a run's score so neither swamps the race."""
+    fights = run.get("fights") or []
+    if not fights:
+        return 0.0
+    per = [2.0 * f["kills"] / max(1, f["of"]) - min(20.0, f["damage"]) / 20.0 - (2.0 if f["died"] else 0.0)
+           for f in fights]
+    return round(sum(per) / len(per), 3)
+
+
 def mean(xs):
     return sum(xs) / len(xs) if xs else 0.0
 
