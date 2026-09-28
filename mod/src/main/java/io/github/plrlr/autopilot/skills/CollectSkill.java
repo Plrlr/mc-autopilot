@@ -119,6 +119,13 @@ public final class CollectSkill extends Skill {
 	}
 
 	@Override
+	protected void cleanup() {
+		// Cut off as stuck on the way to a seen block: the next collect would pick the same one.
+		if (seenMiner != null && result() != null && result().code() == Fail.STUCK) seenMiner.setAsideTarget();
+		super.cleanup();
+	}
+
+	@Override
 	public boolean workingInPlace() {
 		return (flint != null && flint.inPlace()) || (seenMiner != null && seenMiner.breaking());
 	}

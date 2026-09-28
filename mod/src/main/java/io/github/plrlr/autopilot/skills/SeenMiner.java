@@ -71,8 +71,18 @@ final class SeenMiner {
 		return false;
 	}
 
+	/** Leave this block alone for a few minutes (unreachable, or water already looked into). */
+	static void setAside(BlockPos p) {
+		UNREACHABLE.put(p, System.currentTimeMillis() + UNREACHABLE_MS);
+	}
+
+	/** The skill was cut off (stuck) on the way to this block: don't head straight back to it. */
+	void setAsideTarget() {
+		if (target != null) setAside(target);
+	}
+
 	private void giveUp() {
-		UNREACHABLE.put(target, System.currentTimeMillis() + UNREACHABLE_MS);
+		setAside(target);
 		Bari.stop();
 		to(Phase.FIND);
 	}

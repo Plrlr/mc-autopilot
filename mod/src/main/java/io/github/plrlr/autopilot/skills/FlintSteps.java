@@ -23,7 +23,7 @@ final class FlintSteps {
 	private static final int MAX_WATER_ABOVE = 2;
 	private static final int MAX_TRIES = 40;
 
-	private enum Phase { FIND, WALK, DIG, PICKUP, PLACE, BREAK, COLLECT }
+	private enum Phase { FIND, WALK, DIG, PICKUP, PLACE, BREAK, COLLECT, LOOK }
 
 	private final CollectSkill skill;
 	private final WorldMemory memory;
@@ -59,6 +59,7 @@ final class FlintSteps {
 			case DIG, BREAK -> dig();
 			case PICKUP, COLLECT -> pickup();
 			case PLACE -> place();
+			case LOOK -> look();
 		}
 	}
 
@@ -74,11 +75,48 @@ final class FlintSteps {
 		}
 		target = nearestReachableGravel();
 		if (target == null) {
-			skill.fail(Fail.NOT_FOUND, "no gravel seen yet (lake and river beds often have it)");
+			// Water in sight but no gravel: go and look at its bed. Otherwise collect says "no
+			// gravel" and explore says "already see water", back and forth (a test run, 3x each).
+			BlockPos water = nearestUncheckedWater();
+			if (water == null) {
+				skill.fail(Fail.NOT_FOUND, "no gravel seen yet (lake and river beds often have it)");
+				return;
+			}
+			target = water;
+			Bari.path(new GoalNear(water, 2));
+			to(Phase.LOOK);
 			return;
 		}
 		Bari.path(new GoalGetToBlock(target));
 		to(Phase.WALK);
+	}
+
+	private BlockPos nearestUncheckedWater() {
+		BlockPos me = Mc.player().blockPosition();
+		BlockPos best = null;
+		double bestD = 96 * 96;
+		for (WorldMemory.Seen s : memory.all("water")) {
+			if (!s.dim().equals(Mc.dimension()) || SeenMiner.unreachable(s.pos())) continue;
+			double d = s.pos().distSqr(me);
+			if (d < bestD) {
+				bestD = d;
+				best = s.pos();
+			}
+		}
+		return best;
+	}
+
+	/** At the water's edge: a couple of seconds for the scan to see the bed, then set it aside. */
+	private void look() {
+		boolean arrived = wait > 20 && !Bari.pathing();
+		if (!arrived && wait < 20 * 40) return;
+		if (Bari.pathing()) Bari.stop();
+		Mc.lookAt(net.minecraft.world.phys.Vec3.atCenterOf(target.below()));
+		if (wait < (arrived ? 60 : 20 * 40)) return;
+		for (WorldMemory.Seen s : memory.all("water")) {
+			if (s.pos().distSqr(target) < 16 * 16) SeenMiner.setAside(s.pos());
+		}
+		to(Phase.FIND);
 	}
 
 	/** Seen gravel, nearest first, a block of water above counting as 16 blocks of walking. */
