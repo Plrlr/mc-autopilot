@@ -2,6 +2,39 @@
  "bank": {
   "kit": [
    {
+    "asset": "kit-gen20-eval-g10-0.zip",
+    "bytes": 7919958,
+    "dimension": "overworld",
+    "game_seconds": 559,
+    "gen": 20,
+    "genome": "g10",
+    "inventory": "iron_pickaxe 1, dark_oak_log 3, leaf_litter 1, flint_and_steel 1, cobblestone 23, granite 5, wooden_pickaxe 1, iron_sword 1, dark_oak_sapling 1, arrow 9, bucket 2, bone 3, wooden_pickaxe 1, stick 1, stone_pickaxe 1, gravel 9, coal 6, pointed_dripstone 5, dripstone_block 2, andesite 8, ",
+    "run": "eval-g10-0",
+    "synthetic": false
+   },
+   {
+    "asset": "kit-gen20-eval-g10-2.zip",
+    "bytes": 15841089,
+    "dimension": "overworld",
+    "game_seconds": 997,
+    "gen": 20,
+    "genome": "g10",
+    "inventory": "stone_pickaxe 1, cobblestone 51, white_bed 1, iron_pickaxe 1, wooden_pickaxe 1, iron_sword 1, gravel 6, flint_and_steel 1, clay_ball 16, string 1, spruce_sapling 1, sand 4, leather 1, bucket 2, cobblestone 58, oak_log 3, stick 3, ",
+    "run": "eval-g10-2",
+    "synthetic": false
+   },
+   {
+    "asset": "kit-gen20-eval-g18-0.zip",
+    "bytes": 7757740,
+    "dimension": "overworld",
+    "game_seconds": 413,
+    "gen": 20,
+    "genome": "g18",
+    "inventory": "iron_pickaxe 1, cobblestone 56, string 3, stone_pickaxe 1, wooden_sword 1, stone_sword 1, wooden_pickaxe 1, arrow 2, coal 7, dark_oak_planks 1, iron_sword 1, gravel 9, andesite 1, dripstone_block 5, feather 2, flint_and_steel 1, bucket 2, dark_oak_log 1, stick 1, ",
+    "run": "eval-g18-0",
+    "synthetic": false
+   },
+   {
     "asset": "kit-gen19-eval-g10-1.zip",
     "bytes": 5384873,
     "dimension": "overworld",
@@ -406,39 +439,6 @@
     "genome": "g11",
     "inventory": "coal 7, dripstone_block 1, cobblestone 42, cooked_beef 2, stone_sword 1, iron_pickaxe 1, wooden_pickaxe 1, birch_planks 1, pointed_dripstone 3, gravel 3, leather 3, bucket 2, rotten_flesh 2, andesite 2, birch_log 2, stone_pickaxe 1, iron_sword 1, flint_and_steel 1, ",
     "run": "eval-g11-0",
-    "synthetic": false
-   },
-   {
-    "asset": "kit-gen12-eval-g11-1.zip",
-    "bytes": 5197807,
-    "dimension": "overworld",
-    "game_seconds": 704,
-    "gen": 12,
-    "genome": "g11",
-    "inventory": "stone_pickaxe 1, coal 5, cobblestone 64, iron_pickaxe 1, smooth_basalt 11, stick 1, wooden_pickaxe 1, cobblestone 64, gravel 1, amethyst_block 7, bucket 2, azalea 2, spruce_log 1, diorite 23, granite 9, calcite 9, cobblestone 37, moss_block 3, flowering_azalea 1, clay_ball 4, moss_carpet 1, cobbled_",
-    "run": "eval-g11-1",
-    "synthetic": false
-   },
-   {
-    "asset": "kit-gen12-eval-g11-2.zip",
-    "bytes": 4032317,
-    "dimension": "overworld",
-    "game_seconds": 629,
-    "gen": 12,
-    "genome": "g11",
-    "inventory": "stick 1, iron_pickaxe 1, feather 1, bucket 2, cobblestone 64, wooden_pickaxe 1, iron_sword 1, birch_planks 1, coal 3, gravel 5, dirt 6, stone_pickaxe 1, leaf_litter 1, oak_log 1, diorite 2, cobblestone 14, flint_and_steel 1, oak_planks 2, ",
-    "run": "eval-g11-2",
-    "synthetic": false
-   },
-   {
-    "asset": "kit-gen12-data-g6-0.zip",
-    "bytes": 15656667,
-    "dimension": "overworld",
-    "game_seconds": 1152,
-    "gen": 12,
-    "genome": "g6",
-    "inventory": "iron_pickaxe 1, coal 8, dirt 7, bone 1, cobblestone 33, wooden_pickaxe 1, stone_pickaxe 1, birch_planks 2, flint_and_steel 1, oak_planks 3, bucket 2, wooden_pickaxe 1, iron_sword 1, stone_pickaxe 1, birch_log 3, sand 1, stick 1, arrow 1, leaf_litter 6, ",
-    "run": "data-g6-0",
     "synthetic": false
    }
   ],
@@ -1674,6 +1674,31 @@
      19,
      "L19-5vq66j",
      -0.758
+    ],
+    [
+     20,
+     "L20-r2ehby",
+     4.681
+    ],
+    [
+     20,
+     "L20-28pypc",
+     -0.04
+    ],
+    [
+     20,
+     "L20-nvd36r",
+     6.697
+    ],
+    [
+     20,
+     "L20-a2cvk4",
+     -2.279
+    ],
+    [
+     20,
+     "L20-htspnm",
+     -2.469
     ]
    ],
    "genes": {
@@ -2660,7 +2685,33 @@
     "sha": "1a21021039be161bc8f912d87f30207190a3ff1e",
     "summary": "Stuck detection ignores the 2-block box check while a moving skill keeps gaining inventory items (mining in place is progress), so collect stone/raw_iron/log stop failing STUCK and triggering costly unstuck reflexes."
    },
-   "evals": [],
+   "evals": [
+    [
+     20,
+     "L20-r2ehby",
+     3.203
+    ],
+    [
+     20,
+     "L20-28pypc",
+     2.614
+    ],
+    [
+     20,
+     "L20-nvd36r",
+     4.198
+    ],
+    [
+     20,
+     "L20-a2cvk4",
+     -0.511
+    ],
+    [
+     20,
+     "L20-htspnm",
+     0.501
+    ]
+   ],
    "genes": {
     "death.recover_night_armor": 12.0,
     "focus.commit": 1.0,
@@ -2672,14 +2723,66 @@
     "code"
    ],
    "note": "code: Stuck detection ignores the 2-block box check while a moving skill keeps gaining inventory items (mining in place is progress), so collect stone/raw_iron/log stop failing STUCK and triggering costly unstuck reflexes.",
-   "pairs": [],
+   "pairs": [
+    [
+     20,
+     "L20-r2ehby",
+     -1.478
+    ],
+    [
+     20,
+     "L20-28pypc",
+     2.654
+    ],
+    [
+     20,
+     "L20-nvd36r",
+     -2.499
+    ],
+    [
+     20,
+     "L20-a2cvk4",
+     1.768
+    ],
+    [
+     20,
+     "L20-htspnm",
+     2.97
+    ]
+   ],
    "parent": "g10",
    "status": "contender"
   },
   "g18": {
    "born": 20,
    "code": null,
-   "evals": [],
+   "evals": [
+    [
+     20,
+     "L20-r2ehby",
+     6.283
+    ],
+    [
+     20,
+     "L20-28pypc",
+     2.707
+    ],
+    [
+     20,
+     "L20-nvd36r",
+     5.626
+    ],
+    [
+     20,
+     "L20-a2cvk4",
+     -0.78
+    ],
+    [
+     20,
+     "L20-htspnm",
+     0.0
+    ]
+   ],
    "genes": {
     "death.recover_night_armor": 12.0,
     "focus.commit": 1.0,
@@ -2692,7 +2795,33 @@
     "gear.sword_early"
    ],
    "note": "suggested: gear.sword_early 1",
-   "pairs": [],
+   "pairs": [
+    [
+     20,
+     "L20-r2ehby",
+     1.602
+    ],
+    [
+     20,
+     "L20-28pypc",
+     2.747
+    ],
+    [
+     20,
+     "L20-nvd36r",
+     -1.071
+    ],
+    [
+     20,
+     "L20-a2cvk4",
+     1.499
+    ],
+    [
+     20,
+     "L20-htspnm",
+     2.469
+    ]
+   ],
    "parent": "g10",
    "status": "contender"
   },
@@ -3783,88 +3912,12 @@
   "A skill's refusal checks must accept everything its reflex caller can hand it (reflex.melee_dist vs a hardcoded 4-block cutoff), or the reflex starts a skill that fails at once while the threat stays on us.",
   "A progress detector keyed only on position punishes skills whose real progress is gathering items in place; check the skill's actual output before declaring stuck."
  ],
- "model_adv_r2": 0.01,
+ "model_adv_r2": 0.014,
  "model_keys": 52,
- "model_r2": 0.166,
- "model_rows": 19572,
+ "model_r2": 0.173,
+ "model_rows": 20394,
  "next_id": 19,
- "pending": {
-  "data_tasks": [
-   {
-    "kind": "natural",
-    "seed": "D20-bzpppu",
-    "stage": "spawn",
-    "synthetic": false
-   }
-  ],
-  "gen": 20,
-  "lineup": [
-   "g10",
-   "g18",
-   "g17"
-  ],
-  "runs": [
-   "eval-g10-0",
-   "eval-g10-1",
-   "eval-g10-2",
-   "eval-g10-3",
-   "eval-g10-4",
-   "eval-g18-0",
-   "eval-g18-1",
-   "eval-g18-2",
-   "eval-g18-3",
-   "eval-g18-4",
-   "eval-g17-0",
-   "eval-g17-1",
-   "eval-g17-2",
-   "eval-g17-3",
-   "eval-g17-4",
-   "data-g10-0"
-  ],
-  "seeds": [
-   "L20-r2ehby",
-   "L20-28pypc",
-   "L20-nvd36r",
-   "L20-a2cvk4",
-   "L20-htspnm"
-  ],
-  "sha": "bc32c9d84122ed8a22b00ac59ba086f836beb0d4",
-  "started": "2026-09-28T02:45:08+00:00",
-  "tasks": [
-   {
-    "kind": "natural",
-    "seed": "L20-r2ehby",
-    "stage": "spawn",
-    "synthetic": false
-   },
-   {
-    "kind": "natural",
-    "seed": "L20-28pypc",
-    "stage": "spawn",
-    "synthetic": false
-   },
-   {
-    "kind": "natural",
-    "seed": "L20-nvd36r",
-    "stage": "spawn",
-    "synthetic": false
-   },
-   {
-    "asset": "kit-gen13-eval-g11-1.zip",
-    "kind": "start",
-    "seed": "L20-a2cvk4",
-    "stage": "kit",
-    "synthetic": false
-   },
-   {
-    "kind": "scenario",
-    "scenario": "stronghold",
-    "seed": "L20-htspnm",
-    "stage": "eyes",
-    "synthetic": true
-   }
-  ]
- },
+ "pending": null,
  "settings": {
   "accept_pairs": 8,
   "accept_t": 2.0,
@@ -4187,22 +4240,22 @@
    [
     18,
     0
+   ],
+   [
+    20,
+    0
+   ],
+   [
+    20,
+    0
+   ],
+   [
+    20,
+    0
    ]
   ],
   "kit": [
    [
-    6,
-    0
-   ],
-   [
-    7,
-    0
-   ],
-   [
-    7,
-    0
-   ],
-   [
     7,
     0
    ],
@@ -4348,6 +4401,18 @@
    ],
    [
     19,
+    0
+   ],
+   [
+    20,
+    0
+   ],
+   [
+    20,
+    0
+   ],
+   [
+    20,
     0
    ]
   ],
@@ -4427,46 +4492,6 @@
   ],
   "spawn": [
    [
-    16,
-    1
-   ],
-   [
-    16,
-    0
-   ],
-   [
-    16,
-    0
-   ],
-   [
-    16,
-    1
-   ],
-   [
-    16,
-    0
-   ],
-   [
-    16,
-    1
-   ],
-   [
-    16,
-    1
-   ],
-   [
-    16,
-    0
-   ],
-   [
-    17,
-    0
-   ],
-   [
-    17,
-    0
-   ],
-   [
     17,
     1
    ],
@@ -4584,6 +4609,46 @@
    ],
    [
     19,
+    0
+   ],
+   [
+    20,
+    1
+   ],
+   [
+    20,
+    0
+   ],
+   [
+    20,
+    1
+   ],
+   [
+    20,
+    1
+   ],
+   [
+    20,
+    0
+   ],
+   [
+    20,
+    0
+   ],
+   [
+    20,
+    0
+   ],
+   [
+    20,
+    0
+   ],
+   [
+    20,
+    0
+   ],
+   [
+    20,
     0
    ]
   ]
