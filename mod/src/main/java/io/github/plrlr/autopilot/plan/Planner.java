@@ -37,7 +37,7 @@ public final class Planner {
 	 * player does on the way (food, a bed, coal), then the goal's next step, then fallbacks.
 	 */
 	public List<Option> options(Goal goal, Perception seen) {
-		Option main = goalStep(goal, seen, 0);
+		Option main = axeFirst(goalStep(goal, seen, 0));
 		List<Option> urgent = urgent(seen, main);
 		lastUrgent = urgent.stream().map(Option::label).collect(java.util.stream.Collectors.toSet());
 		return order(urgent, recoverStep(), surfaceOption(main), upkeep(seen, main), main, extras(seen, main));
@@ -414,6 +414,18 @@ public final class Planner {
 			if (o != null) return o;
 		}
 		return new Option("smelt", item + ":" + missing, "smelt " + input + " into " + item);
+	}
+
+	/**
+	 * A stone axe before more wood: logs break about three times faster than by hand, and it costs
+	 * three cobblestone and two sticks once there is a stone pickaxe (gene tools.stone_axe).
+	 */
+	Option axeFirst(Option main) {
+		if (main == null || !main.skill().equals("collect") || main.arg() == null || !main.arg().startsWith("log")) return main;
+		if (!Tune.on("tools.stone_axe") || Items2.bestTier("axe") >= 1 || Items2.bestTier("pickaxe") < 1) return main;
+		if (Mc.count("throwaway") < 3 && Mc.count("cobblestone") < 3) return main;
+		Option step = itemStep("stone_axe", 1, 1);
+		return step == null ? main : step;
 	}
 
 	/**

@@ -132,13 +132,14 @@ final class SeenMiner {
 			return;
 		}
 		if (wait % 10 == 1) Bari.path(new GoalNear(drop.blockPosition(), 0));
-		if (wait > 20 * 6) {
+		if (wait > 20 * 10) {
 			Bari.stop();
 			to(Phase.FIND);
 		}
 	}
 
-	private static ItemEntity nearestDrop(BlockPos near) {
+	/** The nearest dropped item within 6 blocks of a spot, or null. */
+	static ItemEntity nearestDrop(BlockPos near) {
 		ItemEntity best = null;
 		double bestD = 6 * 6;
 		for (Entity e : Mc.mc().level.entitiesForRendering()) {

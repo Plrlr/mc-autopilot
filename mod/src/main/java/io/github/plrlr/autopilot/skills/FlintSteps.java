@@ -32,6 +32,8 @@ final class FlintSteps {
 	private BlockPos target;
 	private int wait;
 	private int tries;
+	/** Gravel in the bag while the block is being broken: the drop counts once this goes up. */
+	private int gravelHeld;
 
 	FlintSteps(CollectSkill skill, WorldMemory memory) {
 		this.skill = skill;
@@ -102,6 +104,7 @@ final class FlintSteps {
 		}
 		if (inReach(target)) {
 			Bari.stop();
+			gravelHeld = Mc.count("gravel");
 			to(Phase.DIG);
 			return;
 		}
@@ -140,12 +143,21 @@ final class FlintSteps {
 
 	/** The drop lands where the block was: walk onto it if it didn't come to us. */
 	private void pickup() {
-		if (Mc.count("gravel") > 0) {
+		// Breaking isn't collecting: only the bag counts. (With spare gravel the old check went
+		// straight back to placing and left every drop, flint included, on the ground.)
+		if (Mc.count("gravel") > gravelHeld) {
 			Bari.stop();
 			to(Phase.PLACE);
 			return;
 		}
-		if (wait == 15) Bari.path(new GoalNear(target, 0));
+		var drop = SeenMiner.nearestDrop(target);
+		if (drop != null && wait % 10 == 1) Bari.path(new GoalNear(drop.blockPosition(), 0));
+		if (drop == null && wait > 20 && Mc.count("gravel") > 0) {
+			// Nothing left on the ground (it may have been the flint, which tick() counts).
+			Bari.stop();
+			to(Phase.PLACE);
+			return;
+		}
 		if (wait > 20 * 8) {
 			Bari.stop();
 			if (phase == Phase.COLLECT && tries >= MAX_TRIES) {
@@ -182,6 +194,7 @@ final class FlintSteps {
 		}
 		if (Mc.id(Mc.state(target).getBlock()).equals("gravel")) {
 			tries++;
+			gravelHeld = Mc.count("gravel");
 			to(Phase.BREAK);
 		} else if (wait > 20) {
 			to(Phase.PLACE);
