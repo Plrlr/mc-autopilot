@@ -138,8 +138,18 @@ final class CombatDrill {
 		return n;
 	}
 
+	private static long elapsed, lastSeen;
+
+	/**
+	 * Game seconds since the drill began. The autopilot's own clock restarts whenever it's turned
+	 * back on (enable() resets it), which kept the first drill run going until the job's time
+	 * limit; so the drill adds up the steps itself and treats a drop as a restart from zero.
+	 */
 	private static long gs() {
-		return FreeRun.onClient(() -> AutopilotMod.instance().gameSeconds());
+		long now = FreeRun.onClient(() -> AutopilotMod.instance().gameSeconds());
+		elapsed += now >= lastSeen ? now - lastSeen : now;
+		lastSeen = now;
+		return elapsed;
 	}
 
 	/** A test-world command on the server thread (the framework's runCommand needs the lockstep). */

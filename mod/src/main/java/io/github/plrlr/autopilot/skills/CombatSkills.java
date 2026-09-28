@@ -71,6 +71,7 @@ public final class CombatSkills {
 		private int sinceCloser;
 		private BlockPos lastSeenAt;
 		private int unseen;
+		private int blocked;
 		private int deadTicks = -1;
 		/** Ticks spent waiting for the fall of a crit jump (strike anyway after a few). */
 		private int critWait;
@@ -91,7 +92,9 @@ public final class CombatSkills {
 			for (Perception.Seen m : observed.mobs) {
 				// Up close it's a fight whatever an earlier chase found: refusing it let a zombie
 				// keep hitting us while the attack failed instantly (batch 6).
-				if (m.type().equals(arg) && Mc.canSee(m.entity()) && (m.dist() < 4 || !unreachable(m.entity()))) {
+				// A monster heard round a corner may still be chased (a player would); the swing
+				// itself waits for a sightline below.
+				if (m.type().equals(arg) && (m.dist() < 4 || !unreachable(m.entity()))) {
 					s = m;
 					break;
 				}
@@ -257,10 +260,13 @@ public final class CombatSkills {
 			}
 			if (ready) {
 				// The client may perceive a close mob through a wall; only swing with line of sight.
+				// gameMode.attack skips the crosshair, so without this the bot could hit through walls.
+				// Its own counter: the sight check above resets `unseen` whenever the mob is within 4.
 				if (!Mc.canSee(hitBox)) {
-					if (++unseen > 100) fail(Fail.UNREACHABLE, "no sightline to the " + arg);
+					if (++blocked > 60) fail(Fail.UNREACHABLE, "no sightline to the " + arg);
 					return;
 				}
+				blocked = 0;
 				critWait = 0;
 				o.keyJump.setDown(false);
 				if (pl.isUsingItem()) {
