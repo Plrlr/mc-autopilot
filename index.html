@@ -341,7 +341,7 @@ function tree(state) {
   });
 }
 
-const STAGE_NAMES = { kit: "Portal kit", nether: "Nether", rods: "Blaze rods", eyes: "12 eyes", stronghold: "Stronghold", end: "The End" };
+const STAGE_NAMES = { kit: "Portal kit", lava: "Kit at lava", nether: "Nether", rods: "Blaze rods", eyes: "12 eyes", stronghold: "Stronghold", end: "The End" };
 
 function ladder(state, history) {
   const last = history[history.length - 1] || {};
@@ -373,7 +373,7 @@ function render(data) {
   const furthest = (() => {
     // A stage some real run reached (a real save in the bank) counts first.
     const bank = (last && last.bank) || {};
-    for (const k of ["end", "stronghold", "eyes", "rods", "nether", "kit"]) if (bank[k] && bank[k].real > 0) return STAGE_NAMES[k];
+    for (const k of ["end", "stronghold", "eyes", "rods", "nether", "lava", "kit"]) if (bank[k] && bank[k].real > 0) return STAGE_NAMES[k];
     const order = [["m7", "the Nether"], ["portal_lit", "portal lit"], ["frame_complete", "portal frame"], ["obsidian_placed", "obsidian placed"], ["lava_seen", "lava found"], ["two_buckets", "portal kit"], ["m4", "iron tools"], ["m2", "stone tools"], ["m1", "wood"]];
     for (const [k, n] of order) if (history.some((h) => (h.reached || {})[k])) return n;
     return "–";
