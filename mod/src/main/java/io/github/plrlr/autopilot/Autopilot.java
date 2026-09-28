@@ -779,7 +779,7 @@ public final class Autopilot {
 			lastPos = p;
 			lastMoveTick = tick;
 		}
-		if (skill == null || skillIsReflex || !MOVING.contains(skill.name()) || Mc.mc().gameMode.isDestroying()) {
+		if (skill == null || skillIsReflex || !MOVING.contains(skill.name()) || Mc.mc().gameMode.isDestroying() || skill.workingInPlace()) {
 			recentPos.clear();
 			return;
 		}

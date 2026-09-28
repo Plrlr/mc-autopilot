@@ -42,6 +42,11 @@ final class FlintSteps {
 		skill.timeoutTicks = 20 * 240;
 	}
 
+	/** Placing, breaking or picking up next to us: standing still is the job. */
+	boolean inPlace() {
+		return phase == Phase.PLACE || phase == Phase.BREAK || phase == Phase.COLLECT || phase == Phase.DIG;
+	}
+
 	void tick() {
 		if (Mc.count("flint") > before) {
 			skill.done("flint after " + tries + " gravel breaks");
@@ -132,8 +137,8 @@ final class FlintSteps {
 			return;
 		}
 		Mc.lookAt(Vec3.atCenterOf(target));
+		NightSkills.Shelter.holdBestTool(Mc.state(target));
 		if (wait == 1) {
-			NightSkills.Shelter.holdBestTool(Mc.state(target));
 			Mc.mc().gameMode.startDestroyBlock(target, Direction.UP);
 		} else {
 			Mc.mc().gameMode.continueDestroyBlock(target, Direction.UP);

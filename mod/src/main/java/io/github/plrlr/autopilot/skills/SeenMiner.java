@@ -48,6 +48,11 @@ final class SeenMiner {
 		this.range = range;
 	}
 
+	/** Breaking a block (or the leaves in front of it): no walking expected. */
+	boolean breaking() {
+		return phase == Phase.BREAK;
+	}
+
 	int mined() {
 		return mined;
 	}
@@ -180,8 +185,10 @@ final class SeenMiner {
 	/** One tick of breaking a block like a player: look, best tool, keep swinging. */
 	private void hit(BlockPos p) {
 		Mc.lookAt(Vec3.atCenterOf(p));
+		// Every tick, not just the first: a torch placed mid-break left the torch in hand, and the
+		// rest of the block was mined at bare-hand speed (seen on the laptop, coal by fist).
+		NightSkills.Shelter.holdBestTool(Mc.state(p));
 		if (wait == 1) {
-			NightSkills.Shelter.holdBestTool(Mc.state(p));
 			Mc.mc().gameMode.startDestroyBlock(p, Direction.UP);
 		} else {
 			Mc.mc().gameMode.continueDestroyBlock(p, Direction.UP);

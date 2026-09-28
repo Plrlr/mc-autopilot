@@ -27,6 +27,8 @@ public final class CollectSkill extends Skill {
 	/** "diamond:1:lava": mining deep to find lava, so lava in sight ends it (a laptop run dug on 45 s past a pool). */
 	private boolean untilLava;
 	private SeenMiner seenMiner;
+	/** Waiting a few seconds for a seen block of this group before giving up (null when not). */
+	private String lookGroup;
 	/** Flint has its own way: one seen gravel, placed and broken until flint drops. */
 	private FlintSteps flint;
 
@@ -71,7 +73,10 @@ public final class CollectSkill extends Skill {
 			return;
 		}
 		if (seenOnly) {
-			fail(Fail.NOT_FOUND, "no " + item + " seen nearby");
+			// Look around a moment first: at spawn (or right after a respawn) the memory is still
+			// empty for a second, and three instant "none seen" sent a laptop run exploring for 60 s.
+			lookGroup = group;
+			timeoutTicks = 20 * 4;
 			return;
 		}
 		startBaritone(src);
@@ -114,6 +119,11 @@ public final class CollectSkill extends Skill {
 	}
 
 	@Override
+	public boolean workingInPlace() {
+		return (flint != null && flint.inPlace()) || (seenMiner != null && seenMiner.breaking());
+	}
+
+	@Override
 	protected void tick() {
 		if (flint != null) {
 			flint.tick();
@@ -121,6 +131,16 @@ public final class CollectSkill extends Skill {
 		}
 		if (untilLava && memory.nearest("lava") != null) {
 			done("lava in sight");
+			return;
+		}
+		if (lookGroup != null) {
+			if (SeenMiner.anySeen(memory, lookGroup, SEEN_RANGE)) {
+				seenMiner = new SeenMiner(memory, lookGroup, SEEN_RANGE);
+				lookGroup = null;
+				timeoutTicks = ticks + 20 * 360;
+			} else if (ticks > 20 * 3) {
+				fail(Fail.NOT_FOUND, "no " + item + " seen nearby");
+			}
 			return;
 		}
 		if (seenMiner != null) {
