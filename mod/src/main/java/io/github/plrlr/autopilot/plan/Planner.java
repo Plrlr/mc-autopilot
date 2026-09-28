@@ -138,7 +138,8 @@ public final class Planner {
 			if (mob != null && Mc.canSee(mob.entity()))
 				return new Option("attack", animal, "stock food before the iron trip (" + ready + "/8 cooked)");
 		}
-		return new Option("explore", ANIMALS, "find visible animals before the iron trip (" + ready + "/8 cooked)");
+		// On sparse starts a compulsory animal search can replace the iron route forever.
+		return null;
 	}
 
 	/** Spend iron in survivability order; the pickaxe still comes first so iron can be mined. */
@@ -634,8 +635,12 @@ public final class Planner {
 	public static boolean wantsToEat() {
 		LocalPlayer pl = Mc.player();
 		int food = pl.getFoodData().getFoodLevel();
-		if (food >= 20 || Mc.count(Items2::isAnyFood) == 0) return false;
-		if (Tune.on("food.keep_full") && food < 18) return true;
+		if (food >= 20) return false;
+		if (Tune.on("food.keep_full")) {
+			// Raw chicken and other risky food are a last resort, not routine regeneration fuel.
+			if (Mc.count(s -> Items2.isGoodFood(s) || food <= 6 && Items2.isAnyFood(s)) == 0) return false;
+			if (food < 18) return true;
+		} else if (Mc.count(Items2::isAnyFood) == 0) return false;
 		return food <= Tune.i("food.eat_at") || (food <= Tune.i("food.eat_hurt_at") && pl.getHealth() < pl.getMaxHealth());
 	}
 
