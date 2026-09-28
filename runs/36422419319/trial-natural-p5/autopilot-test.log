@@ -1,0 +1,398 @@
+	- autopilot-test 0.1.0
+[12:33:44] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test] start at -690, 78, 101
+[12:33:44] [Test thread/INFO] (Minecraft) [STDOUT]: [autopilot-test] STAGE start spawn
+[12:33:44] [Test thread/INFO] (Minecraft) [STDOUT]: [autopilot-test] FREE RUN: client and server run in parallel (no lockstep)
+[12:34:17] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test] natural 30s: actions mock, goal wood_tools, doing attack cow, milestone 0/13, deaths 0, Opus calls this hour 0/130
+[autopilot-test]    perf fps 20, server 5.9 ms/tick, mod 1.19 ms/tick
+[12:34:17] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    at -720 71 89 hp 20 food 20 inv {apple=1, dark_oak_log=1, dark_oak_planks=6, stick=4}
+[12:34:17] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    known water none, lava none
+[12:34:17] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    collect log:3 -> ok: collected 3 log
+[12:34:17] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    craft planks:4 -> ok: crafted 4 planks
+[12:34:17] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    craft stick:4 -> ok: crafted 4 stick
+[12:34:17] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    craft planks:4 -> ok: crafted 4 planks
+[12:34:17] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    attack cow -> failed UNREACHABLE: can't reach the cow (3 blocks away)
+[12:34:48] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test] natural 60s: actions mock, goal stone_tools, doing collect stone:13, milestone 1/13, deaths 0, Opus calls this hour 0/130
+[autopilot-test]    perf fps 27, server 4.2 ms/tick, mod 0.77 ms/tick
+[12:34:48] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    at -723 64 86 hp 20 food 20 inv {apple=1, beef=4, cobblestone=2, crafting_table=1, dark_oak_planks=3, dirt=5, leather=3, stick=2, wooden_pickaxe=1}
+[12:34:48] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    known water none, lava none
+[12:34:48] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    attack cow -> ok: killed the cow
+[12:34:48] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    attack cow -> ok: killed the cow
+[12:34:48] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    craft crafting_table:1 -> ok: crafted 1 crafting_table
+[12:34:48] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    craft planks:4 -> ok: crafted 4 planks
+[12:34:48] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    craft wooden_pickaxe:1 -> ok: crafted 1 wooden_pickaxe
+[12:34:48] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    pickup stations -> ok: picked up 1 stacks
+[12:35:18] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test] natural 90s: actions mock, goal iron_tools, doing pickup stations, milestone 2/13, deaths 0, Opus calls this hour 0/130
+[autopilot-test]    perf fps 30, server 3.3 ms/tick, mod 0.62 ms/tick
+[12:35:18] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    at -721 64 89 hp 20 food 20 inv {apple=1, beef=4, cobblestone=13, dark_oak_planks=3, dirt=5, leather=3, stone_pickaxe=1, wooden_pickaxe=1}
+[12:35:18] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    known water none, lava none
+[12:35:18] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    craft planks:4 -> ok: crafted 4 planks
+[12:35:18] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    craft wooden_pickaxe:1 -> ok: crafted 1 wooden_pickaxe
+[12:35:18] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    pickup stations -> ok: picked up 1 stacks
+[12:35:18] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    collect stone:13 -> failed STUCK: stuck: stayed inside 2.0 blocks for 12 s
+[12:35:18] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    unstuck -> ok: got out (tunnel)
+[12:35:18] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    craft stone_pickaxe:1 -> ok: crafted 1 stone_pickaxe
+[12:35:47] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test] natural 120s: actions mock, goal iron_tools, doing collect raw_iron:13, milestone 2/13, deaths 0, Opus calls this hour 0/130
+[autopilot-test]    perf fps 30, server 2.6 ms/tick, mod 0.53 ms/tick
+[12:35:47] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    at -721 34 88 hp 20 food 20 inv {apple=1, beef=4, cobblestone=34, crafting_table=1, dark_oak_planks=3, diorite=8, dirt=5, leather=3, stone_pickaxe=1, wooden_pickaxe=1}
+[12:35:47] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    known water none, lava none
+[12:35:47] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    craft wooden_pickaxe:1 -> ok: crafted 1 wooden_pickaxe
+[12:35:47] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    pickup stations -> ok: picked up 1 stacks
+[12:35:47] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    collect stone:13 -> failed STUCK: stuck: stayed inside 2.0 blocks for 12 s
+[12:35:47] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    unstuck -> ok: got out (tunnel)
+[12:35:47] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    craft stone_pickaxe:1 -> ok: crafted 1 stone_pickaxe
+[12:35:47] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    pickup stations -> ok: picked up 1 stacks
+[12:36:17] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test] natural 150s: actions mock, goal iron_tools, doing collect coal:6, milestone 2/13, deaths 0, Opus calls this hour 0/130
+[autopilot-test]    perf fps 30, server 3.4 ms/tick, mod 0.49 ms/tick
+[12:36:17] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    at -730 22 78 hp 20 food 20 inv {andesite=2, apple=1, beef=4, coal=1, cobblestone=47, crafting_table=1, dark_oak_planks=3, diorite=8, dirt=1, leather=3, stone_pickaxe=1, wooden_pickaxe=1}
+[12:36:17] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    known water -730, 16, 80, lava none
+[12:36:17] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    pickup stations -> ok: picked up 1 stacks
+[12:36:17] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    collect stone:13 -> failed STUCK: stuck: stayed inside 2.0 blocks for 12 s
+[12:36:17] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    unstuck -> ok: got out (tunnel)
+[12:36:17] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    craft stone_pickaxe:1 -> ok: crafted 1 stone_pickaxe
+[12:36:17] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    pickup stations -> ok: picked up 1 stacks
+[12:36:17] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    collect raw_iron:13 -> failed INTERRUPTED: interrupted: brain chose collect coal:6
+[12:36:48] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test] natural 180s: actions mock, goal iron_tools, doing collect raw_iron:13, milestone 2/13, deaths 0, Opus calls this hour 0/130
+[autopilot-test]    perf fps 30, server 3.4 ms/tick, mod 0.46 ms/tick
+[12:36:48] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    at -744 16 69 hp 20 food 20 inv {andesite=11, apple=1, beef=4, coal=1, cobblestone=47, crafting_table=1, dark_oak_planks=3, diorite=8, granite=1, leather=3, raw_iron=3, stone_pickaxe=1, wooden_pickaxe=1}
+[12:36:48] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    known water -744, 16, 69, lava none
+[12:36:48] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    collect stone:13 -> failed STUCK: stuck: stayed inside 2.0 blocks for 12 s
+[12:36:48] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    unstuck -> ok: got out (tunnel)
+[12:36:48] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    craft stone_pickaxe:1 -> ok: crafted 1 stone_pickaxe
+[12:36:48] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    pickup stations -> ok: picked up 1 stacks
+[12:36:48] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    collect raw_iron:13 -> failed INTERRUPTED: interrupted: brain chose collect coal:6
+[12:36:48] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    collect coal:6 -> failed INTERRUPTED: interrupted: brain chose collect raw_iron:13
+[12:37:18] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test] natural 210s: actions mock, goal iron_tools, doing unstuck, milestone 2/13, deaths 0, Opus calls this hour 0/130
+[autopilot-test]    perf fps 30, server 2.3 ms/tick, mod 0.43 ms/tick
+[12:37:18] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    at -746 16 69 hp 20 food 20 inv {andesite=11, apple=1, beef=4, coal=1, cobblestone=48, crafting_table=1, dark_oak_planks=3, diorite=8, dirt=1, granite=1, leather=3, raw_iron=3, stone_pickaxe=1, wooden_pickaxe=1}
+[12:37:18] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    known water -746, 16, 69, lava none
+[12:37:18] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    unstuck -> ok: got out (tunnel)
+[12:37:18] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    craft stone_pickaxe:1 -> ok: crafted 1 stone_pickaxe
+[12:37:18] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    pickup stations -> ok: picked up 1 stacks
+[12:37:18] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    collect raw_iron:13 -> failed INTERRUPTED: interrupted: brain chose collect coal:6
+[12:37:18] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    collect coal:6 -> failed INTERRUPTED: interrupted: brain chose collect raw_iron:13
+[12:37:18] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    collect raw_iron:13 -> failed STUCK: stuck: stayed inside 2.0 blocks for 12 s
+[12:37:48] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test] natural 240s: actions mock, goal iron_tools, doing smelt iron_ingot:3, milestone 2/13, deaths 0, Opus calls this hour 0/130
+[autopilot-test]    perf fps 30, server 2.4 ms/tick, mod 0.42 ms/tick
+[12:37:48] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    at -741 17 73 hp 20 food 20 inv {andesite=11, apple=1, beef=4, cobblestone=40, dark_oak_planks=1, diorite=8, dirt=1, granite=1, leather=3, stone_pickaxe=1, wooden_pickaxe=1}
+[12:37:48] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    known water -741, 16, 72, lava none
+[12:37:48] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    collect raw_iron:13 -> failed INTERRUPTED: interrupted: brain chose collect coal:6
+[12:37:48] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    collect coal:6 -> failed INTERRUPTED: interrupted: brain chose collect raw_iron:13
+[12:37:48] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    collect raw_iron:13 -> failed STUCK: stuck: stayed inside 2.0 blocks for 12 s
+[12:37:48] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    unstuck -> failed STUCK: couldn't get out (walked, tunnelled and climbed 0 blocks)
+[12:37:48] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    craft furnace:1 -> ok: crafted 1 furnace
+[12:37:48] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    smelt cooked_beef:4 -> ok: loaded 4 to smelt into cooked_beef; working nearby meanwhile
+[12:38:18] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test] natural 270s: actions mock, goal iron_tools, doing goto surface, milestone 2/13, deaths 0, Opus calls this hour 0/130
+[autopilot-test]    perf fps 30, server 2.6 ms/tick, mod 0.40 ms/tick
+[12:38:18] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    at -727 21 81 hp 20 food 20 inv {andesite=11, apple=1, beef=4, cobblestone=40, dark_oak_planks=1, diorite=9, dirt=1, granite=1, iron_ingot=3, leather=3, stone_pickaxe=1, wooden_pickaxe=1}
+[12:38:18] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    known water -728, 16, 83, lava none
+[12:38:18] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    collect coal:6 -> failed INTERRUPTED: interrupted: brain chose collect raw_iron:13
+[12:38:18] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    collect raw_iron:13 -> failed STUCK: stuck: stayed inside 2.0 blocks for 12 s
+[12:38:18] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    unstuck -> failed STUCK: couldn't get out (walked, tunnelled and climbed 0 blocks)
+[12:38:18] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    craft furnace:1 -> ok: crafted 1 furnace
+[12:38:18] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    smelt cooked_beef:4 -> ok: loaded 4 to smelt into cooked_beef; working nearby meanwhile
+[12:38:18] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    smelt iron_ingot:3 -> ok: smelted 3 iron_ingot
+[12:38:48] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test] natural 300s: actions mock, goal iron_tools, doing goto surface, milestone 2/13, deaths 0, Opus calls this hour 0/130
+[autopilot-test]    perf fps 30, server 2.9 ms/tick, mod 0.39 ms/tick
+[12:38:48] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    at -724 65 85 hp 20 food 20 inv {apple=1, beef=4, cobblestone=23, dark_oak_planks=1, dirt=4, iron_ingot=3, leather=3, stone_pickaxe=1, wooden_pickaxe=1}
+[12:38:48] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    known water -726, 16, 87, lava none
+[12:38:48] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    collect coal:6 -> failed INTERRUPTED: interrupted: brain chose collect raw_iron:13
+[12:38:48] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    collect raw_iron:13 -> failed STUCK: stuck: stayed inside 2.0 blocks for 12 s
+[12:38:48] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    unstuck -> failed STUCK: couldn't get out (walked, tunnelled and climbed 0 blocks)
+[12:38:48] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    craft furnace:1 -> ok: crafted 1 furnace
+[12:38:48] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    smelt cooked_beef:4 -> ok: loaded 4 to smelt into cooked_beef; working nearby meanwhile
+[12:38:48] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    smelt iron_ingot:3 -> ok: smelted 3 iron_ingot
+[12:39:18] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test] natural 330s: actions mock, goal iron_tools, doing smelt cooked_beef:4, milestone 2/13, deaths 0, Opus calls this hour 0/130
+[autopilot-test]    perf fps 30, server 2.2 ms/tick, mod 0.38 ms/tick
+[12:39:18] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    at -742 56 73 hp 20 food 20 inv {apple=1, beef=4, cobblestone=25, dark_oak_log=3, dark_oak_planks=1, diorite=5, dirt=10, iron_ingot=3, leaf_litter=4, leather=3, stone_pickaxe=1, wooden_pickaxe=1}
+[12:39:18] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    known water -742, 16, 72, lava none
+[12:39:18] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    craft furnace:1 -> ok: crafted 1 furnace
+[12:39:18] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    smelt cooked_beef:4 -> ok: loaded 4 to smelt into cooked_beef; working nearby meanwhile
+[12:39:18] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    smelt iron_ingot:3 -> ok: smelted 3 iron_ingot
+[12:39:18] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    goto surface -> failed INTERRUPTED: interrupted: brain chose collect log:9
+[12:39:18] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    collect log:9 -> failed STUCK: stuck: stayed inside 2.0 blocks for 12 s
+[12:39:18] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    unstuck -> ok: got out (walk)
+[12:39:48] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test] natural 360s: actions mock, goal iron_tools, doing smelt cooked_beef:4, milestone 2/13, deaths 0, Opus calls this hour 0/130
+[autopilot-test]    perf fps 30, server 1.7 ms/tick, mod 0.37 ms/tick
+[12:39:48] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    at -742 23 73 hp 20 food 20 inv {apple=1, beef=4, cobblestone=56, dark_oak_log=3, dark_oak_planks=1, diorite=7, dirt=10, iron_ingot=3, leaf_litter=4, leather=3, stone_pickaxe=1, wooden_pickaxe=1}
+[12:39:48] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    known water -742, 16, 72, lava none
+[12:39:48] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    craft furnace:1 -> ok: crafted 1 furnace
+[12:39:48] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    smelt cooked_beef:4 -> ok: loaded 4 to smelt into cooked_beef; working nearby meanwhile
+[12:39:48] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    smelt iron_ingot:3 -> ok: smelted 3 iron_ingot
+[12:39:48] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    goto surface -> failed INTERRUPTED: interrupted: brain chose collect log:9
+[12:39:48] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    collect log:9 -> failed STUCK: stuck: stayed inside 2.0 blocks for 12 s
+[12:39:48] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    unstuck -> ok: got out (walk)
+[12:40:18] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test] natural 390s: actions mock, goal nether_portal, doing pickup stations, milestone 4/13, deaths 0, Opus calls this hour 0/130
+[autopilot-test]    perf fps 30, server 1.6 ms/tick, mod 0.36 ms/tick
+[12:40:18] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    at -746 15 69 hp 20 food 20 inv {apple=1, cobblestone=62, dark_oak_log=1, dark_oak_planks=6, diorite=7, dirt=10, iron_pickaxe=1, leaf_litter=4, leather=3, stick=2, stone_pickaxe=1, wooden_pickaxe=1}
+[12:40:18] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    known water -746, 16, 69, lava none
+[12:40:18] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    unstuck -> ok: got out (walk)
+[12:40:18] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    smelt cooked_beef:4 -> ok: loaded 4 to smelt into cooked_beef; working nearby meanwhile
+[12:40:18] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    craft planks:4 -> ok: crafted 4 planks
+[12:40:18] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    craft stick:4 -> ok: crafted 4 stick
+[12:40:18] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    craft iron_pickaxe:1 -> ok: crafted 1 iron_pickaxe
+[12:40:18] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    craft planks:4 -> ok: crafted 4 planks
+[12:40:49] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test] natural 420s: actions mock, goal nether_portal, doing collect raw_iron:10, milestone 4/13, deaths 0, Opus calls this hour 0/130
+[autopilot-test]    perf fps 29, server 2.9 ms/tick, mod 0.36 ms/tick
+[12:40:49] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    at -729 21 80 hp 20 food 20 inv {apple=1, cobblestone=62, dark_oak_log=1, dark_oak_planks=6, diorite=7, dirt=10, iron_pickaxe=1, leaf_litter=4, leather=3, stick=2, stone_pickaxe=1, wooden_pickaxe=1}
+[12:40:49] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    known water -730, 16, 80, lava none
+[12:40:49] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    craft planks:4 -> ok: crafted 4 planks
+[12:40:49] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    craft stick:4 -> ok: crafted 4 stick
+[12:40:49] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    craft iron_pickaxe:1 -> ok: crafted 1 iron_pickaxe
+[12:40:49] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    craft planks:4 -> ok: crafted 4 planks
+[12:40:49] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    pickup stations -> ok: nothing left to pick up
+[12:40:49] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    collect raw_iron:10 -> failed INTERRUPTED: running out of air
+[12:41:19] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test] natural 450s: actions mock, goal nether_portal, doing collect raw_iron:10, milestone 4/13, deaths 0, Opus calls this hour 0/130
+[autopilot-test]    perf fps 30, server 2.4 ms/tick, mod 0.36 ms/tick
+[12:41:19] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    at -722 9 110 hp 20 food 20 inv {apple=1, cobbled_deepslate=1, cobblestone=83, dark_oak_log=1, dark_oak_planks=6, diorite=7, dirt=10, iron_pickaxe=1, leaf_litter=4, leather=3, moss_block=1, stick=2, stone_pickaxe=1, wooden_pickaxe=1}
+[12:41:19] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    known water -724, 16, 90, lava none
+[12:41:19] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    craft planks:4 -> ok: crafted 4 planks
+[12:41:19] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    craft stick:4 -> ok: crafted 4 stick
+[12:41:19] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    craft iron_pickaxe:1 -> ok: crafted 1 iron_pickaxe
+[12:41:19] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    craft planks:4 -> ok: crafted 4 planks
+[12:41:19] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    pickup stations -> ok: nothing left to pick up
+[12:41:19] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    collect raw_iron:10 -> failed INTERRUPTED: running out of air
+[12:41:48] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test] natural 480s: actions mock, goal nether_portal, doing collect raw_iron:10, milestone 4/13, deaths 0, Opus calls this hour 0/130
+[autopilot-test]    perf fps 30, server 3.7 ms/tick, mod 0.35 ms/tick
+[12:41:48] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    at -731 9 134 hp 20 food 20 inv {apple=1, cobbled_deepslate=1, cobblestone=104, dark_oak_log=1, dark_oak_planks=6, diorite=8, dirt=10, iron_pickaxe=1, leaf_litter=4, leather=3, moss_block=1, raw_iron=6, stick=2, stone_pickaxe=1, wooden_pickaxe=1}
+[12:41:48] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    known water -724, 16, 90, lava none
+[12:41:48] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    craft planks:4 -> ok: crafted 4 planks
+[12:41:48] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    craft stick:4 -> ok: crafted 4 stick
+[12:41:48] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    craft iron_pickaxe:1 -> ok: crafted 1 iron_pickaxe
+[12:41:48] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    craft planks:4 -> ok: crafted 4 planks
+[12:41:48] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    pickup stations -> ok: nothing left to pick up
+[12:41:48] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    collect raw_iron:10 -> failed INTERRUPTED: running out of air
+[12:42:19] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test] natural 510s: actions mock, goal nether_portal, doing goto surface, milestone 4/13, deaths 0, Opus calls this hour 0/130
+[autopilot-test]    perf fps 30, server 2.7 ms/tick, mod 0.35 ms/tick
+[12:42:19] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    at -718 14 96 hp 20 food 19 inv {apple=1, cobbled_deepslate=1, cobblestone=104, crafting_table=1, dark_oak_planks=6, diorite=8, dirt=10, iron_pickaxe=1, leaf_litter=4, leather=3, moss_block=1, raw_iron=10, stick=2, stone_pickaxe=1, wooden_pickaxe=1}
+[12:42:19] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    known water -724, 16, 90, lava none
+[12:42:19] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    craft planks:4 -> ok: crafted 4 planks
+[12:42:19] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    pickup stations -> ok: nothing left to pick up
+[12:42:19] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    collect raw_iron:10 -> failed INTERRUPTED: running out of air
+[12:42:19] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    collect raw_iron:10 -> ok: collected 10 raw_iron
+[12:42:19] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    craft planks:4 -> ok: crafted 4 planks
+[12:42:19] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    craft crafting_table:1 -> ok: crafted 1 crafting_table
+[12:42:49] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test] natural 540s: actions mock, goal nether_portal, doing explore any, milestone 4/13, deaths 0, Opus calls this hour 0/130
+[autopilot-test]    perf fps 29, server 2.9 ms/tick, mod 0.35 ms/tick
+[12:42:49] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    at -744 16 70 hp 20 food 19 inv {andesite=1, apple=1, cobbled_deepslate=1, cobblestone=108, crafting_table=1, dark_oak_planks=6, diorite=8, dirt=8, iron_pickaxe=1, leaf_litter=4, leather=3, moss_block=1, raw_iron=10, stick=2, stone_pickaxe=1, wooden_pickaxe=1}
+[12:42:49] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    known water -744, 16, 70, lava none
+[12:42:49] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    collect log:9 -> failed NOT_FOUND: no log in sight underground
+[12:42:49] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    pickup -> ok: picked up 1 stacks
+[12:42:49] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    pickup -> ok: nothing left to pick up
+[12:42:49] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    explore log -> failed ALREADY_DONE: already see log
+[12:42:49] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    explore log -> failed ALREADY_DONE: already see log
+[12:42:49] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    explore log -> failed ALREADY_DONE: already see log
+[12:43:21] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test] natural 570s: actions mock, goal nether_portal, doing goto surface, milestone 4/13, deaths 0, Opus calls this hour 0/130
+[autopilot-test]    perf fps 10, server 2.0 ms/tick, mod 0.34 ms/tick
+[12:43:21] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    at -746 16 69 hp 20 food 18 inv {andesite=1, apple=1, cobbled_deepslate=1, cobblestone=109, crafting_table=1, dark_oak_planks=6, diorite=8, dirt=8, granite=1, iron_pickaxe=1, leaf_litter=4, leather=3, moss_block=1, raw_iron=10, stick=2, stone_pickaxe=1, wooden_pickaxe=1}
+[12:43:21] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    known water -746, 16, 69, lava none
+[12:43:21] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    pickup -> ok: nothing left to pick up
+[12:43:21] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    explore log -> failed ALREADY_DONE: already see log
+[12:43:21] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    explore log -> failed ALREADY_DONE: already see log
+[12:43:21] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    explore log -> failed ALREADY_DONE: already see log
+[12:43:21] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    explore any -> failed STUCK: stuck: stayed inside 2.0 blocks for 12 s
+[12:43:21] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    unstuck -> failed STUCK: boxed in: can't walk, tunnel or climb out
+[12:44:21] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test] natural 600s: actions mock, goal nether_portal, doing unstuck, milestone 4/13, deaths 0, Opus calls this hour 0/130
+[autopilot-test]    perf fps 10, server 1.2 ms/tick, mod 0.34 ms/tick
+[12:44:21] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    at -746 16 69 hp 20 food 18 inv {andesite=1, apple=1, cobbled_deepslate=1, cobblestone=109, crafting_table=1, dark_oak_planks=6, diorite=8, dirt=8, granite=1, iron_pickaxe=1, leaf_litter=4, leather=3, moss_block=1, raw_iron=10, stick=2, stone_pickaxe=1, wooden_pickaxe=1}
+[12:44:21] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    known water -746, 16, 69, lava none
+[12:44:21] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    explore log -> failed ALREADY_DONE: already see log
+[12:44:21] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    explore log -> failed ALREADY_DONE: already see log
+[12:44:21] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    explore log -> failed ALREADY_DONE: already see log
+[12:44:21] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    explore any -> failed STUCK: stuck: stayed inside 2.0 blocks for 12 s
+[12:44:21] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    unstuck -> failed STUCK: boxed in: can't walk, tunnel or climb out
+[12:44:21] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    goto surface -> failed STUCK: stuck: stayed inside 2.0 blocks for 12 s
+[12:45:22] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test] natural 630s: actions mock, goal nether_portal, doing shelter, milestone 4/13, deaths 0, Opus calls this hour 0/130
+[autopilot-test]    perf fps 10, server 1.5 ms/tick, mod 0.34 ms/tick
+[12:45:22] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    at -746 16 69 hp 20 food 18 inv {andesite=1, apple=1, cobbled_deepslate=1, cobblestone=109, crafting_table=1, dark_oak_planks=6, diorite=8, dirt=8, granite=1, iron_pickaxe=1, leaf_litter=4, leather=3, moss_block=1, raw_iron=10, stick=2, stone_pickaxe=1, wooden_pickaxe=1}
+[12:45:22] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    known water -746, 16, 69, lava none
+[12:45:22] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    explore any -> failed STUCK: stuck: stayed inside 2.0 blocks for 12 s
+[12:45:22] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    unstuck -> failed STUCK: boxed in: can't walk, tunnel or climb out
+[12:45:22] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    goto surface -> failed STUCK: stuck: stayed inside 2.0 blocks for 12 s
+[12:45:22] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    unstuck -> failed STUCK: couldn't get out (walked, tunnelled and climbed 0 blocks)
+[12:45:22] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    collect log:9 -> failed NOT_FOUND: no log in sight underground
+[12:45:22] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    collect log:9 -> failed NOT_FOUND: no log in sight underground
+[12:46:22] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test] natural 660s: actions mock, goal nether_portal, doing shelter, milestone 4/13, deaths 0, Opus calls this hour 0/130
+[autopilot-test]    perf fps 10, server 1.8 ms/tick, mod 0.33 ms/tick
+[12:46:22] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    at -741 12 74 hp 20 food 18 inv {andesite=1, apple=1, cobbled_deepslate=1, cobblestone=111, crafting_table=1, dark_oak_planks=6, diorite=8, dirt=7, granite=1, iron_pickaxe=1, leaf_litter=4, leather=3, moss_block=1, raw_iron=11, stick=2, stone_pickaxe=1, wooden_pickaxe=1}
+[12:46:22] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    known water -741, 15, 72, lava none
+[12:46:22] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    unstuck -> failed STUCK: boxed in: can't walk, tunnel or climb out
+[12:46:22] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    goto surface -> failed STUCK: stuck: stayed inside 2.0 blocks for 12 s
+[12:46:22] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    unstuck -> failed STUCK: couldn't get out (walked, tunnelled and climbed 0 blocks)
+[12:46:22] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    collect log:9 -> failed NOT_FOUND: no log in sight underground
+[12:46:22] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    collect log:9 -> failed NOT_FOUND: no log in sight underground
+[12:46:22] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    shelter -> failed UNREACHABLE: couldn't reach a spot to dig in
+[12:47:22] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test] natural 690s: actions mock, goal nether_portal, doing shelter, milestone 4/13, deaths 0, Opus calls this hour 0/130
+[autopilot-test]    perf fps 10, server 1.6 ms/tick, mod 0.33 ms/tick
+[12:47:22] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    at -741 12 74 hp 20 food 18 inv {andesite=1, apple=1, cobbled_deepslate=1, cobblestone=111, crafting_table=1, dark_oak_planks=6, diorite=8, dirt=7, granite=1, iron_pickaxe=1, leaf_litter=4, leather=3, moss_block=1, raw_iron=11, stick=2, stone_pickaxe=1, wooden_pickaxe=1}
+[12:47:22] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    known water -741, 15, 72, lava none
+[12:47:22] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    unstuck -> failed STUCK: boxed in: can't walk, tunnel or climb out
+[12:47:22] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    goto surface -> failed STUCK: stuck: stayed inside 2.0 blocks for 12 s
+[12:47:22] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    unstuck -> failed STUCK: couldn't get out (walked, tunnelled and climbed 0 blocks)
+[12:47:22] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    collect log:9 -> failed NOT_FOUND: no log in sight underground
+[12:47:22] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    collect log:9 -> failed NOT_FOUND: no log in sight underground
+[12:47:22] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    shelter -> failed UNREACHABLE: couldn't reach a spot to dig in
+[12:48:21] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test] natural 720s: actions mock, goal nether_portal, doing shelter, milestone 4/13, deaths 0, Opus calls this hour 0/130
+[autopilot-test]    perf fps 10, server 1.8 ms/tick, mod 0.33 ms/tick
+[12:48:21] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    at -741 12 74 hp 20 food 18 inv {andesite=1, apple=1, cobbled_deepslate=1, cobblestone=111, crafting_table=1, dark_oak_planks=6, diorite=8, dirt=7, granite=1, iron_pickaxe=1, leaf_litter=4, leather=3, moss_block=1, raw_iron=11, stick=2, stone_pickaxe=1, wooden_pickaxe=1}
+[12:48:21] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    known water -741, 15, 72, lava none
+[12:48:21] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    unstuck -> failed STUCK: boxed in: can't walk, tunnel or climb out
+[12:48:21] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    goto surface -> failed STUCK: stuck: stayed inside 2.0 blocks for 12 s
+[12:48:21] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    unstuck -> failed STUCK: couldn't get out (walked, tunnelled and climbed 0 blocks)
+[12:48:21] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    collect log:9 -> failed NOT_FOUND: no log in sight underground
+[12:48:21] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    collect log:9 -> failed NOT_FOUND: no log in sight underground
+[12:48:21] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    shelter -> failed UNREACHABLE: couldn't reach a spot to dig in
+[12:49:21] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test] natural 750s: actions mock, goal nether_portal, doing shelter, milestone 4/13, deaths 0, Opus calls this hour 0/130
+[autopilot-test]    perf fps 10, server 1.5 ms/tick, mod 0.33 ms/tick
+[12:49:21] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    at -741 12 74 hp 20 food 18 inv {andesite=1, apple=1, cobbled_deepslate=1, cobblestone=111, crafting_table=1, dark_oak_planks=6, diorite=8, dirt=7, granite=1, iron_pickaxe=1, leaf_litter=4, leather=3, moss_block=1, raw_iron=11, stick=2, stone_pickaxe=1, wooden_pickaxe=1}
+[12:49:21] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    known water -741, 15, 72, lava none
+[12:49:21] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    unstuck -> failed STUCK: boxed in: can't walk, tunnel or climb out
+[12:49:21] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    goto surface -> failed STUCK: stuck: stayed inside 2.0 blocks for 12 s
+[12:49:21] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    unstuck -> failed STUCK: couldn't get out (walked, tunnelled and climbed 0 blocks)
+[12:49:21] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    collect log:9 -> failed NOT_FOUND: no log in sight underground
+[12:49:21] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    collect log:9 -> failed NOT_FOUND: no log in sight underground
+[12:49:21] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    shelter -> failed UNREACHABLE: couldn't reach a spot to dig in
+[12:50:21] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test] natural 780s: actions mock, goal nether_portal, doing shelter, milestone 4/13, deaths 0, Opus calls this hour 0/130
+[autopilot-test]    perf fps 10, server 1.4 ms/tick, mod 0.33 ms/tick
+[12:50:21] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    at -741 12 74 hp 20 food 18 inv {andesite=1, apple=1, cobbled_deepslate=1, cobblestone=111, crafting_table=1, dark_oak_planks=6, diorite=8, dirt=7, granite=1, iron_pickaxe=1, leaf_litter=4, leather=3, moss_block=1, raw_iron=11, stick=2, stone_pickaxe=1, wooden_pickaxe=1}
+[12:50:21] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    known water -741, 15, 72, lava none
+[12:50:21] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    unstuck -> failed STUCK: boxed in: can't walk, tunnel or climb out
+[12:50:21] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    goto surface -> failed STUCK: stuck: stayed inside 2.0 blocks for 12 s
+[12:50:21] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    unstuck -> failed STUCK: couldn't get out (walked, tunnelled and climbed 0 blocks)
+[12:50:21] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    collect log:9 -> failed NOT_FOUND: no log in sight underground
+[12:50:21] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    collect log:9 -> failed NOT_FOUND: no log in sight underground
+[12:50:21] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    shelter -> failed UNREACHABLE: couldn't reach a spot to dig in
+[12:51:21] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test] natural 810s: actions mock, goal nether_portal, doing shelter, milestone 4/13, deaths 0, Opus calls this hour 0/130
+[autopilot-test]    perf fps 10, server 1.5 ms/tick, mod 0.33 ms/tick
+[12:51:21] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    at -741 12 74 hp 20 food 18 inv {andesite=1, apple=1, cobbled_deepslate=1, cobblestone=111, crafting_table=1, dark_oak_planks=6, diorite=8, dirt=7, granite=1, iron_pickaxe=1, leaf_litter=4, leather=3, moss_block=1, raw_iron=11, stick=2, stone_pickaxe=1, wooden_pickaxe=1}
+[12:51:21] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    known water -741, 15, 72, lava none
+[12:51:21] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    unstuck -> failed STUCK: boxed in: can't walk, tunnel or climb out
+[12:51:21] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    goto surface -> failed STUCK: stuck: stayed inside 2.0 blocks for 12 s
+[12:51:21] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    unstuck -> failed STUCK: couldn't get out (walked, tunnelled and climbed 0 blocks)
+[12:51:21] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    collect log:9 -> failed NOT_FOUND: no log in sight underground
+[12:51:21] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    collect log:9 -> failed NOT_FOUND: no log in sight underground
+[12:51:21] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    shelter -> failed UNREACHABLE: couldn't reach a spot to dig in
+[12:52:21] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test] natural 840s: actions mock, goal nether_portal, doing shelter, milestone 4/13, deaths 0, Opus calls this hour 0/130
+[autopilot-test]    perf fps 10, server 1.3 ms/tick, mod 0.32 ms/tick
+[12:52:21] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    at -741 12 74 hp 20 food 18 inv {andesite=1, apple=1, cobbled_deepslate=1, cobblestone=111, crafting_table=1, dark_oak_planks=6, diorite=8, dirt=7, granite=1, iron_pickaxe=1, leaf_litter=4, leather=3, moss_block=1, raw_iron=11, stick=2, stone_pickaxe=1, wooden_pickaxe=1}
+[12:52:21] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    known water -741, 15, 72, lava none
+[12:52:21] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    unstuck -> failed STUCK: boxed in: can't walk, tunnel or climb out
+[12:52:21] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    goto surface -> failed STUCK: stuck: stayed inside 2.0 blocks for 12 s
+[12:52:21] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    unstuck -> failed STUCK: couldn't get out (walked, tunnelled and climbed 0 blocks)
+[12:52:21] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    collect log:9 -> failed NOT_FOUND: no log in sight underground
+[12:52:21] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    collect log:9 -> failed NOT_FOUND: no log in sight underground
+[12:52:21] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    shelter -> failed UNREACHABLE: couldn't reach a spot to dig in
+[12:53:21] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test] natural 870s: actions mock, goal nether_portal, doing collect log:9, milestone 4/13, deaths 0, Opus calls this hour 0/130
+[autopilot-test]    perf fps 10, server 1.1 ms/tick, mod 0.32 ms/tick
+[12:53:21] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    at -742 40 73 hp 20 food 18 inv {apple=1, cobbled_deepslate=1, cobblestone=109, crafting_table=1, dark_oak_planks=6, iron_pickaxe=1, leaf_litter=4, leather=3, moss_block=1, raw_iron=11, stick=2, stone_pickaxe=1, wooden_pickaxe=1}
+[12:53:21] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    known water -742, 16, 72, lava none
+[12:53:21] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    unstuck -> failed STUCK: couldn't get out (walked, tunnelled and climbed 0 blocks)
+[12:53:21] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    collect log:9 -> failed NOT_FOUND: no log in sight underground
+[12:53:21] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    collect log:9 -> failed NOT_FOUND: no log in sight underground
+[12:53:21] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    shelter -> failed UNREACHABLE: couldn't reach a spot to dig in
+[12:53:21] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    shelter -> ok: it's morning
+[12:53:21] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    goto surface -> ok: back under open sky
+[12:54:22] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test] natural 900s: actions mock, goal nether_portal, doing collect log:9, milestone 4/13, deaths 0, Opus calls this hour 0/130
+[autopilot-test]    perf fps 10, server 1.7 ms/tick, mod 0.32 ms/tick
+[12:54:22] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    at -745 60 74 hp 20 food 17 inv {andesite=9, apple=1, cobbled_deepslate=1, cobblestone=106, crafting_table=1, dark_oak_planks=6, diorite=16, dirt=1, iron_pickaxe=1, leaf_litter=4, leather=3, moss_block=1, raw_iron=11, stick=2, stone_pickaxe=1, wooden_pickaxe=1}
+[12:54:22] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    known water -742, 16, 72, lava none
+[12:54:22] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    unstuck -> failed STUCK: couldn't get out (walked, tunnelled and climbed 0 blocks)
+[12:54:22] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    collect log:9 -> failed NOT_FOUND: no log in sight underground
+[12:54:22] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    collect log:9 -> failed NOT_FOUND: no log in sight underground
+[12:54:22] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    shelter -> failed UNREACHABLE: couldn't reach a spot to dig in
+[12:54:22] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    shelter -> ok: it's morning
+[12:54:22] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    goto surface -> ok: back under open sky
+[12:55:22] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test] natural 930s: actions mock, goal nether_portal, doing smelt iron_ingot:11, milestone 4/13, deaths 0, Opus calls this hour 0/130
+[autopilot-test]    perf fps 10, server 1.1 ms/tick, mod 0.32 ms/tick
+[12:55:22] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    at -741 41 73 hp 20 food 17 inv {andesite=9, apple=1, birch_log=2, birch_planks=4, cobbled_deepslate=1, cobblestone=112, crafting_table=1, dark_oak_planks=6, diorite=16, dirt=2, gravel=2, iron_pickaxe=1, leaf_litter=4, leather=3, moss_block=1, raw_iron=11, stick=2, wooden_pickaxe=1}
+[12:55:22] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    known water -741, 16, 72, lava none
+[12:55:22] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    shelter -> failed UNREACHABLE: couldn't reach a spot to dig in
+[12:55:22] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    shelter -> ok: it's morning
+[12:55:22] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    goto surface -> ok: back under open sky
+[12:55:22] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    collect log:9 -> failed STUCK: stuck: stayed inside 2.0 blocks for 12 s
+[12:55:22] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    unstuck -> ok: got out (walk)
+[12:55:22] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    craft planks:4 -> ok: crafted 4 planks
+[12:56:22] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test] natural 960s: actions mock, goal nether_portal, doing unstuck, milestone 4/13, deaths 0, Opus calls this hour 0/130
+[autopilot-test]    perf fps 10, server 1.0 ms/tick, mod 0.31 ms/tick
+[12:56:22] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    at -742 16 72 hp 20 food 17 inv {andesite=9, apple=1, birch_log=1, birch_planks=8, cobbled_deepslate=1, cobblestone=131, cooked_beef=4, crafting_table=1, diorite=16, dirt=2, gravel=2, iron_pickaxe=1, leaf_litter=4, leather=3, moss_block=1, stick=2, wooden_pickaxe=1}
+[12:56:22] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    known water -742, 16, 72, lava none
+[12:56:22] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    collect log:9 -> failed STUCK: stuck: stayed inside 2.0 blocks for 12 s
+[12:56:22] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    unstuck -> ok: got out (walk)
+[12:56:22] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    craft planks:4 -> ok: crafted 4 planks
+[12:56:22] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    smelt iron_ingot:11 -> ok: loaded 11 to smelt into iron_ingot; working nearby meanwhile
+[12:56:22] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    craft planks:4 -> ok: crafted 4 planks
+[12:56:22] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    collect flint:1 -> failed STUCK: stuck: stayed inside 2.0 blocks for 12 s
+[12:57:22] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test] natural 990s: actions mock, goal nether_portal, doing collect flint:1, milestone 4/13, deaths 0, Opus calls this hour 0/130
+[autopilot-test]    perf fps 10, server 1.0 ms/tick, mod 0.31 ms/tick
+[12:57:22] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    at -739 15 72 hp 20 food 17 inv {andesite=9, apple=1, birch_log=1, birch_planks=8, cobbled_deepslate=1, cobblestone=131, cooked_beef=4, crafting_table=1, diorite=16, dirt=2, gravel=2, iron_pickaxe=1, leaf_litter=4, leather=3, moss_block=1, stick=2, wooden_pickaxe=1}
+[12:57:22] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    known water -739, 16, 72, lava none
+[12:57:22] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    smelt iron_ingot:11 -> ok: loaded 11 to smelt into iron_ingot; working nearby meanwhile
+[12:57:22] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    craft planks:4 -> ok: crafted 4 planks
+[12:57:22] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    collect flint:1 -> failed STUCK: stuck: stayed inside 2.0 blocks for 12 s
+[12:57:22] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    unstuck -> ok: got out (walk)
+[12:57:22] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    collect flint:1 -> failed INTERRUPTED: running out of air
+[12:57:22] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    collect flint:1 -> failed INTERRUPTED: running out of air
+[12:58:22] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test] natural 1020s: actions mock, goal nether_portal, doing craft shield:1, milestone 4/13, deaths 0, Opus calls this hour 0/130
+[autopilot-test]    perf fps 10, server 1.5 ms/tick, mod 0.31 ms/tick
+[12:58:22] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    at -744 17 70 hp 20 food 17 inv {andesite=9, apple=1, birch_log=1, birch_planks=6, cobbled_deepslate=1, cobblestone=131, cooked_beef=4, crafting_table=1, diorite=16, dirt=2, gravel=2, iron_ingot=9, iron_pickaxe=1, leaf_litter=4, leather=3, moss_block=1, stick=2, wooden_pickaxe=1}
+[12:58:22] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    known water -744, 16, 70, lava none
+[12:58:22] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    unstuck -> ok: got out (walk)
+[12:58:22] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    collect flint:1 -> failed INTERRUPTED: running out of air
+[12:58:22] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    collect flint:1 -> failed INTERRUPTED: running out of air
+[12:58:22] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    collect flint:1 -> failed INTERRUPTED: running out of air
+[12:58:22] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    collect flint:1 -> failed INTERRUPTED: running out of air
+[12:58:22] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    smelt iron_ingot:11 -> failed INTERRUPTED: running out of air
+[12:59:22] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test] natural 1050s: actions mock, goal nether_portal, doing collect raw_iron:3, milestone 4/13, deaths 0, Opus calls this hour 0/130
+[autopilot-test]    perf fps 10, server 1.7 ms/tick, mod 0.31 ms/tick
+[12:59:22] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    at -729 20 79 hp 20 food 17 inv {andesite=9, apple=1, birch_log=1, bucket=1, cobbled_deepslate=1, cobblestone=131, cooked_beef=4, crafting_table=1, diorite=16, dirt=2, gravel=2, iron_ingot=5, iron_pickaxe=1, iron_sword=1, leaf_litter=4, leather=3, moss_block=1, stick=1, wooden_pickaxe=1}
+[12:59:22] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    known water -730, 16, 80, lava none
+[12:59:22] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    smelt iron_ingot:11 -> failed INTERRUPTED: running out of air
+[12:59:22] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    craft shield:1 -> ok: crafted 1 shield
+[12:59:22] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    equip shield -> ok: shield in off hand
+[12:59:22] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    craft bucket:1 -> ok: crafted 1 bucket
+[12:59:22] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    craft iron_sword:1 -> ok: crafted 1 iron_sword
+[12:59:22] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    smelt iron_ingot:11 -> ok: smelted 2 iron_ingot
+[13:00:21] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test] natural 1080s: actions mock, goal nether_portal, doing collect raw_iron:3, milestone 4/13, deaths 0, Opus calls this hour 0/130
+[autopilot-test]    perf fps 10, server 2.3 ms/tick, mod 0.31 ms/tick
+[13:00:21] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    at -726 15 119 hp 20 food 16 inv {andesite=9, apple=1, birch_log=1, bucket=1, cobbled_deepslate=1, cobblestone=138, cooked_beef=4, crafting_table=1, diorite=16, dirt=1, gravel=2, iron_ingot=5, iron_pickaxe=1, iron_sword=1, leaf_litter=4, leather=3, moss_block=1, stick=1, wooden_pickaxe=1}
+[13:00:21] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    known water -724, 16, 90, lava none
+[13:00:21] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    smelt iron_ingot:11 -> failed INTERRUPTED: running out of air
+[13:00:21] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    craft shield:1 -> ok: crafted 1 shield
+[13:00:21] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    equip shield -> ok: shield in off hand
+[13:00:21] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    craft bucket:1 -> ok: crafted 1 bucket
+[13:00:21] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    craft iron_sword:1 -> ok: crafted 1 iron_sword
+[13:00:21] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    smelt iron_ingot:11 -> ok: smelted 2 iron_ingot
+[13:01:21] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test] natural 1110s: actions mock, goal nether_portal, doing pickup stations, milestone 4/13, deaths 0, Opus calls this hour 0/130
+[autopilot-test]    perf fps 10, server 2.3 ms/tick, mod 0.31 ms/tick
+[13:01:21] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    at -730 6 142 hp 20 food 15 inv {andesite=9, apple=1, birch_planks=2, bucket=1, cobbled_deepslate=1, cobblestone=130, cooked_beef=4, diorite=16, dirt=1, gravel=2, iron_chestplate=1, iron_pickaxe=1, iron_sword=1, leaf_litter=4, leather=3, moss_block=1, stick=1, wooden_pickaxe=1}
+[13:01:21] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    known water -724, 16, 90, lava none
+[13:01:21] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    smelt iron_ingot:11 -> ok: smelted 2 iron_ingot
+[13:01:21] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    collect raw_iron:3 -> ok: collected 3 raw_iron
+[13:01:21] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    craft planks:4 -> ok: crafted 4 planks
+[13:01:21] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    craft furnace:1 -> ok: crafted 1 furnace
+[13:01:21] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    smelt iron_ingot:3 -> ok: smelted 3 iron_ingot
+[13:01:21] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    craft iron_chestplate:1 -> ok: crafted 1 iron_chestplate
+[13:02:21] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test] natural 1140s: actions mock, goal nether_portal, doing collect raw_iron:2, milestone 4/13, deaths 0, Opus calls this hour 0/130
+[autopilot-test]    perf fps 10, server 1.7 ms/tick, mod 0.31 ms/tick
+[13:02:21] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    at -722 7 108 hp 20 food 20 inv {andesite=9, apple=1, birch_planks=2, bucket=1, cobbled_deepslate=1, cobblestone=130, cooked_beef=3, crafting_table=1, diorite=16, dirt=1, furnace=1, gravel=2, iron_pickaxe=1, iron_sword=1, leaf_litter=4, leather=3, moss_block=1, raw_iron=3, stick=1, wooden_pickaxe=1}
+[13:02:21] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    known water -724, 16, 90, lava none
+[13:02:21] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    smelt iron_ingot:3 -> ok: smelted 3 iron_ingot
+[13:02:21] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    craft iron_chestplate:1 -> ok: crafted 1 iron_chestplate
+[13:02:21] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    pickup stations -> ok: picked up 1 stacks
+[13:02:21] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    equip armor -> ok: wearing the best armor
+[13:02:21] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    collect raw_iron:5 -> failed INTERRUPTED: interrupted: brain chose eat
+[13:02:21] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    eat -> ok: ate cooked_beef
+[13:03:21] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test] natural 1170s: actions mock, goal nether_portal, doing goto surface, milestone 4/13, deaths 0, Opus calls this hour 0/130
+[autopilot-test]    perf fps 10, server 2.2 ms/tick, mod 0.31 ms/tick
+[13:03:21] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    at -721 13 155 hp 20 food 20 inv {andesite=5, apple=1, birch_planks=2, bucket=1, clay_ball=4, cobbled_deepslate=1, cobblestone=132, cooked_beef=3, crafting_table=1, diorite=16, furnace=1, glow_berries=1, gravel=2, iron_pickaxe=1, iron_sword=1, leaf_litter=4, leather=3, moss_block=3, moss_carpet=1, raw_iron=5, stick=1, wooden_pickaxe=1}
+[13:03:21] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    known water -724, 16, 90, lava none
+[13:03:21] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    craft iron_chestplate:1 -> ok: crafted 1 iron_chestplate
+[13:03:21] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    pickup stations -> ok: picked up 1 stacks
+[13:03:21] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    equip armor -> ok: wearing the best armor
+[13:03:21] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    collect raw_iron:5 -> failed INTERRUPTED: interrupted: brain chose eat
+[13:03:21] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    eat -> ok: ate cooked_beef
+[13:03:21] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    collect raw_iron:2 -> ok: collected 2 raw_iron
+[autopilot-test] SPEED 0.653 game s per wall s (1200 game s in 1838 wall s), mod 0.31 ms per tick
+[13:04:22] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test] FINAL natural: actions mock, goal nether_portal, doing eat, milestone 4/13, deaths 0, Opus calls this hour 0/130, dimension overworld, milestone times m1@46s m2@88s m4@390s, checkpoints none
+[13:04:22] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test] LESSON collect log failed 6 of 7 (mostly NOT_FOUND: no log in sight underground)
+[13:04:22] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test] LESSON unstuck  failed 3 of 7 (mostly STUCK: couldn't get out (walked, tunnelled and climbed # blocks))
+[13:04:22] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test] LESSON explore log failed 3 of 3 (mostly ALREADY_DONE: already see log)
