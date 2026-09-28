@@ -51,7 +51,26 @@ function Sync-Results {
 		# of the newest results instead of resetting it away; it goes with the next push.
 		$ahead = [int](git -C $results rev-list --count origin/trial-results..HEAD)
 		if ($ahead -gt 0) {
-			if ((Git-Quiet @("-C", $results, "rebase", "-q", "origin/trial-results")) -ne 0) { Git-Quiet @("-C", $results, "rebase", "--abort") | Out-Null }
+			if ((Git-Quiet @("-C", $results, "rebase", "-q", "origin/trial-results")) -ne 0) {
+				# A failed rebase used to be aborted and left as it was, so this folder stayed on old
+				# results for good (on 2026-09-28 a day-old copy after trial-results was rewritten,
+				# and the laptop played g0 instead of the champion). Keep only the runs the loop hasn't
+				# taken in yet (no loop/data file of that name) and move on to the newest results.
+				Git-Quiet @("-C", $results, "rebase", "--abort") | Out-Null
+				$keep = Join-Path $env:TEMP "laptop-inbox-keep"
+				Remove-Item -Recurse -Force -ErrorAction SilentlyContinue $keep
+				$inbox = Join-Path $results "loop\inbox"
+				$known = (git -C $root ls-tree -r --name-only origin/trial-results loop/data) -join "`n"
+				foreach ($d in (Get-ChildItem -Directory $inbox -ErrorAction SilentlyContinue)) {
+					if ($known -notmatch [regex]::Escape("/" + $d.Name + ".jsonl.gz")) { Copy-Item -Recurse $d.FullName (Join-Path $keep $d.Name) }
+				}
+				Git-Quiet @("-C", $results, "checkout", "-q", "-f", "--detach", "origin/trial-results") | Out-Null
+				if (Test-Path $keep) {
+					New-Item -ItemType Directory -Force $inbox | Out-Null
+					Get-ChildItem -Directory $keep | ForEach-Object { Copy-Item -Recurse $_.FullName (Join-Path $inbox $_.Name) }
+				}
+				Write-Host "[laptop-loop] note: the results copy couldn't be rebased; moved to the newest results"
+			}
 		} else {
 			Git-Quiet @("-C", $results, "checkout", "-q", "--detach", "origin/trial-results") | Out-Null
 		}

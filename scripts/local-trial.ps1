@@ -5,6 +5,8 @@
 #   .\scripts\local-trial.ps1 -Seed a -Scenario cast -Minutes 10  staged portal-casting test
 #   .\scripts\local-trial.ps1 -Seed a -Task "craft furnace:1" -Give "cobblestone 8,crafting_table" -Minutes 3
 #   .\scripts\local-trial.ps1 -Batch local -Seed b              put several runs in one batch folder
+#   .\scripts\local-trial.ps1 -Seed a -Params genes.json -Label on  play with these genes (the loop's
+#                                                                   params format: {"genes": {...}})
 #
 # Output: .trials\<batch>\trial-<name>\ (trial.log, autopilot-test.log, jsonl log, lessons, screenshots),
 # then the batch summary is printed (needs Python 3 on PATH; otherwise read autopilot-test.log).
@@ -15,13 +17,18 @@ param(
 	[string]$Scenario = "natural",
 	[string]$Task = "",
 	[string]$Give = "",
-	[string]$Batch = ""
+	[string]$Batch = "",
+	[string]$Params = "",
+	[string]$Label = ""
 )
 $ErrorActionPreference = "Stop"
 $root = (git rev-parse --show-toplevel).Trim()
+if (-not $env:JAVA_HOME) { $env:JAVA_HOME = "C:\Program Files\Eclipse Adoptium\jdk-25.0.4.101-hotspot" }
+if ($Params) { $Params = (Resolve-Path $Params).Path }
 if (-not $Batch) { $Batch = "local-" + (Get-Date -Format "yyyyMMdd-HHmmss") }
 $name = "$Scenario-$Seed"
 if ($Task) { $name += "-task" }
+if ($Label) { $name += "-$Label" }
 $out = Join-Path $root ".trials\$Batch\trial-$name"
 New-Item -ItemType Directory -Force $out | Out-Null
 $commit = (git rev-parse --short HEAD).Trim()
@@ -45,7 +52,7 @@ $ErrorActionPreference = "Continue"
 try {
 	$gradleArgs = @("runClientGameTest", "--console=plain", "-PtestMinutes=$Minutes", "-PtestSeed=$Seed",
 		"-PtestScenario=$Scenario",
-		"-PtestTask=$Task", "-PtestGive=$Give")
+		"-PtestTask=$Task", "-PtestGive=$Give", "-PtestParams=$Params")
 	# The game exits with Baritone's known shutdown-watchdog crash after saving; that's expected.
 	& .\gradlew.bat @gradleArgs 2>&1 | ForEach-Object { $line = "$_"; $writer.WriteLine($line); $writer.Flush(); $line }
 } finally {
