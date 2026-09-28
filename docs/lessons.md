@@ -110,6 +110,12 @@ workflow's unit-tests job compiles and tests in about a minute, the trial jobs t
   taking priority. Combat reflexes can reconsider when a pursuer catches up or a creeper
   approaches. Defaults stay unchanged; the queued paired-seed race must judge the result.
 
+- **Combat tactics need separate races.** The one-life loop gives no credit for progress after
+  death, and generations 30-37 lost 152 of 162 runs. Mob, arrow, and creeper deaths dominated.
+  The attack cooldown, footwork, sprint hit, creeper exchange, skeleton approach, and target
+  choice now have separate suggestions so their survival effect can be measured. Targeting may
+  use our own observed swings as an estimate of prior damage, but never a mob's hidden health.
+
 ## Open problems (next candidates)
 
 - Portal casting (cast scenario): batch 8a's cast on seed a built, lit and entered a portal (3:13);

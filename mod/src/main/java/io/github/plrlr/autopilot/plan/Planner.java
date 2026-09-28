@@ -517,7 +517,9 @@ public final class Planner {
 		double range = hostile != null && Mc.dimension().equals("the_nether") && !hostile.type().equals("blaze") ? 4 : Tune.get("plan.hostile_range");
 		if (hostile != null && hostile.dist() < range) {
 			// Creepers explode in melee range: back off instead of swinging at them.
-			if (hostile.type().equals("creeper")) out.add(new Option("retreat", null, "a creeper is " + Math.round(hostile.dist()) + " blocks away"));
+			if (hostile.type().equals("creeper")) out.add(io.github.plrlr.autopilot.skills.CombatSkills.canHitCreeper(hostile)
+					? new Option("attack", "creeper", "hit and back off from a visible creeper")
+					: new Option("retreat", null, "a creeper is " + Math.round(hostile.dist()) + " blocks away"));
 			// Blazes hover and shoot fire: the fortress fight waits for them at the spawner and backs
 			// off out of sight to heal itself. Walling in at low health (the Nether has no sky, so it
 			// always counts as underground) burned the bot to death in its first blaze test.

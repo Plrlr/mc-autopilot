@@ -46,6 +46,17 @@ public final class Tune {
 		gene("reflex.starving_food", 6, 2, 12, Kind.INT, "eat at once at or below this hunger when safe");
 		gene("combat.crits", 0, 0, 1, Kind.BOOL, "jump before a swing so it lands as a critical hit (1.5x)");
 		gene("combat.backstep", 0, 0, 1, Kind.BOOL, "step back out of reach while the sword recharges");
+		gene("combat.swing_at", 0.95, 0.6, 1.0, Kind.REAL, "attack cooldown fraction required before a melee swing");
+		gene("combat.keep_dist", 2.4, 1.5, 3.5, Kind.REAL, "backstep inside this distance while a melee weapon recharges");
+		gene("combat.strafe", 0, 0, 30, Kind.INT, "ticks between side-step direction changes while recharging; zero disables");
+		gene("combat.sprint_hit", 0, 0, 1, Kind.BOOL, "sprint into the first melee hit for knockback");
+		gene("combat.sprint_hit_dist", 4, 2.5, 6, Kind.REAL, "distance at which the first sprint hit begins");
+		gene("combat.creeper_hit", 0, 0, 1, Kind.BOOL, "hit a visible creeper once, then back off before its fuse completes");
+		gene("combat.creeper_gap", 6, 4, 8, Kind.REAL, "distance to regain after hitting a creeper");
+		gene("combat.skeleton_approach", 0, 0, 1, Kind.BOOL, "zig-zag toward a visible skeleton, guarding with an off-hand shield");
+		gene("combat.skeleton_zigzag", 12, 4, 30, Kind.INT, "ticks between direction changes during skeleton approach");
+		gene("combat.target_rule", 0, 0, 2, Kind.INT, "target nearest, most previously hit, or a nearby creeper first");
+		gene("combat.creeper_priority_range", 5, 3, 8, Kind.REAL, "range for preferring a creeper among several visible hostiles");
 		gene("combat.shield_guard", 0, 0, 1, Kind.BOOL, "raise the shield toward a skeleton drawing its bow or a creeper about to blow");
 		gene("dragon.max_center_dist", 30, 10, 60, Kind.REAL, "in the End fight, walk back if farther than this from the fountain");
 		gene("dragon.wait_dist", 10, 5, 20, Kind.REAL, "where to wait while the dragon flies: this far from the fountain");
