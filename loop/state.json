@@ -1362,13 +1362,13 @@
  },
  "days": {
   "2026-09-27": 15,
-  "2026-09-28": 29
+  "2026-09-28": 30
  },
  "evolve_days": {
   "2026-09-27": 1,
   "2026-09-28": 7
  },
- "gen": 44,
+ "gen": 45,
  "gene_specs": {
   "cave.torch_light": {
    "def": 3.0,
@@ -5619,6 +5619,48 @@
    "parent": "g24",
    "status": "rejected"
   },
+  "g33": {
+   "born": 45,
+   "code": null,
+   "evals": [],
+   "genes": {
+    "cave.torches": 1.0,
+    "death.recover_night_armor": 12.0,
+    "focus.commit": 1.0,
+    "gear.shield_early": 1.0,
+    "plan.hide_hp": 15.0,
+    "route.armor_before_portal": 0.0
+   },
+   "id": "g33",
+   "mutated": [
+    "gear.shield_early"
+   ],
+   "note": "suggested: gear.shield_early 1",
+   "pairs": [],
+   "parent": "g24",
+   "status": "contender"
+  },
+  "g34": {
+   "born": 45,
+   "code": null,
+   "evals": [],
+   "genes": {
+    "cave.torches": 1.0,
+    "death.recover_night_armor": 12.0,
+    "focus.commit": 1.0,
+    "food.early_stock": 1.0,
+    "plan.hide_hp": 15.0,
+    "route.armor_before_portal": 0.0
+   },
+   "id": "g34",
+   "mutated": [
+    "food.early_stock"
+   ],
+   "note": "suggested: food.early_stock 1",
+   "pairs": [],
+   "parent": "g24",
+   "status": "contender"
+  },
   "g4": {
    "born": 2,
    "code": null,
@@ -6347,8 +6389,77 @@
  "model_kind": "trees",
  "model_r2": 0.236,
  "model_rows": 56330,
- "next_id": 33,
- "pending": null,
+ "next_id": 35,
+ "pending": {
+  "data_tasks": [],
+  "gen": 45,
+  "lineup": [
+   "g24",
+   "g28",
+   "g30",
+   "g33",
+   "g34"
+  ],
+  "runs": [
+   "eval-g24-0",
+   "eval-g24-1",
+   "eval-g24-2",
+   "eval-g24-3",
+   "eval-g28-0",
+   "eval-g28-1",
+   "eval-g28-2",
+   "eval-g28-3",
+   "eval-g30-0",
+   "eval-g30-1",
+   "eval-g30-2",
+   "eval-g30-3",
+   "eval-g33-0",
+   "eval-g33-1",
+   "eval-g33-2",
+   "eval-g33-3",
+   "eval-g34-0",
+   "eval-g34-1",
+   "eval-g34-2",
+   "eval-g34-3"
+  ],
+  "seeds": [
+   "L45-zx44vg",
+   "L45-44epft",
+   "L45-hkexq3",
+   "L45-vy26vr"
+  ],
+  "sha": "e16545f9867d7fd039e4215860020d32204062ac",
+  "started": "2026-09-28T21:55:52+00:00",
+  "tasks": [
+   {
+    "kind": "natural",
+    "seed": "L45-zx44vg",
+    "stage": "spawn",
+    "synthetic": false
+   },
+   {
+    "kind": "natural",
+    "seed": "L45-44epft",
+    "stage": "spawn",
+    "synthetic": false
+   },
+   {
+    "asset": "lava-gen42-eval-g24-2.zip",
+    "kind": "start",
+    "seed": "L45-hkexq3",
+    "stage": "lava",
+    "synthetic": false
+   },
+   {
+    "kind": "combat",
+    "minutes": 10,
+    "scenario": "combat",
+    "seed": "L45-vy26vr",
+    "stage": "combat",
+    "synthetic": false
+   }
+  ]
+ },
  "score_version": 2,
  "settings": {
   "accept_pairs": 8,
@@ -7433,7 +7544,9 @@
   "{\"night.wall_in\": 1}",
   "{\"food.keep_full\": 1, \"gear.armor_first\": 1, \"gear.shield_early\": 1}",
   "{\"food.keep_full\": 1}",
-  "{\"gear.armor_first\": 1}"
+  "{\"gear.armor_first\": 1}",
+  "{\"gear.shield_early\": 1}",
+  "{\"food.early_stock\": 1}"
  ],
  "version": 1
 }
