@@ -746,13 +746,13 @@
  },
  "days": {
   "2026-09-27": 15,
-  "2026-09-28": 2
+  "2026-09-28": 3
  },
  "evolve_days": {
   "2026-09-27": 1,
   "2026-09-28": 1
  },
- "gen": 17,
+ "gen": 18,
  "gene_specs": {
   "cave.torch_light": {
    "def": 3.0,
@@ -2386,6 +2386,26 @@
    "parent": "g10",
    "status": "contender"
   },
+  "g16": {
+   "born": 18,
+   "code": null,
+   "evals": [],
+   "genes": {
+    "death.recover_night_armor": 12.0,
+    "focus.commit": 1.0,
+    "food.stock": 16.0,
+    "plan.hide_hp": 15.0,
+    "route.armor_before_portal": 0.0
+   },
+   "id": "g16",
+   "mutated": [
+    "food.stock"
+   ],
+   "note": "suggested: food.stock 16",
+   "pairs": [],
+   "parent": "g10",
+   "status": "contender"
+  },
   "g2": {
    "born": 1,
    "code": null,
@@ -3476,8 +3496,84 @@
  "model_keys": 52,
  "model_r2": 0.155,
  "model_rows": 17240,
- "next_id": 16,
- "pending": null,
+ "next_id": 17,
+ "pending": {
+  "data_tasks": [
+   {
+    "kind": "natural",
+    "seed": "D18-bjmte4",
+    "stage": "spawn",
+    "synthetic": false
+   }
+  ],
+  "gen": 18,
+  "lineup": [
+   "g10",
+   "g16",
+   "g15"
+  ],
+  "runs": [
+   "eval-g10-0",
+   "eval-g10-1",
+   "eval-g10-2",
+   "eval-g10-3",
+   "eval-g10-4",
+   "eval-g16-0",
+   "eval-g16-1",
+   "eval-g16-2",
+   "eval-g16-3",
+   "eval-g16-4",
+   "eval-g15-0",
+   "eval-g15-1",
+   "eval-g15-2",
+   "eval-g15-3",
+   "eval-g15-4",
+   "data-g10-0"
+  ],
+  "seeds": [
+   "L18-qbn789",
+   "L18-kxc2h4",
+   "L18-spqbek",
+   "L18-5vsxdv",
+   "L18-y6dwg8"
+  ],
+  "sha": "bc32c9d84122ed8a22b00ac59ba086f836beb0d4",
+  "started": "2026-09-28T01:17:35+00:00",
+  "tasks": [
+   {
+    "kind": "natural",
+    "seed": "L18-qbn789",
+    "stage": "spawn",
+    "synthetic": false
+   },
+   {
+    "kind": "natural",
+    "seed": "L18-kxc2h4",
+    "stage": "spawn",
+    "synthetic": false
+   },
+   {
+    "kind": "natural",
+    "seed": "L18-spqbek",
+    "stage": "spawn",
+    "synthetic": false
+   },
+   {
+    "asset": "kit-gen17-eval-g14-2.zip",
+    "kind": "start",
+    "seed": "L18-5vsxdv",
+    "stage": "kit",
+    "synthetic": false
+   },
+   {
+    "kind": "scenario",
+    "scenario": "stronghold",
+    "seed": "L18-y6dwg8",
+    "stage": "eyes",
+    "synthetic": true
+   }
+  ]
+ },
  "settings": {
   "accept_pairs": 8,
   "accept_t": 2.0,
@@ -4182,7 +4278,8 @@
   "{\"route.diamond_portal\": 1}",
   "{\"_retry\": \"dropped after 5 worlds by a too-hasty rule\", \"focus.commit\": 1}",
   "{\"nav.mob_avoid_coef\": 3, \"plan.hostile_range\": 4}",
-  "{\"cave.torches\": 1, \"combat.shield_guard\": 1, \"gear.sword_early\": 1, \"nav.mob_avoid_coef\": 3, \"plan.hostile_range\": 4}"
+  "{\"cave.torches\": 1, \"combat.shield_guard\": 1, \"gear.sword_early\": 1, \"nav.mob_avoid_coef\": 3, \"plan.hostile_range\": 4}",
+  "{\"food.stock\": 16}"
  ],
  "version": 1
 }
