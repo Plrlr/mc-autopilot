@@ -476,8 +476,10 @@ public final class Autopilot {
 		// walling: still building the wall (not yet sealed) with a mob already on us - restarting
 		// the escape would only restart the wall, so fight instead.
 		boolean walling = !hiding && skill != null && skill.name().equals("shelter") && skillOption != null && "heal".equals(skillOption.arg());
-		// A reflex runs to its end, except hiding: a creeper or a mob at arm's length still counts.
-		if (skill != null && skillIsReflex && !hiding) return;
+		// Recheck combat with the gene: a pursuer can catch up and a creeper can approach mid-fight.
+		boolean reconsiderCombat = Tune.on("combat.no_close_retreat") && skill != null
+				&& (skill.name().equals("retreat") || skill.name().equals("attack"));
+		if (skill != null && skillIsReflex && !hiding && !reconsiderCombat) return;
 		if (pl.isInLava()) {
 			// Stop everything, then jump and push forward for a moment (aborting releases keys,
 			// so press them after). A new decision is asked once the keys are let go.
@@ -524,6 +526,10 @@ public final class Autopilot {
 		}
 		if (skill != null && skill.ownsSafety()) return;
 		Perception.Seen h = seen.nearestHostile();
+		if (Tune.on("combat.no_close_retreat")) {
+			Perception.Seen creeper = Planner.escapeCreeper(seen);
+			if (creeper != null) h = creeper;
+		}
 		float hp = pl.getHealth();
 		// The fortress fight owns every mob in the fortress: it chases blazes, hits whatever is in
 		// reach, and backs off to eat on its own. The generic reflexes took it over for blazes (burned
@@ -541,15 +547,21 @@ public final class Autopilot {
 			// From 7 blocks, not 5: a creeper's fuse is 1.5 s, and 4 of batch 10's 25 deaths were
 			// blasts that caught the bot already running from 5.
 			if (h.type().equals("creeper") && h.dist() < Tune.get("reflex.creeper_dist")) {
-				startReflex(new Option("retreat", null, "creeper close"), "reflex_creeper");
+				if (!reconsiderCombat || !skill.name().equals("retreat"))
+					startReflex(new Option("retreat", null, "creeper close"), "reflex_creeper");
 				return;
 			}
-			if (!hiding && h.dist() < Tune.get("reflex.melee_dist")) {
+			if (!hiding && (h.dist() < Tune.get("reflex.melee_dist") || Tune.on("combat.no_close_retreat") && h.dist() <= 4)) {
 				// Run only when outnumbered: one mob at arm's length follows and hits our back (batch
 				// 10: 14 retreats ended in death), and fighting it behind the shield wins. Not while
 				// walling in either, which would only restart the wall. Health 8 is the planner's line
 				// too: with 6 here, health 7-8 flipped between fighting and fleeing on every decision.
-				if (hp <= Tune.i("combat.flee_hp") && !walling && seen.hostilesWithin(6) >= Tune.i("combat.outnumbered")) startReflex(Planner.escape("low health"), "reflex_low_hp");
+				if (hp <= Tune.i("combat.flee_hp") && !walling && seen.hostilesWithin(6) >= Tune.i("combat.outnumbered")) {
+					Option escape = Planner.escape(seen, "low health");
+					// Keep swinging at the same target instead of resetting the attack every reflex.
+					if (!Tune.on("combat.no_close_retreat") || skill == null || skillOption == null
+							|| !escape.label().equals(skillOption.label())) startReflex(escape, "reflex_low_hp");
+				}
 				else if (skill == null || !skill.name().equals("attack")) startReflex(new Option("attack", h.type(), "it's attacking"), "reflex_fight");
 				return;
 			}

@@ -96,6 +96,15 @@ workflow's unit-tests job compiles and tests in about a minute, the trial jobs t
 - **Route changes ride alone.** Armor before the portal went into batch 11 with the death fixes,
   doubled the first iron trip to 26 ore, and hid what the death fixes did to iron times.
 
+- **Close retreat candidate (generations 18-28, not yet raced):** 216 of 537 deaths (40%) were
+  during retreat, about 3.3 deaths per 20-minute game; median death around 12 minutes, the first
+  night. The reported causes were mobs 50%, skeleton arrows 29%, creepers 10%. g23 tried
+  suppressing retreat at two call sites; g15 broadened attack's unreachable-target exception;
+  both lost. Gene combat.no_close_retreat instead shares the escape decision across callers:
+  shelter when already eligible, otherwise fight within four blocks, with nearby creepers
+  taking priority. Combat reflexes can reconsider when a pursuer catches up or a creeper
+  approaches. Defaults stay unchanged; the queued paired-seed race must judge the result.
+
 ## Open problems (next candidates)
 
 - Portal casting (cast scenario): batch 8a's cast on seed a built, lit and entered a portal (3:13);
