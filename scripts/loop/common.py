@@ -61,8 +61,10 @@ def summarizer():
 # Points for each step toward the dragon. Early steps are worth little on their own; the portal
 # path in between gives the search a slope to climb where milestones alone would be flat.
 MILESTONE_POINTS = {1: 1, 2: 1, 3: 0.25, 4: 2, 5: 0.25, 6: 0.5, 7: 3, 8: 3, 9: 2, 10: 2, 11: 3, 12: 3, 13: 10}
-CHECKPOINT_POINTS = {"two_buckets": 0.5, "flint_and_steel": 0.5, "lava_seen": 0.5, "obsidian_placed": 1,
-                     "frame_complete": 1, "portal_lit": 1.5}
+# The cast steps weigh more since gen 30: they are the wall (obsidian in 4 of 100 spawn runs), yet
+# iron alone (m4, 2 points) outweighed every one of them and deaths set most of the score.
+CHECKPOINT_POINTS = {"two_buckets": 0.5, "flint_and_steel": 0.5, "lava_seen": 0.5, "obsidian_placed": 2,
+                     "frame_complete": 2, "portal_lit": 3}
 DEATH_PENALTY = 0.75
 
 
