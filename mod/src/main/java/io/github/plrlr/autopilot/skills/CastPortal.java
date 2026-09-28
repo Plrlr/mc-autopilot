@@ -109,8 +109,9 @@ public final class CastPortal extends Skill {
 			fail(Fail.NEED_ITEM, "need a water bucket");
 			return;
 		}
-		switch (bucketPlan(Mc.count("water_bucket"), Mc.count("bucket"), Mc.count("lava_bucket"),
-				Tune.on("portal.reserve_lava_bucket"))) {
+		// Two water buckets and no empty one: the planner counts both as buckets and never gets a
+		// third, so NEED_ITEM here looped (12 fails at the lava stage). Pour one out, as a player would.
+		switch (bucketPlan(Mc.count("water_bucket"), Mc.count("bucket"), Mc.count("lava_bucket"), true)) {
 			case READY -> {}
 			case EMPTY_SPARE -> phase = Phase.RESERVE_BUCKET;
 			case MISSING -> {
