@@ -59,10 +59,10 @@ practice the first 20 minutes. Five pieces make the whole game learnable:
    the `checkpoints` release (40 per stage, real ones before staged). Go-Explore solved hard
    exploration games by returning to states it had reached and exploring from there; this is
    the same idea. https://arxiv.org/abs/1901.10995
-2. **Stage curriculum.** Every genome also plays 2 stage starts per generation: the frontier (the
-   first stage runs don't get past half the time) and one later stage, from real saves or, until
-   those exist, the staged scenario (cast, nether, stronghold, end; labeled synthetic). Stage runs
-   score only what they gain after the start. The race, the model and the code step all see
+2. **Stage curriculum.** Every genome also plays stage starts (`stage_seeds`, 1 since 2026-09-28:
+   the frontier, the first stage runs don't get past half the time; with 2 or more, one later
+   stage too), from real saves or, until those exist, the staged scenario (cast, nether,
+   stronghold, end; labeled synthetic). Stage runs score only what they gain after the start. The race, the model and the code step all see
    late-game play from the first day.
 3. **Code where the game is lost.** Claude's code step (level 3) gets the frontier stage's
    failures first, and the files for the skills that failed. Stuck handling shows the kind of
@@ -105,8 +105,14 @@ is decided on one batch.
   `gh workflow run loop.yml`. A few only: `gh workflow run loop.yml -f generations=3`.
 - Stop: add a file `loop/STOP` on the trial-results branch, or disable the workflow in the
   Actions tab. Status: `python scripts/loop/loop.py status --state <trial-results>/loop`.
-- Settings live in `loop/state.json` → `settings` (seeds per generation, run length, caps,
-  acceptance rule, perf mods). Edit them there; the next generation uses them.
+- Settings live in `scripts/loop/settings.json` on main (defaults and meanings in `loop.py`
+  DEFAULT_SETTINGS); the next generation uses them. Since 2026-09-28 each generation races the
+  champion and 4 queued ideas (`max_genomes` 5, `suggest_slots` 4) on 4 paired tasks each: 2 fresh
+  worlds, 1 checkpoint start, 1 combat drill, 20 jobs. An idea is crowned after 8 pairs (two
+  generations) at t >= 2 and a gain of 0.3, dropped after 4 (mutations) or 8 (queued ideas) pairs
+  at or below zero. It was one idea at a time on 16 pairs: 47 queued ideas would have taken days.
+  More looks at smaller samples crown more flukes; the dethroned champion's defense race (it
+  re-races the new one from scratch) is what catches them.
 - **Laptop:** `.\scripts\laptop-loop.ps1` plays the champion with its model in a visible window,
   run after run, with Sodium too. It waits while the Minecraft Launcher is open or memory is
   short, and sends each run to `loop/inbox/`. The next generation adds its decisions to the

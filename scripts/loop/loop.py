@@ -38,6 +38,7 @@ import common  # noqa: E402
 DEFAULT_SETTINGS = {
     "seeds_per_gen": 4,        # every genome of a generation plays these seeds (paired)
     "max_genomes": 3,          # champion + contenders + new challengers per generation
+    "suggest_slots": 1,        # queued ideas (settings.json "suggest") racing at once
     "stage_seeds": 2,          # stage starts per genome (checkpoint bank / scenarios), paired like seeds
     "combat_seeds": 0,         # combat drills per genome (CombatDrill.java: short staged fights), paired
     "combat_minutes": 10,      # game minutes per combat drill (a fight every ~30-60 s)
@@ -173,22 +174,27 @@ def cmd_propose(a):
     st["days"][today()] = st["days"].get(today(), 0) + 1
     champ = st["champion"]
     lineup = [champ]
-    # Suggestions (settings.json "suggest": ideas from people or Claude sessions) get one slot per
-    # generation ahead of everything else, each as the champion plus that change, raced once like
-    # any mutation. (Before, contenders filled every slot and no suggestion ever got to race.)
+    # Suggestions (settings.json "suggest": ideas from people or Claude sessions) race ahead of
+    # everything else, each as the champion plus that change, raced once like any mutation. Up to
+    # suggest_slots of them race at once. (It was one at a time: with 47 queued ideas at 2 or more
+    # generations each, working through the queue would have taken days.)
     tried = st.setdefault("suggested", [])
     # A dethroned champion defends first: with few slots a promotion must be re-checked on fresh
     # seeds before anything new races (else a lucky crowning is never questioned).
     for g in st["genomes"].values():
         if g["status"] == "contender" and g["note"].endswith("(defending)") and len(lineup) < s["max_genomes"]:
             lineup.append(g["id"])
-    racing_suggestions = [g for g in st["genomes"].values() if g["status"] == "contender" and g["note"].startswith("suggested")]
-    for g in racing_suggestions[:1]:
-        if g["id"] not in lineup and len(lineup) < s["max_genomes"]:
+    sug_cap = min(s["max_genomes"], len(lineup) + s.get("suggest_slots", 1))
+    # Ideas already racing keep their slot until decided, oldest first.
+    racing_suggestions = sorted((g for g in st["genomes"].values() if g["status"] == "contender"
+                                 and g["note"].startswith("suggested") and g["id"] not in lineup),
+                                key=lambda g: g["born"])
+    for g in racing_suggestions:
+        if len(lineup) < sug_cap:
             lineup.append(g["id"])
     for sug in s.get("suggest", []):
         key = json.dumps(sug, sort_keys=True)
-        if key in tried or len(lineup) >= min(2, s["max_genomes"]):
+        if key in tried or len(lineup) >= sug_cap:
             continue
         changed = dict(st["genomes"][champ]["genes"])
         for n, v in sug.items():
