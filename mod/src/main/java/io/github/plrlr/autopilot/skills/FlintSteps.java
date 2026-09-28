@@ -34,6 +34,10 @@ final class FlintSteps {
 	private int tries;
 	/** Gravel in the bag while the block is being broken: the drop counts once this goes up. */
 	private int gravelHeld;
+	/** Ticks with no free spot beside us, and placements that didn't take, with where they failed. */
+	private int roomless;
+	private int failedPlacements;
+	private final java.util.Set<BlockPos> badSpots = new java.util.HashSet<>();
 
 	FlintSteps(CollectSkill skill, WorldMemory memory) {
 		this.skill = skill;
@@ -220,12 +224,22 @@ final class FlintSteps {
 			}
 			target = placeSpot();
 			if (target == null) {
-				// In water or on a ledge: step somewhere flat first.
-				if (!Bari.pathing()) Bari.path(new GoalNear(Mc.player().blockPosition(), 3));
+				// In water or on a ledge: step somewhere flat first. In a one-wide tunnel there is no
+				// such spot within reach and GoalNear(here) is already met, so the bot stood still
+				// until the 4-minute timeout (laptop run 2026-09-28, y 25). Give up after 3 s: the
+				// planner does other work and tries flint again from somewhere roomier.
+				// Only standing still counts toward the 3 s: swimming to a bank may take longer.
+				if (!Bari.pathing()) {
+					if (++roomless > 60) {
+						skill.fail(Fail.NO_ROOM, "no free flat spot beside us for the gravel");
+						return;
+					}
+					Bari.path(new GoalNear(Mc.player().blockPosition(), 3));
+				}
 				wait = 0;
-				if (skill.ticks > skill.timeoutTicks - 20) skill.fail(Fail.NO_ROOM, "no flat spot to place gravel");
 				return;
 			}
+			roomless = 0;
 			Bari.stop();
 			if (!Mc.holdItem(s -> Items2.id(s).equals("gravel"))) {
 				to(Phase.FIND);
@@ -240,16 +254,24 @@ final class FlintSteps {
 			gravelHeld = Mc.count("gravel");
 			to(Phase.BREAK);
 		} else if (wait > 20) {
+			// It didn't take: try another side, and stop after a few (this retried the same spot
+			// every second until the timeout, since tries only counts placements that worked).
+			badSpots.add(target);
+			if (++failedPlacements >= 5) {
+				skill.fail(Fail.USE_FAILED, "the gravel wouldn't place (" + failedPlacements + " tries)");
+				return;
+			}
 			to(Phase.PLACE);
 		}
 	}
 
-	private static BlockPos placeSpot() {
+	private BlockPos placeSpot() {
 		var pl = Mc.player();
 		if (!pl.onGround() || pl.isInWater()) return null;
 		BlockPos feet = pl.blockPosition();
 		for (Direction d : Direction.Plane.HORIZONTAL) {
 			BlockPos p = feet.relative(d);
+			if (badSpots.contains(p)) continue;
 			if (Mc.free(p) && Mc.clearOfPlayer(p) && Mc.solid(p.below()) && Mc.free(p.above())) return p;
 		}
 		return null;
