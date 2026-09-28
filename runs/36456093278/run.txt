@@ -1,0 +1,8 @@
+run 36456093278
+branch codex/heal-gear
+commit 80a558a6ac021561a447d610343b1ded5c9ed221
+seeds []
+scenario natural
+minutes 20
+extra [{"seed":"food","id":"cook","task":"smelt cooked_beef:3","give":"beef 3,furnace,coal 2,crafting_table","minutes":"3","genes":{"food.early_stock":1}},{"seed":"armor","id":"chest","task":"craft iron_chestplate:1","give":"iron_ingot 8,crafting_table","minutes":"3","genes":{"gear.armor_first":1}},{"seed":"armor","id":"wear","task":"equip armor","give":"iron_chestplate","minutes":"3","genes":{"gear.armor_first":1}},{"seed":"armor","id":"sword","task":"craft iron_sword:1","give":"iron_ingot 2,stick 1,crafting_table","minutes":"3","genes":{"gear.armor_first":1}},{"seed":"shield","id":"make","task":"craft shield:1","give":"iron_ingot,oak_planks 6,crafting_table","minutes":"3","genes":{"gear.shield_early":1}},{"seed":"shield","id":"hold","task":"equip shield","give":"shield","minutes":"3","genes":{"gear.shield_early":1}},{"seed":"a","id":"prep","scenario":"natural","minutes":"8","genes":{"food.keep_full":1,"food.early_stock":1,"gear.armor_first":1,"gear.shield_early":1}},{"seed":"armor-start","id":"armor-route","scenario":"natural","give":"stone_pickaxe,stone_sword,iron_ingot 22,oak_planks 16,stick 8,crafting_table","minutes":"4","genes":{"gear.armor_first":1}}]
+
