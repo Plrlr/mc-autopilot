@@ -110,6 +110,10 @@ workflow's unit-tests job compiles and tests in about a minute, the trial jobs t
 - Portal casting (cast scenario): batch 8a's cast on seed a built, lit and entered a portal (3:13);
   seed b stalled on the scoop (refill fallback added for batch 10). Batch 7 never compiled, so
   nothing was measured there. Lava bucket fills failed once in batch 5 (logging added).
+- Cast sight retries: batch 17's natural-f placed obsidian but lost sight of the next frame cell
+  six times. A bucket aim checked from the center of a planned stand can be blocked where Baritone
+  actually stops. The queued `portal.retry_cast_view` candidate excludes that stand after a failed
+  aim and tries another; its effect still needs the paired-seed race.
 - Lava is rare on the surface: if the far scan isn't enough, look underground (caves near y -54).
 - Smelting 13 iron takes ~130 s of standing still; do nearby work while the furnace runs.
 - Deaths: 7 in batch 6's four 15-minute runs (arrows, zombies, lava, fire), several while

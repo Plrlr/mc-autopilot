@@ -51,6 +51,8 @@ public final class CastPortal extends Skill {
 	private int wait, tries, wallTries;
 	private BlockPos lastWall;
 	private BlockPos target, water, breaking;
+	private BlockPos plannedStand, lastTarget;
+	private final List<BlockPos> blockedCastStands = new ArrayList<>();
 	private CastGeometry.Aim lavaAim, waterAim;
 	private BucketSkills.FillBucket fetch;
 	private int castFails;
@@ -247,7 +249,11 @@ public final class CastPortal extends Skill {
 					fail(refill.result().code(), "couldn't get water back: " + refill.result().detail());
 					return;
 				}
-				if (obsidian(target)) io.github.plrlr.autopilot.log.Checkpoints.mark("obsidian_placed");
+				if (obsidian(target)) {
+					io.github.plrlr.autopilot.log.Checkpoints.mark("obsidian_placed");
+					log("obsidian at " + target.toShortString() + "; water refilled");
+					if (Tune.on("portal.retry_cast_view")) castFails = 0;
+				}
 				phase = Phase.NEXT;
 			}
 			case FETCH -> {
@@ -279,6 +285,10 @@ public final class CastPortal extends Skill {
 				CastGeometry.Aim a = CastGeometry.aimAt(pl.getEyePosition(), target);
 				CastGeometry.Aim w = water == null ? null : CastGeometry.aimAt(pl.getEyePosition(), water);
 				if (a == null || w == null) {
+					if (Tune.on("portal.retry_cast_view") && plannedStand != null && !blockedCastStands.contains(plannedStand)) {
+						// Baritone can stop off center. Do not pick the same nominal stand on the next try.
+						blockedCastStands.add(plannedStand);
+					}
 					castFailed(Fail.UNREACHABLE, "lost the line of sight to the frame");
 					return;
 				}
@@ -321,6 +331,8 @@ public final class CastPortal extends Skill {
 					if (!obsidian(target)) castFailed(Fail.USE_FAILED, "the lava didn't harden");
 					else {
 						io.github.plrlr.autopilot.log.Checkpoints.mark("obsidian_placed");
+						log("obsidian at " + target.toShortString() + "; water recovered");
+						if (Tune.on("portal.retry_cast_view")) castFails = 0;
 						phase = Phase.NEXT;
 					}
 					return;
@@ -407,6 +419,7 @@ public final class CastPortal extends Skill {
 				if (Mc.id(Mc.state(inside).getBlock()).equals("nether_portal")) {
 					memory.remember("nether_portal", inside, "nether_portal");
 					origin = null;
+					log("portal lit");
 					done("cast and lit a nether portal");
 					return;
 				}
@@ -455,6 +468,7 @@ public final class CastPortal extends Skill {
 			}
 			origin = workArea.origin();
 			along = workArea.along();
+			log("portal site ready at " + origin.toShortString());
 			phase = Phase.WALL;
 			wait = 0;
 			return;
@@ -526,6 +540,7 @@ public final class CastPortal extends Skill {
 			}
 		}
 		if (next == null) {
+			log("backing wall ready at " + origin.toShortString());
 			phase = Phase.NEXT;
 			return;
 		}
@@ -566,9 +581,15 @@ public final class CastPortal extends Skill {
 		}
 		if (target == null) {
 			io.github.plrlr.autopilot.log.Checkpoints.mark("frame_complete");
+			log("frame complete at " + origin.toShortString());
 			phase = Phase.CLEAR;
 			wait = 0;
 			return;
+		}
+		if (!target.equals(lastTarget)) {
+			lastTarget = target;
+			plannedStand = null;
+			blockedCastStands.clear();
 		}
 		if (lava(target) && BucketSkills.isSource(target, "lava")) {
 			// Our lava from an interrupted try: water finishes it.
@@ -597,6 +618,7 @@ public final class CastPortal extends Skill {
 			return;
 		}
 		if (Mc.count("lava_bucket") == 0) {
+			log("fetching lava for " + target.toShortString());
 			fetch = new BucketSkills.FillBucket();
 			fetch.begin(memory, "lava");
 			phase = Phase.FETCH;
@@ -617,6 +639,8 @@ public final class CastPortal extends Skill {
 			return;
 		}
 		water = plan.water().cell();
+		plannedStand = plan.stand();
+		log("cast " + target.toShortString() + " from " + plannedStand.toShortString() + ", water at " + water.toShortString());
 		wait = 0;
 		if (pl.blockPosition().equals(plan.stand())) {
 			phase = Phase.LAVA;
@@ -694,6 +718,7 @@ public final class CastPortal extends Skill {
 			for (int f = 1; f <= 5; f++) {
 				for (int y = -1; y <= 3; y++) {
 					BlockPos s = origin.relative(along, x).relative(front(), f).above(y);
+					if (Tune.on("portal.retry_cast_view") && blockedCastStands.contains(s)) continue;
 					if (!BucketSkills.standable(s)) continue;
 					Vec3 eye = Vec3.atBottomCenterOf(s).add(0, 1.62, 0);
 					if (eye.distanceTo(Vec3.atCenterOf(t)) > Mc.reach() + 0.5) continue;
@@ -792,6 +817,7 @@ public final class CastPortal extends Skill {
 							if (CastGeometry.fits(o, a, WALL_H)) {
 								origin = o.immutable();
 								along = a;
+								log("portal site ready at " + origin.toShortString());
 								return true;
 							}
 						}
