@@ -238,16 +238,20 @@ final class SeenMiner {
 	private static BlockPos nearest(WorldMemory memory, String group, int range) {
 		BlockPos me = Mc.player().blockPosition();
 		BlockPos best = null;
-		double bestD = (double) range * range;
+		double bestCost = Double.MAX_VALUE;
 		for (WorldMemory.Seen s : memory.all(group)) {
 			if (!s.dim().equals(Mc.dimension()) || unreachable(s.pos())) continue;
+			// Range on the plain distance, like explore's "already see one": with the height
+			// penalty in the range check, a tree on a slope 20 blocks off was "not seen" while
+			// explore saw it, and the two bounced the job (17x 'no log seen' in one batch).
+			if (s.pos().distSqr(me) > (double) range * range) continue;
 			// Under deep water a block is out of reach for the pickaxe (and the air runs out).
 			if (!Mc.state(s.pos().above()).getFluidState().isEmpty() && !Mc.state(s.pos().above(2)).getFluidState().isEmpty()) continue;
 			// Low blocks first: a log above head height needs a pillar, the one at the trunk's foot doesn't.
 			double up = Math.max(0, s.pos().getY() - me.getY() - 2);
-			double d = s.pos().distSqr(me) + 64 * up * up;
-			if (d < bestD) {
-				bestD = d;
+			double cost = s.pos().distSqr(me) + 64 * up * up;
+			if (cost < bestCost) {
+				bestCost = cost;
 				best = s.pos();
 			}
 		}
