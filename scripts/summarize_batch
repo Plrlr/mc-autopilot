@@ -80,14 +80,20 @@ def read_run(path):
                 run["task"] = line[5:]
             elif line.startswith("NOTE"):
                 run["notes"].append(line[5:])
+    # Deaths are logged with wall time only; decision rows carry (wall, game second) pairs, so the
+    # game second of each death is read off them. One-life scoring needs it (loop/common.py).
+    clock, death_walls = [], []
     for f in sorted(glob.glob(os.path.join(path, "**", "run-*.jsonl"), recursive=True)):
         for line in open(f, errors="replace"):
             try:
                 o = json.loads(line)
             except ValueError:
                 continue
+            if "t" in o and "gs" in o:
+                clock.append((o["t"], o["gs"]))
             if o.get("event") == "death":
                 run["deaths"].append((o.get("detail", "?"), run.get("_doing", "?")))
+                death_walls.append(o.get("t"))
             elif o.get("event") == "skill_start":
                 run["_doing"] = action_of(o.get("skill", "?"))
             elif o.get("event") == "skill_end":
@@ -105,6 +111,7 @@ def read_run(path):
                     if code is None:
                         code = "text"
                     run["fails"].append((action_of(label) + " " + code, detail))
+    run["death_times"] = [game_second(clock, t) for t in death_walls if t is not None]
     for f in glob.glob(os.path.join(path, "**", "screenshots", "*.png"), recursive=True):
         run["shots"].append(re.sub(r"^\d+_", "", os.path.basename(f))[:-4])
     if run["length"]:
@@ -116,6 +123,14 @@ def read_run(path):
         if cast:
             run["cast"] = cast[-8:]
     return run
+
+
+def game_second(clock, t):
+    """Game second at wall time t: the last (wall, game second) pair logged at or before it."""
+    before = [g for w, g in clock if w <= t]
+    if before:
+        return int(max(before))
+    return int(min(g for _, g in clock)) if clock else 0
 
 
 # Seconds a natural run lasts (--minutes); 0 = use each run's last progress report.
