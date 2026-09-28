@@ -708,6 +708,30 @@ public final class Planner {
 	 * through tunnels got the bot shot and cornered in trials); on the surface, run.
 	 */
 	public static Option escape(Perception seen, String why) {
+		return escape(seen, canHide(), why);
+	}
+
+	/**
+	 * The rules' pick first, then the other ways to deal with the nearest monster that are possible
+	 * here: fight it, run, or wall in and heal. The learned danger model (gene safety.hazard) picks
+	 * among them; without it the first is taken, exactly as before.
+	 */
+	public static List<Option> escapeChoices(Perception seen, Option rulesPick) {
+		List<Option> out = new ArrayList<>();
+		out.add(rulesPick);
+		Perception.Seen h = seen.nearestHostile();
+		String why = rulesPick.why();
+		if (h != null && !h.type().equals("creeper") && h.dist() <= 6) out.add(new Option("attack", h.type(), why + ": fight it"));
+		out.add(new Option("retreat", null, why + ": run"));
+		if (canHide()) out.add(new Option("shelter", "heal", why + ": wall in and heal"));
+		List<Option> unique = new ArrayList<>();
+		for (Option o : out)
+			if (unique.stream().noneMatch(u -> u.label().equals(o.label()))) unique.add(o);
+		return unique;
+	}
+
+	/** Whether walling in to heal can work here (the same test the rules' escape uses). */
+	private static boolean canHide() {
 		// Hiding only heals with 18+ hunger or food to eat; otherwise shelter heal fails at once and
 		// this would pick it again.
 		boolean canHeal = Mc.player().getFoodData().getFoodLevel() >= 18 || Mc.count(Items2.matcher("food")) > 0;
@@ -717,7 +741,7 @@ public final class Planner {
 		// Underground always; on the surface too with combat.wall_in_anywhere: 56 of 138 mob deaths in
 		// generations 6-9 came while retreating (back turned, ~5 health), running is what got it killed.
 		boolean wallOk = !onSurface() || Tune.on("combat.wall_in_anywhere");
-		return escape(seen, wallOk && hideOk && canHeal && Mc.count("throwaway") >= 6, why);
+		return wallOk && hideOk && canHeal && Mc.count("throwaway") >= 6;
 	}
 
 	/** Same perceived threats for the planner and reflex; no extra scan or hidden information. */

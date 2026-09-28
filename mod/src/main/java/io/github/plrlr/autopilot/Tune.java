@@ -120,6 +120,8 @@ public final class Tune {
 		// The learned brain (brains/Learned): how far it may overrule the rules' order.
 		gene("learned.weight", 0, 0, 3, Kind.REAL, "0 = rules order only; higher trusts the learned model more");
 		gene("learned.explore", 0, 0, 0.3, Kind.REAL, "chance to try a non-first option (data for learning)");
+		gene("safety.hazard", 0, 0, 1, Kind.BOOL, "the learned danger model may swap a pick (emergencies too) for a clearly safer option");
+		gene("safety.hazard_margin", 0.1, 0.03, 0.4, Kind.REAL, "how much lower the death risk must be to swap (0.1 = 10 points)");
 		reset();
 	}
 

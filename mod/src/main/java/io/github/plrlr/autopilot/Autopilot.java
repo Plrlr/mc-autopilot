@@ -456,12 +456,21 @@ public final class Autopilot {
 				// walling in either, which would only restart the wall. Health 8 is the planner's line
 				// too: with 6 here, health 7-8 flipped between fighting and fleeing on every decision.
 				if (hp <= Tune.i("combat.flee_hp") && !walling && seen.hostilesWithin(6) >= Tune.i("combat.outnumbered")) {
-					Option escape = Planner.escape(seen, "low health");
+					List<Option> choices = Planner.escapeChoices(seen, Planner.escape(seen, "low health"));
+					double[] x = Tune.on("safety.hazard") ? features() : null;
+					Brain.Choice c = brain.decideReflex(choices, x);
 					// Keep swinging at the same target instead of resetting the attack every reflex.
 					if (!Tune.on("combat.no_close_retreat") || skill == null || skillOption == null
-							|| !escape.label().equals(skillOption.label())) startReflex(escape, "reflex_low_hp");
+							|| !c.option().label().equals(skillOption.label())) startReflex(choices, c, x, "reflex_low_hp");
 				}
-				else if (skill == null || !skill.name().equals("attack")) startReflex(new Option("attack", h.type(), "it's attacking"), "reflex_fight");
+				else {
+					List<Option> choices = Planner.escapeChoices(seen, new Option("attack", h.type(), "it's attacking"));
+					double[] x = Tune.on("safety.hazard") ? features() : null;
+					Brain.Choice c = brain.decideReflex(choices, x);
+					boolean already = skill != null && (c.option().skill().equals("attack") ? skill.name().equals("attack")
+							: skillOption != null && c.option().label().equals(skillOption.label()));
+					if (!already) startReflex(choices, c, x, "reflex_fight");
+				}
 				return;
 			}
 		}
@@ -563,9 +572,22 @@ public final class Autopilot {
 	}
 
 	private void startReflex(Option o, String trigger) {
+		startReflex(List.of(o), new Brain.Choice(o, 0, 1, "rules", o.why()), null, trigger);
+	}
+
+	/**
+	 * Reflexes are logged like decisions (layer "reflex"): most fights and escapes start here, and
+	 * the danger model can only learn which of them get the bot killed if it sees them.
+	 */
+	private void startReflex(List<Option> choices, Brain.Choice c, double[] x, String trigger) {
+		logDecision("reflex", trigger, choices, x == null ? features() : x, c, choices);
 		abortSkill("interrupted by " + trigger, false);
-		startSkill(o, trigger, true);
+		startSkill(c.option(), trigger, true);
 		reflexCooldownUntil = tick + 40;
+	}
+
+	private double[] features() {
+		return Learned.features(memory, seen, progress.deaths(), progress.furthest(), goal);
 	}
 
 	// ------------------------------------------------------------------ skills
@@ -756,9 +778,10 @@ public final class Autopilot {
 		}
 		lastDecisionTick = tick;
 		healthAtDecision = Mc.player().getHealth();
-		double[] x = Learned.features(memory, seen, progress.deaths(), progress.furthest(), goal);
+		double[] x = features();
 		Brain.Choice c = brain.decide(options, x, planner.lastUrgent);
-		logDecision(trigger, options, x, c);
+		List<Option> urgent = options.stream().filter(op -> planner.lastUrgent.contains(op.label())).toList();
+		logDecision("tactician", trigger, options, x, c, urgent);
 		decisions.addLast(c.by() + ": " + c.option().label() + (c.why() == null || c.why().isEmpty() ? "" : " - " + c.why()));
 		while (decisions.size() > 8) decisions.removeFirst();
 		if (skill != null) {
@@ -769,12 +792,12 @@ public final class Autopilot {
 	}
 
 	/**
-	 * One line per decision. The loop's trainer reads layer "tactician" rows: the game second,
-	 * the state features, which option was taken and how likely it was, and the emergencies.
+	 * One line per decision. The loop's trainer reads layer "tactician" and "reflex" rows: the game
+	 * second, the state features, which option was taken and how likely it was, and the emergencies.
 	 */
-	private void logDecision(String trigger, List<Option> options, double[] x, Brain.Choice c) {
+	private void logDecision(String layer, String trigger, List<Option> options, double[] x, Brain.Choice c, List<Option> urgent) {
 		JsonObject o = new JsonObject();
-		o.addProperty("layer", "tactician");
+		o.addProperty("layer", layer);
 		o.addProperty("gs", (tick - enableTick) / 20);
 		o.addProperty("brain", c.by());
 		o.addProperty("trigger", trigger);
@@ -783,13 +806,14 @@ public final class Autopilot {
 		options.forEach(op -> opts.add(op.label()));
 		o.add("options", opts);
 		o.addProperty("choice", c.option().label());
+		if (!c.by().equals("rules")) o.addProperty("why", c.why());
 		JsonArray xs = new JsonArray();
 		for (double v : x) xs.add(Math.round(v * 1000) / 1000.0);
 		o.add("x", xs);
 		o.addProperty("idx", c.index());
 		o.addProperty("prop", Math.round(c.propensity() * 1000) / 1000.0);
 		JsonArray urg = new JsonArray();
-		for (Option op : options) if (planner.lastUrgent.contains(op.label())) urg.add(op.label());
+		for (Option op : urgent) urg.add(op.label());
 		if (!urg.isEmpty()) o.add("urgent", urg);
 		log.write(o);
 	}
