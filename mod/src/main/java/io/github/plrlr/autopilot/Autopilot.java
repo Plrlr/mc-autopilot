@@ -75,6 +75,7 @@ public final class Autopilot {
 	private float healthAtDecision = 20;
 	private boolean hostileWasNear;
 	private long reflexCooldownUntil;
+	private long dangerReflexUntil;
 	private long lavaMarginTick = -1000;
 	private final Map<String, long[]> failures = new HashMap<>(); // label -> {count, blockedUntilTick}
 	private String lastEndedKey = "";
@@ -371,14 +372,14 @@ public final class Autopilot {
 			}
 		}
 		Danger.Verdict danger = Tune.on("survival.danger_v2") ? DangerSense.assess(seen) : null;
-		if (danger != null && pl.isOnFire() && !Mc.dimension().equals("the_nether")
+		boolean lavaWork = skill != null && java.util.Set.of("build_portal", "fill_bucket", "make_obsidian", "clutch").contains(skill.name());
+		if (danger != null && pl.isOnFire() && !lavaWork && !Mc.dimension().equals("the_nether")
 				&& Mc.count("water_bucket") > 0 && Mc.holdItem(s -> Items2.id(s).equals("water_bucket"))) {
 			abortSkill("put out fire", false);
 			Mc.useOn(pl.blockPosition().below(), net.minecraft.core.Direction.UP);
 		}
 		if (danger != null && pl.isOnFire() && skill != null && skill.name().equals("collect"))
 			abortSkill("burning while mining", false);
-		boolean lavaWork = skill != null && java.util.Set.of("build_portal", "fill_bucket", "make_obsidian", "clutch").contains(skill.name());
 		if (danger != null && danger.kind() == Danger.Kind.AVOID_HAZARD && !pl.isInLava()
 				&& (!lavaWork || pl.isOnFire())) {
 			// Fire underfoot must interrupt mining immediately; water is the fastest extinguish.
@@ -466,7 +467,10 @@ public final class Autopilot {
 		if (danger != null && !fortressFight && danger.kind() != Danger.Kind.NONE) {
 			Option action = Planner.dangerOption(danger, "visible danger");
 			boolean blastThreat = Planner.escapeCreeper(seen) != null;
+			boolean urgentSwitch = danger.kind() == Danger.Kind.AVOID_HAZARD
+					|| blastThreat && danger.kind() == Danger.Kind.RETREAT;
 			if (action != null && (!hiding || blastThreat) && (!walling || blastThreat)
+					&& (!skillIsReflex || tick >= dangerReflexUntil || urgentSwitch)
 					&& (skillOption == null || !action.label().equals(skillOption.label()))) {
 				startReflex(action, "reflex_danger");
 				return;
@@ -614,6 +618,8 @@ public final class Autopilot {
 		logDecision("reflex", trigger, choices, x == null ? features() : x, c, choices);
 		abortSkill("interrupted by " + trigger, false);
 		startSkill(c.option(), trigger, true);
+		// The normal reflex cooldown is two seconds; one more second avoids toggling at its edge.
+		dangerReflexUntil = trigger.equals("reflex_danger") ? tick + 60 : 0;
 		reflexCooldownUntil = tick + 40;
 	}
 

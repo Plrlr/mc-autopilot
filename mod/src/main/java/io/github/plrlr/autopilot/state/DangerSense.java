@@ -7,6 +7,7 @@ import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.core.BlockPos;
 import net.minecraft.tags.FluidTags;
 import net.minecraft.world.level.ClipContext;
+import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
 
@@ -36,8 +37,9 @@ public final class DangerSense {
 			if (safe && skeleton != null && skeleton.hostile() && skeleton.dist() < 16) {
 				Vec3 eye = Vec3.atCenterOf(at).add(0, 1.12, 0);
 				Vec3 target = skeleton.entity().getBoundingBox().getCenter();
-				cover = pl.level().clip(new ClipContext(eye, target, ClipContext.Block.VISUAL,
-						ClipContext.Fluid.NONE, pl)).getType() != HitResult.Type.MISS;
+				BlockHitResult hit = pl.level().clip(new ClipContext(eye, target, ClipContext.Block.VISUAL,
+						ClipContext.Fluid.NONE, pl));
+				cover = hit.getType() == HitResult.Type.BLOCK && Mc.canSee(hit.getBlockPos());
 			}
 			steps.add(new Danger.Step(d[0], d[1], safe, water, cover));
 		}
