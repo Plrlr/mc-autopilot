@@ -66,11 +66,13 @@ def frontier(st):
     return STAGES[-1]
 
 
-def pick_tasks(st, rng, count):
-    """`count` stage starts: the frontier, then a look-ahead to a later stage (data from further on)."""
+def pick_tasks(st, rng, count, lookahead=True):
+    """`count` stage starts: the frontier, then (with lookahead) one later stage for data from
+    further on. Without it every start is at the frontier: look-aheads past a wall nobody crosses
+    only add deaths to the score (eyes and End starts: 0 of ~30 by gen 28)."""
     out = []
     f = frontier(st)
-    later = [s for s in STAGES[STAGES.index(f) + 1:] if available(st, s)]
+    later = [s for s in STAGES[STAGES.index(f) + 1:] if available(st, s)] if lookahead else []
     wanted = [f] + ([rng.choice(later)] if later else [f])
     while len(wanted) < count:
         wanted.append(f)

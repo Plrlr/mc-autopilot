@@ -56,6 +56,8 @@ DEFAULT_SETTINGS = {
     "drop_after_pairs": 4,     # below zero after this many pairs: out
     "max_pairs": 24,           # never promoted after this many pairs: out (not better enough to tell)
     "sigma0": 0.15,            # starting mutation step, as a fraction of each gene's range
+    "stage_lookahead": True,   # one stage start per generation goes past the frontier (False: all at the frontier)
+    "model_gate": 0.02,        # learned.* genes race only when the model's held-out advantage R2 beats this
 }
 
 
@@ -94,7 +96,7 @@ def pick_genes(st, genes, rng, k):
     always with some chance for every gene."""
     # The learned brain's genes only once its model predicts unseen runs better than the baseline
     # (held-out R2 of the choice part above 0.02): before that, turning it on only wastes a race slot.
-    model_ok = (st.get("model_adv_r2") or -1) > 0.02
+    model_ok = (st.get("model_adv_r2") or -1) > st["settings"].get("model_gate", 0.02)
     names = [n for n in genes if not n.startswith("learned.") or model_ok]
     w = []
     for n in names:
@@ -166,9 +168,15 @@ def cmd_propose(a):
     # generation ahead of everything else, each as the champion plus that change, raced once like
     # any mutation. (Before, contenders filled every slot and no suggestion ever got to race.)
     tried = st.setdefault("suggested", [])
+    # A dethroned champion defends first: with few slots a promotion must be re-checked on fresh
+    # seeds before anything new races (else a lucky crowning is never questioned).
+    for g in st["genomes"].values():
+        if g["status"] == "contender" and g["note"].endswith("(defending)") and len(lineup) < s["max_genomes"]:
+            lineup.append(g["id"])
     racing_suggestions = [g for g in st["genomes"].values() if g["status"] == "contender" and g["note"].startswith("suggested")]
     for g in racing_suggestions[:1]:
-        lineup.append(g["id"])
+        if g["id"] not in lineup and len(lineup) < s["max_genomes"]:
+            lineup.append(g["id"])
     for sug in s.get("suggest", []):
         key = json.dumps(sug, sort_keys=True)
         if key in tried or len(lineup) >= min(2, s["max_genomes"]):
@@ -180,6 +188,8 @@ def cmd_propose(a):
                 if changed[n] == genes[n]["def"]:
                     changed.pop(n)
         tried.append(key)
+        if same_genes(changed, st["genomes"][champ]["genes"]):
+            continue  # the champion already plays it (e.g. cave.torches after g24): nothing to race
         gid = "g%d" % st["next_id"]
         st["next_id"] += 1
         note = "suggested: " + ", ".join("%s %s" % (n, v) for n, v in sug.items())
@@ -215,7 +225,7 @@ def cmd_propose(a):
     # Tasks every genome plays (paired): fresh worlds from spawn, plus starts at the frontier stage
     # from the checkpoint bank (or its staged scenario until real checkpoints exist).
     tasks = [{"kind": "natural", "stage": "spawn", "synthetic": False} for _ in range(s["seeds_per_gen"])]
-    tasks += bank.pick_tasks(st, rng, s.get("stage_seeds", 0))
+    tasks += bank.pick_tasks(st, rng, s.get("stage_seeds", 0), s.get("stage_lookahead", True))
     for t in tasks:
         t["seed"] = bank.random_seed(rng, "L%d" % gen)
     data_tasks = [{"kind": "natural", "stage": "spawn", "synthetic": False, "seed": bank.random_seed(rng, "D%d" % gen)}
@@ -351,6 +361,7 @@ def cmd_update(a):
         "tasks": [t["stage"] + ("*" if t.get("synthetic") else "") for t in tasks],
         "banked": banked, "frontier": bank.frontier(st), "bank": bank.summary(st),
         "stage_scores": stage_scores(results),
+        "portal_drill": portal_drill(results),
     }
     with open(os.path.join(a.state, "history.jsonl"), "a", encoding="utf-8") as f:
         f.write(json.dumps(line, separators=(",", ":")) + "\n")
@@ -488,6 +499,17 @@ def last_history(d):
         return json.loads(lines[-1]) if lines else None
     except OSError:
         return None
+
+
+def portal_drill(results):
+    """The wall (0 of 16 kit starts got past it by gen 28): of the runs started from the iron kit,
+    how many got each portal step. Watched directly, since the race's score mixes it with deaths."""
+    kit = [r for r in results.values() if r and r.get("stage") == "kit"]
+    out = {"tries": len(kit)}
+    for c in ("lava_seen", "obsidian_placed", "frame_complete", "portal_lit"):
+        out[c] = sum(1 for r in kit if c in r["checkpoints"])
+    out["nether"] = sum(1 for r in kit if "nether" in (r.get("reached_stages") or []))
+    return out
 
 
 def stage_scores(results):
