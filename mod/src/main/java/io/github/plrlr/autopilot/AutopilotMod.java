@@ -1,7 +1,6 @@
 package io.github.plrlr.autopilot;
 
 import com.mojang.blaze3d.platform.InputConstants;
-import io.github.plrlr.autopilot.brains.Tactician;
 import io.github.plrlr.autopilot.plan.Goal;
 import io.github.plrlr.autopilot.ui.Hud;
 import io.github.plrlr.autopilot.ui.PanelScreen;
@@ -32,7 +31,7 @@ public class AutopilotMod implements ClientModInitializer {
 	@Override
 	public void onInitializeClient() {
 		Minecraft mc = Minecraft.getInstance();
-		autopilot = new Autopilot(Config.load(mc.gameDirectory.toPath()), mc.gameDirectory.toPath());
+		autopilot = new Autopilot(mc.gameDirectory.toPath());
 
 		KeyMapping.Category category = KeyMapping.Category.register(Identifier.fromNamespaceAndPath(MOD_ID, "main"));
 		panelKey = KeyMappingHelper.registerKeyMapping(new KeyMapping("key.autopilot.panel", InputConstants.Type.KEYBOARD, InputConstants.KEY_K, category));
@@ -57,7 +56,7 @@ public class AutopilotMod implements ClientModInitializer {
 			handleCommand(message.substring(1).trim());
 			return false; // our commands never go to the world chat
 		});
-		LOGGER.info("MC Autopilot loaded. Settings: {}", autopilot.config.file);
+		LOGGER.info("MC Autopilot loaded.");
 	}
 
 	private static void handleCommand(String cmd) {
@@ -67,12 +66,6 @@ public class AutopilotMod implements ClientModInitializer {
 			case "stop" -> autopilot.disable("!stop");
 			case "start" -> autopilot.enable();
 			case "status" -> Mc.say(autopilot.statusLine());
-			case "brain" -> {
-				if (Tactician.NAMES.contains(arg)) {
-					autopilot.tactician.select(arg);
-					Mc.say("Action brain: " + arg);
-				} else Mc.say("Brains: " + String.join(", ", Tactician.NAMES));
-			}
 			case "goal" -> {
 				Goal g = Goal.byKey(arg);
 				if (g != null) {
@@ -84,11 +77,7 @@ public class AutopilotMod implements ClientModInitializer {
 					Mc.say(sb.toString());
 				}
 			}
-			case "opus" -> {
-				autopilot.strategist.setOpusEnabled(!arg.equals("off"));
-				Mc.say("Goals by " + (autopilot.strategist.opusEnabled() ? "Opus" : "rules"));
-			}
-			default -> Mc.say("Commands: !start !stop !status !brain <auto|mock|groq|cerebras|gemini|opus> !goal <name> !opus on|off");
+			default -> Mc.say("Commands: !start !stop !status !goal <name>");
 		}
 	}
 }

@@ -7,44 +7,42 @@ between trial runs: an automatic loop plays batches on GitHub Actions, scores th
 only changes that beat the current best (docs/learning-loop.md: the plan and build order).
 Public GitHub project (github.com/Plrlr/mc-autopilot). Report the furthest milestone honestly.
 
-Opus 5.5 (through `claude -p` on the user's plan, no API key) sets goals in play and writes at
-most a few patches a day in the loop; free LLMs or the rules brain pick the actions.
+Since 2026-09-28 it is a self-learning bot with one brain: the rules planner, re-ranked by the
+learned model the loop trains (brains/Brain.java). No language model plays the game; the in-game
+Opus/Groq/Gemini/Cerebras brains and their settings file were removed. The user reviews; Claude
+builds in parts, each a PR into dev.
 
 ## Hard constraints
 - The world is plain vanilla single-player survival: no server, no world edits, no cheats or
   commands. Only the client gets mods (Fabric + our mod + Baritone). The world save stays vanilla.
 - The AI plays fair: it acts only through the normal player controls and the information a
   player could get (no x-ray, no reading hidden blocks, no seed cracking). Baritone's own
-  x-ray-like helpers must be off: legitMine is on for ores (Baritone only targets ores it can
-  see, else branch-mines at a sensible Y). Surface blocks (logs, sand, gravel, stone) should only
-  be searched among blocks in WorldMemory (seen by the player). Until collect does that, they
-  use Baritone's normal search of loaded chunks, and the README must document this exception.
+  x-ray-like helpers must be off: legitMine is always on (Baritone only targets blocks it can
+  see, else branch-mines at a sensible Y). Logs, sand, gravel, stone and spotted ores are mined
+  only from blocks in WorldMemory (seen by the player; skills/SeenMiner, FlintSteps). Baritone is
+  never asked to search loaded chunks, and draws no path or goal markers.
 - Baritone is never bundled in our release jars (it's compileOnly/runtimeOnly in build.gradle,
   never `include`): users install it separately from its own release page, as the README says.
 - The user is always in control: a toggle key turns the autopilot off instantly, and any
   movement key the user presses also turns it off. Fail safe: on any error, stop and stand still.
-- Everything must work for $0. Opus runs on the user's Claude plan through `claude -p`
-  (counts toward plan usage limits, so cap calls with OPUS_MAX_CALLS_PER_HOUR). Free API limits
-  are tight: use a client-side rate limiter and fall back to mock when a limit is near.
-- Never block the game thread: every AI call and network call runs off the render thread, with a
-  timeout. Minecraft must stay at normal fps while the AI thinks.
+- Everything must work for $0 (the loop runs on GitHub's free machines).
+- Never block the game thread: the brain decides in microseconds, and any file or network work
+  runs off the render thread with a timeout. Minecraft must stay at normal fps.
 - Never commit: API keys, the user's worlds, logs/, build/, .gradle/, or Minecraft/Mojang jars.
   Never print API keys in logs or chat.
 - Ask before installing software. Prefer giving the user the exact `winget` command to run.
-- Check current docs before using any API (Fabric, Baritone, Groq, Gemini, claude CLI).
+- Check current docs before using any API (Fabric, Baritone, claude CLI).
   Don't guess method names, mappings, model names, limits, or response fields.
-- Never send personal info to free AI APIs (free-tier inputs may be used for training).
-  Game state only.
 
 ## Stack
 Minecraft Java 26.3, Fabric Loader + Fabric API, Baritone 1.20.0 (installed separately), our mod
-in Java 25 (Gradle, Loom), the `claude` CLI. Versions, install paths and Windows details: docs/setup.md.
+in Java 25 (Gradle, Loom). Versions, install paths and Windows details: docs/setup.md.
 
 
 ## Layout
 - `mod/`: the Fabric mod (Java). `src/main/.../autopilot/`: Autopilot (main loop), plan/
-  (Goal ladder, TechTree, Planner), skills/ (code skills over Baritone), brains/ (Opus, free
-  LLMs, rules), state/ (WorldMemory, no x-ray), log/ (JSONL decision log). `src/gametest/`: the
+  (Goal ladder, TechTree, Planner), skills/ (code skills over Baritone), brains/ (Brain: rules +
+  Learned), state/ (WorldMemory, no x-ray), log/ (JSONL decision log). `src/gametest/`: the
   in-game trial (fresh world or a staged scenario), run by CI.
 - The learning loop (docs/learning-loop.md): genes in `Tune.java`, the learned brain in
   `brains/Learned.java`, `scripts/loop/` (loop.py, train.py, evolve.py, dashboard.html),

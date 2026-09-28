@@ -80,17 +80,15 @@ jar {
 	}
 }
 
-// Settings for the in-game test run: gradlew runClientGameTest -PtestMinutes=5 -PtestScenario=portal -PtestOpus=true
+// Settings for the in-game test run: gradlew runClientGameTest -PtestMinutes=5 -PtestScenario=portal
 // One skill on its own: -PtestTask="craft furnace:1" -PtestGive="cobblestone 8,crafting_table"
 loom {
 	runs {
 		configureEach {
 			if (name == "clientGameTest") {
 				vmArg "-Dautopilot.test.minutes=${findProperty('testMinutes') ?: '5'}"
-				vmArg "-Dautopilot.test.opus=${findProperty('testOpus') ?: 'false'}"
 				vmArg "-Dautopilot.test.seed=${findProperty('testSeed') ?: 'autopilot'}"
 				vmArg "-Dautopilot.test.scenario=${findProperty('testScenario') ?: 'natural'}"
-				vmArg "-Dautopilot.test.brain=${findProperty('testBrain') ?: 'mock'}"
 				vmArg "-Dautopilot.test.tickRate=${findProperty('testTickRate') ?: '20'}"
 				// Quick single-fix tests: run one skill with some items (see AutopilotClientTest).
 				vmArg "-Dautopilot.test.task=${findProperty('testTask') ?: ''}"
