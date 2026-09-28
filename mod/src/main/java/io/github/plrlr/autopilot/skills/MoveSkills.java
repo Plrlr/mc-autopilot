@@ -64,8 +64,10 @@ public final class MoveSkills {
 			LocalPlayer pl = Mc.player();
 			for (String t : targets) {
 				if (seen.nearest(t) != null) return t;
-				WorldMemory.Seen b = memory.nearest(t);
-				if (b != null && b.pos().distSqr(pl.blockPosition()) < 48 * 48) return t;
+				// Not the ones collect just failed to reach, or the two keep handing the job back.
+				for (WorldMemory.Seen b : memory.all(t)) {
+					if (b.dim().equals(Mc.dimension()) && b.pos().distSqr(pl.blockPosition()) < 48 * 48 && !SeenMiner.unreachable(b.pos())) return t;
+				}
 			}
 			return null;
 		}

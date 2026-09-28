@@ -10,8 +10,8 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.phys.Vec3;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Mines blocks the player has actually seen (WorldMemory: exposed and in line of sight), one after
@@ -28,10 +28,17 @@ final class SeenMiner {
 	private final WorldMemory memory;
 	private final String group;
 	private final int range;
-	/** Blocks we couldn't reach or break this time: skipped, not forgotten (they're still there). */
-	private final Set<BlockPos> skipped = new HashSet<>();
+	/**
+	 * Blocks we couldn't reach or break, until when (ms). Shared across runs of the skill and with
+	 * explore: otherwise explore says "already see a log" and collect says "can't get it", forever
+	 * (a test run bounced 7 times). Not forgotten: they're still there, just not for now.
+	 */
+	private static final Map<BlockPos, Long> UNREACHABLE = new HashMap<>();
+	private static final long UNREACHABLE_MS = 3 * 60 * 1000;
 	private Phase phase = Phase.FIND;
 	private BlockPos target;
+	/** A leaf (or other soft block) between us and the target: broken first, like a player does. */
+	private BlockPos blocker;
 	private int wait;
 	private int mined;
 
@@ -47,14 +54,29 @@ final class SeenMiner {
 
 	/** Is any seen block of this group within range? */
 	static boolean anySeen(WorldMemory memory, String group, int range) {
-		return nearest(memory, group, range, Set.of()) != null;
+		return nearest(memory, group, range) != null;
+	}
+
+	/** Tried lately and couldn't be reached or broken. */
+	static boolean unreachable(BlockPos p) {
+		Long until = UNREACHABLE.get(p);
+		if (until == null) return false;
+		if (until > System.currentTimeMillis()) return true;
+		UNREACHABLE.remove(p);
+		return false;
+	}
+
+	private void giveUp() {
+		UNREACHABLE.put(target, System.currentTimeMillis() + UNREACHABLE_MS);
+		Bari.stop();
+		to(Phase.FIND);
 	}
 
 	Status tick() {
 		wait++;
 		switch (phase) {
 			case FIND -> {
-				target = nearest(memory, group, range, skipped);
+				target = nearest(memory, group, range);
 				if (target == null) return Status.NONE_LEFT;
 				Bari.path(new GoalGetToBlock(target));
 				to(Phase.WALK);
@@ -85,14 +107,37 @@ final class SeenMiner {
 		}
 		if (inReach(target)) {
 			Bari.stop();
+			blocker = null;
 			to(Phase.BREAK);
 			return;
 		}
-		if (wait > 20 * 40 || (wait > 40 && !Bari.pathing())) {
-			skipped.add(target);
-			Bari.stop();
-			to(Phase.FIND);
+		if (closeEnough(target)) {
+			// Near, but leaves (or grass, a vine) hide it: clear the way first.
+			BlockPos b = blockerTo(target);
+			if (b != null) {
+				Bari.stop();
+				blocker = b;
+				to(Phase.BREAK);
+				return;
+			}
 		}
+		if (wait > 20 * 40 || (wait > 40 && !Bari.pathing())) giveUp();
+	}
+
+	private static boolean closeEnough(BlockPos p) {
+		return Mc.player().getEyePosition().distanceTo(Vec3.atCenterOf(p)) < Mc.reach() - 0.5;
+	}
+
+	/** The soft block the line of sight hits before the target, or null. */
+	private static BlockPos blockerTo(BlockPos p) {
+		var pl = Mc.player();
+		var r = pl.level().clip(new net.minecraft.world.level.ClipContext(pl.getEyePosition(), Vec3.atCenterOf(p),
+				net.minecraft.world.level.ClipContext.Block.VISUAL, net.minecraft.world.level.ClipContext.Fluid.NONE, pl));
+		if (r.getType() != net.minecraft.world.phys.HitResult.Type.BLOCK || r.getBlockPos().equals(p)) return null;
+		BlockPos hit = r.getBlockPos();
+		String id = Mc.id(Mc.state(hit).getBlock());
+		boolean soft = id.endsWith("_leaves") || id.equals("vine") || Mc.state(hit).getDestroySpeed(pl.level(), hit) <= 0.6f;
+		return soft && Mc.state(hit).getDestroySpeed(pl.level(), hit) >= 0 ? hit.immutable() : null;
 	}
 
 	static boolean inReach(BlockPos p) {
@@ -100,6 +145,22 @@ final class SeenMiner {
 	}
 
 	private void breakIt() {
+		if (blocker != null) {
+			if (Mc.free(blocker)) {
+				Mc.mc().gameMode.stopDestroyBlock();
+				blocker = null;
+				to(Phase.WALK);
+				return;
+			}
+			if (wait > 20 * 6) {
+				Mc.mc().gameMode.stopDestroyBlock();
+				blocker = null;
+				giveUp();
+				return;
+			}
+			hit(blocker);
+			return;
+		}
 		if (!stillThere()) {
 			Mc.mc().gameMode.stopDestroyBlock();
 			memory.forget(group, target);
@@ -110,16 +171,20 @@ final class SeenMiner {
 		if (wait > 20 * 12) {
 			// Wrong tool or out of reach after all.
 			Mc.mc().gameMode.stopDestroyBlock();
-			skipped.add(target);
-			to(Phase.FIND);
+			giveUp();
 			return;
 		}
-		Mc.lookAt(Vec3.atCenterOf(target));
+		hit(target);
+	}
+
+	/** One tick of breaking a block like a player: look, best tool, keep swinging. */
+	private void hit(BlockPos p) {
+		Mc.lookAt(Vec3.atCenterOf(p));
 		if (wait == 1) {
-			NightSkills.Shelter.holdBestTool(Mc.state(target));
-			Mc.mc().gameMode.startDestroyBlock(target, Direction.UP);
+			NightSkills.Shelter.holdBestTool(Mc.state(p));
+			Mc.mc().gameMode.startDestroyBlock(p, Direction.UP);
 		} else {
-			Mc.mc().gameMode.continueDestroyBlock(target, Direction.UP);
+			Mc.mc().gameMode.continueDestroyBlock(p, Direction.UP);
 		}
 		Mc.swing();
 	}
@@ -153,15 +218,17 @@ final class SeenMiner {
 		return best;
 	}
 
-	private static BlockPos nearest(WorldMemory memory, String group, int range, Set<BlockPos> skip) {
+	private static BlockPos nearest(WorldMemory memory, String group, int range) {
 		BlockPos me = Mc.player().blockPosition();
 		BlockPos best = null;
 		double bestD = (double) range * range;
 		for (WorldMemory.Seen s : memory.all(group)) {
-			if (!s.dim().equals(Mc.dimension()) || skip.contains(s.pos())) continue;
+			if (!s.dim().equals(Mc.dimension()) || unreachable(s.pos())) continue;
 			// Under deep water a block is out of reach for the pickaxe (and the air runs out).
 			if (!Mc.state(s.pos().above()).getFluidState().isEmpty() && !Mc.state(s.pos().above(2)).getFluidState().isEmpty()) continue;
-			double d = s.pos().distSqr(me);
+			// Low blocks first: a log above head height needs a pillar, the one at the trunk's foot doesn't.
+			double up = Math.max(0, s.pos().getY() - me.getY() - 2);
+			double d = s.pos().distSqr(me) + 64 * up * up;
 			if (d < bestD) {
 				bestD = d;
 				best = s.pos();
