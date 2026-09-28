@@ -1,0 +1,86 @@
+# Portal drill on pull requests that change the mod: 3 saved starts at the portal wall, each played
+# with and without the suggestions the PR adds (scripts/loop/drill.py), 12 game minutes, results as
+# a PR comment. A smoke test that catches a broken change in ~40 minutes; the loop's race still decides.
+name: PR drill
+
+on:
+  pull_request:
+    branches: [main, dev]
+    paths: ['mod/src/main/**', 'scripts/loop/settings.json']
+
+permissions:
+  contents: read
+  pull-requests: write
+
+concurrency:
+  group: pr-drill-${{ github.event.pull_request.number }}
+  cancel-in-progress: true
+
+jobs:
+  plan:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    outputs:
+      runs: ${{ steps.plan.outputs.runs }}
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          fetch-depth: 0
+      - id: plan
+        env:
+          BASE: ${{ github.event.pull_request.base.sha }}
+        run: |
+          git show "$BASE:scripts/loop/settings.json" > "$RUNNER_TEMP/base.json" 2>/dev/null || echo '{}' > "$RUNNER_TEMP/base.json"
+          git fetch -q --depth 1 origin trial-results
+          git show FETCH_HEAD:loop/state.json > "$RUNNER_TEMP/state.json"
+          runs=$(python3 scripts/loop/drill.py plan --base "$RUNNER_TEMP/base.json" --head scripts/loop/settings.json --state "$RUNNER_TEMP/state.json" --n 3)
+          echo "runs=$runs" | tee -a "$GITHUB_OUTPUT"
+
+  trial:
+    needs: plan
+    if: needs.plan.outputs.runs != '[]'
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    strategy:
+      fail-fast: false
+      matrix:
+        include: ${{ fromJSON(needs.plan.outputs.runs) }}
+    steps:
+      - uses: actions/checkout@v7
+      - name: Genes
+        env:
+          PARAMS: ${{ matrix.params }}
+        run: |
+          printf '%s' "$PARAMS" > "$RUNNER_TEMP/params.json"
+          echo "PARAMS_FILE=$RUNNER_TEMP/params.json" >> "$GITHUB_ENV"
+      - uses: ./.github/actions/play
+        with:
+          name: ${{ matrix.name }}
+          seed: ${{ matrix.seed }}
+          minutes: '12'
+          params: ${{ env.PARAMS_FILE }}
+          lean: 'true'
+          window: '427x240'
+          start: ${{ matrix.start }}
+          token: ${{ github.token }}
+          retention: '5'
+
+  report:
+    needs: [plan, trial]
+    if: always() && needs.plan.outputs.runs != '[]' && needs.plan.outputs.runs != ''
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/download-artifact@v8
+        with:
+          pattern: trial-drill-*
+          path: batch
+      - name: Comment
+        env:
+          GH_TOKEN: ${{ github.token }}
+          PR: ${{ github.event.pull_request.number }}
+        run: |
+          python3 scripts/loop/drill.py report --batch batch --minutes 12 > report.md
+          cat report.md >> "$GITHUB_STEP_SUMMARY"
+          gh pr comment "$PR" -R "$GITHUB_REPOSITORY" --body-file report.md

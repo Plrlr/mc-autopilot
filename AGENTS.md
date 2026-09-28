@@ -34,6 +34,9 @@ scores them, and keeps only changes that beat the current champion over paired s
 4. The PR check (`.github/workflows/pr-check.yml`) compiles and runs the unit tests. It must
    pass. You probably can't build locally (Fabric's maven and Mojang's hosts may be blocked in
    your sandbox), so rely on the check and read its log when it fails.
+   The PR drill (`.github/workflows/pr-drill.yml`) then plays 3 saved starts at the portal wall
+   with and without your new suggestion and comments the results (~40 min). It is a smoke test:
+   fix a change that breaks things or dies at once; don't tune to its 3 pairs.
 5. PR description: what the bot did wrong (with the evidence: death causes, skill failures),
    what you changed, the gene name, and the suggestion you queued.
 
