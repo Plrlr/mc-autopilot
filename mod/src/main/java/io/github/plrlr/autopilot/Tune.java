@@ -107,6 +107,8 @@ public final class Tune {
 		gene("nav.mob_avoid_radius", 8, 4, 16, Kind.INT, "radius around monsters that paths avoid");
 		gene("combat.wall_in_anywhere", 0, 0, 1, Kind.BOOL, "hurt and outnumbered: wall in and heal on the surface too, instead of running");
 		gene("combat.no_close_retreat", 0, 0, 1, Kind.BOOL, "fight or wall in within four blocks; keep retreating from nearby creepers");
+		gene("portal.prepare_work_area", 0, 0, 1, Kind.BOOL, "prepare a dry floor for the portal frame when no natural site fits");
+		gene("portal.reserve_lava_bucket", 0, 0, 1, Kind.BOOL, "empty a spare water bucket safely to keep one bucket available for lava");
 		gene("loop.stuck_s", 10, 5, 30, Kind.INT, "seconds without moving that mark the state as stuck for the brains");
 		gene("stuck.window_s", 12, 6, 40, Kind.INT, "a moving skill kept inside the stuck box this long starts the unstuck reflex");
 		gene("stuck.box", 2, 1, 4, Kind.REAL, "the square (blocks) the bot must leave to count as moving");
