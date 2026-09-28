@@ -64,6 +64,9 @@ in Java 25 (Gradle, Loom), the `claude` CLI. Versions, install paths and Windows
   `trial-results`. Build and test on `dev` (compile check: `gh workflow run trials.yml --ref dev -f
   seeds='[]' -f extra='[]'`; scenario tests with `-f extra=...`), then merge into `main` in batches
   every few generations with one summary: each push to main changes the next generation's code.
+- Codex (ChatGPT Pro) also works here, by the rules in AGENTS.md: skill fixes as pull requests from
+  `codex/*` branches into `dev`, each behind a gene with a queued suggestion. Claude owns the loop and
+  the harness and reviews Codex's PRs (they must pass pr-check.yml; merge only what keeps these rules).
 - Save tokens: read a batch's summary.md, not its logs, unless the summary points at a failure.
   Don't read whole large files (Autopilot.java, Planner.java) when a grep will do.
 - Improve the bot through the loop: a new gene, a new skill, a better score or feature, a fix to
