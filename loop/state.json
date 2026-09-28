@@ -1082,13 +1082,13 @@
  },
  "days": {
   "2026-09-27": 15,
-  "2026-09-28": 20
+  "2026-09-28": 21
  },
  "evolve_days": {
   "2026-09-27": 1,
   "2026-09-28": 6
  },
- "gen": 35,
+ "gen": 36,
  "gene_specs": {
   "cave.torch_light": {
    "def": 3.0,
@@ -5204,6 +5204,28 @@
    "parent": "g24",
    "status": "rejected"
   },
+  "g27": {
+   "born": 36,
+   "code": null,
+   "evals": [],
+   "genes": {
+    "cave.torches": 1.0,
+    "combat.shield_guard": 1.0,
+    "death.recover_night_armor": 12.0,
+    "focus.commit": 1.0,
+    "plan.hide_hp": 15.0,
+    "route.armor_before_portal": 0.0
+   },
+   "id": "g27",
+   "mutated": [
+    "cave.torches",
+    "combat.shield_guard"
+   ],
+   "note": "suggested: cave.torches 1, combat.shield_guard 1",
+   "pairs": [],
+   "parent": "g24",
+   "status": "contender"
+  },
   "g3": {
    "born": 1,
    "code": null,
@@ -6237,8 +6259,99 @@
  "model_keys": 56,
  "model_r2": 0.22,
  "model_rows": 36955,
- "next_id": 27,
- "pending": null,
+ "next_id": 28,
+ "pending": {
+  "data_tasks": [],
+  "gen": 36,
+  "lineup": [
+   "g24",
+   "g27"
+  ],
+  "runs": [
+   "eval-g24-0",
+   "eval-g24-1",
+   "eval-g24-2",
+   "eval-g24-3",
+   "eval-g24-4",
+   "eval-g24-5",
+   "eval-g24-6",
+   "eval-g24-7",
+   "eval-g27-0",
+   "eval-g27-1",
+   "eval-g27-2",
+   "eval-g27-3",
+   "eval-g27-4",
+   "eval-g27-5",
+   "eval-g27-6",
+   "eval-g27-7"
+  ],
+  "seeds": [
+   "L36-5xtdfe",
+   "L36-u83ex7",
+   "L36-v2uvpj",
+   "L36-s4fu79",
+   "L36-yu7aqx",
+   "L36-edxzg5",
+   "L36-cjj72g",
+   "L36-zh8h8c"
+  ],
+  "sha": "aa4701f896a775dd0e1c597a58b0a9a347a58948",
+  "started": "2026-09-28T14:26:07+00:00",
+  "tasks": [
+   {
+    "kind": "natural",
+    "seed": "L36-5xtdfe",
+    "stage": "spawn",
+    "synthetic": false
+   },
+   {
+    "kind": "natural",
+    "seed": "L36-u83ex7",
+    "stage": "spawn",
+    "synthetic": false
+   },
+   {
+    "kind": "natural",
+    "seed": "L36-v2uvpj",
+    "stage": "spawn",
+    "synthetic": false
+   },
+   {
+    "kind": "natural",
+    "seed": "L36-s4fu79",
+    "stage": "spawn",
+    "synthetic": false
+   },
+   {
+    "asset": "lava-gen32-eval-g26-6.zip",
+    "kind": "start",
+    "seed": "L36-yu7aqx",
+    "stage": "lava",
+    "synthetic": false
+   },
+   {
+    "asset": "lava-gen34-eval-g26-6.zip",
+    "kind": "start",
+    "seed": "L36-edxzg5",
+    "stage": "lava",
+    "synthetic": false
+   },
+   {
+    "asset": "lava-gen34-eval-g26-6.zip",
+    "kind": "start",
+    "seed": "L36-cjj72g",
+    "stage": "lava",
+    "synthetic": false
+   },
+   {
+    "asset": "lava-gen34-eval-g26-6.zip",
+    "kind": "start",
+    "seed": "L36-zh8h8c",
+    "stage": "lava",
+    "synthetic": false
+   }
+  ]
+ },
  "settings": {
   "accept_pairs": 16,
   "accept_t": 2.5,
@@ -7098,7 +7211,8 @@
   "{\"combat.wall_in_anywhere\": 1, \"gear.sword_early\": 1}",
   "{\"cave.torches\": 1, \"combat.shield_guard\": 1, \"gear.sword_early\": 1, \"route.armor_before_portal\": 1}",
   "{\"cave.torches\": 1}",
-  "{\"combat.no_close_retreat\": 1}"
+  "{\"combat.no_close_retreat\": 1}",
+  "{\"cave.torches\": 1, \"combat.shield_guard\": 1}"
  ],
  "version": 1
 }
