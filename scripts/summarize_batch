@@ -59,7 +59,7 @@ def action_of(label):
 def read_run(path):
     name = os.path.basename(path.rstrip("/"))
     name = name[len("trial-"):] if name.startswith("trial-") else name
-    run = {"name": name, "milestones": [], "deaths": [], "final": None, "task": None, "length": 0, "checkpoints": {},
+    run = {"name": name, "milestones": [], "deaths": [], "fights": [], "final": None, "task": None, "length": 0, "checkpoints": {},
            "time": collections.Counter(), "fails": [], "shots": [], "notes": []}
     test_log = os.path.join(path, "autopilot-test.log")
     if os.path.exists(test_log):
@@ -76,6 +76,13 @@ def read_run(path):
                 m = re.search(r"checkpoints (.*)$", line)
                 if m:
                     run["checkpoints"] = {k: int(v) for k, v in re.findall(r"(\w+)@(\d+)s", m.group(1))}
+            elif line.startswith("FIGHT "):
+                # The combat drill (CombatDrill.java): one line per staged fight.
+                f = dict(re.findall(r"(\w+)=(\S+)", line))
+                k = f.get("kills", "0/0").split("/")
+                run["fights"].append({"gear": f.get("gear", "?"), "mobs": f.get("mobs", "?"),
+                                      "kills": int(k[0]), "of": int(k[1]), "damage": float(f.get("damage", 0)),
+                                      "died": f.get("died") == "1", "secs": int(f.get("secs", 0))})
             elif line.startswith("TASK"):
                 run["task"] = line[5:]
             elif line.startswith("NOTE"):
