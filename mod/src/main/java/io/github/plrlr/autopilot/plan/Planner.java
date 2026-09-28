@@ -9,6 +9,8 @@ import io.github.plrlr.autopilot.skills.SmeltSkill;
 import io.github.plrlr.autopilot.skills.Station;
 import io.github.plrlr.autopilot.skills.ShoreSkill;
 import io.github.plrlr.autopilot.state.Perception;
+import io.github.plrlr.autopilot.state.Danger;
+import io.github.plrlr.autopilot.state.DangerSense;
 import io.github.plrlr.autopilot.state.WorldMemory;
 import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.world.entity.EquipmentSlot;
@@ -516,8 +518,11 @@ public final class Planner {
 		// into lava, and it burned to death (freebuff nether run 0455). Blazes go to the fortress fight.
 		double range = hostile != null && Mc.dimension().equals("the_nether") && !hostile.type().equals("blaze") ? 4 : Tune.get("plan.hostile_range");
 		if (hostile != null && hostile.dist() < range) {
+			Option verdict = Tune.on("survival.danger_v2") && !NetherPlan.fightInFortress(Mc.dimension(), hostile)
+					? dangerOption(DangerSense.assess(seen), "visible danger") : null;
+			if (verdict != null) out.add(verdict);
 			// Creepers explode in melee range: back off instead of swinging at them.
-			if (hostile.type().equals("creeper")) out.add(new Option("retreat", null, "a creeper is " + Math.round(hostile.dist()) + " blocks away"));
+			else if (hostile.type().equals("creeper")) out.add(new Option("retreat", null, "a creeper is " + Math.round(hostile.dist()) + " blocks away"));
 			// Blazes hover and shoot fire: the fortress fight waits for them at the spawner and backs
 			// off out of sight to heal itself. Walling in at low health (the Nether has no sky, so it
 			// always counts as underground) burned the bot to death in its first blaze test.
@@ -708,6 +713,10 @@ public final class Planner {
 	 * through tunnels got the bot shot and cornered in trials); on the surface, run.
 	 */
 	public static Option escape(Perception seen, String why) {
+		if (Tune.on("survival.danger_v2")) {
+			Option verdict = dangerOption(DangerSense.assess(seen), why);
+			if (verdict != null) return verdict;
+		}
 		return escape(seen, canHide(), why);
 	}
 
@@ -742,6 +751,17 @@ public final class Planner {
 		// generations 6-9 came while retreating (back turned, ~5 health), running is what got it killed.
 		boolean wallOk = !onSurface() || Tune.on("combat.wall_in_anywhere");
 		return wallOk && hideOk && canHeal && Mc.count("throwaway") >= 6;
+	}
+
+
+	/** Translate the one verdict to existing skill names, preserving the decision log schema. */
+	public static Option dangerOption(Danger.Verdict verdict, String why) {
+		return switch (verdict.kind()) {
+			case FIGHT -> new Option("attack", verdict.target(), why + ": fight");
+			case RETREAT -> new Option("retreat", null, why + ": safe retreat");
+			case WALL_IN -> new Option("shelter", "heal", why + ": wall in");
+			case AVOID_HAZARD, NONE -> null;
+		};
 	}
 
 	/** Same perceived threats for the planner and reflex; no extra scan or hidden information. */

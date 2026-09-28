@@ -110,6 +110,11 @@ workflow's unit-tests job compiles and tests in about a minute, the trial jobs t
   taking priority. Combat reflexes can reconsider when a pursuer catches up or a creeper
   approaches. Defaults stay unchanged; the queued paired-seed race must judge the result.
 
+- **Survival candidate (generations 30-37, not yet raced):** 152 of 162 runs died; 87% of deaths
+  came from mobs, arrows or creepers, often during retreat, attack or shelter-heal at about 7 health.
+  Most deaths were underground. `survival.danger_v2` gives planner, reflexes and retreat one
+  terrain-aware verdict; its default stays off until paired-seed results justify promotion.
+
 ## Open problems (next candidates)
 
 - Portal casting (cast scenario): batch 8a's cast on seed a built, lit and entered a portal (3:13);
