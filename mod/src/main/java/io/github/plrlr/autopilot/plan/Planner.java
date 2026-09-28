@@ -7,6 +7,7 @@ import io.github.plrlr.autopilot.skills.CastPortal;
 import io.github.plrlr.autopilot.skills.MoveSkills;
 import io.github.plrlr.autopilot.skills.SmeltSkill;
 import io.github.plrlr.autopilot.skills.Station;
+import io.github.plrlr.autopilot.skills.ShoreSkill;
 import io.github.plrlr.autopilot.state.Perception;
 import io.github.plrlr.autopilot.state.WorldMemory;
 import net.minecraft.client.player.LocalPlayer;
@@ -39,8 +40,23 @@ public final class Planner {
 	public List<Option> options(Goal goal, Perception seen) {
 		Option main = axeFirst(goalStep(goal, seen, 0));
 		List<Option> urgent = urgent(seen, main);
+		if (Tune.on("move.shore_first") && ShoreSkill.needed()
+				&& (groundWork(main) || urgent.stream().anyMatch(Planner::groundWork))) {
+			// One shared decision prevents collect, station, shelter and explore from handing the
+			// same watery spot back and forth. Combat and eating can still take precedence.
+			List<Option> shore = new ArrayList<>();
+			for (Option o : urgent) if (o.skill().equals("attack") || o.skill().equals("retreat") || o.skill().equals("eat")) shore.add(o);
+			Option move = new Option("shore", null, "reach seen dry ground before " + (main == null ? "working" : main.label()));
+			shore.add(move);
+			lastUrgent = shore.stream().map(Option::label).collect(java.util.stream.Collectors.toSet());
+			return shore;
+		}
 		lastUrgent = urgent.stream().map(Option::label).collect(java.util.stream.Collectors.toSet());
 		return order(urgent, recoverStep(), surfaceOption(main), upkeep(seen, main), main, extras(seen, main));
+	}
+
+	private static boolean groundWork(Option o) {
+		return o != null && java.util.Set.of("collect", "craft", "smelt", "shelter", "sleep", "explore").contains(o.skill());
 	}
 
 	/** Labels of the life-or-death options in the last list: the learned brain never overrules them. */
