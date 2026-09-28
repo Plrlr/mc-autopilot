@@ -735,13 +735,13 @@
  },
  "days": {
   "2026-09-27": 15,
-  "2026-09-28": 6
+  "2026-09-28": 7
  },
  "evolve_days": {
   "2026-09-27": 1,
   "2026-09-28": 3
  },
- "gen": 21,
+ "gen": 22,
  "gene_specs": {
   "cave.torch_light": {
    "def": 3.0,
@@ -3039,6 +3039,28 @@
    "parent": "g0",
    "status": "rejected"
   },
+  "g20": {
+   "born": 22,
+   "code": null,
+   "evals": [],
+   "genes": {
+    "combat.wall_in_anywhere": 1.0,
+    "death.recover_night_armor": 12.0,
+    "focus.commit": 1.0,
+    "gear.sword_early": 1.0,
+    "plan.hide_hp": 15.0,
+    "route.armor_before_portal": 0.0
+   },
+   "id": "g20",
+   "mutated": [
+    "gear.sword_early",
+    "combat.wall_in_anywhere"
+   ],
+   "note": "suggested: gear.sword_early 1, combat.wall_in_anywhere 1",
+   "pairs": [],
+   "parent": "g10",
+   "status": "contender"
+  },
   "g3": {
    "born": 1,
    "code": null,
@@ -4069,8 +4091,84 @@
  "model_keys": 52,
  "model_r2": 0.195,
  "model_rows": 21236,
- "next_id": 20,
- "pending": null,
+ "next_id": 21,
+ "pending": {
+  "data_tasks": [
+   {
+    "kind": "natural",
+    "seed": "D22-5y2zba",
+    "stage": "spawn",
+    "synthetic": false
+   }
+  ],
+  "gen": 22,
+  "lineup": [
+   "g10",
+   "g20",
+   "g19"
+  ],
+  "runs": [
+   "eval-g10-0",
+   "eval-g10-1",
+   "eval-g10-2",
+   "eval-g10-3",
+   "eval-g10-4",
+   "eval-g20-0",
+   "eval-g20-1",
+   "eval-g20-2",
+   "eval-g20-3",
+   "eval-g20-4",
+   "eval-g19-0",
+   "eval-g19-1",
+   "eval-g19-2",
+   "eval-g19-3",
+   "eval-g19-4",
+   "data-g10-0"
+  ],
+  "seeds": [
+   "L22-gk9yhx",
+   "L22-775a8f",
+   "L22-qmpf9d",
+   "L22-3nmeyr",
+   "L22-pvb7w9"
+  ],
+  "sha": "bc32c9d84122ed8a22b00ac59ba086f836beb0d4",
+  "started": "2026-09-28T04:02:14+00:00",
+  "tasks": [
+   {
+    "kind": "natural",
+    "seed": "L22-gk9yhx",
+    "stage": "spawn",
+    "synthetic": false
+   },
+   {
+    "kind": "natural",
+    "seed": "L22-775a8f",
+    "stage": "spawn",
+    "synthetic": false
+   },
+   {
+    "kind": "natural",
+    "seed": "L22-qmpf9d",
+    "stage": "spawn",
+    "synthetic": false
+   },
+   {
+    "asset": "kit-gen18-data-g10-0.zip",
+    "kind": "start",
+    "seed": "L22-3nmeyr",
+    "stage": "kit",
+    "synthetic": false
+   },
+   {
+    "kind": "scenario",
+    "scenario": "stronghold",
+    "seed": "L22-pvb7w9",
+    "stage": "eyes",
+    "synthetic": true
+   }
+  ]
+ },
  "settings": {
   "accept_pairs": 8,
   "accept_t": 2.0,
@@ -4825,7 +4923,8 @@
   "{\"nav.mob_avoid_coef\": 3, \"plan.hostile_range\": 4}",
   "{\"cave.torches\": 1, \"combat.shield_guard\": 1, \"gear.sword_early\": 1, \"nav.mob_avoid_coef\": 3, \"plan.hostile_range\": 4}",
   "{\"food.stock\": 16}",
-  "{\"gear.sword_early\": 1}"
+  "{\"gear.sword_early\": 1}",
+  "{\"combat.wall_in_anywhere\": 1, \"gear.sword_early\": 1}"
  ],
  "version": 1
 }
