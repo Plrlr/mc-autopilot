@@ -735,13 +735,13 @@
  },
  "days": {
   "2026-09-27": 15,
-  "2026-09-28": 4
+  "2026-09-28": 5
  },
  "evolve_days": {
   "2026-09-27": 1,
   "2026-09-28": 2
  },
- "gen": 19,
+ "gen": 20,
  "gene_specs": {
   "cave.torch_light": {
    "def": 3.0,
@@ -2676,6 +2676,26 @@
    "parent": "g10",
    "status": "contender"
   },
+  "g18": {
+   "born": 20,
+   "code": null,
+   "evals": [],
+   "genes": {
+    "death.recover_night_armor": 12.0,
+    "focus.commit": 1.0,
+    "gear.sword_early": 1.0,
+    "plan.hide_hp": 15.0,
+    "route.armor_before_portal": 0.0
+   },
+   "id": "g18",
+   "mutated": [
+    "gear.sword_early"
+   ],
+   "note": "suggested: gear.sword_early 1",
+   "pairs": [],
+   "parent": "g10",
+   "status": "contender"
+  },
   "g2": {
    "born": 1,
    "code": null,
@@ -3767,8 +3787,84 @@
  "model_keys": 52,
  "model_r2": 0.166,
  "model_rows": 19572,
- "next_id": 18,
- "pending": null,
+ "next_id": 19,
+ "pending": {
+  "data_tasks": [
+   {
+    "kind": "natural",
+    "seed": "D20-bzpppu",
+    "stage": "spawn",
+    "synthetic": false
+   }
+  ],
+  "gen": 20,
+  "lineup": [
+   "g10",
+   "g18",
+   "g17"
+  ],
+  "runs": [
+   "eval-g10-0",
+   "eval-g10-1",
+   "eval-g10-2",
+   "eval-g10-3",
+   "eval-g10-4",
+   "eval-g18-0",
+   "eval-g18-1",
+   "eval-g18-2",
+   "eval-g18-3",
+   "eval-g18-4",
+   "eval-g17-0",
+   "eval-g17-1",
+   "eval-g17-2",
+   "eval-g17-3",
+   "eval-g17-4",
+   "data-g10-0"
+  ],
+  "seeds": [
+   "L20-r2ehby",
+   "L20-28pypc",
+   "L20-nvd36r",
+   "L20-a2cvk4",
+   "L20-htspnm"
+  ],
+  "sha": "bc32c9d84122ed8a22b00ac59ba086f836beb0d4",
+  "started": "2026-09-28T02:45:08+00:00",
+  "tasks": [
+   {
+    "kind": "natural",
+    "seed": "L20-r2ehby",
+    "stage": "spawn",
+    "synthetic": false
+   },
+   {
+    "kind": "natural",
+    "seed": "L20-28pypc",
+    "stage": "spawn",
+    "synthetic": false
+   },
+   {
+    "kind": "natural",
+    "seed": "L20-nvd36r",
+    "stage": "spawn",
+    "synthetic": false
+   },
+   {
+    "asset": "kit-gen13-eval-g11-1.zip",
+    "kind": "start",
+    "seed": "L20-a2cvk4",
+    "stage": "kit",
+    "synthetic": false
+   },
+   {
+    "kind": "scenario",
+    "scenario": "stronghold",
+    "seed": "L20-htspnm",
+    "stage": "eyes",
+    "synthetic": true
+   }
+  ]
+ },
  "settings": {
   "accept_pairs": 8,
   "accept_t": 2.0,
@@ -4498,7 +4594,8 @@
   "{\"_retry\": \"dropped after 5 worlds by a too-hasty rule\", \"focus.commit\": 1}",
   "{\"nav.mob_avoid_coef\": 3, \"plan.hostile_range\": 4}",
   "{\"cave.torches\": 1, \"combat.shield_guard\": 1, \"gear.sword_early\": 1, \"nav.mob_avoid_coef\": 3, \"plan.hostile_range\": 4}",
-  "{\"food.stock\": 16}"
+  "{\"food.stock\": 16}",
+  "{\"gear.sword_early\": 1}"
  ],
  "version": 1
 }
