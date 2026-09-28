@@ -734,12 +734,13 @@
   }
  },
  "days": {
-  "2026-09-27": 15
+  "2026-09-27": 15,
+  "2026-09-28": 1
  },
  "evolve_days": {
   "2026-09-27": 1
  },
- "gen": 15,
+ "gen": 16,
  "gene_specs": {
   "cave.torch_light": {
    "def": 3.0,
@@ -2066,6 +2067,34 @@
    "parent": "g10",
    "status": "contender"
   },
+  "g14": {
+   "born": 16,
+   "code": null,
+   "evals": [],
+   "genes": {
+    "cave.torches": 1.0,
+    "combat.shield_guard": 1.0,
+    "death.recover_night_armor": 12.0,
+    "focus.commit": 1.0,
+    "gear.sword_early": 1.0,
+    "nav.mob_avoid_coef": 3.0,
+    "plan.hide_hp": 15.0,
+    "plan.hostile_range": 5.0,
+    "route.armor_before_portal": 0.0
+   },
+   "id": "g14",
+   "mutated": [
+    "nav.mob_avoid_coef",
+    "plan.hostile_range",
+    "gear.sword_early",
+    "cave.torches",
+    "combat.shield_guard"
+   ],
+   "note": "suggested: nav.mob_avoid_coef 3, plan.hostile_range 4, gear.sword_early 1, cave.torches 1, combat.shield_guard 1",
+   "pairs": [],
+   "parent": "g10",
+   "status": "contender"
+  },
   "g2": {
    "born": 1,
    "code": null,
@@ -3155,8 +3184,84 @@
  "model_keys": 50,
  "model_r2": 0.148,
  "model_rows": 14875,
- "next_id": 14,
- "pending": null,
+ "next_id": 15,
+ "pending": {
+  "data_tasks": [
+   {
+    "kind": "natural",
+    "seed": "D16-7r7cwx",
+    "stage": "spawn",
+    "synthetic": false
+   }
+  ],
+  "gen": 16,
+  "lineup": [
+   "g10",
+   "g14",
+   "g13"
+  ],
+  "runs": [
+   "eval-g10-0",
+   "eval-g10-1",
+   "eval-g10-2",
+   "eval-g10-3",
+   "eval-g10-4",
+   "eval-g14-0",
+   "eval-g14-1",
+   "eval-g14-2",
+   "eval-g14-3",
+   "eval-g14-4",
+   "eval-g13-0",
+   "eval-g13-1",
+   "eval-g13-2",
+   "eval-g13-3",
+   "eval-g13-4",
+   "data-g10-0"
+  ],
+  "seeds": [
+   "L16-ue6m5y",
+   "L16-j3k3a7",
+   "L16-znsfys",
+   "L16-xht2z7",
+   "L16-zfgvyb"
+  ],
+  "sha": "bc32c9d84122ed8a22b00ac59ba086f836beb0d4",
+  "started": "2026-09-28T00:00:00+00:00",
+  "tasks": [
+   {
+    "kind": "natural",
+    "seed": "L16-ue6m5y",
+    "stage": "spawn",
+    "synthetic": false
+   },
+   {
+    "kind": "natural",
+    "seed": "L16-j3k3a7",
+    "stage": "spawn",
+    "synthetic": false
+   },
+   {
+    "kind": "natural",
+    "seed": "L16-znsfys",
+    "stage": "spawn",
+    "synthetic": false
+   },
+   {
+    "asset": "kit-gen12-data-g6-0.zip",
+    "kind": "start",
+    "seed": "L16-xht2z7",
+    "stage": "kit",
+    "synthetic": false
+   },
+   {
+    "kind": "scenario",
+    "scenario": "stronghold",
+    "seed": "L16-zfgvyb",
+    "stage": "eyes",
+    "synthetic": true
+   }
+  ]
+ },
  "settings": {
   "accept_pairs": 8,
   "accept_t": 2.0,
@@ -3820,7 +3925,8 @@
   "{\"focus.commit\": 1}",
   "{\"route.diamond_portal\": 1}",
   "{\"_retry\": \"dropped after 5 worlds by a too-hasty rule\", \"focus.commit\": 1}",
-  "{\"nav.mob_avoid_coef\": 3, \"plan.hostile_range\": 4}"
+  "{\"nav.mob_avoid_coef\": 3, \"plan.hostile_range\": 4}",
+  "{\"cave.torches\": 1, \"combat.shield_guard\": 1, \"gear.sword_early\": 1, \"nav.mob_avoid_coef\": 3, \"plan.hostile_range\": 4}"
  ],
  "version": 1
 }
