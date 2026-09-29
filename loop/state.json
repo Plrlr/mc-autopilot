@@ -1526,13 +1526,13 @@
  "days": {
   "2026-09-27": 15,
   "2026-09-28": 32,
-  "2026-09-29": 5
+  "2026-09-29": 6
  },
  "evolve_days": {
   "2026-09-27": 1,
   "2026-09-28": 7
  },
- "gen": 52,
+ "gen": 53,
  "gene_specs": {
   "brain.death_s": {
    "def": 600.0,
@@ -7297,6 +7297,50 @@
    "parent": "g24",
    "status": "contender"
   },
+  "g37": {
+   "born": 53,
+   "code": null,
+   "evals": [],
+   "genes": {
+    "cave.torches": 1.0,
+    "death.recover_night_armor": 12.0,
+    "focus.commit": 1.0,
+    "plan.hide_hp": 15.0,
+    "route.armor_before_portal": 0.0,
+    "safety.hazard": 1.0,
+    "safety.hazard_margin": 0.05
+   },
+   "id": "g37",
+   "mutated": [
+    "safety.hazard",
+    "safety.hazard_margin"
+   ],
+   "note": "suggested: safety.hazard 1, safety.hazard_margin 0.05",
+   "pairs": [],
+   "parent": "g24",
+   "status": "contender"
+  },
+  "g38": {
+   "born": 53,
+   "code": null,
+   "evals": [],
+   "genes": {
+    "cave.torches": 1.0,
+    "death.recover_night_armor": 12.0,
+    "focus.commit": 1.0,
+    "plan.hide_hp": 15.0,
+    "reflex.escalate": 1.0,
+    "route.armor_before_portal": 0.0
+   },
+   "id": "g38",
+   "mutated": [
+    "reflex.escalate"
+   ],
+   "note": "suggested: reflex.escalate 1",
+   "pairs": [],
+   "parent": "g24",
+   "status": "contender"
+  },
   "g4": {
    "born": 2,
    "code": null,
@@ -8025,8 +8069,77 @@
  "model_kind": "trees",
  "model_r2": 0.22,
  "model_rows": 68383,
- "next_id": 37,
- "pending": null,
+ "next_id": 39,
+ "pending": {
+  "data_tasks": [],
+  "gen": 53,
+  "lineup": [
+   "g24",
+   "g35",
+   "g36",
+   "g37",
+   "g38"
+  ],
+  "runs": [
+   "eval-g24-0",
+   "eval-g24-1",
+   "eval-g24-2",
+   "eval-g24-3",
+   "eval-g35-0",
+   "eval-g35-1",
+   "eval-g35-2",
+   "eval-g35-3",
+   "eval-g36-0",
+   "eval-g36-1",
+   "eval-g36-2",
+   "eval-g36-3",
+   "eval-g37-0",
+   "eval-g37-1",
+   "eval-g37-2",
+   "eval-g37-3",
+   "eval-g38-0",
+   "eval-g38-1",
+   "eval-g38-2",
+   "eval-g38-3"
+  ],
+  "seeds": [
+   "L53-q7bb7j",
+   "L53-2vnwct",
+   "L53-hwcbsx",
+   "L53-ukrt4m"
+  ],
+  "sha": "148c985108b56a6de2846968bbfb5c4a950a8bc7",
+  "started": "2026-09-29T05:02:48+00:00",
+  "tasks": [
+   {
+    "kind": "natural",
+    "seed": "L53-q7bb7j",
+    "stage": "spawn",
+    "synthetic": false
+   },
+   {
+    "kind": "natural",
+    "seed": "L53-2vnwct",
+    "stage": "spawn",
+    "synthetic": false
+   },
+   {
+    "asset": "lava-gen48-eval-g33-2.zip",
+    "kind": "start",
+    "seed": "L53-hwcbsx",
+    "stage": "lava",
+    "synthetic": false
+   },
+   {
+    "kind": "combat",
+    "minutes": 10,
+    "scenario": "combat",
+    "seed": "L53-ukrt4m",
+    "stage": "combat",
+    "synthetic": false
+   }
+  ]
+ },
  "score_version": 2,
  "settings": {
   "accept_pairs": 8,
@@ -10015,7 +10128,9 @@
   "{\"gear.shield_early\": 1}",
   "{\"food.early_stock\": 1}",
   "{\"skill.cast_portal\": 1, \"skill.diamond_hunt\": 1, \"skill.lava_scout\": 1, \"skill.obsidian_pool\": 1, \"skill.portal_repair\": 1, \"skill.restock\": 1, \"skill.ruined_portal\": 1, \"skill.stash\": 1}",
-  "{\"skill.block_arrows\": 1, \"skill.creeper_defuse\": 1, \"skill.fish\": 1, \"skill.food_secure\": 1, \"skill.kite\": 1, \"skill.make_bed\": 1, \"skill.panic_box\": 1, \"skill.pillar\": 1, \"skill.recover_items\": 1, \"skill.respawn_reset\": 1, \"skill.secure_camp\": 1, \"skill.stair_down\": 1}"
+  "{\"skill.block_arrows\": 1, \"skill.creeper_defuse\": 1, \"skill.fish\": 1, \"skill.food_secure\": 1, \"skill.kite\": 1, \"skill.make_bed\": 1, \"skill.panic_box\": 1, \"skill.pillar\": 1, \"skill.recover_items\": 1, \"skill.respawn_reset\": 1, \"skill.secure_camp\": 1, \"skill.stair_down\": 1}",
+  "{\"safety.hazard\": 1, \"safety.hazard_margin\": 0.05}",
+  "{\"reflex.escalate\": 1}"
  ],
  "version": 1
 }
