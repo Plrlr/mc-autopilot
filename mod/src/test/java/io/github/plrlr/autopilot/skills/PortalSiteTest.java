@@ -117,4 +117,37 @@ class PortalSiteTest {
 		PortalSite.Plan q = PortalSite.best(new BlockPos(0, 64, 5), pool, t, Set.of(p.origin()));
 		assertNotEquals(p.origin(), q.origin());
 	}
+
+	@Test
+	void makerCanDigAWholeRockRoomFromAnOpenFrontRow() {
+		Terrain t = new Terrain();
+		for (int x = 0; x < 4; x++) for (int f = 0; f <= 2; f++)
+			for (int y = 0; y < 6; y++) t.blocks.put(O.east(x).south(f).above(y), "stone");
+		BlockPos stand = O.east().south(2);
+		t.blocks.put(stand, "air");
+		t.blocks.put(stand.above(), "air");
+		PortalSite.Plan p = PortalSite.makerPlan(O, Direction.EAST, t);
+		assertNotNull(p, "a room dug into solid rock, entered from one open standing cell");
+		// The frame's 4x5 opening and the two standing rows (the back wall stays rock).
+		assertTrue(p.dig().size() >= 30, "dig " + p.dig().size());
+	}
+
+	@Test
+	void makerFillsAThreeDeepGapFromTheBottomUp() {
+		Terrain t = new Terrain();
+		for (int y = 1; y <= 3; y++) t.blocks.put(O.below(y), "air");
+		PortalSite.Plan p = PortalSite.makerPlan(O, Direction.EAST, t);
+		assertNotNull(p);
+		assertEquals(java.util.List.of(O.below(3), O.below(2), O.below()), p.floor());
+	}
+
+	@Test
+	void makerRejectsFluidThatCouldEnterAndHardFrameBlocks() {
+		Terrain wet = new Terrain();
+		wet.blocks.put(O.north().above(2), "lava");
+		assertNull(PortalSite.makerPlan(O, Direction.EAST, wet));
+		Terrain hard = new Terrain();
+		hard.blocks.put(O.above(3), "bedrock");
+		assertNull(PortalSite.makerPlan(O, Direction.EAST, hard));
+	}
 }

@@ -43,6 +43,15 @@ final class PortalSite {
 
 	/** The work to make a site at o along a, or null if it can't be made safely. */
 	static Plan plan(BlockPos o, Direction a, Probe pr) {
+		return plan(o, a, pr, false);
+	}
+
+	/** A room dug into rock may need all 72 open cells; its shallow holes can be filled in layers. */
+	static Plan makerPlan(BlockPos o, Direction a, Probe pr) {
+		return plan(o, a, pr, true);
+	}
+
+	private static Plan plan(BlockPos o, Direction a, Probe pr, boolean maker) {
 		Direction front = a.getClockWise();
 		List<BlockPos> dig = new ArrayList<>(), floor = new ArrayList<>();
 		for (int x = 0; x < 4; x++) {
@@ -51,6 +60,7 @@ final class PortalSite {
 				if (!clearable(col.above(y), pr, dig)) return null;
 				BlockPos back = col.relative(front.getOpposite()).above(y);
 				if (pr.fluid(back)) return null;
+				if (maker && !pr.solid(back) && pr.fluidNear(back)) return null;
 				// The wall's cells must be solid or empty (CastGeometry.fits): a flower or torch there
 				// made a planned site fail its final check in the first drill. Dig such things out.
 				if (!pr.solid(back) && !pr.free(back)) {
@@ -58,17 +68,18 @@ final class PortalSite {
 					dig.add(back.immutable());
 				}
 			}
-			if (!floorable(col.below(), pr, floor)) return null;
+			if (!(maker ? layeredFloor(col.below(), pr, floor, 3) : floorable(col.below(), pr, floor))) return null;
 			// The wall behind rests on the ground (CastGeometry.fits wants a block under it or at it).
 			BlockPos back = col.relative(front.getOpposite());
-			if (!pr.solid(back) && !floorable(back.below(), pr, floor)) return null;
+			if (!pr.solid(back) && !(maker ? layeredFloor(back.below(), pr, floor, 3) : floorable(back.below(), pr, floor))) return null;
 			for (int f = 1; f <= 2; f++) {
 				BlockPos p = col.relative(front, f);
 				if (!clearable(p, pr, dig) || !clearable(p.above(), pr, dig)) return null;
-				if (!floorable(p.below(), pr, floor)) return null;
+				if (!(maker ? layeredFloor(p.below(), pr, floor, 3) : floorable(p.below(), pr, floor))) return null;
 			}
 		}
-		if (dig.size() > MAX_DIG) return null;
+		if (dig.size() > (maker ? 80 : MAX_DIG)) return null;
+		if (maker && floor.size() > 32) return null; // Leave 28 of a 60-block kit for the wall.
 		return new Plan(o.immutable(), a, dig, floor, dig.size() * 2 + floor.size() * 3);
 	}
 
@@ -88,6 +99,37 @@ final class PortalSite {
 		if (!pr.free(p) || !pr.solid(p.below())) return false;
 		floor.add(p.immutable());
 		return true;
+	}
+
+	private static boolean layeredFloor(BlockPos p, Probe pr, List<BlockPos> floor, int depth) {
+		if (pr.fluid(p)) return false;
+		if (pr.solid(p)) return true;
+		if (!pr.free(p) || depth == 0 || pr.fluidNear(p)) return false;
+		if (!layeredFloor(p.below(), pr, floor, depth - 1)) return false;
+		if (!floor.contains(p)) floor.add(p.immutable());
+		return true;
+	}
+
+	/** Prefer a room whose open front row is already reachable, then minimize digging and fill. */
+	static Plan makerBest(BlockPos feet, BlockPos pool, Probe pr, java.util.Set<BlockPos> bad) {
+		Plan best = null;
+		double score = Double.MAX_VALUE;
+		// Anchor the room on the player's already open standing row. A broad 16-block scan of
+		// 4x6 rooms would trace millions of block rays on the render thread.
+		for (int dx = -1; dx <= 1; dx++) for (int dz = -1; dz <= 1; dz++) {
+			BlockPos stand = feet.offset(dx, 0, dz);
+			if (!pr.free(stand) || !pr.free(stand.above()) || !pr.solid(stand.below())) continue;
+			for (Direction a : Direction.Plane.HORIZONTAL) for (int x = 1; x <= 2; x++)
+				for (int f = 1; f <= 2; f++) {
+					BlockPos o = stand.relative(a, -x).relative(a.getClockWise(), -f);
+					if (bad.contains(o) || pool != null && (o.distSqr(pool) < 9 || o.distSqr(pool) > 196)) continue;
+					Plan p = makerPlan(o, a, pr);
+					if (p == null) continue;
+					double s = p.cost() + Math.sqrt(o.distSqr(feet)) * 0.5;
+					if (s < score) { score = s; best = p; }
+				}
+		}
+		return best;
 	}
 
 	/**
