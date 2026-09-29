@@ -47,7 +47,7 @@ final class PortalSiteMaker {
 		PortalSite.Plan now = PortalSite.makerPlan(plan.origin(), plan.along(), seen);
 		if (now == null) { abandon("newly exposed fluid, hard block or deep hole"); return; }
 		plan = now;
-		BlockPos target = closestVisibleDig(seen);
+		BlockPos target = PortalSite.exposedDig(plan, Mc.player().blockPosition(), seen);
 		if (target != null) {
 			if (!inReach(target)) {
 				if (target.getY() > Mc.player().blockPosition().getY() + 3 && pillars < 4) pillar(seen);
@@ -77,17 +77,6 @@ final class PortalSiteMaker {
 		if (seen.exhausted()) return;
 		if (fits) ready = true;
 		else abandon("finished room failed CastGeometry.fits");
-	}
-
-	private BlockPos closestVisibleDig(FairProbe seen) {
-		BlockPos best = null;
-		double distance = Double.MAX_VALUE;
-		for (BlockPos p : plan.dig()) {
-			if (!seen.visible(p) || seen.free(p)) continue;
-			double d = p.distSqr(Mc.player().blockPosition());
-			if (d < distance) { distance = d; best = p; }
-		}
-		return best;
 	}
 
 	private void walkNear(BlockPos p) {

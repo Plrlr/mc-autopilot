@@ -40,6 +40,17 @@ final class PortalSite {
 
 	record Plan(BlockPos origin, Direction along, List<BlockPos> dig, List<BlockPos> floor, int cost) {}
 
+	static BlockPos exposedDig(Plan plan, BlockPos feet, FairProbe seen) {
+		BlockPos best = null;
+		double distance = Double.MAX_VALUE;
+		for (BlockPos p : plan.dig()) {
+			if (!seen.visible(p) || seen.free(p)) continue;
+			double d = p.distSqr(feet);
+			if (d < distance) { distance = d; best = p; }
+		}
+		return best;
+	}
+
 	static final int WALL_H = 6;
 	static final int MAX_DIG = 48;
 

@@ -191,30 +191,36 @@ public final class CastPortalSite extends Composite {
 				return true;
 			}
 			case DIG -> {
-				if (idx >= plan.dig().size()) {
+				FairProbe seen = new FairProbe();
+				PortalSite.Plan now = placed ? PortalSite.placedPlan(plan.origin(), plan.along(), seen)
+						: PortalSite.plan(plan.origin(), plan.along(), seen);
+				if (seen.exhausted()) return true;
+				if (now == null) {
+					siteWentBad("newly exposed fluid, hard block or unsafe floor");
+					return true;
+				}
+				plan = now;
+				if (plan.dig().isEmpty()) {
 					breaker.stop();
 					idx = 0;
 					phase = Phase.FLOOR;
 					return true;
 				}
-				BlockPos c = plan.dig().get(idx);
-				FairProbe seen = new FairProbe();
-				if (seen.fluid(c) || seen.fluidNear(c) && !seen.free(c) || seen.hard(c)) {
-					siteWentBad("fluid by " + c.toShortString());
+				// The frame can lie behind the standing rows. Clear the next exposed planned face,
+				// then replan; never break a hidden frame cell through the wall in front of it.
+				BlockPos c = PortalSite.exposedDig(plan, Mc.player().blockPosition(), seen);
+				if (c == null) {
+					breaker.stop();
+					walkNear(plan.origin());
 					return true;
 				}
-				if (seen.free(c)) {
-					idx++;
-					stuck = 0;
-					return true;
-				}
-				if (!seen.visible(c) || !inReach(c)) {
+				if (!inReach(c)) {
 					breaker.stop();
 					walkNear(c);
 					return true;
 				}
 				Bari.stop();
-				if (breaker.tick(c)) idx++;
+				if (breaker.tick(c)) stuck = 0;
 				else if (breaker.ticks() > 20 * 10) siteWentBad("couldn't break " + c.toShortString());
 				return true;
 			}
