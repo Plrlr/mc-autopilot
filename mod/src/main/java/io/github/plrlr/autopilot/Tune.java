@@ -67,7 +67,10 @@ public final class Tune {
 		gene("reflex.clutch_fall", 4, 2, 12, Kind.REAL, "falling farther than this with a water bucket: pour it before landing");
 		// Planner: danger
 		gene("plan.hostile_range", 10, 5, 18, Kind.REAL, "hostiles within this range get an urgent option");
-		gene("plan.hide_hp", 12, 6, 18, Kind.INT, "underground, wall in at or below this health with 2+ monsters near");
+		// Baked in 2026-09-29 (a gene that wins its race becomes the default): hide_hp 15,
+		// recover_night_armor 12, armor_before_portal 0, focus.commit 1 and cave.torches 1 are what
+		// every champion since gen 49 plays (crowned in g6, g10 and g24).
+		gene("plan.hide_hp", 15, 6, 18, Kind.INT, "underground, wall in at or below this health with 2+ monsters near");
 		gene("plan.upkeep_calm_radius", 12, 6, 24, Kind.INT, "no upkeep while a hostile is within this radius");
 		// Planner: food
 		gene("food.eat_at", 14, 8, 18, Kind.INT, "eat at or below this hunger");
@@ -82,7 +85,7 @@ public final class Tune {
 		gene("night.shelter_radius", 16, 6, 32, Kind.INT, "shelter only with a hostile within this radius");
 		gene("night.mine_instead", 0, 0, 1, Kind.BOOL, "at night, skip the shelter when the next step is mining underground anyway");
 		gene("night.shelter_max_s", 720, 60, 720, Kind.INT, "longest wait in a night shelter before going back to work");
-		gene("death.recover_night_armor", 10, 0, 20, Kind.INT, "go back for dropped items at night only with this much armor");
+		gene("death.recover_night_armor", 12, 0, 20, Kind.INT, "go back for dropped items at night only with this much armor");
 		gene("night.no_shaft_wall", 0, 0, 1, Kind.BOOL, "wall in on safe footing when no nearby shelter shaft can be dug");
 		// Planner: gathering amounts
 		gene("gather.first_logs", 2, 1, 6, Kind.INT, "extra logs on the very first wood trip");
@@ -96,7 +99,7 @@ public final class Tune {
 		gene("gather.iron_y", 16, -16, 64, Kind.INT, "height to branch-mine iron at (16: most ore, most caves)");
 		gene("gather.coal_y", 45, 0, 96, Kind.INT, "height to branch-mine coal at");
 		// Route choices (switches)
-		gene("route.armor_before_portal", 1, 0, 1, Kind.BOOL, "chestplate and helmet before the portal");
+		gene("route.armor_before_portal", 0, 0, 1, Kind.BOOL, "chestplate and helmet before the portal");
 		gene("route.boots_before_portal", 1, 0, 1, Kind.BOOL, "boots too when 4 ingots are spare");
 		gene("route.deep_for_lava", 1, 0, 1, Kind.BOOL, "mine down to lava depth instead of exploring for a pool");
 		gene("route.diamond_portal", 0, 0, 1, Kind.BOOL, "portal the classic way (diamond pickaxe, mine 10 obsidian) instead of casting it");
@@ -109,11 +112,11 @@ public final class Tune {
 		gene("pearls.boat_trap", 0, 0, 1, Kind.BOOL, "trap endermen in a boat before killing them (they can't teleport or hit back)");
 		gene("pearls.provoke_s", 25, 8, 60, Kind.INT, "seconds to wait for a stared-at enderman to come into the boat");
 		// Focus: finish the running task unless an emergency comes up
-		gene("focus.commit", 0, 0, 1, Kind.BOOL, "finish the running task before switching, unless the top option is an emergency");
+		gene("focus.commit", 1, 0, 1, Kind.BOOL, "finish the running task before switching, unless the top option is an emergency");
 		// Main loop timing
 		gene("loop.lost_underground_s", 60, 20, 180, Kind.INT, "seconds underground with nothing gained before heading up");
 		// Survival: caves, night, lava, ghasts
-		gene("cave.torches", 0, 0, 1, Kind.BOOL, "place a torch wherever it's dark underground (mobs spawn only in the dark)");
+		gene("cave.torches", 1, 0, 1, Kind.BOOL, "place a torch wherever it's dark underground (mobs spawn only in the dark)");
 		gene("cave.torch_light", 3, 0, 7, Kind.INT, "place a torch when block light at our feet is at or below this");
 		gene("night.wall_in", 0, 0, 1, Kind.BOOL, "at night, wall in on the spot (fast) instead of digging a shelter hole");
 		gene("reflex.lava_margin", 0, 0, 1, Kind.BOOL, "step away from lava right beside us");
