@@ -251,6 +251,11 @@ public final class Autopilot {
 		}
 		Checkpoints.tick(tick);
 		if (tick % 20 == 0) checkpoints();
+		// Room in the bag (Tidy): not while a skill is moving items around itself.
+		if (tick % 20 == 10 && Tune.on("inv.tidy")
+				&& (skill == null || !java.util.Set.of("craft", "smelt", "barter", "stash", "restock", "eat").contains(skill.name()))
+				&& Tidy.tick())
+			log.event("tidy", "threw out a stack of junk");
 		if (tick % 20 == 0) {
 			int m = progress.update(memory);
 			if (m > 0) {
