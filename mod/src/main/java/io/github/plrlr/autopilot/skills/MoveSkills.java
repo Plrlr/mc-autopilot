@@ -371,7 +371,9 @@ public final class MoveSkills {
 			if ("stations".equals(arg) && breakStations()) return;
 			if (current == null || !current.isAlive() || sinceRepath++ > 60) {
 				if (current != null && !current.isAlive()) picked++;
-				List<ItemEntity> items = Perception.look(16).items;
+				List<ItemEntity> items = new java.util.ArrayList<>(Perception.look(16).items);
+				// Not the junk we tossed ourselves (Tidy), or it would be picked straight back up.
+				if (io.github.plrlr.autopilot.Tune.on("inv.tidy")) items.removeIf(it -> io.github.plrlr.autopilot.Tidy.unwanted(it.getItem()));
 				if (items.isEmpty() || picked >= 12) {
 					done(picked > 0 ? "picked up " + picked + " stacks" : "nothing left to pick up");
 					return;
