@@ -1,6 +1,7 @@
 package io.github.plrlr.autopilot.skills;
 
 import io.github.plrlr.autopilot.Mc;
+import io.github.plrlr.autopilot.Tune;
 import io.github.plrlr.autopilot.plan.Facts;
 import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.core.BlockPos;
@@ -20,6 +21,7 @@ public final class StairDown extends Skill {
 	private int targetY, steps, turns, walk;
 	private int stoneBefore = -1, stoneWant;
 	private BlockPos next;
+	private CaveSeal caveSeal;
 
 	@Override
 	public String name() {
@@ -55,6 +57,7 @@ public final class StairDown extends Skill {
 			return;
 		}
 		Bari.stop();
+		if (Tune.on("cave.seal_openings")) caveSeal = new CaveSeal(new net.minecraft.world.level.block.Block[0]);
 		dir = Mc.player().getDirection();
 		if (!pickDirection()) fail(Fail.HAZARD, "no safe direction to dig down");
 	}
@@ -83,6 +86,20 @@ public final class StairDown extends Skill {
 	protected void tick() {
 		LocalPlayer pl = Mc.player();
 		BlockPos feet = pl.blockPosition();
+		if (caveSeal != null) {
+			CaveSeal.Status seal = caveSeal.tick();
+			if (seal == CaveSeal.Status.FAILED) { fail(Fail.PLACE_FAILED, "couldn't close a cave opening on the stairs"); return; }
+			if (seal == CaveSeal.Status.BUSY) { breaker.stop(); Mc.mc().options.keyUp.setDown(false); return; }
+			if (seal == CaveSeal.Status.SEALED) {
+				// The next step would reopen the wall, so turn the staircase away from the cave.
+				breaker.stop();
+				Mc.mc().options.keyUp.setDown(false);
+				next = null;
+				dir = dir.getClockWise();
+				turns++;
+				return;
+			}
+		}
 		if (stoneBefore >= 0 && Mc.count("stone") - stoneBefore >= stoneWant) {
 			breaker.stop();
 			done("mined enough stone on the stairs");
