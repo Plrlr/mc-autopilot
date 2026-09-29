@@ -71,6 +71,11 @@ public final class CastPortalSite extends Composite {
 		}
 
 		@Override
+		public boolean lava(BlockPos p) {
+			return Mc.state(p).getFluidState().is(net.minecraft.tags.FluidTags.LAVA);
+		}
+
+		@Override
 		public boolean fluidNear(BlockPos p) {
 			for (Direction d : Direction.values()) if (!Mc.state(p.relative(d)).getFluidState().isEmpty()) return true;
 			return false;
@@ -194,16 +199,16 @@ public final class CastPortalSite extends Composite {
 				}
 				BlockPos c = plan.dig().get(idx);
 				FairProbe seen = new FairProbe();
-				if (seen.fluid(c) || seen.fluidNear(c) && !Mc.free(c)) {
+				if (seen.fluid(c) || seen.fluidNear(c) && !seen.free(c) || seen.hard(c)) {
 					siteWentBad("fluid by " + c.toShortString());
 					return true;
 				}
-				if (Mc.free(c)) {
+				if (seen.free(c)) {
 					idx++;
 					stuck = 0;
 					return true;
 				}
-				if (!inReach(c)) {
+				if (!seen.visible(c) || !inReach(c)) {
 					breaker.stop();
 					walkNear(c);
 					return true;
@@ -227,6 +232,10 @@ public final class CastPortalSite extends Composite {
 					return false;
 				}
 				BlockPos f = plan.floor().get(idx);
+				if (!Mc.canSee(f)) {
+					walkNear(f);
+					return true;
+				}
 				if (Mc.solid(f)) {
 					idx++;
 					placeTries = 0;
