@@ -1,6 +1,6 @@
-# Portal drill on pull requests that change the mod: 3 saved starts at the portal wall, each played
-# with and without the suggestions the PR adds (scripts/loop/drill.py), 12 game minutes, results as
-# a PR comment. A smoke test that catches a broken change in ~40 minutes; the loop's race still decides.
+# Drill gate on pull requests that change the mod: each idea the PR adds to the loop's queue is played
+# with and without it where it acts (lava starts, the combat drill, or fresh worlds; scripts/loop/drill.py),
+# 3 pairs, judged by its own metric, results and a PASS/FAIL verdict as a PR comment.
 name: PR drill
 
 on:
@@ -40,7 +40,7 @@ jobs:
     needs: plan
     if: needs.plan.outputs.runs != '[]'
     runs-on: ubuntu-latest
-    timeout-minutes: 90
+    timeout-minutes: 100
     strategy:
       fail-fast: false
       matrix:
@@ -57,7 +57,8 @@ jobs:
         with:
           name: ${{ matrix.name }}
           seed: ${{ matrix.seed }}
-          minutes: '12'
+          minutes: ${{ matrix.minutes }}
+          scenario: ${{ matrix.scenario }}
           params: ${{ env.PARAMS_FILE }}
           lean: 'true'
           window: '427x240'
@@ -72,6 +73,8 @@ jobs:
     timeout-minutes: 10
     steps:
       - uses: actions/checkout@v7
+        with:
+          fetch-depth: 0
       - uses: actions/download-artifact@v8
         with:
           pattern: trial-drill-*
@@ -80,7 +83,9 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
           PR: ${{ github.event.pull_request.number }}
+          BASE: ${{ github.event.pull_request.base.sha }}
         run: |
-          python3 scripts/loop/drill.py report --batch batch --minutes 12 > report.md
+          git show "$BASE:scripts/loop/settings.json" > "$RUNNER_TEMP/base.json" 2>/dev/null || echo '{}' > "$RUNNER_TEMP/base.json"
+          python3 scripts/loop/drill.py report --base "$RUNNER_TEMP/base.json" --head scripts/loop/settings.json --batch batch > report.md
           cat report.md >> "$GITHUB_STEP_SUMMARY"
           gh pr comment "$PR" -R "$GITHUB_REPOSITORY" --body-file report.md
