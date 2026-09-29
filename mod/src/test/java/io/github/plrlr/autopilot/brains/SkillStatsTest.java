@@ -94,4 +94,14 @@ class SkillStatsTest {
 		assertEquals(only, Brain.demoteFailing(only, Set.of(), List.of("overworld")));
 		shared.clearLocal();
 	}
+
+	@org.junit.jupiter.api.Test
+	void deadlyNeedsEvidence() {
+		// 5 deaths in 20 tries: deadly.
+		org.junit.jupiter.api.Assertions.assertTrue(new SkillStats.Estimate(0.5, 0.3, 0.7, 10, 10, (5 + 0.08) / 24.0, 20).clearlyDeadly());
+		// 2 deaths in 20: not proven.
+		org.junit.jupiter.api.Assertions.assertFalse(new SkillStats.Estimate(0.5, 0.3, 0.7, 10, 10, (2 + 0.08) / 24.0, 20).clearlyDeadly());
+		// Too few tries.
+		org.junit.jupiter.api.Assertions.assertFalse(new SkillStats.Estimate(0.5, 0.3, 0.7, 10, 10, 0.5, 4).clearlyDeadly());
+	}
 }
