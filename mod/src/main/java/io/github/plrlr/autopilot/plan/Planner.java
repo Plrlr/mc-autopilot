@@ -384,6 +384,9 @@ public final class Planner {
 		// (batch 11, seed d: four deaths at y 0-11, then 12 minutes of goto surface STUCK at y 2).
 		// Rebuilding the tools takes about a minute; the items keep for five.
 		if (death.pos().getY() < Mc.player().getBlockY() - 12 && Items2.bestTier("pickaxe") < 1) return null;
+		// Gene death.recover_value: only when the drops are worth the walk back and we can take a fight.
+		if (Tune.on("death.recover_value") && !SurvivalPlan.recoveryWorthIt(Mc.player().getHealth(), Mc.count(Items2.matcher("food")) > 0))
+			return null;
 		return SurvivalPlan.recover(new Option("goto", "death", "get back the items dropped when we died"));
 	}
 

@@ -87,8 +87,12 @@ final class EscapePlan {
 		boolean noCloseRetreat = Tune.on("combat.no_close_retreat");
 		// A second mob can be a creeper: don't wall in or fight with a blast about to happen.
 		if (noCloseRetreat && escapeCreeper(seen) != null) return new Option("retreat", null, why + ": creeper close");
-		if (canShelter) return new Option("shelter", "heal", why + ": wall in and heal");
 		Perception.Seen hostile = seen.nearestHostile();
+		// Gene combat.finish_heal_wall: no walling in with a melee mob already on us (it stands in the gap).
+		if (canShelter && Tune.on("combat.finish_heal_wall") && hostile != null && hostile.dist() <= 2.0
+				&& !hostile.type().equals("creeper"))
+			return new Option("attack", hostile.type(), why + ": too close to wall in");
+		if (canShelter) return new Option("shelter", "heal", why + ": wall in and heal");
 		// Keep the four-block danger zone even if the fight reflex's distance gene is lower.
 		if (noCloseRetreat && hostile != null && hostile.dist() <= 4 && !hostile.type().equals("creeper"))
 			return new Option("attack", hostile.type(), why + ": too close to turn our back");

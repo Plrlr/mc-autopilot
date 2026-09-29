@@ -106,6 +106,9 @@ public final class CollectSkill extends Skill {
 		// the caves and mobs deeper down); everything else is a surface block.
 		mineY = src.mineY();
 		if (item.equals("raw_iron")) mineY = io.github.plrlr.autopilot.Tune.i("gather.iron_y");
+		// Gene gather.cautious_depth: not down to the deepest caves without armor (plan/DepthPlan).
+		if (item.equals("raw_iron") && io.github.plrlr.autopilot.Tune.on("gather.cautious_depth"))
+			mineY = io.github.plrlr.autopilot.plan.DepthPlan.ironY(mineY, Mc.player().getArmorValue());
 		if (item.equals("coal")) mineY = io.github.plrlr.autopilot.Tune.i("gather.coal_y");
 		// Deep ores take a while to find by branch mining.
 		timeoutTicks = ticks + 20 * (mineY != null && mineY < 0 ? 900 : 360);

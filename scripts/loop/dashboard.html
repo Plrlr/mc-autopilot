@@ -175,8 +175,17 @@ function showTip(ev, title, rows) {
 }
 const hideTip = () => { tip.style.display = "none"; };
 
+// Live data first: the files on the trial-results branch, straight from GitHub (a few minutes of cache).
+// The deployed copy next to this page is the fallback; it waits for a Pages build, which queues behind
+// the loop's 20 jobs (2026-09-29: the page showed gen 61 an hour after gen 62 was scored).
+const LIVE = "https://raw.githubusercontent.com/Plrlr/mc-autopilot/trial-results/";
+
 async function load() {
-  const get = async (p, json) => { try { const r = await fetch(p + "?t=" + Date.now()); if (!r.ok) return null; return json ? r.json() : r.text(); } catch (e) { return null; } };
+  const fetchOne = async (url, json) => { const r = await fetch(url + "?t=" + Date.now()); if (!r.ok) throw new Error(r.status); return json ? r.json() : r.text(); };
+  const get = async (p, json) => {
+    try { return await fetchOne(LIVE + p, json); } catch (e) { /* fall back to the deployed copy */ }
+    try { return await fetchOne(p, json); } catch (e) { return null; }
+  };
   const [hist, state, model] = await Promise.all([get("loop/history.jsonl"), get("loop/state.json", true), get("loop/learned.json", true)]);
   const history = (hist || "").split("\n").filter((l) => l.trim()).map((l) => { try { return JSON.parse(l); } catch (e) { return null; } }).filter(Boolean);
   return { history, state, model };

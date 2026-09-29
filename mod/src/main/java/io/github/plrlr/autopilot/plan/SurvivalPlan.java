@@ -126,6 +126,35 @@ public final class SurvivalPlan {
 		return new Option("recover_items", null, old.why() + ", carefully");
 	}
 
+	/** What the last death dropped, in "iron ingots" (kitValue); set when we die. */
+	private static volatile int lostValue;
+
+	public static void noteDeath(int value) {
+		lostValue = value;
+	}
+
+	/**
+	 * Gene death.recover_value: go back for dropped items only when they're worth it (iron-tier or
+	 * better, about 6 ingots' worth) and we can take a fight (health 12+, or food to heal). The local
+	 * trial night2 (2026-09-29) walked 40 blocks down, at 7 hp with no food, into the cave that had
+	 * just killed it, for stone tools and cobblestone that take ~30 s to remake, and died again.
+	 */
+	public static boolean recoveryWorthIt(float health, boolean food) {
+		return lostValue >= 6 && (health >= 12 || food);
+	}
+
+	/** Worth of a kit in iron ingots: what takes real time to get back. Stone, wood and dirt count 0. */
+	public static int kitValue(java.util.function.ToIntFunction<String> count) {
+		int v = count.applyAsInt("iron_ingot") + count.applyAsInt("raw_iron") + 2 * count.applyAsInt("gold_ingot") / 3;
+		v += 3 * (count.applyAsInt("iron_pickaxe") + count.applyAsInt("iron_sword") + count.applyAsInt("iron_axe") + count.applyAsInt("bucket")
+				+ count.applyAsInt("water_bucket") + count.applyAsInt("lava_bucket") + count.applyAsInt("shield"));
+		v += 5 * (count.applyAsInt("iron_helmet") + count.applyAsInt("iron_boots")) + 8 * (count.applyAsInt("iron_chestplate") + count.applyAsInt("iron_leggings"));
+		v += 5 * count.applyAsInt("diamond") + 15 * (count.applyAsInt("diamond_pickaxe") + count.applyAsInt("diamond_sword"));
+		v += 2 * count.applyAsInt("obsidian") + 2 * count.applyAsInt("flint_and_steel") + 3 * count.applyAsInt("ender_pearl")
+				+ 4 * count.applyAsInt("blaze_rod") + 8 * count.applyAsInt("ender_eye");
+		return v;
+	}
+
 	/** A lone distant pursuer does not justify losing a five-minute kit retrieval window. */
 	public static boolean recoveryThreat(double hostileDistance, int nearby, double creeperDistance, float health) {
 		return health <= 8 || nearby >= 2 || hostileDistance <= 4 || creeperDistance < 7;

@@ -65,6 +65,11 @@ public final class CombatSkills {
 		return Tune.on("combat.ignore_walled_mobs") && unreachable(e) && !Mc.canSee(e) && Mc.player().hurtTime == 0;
 	}
 
+	/** Leave this mob alone for a minute: the livelock breaker found us looping around it. */
+	public static void leaveAlone(Entity e) {
+		markUnreachable(e);
+	}
+
 	/** Leave this mob alone for a minute (another skill couldn't reach it either). */
 	static void markUnreachable(Entity e) {
 		UNREACHABLE.put(e.getId(), System.currentTimeMillis() + 60_000);
@@ -268,8 +273,7 @@ public final class CombatSkills {
 					&& !pl.isInWater() && !pl.onClimbable() && !(target instanceof EnderDragon);
 			int groupStep = !ready && pack.size() >= 2 ? groupStep(pl, pack) : -1;
 			if (groupStep >= 0) {
-				// Offsets 1 and 2 are (-cos, -sin) and (cos, sin) of our yaw: the player's right and left
-				// in Minecraft's axes (CombatFootwork's "right" argument points to the player's left).
+				// Offsets 1 and 2 are (-cos, -sin) and (cos, sin) of our yaw: the player's right and left.
 				o.keyDown.setDown(groupStep == 0);
 				o.keyRight.setDown(groupStep == 1);
 				o.keyLeft.setDown(groupStep == 2);
@@ -341,7 +345,8 @@ public final class CombatSkills {
 					new CombatGroups.Point(-0.8 * cos, -0.8 * sin),
 					new CombatGroups.Point(0.8 * cos, 0.8 * sin)
 			};
-			boolean[] safe = {CombatFootwork.safe(pl, -1, 0), CombatFootwork.safe(pl, 0, -1), CombatFootwork.safe(pl, 0, 1)};
+			// Offsets: back, right (-cos, -sin), left (cos, sin); CombatFootwork's right > 0 is the player's right.
+			boolean[] safe = {CombatFootwork.safe(pl, -1, 0), CombatFootwork.safe(pl, 0, 1), CombatFootwork.safe(pl, 0, -1)};
 			List<CombatGroups.Point> zombies = new ArrayList<>();
 			for (Perception.Seen m : pack) zombies.add(new CombatGroups.Point(
 					m.entity().getX() - pl.getX(), m.entity().getZ() - pl.getZ()));

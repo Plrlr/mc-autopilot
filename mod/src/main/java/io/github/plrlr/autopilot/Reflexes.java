@@ -32,6 +32,12 @@ final class Reflexes {
 		}
 		// The End's guard (gene skill.end_guard): never meet an enderman's eyes, never fall into the void.
 		if (Tune.on("skill.end_guard") && io.github.plrlr.autopilot.skills.EndRoutes.EndGuard.guard()) return;
+		// Gene safety.enderman_gaze: look away before an enderman's eyes meet ours (skills/EndermanGaze).
+		if (Tune.on("safety.enderman_gaze") && !(a.skill instanceof io.github.plrlr.autopilot.skills.EndermanGaze)
+				&& io.github.plrlr.autopilot.skills.EndermanGaze.threat()) {
+			a.startReflex(new io.github.plrlr.autopilot.plan.Option("gaze_avoid", null, "an enderman is in view: don't meet its eyes"), "reflex_gaze");
+			return;
+		}
 		Danger.Verdict danger = Tune.on("survival.danger_v2") ? DangerSense.assess(a.seen) : null;
 		boolean lavaWork = a.skill != null && java.util.Set.of("build_portal", "fill_bucket", "make_obsidian", "clutch").contains(a.skill.name());
 		if (danger != null && pl.isOnFire() && !lavaWork && !Mc.dimension().equals("the_nether")
@@ -156,7 +162,7 @@ final class Reflexes {
 					a.startReflex(response, "reflex_creeper");
 				return;
 			}
-			if (!hiding && !(Tune.on("combat.finish_heal_wall")
+			if (!hiding && !(Tune.on("combat.finish_heal_wall") && io.github.plrlr.autopilot.skills.NightSkills.Shelter.wallHasTime(h.dist())
 					&& a.skill instanceof io.github.plrlr.autopilot.skills.NightSkills.Shelter sh && sh.buildingHealWall())
 					&& (h.dist() < Tune.get("reflex.melee_dist") || Tune.on("combat.no_close_retreat") && h.dist() <= 4)) {
 				// Run only when outnumbered: one mob at arm's length follows and hits our back (batch
@@ -168,8 +174,8 @@ final class Reflexes {
 					double[] x = Tune.on("safety.hazard") ? a.features() : null;
 					Brain.Choice c = a.brain.decideReflex(choices, x);
 					// Keep swinging at the same target instead of resetting the attack every reflex.
-					if (!Tune.on("combat.no_close_retreat") || a.skill == null || a.skillOption == null
-							|| !c.option().label().equals(a.skillOption.label())) a.startReflex(choices, c, x, "reflex_low_hp");
+					if ((!Tune.on("combat.no_close_retreat") || a.skill == null || a.skillOption == null
+							|| !c.option().label().equals(a.skillOption.label())) && !committed(a, c.option())) a.startReflex(choices, c, x, "reflex_low_hp");
 				}
 				else {
 					List<Option> choices = Planner.escapeChoices(a.seen, io.github.plrlr.autopilot.plan.SurvivalPlan.outnumbered(a.seen,
@@ -178,7 +184,7 @@ final class Reflexes {
 					Brain.Choice c = a.brain.decideReflex(choices, x);
 					boolean already = a.skill != null && (c.option().skill().equals("attack") ? a.skill.name().equals("attack")
 							: a.skillOption != null && c.option().label().equals(a.skillOption.label()));
-					if (!already) a.startReflex(choices, c, x, "reflex_fight");
+					if (!already && !committed(a, c.option())) a.startReflex(choices, c, x, "reflex_fight");
 				}
 				return;
 			}
@@ -198,4 +204,21 @@ final class Reflexes {
 		}
 	}
 
+
+	/**
+	 * Gene combat.commit_target: while we're fighting a mob that's alive and in reach, a reflex may
+	 * pull us out (retreat, box in) but not switch us to another fight. The rerun of local trial night2
+	 * (2026-09-29) died flipping every 2 s between "block_arrows" (a skeleton), "attack zombie" and
+	 * "attack skeleton" with the zombie at arm's length: each switch restarts the approach, so neither
+	 * mob was finished and both kept hitting. A player kills the one in front first.
+	 */
+	private static boolean committed(Autopilot a, Option choice) {
+		if (!Tune.on("combat.commit_target") || a.skill == null || a.skillOption == null || !a.skill.name().equals("attack")) return false;
+		if (!java.util.Set.of("attack", "block_arrows", "kite", "creeper_defuse").contains(choice.skill())) return false;
+		if (choice.label().equals(a.skillOption.label())) return false;
+		String target = a.skillOption.arg();
+		for (var m : a.seen.mobs)
+			if (m.type().equals(target) && m.hostile() && m.dist() <= Tune.get("reflex.melee_dist") + 0.5) return true;
+		return false;
+	}
 }

@@ -57,6 +57,7 @@ public final class Autopilot {
 	long enableTick;
 	private String worldName;
 	private Boolean savedPauseOnLostFocus;
+	private net.minecraft.client.InactivityFpsLimit savedInactivityFps;
 
 	// Goal
 	Goal goal;
@@ -86,6 +87,7 @@ public final class Autopilot {
 	long dangerReflexUntil;
 	long lavaMarginTick = -1000;
 	final Map<String, long[]> failures = new HashMap<>(); // label -> {count, blockedUntilTick}
+	final LivelockWatch livelock = new LivelockWatch();
 	String lastEndedKey = "";
 	String lastNoopKey = "";
 	int noopStreak;
@@ -152,6 +154,12 @@ public final class Autopilot {
 		learned.loadAsync(model.isBlank() ? home.resolve("learned.json") : Path.of(model));
 		Bari.applyFairPlay();
 		savedPauseOnLostFocus = mc.options.pauseOnLostFocus;
+		// The autopilot's key presses aren't input to the game's AFK check: after ~10 minutes it capped
+		// the frame rate at 10, and at 10 fps the game plays at about half speed. Every loop game dropped
+		// from ~30 to 10 fps at ~570 s (gen 58's logs): 0.58-0.70x over 30 minutes against ~0.9x in
+		// 10-minute runs. Limit only when minimized while we play; the player's own choice comes back after.
+		savedInactivityFps = mc.options.inactivityFpsLimit().get();
+		mc.options.inactivityFpsLimit().set(net.minecraft.client.InactivityFpsLimit.MINIMIZED);
 		// Alt-tabbing would pause the world and freeze the AI mid-fight.
 		mc.options.pauseOnLostFocus = false;
 		goal = null;
@@ -173,6 +181,8 @@ public final class Autopilot {
 		Skill.releaseKeys();
 		if (savedPauseOnLostFocus != null && Mc.mc().options != null) Mc.mc().options.pauseOnLostFocus = savedPauseOnLostFocus;
 		savedPauseOnLostFocus = null;
+		if (savedInactivityFps != null && Mc.mc().options != null) Mc.mc().options.inactivityFpsLimit().set(savedInactivityFps);
+		savedInactivityFps = null;
 		status = "off";
 		lessons.save();
 		Mc.say("OFF (" + why + ").");
@@ -279,6 +289,7 @@ public final class Autopilot {
 			io.github.plrlr.autopilot.skills.SmeltSkill.forgetJobs();
 			io.github.plrlr.autopilot.plan.Facts.clear();
 			io.github.plrlr.autopilot.brains.SkillStats.shared().clearLocal();
+			io.github.plrlr.autopilot.plan.DepthPlan.reset();
 			io.github.plrlr.autopilot.brains.Thompson.clear();
 			io.github.plrlr.autopilot.plan.Escalation.clear();
 			progress.load(name);
@@ -293,11 +304,18 @@ public final class Autopilot {
 				// Died again on the way back for our items: they aren't worth a third trip.
 				boolean onTheWayBack = skill != null && skill.name().equals("goto") && skillOption != null
 						&& "death".equals(skillOption.arg());
+				// What we drop now decides whether walking back is worth it (gene death.recover_value).
+				io.github.plrlr.autopilot.plan.SurvivalPlan.noteDeath(io.github.plrlr.autopilot.plan.SurvivalPlan.kitValue(Mc::count));
 				abortSkill("died", false);
 				Bari.stop();
 				progress.died();
+				io.github.plrlr.autopilot.plan.DepthPlan.noteDeath(pl.getBlockY(), !pl.level().canSeeSky(pl.blockPosition().above()));
 				io.github.plrlr.autopilot.plan.Escalation.clear();
-				String cause = pl.getLastDamageSource() == null ? "unknown" : pl.getLastDamageSource().type().msgId();
+				var src = pl.getLastDamageSource();
+				String cause = src == null ? "unknown" : src.type().msgId();
+				// Name the killer ("mob:enderman"): "mob" alone lumped zombies, endermen and spiders together
+				// in every death table (the local trial night2's enderman death read "mob").
+				if (src != null && src.getEntity() != null && !(src.getEntity() instanceof LocalPlayer)) cause += ":" + Mc.id(src.getEntity());
 				log.event("death", cause);
 				// Drops survive 5 minutes unless lava or the void took them; go back for them.
 				for (WorldMemory.Seen d : memory.all("death")) memory.forget("death", d.pos());
@@ -421,6 +439,12 @@ public final class Autopilot {
 		return hash;
 	}
 
+	/** Blocks to the nearest hostile we perceive (infinite when none). */
+	private double nearestHostileDist() {
+		var h = seen == null ? null : seen.nearestHostile();
+		return h == null ? Double.POSITIVE_INFINITY : h.dist();
+	}
+
 	/** "collect log:3" and "collect log:2" are the same action; counts shrink as progress is made. */
 	static String actionKey(Option o) {
 		String a = o.arg() == null ? "" : o.arg();
@@ -449,7 +473,7 @@ public final class Autopilot {
 		// the shelter sealed (21 reflex interruptions in gens 57-58). The reflexes still handle
 		// creepers and environmental emergencies; the shelter itself detects hits after sealing.
 		if (Tune.on("combat.finish_heal_wall") && skill instanceof io.github.plrlr.autopilot.skills.NightSkills.Shelter sh
-				&& (sh.buildingHealWall() || sh.sealed())) return;
+				&& (sh.buildingHealWall() && io.github.plrlr.autopilot.skills.NightSkills.Shelter.wallHasTime(nearestHostileDist()) || sh.sealed())) return;
 		// The blaze fight handles getting hurt itself (it backs off out of sight to eat). A "hurt"
 		// decision picked eat and stopped it in the open while burning: the laptop's blaze run
 		// after e2e2ffe died that way 30 s in.
