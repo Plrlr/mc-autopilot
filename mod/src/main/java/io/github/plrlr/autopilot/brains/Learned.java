@@ -84,6 +84,7 @@ public final class Learned {
 						return;
 					}
 					model = r.model();
+					SkillStats.shared().load(r.skills());
 					loadedLine = r.line();
 				});
 	}
@@ -99,10 +100,16 @@ public final class Learned {
 	public String load(Path file) {
 		Loaded r = read(file);
 		model = r.model();
+		SkillStats.shared().load(r.skills());
 		return r.line();
 	}
 
-	private record Loaded(Model model, String line) {}
+	/** skills: learned.json's skill stats (brains/SkillStats), null when the file has none. */
+	private record Loaded(Model model, String line, JsonObject skills) {
+		Loaded(Model model, String line) {
+			this(model, line, null);
+		}
+	}
 
 	private static Loaded read(Path file) {
 		Model none = Model.NONE;
@@ -131,9 +138,11 @@ public final class Learned {
 			double scale = o.has("scale") ? Math.max(1e-6, o.get("scale").getAsDouble()) : 1;
 			String id = o.has("id") ? o.get("id").getAsString() : "unnamed";
 			HazardModel hz = o.has("hazard") ? new HazardModel(o.getAsJsonObject("hazard"), FEATURES.size()) : null;
+			JsonObject skills = o.has("skills") && o.get("skills").isJsonObject() ? o.getAsJsonObject("skills") : null;
 			return new Loaded(new Model(w, tm, scale, id, hz),
 					"learned model: " + id + " (" + (isTrees ? tm.size() + " action kinds, trees" : w.size() + " action kinds")
-							+ (hz == null ? "" : String.format(", danger model AUC %.2f", hz.auc)) + ")");
+							+ (hz == null ? "" : String.format(", danger model AUC %.2f", hz.auc))
+							+ (skills == null ? "" : ", skill stats for " + skills.size() + " keys") + ")", skills);
 		} catch (Exception e) {
 			return new Loaded(none, "learned model: couldn't read (" + e + ")");
 		}

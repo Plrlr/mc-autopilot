@@ -465,7 +465,7 @@ def save_training_rows(state_dir, gen, name, d):
     action kind, propensity, urgent) and outcomes (milestones, checkpoints, deaths with game
     seconds interpolated from wall time). Written as loop/data/gen-NNNNN/<run>.jsonl.gz."""
     rows, wall_to_gs = [], []
-    events = []
+    events, skills = [], []
     for f in sorted(glob.glob(os.path.join(d, "**", "run-*.jsonl"), recursive=True)):
         for line in open(f, errors="replace"):
             try:
@@ -483,10 +483,19 @@ def save_training_rows(state_dir, gen, name, d):
                              "p": o.get("prop", 1), "i": idx, "u": label in o.get("urgent", [])})
             elif o.get("event") in ("death", "milestone", "checkpoint"):
                 events.append((o["t"], o["event"], o.get("detail", "")))
+            elif o.get("event") == "skill_end" and "t" in o:
+                # Skill results (brain v2's skill stats): which action, ok or its fail code, how long.
+                skills.append((o["t"], action_key(o.get("skill", "")), bool(o.get("ok")), o.get("code"),
+                               round(float(o.get("seconds", 0)), 1)))
     if not rows:
         return
     for t, ev, detail in events:
         rows.append({"k": ev, "gs": interp(wall_to_gs, t), "detail": detail})
+    for t, key, ok, code, sec in skills:
+        r = {"k": "s", "gs": interp(wall_to_gs, t), "a": key, "ok": ok, "sec": sec}
+        if code:
+            r["c"] = code
+        rows.append(r)
     rows.sort(key=lambda r: r["gs"])
     out = os.path.join(state_dir, "data", "gen-%05d" % gen, name + ".jsonl.gz")
     os.makedirs(os.path.dirname(out), exist_ok=True)

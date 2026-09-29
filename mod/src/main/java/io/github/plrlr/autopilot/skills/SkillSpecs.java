@@ -14,6 +14,8 @@ import java.util.Map;
  *
  * Adding a skill: add its spec here, in its stage's block, with honest priors (what a first
  * version really manages) and its gene. Keys must match what the brain logs (SkillSpec.keyOf).
+ * Routes the bot already plays have no gene: choosing between them is the strategist's job, by
+ * learned cost. A new skill's gene keeps its route out until the loop has raced it.
  *
  * Priors from the loop's data where it exists (generations 41-46, 2026-09-28): the portal drill
  * saw lava in 26 of 26 tries and placed obsidian once, so casting starts at 5%.
@@ -26,6 +28,17 @@ public final class SkillSpecs {
 	static {
 		List<SkillSpec> s = new ArrayList<>();
 
+		// ---- finding things and filling buckets: what the routes below need first
+		s.add(SkillSpec.of("explore", "lava").stage("portal")
+				.facts("overworld").makes("lava_pool").prior(240, 0.5)
+				.help("walk and look for a lava pool (surface pools, caves in sight)").build());
+		s.add(SkillSpec.of("explore", "water").stage("any")
+				.makes("water_known").prior(90, 0.7)
+				.help("walk and look for water").build());
+		s.add(SkillSpec.of("fill_bucket", "water").stage("any")
+				.needs("bucket", 1).facts("water_known").gives("water_bucket", 1).prior(30, 0.8)
+				.help("fill a bucket at known water").build());
+
 		// ---- portal: 10 obsidian and a lit frame
 		s.add(SkillSpec.of("build_portal", null).stage("portal")
 				.needs("bucket", 2, "water_bucket", 1, "flint_and_steel", 1, "throwaway", 28).facts("overworld", "lava_pool")
@@ -37,7 +50,7 @@ public final class SkillSpecs {
 				.help("place 10 carried obsidian as a frame and light it").build());
 		s.add(SkillSpec.of("make_obsidian", "obsidian").stage("portal")
 				.needs("water_bucket", 1, "diamond_pickaxe", 1).facts("overworld", "lava_pool")
-				.makes("obsidian_known").prior(90, 0.3).gene("route.diamond_portal")
+				.makes("obsidian_known").prior(90, 0.3)
 				.help("pour water on a lava pool to harden it, for mining with a diamond pickaxe").build());
 		s.add(SkillSpec.of("collect", "obsidian").stage("portal")
 				.needs("diamond_pickaxe", 1).facts("obsidian_known")
@@ -55,10 +68,10 @@ public final class SkillSpecs {
 				.facts("in_nether", "fortress_known").gives("blaze_rod", 7).prior(300, 0.2)
 				.help("hold a spot at the blaze spawner and hit the blazes that come close").build());
 		s.add(SkillSpec.of("barter", null).stage("nether")
-				.needs("gold_ingot", 12).facts("in_nether").gives("ender_pearl", 4).prior(240, 0.3).gene("route.barter")
+				.needs("gold_ingot", 12).facts("in_nether").gives("ender_pearl", 4).prior(240, 0.3)
 				.help("trade gold ingots with piglins (about 1 pearl per 3 ingots on average)").build());
 		s.add(SkillSpec.of("enderman_boat", null).stage("any")
-				.needs("boat", 1).gives("ender_pearl", 1).prior(60, 0.3).gene("pearls.boat_trap")
+				.needs("boat", 1).gives("ender_pearl", 1).prior(60, 0.3)
 				.help("trap an enderman in a boat and kill it").build());
 		s.add(SkillSpec.of("attack", "enderman").stage("any")
 				.gives("ender_pearl", 1).prior(40, 0.35)

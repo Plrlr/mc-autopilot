@@ -139,6 +139,16 @@ public final class Tune {
 		gene("learned.explore", 0, 0, 0.3, Kind.REAL, "chance to try a non-first option (data for learning)");
 		gene("safety.hazard", 0, 0, 1, Kind.BOOL, "the learned danger model may swap a pick (emergencies too) for a clearly safer option");
 		gene("safety.hazard_margin", 0.1, 0.03, 0.4, Kind.REAL, "how much lower the death risk must be to swap (0.1 = 10 points)");
+		// Brain v2 (docs/brain-v2.md): routes by learned cost, skill stats, escalation, readiness.
+		gene("brain.strategist", 0, 0, 1, Kind.BOOL, "pick late-game routes (portal, rods, pearls, stronghold, End) by learned expected time");
+		gene("brain.death_s", 600, 120, 1800, Kind.INT, "what a death costs in the strategist's sums, in seconds (the kit is lost)");
+		gene("brain.skill_stats", 0, 0, 1, Kind.BOOL, "options that clearly fail here (learned skill stats) go behind the ones that work");
+		gene("reflex.escalate", 0, 0, 1, Kind.BOOL, "fled the same way twice in 30 s: stand and fight or wall in instead of running again");
+		gene("plan.readiness", 0, 0, 1, Kind.BOOL, "check the kit before a one-way door (Nether, End) and get what's missing first");
+		gene("ready.nether_blocks", 32, 0, 128, Kind.INT, "throwaway blocks to carry into the Nether");
+		gene("ready.nether_food", 6, 0, 32, Kind.INT, "food to carry into the Nether");
+		gene("ready.end_blocks", 64, 0, 192, Kind.INT, "throwaway blocks to carry into the End");
+		gene("ready.end_food", 10, 0, 32, Kind.INT, "food to carry into the End");
 		reset();
 	}
 
