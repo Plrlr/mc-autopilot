@@ -732,20 +732,28 @@ def cmd_merge(a):
         return
 
     def git(*args, check=True):
-        return subprocess.run(["git", *args], cwd=common.ROOT, check=check, capture_output=True, text=True)
-    git("fetch", "-q", "origin", "main")
-    main = git("rev-parse", "FETCH_HEAD").stdout.strip()
+        return subprocess.run(["git", *args], cwd=common.ROOT, check=check, capture_output=True, text=True, timeout=120)
     ok = False
-    if git("merge-base", "--is-ancestor", main, m["sha"], check=False).returncode == 0:
-        ok = git("push", "-q", "origin", "%s:refs/heads/main" % m["sha"], check=False).returncode == 0
-    else:
-        git("checkout", "-q", "--detach", main)
-        r = git("-c", "user.name=github-actions[bot]", "-c", "user.email=41898282+github-actions[bot]@users.noreply.github.com",
-                "merge", "--no-ff", "-m", "Merge %s: won the loop's race (%s)" % (m["branch"], m["summary"]), m["sha"], check=False)
-        if r.returncode == 0:
-            ok = git("push", "-q", "origin", "HEAD:refs/heads/main", check=False).returncode == 0
+    try:
+        git("fetch", "-q", "origin", "main")
+        main = git("rev-parse", "FETCH_HEAD").stdout.strip()
+        if git("merge-base", "--is-ancestor", main, m["sha"], check=False).returncode == 0:
+            ok = git("push", "-q", "origin", "%s:refs/heads/main" % m["sha"], check=False).returncode == 0
         else:
+            git("checkout", "-q", "--detach", main)
+            r = git("-c", "user.name=github-actions[bot]", "-c", "user.email=41898282+github-actions[bot]@users.noreply.github.com",
+                    "merge", "--no-ff", "-m", "Merge %s: won the loop's race (%s)" % (m["branch"], m["summary"]), m["sha"], check=False)
+            if r.returncode == 0:
+                ok = git("push", "-q", "origin", "HEAD:refs/heads/main", check=False).returncode == 0
+            else:
+                git("merge", "--abort", check=False)
+    except (subprocess.SubprocessError, OSError) as e:
+        print("merge: process failed: %s" % e)
+        # A timed-out merge may have left local state; abort it before the publish steps.
+        try:
             git("merge", "--abort", check=False)
+        except (subprocess.SubprocessError, OSError):
+            pass
     g = st["genomes"].get(m["genome"], {})
     if ok:
         # It's in main now: every genome carrying this change plays main from here on.

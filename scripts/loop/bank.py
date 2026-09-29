@@ -110,7 +110,14 @@ def pick_stage(st, rng, stage):
 
 
 def gh(*args, check=False):
-    return subprocess.run(["gh", *args], capture_output=True, text=True, check=check)
+    command = ["gh", *args]
+    try:
+        return subprocess.run(command, capture_output=True, text=True, check=check, timeout=180)
+    except (subprocess.TimeoutExpired, OSError) as e:
+        # Banking is optional: failed transfers must not prevent scoring and the next generation.
+        if check:
+            raise
+        return subprocess.CompletedProcess(command, 124, stdout="", stderr=str(e))
 
 
 def ensure_release():
@@ -160,10 +167,12 @@ def prune(st, keep=40, upload=True):
         if len(items) <= keep:
             continue
         items.sort(key=lambda c: (0 if not c.get("synthetic") else 1, -c["gen"]))
+        retained = items[:keep]
         for c in items[keep:]:
-            if upload:
-                gh("release", "delete-asset", RELEASE, c["asset"], "-y")
-        st["bank"][stage] = items[:keep]
+            if upload and gh("release", "delete-asset", RELEASE, c["asset"], "-y").returncode != 0:
+                # Keep failed deletions indexed so the next generation can retry pruning them.
+                retained.append(c)
+        st["bank"][stage] = retained
 
 
 def summary(st):
