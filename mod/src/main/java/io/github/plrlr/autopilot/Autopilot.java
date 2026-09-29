@@ -86,6 +86,7 @@ public final class Autopilot {
 	long dangerReflexUntil;
 	long lavaMarginTick = -1000;
 	final Map<String, long[]> failures = new HashMap<>(); // label -> {count, blockedUntilTick}
+	final LivelockWatch livelock = new LivelockWatch();
 	String lastEndedKey = "";
 	String lastNoopKey = "";
 	int noopStreak;
@@ -279,6 +280,7 @@ public final class Autopilot {
 			io.github.plrlr.autopilot.skills.SmeltSkill.forgetJobs();
 			io.github.plrlr.autopilot.plan.Facts.clear();
 			io.github.plrlr.autopilot.brains.SkillStats.shared().clearLocal();
+			io.github.plrlr.autopilot.plan.DepthPlan.reset();
 			io.github.plrlr.autopilot.brains.Thompson.clear();
 			io.github.plrlr.autopilot.plan.Escalation.clear();
 			progress.load(name);
@@ -298,6 +300,7 @@ public final class Autopilot {
 				abortSkill("died", false);
 				Bari.stop();
 				progress.died();
+				io.github.plrlr.autopilot.plan.DepthPlan.noteDeath(pl.getBlockY(), !pl.level().canSeeSky(pl.blockPosition().above()));
 				io.github.plrlr.autopilot.plan.Escalation.clear();
 				var src = pl.getLastDamageSource();
 				String cause = src == null ? "unknown" : src.type().msgId();
