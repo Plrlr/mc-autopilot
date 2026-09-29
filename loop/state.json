@@ -1909,13 +1909,13 @@
  "days": {
   "2026-09-27": 15,
   "2026-09-28": 32,
-  "2026-09-29": 23
+  "2026-09-29": 24
  },
  "evolve_days": {
   "2026-09-27": 1,
   "2026-09-28": 7
  },
- "gen": 70,
+ "gen": 71,
  "gene_specs": {
   "bed.table_first": {
    "def": 0.0,
@@ -10089,6 +10089,37 @@
    "priority": true,
    "status": "contender"
   },
+  "g56": {
+   "born": 71,
+   "code": null,
+   "evals": [],
+   "genes": {
+    "cave.torches": 1.0,
+    "combat.ignore_walled_mobs": 1.0,
+    "death.recover_night_armor": 12.0,
+    "focus.commit": 1.0,
+    "nav.surface_v2": 1.0,
+    "nav.unstuck_v2": 1.0,
+    "night.shelter_exit": 1.0,
+    "plan.hide_hp": 15.0,
+    "portal.prepare_work_area": 1.0,
+    "portal.reserve_lava_bucket": 1.0,
+    "route.armor_before_portal": 0.0,
+    "skill.portal_repair": 1.0,
+    "skill.ruined_portal": 1.0,
+    "stuck.item_progress": 1.0
+   },
+   "id": "g56",
+   "mutated": [
+    "skill.ruined_portal",
+    "skill.portal_repair"
+   ],
+   "note": "suggested: skill.ruined_portal 1, skill.portal_repair 1",
+   "pairs": [],
+   "parent": "g49",
+   "priority": true,
+   "status": "contender"
+  },
   "g6": {
    "born": 2,
    "code": null,
@@ -10646,8 +10677,72 @@
  "model_kind": "retired",
  "model_r2": null,
  "model_rows": 0,
- "next_id": 56,
- "pending": null,
+ "next_id": 57,
+ "pending": {
+  "data_tasks": [],
+  "gen": 71,
+  "lineup": [
+   "g49",
+   "g53",
+   "g55",
+   "g56"
+  ],
+  "runs": [
+   "eval-g49-0",
+   "eval-g49-1",
+   "eval-g49-2",
+   "eval-g49-3",
+   "eval-g53-0",
+   "eval-g53-1",
+   "eval-g53-2",
+   "eval-g53-3",
+   "eval-g55-0",
+   "eval-g55-1",
+   "eval-g55-2",
+   "eval-g55-3",
+   "eval-g56-0",
+   "eval-g56-1",
+   "eval-g56-2",
+   "eval-g56-3"
+  ],
+  "seeds": [
+   "L71-bb8jvs",
+   "L71-t6nfez",
+   "L71-z2gvwn",
+   "L71-958w42"
+  ],
+  "sha": "96fc787a2c8cc829b69d996d4cd65430d38a2bb2",
+  "started": "2026-09-29T23:59:22+00:00",
+  "tasks": [
+   {
+    "kind": "natural",
+    "seed": "L71-bb8jvs",
+    "stage": "spawn",
+    "synthetic": false
+   },
+   {
+    "kind": "natural",
+    "seed": "L71-t6nfez",
+    "stage": "spawn",
+    "synthetic": false
+   },
+   {
+    "asset": "lava-gen66-eval-g49-2.zip",
+    "kind": "start",
+    "seed": "L71-z2gvwn",
+    "stage": "lava",
+    "synthetic": false
+   },
+   {
+    "kind": "combat",
+    "minutes": 10,
+    "scenario": "combat",
+    "seed": "L71-958w42",
+    "stage": "combat",
+    "synthetic": false
+   }
+  ]
+ },
  "race_evidence_version": 1,
  "score_version": 3,
  "settings": {
@@ -13074,7 +13169,8 @@
   "{\"_metric\": \"deaths\", \"_priority\": true, \"combat.shield_guard\": 1}",
   "{\"_metric\": \"ok:diamond_hunt\", \"_priority\": true, \"deep.branch\": 1}",
   "{\"_metric\": \"deaths\", \"_priority\": true, \"route.armor_before_portal\": 1}",
-  "{\"_metric\": \"deaths\", \"_priority\": true, \"reflex.lava_margin\": 1, \"skill.lava_guard\": 1}"
+  "{\"_metric\": \"deaths\", \"_priority\": true, \"reflex.lava_margin\": 1, \"skill.lava_guard\": 1}",
+  "{\"_priority\": true, \"skill.portal_repair\": 1, \"skill.ruined_portal\": 1}"
  ],
  "version": 1
 }
