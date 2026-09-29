@@ -48,6 +48,7 @@ public final class Tune {
 		gene("reflex.starving_food", 6, 2, 12, Kind.INT, "eat at once at or below this hunger when safe");
 		gene("combat.crits", 0, 0, 1, Kind.BOOL, "jump before a swing so it lands as a critical hit (1.5x)");
 		gene("combat.backstep", 0, 0, 1, Kind.BOOL, "step back out of reach while the sword recharges");
+		gene("combat.zombie_pack", 0, 0, 1, Kind.BOOL, "keep space and answer the closest zombie in a pack; leave drops until the pack is gone");
 		gene("combat.swing_at", 0.95, 0.6, 1.0, Kind.REAL, "attack cooldown fraction required before a melee swing");
 		gene("combat.keep_dist", 2.4, 1.5, 3.5, Kind.REAL, "backstep inside this distance while a melee weapon recharges");
 		gene("combat.strafe", 0, 0, 30, Kind.INT, "ticks between side-step direction changes while recharging; zero disables");

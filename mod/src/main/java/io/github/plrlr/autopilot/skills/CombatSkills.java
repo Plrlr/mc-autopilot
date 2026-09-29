@@ -143,6 +143,14 @@ public final class CombatSkills {
 		protected void tick() {
 			LocalPlayer pl = Mc.player();
 			if (deadTicks >= 0) {
+				// In the drill, three zombies caused 19 of 32 deaths. The 2.5 s walk to
+				// drops after a kill gives the survivors free hits; finish them first.
+				if (Tune.on("combat.zombie_pack") && !CombatGroups.collectDrops(zombiesNear(6))) {
+					CombatFootwork.releaseMovement();
+					if (Bari.pathing()) Bari.stop();
+					done("killed the " + arg);
+					return;
+				}
 				// Stand where it died for a moment so the drops get picked up.
 				if (deadTicks++ == 0 && lastSeenAt != null) {
 					CombatFootwork.releaseMovement();
@@ -154,6 +162,14 @@ public final class CombatSkills {
 			if (!target.isAlive() || target.isRemoved()) {
 				deadTicks = 0;
 				return;
+			}
+			List<Perception.Seen> pack = List.of();
+			if (Tune.on("combat.zombie_pack") && Mc.id(target).equals("zombie")) {
+				pack = Perception.look(8).mobs.stream()
+						.filter(m -> m.type().equals("zombie") && m.hostile() && m.dist() <= 6 && Mc.canSee(m.entity()))
+						.toList();
+				if (pack.size() >= 2 && CombatGroups.switchTarget(pl.distanceTo(target), pack.get(0).dist())
+						&& pack.get(0).entity() != target) target = pack.get(0).entity();
 			}
 			lastSeenAt = target.blockPosition();
 			Entity hitBox = target;
@@ -250,7 +266,14 @@ public final class CombatSkills {
 			// the way down; between swings, a step back takes us out of a zombie's reach.
 			boolean crits = Tune.on("combat.crits") && !sprintStrike && !creeperTactic
 					&& !pl.isInWater() && !pl.onClimbable() && !(target instanceof EnderDragon);
-			if (!ready && dist < Tune.get("combat.keep_dist") && Tune.on("combat.backstep")
+			int groupStep = !ready && pack.size() >= 2 ? groupStep(pl, pack) : -1;
+			if (groupStep >= 0) {
+				// Offsets 1 and 2 are (-cos, -sin) and (cos, sin) of our yaw: the player's right and left
+				// in Minecraft's axes (CombatFootwork's "right" argument points to the player's left).
+				o.keyDown.setDown(groupStep == 0);
+				o.keyRight.setDown(groupStep == 1);
+				o.keyLeft.setDown(groupStep == 2);
+			} else if (!ready && dist < Tune.get("combat.keep_dist") && Tune.on("combat.backstep")
 					&& CombatFootwork.safe(pl, -1, 0)) o.keyDown.setDown(true);
 			else if (!ready && Tune.i("combat.strafe") > 0) {
 				int side = (ticks / Tune.i("combat.strafe")) % 2 == 0 ? 1 : -1;
@@ -301,6 +324,28 @@ public final class CombatSkills {
 					&& (Items2.id(pl.getMainHandItem()).endsWith("_sword") || Items2.id(pl.getMainHandItem()).endsWith("_axe"))) {
 				keyUse.setDown(true);
 			}
+		}
+
+		private int zombiesNear(double range) {
+			int n = 0;
+			for (Perception.Seen m : Perception.look(range).mobs)
+				if (m.type().equals("zombie") && m.hostile() && m.dist() <= range) n++;
+			return n;
+		}
+
+		private int groupStep(LocalPlayer pl, List<Perception.Seen> pack) {
+			double yaw = Math.toRadians(pl.getYRot());
+			double sin = Math.sin(yaw), cos = Math.cos(yaw);
+			CombatGroups.Point[] offsets = {
+					new CombatGroups.Point(0.8 * sin, -0.8 * cos),
+					new CombatGroups.Point(-0.8 * cos, -0.8 * sin),
+					new CombatGroups.Point(0.8 * cos, 0.8 * sin)
+			};
+			boolean[] safe = {CombatFootwork.safe(pl, -1, 0), CombatFootwork.safe(pl, 0, -1), CombatFootwork.safe(pl, 0, 1)};
+			List<CombatGroups.Point> zombies = new ArrayList<>();
+			for (Perception.Seen m : pack) zombies.add(new CombatGroups.Point(
+					m.entity().getX() - pl.getX(), m.entity().getZ() - pl.getZ()));
+			return CombatGroups.step(zombies, offsets, safe);
 		}
 
 		/** Side-to-side approach uses only short visible steps; Baritone handles blocked terrain. */
