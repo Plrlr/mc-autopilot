@@ -313,7 +313,20 @@ public final class Fluids {
 	public static boolean floodedTunnel() {
 		LocalPlayer pl = Mc.player();
 		return pl != null && pl.isInWater() && !pl.level().canSeeSky(pl.blockPosition().above())
+				&& (!io.github.plrlr.autopilot.Tune.on("fluid.enclosed_tunnel") || enclosed(pl.blockPosition()))
 				&& Mc.count(Items2.matcher("throwaway")) >= 4 && Mc.dimension().equals("overworld");
+	}
+
+	/** A lake can hide the sky underwater; a tunnel has a solid ceiling and side walls. */
+	private static boolean enclosed(BlockPos feet) {
+		if (!Mc.solid(feet.above(2)) || !Mc.solid(feet.below())) return false;
+		return walls(feet, net.minecraft.core.Direction.NORTH, net.minecraft.core.Direction.SOUTH)
+				|| walls(feet, net.minecraft.core.Direction.EAST, net.minecraft.core.Direction.WEST);
+	}
+
+	private static boolean walls(BlockPos feet, net.minecraft.core.Direction a, net.minecraft.core.Direction b) {
+		return Mc.solid(feet.relative(a)) && Mc.solid(feet.above().relative(a))
+				&& Mc.solid(feet.relative(b)) && Mc.solid(feet.above().relative(b));
 	}
 
 	/** Where "keep going this way" points, 40 blocks ahead along our view (for fluid_cross after explore turned back). */
