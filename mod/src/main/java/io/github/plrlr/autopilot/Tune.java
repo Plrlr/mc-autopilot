@@ -156,6 +156,7 @@ public final class Tune {
 		gene("night.shelter_exit", 0, 0, 1, Kind.BOOL, "at morning, climb out of the covered shelter shaft by stairs before moving on");
 		gene("nav.surface_v2", 0, 0, 1, Kind.BOOL, "goto surface: judge Baritone by height gained, fall back to digging a staircase up");
 		gene("nav.unstuck_v2", 0, 0, 1, Kind.BOOL, "unstuck: climb a staircase first in a pit or under a roof, and before tunnelling");
+		gene("combat.commit_target", 0, 0, 1, Kind.BOOL, "while fighting a mob in reach, reflexes may pull us out but not switch us to another fight");
 		gene("plan.livelock_break", 0, 0, 1, Kind.BOOL, "a minute of actions with no movement, item or kill is a loop: leave those mobs, pause those actions");
 		gene("gather.cautious_depth", 0, 0, 1, Kind.BOOL, "without armor mine iron no deeper than y 40 (y 48 after a deep death); armor 10+ uses gather.iron_y");
 		gene("stuck.item_progress", 0, 0, 1, Kind.BOOL, "an item gained resets the stuck timer (mining in place is not stuck)");
