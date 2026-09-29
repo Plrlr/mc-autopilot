@@ -51,6 +51,12 @@ final class PortalSite {
 				if (!clearable(col.above(y), pr, dig)) return null;
 				BlockPos back = col.relative(front.getOpposite()).above(y);
 				if (pr.fluid(back)) return null;
+				// The wall's cells must be solid or empty (CastGeometry.fits): a flower or torch there
+				// made a planned site fail its final check in the first drill. Dig such things out.
+				if (!pr.solid(back) && !pr.free(back)) {
+					if (pr.hard(back)) return null;
+					dig.add(back.immutable());
+				}
 			}
 			if (!floorable(col.below(), pr, floor)) return null;
 			// The wall behind rests on the ground (CastGeometry.fits wants a block under it or at it).

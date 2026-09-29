@@ -72,6 +72,15 @@ public final class CastPortalSite extends Composite {
 		return "cast_portal";
 	}
 
+	/**
+	 * Long work in one place: routine re-checks (eat, refill a bucket) don't break it off; danger
+	 * still does. In the first drill the planner interrupted it twice after two cast blocks.
+	 */
+	@Override
+	public boolean interruptible() {
+		return false;
+	}
+
 	@Override
 	protected void start() {
 		timeoutTicks = 20 * 60 * 12;
@@ -86,6 +95,12 @@ public final class CastPortalSite extends Composite {
 			return;
 		}
 		pool = lava.pos();
+		// A half-built frame is progress: finish it. (The first drill cast two blocks, was interrupted,
+		// and the retry rejected its own site for the obsidian and water now beside it.)
+		if (CastPortal.siteInProgress()) {
+			log("resuming the frame under way");
+			phase = Phase.CAST;
+		}
 	}
 
 	@Override
