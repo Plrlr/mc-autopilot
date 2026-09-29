@@ -129,7 +129,7 @@ public final class Tune {
 		gene("tools.stone_axe", 1, 0, 1, Kind.BOOL, "craft a stone axe before chopping more wood (logs break ~3x faster)");
 		gene("nether.pie_chart", 1, 0, 1, Kind.BOOL, "look for a fortress where the F3 pie chart shows spawners, like speedrunners (pie-ray)");
 		gene("portal.prepare_work_area", 0, 0, 1, Kind.BOOL, "prepare a dry floor for the portal frame when no natural site fits");
-		gene("portal.reserve_lava_bucket", 0, 0, 1, Kind.BOOL, "empty a spare water bucket safely to keep one bucket available for lava");
+		gene("portal.reserve_lava_bucket", 0, 0, 1, Kind.BOOL, "retired 2026-09-29 (always on: two water buckets deadlocked the cast); kept so old genomes load");
 		gene("portal.retry_cast_view", 0, 0, 1, Kind.BOOL, "after losing the bucket view, try a different stand for the same frame block");
 		gene("skill.kite", 0, 0, 1, Kind.BOOL, "face close melee pursuers and back onto safe ground between charged hits");
 		gene("skill.pillar", 0, 0, 1, Kind.BOOL, "rise above clustered melee threats with blocks and descend when safe");

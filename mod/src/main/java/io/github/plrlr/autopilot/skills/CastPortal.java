@@ -78,13 +78,19 @@ public final class CastPortal extends Skill {
 	private BlockPos spareWaterSpot;
 
 	private record Plan(BlockPos stand, CastGeometry.Aim lava, CastGeometry.Aim water) {}
-	/** A water bucket cannot carry lava; preserve one and empty a spare only with the gene. */
+	/**
+	 * A water bucket cannot carry lava: keep one and empty a spare. This was a gene
+	 * (portal.reserve_lava_bucket, never raced), but without it two water buckets deadlock the
+	 * cast: drill 36566303543 seed b scooped its clutch water back up, then failed "need a second
+	 * bucket" 35 times while the planner (which counts water buckets as buckets) explored 500
+	 * blocks away from the lava.
+	 */
 	enum BucketPlan {READY, EMPTY_SPARE, MISSING}
 
-	static BucketPlan bucketPlan(int water, int empty, int lava, boolean reserveSpare) {
+	static BucketPlan bucketPlan(int water, int empty, int lava) {
 		if (water < 1) return BucketPlan.MISSING;
 		if (empty + lava > 0) return BucketPlan.READY;
-		return reserveSpare && water >= 2 ? BucketPlan.EMPTY_SPARE : BucketPlan.MISSING;
+		return water >= 2 ? BucketPlan.EMPTY_SPARE : BucketPlan.MISSING;
 	}
 
 	@Override
@@ -121,8 +127,7 @@ public final class CastPortal extends Skill {
 			fail(Fail.NEED_ITEM, "need a water bucket");
 			return;
 		}
-		switch (bucketPlan(Mc.count("water_bucket"), Mc.count("bucket"), Mc.count("lava_bucket"),
-				Tune.on("portal.reserve_lava_bucket"))) {
+		switch (bucketPlan(Mc.count("water_bucket"), Mc.count("bucket"), Mc.count("lava_bucket"))) {
 			case READY -> {}
 			case EMPTY_SPARE -> phase = Phase.RESERVE_BUCKET;
 			case MISSING -> {

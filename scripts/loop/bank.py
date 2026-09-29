@@ -86,14 +86,22 @@ def pick_tasks(st, rng, count, lookahead=True):
     while len(wanted) < count:
         wanted.append(f)
     for stage in wanted[:count]:
-        real = [c for c in st.get("bank", {}).get(stage, []) if not c.get("synthetic")]
-        pool = real or st.get("bank", {}).get(stage, [])
-        if pool:
-            c = rng.choice(pool)
-            out.append({"kind": "start", "stage": stage, "asset": c["asset"], "synthetic": bool(c.get("synthetic"))})
-        elif stage in SYNTHETIC:
-            out.append({"kind": "scenario", "stage": stage, "scenario": SYNTHETIC[stage], "synthetic": True})
+        t = pick_stage(st, rng, stage)
+        if t:
+            out.append(t)
     return out
+
+
+def pick_stage(st, rng, stage):
+    """One start at `stage`: a real banked checkpoint, else a synthetic one, else its staged scenario."""
+    real = [c for c in st.get("bank", {}).get(stage, []) if not c.get("synthetic")]
+    pool = real or st.get("bank", {}).get(stage, [])
+    if pool:
+        c = rng.choice(pool)
+        return {"kind": "start", "stage": stage, "asset": c["asset"], "synthetic": bool(c.get("synthetic"))}
+    if stage in SYNTHETIC:
+        return {"kind": "scenario", "stage": stage, "scenario": SYNTHETIC[stage], "synthetic": True}
+    return None
 
 
 def gh(*args, check=False):
