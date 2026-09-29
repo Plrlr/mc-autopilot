@@ -1570,13 +1570,13 @@
  "days": {
   "2026-09-27": 15,
   "2026-09-28": 32,
-  "2026-09-29": 12
+  "2026-09-29": 13
  },
  "evolve_days": {
   "2026-09-27": 1,
   "2026-09-28": 7
  },
- "gen": 59,
+ "gen": 60,
  "gene_specs": {
   "brain.death_s": {
    "def": 600.0,
@@ -8938,6 +8938,71 @@
    "parent": "g24",
    "status": "contender"
   },
+  "g44": {
+   "born": 60,
+   "code": null,
+   "evals": [],
+   "genes": {
+    "cave.torches": 1.0,
+    "death.recover_night_armor": 12.0,
+    "focus.commit": 1.0,
+    "plan.hide_hp": 15.0,
+    "route.armor_before_portal": 0.0,
+    "safety.hazard": 1.0
+   },
+   "id": "g44",
+   "mutated": [
+    "safety.hazard"
+   ],
+   "note": "suggested: safety.hazard 1",
+   "pairs": [],
+   "parent": "g24",
+   "status": "contender"
+  },
+  "g45": {
+   "born": 60,
+   "code": null,
+   "evals": [],
+   "genes": {
+    "cave.torches": 1.0,
+    "death.recover_night_armor": 12.0,
+    "focus.commit": 1.0,
+    "plan.hide_hp": 15.0,
+    "portal.prepare_work_area": 1.0,
+    "portal.reserve_lava_bucket": 1.0,
+    "route.armor_before_portal": 0.0
+   },
+   "id": "g45",
+   "mutated": [
+    "portal.prepare_work_area",
+    "portal.reserve_lava_bucket"
+   ],
+   "note": "suggested: portal.prepare_work_area 1, portal.reserve_lava_bucket 1",
+   "pairs": [],
+   "parent": "g24",
+   "status": "contender"
+  },
+  "g46": {
+   "born": 60,
+   "code": null,
+   "evals": [],
+   "genes": {
+    "cave.torches": 1.0,
+    "death.recover_night_armor": 12.0,
+    "focus.commit": 1.0,
+    "plan.hide_hp": 15.0,
+    "portal.retry_cast_view": 1.0,
+    "route.armor_before_portal": 0.0
+   },
+   "id": "g46",
+   "mutated": [
+    "portal.retry_cast_view"
+   ],
+   "note": "suggested: portal.retry_cast_view 1",
+   "pairs": [],
+   "parent": "g24",
+   "status": "contender"
+  },
   "g5": {
    "born": 2,
    "code": null,
@@ -9534,8 +9599,77 @@
  "model_kind": "trees",
  "model_r2": 0.216,
  "model_rows": 83278,
- "next_id": 44,
- "pending": null,
+ "next_id": 47,
+ "pending": {
+  "data_tasks": [],
+  "gen": 60,
+  "lineup": [
+   "g24",
+   "g43",
+   "g44",
+   "g45",
+   "g46"
+  ],
+  "runs": [
+   "eval-g24-0",
+   "eval-g24-1",
+   "eval-g24-2",
+   "eval-g24-3",
+   "eval-g43-0",
+   "eval-g43-1",
+   "eval-g43-2",
+   "eval-g43-3",
+   "eval-g44-0",
+   "eval-g44-1",
+   "eval-g44-2",
+   "eval-g44-3",
+   "eval-g45-0",
+   "eval-g45-1",
+   "eval-g45-2",
+   "eval-g45-3",
+   "eval-g46-0",
+   "eval-g46-1",
+   "eval-g46-2",
+   "eval-g46-3"
+  ],
+  "seeds": [
+   "L60-h9uxtu",
+   "L60-gb7cwk",
+   "L60-2myfv9",
+   "L60-e4mwwk"
+  ],
+  "sha": "148c985108b56a6de2846968bbfb5c4a950a8bc7",
+  "started": "2026-09-29T12:14:58+00:00",
+  "tasks": [
+   {
+    "kind": "natural",
+    "seed": "L60-h9uxtu",
+    "stage": "spawn",
+    "synthetic": false
+   },
+   {
+    "kind": "natural",
+    "seed": "L60-gb7cwk",
+    "stage": "spawn",
+    "synthetic": false
+   },
+   {
+    "asset": "lava-gen57-eval-g24-2.zip",
+    "kind": "start",
+    "seed": "L60-2myfv9",
+    "stage": "lava",
+    "synthetic": false
+   },
+   {
+    "kind": "combat",
+    "minutes": 10,
+    "scenario": "combat",
+    "seed": "L60-e4mwwk",
+    "stage": "combat",
+    "synthetic": false
+   }
+  ]
+ },
  "score_version": 2,
  "settings": {
   "accept_pairs": 8,
@@ -11762,7 +11896,10 @@
   "{\"brain.strategist\": 1, \"plan.readiness\": 1}",
   "{\"skill.barter_loop\": 1, \"skill.bed_bomb\": 1, \"skill.blaze_farm\": 1, \"skill.boat_cross\": 1, \"skill.bow_kit\": 1, \"skill.crystal_hunt\": 1, \"skill.dig_to_stronghold\": 1, \"skill.dragon_strike\": 1, \"skill.end_guard\": 1, \"skill.end_landing\": 1, \"skill.enderman_warped\": 1, \"skill.eye_triangulate\": 1, \"skill.fortress_scout\": 1, \"skill.ghast_defense\": 1, \"skill.gold_armor\": 1, \"skill.nether_arrival\": 1, \"skill.nether_bridge\": 1, \"skill.portal_return\": 1, \"skill.silverfish_control\": 1, \"skill.stronghold_navigate\": 1}",
   "{\"combat.backstep\": 1, \"combat.crits\": 1}",
-  "{\"move.shore_first\": 1}"
+  "{\"move.shore_first\": 1}",
+  "{\"safety.hazard\": 1}",
+  "{\"portal.prepare_work_area\": 1, \"portal.reserve_lava_bucket\": 1}",
+  "{\"portal.retry_cast_view\": 1}"
  ],
  "version": 1
 }
