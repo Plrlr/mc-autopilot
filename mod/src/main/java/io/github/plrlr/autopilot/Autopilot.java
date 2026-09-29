@@ -70,6 +70,17 @@ public final class Autopilot {
 	private Skill skill;
 	private Option skillOption;
 	private long skillStartTick;
+	/** The last strategist route written to the log. */
+	private String loggedPlan = "";
+
+	/** The skill stats contexts for the state right now. */
+	private static java.util.List<String> skillContextsNow() {
+		return io.github.plrlr.autopilot.brains.SkillStats.contexts(Mc.dimension(), Mc.isNight(),
+				!Mc.player().level().canSeeSky(Mc.player().blockPosition().above()));
+	}
+
+	/** The skill stats contexts (dimension, night, underground) when the running skill started. */
+	private java.util.List<String> skillContexts = java.util.List.of();
 	private boolean skillIsReflex;
 	private long lastDecisionTick;
 	private float healthAtDecision = 20;
@@ -192,6 +203,7 @@ public final class Autopilot {
 
 	private void tickInner(Minecraft mc) {
 		tick++;
+		io.github.plrlr.autopilot.plan.Escalation.tick(tick);
 		while (!notices.isEmpty()) {
 			String n = notices.poll();
 			// The same warning (e.g. "Using rules: ...") at most once a minute, not on every decision.
@@ -262,6 +274,9 @@ public final class Autopilot {
 			PortalSkills.resetThrows();
 			io.github.plrlr.autopilot.skills.Station.forgetPlaced();
 			io.github.plrlr.autopilot.skills.SmeltSkill.forgetJobs();
+			io.github.plrlr.autopilot.plan.Facts.clear();
+			io.github.plrlr.autopilot.brains.SkillStats.shared().clearLocal();
+			io.github.plrlr.autopilot.plan.Escalation.clear();
 			progress.load(name);
 			goal = null;
 		}
@@ -277,6 +292,7 @@ public final class Autopilot {
 				abortSkill("died", false);
 				Bari.stop();
 				progress.died();
+				io.github.plrlr.autopilot.plan.Escalation.clear();
 				String cause = pl.getLastDamageSource() == null ? "unknown" : pl.getLastDamageSource().type().msgId();
 				log.event("death", cause);
 				// Drops survive 5 minutes unless lava or the void took them; go back for them.
@@ -295,6 +311,7 @@ public final class Autopilot {
 		}
 		if (deathTick >= 0) {
 			deathTick = -1;
+			io.github.plrlr.autopilot.plan.SurvivalPlan.respawned();
 			chooseGoal("respawned");
 		}
 		return false;
@@ -371,6 +388,8 @@ public final class Autopilot {
 				return;
 			}
 		}
+		// The End's guard (gene skill.end_guard): never meet an enderman's eyes, never fall into the void.
+		if (Tune.on("skill.end_guard") && io.github.plrlr.autopilot.skills.EndRoutes.EndGuard.guard()) return;
 		Danger.Verdict danger = Tune.on("survival.danger_v2") ? DangerSense.assess(seen) : null;
 		boolean lavaWork = skill != null && java.util.Set.of("build_portal", "fill_bucket", "make_obsidian", "clutch").contains(skill.name());
 		if (danger != null && pl.isOnFire() && !lavaWork && !Mc.dimension().equals("the_nether")
@@ -394,13 +413,14 @@ public final class Autopilot {
 		if (tick < reflexCooldownUntil) return;
 		// hiding: sealed in and healing (review R1) - the only time reflexes stand down, except the
 		// creeper reflex, which always runs (its blast breaks the wall either way).
-		boolean hiding = skill instanceof io.github.plrlr.autopilot.skills.NightSkills.Shelter sh && sh.sealed();
+		boolean hiding = skill instanceof io.github.plrlr.autopilot.skills.NightSkills.Shelter sh && sh.sealed()
+				|| skill instanceof io.github.plrlr.autopilot.skills.PanicBox pb && pb.sealed();
 		// walling: still building the wall (not yet sealed) with a mob already on us - restarting
 		// the escape would only restart the wall, so fight instead.
 		boolean walling = !hiding && skill != null && skill.name().equals("shelter") && skillOption != null && "heal".equals(skillOption.arg());
 		// Recheck combat with the gene: a pursuer can catch up and a creeper can approach mid-fight.
-		boolean reconsiderCombat = (Tune.on("combat.no_close_retreat") || Tune.on("survival.danger_v2")) && skill != null
-				&& (skill.name().equals("retreat") || skill.name().equals("attack"));
+		boolean reconsiderCombat = skill != null && ((Tune.on("combat.no_close_retreat") || Tune.on("survival.danger_v2"))
+				&& (skill.name().equals("retreat") || skill.name().equals("attack")) || java.util.Set.of("kite", "block_arrows", "creeper_defuse").contains(skill.name()));
 		if (skill != null && skillIsReflex && !hiding && !reconsiderCombat) return;
 		if (pl.isInLava()) {
 			// Stop everything, then jump and push forward for a moment (aborting releases keys,
@@ -481,9 +501,9 @@ public final class Autopilot {
 			// From 7 blocks, not 5: a creeper's fuse is 1.5 s, and 4 of batch 10's 25 deaths were
 			// blasts that caught the bot already running from 5.
 			if (h.type().equals("creeper") && h.dist() < Tune.get("reflex.creeper_dist")) {
-				Option response = io.github.plrlr.autopilot.skills.CombatSkills.canHitCreeper(h)
+				Option response = io.github.plrlr.autopilot.plan.SurvivalPlan.fight(h, io.github.plrlr.autopilot.skills.CombatSkills.canHitCreeper(h)
 						? new Option("attack", "creeper", "hit and back off")
-						: new Option("retreat", null, "creeper close");
+						: new Option("retreat", null, "creeper close"));
 				if (!reconsiderCombat || skillOption == null || !response.label().equals(skillOption.label()))
 					startReflex(response, "reflex_creeper");
 				return;
@@ -502,7 +522,7 @@ public final class Autopilot {
 							|| !c.option().label().equals(skillOption.label())) startReflex(choices, c, x, "reflex_low_hp");
 				}
 				else {
-					List<Option> choices = Planner.escapeChoices(seen, new Option("attack", h.type(), "it's attacking"));
+					List<Option> choices = Planner.escapeChoices(seen, io.github.plrlr.autopilot.plan.SurvivalPlan.fight(h, new Option("attack", h.type(), "it's attacking")));
 					double[] x = Tune.on("safety.hazard") ? features() : null;
 					Brain.Choice c = brain.decideReflex(choices, x);
 					boolean already = skill != null && (c.option().skill().equals("attack") ? skill.name().equals("attack")
@@ -643,6 +663,8 @@ public final class Autopilot {
 		skillOption = o;
 		skillIsReflex = reflex;
 		skillStartTick = tick;
+		if (o.skill().equals("retreat")) io.github.plrlr.autopilot.plan.Escalation.fled(tick);
+		skillContexts = skillContextsNow();
 		lastPos = null;
 		s.begin(memory, o.arg());
 		JsonObject j = new JsonObject();
@@ -681,6 +703,10 @@ public final class Autopilot {
 		lastEndedKey = actionKey(skillOption);
 		lessons.record(actionKey(skillOption), r.ok() && !instantRepeat, instantRepeat ? "NO_PROGRESS" : r.code() == null ? null : r.code().name(),
 				instantRepeat ? "did nothing" : r.detail(), (tick - skillStartTick) / 20.0);
+		// Brain v2's skill stats learn from this try at once (an interruption says nothing about the skill).
+		if (r.code() != Fail.INTERRUPTED)
+			io.github.plrlr.autopilot.brains.SkillStats.shared().record(io.github.plrlr.autopilot.brains.Learned.key(skillOption), skillContexts,
+					r.ok() && !instantRepeat, r.code() == Fail.DIED, (tick - skillStartTick) / 20.0);
 		// An action that has failed most of the time in past runs gets paused after two fails, not three.
 		int pauseAfter = lessons.failRate(actionKey(skillOption)) >= 0.7 ? 2 : 3;
 		if (r.ok() && !instantRepeat) {
@@ -800,6 +826,8 @@ public final class Autopilot {
 			if (f == null || tick >= f[1]) options.add(o);
 		}
 		if (options.isEmpty()) options.add(new Option("explore", "any", "everything else failed recently"));
+		// Brain v2: options that clearly fail here (learned skill stats) go behind the ones that work.
+		if (Tune.on("brain.skill_stats")) options = Brain.demoteFailing(options, planner.lastUrgent, skillContextsNow());
 		// Focus, like a player: a task that's running is finished before the next one, unless the
 		// rules' top choice is an emergency (a mob on us, hunger, a creeper). Generation 1 split
 		// every iron trip into ~9 pieces of ~20 s: each heartbeat let upkeep or a furnace check win.
@@ -825,6 +853,11 @@ public final class Autopilot {
 		Brain.Choice c = brain.decide(options, x, planner.lastUrgent);
 		List<Option> urgent = options.stream().filter(op -> planner.lastUrgent.contains(op.label())).toList();
 		logDecision("tactician", trigger, options, x, c, urgent);
+		// Brain v2: the strategist's route, logged when it changes (the loop's code step reads these).
+		if (!planner.lastPlan.equals(loggedPlan)) {
+			loggedPlan = planner.lastPlan;
+			log.event("plan", loggedPlan);
+		}
 		decisions.addLast(c.by() + ": " + c.option().label() + (c.why() == null || c.why().isEmpty() ? "" : " - " + c.why()));
 		while (decisions.size() > 8) decisions.removeFirst();
 		if (skill != null) {

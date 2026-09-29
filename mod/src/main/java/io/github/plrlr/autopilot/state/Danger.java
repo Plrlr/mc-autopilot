@@ -48,6 +48,10 @@ public final class Danger {
 			return in.canWall() && in.health() <= 6 && nearby > 1
 					? Verdict.of(Kind.WALL_IN) : new Verdict(Kind.FIGHT, nearest.type(), 0, 0);
 		if (skeleton != null) {
+			// With a shield (arrows stop dead on it) or the skeleton already close, advance and fight.
+			// Hopping to cover every tick instead stalled 4 of 5 drill rounds at the 60 s limit and won
+			// none (issue #16): in a walled space some step is always "cover", so it never closed in.
+			if (in.shield() || skeleton.distance() <= 6) return new Verdict(Kind.FIGHT, skeleton.type(), 0, 0);
 			Step cover = bestStep(in, skeleton, false, true);
 			if (cover != null) return move(Kind.RETREAT, cover);
 			if (in.canWall() && !in.shield()) return Verdict.of(Kind.WALL_IN);

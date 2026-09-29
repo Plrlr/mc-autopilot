@@ -44,6 +44,18 @@ public final class CastPortal extends Skill {
 	private static BlockPos origin;
 	private static Direction along;
 
+	/** A frame is under way within 40 blocks and its cells are still castable: a retry should finish it. */
+	static boolean siteInProgress() {
+		return origin != null && along != null && Mc.player() != null
+				&& origin.distSqr(Mc.player().blockPosition()) <= 40 * 40 && siteUsable(origin, along);
+	}
+
+	/** cast_portal (skills/CastPortalSite) made this site fit: cast here. */
+	static void useSite(BlockPos o, Direction a) {
+		origin = o.immutable();
+		along = a;
+	}
+
 	/** Throwaway blocks needed for the wall and a small margin (Baritone may spend a few). */
 	public static final int BLOCKS_NEEDED = 28;
 

@@ -36,6 +36,8 @@ public final class WorldMemory {
 			TRACKED.put("deepslate_" + ore, ore);
 		}
 		TRACKED.put("nether_gold_ore", "gold_ore");
+		// Ruined portals (skills/RuinedPortal): crying obsidian in the overworld is their sign, seen from afar.
+		TRACKED.put("crying_obsidian", "ruined_portal");
 		TRACKED.put("stone", "stone");
 		TRACKED.put("deepslate", "stone");
 		TRACKED.put("cobblestone", "stone");

@@ -41,8 +41,13 @@ def cmd_plan(a):
     st = common.read_json(a.state, {}) or {}
     champ = st.get("genomes", {}).get(st.get("champion", ""), {}).get("genes", {})
     bank = st.get("bank", {})
-    pool = [c["asset"] for c in bank.get("lava", []) if not c.get("synthetic")] or \
-           [c["asset"] for c in bank.get("kit", []) if not c.get("synthetic")]
+    real = [c for c in bank.get("lava", []) if not c.get("synthetic")] or \
+           [c for c in bank.get("kit", []) if not c.get("synthetic")]
+    # Newest saves only: the drill's games wait behind the loop's, and meanwhile the loop prunes
+    # the oldest saves from the release (bank_keep). A random old one was gone by the time PR #21's
+    # drill ran ("no assets match the file pattern"), failing both sides in 20 s.
+    real.sort(key=lambda c: c.get("gen", 0), reverse=True)
+    pool = [c["asset"] for c in real[:max(2 * a.n, 6)]]
     rng = random.Random()
     starts = rng.sample(pool, min(a.n, len(pool))) if pool else []
     runs = []

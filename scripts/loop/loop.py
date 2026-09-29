@@ -192,7 +192,8 @@ def cmd_propose(a):
     for g in racing_suggestions:
         if len(lineup) < sug_cap:
             lineup.append(g["id"])
-    for sug in s.get("suggest", []):
+    # Trim races (a crowned bundle minus one skill each) go first, then the settings queue.
+    for sug in st.get("trim", []) + s.get("suggest", []):
         key = json.dumps(sug, sort_keys=True)
         if key in tried or len(lineup) >= sug_cap:
             continue
@@ -430,6 +431,12 @@ def race(st, genes, challengers, champ, gen):
         st["champion"] = best
         out.append("%s is the new champion (%+.2f over %d seeds, t %.1f): %s" % (best, m, len(g["pairs"]), best_t, g["note"]))
         learn_from(st, g, m)
+        # A bundle of skills won (a whole wave of docs/skills-40.md at once): trim it. One race per
+        # skill with just that skill off; a skill dragging the bundle down loses its place that way.
+        bundle = [n for n in g.get("mutated", []) if n.startswith("skill.")]
+        if len(bundle) >= 3:
+            st.setdefault("trim", []).extend({n: 0} for n in bundle)
+            out.append("trim: %d leave-one-out races queued for %s" % (len(bundle), best))
         # The others were measured against the old champion: they start over against the new one.
         for gid in challengers:
             if st["genomes"][gid]["status"] == "contender":
@@ -465,7 +472,7 @@ def save_training_rows(state_dir, gen, name, d):
     action kind, propensity, urgent) and outcomes (milestones, checkpoints, deaths with game
     seconds interpolated from wall time). Written as loop/data/gen-NNNNN/<run>.jsonl.gz."""
     rows, wall_to_gs = [], []
-    events = []
+    events, skills = [], []
     for f in sorted(glob.glob(os.path.join(d, "**", "run-*.jsonl"), recursive=True)):
         for line in open(f, errors="replace"):
             try:
@@ -483,10 +490,19 @@ def save_training_rows(state_dir, gen, name, d):
                              "p": o.get("prop", 1), "i": idx, "u": label in o.get("urgent", [])})
             elif o.get("event") in ("death", "milestone", "checkpoint"):
                 events.append((o["t"], o["event"], o.get("detail", "")))
+            elif o.get("event") == "skill_end" and "t" in o:
+                # Skill results (brain v2's skill stats): which action, ok or its fail code, how long.
+                skills.append((o["t"], action_key(o.get("skill", "")), bool(o.get("ok")), o.get("code"),
+                               round(float(o.get("seconds", 0)), 1)))
     if not rows:
         return
     for t, ev, detail in events:
         rows.append({"k": ev, "gs": interp(wall_to_gs, t), "detail": detail})
+    for t, key, ok, code, sec in skills:
+        r = {"k": "s", "gs": interp(wall_to_gs, t), "a": key, "ok": ok, "sec": sec}
+        if code:
+            r["c"] = code
+        rows.append(r)
     rows.sort(key=lambda r: r["gs"])
     out = os.path.join(state_dir, "data", "gen-%05d" % gen, name + ".jsonl.gz")
     os.makedirs(os.path.dirname(out), exist_ok=True)

@@ -313,6 +313,11 @@ public final class PortalSkills {
 		 */
 		private static Vec3 known;
 
+		/** Where the bearings crossed (or where the eye went down), for dig_to_stronghold; null if unknown. */
+		public static Vec3 knownPoint() {
+			return known;
+		}
+
 		private Phase phase = Phase.THROW;
 		private Vec3 from;
 		private EyeOfEnder eye;
@@ -397,6 +402,13 @@ public final class PortalSkills {
 					Vec3 flat = new Vec3(move.x, 0, move.z);
 					if (flat.length() < 1.5) {
 						// It went down instead of away: the stronghold is right below.
+						if (io.github.plrlr.autopilot.Tune.on("skill.dig_to_stronghold")) {
+							// Not straight down with Baritone (falls, lava): dig_to_stronghold takes safe stairs.
+							known = pl.position();
+							io.github.plrlr.autopilot.plan.Facts.report("stronghold_known");
+							done("the eye went down: the stronghold is right below");
+							return;
+						}
 						go(Phase.DIG);
 						BlockPos below = pl.blockPosition();
 						Bari.path(new GoalBlock(below.getX(), Math.max(pl.level().getMinY() + 10, 20), below.getZ()));
@@ -411,6 +423,7 @@ public final class PortalSkills {
 						after = Phase.WALK;
 						target = goal;
 						known = goal;
+						if (io.github.plrlr.autopilot.Tune.on("skill.eye_triangulate")) io.github.plrlr.autopilot.plan.Facts.report("stronghold_known");
 					} else {
 						// First bearing: step sideways so the next one crosses it.
 						after = Phase.SIDESTEP;
@@ -476,7 +489,10 @@ public final class PortalSkills {
 			Throw a = THROWS.get(THROWS.size() - 2), b = THROWS.get(THROWS.size() - 1);
 			if (a.from.distanceTo(b.from) < 30) return null;
 			double cross = a.dir.x * b.dir.z - a.dir.z * b.dir.x;
-			if (Math.abs(cross) < 0.01) return null;
+			// Bearings under ~5 degrees apart cross far from the truth (a small angle error moves the
+			// crossing hundreds of blocks); with the gene, sidestep again instead of trusting them.
+			double minCross = io.github.plrlr.autopilot.Tune.on("skill.eye_triangulate") ? 0.087 : 0.01;
+			if (Math.abs(cross) < minCross) return null;
 			double dx = b.from.x - a.from.x, dz = b.from.z - a.from.z;
 			double t = (dx * b.dir.z - dz * b.dir.x) / cross;
 			if (t < 0 || t > 4000) return null;

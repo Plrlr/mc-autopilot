@@ -31,6 +31,7 @@ import sys
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import common  # noqa: E402
+import skillstats  # noqa: E402
 
 # How much each feature is worth as progress (features are ~0..1; see Learned.features).
 POTENTIAL = {
@@ -161,6 +162,8 @@ def main():
              "trained": datetime.datetime.now(datetime.timezone.utc).isoformat(timespec="seconds")}
     if hazard:
         model["hazard"] = hazard
+    # Brain v2: per action key, how often it works, how long it takes, how often it kills us.
+    model["skills"] = skillstats.train_skill_stats(files, feats)
     common.write_json(os.path.join(a.state, "learned.json"), model)
     if st:
         st["model_rows"] = len(ys)
@@ -169,6 +172,7 @@ def main():
         st["model_keys"] = len(keys)
         st["model_kind"] = kind
         st["hazard_auc"] = hazard["auc"] if hazard else None
+        st["skill_stats"] = {k: v for k, v in model["skills"].items() if "@" not in k}
         common.write_json(st_path, st)
     print("learned model m%d (%s): %d decisions from %d runs, %d action kinds, held-out R2 %s (choice part %s)"
           % (gen, kind, len(ys), len(files), len(keys), stats["r2"], stats["adv_r2"]))
