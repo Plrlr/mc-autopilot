@@ -284,6 +284,7 @@ public final class Autopilot {
 			io.github.plrlr.autopilot.skills.SmeltSkill.forgetJobs();
 			io.github.plrlr.autopilot.plan.Facts.clear();
 			io.github.plrlr.autopilot.brains.SkillStats.shared().clearLocal();
+			io.github.plrlr.autopilot.brains.Thompson.clear();
 			io.github.plrlr.autopilot.plan.Escalation.clear();
 			progress.load(name);
 			goal = null;

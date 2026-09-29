@@ -130,6 +130,8 @@ public final class Tune {
 		gene("nether.pie_chart", 1, 0, 1, Kind.BOOL, "look for a fortress where the F3 pie chart shows spawners, like speedrunners (pie-ray)");
 		gene("portal.prepare_work_area", 0, 0, 1, Kind.BOOL, "prepare a dry floor for the portal frame when no natural site fits");
 		gene("portal.reserve_lava_bucket", 0, 0, 1, Kind.BOOL, "retired 2026-09-29 (always on: two water buckets deadlocked the cast); kept so old genomes load");
+		gene("brain.utility", 0, 0, 1, Kind.BOOL, "every goal's items go through the strategist (cheapest route by measured cost), not only the late game's");
+		gene("brain.thompson", 0, 0, 1, Kind.BOOL, "the strategist costs routes with a success chance drawn from its uncertainty (explores thinly tried routes)");
 		gene("portal.carve_search", 0, 0, 1, Kind.BOOL, "underground, look for a carvable portal room within 6 blocks, not only at our feet");
 		gene("portal.retry_cast_view", 0, 0, 1, Kind.BOOL, "after losing the bucket view, try a different stand for the same frame block");
 		gene("skill.kite", 0, 0, 1, Kind.BOOL, "face close melee pursuers and back onto safe ground between charged hits");
