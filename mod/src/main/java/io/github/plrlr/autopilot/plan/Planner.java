@@ -52,6 +52,8 @@ public final class Planner {
 		List<Option> urgent = urgent(seen, main);
 		Option respawn = SurvivalPlan.respawn();
 		if (respawn != null) urgent.add(0, respawn);
+		Option arrival = NetherPlan.arrival();
+		if (arrival != null) urgent.add(0, arrival);
 		if (Tune.on("move.shore_first") && ShoreSkill.needed()
 				&& (groundWork(main) || urgent.stream().anyMatch(Planner::groundWork))) {
 			// One shared decision prevents collect, station, shelter and explore from handing the
@@ -270,6 +272,8 @@ public final class Planner {
 			case ENDER_PEARLS -> {
 				Option st = strategicItem("ender_pearl", Tune.i("pearls.target"), seen, depth);
 				if (st != null) return st;
+				Option wave3 = NetherPlan.pearls(seen);
+				if (wave3 != null) return wave3;
 				Option trade = barterStep(seen, depth);
 				if (trade != null) return trade;
 				// The boat trap (speedrunners'): an enderman in a boat can't move, teleport or hit back.
@@ -282,7 +286,8 @@ public final class Planner {
 				return new Option("explore", "enderman", "look for endermen (more at night, many in warped forests)");
 			}
 			case FIND_STRONGHOLD -> {
-				if (dim.equals("the_nether") && memory.nearest("nether_portal") != null) return new Option("enter_portal", "overworld", "go back to the overworld");
+				if (dim.equals("the_nether") && memory.nearest("nether_portal") != null) return NetherPlan.home(new Option("enter_portal", "overworld", "go back to the overworld"));
+				if (dim.equals("the_nether") && Tune.on("skill.portal_return")) return NetherPlan.home(null);
 				if (memory.nearest("end_portal_frame") != null) return null;
 				Option st = strategic("frame_known", seen, depth);
 				if (st != null) return st;
@@ -662,6 +667,8 @@ public final class Planner {
 	/** Life-or-death options that should be considered before the goal. */
 	private List<Option> urgent(Perception seen, Option main) {
 		List<Option> out = new ArrayList<>();
+		Option nether = NetherPlan.urgent(seen);
+		if (nether != null) out.add(nether);
 		LocalPlayer pl = Mc.player();
 		int food = pl.getFoodData().getFoodLevel();
 		Perception.Seen hostile = seen.nearestHostile();

@@ -72,6 +72,25 @@ public final class SkillSpecs {
 				.gene("skill.stash").help("spares into a chest at base").build());
 		s.add(SkillSpec.of("restock", null).stage("any").facts("chest_known").gives("iron_ingot", 3).prior(60, 0.5)
 				.gene("skill.restock").help("spares back from our chest").build());
+		// ---- wave 3: the Nether
+		s.add(SkillSpec.of("nether_arrival", null).stage("nether").facts("in_nether").makes("nether_base").prior(15, 0.9)
+				.gene("skill.nether_arrival").help("look around, floor the portal's exit").build());
+		s.add(SkillSpec.of("nether_bridge", null).stage("nether").needs("throwaway", 32).facts("in_nether", "fortress_known")
+				.makes("at_fortress").prior(60, 0.6).gene("skill.nether_bridge").help("bridge straight to the fortress").build());
+		s.add(SkillSpec.of("fortress_scout", null).stage("nether").facts("in_nether").makes("fortress_known").prior(360, 0.35)
+				.gene("skill.fortress_scout").help("vantage sweeps, then long legs").build());
+		s.add(SkillSpec.of("blaze_farm", "8").stage("nether").needs("throwaway", 12).facts("in_nether", "spawner_known")
+				.gives("blaze_rod", 8).prior(300, 0.35).gene("skill.blaze_farm").help("nook at the spawner").build());
+		s.add(SkillSpec.of("ghast_defense", null).stage("nether").facts("in_nether").makes("threat_cleared").prior(15, 0.7)
+				.gene("skill.ghast_defense").help("fireballs back, or out of sight").build());
+		s.add(SkillSpec.of("gold_armor", null).stage("nether").facts("in_nether").gives("golden_helmet", 1).prior(180, 0.6)
+				.gene("skill.gold_armor").help("one gold piece worn").build());
+		s.add(SkillSpec.of("barter_loop", "12").stage("nether").needs("gold_ingot", 12).facts("in_nether")
+				.gives("ender_pearl", 4).prior(300, 0.4).gene("skill.barter_loop").help("gold on, trade until the pearls are in").build());
+		s.add(SkillSpec.of("portal_return", null).stage("nether").facts("in_nether").makes("overworld").prior(120, 0.7)
+				.gene("skill.portal_return").help("home through our portal").build());
+		s.add(SkillSpec.of("enderman_warped", "4").stage("any").needs("throwaway", 5).gives("ender_pearl", 4).prior(300, 0.35)
+				.gene("skill.enderman_warped").help("a hut endermen can't enter").build());
 
 		// ---- finding things and filling buckets: what the routes below need first
 		s.add(SkillSpec.of("explore", "lava").stage("portal")

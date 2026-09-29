@@ -46,6 +46,15 @@ public final class Skills {
 		MENU.put("portal_repair", new Entry(PortalRoutes.PortalRepair::new, "light a finished frame, or finish ours with carried obsidian"));
 		MENU.put("stash", new Entry(ChestSkills.Stash::new, "put spare iron, food, buckets... in a chest at base"));
 		MENU.put("restock", new Entry(ChestSkills.Restock::new, "restock[:items]: take spares back from our chest"));
+		MENU.put("nether_arrival", new Entry(NetherRoutes.Arrival::new, "just arrived in the Nether: look around, floor the portal's exit"));
+		MENU.put("nether_bridge", new Entry(NetherRoutes.Bridge::new, "nether_bridge [x z]: walk straight to a point (default: the fortress), bridging over lava"));
+		MENU.put("fortress_scout", new Entry(NetherRoutes.FortressScout::new, "look for a fortress from an 8-block vantage, then long legs"));
+		MENU.put("blaze_farm", new Entry(NetherRoutes.BlazeFarm::new, "blaze_farm:n: a nook at the spawner; hit blazes at its opening until n rods"));
+		MENU.put("ghast_defense", new Entry(NetherRoutes.GhastDefense::new, "hit a ghast's fireball back, shoot it, or wall off its sight"));
+		MENU.put("gold_armor", new Entry(NetherRoutes.GoldArmor::new, "mine nether gold, craft a gold helmet or boots, wear it"));
+		MENU.put("barter_loop", new Entry(NetherRoutes.BarterLoop::new, "barter_loop:n: gold on, trade with piglins until n pearls"));
+		MENU.put("portal_return", new Entry(NetherRoutes.PortalReturn::new, "back to the overworld through our portal (or build one)"));
+		MENU.put("enderman_warped", new Entry(NetherRoutes.EndermanWarped::new, "enderman_warped:n: a 2-high hut, hit endermen's legs until n pearls"));
 		MENU.put("shelter", new Entry(NightSkills.Shelter::new, "dig 3 down, cover the hole, wait for morning"));
 		MENU.put("sleep", new Entry(NightSkills.Sleep::new, "sleep in a bed (places one from the inventory if needed)"));
 		MENU.put("build_portal", new Entry(() -> CastPortal.needed() ? new CastPortal() : new PortalSkills.BuildPortal(),

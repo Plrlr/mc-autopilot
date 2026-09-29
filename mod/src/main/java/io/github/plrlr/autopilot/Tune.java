@@ -151,6 +151,15 @@ public final class Tune {
 		gene("skill.portal_repair", 0, 0, 1, Kind.BOOL, "light a complete frame in sight or finish ours with carried obsidian");
 		gene("skill.stash", 0, 0, 1, Kind.BOOL, "keep spares in a chest at base so a death doesn't cost them");
 		gene("skill.restock", 0, 0, 1, Kind.BOOL, "after losing our tools near our chest, take the spares back first");
+		gene("skill.nether_arrival", 0, 0, 1, Kind.BOOL, "on entering the Nether, look around and lay a floor at the portal's exit");
+		gene("skill.nether_bridge", 0, 0, 1, Kind.BOOL, "reach a far fortress in a straight line, sneak-bridging over lava with a rail");
+		gene("skill.fortress_scout", 0, 0, 1, Kind.BOOL, "look for fortresses from an 8-block vantage before walking long legs");
+		gene("skill.blaze_farm", 0, 0, 1, Kind.BOOL, "hold a 3-sided nook at the spawner, hit blazes at the opening, seal to heal");
+		gene("skill.ghast_defense", 0, 0, 1, Kind.BOOL, "hit fireballs back, shoot the ghast, or wall off its line of sight");
+		gene("skill.gold_armor", 0, 0, 1, Kind.BOOL, "wear one gold piece (nether gold ore -> ingots -> helmet or boots) near piglins");
+		gene("skill.barter_loop", 0, 0, 1, Kind.BOOL, "gold on, then barter round after round until the pearls are in");
+		gene("skill.portal_return", 0, 0, 1, Kind.BOOL, "go home through our portal, rebuilding it from carried obsidian if lost");
+		gene("skill.enderman_warped", 0, 0, 1, Kind.BOOL, "farm endermen from a hut with a 2-high roof they can't enter");
 		gene("loop.stuck_s", 10, 5, 30, Kind.INT, "seconds without moving that mark the state as stuck for the brains");
 		gene("stuck.window_s", 12, 6, 40, Kind.INT, "a moving skill kept inside the stuck box this long starts the unstuck reflex");
 		gene("stuck.box", 2, 1, 4, Kind.REAL, "the square (blocks) the bot must leave to count as moving");
