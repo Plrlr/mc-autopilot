@@ -19,6 +19,8 @@ public final class SpawnerRoom extends Skill {
 	private static boolean live;
 	private BlockPos spawner;
 	private Direction away;
+	private final Act.Breaker breaker = new Act.Breaker();
+	private boolean breaking;
 
 	public static void reset() { FIRST_WAVE.clear(); observed = null; live = false; avoidUntil = 0; }
 
@@ -55,6 +57,18 @@ public final class SpawnerRoom extends Skill {
 				&& near(memory, Mc.player().blockPosition(), 12);
 	}
 
+	private boolean canBreak() {
+		var pl = Mc.player();
+		return io.github.plrlr.autopilot.Tune.on("safety.spawner_break") && io.github.plrlr.autopilot.Items2.bestTier("pickaxe") >= 1
+				&& pl.getHealth() >= 12 && Mc.canSee(spawner)
+				&& pl.getEyePosition().distanceTo(net.minecraft.world.phys.Vec3.atCenterOf(spawner)) <= Mc.reach() - 0.3;
+	}
+
+	@Override protected void cleanup() {
+		breaker.stop();
+		super.cleanup();
+	}
+
 	@Override public String name() { return "spawner_escape"; }
 	@Override public boolean ownsSafety() { return true; }
 
@@ -72,6 +86,22 @@ public final class SpawnerRoom extends Skill {
 
 	@Override protected void tick() {
 		BlockPos feet = Mc.player().blockPosition();
+		// Gene safety.spawner_break: a player breaks the spawner (any pickaxe, ~2 s with stone),
+		// which ends the room for good; walling off and leaving (below) is the fallback when
+		// it's out of reach or out of sight, or we're too hurt to stand and dig (#25).
+		if (ticks == 1) breaking = canBreak();
+		if (breaking) {
+			if (Mc.player().getHealth() < 8 || breaker.ticks() > 20 * 8 || !Mc.canSee(spawner)) {
+				breaker.stop();
+				breaking = false;
+			} else {
+				if (breaker.tick(spawner)) {
+					live = false;
+					done("broke the spawner");
+				}
+				return;
+			}
+		}
 		if (feet.distSqr(spawner) > 16 * 16) { done("left the spawner room"); return; }
 		// Seal the opening between us and the spawner before leaving, if we carry blocks.
 		if (ticks <= 8) {
