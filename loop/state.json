@@ -1537,13 +1537,13 @@
  "days": {
   "2026-09-27": 15,
   "2026-09-28": 32,
-  "2026-09-29": 8
+  "2026-09-29": 9
  },
  "evolve_days": {
   "2026-09-27": 1,
   "2026-09-28": 7
  },
- "gen": 55,
+ "gen": 56,
  "gene_specs": {
   "brain.death_s": {
    "def": 600.0,
@@ -8051,6 +8051,111 @@
    "parent": "g0",
    "status": "rejected"
   },
+  "g40": {
+   "born": 56,
+   "code": null,
+   "evals": [],
+   "genes": {
+    "brain.strategist": 1.0,
+    "cave.torches": 1.0,
+    "death.recover_night_armor": 12.0,
+    "focus.commit": 1.0,
+    "plan.hide_hp": 15.0,
+    "plan.readiness": 1.0,
+    "route.armor_before_portal": 0.0
+   },
+   "id": "g40",
+   "mutated": [
+    "brain.strategist",
+    "plan.readiness"
+   ],
+   "note": "suggested: brain.strategist 1, plan.readiness 1",
+   "pairs": [],
+   "parent": "g24",
+   "status": "contender"
+  },
+  "g41": {
+   "born": 56,
+   "code": null,
+   "evals": [],
+   "genes": {
+    "cave.torches": 1.0,
+    "death.recover_night_armor": 12.0,
+    "focus.commit": 1.0,
+    "plan.hide_hp": 15.0,
+    "route.armor_before_portal": 0.0,
+    "skill.barter_loop": 1.0,
+    "skill.bed_bomb": 1.0,
+    "skill.blaze_farm": 1.0,
+    "skill.boat_cross": 1.0,
+    "skill.bow_kit": 1.0,
+    "skill.crystal_hunt": 1.0,
+    "skill.dig_to_stronghold": 1.0,
+    "skill.dragon_strike": 1.0,
+    "skill.end_guard": 1.0,
+    "skill.end_landing": 1.0,
+    "skill.enderman_warped": 1.0,
+    "skill.eye_triangulate": 1.0,
+    "skill.fortress_scout": 1.0,
+    "skill.ghast_defense": 1.0,
+    "skill.gold_armor": 1.0,
+    "skill.nether_arrival": 1.0,
+    "skill.nether_bridge": 1.0,
+    "skill.portal_return": 1.0,
+    "skill.silverfish_control": 1.0,
+    "skill.stronghold_navigate": 1.0
+   },
+   "id": "g41",
+   "mutated": [
+    "skill.nether_arrival",
+    "skill.nether_bridge",
+    "skill.fortress_scout",
+    "skill.blaze_farm",
+    "skill.ghast_defense",
+    "skill.gold_armor",
+    "skill.barter_loop",
+    "skill.portal_return",
+    "skill.enderman_warped",
+    "skill.bow_kit",
+    "skill.eye_triangulate",
+    "skill.dig_to_stronghold",
+    "skill.stronghold_navigate",
+    "skill.silverfish_control",
+    "skill.boat_cross",
+    "skill.end_landing",
+    "skill.crystal_hunt",
+    "skill.bed_bomb",
+    "skill.dragon_strike",
+    "skill.end_guard"
+   ],
+   "note": "suggested: skill.nether_arrival 1, skill.nether_bridge 1, skill.fortress_scout 1, skill.blaze_farm 1, skill.ghast_defense 1, skill.gold_armor 1, skill.barter_loop 1, skill.portal_return 1, skill.enderman_warped 1, skill.bow_kit 1, skill.eye_triangulate 1, skill.dig_to_stronghold 1, skill.stronghold_navigate 1, skill.silverfish_control 1, skill.boat_cross 1, skill.end_landing 1, skill.crystal_hunt 1, skill.bed_bomb 1, skill.dragon_strike 1, skill.end_guard 1",
+   "pairs": [],
+   "parent": "g24",
+   "status": "contender"
+  },
+  "g42": {
+   "born": 56,
+   "code": null,
+   "evals": [],
+   "genes": {
+    "cave.torches": 1.0,
+    "combat.backstep": 1.0,
+    "combat.crits": 1.0,
+    "death.recover_night_armor": 12.0,
+    "focus.commit": 1.0,
+    "plan.hide_hp": 15.0,
+    "route.armor_before_portal": 0.0
+   },
+   "id": "g42",
+   "mutated": [
+    "combat.crits",
+    "combat.backstep"
+   ],
+   "note": "suggested: combat.crits 1, combat.backstep 1",
+   "pairs": [],
+   "parent": "g24",
+   "status": "contender"
+  },
   "g5": {
    "born": 2,
    "code": null,
@@ -8647,8 +8752,77 @@
  "model_kind": "trees",
  "model_r2": 0.209,
  "model_rows": 75162,
- "next_id": 40,
- "pending": null,
+ "next_id": 43,
+ "pending": {
+  "data_tasks": [],
+  "gen": 56,
+  "lineup": [
+   "g24",
+   "g38",
+   "g40",
+   "g41",
+   "g42"
+  ],
+  "runs": [
+   "eval-g24-0",
+   "eval-g24-1",
+   "eval-g24-2",
+   "eval-g24-3",
+   "eval-g38-0",
+   "eval-g38-1",
+   "eval-g38-2",
+   "eval-g38-3",
+   "eval-g40-0",
+   "eval-g40-1",
+   "eval-g40-2",
+   "eval-g40-3",
+   "eval-g41-0",
+   "eval-g41-1",
+   "eval-g41-2",
+   "eval-g41-3",
+   "eval-g42-0",
+   "eval-g42-1",
+   "eval-g42-2",
+   "eval-g42-3"
+  ],
+  "seeds": [
+   "L56-5brkhv",
+   "L56-ygxh4s",
+   "L56-856txq",
+   "L56-n5yff2"
+  ],
+  "sha": "148c985108b56a6de2846968bbfb5c4a950a8bc7",
+  "started": "2026-09-29T08:08:19+00:00",
+  "tasks": [
+   {
+    "kind": "natural",
+    "seed": "L56-5brkhv",
+    "stage": "spawn",
+    "synthetic": false
+   },
+   {
+    "kind": "natural",
+    "seed": "L56-ygxh4s",
+    "stage": "spawn",
+    "synthetic": false
+   },
+   {
+    "asset": "lava-gen53-eval-g24-2.zip",
+    "kind": "start",
+    "seed": "L56-856txq",
+    "stage": "lava",
+    "synthetic": false
+   },
+   {
+    "kind": "combat",
+    "minutes": 10,
+    "scenario": "combat",
+    "seed": "L56-n5yff2",
+    "stage": "combat",
+    "synthetic": false
+   }
+  ]
+ },
  "score_version": 2,
  "settings": {
   "accept_pairs": 8,
@@ -10769,7 +10943,10 @@
   "{\"skill.block_arrows\": 1, \"skill.creeper_defuse\": 1, \"skill.fish\": 1, \"skill.food_secure\": 1, \"skill.kite\": 1, \"skill.make_bed\": 1, \"skill.panic_box\": 1, \"skill.pillar\": 1, \"skill.recover_items\": 1, \"skill.respawn_reset\": 1, \"skill.secure_camp\": 1, \"skill.stair_down\": 1}",
   "{\"safety.hazard\": 1, \"safety.hazard_margin\": 0.05}",
   "{\"reflex.escalate\": 1}",
-  "{\"brain.skill_stats\": 1}"
+  "{\"brain.skill_stats\": 1}",
+  "{\"brain.strategist\": 1, \"plan.readiness\": 1}",
+  "{\"skill.barter_loop\": 1, \"skill.bed_bomb\": 1, \"skill.blaze_farm\": 1, \"skill.boat_cross\": 1, \"skill.bow_kit\": 1, \"skill.crystal_hunt\": 1, \"skill.dig_to_stronghold\": 1, \"skill.dragon_strike\": 1, \"skill.end_guard\": 1, \"skill.end_landing\": 1, \"skill.enderman_warped\": 1, \"skill.eye_triangulate\": 1, \"skill.fortress_scout\": 1, \"skill.ghast_defense\": 1, \"skill.gold_armor\": 1, \"skill.nether_arrival\": 1, \"skill.nether_bridge\": 1, \"skill.portal_return\": 1, \"skill.silverfish_control\": 1, \"skill.stronghold_navigate\": 1}",
+  "{\"combat.backstep\": 1, \"combat.crits\": 1}"
  ],
  "version": 1
 }
