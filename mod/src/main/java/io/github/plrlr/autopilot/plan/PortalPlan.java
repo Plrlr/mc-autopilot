@@ -64,15 +64,17 @@ public final class PortalPlan {
 	 * in memory, so without this the planner sent it straight back to the same pool, over and over
 	 * (mold-b trial, 2026-09-29: nine failures in a row); now the deep route mines on for another.
 	 */
-	private static final java.util.List<BlockPos> FAILED_POOLS = new java.util.concurrent.CopyOnWriteArrayList<>();
+	private static final java.util.Set<BlockPos> FAILED_POOLS = java.util.concurrent.ConcurrentHashMap.newKeySet();
 
-	public static void poolFailed(BlockPos where) {
-		FAILED_POOLS.add(where.immutable());
+	/** Sets aside the lava and obsidian obsidian_pool was working with: everything it counted as the pool. */
+	public static void poolFailed(WorldMemory memory) {
+		BlockPos me = Mc.player().blockPosition();
+		for (String g : new String[]{"lava", "obsidian"})
+			for (WorldMemory.Seen s : memory.all(g)) if (s.pos().distSqr(me) <= 48 * 48) FAILED_POOLS.add(s.pos().immutable());
 	}
 
 	static boolean failedPool(BlockPos p) {
-		for (BlockPos f : FAILED_POOLS) if (f.distSqr(p) <= 20 * 20) return true;
-		return false;
+		return FAILED_POOLS.contains(p);
 	}
 
 	/** A new run (or a new world): every pool gets its chance again. */

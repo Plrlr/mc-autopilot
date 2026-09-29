@@ -20,6 +20,14 @@ public final class Tidy {
 
 	static final int FREE_WANTED = 4, KEEP_BLOCKS = 128;
 
+	/**
+	 * In a 1-wide tunnel a thrown stack can land within reach and be picked back up once its
+	 * pickup delay is over (Codex, from ItemEntity.playerTouch). Three throws in 30 s means that's
+	 * happening: stop for a minute (the dig moves on meanwhile).
+	 */
+	private static long windowStart, pausedUntil;
+	private static int throwsInWindow;
+
 	/** Nothing the route uses. Stone-like junk also counts as throwaway, so it goes before cobblestone. */
 	static final Set<String> JUNK = Set.of("andesite", "diorite", "granite", "tuff", "calcite", "cinnabar", "dripstone_block",
 			"pointed_dripstone", "amethyst_block", "amethyst_shard", "rotten_flesh", "wheat_seeds", "poisonous_potato",
@@ -44,6 +52,16 @@ public final class Tidy {
 			else if (Items2.THROWAWAY.contains(Items2.id(s))) blocks += s.getCount();
 		}
 		if (free >= FREE_WANTED) return false;
+		long now = pl.level().getGameTime();
+		if (now < pausedUntil) return false;
+		if (now - windowStart > 20 * 30) {
+			windowStart = now;
+			throwsInWindow = 0;
+		}
+		if (throwsInWindow >= 3) {
+			pausedUntil = now + 20 * 60;
+			return false;
+		}
 		int pick = -1;
 		// Pure junk first (never the held slot: it may be mid-use), largest stack first.
 		for (int i = 0; i < 36; i++) {
@@ -65,6 +83,7 @@ public final class Tidy {
 		if (menuSlot < 0) return false;
 		// Button 1 with THROW: the whole stack (ctrl+Q over the slot).
 		Mc.click(pl.inventoryMenu, menuSlot, 1, ContainerInput.THROW);
+		throwsInWindow++;
 		return true;
 	}
 }

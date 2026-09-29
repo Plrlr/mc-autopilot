@@ -263,7 +263,7 @@ public final class PortalRoutes {
 			// Given up on this pool (not just interrupted, not short of a tool): the planner looks for another.
 			Skill.Result r = result();
 			if (r != null && !r.ok() && r.code() != Fail.INTERRUPTED && r.code() != Fail.NEED_ITEM)
-				io.github.plrlr.autopilot.plan.PortalPlan.poolFailed(Mc.player().blockPosition());
+				io.github.plrlr.autopilot.plan.PortalPlan.poolFailed(memory);
 			super.cleanup();
 		}
 	}

@@ -123,7 +123,9 @@ public final class ObsidianMold extends Composite {
 					return true;
 				}
 				breaker.stop();
-				// Dug open, its walls and floor are in sight now: they must hold lava.
+				// Dug open, its walls and floor are in sight now: they must hold lava. (A wall still out
+				// of sight counts as rock, as a player would assume; at worst a little lava runs into
+				// a hidden cave and the pour is retried.)
 				if (!MoldSite.pitHolds(p, seen)) {
 					siteWentBad("the pit has an open side or floor");
 					return true;
@@ -172,6 +174,12 @@ public final class ObsidianMold extends Composite {
 			}
 			case POUR_WATER -> {
 				if (!atStand()) return true;
+				BlockPos w = site.water();
+				if (!Mc.state(w).isAir() && Mc.state(w).getFluidState().isEmpty()) {
+					if (!breaker.tick(w) && breaker.ticks() > 20 * 5) siteWentBad("something on the water spot won't break");
+					return true;
+				}
+				breaker.stop();
 				if (ticks % 5 != 0) return true;
 				if (Mc.count("water_bucket") == 0) {
 					fail(Fail.NEED_ITEM, "lost the water bucket");
@@ -314,11 +322,10 @@ public final class ObsidianMold extends Composite {
 	private static boolean pour(BlockPos into, String bucket) {
 		Vec3 aim = aimAt(into);
 		BlockHitResult hit = BucketSkills.trace(aim.add(0, -0.3, 0), ClipContext.Fluid.NONE);
-		// The floor under the spot, or something replaceable in the spot itself (grass): the
-		// bucket fills the spot either way.
-		boolean ok = hit.getType() == HitResult.Type.BLOCK
-				&& (hit.getBlockPos().equals(into.below()) || hit.getBlockPos().equals(into) && Mc.state(into).canBeReplaced());
-		if (!ok) return false;
+		// Only the floor under the spot: a bucket aimed at grass fills the cell above the grass
+		// (BucketItem places at hit.relative(face)), so plants in the way are cleared first.
+		if (hit.getType() != HitResult.Type.BLOCK || !hit.getBlockPos().equals(into.below()) || hit.getDirection() != net.minecraft.core.Direction.UP)
+			return false;
 		if (!Mc.holdItem(s -> Items2.id(s).equals(bucket))) return false;
 		Mc.lookAt(aim);
 		return Mc.useItem();

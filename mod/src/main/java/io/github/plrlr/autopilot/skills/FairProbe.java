@@ -17,9 +17,20 @@ import java.util.Map;
  */
 final class FairProbe implements PortalSite.Probe {
 	private final Map<BlockPos, Boolean> seen = new HashMap<>();
+	private int rays;
+
+	/**
+	 * Sight lines one probe may trace: a portal-room search asked for ~5,800 in one tick (Codex's
+	 * count). Past the budget a cell counts as unseen, i.e. rock, which is still the fair answer.
+	 */
+	static final int RAY_BUDGET = 600;
 
 	boolean visible(BlockPos p) {
-		return seen.computeIfAbsent(p.immutable(), Mc::canSee);
+		Boolean v = seen.get(p);
+		if (v != null) return v;
+		v = rays++ < RAY_BUDGET && Mc.canSee(p);
+		seen.put(p.immutable(), v);
+		return v;
 	}
 
 	@Override
