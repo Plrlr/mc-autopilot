@@ -79,10 +79,12 @@ public final class StairUp extends Skill {
 	/** Fluid in a cell we'd open (only cells next to us, which a player sees), or bedrock. */
 	private static boolean safe(BlockPos feet, Direction dir) {
 		for (BlockPos c : cut(feet, dir)) {
-			if (!Mc.state(c).getFluidState().isEmpty() && Mc.canSee(c) || FairProbe.lavaSeenNear(c)) return false;
-			if (Mc.state(c).getDestroySpeed(Mc.player().level(), c) < 0) return false;
+			if (FairProbe.lavaSeenNear(c)) return false;
+			if (Mc.canSee(c) && (!Mc.state(c).getFluidState().isEmpty()
+					|| Mc.state(c).getDestroySpeed(Mc.player().level(), c) < 0)) return false;
 		}
 		BlockPos step = feet.relative(dir);
+		if (!Mc.canSee(step)) return true; // Rechecked once digging exposes the step.
 		if (!Mc.state(step).getFluidState().isEmpty()) return false;
 		// The step must hold us: solid already, or air we can fill with a block.
 		return Mc.solid(step) || Mc.count(io.github.plrlr.autopilot.Items2.matcher("throwaway")) > 0;

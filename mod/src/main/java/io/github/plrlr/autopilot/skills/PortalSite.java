@@ -29,6 +29,8 @@ final class PortalSite {
 		/** Water or lava in the cell. */
 		boolean fluid(BlockPos p);
 
+		default boolean lava(BlockPos p) { return fluid(p); }
+
 		/** Water or lava in any of the 6 neighbors (digging next to it lets it flow in). */
 		boolean fluidNear(BlockPos p);
 

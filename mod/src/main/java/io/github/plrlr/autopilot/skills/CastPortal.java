@@ -554,17 +554,18 @@ public final class CastPortal extends Skill {
 	}
 
 	static BlockPos safeWaterSpot(BlockPos feet, Vec3 eye) {
+		FairProbe seen = new FairProbe();
 		for (int r = 1; r <= 2; r++) {
 			for (int dx = -r; dx <= r; dx++) for (int dz = -r; dz <= r; dz++) {
 				if (Math.max(Math.abs(dx), Math.abs(dz)) != r) continue;
 				BlockPos p = feet.offset(dx, 0, dz);
-				if (!Mc.free(p) || !Mc.solid(p.below()) || !Mc.clearOfPlayer(p)
-						|| eye.distanceTo(Vec3.atCenterOf(p)) > Mc.reach() - 0.5 || !Mc.canSee(p)) continue;
+				if (eye.distanceTo(Vec3.atCenterOf(p)) > Mc.reach() - 0.5 || !Mc.clearOfPlayer(p)
+						|| !seen.free(p) || !seen.visible(p.below()) || !seen.solid(p.below())) continue;
 				boolean lavaNear = false;
 				for (int x = -2; x <= 2 && !lavaNear; x++)
 					for (int z = -2; z <= 2 && !lavaNear; z++)
 						for (int y = -1; y <= 1; y++)
-							if (Mc.id(Mc.state(p.offset(x, y, z)).getBlock()).equals("lava")) { lavaNear = true; break; }
+							if (seen.fluid(p.offset(x, y, z))) { lavaNear = true; break; }
 				if (!lavaNear) return p.immutable();
 			}
 		}
