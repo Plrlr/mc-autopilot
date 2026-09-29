@@ -9,7 +9,7 @@ import java.nio.file.Path;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-/** The genes: defaults are the pre-loop values, params are clamped, bad files fall back safely. */
+/** The genes: defaults are the hand-tuned values plus settled winners, params are clamped, bad files fall back safely. */
 class TuneTest {
 	@AfterEach
 	void reset() {
@@ -17,12 +17,17 @@ class TuneTest {
 	}
 
 	@Test
-	void defaultsAreTheOldHandTunedValues() {
+	void defaultsAreTheHandTunedValuesPlusTheSettledWinners() {
 		assertEquals(7, Tune.get("reflex.creeper_dist"));
 		assertEquals(8, Tune.i("combat.flee_hp"));
 		assertEquals(14, Tune.i("food.eat_at"));
 		assertEquals(8, Tune.i("food.stock"));
-		assertTrue(Tune.on("route.armor_before_portal"));
+		// Baked in 2026-09-29 (what every champion since gen 49 plays; scripts/loop/genes.py).
+		assertFalse(Tune.on("route.armor_before_portal"));
+		assertTrue(Tune.on("cave.torches"));
+		assertTrue(Tune.on("focus.commit"));
+		assertEquals(15, Tune.i("plan.hide_hp"));
+		assertEquals(12, Tune.i("death.recover_night_armor"));
 		assertEquals(0, Tune.get("learned.weight"));
 		assertEquals(0, Tune.changed().size());
 	}
