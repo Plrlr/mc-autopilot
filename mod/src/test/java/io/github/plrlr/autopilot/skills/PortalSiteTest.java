@@ -150,4 +150,34 @@ class PortalSiteTest {
 		hard.blocks.put(O.above(3), "bedrock");
 		assertNull(PortalSite.makerPlan(O, Direction.EAST, hard));
 	}
+
+	@Test
+	void placedFrameFitsBelowAHardRoofWithoutASecondWall() {
+		Terrain t = new Terrain();
+		for (int x = 0; x < 4; x++) {
+			t.blocks.put(O.east(x).above(5), "bedrock");
+			t.blocks.put(O.east(x).north().below(), "air");
+			t.blocks.put(O.east(x).north().below(2), "air");
+		}
+		PortalSite.Plan p = PortalSite.placedPlan(O, Direction.EAST, t);
+		assertNotNull(p, "a five-high placed frame needs no cast roof row or backing support");
+		assertTrue(p.dig().isEmpty());
+		assertTrue(p.floor().isEmpty());
+		assertNull(PortalSite.plan(O, Direction.EAST, t), "casting still needs its original geometry");
+	}
+
+	@Test
+	void placedRoomDigsOnlyItsFrameAndStandingRowsAndStillRejectsHazards() {
+		Terrain t = new Terrain() {
+			@Override String at(BlockPos p) { return blocks.getOrDefault(p, "stone"); }
+		};
+		PortalSite.Plan p = PortalSite.placedPlan(O, Direction.EAST, t);
+		assertNotNull(p);
+		assertEquals(4 * 5 + 4 * 2 * 2, p.dig().size());
+		assertFalse(p.dig().contains(O.above(5)));
+		t.blocks.put(O.above(4), "bedrock");
+		assertNull(PortalSite.placedPlan(O, Direction.EAST, t));
+		t.blocks.put(O.above(4), "lava");
+		assertNull(PortalSite.placedPlan(O, Direction.EAST, t));
+	}
 }
