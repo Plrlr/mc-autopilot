@@ -13,13 +13,20 @@ final class CombatFootwork {
 		return safeDistance(pl, forward, right, 1);
 	}
 
+	/**
+	 * Forward is (-sin yaw, cos yaw) in Minecraft's axes and the player's right is (-cos yaw, -sin yaw)
+	 * (yaw 0 faces south, +z; its right hand points west, -x). Until 2026-09-29 "right" here was
+	 * (cos, sin), the player's LEFT, while every caller pressed the right-hand key for right > 0: the
+	 * creeper escape, the shield-less weave, strafing and the zig-zag approach checked one side and
+	 * stepped to the other (found in Codex's zombie-pack code, which had compensated).
+	 */
 	static boolean safeDistance(LocalPlayer pl, double forward, double right, int cells) {
 		if (!pl.onGround()) return false;
 		double yaw = Math.toRadians(pl.getYRot());
 		BlockPos feet = pl.blockPosition();
 		for (int step = 1; step <= cells; step++) {
-			int dx = (int) Math.round((-Math.sin(yaw) * forward + Math.cos(yaw) * right) * step);
-			int dz = (int) Math.round((Math.cos(yaw) * forward + Math.sin(yaw) * right) * step);
+			int dx = (int) Math.round((-Math.sin(yaw) * forward - Math.cos(yaw) * right) * step);
+			int dz = (int) Math.round((Math.cos(yaw) * forward - Math.sin(yaw) * right) * step);
 			if (dx == 0 && dz == 0) return false;
 			if (dx != 0 && dz != 0 && (!safeCell(feet.offset(dx, 0, 0)) || !safeCell(feet.offset(0, 0, dz)))) return false;
 			if (!safeCell(feet.offset(dx, 0, dz))) return false;

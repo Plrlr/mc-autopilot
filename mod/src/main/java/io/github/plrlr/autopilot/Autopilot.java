@@ -293,11 +293,17 @@ public final class Autopilot {
 				// Died again on the way back for our items: they aren't worth a third trip.
 				boolean onTheWayBack = skill != null && skill.name().equals("goto") && skillOption != null
 						&& "death".equals(skillOption.arg());
+				// What we drop now decides whether walking back is worth it (gene death.recover_value).
+				io.github.plrlr.autopilot.plan.SurvivalPlan.noteDeath(io.github.plrlr.autopilot.plan.SurvivalPlan.kitValue(Mc::count));
 				abortSkill("died", false);
 				Bari.stop();
 				progress.died();
 				io.github.plrlr.autopilot.plan.Escalation.clear();
-				String cause = pl.getLastDamageSource() == null ? "unknown" : pl.getLastDamageSource().type().msgId();
+				var src = pl.getLastDamageSource();
+				String cause = src == null ? "unknown" : src.type().msgId();
+				// Name the killer ("mob:enderman"): "mob" alone lumped zombies, endermen and spiders together
+				// in every death table (the local trial night2's enderman death read "mob").
+				if (src != null && src.getEntity() != null && !(src.getEntity() instanceof LocalPlayer)) cause += ":" + Mc.id(src.getEntity());
 				log.event("death", cause);
 				// Drops survive 5 minutes unless lava or the void took them; go back for them.
 				for (WorldMemory.Seen d : memory.all("death")) memory.forget("death", d.pos());

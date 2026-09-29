@@ -42,7 +42,11 @@ public final class Perception {
 			// A monster we just failed to reach isn't a threat from afar; up close it still is.
 			// A creeper's fuse only burns while it can see us, so one behind a wall is no threat:
 			// counting it kept a bot retreating on the spot for 15 minutes (batch 11, seed a).
-			boolean hostile = e instanceof Enemy && !NEUTRAL.contains(type)
+			// Gene safety.enderman_gaze: an angry (screaming) enderman is a threat to answer, not a neutral:
+			// the local trial night2 was hit to death by one the reflexes ignored (2026-09-29).
+			boolean angryEnderman = e instanceof net.minecraft.world.entity.monster.Enderman em && em.isCreepy()
+					&& io.github.plrlr.autopilot.Tune.on("safety.enderman_gaze");
+			boolean hostile = e instanceof Enemy && (!NEUTRAL.contains(type) || angryEnderman)
 					&& !(d > 4 && io.github.plrlr.autopilot.skills.CombatSkills.unreachable(e))
 					&& !io.github.plrlr.autopilot.skills.CombatSkills.walled(e)
 					&& !(type.equals("creeper") && !Mc.canSee(e));

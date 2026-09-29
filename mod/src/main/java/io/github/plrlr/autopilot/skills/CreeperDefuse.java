@@ -52,6 +52,13 @@ public final class CreeperDefuse extends Skill {
 		CombatFootwork.releaseMovement();
 		o.keySprint.setDown(false);
 		if (!target.isAlive() || target.isRemoved()) {
+			// A creeper that blew up is gone too, but that's no success: the stats (and the brain that
+			// reads them) counted blasts as wins. The local trial night2 went 20 -> 7 hp on "creeper gone".
+			var src = pl.getLastDamageSource();
+			if (pl.hurtTime > 0 && src != null && src.type().msgId().startsWith("explosion")) {
+				fail(Fail.HAZARD, "the creeper blew up next to us");
+				return;
+			}
 			Facts.report("threat_cleared");
 			done("creeper gone");
 			return;
