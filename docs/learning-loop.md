@@ -74,6 +74,13 @@ practice the first 20 minutes. Five pieces make the whole game learnable:
    pearls, eyes, gold, known fortress/portal/frame and the dragon, and its progress measure
    rewards them, so data from stage runs trains it for the late game too.
 
+**The diamond route (2026-09-29, the user's call).** The portal goes iron pickaxe → diamond depth
+→ diamond pickaxe → obsidian from a pool at depth → a frame in a dug room (docs/design.md,
+Planner behavior). The bank has a "diamond" stage between lava and the Nether (diamond pickaxe,
+a bucket, flint and steel; the `mold` scenario stands in until a run banks one), the score (v3)
+counts at_depth 0.5, diamond_pickaxe 1.5 and obsidian_10 2, and games are 40 minutes. The first
+staged trials entered the Nether at 2:39 (a shallow pool) and 4:20 (a pool three deep).
+
 Next, when the frontier reaches them: gene groups per stage (Nether and End thresholds), a quick
 screening test for code changes before they race (cheap first, like AlphaEvolve's evaluation
 cascade), and more parallel seeds once the cloud's speed is fixed (the renderer sets it:

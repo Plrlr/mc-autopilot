@@ -147,3 +147,10 @@ workflow's unit-tests job compiles and tests in about a minute, the trial jobs t
 - Smelting 13 iron takes ~130 s of standing still; do nearby work while the furnace runs.
 - Deaths: 7 in batch 6's four 15-minute runs (arrows, zombies, lava, fire), several while
   retreating. Night starts at ~10.75 game minutes; a bed or underground work is still missing.
+- (2026-09-29, the diamond route) A deep lava lake hardened with water is one layer of obsidian
+  over more lava: mined, the block drops into the lava and burns. Obsidian made a block at a time
+  in a dug pit (lava bucket in, water poured beside it) lies on solid ground. Lava poured into a
+  pit that still has water running into it hardens as it lands: mine it at once.
+- (2026-09-29) The fall clutch pours the water bucket; a bucket can be lost that way, so the
+  diamond route re-checks its two buckets every step. Deep work shows only stone for minutes
+  between diamonds: that must not count as "lost underground" or the bot climbs back up.
