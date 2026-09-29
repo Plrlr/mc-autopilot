@@ -1570,13 +1570,13 @@
  "days": {
   "2026-09-27": 15,
   "2026-09-28": 32,
-  "2026-09-29": 13
+  "2026-09-29": 14
  },
  "evolve_days": {
   "2026-09-27": 1,
   "2026-09-28": 7
  },
- "gen": 60,
+ "gen": 61,
  "gene_specs": {
   "brain.death_s": {
    "def": 600.0,
@@ -9189,6 +9189,27 @@
    "parent": "g24",
    "status": "contender"
   },
+  "g47": {
+   "born": 61,
+   "code": null,
+   "evals": [],
+   "genes": {
+    "cave.torches": 1.0,
+    "death.recover_night_armor": 12.0,
+    "focus.commit": 1.0,
+    "plan.hide_hp": 15.0,
+    "reflex.lava_margin": 1.0,
+    "route.armor_before_portal": 0.0
+   },
+   "id": "g47",
+   "mutated": [
+    "reflex.lava_margin"
+   ],
+   "note": "suggested: reflex.lava_margin 1",
+   "pairs": [],
+   "parent": "g24",
+   "status": "contender"
+  },
   "g5": {
    "born": 2,
    "code": null,
@@ -9785,8 +9806,77 @@
  "model_kind": "trees",
  "model_r2": 0.214,
  "model_rows": 85158,
- "next_id": 47,
- "pending": null,
+ "next_id": 48,
+ "pending": {
+  "data_tasks": [],
+  "gen": 61,
+  "lineup": [
+   "g24",
+   "g44",
+   "g45",
+   "g46",
+   "g47"
+  ],
+  "runs": [
+   "eval-g24-0",
+   "eval-g24-1",
+   "eval-g24-2",
+   "eval-g24-3",
+   "eval-g44-0",
+   "eval-g44-1",
+   "eval-g44-2",
+   "eval-g44-3",
+   "eval-g45-0",
+   "eval-g45-1",
+   "eval-g45-2",
+   "eval-g45-3",
+   "eval-g46-0",
+   "eval-g46-1",
+   "eval-g46-2",
+   "eval-g46-3",
+   "eval-g47-0",
+   "eval-g47-1",
+   "eval-g47-2",
+   "eval-g47-3"
+  ],
+  "seeds": [
+   "L61-rs5rpg",
+   "L61-xztv3n",
+   "L61-dcpus2",
+   "L61-9a4snw"
+  ],
+  "sha": "148c985108b56a6de2846968bbfb5c4a950a8bc7",
+  "started": "2026-09-29T13:35:58+00:00",
+  "tasks": [
+   {
+    "kind": "natural",
+    "seed": "L61-rs5rpg",
+    "stage": "spawn",
+    "synthetic": false
+   },
+   {
+    "kind": "natural",
+    "seed": "L61-xztv3n",
+    "stage": "spawn",
+    "synthetic": false
+   },
+   {
+    "asset": "lava-gen55-eval-g24-0.zip",
+    "kind": "start",
+    "seed": "L61-dcpus2",
+    "stage": "lava",
+    "synthetic": false
+   },
+   {
+    "kind": "combat",
+    "minutes": 10,
+    "scenario": "combat",
+    "seed": "L61-9a4snw",
+    "stage": "combat",
+    "synthetic": false
+   }
+  ]
+ },
  "score_version": 2,
  "settings": {
   "accept_pairs": 8,
@@ -12020,7 +12110,8 @@
   "{\"move.shore_first\": 1}",
   "{\"safety.hazard\": 1}",
   "{\"portal.prepare_work_area\": 1, \"portal.reserve_lava_bucket\": 1}",
-  "{\"portal.retry_cast_view\": 1}"
+  "{\"portal.retry_cast_view\": 1}",
+  "{\"reflex.lava_margin\": 1}"
  ],
  "version": 1
 }
