@@ -65,6 +65,11 @@ public final class CombatSkills {
 		return Tune.on("combat.ignore_walled_mobs") && unreachable(e) && !Mc.canSee(e) && Mc.player().hurtTime == 0;
 	}
 
+	/** Leave this mob alone for a minute: the livelock breaker found us looping around it. */
+	public static void leaveAlone(Entity e) {
+		markUnreachable(e);
+	}
+
 	/** Leave this mob alone for a minute (another skill couldn't reach it either). */
 	static void markUnreachable(Entity e) {
 		UNREACHABLE.put(e.getId(), System.currentTimeMillis() + 60_000);

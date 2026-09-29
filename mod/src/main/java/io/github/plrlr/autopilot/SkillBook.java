@@ -55,6 +55,20 @@ final class SkillBook {
 		j.addProperty("detail", r.detail());
 		j.addProperty("seconds", (a.tick - a.skillStartTick) / 20.0);
 		a.log.write(j);
+		// Gene plan.livelock_break: a minute of actions going nowhere is a loop (LivelockWatch).
+		if (Tune.on("plan.livelock_break")) {
+			var pl = Mc.player();
+			boolean kill = r.ok() && a.skillOption.skill().equals("attack") && r.detail() != null && r.detail().startsWith("killed");
+			var loop = a.livelock.record(a.gameSeconds(), a.actionKey(a.skillOption), pl.getX(), pl.getY(), pl.getZ(), a.inventoryHash(), kill);
+			if (loop != null) {
+				// Leave the monsters around us alone for a minute (the reflexes then only answer one
+				// that comes within reach) and pause the looping actions so the planner picks another.
+				for (var m : io.github.plrlr.autopilot.state.Perception.look(24).mobs)
+					if (m.hostile() && m.dist() > 4) io.github.plrlr.autopilot.skills.CombatSkills.leaveAlone(m.entity());
+				for (String k : loop) a.failures.put(k, new long[]{0, a.tick + 20 * 60});
+				a.log.event("livelock", String.join(", ", loop) + " for 60 s without moving, gaining or killing");
+			}
+		}
 		// The same action "succeeding" instantly again and again does nothing (e.g. pickup with
 		// nothing reachable): treat the repeat as a failure so it gets paused instead of looping
 		// every tick.
