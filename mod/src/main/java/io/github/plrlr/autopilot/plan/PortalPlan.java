@@ -45,14 +45,16 @@ public final class PortalPlan {
 	}
 
 	/**
-	 * A lava pool close enough to harden and mine: 6+ seen sources within 48 blocks, or obsidian
+	 * A lava pool close enough to harden and mine: 4+ seen sources within 48 blocks (6 was too many:
+	 * down there only bits of a lake are in view; trial mold-c mined 12 diamonds past such pools,
+	 * and obsidian carries over from one pool to the next), or obsidian
 	 * we can mine within 24. A pool remembered from far away (a surface pool 300 blocks back)
 	 * isn't one: walking back to it from diamond depth is the long way round.
 	 */
 	public static boolean poolNear(WorldMemory memory) {
 		BlockPos me = Mc.player().blockPosition();
 		int n = 0;
-		for (WorldMemory.Seen s : memory.all("lava")) if (s.pos().distSqr(me) <= 48 * 48 && !failedPool(s.pos()) && ++n >= 6) return true;
+		for (WorldMemory.Seen s : memory.all("lava")) if (s.pos().distSqr(me) <= 48 * 48 && !failedPool(s.pos()) && ++n >= 4) return true;
 		for (WorldMemory.Seen s : memory.all("obsidian")) if (s.pos().distSqr(me) <= 24 * 24 && !failedPool(s.pos())) return true;
 		return false;
 	}
