@@ -134,6 +134,10 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--state", required=True)
     ap.add_argument("--horizon", type=float, default=120)
+    # Retired 2026-09-29 (docs/brain-v3.md): the advantage re-ranker's held-out choice R2 stayed at
+    # 0.008 on 82k rows (gate 0.1), so it never played. Thompson sampling in the strategist explores
+    # instead. --advantage trains it again; the danger model and the skill stats always train.
+    ap.add_argument("--advantage", action="store_true", help="also train the retired advantage re-ranker")
     a = ap.parse_args()
     feats = common.load_features()
     files = sorted(glob.glob(os.path.join(a.state, "data", "**", "*.jsonl.gz"), recursive=True))
@@ -141,18 +145,21 @@ def main():
     # A fifth is the test set (the R2 the loop's gate reads); 15% stops the tree boosting early.
     rng = random.Random(7)
     part = {f: rng.random() for f in files}
-    rows = list(examples(files, feats, a.horizon))
+    rows = list(examples(files, feats, a.horizon)) if a.advantage else []
     hazard = None
+    keys, stats, kind = {}, {"r2": None, "adv_r2": None}, "retired"
     try:
         import numpy  # noqa: F401
-        keys, stats = train_trees(rows, part)
-        kind = "trees"
+        if a.advantage:
+            keys, stats = train_trees(rows, part)
+            kind = "trees"
         hazard = train_hazard(files, feats, part)
     except ImportError:
-        keys, stats = train_linear(rows, part)
-        kind = "linear"
+        if a.advantage:
+            keys, stats = train_linear(rows, part)
+            kind = "linear"
     ys = [y for _, _, _, y, _ in rows]
-    scale = max(0.1, statistics_std(ys))
+    scale = max(0.1, statistics_std(ys)) if ys else 1.0
     st_path = os.path.join(a.state, "state.json")
     st = common.read_json(st_path, {})
     gen = st.get("gen", 0)

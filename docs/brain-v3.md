@@ -52,3 +52,10 @@ good flip from noise (paired sd 3-4.7 per world).
    by `deaths` and milestone times.
 4. Then: Thompson exploration in `Brain` (replaces `learned.explore`), and retire the advantage
    trees if R2 stays under the gate once exploration data exists.
+
+## 2026-09-29 later: the advantage re-ranker is retired
+
+Its held-out choice R2 was 0.008 on 82k rows (and -0.018 when retrained on gens 50-58 alone), under
+its 0.1 gate, so it never played. `train.py` now trains only the danger model and the skill stats
+(the strategist's data): 17 s instead of 30 s on 9 generations. `--advantage` revives it. Data runs
+are 0 again: Thompson sampling in the strategist (brain.thompson) is the exploration now.
