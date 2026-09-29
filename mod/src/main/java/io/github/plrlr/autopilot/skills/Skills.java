@@ -33,6 +33,7 @@ public final class Skills {
 		MENU.put("panic_box", new Entry(PanicBox::new, "box in with 9 blocks right here and heal (any ground; not near creepers)"));
 		MENU.put("respawn_reset", new Entry(RespawnReset::new, "just respawned: at night dig or box in until morning"));
 		MENU.put("recover_items", new Entry(RecoverItems::new, "go back for dropped items: stop short, clear the spot, then pick up"));
+		MENU.put("stair_up", new Entry(StairUp::new, "stair_up [steps] [toward x z]: dig a 1-wide staircase up to open sky"));
 		MENU.put("spawner_escape", new Entry(SpawnerRoom::new, "wall off an active overworld spawner and leave"));
 		MENU.put("make_bed", new Entry(MakeBed::new, "make_bed:n: hunt sheep for wool and craft n beds"));
 		MENU.put("food_secure", new Entry(FoodSecure::new, "food_secure:n: cook, hunt, walk back to animals seen, fish, or explore until n food"));

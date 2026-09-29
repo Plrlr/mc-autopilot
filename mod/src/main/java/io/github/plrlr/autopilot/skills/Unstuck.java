@@ -20,9 +20,14 @@ import net.minecraft.world.phys.Vec3;
  * Done as soon as the bot is out of the box (moved `stuck.box` blocks, or 2 up). If every step
  * fails, it fails with STUCK and the planner moves on to something else. Which step worked is in
  * the result, so the logs (and the learned brain) see what gets it out of what.
+ *
+ * Gene nav.unstuck_v2 adds CLIMB (StairUp, 2 steps: out of the box by height) and reorders:
+ * in a pit or under a roof, CLIMB comes first; otherwise WALK, CLIMB, then TUNNEL. Gens 57-58: 41
+ * unstuck tries timed out at 45 s mostly while tunnelling sideways out of a covered shelter shaft,
+ * where one staircase step up was the way out.
  */
 public final class Unstuck extends Skill {
-	private enum Step { SWIM, WALK, TUNNEL, PILLAR }
+	private enum Step { SWIM, WALK, CLIMB, TUNNEL, PILLAR }
 
 	private Step step;
 	private Vec3 start;
@@ -33,6 +38,8 @@ public final class Unstuck extends Skill {
 	private BlockPos breaking;
 	private int tunnelled;
 	private int placed;
+	private boolean v2, climbed;
+	private StairUp climb;
 
 	@Override
 	public String name() {
@@ -54,7 +61,9 @@ public final class Unstuck extends Skill {
 		Direction facing = pl.getDirection();
 		dirs = new Direction[]{facing, facing.getClockWise(), facing.getCounterClockWise(), facing.getOpposite()};
 		landDir = pl.isInWater() ? nearestLand(pl.blockPosition()) : null;
-		step = pl.isInWater() ? Step.SWIM : Step.WALK;
+		v2 = Tune.on("nav.unstuck_v2");
+		if (v2) timeoutTicks = 20 * 60;
+		step = pl.isInWater() ? Step.SWIM : v2 && boxedAbove(pl.blockPosition()) ? Step.CLIMB : Step.WALK;
 	}
 
 	@Override
@@ -83,16 +92,44 @@ public final class Unstuck extends Skill {
 					stepTicks = 0;
 					if (++dirIndex >= dirs.length) {
 						dirIndex = 0;
-						next(Step.TUNNEL);
+						next(v2 && !climbed ? Step.CLIMB : Step.TUNNEL);
 					}
 				}
 			}
+			case CLIMB -> climb();
 			case TUNNEL -> tunnel(pl);
 			case PILLAR -> pillar(pl);
 		}
 	}
 
+	/** In a pit or under a roof: our head room is closed, or 3+ sides at head height are solid. */
+	private static boolean boxedAbove(BlockPos feet) {
+		if (Mc.solid(feet.above(2))) return true;
+		int walls = 0;
+		for (Direction d : Direction.Plane.HORIZONTAL) if (Mc.solid(feet.above().relative(d))) walls++;
+		return walls >= 3;
+	}
+
+	/** Two staircase steps up (2 blocks up is out of the box); then walk, or tunnel if walking was tried. */
+	private void climb() {
+		if (climb == null) {
+			climbed = true;
+			climb = new StairUp();
+			climb.begin(memory, "2");
+		}
+		climb.update();
+		if (climb.result() == null) return;
+		climb = null;
+		next(walkTried ? Step.TUNNEL : Step.WALK);
+	}
+
+	/** True once WALK has run (CLIMB came first in a pit, so WALK is next; else TUNNEL is). */
+	private boolean walkTried;
+
 	private void next(Step s) {
+		if (step == Step.WALK) walkTried = true;
+		if (climb != null && climb.result() == null) climb.abort(Fail.INTERRUPTED, "unstuck moved on");
+		climb = null;
 		releaseKeys();
 		if (Mc.mc().gameMode != null) Mc.mc().gameMode.stopDestroyBlock();
 		breaking = null;
@@ -205,6 +242,7 @@ public final class Unstuck extends Skill {
 
 	@Override
 	protected void cleanup() {
+		if (climb != null && climb.result() == null) climb.abort(Fail.INTERRUPTED, "unstuck ended");
 		if (Mc.mc().gameMode != null) Mc.mc().gameMode.stopDestroyBlock();
 		super.cleanup();
 	}

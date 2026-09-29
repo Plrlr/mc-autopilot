@@ -108,6 +108,36 @@ public final class MoveSkills {
 
 	/** goto <known block group> | end_center: walk to a remembered place. */
 	public static final class Goto extends Skill {
+		/** goto surface v2: the staircase fallback, and the best height reached so far. */
+		private StairUp climb;
+		private int bestY = Integer.MIN_VALUE, sinceHigher;
+
+		/**
+		 * Gene nav.surface_v2. Baritone's search gave up within a second in 18 of 35 failed trips up
+		 * (gens 57-58: "couldn't find the way up"), often boxed in by our own shelter. Give it 3 s to
+		 * start and judge it by height gained: no new height in 15 s, or no path, and we dig a
+		 * staircase up toward where we came down (StairUp), which needs no search and no blocks.
+		 */
+		private void surfaceV2(LocalPlayer pl) {
+			if (climb != null) {
+				climb.update();
+				if (climb.result() == null) return;
+				if (climb.result().ok()) done("climbed to open sky by stairs");
+				else fail(Fail.UNREACHABLE, "couldn't find the way up (stairs: " + climb.result().detail() + ")");
+				return;
+			}
+			if (pl.getBlockY() > bestY) {
+				bestY = pl.getBlockY();
+				sinceHigher = 0;
+			} else sinceHigher++;
+			boolean noPath = ticks > 60 && !Bari.pathing();
+			if (noPath || sinceHigher > 20 * 15) {
+				Bari.stop();
+				BlockPos entry = memory.surfaceEntry();
+				climb = new StairUp();
+				climb.begin(memory, "sky" + (entry == null ? "" : " toward " + entry.getX() + " " + entry.getZ()));
+			}
+		}
 		/** When goto surface last failed to climb (ms). */
 		private static long surfaceFailedAt;
 
@@ -126,6 +156,7 @@ public final class MoveSkills {
 
 		@Override
 		protected void cleanup() {
+			if (climb != null && climb.result() == null) climb.abort(Fail.INTERRUPTED, "goto ended");
 			super.cleanup();
 			Result r = result();
 			if ("surface".equals(arg) && r != null && !r.ok() && r.code() != Fail.INTERRUPTED && r.code() != Fail.DIED)
@@ -136,6 +167,8 @@ public final class MoveSkills {
 		protected void start() {
 			timeoutTicks = 20 * 120;
 			if ("surface".equals(arg)) {
+				// Room for the staircase after Baritone's try (StairUp's own limit is 90 s).
+				if (io.github.plrlr.autopilot.Tune.on("nav.surface_v2")) timeoutTicks = 20 * 240;
 				// Out of a cave the way we came in; with no known entry, dig up toward the sky.
 				LocalPlayer pl = Mc.player();
 				if (pl.level().canSeeSky(pl.blockPosition().above())) {
@@ -184,6 +217,10 @@ public final class MoveSkills {
 				LocalPlayer pl = Mc.player();
 				if (ticks % 10 == 0 && pl.level().canSeeSky(pl.blockPosition().above())) {
 					done("back under open sky");
+					return;
+				}
+				if (io.github.plrlr.autopilot.Tune.on("nav.surface_v2")) {
+					surfaceV2(pl);
 					return;
 				}
 				if (ticks > 20 && !Bari.pathing()) fail(Fail.UNREACHABLE, "couldn't find the way up");

@@ -34,6 +34,7 @@ import sys
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import bank  # noqa: E402
 import common  # noqa: E402
+import metrics  # noqa: E402
 
 DEFAULT_SETTINGS = {
     "seeds_per_gen": 4,        # every genome of a generation plays these seeds (paired)
@@ -62,7 +63,10 @@ DEFAULT_SETTINGS = {
     "stage_lookahead": True,   # one stage start per generation goes past the frontier (False: all at the frontier)
     "model_gate": 0.02,        # learned.* genes race only when the model's held-out advantage R2 beats this
     "focus_stage_seeds": 1,    # extra starts of a focused challenger's stage (suggestion "_stages") per generation
-    "max_jobs": 20,            # genomes x tasks per generation (GitHub's free plan runs 20 jobs at once)
+    "max_jobs": 20,
+    "metric_min": 40,          # tries per side before a targeted metric (suggestion "_metric") can decide
+    "metric_z": 2.5,           # ...and how many standard errors better the challenger must be (many looks)
+    "metric_safety_t": -1.5,   # ...while its whole-game pairs aren't worse than this paired t (a safety check)            # genomes x tasks per generation (GitHub's free plan runs 20 jobs at once)
 }
 
 
@@ -213,13 +217,24 @@ def cmd_propose(a):
             # g35 was +3.4 on its lava starts (it lit one of two portals all night) and dropped at
             # +0.54 over 16 pairs, 12 of them from runs that never reached lava.
             st["genomes"][gid]["focus"] = list(sug["_stages"])
+        if sug.get("_priority"):
+            st["genomes"][gid]["priority"] = True  # races ahead of unfocused ideas, never sits out
+        if sug.get("_max_pairs"):
+            # A broad change (the brain itself) moves every game a little: give it more worlds.
+            st["genomes"][gid]["max_pairs"] = int(sug["_max_pairs"])
+        if sug.get("_metric"):
+            # Judged by the thing it fixes (metrics.py): hundreds of tries a generation, not 4 scores.
+            st["genomes"][gid]["metric"] = sug["_metric"]
         st["genomes"][gid]["status"] = "contender"
         st["genomes"][gid]["code"] = st["genomes"][champ].get("code")
         lineup.append(gid)
 
+    def first(g):
+        return bool(g.get("focus") or g.get("priority"))
+
     def racing(focused):
         return sorted((g for g in st["genomes"].values() if g["status"] == "contender" and g["id"] not in lineup
-                       and g["note"].startswith("suggested") and bool(g.get("focus")) == focused),
+                       and g["note"].startswith("suggested") and first(g) == focused),
                       key=lambda g: g["born"])
 
     # Focused ideas go first (the frontier's stage is where progress is stuck), racing ones before
@@ -229,7 +244,7 @@ def cmd_propose(a):
         if len(lineup) < sug_cap:
             lineup.append(g["id"])
     for sug in queue:
-        if sug.get("_stages"):
+        if sug.get("_stages") or sug.get("_priority"):
             enter(sug)
     for g in racing(False):
         if len(lineup) < sug_cap:
@@ -281,8 +296,8 @@ def cmd_propose(a):
         t["seed"] = bank.random_seed(rng, "L%d" % gen)
     # Stay within the job limit: the last genomes in the lineup (unfocused contenders or fresh
     # mutations) sit this generation out and keep their place.
-    while len(lineup) > 2 and len(lineup) * len(tasks) > s.get("max_jobs", 10 ** 6):
-        out_of_turn = [x for x in lineup[1:] if not st["genomes"][x].get("focus")] or lineup[1:]
+    while len(lineup) > 2 and len(lineup) * len(tasks) + s["data_runs"] > s.get("max_jobs", 10 ** 6):
+        out_of_turn = [x for x in lineup[1:] if not first(st["genomes"][x])] or lineup[1:]
         lineup.remove(out_of_turn[-1])
     data_tasks = [{"kind": "natural", "stage": "spawn", "synthetic": False, "seed": bank.random_seed(rng, "D%d" % gen)}
                   for _ in range(s["data_runs"])]
@@ -390,6 +405,12 @@ def cmd_update(a):
                 continue
             if (gid, i) in by and (champ, i) in by:
                 g["pairs"].append([gen, seeds[i], round(by[(gid, i)] - by[(champ, i)], 3)])
+                if g.get("metric"):
+                    t = g.setdefault("metric_tally", {"on": [0, 0], "off": [0, 0]})
+                    for side, who in (("on", gid), ("off", champ)):
+                        h, n = metrics.tally_run(os.path.join(a.batch, "trial-eval-%s-%d" % (who, i)), g["metric"])
+                        t[side][0] += h
+                        t[side][1] = round(t[side][1] + n, 2)
     decisions = race(st, genes, p["lineup"][1:], champ, gen)
     showcase = ingest_inbox(a.state, st, sb, gen, upload)
     # History line for the dashboard.
@@ -447,9 +468,21 @@ def race(st, genes, challengers, champ, gen):
         # Suggestions and code changes get as many worlds as a promotion needs before they can be
         # dropped: focus.commit was dropped after 5 worlds at -0.24, which is noise at this spread.
         min_pairs = s["accept_pairs"] if g["note"].startswith(("suggested", "code:")) else s["drop_after_pairs"]
+        max_pairs = g.get("max_pairs", s["max_pairs"])
+        if g.get("metric"):
+            verdict = metric_verdict(s, g, t)
+            # Ranked by its metric's z (2.5+ is strong evidence); a whole-game t 2+ ranks alongside.
+            if verdict == "crown" and g["metric_z"] > best_t:
+                best, best_t = gid, g["metric_z"]
+            elif verdict == "drop":
+                g["status"] = "rejected"
+                out.append("%s dropped (%s: %s vs %s)" % (gid, g["metric"], metrics.describe(g["metric"], g["metric_tally"]["on"]),
+                                                         metrics.describe(g["metric"], g["metric_tally"]["off"])))
+                learn_from(st, g, m)
+            continue
         if len(diffs) >= s["accept_pairs"] and m >= s["min_gain"] and t >= s["accept_t"] and t > best_t:
             best, best_t = gid, t
-        elif (len(diffs) >= min_pairs and m <= 0) or len(diffs) >= s["max_pairs"]:
+        elif (len(diffs) >= min_pairs and m <= 0) or len(diffs) >= max_pairs:
             g["status"] = "rejected"
             out.append("%s dropped (%+.2f over %d seeds)" % (gid, m, len(diffs)))
             learn_from(st, g, m)
@@ -467,7 +500,12 @@ def race(st, genes, challengers, champ, gen):
         if g.get("code"):
             st["merge"] = dict(g["code"], genome=best)  # the workflow merges it into main (loop.py merge)
         st["champion"] = best
-        out.append("%s is the new champion (%+.2f over %d seeds, t %.1f): %s" % (best, m, len(g["pairs"]), best_t, g["note"]))
+        if g.get("metric"):
+            out.append("%s is the new champion (%s: %s vs %s, z %.1f; game %+.2f over %d seeds): %s" % (
+                best, g["metric"], metrics.describe(g["metric"], g["metric_tally"]["on"]),
+                metrics.describe(g["metric"], g["metric_tally"]["off"]), best_t, m, len(g["pairs"]), g["note"]))
+        else:
+            out.append("%s is the new champion (%+.2f over %d seeds, t %.1f): %s" % (best, m, len(g["pairs"]), best_t, g["note"]))
         learn_from(st, g, m)
         # A bundle of skills won (a whole wave of docs/skills-40.md at once): trim it. One race per
         # skill with just that skill off; a skill dragging the bundle down loses its place that way.
@@ -479,7 +517,25 @@ def race(st, genes, challengers, champ, gen):
         for gid in challengers:
             if st["genomes"][gid]["status"] == "contender":
                 st["genomes"][gid]["pairs"] = []
+                st["genomes"][gid].pop("metric_tally", None)
     return out
+
+
+def metric_verdict(s, g, t):
+    """crown / drop / wait for a challenger judged by its targeted metric (metrics.py)."""
+    s = dict(s, max_pairs=g.get("max_pairs", s["max_pairs"]))
+    tl = g.get("metric_tally")
+    if not tl:
+        return "drop" if len(g["pairs"]) >= s["max_pairs"] else "wait"
+    enough = min(tl["on"][1], tl["off"][1]) >= s.get("metric_min", 40)
+    zv = metrics.z(g["metric"], tl["on"], tl["off"])
+    g["metric_z"] = round(zv, 2)
+    safe = len(g["pairs"]) < 2 or t >= s.get("metric_safety_t", -1.5)
+    if enough and zv >= s.get("metric_z", 2.5) and safe:
+        return "crown"
+    if (enough and zv <= 0) or not safe or len(g["pairs"]) >= s["max_pairs"]:
+        return "drop"
+    return "wait"
 
 
 def learn_from(st, g, m):

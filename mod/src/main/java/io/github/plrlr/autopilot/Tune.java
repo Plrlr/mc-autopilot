@@ -139,6 +139,12 @@ public final class Tune {
 		gene("skill.respawn_reset", 0, 0, 1, Kind.BOOL, "after respawning at night, dig or box in until morning before anything else");
 		gene("skill.recover_items", 0, 0, 1, Kind.BOOL, "go back for dropped items carefully: stop short, clear the spot, then pick up");
 		gene("skill.make_bed", 0, 0, 1, Kind.BOOL, "hunt sheep and craft a bed when sheep are in sight and we have none");
+		gene("combat.ignore_walled_mobs", 0, 0, 1, Kind.BOOL, "a close mob we failed to reach, can't see and that isn't hurting us is left alone for a minute");
+		gene("safety.spawner_break", 0, 0, 1, Kind.BOOL, "at a live overworld spawner in reach, break it (pickaxe, 12+ hp) instead of walling off and leaving");
+		gene("night.shelter_exit", 0, 0, 1, Kind.BOOL, "at morning, climb out of the covered shelter shaft by stairs before moving on");
+		gene("nav.surface_v2", 0, 0, 1, Kind.BOOL, "goto surface: judge Baritone by height gained, fall back to digging a staircase up");
+		gene("nav.unstuck_v2", 0, 0, 1, Kind.BOOL, "unstuck: climb a staircase first in a pit or under a roof, and before tunnelling");
+		gene("stuck.item_progress", 0, 0, 1, Kind.BOOL, "an item gained resets the stuck timer (mining in place is not stuck)");
 		gene("stuck.ignore_water_bob", 0, 0, 1, Kind.BOOL, "detect a collect trip stuck in water using horizontal movement despite bobbing");
 		gene("gather.dry_stone", 0, 0, 1, Kind.BOOL, "prefer only seen stone with no water touching it");
 		gene("fluid.enclosed_tunnel", 0, 0, 1, Kind.BOOL, "drain only flooded passages with a solid roof and walls, not open lakes");

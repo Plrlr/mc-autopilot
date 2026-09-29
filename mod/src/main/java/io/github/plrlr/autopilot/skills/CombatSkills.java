@@ -50,6 +50,21 @@ public final class CombatSkills {
 		return until != null && System.currentTimeMillis() < until;
 	}
 
+	/**
+	 * Up close a mob is fought even after a chase failed, except (gene combat.ignore_walled_mobs)
+	 * one we recently failed to reach that we can't see and that isn't hurting us: the client knows
+	 * about a spider in a cave pocket behind a wall, a player only hears it. Gens 51-56: four runs
+	 * lost 260-470 tries each to "attack spider" failing every ~3 s ("no sightline") while smelting.
+	 */
+	public static boolean fightable(Entity e, double dist) {
+		return !unreachable(e) || dist < 4 && !walled(e);
+	}
+
+	/** Recently unreachable, out of sight and not hurting us (only with the gene). */
+	public static boolean walled(Entity e) {
+		return Tune.on("combat.ignore_walled_mobs") && unreachable(e) && !Mc.canSee(e) && Mc.player().hurtTime == 0;
+	}
+
 	/** Leave this mob alone for a minute (another skill couldn't reach it either). */
 	static void markUnreachable(Entity e) {
 		UNREACHABLE.put(e.getId(), System.currentTimeMillis() + 60_000);
@@ -94,7 +109,7 @@ public final class CombatSkills {
 				// keep hitting us while the attack failed instantly (batch 6).
 				// A monster heard round a corner may still be chased (a player would); the swing
 				// itself waits for a sightline below.
-				if (m.type().equals(arg) && (m.dist() < 4 || !unreachable(m.entity()))) {
+				if (m.type().equals(arg) && fightable(m.entity(), m.dist())) {
 					s = m;
 					break;
 				}
@@ -108,7 +123,7 @@ public final class CombatSkills {
 				List<CombatTargeting.Candidate> candidates = new ArrayList<>();
 			for (Perception.Seen mob : observed.mobs) if (mob.hostile() && Mc.canSee(mob.entity())
 					&& (!mob.type().equals("creeper") || canHitCreeper(mob))
-						&& (mob.dist() < 4 || !unreachable(mob.entity()))) {
+						&& fightable(mob.entity(), mob.dist())) {
 					int index = visible.size();
 					visible.add(mob);
 					candidates.add(new CombatTargeting.Candidate(index, mob.type(), mob.dist(),
@@ -263,7 +278,10 @@ public final class CombatSkills {
 				// gameMode.attack skips the crosshair, so without this the bot could hit through walls.
 				// Its own counter: the sight check above resets `unseen` whenever the mob is within 4.
 				if (!Mc.canSee(hitBox)) {
-					if (++blocked > 60) fail(Fail.UNREACHABLE, "no sightline to the " + arg);
+					if (++blocked > 60) {
+						if (Tune.on("combat.ignore_walled_mobs")) markUnreachable(target);
+						fail(Fail.UNREACHABLE, "no sightline to the " + arg);
+					}
 					return;
 				}
 				blocked = 0;

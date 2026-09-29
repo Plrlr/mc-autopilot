@@ -25,3 +25,6 @@ jobs:
         working-directory: mod
         # The in-game test code compiles here too.
         run: chmod +x gradlew && ./gradlew test compileGametestJava --console=plain
+      - name: Loop self-tests
+        # The learning loop's Python (scripts/loop): a broken race rule costs a night of generations.
+        run: for t in scripts/loop/test_*.py; do python3 "$t" || exit 1; done
