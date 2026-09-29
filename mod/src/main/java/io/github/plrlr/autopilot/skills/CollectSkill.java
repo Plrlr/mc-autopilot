@@ -172,7 +172,7 @@ public final class CollectSkill extends Skill {
 			flint.tick();
 			return;
 		}
-		if (untilLava && memory.nearest("lava") != null) {
+		if (untilLava && io.github.plrlr.autopilot.plan.PortalPlan.lavaFound(memory)) {
 			done("lava in sight");
 			return;
 		}

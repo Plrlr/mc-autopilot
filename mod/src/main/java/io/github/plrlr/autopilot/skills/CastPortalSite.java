@@ -37,6 +37,20 @@ public final class CastPortalSite extends Composite {
 	private PortalSite.Plan plan;
 	private BlockPos pool;
 	private int idx, sites, stuck, placeTries;
+	/**
+	 * dig_portal: the same room, dug for a frame of 10 carried obsidian (the diamond route) instead
+	 * of a cast. No lava pool needed; underground there is never flat open ground, so the room
+	 * is always dug (a site already open costs nothing and wins the search).
+	 */
+	private final boolean placed;
+
+	public CastPortalSite() {
+		this(false);
+	}
+
+	public CastPortalSite(boolean placed) {
+		this.placed = placed;
+	}
 	private PortalSiteMaker maker;
 
 	static final PortalSite.Probe WORLD = new PortalSite.Probe() {
@@ -70,7 +84,7 @@ public final class CastPortalSite extends Composite {
 
 	@Override
 	public String name() {
-		return "cast_portal";
+		return placed ? "dig_portal" : "cast_portal";
 	}
 
 	/**
@@ -86,6 +100,18 @@ public final class CastPortalSite extends Composite {
 	protected void start() {
 		timeoutTicks = 20 * 60 * 12;
 		maxChildFails = 2;
+		if (placed) {
+			if (!Mc.dimension().equals("overworld")) {
+				fail(Fail.WRONG_PLACE, "build the portal in the overworld");
+				return;
+			}
+			if (Mc.count("obsidian") + PortalSkills.placedFrameObsidian() < 10 || Mc.count("flint_and_steel") == 0) {
+				fail(Fail.NEED_ITEM, "the frame needs 10 obsidian and flint and steel");
+				return;
+			}
+			phase = PortalSkills.frameInProgress() ? Phase.CAST : Phase.PICK;
+			return;
+		}
 		WorldMemory.Seen lava = memory.nearest("lava");
 		if (lava == null) {
 			fail(Fail.NOT_FOUND, "no known lava pool to cast from");
@@ -178,11 +204,13 @@ public final class CastPortalSite extends Composite {
 			}
 			case FLOOR -> {
 				if (idx >= plan.floor().size()) {
-					if (!CastGeometry.fits(plan.origin(), plan.along(), PortalSite.WALL_H)) {
+					if (placed ? !PortalSkills.siteFits(plan.origin(), plan.along())
+							: !CastGeometry.fits(plan.origin(), plan.along(), PortalSite.WALL_H)) {
 						siteWentBad("site still doesn't fit after the work");
 						return true;
 					}
-					CastPortal.useSite(plan.origin(), plan.along());
+					if (placed) PortalSkills.useSite(plan.origin(), plan.along());
+					else CastPortal.useSite(plan.origin(), plan.along());
 					log("site ready at " + plan.origin().toShortString());
 					phase = Phase.CAST;
 					return false;
@@ -231,6 +259,7 @@ public final class CastPortalSite extends Composite {
 	protected Option next() {
 		if (phase != Phase.CAST) return phase == Phase.DONE ? null : WAIT;
 		phase = Phase.DONE;
+		if (placed) return new Option("build_portal", "placed", "build the frame in the room we dug and light it");
 		return new Option("build_portal", null, "cast the portal on the site we made");
 	}
 
@@ -251,6 +280,6 @@ public final class CastPortalSite extends Composite {
 	}
 
 	private static void log(String s) {
-		io.github.plrlr.autopilot.AutopilotMod.LOGGER.info("[cast_portal] {}", s);
+		io.github.plrlr.autopilot.AutopilotMod.LOGGER.info("[portal_site] {}", s);
 	}
 }

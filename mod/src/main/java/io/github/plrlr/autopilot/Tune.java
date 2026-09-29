@@ -105,7 +105,11 @@ public final class Tune {
 		gene("route.armor_before_portal", 0, 0, 1, Kind.BOOL, "chestplate and helmet before the portal");
 		gene("route.boots_before_portal", 1, 0, 1, Kind.BOOL, "boots too when 4 ingots are spare");
 		gene("route.deep_for_lava", 1, 0, 1, Kind.BOOL, "mine down to lava depth instead of exploring for a pool");
-		gene("route.diamond_portal", 0, 0, 1, Kind.BOOL, "portal the classic way (diamond pickaxe, mine 10 obsidian) instead of casting it");
+		// 2026-09-29 (the user's call): the diamond route is the default; the cast route races back as a control.
+		gene("route.diamond_portal", 1, 0, 1, Kind.BOOL, "portal the classic way (diamond pickaxe, mine 10 obsidian) instead of casting it");
+		gene("route.deep_portal", 1, 0, 1, Kind.BOOL, "the diamond route as one plan: kit up top, diamonds and a lava pool at depth, frame built in a dug room");
+		gene("deep.mold", 1, 0, 1, Kind.BOOL, "obsidian_pool: nothing safe to mine, so make obsidian a block at a time in a dug pit (two buckets)");
+		gene("deep.sticks", 4, 2, 8, Kind.INT, "sticks to carry down for the diamond pickaxe (torches use them too)");
 		gene("route.bed", 1, 0, 1, Kind.BOOL, "hunt sheep and make a bed early");
 		// Pearls and the stronghold
 		gene("route.barter", 0, 0, 1, Kind.BOOL, "get pearls by trading gold with piglins before hunting endermen");

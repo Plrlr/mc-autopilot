@@ -166,7 +166,7 @@ public final class PortalRoutes {
 		private final Act.Breaker breaker = new Act.Breaker();
 		private final Set<BlockPos> skip = new HashSet<>();
 		private BlockPos target;
-		private int rounds, walkTries;
+		private int rounds, walkTries, molds;
 		private boolean pickup;
 
 		@Override
@@ -176,7 +176,8 @@ public final class PortalRoutes {
 
 		@Override
 		protected void start() {
-			timeoutTicks = 20 * 60 * 8;
+			// Room for the one-block mold (up to 8 min) after the pool itself.
+			timeoutTicks = 20 * 60 * 14;
 			maxChildFails = 4;
 			if (Items2.bestTier("pickaxe") < 3) fail(Fail.NEED_ITEM, "obsidian needs a diamond pickaxe");
 		}
@@ -238,6 +239,13 @@ public final class PortalRoutes {
 				walkTries = 0;
 				return WAIT;
 			}
+			// Nothing safe to mine: hardening a deep lake leaves obsidian over lava (it burns when
+			// mined). With two buckets, make it a block at a time in a pit instead (obsidian_mold).
+			if (io.github.plrlr.autopilot.Tune.on("deep.mold") && molds < 2 && Mc.count("water_bucket") > 0
+					&& Mc.count("water_bucket") + Mc.count("bucket") + Mc.count("lava_bucket") >= 2) {
+				molds++;
+				return new Option("obsidian_mold", String.valueOf(10 - Mc.count("obsidian")), "make the rest in a pit, on solid ground");
+			}
 			if (rounds++ >= 3) return null;
 			if (Mc.count("water_bucket") == 0) return new Option("fill_bucket", "water", "water to harden the pool");
 			return new Option("make_obsidian", "obsidian", "harden more of the pool");
@@ -246,7 +254,7 @@ public final class PortalRoutes {
 		@Override
 		protected void finish() {
 			if (Mc.count("obsidian") >= 10) done("have " + Mc.count("obsidian") + " obsidian");
-			else fail(Fail.NO_PROGRESS, "only " + Mc.count("obsidian") + " obsidian after 3 rounds");
+			else fail(Fail.NO_PROGRESS, "only " + Mc.count("obsidian") + " obsidian after the mold and 3 rounds");
 		}
 
 		@Override

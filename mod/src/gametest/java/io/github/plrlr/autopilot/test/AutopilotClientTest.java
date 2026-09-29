@@ -216,6 +216,26 @@ public class AutopilotClientTest implements FabricClientGameTest {
 			server.runCommand("execute at @p run tp @p ~ -50 ~");
 			return Goal.NETHER_PORTAL;
 		}
+		if (scenario.equals("diamond")) {
+			// The diamond route (the default since 2026-09-29) from the iron kit, at the surface of a
+			// natural world: stairs down, diamonds, a lava pool at depth, obsidian, the frame, the Nether.
+			for (String g : List.of("iron_pickaxe", "iron_sword", "shield", "bucket", "water_bucket", "flint_and_steel",
+					"crafting_table", "stick 4", "cobblestone 32", "cooked_beef 16", "torch 16"))
+				server.runCommand("give @a " + g);
+			return Goal.NETHER_PORTAL;
+		}
+		if (scenario.equals("mold")) {
+			// The last leg of it: a diamond pickaxe beside a lava pool three deep, so hardening its top
+			// leaves lava under the obsidian and the one-block mold (obsidian_mold) has to do the work;
+			// then a room for the frame (dig_portal), the frame, the light.
+			for (String g : List.of("diamond_pickaxe", "iron_sword", "shield", "bucket", "water_bucket", "flint_and_steel",
+					"cobblestone 64", "cooked_beef 16"))
+				server.runCommand("give @a " + g);
+			server.runCommand("execute at @p run fill ~6 ~-4 ~-3 ~11 ~-1 ~3 stone");
+			server.runCommand("execute at @p run fill ~7 ~-3 ~-1 ~10 ~-1 ~1 lava");
+			server.runCommand("execute at @p run fill ~6 ~ ~-3 ~11 ~3 ~3 air");
+			return Goal.NETHER_PORTAL;
+		}
 		if (scenario.equals("enderman")) {
 			// Pearls from endermen: a boat, planks for another, a sword; two endermen 8-10 blocks out.
 			for (String g : List.of("iron_sword", "oak_boat", "oak_planks 10", "cooked_beef 16", "crafting_table"))

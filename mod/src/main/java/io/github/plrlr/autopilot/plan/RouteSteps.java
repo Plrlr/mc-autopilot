@@ -70,6 +70,7 @@ final class RouteSteps {
 					Option o = p.itemStep("diamond_pickaxe", 1, depth + 1);
 					if (o != null) return o;
 				}
+				if (Tune.on("route.diamond_portal") && Tune.on("route.deep_portal")) return deepStep(depth);
 				if (Goal.have("obsidian") < 10 && Items2.bestTier("pickaxe") < 3) {
 					if (!Tune.on("route.diamond_portal")) return castStep(depth);
 					Option o = p.itemStep("diamond_pickaxe", 1, depth + 1);
@@ -224,6 +225,64 @@ final class RouteSteps {
 			if (f != null) return new Option(f.skill(), f.arg(), "ready for the Nether: flint and steel to relight the way home");
 		}
 		return null;
+	}
+
+	/**
+	 * The deep route to the Nether (the user's call, 2026-09-29): casting a frame from buckets
+	 * placed obsidian in few runs and lit a portal in almost none (history: portal_drill), so go
+	 * the way most players do. Iron pickaxe, then down to diamond depth; the caves there sit on
+	 * lava (cave air below y -55 is lava), so the diamond hunt turns up the pool as well. Three
+	 * diamonds make the pickaxe, water on the pool makes obsidian, and 10 of it make the frame,
+	 * built right there in a room we dig out (dig_portal), then lit.
+	 *
+	 * What can't be had down there is taken along first: flint and steel, a water bucket, a
+	 * crafting table and sticks for the pickaxe (a table crafted at y -54 means a climb for wood).
+	 */
+	private Option deepStep(int depth) {
+		Option head = PortalPlan.early(p.memory);
+		if (head != null) return head;
+		boolean up = Mc.player().getBlockY() > 0;
+		if (Goal.have("flint_and_steel") == 0) {
+			Option o = p.itemStep("flint_and_steel", 1, depth + 1);
+			if (o != null) return o;
+		}
+		boolean pick = Items2.bestTier("pickaxe") >= 3;
+		// Two buckets before going down: water to harden lava, and lava for the one-block mold
+		// (obsidian_mold). Down there or with the pickaxe made, one will do (the pool hardens).
+		int buckets = up && !pick ? 2 : 1;
+		if (Goal.have("bucket") < buckets) {
+			Option o = p.itemStep("bucket", buckets, depth + 1);
+			if (o != null) return o;
+		}
+		if (up && Goal.have("obsidian") < 10) {
+			if (Mc.count("water_bucket") == 0) {
+				Option o = p.itemStep("water_bucket", 1, depth + 1);
+				if (o != null) return o;
+			}
+			if (!pick && Mc.count("crafting_table") == 0) {
+				Option o = p.itemStep("crafting_table", 1, depth + 1);
+				if (o != null) return o;
+			}
+			if (!pick && Mc.count("stick") < Tune.i("deep.sticks")) {
+				Option o = p.itemStep("stick", Tune.i("deep.sticks"), depth + 1);
+				if (o != null) return o;
+			}
+		}
+		if (!pick && Goal.have("obsidian") < 10) {
+			Option o = p.itemStep("diamond_pickaxe", 1, depth + 1);
+			if (o != null) return o;
+		}
+		if (Goal.have("obsidian") < 10) {
+			if (PortalPlan.poolNear(p.memory))
+				return new Option("obsidian_pool", null, "harden the lava pool and mine 10 obsidian, checking under each block");
+			// No pool in reach yet: the diamond-depth caves are full of lava; mining on finds one.
+			return new Option("collect", "diamond:1:lava", "mine on at diamond depth for a lava pool");
+		}
+		if (Mc.count("throwaway") + Mc.count("planks") < 4) {
+			Option c = p.itemStep("stone", Mc.count("stone") + 4, depth + 1);
+			if (c != null) return c;
+		}
+		return new Option("dig_portal", null, "dig a room and build the frame from our 10 obsidian, then light it");
 	}
 
 	/**

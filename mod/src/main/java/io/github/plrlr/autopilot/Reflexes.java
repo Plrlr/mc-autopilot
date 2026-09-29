@@ -25,7 +25,7 @@ final class Reflexes {
 		}
 		// Lava guard (gene skill.lava_guard): lava showing up beside us while we work gets covered at once.
 		if (Tune.on("skill.lava_guard") && a.tick % 3 == 0 && a.skill != null
-				&& !java.util.Set.of("build_portal", "cast_portal", "fill_bucket", "make_obsidian", "obsidian_pool", "clutch").contains(a.skill.name())
+				&& !java.util.Set.of("build_portal", "cast_portal", "fill_bucket", "make_obsidian", "obsidian_pool", "obsidian_mold", "clutch").contains(a.skill.name())
 				&& io.github.plrlr.autopilot.skills.Fluids.LavaGuard.guard()) {
 			a.log.event("reflex", "lava covered");
 			return;
@@ -39,7 +39,7 @@ final class Reflexes {
 			return;
 		}
 		Danger.Verdict danger = Tune.on("survival.danger_v2") ? DangerSense.assess(a.seen) : null;
-		boolean lavaWork = a.skill != null && java.util.Set.of("build_portal", "fill_bucket", "make_obsidian", "clutch").contains(a.skill.name());
+		boolean lavaWork = a.skill != null && java.util.Set.of("build_portal", "fill_bucket", "make_obsidian", "obsidian_pool", "obsidian_mold", "clutch").contains(a.skill.name());
 		if (danger != null && pl.isOnFire() && !lavaWork && !Mc.dimension().equals("the_nether")
 				&& Mc.count("water_bucket") > 0 && Mc.holdItem(s -> Items2.id(s).equals("water_bucket"))) {
 			a.abortSkill("put out fire", false);
@@ -93,7 +93,7 @@ final class Reflexes {
 		// Lava beside us or one step down (gene reflex.lava_margin): step straight away from it,
 		// except in the skills that work next to lava on purpose.
 		if (Tune.on("reflex.lava_margin") && a.tick - a.lavaMarginTick > 20 * 10
-				&& (a.skill == null || !java.util.Set.of("build_portal", "fill_bucket", "make_obsidian", "clutch").contains(a.skill.name()))) {
+				&& (a.skill == null || !java.util.Set.of("build_portal", "fill_bucket", "make_obsidian", "obsidian_pool", "obsidian_mold", "clutch").contains(a.skill.name()))) {
 			BlockPos feet = pl.blockPosition();
 			double ax = 0, az = 0;
 			for (int dx = -1; dx <= 1; dx++)

@@ -5,6 +5,7 @@ import io.github.plrlr.autopilot.Mc;
 import io.github.plrlr.autopilot.Tune;
 import io.github.plrlr.autopilot.skills.ChestSkills;
 import io.github.plrlr.autopilot.state.WorldMemory;
+import net.minecraft.core.BlockPos;
 
 /**
  * Wave 2 of docs/skills-40.md (the portal): where each portal skill replaces the rules' step.
@@ -43,9 +44,29 @@ public final class PortalPlan {
 		return new Option("obsidian_pool", null, "harden the lava pool and mine 10 obsidian, checking under each block");
 	}
 
-	/** Any "collect diamond" step (not the deep-for-lava one): safe stairs, then branch mining (gene skill.diamond_hunt). */
+	/**
+	 * A lava pool close enough to harden and mine: 6+ seen sources within 48 blocks, or obsidian
+	 * we can mine within 24. A pool remembered from far away (a surface pool 300 blocks back)
+	 * isn't one: walking back to it from diamond depth is the long way round.
+	 */
+	public static boolean poolNear(WorldMemory memory) {
+		BlockPos me = Mc.player().blockPosition();
+		int n = 0;
+		for (WorldMemory.Seen s : memory.all("lava")) if (s.pos().distSqr(me) <= 48 * 48 && ++n >= 6) return true;
+		for (WorldMemory.Seen s : memory.all("obsidian")) if (s.pos().distSqr(me) <= 24 * 24) return true;
+		return false;
+	}
+
+	/** When "collect diamond:n:lava" (mining deep for lava) has found it. */
+	public static boolean lavaFound(WorldMemory memory) {
+		if (Tune.on("route.diamond_portal") && Tune.on("route.deep_portal")) return poolNear(memory);
+		return memory.nearest("lava") != null;
+	}
+
+	/** Any "collect diamond" step (not the deep-for-lava one): safe stairs, then branch mining (gene skill.diamond_hunt; the deep route always). */
 	public static Option diamonds(Option old) {
-		if (old == null || !Tune.on("skill.diamond_hunt") || !old.skill().equals("collect") || old.arg() == null
+		boolean deep = Tune.on("route.diamond_portal") && Tune.on("route.deep_portal");
+		if (old == null || !(Tune.on("skill.diamond_hunt") || deep) || !old.skill().equals("collect") || old.arg() == null
 				|| !old.arg().startsWith("diamond") || old.arg().endsWith(":lava")) return old;
 		String[] a = old.arg().split(":");
 		return new Option("diamond_hunt", a.length > 1 ? a[1] : "3", "stairs to diamond depth, then branch-mine");
