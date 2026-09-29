@@ -37,12 +37,13 @@ import java.util.Set;
  * Needs a diamond pickaxe, a water bucket and a second bucket.
  */
 public final class ObsidianMold extends Composite {
-	private enum Phase {SITE, WALK, DIG, LAVA, POUR_LAVA, POUR_WATER, WAIT, SCOOP, MINE, PICKUP, COUNT, UNDO, DONE}
+	private enum Phase {RESERVE_BUCKET, SITE, WALK, DIG, LAVA, POUR_LAVA, POUR_WATER, WAIT, SCOOP, MINE, PICKUP, COUNT, UNDO, DONE}
 
 	private Phase phase = Phase.SITE, afterWalk = Phase.DIG;
 	private final Act.Breaker breaker = new Act.Breaker();
 	private final Set<BlockPos> bad = new HashSet<>();
 	private MoldSite.Site site;
+	private BlockPos spareWaterSpot;
 	private int want, start, sites, wait, tries, walkTries;
 	private String abandonWhy;
 
@@ -61,7 +62,7 @@ public final class ObsidianMold extends Composite {
 	protected void start() {
 		timeoutTicks = 20 * 60 * 8;
 		maxChildFails = 4;
-		want = argCount(10);
+		want = requestedCount(arg);
 		start = Mc.count("obsidian");
 		if (!Mc.dimension().equals("overworld")) {
 			fail(Fail.WRONG_PLACE, "water boils away outside the overworld");
@@ -71,8 +72,20 @@ public final class ObsidianMold extends Composite {
 			fail(Fail.NEED_ITEM, "obsidian needs a diamond pickaxe");
 			return;
 		}
-		if (Mc.count("water_bucket") == 0 || Mc.count("bucket") + Mc.count("lava_bucket") == 0) {
-			fail(Fail.NEED_ITEM, "the mold needs a water bucket and a second bucket");
+		switch (CastPortal.bucketPlan(Mc.count("water_bucket"), Mc.count("bucket"), Mc.count("lava_bucket"))) {
+			case READY -> {}
+			case EMPTY_SPARE -> phase = Phase.RESERVE_BUCKET;
+			case MISSING -> fail(Fail.NEED_ITEM, "the mold needs a water bucket and a second bucket");
+		}
+	}
+
+	/** Both the planner and the skill catalog pass bare counts; item:count also remains valid. */
+	static int requestedCount(String arg) {
+		if (arg == null) return 10;
+		try {
+			return Math.max(1, Integer.parseInt(arg.substring(arg.indexOf(':') + 1).trim()));
+		} catch (NumberFormatException e) {
+			return 10;
 		}
 	}
 
@@ -83,6 +96,27 @@ public final class ObsidianMold extends Composite {
 	@Override
 	protected boolean ownTick() {
 		switch (phase) {
+			case RESERVE_BUCKET -> {
+				Bari.stop();
+				if (Mc.count("bucket") + Mc.count("lava_bucket") > 0) {
+					phase = Phase.SITE;
+					wait = 0;
+					return true;
+				}
+				if (Mc.count("water_bucket") < 2) {
+					fail(Fail.NEED_ITEM, "keep one water bucket; no spare to empty");
+					return true;
+				}
+				if (++wait > 20 * 8) {
+					fail(Fail.NO_ROOM, "couldn't empty a spare water bucket safely");
+					return true;
+				}
+				if (spareWaterSpot == null)
+					spareWaterSpot = CastPortal.safeWaterSpot(Mc.player().blockPosition(), Mc.player().getEyePosition());
+				if (spareWaterSpot == null) fail(Fail.NO_ROOM, "no safe visible spot for spare water");
+				else if (wait % 5 == 0) pour(spareWaterSpot, "water_bucket");
+				return true;
+			}
 			case SITE -> {
 				if (++sites > 4) {
 					fail(Fail.NO_ROOM, "four mold sites went bad");

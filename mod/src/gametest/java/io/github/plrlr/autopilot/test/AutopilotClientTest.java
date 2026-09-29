@@ -224,16 +224,27 @@ public class AutopilotClientTest implements FabricClientGameTest {
 				server.runCommand("give @a " + g);
 			return Goal.NETHER_PORTAL;
 		}
-		if (scenario.equals("mold")) {
+		if (scenario.equals("mold") || scenario.equals("mold_spare")) {
 			// The last leg of it: a diamond pickaxe beside a lava pool three deep, so hardening its top
 			// leaves lava under the obsidian and the one-block mold (obsidian_mold) has to do the work;
 			// then a room for the frame (dig_portal), the frame, the light.
-			for (String g : List.of("diamond_pickaxe", "iron_sword", "shield", "bucket", "water_bucket", "flint_and_steel",
+			for (String g : List.of("diamond_pickaxe", "iron_sword", "shield", "water_bucket", "flint_and_steel",
 					"cobblestone 64", "cooked_beef 16"))
 				server.runCommand("give @a " + g);
+			// Reproduce the planner's valid two-bucket kit with both buckets initially full of water.
+			server.runCommand("give @a " + (scenario.equals("mold_spare") ? "water_bucket" : "bucket"));
 			server.runCommand("execute at @p run fill ~6 ~-4 ~-3 ~11 ~-1 ~3 stone");
 			server.runCommand("execute at @p run fill ~7 ~-3 ~-1 ~10 ~-1 ~1 lava");
 			server.runCommand("execute at @p run fill ~6 ~ ~-3 ~11 ~3 ~3 air");
+			return Goal.NETHER_PORTAL;
+		}
+		if (scenario.equals("placed_room")) {
+			for (String g : List.of("diamond_pickaxe", "iron_sword", "shield", "obsidian 10", "flint_and_steel",
+					"cobblestone 64", "cooked_beef 16")) server.runCommand("give @a " + g);
+			// A pocket in rock under a hard sixth row: only the placed frame's five rows can be dug.
+			server.runCommand("execute at @p run fill ~-10 ~-2 ~-10 ~10 ~4 ~10 stone");
+			server.runCommand("execute at @p run fill ~-10 ~5 ~-10 ~10 ~5 ~10 bedrock");
+			server.runCommand("execute at @p run fill ~-1 ~ ~-1 ~1 ~1 ~1 air");
 			return Goal.NETHER_PORTAL;
 		}
 		if (scenario.equals("enderman")) {

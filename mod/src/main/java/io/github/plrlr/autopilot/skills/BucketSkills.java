@@ -1,6 +1,7 @@
 package io.github.plrlr.autopilot.skills;
 
 import baritone.api.pathing.goals.GoalBlock;
+import baritone.api.pathing.goals.GoalNear;
 import io.github.plrlr.autopilot.Items2;
 import io.github.plrlr.autopilot.Mc;
 import io.github.plrlr.autopilot.state.WorldMemory;
@@ -26,6 +27,7 @@ public final class BucketSkills {
 	private BucketSkills() {}
 
 	static boolean isSource(BlockPos p, String fluid) {
+		if (!Mc.canSee(p)) return false;
 		BlockState st = Mc.state(p);
 		return Mc.id(st.getBlock()).equals(fluid) && st.getFluidState().isSource();
 	}
@@ -38,19 +40,23 @@ public final class BucketSkills {
 
 	/** A spot to stand on: free for feet and head, solid below, not in or next to lava. */
 	static boolean standable(BlockPos p) {
-		if (!Mc.free(p) || !Mc.free(p.above()) || !Mc.solid(p.below())) return false;
-		for (Direction d : Direction.values()) if (Mc.id(Mc.state(p.relative(d)).getBlock()).equals("lava")) return false;
-		return true;
+		return standable(p, new FairProbe());
+	}
+
+	static boolean standable(BlockPos p, FairProbe seen) {
+		return seen.free(p) && seen.free(p.above()) && seen.visible(p.below()) && seen.solid(p.below())
+				&& !seen.lavaNear(p);
 	}
 
 	/** Standing spots within 3 blocks of `near`, from which the eye is within reach of `aim`. */
 	static List<BlockPos> standSpots(BlockPos near, Vec3 aim, BlockPos exclude) {
 		List<BlockPos> out = new ArrayList<>();
+		FairProbe seen = new FairProbe();
 		for (int dx = -3; dx <= 3; dx++) {
 			for (int dz = -3; dz <= 3; dz++) {
 				for (int dy = -1; dy <= 2; dy++) {
 					BlockPos p = near.offset(dx, dy, dz);
-					if (p.equals(exclude) || !standable(p)) continue;
+					if (p.equals(exclude) || !standable(p, seen)) continue;
 					// Eye height is about 1.62 above the feet.
 					if (Vec3.atBottomCenterOf(p).add(0, 1.62, 0).distanceTo(aim) <= Mc.reach() - 0.5) out.add(p);
 				}
@@ -104,6 +110,12 @@ public final class BucketSkills {
 				// lava lake remembers hundreds of blocks and each check scans stand spots.
 				if (skipped.contains(s.pos())) continue;
 				if (++checked > 24) break;
+				if (!Mc.canSee(s.pos())) {
+					// Walk toward remembered water/lava, then validate it with the bucket ray on arrival.
+					source = s.pos();
+					Bari.path(new GoalNear(source, 3));
+					return;
+				}
 				if (isSource(s.pos(), fluid) && Mc.free(s.pos().above()) && !standSpots(s.pos(), Vec3.atCenterOf(s.pos()), s.pos()).isEmpty()) {
 					source = s.pos();
 					break;
@@ -193,8 +205,12 @@ public final class BucketSkills {
 		private int obsidianNearby() {
 			BlockPos c = Mc.player().blockPosition();
 			int n = 0;
-			for (BlockPos p : BlockPos.betweenClosed(c.offset(-8, -4, -8), c.offset(8, 4, 8))) {
-				if (Mc.id(Mc.state(p).getBlock()).equals("obsidian")) n++;
+			FairProbe seen = new FairProbe();
+			for (WorldMemory.Seen block : memory.all("obsidian")) {
+				BlockPos p = block.pos();
+				if (Math.abs(p.getX() - c.getX()) > 8 || Math.abs(p.getY() - c.getY()) > 4
+						|| Math.abs(p.getZ() - c.getZ()) > 8) continue;
+				if (seen.visible(p) && Mc.id(Mc.state(p).getBlock()).equals("obsidian")) n++;
 			}
 			return n;
 		}

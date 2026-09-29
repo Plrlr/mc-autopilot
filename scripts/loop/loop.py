@@ -65,6 +65,7 @@ DEFAULT_SETTINGS = {
     "focus_stage_seeds": 1,    # extra starts of a focused challenger's stage (suggestion "_stages") per generation
     "max_jobs": 20,
     "metric_min": 40,          # tries per side before a targeted metric (suggestion "_metric") can decide
+    "metric_min_final": 10,    # rare skill tries per side at the pair cap; same z and game safety bars
     "metric_z": 2.5,           # ...and how many standard errors better the challenger must be (many looks)
     "metric_safety_t": -1.5,   # ...while its whole-game pairs aren't worse than this paired t (a safety check)            # genomes x tasks per generation (GitHub's free plan runs 20 jobs at once)
 }
@@ -90,10 +91,12 @@ def load_state(d, genes):
     bank.migrate(st)
     # A new scorer measures something else: differences scored the old way can't be added to new
     # ones, so every race starts over (the champion keeps its crown until beaten the new way).
-    if st.get("score_version", 1) != common.SCORE_VERSION:
+    if (st.get("score_version", 1) != common.SCORE_VERSION
+            or st.get("race_evidence_version", 0) != 1):
         for g in st["genomes"].values():
-            g["pairs"] = []
+            reset_race(g)
         st["score_version"] = common.SCORE_VERSION
+        st["race_evidence_version"] = 1
     for n in genes:
         st["sigma"].setdefault(n, st["settings"]["sigma0"])
         st["credit"].setdefault(n, {"n": 0, "sum": 0.0})
@@ -103,6 +106,13 @@ def load_state(d, genes):
 def new_genome(gid, parent, changed, gen, mutated, note):
     return {"id": gid, "parent": parent, "genes": changed, "born": gen, "code": None, "status": "new",
             "mutated": mutated, "note": note, "evals": [], "pairs": []}
+
+
+def reset_race(g):
+    """Both kinds of evidence belong to one opponent and one scoring version."""
+    g["pairs"] = []
+    g.pop("metric_tally", None)
+    g.pop("metric_z", None)
 
 
 # ---------------------------------------------------------------------------------- mutation
@@ -493,7 +503,7 @@ def race(st, genes, challengers, champ, gen):
         # reversed by the same rule that made it.
         old = st["genomes"][champ]
         old["status"] = "contender"
-        old["pairs"] = []
+        reset_race(old)
         old["note"] = old["note"].split(" (defending")[0] + " (defending)"
         g["status"] = "champion"
         g["crowned"] = gen
@@ -516,24 +526,31 @@ def race(st, genes, challengers, champ, gen):
         # The others were measured against the old champion: they start over against the new one.
         for gid in challengers:
             if st["genomes"][gid]["status"] == "contender":
-                st["genomes"][gid]["pairs"] = []
-                st["genomes"][gid].pop("metric_tally", None)
+                reset_race(st["genomes"][gid])
     return out
 
 
 def metric_verdict(s, g, t):
     """crown / drop / wait for a challenger judged by its targeted metric (metrics.py)."""
     s = dict(s, max_pairs=g.get("max_pairs", s["max_pairs"]))
+    if not g["pairs"]:
+        return "wait"
     tl = g.get("metric_tally")
     if not tl:
         return "drop" if len(g["pairs"]) >= s["max_pairs"] else "wait"
     enough = min(tl["on"][1], tl["off"][1]) >= s.get("metric_min", 40)
+    at_limit = len(g["pairs"]) >= s["max_pairs"]
+    # A hunt may finish only once per world. At the final look, allow a rare success metric
+    # to decide after enough paired worlds; minutes of death exposure keep the usual minimum.
+    if (at_limit and g["metric"].startswith("ok:")
+            and len(g["pairs"]) >= s["accept_pairs"]):
+        enough = enough or min(tl["on"][1], tl["off"][1]) >= s.get("metric_min_final", 10)
     zv = metrics.z(g["metric"], tl["on"], tl["off"])
     g["metric_z"] = round(zv, 2)
     safe = len(g["pairs"]) < 2 or t >= s.get("metric_safety_t", -1.5)
     if enough and zv >= s.get("metric_z", 2.5) and safe:
         return "crown"
-    if (enough and zv <= 0) or not safe or len(g["pairs"]) >= s["max_pairs"]:
+    if (enough and zv <= 0) or not safe or at_limit:
         return "drop"
     return "wait"
 
@@ -715,20 +732,28 @@ def cmd_merge(a):
         return
 
     def git(*args, check=True):
-        return subprocess.run(["git", *args], cwd=common.ROOT, check=check, capture_output=True, text=True)
-    git("fetch", "-q", "origin", "main")
-    main = git("rev-parse", "FETCH_HEAD").stdout.strip()
+        return subprocess.run(["git", *args], cwd=common.ROOT, check=check, capture_output=True, text=True, timeout=120)
     ok = False
-    if git("merge-base", "--is-ancestor", main, m["sha"], check=False).returncode == 0:
-        ok = git("push", "-q", "origin", "%s:refs/heads/main" % m["sha"], check=False).returncode == 0
-    else:
-        git("checkout", "-q", "--detach", main)
-        r = git("-c", "user.name=github-actions[bot]", "-c", "user.email=41898282+github-actions[bot]@users.noreply.github.com",
-                "merge", "--no-ff", "-m", "Merge %s: won the loop's race (%s)" % (m["branch"], m["summary"]), m["sha"], check=False)
-        if r.returncode == 0:
-            ok = git("push", "-q", "origin", "HEAD:refs/heads/main", check=False).returncode == 0
+    try:
+        git("fetch", "-q", "origin", "main")
+        main = git("rev-parse", "FETCH_HEAD").stdout.strip()
+        if git("merge-base", "--is-ancestor", main, m["sha"], check=False).returncode == 0:
+            ok = git("push", "-q", "origin", "%s:refs/heads/main" % m["sha"], check=False).returncode == 0
         else:
+            git("checkout", "-q", "--detach", main)
+            r = git("-c", "user.name=github-actions[bot]", "-c", "user.email=41898282+github-actions[bot]@users.noreply.github.com",
+                    "merge", "--no-ff", "-m", "Merge %s: won the loop's race (%s)" % (m["branch"], m["summary"]), m["sha"], check=False)
+            if r.returncode == 0:
+                ok = git("push", "-q", "origin", "HEAD:refs/heads/main", check=False).returncode == 0
+            else:
+                git("merge", "--abort", check=False)
+    except (subprocess.SubprocessError, OSError) as e:
+        print("merge: process failed: %s" % e)
+        # A timed-out merge may have left local state; abort it before the publish steps.
+        try:
             git("merge", "--abort", check=False)
+        except (subprocess.SubprocessError, OSError):
+            pass
     g = st["genomes"].get(m["genome"], {})
     if ok:
         # It's in main now: every genome carrying this change plays main from here on.

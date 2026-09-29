@@ -71,6 +71,11 @@ public final class CastPortalSite extends Composite {
 		}
 
 		@Override
+		public boolean lava(BlockPos p) {
+			return Mc.state(p).getFluidState().is(net.minecraft.tags.FluidTags.LAVA);
+		}
+
+		@Override
 		public boolean fluidNear(BlockPos p) {
 			for (Direction d : Direction.values()) if (!Mc.state(p.relative(d)).getFluidState().isEmpty()) return true;
 			return false;
@@ -155,7 +160,7 @@ public final class CastPortalSite extends Composite {
 					return true;
 				}
 				// Planned from what we can see (no x-ray); what digging uncovers is checked in DIG.
-				plan = PortalSite.best(Mc.player().blockPosition(), pool, new FairProbe(), bad);
+				plan = PortalSite.best(Mc.player().blockPosition(), pool, new FairProbe(), bad, placed);
 				if (plan == null && placed && !climbed) {
 					// Nothing safe to dig here (lava and water all around, down at the lava caves):
 					// the frame needs no lava, so take it up to the surface and build there.
@@ -186,21 +191,27 @@ public final class CastPortalSite extends Composite {
 				return true;
 			}
 			case DIG -> {
-				if (idx >= plan.dig().size()) {
+				FairProbe seen = new FairProbe();
+				PortalSite.Plan now = placed ? PortalSite.placedPlan(plan.origin(), plan.along(), seen)
+						: PortalSite.plan(plan.origin(), plan.along(), seen);
+				if (seen.exhausted()) return true;
+				if (now == null) {
+					siteWentBad("newly exposed fluid, hard block or unsafe floor");
+					return true;
+				}
+				plan = now;
+				if (plan.dig().isEmpty()) {
 					breaker.stop();
 					idx = 0;
 					phase = Phase.FLOOR;
 					return true;
 				}
-				BlockPos c = plan.dig().get(idx);
-				FairProbe seen = new FairProbe();
-				if (seen.fluid(c) || seen.fluidNear(c) && !Mc.free(c)) {
-					siteWentBad("fluid by " + c.toShortString());
-					return true;
-				}
-				if (Mc.free(c)) {
-					idx++;
-					stuck = 0;
+				// The frame can lie behind the standing rows. Clear the next exposed planned face,
+				// then replan; never break a hidden frame cell through the wall in front of it.
+				BlockPos c = PortalSite.exposedDig(plan, Mc.player().blockPosition(), seen);
+				if (c == null) {
+					breaker.stop();
+					walkNear(plan.origin());
 					return true;
 				}
 				if (!inReach(c)) {
@@ -209,7 +220,7 @@ public final class CastPortalSite extends Composite {
 					return true;
 				}
 				Bari.stop();
-				if (breaker.tick(c)) idx++;
+				if (breaker.tick(c)) stuck = 0;
 				else if (breaker.ticks() > 20 * 10) siteWentBad("couldn't break " + c.toShortString());
 				return true;
 			}
@@ -227,6 +238,10 @@ public final class CastPortalSite extends Composite {
 					return false;
 				}
 				BlockPos f = plan.floor().get(idx);
+				if (!Mc.canSee(f)) {
+					walkNear(f);
+					return true;
+				}
 				if (Mc.solid(f)) {
 					idx++;
 					placeTries = 0;

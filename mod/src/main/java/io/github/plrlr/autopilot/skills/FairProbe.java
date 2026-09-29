@@ -45,6 +45,8 @@ final class FairProbe implements PortalSite.Probe {
 		return v;
 	}
 
+	boolean exhausted() { return rays > RAY_BUDGET; }
+
 	@Override
 	public boolean free(BlockPos p) {
 		return visible(p) && world.free(p);
@@ -66,6 +68,14 @@ final class FairProbe implements PortalSite.Probe {
 		return false;
 	}
 
+	boolean lavaNear(BlockPos p) {
+		for (Direction d : Direction.values()) {
+			BlockPos n = p.relative(d);
+			if (visible(n) && world.lava(n)) return true;
+		}
+		return false;
+	}
+
 	@Override
 	public boolean hard(BlockPos p) {
 		return visible(p) && world.hard(p);
@@ -73,10 +83,10 @@ final class FairProbe implements PortalSite.Probe {
 
 	/** Lava we can see in p or touching it (the stairs' check before opening a cell). */
 	static boolean lavaSeenNear(BlockPos p) {
-		if (Mc.state(p).getFluidState().is(net.minecraft.tags.FluidTags.LAVA) && Mc.canSee(p)) return true;
+		if (Mc.canSee(p) && Mc.state(p).getFluidState().is(net.minecraft.tags.FluidTags.LAVA)) return true;
 		for (Direction d : Direction.values()) {
 			BlockPos n = p.relative(d);
-			if (Mc.state(n).getFluidState().is(net.minecraft.tags.FluidTags.LAVA) && Mc.canSee(n)) return true;
+			if (Mc.canSee(n) && Mc.state(n).getFluidState().is(net.minecraft.tags.FluidTags.LAVA)) return true;
 		}
 		return false;
 	}

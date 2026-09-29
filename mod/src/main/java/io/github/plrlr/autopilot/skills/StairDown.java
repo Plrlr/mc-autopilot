@@ -76,8 +76,9 @@ public final class StairDown extends Skill {
 	private static boolean safe(BlockPos feet, Direction dir) {
 		for (BlockPos c : cut(feet, dir)) {
 			// Lava we can see (FairProbe: no reading lava hidden behind the rock).
-			if (FairProbe.lavaSeenNear(c) || !Mc.state(c).getFluidState().isEmpty() && Mc.canSee(c)) return false;
-			if (Mc.id(Mc.state(c).getBlock()).equals("bedrock")) return false;
+			if (FairProbe.lavaSeenNear(c)) return false;
+			if (Mc.canSee(c) && (!Mc.state(c).getFluidState().isEmpty()
+					|| Mc.id(Mc.state(c).getBlock()).equals("bedrock"))) return false;
 		}
 		// The step's floor is hidden until the step itself is dug out; then it's in sight and this
 		// runs again before we step (safe() is checked every tick until then).

@@ -73,7 +73,7 @@ abstract class Composite extends Skill {
 			if (result() == null) done("finished");
 			return;
 		}
-		Skill s = Skills.create(o.skill());
+		Skill s = createChild(o.skill());
 		if (s == null) {
 			fail(Fail.ERROR, "no skill named " + o.skill());
 			return;
@@ -82,6 +82,8 @@ abstract class Composite extends Skill {
 		child = s;
 		s.begin(memory, o.arg());
 	}
+
+	protected Skill createChild(String name) { return Skills.create(name); }
 
 	@Override
 	protected void cleanup() {

@@ -50,16 +50,12 @@ jobs:
           SMOKE: ${{ inputs.smoke || 'false' }}
         run: |
           echo "runs=[]" >> "$GITHUB_OUTPUT"
-          # The hourly schedule only restarts a broken chain: if the last loop run ended less than
-          # 90 minutes ago, the chain is alive (the next generation is already on its way).
-          if [ "$EVENT" = "schedule" ]; then
-            last=$(gh run list --workflow loop.yml --limit 20 --json databaseId,updatedAt,status \
-              --jq "[.[] | select(.databaseId != ${{ github.run_id }})][0].updatedAt // empty")
-            if [ -n "$last" ] && [ $(( $(date +%s) - $(date -d "$last" +%s) )) -lt 5400 ]; then
-              echo "The loop ran recently; the schedule has nothing to restart."; exit 0
-            fi
-          fi
           scripts/loop/results.sh checkout results
+          # Only actual generations count as activity. A skipped hourly run must not keep a
+          # broken chain alive forever. Concurrency ensures no other generation is running here.
+          if [ "$EVENT" = "schedule" ] && python3 scripts/loop/restart.py results/loop; then
+            echo "The loop played recently; the schedule has nothing to restart."; exit 0
+          fi
           state=loop; override=""
           if [ "$SMOKE" = "true" ]; then
             state=loop-smoke; override='{"minutes":2,"seeds_per_gen":1,"max_genomes":2,"data_runs":1}'

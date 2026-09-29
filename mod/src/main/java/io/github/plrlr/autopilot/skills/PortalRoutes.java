@@ -186,11 +186,12 @@ public final class PortalRoutes {
 		private BlockPos nextObsidian() {
 			BlockPos best = null;
 			double bd = Double.MAX_VALUE;
+			FairProbe seen = new FairProbe();
 			for (WorldMemory.Seen s : memory.all("obsidian")) {
 				BlockPos p = s.pos();
-				if (skip.contains(p) || !Mc.id(Mc.state(p).getBlock()).equals("obsidian")) continue;
-				if (!Mc.state(p.below()).getFluidState().isEmpty()) continue;
 				double d = p.distSqr(Mc.player().blockPosition());
+				if (skip.contains(p) || d >= 24 * 24 || !seen.visible(p)) continue;
+				if (!Mc.id(Mc.state(p).getBlock()).equals("obsidian") || !exposedSupport(p, seen)) continue;
 				if (d < bd && d < 24 * 24) {
 					bd = d;
 					best = p;
@@ -199,16 +200,21 @@ public final class PortalRoutes {
 			return best;
 		}
 
+		/** An intact pool hides what is below it. Mine only exposed, dry support; otherwise use the mold. */
+		static boolean exposedSupport(BlockPos p, FairProbe seen) {
+			return seen.visible(p.below()) && seen.solid(p.below()) && !seen.fluid(p.below());
+		}
+
 		@Override
 		protected boolean ownTick() {
 			if (target == null) return false;
-			if (Mc.free(target)) {
+			if (Mc.canSee(target) && Mc.free(target)) {
 				breaker.stop();
 				target = null;
 				pickup = true;
 				return false;
 			}
-			if (Mc.player().getEyePosition().distanceTo(Vec3.atCenterOf(target)) > Mc.reach() - 0.5) {
+			if (!Mc.canSee(target) || Mc.player().getEyePosition().distanceTo(Vec3.atCenterOf(target)) > Mc.reach() - 0.5) {
 				if (!Bari.pathing()) {
 					Bari.path(new GoalNear(target, 2));
 					if (++walkTries > 10) {
@@ -219,6 +225,12 @@ public final class PortalRoutes {
 				return true;
 			}
 			Bari.stop();
+			if (!exposedSupport(target, new FairProbe())) {
+				breaker.stop();
+				skip.add(target);
+				target = null;
+				return true;
+			}
 			if (!breaker.tick(target) && breaker.ticks() > 20 * 15) {
 				breaker.stop();
 				skip.add(target);

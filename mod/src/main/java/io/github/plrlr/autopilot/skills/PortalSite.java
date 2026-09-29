@@ -29,6 +29,8 @@ final class PortalSite {
 		/** Water or lava in the cell. */
 		boolean fluid(BlockPos p);
 
+		default boolean lava(BlockPos p) { return fluid(p); }
+
 		/** Water or lava in any of the 6 neighbors (digging next to it lets it flow in). */
 		boolean fluidNear(BlockPos p);
 
@@ -38,26 +40,43 @@ final class PortalSite {
 
 	record Plan(BlockPos origin, Direction along, List<BlockPos> dig, List<BlockPos> floor, int cost) {}
 
+	static BlockPos exposedDig(Plan plan, BlockPos feet, FairProbe seen) {
+		BlockPos best = null;
+		double distance = Double.MAX_VALUE;
+		for (BlockPos p : plan.dig()) {
+			if (!seen.visible(p) || seen.free(p)) continue;
+			double d = p.distSqr(feet);
+			if (d < distance) { distance = d; best = p; }
+		}
+		return best;
+	}
+
 	static final int WALL_H = 6;
 	static final int MAX_DIG = 48;
 
 	/** The work to make a site at o along a, or null if it can't be made safely. */
 	static Plan plan(BlockPos o, Direction a, Probe pr) {
-		return plan(o, a, pr, false);
+		return plan(o, a, pr, false, false);
+	}
+
+	/** A carried frame is 4x5 and needs no bucket-casting wall behind it. */
+	static Plan placedPlan(BlockPos o, Direction a, Probe pr) {
+		return plan(o, a, pr, false, true);
 	}
 
 	/** A room dug into rock may need all 72 open cells; its shallow holes can be filled in layers. */
 	static Plan makerPlan(BlockPos o, Direction a, Probe pr) {
-		return plan(o, a, pr, true);
+		return plan(o, a, pr, true, false);
 	}
 
-	private static Plan plan(BlockPos o, Direction a, Probe pr, boolean maker) {
+	private static Plan plan(BlockPos o, Direction a, Probe pr, boolean maker, boolean placed) {
 		Direction front = a.getClockWise();
 		List<BlockPos> dig = new ArrayList<>(), floor = new ArrayList<>();
 		for (int x = 0; x < 4; x++) {
 			BlockPos col = o.relative(a, x);
-			for (int y = 0; y < WALL_H; y++) {
+			for (int y = 0; y < (placed ? 5 : WALL_H); y++) {
 				if (!clearable(col.above(y), pr, dig)) return null;
+				if (placed) continue;
 				BlockPos back = col.relative(front.getOpposite()).above(y);
 				if (pr.fluid(back)) return null;
 				if (maker && !pr.solid(back) && pr.fluidNear(back)) return null;
@@ -71,7 +90,7 @@ final class PortalSite {
 			if (!(maker ? layeredFloor(col.below(), pr, floor, 3) : floorable(col.below(), pr, floor))) return null;
 			// The wall behind rests on the ground (CastGeometry.fits wants a block under it or at it).
 			BlockPos back = col.relative(front.getOpposite());
-			if (!pr.solid(back) && !(maker ? layeredFloor(back.below(), pr, floor, 3) : floorable(back.below(), pr, floor))) return null;
+			if (!placed && !pr.solid(back) && !(maker ? layeredFloor(back.below(), pr, floor, 3) : floorable(back.below(), pr, floor))) return null;
 			for (int f = 1; f <= 2; f++) {
 				BlockPos p = col.relative(front, f);
 				if (!clearable(p, pr, dig) || !clearable(p.above(), pr, dig)) return null;
@@ -137,6 +156,10 @@ final class PortalSite {
 	 * for the bucket trips, not so close that lava can reach it), up to 1 block up or down.
 	 */
 	static Plan best(BlockPos feet, BlockPos pool, Probe pr, java.util.Set<BlockPos> bad) {
+		return best(feet, pool, pr, bad, false);
+	}
+
+	static Plan best(BlockPos feet, BlockPos pool, Probe pr, java.util.Set<BlockPos> bad, boolean placed) {
 		Plan best = null;
 		double bestScore = Double.MAX_VALUE;
 		// Rings 3-8, one block up or down: ~3,000 candidate plans, each stopping at its first bad cell,
@@ -151,7 +174,7 @@ final class PortalSite {
 						double toPool = pool == null ? 8 : Math.sqrt(o.distSqr(pool));
 						if (toPool < 3 || toPool > 14) continue;
 						for (Direction a : Direction.Plane.HORIZONTAL) {
-							Plan p = plan(o, a, pr);
+							Plan p = placed ? placedPlan(o, a, pr) : plan(o, a, pr);
 							if (p == null) continue;
 							double score = p.cost() + r * 0.5 + Math.abs(dy) * 2;
 							if (score < bestScore) {
