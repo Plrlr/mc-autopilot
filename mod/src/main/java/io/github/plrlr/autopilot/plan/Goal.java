@@ -19,7 +19,7 @@ public enum Goal {
 	IRON_TOOLS(4, "Mine and smelt iron: iron pickaxe, iron sword, shield, bucket", needs("iron_pickaxe", 1, "shield", 1, "bucket", 1, "iron_sword", 1)),
 	IRON_ARMOR(5, "Craft and wear full iron armor", needs("iron_helmet", 1, "iron_chestplate", 1, "iron_leggings", 1, "iron_boots", 1)),
 	DIAMONDS(6, "Mine diamonds deep underground and make a diamond pickaxe", needs("diamond_pickaxe", 1)),
-	NETHER_PORTAL(7, "Build and light a nether portal and enter the Nether: cast it from a lava pool with a water bucket and a second bucket (no diamonds needed), or place 10 mined obsidian", needs("obsidian", 10, "flint_and_steel", 1)),
+	NETHER_PORTAL(7, "Build and light a nether portal and enter the Nether: diamond pickaxe, 10 obsidian from a lava pool at diamond depth, a frame in a dug room", needs("obsidian", 10, "flint_and_steel", 1)),
 	BLAZE_RODS(8, "In the Nether, find a fortress and kill blazes for 6 blaze rods", needs("blaze_rod", 7)),
 	// 14 eyes: 2-3 to triangulate the stronghold, 12 in case no frame has an eye yet.
 	ENDER_PEARLS(9, "Get 14 ender pearls: trade gold with piglins, kill endermen", needs("ender_pearl", 14)),

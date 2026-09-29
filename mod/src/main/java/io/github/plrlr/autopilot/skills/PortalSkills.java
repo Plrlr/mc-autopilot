@@ -39,6 +39,22 @@ public final class PortalSkills {
 		return n;
 	}
 
+	/** dig_portal (CastPortalSite, placed) dug this site out: build the frame here. */
+	static void useSite(BlockPos o, Direction a) {
+		frameOrigin = o.immutable();
+		frameAlong = a;
+	}
+
+	/** The placed frame fits at o along a: open 4x5, solid ground, room in front to stand. */
+	static boolean siteFits(BlockPos o, Direction a) {
+		return BuildPortal.fits(o, a);
+	}
+
+	/** Our frame is started nearby: finish it rather than dig a new room. */
+	static boolean frameInProgress() {
+		return placedFrameObsidian() > 0 && frameOrigin.distSqr(Mc.player().blockPosition()) <= 40 * 40;
+	}
+
 	/** Frame cells {x, y} in build order: bottom row, both sides bottom-up, then the top. */
 	private static final int[][] FRAME = {
 			{0, 0}, {1, 0}, {2, 0}, {3, 0},

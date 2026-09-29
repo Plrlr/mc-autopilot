@@ -29,7 +29,7 @@ import java.util.Set;
  * cheapest is picked, up to 3 sites.
  */
 public final class CastPortalSite extends Composite {
-	private enum Phase {APPROACH, PICK, DIG, FLOOR, CAST, DONE}
+	private enum Phase {APPROACH, PICK, MAKE, DIG, FLOOR, CAST, CLIMB, DONE}
 
 	private Phase phase = Phase.APPROACH;
 	private final Act.Breaker breaker = new Act.Breaker();
@@ -37,6 +37,22 @@ public final class CastPortalSite extends Composite {
 	private PortalSite.Plan plan;
 	private BlockPos pool;
 	private int idx, sites, stuck, placeTries;
+	private boolean climbed;
+	/**
+	 * dig_portal: the same room, dug for a frame of 10 carried obsidian (the diamond route) instead
+	 * of a cast. No lava pool needed; underground there is never flat open ground, so the room
+	 * is always dug (a site already open costs nothing and wins the search).
+	 */
+	private final boolean placed;
+
+	public CastPortalSite() {
+		this(false);
+	}
+
+	public CastPortalSite(boolean placed) {
+		this.placed = placed;
+	}
+	private PortalSiteMaker maker;
 
 	static final PortalSite.Probe WORLD = new PortalSite.Probe() {
 		@Override
@@ -69,7 +85,7 @@ public final class CastPortalSite extends Composite {
 
 	@Override
 	public String name() {
-		return "cast_portal";
+		return placed ? "dig_portal" : "cast_portal";
 	}
 
 	/**
@@ -85,6 +101,18 @@ public final class CastPortalSite extends Composite {
 	protected void start() {
 		timeoutTicks = 20 * 60 * 12;
 		maxChildFails = 2;
+		if (placed) {
+			if (!Mc.dimension().equals("overworld")) {
+				fail(Fail.WRONG_PLACE, "build the portal in the overworld");
+				return;
+			}
+			if (Mc.count("obsidian") + PortalSkills.placedFrameObsidian() < 10 || Mc.count("flint_and_steel") == 0) {
+				fail(Fail.NEED_ITEM, "the frame needs 10 obsidian and flint and steel");
+				return;
+			}
+			phase = PortalSkills.frameInProgress() ? Phase.CAST : Phase.PICK;
+			return;
+		}
 		WorldMemory.Seen lava = memory.nearest("lava");
 		if (lava == null) {
 			fail(Fail.NOT_FOUND, "no known lava pool to cast from");
@@ -117,11 +145,25 @@ public final class CastPortalSite extends Composite {
 				return true;
 			}
 			case PICK -> {
+				if (!placed && io.github.plrlr.autopilot.Tune.on("portal.site_maker")) {
+					maker = new PortalSiteMaker(pool);
+					phase = Phase.MAKE;
+					return true;
+				}
 				if (sites++ >= 3) {
 					fail(Fail.NO_ROOM, "three portal sites went bad");
 					return true;
 				}
-				plan = PortalSite.best(Mc.player().blockPosition(), pool, WORLD, bad);
+				// Planned from what we can see (no x-ray); what digging uncovers is checked in DIG.
+				plan = PortalSite.best(Mc.player().blockPosition(), pool, new FairProbe(), bad);
+				if (plan == null && placed && !climbed) {
+					// Nothing safe to dig here (lava and water all around, down at the lava caves):
+					// the frame needs no lava, so take it up to the surface and build there.
+					climbed = true;
+					sites = 0;
+					phase = Phase.CLIMB;
+					return false;
+				}
 				if (plan == null) {
 					fail(Fail.NO_ROOM, "no site near the lava can be dug out safely");
 					return true;
@@ -129,6 +171,18 @@ public final class CastPortalSite extends Composite {
 				log("site " + plan.origin().toShortString() + " along " + plan.along() + ": dig " + plan.dig().size() + ", floor " + plan.floor().size());
 				idx = 0;
 				phase = Phase.DIG;
+				return true;
+			}
+			case MAKE -> {
+				maker.tick();
+				if (maker.failure() != null) { fail(Fail.NO_ROOM, maker.failure()); return true; }
+				PortalSite.Plan made = maker.site();
+				if (made != null) {
+					CastPortal.useSite(made.origin(), made.along());
+					log("site ready at " + made.origin().toShortString());
+					phase = Phase.CAST;
+					return false;
+				}
 				return true;
 			}
 			case DIG -> {
@@ -139,7 +193,8 @@ public final class CastPortalSite extends Composite {
 					return true;
 				}
 				BlockPos c = plan.dig().get(idx);
-				if (WORLD.fluid(c) || WORLD.fluidNear(c) && !Mc.free(c)) {
+				FairProbe seen = new FairProbe();
+				if (seen.fluid(c) || seen.fluidNear(c) && !Mc.free(c)) {
 					siteWentBad("fluid by " + c.toShortString());
 					return true;
 				}
@@ -160,11 +215,13 @@ public final class CastPortalSite extends Composite {
 			}
 			case FLOOR -> {
 				if (idx >= plan.floor().size()) {
-					if (!CastGeometry.fits(plan.origin(), plan.along(), PortalSite.WALL_H)) {
+					if (placed ? !PortalSkills.siteFits(plan.origin(), plan.along())
+							: !CastGeometry.fits(plan.origin(), plan.along(), PortalSite.WALL_H)) {
 						siteWentBad("site still doesn't fit after the work");
 						return true;
 					}
-					CastPortal.useSite(plan.origin(), plan.along());
+					if (placed) PortalSkills.useSite(plan.origin(), plan.along());
+					else CastPortal.useSite(plan.origin(), plan.along());
 					log("site ready at " + plan.origin().toShortString());
 					phase = Phase.CAST;
 					return false;
@@ -211,8 +268,13 @@ public final class CastPortalSite extends Composite {
 
 	@Override
 	protected Option next() {
+		if (phase == Phase.CLIMB) {
+			phase = Phase.PICK;
+			return new Option("goto", "surface", "no room for the frame down here: build it up top");
+		}
 		if (phase != Phase.CAST) return phase == Phase.DONE ? null : WAIT;
 		phase = Phase.DONE;
+		if (placed) return new Option("build_portal", "placed", "build the frame in the room we dug and light it");
 		return new Option("build_portal", null, "cast the portal on the site we made");
 	}
 
@@ -227,11 +289,12 @@ public final class CastPortalSite extends Composite {
 
 	@Override
 	protected void cleanup() {
+		if (maker != null) maker.stop();
 		breaker.stop();
 		super.cleanup();
 	}
 
 	private static void log(String s) {
-		io.github.plrlr.autopilot.AutopilotMod.LOGGER.info("[cast_portal] {}", s);
+		io.github.plrlr.autopilot.AutopilotMod.LOGGER.info("[portal_site] {}", s);
 	}
 }

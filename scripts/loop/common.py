@@ -63,7 +63,10 @@ def summarizer():
 MILESTONE_POINTS = {1: 1, 2: 1, 3: 0.25, 4: 2, 5: 0.25, 6: 0.5, 7: 3, 8: 3, 9: 2, 10: 2, 11: 3, 12: 3, 13: 10}
 # The cast steps weigh more since gen 30: they are the wall (obsidian in 4 of 100 spawn runs), yet
 # iron alone (m4, 2 points) outweighed every one of them and deaths set most of the score.
-CHECKPOINT_POINTS = {"two_buckets": 0.5, "flint_and_steel": 0.5, "lava_seen": 0.5, "obsidian_placed": 2,
+# The diamond route (the default since 2026-09-29, version 3): diamond depth, the pickaxe and a
+# frame's worth of obsidian are its steps before the frame.
+CHECKPOINT_POINTS = {"two_buckets": 0.5, "flint_and_steel": 0.5, "lava_seen": 0.5, "at_depth": 0.5,
+                     "diamond_pickaxe": 1.5, "obsidian_10": 2, "obsidian_placed": 2,
                      "frame_complete": 2, "portal_lit": 3}
 # One life (since 2026-09-28): only what comes before the first death scores. Deaths were 0.75
 # each, cheaper than iron (2), and 152 of 162 runs in gens 28-37 died (median at 7.6 game minutes),
@@ -72,7 +75,7 @@ CHECKPOINT_POINTS = {"two_buckets": 0.5, "flint_and_steel": 0.5, "lava_seen": 0.
 # with the same progress wins the pair. Play after a death still feeds the learned brain's data.
 DEATH_PENALTY = 1.0
 SURVIVE_POINTS = 2.0
-SCORE_VERSION = 2  # pairs measured under another version are cleared (loop.load_state)
+SCORE_VERSION = 3  # pairs measured under another version are cleared (loop.load_state)
 
 
 def score_run(run, length_s, skip_before=0):

@@ -88,6 +88,8 @@ public final class Skills {
 		MENU.put("clutch", new Entry(Clutch::new, "falling far: pour the water bucket just before landing, then scoop it back (a reflex)"));
 		MENU.put("dragon", new Entry(DragonFight::new, "the End fight: stay off the edges, wait by the fountain, hit the dragon's head when it lands"));
 		MENU.put("unstuck", new Entry(Unstuck::new, "get out of a spot the bot stopped moving in: swim, walk, tunnel or climb (a reflex)"));
+		MENU.put("dig_portal", new Entry(() -> new CastPortalSite(true), "dig a room for the frame and build the portal from 10 carried obsidian, then light it"));
+		MENU.put("obsidian_mold", new Entry(ObsidianMold::new, "obsidian_mold [n]: make obsidian a block at a time in a dug pit (lava bucket, then water), mine it on solid ground"));
 		MENU.put("make_obsidian", new Entry(BucketSkills.MakeObsidian::new, "pour a water bucket next to lava pool sources to harden them into obsidian"));
 	}
 

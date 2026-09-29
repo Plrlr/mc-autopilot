@@ -44,6 +44,10 @@ in Java 25 (Gradle, Loom). Versions, install paths and Windows details: docs/set
   (Goal ladder, TechTree, Planner), skills/ (code skills over Baritone), brains/ (Brain: rules +
   Learned), state/ (WorldMemory, no x-ray), log/ (JSONL decision log). `src/gametest/`: the
   in-game trial (fresh world or a staged scenario), run by CI.
+- The Nether route (since 2026-09-29, the user's call): iron kit, diamonds at depth, obsidian
+  from a lava pool there (skills/ObsidianMold: one block at a time in a pit), a frame in a dug
+  room (dig_portal); plan/RouteSteps.deepStep. Digs are planned from visible blocks only
+  (skills/FairProbe). The old bucket-cast route races only as a control.
 - The learning loop (docs/learning-loop.md): genes in `Tune.java`, the learned brain in
   `brains/Learned.java`, `scripts/loop/` (loop.py, train.py, evolve.py, dashboard.html),
   `.github/workflows/loop.yml` (one generation per run, self-dispatching), state and data in

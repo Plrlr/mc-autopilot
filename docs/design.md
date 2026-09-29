@@ -58,13 +58,23 @@ Runtime files (settings, logs, lessons.json, progress) live in the Minecraft fol
 ## Planner behavior (free, in code)
 - Goals 1-6 (tools, food, armor, diamonds) stay done once Progress has reached them; lost tools
   are rebuilt through the tech tree on the way to the next goal. Rules never pick survive_night.
-- Speedrun route (target: beat the game in 30 minutes): the rules skip the optional rungs 3 (food),
-  5 (iron armor) and 6 (diamonds). Food is upkeep (below). Right after iron tools and a bucket,
-  the portal step casts the frame from a lava pool (build_portal in cast mode, CastPortal: a lava
-  bucket + a water bucket against a wall of throwaway blocks), so no diamond pickaxe is needed; it
-  adds a second bucket and flint and steel first. make_obsidian (harden a pool, then mine it)
-  stays for runs that already have a diamond pickaxe. Iron is mined and smelted in one batch
-  (Planner.ironStillNeeded).
+- The portal, the diamond route (the default since 2026-09-29, genes route.diamond_portal and
+  route.deep_portal; RouteSteps.deepStep): after the iron kit, take along what can't be had deep
+  down (flint and steel, two buckets, water, a crafting table, sticks, planks); diamond_hunt (safe
+  stairs to y -54, then legit branch mining; Baritone's own descent if the stairs fail twice);
+  the caves there sit on lava (cave air below y -55), so mining on finds a pool within 48 blocks;
+  obsidian_pool (mine obsidian with nothing fluid under it, else obsidian_mold: a one-block pit,
+  lava bucket in, water beside it, mine the obsidian on solid ground, repeat; else harden the
+  pool); dig_portal (dig a room for the frame, or climb to the surface if there's no safe room;
+  build it from 10 obsidian, light it). A pool it gave up on is set aside (PortalPlan.poolFailed).
+  Its steps score as checkpoints: at_depth, diamond_pickaxe, obsidian_10, then the frame.
+- The old speedrun portal (route.diamond_portal 0, raced as a control): cast the frame from a
+  lava pool (build_portal in cast mode, CastPortal: a lava bucket + a water bucket against a wall
+  of throwaway blocks). It placed obsidian in few runs and lit a portal in almost none in 64
+  generations. Iron is mined and smelted in one batch (Planner.ironStillNeeded).
+- Fair play when digging: site searches (portal rooms, molds, stairs) see only blocks in line of
+  sight (skills/FairProbe: unseen blocks are taken for stone); what digging uncovers is checked
+  as it comes into view.
 - Food: keep 8+ cooked food as an upkeep target. Hunt 3-5 animals in one trip when they're in
   view, cook all raw meat in one furnace load. Eat at food <= 14, or <= 17 when health isn't full
   (regeneration needs 18+); never try to eat at full hunger (it just times out).

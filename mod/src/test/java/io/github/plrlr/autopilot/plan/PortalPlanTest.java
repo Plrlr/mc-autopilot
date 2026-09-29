@@ -19,8 +19,15 @@ class PortalPlanTest {
 		Tune.apply(g, "test");
 	}
 
+	private static void off(String... genes) {
+		JsonObject g = new JsonObject();
+		for (String n : genes) g.addProperty(n, 0);
+		Tune.apply(g, "test");
+	}
+
 	@Test
 	void genesOffKeepTheOldSteps() {
+		off("route.deep_portal");
 		Option cast = new Option("build_portal", null, "old");
 		Option lava = new Option("explore", "lava", "old");
 		Option dia = new Option("collect", "diamond:3", "old");
@@ -39,5 +46,16 @@ class PortalPlanTest {
 		assertEquals("diamond_hunt 2", PortalPlan.diamonds(new Option("collect", "diamond:2", "x")).label());
 		// The deep-for-lava trick keeps its own collect step.
 		assertEquals("collect", PortalPlan.diamonds(new Option("collect", "diamond:1:lava", "x")).skill());
+	}
+
+	@Test
+	void theDeepRouteHuntsDiamondsSafelyButKeepsTheLavaDig() {
+		// Defaults since 2026-09-29: the diamond route, as one plan.
+		assertTrue(Tune.on("route.diamond_portal") && Tune.on("route.deep_portal"));
+		assertEquals("diamond_hunt 3", PortalPlan.diamonds(new Option("collect", "diamond:3", "x")).label());
+		assertEquals("collect", PortalPlan.diamonds(new Option("collect", "diamond:1:lava", "x")).skill());
+		// The cast route as a control race: plain collect unless its own gene is on.
+		off("route.diamond_portal");
+		assertEquals("collect", PortalPlan.diamonds(new Option("collect", "diamond:3", "x")).skill());
 	}
 }

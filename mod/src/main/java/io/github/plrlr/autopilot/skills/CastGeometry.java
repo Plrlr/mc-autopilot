@@ -82,23 +82,28 @@ final class CastGeometry {
 	 * lava itself, so flowing lava can't reach the frame.
 	 */
 	static boolean fits(BlockPos o, Direction a, int wallH) {
+		return fitRefusal(o, a, wallH) == null;
+	}
+
+	/** First failed site check, for the NO_ROOM report in a lava-start drill. */
+	static String fitRefusal(BlockPos o, Direction a, int wallH) {
 		Direction front = a.getClockWise();
 		for (int x = 0; x < 4; x++) {
 			BlockPos col = o.relative(a, x);
-			if (!Mc.solid(col.below()) || Mc.state(col.below()).liquid()) return false;
-			for (int y = 0; y < wallH; y++) if (!Mc.free(col.above(y)) || nearLava(col.above(y))) return false;
+			if (!Mc.solid(col.below()) || Mc.state(col.below()).liquid()) return "floor";
+			for (int y = 0; y < wallH; y++) if (!Mc.free(col.above(y)) || nearLava(col.above(y))) return "frame";
 			BlockPos back = col.relative(front.getOpposite());
-			if (!Mc.solid(back.below()) && !Mc.solid(back)) return false;
+			if (!Mc.solid(back.below()) && !Mc.solid(back)) return "back support";
 			for (int y = 0; y < wallH; y++) {
 				BlockPos w = back.above(y);
-				if (!Mc.solid(w) && !Mc.free(w)) return false;
+				if (!Mc.solid(w) && !Mc.free(w)) return "back wall";
 			}
 			for (int f = 1; f <= 2; f++) {
 				BlockPos p = col.relative(front, f);
-				if (!Mc.free(p) || !Mc.free(p.above()) || !Mc.solid(p.below())) return false;
+				if (!Mc.free(p) || !Mc.free(p.above()) || !Mc.solid(p.below())) return "standing rows";
 			}
 		}
-		return true;
+		return null;
 	}
 
 	static boolean nearLava(BlockPos p) {

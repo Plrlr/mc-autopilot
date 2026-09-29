@@ -63,8 +63,11 @@ walks back for its items after a death.
 **The goal ladder:** 1 wood and a crafting table, 2 stone tools, 3 food and a night survived,
 4 iron tools, shield and bucket, 5 iron armor, 6 diamond pickaxe, 7 nether portal, 8 blaze rods,
 9 ender pearls, 10 eyes of ender, 11 find the stronghold, 12 enter the End, 13 kill the Ender
-Dragon. The rules take a speedrun route: rungs 3, 5 and 6 are optional, and the portal is cast
-from a lava pool with two buckets (no diamonds needed).
+Dragon. Rungs 3 and 5 are optional. Since 2026-09-29 the portal goes the classic way: iron
+pickaxe, down to diamond depth, three diamonds for a diamond pickaxe, obsidian from a lava pool
+found down there (a block at a time in a dug pit where the pool is deep), a frame built in a
+room dug for it. (Before, it was cast from a lava pool with two buckets; that lit almost no
+portals in 64 generations.)
 
 **The trial loop.** Progress is measured, not guessed. A GitHub Actions workflow plays 8 fixed
 seeds for 20 game minutes each, one Linux machine per world, and uploads every decision log.
