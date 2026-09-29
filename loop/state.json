@@ -1014,6 +1014,10 @@
    "n": 0,
    "sum": 0.0
   },
+  "brain.death_avoid": {
+   "n": 0,
+   "sum": 0.0
+  },
   "brain.death_s": {
    "n": 0,
    "sum": 0.0
@@ -1034,7 +1038,15 @@
    "n": 1,
    "sum": -0.057500000000000016
   },
+  "cave.seal_openings": {
+   "n": 0,
+   "sum": 0.0
+  },
   "cave.torch_light": {
+   "n": 0,
+   "sum": 0.0
+  },
+  "cave.torch_recipe": {
    "n": 0,
    "sum": 0.0
   },
@@ -1243,6 +1255,10 @@
    "sum": 0.0
   },
   "gather.stone_stock": {
+   "n": 0,
+   "sum": 0.0
+  },
+  "gather.vein_follow": {
    "n": 0,
    "sum": 0.0
   },
@@ -1694,17 +1710,24 @@
  "days": {
   "2026-09-27": 15,
   "2026-09-28": 32,
-  "2026-09-29": 17
+  "2026-09-29": 18
  },
  "evolve_days": {
   "2026-09-27": 1,
   "2026-09-28": 7
  },
- "gen": 64,
+ "gen": 65,
  "gene_specs": {
   "bed.table_first": {
    "def": 0.0,
    "help": "make and place a crafting table before crafting a bed",
+   "kind": "BOOL",
+   "max": 1.0,
+   "min": 0.0
+  },
+  "brain.death_avoid": {
+   "def": 0.0,
+   "help": "options that clearly kill us in this context (every game's deaths) go behind the safe ones",
    "kind": "BOOL",
    "max": 1.0,
    "min": 0.0
@@ -1744,11 +1767,25 @@
    "max": 1.0,
    "min": 0.0
   },
+  "cave.seal_openings": {
+   "def": 0.0,
+   "help": "close newly mined cave mouths during iron and coal trips before walking into exposed mobs",
+   "kind": "BOOL",
+   "max": 1.0,
+   "min": 0.0
+  },
   "cave.torch_light": {
    "def": 3.0,
    "help": "place a torch when block light at our feet is at or below this",
    "kind": "INT",
    "max": 7.0,
+   "min": 0.0
+  },
+  "cave.torch_recipe": {
+   "def": 0.0,
+   "help": "hand craft torches when the recipe book has not unlocked them before a mine trip",
+   "kind": "BOOL",
+   "max": 1.0,
    "min": 0.0
   },
   "cave.torches": {
@@ -2114,6 +2151,13 @@
    "kind": "INT",
    "max": 48.0,
    "min": 8.0
+  },
+  "gather.vein_follow": {
+   "def": 0.0,
+   "help": "after breaking a seen block, take a visible block of the same kind touching it first (follow the vein)",
+   "kind": "BOOL",
+   "max": 1.0,
+   "min": 0.0
   },
   "gear.armor_first": {
    "def": 0.0,
@@ -10175,6 +10219,31 @@
    "parent": "g0",
    "status": "rejected"
   },
+  "g50": {
+   "born": 65,
+   "code": null,
+   "evals": [],
+   "genes": {
+    "brain.death_avoid": 1.0,
+    "cave.torches": 1.0,
+    "death.recover_night_armor": 12.0,
+    "focus.commit": 1.0,
+    "plan.hide_hp": 15.0,
+    "portal.prepare_work_area": 1.0,
+    "portal.reserve_lava_bucket": 1.0,
+    "route.armor_before_portal": 0.0
+   },
+   "id": "g50",
+   "metric": "deaths",
+   "mutated": [
+    "brain.death_avoid"
+   ],
+   "note": "suggested: brain.death_avoid 1",
+   "pairs": [],
+   "parent": "g45",
+   "priority": true,
+   "status": "contender"
+  },
   "g6": {
    "born": 2,
    "code": null,
@@ -10732,8 +10801,72 @@
  "model_kind": "retired",
  "model_r2": null,
  "model_rows": 0,
- "next_id": 50,
- "pending": null,
+ "next_id": 51,
+ "pending": {
+  "data_tasks": [],
+  "gen": 65,
+  "lineup": [
+   "g45",
+   "g24",
+   "g49",
+   "g50"
+  ],
+  "runs": [
+   "eval-g45-0",
+   "eval-g45-1",
+   "eval-g45-2",
+   "eval-g45-3",
+   "eval-g24-0",
+   "eval-g24-1",
+   "eval-g24-2",
+   "eval-g24-3",
+   "eval-g49-0",
+   "eval-g49-1",
+   "eval-g49-2",
+   "eval-g49-3",
+   "eval-g50-0",
+   "eval-g50-1",
+   "eval-g50-2",
+   "eval-g50-3"
+  ],
+  "seeds": [
+   "L65-pq97vd",
+   "L65-2c6r7c",
+   "L65-vqpg48",
+   "L65-xnug82"
+  ],
+  "sha": "dbd4176800cac3e2dd421a9cdbd5857987fc5deb",
+  "started": "2026-09-29T18:22:56+00:00",
+  "tasks": [
+   {
+    "kind": "natural",
+    "seed": "L65-pq97vd",
+    "stage": "spawn",
+    "synthetic": false
+   },
+   {
+    "kind": "natural",
+    "seed": "L65-2c6r7c",
+    "stage": "spawn",
+    "synthetic": false
+   },
+   {
+    "asset": "lava-gen57-eval-g24-2.zip",
+    "kind": "start",
+    "seed": "L65-vqpg48",
+    "stage": "lava",
+    "synthetic": false
+   },
+   {
+    "kind": "combat",
+    "minutes": 10,
+    "scenario": "combat",
+    "seed": "L65-xnug82",
+    "stage": "combat",
+    "synthetic": false
+   }
+  ]
+ },
  "score_version": 2,
  "settings": {
   "accept_pairs": 8,
@@ -10771,7 +10904,34 @@
    {
     "_metric": "deaths",
     "_priority": true,
+    "brain.death_avoid": 1
+   },
+   {
+    "_metric": "deaths",
+    "_priority": true,
     "combat.commit_target": 1
+   },
+   {
+    "_metric": "deaths",
+    "_priority": true,
+    "combat.shield_guard": 1
+   },
+   {
+    "_metric": "deaths",
+    "_priority": true,
+    "cave.torch_recipe": 1
+   },
+   {
+    "_metric": "deaths",
+    "_priority": true,
+    "cave.seal_openings": 1
+   },
+   {
+    "_max_pairs": 24,
+    "_priority": true,
+    "gather.first_logs": 6,
+    "gather.iron_in_view": 1,
+    "gather.vein_follow": 1
    },
    {
     "_metric": "deaths",
@@ -11144,12 +11304,15 @@
  "showcase_runs": 12,
  "sigma": {
   "bed.table_first": 0.15,
+  "brain.death_avoid": 0.15,
   "brain.death_s": 0.15,
   "brain.skill_stats": 0.108375,
   "brain.strategist": 0.1785,
   "brain.thompson": 0.1275,
   "brain.utility": 0.1275,
+  "cave.seal_openings": 0.15,
   "cave.torch_light": 0.15,
+  "cave.torch_recipe": 0.15,
   "cave.torches": 0.25277384999999997,
   "combat.backstep": 0.21,
   "combat.commit_target": 0.15,
@@ -11202,6 +11365,7 @@
   "gather.stair_for_stone": 0.15,
   "gather.stone_extra": 0.15,
   "gather.stone_stock": 0.15,
+  "gather.vein_follow": 0.15,
   "gear.armor_first": 0.108375,
   "gear.shield_early": 0.108375,
   "gear.sword_early": 0.0783009375,
@@ -13147,7 +13311,8 @@
   "{\"portal.retry_cast_view\": 1}",
   "{\"reflex.lava_margin\": 1}",
   "{\"_max_pairs\": 40, \"_priority\": true, \"brain.skill_stats\": 1, \"brain.strategist\": 1, \"brain.thompson\": 1, \"brain.utility\": 1, \"plan.readiness\": 1}",
-  "{\"_max_pairs\": 24, \"_metric\": \"ok:goto|unstuck\", \"_priority\": true, \"combat.ignore_walled_mobs\": 1, \"nav.surface_v2\": 1, \"nav.unstuck_v2\": 1, \"night.shelter_exit\": 1, \"stuck.item_progress\": 1}"
+  "{\"_max_pairs\": 24, \"_metric\": \"ok:goto|unstuck\", \"_priority\": true, \"combat.ignore_walled_mobs\": 1, \"nav.surface_v2\": 1, \"nav.unstuck_v2\": 1, \"night.shelter_exit\": 1, \"stuck.item_progress\": 1}",
+  "{\"_metric\": \"deaths\", \"_priority\": true, \"brain.death_avoid\": 1}"
  ],
  "version": 1
 }
