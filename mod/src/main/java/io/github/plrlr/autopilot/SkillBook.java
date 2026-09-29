@@ -13,6 +13,7 @@ final class SkillBook {
 		Skill s = Skills.create(o.skill());
 		if (s == null) {
 			a.log.event("bad_skill", o.label());
+			a.disable("unknown skill: " + o.label());
 			return;
 		}
 		Skill.releaseKeys();
@@ -25,12 +26,17 @@ final class SkillBook {
 		a.stuckWatch.resetPosition();
 		a.skillInventoryHash = a.inventoryHash();
 		a.skillStartPos = Mc.player().blockPosition().immutable();
-		s.begin(a.memory, o.arg());
+		try {
+			s.begin(a.memory, o.arg());
+		} catch (Skill.Fault e) {
+			// Log the start and its error result below before disabling the autopilot.
+		}
 		JsonObject j = new JsonObject();
 		j.addProperty("event", "skill_start");
 		j.addProperty("skill", o.label());
 		j.addProperty("trigger", trigger);
 		a.log.write(j);
+		if (s.result() != null && s.result().code() == Fail.ERROR) onSkillEnd(a, false);
 	}
 
 	/** askNext: whether to ask the tactician what to do next (false when we already know). */
@@ -55,6 +61,15 @@ final class SkillBook {
 		j.addProperty("detail", r.detail());
 		j.addProperty("seconds", (a.tick - a.skillStartTick) / 20.0);
 		a.log.write(j);
+		if (r.code() == Fail.ERROR) {
+			if (a.testTask != null && a.skillOption == a.testTask) a.testTaskResult = r;
+			// Detach first: disable() must not abort and log this completed skill recursively.
+			a.skill = null;
+			a.skillOption = null;
+			a.skillIsReflex = false;
+			a.disable(label + ": " + r.detail());
+			return;
+		}
 		// Gene plan.livelock_break: a minute of actions going nowhere is a loop (LivelockWatch).
 		if (Tune.on("plan.livelock_break")) {
 			var pl = Mc.player();

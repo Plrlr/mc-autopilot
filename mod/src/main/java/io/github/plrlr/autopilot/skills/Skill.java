@@ -13,6 +13,11 @@ public abstract class Skill {
 	/** code is null when ok. */
 	public record Result(boolean ok, Fail code, String detail) {}
 
+	/** Unexpected errors unwind through child skills rather than spending an ordinary retry budget. */
+	public static final class Fault extends RuntimeException {
+		private Fault(String detail) { super(detail); }
+	}
+
 	protected WorldMemory memory;
 	protected String arg;
 	protected int ticks;
@@ -69,16 +74,19 @@ public abstract class Skill {
 			AutopilotMod.LOGGER.warn("Skill {} failed to start", name(), e);
 			fail(Fail.ERROR, "error: " + e.getClass().getSimpleName());
 		}
+		checkError();
 	}
 
 	public final void update() {
-		if (result != null) return;
+		if (result != null) { checkError(); return; }
 		if (Mc.player() == null) {
 			fail(Fail.ERROR, "no player");
+			checkError();
 			return;
 		}
 		if (++ticks > timeoutTicks) {
 			fail(Fail.TIMEOUT, "timed out after " + ticks / 20 + " s");
+			checkError();
 			return;
 		}
 		try {
@@ -87,6 +95,11 @@ public abstract class Skill {
 			AutopilotMod.LOGGER.warn("Skill {} crashed", name(), e);
 			fail(Fail.ERROR, "error: " + e.getClass().getSimpleName());
 		}
+		checkError();
+	}
+
+	private void checkError() {
+		if (result != null && result.code() == Fail.ERROR) throw new Fault(name() + ": " + result.detail());
 	}
 
 	/** Stop from outside (user took over, a reflex, the brain switched). */
@@ -120,6 +133,13 @@ public abstract class Skill {
 			cleanup();
 		} catch (Exception e) {
 			AutopilotMod.LOGGER.warn("Cleanup of {} failed", name(), e);
+			result = new Result(false, Fail.ERROR, "cleanup error: " + e.getClass().getSimpleName());
+			Bari.stop();
+			try {
+				releaseKeys();
+			} catch (Exception stopError) {
+				AutopilotMod.LOGGER.warn("Releasing keys after {} failed", name(), stopError);
+			}
 		}
 	}
 
