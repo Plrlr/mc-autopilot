@@ -109,6 +109,7 @@ public final class Tune {
 		gene("route.diamond_portal", 1, 0, 1, Kind.BOOL, "portal the classic way (diamond pickaxe, mine 10 obsidian) instead of casting it");
 		gene("route.deep_portal", 1, 0, 1, Kind.BOOL, "the diamond route as one plan: kit up top, diamonds and a lava pool at depth, frame built in a dug room");
 		gene("deep.mold", 1, 0, 1, Kind.BOOL, "obsidian_pool: nothing safe to mine, so make obsidian a block at a time in a dug pit (two buckets)");
+		gene("deep.stairs", 0, 0, 1, Kind.BOOL, "diamond_hunt goes down by safe 1-wide stairs first (slow: 12 of 24 min in a trial) instead of collect's own descent");
 		gene("inv.tidy", 1, 0, 1, Kind.BOOL, "toss junk stacks (andesite, spare stone past 128) when fewer than 4 slots are free");
 		gene("deep.food", 4, 0, 12, Kind.INT, "cooked food to carry before going down for diamonds");
 		gene("deep.sticks", 4, 2, 8, Kind.INT, "sticks to carry down for the diamond pickaxe (torches use them too)");

@@ -291,7 +291,10 @@ public final class PortalRoutes {
 			if (Mc.count("diamond") >= want) return null;
 			// Stairs twice at most: lava or drops on every side at some depth fail them each time,
 			// and collect finds its own way down (Baritone's legit mining digs to the ore's depth).
-			if (Mc.player().getBlockY() > -50 && stairs++ < 2) return new Option("stair_down", "-54", "safe stairs to diamond depth");
+			// (Gene deep.stairs, off by default: in trial diamond-a the stairs took 12 of 24 minutes and
+			// failed three times; plain collect then found 3 diamonds in 4.)
+			if (io.github.plrlr.autopilot.Tune.on("deep.stairs") && Mc.player().getBlockY() > -50 && stairs++ < 2)
+				return new Option("stair_down", "-54", "safe stairs to diamond depth");
 			if (tries++ >= 3) return null;
 			return new Option("collect", "diamond:" + (want - Mc.count("diamond")), "branch-mine for diamonds in sight");
 		}
