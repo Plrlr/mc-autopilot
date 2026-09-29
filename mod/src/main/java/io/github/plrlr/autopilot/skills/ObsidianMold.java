@@ -61,7 +61,7 @@ public final class ObsidianMold extends Composite {
 	protected void start() {
 		timeoutTicks = 20 * 60 * 8;
 		maxChildFails = 4;
-		want = argCount(10);
+		want = requestedCount(arg);
 		start = Mc.count("obsidian");
 		if (!Mc.dimension().equals("overworld")) {
 			fail(Fail.WRONG_PLACE, "water boils away outside the overworld");
@@ -73,6 +73,16 @@ public final class ObsidianMold extends Composite {
 		}
 		if (Mc.count("water_bucket") == 0 || Mc.count("bucket") + Mc.count("lava_bucket") == 0) {
 			fail(Fail.NEED_ITEM, "the mold needs a water bucket and a second bucket");
+		}
+	}
+
+	/** Both the planner and the skill catalog pass bare counts; item:count also remains valid. */
+	static int requestedCount(String arg) {
+		if (arg == null) return 10;
+		try {
+			return Math.max(1, Integer.parseInt(arg.substring(arg.indexOf(':') + 1).trim()));
+		} catch (NumberFormatException e) {
+			return 10;
 		}
 	}
 
