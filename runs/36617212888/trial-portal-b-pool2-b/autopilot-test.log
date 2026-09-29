@@ -1,0 +1,238 @@
+	- autopilot-test 0.1.0
+[19:11:37] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test] start at -1, 124, -2
+[19:11:38] [Test thread/INFO] (Minecraft) [STDOUT]: [autopilot-test] STAGE start diamond
+[19:11:38] [Test thread/INFO] (Minecraft) [STDOUT]: [autopilot-test] FREE RUN: client and server run in parallel (no lockstep)
+[19:12:16] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test] portal 30s: brain rules, goal nether_portal, doing retreat, milestone 6/13, deaths 0
+[autopilot-test]    perf fps 23, server 6.9 ms/tick, mod 1.37 ms/tick
+[19:12:16] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    at 1 100 16 hp 13 food 18 inv {bucket=1, cobblestone=73, cooked_beef=32, crafting_table=1, diamond_pickaxe=1, diamond_sword=1, dirt=64, flint_and_steel=1, furnace=1, oak_planks=32, rotten_flesh=4}
+[19:12:16] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    known water -8, 123, -1, lava 8, 123, -1
+[19:12:16] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    equip armor -> ok: wearing the best armor
+[19:12:16] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    equip shield -> ok: shield in off hand
+[19:12:16] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    collect raw_iron:3 -> failed INTERRUPTED: interrupted: brain chose attack zombie
+[19:12:16] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    attack zombie -> ok: killed the zombie
+[19:12:16] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    attack zombie -> ok: killed the zombie
+[19:12:16] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    attack zombie -> failed INTERRUPTED: interrupted by reflex_creeper
+[19:12:47] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test] portal 60s: brain rules, goal nether_portal, doing collect coal:6, milestone 6/13, deaths 0
+[autopilot-test]    perf fps 22, server 4.8 ms/tick, mod 1.17 ms/tick
+[19:12:47] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    at -12 103 22 hp 20 food 17 inv {bucket=1, coal=5, cobblestone=73, cooked_beef=31, crafting_table=1, diamond_pickaxe=1, diamond_sword=1, dirt=65, flint_and_steel=1, furnace=1, oak_planks=32, rotten_flesh=6}
+[19:12:47] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    known water -8, 123, -1, lava 8, 123, -1
+[19:12:47] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    attack zombie -> failed INTERRUPTED: interrupted by reflex_creeper
+[19:12:47] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    retreat -> ok: got away
+[19:12:47] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    eat -> ok: ate cooked_beef
+[19:12:47] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    collect coal:6 -> failed INTERRUPTED: interrupted: brain chose attack zombie
+[19:12:47] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    attack zombie -> ok: killed the zombie
+[19:12:47] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    attack zombie -> ok: killed the zombie
+[19:13:17] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test] portal 90s: brain rules, goal nether_portal, doing smelt iron_ingot:3, milestone 6/13, deaths 0
+[autopilot-test]    perf fps 21, server 4.6 ms/tick, mod 1.10 ms/tick
+[19:13:17] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    at -3 105 23 hp 20 food 17 inv {bucket=1, coal=6, cobblestone=82, cooked_beef=31, crafting_table=1, diamond_pickaxe=1, diamond_sword=1, dirt=65, flint_and_steel=1, oak_planks=30, rotten_flesh=6, stick=4}
+[19:13:17] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    known water -8, 123, -1, lava 8, 123, -1
+[19:13:17] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    collect coal:6 -> ok: collected 6 coal (seen blocks)
+[19:13:17] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    craft stick:4 -> ok: crafted 4 stick
+[19:13:17] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    craft torch:8 -> failed NO_RECIPE: no known recipe for torch (not unlocked yet?)
+[19:13:17] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    craft torch:8 -> failed NO_RECIPE: no known recipe for torch (not unlocked yet?)
+[19:13:17] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    craft torch:8 -> failed NO_RECIPE: no known recipe for torch (not unlocked yet?)
+[19:13:17] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    collect raw_iron:3 -> ok: collected 3 raw_iron (seen blocks)
+[19:13:47] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test] portal 120s: brain rules, goal nether_portal, doing fill_bucket water, milestone 6/13, deaths 0
+[autopilot-test]    perf fps 26, server 4.3 ms/tick, mod 1.05 ms/tick
+[19:13:47] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    at -7 105 21 hp 20 food 17 inv {bucket=2, coal=6, cobblestone=82, cooked_beef=31, crafting_table=1, diamond_pickaxe=1, diamond_sword=1, dirt=65, flint_and_steel=1, furnace=1, oak_planks=30, rotten_flesh=6, stick=4}
+[19:13:47] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    known water -8, 123, -1, lava 8, 123, -1
+[19:13:47] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    craft torch:8 -> failed NO_RECIPE: no known recipe for torch (not unlocked yet?)
+[19:13:47] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    craft torch:8 -> failed NO_RECIPE: no known recipe for torch (not unlocked yet?)
+[19:13:47] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    collect raw_iron:3 -> ok: collected 3 raw_iron (seen blocks)
+[19:13:47] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    smelt iron_ingot:3 -> ok: smelted 3 iron_ingot
+[19:13:47] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    craft bucket:1 -> ok: crafted 1 bucket
+[19:13:47] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    pickup stations -> ok: picked up 1 stacks
+[19:14:23] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test] portal 150s: brain rules, goal nether_portal, doing obsidian_pool, milestone 6/13, deaths 0
+[autopilot-test]    perf fps 22, server 4.8 ms/tick, mod 0.97 ms/tick
+[19:14:23] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    at 3 124 -1 hp 20 food 15 inv {bucket=1, coal=6, cobblestone=82, cooked_beef=31, crafting_table=1, diamond_pickaxe=1, diamond_sword=1, dirt=65, flint_and_steel=1, furnace=1, lava_bucket=1, oak_planks=30, rotten_flesh=6, stick=4}
+[19:14:23] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    known water 6, 124, 0, lava 6, 123, -2
+[19:14:23] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    pickup stations -> ok: picked up 1 stacks
+[19:14:23] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    fill_bucket water -> failed NOT_FOUND: no known water source with a bank to stand on
+[19:14:23] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    craft torch:8 -> failed NO_RECIPE: no known recipe for torch (not unlocked yet?)
+[19:14:23] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    craft torch:8 -> failed NO_RECIPE: no known recipe for torch (not unlocked yet?)
+[19:14:23] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    explore water -> ok: found water
+[19:14:23] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    fill_bucket water -> ok: filled a bucket with water
+[19:14:57] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test] portal 180s: brain rules, goal nether_portal, doing obsidian_pool, milestone 6/13, deaths 0
+[autopilot-test]    perf fps 22, server 4.3 ms/tick, mod 0.91 ms/tick
+[19:14:57] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    at 6 123 -2 hp 20 food 15 inv {coal=6, cobblestone=82, cooked_beef=31, crafting_table=1, diamond_pickaxe=1, diamond_sword=1, dirt=65, flint_and_steel=1, furnace=1, lava_bucket=1, oak_planks=30, obsidian=2, rotten_flesh=6, stick=4, water_bucket=1}
+[19:14:57] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    known water -7, 123, -2, lava none
+[19:14:57] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    pickup stations -> ok: picked up 1 stacks
+[19:14:57] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    fill_bucket water -> failed NOT_FOUND: no known water source with a bank to stand on
+[19:14:57] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    craft torch:8 -> failed NO_RECIPE: no known recipe for torch (not unlocked yet?)
+[19:14:57] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    craft torch:8 -> failed NO_RECIPE: no known recipe for torch (not unlocked yet?)
+[19:14:57] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    explore water -> ok: found water
+[19:14:57] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    fill_bucket water -> ok: filled a bucket with water
+[19:15:32] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test] portal 210s: brain rules, goal nether_portal, doing obsidian_pool, milestone 6/13, deaths 0
+[autopilot-test]    perf fps 17, server 4.2 ms/tick, mod 0.87 ms/tick
+[19:15:32] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    at 8 123 -2 hp 20 food 15 inv {coal=6, cobblestone=82, cooked_beef=31, crafting_table=1, diamond_pickaxe=1, diamond_sword=1, dirt=65, flint_and_steel=1, furnace=1, lava_bucket=1, oak_planks=30, obsidian=5, rotten_flesh=6, stick=4, water_bucket=1}
+[19:15:32] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    known water -7, 123, -2, lava none
+[19:15:32] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    pickup stations -> ok: picked up 1 stacks
+[19:15:32] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    fill_bucket water -> failed NOT_FOUND: no known water source with a bank to stand on
+[19:15:32] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    craft torch:8 -> failed NO_RECIPE: no known recipe for torch (not unlocked yet?)
+[19:15:32] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    craft torch:8 -> failed NO_RECIPE: no known recipe for torch (not unlocked yet?)
+[19:15:32] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    explore water -> ok: found water
+[19:15:32] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    fill_bucket water -> ok: filled a bucket with water
+[19:16:07] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test] portal 240s: brain rules, goal nether_portal, doing obsidian_pool, milestone 6/13, deaths 0
+[autopilot-test]    perf fps 21, server 4.7 ms/tick, mod 0.84 ms/tick
+[19:16:07] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    at 8 123 -3 hp 20 food 15 inv {coal=6, cobblestone=82, cooked_beef=31, crafting_table=1, diamond_pickaxe=1, diamond_sword=1, dirt=65, flint_and_steel=1, furnace=1, lava_bucket=1, oak_planks=30, obsidian=8, rotten_flesh=6, stick=4, water_bucket=1}
+[19:16:07] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    known water -7, 123, -2, lava none
+[19:16:07] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    pickup stations -> ok: picked up 1 stacks
+[19:16:07] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    fill_bucket water -> failed NOT_FOUND: no known water source with a bank to stand on
+[19:16:07] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    craft torch:8 -> failed NO_RECIPE: no known recipe for torch (not unlocked yet?)
+[19:16:07] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    craft torch:8 -> failed NO_RECIPE: no known recipe for torch (not unlocked yet?)
+[19:16:07] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    explore water -> ok: found water
+[19:16:07] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    fill_bucket water -> ok: filled a bucket with water
+[19:16:36] [Test thread/INFO] (Minecraft) [STDOUT]: [autopilot-test] CHECKPOINT nether at 262s (5750 KB)
+[19:16:42] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test] portal 270s: brain rules, goal blaze_rods, doing fortress find, milestone 7/13, deaths 0
+[autopilot-test]    perf fps 19, server 14.0 ms/tick, mod 0.86 ms/tick
+[19:16:42] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    at 9 75 -4 hp 20 food 15 inv {coal=6, cobblestone=78, cooked_beef=31, crafting_table=1, diamond_pickaxe=1, diamond_sword=1, dirt=65, flint_and_steel=1, furnace=1, lava_bucket=1, netherrack=1, oak_planks=30, rotten_flesh=6, stick=4, warped_roots=1, water_bucket=1}
+[19:16:42] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    known water none, lava none
+[19:16:42] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    fill_bucket water -> ok: filled a bucket with water
+[19:16:42] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    obsidian_pool -> ok: have 10 obsidian
+[19:16:42] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    craft torch:8 -> failed NO_RECIPE: no known recipe for torch (not unlocked yet?)
+[19:16:42] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    craft torch:8 -> failed NO_RECIPE: no known recipe for torch (not unlocked yet?)
+[19:16:42] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    dig_portal -> ok: nether portal lit
+[19:16:42] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    enter_portal nether -> ok: now in the_nether
+[19:17:19] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test] portal 300s: brain rules, goal blaze_rods, doing fortress find, milestone 7/13, deaths 0
+[autopilot-test]    perf fps 19, server 5.7 ms/tick, mod 0.81 ms/tick
+[19:17:19] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    at -42 71 -16 hp 20 food 20 inv {coal=6, cobblestone=78, cooked_beef=30, crafting_table=1, diamond_pickaxe=1, diamond_sword=1, dirt=65, flint_and_steel=1, furnace=1, lava_bucket=1, netherrack=11, oak_planks=30, rotten_flesh=6, stick=4, warped_fungus=1, warped_roots=1, water_bucket=1}
+[19:17:19] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    known water none, lava -41, 31, -65
+[19:17:19] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    craft torch:8 -> failed NO_RECIPE: no known recipe for torch (not unlocked yet?)
+[19:17:19] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    craft torch:8 -> failed NO_RECIPE: no known recipe for torch (not unlocked yet?)
+[19:17:19] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    dig_portal -> ok: nether portal lit
+[19:17:19] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    enter_portal nether -> ok: now in the_nether
+[19:17:19] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    fortress find -> failed INTERRUPTED: interrupted: brain chose eat
+[19:17:19] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    eat -> ok: ate cooked_beef
+[19:17:51] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test] portal 330s: brain rules, goal blaze_rods, doing fortress find, milestone 7/13, deaths 0
+[autopilot-test]    perf fps 19, server 3.9 ms/tick, mod 0.77 ms/tick
+[19:17:51] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    at -42 71 -16 hp 20 food 20 inv {coal=6, cobblestone=78, cooked_beef=30, crafting_table=1, diamond_pickaxe=1, diamond_sword=1, dirt=65, flint_and_steel=1, furnace=1, lava_bucket=1, netherrack=16, oak_planks=30, rotten_flesh=6, stick=4, warped_fungus=1, warped_roots=1, water_bucket=1}
+[19:17:51] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    known water none, lava -24, 31, -57
+[19:17:51] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    craft torch:8 -> failed NO_RECIPE: no known recipe for torch (not unlocked yet?)
+[19:17:51] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    craft torch:8 -> failed NO_RECIPE: no known recipe for torch (not unlocked yet?)
+[19:17:51] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    dig_portal -> ok: nether portal lit
+[19:17:51] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    enter_portal nether -> ok: now in the_nether
+[19:17:51] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    fortress find -> failed INTERRUPTED: interrupted: brain chose eat
+[19:17:51] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    eat -> ok: ate cooked_beef
+[19:18:26] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test] portal 360s: brain rules, goal blaze_rods, doing fortress find, milestone 7/13, deaths 0
+[autopilot-test]    perf fps 13, server 5.0 ms/tick, mod 0.73 ms/tick
+[19:18:26] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    at -63 103 42 hp 20 food 20 inv {coal=6, cobblestone=78, cooked_beef=30, crafting_table=1, diamond_pickaxe=1, diamond_sword=1, dirt=65, flint_and_steel=1, furnace=1, lava_bucket=1, netherrack=25, oak_planks=30, rotten_flesh=6, stick=4, warped_fungus=1, warped_roots=1, water_bucket=1}
+[19:18:26] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    known water none, lava -23, 31, -51
+[19:18:26] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    craft torch:8 -> failed NO_RECIPE: no known recipe for torch (not unlocked yet?)
+[19:18:26] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    craft torch:8 -> failed NO_RECIPE: no known recipe for torch (not unlocked yet?)
+[19:18:26] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    dig_portal -> ok: nether portal lit
+[19:18:26] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    enter_portal nether -> ok: now in the_nether
+[19:18:26] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    fortress find -> failed INTERRUPTED: interrupted: brain chose eat
+[19:18:26] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    eat -> ok: ate cooked_beef
+[19:19:16] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test] portal 390s: brain rules, goal blaze_rods, doing fortress find, milestone 7/13, deaths 0
+[autopilot-test]    perf fps 13, server 6.0 ms/tick, mod 0.70 ms/tick
+[19:19:16] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    at -60 66 150 hp 20 food 20 inv {coal=6, cobblestone=78, cooked_beef=30, crafting_table=1, diamond_pickaxe=1, diamond_sword=1, dirt=65, flint_and_steel=1, furnace=1, lava_bucket=1, netherrack=25, oak_planks=30, rotten_flesh=6, stick=4, warped_fungus=1, warped_roots=1, water_bucket=1}
+[19:19:16] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    known water none, lava -23, 31, -51
+[19:19:16] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    craft torch:8 -> failed NO_RECIPE: no known recipe for torch (not unlocked yet?)
+[19:19:16] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    craft torch:8 -> failed NO_RECIPE: no known recipe for torch (not unlocked yet?)
+[19:19:16] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    dig_portal -> ok: nether portal lit
+[19:19:16] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    enter_portal nether -> ok: now in the_nether
+[19:19:16] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    fortress find -> failed INTERRUPTED: interrupted: brain chose eat
+[19:19:16] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    eat -> ok: ate cooked_beef
+[19:19:53] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test] portal 420s: brain rules, goal blaze_rods, doing fortress find, milestone 7/13, deaths 0
+[autopilot-test]    perf fps 17, server 6.1 ms/tick, mod 0.67 ms/tick
+[19:19:53] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    at -35 69 224 hp 20 food 20 inv {coal=6, cobblestone=78, cooked_beef=30, crafting_table=1, diamond_pickaxe=1, diamond_sword=1, dirt=65, flint_and_steel=1, furnace=1, lava_bucket=1, netherrack=28, oak_planks=30, rotten_flesh=6, stick=4, warped_fungus=1, warped_roots=3, water_bucket=1}
+[19:19:53] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    known water none, lava -23, 31, -51
+[19:19:53] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    enter_portal nether -> ok: now in the_nether
+[19:19:53] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    fortress find -> failed INTERRUPTED: interrupted: brain chose eat
+[19:19:53] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    eat -> ok: ate cooked_beef
+[19:19:53] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    fortress find -> ok: walked 200 blocks, no fortress in view yet
+[19:19:53] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    craft torch:8 -> failed NO_RECIPE: no known recipe for torch (not unlocked yet?)
+[19:19:53] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    craft torch:8 -> failed NO_RECIPE: no known recipe for torch (not unlocked yet?)
+[19:20:25] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test] portal 450s: brain rules, goal blaze_rods, doing fortress find, milestone 7/13, deaths 0
+[autopilot-test]    perf fps 30, server 6.4 ms/tick, mod 0.65 ms/tick
+[19:20:25] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    at -41 80 308 hp 20 food 20 inv {coal=6, cobblestone=78, cooked_beef=30, crafting_table=1, diamond_pickaxe=1, diamond_sword=1, dirt=65, flint_and_steel=1, furnace=1, lava_bucket=1, netherrack=39, oak_planks=30, rotten_flesh=6, stick=4, warped_fungus=1, warped_roots=3, water_bucket=1}
+[19:20:25] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    known water none, lava -42, 84, 294
+[19:20:25] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    enter_portal nether -> ok: now in the_nether
+[19:20:25] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    fortress find -> failed INTERRUPTED: interrupted: brain chose eat
+[19:20:25] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    eat -> ok: ate cooked_beef
+[19:20:25] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    fortress find -> ok: walked 200 blocks, no fortress in view yet
+[19:20:25] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    craft torch:8 -> failed NO_RECIPE: no known recipe for torch (not unlocked yet?)
+[19:20:25] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    craft torch:8 -> failed NO_RECIPE: no known recipe for torch (not unlocked yet?)
+[19:20:55] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test] portal 480s: brain rules, goal blaze_rods, doing fortress blazes:8, milestone 7/13, deaths 0
+[autopilot-test]    perf fps 63, server 4.4 ms/tick, mod 0.63 ms/tick
+[19:20:55] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    at -5 98 364 hp 20 food 20 inv {coal=6, cobblestone=78, cooked_beef=30, crafting_table=1, diamond_pickaxe=1, diamond_sword=1, dirt=65, flint_and_steel=1, furnace=1, lava_bucket=1, netherrack=48, oak_planks=30, rotten_flesh=6, stick=4, warped_fungus=1, warped_roots=3, water_bucket=1}
+[19:20:55] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    known water none, lava -42, 84, 294
+[19:20:55] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    fortress find -> ok: walked 200 blocks, no fortress in view yet
+[19:20:55] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    craft torch:8 -> failed NO_RECIPE: no known recipe for torch (not unlocked yet?)
+[19:20:55] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    craft torch:8 -> failed NO_RECIPE: no known recipe for torch (not unlocked yet?)
+[19:20:55] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    fortress find -> ok: saw a fortress 70 blocks away
+[19:20:55] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    craft torch:8 -> failed NO_RECIPE: no known recipe for torch (not unlocked yet?)
+[19:20:55] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    craft torch:8 -> failed NO_RECIPE: no known recipe for torch (not unlocked yet?)
+[19:21:25] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test] portal 510s: brain rules, goal blaze_rods, doing fortress blazes:8, milestone 7/13, deaths 0
+[autopilot-test]    perf fps 51, server 4.2 ms/tick, mod 0.62 ms/tick
+[19:21:25] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    at -2 93 375 hp 20 food 20 inv {coal=6, cobblestone=78, cooked_beef=29, crafting_table=1, diamond_pickaxe=1, diamond_sword=1, dirt=65, flint_and_steel=1, furnace=1, lava_bucket=1, netherrack=48, oak_planks=30, rotten_flesh=6, stick=4, warped_fungus=1, warped_roots=3, water_bucket=1}
+[19:21:25] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    known water none, lava -23, 31, 414
+[19:21:25] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    fortress find -> ok: walked 200 blocks, no fortress in view yet
+[19:21:25] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    craft torch:8 -> failed NO_RECIPE: no known recipe for torch (not unlocked yet?)
+[19:21:25] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    craft torch:8 -> failed NO_RECIPE: no known recipe for torch (not unlocked yet?)
+[19:21:25] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    fortress find -> ok: saw a fortress 70 blocks away
+[19:21:25] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    craft torch:8 -> failed NO_RECIPE: no known recipe for torch (not unlocked yet?)
+[19:21:25] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    craft torch:8 -> failed NO_RECIPE: no known recipe for torch (not unlocked yet?)
+[19:21:56] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test] portal 540s: brain rules, goal blaze_rods, doing fortress blazes:8, milestone 7/13, deaths 0
+[autopilot-test]    perf fps 50, server 4.2 ms/tick, mod 0.61 ms/tick
+[19:21:56] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    at 8 89 376 hp 20 food 20 inv {coal=6, cobblestone=78, cooked_beef=29, crafting_table=1, diamond_pickaxe=1, diamond_sword=1, dirt=65, flint_and_steel=1, furnace=1, lava_bucket=1, netherrack=48, oak_planks=30, rotten_flesh=6, stick=4, warped_fungus=1, warped_roots=3, water_bucket=1}
+[19:21:56] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    known water none, lava 51, 31, 353
+[19:21:56] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    fortress find -> ok: walked 200 blocks, no fortress in view yet
+[19:21:56] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    craft torch:8 -> failed NO_RECIPE: no known recipe for torch (not unlocked yet?)
+[19:21:56] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    craft torch:8 -> failed NO_RECIPE: no known recipe for torch (not unlocked yet?)
+[19:21:56] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    fortress find -> ok: saw a fortress 70 blocks away
+[19:21:56] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    craft torch:8 -> failed NO_RECIPE: no known recipe for torch (not unlocked yet?)
+[19:21:56] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    craft torch:8 -> failed NO_RECIPE: no known recipe for torch (not unlocked yet?)
+[19:22:26] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test] portal 570s: brain rules, goal blaze_rods, doing fortress blazes:8, milestone 7/13, deaths 0
+[autopilot-test]    perf fps 50, server 4.0 ms/tick, mod 0.60 ms/tick
+[19:22:26] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    at 8 89 376 hp 20 food 20 inv {coal=6, cobblestone=78, cooked_beef=29, crafting_table=1, diamond_pickaxe=1, diamond_sword=1, dirt=65, flint_and_steel=1, furnace=1, lava_bucket=1, netherrack=48, oak_planks=30, rotten_flesh=6, stick=4, warped_fungus=1, warped_roots=3, water_bucket=1}
+[19:22:26] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    known water none, lava 51, 31, 353
+[19:22:26] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    fortress find -> ok: walked 200 blocks, no fortress in view yet
+[19:22:26] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    craft torch:8 -> failed NO_RECIPE: no known recipe for torch (not unlocked yet?)
+[19:22:26] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    craft torch:8 -> failed NO_RECIPE: no known recipe for torch (not unlocked yet?)
+[19:22:26] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    fortress find -> ok: saw a fortress 70 blocks away
+[19:22:26] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    craft torch:8 -> failed NO_RECIPE: no known recipe for torch (not unlocked yet?)
+[19:22:26] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    craft torch:8 -> failed NO_RECIPE: no known recipe for torch (not unlocked yet?)
+[19:22:57] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test] portal 600s: brain rules, goal blaze_rods, doing fortress blazes:8, milestone 7/13, deaths 0
+[autopilot-test]    perf fps 28, server 4.4 ms/tick, mod 0.59 ms/tick
+[19:22:57] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    at -58 77 386 hp 20 food 20 inv {coal=6, cobblestone=78, cooked_beef=29, crafting_table=1, diamond_pickaxe=1, diamond_sword=1, dirt=65, flint_and_steel=1, furnace=1, lava_bucket=1, netherrack=79, oak_planks=30, rotten_flesh=6, stick=4, warped_fungus=1, warped_roots=3, water_bucket=1}
+[19:22:57] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    known water none, lava -70, 31, 421
+[19:22:57] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    fortress find -> ok: walked 200 blocks, no fortress in view yet
+[19:22:57] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    craft torch:8 -> failed NO_RECIPE: no known recipe for torch (not unlocked yet?)
+[19:22:57] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    craft torch:8 -> failed NO_RECIPE: no known recipe for torch (not unlocked yet?)
+[19:22:57] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    fortress find -> ok: saw a fortress 70 blocks away
+[19:22:57] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    craft torch:8 -> failed NO_RECIPE: no known recipe for torch (not unlocked yet?)
+[19:22:57] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    craft torch:8 -> failed NO_RECIPE: no known recipe for torch (not unlocked yet?)
+[19:23:27] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test] portal 630s: brain rules, goal blaze_rods, doing fortress blazes:8, milestone 7/13, deaths 0
+[autopilot-test]    perf fps 28, server 5.4 ms/tick, mod 0.58 ms/tick
+[19:23:27] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    at -12 55 417 hp 12 food 20 inv {coal=6, cobblestone=78, cooked_beef=28, crafting_table=1, diamond_pickaxe=1, diamond_sword=1, dirt=65, flint_and_steel=1, furnace=1, lava_bucket=1, netherrack=89, oak_planks=30, rotten_flesh=6, stick=4, warped_fungus=1, warped_roots=3, water_bucket=1}
+[19:23:27] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    known water none, lava -18, 31, 423
+[19:23:27] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    fortress find -> ok: walked 200 blocks, no fortress in view yet
+[19:23:27] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    craft torch:8 -> failed NO_RECIPE: no known recipe for torch (not unlocked yet?)
+[19:23:27] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    craft torch:8 -> failed NO_RECIPE: no known recipe for torch (not unlocked yet?)
+[19:23:27] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    fortress find -> ok: saw a fortress 70 blocks away
+[19:23:27] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    craft torch:8 -> failed NO_RECIPE: no known recipe for torch (not unlocked yet?)
+[19:23:27] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    craft torch:8 -> failed NO_RECIPE: no known recipe for torch (not unlocked yet?)
+[19:23:57] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test] portal 660s: brain rules, goal blaze_rods, doing fortress blazes:8, milestone 7/13, deaths 0
+[autopilot-test]    perf fps 37, server 5.2 ms/tick, mod 0.58 ms/tick
+[19:23:57] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    at 18 45 414 hp 20 food 18 inv {coal=6, cobblestone=78, cooked_beef=28, crafting_table=1, diamond_pickaxe=1, diamond_sword=1, dirt=65, flint_and_steel=1, furnace=1, lava_bucket=1, nether_bricks=23, netherrack=89, oak_planks=30, rotten_flesh=6, stick=4, warped_fungus=1, warped_roots=3, water_bucket=1}
+[19:23:57] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    known water none, lava 17, 31, 407
+[19:23:57] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    fortress find -> ok: walked 200 blocks, no fortress in view yet
+[19:23:57] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    craft torch:8 -> failed NO_RECIPE: no known recipe for torch (not unlocked yet?)
+[19:23:57] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    craft torch:8 -> failed NO_RECIPE: no known recipe for torch (not unlocked yet?)
+[19:23:57] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    fortress find -> ok: saw a fortress 70 blocks away
+[19:23:57] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    craft torch:8 -> failed NO_RECIPE: no known recipe for torch (not unlocked yet?)
+[19:23:57] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    craft torch:8 -> failed NO_RECIPE: no known recipe for torch (not unlocked yet?)
+[19:24:27] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test] portal 690s: brain rules, goal blaze_rods, doing fortress blazes:8, milestone 7/13, deaths 0
+[autopilot-test]    perf fps 22, server 5.0 ms/tick, mod 0.58 ms/tick
+[19:24:27] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    at 18 55 403 hp 20 food 18 inv {coal=6, cobblestone=78, cooked_beef=28, crafting_table=1, diamond_pickaxe=1, diamond_sword=1, dirt=65, flint_and_steel=1, furnace=1, lava_bucket=1, nether_bricks=53, netherrack=89, oak_planks=30, rotten_flesh=6, stick=4, warped_fungus=1, warped_roots=3, water_bucket=1}
+[19:24:27] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    known water none, lava 11, 31, 404
+[19:24:27] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    fortress find -> ok: walked 200 blocks, no fortress in view yet
+[19:24:27] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    craft torch:8 -> failed NO_RECIPE: no known recipe for torch (not unlocked yet?)
+[19:24:27] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    craft torch:8 -> failed NO_RECIPE: no known recipe for torch (not unlocked yet?)
+[19:24:27] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    fortress find -> ok: saw a fortress 70 blocks away
+[19:24:27] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    craft torch:8 -> failed NO_RECIPE: no known recipe for torch (not unlocked yet?)
+[19:24:27] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    craft torch:8 -> failed NO_RECIPE: no known recipe for torch (not unlocked yet?)
+[autopilot-test] SPEED 0.899 game s per wall s (720 game s in 801 wall s), mod 0.58 ms per tick
+[19:24:59] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test] FINAL portal: brain rules, goal blaze_rods, doing fortress blazes:8, milestone 7/13, deaths 0, dimension the_nether, milestone times m6@0s m7@262s, checkpoints flint_and_steel@0s lava_seen@0s diamond_pickaxe@0s two_buckets@114s obsidian_10@254s obsidian_placed@256s frame_complete@258s portal_lit@259s
+[19:24:59] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test] LESSON craft torch failed 11 of 11 (mostly NO_RECIPE: no known recipe for torch (not unlocked yet?))

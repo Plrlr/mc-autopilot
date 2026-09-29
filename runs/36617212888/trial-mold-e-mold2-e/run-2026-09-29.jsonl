@@ -1,0 +1,113 @@
+{"event":"autopilot_on","detail":"brain\u003drules","t":1790709064985}
+{"event":"params","detail":"params: defaults changed\u003d{}","t":1790709064986}
+{"layer":"strategist","brain":"rules","choice":"nether_portal","reason":"start","t":1790709064988}
+{"event":"learned","detail":"learned model: none","t":1790709064994}
+{"layer":"tactician","gs":0,"brain":"rules","trigger":"idle","goal":"nether_portal","options":["equip shield","collect diamond:1:lava","explore any"],"choice":"equip shield","x":[1.0,1.0,0.0,0.0,0.0,1.125,0.0,0.0,0.8,0.6,1.0,0.0,0.0,1.0,0.0,0.0,0.0,1.0,0.0,1.0,1.0,0.0,1.0,0.0,0.0,1.0,0.0,0.0,0.0,0.0,0.0,0.538,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1790709065011}
+{"event":"skill_start","skill":"equip shield","trigger":"idle","t":1790709065059}
+{"event":"skill_end","skill":"equip shield","ok":true,"detail":"shield in off hand","seconds":0.05,"t":1790709065180}
+{"layer":"tactician","gs":0,"brain":"rules","trigger":"skill_done","goal":"nether_portal","options":["collect diamond:1:lava","explore any"],"choice":"collect diamond:1:lava","x":[1.0,1.0,0.0,0.0,0.0,1.125,0.0,0.0,0.8,0.6,1.0,0.0,0.0,1.0,0.0,0.0,0.0,1.0,0.0,1.0,1.0,0.0,1.0,0.0,0.0,1.0,0.0,0.0,0.0,0.0,0.0,0.538,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1790709065183}
+{"event":"skill_start","skill":"collect diamond:1:lava","trigger":"skill_done","t":1790709065186}
+{"event":"skill_end","skill":"collect diamond:1:lava","ok":true,"detail":"lava in sight","seconds":0.1,"t":1790709065545}
+{"layer":"tactician","gs":0,"brain":"rules","trigger":"skill_done","goal":"nether_portal","options":["obsidian_pool","explore any"],"choice":"obsidian_pool","x":[1.0,1.0,0.0,0.0,0.0,1.125,0.0,0.0,0.8,0.6,1.0,0.0,0.0,1.0,0.0,0.0,0.0,1.0,0.0,1.0,1.0,0.0,1.0,0.0,0.0,1.0,1.0,0.0,0.0,0.0,0.0,0.538,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1790709065549}
+{"event":"skill_start","skill":"obsidian_pool","trigger":"skill_done","t":1790709065549}
+{"event":"checkpoint","detail":"two_buckets","t":1790709065679}
+{"event":"checkpoint","detail":"flint_and_steel","t":1790709065679}
+{"event":"checkpoint","detail":"lava_seen","t":1790709065679}
+{"event":"checkpoint","detail":"diamond_pickaxe","t":1790709065679}
+{"event":"milestone","detail":"6 at 0 s","t":1790709065686}
+{"event":"skill_end","skill":"obsidian_pool","ok":false,"code":"NO_PROGRESS","detail":"only 0 obsidian after the mold and 3 rounds","seconds":16.7,"t":1790709086102}
+{"layer":"tactician","gs":16,"brain":"rules","trigger":"skill_failed","goal":"nether_portal","options":["attack sheep","collect diamond:1:lava","explore any"],"choice":"attack sheep","x":[1.0,1.0,0.0,0.0,0.0,1.125,0.0,0.0,0.8,0.6,1.0,0.0,0.0,1.0,0.0,0.0,0.0,1.0,0.0,1.0,1.0,1.0,1.0,0.0,0.0,1.0,1.0,1.0,0.0,0.462,0.667,0.538,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1790709086104}
+{"event":"skill_start","skill":"attack sheep","trigger":"skill_failed","t":1790709086105}
+{"event":"skill_end","skill":"attack sheep","ok":true,"detail":"killed the sheep","seconds":17.15,"t":1790709106450}
+{"layer":"tactician","gs":34,"brain":"rules","trigger":"skill_done","goal":"nether_portal","options":["collect diamond:1:lava","explore any"],"choice":"collect diamond:1:lava","x":[1.0,1.0,0.0,0.0,0.0,1.078,0.0,0.0,0.8,0.6,1.0,0.0,0.0,1.0,0.0,0.0,0.0,1.0,0.125,1.0,1.0,1.0,1.0,0.0,0.0,1.0,1.0,1.0,0.0,0.462,0.667,0.538,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1790709106451}
+{"event":"skill_start","skill":"collect diamond:1:lava","trigger":"skill_done","t":1790709106451}
+{"layer":"tactician","gs":114,"brain":"rules","trigger":"mob_near","goal":"nether_portal","options":["attack zombie","fill_bucket water","explore water"],"choice":"attack zombie","x":[1.0,1.0,0.0,0.0,1.0,-0.672,0.0,0.0,0.8,0.6,1.0,0.0,0.0,1.0,0.0,0.0,0.125,1.0,0.125,1.0,0.0,1.0,1.0,0.0,0.25,0.426,1.0,1.0,0.0,0.462,0.667,0.538,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["attack zombie"],"t":1790709189143}
+{"event":"skill_end","skill":"collect diamond:1:lava","ok":false,"code":"INTERRUPTED","detail":"interrupted: brain chose attack zombie","seconds":80.7,"t":1790709189143}
+{"event":"skill_start","skill":"attack zombie","trigger":"mob_near","t":1790709189143}
+{"event":"checkpoint","detail":"at_depth","t":1790709189643}
+{"event":"skill_end","skill":"attack zombie","ok":true,"detail":"killed the zombie","seconds":15.65,"t":1790709204799}
+{"layer":"tactician","gs":130,"brain":"rules","trigger":"skill_done","goal":"nether_portal","options":["collect diamond:1:lava","explore any"],"choice":"collect diamond:1:lava","x":[1.0,0.9,0.0,0.0,1.0,-0.672,0.0,0.0,0.8,0.6,1.0,0.0,0.0,1.0,0.0,0.0,0.125,1.0,0.125,1.0,1.0,1.0,1.0,0.0,0.0,1.0,1.0,1.0,0.0,0.462,0.833,0.538,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1790709204800}
+{"event":"skill_start","skill":"collect diamond:1:lava","trigger":"skill_done","t":1790709204801}
+{"layer":"tactician","gs":152,"brain":"rules","trigger":"hurt","goal":"nether_portal","options":["eat","collect diamond:1:lava","explore any"],"choice":"eat","x":[0.8,0.85,0.0,0.0,1.0,-0.719,0.0,0.0,0.8,0.6,1.0,0.0,0.0,1.0,0.0,0.0,0.125,1.0,0.125,1.0,1.0,1.0,1.0,0.0,0.0,1.0,1.0,1.0,0.0,0.462,0.833,0.538,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["eat"],"t":1790709227691}
+{"event":"skill_end","skill":"collect diamond:1:lava","ok":false,"code":"INTERRUPTED","detail":"interrupted: brain chose eat","seconds":22.2,"t":1790709227691}
+{"event":"skill_start","skill":"eat","trigger":"hurt","t":1790709227691}
+{"event":"skill_end","skill":"eat","ok":true,"detail":"ate cooked_beef","seconds":1.8,"t":1790709229500}
+{"layer":"tactician","gs":154,"brain":"rules","trigger":"skill_done","goal":"nether_portal","options":["collect diamond:1:lava","explore any"],"choice":"collect diamond:1:lava","x":[0.75,1.0,0.0,0.0,1.0,-0.719,0.0,0.0,0.8,0.6,1.0,0.0,0.0,1.0,0.0,0.0,0.125,0.938,0.125,1.0,1.0,1.0,1.0,0.0,0.0,1.0,1.0,1.0,0.0,0.462,0.833,0.538,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1790709229501}
+{"event":"skill_start","skill":"collect diamond:1:lava","trigger":"skill_done","t":1790709229501}
+{"event":"skill_end","skill":"collect diamond:1:lava","ok":true,"detail":"lava in sight","seconds":4.15,"t":1790709233701}
+{"layer":"tactician","gs":158,"brain":"rules","trigger":"skill_done","goal":"nether_portal","options":["obsidian_pool","explore any"],"choice":"obsidian_pool","x":[0.895,1.0,0.0,0.0,1.0,-0.766,0.0,0.0,0.8,0.6,1.0,0.0,0.0,1.0,0.0,0.0,0.125,0.938,0.125,1.0,1.0,1.0,1.0,0.0,0.0,1.0,1.0,1.0,0.0,0.462,0.833,0.538,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1790709233701}
+{"event":"skill_start","skill":"obsidian_pool","trigger":"skill_done","t":1790709233702}
+{"layer":"reflex","gs":166,"brain":"rules","trigger":"reflex_burning","goal":"nether_portal","options":["eat"],"choice":"eat","x":[0.567,0.95,0.0,0.0,1.0,-0.828,0.0,0.0,0.8,0.6,1.0,0.0,0.0,1.0,0.0,0.0,0.125,0.938,0.125,1.0,0.0,1.0,1.0,0.0,0.0,1.0,1.0,1.0,0.0,0.462,0.833,0.538,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["eat"],"t":1790709241745}
+{"event":"skill_end","skill":"obsidian_pool","ok":false,"code":"INTERRUPTED","detail":"interrupted by reflex_burning","seconds":8.05,"t":1790709241746}
+{"event":"skill_start","skill":"eat","trigger":"reflex_burning","t":1790709241746}
+{"event":"skill_end","skill":"eat","ok":true,"detail":"ate cooked_beef","seconds":1.75,"t":1790709243501}
+{"layer":"tactician","gs":168,"brain":"rules","trigger":"skill_done","goal":"nether_portal","options":["fill_bucket water","explore water"],"choice":"fill_bucket water","x":[0.617,1.0,0.0,0.0,1.0,-0.828,0.0,0.0,0.8,0.6,1.0,0.0,0.0,1.0,0.0,0.0,0.125,0.875,0.125,1.0,0.0,1.0,1.0,0.0,0.0,1.0,1.0,1.0,0.0,0.462,0.833,0.538,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1790709243501}
+{"event":"skill_start","skill":"fill_bucket water","trigger":"skill_done","t":1790709243502}
+{"event":"skill_end","skill":"fill_bucket water","ok":true,"detail":"filled a bucket with water","seconds":0.55,"t":1790709244040}
+{"layer":"tactician","gs":168,"brain":"rules","trigger":"skill_done","goal":"nether_portal","options":["obsidian_pool","explore any"],"choice":"obsidian_pool","x":[0.667,1.0,0.0,0.0,1.0,-0.828,0.0,0.0,0.8,0.6,1.0,0.0,0.0,1.0,0.0,0.0,0.125,0.875,0.125,1.0,1.0,1.0,1.0,0.0,0.0,1.0,1.0,1.0,0.0,0.462,0.833,0.538,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1790709244041}
+{"event":"skill_start","skill":"obsidian_pool","trigger":"skill_done","t":1790709244041}
+{"event":"skill_end","skill":"obsidian_pool","ok":false,"code":"NO_PROGRESS","detail":"only 6 obsidian after the mold and 3 rounds","seconds":73.45,"t":1790709317490}
+{"layer":"tactician","gs":242,"brain":"rules","trigger":"skill_failed","goal":"nether_portal","options":["collect diamond:1:lava","pickup","explore any"],"choice":"collect diamond:1:lava","x":[1.0,0.95,0.0,0.0,1.0,-0.844,0.0,0.0,0.8,0.6,1.0,0.0,0.0,1.0,0.0,0.0,0.125,0.875,0.125,1.0,1.0,1.0,1.0,0.6,0.0,1.0,1.0,1.0,0.0,0.462,0.833,0.538,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1790709317492}
+{"event":"skill_start","skill":"collect diamond:1:lava","trigger":"skill_failed","t":1790709317493}
+{"layer":"tactician","gs":256,"brain":"rules","trigger":"mob_near","goal":"nether_portal","options":["attack zombie","collect diamond:1:lava","explore any"],"choice":"attack zombie","x":[1.0,0.9,0.0,0.0,1.0,-0.719,0.0,0.0,0.8,0.6,1.0,0.0,0.0,1.0,0.0,0.0,0.125,0.875,0.125,1.0,1.0,1.0,1.0,0.6,0.25,0.478,1.0,1.0,0.0,0.462,0.833,0.538,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["attack zombie"],"t":1790709332040}
+{"event":"skill_end","skill":"collect diamond:1:lava","ok":false,"code":"INTERRUPTED","detail":"interrupted: brain chose attack zombie","seconds":14.4,"t":1790709332040}
+{"event":"skill_start","skill":"attack zombie","trigger":"mob_near","t":1790709332040}
+{"event":"skill_end","skill":"attack zombie","ok":true,"detail":"killed the zombie","seconds":5.85,"t":1790709337993}
+{"layer":"tactician","gs":262,"brain":"rules","trigger":"skill_done","goal":"nether_portal","options":["collect diamond:1:lava","explore any"],"choice":"collect diamond:1:lava","x":[1.0,0.9,0.0,0.0,1.0,-0.687,0.0,0.0,0.8,0.6,1.0,0.0,0.0,1.0,0.0,0.0,0.125,0.875,0.125,1.0,1.0,1.0,1.0,0.6,0.0,1.0,1.0,1.0,0.0,0.462,0.833,0.538,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1790709337994}
+{"event":"skill_start","skill":"collect diamond:1:lava","trigger":"skill_done","t":1790709337994}
+{"event":"skill_end","skill":"collect diamond:1:lava","ok":true,"detail":"lava in sight","seconds":2.05,"t":1790709340043}
+{"layer":"tactician","gs":264,"brain":"rules","trigger":"skill_done","goal":"nether_portal","options":["obsidian_pool","pickup","explore any"],"choice":"obsidian_pool","x":[1.0,0.85,0.0,0.0,1.0,-0.703,0.0,0.0,0.8,0.6,1.0,0.0,0.0,1.0,0.0,0.0,0.125,0.875,0.125,1.0,1.0,1.0,1.0,0.6,0.0,1.0,1.0,1.0,0.0,0.462,0.833,0.538,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1790709340044}
+{"event":"skill_start","skill":"obsidian_pool","trigger":"skill_done","t":1790709340044}
+{"layer":"reflex","gs":264,"brain":"rules","trigger":"reflex_fall","goal":"nether_portal","options":["clutch"],"choice":"clutch","x":[1.0,0.85,0.0,0.0,1.0,-0.75,0.0,0.0,0.8,0.6,1.0,0.0,0.0,1.0,0.0,0.0,0.125,0.875,0.125,1.0,1.0,1.0,1.0,0.6,0.0,1.0,1.0,1.0,0.0,0.462,0.833,0.538,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["clutch"],"t":1790709340259}
+{"event":"skill_end","skill":"obsidian_pool","ok":false,"code":"INTERRUPTED","detail":"interrupted by reflex_fall","seconds":0.2,"t":1790709340260}
+{"event":"skill_start","skill":"clutch","trigger":"reflex_fall","t":1790709340261}
+{"event":"skill_end","skill":"clutch","ok":true,"detail":"landed in water","seconds":0.5,"t":1790709340749}
+{"layer":"tactician","gs":265,"brain":"rules","trigger":"skill_done","goal":"nether_portal","options":["obsidian_pool","explore any"],"choice":"obsidian_pool","x":[1.0,0.85,0.0,0.0,1.0,-0.844,0.0,0.0,0.8,0.6,1.0,0.0,0.0,1.0,0.0,0.0,0.125,0.875,0.125,1.0,1.0,1.0,1.0,0.6,0.0,1.0,1.0,1.0,0.0,0.462,0.833,0.538,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1790709340750}
+{"event":"skill_start","skill":"obsidian_pool","trigger":"skill_done","t":1790709340750}
+{"event":"skill_end","skill":"obsidian_pool","ok":true,"detail":"have 10 obsidian","seconds":53.8,"t":1790709394542}
+{"layer":"tactician","gs":319,"brain":"rules","trigger":"skill_done","goal":"nether_portal","options":["dig_portal","pickup","explore any"],"choice":"dig_portal","x":[1.0,0.85,0.0,0.0,1.0,-0.859,0.0,0.0,0.8,0.6,1.0,0.0,0.0,1.0,0.0,0.0,0.125,0.875,0.125,1.0,1.0,1.0,1.0,1.0,0.0,1.0,1.0,1.0,0.0,0.462,0.833,0.538,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1790709394543}
+{"event":"skill_start","skill":"dig_portal","trigger":"skill_done","t":1790709394544}
+{"event":"checkpoint","detail":"obsidian_10","t":1790709394706}
+{"event":"checkpoint","detail":"obsidian_placed","t":1790709410698}
+{"event":"skill_end","skill":"dig_portal","ok":true,"detail":"nether portal lit","seconds":18.15,"t":1790709412755}
+{"layer":"tactician","gs":337,"brain":"rules","trigger":"skill_done","goal":"nether_portal","options":["enter_portal nether","explore any"],"choice":"enter_portal nether","x":[1.0,0.85,0.0,0.0,1.0,-0.844,0.0,0.0,0.8,0.6,1.0,0.0,0.0,1.0,0.0,0.0,0.125,0.875,0.125,1.0,1.0,1.0,1.0,0.0,0.0,1.0,1.0,1.0,0.0,0.462,1.333,0.538,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0],"idx":0,"prop":1.0,"t":1790709412756}
+{"event":"skill_start","skill":"enter_portal nether","trigger":"skill_done","t":1790709412756}
+{"event":"checkpoint","detail":"portal_lit","t":1790709413695}
+{"layer":"strategist","brain":"rules","choice":"blaze_rods","reason":"goal_done","t":1790709413696}
+{"event":"skill_end","skill":"enter_portal nether","ok":true,"detail":"now in the_nether","seconds":7.25,"t":1790709420231}
+{"layer":"tactician","gs":344,"brain":"rules","trigger":"skill_done","goal":"blaze_rods","options":["fortress find","explore any"],"choice":"fortress find","x":[1.0,0.85,0.0,0.0,1.0,1.094,1.0,0.0,0.8,0.6,1.0,0.0,0.0,1.0,0.0,0.0,0.125,0.875,0.125,1.0,1.0,1.0,1.0,0.0,0.0,1.0,0.0,0.0,0.0,0.462,1.5,0.615,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1790709420232}
+{"event":"skill_start","skill":"fortress find","trigger":"skill_done","t":1790709420232}
+{"event":"milestone","detail":"7 at 345 s","t":1790709421102}
+{"event":"skill_end","skill":"fortress find","ok":false,"code":"UNREACHABLE","detail":"couldn\u0027t make headway that way (lava or cliffs); will turn","seconds":3.0,"t":1790709423393}
+{"layer":"tactician","gs":347,"brain":"rules","trigger":"skill_failed","goal":"blaze_rods","options":["fortress find","explore any"],"choice":"fortress find","x":[1.0,0.85,0.0,0.0,1.0,1.094,1.0,0.0,0.8,0.6,1.0,0.0,0.0,1.0,0.0,0.0,0.125,0.875,0.125,1.0,1.0,1.0,1.0,0.0,0.0,1.0,1.0,0.0,0.0,0.538,1.5,0.615,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0],"idx":0,"prop":1.0,"t":1790709423393}
+{"event":"skill_start","skill":"fortress find","trigger":"skill_failed","t":1790709423393}
+{"event":"skill_end","skill":"fortress find","ok":false,"code":"UNREACHABLE","detail":"couldn\u0027t make headway that way (lava or cliffs); will turn","seconds":3.0,"t":1790709426394}
+{"layer":"tactician","gs":350,"brain":"rules","trigger":"skill_failed","goal":"blaze_rods","options":["fortress find","explore any"],"choice":"fortress find","x":[1.0,0.85,0.0,0.0,1.0,1.094,1.0,0.0,0.8,0.6,1.0,0.0,0.0,1.0,0.0,0.0,0.125,0.875,0.125,1.0,1.0,1.0,1.0,0.0,0.0,1.0,1.0,0.0,0.0,0.538,1.5,0.615,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0],"idx":0,"prop":1.0,"t":1790709426395}
+{"event":"skill_start","skill":"fortress find","trigger":"skill_failed","t":1790709426395}
+{"event":"skill_end","skill":"fortress find","ok":false,"code":"UNREACHABLE","detail":"couldn\u0027t make headway that way (lava or cliffs); will turn","seconds":3.0,"t":1790709430968}
+{"layer":"tactician","gs":353,"brain":"rules","trigger":"skill_failed","goal":"blaze_rods","options":["explore any"],"choice":"explore any","x":[1.0,0.85,0.0,0.0,1.0,1.094,1.0,0.0,0.8,0.6,1.0,0.0,0.0,1.0,0.0,0.0,0.125,0.875,0.125,1.0,1.0,1.0,1.0,0.0,0.0,1.0,1.0,0.0,0.0,0.538,1.5,0.615,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0],"idx":0,"prop":1.0,"t":1790709430968}
+{"event":"skill_start","skill":"explore any","trigger":"skill_failed","t":1790709430969}
+{"layer":"reflex","gs":404,"brain":"rules","trigger":"reflex_fight","goal":"blaze_rods","options":["attack magma_cube","retreat"],"choice":"attack magma_cube","x":[1.0,0.8,0.0,0.0,1.0,1.375,1.0,0.0,0.8,0.6,1.0,0.0,0.0,1.0,0.0,0.0,0.125,0.875,0.125,1.0,1.0,1.0,1.0,0.0,0.25,0.202,1.0,0.0,0.0,0.538,1.5,0.615,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["attack magma_cube","retreat"],"t":1790709492369}
+{"event":"skill_end","skill":"explore any","ok":false,"code":"INTERRUPTED","detail":"interrupted by reflex_fight","seconds":50.95,"t":1790709492370}
+{"event":"skill_start","skill":"attack magma_cube","trigger":"reflex_fight","t":1790709492370}
+{"event":"skill_end","skill":"attack magma_cube","ok":true,"detail":"killed the magma_cube","seconds":5.95,"t":1790709500029}
+{"layer":"tactician","gs":410,"brain":"rules","trigger":"skill_done","goal":"blaze_rods","options":["explore any"],"choice":"explore any","x":[0.6,0.8,0.0,0.0,1.0,1.391,1.0,0.0,0.8,0.6,1.0,0.0,0.0,1.0,0.0,0.0,0.125,0.875,0.125,1.0,1.0,1.0,1.0,0.0,0.5,0.255,1.0,0.0,0.0,0.538,1.5,0.615,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0],"idx":0,"prop":1.0,"t":1790709500029}
+{"event":"skill_start","skill":"explore any","trigger":"skill_done","t":1790709500029}
+{"layer":"reflex","gs":410,"brain":"rules","trigger":"reflex_fight","goal":"blaze_rods","options":["attack magma_cube","retreat"],"choice":"attack magma_cube","x":[0.6,0.8,0.0,0.0,1.0,1.391,1.0,0.0,0.8,0.6,1.0,0.0,0.0,1.0,0.0,0.0,0.125,0.875,0.125,1.0,1.0,1.0,1.0,0.0,0.5,0.131,1.0,0.0,0.0,0.538,1.5,0.615,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["attack magma_cube","retreat"],"t":1790709500527}
+{"event":"skill_end","skill":"explore any","ok":false,"code":"INTERRUPTED","detail":"interrupted by reflex_fight","seconds":0.3,"t":1790709500527}
+{"event":"skill_start","skill":"attack magma_cube","trigger":"reflex_fight","t":1790709500527}
+{"event":"skill_end","skill":"attack magma_cube","ok":false,"code":"DIED","detail":"died","seconds":4.2,"t":1790709507271}
+{"event":"death","detail":"mob:magma_cube","t":1790709507272}
+{"layer":"tactician","gs":418,"brain":"rules","trigger":"idle","goal":"blaze_rods","options":["enter_portal nether","explore any"],"choice":"enter_portal nether","x":[1.0,1.0,0.0,0.0,0.0,1.109,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.2,0.538,1.5,0.615,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0],"idx":0,"prop":1.0,"t":1790709511769}
+{"event":"skill_start","skill":"enter_portal nether","trigger":"idle","t":1790709511769}
+{"event":"skill_end","skill":"enter_portal nether","ok":false,"code":"TIMEOUT","detail":"timed out after 90 s","seconds":90.05,"t":1790709604261}
+{"layer":"tactician","gs":508,"brain":"rules","trigger":"skill_failed","goal":"blaze_rods","options":["enter_portal nether","explore any"],"choice":"enter_portal nether","x":[1.0,1.0,0.0,0.0,0.0,1.047,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.25,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.2,0.538,1.5,0.615,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0],"idx":0,"prop":1.0,"t":1790709604261}
+{"event":"skill_start","skill":"enter_portal nether","trigger":"skill_failed","t":1790709604262}
+{"event":"skill_end","skill":"enter_portal nether","ok":false,"code":"TIMEOUT","detail":"timed out after 90 s","seconds":90.05,"t":1790709694613}
+{"layer":"tactician","gs":598,"brain":"rules","trigger":"skill_failed","goal":"blaze_rods","options":["enter_portal nether","shelter","explore any"],"choice":"enter_portal nether","x":[1.0,1.0,0.0,1.0,0.0,1.047,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.25,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.2,0.538,1.5,0.615,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0],"idx":0,"prop":1.0,"t":1790709694614}
+{"event":"skill_start","skill":"enter_portal nether","trigger":"skill_failed","t":1790709694614}
+{"event":"skill_end","skill":"enter_portal nether","ok":false,"code":"TIMEOUT","detail":"timed out after 90 s","seconds":90.05,"t":1790709784961}
+{"layer":"tactician","gs":688,"brain":"rules","trigger":"skill_failed","goal":"blaze_rods","options":["shelter","explore any"],"choice":"shelter","x":[1.0,1.0,0.0,1.0,0.0,1.047,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.25,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.2,0.538,1.5,0.615,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0],"idx":0,"prop":1.0,"t":1790709784961}
+{"event":"skill_start","skill":"shelter","trigger":"skill_failed","t":1790709784962}
+{"event":"skill_end","skill":"shelter","ok":false,"code":"INTERRUPTED","detail":"test finished","seconds":31.95,"t":1790709816987}
+{"event":"autopilot_off","detail":"test finished","t":1790709816987}
