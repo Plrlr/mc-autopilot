@@ -121,6 +121,13 @@ workflow's unit-tests job compiles and tests in about a minute, the trial jobs t
   choice now have separate suggestions so their survival effect can be measured. Targeting may
   use our own observed swings as an estimate of prior damage, but never a mob's hidden health.
 
+- **Zombie packs in the combat drill (gens 57-58):** three zombies killed the bot in 19 of 40
+  fights and caused 19 of 32 drill deaths; single zombies killed it in 2 of 33. The attack skill
+  waits 50 ticks to collect drops after a kill even when another zombie is close. The candidate
+  `combat.zombie_pack` keeps space during weapon cooldown, handles a closer zombie only when the
+  current target leaves reach, and delays drop collection until the pack is clear. It still needs
+  the paired drill race before being judged effective.
+
 ## Open problems (next candidates)
 
 - **Food and iron preparation (generations 30-37, not yet raced):** 152 of 162 runs died, with
