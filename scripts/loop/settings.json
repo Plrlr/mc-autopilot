@@ -16,6 +16,16 @@
    "_priority": true
   },
   {
+   "night.shelter_exit": 1,
+   "nav.surface_v2": 1,
+   "nav.unstuck_v2": 1,
+   "stuck.item_progress": 1,
+   "combat.ignore_walled_mobs": 1,
+   "_metric": "ok:goto|unstuck",
+   "_priority": true,
+   "_max_pairs": 24
+  },
+  {
    "safety.spawner_room": 1,
    "_metric": "deaths"
   },
@@ -346,5 +356,6 @@
  "max_jobs": 21,
  "_focus_races": "2026-09-29 (Claude), after gens 50-58 crowned nothing: an idea that acts at one stage races on that stage only (suggestion key \"_stages\"), and each generation adds focus_stage_seeds more starts there. The 8-skill portal bundle g35 was +3.4 on its 4 lava starts (lit one of the night's two portals) but dropped at +0.54 over 16 pairs, 12 of them fresh worlds that never reached lava. So the two cast pieces race alone first, on lava starts. 4 genomes x 5 tasks (2 fresh, 1 lava, 1 focus lava, 1 combat) = 20 jobs; a lineup over max_jobs sits its last unfocused contender out for a generation.",
  "_metric_races": "2026-09-29 (Claude): a suggestion with \"_metric\" is judged by the thing it fixes (scripts/loop/metrics.py): a skill's success rate (\"ok:explore\") or deaths per game minute (\"deaths\"), counted over every paired task, both sides. Crowned at z >= metric_z once each side has metric_min tries, while its whole-game pairs stay above metric_safety_t; dropped at z <= 0 or when the game score says it hurts. Whole-game races alone crowned nothing in gens 50-58 (paired sd 3-4.7).",
- "_brain": "2026-09-29 (Claude): the brain = the strategist (routes by expected time from measured skill stats) plus skill-stat demotion. g40 (strategist + readiness) was +1.33 over 16 worlds when max_pairs cut it off in gen 59, so it races again with skill_stats, allowed 40 worlds (\"_max_pairs\"). One data run per generation (15% deliberate off-rules picks) gives the learned re-ranker counterfactuals: 82k rules-only rows left its advantage R2 at 0.008. Data runs count toward max_jobs."
+ "_brain": "2026-09-29 (Claude): the brain = the strategist (routes by expected time from measured skill stats) plus skill-stat demotion. g40 (strategist + readiness) was +1.33 over 16 worlds when max_pairs cut it off in gen 59, so it races again with skill_stats, allowed 40 worlds (\"_max_pairs\"). One data run per generation (15% deliberate off-rules picks) gives the learned re-ranker counterfactuals: 82k rules-only rows left its advantage R2 at 0.008. Data runs count toward max_jobs.",
+ "_movement": "2026-09-29 (Claude): the movement overhaul races as one priority idea, judged by goto + unstuck success: night.shelter_exit (climb out of the covered shaft at morning), nav.surface_v2 (goto surface judged by height, staircase fallback), nav.unstuck_v2 (climb first in pits), stuck.item_progress and combat.ignore_walled_mobs. The pieces also race alone later in the queue."
 }
