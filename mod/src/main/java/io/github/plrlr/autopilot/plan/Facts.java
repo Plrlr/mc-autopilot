@@ -50,6 +50,7 @@ public final class Facts {
 		if (memory.nearest("lava") != null) f.add("lava_pool");
 		if (memory.nearest("water") != null) f.add("water_known");
 		if (memory.nearest("obsidian") != null) f.add("obsidian_known");
+		if (dim.equals("overworld") && memory.nearest("ruined_portal") != null) f.add("ruined_portal_known");
 		if (memory.nearest("nether_portal") != null) f.add("portal_known");
 		if (memory.nearest("nether_bricks") != null) f.add("fortress_known");
 		if (memory.nearest("spawner") != null) f.add("spawner_known");

@@ -143,6 +143,14 @@ public final class Tune {
 		gene("skill.fish", 0, 0, 1, Kind.BOOL, "fish with a rod at known water");
 		gene("skill.secure_camp", 0, 0, 1, Kind.BOOL, "light the dark ground around us before smelting or casting in one spot");
 		gene("skill.stair_down", 0, 0, 1, Kind.BOOL, "dig down by safe 1-wide stairs, checking for lava and drops each step");
+		gene("skill.lava_scout", 0, 0, 1, Kind.BOOL, "look for a lava pool with 10+ seen sources before casting");
+		gene("skill.cast_portal", 0, 0, 1, Kind.BOOL, "cast the portal on a site we dig out and floor ourselves instead of searching for flat ground");
+		gene("skill.ruined_portal", 0, 0, 1, Kind.BOOL, "loot a seen ruined portal's chest and mine its obsidian");
+		gene("skill.obsidian_pool", 0, 0, 1, Kind.BOOL, "diamond route: harden a pool and mine 10 obsidian, never one with lava under it");
+		gene("skill.diamond_hunt", 0, 0, 1, Kind.BOOL, "safe stairs to diamond depth, then branch-mine, instead of plain collect diamond");
+		gene("skill.portal_repair", 0, 0, 1, Kind.BOOL, "light a complete frame in sight or finish ours with carried obsidian");
+		gene("skill.stash", 0, 0, 1, Kind.BOOL, "keep spares in a chest at base so a death doesn't cost them");
+		gene("skill.restock", 0, 0, 1, Kind.BOOL, "after losing our tools near our chest, take the spares back first");
 		gene("loop.stuck_s", 10, 5, 30, Kind.INT, "seconds without moving that mark the state as stuck for the brains");
 		gene("stuck.window_s", 12, 6, 40, Kind.INT, "a moving skill kept inside the stuck box this long starts the unstuck reflex");
 		gene("stuck.box", 2, 1, 4, Kind.REAL, "the square (blocks) the bot must leave to count as moving");

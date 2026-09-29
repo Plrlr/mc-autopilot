@@ -38,6 +38,14 @@ public final class Skills {
 		MENU.put("fish", new Entry(Fish::new, "fish:n: catch n fish with a rod at known water"));
 		MENU.put("secure_camp", new Entry(SecureCamp::new, "torch the dark ground around us before long work in one spot"));
 		MENU.put("stair_down", new Entry(StairDown::new, "stair_down <y>: dig safe 1-wide stairs down to y"));
+		MENU.put("lava_scout", new Entry(PortalRoutes.LavaScout::new, "find a lava pool with 10+ seen sources (castable)"));
+		MENU.put("cast_portal", new Entry(CastPortalSite::new, "dig out and floor a portal site by the lava, then cast and light the portal"));
+		MENU.put("ruined_portal", new Entry(PortalRoutes.RuinedPortal::new, "loot a ruined portal's chest and mine its obsidian"));
+		MENU.put("obsidian_pool", new Entry(PortalRoutes.ObsidianPool::new, "harden a lava pool and mine 10 obsidian safely (diamond pickaxe)"));
+		MENU.put("diamond_hunt", new Entry(PortalRoutes.DiamondHunt::new, "diamond_hunt:n: safe stairs to y -54, then branch-mine for n diamonds"));
+		MENU.put("portal_repair", new Entry(PortalRoutes.PortalRepair::new, "light a finished frame, or finish ours with carried obsidian"));
+		MENU.put("stash", new Entry(ChestSkills.Stash::new, "put spare iron, food, buckets... in a chest at base"));
+		MENU.put("restock", new Entry(ChestSkills.Restock::new, "restock[:items]: take spares back from our chest"));
 		MENU.put("shelter", new Entry(NightSkills.Shelter::new, "dig 3 down, cover the hole, wait for morning"));
 		MENU.put("sleep", new Entry(NightSkills.Sleep::new, "sleep in a bed (places one from the inventory if needed)"));
 		MENU.put("build_portal", new Entry(() -> CastPortal.needed() ? new CastPortal() : new PortalSkills.BuildPortal(),

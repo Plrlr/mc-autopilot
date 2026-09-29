@@ -48,7 +48,7 @@ public final class Planner {
 			if (prep == null && Tune.on("gear.shield_early")) prep = earlyShieldStep();
 			if (prep != null) main = prep;
 		}
-		main = SurvivalPlan.beforeWork(main);
+		main = SurvivalPlan.beforeWork(PortalPlan.diamonds(main));
 		List<Option> urgent = urgent(seen, main);
 		Option respawn = SurvivalPlan.respawn();
 		if (respawn != null) urgent.add(0, respawn);
@@ -250,6 +250,8 @@ public final class Planner {
 					Option o = itemStep("diamond_pickaxe", 1, depth + 1);
 					if (o != null) return o;
 				}
+				Option pool = PortalPlan.obsidian(memory);
+				if (pool != null) return pool;
 				Option o = itemsStep(goal);
 				if (o != null) return o;
 				// The frame corners can be any block; 10 obsidian covers the rest.
@@ -400,6 +402,8 @@ public final class Planner {
 	 * the wall behind the frame, and a lava pool to cast from.
 	 */
 	private Option castStep(int depth) {
+		Option head = PortalPlan.early(memory);
+		if (head != null) return head;
 		if (Goal.have("flint_and_steel") == 0) {
 			Option o = itemStep("flint_and_steel", 1, depth + 1);
 			if (o != null) return o;
@@ -423,9 +427,9 @@ public final class Planner {
 			// and the step turns into build_portal right there. A diamond on the way is a bonus.
 			if (Tune.on("route.deep_for_lava") && Items2.bestTier("pickaxe") >= 2 && Mc.dimension().equals("overworld"))
 				return new Option("collect", "diamond:1:lava", "go deep for lava: cave air below y -55 is lava");
-			return new Option("explore", "lava", "find a lava pool to cast the portal from");
+			return PortalPlan.lava(new Option("explore", "lava", "find a lava pool to cast the portal from"));
 		}
-		return new Option("build_portal", null, "cast a nether portal from lava and water (no diamonds needed)");
+		return PortalPlan.cast(new Option("build_portal", null, "cast a nether portal from lava and water (no diamonds needed)"));
 	}
 
 	/**
@@ -771,6 +775,10 @@ public final class Planner {
 		if (seen.hostilesWithin(Tune.i("plan.upkeep_calm_radius")) > 0) return out;
 		Option bed = SurvivalPlan.bed(seen);
 		if (bed != null) out.add(bed);
+		Option restock = PortalPlan.restock(memory);
+		if (restock != null) out.add(restock);
+		Option stash = PortalPlan.stash(memory);
+		if (stash != null) out.add(stash);
 		// Take our crafting table and furnace along before walking off: leaving them behind
 		// meant crafting new ones (8 cobblestone each) after every trip in trials.
 		boolean usingStation = main != null && (main.skill().equals("craft") || main.skill().equals("smelt"));

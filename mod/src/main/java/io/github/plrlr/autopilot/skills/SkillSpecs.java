@@ -53,6 +53,25 @@ public final class SkillSpecs {
 				.gene("skill.secure_camp").help("torch the dark ground around the work spot").build());
 		s.add(SkillSpec.of("stair_down", "-54").stage("any").makes("at_depth").prior(90, 0.8)
 				.gene("skill.stair_down").help("safe stairs down to diamond depth").build());
+		// ---- wave 2 (docs/skills-40.md): the portal
+		s.add(SkillSpec.of("lava_scout", null).stage("portal").facts("overworld").makes("castable_lava").prior(200, 0.5)
+				.gene("skill.lava_scout").help("find a pool with 10+ lava sources").build());
+		s.add(SkillSpec.of("cast_portal", null).stage("portal")
+				.needs("bucket", 2, "water_bucket", 1, "flint_and_steel", 1, "throwaway", 40).facts("overworld", "lava_pool")
+				.makes("portal_known").prior(480, 0.2).gene("skill.cast_portal")
+				.help("dig and floor a site by the lava, then cast the portal there").build());
+		s.add(SkillSpec.of("ruined_portal", null).stage("portal").needs("diamond_pickaxe", 1).facts("ruined_portal_known")
+				.gives("obsidian", 6).prior(240, 0.4).gene("skill.ruined_portal").help("loot and mine a ruined portal").build());
+		s.add(SkillSpec.of("obsidian_pool", null).stage("portal").needs("diamond_pickaxe", 1, "water_bucket", 1).facts("lava_pool")
+				.gives("obsidian", 10).prior(300, 0.4).gene("skill.obsidian_pool").help("harden a pool, mine 10 obsidian").build());
+		s.add(SkillSpec.of("diamond_hunt", "3").stage("portal").needs("iron_pickaxe", 1).facts("overworld")
+				.gives("diamond", 3).prior(600, 0.35).gene("skill.diamond_hunt").help("stairs to y -54, branch-mine").build());
+		s.add(SkillSpec.of("portal_repair", null).stage("portal").needs("flint_and_steel", 1).facts("obsidian_known")
+				.makes("portal_known").prior(60, 0.3).gene("skill.portal_repair").help("light or finish a frame").build());
+		s.add(SkillSpec.of("stash", null).stage("any").facts("overworld").makes("spares_safe").prior(30, 0.9)
+				.gene("skill.stash").help("spares into a chest at base").build());
+		s.add(SkillSpec.of("restock", null).stage("any").facts("chest_known").gives("iron_ingot", 3).prior(60, 0.5)
+				.gene("skill.restock").help("spares back from our chest").build());
 
 		// ---- finding things and filling buckets: what the routes below need first
 		s.add(SkillSpec.of("explore", "lava").stage("portal")
