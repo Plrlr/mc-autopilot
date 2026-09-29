@@ -6,6 +6,7 @@ import net.minecraft.core.Direction;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.function.Predicate;
 
 /**
  * The world as the player can see it, for planning digs (a portal room, an obsidian mold): a
@@ -17,24 +18,35 @@ import java.util.Map;
  */
 final class FairProbe implements PortalSite.Probe {
 	private final Map<BlockPos, Boolean> seen = new HashMap<>();
+	private final PortalSite.Probe world;
+	private final Predicate<BlockPos> sight;
+
+	FairProbe() {
+		this(CastPortalSite.WORLD, Mc::canSee);
+	}
+
+	FairProbe(PortalSite.Probe world, Predicate<BlockPos> sight) {
+		this.world = world;
+		this.sight = sight;
+	}
 
 	boolean visible(BlockPos p) {
-		return seen.computeIfAbsent(p.immutable(), Mc::canSee);
+		return seen.computeIfAbsent(p.immutable(), sight::test);
 	}
 
 	@Override
 	public boolean free(BlockPos p) {
-		return visible(p) && CastPortalSite.WORLD.free(p);
+		return visible(p) && world.free(p);
 	}
 
 	@Override
 	public boolean solid(BlockPos p) {
-		return !visible(p) || CastPortalSite.WORLD.solid(p);
+		return !visible(p) || world.solid(p);
 	}
 
 	@Override
 	public boolean fluid(BlockPos p) {
-		return visible(p) && CastPortalSite.WORLD.fluid(p);
+		return visible(p) && world.fluid(p);
 	}
 
 	@Override
@@ -45,7 +57,7 @@ final class FairProbe implements PortalSite.Probe {
 
 	@Override
 	public boolean hard(BlockPos p) {
-		return visible(p) && CastPortalSite.WORLD.hard(p);
+		return visible(p) && world.hard(p);
 	}
 
 	/** Lava we can see in p or touching it (the stairs' check before opening a cell). */

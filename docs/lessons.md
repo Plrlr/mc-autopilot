@@ -154,3 +154,12 @@ workflow's unit-tests job compiles and tests in about a minute, the trial jobs t
 - (2026-09-29) The fall clutch pours the water bucket; a bucket can be lost that way, so the
   diamond route re-checks its two buckets every step. Deep work shows only stone for minutes
   between diamonds: that must not count as "lost underground" or the bot climbs back up.
+- (2026-09-29, candidate `deep.branch`, not yet raced) In cloud trial diamond-a, stairs used
+  12 of 24 minutes; plain collect then found three diamonds in about four minutes, interrupted
+  by fights and retreats. The candidate uses connected 1x2 lanes, 24 blocks long and three
+  blocks apart, refusing visible fluids and new cave openings. In the cached 26.3 game jar,
+  `worldgen/placed_feature/ore_diamond{,_buried,_large}.json` use trapezoid heights from
+  bottom -80 to bottom +80 (density rises toward the playable bottom); `ore_diamond_medium`
+  is uniform from -64 to -4. The overworld bottom is -64 and `material_rule/bedrock_floor.json`
+  ends bedrock at bottom +5. Feet at -58 retain a floor at -59 above that band; this is a
+  practical mining level, not a claim that the mathematical ore-density peak is -58.

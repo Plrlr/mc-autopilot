@@ -27,6 +27,7 @@ public final class CollectSkill extends Skill {
 	private static final java.util.Set<String> SEEN_ONLY = java.util.Set.of("log", "sand", "obsidian");
 	private static final int SEEN_RANGE = 64;
 	private boolean seenOnly;
+	private boolean visibleOnly;
 	/** "diamond:1:lava": mining deep to find lava, so lava in sight ends it (a laptop run dug on 45 s past a pool). */
 	private boolean untilLava;
 	private SeenMiner seenMiner;
@@ -74,7 +75,10 @@ public final class CollectSkill extends Skill {
 		// (none seen: fail, and the planner explores for them). Ores seen in a cave wall are mined
 		// first; then legit branch mining, which only digs toward ores it can actually see.
 		String group = io.github.plrlr.autopilot.state.WorldMemory.groupOf(src.blocks().get(0).replace("*", "oak"));
-		seenOnly = SEEN_ONLY.contains(item);
+		// The branch composite collects the vein in reach, then resumes its own tunnel pattern.
+		visibleOnly = item.equals("diamond") && arg != null && arg.endsWith(":seen")
+				&& io.github.plrlr.autopilot.Tune.on("deep.branch");
+		seenOnly = SEEN_ONLY.contains(item) || visibleOnly;
 		if (item.equals("stone") && io.github.plrlr.autopilot.Tune.on("gather.stair_for_stone")
 				&& !SeenMiner.anyDryStone(memory, 12)) {
 			stoneStep = wetHere() ? new ShoreSkill() : new StairDown();
@@ -84,8 +88,9 @@ public final class CollectSkill extends Skill {
 		}
 		// Stone too: it's nearly always in view, and digging down from where we stand went badly
 		// in water (a laptop run dug under a lake, ran out of air, surfaced, dug again, for minutes).
-		if (group != null && (seenOnly || src.mineY() != null || item.equals("stone")) && SeenMiner.anySeen(memory, group, SEEN_RANGE)) {
-			seenMiner = new SeenMiner(memory, group, SEEN_RANGE);
+		if (group != null && (seenOnly || src.mineY() != null || item.equals("stone"))
+				&& (visibleOnly ? SeenMiner.anyVisible(memory, group, 8) : SeenMiner.anySeen(memory, group, SEEN_RANGE))) {
+			seenMiner = new SeenMiner(memory, group, visibleOnly ? 8 : SEEN_RANGE, visibleOnly);
 			timeoutTicks = 20 * 360;
 			return;
 		}
@@ -177,8 +182,8 @@ public final class CollectSkill extends Skill {
 			return;
 		}
 		if (lookGroup != null) {
-			if (SeenMiner.anySeen(memory, lookGroup, SEEN_RANGE)) {
-				seenMiner = new SeenMiner(memory, lookGroup, SEEN_RANGE);
+			if (visibleOnly ? SeenMiner.anyVisible(memory, lookGroup, 8) : SeenMiner.anySeen(memory, lookGroup, SEEN_RANGE)) {
+				seenMiner = new SeenMiner(memory, lookGroup, visibleOnly ? 8 : SEEN_RANGE, visibleOnly);
 				lookGroup = null;
 				timeoutTicks = ticks + 20 * 360;
 			} else if (ticks > 20 * 3) {
