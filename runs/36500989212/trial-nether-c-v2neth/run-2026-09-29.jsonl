@@ -1,0 +1,119 @@
+{"event":"autopilot_on","detail":"brain\u003drules","t":1790641196000}
+{"event":"params","detail":"params: trial (4 genes) changed\u003d{\"brain.strategist\":1.0,\"brain.skill_stats\":1.0,\"reflex.escalate\":1.0,\"plan.readiness\":1.0}","t":1790641196002}
+{"layer":"strategist","brain":"rules","choice":"iron_tools","reason":"start","t":1790641196004}
+{"layer":"strategist","brain":"rules","choice":"blaze_rods","reason":"user","t":1790641196005}
+{"event":"learned","detail":"learned model: none","t":1790641196012}
+{"layer":"tactician","gs":0,"brain":"rules","trigger":"idle","goal":"blaze_rods","options":["equip shield","fortress find","explore any"],"choice":"equip shield","x":[0.5,1.0,0.4,0.0,1.0,1.094,1.0,0.0,0.6,0.6,1.0,0.0,0.0,1.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,1.0,0.0,0.0,0.0,0.0,0.0,0.615,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1790641196025}
+{"event":"plan","detail":"7 blaze_rod (plain, needs fortress_known) \u003c fortress_known via fortress:find (p 0.25, 400 s) (35.6 min)","t":1790641196026}
+{"event":"skill_start","skill":"equip shield","trigger":"idle","t":1790641196069}
+{"event":"skill_end","skill":"equip shield","ok":true,"detail":"shield in off hand","seconds":0.05,"t":1790641196217}
+{"layer":"tactician","gs":0,"brain":"rules","trigger":"skill_done","goal":"blaze_rods","options":["fortress find","explore any"],"choice":"fortress find","x":[0.525,1.0,0.4,0.0,1.0,1.094,1.0,0.0,0.6,0.6,1.0,0.0,0.0,1.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,1.0,0.0,0.0,0.0,0.0,0.0,0.615,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1790641196220}
+{"event":"skill_start","skill":"fortress find","trigger":"skill_done","t":1790641196221}
+{"event":"checkpoint","detail":"flint_and_steel","t":1790641198950}
+{"event":"milestone","detail":"7 at 0 s","t":1790641198966}
+{"event":"checkpoint","detail":"lava_seen","t":1790641209069}
+{"layer":"tactician","gs":20,"brain":"rules","trigger":"heartbeat","goal":"blaze_rods","options":["eat","fortress find","explore any"],"choice":"eat","x":[0.675,0.85,0.4,0.0,1.0,0.969,1.0,0.0,0.6,0.6,1.0,0.25,0.0,1.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,1.0,1.0,0.0,0.0,0.538,0.333,0.615,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["eat"],"t":1790641229517}
+{"event":"skill_end","skill":"fortress find","ok":false,"code":"INTERRUPTED","detail":"interrupted: brain chose eat","seconds":20.05,"t":1790641229518}
+{"event":"skill_start","skill":"eat","trigger":"heartbeat","t":1790641229518}
+{"event":"skill_end","skill":"eat","ok":true,"detail":"ate cooked_beef","seconds":1.8,"t":1790641231420}
+{"layer":"tactician","gs":21,"brain":"rules","trigger":"skill_done","goal":"blaze_rods","options":["fortress find","explore any"],"choice":"fortress find","x":[0.675,1.0,0.4,0.0,1.0,0.969,1.0,0.0,0.6,0.6,1.0,0.25,0.0,1.0,0.0,0.0,0.0,0.938,0.0,0.0,0.0,0.0,1.0,0.0,0.0,1.0,1.0,0.0,0.0,0.538,0.333,0.615,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1790641231421}
+{"event":"skill_start","skill":"fortress find","trigger":"skill_done","t":1790641231421}
+{"layer":"tactician","gs":64,"brain":"rules","trigger":"mob_near","goal":"blaze_rods","options":["fortress find","pickup","explore any"],"choice":"fortress find","x":[1.0,1.0,0.4,0.0,1.0,0.781,1.0,0.0,0.6,0.6,1.0,0.938,0.0,1.0,0.0,0.0,0.0,0.938,0.0,0.0,0.0,0.0,1.0,0.0,0.25,0.497,1.0,0.0,0.0,0.538,0.333,0.615,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1790641275018}
+{"layer":"tactician","gs":68,"brain":"rules","trigger":"mob_near","goal":"blaze_rods","options":["fortress find","pickup","explore any"],"choice":"fortress find","x":[0.909,1.0,0.4,0.0,1.0,0.75,1.0,0.0,0.6,0.6,1.0,1.0,0.0,1.0,0.0,0.0,0.0,0.938,0.0,0.0,0.0,0.0,1.0,0.0,0.25,0.447,1.0,0.0,0.0,0.538,0.333,0.615,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1790641278523}
+{"layer":"reflex","gs":68,"brain":"rules","trigger":"reflex_fight","goal":"blaze_rods","options":["attack hoglin","retreat"],"choice":"attack hoglin","x":[0.932,1.0,0.4,0.0,1.0,0.688,1.0,0.0,0.6,0.6,1.0,1.0,0.0,1.0,0.0,0.0,0.0,0.938,0.0,0.0,0.0,0.0,1.0,0.0,0.25,0.188,1.0,0.0,0.0,0.538,0.333,0.615,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["attack hoglin","retreat"],"t":1790641279132}
+{"event":"skill_end","skill":"fortress find","ok":false,"code":"INTERRUPTED","detail":"interrupted by reflex_fight","seconds":46.6,"t":1790641279133}
+{"event":"skill_start","skill":"attack hoglin","trigger":"reflex_fight","t":1790641279133}
+{"event":"skill_end","skill":"attack hoglin","ok":true,"detail":"killed the hoglin","seconds":7.55,"t":1790641291917}
+{"layer":"tactician","gs":76,"brain":"rules","trigger":"skill_done","goal":"blaze_rods","options":["fortress find","pickup","explore any"],"choice":"fortress find","x":[0.806,0.85,0.4,0.0,1.0,0.656,1.0,0.0,0.6,0.6,1.0,1.0,0.0,1.0,0.0,0.0,0.0,0.938,0.25,0.0,0.0,0.0,1.0,0.0,0.25,0.472,1.0,0.0,0.0,0.538,0.333,0.615,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1790641291918}
+{"event":"skill_start","skill":"fortress find","trigger":"skill_done","t":1790641291918}
+{"layer":"reflex","gs":76,"brain":"rules","trigger":"reflex_fight","goal":"blaze_rods","options":["attack hoglin","retreat"],"choice":"attack hoglin","x":[0.806,0.85,0.4,0.0,1.0,0.656,1.0,0.0,0.6,0.6,1.0,1.0,0.0,1.0,0.0,0.0,0.0,0.938,0.25,0.0,0.0,0.0,1.0,0.0,0.25,0.154,1.0,0.0,0.0,0.538,0.333,0.615,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["attack hoglin","retreat"],"t":1790641293075}
+{"event":"skill_end","skill":"fortress find","ok":false,"code":"INTERRUPTED","detail":"interrupted by reflex_fight","seconds":0.7,"t":1790641293075}
+{"event":"skill_start","skill":"attack hoglin","trigger":"reflex_fight","t":1790641293075}
+{"event":"skill_end","skill":"attack hoglin","ok":false,"code":"UNREACHABLE","detail":"can\u0027t reach the hoglin (6 blocks away)","seconds":17.8,"t":1790641319364}
+{"layer":"tactician","gs":94,"brain":"rules","trigger":"skill_failed","goal":"blaze_rods","options":["fortress find","explore any"],"choice":"fortress find","x":[0.049,0.8,0.4,0.0,1.0,0.703,1.0,0.0,0.6,0.6,1.0,1.0,0.0,1.0,0.0,0.0,0.0,0.938,0.25,0.0,0.0,0.0,1.0,0.0,0.25,0.368,1.0,0.0,0.0,0.538,0.333,0.615,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1790641319365}
+{"event":"skill_start","skill":"fortress find","trigger":"skill_failed","t":1790641319365}
+{"event":"skill_end","skill":"fortress find","ok":false,"code":"DIED","detail":"died","seconds":0.9,"t":1790641320917}
+{"event":"death","detail":"arrow","t":1790641320918}
+{"layer":"strategist","brain":"rules","choice":"nether_portal","reason":"respawned","t":1790641325961}
+{"layer":"tactician","gs":98,"brain":"rules","trigger":"idle","goal":"nether_portal","options":["collect log:3","explore log"],"choice":"collect log:3","x":[1.0,1.0,0.0,0.0,0.0,1.25,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.2,0.538,0.333,0.538,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1790641325963}
+{"event":"skill_start","skill":"collect log:3","trigger":"idle","t":1790641325977}
+{"event":"skill_end","skill":"collect log:3","ok":false,"code":"NOT_FOUND","detail":"no log seen nearby","seconds":3.05,"t":1790641331175}
+{"layer":"tactician","gs":101,"brain":"rules","trigger":"skill_failed","goal":"nether_portal","options":["collect log:3","explore log"],"choice":"collect log:3","x":[1.0,1.0,0.0,0.0,0.0,1.25,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.2,0.538,0.333,0.538,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1790641331176}
+{"event":"skill_start","skill":"collect log:3","trigger":"skill_failed","t":1790641331176}
+{"event":"skill_end","skill":"collect log:3","ok":false,"code":"NOT_FOUND","detail":"no log seen nearby","seconds":3.05,"t":1790641334279}
+{"layer":"tactician","gs":104,"brain":"rules","trigger":"skill_failed","goal":"nether_portal","options":["collect log:3","explore log"],"choice":"collect log:3","x":[1.0,1.0,0.0,0.0,0.0,1.25,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.2,0.538,0.333,0.538,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1790641334280}
+{"event":"skill_start","skill":"collect log:3","trigger":"skill_failed","t":1790641334281}
+{"event":"skill_end","skill":"collect log:3","ok":false,"code":"NOT_FOUND","detail":"no log seen nearby","seconds":3.05,"t":1790641337358}
+{"layer":"tactician","gs":107,"brain":"rules","trigger":"skill_failed","goal":"nether_portal","options":["explore log"],"choice":"explore log","x":[1.0,1.0,0.0,0.0,0.0,1.25,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.2,0.538,0.333,0.538,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1790641337359}
+{"event":"skill_start","skill":"explore log","trigger":"skill_failed","t":1790641337359}
+{"event":"skill_end","skill":"explore log","ok":false,"code":"HAZARD","detail":"open water ahead; will turn","seconds":31.5,"t":1790641371180}
+{"layer":"tactician","gs":139,"brain":"rules","trigger":"skill_failed","goal":"nether_portal","options":["explore log"],"choice":"explore log","x":[1.0,1.0,0.0,0.0,0.0,0.969,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.2,0.538,0.333,0.538,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1790641371181}
+{"event":"skill_start","skill":"explore log","trigger":"skill_failed","t":1790641371181}
+{"event":"skill_end","skill":"explore log","ok":false,"code":"HAZARD","detail":"open water ahead; will turn","seconds":20.5,"t":1790641392999}
+{"layer":"tactician","gs":159,"brain":"rules","trigger":"skill_failed","goal":"nether_portal","options":["explore log"],"choice":"explore log","x":[1.0,1.0,0.0,0.0,0.0,0.969,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.2,0.538,0.333,0.538,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1790641393000}
+{"event":"skill_start","skill":"explore log","trigger":"skill_failed","t":1790641393000}
+{"layer":"tactician","gs":179,"brain":"rules","trigger":"heartbeat","goal":"nether_portal","options":["collect log:3","explore log"],"choice":"collect log:3","x":[1.0,1.0,0.0,0.0,0.0,0.969,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.2,0.538,0.333,0.538,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1790641414207}
+{"event":"skill_end","skill":"explore log","ok":false,"code":"INTERRUPTED","detail":"interrupted: brain chose collect log:3","seconds":20.05,"t":1790641414207}
+{"event":"skill_start","skill":"collect log:3","trigger":"heartbeat","t":1790641414208}
+{"event":"skill_end","skill":"collect log:3","ok":false,"code":"WRONG_PLACE","detail":"in water: log is dug from dry ground","seconds":0.05,"t":1790641414258}
+{"layer":"tactician","gs":179,"brain":"rules","trigger":"skill_failed","goal":"nether_portal","options":["collect log:3","explore log"],"choice":"collect log:3","x":[1.0,1.0,0.0,0.0,0.0,0.969,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.2,0.538,0.333,0.538,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1790641414259}
+{"event":"skill_start","skill":"collect log:3","trigger":"skill_failed","t":1790641414260}
+{"event":"skill_end","skill":"collect log:3","ok":false,"code":"WRONG_PLACE","detail":"in water: log is dug from dry ground","seconds":0.05,"t":1790641414317}
+{"layer":"tactician","gs":179,"brain":"rules","trigger":"skill_failed","goal":"nether_portal","options":["explore log"],"choice":"explore log","x":[1.0,1.0,0.0,0.0,0.0,0.969,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.2,0.538,0.333,0.538,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1790641414317}
+{"event":"skill_start","skill":"explore log","trigger":"skill_failed","t":1790641414318}
+{"event":"skill_end","skill":"explore log","ok":false,"code":"HAZARD","detail":"open water ahead; will turn","seconds":20.5,"t":1790641435648}
+{"layer":"tactician","gs":200,"brain":"rules","trigger":"skill_failed","goal":"nether_portal","options":["explore any"],"choice":"explore any","x":[1.0,1.0,0.0,0.0,0.0,0.969,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.2,0.538,0.333,0.538,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1790641435649}
+{"event":"skill_start","skill":"explore any","trigger":"skill_failed","t":1790641435649}
+{"event":"skill_end","skill":"explore any","ok":false,"code":"HAZARD","detail":"open water ahead; will turn","seconds":20.5,"t":1790641458671}
+{"layer":"tactician","gs":220,"brain":"rules","trigger":"skill_failed","goal":"nether_portal","options":["explore any"],"choice":"explore any","x":[1.0,1.0,0.0,0.0,0.0,0.969,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.2,0.538,0.333,0.538,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1790641458671}
+{"event":"skill_start","skill":"explore any","trigger":"skill_failed","t":1790641458672}
+{"layer":"tactician","gs":240,"brain":"rules","trigger":"heartbeat","goal":"nether_portal","options":["collect log:3"],"choice":"collect log:3","x":[1.0,1.0,0.0,0.0,0.0,0.969,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.2,0.538,0.333,0.538,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1790641480276}
+{"event":"skill_end","skill":"explore any","ok":false,"code":"INTERRUPTED","detail":"interrupted: brain chose collect log:3","seconds":20.05,"t":1790641480276}
+{"event":"skill_start","skill":"collect log:3","trigger":"heartbeat","t":1790641480277}
+{"event":"skill_end","skill":"collect log:3","ok":false,"code":"WRONG_PLACE","detail":"in water: log is dug from dry ground","seconds":0.05,"t":1790641480333}
+{"layer":"tactician","gs":240,"brain":"rules","trigger":"skill_failed","goal":"nether_portal","options":["collect log:3"],"choice":"collect log:3","x":[1.0,1.0,0.0,0.0,0.0,0.969,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.2,0.538,0.333,0.538,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1790641480334}
+{"event":"skill_start","skill":"collect log:3","trigger":"skill_failed","t":1790641480334}
+{"event":"skill_end","skill":"collect log:3","ok":false,"code":"WRONG_PLACE","detail":"in water: log is dug from dry ground","seconds":0.05,"t":1790641480387}
+{"layer":"tactician","gs":241,"brain":"rules","trigger":"skill_failed","goal":"nether_portal","options":["explore any"],"choice":"explore any","x":[1.0,1.0,0.0,0.0,0.0,0.969,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.2,0.538,0.333,0.538,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1790641480388}
+{"event":"skill_start","skill":"explore any","trigger":"skill_failed","t":1790641480388}
+{"layer":"tactician","gs":261,"brain":"rules","trigger":"heartbeat","goal":"nether_portal","options":["explore log"],"choice":"explore log","x":[1.0,1.0,0.0,0.0,0.0,0.969,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.2,0.538,0.333,0.538,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1790641504213}
+{"event":"skill_end","skill":"explore any","ok":false,"code":"INTERRUPTED","detail":"interrupted: brain chose explore log","seconds":20.05,"t":1790641504213}
+{"event":"skill_start","skill":"explore log","trigger":"heartbeat","t":1790641504214}
+{"event":"skill_end","skill":"explore log","ok":false,"code":"HAZARD","detail":"open water ahead; will turn","seconds":20.5,"t":1790641530139}
+{"layer":"tactician","gs":281,"brain":"rules","trigger":"skill_failed","goal":"nether_portal","options":["explore log"],"choice":"explore log","x":[1.0,1.0,0.0,0.0,0.0,0.969,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.2,0.538,0.333,0.538,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1790641530140}
+{"event":"skill_start","skill":"explore log","trigger":"skill_failed","t":1790641530140}
+{"layer":"tactician","gs":301,"brain":"rules","trigger":"heartbeat","goal":"nether_portal","options":["collect log:3","explore log"],"choice":"collect log:3","x":[1.0,1.0,0.0,0.0,0.0,0.969,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.2,0.538,0.333,0.538,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1790641555579}
+{"event":"skill_end","skill":"explore log","ok":false,"code":"INTERRUPTED","detail":"interrupted: brain chose collect log:3","seconds":20.05,"t":1790641555580}
+{"event":"skill_start","skill":"collect log:3","trigger":"heartbeat","t":1790641555580}
+{"event":"skill_end","skill":"collect log:3","ok":false,"code":"WRONG_PLACE","detail":"in water: log is dug from dry ground","seconds":0.05,"t":1790641555642}
+{"layer":"tactician","gs":301,"brain":"rules","trigger":"skill_failed","goal":"nether_portal","options":["collect log:3","explore log"],"choice":"collect log:3","x":[1.0,1.0,0.0,0.0,0.0,0.969,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.2,0.538,0.333,0.538,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1790641555642}
+{"event":"skill_start","skill":"collect log:3","trigger":"skill_failed","t":1790641555643}
+{"event":"skill_end","skill":"collect log:3","ok":false,"code":"WRONG_PLACE","detail":"in water: log is dug from dry ground","seconds":0.05,"t":1790641555702}
+{"layer":"tactician","gs":301,"brain":"rules","trigger":"skill_failed","goal":"nether_portal","options":["explore log"],"choice":"explore log","x":[1.0,1.0,0.0,0.0,0.0,0.969,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.2,0.538,0.333,0.538,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1790641555703}
+{"event":"skill_start","skill":"explore log","trigger":"skill_failed","t":1790641555703}
+{"event":"skill_end","skill":"explore log","ok":false,"code":"HAZARD","detail":"open water ahead; will turn","seconds":20.5,"t":1790641581941}
+{"layer":"tactician","gs":322,"brain":"rules","trigger":"skill_failed","goal":"nether_portal","options":["explore any"],"choice":"explore any","x":[1.0,1.0,0.0,0.0,0.0,0.969,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.2,0.538,0.333,0.538,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1790641581942}
+{"event":"skill_start","skill":"explore any","trigger":"skill_failed","t":1790641581942}
+{"event":"skill_end","skill":"explore any","ok":false,"code":"HAZARD","detail":"open water ahead; will turn","seconds":20.5,"t":1790641609031}
+{"layer":"tactician","gs":342,"brain":"rules","trigger":"skill_failed","goal":"nether_portal","options":["explore any"],"choice":"explore any","x":[1.0,1.0,0.0,0.0,0.0,0.969,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.2,0.538,0.333,0.538,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1790641609031}
+{"event":"skill_start","skill":"explore any","trigger":"skill_failed","t":1790641609032}
+{"layer":"tactician","gs":362,"brain":"rules","trigger":"heartbeat","goal":"nether_portal","options":["collect log:3"],"choice":"collect log:3","x":[1.0,1.0,0.0,0.0,0.0,0.969,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.2,0.538,0.333,0.538,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1790641635580}
+{"event":"skill_end","skill":"explore any","ok":false,"code":"INTERRUPTED","detail":"interrupted: brain chose collect log:3","seconds":20.05,"t":1790641635580}
+{"event":"skill_start","skill":"collect log:3","trigger":"heartbeat","t":1790641635581}
+{"event":"skill_end","skill":"collect log:3","ok":false,"code":"WRONG_PLACE","detail":"in water: log is dug from dry ground","seconds":0.05,"t":1790641635641}
+{"layer":"tactician","gs":362,"brain":"rules","trigger":"skill_failed","goal":"nether_portal","options":["collect log:3"],"choice":"collect log:3","x":[1.0,1.0,0.0,0.0,0.0,0.969,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.2,0.538,0.333,0.538,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1790641635642}
+{"event":"skill_start","skill":"collect log:3","trigger":"skill_failed","t":1790641635643}
+{"event":"skill_end","skill":"collect log:3","ok":false,"code":"WRONG_PLACE","detail":"in water: log is dug from dry ground","seconds":0.05,"t":1790641635707}
+{"layer":"tactician","gs":362,"brain":"rules","trigger":"skill_failed","goal":"nether_portal","options":["explore any"],"choice":"explore any","x":[1.0,1.0,0.0,0.0,0.0,0.969,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.2,0.538,0.333,0.538,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1790641635708}
+{"event":"skill_start","skill":"explore any","trigger":"skill_failed","t":1790641635708}
+{"layer":"tactician","gs":382,"brain":"rules","trigger":"heartbeat","goal":"nether_portal","options":["explore log"],"choice":"explore log","x":[1.0,1.0,0.0,0.0,0.0,0.969,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.2,0.538,0.333,0.538,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1790641660526}
+{"event":"skill_end","skill":"explore any","ok":false,"code":"INTERRUPTED","detail":"interrupted: brain chose explore log","seconds":20.05,"t":1790641660527}
+{"event":"skill_start","skill":"explore log","trigger":"heartbeat","t":1790641660527}
+{"event":"skill_end","skill":"explore log","ok":false,"code":"HAZARD","detail":"open water ahead; will turn","seconds":20.5,"t":1790641685484}
+{"layer":"tactician","gs":403,"brain":"rules","trigger":"skill_failed","goal":"nether_portal","options":["explore log"],"choice":"explore log","x":[1.0,1.0,0.0,0.0,0.0,0.969,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.2,0.538,0.333,0.538,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1790641685485}
+{"event":"skill_start","skill":"explore log","trigger":"skill_failed","t":1790641685485}
+{"layer":"tactician","gs":423,"brain":"rules","trigger":"heartbeat","goal":"nether_portal","options":["collect log:3","explore log"],"choice":"collect log:3","x":[1.0,1.0,0.0,0.0,0.0,0.969,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.2,0.538,0.333,0.538,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1790641709631}
+{"event":"skill_end","skill":"explore log","ok":false,"code":"INTERRUPTED","detail":"interrupted: brain chose collect log:3","seconds":20.05,"t":1790641709631}
+{"event":"skill_start","skill":"collect log:3","trigger":"heartbeat","t":1790641709633}
+{"event":"skill_end","skill":"collect log:3","ok":false,"code":"INTERRUPTED","detail":"test finished","seconds":57.0,"t":1790641802845}
+{"event":"autopilot_off","detail":"test finished","t":1790641802846}
