@@ -18,6 +18,7 @@ public final class StairDown extends Skill {
 	private final Act.Breaker breaker = new Act.Breaker();
 	private Direction dir;
 	private int targetY, steps, turns, walk;
+	private int stoneBefore = -1, stoneWant;
 	private BlockPos next;
 
 	@Override
@@ -40,7 +41,11 @@ public final class StairDown extends Skill {
 	protected void start() {
 		timeoutTicks = 20 * 60 * 6;
 		try {
-			targetY = Integer.parseInt(argName().trim());
+			if (arg != null && arg.startsWith("stone:")) {
+				stoneWant = Integer.parseInt(arg.substring(6));
+				stoneBefore = Mc.count("stone");
+				targetY = Math.max(Mc.player().level().getMinY() + 5, Mc.player().getBlockY() - 12);
+			} else targetY = Integer.parseInt(argName().trim());
 		} catch (NumberFormatException e) {
 			fail(Fail.ERROR, "stair_down needs a y level");
 			return;
@@ -78,6 +83,11 @@ public final class StairDown extends Skill {
 	protected void tick() {
 		LocalPlayer pl = Mc.player();
 		BlockPos feet = pl.blockPosition();
+		if (stoneBefore >= 0 && Mc.count("stone") - stoneBefore >= stoneWant) {
+			breaker.stop();
+			done("mined enough stone on the stairs");
+			return;
+		}
 		if (feet.getY() <= targetY && pl.onGround()) {
 			breaker.stop();
 			Facts.report("at_depth");

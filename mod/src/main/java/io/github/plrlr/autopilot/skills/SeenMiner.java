@@ -63,6 +63,15 @@ final class SeenMiner {
 		return nearest(memory, group, range) != null;
 	}
 
+	/** The stair fallback needs this even when the separate dry-target gene is off. */
+	static boolean anyDryStone(WorldMemory memory, int range) {
+		BlockPos me = Mc.player().blockPosition();
+		for (WorldMemory.Seen s : memory.all("stone"))
+			if (s.dim().equals(Mc.dimension()) && !unreachable(s.pos())
+					&& s.pos().distSqr(me) <= (double) range * range && dry(s.pos())) return true;
+		return false;
+	}
+
 	/** Tried lately and couldn't be reached or broken. */
 	static boolean unreachable(BlockPos p) {
 		Long until = UNREACHABLE.get(p);
@@ -263,7 +272,7 @@ final class SeenMiner {
 	/** Water touching exposed stone makes the approach and the freshly opened cell unsafe. */
 	static boolean dry(BlockPos p) {
 		for (Direction d : Direction.values())
-			if (!Mc.state(p.relative(d)).getFluidState().isEmpty()) return false;
+			if (Mc.canSee(p.relative(d)) && !Mc.state(p.relative(d)).getFluidState().isEmpty()) return false;
 		return true;
 	}
 }

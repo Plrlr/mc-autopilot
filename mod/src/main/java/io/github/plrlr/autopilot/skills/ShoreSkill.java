@@ -36,6 +36,10 @@ public final class ShoreSkill extends Skill {
 	}
 
 	private static boolean workArea() {
+		return workArea(false);
+	}
+
+	private static boolean workArea(boolean awayFromWater) {
 		LocalPlayer pl = Mc.player();
 		if (pl.isInWater() || !pl.onGround()) return false;
 		BlockPos feet = pl.blockPosition();
@@ -43,6 +47,8 @@ public final class ShoreSkill extends Skill {
 		int room = 0;
 		for (Direction d : Direction.Plane.HORIZONTAL) {
 			BlockPos n = feet.relative(d);
+			if (awayFromWater && (!Mc.state(n).getFluidState().isEmpty()
+					|| !Mc.state(n.below()).getFluidState().isEmpty())) return false;
 			if (Mc.free(n) && Mc.free(n.above()) && Mc.solid(n.below())) room++;
 		}
 		return room >= 2;
@@ -50,7 +56,7 @@ public final class ShoreSkill extends Skill {
 
 	@Override protected void start() {
 		timeoutTicks = 20 * 90;
-		if (workArea()) { done("already on dry ground"); return; }
+		if (workArea("away_from_water".equals(arg))) { done("already on dry ground"); return; }
 		path();
 	}
 
@@ -93,7 +99,7 @@ public final class ShoreSkill extends Skill {
 
 	@Override protected void tick() {
 		if (ticks % 10 != 0) return;
-		if (workArea()) { done("reached dry ground with room to work"); return; }
+		if (workArea("away_from_water".equals(arg))) { done("reached dry ground with room to work"); return; }
 		if (ticks - lastPathTick < 20 * 5) return;
 		BlockPos seen = memory.nearestLand(aside);
 		if (seen != null && !seen.equals(target)) { path(); return; }
