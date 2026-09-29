@@ -5,6 +5,7 @@ import io.github.plrlr.autopilot.Items2;
 import io.github.plrlr.autopilot.Mc;
 import io.github.plrlr.autopilot.plan.TechTree;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.core.Direction;
 
 /**
  * collect item:n. Baritone mines the source blocks (legit mode: only blocks it has seen, or
@@ -31,6 +32,7 @@ public final class CollectSkill extends Skill {
 	private String lookGroup;
 	/** Flint has its own way: one seen gravel, placed and broken until flint drops. */
 	private FlintSteps flint;
+	private Skill stoneStep;
 
 	@Override
 	public String name() {
@@ -67,6 +69,13 @@ public final class CollectSkill extends Skill {
 		// first; then legit branch mining, which only digs toward ores it can actually see.
 		String group = io.github.plrlr.autopilot.state.WorldMemory.groupOf(src.blocks().get(0).replace("*", "oak"));
 		seenOnly = SEEN_ONLY.contains(item);
+		if (item.equals("stone") && io.github.plrlr.autopilot.Tune.on("gather.stair_for_stone")
+				&& !SeenMiner.anyDryStone(memory, 12)) {
+			stoneStep = wetHere() ? new ShoreSkill() : new StairDown();
+			stoneStep.begin(memory, stoneStep instanceof StairDown ? "stone:" + want : "away_from_water");
+			timeoutTicks = 20 * 240;
+			return;
+		}
 		// Stone too: it's nearly always in view, and digging down from where we stand went badly
 		// in water (a laptop run dug under a lake, ran out of air, surfaced, dug again, for minutes).
 		if (group != null && (seenOnly || src.mineY() != null || item.equals("stone")) && SeenMiner.anySeen(memory, group, SEEN_RANGE)) {
@@ -126,6 +135,7 @@ public final class CollectSkill extends Skill {
 
 	@Override
 	protected void cleanup() {
+		if (stoneStep != null && stoneStep.result() == null) stoneStep.abort(Fail.INTERRUPTED, "collect ended");
 		// Cut off as stuck on the way to a seen block: the next collect would pick the same one.
 		if (seenMiner != null && result() != null && result().code() == Fail.STUCK) seenMiner.setAsideTarget();
 		super.cleanup();
@@ -138,6 +148,16 @@ public final class CollectSkill extends Skill {
 
 	@Override
 	protected void tick() {
+		if (stoneStep != null) {
+			if (Mc.count(item) - before >= want) { done("collected stone by stairs"); return; }
+			stoneStep.update();
+			if (stoneStep.result() != null) {
+				if (!stoneStep.result().ok()) { fail(stoneStep.result().code(), stoneStep.result().detail()); return; }
+				stoneStep = wetHere() ? new ShoreSkill() : new StairDown();
+				stoneStep.begin(memory, stoneStep instanceof StairDown ? "stone:" + want : "away_from_water");
+			}
+			return;
+		}
 		if (flint != null) {
 			flint.tick();
 			return;
@@ -208,5 +228,15 @@ public final class CollectSkill extends Skill {
 			if (restarts++ < 2) Bari.get().getMineProcess().mine(blocks);
 			else fail((now - before) > 0 ? Fail.NO_PROGRESS : Fail.NOT_FOUND, (now - before) > 0 ? "found only " + (now - before) + " " + item : "can't find any " + item + " nearby");
 		}
+	}
+
+	/** A staircase starts only with dry feet and no water against the blocks it will open. */
+	private static boolean wetHere() {
+		var feet = Mc.player().blockPosition();
+		if (Mc.player().isInWater() || !Mc.player().onGround()) return true;
+		for (Direction d : Direction.Plane.HORIZONTAL)
+			if (!Mc.state(feet.relative(d)).getFluidState().isEmpty()
+					|| !Mc.state(feet.relative(d).below()).getFluidState().isEmpty()) return true;
+		return false;
 	}
 }

@@ -115,7 +115,8 @@ public final class PortalRoutes {
 					if (Act.flatDist(site) <= 5) {
 						Bari.stop();
 						WorldMemory.Seen c = memory.nearest("chest");
-						phase = c != null && c.pos().distSqr(site) <= 12 * 12 ? Phase.LOOT : Phase.MINE;
+						phase = c != null && c.pos().distSqr(site) <= 12 * 12
+								&& (!io.github.plrlr.autopilot.Tune.on("safety.spawner_room") || !SpawnerRoom.near(memory, c.pos(), 8)) ? Phase.LOOT : Phase.MINE;
 						if (phase == Phase.LOOT) chest = new Station("chest", ChestMenu.class, memory, c.pos());
 						return true;
 					}

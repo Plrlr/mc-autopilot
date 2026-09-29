@@ -26,6 +26,8 @@ public final class ChestSkills {
 	abstract static class ChestJob extends Skill {
 		private Station station;
 		private int moves, idle;
+		BlockPos preferredChest() { return null; }
+		void finished(BlockPos at, int moved) {}
 
 		/** One move with the open chest; false when there's nothing more to move. */
 		abstract boolean move(ChestMenu m);
@@ -35,7 +37,12 @@ public final class ChestSkills {
 		@Override
 		protected void start() {
 			timeoutTicks = 20 * 90;
-			station = new Station("chest", ChestMenu.class, memory);
+			BlockPos chest = preferredChest() != null ? preferredChest() : memory.nearestStation("chest") == null ? null : memory.nearestStation("chest").pos();
+			if (chest != null && io.github.plrlr.autopilot.Tune.on("safety.spawner_room") && SpawnerRoom.near(memory, chest, 8)) {
+				fail(Fail.HAZARD, "chest is in a remembered spawner room");
+				return;
+			}
+			station = new Station("chest", ChestMenu.class, memory, preferredChest());
 		}
 
 		@Override
@@ -57,6 +64,11 @@ public final class ChestSkills {
 			BlockPos at = station.pos();
 			if (at != null) memory.remember("chest", at, "chest");
 			Facts.report("chest_known");
+			if (moves == 0 && this instanceof Restock && io.github.plrlr.autopilot.Tune.on("restock.stash_only")) {
+				fail(Fail.NOT_FOUND, "no wanted spares in our stash");
+				return;
+			}
+			finished(at, moves);
 			done(what() + ": " + moves + " stacks");
 		}
 
@@ -70,6 +82,15 @@ public final class ChestSkills {
 
 	/** stash: put the spares into a chest at base (placing one if we carry it), keeping a working set. */
 	public static final class Stash extends ChestJob {
+		private static BlockPos stashedAt;
+		private static String stashedDim;
+		public static void forget() { stashedAt = null; stashedDim = null; }
+		public static BlockPos position() {
+			return Mc.dimension().equals(stashedDim) ? stashedAt : null;
+		}
+		@Override void finished(BlockPos at, int moved) {
+			if (moved > 0 && at != null) { stashedAt = at.immutable(); stashedDim = Mc.dimension(); }
+		}
 		@Override
 		public String name() {
 			return "stash";
@@ -129,12 +150,20 @@ public final class ChestSkills {
 
 		@Override
 		protected void start() {
-			if (memory.nearest("chest") == null) {
+			if (io.github.plrlr.autopilot.Tune.on("restock.stash_only") && Stash.position() == null) {
+				fail(Fail.NOT_FOUND, "no stash chest known");
+				return;
+			}
+			if (!io.github.plrlr.autopilot.Tune.on("restock.stash_only") && memory.nearest("chest") == null) {
 				fail(Fail.NOT_FOUND, "no chest of ours known");
 				return;
 			}
 			want = arg == null || arg.isBlank() ? SPARES : Set.of(arg.split("[,:]"));
 			super.start();
+		}
+
+		@Override BlockPos preferredChest() {
+			return io.github.plrlr.autopilot.Tune.on("restock.stash_only") ? Stash.position() : null;
 		}
 
 		@Override
