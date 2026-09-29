@@ -32,6 +32,12 @@ final class Reflexes {
 		}
 		// The End's guard (gene skill.end_guard): never meet an enderman's eyes, never fall into the void.
 		if (Tune.on("skill.end_guard") && io.github.plrlr.autopilot.skills.EndRoutes.EndGuard.guard()) return;
+		// Gene safety.enderman_gaze: look away before an enderman's eyes meet ours (skills/EndermanGaze).
+		if (Tune.on("safety.enderman_gaze") && !(a.skill instanceof io.github.plrlr.autopilot.skills.EndermanGaze)
+				&& io.github.plrlr.autopilot.skills.EndermanGaze.threat()) {
+			a.startReflex(new io.github.plrlr.autopilot.plan.Option("gaze_avoid", null, "an enderman is in view: don't meet its eyes"), "reflex_gaze");
+			return;
+		}
 		Danger.Verdict danger = Tune.on("survival.danger_v2") ? DangerSense.assess(a.seen) : null;
 		boolean lavaWork = a.skill != null && java.util.Set.of("build_portal", "fill_bucket", "make_obsidian", "clutch").contains(a.skill.name());
 		if (danger != null && pl.isOnFire() && !lavaWork && !Mc.dimension().equals("the_nether")
