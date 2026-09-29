@@ -9,14 +9,14 @@
  "_suggest": "Ideas to race next: each entry becomes one challenger (champion + these genes), tried once. Higher-priority suggestions go first.",
  "suggest": [
   {
-   "safety.hazard": 1,
-   "safety.hazard_margin": 0.05
-  },
-  {
-   "reflex.escalate": 1
-  },
-  {
-   "brain.skill_stats": 1
+   "skill.lava_scout": 1,
+   "skill.cast_portal": 1,
+   "skill.ruined_portal": 1,
+   "skill.obsidian_pool": 1,
+   "skill.diamond_hunt": 1,
+   "skill.portal_repair": 1,
+   "skill.stash": 1,
+   "skill.restock": 1
   },
   {
    "skill.kite": 1,
@@ -33,14 +33,14 @@
    "skill.stair_down": 1
   },
   {
-   "skill.lava_scout": 1,
-   "skill.cast_portal": 1,
-   "skill.ruined_portal": 1,
-   "skill.obsidian_pool": 1,
-   "skill.diamond_hunt": 1,
-   "skill.portal_repair": 1,
-   "skill.stash": 1,
-   "skill.restock": 1
+   "safety.hazard": 1,
+   "safety.hazard_margin": 0.05
+  },
+  {
+   "reflex.escalate": 1
+  },
+  {
+   "brain.skill_stats": 1
   },
   {
    "brain.strategist": 1,
@@ -259,7 +259,7 @@
  "stage_lookahead": false,
  "model_gate": 0.1,
  "_focus": "2026-09-28, after 28 generations without progress: the same champion scored 1.1 to 7.1 between generations, so races of 5 seeds across 3 genomes measured noise. Now 2 genomes x 8 paired seeds (4 from spawn, 4 from the iron kit, the wall: portal lit in 3 of 454 runs), a crown needs 16 pairs at t 2.5, no look-ahead starts past the wall. Learned brain (2026-09-28): tree models, advantage R2 measured on a shared tree baseline (0.025; the old 0.05 was inflated by a weak linear baseline). The model can't learn which choice is better from the rules' habits alone, so the 2 data runs (15% deliberate tries) are back on; learned.* genes race once the gate passes.",
- "_suggest_order": "2026-09-29 (Claude): the danger model (AUC 0.86, never raced), escalation and skill-stat demotion first; then the 40 skills of docs/skills-40.md raced as bundles, one per wave (wave 1 survival, wave 2 portal, then waves 3-5 together: the race's tasks rarely reach the Nether, so the late bundle mostly shows it does no harm early). A crowned bundle of 3+ skills queues its own trim: one race per skill with just that skill off (loop.py). Inside a bundle the brain balances: skill stats and the strategist push down options that keep failing.",
+ "_suggest_order": "2026-09-29 (Claude): wave 2 (the portal) races first: its first drill found a cast site at once and cast 4 obsidian with no deaths, where the old portal drill placed obsidian in 1 of 26 tries. Then wave 1 (survival; its combat drill: 87% kills, 1 death in 23 fights), then the danger model, escalation, skill-stat demotion, the strategist, and waves 3-5. The race lineup was full (a new champion, two defenders, two ideas), so queued ideas start as slots free up. A crowned bundle of 3+ skills queues its own trim races (loop.py).",
  "minutes": 30,
  "_minutes": "2026-09-29: 30 game minutes per run (was 20). GitHub's free plan runs 20 jobs at once and every generation uses all 20, so more volume means less overhead: a generation took ~40 min for 20 min of play (setup and build are the rest). 30-minute games play ~20% more per hour and reach the portal stage more often. Pairs are compared within a generation, so the race stays fair; scores from before and after aren't on the same scale. Marathons are off (the user's call), so their jobs go to the loop."
 }
