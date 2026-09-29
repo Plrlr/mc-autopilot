@@ -29,7 +29,7 @@ import java.util.Set;
  * cheapest is picked, up to 3 sites.
  */
 public final class CastPortalSite extends Composite {
-	private enum Phase {APPROACH, PICK, DIG, FLOOR, CAST, DONE}
+	private enum Phase {APPROACH, PICK, MAKE, DIG, FLOOR, CAST, DONE}
 
 	private Phase phase = Phase.APPROACH;
 	private final Act.Breaker breaker = new Act.Breaker();
@@ -37,6 +37,7 @@ public final class CastPortalSite extends Composite {
 	private PortalSite.Plan plan;
 	private BlockPos pool;
 	private int idx, sites, stuck, placeTries;
+	private PortalSiteMaker maker;
 
 	static final PortalSite.Probe WORLD = new PortalSite.Probe() {
 		@Override
@@ -117,6 +118,11 @@ public final class CastPortalSite extends Composite {
 				return true;
 			}
 			case PICK -> {
+				if (io.github.plrlr.autopilot.Tune.on("portal.site_maker")) {
+					maker = new PortalSiteMaker(pool);
+					phase = Phase.MAKE;
+					return true;
+				}
 				if (sites++ >= 3) {
 					fail(Fail.NO_ROOM, "three portal sites went bad");
 					return true;
@@ -129,6 +135,18 @@ public final class CastPortalSite extends Composite {
 				log("site " + plan.origin().toShortString() + " along " + plan.along() + ": dig " + plan.dig().size() + ", floor " + plan.floor().size());
 				idx = 0;
 				phase = Phase.DIG;
+				return true;
+			}
+			case MAKE -> {
+				maker.tick();
+				if (maker.failure() != null) { fail(Fail.NO_ROOM, maker.failure()); return true; }
+				PortalSite.Plan made = maker.site();
+				if (made != null) {
+					CastPortal.useSite(made.origin(), made.along());
+					log("site ready at " + made.origin().toShortString());
+					phase = Phase.CAST;
+					return false;
+				}
 				return true;
 			}
 			case DIG -> {
@@ -227,6 +245,7 @@ public final class CastPortalSite extends Composite {
 
 	@Override
 	protected void cleanup() {
+		if (maker != null) maker.stop();
 		breaker.stop();
 		super.cleanup();
 	}
