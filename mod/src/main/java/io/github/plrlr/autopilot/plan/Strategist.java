@@ -182,7 +182,10 @@ public final class Strategist {
 	}
 
 	double exec(SkillSpec s) {
-		return world.estimate(s.key(), s.success(), s.seconds()).cost(world.deathSeconds());
+		SkillStats.Estimate e = world.estimate(s.key(), s.success(), s.seconds());
+		// Gene brain.thompson: cost with a drawn success chance, so thinly tried routes get tried.
+		if (world.geneOn("brain.thompson")) e = io.github.plrlr.autopilot.brains.Thompson.draw(s.key(), e, System.currentTimeMillis());
+		return e.cost(world.deathSeconds());
 	}
 
 	/** Crafting, smelting, mining or hunting, from TechTree; the cheapest that applies. */

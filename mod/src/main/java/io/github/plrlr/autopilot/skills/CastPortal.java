@@ -773,7 +773,17 @@ public final class CastPortal extends Skill {
 		for (Direction a : new Direction[]{Direction.EAST, Direction.SOUTH, Direction.WEST, Direction.NORTH}) {
 			Direction front = a.getClockWise();
 			BlockPos o = feet.relative(a, -1).relative(front, -2);
-			if (!carvable(o, a)) continue;
+			if (!carvable(o, a)) {
+				// Gene portal.carve_search: the one room anchored at our feet rarely fits in an open
+				// cave. Gen 58's five lava starts (y -33, a lush cave, lava 5-20 blocks off) failed
+				// "no flat open ground" 65 times in 0.1 s each. Try rooms whose front row is a
+				// standable spot within 6 blocks; Baritone's builder walks there to carve.
+				if (!io.github.plrlr.autopilot.Tune.on("portal.carve_search") || a != Direction.NORTH) continue;
+				o = nearestCarvable(feet);
+				if (o == null) continue;
+				a = carveAlong;
+				front = a.getClockWise();
+			}
 			carveTries++;
 			Bari.stop();
 			Bari.get().getBuilderProcess().clearArea(o, o.relative(a, 3).relative(front, 2).above(WALL_H - 1));
@@ -799,6 +809,32 @@ public final class CastPortal extends Skill {
 		phase = Phase.DIGIN;
 		wait = 0;
 		return true;
+	}
+
+	/** Set by nearestCarvable: the frame direction of the room it found. */
+	private Direction carveAlong;
+
+	/** The nearest room origin (and carveAlong) whose front row holds a standable spot within 6 blocks. */
+	private BlockPos nearestCarvable(BlockPos feet) {
+		for (int r = 1; r <= 6; r++) {
+			for (int dx = -r; dx <= r; dx++) {
+				for (int dz = -r; dz <= r; dz++) {
+					if (Math.max(Math.abs(dx), Math.abs(dz)) != r) continue;
+					for (int dy = -2; dy <= 2; dy++) {
+						BlockPos stand = feet.offset(dx, dy, dz);
+						if (!Mc.free(stand) || !Mc.free(stand.above()) || !Mc.solid(stand.below())) continue;
+						for (Direction a : new Direction[]{Direction.EAST, Direction.SOUTH, Direction.WEST, Direction.NORTH}) {
+							BlockPos o = stand.relative(a, -1).relative(a.getClockWise(), -2);
+							if (carvable(o, a)) {
+								carveAlong = a;
+								return o;
+							}
+						}
+					}
+				}
+			}
+		}
+		return null;
 	}
 
 	private static boolean carvable(BlockPos o, Direction a) {

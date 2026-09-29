@@ -480,6 +480,15 @@ public final class Planner {
 	private Option itemsStep(Goal goal) {
 		for (var e : goal.needs.entrySet()) {
 			if (Goal.have(e.getKey()) >= e.getValue()) continue;
+			// Gene brain.utility (docs/brain-v3.md): every goal's items go through the strategist,
+			// not only the late game's. With only the plain way (mine, craft, smelt) it returns the
+			// rules' own step; where the specs hold other ways (food: hunt, fish, secure; iron:
+			// restock), the cheapest by measured cost wins.
+			if (Tune.on("brain.utility")) {
+				Option st = adopt(new Strategist(new GameWorld(memory), (it, k) -> itemStep(it, k, 1)).towardItem(e.getKey(), e.getValue()),
+						Perception.look(32), 0);
+				if (st != null) return st;
+			}
 			Option o = itemStep(e.getKey(), e.getValue(), 0);
 			if (o != null) return o;
 		}
