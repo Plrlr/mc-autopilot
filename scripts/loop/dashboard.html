@@ -98,7 +98,7 @@ a { color: var(--s1); }
 
   <div class="card">
     <h2>How far the runs get</h2>
-    <p class="note">Share of each generation's runs from a fresh world that reached a step (all genomes, 20 game minutes each). From generation 5 on; earlier points also count the stage starts.</p>
+    <p class="note">Share of each generation's runs from a fresh world that reached a step (all genomes; games were 20 minutes until generation 57, 30 until 65, 40 since). From generation 5 on; earlier points also count the stage starts.</p>
     <div class="legend" id="reachLegend"></div>
     <div id="reachChart"></div>
   </div>
@@ -110,8 +110,8 @@ a { color: var(--s1); }
       <div id="genesChart"></div>
     </div>
     <div class="card">
-      <h2>Its own model</h2>
-      <p class="note">A model trained only on this bot's runs: which action pays off in which situation. It can reorder the rules' options only as far as the champion's <code>learned.weight</code> allows.</p>
+      <h2>What it has learned</h2>
+      <p class="note">Trained only on this bot's own games. The danger model predicts, from what the bot sees and carries, whether a death is coming soon; the safety genes and "learn from every death" use it. Skill stats (how often each action works, how long it takes, how often it kills us) are what the strategist plans routes with.</p>
       <div class="tiles" id="modelTiles" style="margin:0"></div>
     </div>
   </div>
@@ -252,8 +252,8 @@ function scoreChart(history) {
 
 const STEPS = [
   { key: "m4", name: "iron tools", color: "--s1" },
-  { key: "two_buckets", name: "portal kit", color: "--s2" },
-  { key: "obsidian_placed", name: "obsidian placed", color: "--s3" },
+  { key: "at_depth", name: "diamond depth", color: "--s2" },
+  { key: "diamond_pickaxe", name: "diamond pickaxe", color: "--s3" },
   { key: "portal_lit", name: "portal lit", color: "--s4" },
 ];
 
@@ -399,7 +399,7 @@ function render(data) {
     // A stage some real run reached (a real save in the bank) counts first.
     const bank = (last && last.bank) || {};
     for (const k of ["end", "stronghold", "eyes", "rods", "nether", "diamond", "lava", "kit"]) if (bank[k] && bank[k].real > 0) return STAGE_NAMES[k];
-    const order = [["m7", "the Nether"], ["portal_lit", "portal lit"], ["frame_complete", "portal frame"], ["obsidian_placed", "obsidian placed"], ["lava_seen", "lava found"], ["two_buckets", "portal kit"], ["m4", "iron tools"], ["m2", "stone tools"], ["m1", "wood"]];
+    const order = [["m7", "the Nether"], ["portal_lit", "portal lit"], ["frame_complete", "portal frame"], ["obsidian_placed", "obsidian placed"], ["obsidian_10", "10 obsidian"], ["diamond_pickaxe", "diamond pickaxe"], ["at_depth", "diamond depth"], ["lava_seen", "lava found"], ["two_buckets", "portal kit"], ["m4", "iron tools"], ["m2", "stone tools"], ["m1", "wood"]];
     for (const [k, n] of order) if (history.some((h) => (h.reached || {})[k])) return n;
     return "–";
   })();
@@ -408,18 +408,19 @@ function render(data) {
     : "Waiting for the first generation to finish.";
   const tiles = [
     ["Generations", last ? fmt(last.gen) : "0", state && state.pending ? "one is playing now" : ""],
-    ["Runs played", last ? fmt(last.total_runs) : "0", "20 game minutes each"],
+    ["Runs played", last ? fmt(last.total_runs) : "0", state && state.settings && state.settings.minutes ? `${state.settings.minutes} game minutes each` : ""],
     ["Game time", last ? fmt(last.game_hours, 1) + " h" : "0 h", "of Minecraft played"],
     ["Champion", champ ? champ.id : "g0", champ ? (champ.id === "g0" ? "hand-tuned defaults" : champ.note) : ""],
     ["Furthest step", furthest, "reached in any run"],
   ];
   $("tiles").innerHTML = tiles.map(([k, v, n]) => `<div class="tile"><div class="k">${esc(k)}</div><div class="v">${esc(v)}</div><div class="n">${esc(n)}</div></div>`).join("");
-  const w = champ && champ.genes ? champ.genes["learned.weight"] : 0;
+  const hz = (model && model.hazard) || null;
+  const nSkills = state && state.skill_stats ? Object.keys(state.skill_stats).length : 0;
   const mt = [
-    ["Decisions learned from", model ? fmt(model.rows) : "0", model ? `from ${fmt(model.runs)} runs` : "no model yet"],
-    ["Action kinds", model ? fmt(Object.keys(model.keys || {}).length) : "0", "each with its own model"],
-    ["Tells choices apart", model && model.adv_r2_heldout != null ? fmt(model.adv_r2_heldout, 3) : "–", "R² on unseen runs, choice part"],
-    ["Trust (weight)", fmt(w || 0, 2), (w || 0) > 0 ? "the champion uses it" : "not used yet (rules decide)"],
+    ["Decisions learned from", hz ? fmt(hz.rows) : "0", model && model.runs ? `from ${fmt(model.runs)} games` : "no model yet"],
+    ["Danger model", hz && hz.auc != null ? fmt(hz.auc, 2) : "–", "tells a deadly moment from a safe one (1 perfect, 0.5 guessing)"],
+    ["Deadly moments", hz ? fmt(hz.death_rows) : "0", `decisions ${hz && hz.horizon ? hz.horizon : 45} s or less before a death`],
+    ["Skills tracked", fmt(nSkills), "success rate and time of every action"],
   ];
   $("modelTiles").innerHTML = mt.map(([k, v, n]) => `<div class="tile"><div class="k">${esc(k)}</div><div class="v">${esc(v)}</div><div class="n">${esc(n)}</div></div>`).join("");
   ladder(state, history);
