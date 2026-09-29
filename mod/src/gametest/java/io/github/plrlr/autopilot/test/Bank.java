@@ -34,11 +34,12 @@ final class Bank {
 	private Bank() {}
 
 	/**
-	 * Stages in order; index 0 is a fresh world. "lava" is the kit with lava in reach: the portal
+	 * Stages in order; index 0 is a fresh world. "diamond" (since 2026-09-29) is the diamond route's
+	 * kit: the pickaxe made, obsidian and the frame to go. "lava" is the kit with lava in reach: the portal
 	 * wall is lava to obsidian (by gen 29, 22 of 30 kit starts saw lava, 5 made any obsidian), so
 	 * starts from there practice the cast without first spending ten minutes looking for lava.
 	 */
-	static final List<String> STAGES = List.of("spawn", "kit", "lava", "nether", "rods", "eyes", "stronghold", "end");
+	static final List<String> STAGES = List.of("spawn", "kit", "lava", "diamond", "nether", "rods", "eyes", "stronghold", "end");
 
 	/** Remembered lava this close (blocks) makes a kit a "lava" stage. */
 	private static final double LAVA_NEAR = 16;
@@ -46,11 +47,14 @@ final class Bank {
 	/** The furthest stage the player's current state shows. Client thread. */
 	static int stage(Minecraft mc) {
 		String dim = mc.player.level().dimension().identifier().getPath();
-		if (dim.equals("the_end")) return 7;
-		if (AutopilotMod.instance().memory.nearest("end_portal_frame") != null) return 6;
-		if (Mc.count("ender_eye") >= 14) return 5;
-		if (Mc.count("blaze_rod") >= 7) return 4;
-		if (dim.equals("the_nether")) return 3;
+		if (dim.equals("the_end")) return 8;
+		if (AutopilotMod.instance().memory.nearest("end_portal_frame") != null) return 7;
+		if (Mc.count("ender_eye") >= 14) return 6;
+		if (Mc.count("blaze_rod") >= 7) return 5;
+		if (dim.equals("the_nether")) return 4;
+		// The diamond route's last leg (2026-09-29): a diamond pickaxe, a bucket and flint and steel;
+		// starts from here practice the obsidian and the frame without the long dig for diamonds.
+		if (Items2.bestTier("pickaxe") >= 3 && Goal.have("bucket") >= 1 && Mc.count("flint_and_steel") > 0) return 3;
 		if (Items2.bestTier("pickaxe") >= 2 && Goal.have("bucket") >= 2 && Mc.count("flint_and_steel") > 0) {
 			var lava = AutopilotMod.instance().memory.nearest("lava");
 			boolean near = lava != null && Vec3.atCenterOf(lava.pos()).distanceTo(mc.player.position()) <= LAVA_NEAR;

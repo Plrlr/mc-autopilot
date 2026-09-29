@@ -643,7 +643,7 @@ def portal_drill(results):
     or beside lava, how many got each portal step. Watched directly, since the race's score mixes
     it with deaths."""
     out = {}
-    for stage in ("kit", "lava"):
+    for stage in ("kit", "lava", "diamond"):
         runs = [r for r in results.values() if r and r.get("stage") == stage]
         if not runs:
             continue
