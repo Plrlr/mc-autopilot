@@ -85,29 +85,36 @@ final class CastGeometry {
 		return fitRefusal(o, a, wallH) == null;
 	}
 
+	static boolean fits(BlockPos o, Direction a, int wallH, FairProbe seen) {
+		return fitRefusal(o, a, wallH, seen) == null;
+	}
+
 	/** First failed site check, for the NO_ROOM report in a lava-start drill. */
 	static String fitRefusal(BlockPos o, Direction a, int wallH) {
+		return fitRefusal(o, a, wallH, new FairProbe());
+	}
+
+	private static String fitRefusal(BlockPos o, Direction a, int wallH, FairProbe seen) {
 		Direction front = a.getClockWise();
 		for (int x = 0; x < 4; x++) {
 			BlockPos col = o.relative(a, x);
-			if (!Mc.solid(col.below()) || Mc.state(col.below()).liquid()) return "floor";
-			for (int y = 0; y < wallH; y++) if (!Mc.free(col.above(y)) || nearLava(col.above(y))) return "frame";
+			if (!seen.visible(col.below()) || !seen.solid(col.below())) return "floor";
+			for (int y = 0; y < wallH; y++) if (!seen.free(col.above(y)) || seen.lavaNear(col.above(y))) return "frame";
 			BlockPos back = col.relative(front.getOpposite());
-			if (!Mc.solid(back.below()) && !Mc.solid(back)) return "back support";
+			if (!seen.solid(back.below()) && !seen.solid(back)) return "back support";
 			for (int y = 0; y < wallH; y++) {
 				BlockPos w = back.above(y);
-				if (!Mc.solid(w) && !Mc.free(w)) return "back wall";
+				if (!seen.solid(w) && !seen.free(w)) return "back wall";
 			}
 			for (int f = 1; f <= 2; f++) {
 				BlockPos p = col.relative(front, f);
-				if (!Mc.free(p) || !Mc.free(p.above()) || !Mc.solid(p.below())) return "standing rows";
+				if (!seen.free(p) || !seen.free(p.above()) || !seen.visible(p.below()) || !seen.solid(p.below())) return "standing rows";
 			}
 		}
 		return null;
 	}
 
 	static boolean nearLava(BlockPos p) {
-		for (Direction d : Direction.values()) if (Mc.id(Mc.state(p.relative(d)).getBlock()).equals("lava")) return true;
-		return false;
+		return new FairProbe().lavaNear(p);
 	}
 }

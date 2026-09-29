@@ -45,6 +45,8 @@ final class FairProbe implements PortalSite.Probe {
 		return v;
 	}
 
+	boolean exhausted() { return rays > RAY_BUDGET; }
+
 	@Override
 	public boolean free(BlockPos p) {
 		return visible(p) && world.free(p);
