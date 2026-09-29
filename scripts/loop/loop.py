@@ -648,7 +648,7 @@ def portal_drill(results):
         if not runs:
             continue
         d = {"tries": len(runs)}
-        for c in ("lava_seen", "obsidian_placed", "frame_complete", "portal_lit"):
+        for c in ("at_depth", "diamond_pickaxe", "lava_seen", "obsidian_10", "obsidian_placed", "frame_complete", "portal_lit"):
             d[c] = sum(1 for r in runs if c in r["checkpoints"])
         d["nether"] = sum(1 for r in runs if "nether" in (r.get("reached_stages") or []))
         out[stage] = d

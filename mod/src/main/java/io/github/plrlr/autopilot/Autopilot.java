@@ -569,6 +569,11 @@ public final class Autopilot {
 		if (Goal.have("bucket") >= 2 && Checkpoints.mark("two_buckets")) log.event("checkpoint", "two_buckets");
 		if (Mc.count("flint_and_steel") > 0 && Checkpoints.mark("flint_and_steel")) log.event("checkpoint", "flint_and_steel");
 		if (memory.nearest("lava") != null && Checkpoints.mark("lava_seen")) log.event("checkpoint", "lava_seen");
+		// The diamond route's steps (the default since 2026-09-29): down to the lava caves, the
+		// pickaxe, a frame's worth of obsidian. They give the loop's score a slope to climb.
+		if (Mc.dimension().equals("overworld") && Mc.player().getBlockY() <= -40 && Checkpoints.mark("at_depth")) log.event("checkpoint", "at_depth");
+		if (Items2.bestTier("pickaxe") >= 3 && Checkpoints.mark("diamond_pickaxe")) log.event("checkpoint", "diamond_pickaxe");
+		if (Goal.have("obsidian") >= 10 && Checkpoints.mark("obsidian_10")) log.event("checkpoint", "obsidian_10");
 		if (PortalSkills.placedFrameObsidian() > 0 && Checkpoints.mark("obsidian_placed")) log.event("checkpoint", "obsidian_placed");
 		if (memory.nearest("nether_portal") != null && Checkpoints.mark("portal_lit")) log.event("checkpoint", "portal_lit");
 	}
