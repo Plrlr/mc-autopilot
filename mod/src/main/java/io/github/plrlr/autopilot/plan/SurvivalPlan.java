@@ -93,11 +93,15 @@ public final class SurvivalPlan {
 	// ---- after a death
 
 	private static volatile boolean respawnPending;
+	private static volatile boolean diedHere;
+	public static boolean diedHere() { return diedHere; }
+	public static void resetDeath() { diedHere = false; respawnPending = false; }
 	private static volatile long respawnMs;
 
 	/** Autopilot calls this when the player respawns. */
 	public static void respawned() {
 		respawnPending = true;
+		diedHere = true;
 		respawnMs = System.currentTimeMillis();
 	}
 

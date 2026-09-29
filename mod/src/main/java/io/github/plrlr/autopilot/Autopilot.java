@@ -90,6 +90,10 @@ public final class Autopilot {
 	private long lavaMarginTick = -1000;
 	private final Map<String, long[]> failures = new HashMap<>(); // label -> {count, blockedUntilTick}
 	private String lastEndedKey = "";
+	private String lastNoopKey = "";
+	private int noopStreak;
+	private int skillInventoryHash;
+	private net.minecraft.core.BlockPos skillStartPos;
 
 	// Test harness: one skill run on its own, with no decisions around it
 	private Option testTask;
@@ -273,6 +277,8 @@ public final class Autopilot {
 			memory.clear();
 			PortalSkills.resetThrows();
 			io.github.plrlr.autopilot.skills.Station.forgetPlaced();
+			io.github.plrlr.autopilot.skills.ChestSkills.Stash.forget();
+			io.github.plrlr.autopilot.plan.SurvivalPlan.resetDeath();
 			io.github.plrlr.autopilot.skills.SmeltSkill.forgetJobs();
 			io.github.plrlr.autopilot.plan.Facts.clear();
 			io.github.plrlr.autopilot.brains.SkillStats.shared().clearLocal();
@@ -674,6 +680,8 @@ public final class Autopilot {
 		if (o.skill().equals("retreat")) io.github.plrlr.autopilot.plan.Escalation.fled(tick);
 		skillContexts = skillContextsNow();
 		lastPos = null;
+		skillInventoryHash = inventoryHash();
+		skillStartPos = Mc.player().blockPosition().immutable();
 		s.begin(memory, o.arg());
 		JsonObject j = new JsonObject();
 		j.addProperty("event", "skill_start");
@@ -708,9 +716,15 @@ public final class Autopilot {
 		// nothing reachable): treat the repeat as a failure so it gets paused instead of looping
 		// every tick.
 		boolean instantRepeat = r.ok() && tick - skillStartTick < 10 && actionKey(skillOption).equals(lastEndedKey);
+		boolean noChange = r.ok() && Tune.on("plan.noop_success_pause")
+				&& skillInventoryHash == inventoryHash() && skillStartPos.equals(Mc.player().blockPosition());
+		if (noChange) noopStreak = actionKey(skillOption).equals(lastNoopKey) ? noopStreak + 1 : 1;
+		else noopStreak = 0;
+		lastNoopKey = noChange ? actionKey(skillOption) : "";
+		boolean noopRepeat = noChange && noopStreak >= 3;
 		lastEndedKey = actionKey(skillOption);
-		lessons.record(actionKey(skillOption), r.ok() && !instantRepeat, instantRepeat ? "NO_PROGRESS" : r.code() == null ? null : r.code().name(),
-				instantRepeat ? "did nothing" : r.detail(), (tick - skillStartTick) / 20.0);
+		lessons.record(actionKey(skillOption), r.ok() && !instantRepeat && !noopRepeat, instantRepeat || noopRepeat ? "NO_PROGRESS" : r.code() == null ? null : r.code().name(),
+				instantRepeat || noopRepeat ? "did nothing" : r.detail(), (tick - skillStartTick) / 20.0);
 		// Explore turned back at open water (gene skill.fluid_cross): next, cross it instead.
 		if (!r.ok() && r.code() == Fail.HAZARD && skillOption.skill().equals("explore") && r.detail() != null
 				&& r.detail().contains("water") && Tune.on("skill.fluid_cross"))
@@ -718,10 +732,15 @@ public final class Autopilot {
 		// Brain v2's skill stats learn from this try at once (an interruption says nothing about the skill).
 		if (r.code() != Fail.INTERRUPTED)
 			io.github.plrlr.autopilot.brains.SkillStats.shared().record(io.github.plrlr.autopilot.brains.Learned.key(skillOption), skillContexts,
-					r.ok() && !instantRepeat, r.code() == Fail.DIED, (tick - skillStartTick) / 20.0);
+					r.ok() && !instantRepeat && !noopRepeat, r.code() == Fail.DIED, (tick - skillStartTick) / 20.0);
 		// An action that has failed most of the time in past runs gets paused after two fails, not three.
 		int pauseAfter = lessons.failRate(actionKey(skillOption)) >= 0.7 ? 2 : 3;
-		if (r.ok() && !instantRepeat) {
+		if (noopRepeat) {
+			long[] f = failures.computeIfAbsent(actionKey(skillOption), k -> new long[2]);
+			f[0] = 0;
+			f[1] = tick + 20 * 60;
+			noopStreak = 0;
+		} else if (r.ok() && !instantRepeat) {
 			lastGainTick = tick;
 			failures.remove(actionKey(skillOption));
 		} else if (instantRepeat) {
@@ -743,6 +762,13 @@ public final class Autopilot {
 		skillOption = null;
 		skillIsReflex = false;
 		if (askNext) requestDecision(r.ok() ? "skill_done" : "skill_failed");
+	}
+
+	private static int inventoryHash() {
+		int hash = 1;
+		for (var stack : Mc.player().getInventory().getNonEquipmentItems())
+			hash = 31 * hash + java.util.Objects.hash(io.github.plrlr.autopilot.Items2.id(stack), stack.getCount());
+		return hash;
 	}
 
 	/** "collect log:3" and "collect log:2" are the same action; counts shrink as progress is made. */
