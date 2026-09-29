@@ -51,6 +51,11 @@ public final class NightSkills {
 			return (phase == Phase.HEAL || phase == Phase.WAIT && nightWall) && sealed;
 		}
 
+		/** Once wall placement stops, an unsealed gap needs the ordinary combat response again. */
+		public boolean buildingHealWall() {
+			return phase == Phase.WALL_IN && "heal".equals(arg);
+		}
+
 		@Override
 		protected void start() {
 			if ("heal".equals(arg)) {
@@ -77,6 +82,16 @@ public final class NightSkills {
 			LocalPlayer pl = Mc.player();
 			BlockPos spot = safeColumnNear(pl.blockPosition());
 			if (spot == null) {
+				// Gens 50-58 found no diggable shaft in 261 of 428 shelter attempts. On dry,
+				// solid footing, nine carried blocks can make the existing wall and roof instead.
+				if (io.github.plrlr.autopilot.Tune.on("night.no_shaft_wall")
+						&& canWallWithoutShaft(Mc.count(Items2.matcher("throwaway")), pl.onGround(),
+								pl.isInWater(), pl.isInLava(), Mc.solid(pl.blockPosition().below()))) {
+					nightWall = true;
+					Bari.stop();
+					phase = Phase.WALL_IN;
+					return;
+				}
 				fail(Fail.NO_ROOM, "no safe ground to dig into nearby");
 				return;
 			}
@@ -87,6 +102,10 @@ public final class NightSkills {
 				Bari.path(new GoalBlock(spot));
 				phase = Phase.MOVE;
 			}
+		}
+
+		static boolean canWallWithoutShaft(int blocks, boolean grounded, boolean water, boolean lava, boolean solidFloor) {
+			return blocks >= 9 && grounded && !water && !lava && solidFloor;
 		}
 
 		/** A spot within 6 blocks whose next 3 blocks down are diggable solid ground over a solid floor. */
