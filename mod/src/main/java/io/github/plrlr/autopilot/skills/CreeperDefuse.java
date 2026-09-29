@@ -20,7 +20,8 @@ import net.minecraft.world.entity.monster.Creeper;
 public final class CreeperDefuse extends Skill {
 	private Creeper target;
 	private int backOff;
-	private int farTicks;
+	private int farTicks, sinceCloser;
+	private double closest = Double.MAX_VALUE;
 
 	public static boolean suits(Perception.Seen mob) {
 		return mob != null && mob.type().equals("creeper") && mob.dist() <= 10;
@@ -80,6 +81,18 @@ public final class CreeperDefuse extends Skill {
 			return;
 		}
 		Mc.lookAt(target.getBoundingBox().getCenter());
+		// A creeper that isn't coming at us is no job: done, and left alone for a minute so the
+		// creeper reflex doesn't start us again. (First drill: 21 starts in a row, each waiting out the
+		// 25 s limit 4-6 blocks from a creeper that stood still; 9 minutes lost, no progress.)
+		if (d < closest - 0.5) {
+			closest = d;
+			sinceCloser = 0;
+		} else if (++sinceCloser > 60 && d > 4) {
+			CombatSkills.markUnreachable(target);
+			Facts.report("threat_cleared");
+			done("the creeper keeps its distance");
+			return;
+		}
 		if (d <= 3.2 && Act.charged() && CombatSkills.canHitCreeper(new Perception.Seen(target, "creeper", d, true))) {
 			// A sprinting hit knocks it back far enough to reset the fuse.
 			pl.setSprinting(true);
