@@ -58,6 +58,40 @@ def test_metric_waits_for_enough_tries():
     assert st["champion"] == "g1" and st["genomes"]["g2"]["status"] == "contender", out
 
 
+def test_defending_champion_cannot_reuse_its_old_metric():
+    import loop
+    st, _ = _race([90, 150], [50, 150], [3.0, -4.0, 1.0, -2.0])
+    # This champion's evidence was collected against g1, not the next champion.
+    st["genomes"]["g3"] = dict(st["genomes"]["g1"], id="g3", status="contender",
+                               pairs=[[6, "s", 2.0]] * 8)
+    loop.race(st, {}, ["g3"], "g2", 6)
+    old = st["genomes"]["g2"]
+    assert old["pairs"] == [] and "metric_tally" not in old and "metric_z" not in old
+    loop.race(st, {}, ["g2"], "g3", 7)
+    assert st["champion"] == "g3"
+
+
+def test_state_migration_resets_all_race_evidence():
+    import tempfile
+    import common
+    import loop
+    for score_version, evidence_version in [(common.SCORE_VERSION - 1, 1), (common.SCORE_VERSION, 0)]:
+        with tempfile.TemporaryDirectory() as d:
+            st, _ = _race([90, 150], [50, 150], [1, -1, 1, -1])
+            st.update(score_version=score_version, race_evidence_version=evidence_version)
+            common.write_json(os.path.join(d, "state.json"), st)
+            loaded = loop.load_state(d, {})
+            assert loaded["score_version"] == common.SCORE_VERSION
+            assert loaded["race_evidence_version"] == 1
+            for g in loaded["genomes"].values():
+                assert g["pairs"] == [] and "metric_tally" not in g and "metric_z" not in g
+
+
+def test_metric_without_new_pairs_never_crowns():
+    st, _ = _race([95, 100], [20, 100], [])
+    assert st["champion"] == "g1"
+
+
 if __name__ == "__main__":
     for name, fn in list(globals().items()):
         if name.startswith("test_"):
