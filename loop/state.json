@@ -1526,13 +1526,13 @@
  "days": {
   "2026-09-27": 15,
   "2026-09-28": 32,
-  "2026-09-29": 4
+  "2026-09-29": 5
  },
  "evolve_days": {
   "2026-09-27": 1,
   "2026-09-28": 7
  },
- "gen": 51,
+ "gen": 52,
  "gene_specs": {
   "brain.death_s": {
    "def": 600.0,
@@ -7035,6 +7035,84 @@
    "parent": "g24",
    "status": "rejected"
   },
+  "g35": {
+   "born": 52,
+   "code": null,
+   "evals": [],
+   "genes": {
+    "cave.torches": 1.0,
+    "death.recover_night_armor": 12.0,
+    "focus.commit": 1.0,
+    "plan.hide_hp": 15.0,
+    "route.armor_before_portal": 0.0,
+    "skill.cast_portal": 1.0,
+    "skill.diamond_hunt": 1.0,
+    "skill.lava_scout": 1.0,
+    "skill.obsidian_pool": 1.0,
+    "skill.portal_repair": 1.0,
+    "skill.restock": 1.0,
+    "skill.ruined_portal": 1.0,
+    "skill.stash": 1.0
+   },
+   "id": "g35",
+   "mutated": [
+    "skill.lava_scout",
+    "skill.cast_portal",
+    "skill.ruined_portal",
+    "skill.obsidian_pool",
+    "skill.diamond_hunt",
+    "skill.portal_repair",
+    "skill.stash",
+    "skill.restock"
+   ],
+   "note": "suggested: skill.lava_scout 1, skill.cast_portal 1, skill.ruined_portal 1, skill.obsidian_pool 1, skill.diamond_hunt 1, skill.portal_repair 1, skill.stash 1, skill.restock 1",
+   "pairs": [],
+   "parent": "g24",
+   "status": "contender"
+  },
+  "g36": {
+   "born": 52,
+   "code": null,
+   "evals": [],
+   "genes": {
+    "cave.torches": 1.0,
+    "death.recover_night_armor": 12.0,
+    "focus.commit": 1.0,
+    "plan.hide_hp": 15.0,
+    "route.armor_before_portal": 0.0,
+    "skill.block_arrows": 1.0,
+    "skill.creeper_defuse": 1.0,
+    "skill.fish": 1.0,
+    "skill.food_secure": 1.0,
+    "skill.kite": 1.0,
+    "skill.make_bed": 1.0,
+    "skill.panic_box": 1.0,
+    "skill.pillar": 1.0,
+    "skill.recover_items": 1.0,
+    "skill.respawn_reset": 1.0,
+    "skill.secure_camp": 1.0,
+    "skill.stair_down": 1.0
+   },
+   "id": "g36",
+   "mutated": [
+    "skill.kite",
+    "skill.pillar",
+    "skill.block_arrows",
+    "skill.creeper_defuse",
+    "skill.panic_box",
+    "skill.respawn_reset",
+    "skill.recover_items",
+    "skill.make_bed",
+    "skill.food_secure",
+    "skill.fish",
+    "skill.secure_camp",
+    "skill.stair_down"
+   ],
+   "note": "suggested: skill.kite 1, skill.pillar 1, skill.block_arrows 1, skill.creeper_defuse 1, skill.panic_box 1, skill.respawn_reset 1, skill.recover_items 1, skill.make_bed 1, skill.food_secure 1, skill.fish 1, skill.secure_camp 1, skill.stair_down 1",
+   "pairs": [],
+   "parent": "g24",
+   "status": "contender"
+  },
   "g4": {
    "born": 2,
    "code": null,
@@ -7763,8 +7841,77 @@
  "model_kind": "trees",
  "model_r2": 0.208,
  "model_rows": 66627,
- "next_id": 35,
- "pending": null,
+ "next_id": 37,
+ "pending": {
+  "data_tasks": [],
+  "gen": 52,
+  "lineup": [
+   "g24",
+   "g30",
+   "g33",
+   "g35",
+   "g36"
+  ],
+  "runs": [
+   "eval-g24-0",
+   "eval-g24-1",
+   "eval-g24-2",
+   "eval-g24-3",
+   "eval-g30-0",
+   "eval-g30-1",
+   "eval-g30-2",
+   "eval-g30-3",
+   "eval-g33-0",
+   "eval-g33-1",
+   "eval-g33-2",
+   "eval-g33-3",
+   "eval-g35-0",
+   "eval-g35-1",
+   "eval-g35-2",
+   "eval-g35-3",
+   "eval-g36-0",
+   "eval-g36-1",
+   "eval-g36-2",
+   "eval-g36-3"
+  ],
+  "seeds": [
+   "L52-ptxaan",
+   "L52-8rxbwk",
+   "L52-g3jdet",
+   "L52-uuv3vf"
+  ],
+  "sha": "148c985108b56a6de2846968bbfb5c4a950a8bc7",
+  "started": "2026-09-29T03:59:08+00:00",
+  "tasks": [
+   {
+    "kind": "natural",
+    "seed": "L52-ptxaan",
+    "stage": "spawn",
+    "synthetic": false
+   },
+   {
+    "kind": "natural",
+    "seed": "L52-8rxbwk",
+    "stage": "spawn",
+    "synthetic": false
+   },
+   {
+    "asset": "lava-gen49-eval-g24-0.zip",
+    "kind": "start",
+    "seed": "L52-g3jdet",
+    "stage": "lava",
+    "synthetic": false
+   },
+   {
+    "kind": "combat",
+    "minutes": 10,
+    "scenario": "combat",
+    "seed": "L52-uuv3vf",
+    "stage": "combat",
+    "synthetic": false
+   }
+  ]
+ },
  "score_version": 2,
  "settings": {
   "accept_pairs": 8,
@@ -9621,7 +9768,9 @@
   "{\"food.keep_full\": 1}",
   "{\"gear.armor_first\": 1}",
   "{\"gear.shield_early\": 1}",
-  "{\"food.early_stock\": 1}"
+  "{\"food.early_stock\": 1}",
+  "{\"skill.cast_portal\": 1, \"skill.diamond_hunt\": 1, \"skill.lava_scout\": 1, \"skill.obsidian_pool\": 1, \"skill.portal_repair\": 1, \"skill.restock\": 1, \"skill.ruined_portal\": 1, \"skill.stash\": 1}",
+  "{\"skill.block_arrows\": 1, \"skill.creeper_defuse\": 1, \"skill.fish\": 1, \"skill.food_secure\": 1, \"skill.kite\": 1, \"skill.make_bed\": 1, \"skill.panic_box\": 1, \"skill.pillar\": 1, \"skill.recover_items\": 1, \"skill.respawn_reset\": 1, \"skill.secure_camp\": 1, \"skill.stair_down\": 1}"
  ],
  "version": 1
 }
