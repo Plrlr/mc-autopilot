@@ -121,6 +121,8 @@ public final class Tune {
 		// Survival: caves, night, lava, ghasts
 		gene("cave.torches", 1, 0, 1, Kind.BOOL, "place a torch wherever it's dark underground (mobs spawn only in the dark)");
 		gene("cave.torch_light", 3, 0, 7, Kind.INT, "place a torch when block light at our feet is at or below this");
+		gene("cave.seal_openings", 0, 0, 1, Kind.BOOL, "close newly mined cave mouths during iron and coal trips before walking into exposed mobs");
+		gene("cave.torch_recipe", 0, 0, 1, Kind.BOOL, "hand craft torches when the recipe book has not unlocked them before a mine trip");
 		gene("night.wall_in", 0, 0, 1, Kind.BOOL, "at night, wall in on the spot (fast) instead of digging a shelter hole");
 		gene("reflex.lava_margin", 0, 0, 1, Kind.BOOL, "step away from lava right beside us");
 		gene("combat.deflect", 0, 0, 1, Kind.BOOL, "hit a ghast's fireball back when it comes close");

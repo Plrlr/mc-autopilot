@@ -2,6 +2,7 @@ package io.github.plrlr.autopilot.skills;
 
 import io.github.plrlr.autopilot.Items2;
 import io.github.plrlr.autopilot.Mc;
+import io.github.plrlr.autopilot.Tune;
 import net.minecraft.client.ClientRecipeBook;
 import net.minecraft.client.gui.screens.recipebook.RecipeCollection;
 import net.minecraft.client.player.LocalPlayer;
@@ -57,6 +58,7 @@ public final class CraftSkill extends Skill {
 			"ender_eye", new Manual(new String[]{"EB"}, java.util.Map.of('E', "ender_pearl", 'B', "blaze_powder")),
 			"gold_ingot", new Manual(new String[]{"NNN", "NNN", "NNN"}, java.util.Map.of('N', "gold_nugget")),
 			"golden_helmet", new Manual(new String[]{"GGG", "G.G"}, java.util.Map.of('G', "gold_ingot")));
+	private static final Manual TORCH = new Manual(new String[]{"C", "S"}, java.util.Map.of('C', "coal", 'S', "stick"));
 
 	private static boolean haveFor(Manual m) {
 		for (var e : m.keys().entrySet()) if (Mc.count(Items2.matcher(e.getValue())) < m.needed(e.getKey())) return false;
@@ -81,9 +83,10 @@ public final class CraftSkill extends Skill {
 		before = Mc.count(matches);
 		timeoutTicks = 20 * 90;
 		RecipeDisplayEntry e = findRecipe(false);
-		if (e == null && findRecipe(true) == null && MANUAL.containsKey(target) && haveFor(MANUAL.get(target))) {
-			// Locked in the recipe book: a crafting table and our own hands.
-			manual = MANUAL.get(target);
+		Manual fallback = target.equals("torch") && Tune.on("cave.torch_recipe") ? TORCH : MANUAL.get(target);
+		if (e == null && findRecipe(true) == null && fallback != null && haveFor(fallback)) {
+			// Locked in the recipe book: lay out the vanilla pattern with the player's hands.
+			manual = fallback;
 			for (var k : manual.keys().entrySet()) {
 				Predicate<ItemStack> m = Items2.matcher(k.getValue());
 				if (k.getValue().equals("planks")) {
@@ -101,8 +104,9 @@ public final class CraftSkill extends Skill {
 				}
 				manualWant.put(k.getKey(), m);
 			}
-			needsTable = true;
-			station = new Station("crafting_table", CraftingMenu.class, memory);
+			needsTable = !target.equals("torch");
+			if (needsTable) station = new Station("crafting_table", CraftingMenu.class, memory);
+			else if (Mc.player().containerMenu != Mc.player().inventoryMenu) Mc.player().closeContainer();
 			return;
 		}
 		if (e == null) {
@@ -202,7 +206,7 @@ public final class CraftSkill extends Skill {
 			for (int c = 0; c < row.length(); c++) {
 				char k = row.charAt(c);
 				if (k == '.') continue;
-				int slot = 1 + r * 3 + c;
+				int slot = 1 + r * (needsTable ? 3 : 2) + c;
 				if (menu.getSlot(slot).hasItem()) continue;
 				Predicate<ItemStack> want = manualWant.get(k);
 				if (!carried.isEmpty() && want.test(carried)) {
@@ -210,11 +214,11 @@ public final class CraftSkill extends Skill {
 					return;
 				}
 				if (!carried.isEmpty()) {
-					putBack(menu);
+					putBack(menu, needsTable);
 					return;
 				}
 				for (Slot s : menu.slots) {
-					if (s.index >= 10 && s.hasItem() && want.test(s.getItem())) {
+					if (s.index >= (needsTable ? 10 : 9) && s.hasItem() && want.test(s.getItem())) {
 						Mc.click(menu, s.index, 0, ContainerInput.PICKUP);
 						return;
 					}
@@ -225,7 +229,7 @@ public final class CraftSkill extends Skill {
 			}
 		}
 		if (!carried.isEmpty()) {
-			putBack(menu);
+			putBack(menu, needsTable);
 			return;
 		}
 		// Grid full: the result shows up once the server has it.
@@ -233,16 +237,16 @@ public final class CraftSkill extends Skill {
 	}
 
 	/** Carried leftovers back into the bag: onto a matching stack, else an empty slot. */
-	private static void putBack(AbstractContainerMenu menu) {
+	private static void putBack(AbstractContainerMenu menu, boolean table) {
 		ItemStack carried = menu.getCarried();
 		for (Slot s : menu.slots)
-			if (s.index >= 10 && s.hasItem() && ItemStack.isSameItemSameComponents(s.getItem(), carried)
+			if (s.index >= (table ? 10 : 9) && s.hasItem() && ItemStack.isSameItemSameComponents(s.getItem(), carried)
 					&& s.getItem().getCount() < s.getItem().getMaxStackSize()) {
 				Mc.click(menu, s.index, 0, ContainerInput.PICKUP);
 				return;
 			}
 		for (Slot s : menu.slots)
-			if (s.index >= 10 && !s.hasItem()) {
+			if (s.index >= (table ? 10 : 9) && !s.hasItem()) {
 				Mc.click(menu, s.index, 0, ContainerInput.PICKUP);
 				return;
 			}

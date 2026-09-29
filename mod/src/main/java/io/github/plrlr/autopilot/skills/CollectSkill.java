@@ -1,11 +1,13 @@
 package io.github.plrlr.autopilot.skills;
 
 import baritone.api.pathing.goals.GoalYLevel;
+import baritone.api.pathing.goals.GoalNear;
 import io.github.plrlr.autopilot.Items2;
 import io.github.plrlr.autopilot.Mc;
 import io.github.plrlr.autopilot.plan.TechTree;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.core.Direction;
+import net.minecraft.core.BlockPos;
 
 /**
  * collect item:n. Baritone mines the source blocks (legit mode: only blocks it has seen, or
@@ -33,6 +35,10 @@ public final class CollectSkill extends Skill {
 	/** Flint has its own way: one seen gravel, placed and broken until flint drops. */
 	private FlintSteps flint;
 	private Skill stoneStep;
+	private CaveSeal caveSeal;
+	private final java.util.ArrayDeque<BlockPos> mineTrail = new java.util.ArrayDeque<>();
+	private BlockPos alternateStart;
+	private int diversionTicks;
 
 	@Override
 	public String name() {
@@ -115,6 +121,7 @@ public final class CollectSkill extends Skill {
 		// Stone and dirt too: legit mode mines the ones in view, else digs down to them.
 		Bari.setLegitMine(true);
 		Bari.setMineY(mineY != null ? mineY : Mc.player().getBlockY() - (item.equals("dirt") ? 1 : 3));
+		if (io.github.plrlr.autopilot.Tune.on("cave.seal_openings") && mineY != null) caveSeal = new CaveSeal(blocks);
 		// Baritone's legit branch mining doesn't go down on its own: from the surface it wandered
 		// 200+ blocks at y 60 looking for iron. Staircase down to the ore's depth first, unless an
 		// ore of this kind is already in view.
@@ -196,6 +203,40 @@ public final class CollectSkill extends Skill {
 				}
 			}
 			return;
+		}
+		if (alternateStart != null) {
+			if (++diversionTicks > 20 * 15 || Mc.player().blockPosition().distSqr(alternateStart) <= 4 || !Bari.pathing()) {
+				alternateStart = null;
+				Bari.stop();
+				if (descending >= 0) Bari.path(new GoalYLevel(mineY));
+				else Bari.get().getMineProcess().mine(blocks);
+			}
+			return;
+		}
+		if (caveSeal != null) {
+			BlockPos here = Mc.player().blockPosition();
+			if (mineTrail.isEmpty() || !mineTrail.peekLast().equals(here)) {
+				mineTrail.addLast(here);
+				if (mineTrail.size() > 40) mineTrail.removeFirst();
+			}
+			CaveSeal.Status seal = caveSeal.tick();
+			if (seal == CaveSeal.Status.FAILED) {
+				fail(Fail.PLACE_FAILED, "couldn't close a cave opening during mining");
+				return;
+			}
+			if (seal == CaveSeal.Status.BUSY) return;
+			if (seal == CaveSeal.Status.SEALED) {
+				// Re-entering the same opening would undo the wall. Return along the known tunnel
+				// before letting legit branch mining seek a different route.
+				for (BlockPos p : mineTrail)
+					if (p.distSqr(here) >= 36 && Math.abs(p.getY() - here.getY()) <= 3) { alternateStart = p; break; }
+				if (alternateStart != null) {
+					diversionTicks = 0;
+					Bari.path(new GoalNear(alternateStart, 1));
+				} else if (descending >= 0) Bari.path(new GoalYLevel(mineY));
+				else Bari.get().getMineProcess().mine(blocks);
+				return;
+			}
 		}
 		if (descending >= 0) {
 			descending++;
