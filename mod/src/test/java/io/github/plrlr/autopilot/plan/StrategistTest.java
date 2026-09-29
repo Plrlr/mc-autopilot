@@ -55,7 +55,7 @@ class StrategistTest {
 			double[] s = stats.get(key);
 			double n = s == null ? 0 : s[0], ok = s == null ? 0 : s[1];
 			double a = priorP * 4 + ok, b = (1 - priorP) * 4 + n - ok, p = a / (a + b);
-			return new SkillStats.Estimate(p, p, p, priorSeconds, 0.02, n);
+			return new SkillStats.Estimate(p, p, p, priorSeconds, priorSeconds, 0.02, n);
 		}
 
 		@Override

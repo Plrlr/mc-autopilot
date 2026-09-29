@@ -32,18 +32,26 @@ public final class SkillStats {
 	static final int CONTEXT_MIN = 8;
 
 	/** Counts for one key (or key@context). */
-	record Counts(double n, double ok, double died, double okSecs) {
+	record Counts(double n, double ok, double died, double okSecs, double spent) {
 		Counts plus(Counts o) {
-			return new Counts(n + o.n, ok + o.ok, died + o.died, okSecs + o.okSecs);
+			return new Counts(n + o.n, ok + o.ok, died + o.died, okSecs + o.okSecs, spent + o.spent);
 		}
 	}
 
-	/** What the brain uses: success chance with its 90% bounds, seconds per success, death chance per try. */
-	public record Estimate(double p, double pLow, double pHigh, double seconds, double death, double n) {
-		/** Expected seconds to get one success, counting failed tries and deaths (a death costs deathSeconds). */
+	/**
+	 * What the brain uses: success chance with its 90% bounds, seconds of a success, seconds a try
+	 * takes on average (failures included), death chance per try.
+	 */
+	public record Estimate(double p, double pLow, double pHigh, double seconds, double spent, double death, double n) {
+		/**
+		 * Expected seconds to get one success: tries needed (1/p) times what a try costs, its mean
+		 * time plus its death risk (a death costs deathSeconds). Using the mean try, not the time of a
+		 * success, matters: a cast that fails "no flat ground" fails in seconds, and charging each
+		 * failure a full cast's time made casting look ~5x dearer than it is (smoke run, 2026-09-29).
+		 */
 		public double cost(double deathSeconds) {
 			double pp = Math.max(0.02, p);
-			return (seconds + death * deathSeconds) / pp;
+			return (spent + death * deathSeconds) / pp;
 		}
 
 		/** Clearly not working: enough tries and even the optimistic bound is low. */
@@ -70,7 +78,7 @@ public final class SkillStats {
 				JsonObject o = e.getValue().getAsJsonObject();
 				double n = num(o, "n"), ok = num(o, "ok");
 				double sec = o.has("sec") && !o.get("sec").isJsonNull() ? o.get("sec").getAsDouble() : 0;
-				m.put(e.getKey(), new Counts(n, ok, num(o, "died"), sec * ok));
+				m.put(e.getKey(), new Counts(n, ok, num(o, "died"), sec * ok, num(o, "spent") * n));
 			}
 		}
 		loop = Map.copyOf(m);
@@ -88,7 +96,7 @@ public final class SkillStats {
 
 	/** One skill ended in this game. contexts: "overworld", "night", "under"... (see contexts()). */
 	public void record(String key, List<String> contexts, boolean ok, boolean died, double seconds) {
-		Counts c = new Counts(LOCAL_WEIGHT, ok ? LOCAL_WEIGHT : 0, died ? LOCAL_WEIGHT : 0, ok ? seconds * LOCAL_WEIGHT : 0);
+		Counts c = new Counts(LOCAL_WEIGHT, ok ? LOCAL_WEIGHT : 0, died ? LOCAL_WEIGHT : 0, ok ? seconds * LOCAL_WEIGHT : 0, seconds * LOCAL_WEIGHT);
 		local.merge(key, c, Counts::plus);
 		for (String ctx : contexts) local.merge(key + "@" + ctx, c, Counts::plus);
 	}
@@ -104,13 +112,15 @@ public final class SkillStats {
 			Counts c = counts(key + "@" + ctx);
 			if (c != null && c.n() >= CONTEXT_MIN && (best == null || !ctx.equals("overworld"))) best = c;
 		}
-		if (best == null) best = new Counts(0, 0, 0, 0);
+		if (best == null) best = new Counts(0, 0, 0, 0, 0);
 		double a = priorP * PRIOR_N + best.ok(), b = (1 - priorP) * PRIOR_N + best.n() - best.ok();
 		double p = a / (a + b);
 		double sd = Math.sqrt(p * (1 - p) / (a + b + 1));
 		double secs = best.ok() > 0 ? (best.okSecs() + priorSeconds * 2) / (best.ok() + 2) : priorSeconds;
 		double death = (best.died() + 0.02 * PRIOR_N) / (best.n() + PRIOR_N);
-		return new Estimate(p, Math.max(0, p - 1.645 * sd), Math.min(1, p + 1.645 * sd), secs, death, best.n());
+		// Mean seconds per try, smoothed toward the prior (a prior try takes as long as a success).
+		double spent = (best.spent() + priorSeconds * PRIOR_N) / (best.n() + PRIOR_N);
+		return new Estimate(p, Math.max(0, p - 1.645 * sd), Math.min(1, p + 1.645 * sd), secs, spent, death, best.n());
 	}
 
 	private Counts counts(String key) {

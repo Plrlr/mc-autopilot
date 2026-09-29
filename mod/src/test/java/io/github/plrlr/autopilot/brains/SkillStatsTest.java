@@ -60,9 +60,21 @@ class SkillStatsTest {
 
 	@Test
 	void costGrowsWhenTriesFailOrKill() {
-		SkillStats.Estimate good = new SkillStats.Estimate(0.8, 0.7, 0.9, 60, 0.01, 50);
-		SkillStats.Estimate bad = new SkillStats.Estimate(0.2, 0.1, 0.3, 60, 0.2, 50);
+		SkillStats.Estimate good = new SkillStats.Estimate(0.8, 0.7, 0.9, 60, 60, 0.01, 50);
+		SkillStats.Estimate bad = new SkillStats.Estimate(0.2, 0.1, 0.3, 60, 60, 0.2, 50);
 		assertTrue(bad.cost(600) > 5 * good.cost(600));
+	}
+
+	@Test
+	void quickFailuresCostLessThanSlowOnes() {
+		// The cast portal: fails in seconds ("no flat ground") most tries, casts in 420 s when it can.
+		SkillStats s = new SkillStats();
+		for (int i = 0; i < 9; i++) s.record("build_portal", List.of("overworld"), false, false, 5);
+		s.record("build_portal", List.of("overworld"), true, false, 420);
+		SkillStats.Estimate e = s.estimate("build_portal", List.of("overworld"), 0.05, 420);
+		// Mean try ~ (9*5 + 420)*2 + 420*4 over 24 = ~109 s, not 420.
+		assertTrue(e.spent() < 130, "spent " + e.spent());
+		assertTrue(e.cost(600) < 420 / e.p(), "cost " + e.cost(600));
 	}
 
 	@Test
