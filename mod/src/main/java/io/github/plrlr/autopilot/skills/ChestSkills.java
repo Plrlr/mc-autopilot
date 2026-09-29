@@ -64,7 +64,7 @@ public final class ChestSkills {
 			BlockPos at = station.pos();
 			if (at != null) memory.remember("chest", at, "chest");
 			Facts.report("chest_known");
-			if (moves == 0 && this instanceof Restock && io.github.plrlr.autopilot.Tune.on("skill.restock_stash_only")) {
+			if (moves == 0 && this instanceof Restock && io.github.plrlr.autopilot.Tune.on("restock.stash_only")) {
 				fail(Fail.NOT_FOUND, "no wanted spares in our stash");
 				return;
 			}
@@ -150,11 +150,11 @@ public final class ChestSkills {
 
 		@Override
 		protected void start() {
-			if (io.github.plrlr.autopilot.Tune.on("skill.restock_stash_only") && Stash.position() == null) {
+			if (io.github.plrlr.autopilot.Tune.on("restock.stash_only") && Stash.position() == null) {
 				fail(Fail.NOT_FOUND, "no stash chest known");
 				return;
 			}
-			if (!io.github.plrlr.autopilot.Tune.on("skill.restock_stash_only") && memory.nearest("chest") == null) {
+			if (!io.github.plrlr.autopilot.Tune.on("restock.stash_only") && memory.nearest("chest") == null) {
 				fail(Fail.NOT_FOUND, "no chest of ours known");
 				return;
 			}
@@ -163,7 +163,7 @@ public final class ChestSkills {
 		}
 
 		@Override BlockPos preferredChest() {
-			return io.github.plrlr.autopilot.Tune.on("skill.restock_stash_only") ? Stash.position() : null;
+			return io.github.plrlr.autopilot.Tune.on("restock.stash_only") ? Stash.position() : null;
 		}
 
 		@Override

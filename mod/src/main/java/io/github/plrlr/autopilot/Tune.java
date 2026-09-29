@@ -143,9 +143,9 @@ public final class Tune {
 		gene("gather.dry_stone", 0, 0, 1, Kind.BOOL, "prefer only seen stone with no water touching it");
 		gene("fluid.enclosed_tunnel", 0, 0, 1, Kind.BOOL, "drain only flooded passages with a solid roof and walls, not open lakes");
 		gene("gather.stair_for_stone", 0, 0, 1, Kind.BOOL, "when no dry seen stone is near, reach stone by safe stairs from dry ground");
-		gene("skill.restock_stash_only", 0, 0, 1, Kind.BOOL, "restock only after death from a chest we actually stashed spares into");
+		gene("restock.stash_only", 0, 0, 1, Kind.BOOL, "restock only after death from a chest we actually stashed spares into");
 		gene("plan.noop_success_pause", 0, 0, 1, Kind.BOOL, "pause an action after three successes that changed neither inventory nor position");
-		gene("skill.bed_table_first", 0, 0, 1, Kind.BOOL, "make and place a crafting table before crafting a bed");
+		gene("bed.table_first", 0, 0, 1, Kind.BOOL, "make and place a crafting table before crafting a bed");
 		gene("safety.spawner_room", 0, 0, 1, Kind.BOOL, "wall off an active overworld spawner and avoid death drops and chests near it");
 		gene("skill.food_secure", 0, 0, 1, Kind.BOOL, "get food by a ladder of sources (cook, hunt, remembered animals, fish, explore)");
 		gene("skill.fish", 0, 0, 1, Kind.BOOL, "fish with a rod at known water");

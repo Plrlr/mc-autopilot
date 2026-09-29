@@ -48,7 +48,7 @@ public final class MakeBed extends Composite {
 				if (Mc.count(Items2.matcher("log")) > 0) return new Option("craft", "planks:4", "planks for the bed");
 				return new Option("collect", "log:1", "a log for the bed's planks");
 			}
-			if (io.github.plrlr.autopilot.Tune.on("skill.bed_table_first")
+			if (io.github.plrlr.autopilot.Tune.on("bed.table_first")
 					&& Mc.count("crafting_table") == 0 && memory.nearestStation("crafting_table") == null) {
 				if (Mc.count(Items2.matcher("planks")) < 4) {
 					if (Mc.count(Items2.matcher("log")) > 0) return new Option("craft", "planks:4", "planks for a crafting table");
@@ -56,7 +56,7 @@ public final class MakeBed extends Composite {
 				}
 				return new Option("craft", "crafting_table:1", "a crafting table for the bed");
 			}
-			if (io.github.plrlr.autopilot.Tune.on("skill.bed_table_first")
+			if (io.github.plrlr.autopilot.Tune.on("bed.table_first")
 					&& Mc.count("crafting_table") > 0 && memory.nearestStation("crafting_table") == null)
 				return new Option("place", "crafting_table", "place the table for the bed");
 			return new Option("craft", "bed:1", "craft a bed from 3 wool and 3 planks");

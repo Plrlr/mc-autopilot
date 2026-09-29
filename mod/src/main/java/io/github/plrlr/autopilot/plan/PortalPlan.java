@@ -64,7 +64,7 @@ public final class PortalPlan {
 	/** After a death with our chest near: take the spares back before rebuilding by hand (gene skill.restock). */
 	public static Option restock(WorldMemory memory) {
 		if (!Tune.on("skill.restock") || Items2.bestTier("pickaxe") >= 2) return null;
-		if (Tune.on("skill.restock_stash_only")) {
+		if (Tune.on("restock.stash_only")) {
 			if (!SurvivalPlan.diedHere() || ChestSkills.Stash.position() == null) return null;
 			if (ChestSkills.Stash.position().distSqr(Mc.player().blockPosition()) > WorldMemory.STATION_RANGE * WorldMemory.STATION_RANGE) return null;
 		} else if (memory.nearestStation("chest") == null) return null;
