@@ -47,7 +47,8 @@ public class AutopilotClientTest implements FabricClientGameTest {
 		// Small view and simulation distances: far fewer chunks to generate and tick, so the
 		// test world keeps up on a laptop (and a faster tick rate becomes possible).
 		ctx.runOnClient(mc -> {
-			mc.options.renderDistance().set(6);
+			// -PtestRender: fewer chunks to mesh and draw leaves CPU for the server (speed benchmark).
+			mc.options.renderDistance().set(Integer.getInteger("autopilot.test.render", 6));
 			mc.options.simulationDistance().set(5);
 			if (Boolean.getBoolean("autopilot.test.lean")) lean(mc.options);
 		});
