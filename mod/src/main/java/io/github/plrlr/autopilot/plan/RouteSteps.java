@@ -267,6 +267,12 @@ final class RouteSteps {
 				Option o = p.itemStep("stick", Tune.i("deep.sticks"), depth + 1);
 				if (o != null) return o;
 			}
+			// Planks too: torches crafted by hand down there eat sticks, and more sticks from
+			// carried planks beat a climb to the trees for them.
+			if (!pick && Mc.count("planks") < 4) {
+				Option o = p.itemStep("planks", 4, depth + 1);
+				if (o != null) return o;
+			}
 		}
 		if (!pick && Goal.have("obsidian") < 10) {
 			Option o = p.itemStep("diamond_pickaxe", 1, depth + 1);

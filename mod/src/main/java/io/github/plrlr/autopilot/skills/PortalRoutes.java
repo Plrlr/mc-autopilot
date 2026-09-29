@@ -266,7 +266,7 @@ public final class PortalRoutes {
 
 	/** diamond_hunt[:n]: safe stairs down to -54, then legit branch mining for n diamonds. */
 	public static final class DiamondHunt extends Composite {
-		private int want, tries;
+		private int want, tries, stairs;
 
 		@Override
 		public String name() {
@@ -285,7 +285,9 @@ public final class PortalRoutes {
 		@Override
 		protected Option next() {
 			if (Mc.count("diamond") >= want) return null;
-			if (Mc.player().getBlockY() > -50) return new Option("stair_down", "-54", "safe stairs to diamond depth");
+			// Stairs twice at most: lava or drops on every side at some depth fail them each time,
+			// and collect finds its own way down (Baritone's legit mining digs to the ore's depth).
+			if (Mc.player().getBlockY() > -50 && stairs++ < 2) return new Option("stair_down", "-54", "safe stairs to diamond depth");
 			if (tries++ >= 3) return null;
 			return new Option("collect", "diamond:" + (want - Mc.count("diamond")), "branch-mine for diamonds in sight");
 		}

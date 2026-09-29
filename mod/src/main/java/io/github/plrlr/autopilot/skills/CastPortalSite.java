@@ -29,7 +29,7 @@ import java.util.Set;
  * cheapest is picked, up to 3 sites.
  */
 public final class CastPortalSite extends Composite {
-	private enum Phase {APPROACH, PICK, MAKE, DIG, FLOOR, CAST, DONE}
+	private enum Phase {APPROACH, PICK, MAKE, DIG, FLOOR, CAST, CLIMB, DONE}
 
 	private Phase phase = Phase.APPROACH;
 	private final Act.Breaker breaker = new Act.Breaker();
@@ -37,6 +37,7 @@ public final class CastPortalSite extends Composite {
 	private PortalSite.Plan plan;
 	private BlockPos pool;
 	private int idx, sites, stuck, placeTries;
+	private boolean climbed;
 	/**
 	 * dig_portal: the same room, dug for a frame of 10 carried obsidian (the diamond route) instead
 	 * of a cast. No lava pool needed; underground there is never flat open ground, so the room
@@ -144,7 +145,7 @@ public final class CastPortalSite extends Composite {
 				return true;
 			}
 			case PICK -> {
-				if (io.github.plrlr.autopilot.Tune.on("portal.site_maker")) {
+				if (!placed && io.github.plrlr.autopilot.Tune.on("portal.site_maker")) {
 					maker = new PortalSiteMaker(pool);
 					phase = Phase.MAKE;
 					return true;
@@ -154,6 +155,14 @@ public final class CastPortalSite extends Composite {
 					return true;
 				}
 				plan = PortalSite.best(Mc.player().blockPosition(), pool, WORLD, bad);
+				if (plan == null && placed && !climbed) {
+					// Nothing safe to dig here (lava and water all around, down at the lava caves):
+					// the frame needs no lava, so take it up to the surface and build there.
+					climbed = true;
+					sites = 0;
+					phase = Phase.CLIMB;
+					return false;
+				}
 				if (plan == null) {
 					fail(Fail.NO_ROOM, "no site near the lava can be dug out safely");
 					return true;
@@ -257,6 +266,10 @@ public final class CastPortalSite extends Composite {
 
 	@Override
 	protected Option next() {
+		if (phase == Phase.CLIMB) {
+			phase = Phase.PICK;
+			return new Option("goto", "surface", "no room for the frame down here: build it up top");
+		}
 		if (phase != Phase.CAST) return phase == Phase.DONE ? null : WAIT;
 		phase = Phase.DONE;
 		if (placed) return new Option("build_portal", "placed", "build the frame in the room we dug and light it");
