@@ -35,6 +35,17 @@ class SkillSpecsTest {
 	}
 
 	@Test
+	void allFortySkillsHaveAGeneAMenuEntryAndASpec() {
+		var skillGenes = Tune.genes().keySet().stream().filter(n -> n.startsWith("skill.")).toList();
+		assertEquals(40, skillGenes.size(), "docs/skills-40.md: 40 skill genes");
+		for (String g : skillGenes) {
+			String name = g.substring("skill.".length());
+			assertTrue(Skills.MENU.containsKey(name), g + ": no skill named " + name);
+			assertTrue(SkillSpecs.ALL.stream().anyMatch(s -> g.equals(s.gene())), g + ": no route spec");
+		}
+	}
+
+	@Test
 	void keysMatchWhatTheBrainLogs() {
 		assertEquals("fortress:blazes", SkillSpec.keyOf("fortress", "blazes:7"));
 		assertEquals("explore:cow", SkillSpec.keyOf("explore", "cow,pig"));

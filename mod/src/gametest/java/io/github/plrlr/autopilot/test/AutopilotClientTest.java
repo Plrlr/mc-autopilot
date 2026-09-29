@@ -185,6 +185,15 @@ public class AutopilotClientTest implements FabricClientGameTest {
 		// The combat drill stages each round itself (CombatDrill), in a natural world.
 		if (scenario.equals("natural") || scenario.equals("combat")) return null;
 		server.runCommand("time set 1000");
+		if (scenario.equals("pillar")) {
+			server.runCommand("time set 14000");
+			for (String g : List.of("cobblestone 16", "iron_sword", "cooked_beef 4")) server.runCommand("give @a " + g);
+			server.runCommand("execute at @p run fill ~-6 ~-1 ~-6 ~6 ~-1 ~6 stone");
+			server.runCommand("execute at @p run fill ~-6 ~ ~-6 ~6 ~5 ~6 air");
+			server.runCommand("execute at @p run summon zombie ~4 ~ ~");
+			server.runCommand("execute at @p run summon zombie ~-4 ~ ~");
+			return Goal.SURVIVE_NIGHT;
+		}
 		if (scenario.equals("cast")) {
 			// The full kit the route carries by the cast (shield, chestplate, helmet worn): without
 			// them the portal step sent the bot mining 26 iron instead of casting (batch 12).

@@ -117,6 +117,12 @@ a { color: var(--s1); }
   </div>
 
   <div class="card" style="margin-top:16px">
+    <h2>Skills</h2>
+    <p class="note">How each action works out over every game the loop has played (brain v2's skill stats): tries, share that succeeded, deaths during it, and the usual time of a success. The strategist picks routes by these; the worst ones come first, since that's where a fix pays most.</p>
+    <div class="tablewrap"><table id="skills"></table></div>
+  </div>
+
+  <div class="card">
     <h2>Family tree</h2>
     <p class="note">Every genome tried, placed by the generation it was born in. Lines join a child to its parent. Blue marks the champions' line of descent, orange marks challengers still racing, and gray marks dropped ones.</p>
     <div class="legend"><span><i class="dot" style="background:var(--s1)"></i>champion line</span><span><i class="dot" style="background:var(--s2)"></i>racing</span><span><i class="dot" style="background:var(--faint)"></i>dropped</span></div>
@@ -362,7 +368,17 @@ function games(history) {
   const rows = all.slice(-30).reverse();
   $("games").innerHTML = "<tr><th>Gen</th><th>Where</th><th>Champion</th><th class='num'>Minutes</th><th>Furthest stage</th><th>Milestones</th><th class='num'>Deaths</th><th class='num'>Score</th></tr>" +
     (rows.length ? rows.map((g) => `<tr><td class="num">${g.gen}</td><td>${esc(g.machine || "?")}</td><td>${esc(g.genome)}</td><td class="num">${g.minutes ?? ""}</td><td>${esc(STAGE_NAMES[g.furthest] || g.furthest || "–")}</td><td>${esc((g.milestones || []).map((m) => "m" + m[0]).join(" "))}</td><td class="num">${g.deaths}</td><td class="num">${fmt(g.score, 2)}</td></tr>`).join("")
-      : "<tr><td colspan='8' class='empty'>No full games yet: marathons run every 8 hours.</td></tr>");
+      : "<tr><td colspan='8' class='empty'>No full games yet (marathons are paused).</td></tr>");
+}
+
+function skills(state) {
+  const st = (state && state.skill_stats) || {};
+  const rows = Object.entries(st).filter(([, v]) => v.n >= 5)
+    .map(([k, v]) => ({ k, ...v, rate: v.ok / v.n }))
+    .sort((a, b) => a.rate - b.rate || b.n - a.n);
+  $("skills").innerHTML = "<tr><th>Action</th><th class='num'>Tries</th><th class='num'>Worked</th><th class='num'>Died</th><th class='num'>Seconds</th><th>Most common failures</th></tr>" +
+    (rows.length ? rows.map((r) => `<tr><td>${esc(r.k)}</td><td class="num">${r.n}</td><td class="num">${Math.round(100 * r.rate)}%</td><td class="num">${r.died}</td><td class="num">${r.sec == null ? "–" : fmt(r.sec, 0)}</td><td>${esc(Object.entries(r.codes || {}).map(([c, n]) => c.toLowerCase() + " " + n).join(", "))}</td></tr>`).join("")
+      : "<tr><td colspan='6' class='empty'>No skill stats yet: they start with the first generation after brain v2's data change.</td></tr>");
 }
 
 function render(data) {
@@ -399,6 +415,7 @@ function render(data) {
   $("modelTiles").innerHTML = mt.map(([k, v, n]) => `<div class="tile"><div class="k">${esc(k)}</div><div class="v">${esc(v)}</div><div class="n">${esc(n)}</div></div>`).join("");
   ladder(state, history);
   games(history);
+  skills(state);
   scoreChart(history);
   reachChart(history);
   genesChart(state, (state && state.gene_specs) || {});

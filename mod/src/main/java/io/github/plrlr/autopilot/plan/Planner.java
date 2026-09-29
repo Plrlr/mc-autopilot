@@ -48,7 +48,12 @@ public final class Planner {
 			if (prep == null && Tune.on("gear.shield_early")) prep = earlyShieldStep();
 			if (prep != null) main = prep;
 		}
+		main = SurvivalPlan.beforeWork(PortalPlan.diamonds(main));
 		List<Option> urgent = urgent(seen, main);
+		Option respawn = SurvivalPlan.respawn();
+		if (respawn != null) urgent.add(0, respawn);
+		Option arrival = NetherPlan.arrival();
+		if (arrival != null) urgent.add(0, arrival);
 		if (Tune.on("move.shore_first") && ShoreSkill.needed()
 				&& (groundWork(main) || urgent.stream().anyMatch(Planner::groundWork))) {
 			// One shared decision prevents collect, station, shelter and explore from handing the
@@ -196,7 +201,7 @@ public final class Planner {
 				for (String animal : ANIMALS.split(",")) {
 					if (seen.nearest(animal) != null) return new Option("attack", animal, "hunt for meat");
 				}
-				return new Option("explore", ANIMALS, "look for animals to hunt");
+				return SurvivalPlan.food(new Option("explore", ANIMALS, "look for animals to hunt"));
 			}
 			case IRON_ARMOR -> {
 				Option o = itemsStep(goal);
@@ -228,6 +233,9 @@ public final class Planner {
 					Option o = itemStep("iron_boots", 1, depth + 1);
 					if (o != null) return o;
 				}
+				// Brain v2: the strategist picks cast, diamonds or a ruined portal by learned expected time.
+				Option st = strategic("in_nether", seen, depth);
+				if (st != null) return st;
 				// Speedrun route: without a diamond pickaxe, cast the frame from lava and water.
 				// Two routes to the frame: cast it from lava and water (no diamonds; the speedrunners'
 				// way), or the classic way: diamond pickaxe, harden lava into obsidian, mine 10 blocks.
@@ -244,6 +252,8 @@ public final class Planner {
 					Option o = itemStep("diamond_pickaxe", 1, depth + 1);
 					if (o != null) return o;
 				}
+				Option pool = PortalPlan.obsidian(memory);
+				if (pool != null) return pool;
 				Option o = itemsStep(goal);
 				if (o != null) return o;
 				// The frame corners can be any block; 10 obsidian covers the rest.
@@ -255,9 +265,15 @@ public final class Planner {
 			}
 			case BLAZE_RODS -> {
 				if (!dim.equals("the_nether")) return depth > 2 ? null : goalStep(Goal.NETHER_PORTAL, seen, depth + 1);
+				Option st = strategicItem("blaze_rod", 7, seen, depth);
+				if (st != null) return st;
 				return NetherPlan.blazeStep(memory, seen);
 			}
 			case ENDER_PEARLS -> {
+				Option st = strategicItem("ender_pearl", Tune.i("pearls.target"), seen, depth);
+				if (st != null) return st;
+				Option wave3 = NetherPlan.pearls(seen);
+				if (wave3 != null) return wave3;
 				Option trade = barterStep(seen, depth);
 				if (trade != null) return trade;
 				// The boat trap (speedrunners'): an enderman in a boat can't move, teleport or hit back.
@@ -270,25 +286,36 @@ public final class Planner {
 				return new Option("explore", "enderman", "look for endermen (more at night, many in warped forests)");
 			}
 			case FIND_STRONGHOLD -> {
-				if (dim.equals("the_nether") && memory.nearest("nether_portal") != null) return new Option("enter_portal", "overworld", "go back to the overworld");
+				if (dim.equals("the_nether") && memory.nearest("nether_portal") != null) return NetherPlan.home(new Option("enter_portal", "overworld", "go back to the overworld"));
+				if (dim.equals("the_nether") && Tune.on("skill.portal_return")) return NetherPlan.home(null);
 				if (memory.nearest("end_portal_frame") != null) return null;
+				Option st = strategic("frame_known", seen, depth);
+				if (st != null) return st;
 				// Inside the stronghold already: its portal room is somewhere down the corridors.
 				if (io.github.plrlr.autopilot.skills.SearchStronghold.inStronghold())
-					return new Option("search_stronghold", null, "explore the stronghold's corridors for the portal room");
+					return LatePlan.search(new Option("search_stronghold", null, "explore the stronghold's corridors for the portal room"));
 				if (Mc.count("ender_eye") == 0) return itemStep("ender_eye", 1, 0);
-				return new Option("locate_stronghold", null, "throw an eye of ender and follow it");
+				return LatePlan.locate(new Option("locate_stronghold", null, "throw an eye of ender and follow it"));
 			}
 			case ENTER_END -> {
 				if (dim.equals("the_end")) return null;
+				Option st = strategic("in_end", seen, depth);
+				if (st != null) return st;
 				if (memory.nearest("end_portal") != null) return new Option("enter_portal", "end", "jump into the end portal");
 				if (memory.nearest("end_portal_frame") != null) {
 					if (Mc.count("ender_eye") == 0) return itemStep("ender_eye", 1, 0);
-					return new Option("fill_end_portal", null, "put eyes of ender in the empty frames");
+					return LatePlan.beforeFill(new Option("fill_end_portal", null, "put eyes of ender in the empty frames"), memory);
 				}
 				return depth > 2 ? null : goalStep(Goal.FIND_STRONGHOLD, seen, depth + 1);
 			}
 			case KILL_DRAGON -> {
 				if (!dim.equals("the_end")) return depth > 2 ? null : goalStep(Goal.ENTER_END, seen, depth + 1);
+				// A different way to kill it (bed bombs, once raced) replaces the fight; the plain
+				// fight keeps its crystals-first order below.
+				Option st = strategic("dragon_dead", seen, depth);
+				if (st != null && !st.skill().equals("dragon")) return st;
+				Option endStep = LatePlan.end();
+				if (endStep != null) return endStep;
 				boolean bow = Mc.count("bow") > 0 && Mc.count("arrow") > 0;
 				// Crystals stand high on the pillars, beyond the usual 32-block look: look farther.
 				if (bow && Perception.look(96).nearest("end_crystal") != null) return new Option("shoot", "end_crystal", "crystals heal the dragon; destroy them first");
@@ -309,11 +336,81 @@ public final class Planner {
 		}
 	}
 
+	/** Brain v2: the route the strategist chose last, as one line (Autopilot logs it when it changes). */
+	public volatile String lastPlan = "";
+
+	/** The strategist's step toward a fact (gene brain.strategist); null when off or there's no route. */
+	private Option strategic(String fact, Perception seen, int depth) {
+		if (!Tune.on("brain.strategist")) return null;
+		return adopt(new Strategist(new GameWorld(memory), (item, n) -> itemStep(item, n, depth + 1)).towardFact(fact), seen, depth);
+	}
+
+	/** The strategist's step toward n of an item (gene brain.strategist). */
+	private Option strategicItem(String item, int n, Perception seen, int depth) {
+		if (!Tune.on("brain.strategist")) return null;
+		return adopt(new Strategist(new GameWorld(memory), (it, k) -> itemStep(it, k, depth + 1)).towardItem(item, n), seen, depth);
+	}
+
+	/**
+	 * Takes the strategist's step, except that a route the rules already play well runs on the
+	 * rules' own tuned code for it: the cast portal's preparation (deep lava, the block count),
+	 * bartering (gold helmet first), the blaze fight at the spawner. The strategist decides which
+	 * route; that code decides how. Then the readiness gate (gene plan.readiness).
+	 */
+	private Option adopt(Strategist.Step s, Perception seen, int depth) {
+		if (s == null) return null;
+		lastPlan = String.format("%s (%.1f min)", s.plan(), s.seconds() / 60);
+		Option o = s.option();
+		if (s.uses("build_portal", null) && !o.skill().equals("enter_portal")) {
+			Option c = castStep(depth);
+			if (c != null) o = c;
+		} else if (s.uses("barter", null)) {
+			Option b = barterStep(seen, depth);
+			if (b != null) o = b;
+		} else if (o.skill().equals("fortress") && s.uses("fortress", "blazes:7")) {
+			o = NetherPlan.blazeStep(memory, seen);
+		}
+		if (Tune.on("plan.readiness")) {
+			Option r = readiness(o, depth);
+			if (r != null) return r;
+		}
+		return o;
+	}
+
+	/**
+	 * Before a one-way door (the Nether, the End): the kit a player packs. Blocks to bridge and
+	 * wall in, food, and for the Nether flint and steel to relight the portal home. Missing items
+	 * come first; thresholds are genes.
+	 */
+	private Option readiness(Option o, int depth) {
+		if (o == null || !o.skill().equals("enter_portal")) return null;
+		boolean nether = "nether".equals(o.arg());
+		if (!nether && !"end".equals(o.arg())) return null;
+		String where = nether ? "the Nether" : "the End";
+		int blocks = Tune.i(nether ? "ready.nether_blocks" : "ready.end_blocks");
+		if (Mc.count("throwaway") < blocks) {
+			Option b = itemStep("stone", Mc.count("stone") + blocks - Mc.count("throwaway"), depth + 1);
+			if (b != null) return new Option(b.skill(), b.arg(), "ready for " + where + ": blocks (" + b.why() + ")");
+		}
+		int food = Tune.i(nether ? "ready.nether_food" : "ready.end_food");
+		if (Goal.have("food") < food) {
+			Option f = itemStep("food", food, depth + 1);
+			if (f != null) return new Option(f.skill(), f.arg(), "ready for " + where + ": food (" + f.why() + ")");
+		}
+		if (nether && Goal.have("flint_and_steel") == 0) {
+			Option f = itemStep("flint_and_steel", 1, depth + 1);
+			if (f != null) return new Option(f.skill(), f.arg(), "ready for the Nether: flint and steel to relight the way home");
+		}
+		return null;
+	}
+
 	/**
 	 * What the cast portal needs: flint and steel, two buckets (one full of water), blocks for
 	 * the wall behind the frame, and a lava pool to cast from.
 	 */
 	private Option castStep(int depth) {
+		Option head = PortalPlan.early(memory);
+		if (head != null) return head;
 		if (Goal.have("flint_and_steel") == 0) {
 			Option o = itemStep("flint_and_steel", 1, depth + 1);
 			if (o != null) return o;
@@ -337,9 +434,9 @@ public final class Planner {
 			// and the step turns into build_portal right there. A diamond on the way is a bonus.
 			if (Tune.on("route.deep_for_lava") && Items2.bestTier("pickaxe") >= 2 && Mc.dimension().equals("overworld"))
 				return new Option("collect", "diamond:1:lava", "go deep for lava: cave air below y -55 is lava");
-			return new Option("explore", "lava", "find a lava pool to cast the portal from");
+			return PortalPlan.lava(new Option("explore", "lava", "find a lava pool to cast the portal from"));
 		}
-		return new Option("build_portal", null, "cast a nether portal from lava and water (no diamonds needed)");
+		return PortalPlan.cast(new Option("build_portal", null, "cast a nether portal from lava and water (no diamonds needed)"));
 	}
 
 	/**
@@ -572,6 +669,8 @@ public final class Planner {
 	/** Life-or-death options that should be considered before the goal. */
 	private List<Option> urgent(Perception seen, Option main) {
 		List<Option> out = new ArrayList<>();
+		Option nether = NetherPlan.urgent(seen);
+		if (nether != null) out.add(nether);
 		LocalPlayer pl = Mc.player();
 		int food = pl.getFoodData().getFoodLevel();
 		Perception.Seen hostile = seen.nearestHostile();
@@ -586,9 +685,9 @@ public final class Planner {
 					? dangerOption(DangerSense.assess(seen), "visible danger") : null;
 			if (verdict != null) out.add(verdict);
 			// Creepers explode in melee range: back off instead of swinging at them.
-			else if (hostile.type().equals("creeper")) out.add(io.github.plrlr.autopilot.skills.CombatSkills.canHitCreeper(hostile)
+			else if (hostile.type().equals("creeper")) out.add(SurvivalPlan.fight(hostile, io.github.plrlr.autopilot.skills.CombatSkills.canHitCreeper(hostile)
 					? new Option("attack", "creeper", "hit and back off from a visible creeper")
-					: new Option("retreat", null, "a creeper is " + Math.round(hostile.dist()) + " blocks away"));
+					: new Option("retreat", null, "a creeper is " + Math.round(hostile.dist()) + " blocks away")));
 			// Blazes hover and shoot fire: the fortress fight waits for them at the spawner and backs
 			// off out of sight to heal itself. Walling in at low health (the Nether has no sky, so it
 			// always counts as underground) burned the bot to death in its first blaze test.
@@ -600,7 +699,7 @@ public final class Planner {
 			// Underground, two or more closing in wear us down in a tunnel: wall in and heal first.
 			else if (!onSurface() && pl.getHealth() <= Tune.i("plan.hide_hp") && seen.hostilesWithin(6) >= 2) out.add(escape(seen, "hurt with monsters closing in"));
 			// Skeletons outshoot a fleeing player; closing in fast is safer than running.
-			else out.add(new Option("attack", hostile.type(), hostile.type() + " is " + Math.round(hostile.dist()) + " blocks away"));
+			else out.add(SurvivalPlan.fight(hostile, new Option("attack", hostile.type(), hostile.type() + " is " + Math.round(hostile.dist()) + " blocks away")));
 		}
 		if (wantsToEat()) {
 			// Health only regenerates with 18+ hunger, so hurt means eat a little earlier.
@@ -672,7 +771,7 @@ public final class Planner {
 		// (batch 11, seed d: four deaths at y 0-11, then 12 minutes of goto surface STUCK at y 2).
 		// Rebuilding the tools takes about a minute; the items keep for five.
 		if (death.pos().getY() < Mc.player().getBlockY() - 12 && Items2.bestTier("pickaxe") < 1) return null;
-		return new Option("goto", "death", "get back the items dropped when we died");
+		return SurvivalPlan.recover(new Option("goto", "death", "get back the items dropped when we died"));
 	}
 
 	/**
@@ -683,6 +782,12 @@ public final class Planner {
 	private List<Option> upkeep(Perception seen, Option main) {
 		List<Option> out = new ArrayList<>();
 		if (seen.hostilesWithin(Tune.i("plan.upkeep_calm_radius")) > 0) return out;
+		Option bed = SurvivalPlan.bed(seen);
+		if (bed != null) out.add(bed);
+		Option restock = PortalPlan.restock(memory);
+		if (restock != null) out.add(restock);
+		Option stash = PortalPlan.stash(memory);
+		if (stash != null) out.add(stash);
 		// Take our crafting table and furnace along before walking off: leaving them behind
 		// meant crafting new ones (8 cobblestone each) after every trip in trials.
 		boolean usingStation = main != null && (main.skill().equals("craft") || main.skill().equals("smelt"));
@@ -788,7 +893,8 @@ public final class Planner {
 			Option verdict = dangerOption(DangerSense.assess(seen), why);
 			if (verdict != null) return verdict;
 		}
-		return escape(seen, canHide(), why);
+		Option pillar = SurvivalPlan.pillar(seen, why);
+		return pillar != null ? pillar : SurvivalPlan.retreat(seen, escape(seen, canHide(), why));
 	}
 
 	/**
@@ -799,10 +905,13 @@ public final class Planner {
 	public static List<Option> escapeChoices(Perception seen, Option rulesPick) {
 		List<Option> out = new ArrayList<>();
 		out.add(rulesPick);
+		Option pillar = SurvivalPlan.pillar(seen, rulesPick.why());
+		if (pillar != null) out.add(pillar);
+		if (Tune.on("skill.panic_box") && io.github.plrlr.autopilot.skills.PanicBox.suits(seen)) out.add(new Option("panic_box", null, rulesPick.why() + ": box in and heal"));
 		Perception.Seen h = seen.nearestHostile();
 		String why = rulesPick.why();
 		if (h != null && !h.type().equals("creeper") && h.dist() <= 6) out.add(new Option("attack", h.type(), why + ": fight it"));
-		out.add(new Option("retreat", null, why + ": run"));
+		out.add(SurvivalPlan.retreat(seen, new Option("retreat", null, why + ": run")));
 		if (canHide()) out.add(new Option("shelter", "heal", why + ": wall in and heal"));
 		List<Option> unique = new ArrayList<>();
 		for (Option o : out)
@@ -843,6 +952,13 @@ public final class Planner {
 	}
 
 	static Option escape(Perception seen, boolean canShelter, String why) {
+		// Fled twice in 30 s (gene reflex.escalate): running isn't working, so stand our ground,
+		// walled in if we can. Not from a creeper: its blast breaks walls and hurts fighters.
+		if (Tune.on("reflex.escalate") && Escalation.ranTwice() && escapeCreeper(seen) == null) {
+			Perception.Seen h = seen.nearestHostile();
+			if (canShelter) return new Option("shelter", "heal", why + ": fled twice already, wall in");
+			if (h != null) return new Option("attack", h.type(), why + ": fled twice already, stand and fight");
+		}
 		boolean noCloseRetreat = Tune.on("combat.no_close_retreat");
 		// A second mob can be a creeper: don't wall in or fight with a blast about to happen.
 		if (noCloseRetreat && escapeCreeper(seen) != null) return new Option("retreat", null, why + ": creeper close");

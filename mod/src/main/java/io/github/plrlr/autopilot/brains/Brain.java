@@ -50,6 +50,27 @@ public final class Brain {
 				String.format("safer: death risk %.0f%% vs %.0f%% for %s", 100 * s.riskSafer(), 100 * s.riskPlanned(), choices.get(0).label()));
 	}
 
+	/**
+	 * Brain v2 (gene brain.skill_stats): options that clearly fail in this context (8+ tries and
+	 * even the optimistic bound on success under 15%, loop data and this game's tries together) go
+	 * behind the ones that work, in order. Emergencies keep their place: the rules own them. Replaces
+	 * "fail three times, then hide it for a minute" with what every earlier game already showed.
+	 */
+	public static List<Option> demoteFailing(List<Option> options, Set<String> urgent, List<String> contexts) {
+		var specs = io.github.plrlr.autopilot.skills.SkillSpecs.byKey();
+		List<Option> good = new java.util.ArrayList<>(options.size()), bad = new java.util.ArrayList<>();
+		for (Option o : options) {
+			String key = Learned.key(o);
+			var spec = specs.get(key);
+			SkillStats.Estimate e = SkillStats.shared().estimate(key, contexts, spec == null ? 0.5 : spec.success(), spec == null ? 60 : spec.seconds());
+			(!urgent.contains(o.label()) && e.clearlyBad() ? bad : good).add(o);
+		}
+		// Never demote everything: with nothing that works, the rules' order stands.
+		if (good.isEmpty()) return options;
+		good.addAll(bad);
+		return good;
+	}
+
 	/** "rules" or "learned m31" for the HUD. */
 	public String label() {
 		boolean active = Tune.get("learned.weight") > 0 || Tune.get("learned.explore") > 0;
