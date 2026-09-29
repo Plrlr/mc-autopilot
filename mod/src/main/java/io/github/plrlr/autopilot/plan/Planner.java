@@ -671,6 +671,8 @@ public final class Planner {
 	/** Life-or-death options that should be considered before the goal. */
 	private List<Option> urgent(Perception seen, Option main) {
 		List<Option> out = new ArrayList<>();
+		if (Tune.on("safety.spawner_room") && io.github.plrlr.autopilot.skills.SpawnerRoom.escapeNeeded(memory))
+			out.add(new Option("spawner_escape", null, "fresh mobs keep coming from a seen spawner: wall it off and leave"));
 		Option nether = NetherPlan.urgent(seen);
 		if (nether != null) out.add(nether);
 		LocalPlayer pl = Mc.player();
@@ -766,6 +768,7 @@ public final class Planner {
 	private Option recoverStep() {
 		WorldMemory.Seen death = memory.nearest("death");
 		if (death == null) return null;
+		if (Tune.on("safety.spawner_room") && io.github.plrlr.autopilot.skills.SpawnerRoom.near(memory, death.pos(), 8)) return null;
 		// Not back into the dark without armor: the monsters that killed us are still there, and
 		// batch 10's runs died 4-6 times each walking back (goto death interrupted 86 times).
 		if (Mc.dimension().equals("overworld") && Mc.isNight() && Mc.player().getArmorValue() < Tune.i("death.recover_night_armor")) return null;

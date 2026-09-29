@@ -37,6 +37,11 @@ public final class ChestSkills {
 		@Override
 		protected void start() {
 			timeoutTicks = 20 * 90;
+			BlockPos chest = preferredChest() != null ? preferredChest() : memory.nearestStation("chest") == null ? null : memory.nearestStation("chest").pos();
+			if (chest != null && io.github.plrlr.autopilot.Tune.on("safety.spawner_room") && SpawnerRoom.near(memory, chest, 8)) {
+				fail(Fail.HAZARD, "chest is in a remembered spawner room");
+				return;
+			}
 			station = new Station("chest", ChestMenu.class, memory, preferredChest());
 		}
 

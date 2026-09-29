@@ -238,6 +238,7 @@ public final class Autopilot {
 
 		memory.scan(tick);
 		if (tick % 5 == 0) seen = Perception.look(32);
+		if (tick % 5 == 0 && Tune.on("safety.spawner_room")) io.github.plrlr.autopilot.skills.SpawnerRoom.observe(memory, seen, tick);
 		if (tick % 20 == 0) Bari.updateThrowaway();
 		if (deathItemsUntilTick >= 0 && tick > deathItemsUntilTick) {
 			deathItemsUntilTick = -1;
@@ -278,6 +279,7 @@ public final class Autopilot {
 			PortalSkills.resetThrows();
 			io.github.plrlr.autopilot.skills.Station.forgetPlaced();
 			io.github.plrlr.autopilot.skills.ChestSkills.Stash.forget();
+			io.github.plrlr.autopilot.skills.SpawnerRoom.reset();
 			io.github.plrlr.autopilot.plan.SurvivalPlan.resetDeath();
 			io.github.plrlr.autopilot.skills.SmeltSkill.forgetJobs();
 			io.github.plrlr.autopilot.plan.Facts.clear();
