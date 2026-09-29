@@ -274,6 +274,12 @@ final class RouteSteps {
 				Option o = p.itemStep("planks", 4, depth + 1);
 				if (o != null) return o;
 			}
+			// Food for the trip, taken while still up top: hungry at y -54, the only answer is the
+			// long climb to the animals (FoodSecure) and back down.
+			if (!pick && Mc.player().getBlockY() > 0 && Goal.have("food") < Tune.i("deep.food")) {
+				Option o = p.itemStep("food", Tune.i("deep.food"), depth + 1);
+				if (o != null) return o;
+			}
 		}
 		if (!pick && Goal.have("obsidian") < 10) {
 			Option o = p.itemStep("diamond_pickaxe", 1, depth + 1);
