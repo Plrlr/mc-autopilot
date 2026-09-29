@@ -92,6 +92,25 @@ def test_metric_without_new_pairs_never_crowns():
     assert st["champion"] == "g1"
 
 
+def test_rare_skill_can_win_at_its_pair_limit():
+    import loop
+    st, _ = _race([12, 12], [0, 12], [1, -1] * (loop.DEFAULT_SETTINGS["max_pairs"] // 2))
+    assert st["champion"] == "g2"
+
+
+def test_rare_skill_final_look_keeps_evidence_and_safety_bars():
+    import loop
+    s = dict(loop.DEFAULT_SETTINGS, max_pairs=16)
+    g = {"pairs": [[1, "s", 0]] * 16, "metric": "ok:diamond_hunt"}
+    for on, off, t in [([9, 9], [0, 9], 0), ([7, 12], [5, 12], 0), ([12, 12], [0, 12], -2)]:
+        g["metric_tally"] = {"on": on, "off": off}
+        assert loop.metric_verdict(s, g, t) == "drop"
+    g.update(metric_tally={"on": [12, 12], "off": [0, 12]}, max_pairs=40)
+    assert loop.metric_verdict(s, g, 0) == "wait"  # each suggestion keeps its own deadline
+    g.update(metric="deaths", max_pairs=16, metric_tally={"on": [0, 12], "off": [12, 12]})
+    assert loop.metric_verdict(s, g, 0) == "drop"  # short death exposure isn't a rare skill trial
+
+
 if __name__ == "__main__":
     for name, fn in list(globals().items()):
         if name.startswith("test_"):

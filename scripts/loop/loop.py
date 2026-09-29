@@ -65,6 +65,7 @@ DEFAULT_SETTINGS = {
     "focus_stage_seeds": 1,    # extra starts of a focused challenger's stage (suggestion "_stages") per generation
     "max_jobs": 20,
     "metric_min": 40,          # tries per side before a targeted metric (suggestion "_metric") can decide
+    "metric_min_final": 10,    # rare skill tries per side at the pair cap; same z and game safety bars
     "metric_z": 2.5,           # ...and how many standard errors better the challenger must be (many looks)
     "metric_safety_t": -1.5,   # ...while its whole-game pairs aren't worse than this paired t (a safety check)            # genomes x tasks per generation (GitHub's free plan runs 20 jobs at once)
 }
@@ -538,12 +539,18 @@ def metric_verdict(s, g, t):
     if not tl:
         return "drop" if len(g["pairs"]) >= s["max_pairs"] else "wait"
     enough = min(tl["on"][1], tl["off"][1]) >= s.get("metric_min", 40)
+    at_limit = len(g["pairs"]) >= s["max_pairs"]
+    # A hunt may finish only once per world. At the final look, allow a rare success metric
+    # to decide after enough paired worlds; minutes of death exposure keep the usual minimum.
+    if (at_limit and g["metric"].startswith("ok:")
+            and len(g["pairs"]) >= s["accept_pairs"]):
+        enough = enough or min(tl["on"][1], tl["off"][1]) >= s.get("metric_min_final", 10)
     zv = metrics.z(g["metric"], tl["on"], tl["off"])
     g["metric_z"] = round(zv, 2)
     safe = len(g["pairs"]) < 2 or t >= s.get("metric_safety_t", -1.5)
     if enough and zv >= s.get("metric_z", 2.5) and safe:
         return "crown"
-    if (enough and zv <= 0) or not safe or len(g["pairs"]) >= s["max_pairs"]:
+    if (enough and zv <= 0) or not safe or at_limit:
         return "drop"
     return "wait"
 
