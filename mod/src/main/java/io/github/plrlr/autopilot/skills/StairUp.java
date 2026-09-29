@@ -35,7 +35,9 @@ public final class StairUp extends Skill {
 
 	@Override
 	protected void start() {
-		timeoutTicks = 20 * 90;
+		// Up to 64 steps of about 2 s each, plus turns: 90 s gave up 10 blocks into a 60-block climb
+		// (local run 4 on night2, 2026-09-29: y 36 -> 46, then "stairs: timed out").
+		timeoutTicks = 20 * 240;
 		String[] a = arg == null ? new String[0] : arg.trim().split("\\s+");
 		for (int i = 0; i < a.length; i++) {
 			if (a[i].matches("\\d+")) maxSteps = Integer.parseInt(a[i]);

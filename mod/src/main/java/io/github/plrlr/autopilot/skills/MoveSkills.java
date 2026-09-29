@@ -168,7 +168,7 @@ public final class MoveSkills {
 			timeoutTicks = 20 * 120;
 			if ("surface".equals(arg)) {
 				// Room for the staircase after Baritone's try (StairUp's own limit is 90 s).
-				if (io.github.plrlr.autopilot.Tune.on("nav.surface_v2")) timeoutTicks = 20 * 240;
+				if (io.github.plrlr.autopilot.Tune.on("nav.surface_v2")) timeoutTicks = 20 * 360;
 				// Out of a cave the way we came in; with no known entry, dig up toward the sky.
 				LocalPlayer pl = Mc.player();
 				if (pl.level().canSeeSky(pl.blockPosition().above())) {
