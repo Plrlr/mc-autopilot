@@ -6,7 +6,7 @@ final class Lighting {
 	private long lastTorchTick = -1000;
 	/** Skills that need the hand or stand still on purpose: no torch in the middle of them. */
 	private static final java.util.Set<String> TORCH_BUSY = java.util.Set.of("eat", "craft", "smelt", "build_portal", "fill_bucket",
-			"place", "clutch", "shelter", "sleep", "barter", "enderman_boat", "attack", "retreat", "make_obsidian", "obsidian_mold");
+			"place", "clutch", "shelter", "sleep", "barter", "enderman_boat", "attack", "retreat", "make_obsidian", "obsidian_mold", "obsidian_pool", "dig_portal");
 
 	/**
 	 * Torches in the dark (gene cave.torches): 129 of 165 deaths in generations 6-9 were

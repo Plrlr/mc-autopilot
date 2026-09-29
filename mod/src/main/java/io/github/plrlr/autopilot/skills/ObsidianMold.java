@@ -151,12 +151,23 @@ public final class ObsidianMold extends Composite {
 					return true;
 				}
 				if (!atStand()) return true;
+				// Anything in the pit or above it (a torch, a plant, a dropped block's spot) catches
+				// the pour: clear it first.
+				for (BlockPos c : new BlockPos[]{site.open(), site.pit()}) {
+					if (!Mc.state(c).isAir() && Mc.state(c).getFluidState().isEmpty()) {
+						if (!breaker.tick(c) && breaker.ticks() > 20 * 5) siteWentBad("something in the pit won't break");
+						return true;
+					}
+				}
+				breaker.stop();
 				if (ticks % 5 != 0) return true;
 				if (++tries > 8) {
 					siteWentBad("the lava wouldn't go in the pit");
 					return true;
 				}
-				pour(site.pit(), "lava_bucket");
+				if (!pour(site.pit(), "lava_bucket") && tries == 8)
+					log("pour missed: hit " + BucketSkills.trace(aimAt(site.pit()).add(0, -0.3, 0), ClipContext.Fluid.NONE).getBlockPos().toShortString()
+							+ " from " + Mc.player().blockPosition().toShortString() + ", pit " + site.pit().toShortString());
 				return true;
 			}
 			case POUR_WATER -> {
@@ -247,6 +258,7 @@ public final class ObsidianMold extends Composite {
 	protected Option next() {
 		switch (phase) {
 			case LAVA -> {
+				if (Mc.count("lava_bucket") > 0) return WAIT; // ownTick walks back and pours it
 				if (Mc.count("bucket") == 0) {
 					fail(Fail.NEED_ITEM, "no empty bucket for the lava");
 					return WAIT;
@@ -295,10 +307,18 @@ public final class ObsidianMold extends Composite {
 	}
 
 	/** Empties the held bucket onto the top face of the block under `into`, if our view lands there. */
+	private static Vec3 aimAt(BlockPos into) {
+		return new Vec3(into.getX() + 0.5, into.getY() + 0.02, into.getZ() + 0.5);
+	}
+
 	private static boolean pour(BlockPos into, String bucket) {
-		Vec3 aim = new Vec3(into.getX() + 0.5, into.getY() + 0.02, into.getZ() + 0.5);
+		Vec3 aim = aimAt(into);
 		BlockHitResult hit = BucketSkills.trace(aim.add(0, -0.3, 0), ClipContext.Fluid.NONE);
-		if (hit.getType() != HitResult.Type.BLOCK || !hit.getBlockPos().equals(into.below())) return false;
+		// The floor under the spot, or something replaceable in the spot itself (grass): the
+		// bucket fills the spot either way.
+		boolean ok = hit.getType() == HitResult.Type.BLOCK
+				&& (hit.getBlockPos().equals(into.below()) || hit.getBlockPos().equals(into) && Mc.state(into).canBeReplaced());
+		if (!ok) return false;
 		if (!Mc.holdItem(s -> Items2.id(s).equals(bucket))) return false;
 		Mc.lookAt(aim);
 		return Mc.useItem();
