@@ -48,7 +48,10 @@ public final class Planner {
 			if (prep == null && Tune.on("gear.shield_early")) prep = earlyShieldStep();
 			if (prep != null) main = prep;
 		}
+		main = SurvivalPlan.beforeWork(main);
 		List<Option> urgent = urgent(seen, main);
+		Option respawn = SurvivalPlan.respawn();
+		if (respawn != null) urgent.add(0, respawn);
 		if (Tune.on("move.shore_first") && ShoreSkill.needed()
 				&& (groundWork(main) || urgent.stream().anyMatch(Planner::groundWork))) {
 			// One shared decision prevents collect, station, shelter and explore from handing the
@@ -196,7 +199,7 @@ public final class Planner {
 				for (String animal : ANIMALS.split(",")) {
 					if (seen.nearest(animal) != null) return new Option("attack", animal, "hunt for meat");
 				}
-				return new Option("explore", ANIMALS, "look for animals to hunt");
+				return SurvivalPlan.food(new Option("explore", ANIMALS, "look for animals to hunt"));
 			}
 			case IRON_ARMOR -> {
 				Option o = itemsStep(goal);
@@ -669,9 +672,9 @@ public final class Planner {
 					? dangerOption(DangerSense.assess(seen), "visible danger") : null;
 			if (verdict != null) out.add(verdict);
 			// Creepers explode in melee range: back off instead of swinging at them.
-			else if (hostile.type().equals("creeper")) out.add(io.github.plrlr.autopilot.skills.CombatSkills.canHitCreeper(hostile)
+			else if (hostile.type().equals("creeper")) out.add(SurvivalPlan.fight(hostile, io.github.plrlr.autopilot.skills.CombatSkills.canHitCreeper(hostile)
 					? new Option("attack", "creeper", "hit and back off from a visible creeper")
-					: new Option("retreat", null, "a creeper is " + Math.round(hostile.dist()) + " blocks away"));
+					: new Option("retreat", null, "a creeper is " + Math.round(hostile.dist()) + " blocks away")));
 			// Blazes hover and shoot fire: the fortress fight waits for them at the spawner and backs
 			// off out of sight to heal itself. Walling in at low health (the Nether has no sky, so it
 			// always counts as underground) burned the bot to death in its first blaze test.
@@ -683,7 +686,7 @@ public final class Planner {
 			// Underground, two or more closing in wear us down in a tunnel: wall in and heal first.
 			else if (!onSurface() && pl.getHealth() <= Tune.i("plan.hide_hp") && seen.hostilesWithin(6) >= 2) out.add(escape(seen, "hurt with monsters closing in"));
 			// Skeletons outshoot a fleeing player; closing in fast is safer than running.
-			else out.add(new Option("attack", hostile.type(), hostile.type() + " is " + Math.round(hostile.dist()) + " blocks away"));
+			else out.add(SurvivalPlan.fight(hostile, new Option("attack", hostile.type(), hostile.type() + " is " + Math.round(hostile.dist()) + " blocks away")));
 		}
 		if (wantsToEat()) {
 			// Health only regenerates with 18+ hunger, so hurt means eat a little earlier.
@@ -755,7 +758,7 @@ public final class Planner {
 		// (batch 11, seed d: four deaths at y 0-11, then 12 minutes of goto surface STUCK at y 2).
 		// Rebuilding the tools takes about a minute; the items keep for five.
 		if (death.pos().getY() < Mc.player().getBlockY() - 12 && Items2.bestTier("pickaxe") < 1) return null;
-		return new Option("goto", "death", "get back the items dropped when we died");
+		return SurvivalPlan.recover(new Option("goto", "death", "get back the items dropped when we died"));
 	}
 
 	/**
@@ -766,6 +769,8 @@ public final class Planner {
 	private List<Option> upkeep(Perception seen, Option main) {
 		List<Option> out = new ArrayList<>();
 		if (seen.hostilesWithin(Tune.i("plan.upkeep_calm_radius")) > 0) return out;
+		Option bed = SurvivalPlan.bed(seen);
+		if (bed != null) out.add(bed);
 		// Take our crafting table and furnace along before walking off: leaving them behind
 		// meant crafting new ones (8 cobblestone each) after every trip in trials.
 		boolean usingStation = main != null && (main.skill().equals("craft") || main.skill().equals("smelt"));
@@ -885,6 +890,7 @@ public final class Planner {
 		out.add(rulesPick);
 		Option pillar = SurvivalPlan.pillar(seen, rulesPick.why());
 		if (pillar != null) out.add(pillar);
+		if (Tune.on("skill.panic_box") && io.github.plrlr.autopilot.skills.PanicBox.suits(seen)) out.add(new Option("panic_box", null, rulesPick.why() + ": box in and heal"));
 		Perception.Seen h = seen.nearestHostile();
 		String why = rulesPick.why();
 		if (h != null && !h.type().equals("creeper") && h.dist() <= 6) out.add(new Option("attack", h.type(), why + ": fight it"));

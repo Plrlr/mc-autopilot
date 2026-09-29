@@ -133,6 +133,16 @@ public final class Tune {
 		gene("portal.retry_cast_view", 0, 0, 1, Kind.BOOL, "after losing the bucket view, try a different stand for the same frame block");
 		gene("skill.kite", 0, 0, 1, Kind.BOOL, "face close melee pursuers and back onto safe ground between charged hits");
 		gene("skill.pillar", 0, 0, 1, Kind.BOOL, "rise above clustered melee threats with blocks and descend when safe");
+		gene("skill.block_arrows", 0, 0, 1, Kind.BOOL, "close in on skeletons behind a raised shield, lowering it only to strike");
+		gene("skill.creeper_defuse", 0, 0, 1, Kind.BOOL, "sprint clear of a lit creeper, else knock it back with a sprint hit and back off");
+		gene("skill.panic_box", 0, 0, 1, Kind.BOOL, "box in with 9 blocks on any ground to heal when hurt and cornered (not near creepers)");
+		gene("skill.respawn_reset", 0, 0, 1, Kind.BOOL, "after respawning at night, dig or box in until morning before anything else");
+		gene("skill.recover_items", 0, 0, 1, Kind.BOOL, "go back for dropped items carefully: stop short, clear the spot, then pick up");
+		gene("skill.make_bed", 0, 0, 1, Kind.BOOL, "hunt sheep and craft a bed when sheep are in sight and we have none");
+		gene("skill.food_secure", 0, 0, 1, Kind.BOOL, "get food by a ladder of sources (cook, hunt, remembered animals, fish, explore)");
+		gene("skill.fish", 0, 0, 1, Kind.BOOL, "fish with a rod at known water");
+		gene("skill.secure_camp", 0, 0, 1, Kind.BOOL, "light the dark ground around us before smelting or casting in one spot");
+		gene("skill.stair_down", 0, 0, 1, Kind.BOOL, "dig down by safe 1-wide stairs, checking for lava and drops each step");
 		gene("loop.stuck_s", 10, 5, 30, Kind.INT, "seconds without moving that mark the state as stuck for the brains");
 		gene("stuck.window_s", 12, 6, 40, Kind.INT, "a moving skill kept inside the stuck box this long starts the unstuck reflex");
 		gene("stuck.box", 2, 1, 4, Kind.REAL, "the square (blocks) the bot must leave to count as moving");

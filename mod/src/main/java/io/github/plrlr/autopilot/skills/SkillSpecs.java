@@ -33,6 +33,26 @@ public final class SkillSpecs {
 		s.add(SkillSpec.of("pillar", null).stage("early").needs("throwaway", 3)
 				.makes("threat_cleared").prior(40, 0.6).gene("skill.pillar")
 				.help("rise above clustered melee mobs and come down once the ground is clear").build());
+		s.add(SkillSpec.of("block_arrows", null).stage("any").makes("threat_cleared").prior(20, 0.6)
+				.gene("skill.block_arrows").help("shield up and close in on a skeleton").build());
+		s.add(SkillSpec.of("creeper_defuse", null).stage("any").makes("threat_cleared").prior(10, 0.7)
+				.gene("skill.creeper_defuse").help("sprint clear of a lit creeper or knock it back").build());
+		s.add(SkillSpec.of("panic_box", null).stage("any").needs("throwaway", 9).makes("threat_cleared").prior(45, 0.7)
+				.gene("skill.panic_box").help("box in with 9 blocks and heal").build());
+		s.add(SkillSpec.of("respawn_reset", null).stage("early").facts("overworld").makes("safe_restart").prior(60, 0.7)
+				.gene("skill.respawn_reset").help("after a night respawn, hide until morning").build());
+		s.add(SkillSpec.of("recover_items", null).stage("any").makes("items_recovered").prior(90, 0.5)
+				.gene("skill.recover_items").help("go back for dropped items carefully").build());
+		s.add(SkillSpec.of("make_bed", null).stage("early").facts("overworld").gives("bed", 1).prior(120, 0.5)
+				.gene("skill.make_bed").help("wool from sheep, then a bed").build());
+		s.add(SkillSpec.of("food_secure", "6").stage("early").facts("overworld").gives("food", 6).prior(150, 0.6)
+				.gene("skill.food_secure").help("food from a ladder of sources").build());
+		s.add(SkillSpec.of("fish", "4").stage("early").needs("fishing_rod", 1).facts("water_known").gives("food", 4).prior(180, 0.6)
+				.gene("skill.fish").help("fish with a rod at known water").build());
+		s.add(SkillSpec.of("secure_camp", null).stage("any").needs("torch", 4).makes("camp_safe").prior(20, 0.8)
+				.gene("skill.secure_camp").help("torch the dark ground around the work spot").build());
+		s.add(SkillSpec.of("stair_down", "-54").stage("any").makes("at_depth").prior(90, 0.8)
+				.gene("skill.stair_down").help("safe stairs down to diamond depth").build());
 
 		// ---- finding things and filling buckets: what the routes below need first
 		s.add(SkillSpec.of("explore", "lava").stage("portal")

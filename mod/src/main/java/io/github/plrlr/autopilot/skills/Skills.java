@@ -28,6 +28,16 @@ public final class Skills {
 		MENU.put("retreat", new Entry(MoveSkills.Retreat::new, "run away from nearby monsters"));
 		MENU.put("kite", new Entry(Kite::new, "face a close melee pursuer, back onto safe ground, and strike when charged"));
 		MENU.put("pillar", new Entry(Pillar::new, "jump onto three placed blocks above melee mobs and descend after they leave"));
+		MENU.put("block_arrows", new Entry(BlockArrows::new, "close in on a skeleton behind a raised shield, strike when in reach"));
+		MENU.put("creeper_defuse", new Entry(CreeperDefuse::new, "sprint clear of a lit creeper, or knock it back with a sprint hit and back off"));
+		MENU.put("panic_box", new Entry(PanicBox::new, "box in with 9 blocks right here and heal (any ground; not near creepers)"));
+		MENU.put("respawn_reset", new Entry(RespawnReset::new, "just respawned: at night dig or box in until morning"));
+		MENU.put("recover_items", new Entry(RecoverItems::new, "go back for dropped items: stop short, clear the spot, then pick up"));
+		MENU.put("make_bed", new Entry(MakeBed::new, "make_bed:n: hunt sheep for wool and craft n beds"));
+		MENU.put("food_secure", new Entry(FoodSecure::new, "food_secure:n: cook, hunt, walk back to animals seen, fish, or explore until n food"));
+		MENU.put("fish", new Entry(Fish::new, "fish:n: catch n fish with a rod at known water"));
+		MENU.put("secure_camp", new Entry(SecureCamp::new, "torch the dark ground around us before long work in one spot"));
+		MENU.put("stair_down", new Entry(StairDown::new, "stair_down <y>: dig safe 1-wide stairs down to y"));
 		MENU.put("shelter", new Entry(NightSkills.Shelter::new, "dig 3 down, cover the hole, wait for morning"));
 		MENU.put("sleep", new Entry(NightSkills.Sleep::new, "sleep in a bed (places one from the inventory if needed)"));
 		MENU.put("build_portal", new Entry(() -> CastPortal.needed() ? new CastPortal() : new PortalSkills.BuildPortal(),

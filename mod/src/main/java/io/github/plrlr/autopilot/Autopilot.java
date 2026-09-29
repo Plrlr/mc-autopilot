@@ -311,6 +311,7 @@ public final class Autopilot {
 		}
 		if (deathTick >= 0) {
 			deathTick = -1;
+			io.github.plrlr.autopilot.plan.SurvivalPlan.respawned();
 			chooseGoal("respawned");
 		}
 		return false;
@@ -410,13 +411,14 @@ public final class Autopilot {
 		if (tick < reflexCooldownUntil) return;
 		// hiding: sealed in and healing (review R1) - the only time reflexes stand down, except the
 		// creeper reflex, which always runs (its blast breaks the wall either way).
-		boolean hiding = skill instanceof io.github.plrlr.autopilot.skills.NightSkills.Shelter sh && sh.sealed();
+		boolean hiding = skill instanceof io.github.plrlr.autopilot.skills.NightSkills.Shelter sh && sh.sealed()
+				|| skill instanceof io.github.plrlr.autopilot.skills.PanicBox pb && pb.sealed();
 		// walling: still building the wall (not yet sealed) with a mob already on us - restarting
 		// the escape would only restart the wall, so fight instead.
 		boolean walling = !hiding && skill != null && skill.name().equals("shelter") && skillOption != null && "heal".equals(skillOption.arg());
 		// Recheck combat with the gene: a pursuer can catch up and a creeper can approach mid-fight.
 		boolean reconsiderCombat = skill != null && ((Tune.on("combat.no_close_retreat") || Tune.on("survival.danger_v2"))
-				&& (skill.name().equals("retreat") || skill.name().equals("attack")) || Tune.on("skill.kite") && skill.name().equals("kite"));
+				&& (skill.name().equals("retreat") || skill.name().equals("attack")) || java.util.Set.of("kite", "block_arrows", "creeper_defuse").contains(skill.name()));
 		if (skill != null && skillIsReflex && !hiding && !reconsiderCombat) return;
 		if (pl.isInLava()) {
 			// Stop everything, then jump and push forward for a moment (aborting releases keys,
@@ -497,9 +499,9 @@ public final class Autopilot {
 			// From 7 blocks, not 5: a creeper's fuse is 1.5 s, and 4 of batch 10's 25 deaths were
 			// blasts that caught the bot already running from 5.
 			if (h.type().equals("creeper") && h.dist() < Tune.get("reflex.creeper_dist")) {
-				Option response = io.github.plrlr.autopilot.skills.CombatSkills.canHitCreeper(h)
+				Option response = io.github.plrlr.autopilot.plan.SurvivalPlan.fight(h, io.github.plrlr.autopilot.skills.CombatSkills.canHitCreeper(h)
 						? new Option("attack", "creeper", "hit and back off")
-						: new Option("retreat", null, "creeper close");
+						: new Option("retreat", null, "creeper close"));
 				if (!reconsiderCombat || skillOption == null || !response.label().equals(skillOption.label()))
 					startReflex(response, "reflex_creeper");
 				return;
@@ -518,7 +520,7 @@ public final class Autopilot {
 							|| !c.option().label().equals(skillOption.label())) startReflex(choices, c, x, "reflex_low_hp");
 				}
 				else {
-					List<Option> choices = Planner.escapeChoices(seen, new Option("attack", h.type(), "it's attacking"));
+					List<Option> choices = Planner.escapeChoices(seen, io.github.plrlr.autopilot.plan.SurvivalPlan.fight(h, new Option("attack", h.type(), "it's attacking")));
 					double[] x = Tune.on("safety.hazard") ? features() : null;
 					Brain.Choice c = brain.decideReflex(choices, x);
 					boolean already = skill != null && (c.option().skill().equals("attack") ? skill.name().equals("attack")
