@@ -5,7 +5,9 @@ name: PR drill
 
 on:
   pull_request:
-    branches: [main, dev]
+    # dev only: a dev -> main PR carries ideas already drilled on their way into dev, and its drill
+    # (up to 18 games) held the loop's own jobs back for an hour on 2026-09-29.
+    branches: [dev]
     paths: ['mod/src/main/**', 'scripts/loop/settings.json']
 
 permissions:
