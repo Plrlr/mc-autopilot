@@ -1,0 +1,800 @@
+	- autopilot-test 0.1.0
+[19:50:48] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test] start at 10, 124, 2
+[19:50:48] [Test thread/INFO] (Minecraft) [STDOUT]: [autopilot-test] STAGE start kit
+[19:50:48] [Test thread/INFO] (Minecraft) [STDOUT]: [autopilot-test] FREE RUN: client and server run in parallel (no lockstep)
+[19:51:23] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test] diamond 30s: brain rules, goal nether_portal, doing diamond_hunt 3, milestone 4/13, deaths 0
+[autopilot-test]    perf fps 48, server 6.9 ms/tick, mod 0.78 ms/tick
+[19:51:23] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    at 18 114 -5 hp 20 food 20 inv {bucket=1, cobblestone=25, cooked_beef=16, crafting_table=1, flint_and_steel=1, iron_pickaxe=1, iron_sword=1, spruce_log=7, spruce_planks=6, stick=6, stone_axe=1, torch=14, water_bucket=1}
+[19:51:23] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    known water none, lava none
+[19:51:23] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    craft stone_axe:1 -> ok: crafted 1 stone_axe
+[19:51:23] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    pickup stations -> ok: picked up 1 stacks
+[19:51:23] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    collect log:9 -> ok: collected 9 log (seen blocks)
+[19:51:23] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    craft planks:4 -> ok: crafted 4 planks
+[19:51:23] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    craft stick:4 -> ok: crafted 4 stick
+[19:51:23] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    craft planks:4 -> ok: crafted 4 planks
+[19:51:53] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test] diamond 60s: brain rules, goal nether_portal, doing diamond_hunt 3, milestone 4/13, deaths 0
+[autopilot-test]    perf fps 62, server 4.8 ms/tick, mod 0.77 ms/tick
+[19:51:53] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    at 13 70 48 hp 16 food 17 inv {arrow=2, bone=2, bucket=1, cobblestone=25, cooked_beef=16, crafting_table=1, flint_and_steel=1, iron_pickaxe=1, iron_sword=1, pointed_dripstone=3, rotten_flesh=2, spruce_log=7, spruce_planks=6, stick=6, stone_axe=1, torch=9, water_bucket=1}
+[19:51:53] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    known water 16, 70, 47, lava none
+[19:51:53] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    craft planks:4 -> ok: crafted 4 planks
+[19:51:53] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    craft stick:4 -> ok: crafted 4 stick
+[19:51:53] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    craft planks:4 -> ok: crafted 4 planks
+[19:51:53] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    diamond_hunt 3 -> failed INTERRUPTED: interrupted: brain chose attack zombie
+[19:51:53] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    attack zombie -> failed INTERRUPTED: interrupted: brain chose attack skeleton
+[19:51:53] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    attack skeleton -> ok: killed the skeleton
+[19:52:23] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test] diamond 90s: brain rules, goal nether_portal, doing attack skeleton, milestone 4/13, deaths 0
+[autopilot-test]    perf fps 52, server 3.1 ms/tick, mod 0.75 ms/tick
+[19:52:23] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    at -22 8 46 hp 18 food 20 inv {arrow=2, bone=2, bucket=1, cobblestone=33, cooked_beef=15, crafting_table=1, flint_and_steel=1, iron_pickaxe=1, iron_sword=1, pointed_dripstone=3, rotten_flesh=2, spruce_log=7, spruce_planks=6, stick=6, stone_axe=1, torch=1, water_bucket=1}
+[19:52:23] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    known water -27, 32, 40, lava none
+[19:52:23] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    attack skeleton -> ok: killed the skeleton
+[19:52:23] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    diamond_hunt 3 -> failed INTERRUPTED: interrupted: brain chose eat
+[19:52:23] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    eat -> ok: ate cooked_beef
+[19:52:23] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    diamond_hunt 3 -> failed INTERRUPTED: interrupted by reflex_fall
+[19:52:23] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    clutch -> ok: landed in water
+[19:52:23] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    diamond_hunt 3 -> failed INTERRUPTED: interrupted: brain chose attack skeleton
+[19:52:53] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test] diamond 120s: brain rules, goal nether_portal, doing collect coal:6, milestone 4/13, deaths 0
+[autopilot-test]    perf fps 57, server 2.7 ms/tick, mod 0.72 ms/tick
+[19:52:53] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    at -11 4 56 hp 20 food 20 inv {arrow=4, bone=5, bucket=1, coal=5, cobblestone=27, cooked_beef=15, crafting_table=1, dirt=1, flint_and_steel=1, iron_pickaxe=1, iron_sword=1, pointed_dripstone=3, rotten_flesh=2, spruce_log=7, spruce_planks=6, stick=6, stone_axe=1, water_bucket=1}
+[19:52:53] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    known water -27, 32, 40, lava none
+[19:52:53] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    eat -> ok: ate cooked_beef
+[19:52:53] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    diamond_hunt 3 -> failed INTERRUPTED: interrupted by reflex_fall
+[19:52:53] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    clutch -> ok: landed in water
+[19:52:53] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    diamond_hunt 3 -> failed INTERRUPTED: interrupted: brain chose attack skeleton
+[19:52:53] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    attack skeleton -> ok: killed the skeleton
+[19:52:53] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    attack skeleton -> ok: killed the skeleton
+[19:53:23] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test] diamond 150s: brain rules, goal nether_portal, doing diamond_hunt 3, milestone 4/13, deaths 0
+[autopilot-test]    perf fps 96, server 3.0 ms/tick, mod 0.71 ms/tick
+[19:53:23] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    at -17 -34 35 hp 20 food 20 inv {arrow=4, bone=5, bucket=1, calcite=10, coal=6, cobbled_deepslate=1, cobblestone=33, cooked_beef=15, crafting_table=1, diorite=2, dirt=1, flint_and_steel=1, iron_pickaxe=1, iron_sword=1, pointed_dripstone=3, rotten_flesh=2, smooth_basalt=4, spruce_log=7, spruce_planks=6, stick=6, stone_axe=1, water_bucket=1}
+[19:53:23] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    known water -27, 32, 40, lava none
+[19:53:23] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    attack skeleton -> ok: killed the skeleton
+[19:53:23] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    attack skeleton -> ok: killed the skeleton
+[19:53:23] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    collect coal:6 -> ok: collected 6 coal (seen blocks)
+[19:53:23] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    craft torch:8 -> failed NO_RECIPE: no known recipe for torch (not unlocked yet?)
+[19:53:23] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    craft torch:8 -> failed NO_RECIPE: no known recipe for torch (not unlocked yet?)
+[19:53:23] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    craft torch:8 -> failed NO_RECIPE: no known recipe for torch (not unlocked yet?)
+[19:53:30] [Test thread/INFO] (Minecraft) [STDOUT]: [autopilot-test] CHECKPOINT lava at 155s (4646 KB)
+[19:53:54] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test] diamond 180s: brain rules, goal nether_portal, doing diamond_hunt 3, milestone 4/13, deaths 0
+[autopilot-test]    perf fps 99, server 2.7 ms/tick, mod 0.84 ms/tick
+[19:53:54] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    at -2 -60 43 hp 20 food 19 inv {arrow=4, bone=5, bucket=1, calcite=10, coal=6, cobbled_deepslate=19, cobblestone=33, cooked_beef=15, crafting_table=1, diamond=1, diorite=2, dirt=1, flint_and_steel=1, iron_pickaxe=1, iron_sword=1, pointed_dripstone=3, rotten_flesh=2, smooth_basalt=5, spruce_log=7, spruce_planks=6, stick=6, stone_axe=1, water_bucket=1}
+[19:53:54] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    known water -27, 32, 40, lava -2, -55, 43
+[19:53:54] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    attack skeleton -> ok: killed the skeleton
+[19:53:54] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    attack skeleton -> ok: killed the skeleton
+[19:53:54] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    collect coal:6 -> ok: collected 6 coal (seen blocks)
+[19:53:54] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    craft torch:8 -> failed NO_RECIPE: no known recipe for torch (not unlocked yet?)
+[19:53:54] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    craft torch:8 -> failed NO_RECIPE: no known recipe for torch (not unlocked yet?)
+[19:53:54] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    craft torch:8 -> failed NO_RECIPE: no known recipe for torch (not unlocked yet?)
+[19:54:04] [Test thread/INFO] (Minecraft) [STDOUT]: [autopilot-test] CHECKPOINT diamond at 189s (4672 KB)
+[19:54:23] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test] diamond 210s: brain rules, goal nether_portal, doing obsidian_pool, milestone 6/13, deaths 0
+[autopilot-test]    perf fps 108, server 2.4 ms/tick, mod 0.84 ms/tick
+[19:54:23] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    at -2 -60 44 hp 20 food 19 inv {arrow=4, bone=5, bucket=1, calcite=10, coal=6, cobbled_deepslate=27, cobblestone=33, cooked_beef=15, crafting_table=1, diamond_pickaxe=1, diorite=2, flint_and_steel=1, iron_pickaxe=1, iron_sword=1, pointed_dripstone=3, rotten_flesh=2, smooth_basalt=5, spruce_log=7, spruce_planks=6, stick=4, stone_axe=1, water_bucket=1}
+[19:54:23] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    known water -27, 32, 40, lava -2, -56, 42
+[19:54:23] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    craft torch:8 -> failed NO_RECIPE: no known recipe for torch (not unlocked yet?)
+[19:54:23] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    diamond_hunt 3 -> ok: have 3 diamonds
+[19:54:23] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    craft torch:8 -> failed NO_RECIPE: no known recipe for torch (not unlocked yet?)
+[19:54:23] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    craft torch:8 -> failed NO_RECIPE: no known recipe for torch (not unlocked yet?)
+[19:54:23] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    craft diamond_pickaxe:1 -> ok: crafted 1 diamond_pickaxe
+[19:54:23] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    pickup stations -> ok: picked up 1 stacks
+[19:54:54] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test] diamond 240s: brain rules, goal nether_portal, doing obsidian_pool, milestone 6/13, deaths 0
+[autopilot-test]    perf fps 103, server 3.9 ms/tick, mod 0.80 ms/tick
+[19:54:54] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    at -2 -60 41 hp 20 food 19 inv {arrow=4, bone=5, calcite=10, coal=6, cobbled_deepslate=27, cobblestone=33, cooked_beef=15, crafting_table=1, diamond_pickaxe=1, diorite=2, flint_and_steel=1, iron_pickaxe=1, iron_sword=1, lava_bucket=1, obsidian=2, pointed_dripstone=3, rotten_flesh=2, smooth_basalt=5, spruce_log=7, spruce_planks=6, stick=4, stone_axe=1, water_bucket=1}
+[19:54:54] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    known water -27, 32, 40, lava -2, -56, 42
+[19:54:54] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    craft torch:8 -> failed NO_RECIPE: no known recipe for torch (not unlocked yet?)
+[19:54:54] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    diamond_hunt 3 -> ok: have 3 diamonds
+[19:54:54] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    craft torch:8 -> failed NO_RECIPE: no known recipe for torch (not unlocked yet?)
+[19:54:54] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    craft torch:8 -> failed NO_RECIPE: no known recipe for torch (not unlocked yet?)
+[19:54:54] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    craft diamond_pickaxe:1 -> ok: crafted 1 diamond_pickaxe
+[19:54:54] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    pickup stations -> ok: picked up 1 stacks
+[19:55:23] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test] diamond 270s: brain rules, goal nether_portal, doing obsidian_pool, milestone 6/13, deaths 0
+[autopilot-test]    perf fps 107, server 3.2 ms/tick, mod 0.78 ms/tick
+[19:55:23] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    at -2 -60 44 hp 20 food 18 inv {arrow=4, bone=5, bucket=1, calcite=10, coal=6, cobbled_deepslate=27, cobblestone=33, cooked_beef=15, crafting_table=1, diamond_pickaxe=1, diorite=2, flint_and_steel=1, iron_pickaxe=1, iron_sword=1, obsidian=3, pointed_dripstone=3, rotten_flesh=2, smooth_basalt=5, spruce_log=7, spruce_planks=6, stick=4, stone_axe=1, water_bucket=1}
+[19:55:23] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    known water -27, 32, 40, lava -1, -56, 42
+[19:55:23] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    craft torch:8 -> failed NO_RECIPE: no known recipe for torch (not unlocked yet?)
+[19:55:23] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    diamond_hunt 3 -> ok: have 3 diamonds
+[19:55:23] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    craft torch:8 -> failed NO_RECIPE: no known recipe for torch (not unlocked yet?)
+[19:55:23] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    craft torch:8 -> failed NO_RECIPE: no known recipe for torch (not unlocked yet?)
+[19:55:23] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    craft diamond_pickaxe:1 -> ok: crafted 1 diamond_pickaxe
+[19:55:23] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    pickup stations -> ok: picked up 1 stacks
+[19:55:54] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test] diamond 300s: brain rules, goal nether_portal, doing collect diamond:1:lava, milestone 6/13, deaths 0
+[autopilot-test]    perf fps 94, server 3.1 ms/tick, mod 0.75 ms/tick
+[19:55:54] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    at -3 -58 40 hp 20 food 18 inv {arrow=4, bone=5, bucket=1, calcite=10, coal=6, cobbled_deepslate=29, cobblestone=33, cooked_beef=15, crafting_table=1, diamond_pickaxe=1, diorite=1, flint_and_steel=1, iron_pickaxe=1, iron_sword=1, obsidian=5, pointed_dripstone=3, rotten_flesh=2, smooth_basalt=5, spruce_log=7, spruce_planks=6, stick=4, stone_axe=1, water_bucket=1}
+[19:55:54] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    known water -27, 32, 40, lava -1, -57, 41
+[19:55:54] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    craft torch:8 -> failed NO_RECIPE: no known recipe for torch (not unlocked yet?)
+[19:55:54] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    craft diamond_pickaxe:1 -> ok: crafted 1 diamond_pickaxe
+[19:55:54] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    pickup stations -> ok: picked up 1 stacks
+[19:55:54] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    obsidian_pool -> failed NOT_FOUND: make_obsidian obsidian failed: no lava source we can safely pour water next to
+[19:55:54] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    craft torch:8 -> failed NO_RECIPE: no known recipe for torch (not unlocked yet?)
+[19:55:54] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    craft torch:8 -> failed NO_RECIPE: no known recipe for torch (not unlocked yet?)
+[19:56:26] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test] diamond 330s: brain rules, goal nether_portal, doing craft planks:4, milestone 6/13, deaths 1
+[autopilot-test]    perf fps 55, server 3.4 ms/tick, mod 0.73 ms/tick
+[19:56:26] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    at 3 124 9 hp 20 food 20 inv {spruce_log=2, spruce_planks=4, spruce_sapling=1}
+[19:56:26] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    known water 5, 68, 45, lava -3, -55, 42
+[19:56:26] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    obsidian_pool -> failed NOT_FOUND: make_obsidian obsidian failed: no lava source we can safely pour water next to
+[19:56:26] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    craft torch:8 -> failed NO_RECIPE: no known recipe for torch (not unlocked yet?)
+[19:56:26] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    craft torch:8 -> failed NO_RECIPE: no known recipe for torch (not unlocked yet?)
+[19:56:26] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    collect diamond:1:lava -> ok: collected 1 diamond (seen blocks)
+[19:56:26] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    collect diamond:1:lava -> failed INTERRUPTED: in lava
+[19:56:26] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    collect log:3 -> ok: collected 3 log (seen blocks)
+[19:56:58] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test] diamond 360s: brain rules, goal nether_portal, doing collect stone:13, milestone 6/13, deaths 1
+[autopilot-test]    perf fps 53, server 2.9 ms/tick, mod 0.71 ms/tick
+[19:56:58] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    at -1 113 -1 hp 20 food 20 inv {cobblestone=8, crafting_table=1, dirt=2, spruce_planks=3, spruce_sapling=1, stick=2, wooden_pickaxe=1}
+[19:56:58] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    known water 5, 68, 45, lava -3, -55, 42
+[19:56:58] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    craft stick:4 -> ok: crafted 4 stick
+[19:56:58] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    craft planks:4 -> ok: crafted 4 planks
+[19:56:58] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    craft crafting_table:1 -> ok: crafted 1 crafting_table
+[19:56:58] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    craft planks:4 -> ok: crafted 4 planks
+[19:56:58] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    craft wooden_pickaxe:1 -> ok: crafted 1 wooden_pickaxe
+[19:56:58] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    pickup stations -> ok: picked up 1 stacks
+[19:57:28] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test] diamond 390s: brain rules, goal nether_portal, doing unstuck, milestone 6/13, deaths 1
+[autopilot-test]    perf fps 35, server 3.3 ms/tick, mod 0.71 ms/tick
+[19:57:28] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    at 1 108 6 hp 20 food 20 inv {coal=1, cobblestone=16, crafting_table=1, gravel=4, spruce_planks=3, spruce_sapling=1, stick=2, wooden_pickaxe=1}
+[19:57:28] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    known water 5, 68, 45, lava -3, -55, 42
+[19:57:28] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    craft crafting_table:1 -> ok: crafted 1 crafting_table
+[19:57:28] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    craft planks:4 -> ok: crafted 4 planks
+[19:57:28] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    craft wooden_pickaxe:1 -> ok: crafted 1 wooden_pickaxe
+[19:57:28] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    pickup stations -> ok: picked up 1 stacks
+[19:57:28] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    collect stone:13 -> ok: collected 13 stone (seen blocks)
+[19:57:28] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    collect coal:6 -> failed STUCK: stuck: stayed inside 2.0 blocks for 12 s
+[19:57:58] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test] diamond 420s: brain rules, goal nether_portal, doing collect coal:6, milestone 6/13, deaths 1
+[autopilot-test]    perf fps 65, server 2.9 ms/tick, mod 0.70 ms/tick
+[19:57:58] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    at 1 108 5 hp 20 food 19 inv {coal=3, cobblestone=24, crafting_table=1, gravel=4, spruce_planks=3, spruce_sapling=1, stick=2, wooden_pickaxe=1}
+[19:57:58] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    known water 5, 68, 45, lava -3, -55, 42
+[19:57:58] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    craft planks:4 -> ok: crafted 4 planks
+[19:57:58] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    craft wooden_pickaxe:1 -> ok: crafted 1 wooden_pickaxe
+[19:57:58] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    pickup stations -> ok: picked up 1 stacks
+[19:57:58] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    collect stone:13 -> ok: collected 13 stone (seen blocks)
+[19:57:58] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    collect coal:6 -> failed STUCK: stuck: stayed inside 2.0 blocks for 12 s
+[19:57:58] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    unstuck -> ok: got out (walk)
+[19:58:28] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test] diamond 450s: brain rules, goal nether_portal, doing collect raw_iron:13, milestone 6/13, deaths 1
+[autopilot-test]    perf fps 35, server 3.4 ms/tick, mod 0.70 ms/tick
+[19:58:28] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    at -8 103 20 hp 20 food 18 inv {coal=7, cobblestone=21, crafting_table=1, gravel=4, spruce_planks=1, spruce_sapling=1, stick=4, stone_pickaxe=1, wooden_pickaxe=1}
+[19:58:28] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    known water 5, 68, 45, lava -3, -55, 42
+[19:58:28] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    collect coal:6 -> ok: collected 6 coal (seen blocks)
+[19:58:28] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    craft torch:8 -> failed NO_RECIPE: no known recipe for torch (not unlocked yet?)
+[19:58:28] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    craft torch:8 -> failed NO_RECIPE: no known recipe for torch (not unlocked yet?)
+[19:58:28] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    craft stone_pickaxe:1 -> ok: crafted 1 stone_pickaxe
+[19:58:28] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    pickup stations -> ok: picked up 1 stacks
+[19:58:28] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    craft stick:4 -> ok: crafted 4 stick
+[19:58:58] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test] diamond 480s: brain rules, goal nether_portal, doing collect raw_iron:13, milestone 6/13, deaths 1
+[autopilot-test]    perf fps 47, server 2.8 ms/tick, mod 0.70 ms/tick
+[19:58:58] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    at 3 107 20 hp 20 food 17 inv {coal=7, cobblestone=28, crafting_table=1, gravel=4, raw_iron=6, spruce_planks=1, spruce_sapling=1, stick=4, stone_pickaxe=1, wooden_pickaxe=1}
+[19:58:58] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    known water 5, 68, 45, lava -3, -55, 42
+[19:58:58] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    collect coal:6 -> ok: collected 6 coal (seen blocks)
+[19:58:58] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    craft torch:8 -> failed NO_RECIPE: no known recipe for torch (not unlocked yet?)
+[19:58:58] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    craft torch:8 -> failed NO_RECIPE: no known recipe for torch (not unlocked yet?)
+[19:58:58] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    craft stone_pickaxe:1 -> ok: crafted 1 stone_pickaxe
+[19:58:58] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    pickup stations -> ok: picked up 1 stacks
+[19:58:58] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    craft stick:4 -> ok: crafted 4 stick
+[19:59:28] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test] diamond 510s: brain rules, goal nether_portal, doing collect raw_iron:13, milestone 6/13, deaths 1
+[autopilot-test]    perf fps 51, server 3.7 ms/tick, mod 0.69 ms/tick
+[19:59:28] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    at 2 103 14 hp 20 food 17 inv {coal=8, cobblestone=30, crafting_table=1, gravel=4, raw_iron=12, spruce_planks=1, spruce_sapling=1, stick=4, stone_pickaxe=1, wooden_pickaxe=1}
+[19:59:28] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    known water 5, 68, 45, lava -3, -55, 42
+[19:59:28] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    collect coal:6 -> ok: collected 6 coal (seen blocks)
+[19:59:28] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    craft torch:8 -> failed NO_RECIPE: no known recipe for torch (not unlocked yet?)
+[19:59:28] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    craft torch:8 -> failed NO_RECIPE: no known recipe for torch (not unlocked yet?)
+[19:59:28] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    craft stone_pickaxe:1 -> ok: crafted 1 stone_pickaxe
+[19:59:28] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    pickup stations -> ok: picked up 1 stacks
+[19:59:28] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    craft stick:4 -> ok: crafted 4 stick
+[19:59:58] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test] diamond 540s: brain rules, goal nether_portal, doing collect coal:4, milestone 6/13, deaths 1
+[autopilot-test]    perf fps 76, server 2.8 ms/tick, mod 0.69 ms/tick
+[19:59:58] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    at 13 69 51 hp 20 food 16 inv {coal=4, cobblestone=23, crafting_table=1, gravel=4, rotten_flesh=2, spruce_planks=1, spruce_sapling=1, stick=2, stone_pickaxe=1, torch=8, wooden_pickaxe=1}
+[19:59:58] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    known water 16, 70, 47, lava -1, -55, 43
+[19:59:58] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    collect raw_iron:13 -> failed INTERRUPTED: interrupted: brain chose attack zombie
+[19:59:58] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    attack zombie -> ok: killed the zombie
+[19:59:58] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    craft torch:8 -> ok: crafted 8 torch
+[19:59:58] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    craft furnace:1 -> ok: crafted 1 furnace
+[19:59:58] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    smelt iron_ingot:12 -> ok: loaded 12 to smelt into iron_ingot; working nearby meanwhile
+[19:59:58] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    pickup stations -> ok: picked up 1 stacks
+[20:00:27] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test] diamond 570s: brain rules, goal nether_portal, doing collect coal:3, milestone 6/13, deaths 1
+[autopilot-test]    perf fps 42, server 3.1 ms/tick, mod 0.69 ms/tick
+[20:00:27] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    at 8 69 43 hp 7 food 20 inv {coal=5, cobblestone=23, crafting_table=1, gravel=4, pointed_dripstone=1, spruce_planks=1, spruce_sapling=1, stick=2, stone_pickaxe=1, torch=7, wooden_pickaxe=1}
+[20:00:27] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    known water 5, 68, 45, lava -1, -55, 43
+[20:00:27] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    attack zombie -> failed INTERRUPTED: interrupted: brain chose shelter heal
+[20:00:27] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    shelter heal -> failed INTERRUPTED: interrupted by reflex_fight
+[20:00:27] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    attack zombie -> ok: killed the zombie
+[20:00:27] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    attack skeleton -> failed INTERRUPTED: interrupted by reflex_low_hp
+[20:00:27] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    retreat -> ok: got away
+[20:00:27] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    eat -> ok: ate rotten_flesh
+[20:00:57] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test] diamond 600s: brain rules, goal nether_portal, doing collect stone:5, milestone 6/13, deaths 1
+[autopilot-test]    perf fps 64, server 3.4 ms/tick, mod 0.69 ms/tick
+[20:00:57] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    at 0 51 80 hp 3 food 16 inv {arrow=2, coal=8, cobblestone=23, crafting_table=1, gravel=4, pointed_dripstone=2, spruce_planks=1, spruce_sapling=1, stick=2, stone_pickaxe=1, torch=3, wooden_pickaxe=1}
+[20:00:57] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    known water -7, 62, 59, lava -1, -55, 43
+[20:00:57] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    attack skeleton -> failed INTERRUPTED: interrupted by reflex_low_hp
+[20:00:57] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    retreat -> ok: got away
+[20:00:57] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    eat -> ok: ate rotten_flesh
+[20:00:57] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    collect coal:3 -> ok: collected 3 coal (seen blocks)
+[20:00:57] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    collect stone:5 -> failed INTERRUPTED: interrupted: brain chose attack skeleton
+[20:00:57] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    attack skeleton -> ok: killed the skeleton
+[20:01:28] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test] diamond 630s: brain rules, goal nether_portal, doing collect coal:2, milestone 6/13, deaths 1
+[autopilot-test]    perf fps 50, server 2.1 ms/tick, mod 0.68 ms/tick
+[20:01:28] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    at 3 48 89 hp 3 food 15 inv {arrow=2, coal=6, cobblestone=27, crafting_table=1, gravel=4, pointed_dripstone=2, spruce_planks=1, spruce_sapling=1, stone_pickaxe=1, torch=9, wooden_pickaxe=1}
+[20:01:28] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    known water 4, 44, 85, lava -1, -55, 43
+[20:01:28] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    collect coal:3 -> ok: collected 3 coal (seen blocks)
+[20:01:28] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    collect stone:5 -> failed INTERRUPTED: interrupted: brain chose attack skeleton
+[20:01:28] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    attack skeleton -> ok: killed the skeleton
+[20:01:28] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    collect stone:5 -> failed STUCK: stuck: stayed inside 2.0 blocks for 12 s
+[20:01:28] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    unstuck -> ok: got out (walk)
+[20:01:28] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    craft torch:8 -> ok: crafted 8 torch
+[20:01:58] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test] diamond 660s: brain rules, goal nether_portal, doing smelt iron_ingot:12, milestone 6/13, deaths 1
+[autopilot-test]    perf fps 50, server 1.9 ms/tick, mod 0.68 ms/tick
+[20:01:58] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    at 5 44 84 hp 3 food 15 inv {arrow=2, coal=8, cobblestone=28, crafting_table=1, gravel=4, pointed_dripstone=2, spruce_planks=1, spruce_sapling=1, stone_pickaxe=1, torch=9, wooden_pickaxe=1}
+[20:01:58] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    known water 5, 44, 84, lava -1, -55, 43
+[20:01:58] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    attack skeleton -> ok: killed the skeleton
+[20:01:58] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    collect stone:5 -> failed STUCK: stuck: stayed inside 2.0 blocks for 12 s
+[20:01:58] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    unstuck -> ok: got out (walk)
+[20:01:58] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    craft torch:8 -> ok: crafted 8 torch
+[20:01:58] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    collect coal:2 -> ok: collected 2 coal (seen blocks)
+[20:01:58] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    collect stone:3 -> ok: collected 3 stone (seen blocks)
+[20:02:27] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test] diamond 690s: brain rules, goal nether_portal, doing goto surface, milestone 6/13, deaths 1
+[autopilot-test]    perf fps 94, server 2.2 ms/tick, mod 0.68 ms/tick
+[20:02:27] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    at 18 83 13 hp 3 food 13 inv {arrow=2, coal=8, cobblestone=29, crafting_table=1, gravel=4, iron_ingot=12, pointed_dripstone=3, spruce_planks=1, spruce_sapling=1, stone_pickaxe=1, torch=8, wooden_pickaxe=1}
+[20:02:27] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    known water 16, 70, 47, lava -1, -55, 43
+[20:02:27] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    collect stone:5 -> failed STUCK: stuck: stayed inside 2.0 blocks for 12 s
+[20:02:27] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    unstuck -> ok: got out (walk)
+[20:02:27] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    craft torch:8 -> ok: crafted 8 torch
+[20:02:27] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    collect coal:2 -> ok: collected 2 coal (seen blocks)
+[20:02:27] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    collect stone:3 -> ok: collected 3 stone (seen blocks)
+[20:02:27] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    smelt iron_ingot:12 -> ok: smelted 12 iron_ingot
+[20:02:59] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test] diamond 720s: brain rules, goal nether_portal, doing collect log:9, milestone 6/13, deaths 1
+[autopilot-test]    perf fps 17, server 3.6 ms/tick, mod 0.67 ms/tick
+[20:02:59] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    at -11 119 -7 hp 3 food 12 inv {arrow=2, coal=8, cobblestone=29, crafting_table=1, gravel=4, iron_ingot=12, pointed_dripstone=3, spruce_log=1, spruce_planks=1, spruce_sapling=1, stone_pickaxe=1, torch=3, wooden_pickaxe=1}
+[20:02:59] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    known water 5, 68, 45, lava -3, -55, 42
+[20:02:59] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    unstuck -> ok: got out (walk)
+[20:02:59] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    craft torch:8 -> ok: crafted 8 torch
+[20:02:59] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    collect coal:2 -> ok: collected 2 coal (seen blocks)
+[20:02:59] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    collect stone:3 -> ok: collected 3 stone (seen blocks)
+[20:02:59] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    smelt iron_ingot:12 -> ok: smelted 12 iron_ingot
+[20:02:59] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    goto surface -> ok: back under open sky
+[20:03:30] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test] diamond 750s: brain rules, goal nether_portal, doing collect log:9, milestone 6/13, deaths 1
+[autopilot-test]    perf fps 67, server 2.8 ms/tick, mod 0.66 ms/tick
+[20:03:30] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    at -20 120 -7 hp 3 food 12 inv {arrow=2, coal=8, cobblestone=27, crafting_table=1, gravel=4, iron_ingot=12, pointed_dripstone=3, spruce_log=8, spruce_planks=1, spruce_sapling=1, stone_pickaxe=1, torch=2, wooden_pickaxe=1}
+[20:03:30] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    known water 5, 68, 45, lava -3, -55, 42
+[20:03:30] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    unstuck -> ok: got out (walk)
+[20:03:30] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    craft torch:8 -> ok: crafted 8 torch
+[20:03:30] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    collect coal:2 -> ok: collected 2 coal (seen blocks)
+[20:03:30] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    collect stone:3 -> ok: collected 3 stone (seen blocks)
+[20:03:30] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    smelt iron_ingot:12 -> ok: smelted 12 iron_ingot
+[20:03:30] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    goto surface -> ok: back under open sky
+[20:04:01] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test] diamond 780s: brain rules, goal nether_portal, doing collect raw_iron:1, milestone 6/13, deaths 1
+[autopilot-test]    perf fps 65, server 3.0 ms/tick, mod 0.65 ms/tick
+[20:04:01] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    at -8 102 21 hp 3 food 10 inv {arrow=2, bucket=1, coal=6, cobblestone=26, crafting_table=1, flint_and_steel=1, gravel=3, iron_ingot=2, iron_pickaxe=1, iron_sword=1, pointed_dripstone=3, spruce_log=6, spruce_planks=3, spruce_sapling=1, stick=5, stone_pickaxe=1, torch=9, wooden_pickaxe=1}
+[20:04:01] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    known water 5, 68, 45, lava -3, -55, 42
+[20:04:01] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    craft planks:4 -> ok: crafted 4 planks
+[20:04:01] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    craft stick:4 -> ok: crafted 4 stick
+[20:04:01] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    craft iron_sword:1 -> ok: crafted 1 iron_sword
+[20:04:01] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    pickup stations -> ok: picked up 2 stacks
+[20:04:01] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    collect flint:1 -> ok: flint after 1 gravel breaks
+[20:04:01] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    craft flint_and_steel:1 -> ok: crafted 1 flint_and_steel
+[20:04:30] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test] diamond 810s: brain rules, goal nether_portal, doing collect raw_iron:1, milestone 6/13, deaths 1
+[autopilot-test]    perf fps 40, server 2.7 ms/tick, mod 0.65 ms/tick
+[20:04:30] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    at -2 40 28 hp 3 food 10 inv {andesite=4, arrow=2, bucket=1, coal=6, cobblestone=37, crafting_table=1, flint_and_steel=1, gravel=3, iron_ingot=2, iron_pickaxe=1, iron_sword=1, pointed_dripstone=3, spruce_log=6, spruce_planks=3, spruce_sapling=1, stick=5, stone_pickaxe=1, torch=7, wooden_pickaxe=1}
+[20:04:30] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    known water -27, 32, 40, lava -3, -55, 42
+[20:04:30] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    craft planks:4 -> ok: crafted 4 planks
+[20:04:30] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    craft stick:4 -> ok: crafted 4 stick
+[20:04:30] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    craft iron_sword:1 -> ok: crafted 1 iron_sword
+[20:04:30] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    pickup stations -> ok: picked up 2 stacks
+[20:04:30] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    collect flint:1 -> ok: flint after 1 gravel breaks
+[20:04:30] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    craft flint_and_steel:1 -> ok: crafted 1 flint_and_steel
+[20:05:01] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test] diamond 840s: brain rules, goal nether_portal, doing smelt iron_ingot:1, milestone 6/13, deaths 1
+[autopilot-test]    perf fps 70, server 2.2 ms/tick, mod 0.65 ms/tick
+[20:05:01] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    at -7 12 14 hp 3 food 10 inv {andesite=6, arrow=2, bucket=1, coal=3, cobblestone=37, flint_and_steel=1, gravel=3, iron_ingot=2, iron_pickaxe=1, iron_sword=1, pointed_dripstone=3, spruce_log=6, spruce_planks=3, spruce_sapling=1, stick=3, stone_pickaxe=1, torch=11, wooden_pickaxe=1}
+[20:05:01] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    known water -27, 32, 40, lava -3, -55, 42
+[20:05:01] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    pickup stations -> ok: picked up 2 stacks
+[20:05:01] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    collect flint:1 -> ok: flint after 1 gravel breaks
+[20:05:01] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    craft flint_and_steel:1 -> ok: crafted 1 flint_and_steel
+[20:05:01] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    collect raw_iron:1 -> ok: collected 1 raw_iron
+[20:05:01] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    craft torch:8 -> ok: crafted 8 torch
+[20:05:01] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    craft furnace:1 -> ok: crafted 1 furnace
+[20:05:31] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test] diamond 870s: brain rules, goal nether_portal, doing collect coal:6, milestone 6/13, deaths 1
+[autopilot-test]    perf fps 66, server 2.3 ms/tick, mod 0.65 ms/tick
+[20:05:31] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    at -4 1 51 hp 3 food 9 inv {andesite=6, arrow=2, bucket=1, coal=7, cobblestone=40, flint_and_steel=1, gravel=3, iron_ingot=3, iron_pickaxe=1, iron_sword=1, pointed_dripstone=3, spruce_log=6, spruce_planks=3, spruce_sapling=1, stick=3, stone_pickaxe=1, torch=7, wooden_pickaxe=1}
+[20:05:31] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    known water -27, 32, 40, lava -2, -55, 43
+[20:05:31] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    collect flint:1 -> ok: flint after 1 gravel breaks
+[20:05:31] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    craft flint_and_steel:1 -> ok: crafted 1 flint_and_steel
+[20:05:31] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    collect raw_iron:1 -> ok: collected 1 raw_iron
+[20:05:31] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    craft torch:8 -> ok: crafted 8 torch
+[20:05:31] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    craft furnace:1 -> ok: crafted 1 furnace
+[20:05:31] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    smelt iron_ingot:1 -> ok: smelted 1 iron_ingot
+[20:06:01] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test] diamond 900s: brain rules, goal nether_portal, doing craft bucket:1, milestone 6/13, deaths 1
+[autopilot-test]    perf fps 56, server 2.6 ms/tick, mod 0.64 ms/tick
+[20:06:01] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    at -10 14 22 hp 3 food 8 inv {andesite=1, arrow=2, bucket=1, coal=9, cobbled_deepslate=1, cobblestone=42, flint_and_steel=1, gravel=3, iron_ingot=3, iron_pickaxe=1, iron_sword=1, pointed_dripstone=3, spruce_log=6, spruce_planks=3, spruce_sapling=1, stick=3, stone_pickaxe=1, torch=6, wooden_pickaxe=1}
+[20:06:01] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    known water -27, 32, 40, lava -3, -55, 42
+[20:06:01] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    craft flint_and_steel:1 -> ok: crafted 1 flint_and_steel
+[20:06:01] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    collect raw_iron:1 -> ok: collected 1 raw_iron
+[20:06:01] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    craft torch:8 -> ok: crafted 8 torch
+[20:06:01] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    craft furnace:1 -> ok: crafted 1 furnace
+[20:06:01] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    smelt iron_ingot:1 -> ok: smelted 1 iron_ingot
+[20:06:01] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    collect coal:6 -> ok: collected 6 coal (seen blocks)
+[20:06:31] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test] diamond 930s: brain rules, goal nether_portal, doing explore cow,pig,sheep,chicken, milestone 6/13, deaths 1
+[autopilot-test]    perf fps 40, server 3.4 ms/tick, mod 0.64 ms/tick
+[20:06:31] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    at -16 19 37 hp 0 food 6 inv {andesite=1, arrow=2, bucket=2, coal=9, cobbled_deepslate=1, cobblestone=44, crafting_table=1, flint_and_steel=1, furnace=1, gravel=3, iron_pickaxe=1, iron_sword=1, pointed_dripstone=3, spruce_log=6, spruce_planks=3, spruce_sapling=1, stick=3, stone_pickaxe=1, torch=4, wooden_pickaxe=1}
+[20:06:31] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    known water -27, 32, 40, lava -3, -55, 42
+[20:06:31] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    craft bucket:1 -> ok: crafted 1 bucket
+[20:06:31] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    pickup stations -> ok: picked up 2 stacks
+[20:06:31] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    explore cow,pig,sheep,chicken -> failed INTERRUPTED: interrupted: brain chose retreat
+[20:06:31] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    retreat -> ok: got away
+[20:06:31] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    explore cow,pig,sheep,chicken -> failed INTERRUPTED: interrupted: brain chose retreat
+[20:06:31] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    retreat -> ok: got away
+[20:07:01] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test] diamond 960s: brain rules, goal nether_portal, doing explore cow,pig,sheep,chicken, milestone 6/13, deaths 1
+[autopilot-test]    perf fps 70, server 2.6 ms/tick, mod 0.64 ms/tick
+[20:07:01] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    at -14 9 78 hp 0 food 6 inv {andesite=10, arrow=2, bucket=2, coal=9, cobbled_deepslate=1, cobblestone=53, crafting_table=1, flint_and_steel=1, furnace=1, granite=9, gravel=3, iron_pickaxe=1, iron_sword=1, pointed_dripstone=3, spruce_log=6, spruce_planks=3, spruce_sapling=1, stick=3, stone_pickaxe=1, wooden_pickaxe=1}
+[20:07:01] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    known water 4, 44, 85, lava -2, -55, 43
+[20:07:01] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    craft bucket:1 -> ok: crafted 1 bucket
+[20:07:01] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    pickup stations -> ok: picked up 2 stacks
+[20:07:01] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    explore cow,pig,sheep,chicken -> failed INTERRUPTED: interrupted: brain chose retreat
+[20:07:01] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    retreat -> ok: got away
+[20:07:01] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    explore cow,pig,sheep,chicken -> failed INTERRUPTED: interrupted: brain chose retreat
+[20:07:01] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    retreat -> ok: got away
+[20:07:31] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test] diamond 990s: brain rules, goal nether_portal, doing explore cow,pig,sheep,chicken, milestone 6/13, deaths 1
+[autopilot-test]    perf fps 94, server 3.0 ms/tick, mod 0.64 ms/tick
+[20:07:31] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    at -7 22 129 hp 0 food 6 inv {andesite=22, arrow=2, bucket=2, coal=9, cobbled_deepslate=1, cobblestone=54, crafting_table=1, flint_and_steel=1, furnace=1, granite=19, gravel=3, iron_pickaxe=1, iron_sword=1, pointed_dripstone=3, spruce_log=6, spruce_planks=3, spruce_sapling=1, stick=3, stone_pickaxe=1, wooden_pickaxe=1}
+[20:07:31] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    known water -4, 10, 105, lava -2, -55, 43
+[20:07:31] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    craft bucket:1 -> ok: crafted 1 bucket
+[20:07:31] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    pickup stations -> ok: picked up 2 stacks
+[20:07:31] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    explore cow,pig,sheep,chicken -> failed INTERRUPTED: interrupted: brain chose retreat
+[20:07:31] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    retreat -> ok: got away
+[20:07:31] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    explore cow,pig,sheep,chicken -> failed INTERRUPTED: interrupted: brain chose retreat
+[20:07:31] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    retreat -> ok: got away
+[20:08:01] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test] diamond 1020s: brain rules, goal nether_portal, doing explore cow,pig,sheep,chicken, milestone 6/13, deaths 1
+[autopilot-test]    perf fps 86, server 2.7 ms/tick, mod 0.64 ms/tick
+[20:08:01] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    at -16 25 149 hp 0 food 6 inv {andesite=22, arrow=2, bucket=2, coal=9, cobbled_deepslate=1, cobblestone=92, crafting_table=1, flint_and_steel=1, furnace=1, granite=19, gravel=3, iron_pickaxe=1, iron_sword=1, pointed_dripstone=3, spruce_log=6, spruce_planks=3, spruce_sapling=1, stick=3, stone_pickaxe=1, wooden_pickaxe=1}
+[20:08:01] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    known water -5, 19, 138, lava -2, -55, 43
+[20:08:01] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    craft bucket:1 -> ok: crafted 1 bucket
+[20:08:01] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    pickup stations -> ok: picked up 2 stacks
+[20:08:01] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    explore cow,pig,sheep,chicken -> failed INTERRUPTED: interrupted: brain chose retreat
+[20:08:01] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    retreat -> ok: got away
+[20:08:01] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    explore cow,pig,sheep,chicken -> failed INTERRUPTED: interrupted: brain chose retreat
+[20:08:01] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    retreat -> ok: got away
+[20:08:31] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test] diamond 1050s: brain rules, goal nether_portal, doing goto surface, milestone 6/13, deaths 1
+[autopilot-test]    perf fps 52, server 2.8 ms/tick, mod 0.64 ms/tick
+[20:08:31] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    at -16 12 87 hp 0 food 6 inv {andesite=22, arrow=2, bucket=2, coal=9, cobbled_deepslate=1, cobblestone=94, crafting_table=1, flint_and_steel=1, furnace=1, granite=20, gravel=3, iron_pickaxe=1, iron_sword=1, pointed_dripstone=3, spruce_log=6, spruce_planks=3, spruce_sapling=1, stick=3, stone_pickaxe=1, wooden_pickaxe=1}
+[20:08:31] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    known water -9, 10, 95, lava -2, -55, 43
+[20:08:31] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    pickup stations -> ok: picked up 2 stacks
+[20:08:31] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    explore cow,pig,sheep,chicken -> failed INTERRUPTED: interrupted: brain chose retreat
+[20:08:31] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    retreat -> ok: got away
+[20:08:31] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    explore cow,pig,sheep,chicken -> failed INTERRUPTED: interrupted: brain chose retreat
+[20:08:31] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    retreat -> ok: got away
+[20:08:31] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    explore cow,pig,sheep,chicken -> ok: explored 120 blocks, no cow/pig/sheep/chicken yet
+[20:09:01] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test] diamond 1080s: brain rules, goal nether_portal, doing goto surface, milestone 6/13, deaths 1
+[autopilot-test]    perf fps 59, server 2.7 ms/tick, mod 0.64 ms/tick
+[20:09:01] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    at 16 62 62 hp 0 food 5 inv {andesite=21, arrow=2, bucket=2, coal=9, cobbled_deepslate=1, cobblestone=96, crafting_table=1, dripstone_block=1, flint_and_steel=1, furnace=1, granite=20, gravel=3, iron_pickaxe=1, iron_sword=1, pointed_dripstone=3, spruce_log=6, spruce_planks=3, spruce_sapling=1, stick=3, stone_pickaxe=1, wooden_pickaxe=1}
+[20:09:01] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    known water 5, 63, 51, lava -1, -55, 43
+[20:09:01] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    pickup stations -> ok: picked up 2 stacks
+[20:09:01] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    explore cow,pig,sheep,chicken -> failed INTERRUPTED: interrupted: brain chose retreat
+[20:09:01] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    retreat -> ok: got away
+[20:09:01] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    explore cow,pig,sheep,chicken -> failed INTERRUPTED: interrupted: brain chose retreat
+[20:09:01] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    retreat -> ok: got away
+[20:09:01] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    explore cow,pig,sheep,chicken -> ok: explored 120 blocks, no cow/pig/sheep/chicken yet
+[20:09:31] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test] diamond 1110s: brain rules, goal nether_portal, doing goto surface, milestone 6/13, deaths 1
+[autopilot-test]    perf fps 73, server 3.0 ms/tick, mod 0.64 ms/tick
+[20:09:31] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    at -4 102 19 hp 0 food 5 inv {andesite=21, arrow=2, bucket=2, coal=9, cobbled_deepslate=1, cobblestone=96, crafting_table=1, dripstone_block=1, flint_and_steel=1, furnace=1, granite=20, gravel=3, iron_pickaxe=1, iron_sword=1, pointed_dripstone=3, spruce_log=6, spruce_planks=3, spruce_sapling=1, stick=3, stone_pickaxe=1, wooden_pickaxe=1}
+[20:09:31] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    known water 5, 68, 45, lava -3, -55, 42
+[20:09:31] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    pickup stations -> ok: picked up 2 stacks
+[20:09:31] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    explore cow,pig,sheep,chicken -> failed INTERRUPTED: interrupted: brain chose retreat
+[20:09:31] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    retreat -> ok: got away
+[20:09:31] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    explore cow,pig,sheep,chicken -> failed INTERRUPTED: interrupted: brain chose retreat
+[20:09:31] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    retreat -> ok: got away
+[20:09:31] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    explore cow,pig,sheep,chicken -> ok: explored 120 blocks, no cow/pig/sheep/chicken yet
+[20:10:01] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test] diamond 1140s: brain rules, goal nether_portal, doing attack cow, milestone 6/13, deaths 1
+[autopilot-test]    perf fps 55, server 4.5 ms/tick, mod 0.63 ms/tick
+[20:10:01] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    at 30 115 -33 hp 0 food 5 inv {andesite=21, arrow=2, bucket=2, coal=9, cobbled_deepslate=1, cobblestone=96, crafting_table=1, dripstone_block=1, flint_and_steel=1, furnace=1, granite=20, gravel=3, iron_pickaxe=1, iron_sword=1, pointed_dripstone=3, spruce_log=6, spruce_planks=3, spruce_sapling=1, stick=3, stone_pickaxe=1, wooden_pickaxe=1}
+[20:10:01] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    known water 16, 70, 47, lava -3, -55, 42
+[20:10:01] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    retreat -> ok: got away
+[20:10:01] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    explore cow,pig,sheep,chicken -> failed INTERRUPTED: interrupted: brain chose retreat
+[20:10:01] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    retreat -> ok: got away
+[20:10:01] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    explore cow,pig,sheep,chicken -> ok: explored 120 blocks, no cow/pig/sheep/chicken yet
+[20:10:01] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    goto surface -> failed UNREACHABLE: couldn't find the way up
+[20:10:01] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    explore cow,pig,sheep,chicken -> ok: found cow
+[20:10:34] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test] diamond 1170s: brain rules, goal nether_portal, doing smelt cooked_beef:1, milestone 6/13, deaths 1
+[autopilot-test]    perf fps 16, server 6.3 ms/tick, mod 0.63 ms/tick
+[20:10:34] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    at 47 119 -27 hp 2 food 19 inv {andesite=21, arrow=2, bucket=2, coal=8, cobbled_deepslate=1, cobblestone=96, crafting_table=1, dripstone_block=1, flint_and_steel=1, granite=20, gravel=3, iron_pickaxe=1, iron_sword=1, leather=5, pointed_dripstone=3, spruce_log=6, spruce_planks=3, spruce_sapling=1, stick=3, stone_pickaxe=1, wooden_pickaxe=1}
+[20:10:34] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    known water 16, 70, 47, lava -1, -55, 43
+[20:10:34] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    eat -> ok: ate beef
+[20:10:34] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    eat -> ok: ate beef
+[20:10:34] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    eat -> ok: ate beef
+[20:10:34] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    attack cow -> ok: killed the cow
+[20:10:34] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    eat -> ok: ate beef
+[20:10:34] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    eat -> ok: ate beef
+[20:11:09] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test] diamond 1200s: brain rules, goal nether_portal, doing fill_bucket water, milestone 6/13, deaths 1
+[autopilot-test]    perf fps 84, server 3.1 ms/tick, mod 0.63 ms/tick
+[20:11:09] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    at 17 97 6 hp 7 food 16 inv {andesite=21, arrow=2, bucket=2, coal=6, cobbled_deepslate=1, cobblestone=96, cooked_beef=1, crafting_table=1, dirt=1, dripstone_block=1, flint_and_steel=1, furnace=1, granite=20, gravel=3, iron_pickaxe=1, iron_sword=1, leather=5, pointed_dripstone=3, spruce_log=6, spruce_planks=3, spruce_sapling=1, stick=1, stone_pickaxe=1, torch=8, wooden_pickaxe=1}
+[20:11:09] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    known water 16, 70, 47, lava -1, -55, 43
+[20:11:09] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    attack cow -> ok: killed the cow
+[20:11:09] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    eat -> ok: ate beef
+[20:11:09] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    eat -> ok: ate beef
+[20:11:09] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    smelt cooked_beef:1 -> ok: smelted 1 cooked_beef
+[20:11:09] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    pickup stations -> ok: picked up 1 stacks
+[20:11:09] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    craft torch:8 -> ok: crafted 8 torch
+[20:11:40] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test] diamond 1230s: brain rules, goal nether_portal, doing explore cow,pig,sheep,chicken, milestone 6/13, deaths 1
+[autopilot-test]    perf fps 50, server 3.3 ms/tick, mod 0.63 ms/tick
+[20:11:40] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    at -8 61 67 hp 15 food 20 inv {andesite=21, arrow=2, bucket=1, coal=6, cobbled_deepslate=1, cobblestone=96, crafting_table=1, dirt=1, dripstone_block=1, flint_and_steel=1, furnace=1, granite=20, gravel=3, iron_pickaxe=1, iron_sword=1, leather=5, pointed_dripstone=3, spruce_log=5, spruce_planks=5, spruce_sapling=1, stick=5, stone_pickaxe=1, torch=7, water_bucket=1, wooden_pickaxe=1}
+[20:11:40] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    known water -15, 59, 67, lava -2, -55, 43
+[20:11:40] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    pickup stations -> ok: picked up 1 stacks
+[20:11:40] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    craft torch:8 -> ok: crafted 8 torch
+[20:11:40] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    fill_bucket water -> ok: filled a bucket with water
+[20:11:40] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    eat -> ok: ate cooked_beef
+[20:11:40] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    craft stick:4 -> ok: crafted 4 stick
+[20:11:40] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    craft planks:4 -> ok: crafted 4 planks
+[20:12:10] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test] diamond 1260s: brain rules, goal nether_portal, doing explore cow,pig,sheep,chicken, milestone 6/13, deaths 1
+[autopilot-test]    perf fps 58, server 3.0 ms/tick, mod 0.63 ms/tick
+[20:12:10] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    at -13 25 112 hp 17 food 17 inv {andesite=21, arrow=2, bucket=1, coal=6, cobbled_deepslate=1, cobblestone=114, crafting_table=1, dirt=1, dripstone_block=1, flint_and_steel=1, furnace=1, granite=26, gravel=3, iron_pickaxe=1, iron_sword=1, leather=5, pointed_dripstone=3, spruce_log=5, spruce_planks=5, spruce_sapling=1, stick=5, stone_pickaxe=1, torch=3, water_bucket=1, wooden_pickaxe=1}
+[20:12:10] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    known water -4, 10, 105, lava -2, -55, 43
+[20:12:10] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    pickup stations -> ok: picked up 1 stacks
+[20:12:10] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    craft torch:8 -> ok: crafted 8 torch
+[20:12:10] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    fill_bucket water -> ok: filled a bucket with water
+[20:12:10] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    eat -> ok: ate cooked_beef
+[20:12:10] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    craft stick:4 -> ok: crafted 4 stick
+[20:12:10] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    craft planks:4 -> ok: crafted 4 planks
+[20:12:40] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test] diamond 1290s: brain rules, goal nether_portal, doing goto surface, milestone 6/13, deaths 1
+[autopilot-test]    perf fps 73, server 3.4 ms/tick, mod 0.63 ms/tick
+[20:12:40] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    at -7 21 134 hp 17 food 16 inv {andesite=21, arrow=2, bucket=1, coal=6, cobbled_deepslate=1, cobblestone=114, crafting_table=1, dirt=1, dripstone_block=1, flint_and_steel=1, furnace=1, granite=26, gravel=3, iron_pickaxe=1, iron_sword=1, leather=5, pointed_dripstone=3, spruce_log=5, spruce_planks=5, spruce_sapling=1, stick=5, stone_pickaxe=1, water_bucket=1, wooden_pickaxe=1}
+[20:12:40] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    known water -6, 19, 136, lava -2, -55, 43
+[20:12:40] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    fill_bucket water -> ok: filled a bucket with water
+[20:12:40] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    eat -> ok: ate cooked_beef
+[20:12:40] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    craft stick:4 -> ok: crafted 4 stick
+[20:12:40] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    craft planks:4 -> ok: crafted 4 planks
+[20:12:40] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    explore cow,pig,sheep,chicken -> failed STUCK: stuck: stayed inside 2.0 blocks for 12 s
+[20:12:40] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    unstuck -> ok: got out (walk)
+[20:13:09] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test] diamond 1320s: brain rules, goal nether_portal, doing goto surface, milestone 6/13, deaths 1
+[autopilot-test]    perf fps 37, server 3.6 ms/tick, mod 0.63 ms/tick
+[20:13:09] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    at -17 19 38 hp 17 food 14 inv {andesite=23, arrow=2, bucket=1, coal=6, cobbled_deepslate=1, cobblestone=117, crafting_table=1, dirt=1, dripstone_block=1, flint_and_steel=1, furnace=1, granite=26, gravel=3, iron_pickaxe=1, iron_sword=1, leather=5, pointed_dripstone=3, spruce_log=5, spruce_planks=5, spruce_sapling=1, stick=5, stone_pickaxe=1, water_bucket=1, wooden_pickaxe=1}
+[20:13:09] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    known water -27, 32, 40, lava -3, -55, 42
+[20:13:09] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    fill_bucket water -> ok: filled a bucket with water
+[20:13:09] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    eat -> ok: ate cooked_beef
+[20:13:09] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    craft stick:4 -> ok: crafted 4 stick
+[20:13:09] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    craft planks:4 -> ok: crafted 4 planks
+[20:13:09] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    explore cow,pig,sheep,chicken -> failed STUCK: stuck: stayed inside 2.0 blocks for 12 s
+[20:13:09] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    unstuck -> ok: got out (walk)
+[20:13:40] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test] diamond 1350s: brain rules, goal nether_portal, doing retreat, milestone 6/13, deaths 1
+[autopilot-test]    perf fps 40, server 3.0 ms/tick, mod 0.63 ms/tick
+[20:13:40] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    at 6 12 7 hp 17 food 16 inv {andesite=23, arrow=2, bucket=1, coal=6, cobbled_deepslate=1, cobblestone=117, crafting_table=1, dirt=1, dripstone_block=1, flint_and_steel=1, furnace=1, granite=26, gravel=3, iron_pickaxe=1, iron_sword=1, leather=5, pointed_dripstone=3, spruce_log=5, spruce_planks=5, spruce_sapling=1, stick=5, stone_pickaxe=1, water_bucket=1, wooden_pickaxe=1}
+[20:13:40] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    known water -27, 32, 40, lava -3, -55, 42
+[20:13:40] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    attack zombie -> ok: killed the zombie
+[20:13:40] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    eat -> ok: ate rotten_flesh
+[20:13:40] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    goto surface -> failed INTERRUPTED: interrupted: brain chose attack skeleton
+[20:13:40] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    attack skeleton -> failed INTERRUPTED: interrupted by reflex_creeper
+[20:13:40] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    retreat -> ok: got away
+[20:13:40] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    goto surface -> failed INTERRUPTED: interrupted: brain chose retreat
+[20:14:10] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test] diamond 1380s: brain rules, goal nether_portal, doing goto surface, milestone 6/13, deaths 1
+[autopilot-test]    perf fps 59, server 3.9 ms/tick, mod 0.63 ms/tick
+[20:14:10] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    at 4 21 19 hp 17 food 13 inv {andesite=23, arrow=2, bucket=1, coal=6, cobbled_deepslate=1, cobblestone=118, crafting_table=1, diorite=1, dirt=1, dripstone_block=1, flint_and_steel=1, furnace=1, granite=26, gravel=3, iron_pickaxe=1, iron_sword=1, leather=5, pointed_dripstone=3, spruce_log=5, spruce_planks=5, spruce_sapling=1, stick=5, stone_pickaxe=1, water_bucket=1, wooden_pickaxe=1}
+[20:14:10] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    known water -27, 32, 40, lava -3, -55, 42
+[20:14:10] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    goto surface -> failed INTERRUPTED: interrupted: brain chose retreat
+[20:14:10] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    retreat -> ok: got away
+[20:14:10] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    goto surface -> failed INTERRUPTED: interrupted by reflex_creeper
+[20:14:10] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    retreat -> ok: got away
+[20:14:10] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    goto surface -> failed INTERRUPTED: interrupted by reflex_creeper
+[20:14:10] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    retreat -> ok: got away
+[20:14:40] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test] diamond 1410s: brain rules, goal nether_portal, doing goto surface, milestone 6/13, deaths 1
+[autopilot-test]    perf fps 75, server 2.3 ms/tick, mod 0.63 ms/tick
+[20:14:40] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    at 10 67 29 hp 17 food 12 inv {andesite=8, arrow=2, bucket=1, coal=6, cobbled_deepslate=1, cobblestone=119, crafting_table=1, diorite=1, dripstone_block=1, flint_and_steel=1, furnace=1, granite=26, gravel=3, iron_pickaxe=1, iron_sword=1, leather=5, pointed_dripstone=3, spruce_log=5, spruce_planks=5, spruce_sapling=1, stick=5, stone_pickaxe=1, water_bucket=1, wooden_pickaxe=1}
+[20:14:40] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    known water 16, 70, 47, lava -1, -55, 43
+[20:14:40] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    goto surface -> failed INTERRUPTED: interrupted: brain chose retreat
+[20:14:40] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    retreat -> ok: got away
+[20:14:40] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    goto surface -> failed INTERRUPTED: interrupted by reflex_creeper
+[20:14:40] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    retreat -> ok: got away
+[20:14:40] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    goto surface -> failed INTERRUPTED: interrupted by reflex_creeper
+[20:14:40] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    retreat -> ok: got away
+[20:15:10] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test] diamond 1440s: brain rules, goal nether_portal, doing goto surface, milestone 6/13, deaths 1
+[autopilot-test]    perf fps 36, server 2.7 ms/tick, mod 0.63 ms/tick
+[20:15:10] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    at 18 119 -9 hp 17 food 12 inv {andesite=4, arrow=2, bucket=1, coal=6, cobbled_deepslate=1, cobblestone=119, crafting_table=1, diorite=1, dripstone_block=1, flint_and_steel=1, furnace=1, granite=26, gravel=3, iron_pickaxe=1, iron_sword=1, leather=5, pointed_dripstone=3, spruce_log=5, spruce_planks=5, spruce_sapling=1, stick=5, stone_pickaxe=1, water_bucket=1, wooden_pickaxe=1}
+[20:15:10] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    known water 16, 70, 47, lava -3, -55, 42
+[20:15:10] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    goto surface -> failed INTERRUPTED: interrupted: brain chose retreat
+[20:15:10] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    retreat -> ok: got away
+[20:15:10] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    goto surface -> failed INTERRUPTED: interrupted by reflex_creeper
+[20:15:10] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    retreat -> ok: got away
+[20:15:10] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    goto surface -> failed INTERRUPTED: interrupted by reflex_creeper
+[20:15:10] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    retreat -> ok: got away
+[20:15:42] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test] diamond 1470s: brain rules, goal nether_portal, doing attack pig, milestone 6/13, deaths 1
+[autopilot-test]    perf fps 52, server 3.5 ms/tick, mod 0.62 ms/tick
+[20:15:42] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    at -7 111 -88 hp 17 food 12 inv {andesite=4, arrow=2, black_wool=1, bucket=1, coal=4, cobbled_deepslate=1, cobblestone=119, crafting_table=1, diorite=1, dripstone_block=1, flint_and_steel=1, furnace=1, granite=26, gravel=3, iron_pickaxe=1, iron_sword=1, leather=5, pointed_dripstone=3, spruce_log=4, spruce_planks=7, spruce_sapling=1, stick=7, stone_pickaxe=1, torch=4, water_bucket=1, wooden_pickaxe=1}
+[20:15:42] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    known water 16, 70, 47, lava -3, -55, 42
+[20:15:42] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    craft stick:4 -> ok: crafted 4 stick
+[20:15:42] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    craft planks:4 -> ok: crafted 4 planks
+[20:15:42] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    explore cow,pig,sheep,chicken -> ok: found sheep
+[20:15:42] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    attack sheep -> ok: killed the sheep
+[20:15:42] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    eat -> ok: ate mutton
+[20:15:42] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    explore cow,pig,sheep,chicken -> ok: found pig
+[20:16:13] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test] diamond 1500s: brain rules, goal nether_portal, doing smelt cooked_porkchop:3, milestone 6/13, deaths 1
+[autopilot-test]    perf fps 27, server 2.8 ms/tick, mod 0.62 ms/tick
+[20:16:13] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    at 28 110 -87 hp 20 food 16 inv {andesite=4, arrow=2, black_wool=1, bucket=1, coal=3, cobbled_deepslate=1, cobblestone=119, cooked_porkchop=1, crafting_table=1, diorite=1, dripstone_block=1, flint_and_steel=1, granite=26, gravel=3, iron_pickaxe=1, iron_sword=1, leather=5, pointed_dripstone=3, spruce_log=4, spruce_planks=7, spruce_sapling=1, stick=7, stone_pickaxe=1, torch=4, water_bucket=1, wooden_pickaxe=1}
+[20:16:13] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    known water 16, 70, 47, lava -1, -56, 41
+[20:16:13] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    eat -> ok: ate mutton
+[20:16:13] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    explore cow,pig,sheep,chicken -> ok: found pig
+[20:16:13] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    attack pig -> ok: killed the pig
+[20:16:13] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    eat -> ok: ate porkchop
+[20:16:13] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    eat -> ok: ate porkchop
+[20:16:13] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    attack pig -> ok: killed the pig
+[20:16:44] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test] diamond 1530s: brain rules, goal nether_portal, doing smelt cooked_porkchop:1, milestone 6/13, deaths 1
+[autopilot-test]    perf fps 17, server 3.5 ms/tick, mod 0.62 ms/tick
+[20:16:44] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    at 10 110 -86 hp 20 food 16 inv {andesite=4, arrow=2, black_wool=1, bucket=1, coal=2, cobbled_deepslate=1, cobblestone=119, cooked_porkchop=3, crafting_table=1, diorite=1, dripstone_block=1, flint_and_steel=1, granite=26, gravel=3, iron_pickaxe=1, iron_sword=1, leather=5, pointed_dripstone=3, spruce_log=4, spruce_planks=7, spruce_sapling=1, stick=7, stone_pickaxe=1, torch=4, water_bucket=1, wooden_pickaxe=1}
+[20:16:44] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    known water 16, 70, 47, lava -3, -55, 42
+[20:16:44] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    eat -> ok: ate porkchop
+[20:16:44] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    eat -> ok: ate porkchop
+[20:16:44] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    attack pig -> ok: killed the pig
+[20:16:44] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    smelt cooked_porkchop:3 -> ok: smelted 3 cooked_porkchop
+[20:16:44] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    pickup stations -> ok: picked up 1 stacks
+[20:16:44] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    attack pig -> ok: killed the pig
+[20:17:16] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test] diamond 1560s: brain rules, goal nether_portal, doing diamond_hunt 3, milestone 6/13, deaths 1
+[autopilot-test]    perf fps 36, server 3.8 ms/tick, mod 0.61 ms/tick
+[20:17:16] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    at -2 83 -78 hp 20 food 15 inv {andesite=4, arrow=2, black_wool=1, bucket=1, coal=2, cobbled_deepslate=1, cobblestone=142, cooked_porkchop=4, crafting_table=1, diorite=1, dripstone_block=1, flint_and_steel=1, granite=26, gravel=3, iron_pickaxe=1, iron_sword=1, leather=5, pointed_dripstone=3, spruce_log=4, spruce_planks=7, spruce_sapling=1, stick=7, stone_pickaxe=1, torch=2, water_bucket=1, wooden_pickaxe=1}
+[20:17:16] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    known water 16, 70, 47, lava -3, -55, 42
+[20:17:16] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    attack pig -> ok: killed the pig
+[20:17:16] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    smelt cooked_porkchop:3 -> ok: smelted 3 cooked_porkchop
+[20:17:16] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    pickup stations -> ok: picked up 1 stacks
+[20:17:16] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    attack pig -> ok: killed the pig
+[20:17:16] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    smelt cooked_porkchop:1 -> ok: smelted 1 cooked_porkchop
+[20:17:16] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    pickup stations -> ok: nothing left to pick up
+[20:17:46] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test] diamond 1590s: brain rules, goal nether_portal, doing goto surface, milestone 6/13, deaths 1
+[autopilot-test]    perf fps 29, server 2.9 ms/tick, mod 0.62 ms/tick
+[20:17:46] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    at 10 93 -70 hp 20 food 20 inv {andesite=2, arrow=2, black_wool=1, bucket=1, coal=2, cobbled_deepslate=1, cobblestone=159, cooked_porkchop=3, crafting_table=1, diorite=1, dripstone_block=1, flint_and_steel=1, granite=26, gravel=3, iron_pickaxe=1, iron_sword=1, leather=5, pointed_dripstone=3, rotten_flesh=1, spruce_log=4, spruce_planks=7, spruce_sapling=1, stick=7, stone_pickaxe=1, water_bucket=1, wooden_pickaxe=1}
+[20:17:46] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    known water 16, 70, 47, lava -3, -55, 42
+[20:17:46] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    attack pig -> ok: killed the pig
+[20:17:46] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    smelt cooked_porkchop:1 -> ok: smelted 1 cooked_porkchop
+[20:17:46] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    pickup stations -> ok: nothing left to pick up
+[20:17:46] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    diamond_hunt 3 -> failed INTERRUPTED: interrupted: brain chose attack zombie
+[20:17:46] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    attack zombie -> ok: killed the zombie
+[20:17:46] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    eat -> ok: ate cooked_porkchop
+[20:18:16] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test] diamond 1620s: brain rules, goal nether_portal, doing goto surface, milestone 6/13, deaths 1
+[autopilot-test]    perf fps 17, server 3.6 ms/tick, mod 0.62 ms/tick
+[20:18:16] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    at -2 106 -75 hp 20 food 20 inv {andesite=22, arrow=2, black_wool=1, bucket=1, coal=2, cobbled_deepslate=1, cobblestone=174, cooked_porkchop=3, crafting_table=1, diorite=1, dripstone_block=1, flint_and_steel=1, granite=26, gravel=3, iron_sword=1, leather=5, pointed_dripstone=3, rotten_flesh=1, spruce_log=4, spruce_planks=7, spruce_sapling=1, stick=7, stone_pickaxe=1, water_bucket=1, wooden_pickaxe=1}
+[20:18:16] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    known water 16, 70, 47, lava -3, -55, 42
+[20:18:16] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    attack pig -> ok: killed the pig
+[20:18:16] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    smelt cooked_porkchop:1 -> ok: smelted 1 cooked_porkchop
+[20:18:16] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    pickup stations -> ok: nothing left to pick up
+[20:18:16] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    diamond_hunt 3 -> failed INTERRUPTED: interrupted: brain chose attack zombie
+[20:18:16] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    attack zombie -> ok: killed the zombie
+[20:18:16] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    eat -> ok: ate cooked_porkchop
+[20:18:47] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test] diamond 1650s: brain rules, goal nether_portal, doing collect raw_iron:3, milestone 6/13, deaths 1
+[autopilot-test]    perf fps 38, server 2.5 ms/tick, mod 0.61 ms/tick
+[20:18:47] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    at 4 84 -76 hp 20 food 20 inv {andesite=22, arrow=2, black_wool=1, bucket=1, coal=6, cobbled_deepslate=1, cobblestone=175, cooked_porkchop=3, crafting_table=1, diorite=1, dripstone_block=1, flint_and_steel=1, granite=26, gravel=3, iron_sword=1, leather=5, pointed_dripstone=3, rotten_flesh=1, spruce_log=4, spruce_planks=7, spruce_sapling=1, stick=5, stone_pickaxe=1, torch=4, water_bucket=1, wooden_pickaxe=1}
+[20:18:47] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    known water 16, 70, 47, lava -3, -55, 42
+[20:18:47] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    diamond_hunt 3 -> failed INTERRUPTED: interrupted: brain chose attack zombie
+[20:18:47] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    attack zombie -> ok: killed the zombie
+[20:18:47] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    eat -> ok: ate cooked_porkchop
+[20:18:47] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    goto surface -> failed UNREACHABLE: couldn't find the way up
+[20:18:47] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    craft torch:8 -> ok: crafted 8 torch
+[20:18:47] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    collect coal:6 -> ok: collected 6 coal (seen blocks)
+[20:19:17] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test] diamond 1680s: brain rules, goal nether_portal, doing collect raw_iron:3, milestone 6/13, deaths 1
+[autopilot-test]    perf fps 65, server 2.6 ms/tick, mod 0.61 ms/tick
+[20:19:17] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    at 59 22 -77 hp 20 food 20 inv {andesite=22, arrow=2, black_wool=1, bucket=1, coal=6, cobbled_deepslate=1, cobblestone=178, cooked_porkchop=3, crafting_table=1, diorite=1, dripstone_block=1, flint_and_steel=1, granite=26, gravel=3, iron_sword=1, leather=5, moss_block=1, pointed_dripstone=3, rotten_flesh=1, spruce_log=4, spruce_planks=7, spruce_sapling=1, stick=5, stone_pickaxe=1, torch=1, water_bucket=1, wooden_pickaxe=1}
+[20:19:17] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    known water 36, 46, -72, lava 62, 21, -87
+[20:19:17] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    diamond_hunt 3 -> failed INTERRUPTED: interrupted: brain chose attack zombie
+[20:19:17] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    attack zombie -> ok: killed the zombie
+[20:19:17] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    eat -> ok: ate cooked_porkchop
+[20:19:17] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    goto surface -> failed UNREACHABLE: couldn't find the way up
+[20:19:17] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    craft torch:8 -> ok: crafted 8 torch
+[20:19:17] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    collect coal:6 -> ok: collected 6 coal (seen blocks)
+[20:19:47] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test] diamond 1710s: brain rules, goal nether_portal, doing smelt iron_ingot:3, milestone 6/13, deaths 1
+[autopilot-test]    perf fps 30, server 2.5 ms/tick, mod 0.61 ms/tick
+[20:19:47] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    at 71 28 -72 hp 20 food 20 inv {andesite=17, arrow=2, black_wool=1, bucket=1, coal=3, cobbled_deepslate=1, cobblestone=170, cooked_porkchop=3, diorite=3, dripstone_block=1, flint_and_steel=1, granite=26, gravel=3, iron_ingot=1, iron_sword=1, leather=5, moss_block=3, pointed_dripstone=3, rotten_flesh=1, spruce_log=4, spruce_planks=7, spruce_sapling=1, stick=3, stone_pickaxe=1, torch=9, water_bucket=1, wooden_pickaxe=1}
+[20:19:47] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    known water 36, 46, -72, lava 62, 21, -87
+[20:19:47] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    goto surface -> failed UNREACHABLE: couldn't find the way up
+[20:19:47] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    craft torch:8 -> ok: crafted 8 torch
+[20:19:47] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    collect coal:6 -> ok: collected 6 coal (seen blocks)
+[20:19:47] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    collect raw_iron:3 -> ok: collected 3 raw_iron
+[20:19:47] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    craft torch:8 -> ok: crafted 8 torch
+[20:19:47] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    craft furnace:1 -> ok: crafted 1 furnace
+[20:20:16] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test] diamond 1740s: brain rules, goal nether_portal, doing collect coal:6, milestone 6/13, deaths 1
+[autopilot-test]    perf fps 30, server 3.5 ms/tick, mod 0.61 ms/tick
+[20:20:16] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    at 73 28 -68 hp 20 food 20 inv {andesite=17, arrow=2, black_wool=1, bucket=1, coal=3, cobbled_deepslate=1, cobblestone=175, cooked_porkchop=3, diorite=3, dripstone_block=1, flint_and_steel=1, granite=26, gravel=3, iron_ingot=3, iron_sword=1, leather=5, moss_block=7, pointed_dripstone=3, rotten_flesh=1, spruce_log=4, spruce_planks=7, spruce_sapling=1, stick=3, torch=9, water_bucket=1, wooden_pickaxe=1}
+[20:20:16] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    known water 36, 46, -71, lava 62, 21, -87
+[20:20:16] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    craft torch:8 -> ok: crafted 8 torch
+[20:20:16] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    collect coal:6 -> ok: collected 6 coal (seen blocks)
+[20:20:16] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    collect raw_iron:3 -> ok: collected 3 raw_iron
+[20:20:16] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    craft torch:8 -> ok: crafted 8 torch
+[20:20:16] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    craft furnace:1 -> ok: crafted 1 furnace
+[20:20:16] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    smelt iron_ingot:3 -> ok: smelted 3 iron_ingot
+[20:20:47] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test] diamond 1770s: brain rules, goal nether_portal, doing collect coal:6, milestone 6/13, deaths 1
+[autopilot-test]    perf fps 47, server 2.3 ms/tick, mod 0.61 ms/tick
+[20:20:47] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    at 72 24 -62 hp 20 food 20 inv {andesite=16, arrow=2, black_wool=1, bucket=1, coal=5, cobbled_deepslate=1, cobblestone=188, cooked_porkchop=3, diorite=3, dripstone_block=1, flint_and_steel=1, granite=26, gravel=3, iron_ingot=3, iron_sword=1, leather=5, moss_block=9, pointed_dripstone=3, rotten_flesh=1, spruce_log=4, spruce_planks=7, spruce_sapling=1, stick=3, torch=9, water_bucket=1, wooden_pickaxe=1}
+[20:20:47] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    known water 36, 46, -71, lava 62, 21, -87
+[20:20:47] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    craft torch:8 -> ok: crafted 8 torch
+[20:20:47] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    collect coal:6 -> ok: collected 6 coal (seen blocks)
+[20:20:47] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    collect raw_iron:3 -> ok: collected 3 raw_iron
+[20:20:47] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    craft torch:8 -> ok: crafted 8 torch
+[20:20:47] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    craft furnace:1 -> ok: crafted 1 furnace
+[20:20:47] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    smelt iron_ingot:3 -> ok: smelted 3 iron_ingot
+[20:21:17] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test] diamond 1800s: brain rules, goal nether_portal, doing goto surface, milestone 6/13, deaths 1
+[autopilot-test]    perf fps 69, server 2.7 ms/tick, mod 0.61 ms/tick
+[20:21:17] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    at 52 33 -77 hp 20 food 20 inv {andesite=14, arrow=2, black_wool=1, bucket=1, coal=9, cobbled_deepslate=1, cobblestone=188, cooked_porkchop=3, crafting_table=1, diorite=3, dripstone_block=1, flint_and_steel=1, granite=26, gravel=3, iron_pickaxe=1, iron_sword=1, leather=5, moss_block=9, pointed_dripstone=3, rotten_flesh=1, spruce_log=3, spruce_planks=5, spruce_sapling=1, stick=5, torch=9, water_bucket=1, wooden_pickaxe=1}
+[20:21:17] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    known water 36, 46, -72, lava 62, 21, -87
+[20:21:17] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    smelt iron_ingot:3 -> ok: smelted 3 iron_ingot
+[20:21:17] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    collect coal:6 -> ok: collected 6 coal (seen blocks)
+[20:21:17] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    craft iron_pickaxe:1 -> ok: crafted 1 iron_pickaxe
+[20:21:17] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    craft crafting_table:1 -> ok: crafted 1 crafting_table
+[20:21:17] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    craft stick:4 -> ok: crafted 4 stick
+[20:21:17] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    craft planks:4 -> ok: crafted 4 planks
+[20:21:46] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test] diamond 1830s: brain rules, goal nether_portal, doing goto surface, milestone 6/13, deaths 1
+[autopilot-test]    perf fps 55, server 2.4 ms/tick, mod 0.61 ms/tick
+[20:21:46] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    at 3 80 -78 hp 20 food 20 inv {andesite=9, arrow=2, azalea=1, black_wool=1, bucket=1, coal=9, cobbled_deepslate=1, cobblestone=189, cooked_porkchop=3, crafting_table=1, diorite=3, dripstone_block=1, flint_and_steel=1, granite=26, gravel=3, iron_pickaxe=1, iron_sword=1, leather=5, moss_block=9, pointed_dripstone=3, rotten_flesh=1, spruce_log=3, spruce_planks=5, spruce_sapling=1, stick=5, torch=8, water_bucket=1, wooden_pickaxe=1}
+[20:21:46] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    known water 21, 55, -75, lava 62, 21, -87
+[20:21:46] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    smelt iron_ingot:3 -> ok: smelted 3 iron_ingot
+[20:21:46] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    collect coal:6 -> ok: collected 6 coal (seen blocks)
+[20:21:46] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    craft iron_pickaxe:1 -> ok: crafted 1 iron_pickaxe
+[20:21:46] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    craft crafting_table:1 -> ok: crafted 1 crafting_table
+[20:21:46] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    craft stick:4 -> ok: crafted 4 stick
+[20:21:46] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    craft planks:4 -> ok: crafted 4 planks
+[20:22:18] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test] diamond 1860s: brain rules, goal nether_portal, doing explore cow,pig,sheep,chicken, milestone 6/13, deaths 1
+[autopilot-test]    perf fps 35, server 2.9 ms/tick, mod 0.61 ms/tick
+[20:22:18] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    at -17 111 -96 hp 20 food 20 inv {andesite=8, arrow=2, azalea=1, black_wool=1, bucket=1, coal=9, cobbled_deepslate=1, cobblestone=189, cooked_porkchop=3, crafting_table=1, diorite=3, dripstone_block=1, flint_and_steel=1, granite=26, gravel=3, iron_pickaxe=1, iron_sword=1, leather=5, moss_block=9, pointed_dripstone=3, rotten_flesh=1, spruce_log=3, spruce_planks=5, spruce_sapling=1, stick=5, torch=6, water_bucket=1, wooden_pickaxe=1}
+[20:22:18] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    known water 21, 55, -75, lava 62, 21, -87
+[20:22:18] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    craft stick:4 -> ok: crafted 4 stick
+[20:22:18] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    craft planks:4 -> ok: crafted 4 planks
+[20:22:18] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    goto surface -> failed UNREACHABLE: couldn't find the way up
+[20:22:18] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    explore cow,pig,sheep,chicken -> failed INTERRUPTED: interrupted: brain chose attack zombie
+[20:22:18] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    attack zombie -> failed INTERRUPTED: interrupted by reflex_creeper
+[20:22:18] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    retreat -> ok: got away
+[20:22:49] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test] diamond 1890s: brain rules, goal nether_portal, doing attack sheep, milestone 6/13, deaths 1
+[autopilot-test]    perf fps 17, server 3.2 ms/tick, mod 0.60 ms/tick
+[20:22:49] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    at -54 117 -142 hp 20 food 19 inv {andesite=8, arrow=2, azalea=1, black_wool=3, bucket=1, coal=9, cobbled_deepslate=1, cobblestone=189, cooked_porkchop=3, crafting_table=1, diorite=3, dripstone_block=1, flint_and_steel=1, granite=26, gravel=3, iron_pickaxe=1, iron_sword=1, leather=5, moss_block=9, mutton=3, pointed_dripstone=3, rotten_flesh=1, spruce_log=3, spruce_planks=5, spruce_sapling=1, stick=5, torch=5, water_bucket=1, wooden_pickaxe=1}
+[20:22:49] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    known water 21, 55, -75, lava 62, 21, -87
+[20:22:49] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    attack zombie -> failed INTERRUPTED: interrupted by reflex_creeper
+[20:22:49] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    retreat -> ok: got away
+[20:22:49] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    explore cow,pig,sheep,chicken -> failed INTERRUPTED: interrupted: brain chose retreat
+[20:22:49] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    retreat -> ok: got away
+[20:22:49] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    explore cow,pig,sheep,chicken -> ok: found sheep
+[20:22:49] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    attack sheep -> ok: killed the sheep
+[20:23:25] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test] diamond 1920s: brain rules, goal nether_portal, doing pickup stations, milestone 6/13, deaths 1
+[autopilot-test]    perf fps 33, server 2.8 ms/tick, mod 0.60 ms/tick
+[20:23:25] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    at -55 117 -144 hp 20 food 18 inv {andesite=8, arrow=2, azalea=1, black_bed=1, black_wool=2, bucket=1, coal=8, cobblestone=182, cooked_porkchop=3, crafting_table=1, diorite=3, dripstone_block=1, flint_and_steel=1, granite=26, gravel=3, iron_pickaxe=1, iron_sword=1, leather=5, moss_block=9, pointed_dripstone=3, rotten_flesh=2, spruce_log=1, spruce_planks=6, spruce_sapling=1, stick=5, torch=5, water_bucket=1, wooden_pickaxe=1}
+[20:23:25] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    known water 21, 55, -75, lava 62, 21, -87
+[20:23:25] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    attack sheep -> ok: killed the sheep
+[20:23:25] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    craft planks:4 -> ok: crafted 4 planks
+[20:23:25] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    craft crafting_table:1 -> ok: crafted 1 crafting_table
+[20:23:25] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    craft planks:4 -> ok: crafted 4 planks
+[20:23:25] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    craft furnace:1 -> ok: crafted 1 furnace
+[20:23:25] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    smelt cooked_mutton:5 -> ok: loaded 5 to smelt into cooked_mutton; working nearby meanwhile
+[20:23:55] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test] diamond 1950s: brain rules, goal nether_portal, doing explore cow,pig,sheep,chicken, milestone 6/13, deaths 1
+[autopilot-test]    perf fps 43, server 3.1 ms/tick, mod 0.60 ms/tick
+[20:23:55] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    at -128 82 -76 hp 20 food 15 inv {andesite=8, arrow=2, azalea=1, black_bed=1, black_wool=2, bucket=1, coal=8, cobblestone=182, cooked_porkchop=3, crafting_table=2, diorite=3, dripstone_block=1, flint_and_steel=1, granite=26, gravel=3, iron_pickaxe=1, iron_sword=1, leather=5, moss_block=9, pointed_dripstone=3, rotten_flesh=2, spruce_log=1, spruce_planks=6, spruce_sapling=1, stick=5, water_bucket=1, wooden_pickaxe=1}
+[20:23:55] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    known water -129, 62, -65, lava 62, 21, -87
+[20:23:55] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    craft planks:4 -> ok: crafted 4 planks
+[20:23:55] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    craft crafting_table:1 -> ok: crafted 1 crafting_table
+[20:23:55] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    craft planks:4 -> ok: crafted 4 planks
+[20:23:55] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    craft furnace:1 -> ok: crafted 1 furnace
+[20:23:55] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    smelt cooked_mutton:5 -> ok: loaded 5 to smelt into cooked_mutton; working nearby meanwhile
+[20:23:55] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    pickup stations -> ok: picked up 1 stacks
+[20:24:25] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test] diamond 1980s: brain rules, goal nether_portal, doing eat, milestone 6/13, deaths 1
+[autopilot-test]    perf fps 27, server 4.4 ms/tick, mod 0.60 ms/tick
+[20:24:25] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    at -198 63 -132 hp 20 food 12 inv {andesite=8, arrow=2, azalea=1, black_bed=1, black_wool=2, bucket=1, coal=6, cobblestone=182, cooked_porkchop=3, crafting_table=2, diorite=3, dripstone_block=1, flint_and_steel=1, granite=26, gravel=3, iron_pickaxe=1, iron_sword=1, leather=5, moss_block=9, pointed_dripstone=3, rotten_flesh=2, spruce_log=1, spruce_planks=4, spruce_sapling=1, stick=7, torch=8, water_bucket=1, wooden_pickaxe=1}
+[20:24:25] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    known water -196, 62, -130, lava 62, 21, -87
+[20:24:25] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    smelt cooked_mutton:5 -> ok: loaded 5 to smelt into cooked_mutton; working nearby meanwhile
+[20:24:25] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    pickup stations -> ok: picked up 1 stacks
+[20:24:25] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    explore cow,pig,sheep,chicken -> ok: explored 120 blocks, no cow/pig/sheep/chicken yet
+[20:24:25] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    craft torch:8 -> ok: crafted 8 torch
+[20:24:25] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    craft stick:4 -> ok: crafted 4 stick
+[20:24:25] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    explore cow,pig,sheep,chicken -> failed INTERRUPTED: interrupted: brain chose eat
+[20:24:56] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test] diamond 2010s: brain rules, goal nether_portal, doing explore cow,pig,sheep,chicken, milestone 6/13, deaths 1
+[autopilot-test]    perf fps 32, server 3.6 ms/tick, mod 0.60 ms/tick
+[20:24:56] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    at -223 107 -86 hp 20 food 20 inv {andesite=8, arrow=2, azalea=1, black_bed=1, black_wool=2, bucket=1, coal=6, cobblestone=182, cooked_porkchop=2, crafting_table=2, diorite=3, dripstone_block=1, flint_and_steel=1, granite=26, gravel=3, iron_pickaxe=1, iron_sword=1, leather=5, moss_block=9, pointed_dripstone=3, rotten_flesh=2, spruce_log=1, spruce_planks=4, spruce_sapling=1, stick=7, torch=6, water_bucket=1, wooden_pickaxe=1}
+[20:24:56] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    known water -183, 62, -99, lava 62, 21, -87
+[20:24:56] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    pickup stations -> ok: picked up 1 stacks
+[20:24:56] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    explore cow,pig,sheep,chicken -> ok: explored 120 blocks, no cow/pig/sheep/chicken yet
+[20:24:56] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    craft torch:8 -> ok: crafted 8 torch
+[20:24:56] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    craft stick:4 -> ok: crafted 4 stick
+[20:24:56] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    explore cow,pig,sheep,chicken -> failed INTERRUPTED: interrupted: brain chose eat
+[20:24:56] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    eat -> ok: ate cooked_porkchop
+[20:25:28] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test] diamond 2040s: brain rules, goal nether_portal, doing attack pig, milestone 6/13, deaths 1
+[autopilot-test]    perf fps 18, server 3.3 ms/tick, mod 0.59 ms/tick
+[20:25:28] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    at -255 104 -109 hp 20 food 20 inv {andesite=8, arrow=2, azalea=1, black_bed=1, black_wool=2, bucket=1, coal=5, cobblestone=174, cooked_porkchop=2, crafting_table=2, diorite=3, dripstone_block=1, flint_and_steel=1, granite=26, gravel=3, iron_pickaxe=1, iron_sword=1, leather=5, moss_block=9, pointed_dripstone=3, rotten_flesh=2, spruce_log=1, spruce_planks=4, spruce_sapling=1, stick=7, torch=6, water_bucket=1, wooden_pickaxe=1}
+[20:25:28] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    known water -183, 62, -103, lava 62, 21, -87
+[20:25:28] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    attack pig -> ok: killed the pig
+[20:25:28] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    craft furnace:1 -> ok: crafted 1 furnace
+[20:25:28] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    smelt cooked_porkchop:4 -> ok: loaded 4 to smelt into cooked_porkchop; working nearby meanwhile
+[20:25:28] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    pickup stations -> ok: picked up 1 stacks
+[20:25:28] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    explore cow,pig,sheep,chicken -> ok: found pig
+[20:25:28] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    attack pig -> failed UNREACHABLE: no sightline to the pig
+[20:25:58] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test] diamond 2070s: brain rules, goal nether_portal, doing smelt cooked_porkchop:1, milestone 6/13, deaths 1
+[autopilot-test]    perf fps 23, server 2.3 ms/tick, mod 0.59 ms/tick
+[20:25:58] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    at -245 104 -107 hp 20 food 20 inv {andesite=8, arrow=2, azalea=1, black_bed=1, black_wool=2, bucket=1, coal=4, cobblestone=174, cooked_porkchop=6, crafting_table=2, diorite=3, dripstone_block=1, flint_and_steel=1, granite=26, gravel=3, iron_pickaxe=1, iron_sword=1, leather=5, moss_block=9, pointed_dripstone=3, rotten_flesh=2, spruce_log=1, spruce_planks=4, spruce_sapling=1, stick=7, torch=6, water_bucket=1, wooden_pickaxe=1}
+[20:25:58] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    known water -183, 62, -103, lava 62, 21, -87
+[20:25:58] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    smelt cooked_porkchop:4 -> ok: loaded 4 to smelt into cooked_porkchop; working nearby meanwhile
+[20:25:58] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    pickup stations -> ok: picked up 1 stacks
+[20:25:58] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    explore cow,pig,sheep,chicken -> ok: found pig
+[20:25:58] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    attack pig -> failed UNREACHABLE: no sightline to the pig
+[20:25:58] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    attack pig -> ok: killed the pig
+[20:25:58] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    attack pig -> ok: killed the pig
+[20:26:28] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test] diamond 2100s: brain rules, goal nether_portal, doing diamond_hunt 3, milestone 6/13, deaths 1
+[autopilot-test]    perf fps 39, server 2.8 ms/tick, mod 0.59 ms/tick
+[20:26:28] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    at -248 62 -81 hp 20 food 20 inv {andesite=8, arrow=2, azalea=1, black_bed=1, black_wool=2, bucket=1, coal=4, cobblestone=174, cooked_porkchop=7, crafting_table=2, diorite=3, dirt=3, dripstone_block=1, flint_and_steel=1, granite=26, gravel=3, iron_pickaxe=1, iron_sword=1, leather=5, moss_block=9, pointed_dripstone=3, rotten_flesh=2, spruce_log=1, spruce_planks=4, spruce_sapling=1, stick=7, torch=4, water_bucket=1, wooden_pickaxe=1}
+[20:26:28] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    known water -248, 62, -81, lava -3, -55, 42
+[20:26:28] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    pickup stations -> ok: picked up 1 stacks
+[20:26:28] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    explore cow,pig,sheep,chicken -> ok: found pig
+[20:26:28] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    attack pig -> failed UNREACHABLE: no sightline to the pig
+[20:26:28] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    attack pig -> ok: killed the pig
+[20:26:28] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    attack pig -> ok: killed the pig
+[20:26:28] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    smelt cooked_porkchop:1 -> ok: smelted 5 cooked_porkchop
+[20:26:59] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test] diamond 2130s: brain rules, goal nether_portal, doing diamond_hunt 3, milestone 6/13, deaths 1
+[autopilot-test]    perf fps 88, server 2.2 ms/tick, mod 0.59 ms/tick
+[20:26:59] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    at -241 55 -78 hp 20 food 20 inv {andesite=8, arrow=2, azalea=1, black_bed=1, black_wool=2, bucket=1, coal=4, cobblestone=178, cooked_porkchop=7, crafting_table=2, diorite=3, dirt=3, dripstone_block=4, flint_and_steel=1, granite=26, gravel=3, iron_pickaxe=1, iron_sword=1, leather=5, moss_block=9, pointed_dripstone=3, rotten_flesh=2, spruce_log=1, spruce_planks=4, spruce_sapling=1, stick=7, torch=2, water_bucket=1, wooden_pickaxe=1}
+[20:26:59] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    known water -244, 62, -78, lava -3, -55, 42
+[20:26:59] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    pickup stations -> ok: picked up 1 stacks
+[20:26:59] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    explore cow,pig,sheep,chicken -> ok: found pig
+[20:26:59] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    attack pig -> failed UNREACHABLE: no sightline to the pig
+[20:26:59] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    attack pig -> ok: killed the pig
+[20:26:59] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    attack pig -> ok: killed the pig
+[20:26:59] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    smelt cooked_porkchop:1 -> ok: smelted 5 cooked_porkchop
+[20:27:29] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test] diamond 2160s: brain rules, goal nether_portal, doing diamond_hunt 3, milestone 6/13, deaths 1
+[autopilot-test]    perf fps 58, server 2.3 ms/tick, mod 0.59 ms/tick
+[20:27:29] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    at -244 27 -74 hp 20 food 20 inv {andesite=8, arrow=2, azalea=1, black_bed=1, black_wool=2, bucket=1, coal=2, cobblestone=206, cooked_porkchop=7, crafting_table=2, diorite=3, dirt=3, dripstone_block=4, flint_and_steel=1, granite=26, gravel=3, iron_pickaxe=1, iron_sword=1, leather=5, moss_block=9, pointed_dripstone=3, rotten_flesh=4, spruce_log=1, spruce_planks=4, spruce_sapling=1, stick=5, torch=8, water_bucket=1, wooden_pickaxe=1}
+[20:27:29] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    known water -256, 55, -78, lava -3, -55, 42
+[20:27:29] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    attack pig -> ok: killed the pig
+[20:27:29] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    attack pig -> ok: killed the pig
+[20:27:29] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    smelt cooked_porkchop:1 -> ok: smelted 5 cooked_porkchop
+[20:27:29] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    diamond_hunt 3 -> failed INTERRUPTED: interrupted: brain chose attack zombie
+[20:27:29] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    attack zombie -> ok: killed the zombie
+[20:27:29] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    craft torch:8 -> ok: crafted 8 torch
+[20:27:59] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test] diamond 2190s: brain rules, goal nether_portal, doing collect coal:6, milestone 6/13, deaths 1
+[autopilot-test]    perf fps 85, server 3.1 ms/tick, mod 0.59 ms/tick
+[20:27:59] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    at -249 14 -79 hp 20 food 20 inv {andesite=6, arrow=2, azalea=1, black_bed=1, black_wool=2, bucket=1, coal=6, cobblestone=212, cooked_porkchop=7, crafting_table=2, diorite=13, dripstone_block=4, flint_and_steel=1, granite=26, gravel=3, iron_pickaxe=1, iron_sword=1, leather=5, moss_block=9, pointed_dripstone=3, rotten_flesh=4, spruce_log=1, spruce_planks=4, spruce_sapling=1, stick=5, torch=7, water_bucket=1, wooden_pickaxe=1}
+[20:27:59] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    known water -256, 55, -78, lava -3, -55, 42
+[20:27:59] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    smelt cooked_porkchop:1 -> ok: smelted 5 cooked_porkchop
+[20:27:59] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    diamond_hunt 3 -> failed INTERRUPTED: interrupted: brain chose attack zombie
+[20:27:59] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    attack zombie -> ok: killed the zombie
+[20:27:59] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    craft torch:8 -> ok: crafted 8 torch
+[20:27:59] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    diamond_hunt 3 -> failed INTERRUPTED: interrupted: brain chose attack skeleton
+[20:27:59] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    attack skeleton -> ok: killed the skeleton
+[20:28:29] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test] diamond 2220s: brain rules, goal nether_portal, doing diamond_hunt 3, milestone 6/13, deaths 1
+[autopilot-test]    perf fps 71, server 3.6 ms/tick, mod 0.59 ms/tick
+[20:28:29] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    at -249 -9 -75 hp 18 food 18 inv {andesite=4, arrow=4, azalea=1, black_bed=1, black_wool=2, bone=3, bucket=1, coal=8, cobblestone=222, cooked_porkchop=7, crafting_table=2, diorite=20, dripstone_block=4, flint_and_steel=1, granite=26, gravel=3, iron_pickaxe=1, iron_sword=1, leather=5, moss_block=9, pointed_dripstone=3, rotten_flesh=4, spruce_log=1, spruce_planks=4, spruce_sapling=1, stick=5, torch=6, water_bucket=1, wooden_pickaxe=1}
+[20:28:29] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    known water -256, 55, -78, lava -3, -55, 42
+[20:28:29] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    craft torch:8 -> ok: crafted 8 torch
+[20:28:29] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    diamond_hunt 3 -> failed INTERRUPTED: interrupted: brain chose attack skeleton
+[20:28:29] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    attack skeleton -> ok: killed the skeleton
+[20:28:29] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    collect coal:6 -> ok: collected 6 coal (seen blocks)
+[20:28:29] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    diamond_hunt 3 -> failed INTERRUPTED: interrupted: brain chose attack skeleton
+[20:28:29] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    attack skeleton -> ok: killed the skeleton
+[20:28:59] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test] diamond 2250s: brain rules, goal nether_portal, doing diamond_hunt 3, milestone 6/13, deaths 1
+[autopilot-test]    perf fps 95, server 3.2 ms/tick, mod 0.59 ms/tick
+[20:28:59] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    at -260 -37 -70 hp 20 food 20 inv {andesite=4, arrow=4, azalea=1, black_bed=1, black_wool=2, bone=3, bucket=1, coal=6, cobbled_deepslate=9, cobblestone=222, cooked_porkchop=6, crafting_table=2, diorite=20, dripstone_block=4, flint_and_steel=1, gravel=3, iron_pickaxe=1, iron_sword=1, leather=5, moss_block=9, pointed_dripstone=3, rotten_flesh=4, spruce_planks=6, spruce_sapling=1, stick=7, torch=11, tuff=12, water_bucket=1, wooden_pickaxe=1}
+[20:28:59] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    known water -313, -23, -71, lava -3, -55, 42
+[20:28:59] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    attack skeleton -> ok: killed the skeleton
+[20:28:59] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    diamond_hunt 3 -> failed INTERRUPTED: interrupted: brain chose eat
+[20:28:59] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    eat -> ok: ate cooked_porkchop
+[20:28:59] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    craft torch:8 -> ok: crafted 8 torch
+[20:28:59] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    craft stick:4 -> ok: crafted 4 stick
+[20:28:59] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    craft planks:4 -> ok: crafted 4 planks
+[20:29:29] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test] diamond 2280s: brain rules, goal nether_portal, doing diamond_hunt 3, milestone 6/13, deaths 1
+[autopilot-test]    perf fps 110, server 3.9 ms/tick, mod 0.60 ms/tick
+[20:29:29] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    at -264 -49 -46 hp 20 food 20 inv {arrow=4, azalea=1, black_bed=1, black_wool=2, bone=3, bucket=1, coal=6, cobbled_deepslate=21, cobblestone=222, cooked_porkchop=6, crafting_table=2, diorite=18, dripstone_block=4, flint_and_steel=1, gravel=3, iron_pickaxe=1, iron_sword=1, leather=5, moss_block=9, pointed_dripstone=3, rotten_flesh=4, spruce_planks=6, spruce_sapling=1, stick=7, torch=9, tuff=12, water_bucket=1, wooden_pickaxe=1}
+[20:29:29] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    known water -313, -23, -71, lava -3, -55, 42
+[20:29:29] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    attack skeleton -> ok: killed the skeleton
+[20:29:29] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    diamond_hunt 3 -> failed INTERRUPTED: interrupted: brain chose eat
+[20:29:29] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    eat -> ok: ate cooked_porkchop
+[20:29:29] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    craft torch:8 -> ok: crafted 8 torch
+[20:29:29] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    craft stick:4 -> ok: crafted 4 stick
+[20:29:29] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    craft planks:4 -> ok: crafted 4 planks
+[20:29:59] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test] diamond 2310s: brain rules, goal nether_portal, doing diamond_hunt 3, milestone 6/13, deaths 1
+[autopilot-test]    perf fps 98, server 3.1 ms/tick, mod 0.60 ms/tick
+[20:29:59] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    at -279 -52 -27 hp 20 food 20 inv {arrow=4, azalea=1, black_bed=1, black_wool=2, bone=3, bucket=1, coal=6, cobbled_deepslate=33, cobblestone=222, cooked_porkchop=6, crafting_table=2, diorite=18, dripstone_block=4, flint_and_steel=1, gravel=3, iron_pickaxe=1, iron_sword=1, leather=5, moss_block=9, pointed_dripstone=3, rotten_flesh=4, spruce_planks=6, spruce_sapling=1, stick=7, torch=6, tuff=23, water_bucket=1, wooden_pickaxe=1}
+[20:29:59] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    known water -313, -23, -71, lava -3, -55, 42
+[20:29:59] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    attack skeleton -> ok: killed the skeleton
+[20:29:59] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    diamond_hunt 3 -> failed INTERRUPTED: interrupted: brain chose eat
+[20:29:59] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    eat -> ok: ate cooked_porkchop
+[20:29:59] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    craft torch:8 -> ok: crafted 8 torch
+[20:29:59] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    craft stick:4 -> ok: crafted 4 stick
+[20:29:59] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    craft planks:4 -> ok: crafted 4 planks
+[20:30:28] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test] diamond 2340s: brain rules, goal nether_portal, doing diamond_hunt 3, milestone 6/13, deaths 1
+[autopilot-test]    perf fps 98, server 3.6 ms/tick, mod 0.60 ms/tick
+[20:30:28] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    at -315 -33 5 hp 20 food 20 inv {arrow=4, azalea=1, black_bed=1, black_wool=2, bone=3, bucket=1, coal=6, cobbled_deepslate=40, cobblestone=222, cooked_porkchop=6, crafting_table=2, diorite=18, dripstone_block=4, flint_and_steel=1, gravel=3, iron_pickaxe=1, iron_sword=1, leather=5, moss_block=9, pointed_dripstone=3, rotten_flesh=4, spruce_planks=6, spruce_sapling=1, stick=7, tuff=35, water_bucket=1, wooden_pickaxe=1}
+[20:30:28] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    known water -313, -23, -71, lava -3, -55, 42
+[20:30:28] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    attack skeleton -> ok: killed the skeleton
+[20:30:28] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    diamond_hunt 3 -> failed INTERRUPTED: interrupted: brain chose eat
+[20:30:28] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    eat -> ok: ate cooked_porkchop
+[20:30:28] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    craft torch:8 -> ok: crafted 8 torch
+[20:30:28] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    craft stick:4 -> ok: crafted 4 stick
+[20:30:28] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    craft planks:4 -> ok: crafted 4 planks
+[20:30:59] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test] diamond 2370s: brain rules, goal nether_portal, doing diamond_hunt 3, milestone 6/13, deaths 1
+[autopilot-test]    perf fps 103, server 3.2 ms/tick, mod 0.60 ms/tick
+[20:30:59] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    at -306 -48 11 hp 20 food 20 inv {arrow=4, azalea=1, black_bed=1, black_wool=2, bone=3, bucket=1, coal=6, cobbled_deepslate=53, cobblestone=222, cooked_porkchop=6, crafting_table=2, diorite=15, dripstone_block=4, flint_and_steel=1, gravel=3, iron_pickaxe=1, iron_sword=1, leather=5, moss_block=9, pointed_dripstone=3, rotten_flesh=4, spruce_planks=6, spruce_sapling=1, stick=7, tuff=43, water_bucket=1, wooden_pickaxe=1}
+[20:30:59] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    known water -313, -23, -71, lava -308, -55, 12
+[20:30:59] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    attack skeleton -> ok: killed the skeleton
+[20:30:59] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    diamond_hunt 3 -> failed INTERRUPTED: interrupted: brain chose eat
+[20:30:59] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    eat -> ok: ate cooked_porkchop
+[20:30:59] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    craft torch:8 -> ok: crafted 8 torch
+[20:30:59] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    craft stick:4 -> ok: crafted 4 stick
+[20:30:59] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    craft planks:4 -> ok: crafted 4 planks
+[autopilot-test] SPEED 0.983 game s per wall s (2400 game s in 2441 wall s), mod 0.60 ms per tick
+[20:31:29] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test] FINAL diamond: brain rules, goal nether_portal, doing diamond_hunt 3, milestone 6/13, deaths 1, dimension overworld, milestone times m4@0s m6@190s, checkpoints two_buckets@0s flint_and_steel@0s at_depth@153s lava_seen@156s diamond_pickaxe@190s
+[20:31:29] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test] LESSON craft torch failed 9 of 20 (mostly NO_RECIPE: no known recipe for torch (not unlocked yet?))
+[20:31:29] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test] LESSON goto surface failed 3 of 5 (mostly UNREACHABLE: couldn't find the way up)
