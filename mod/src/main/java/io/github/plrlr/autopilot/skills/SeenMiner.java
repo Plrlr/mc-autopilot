@@ -3,6 +3,7 @@ package io.github.plrlr.autopilot.skills;
 import baritone.api.pathing.goals.GoalGetToBlock;
 import baritone.api.pathing.goals.GoalNear;
 import io.github.plrlr.autopilot.Mc;
+import io.github.plrlr.autopilot.Tune;
 import io.github.plrlr.autopilot.state.WorldMemory;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -60,6 +61,15 @@ final class SeenMiner {
 	/** Is any seen block of this group within range? */
 	static boolean anySeen(WorldMemory memory, String group, int range) {
 		return nearest(memory, group, range) != null;
+	}
+
+	/** The stair fallback needs this even when the separate dry-target gene is off. */
+	static boolean anyDryStone(WorldMemory memory, int range) {
+		BlockPos me = Mc.player().blockPosition();
+		for (WorldMemory.Seen s : memory.all("stone"))
+			if (s.dim().equals(Mc.dimension()) && !unreachable(s.pos())
+					&& s.pos().distSqr(me) <= (double) range * range && dry(s.pos())) return true;
+		return false;
 	}
 
 	/** Tried lately and couldn't be reached or broken. */
@@ -241,6 +251,7 @@ final class SeenMiner {
 		double bestCost = Double.MAX_VALUE;
 		for (WorldMemory.Seen s : memory.all(group)) {
 			if (!s.dim().equals(Mc.dimension()) || unreachable(s.pos())) continue;
+			if (group.equals("stone") && Tune.on("gather.dry_stone") && !dry(s.pos())) continue;
 			// Range on the plain distance, like explore's "already see one": with the height
 			// penalty in the range check, a tree on a slope 20 blocks off was "not seen" while
 			// explore saw it, and the two bounced the job (17x 'no log seen' in one batch).
@@ -256,5 +267,12 @@ final class SeenMiner {
 			}
 		}
 		return best;
+	}
+
+	/** Water touching exposed stone makes the approach and the freshly opened cell unsafe. */
+	static boolean dry(BlockPos p) {
+		for (Direction d : Direction.values())
+			if (Mc.canSee(p.relative(d)) && !Mc.state(p.relative(d)).getFluidState().isEmpty()) return false;
+		return true;
 	}
 }

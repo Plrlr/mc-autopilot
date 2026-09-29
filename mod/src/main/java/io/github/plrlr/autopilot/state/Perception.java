@@ -44,6 +44,7 @@ public final class Perception {
 			// counting it kept a bot retreating on the spot for 15 minutes (batch 11, seed a).
 			boolean hostile = e instanceof Enemy && !NEUTRAL.contains(type)
 					&& !(d > 4 && io.github.plrlr.autopilot.skills.CombatSkills.unreachable(e))
+					&& !io.github.plrlr.autopilot.skills.CombatSkills.walled(e)
 					&& !(type.equals("creeper") && !Mc.canSee(e));
 			p.mobs.add(new Seen(e, type, d, hostile));
 		}

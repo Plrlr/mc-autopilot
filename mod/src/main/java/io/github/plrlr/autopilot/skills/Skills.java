@@ -33,6 +33,8 @@ public final class Skills {
 		MENU.put("panic_box", new Entry(PanicBox::new, "box in with 9 blocks right here and heal (any ground; not near creepers)"));
 		MENU.put("respawn_reset", new Entry(RespawnReset::new, "just respawned: at night dig or box in until morning"));
 		MENU.put("recover_items", new Entry(RecoverItems::new, "go back for dropped items: stop short, clear the spot, then pick up"));
+		MENU.put("stair_up", new Entry(StairUp::new, "stair_up [steps] [toward x z]: dig a 1-wide staircase up to open sky"));
+		MENU.put("spawner_escape", new Entry(SpawnerRoom::new, "wall off an active overworld spawner and leave"));
 		MENU.put("make_bed", new Entry(MakeBed::new, "make_bed:n: hunt sheep for wool and craft n beds"));
 		MENU.put("food_secure", new Entry(FoodSecure::new, "food_secure:n: cook, hunt, walk back to animals seen, fish, or explore until n food"));
 		MENU.put("fish", new Entry(Fish::new, "fish:n: catch n fish with a rod at known water"));
@@ -66,6 +68,10 @@ public final class Skills {
 		MENU.put("bed_bomb", new Entry(EndRoutes.BedBomb::new, "blow up beds at the perched dragon's head"));
 		MENU.put("dragon_strike", new Entry(EndRoutes.DragonStrike::new, "arrows while the dragon circles, the head fight while it perches"));
 		MENU.put("end_guard", new Entry(EndRoutes.EndGuard::new, "the End's reflex: away from enderman eyes, out of void falls"));
+		MENU.put("fluid_seal", new Entry(Fluids.Seal::new, "fluid_seal [water|lava]: block the fluid sources near us (fireproof blocks)"));
+		MENU.put("lava_guard", new Entry(Fluids.LavaGuard::new, "cover lava beside us or behind the block being dug"));
+		MENU.put("fluid_cross", new Entry(Fluids.Cross::new, "fluid_cross <x z>: bridge, boat or swim across water or lava toward a point"));
+		MENU.put("drain_tunnel", new Entry(Fluids.DrainTunnel::new, "seal and fill the water flooding our tunnel"));
 		MENU.put("shelter", new Entry(NightSkills.Shelter::new, "dig 3 down, cover the hole, wait for morning"));
 		MENU.put("sleep", new Entry(NightSkills.Sleep::new, "sleep in a bed (places one from the inventory if needed)"));
 		MENU.put("build_portal", new Entry(() -> CastPortal.needed() ? new CastPortal() : new PortalSkills.BuildPortal(),

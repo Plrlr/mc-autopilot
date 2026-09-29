@@ -54,6 +54,8 @@ public final class Planner {
 		if (respawn != null) urgent.add(0, respawn);
 		Option arrival = NetherPlan.arrival();
 		if (arrival != null) urgent.add(0, arrival);
+		Option cross = SurvivalPlan.cross();
+		if (cross != null && urgent.isEmpty()) urgent.add(cross);
 		if (Tune.on("move.shore_first") && ShoreSkill.needed()
 				&& (groundWork(main) || urgent.stream().anyMatch(Planner::groundWork))) {
 			// One shared decision prevents collect, station, shelter and explore from handing the
@@ -669,6 +671,8 @@ public final class Planner {
 	/** Life-or-death options that should be considered before the goal. */
 	private List<Option> urgent(Perception seen, Option main) {
 		List<Option> out = new ArrayList<>();
+		if (Tune.on("safety.spawner_room") && io.github.plrlr.autopilot.skills.SpawnerRoom.escapeNeeded(memory))
+			out.add(new Option("spawner_escape", null, "fresh mobs keep coming from a seen spawner: wall it off and leave"));
 		Option nether = NetherPlan.urgent(seen);
 		if (nether != null) out.add(nether);
 		LocalPlayer pl = Mc.player();
@@ -699,7 +703,7 @@ public final class Planner {
 			// Underground, two or more closing in wear us down in a tunnel: wall in and heal first.
 			else if (!onSurface() && pl.getHealth() <= Tune.i("plan.hide_hp") && seen.hostilesWithin(6) >= 2) out.add(escape(seen, "hurt with monsters closing in"));
 			// Skeletons outshoot a fleeing player; closing in fast is safer than running.
-			else out.add(SurvivalPlan.fight(hostile, new Option("attack", hostile.type(), hostile.type() + " is " + Math.round(hostile.dist()) + " blocks away")));
+			else out.add(SurvivalPlan.outnumbered(seen, SurvivalPlan.fight(hostile, new Option("attack", hostile.type(), hostile.type() + " is " + Math.round(hostile.dist()) + " blocks away"))));
 		}
 		if (wantsToEat()) {
 			// Health only regenerates with 18+ hunger, so hurt means eat a little earlier.
@@ -764,6 +768,7 @@ public final class Planner {
 	private Option recoverStep() {
 		WorldMemory.Seen death = memory.nearest("death");
 		if (death == null) return null;
+		if (Tune.on("safety.spawner_room") && io.github.plrlr.autopilot.skills.SpawnerRoom.near(memory, death.pos(), 8)) return null;
 		// Not back into the dark without armor: the monsters that killed us are still there, and
 		// batch 10's runs died 4-6 times each walking back (goto death interrupted 86 times).
 		if (Mc.dimension().equals("overworld") && Mc.isNight() && Mc.player().getArmorValue() < Tune.i("death.recover_night_armor")) return null;

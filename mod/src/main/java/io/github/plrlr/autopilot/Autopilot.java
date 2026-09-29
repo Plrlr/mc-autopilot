@@ -90,6 +90,10 @@ public final class Autopilot {
 	private long lavaMarginTick = -1000;
 	private final Map<String, long[]> failures = new HashMap<>(); // label -> {count, blockedUntilTick}
 	private String lastEndedKey = "";
+	private String lastNoopKey = "";
+	private int noopStreak;
+	private int skillInventoryHash;
+	private net.minecraft.core.BlockPos skillStartPos;
 
 	// Test harness: one skill run on its own, with no decisions around it
 	private Option testTask;
@@ -234,6 +238,7 @@ public final class Autopilot {
 
 		memory.scan(tick);
 		if (tick % 5 == 0) seen = Perception.look(32);
+		if (tick % 5 == 0 && Tune.on("safety.spawner_room")) io.github.plrlr.autopilot.skills.SpawnerRoom.observe(memory, seen, tick);
 		if (tick % 20 == 0) Bari.updateThrowaway();
 		if (deathItemsUntilTick >= 0 && tick > deathItemsUntilTick) {
 			deathItemsUntilTick = -1;
@@ -273,6 +278,9 @@ public final class Autopilot {
 			memory.clear();
 			PortalSkills.resetThrows();
 			io.github.plrlr.autopilot.skills.Station.forgetPlaced();
+			io.github.plrlr.autopilot.skills.ChestSkills.Stash.forget();
+			io.github.plrlr.autopilot.skills.SpawnerRoom.reset();
+			io.github.plrlr.autopilot.plan.SurvivalPlan.resetDeath();
 			io.github.plrlr.autopilot.skills.SmeltSkill.forgetJobs();
 			io.github.plrlr.autopilot.plan.Facts.clear();
 			io.github.plrlr.autopilot.brains.SkillStats.shared().clearLocal();
@@ -387,6 +395,13 @@ public final class Autopilot {
 				startReflex(new Option("clutch", null, "falling " + Math.round(pl.fallDistance + ground) + " blocks"), "reflex_fall");
 				return;
 			}
+		}
+		// Lava guard (gene skill.lava_guard): lava showing up beside us while we work gets covered at once.
+		if (Tune.on("skill.lava_guard") && tick % 3 == 0 && skill != null
+				&& !java.util.Set.of("build_portal", "cast_portal", "fill_bucket", "make_obsidian", "obsidian_pool", "clutch").contains(skill.name())
+				&& io.github.plrlr.autopilot.skills.Fluids.LavaGuard.guard()) {
+			log.event("reflex", "lava covered");
+			return;
 		}
 		// The End's guard (gene skill.end_guard): never meet an enderman's eyes, never fall into the void.
 		if (Tune.on("skill.end_guard") && io.github.plrlr.autopilot.skills.EndRoutes.EndGuard.guard()) return;
@@ -522,7 +537,8 @@ public final class Autopilot {
 							|| !c.option().label().equals(skillOption.label())) startReflex(choices, c, x, "reflex_low_hp");
 				}
 				else {
-					List<Option> choices = Planner.escapeChoices(seen, io.github.plrlr.autopilot.plan.SurvivalPlan.fight(h, new Option("attack", h.type(), "it's attacking")));
+					List<Option> choices = Planner.escapeChoices(seen, io.github.plrlr.autopilot.plan.SurvivalPlan.outnumbered(seen,
+							io.github.plrlr.autopilot.plan.SurvivalPlan.fight(h, new Option("attack", h.type(), "it's attacking"))));
 					double[] x = Tune.on("safety.hazard") ? features() : null;
 					Brain.Choice c = brain.decideReflex(choices, x);
 					boolean already = skill != null && (c.option().skill().equals("attack") ? skill.name().equals("attack")
@@ -666,6 +682,8 @@ public final class Autopilot {
 		if (o.skill().equals("retreat")) io.github.plrlr.autopilot.plan.Escalation.fled(tick);
 		skillContexts = skillContextsNow();
 		lastPos = null;
+		skillInventoryHash = inventoryHash();
+		skillStartPos = Mc.player().blockPosition().immutable();
 		s.begin(memory, o.arg());
 		JsonObject j = new JsonObject();
 		j.addProperty("event", "skill_start");
@@ -700,16 +718,31 @@ public final class Autopilot {
 		// nothing reachable): treat the repeat as a failure so it gets paused instead of looping
 		// every tick.
 		boolean instantRepeat = r.ok() && tick - skillStartTick < 10 && actionKey(skillOption).equals(lastEndedKey);
+		boolean noChange = r.ok() && Tune.on("plan.noop_success_pause")
+				&& skillInventoryHash == inventoryHash() && skillStartPos.equals(Mc.player().blockPosition());
+		if (noChange) noopStreak = actionKey(skillOption).equals(lastNoopKey) ? noopStreak + 1 : 1;
+		else noopStreak = 0;
+		lastNoopKey = noChange ? actionKey(skillOption) : "";
+		boolean noopRepeat = noChange && noopStreak >= 3;
 		lastEndedKey = actionKey(skillOption);
-		lessons.record(actionKey(skillOption), r.ok() && !instantRepeat, instantRepeat ? "NO_PROGRESS" : r.code() == null ? null : r.code().name(),
-				instantRepeat ? "did nothing" : r.detail(), (tick - skillStartTick) / 20.0);
+		lessons.record(actionKey(skillOption), r.ok() && !instantRepeat && !noopRepeat, instantRepeat || noopRepeat ? "NO_PROGRESS" : r.code() == null ? null : r.code().name(),
+				instantRepeat || noopRepeat ? "did nothing" : r.detail(), (tick - skillStartTick) / 20.0);
+		// Explore turned back at open water (gene skill.fluid_cross): next, cross it instead.
+		if (!r.ok() && r.code() == Fail.HAZARD && skillOption.skill().equals("explore") && r.detail() != null
+				&& r.detail().contains("water") && Tune.on("skill.fluid_cross"))
+			io.github.plrlr.autopilot.plan.SurvivalPlan.crossAhead(io.github.plrlr.autopilot.skills.Fluids.aheadXZ());
 		// Brain v2's skill stats learn from this try at once (an interruption says nothing about the skill).
 		if (r.code() != Fail.INTERRUPTED)
 			io.github.plrlr.autopilot.brains.SkillStats.shared().record(io.github.plrlr.autopilot.brains.Learned.key(skillOption), skillContexts,
-					r.ok() && !instantRepeat, r.code() == Fail.DIED, (tick - skillStartTick) / 20.0);
+					r.ok() && !instantRepeat && !noopRepeat, r.code() == Fail.DIED, (tick - skillStartTick) / 20.0);
 		// An action that has failed most of the time in past runs gets paused after two fails, not three.
 		int pauseAfter = lessons.failRate(actionKey(skillOption)) >= 0.7 ? 2 : 3;
-		if (r.ok() && !instantRepeat) {
+		if (noopRepeat) {
+			long[] f = failures.computeIfAbsent(actionKey(skillOption), k -> new long[2]);
+			f[0] = 0;
+			f[1] = tick + 20 * 60;
+			noopStreak = 0;
+		} else if (r.ok() && !instantRepeat) {
 			lastGainTick = tick;
 			failures.remove(actionKey(skillOption));
 		} else if (instantRepeat) {
@@ -733,6 +766,13 @@ public final class Autopilot {
 		if (askNext) requestDecision(r.ok() ? "skill_done" : "skill_failed");
 	}
 
+	private static int inventoryHash() {
+		int hash = 1;
+		for (var stack : Mc.player().getInventory().getNonEquipmentItems())
+			hash = 31 * hash + java.util.Objects.hash(io.github.plrlr.autopilot.Items2.id(stack), stack.getCount());
+		return hash;
+	}
+
 	/** "collect log:3" and "collect log:2" are the same action; counts shrink as progress is made. */
 	private static String actionKey(Option o) {
 		String a = o.arg() == null ? "" : o.arg();
@@ -746,6 +786,8 @@ public final class Autopilot {
 
 	/** Where the bot was, once a second, while a moving skill ran (the stuck box check). */
 	private final Deque<Vec3> recentPos = new ArrayDeque<>();
+	/** The inventory at the last stuck sample: a gain means the skill is working, not stuck. */
+	private int stuckInvHash;
 	/** Skills that are supposed to move the bot. Crafting, smelting, eating, hiding or fighting in place are not stuck. */
 	private static final java.util.Set<String> MOVING = java.util.Set.of("collect", "explore", "shore", "goto", "retreat", "pickup",
 			"fill_bucket", "locate_stronghold");
@@ -769,6 +811,16 @@ public final class Autopilot {
 			return;
 		}
 		if (tick % 20 != 0) return;
+		// Gene stuck.item_progress: an item gained is progress. Gens 57-58's logs: 41 of 78 "stuck"
+		// calls were collect trips mining in place (coal, stone, iron); unstuck walked them off
+		// and the same collect then succeeded, so the call cost a trip and found nothing wrong.
+		int inv = inventoryHash();
+		if (inv != stuckInvHash && Tune.on("stuck.item_progress")) {
+			stuckInvHash = inv;
+			recentPos.clear();
+			return;
+		}
+		stuckInvHash = inv;
 		recentPos.addLast(p);
 		int window = Tune.i("stuck.window_s");
 		while (recentPos.size() > window) recentPos.removeFirst();
@@ -780,12 +832,16 @@ public final class Autopilot {
 			minZ = Math.min(minZ, v.z); maxZ = Math.max(maxZ, v.z);
 		}
 		double box = Tune.get("stuck.box");
-		if (maxX - minX >= box || maxZ - minZ >= box || maxY - minY >= 1.5) return;
+		// Swimming in place bobs vertically without making progress toward a block on shore.
+		if (!StuckBox.stalled(maxX - minX, maxY - minY, maxZ - minZ, box,
+				pl.isInWater(), Tune.on("stuck.ignore_water_bob"))) return;
 		recentPos.clear();
 		String what = skillOption.label();
 		log.event("stuck", what + " at " + pl.blockPosition().toShortString() + (pl.isInWater() ? " in water" : ""));
 		abortSkill("stuck: stayed inside " + box + " blocks for " + window + " s", false);
-		startSkill(new Option("unstuck", null, "not moving while " + what), "reflex_stuck", true);
+		if (Tune.on("skill.drain_tunnel") && io.github.plrlr.autopilot.skills.Fluids.floodedTunnel())
+			startSkill(new Option("drain_tunnel", null, "stuck in a flooded tunnel while " + what), "reflex_stuck", true);
+		else startSkill(new Option("unstuck", null, "not moving while " + what), "reflex_stuck", true);
 		reflexCooldownUntil = tick + 40;
 	}
 

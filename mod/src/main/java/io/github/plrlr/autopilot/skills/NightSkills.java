@@ -124,6 +124,15 @@ public final class NightSkills {
 		}
 
 		private BlockPos digging;
+		private Skill exit;
+		private String exitWhy;
+
+		private void exitTick() {
+			exit.update();
+			if (exit.result() == null) return;
+			if (exit.result().ok()) done(exitWhy + "; climbed out");
+			else fail(Fail.STUCK, exitWhy + ", but couldn't climb out: " + exit.result().detail());
+		}
 
 		@Override
 		protected void tick() {
@@ -187,10 +196,25 @@ public final class NightSkills {
 					Mc.placeAt(lid);
 				}
 				case WAIT -> {
-					if (!Mc.isNight()) done("it's morning");
-					// Waiting out a whole night costs up to 7 minutes of a run (batch/loop gen 1: up to
-					// 495 s in shelters). A gene bounds it; the loop decides how long hiding pays.
-					else if (ticks > 20 * io.github.plrlr.autopilot.Tune.i("night.shelter_max_s")) done("waited long enough; back to work");
+					if (exit != null) {
+						exitTick();
+						return;
+					}
+					String why = !Mc.isNight() ? "it's morning"
+							// Waiting out a whole night costs up to 7 minutes of a run (batch/loop gen 1: up to
+							// 495 s in shelters). A gene bounds it; the loop decides how long hiding pays.
+							: ticks > 20 * io.github.plrlr.autopilot.Tune.i("night.shelter_max_s") ? "waited long enough; back to work" : null;
+					if (why == null) return;
+					// Gene night.shelter_exit: climb out of the covered shaft before handing back. Ending
+					// at its bottom left the next skill boxed in: gens 57-58 logged "shelter -> it's morning"
+					// then "goto surface: couldn't find the way up" or "stuck" and a 45 s unstuck timeout.
+					if (io.github.plrlr.autopilot.Tune.on("night.shelter_exit") && !pl.level().canSeeSky(pl.blockPosition().above())) {
+						exitWhy = why;
+						exit = new StairUp();
+						exit.begin(memory, "sky");
+						return;
+					}
+					done(why);
 				}
 				case WALL_IN -> {
 					// Center on the block first: off-center, the hitbox overlaps a side spot and that
@@ -255,6 +279,7 @@ public final class NightSkills {
 
 		@Override
 		protected void cleanup() {
+			if (exit != null && exit.result() == null) exit.abort(Fail.INTERRUPTED, "shelter ended");
 			if (Mc.mc().gameMode != null) Mc.mc().gameMode.stopDestroyBlock();
 			super.cleanup();
 		}

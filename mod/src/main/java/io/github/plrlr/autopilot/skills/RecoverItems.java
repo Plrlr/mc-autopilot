@@ -42,6 +42,8 @@ public final class RecoverItems extends Composite {
 			return;
 		}
 		spot = d.pos();
+		if (io.github.plrlr.autopilot.Tune.on("safety.spawner_room") && SpawnerRoom.near(memory, spot, 8))
+			fail(Fail.HAZARD, "death spot is in a remembered spawner room");
 	}
 
 	@Override

@@ -3,11 +3,82 @@
  "seeds_per_gen": 2,
  "stage_seeds": 1,
  "combat_seeds": 1,
- "max_genomes": 5,
- "suggest_slots": 4,
- "data_runs": 0,
+ "max_genomes": 4,
+ "suggest_slots": 3,
+ "data_runs": 1,
  "_suggest": "Ideas to race next: each entry becomes one challenger (champion + these genes), tried once. Higher-priority suggestions go first.",
  "suggest": [
+  {
+   "brain.strategist": 1,
+   "plan.readiness": 1,
+   "brain.skill_stats": 1,
+   "_max_pairs": 40,
+   "_priority": true
+  },
+  {
+   "night.shelter_exit": 1,
+   "nav.surface_v2": 1,
+   "nav.unstuck_v2": 1,
+   "stuck.item_progress": 1,
+   "combat.ignore_walled_mobs": 1,
+   "_metric": "ok:goto|unstuck",
+   "_priority": true,
+   "_max_pairs": 24
+  },
+  {
+   "combat.no_close_retreat": 1,
+   "_metric": "deaths"
+  },
+  {
+   "safety.spawner_room": 1,
+   "_metric": "deaths"
+  },
+  {
+   "safety.spawner_room": 1,
+   "safety.spawner_break": 1,
+   "_metric": "deaths"
+  },
+  {
+   "restock.stash_only": 1,
+   "plan.noop_success_pause": 1,
+   "bed.table_first": 1
+  },
+  {
+   "combat.ignore_walled_mobs": 1,
+   "_metric": "ok:attack"
+  },
+  {
+   "stuck.item_progress": 1,
+   "_metric": "ok:collect"
+  },
+  {
+   "gather.stair_for_stone": 1,
+   "_metric": "ok:collect"
+  },
+  {
+   "gather.dry_stone": 1,
+   "fluid.enclosed_tunnel": 1,
+   "_metric": "ok:collect"
+  },
+  {
+   "stuck.ignore_water_bob": 1,
+   "_metric": "ok:collect"
+  },
+  {
+   "skill.cast_portal": 1,
+   "skill.lava_scout": 1,
+   "_stages": [
+    "lava"
+   ],
+   "_metric": "ok:build_portal|cast_portal"
+  },
+  {
+   "portal.prepare_work_area": 1,
+   "_stages": [
+    "lava"
+   ],
+   "_metric": "ok:build_portal"
+  },
   {
    "skill.lava_scout": 1,
    "skill.cast_portal": 1,
@@ -16,7 +87,8 @@
    "skill.diamond_hunt": 1,
    "skill.portal_repair": 1,
    "skill.stash": 1,
-   "skill.restock": 1
+   "skill.restock": 1,
+   "_metric": "ok:build_portal|cast_portal"
   },
   {
    "skill.kite": 1,
@@ -33,11 +105,20 @@
    "skill.stair_down": 1
   },
   {
-   "safety.hazard": 1,
-   "safety.hazard_margin": 0.05
+   "skill.fluid_seal": 1,
+   "skill.lava_guard": 1,
+   "skill.fluid_cross": 1,
+   "skill.drain_tunnel": 1,
+   "nav.fluid_place": 1
   },
   {
-   "reflex.escalate": 1
+   "safety.hazard": 1,
+   "safety.hazard_margin": 0.05,
+   "_metric": "deaths"
+  },
+  {
+   "reflex.escalate": 1,
+   "_metric": "deaths"
   },
   {
    "brain.skill_stats": 1
@@ -87,23 +168,24 @@
   },
   {
    "combat.crits": 1,
-   "combat.backstep": 1
+   "combat.backstep": 1,
+   "_metric": "deaths"
   },
   {
-   "move.shore_first": 1
+   "move.shore_first": 1,
+   "_metric": "ok:collect"
   },
   {
-   "safety.hazard": 1
+   "safety.hazard": 1,
+   "_metric": "deaths"
   },
   {
    "portal.prepare_work_area": 1,
-   "portal.reserve_lava_bucket": 1
+   "portal.reserve_lava_bucket": 1,
+   "_metric": "ok:build_portal"
   },
   {
    "portal.retry_cast_view": 1
-  },
-  {
-   "combat.no_close_retreat": 1
   },
   {
    "nav.mob_avoid_coef": 3,
@@ -114,7 +196,8 @@
    "plan.hostile_range": 4,
    "gear.sword_early": 1,
    "cave.torches": 1,
-   "combat.shield_guard": 1
+   "combat.shield_guard": 1,
+   "_metric": "deaths"
   },
   {
    "food.stock": 16
@@ -130,17 +213,20 @@
    "gear.sword_early": 1,
    "cave.torches": 1,
    "combat.shield_guard": 1,
-   "route.armor_before_portal": 1
+   "route.armor_before_portal": 1,
+   "_metric": "deaths"
   },
   {
    "cave.torches": 1
   },
   {
    "cave.torches": 1,
-   "combat.shield_guard": 1
+   "combat.shield_guard": 1,
+   "_metric": "deaths"
   },
   {
-   "night.wall_in": 1
+   "night.wall_in": 1,
+   "_metric": "deaths"
   },
   {
    "reflex.lava_margin": 1
@@ -149,7 +235,8 @@
    "combat.deflect": 1
   },
   {
-   "combat.shield_guard": 1
+   "combat.shield_guard": 1,
+   "_metric": "deaths"
   },
   {
    "focus.commit": 1,
@@ -182,10 +269,12 @@
    "night.shelter_max_s": 150
   },
   {
-   "combat.crits": 1
+   "combat.crits": 1,
+   "_metric": "deaths"
   },
   {
-   "combat.backstep": 1
+   "combat.backstep": 1,
+   "_metric": "deaths"
   },
   {
    "combat.swing_at": 0.85
@@ -193,7 +282,8 @@
   {
    "combat.backstep": 1,
    "combat.keep_dist": 2.8,
-   "combat.strafe": 12
+   "combat.strafe": 12,
+   "_metric": "deaths"
   },
   {
    "combat.sprint_hit": 1,
@@ -259,7 +349,13 @@
  "stage_lookahead": false,
  "model_gate": 0.1,
  "_focus": "2026-09-28, after 28 generations without progress: the same champion scored 1.1 to 7.1 between generations, so races of 5 seeds across 3 genomes measured noise. Now 2 genomes x 8 paired seeds (4 from spawn, 4 from the iron kit, the wall: portal lit in 3 of 454 runs), a crown needs 16 pairs at t 2.5, no look-ahead starts past the wall. Learned brain (2026-09-28): tree models, advantage R2 measured on a shared tree baseline (0.025; the old 0.05 was inflated by a weak linear baseline). The model can't learn which choice is better from the rules' habits alone, so the 2 data runs (15% deliberate tries) are back on; learned.* genes race once the gate passes.",
- "_suggest_order": "2026-09-29 (Claude): wave 2 (the portal) races first: its first drill found a cast site at once and cast 4 obsidian with no deaths, where the old portal drill placed obsidian in 1 of 26 tries. Then wave 1 (survival; its combat drill: 87% kills, 1 death in 23 fights), then the danger model, escalation, skill-stat demotion, the strategist, and waves 3-5. The race lineup was full (a new champion, two defenders, two ideas), so queued ideas start as slots free up. A crowned bundle of 3+ skills queues its own trim races (loop.py).",
+ "_suggest_order": "2026-09-29 (Claude): wave 2 (the portal) races first: its first drill found a cast site at once and cast 4 obsidian with no deaths, where the old portal drill placed obsidian in 1 of 26 tries. Then wave 1 (survival; its combat drill: 87% kills, 1 death in 23 fights), then the danger model, escalation, skill-stat demotion, the strategist, and waves 3-5. The race lineup was full (a new champion, two defenders, two ideas), so queued ideas start as slots free up. A crowned bundle of 3+ skills queues its own trim races (loop.py). 2026-09-29 later: wave 6 (water and lava: fluid_seal, lava_guard, fluid_cross, drain_tunnel, Baritone laying blocks across fluids) races right after wave 1.",
  "minutes": 30,
- "_minutes": "2026-09-29: 30 game minutes per run (was 20). GitHub's free plan runs 20 jobs at once and every generation uses all 20, so more volume means less overhead: a generation took ~40 min for 20 min of play (setup and build are the rest). 30-minute games play ~20% more per hour and reach the portal stage more often. Pairs are compared within a generation, so the race stays fair; scores from before and after aren't on the same scale. Marathons are off (the user's call), so their jobs go to the loop."
+ "_minutes": "2026-09-29: 30 game minutes per run (was 20). GitHub's free plan runs 20 jobs at once and every generation uses all 20, so more volume means less overhead: a generation took ~40 min for 20 min of play (setup and build are the rest). 30-minute games play ~20% more per hour and reach the portal stage more often. Pairs are compared within a generation, so the race stays fair; scores from before and after aren't on the same scale. Marathons are off (the user's call), so their jobs go to the loop.",
+ "focus_stage_seeds": 1,
+ "max_jobs": 21,
+ "_focus_races": "2026-09-29 (Claude), after gens 50-58 crowned nothing: an idea that acts at one stage races on that stage only (suggestion key \"_stages\"), and each generation adds focus_stage_seeds more starts there. The 8-skill portal bundle g35 was +3.4 on its 4 lava starts (lit one of the night's two portals) but dropped at +0.54 over 16 pairs, 12 of them fresh worlds that never reached lava. So the two cast pieces race alone first, on lava starts. 4 genomes x 5 tasks (2 fresh, 1 lava, 1 focus lava, 1 combat) = 20 jobs; a lineup over max_jobs sits its last unfocused contender out for a generation.",
+ "_metric_races": "2026-09-29 (Claude): a suggestion with \"_metric\" is judged by the thing it fixes (scripts/loop/metrics.py): a skill's success rate (\"ok:explore\") or deaths per game minute (\"deaths\"), counted over every paired task, both sides. Crowned at z >= metric_z once each side has metric_min tries, while its whole-game pairs stay above metric_safety_t; dropped at z <= 0 or when the game score says it hurts. Whole-game races alone crowned nothing in gens 50-58 (paired sd 3-4.7).",
+ "_brain": "2026-09-29 (Claude): the brain = the strategist (routes by expected time from measured skill stats) plus skill-stat demotion. g40 (strategist + readiness) was +1.33 over 16 worlds when max_pairs cut it off in gen 59, so it races again with skill_stats, allowed 40 worlds (\"_max_pairs\"). One data run per generation (15% deliberate off-rules picks) gives the learned re-ranker counterfactuals: 82k rules-only rows left its advantage R2 at 0.008. Data runs count toward max_jobs.",
+ "_movement": "2026-09-29 (Claude): the movement overhaul races as one priority idea, judged by goto + unstuck success: night.shelter_exit (climb out of the covered shaft at morning), nav.surface_v2 (goto surface judged by height, staircase fallback), nav.unstuck_v2 (climb first in pits), stuck.item_progress and combat.ignore_walled_mobs. The pieces also race alone later in the queue."
 }
