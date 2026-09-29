@@ -293,9 +293,9 @@ public final class Planner {
 				if (st != null) return st;
 				// Inside the stronghold already: its portal room is somewhere down the corridors.
 				if (io.github.plrlr.autopilot.skills.SearchStronghold.inStronghold())
-					return new Option("search_stronghold", null, "explore the stronghold's corridors for the portal room");
+					return LatePlan.search(new Option("search_stronghold", null, "explore the stronghold's corridors for the portal room"));
 				if (Mc.count("ender_eye") == 0) return itemStep("ender_eye", 1, 0);
-				return new Option("locate_stronghold", null, "throw an eye of ender and follow it");
+				return LatePlan.locate(new Option("locate_stronghold", null, "throw an eye of ender and follow it"));
 			}
 			case ENTER_END -> {
 				if (dim.equals("the_end")) return null;
@@ -304,7 +304,7 @@ public final class Planner {
 				if (memory.nearest("end_portal") != null) return new Option("enter_portal", "end", "jump into the end portal");
 				if (memory.nearest("end_portal_frame") != null) {
 					if (Mc.count("ender_eye") == 0) return itemStep("ender_eye", 1, 0);
-					return new Option("fill_end_portal", null, "put eyes of ender in the empty frames");
+					return LatePlan.beforeFill(new Option("fill_end_portal", null, "put eyes of ender in the empty frames"), memory);
 				}
 				return depth > 2 ? null : goalStep(Goal.FIND_STRONGHOLD, seen, depth + 1);
 			}
@@ -314,6 +314,8 @@ public final class Planner {
 				// fight keeps its crystals-first order below.
 				Option st = strategic("dragon_dead", seen, depth);
 				if (st != null && !st.skill().equals("dragon")) return st;
+				Option endStep = LatePlan.end();
+				if (endStep != null) return endStep;
 				boolean bow = Mc.count("bow") > 0 && Mc.count("arrow") > 0;
 				// Crystals stand high on the pillars, beyond the usual 32-block look: look farther.
 				if (bow && Perception.look(96).nearest("end_crystal") != null) return new Option("shoot", "end_crystal", "crystals heal the dragon; destroy them first");

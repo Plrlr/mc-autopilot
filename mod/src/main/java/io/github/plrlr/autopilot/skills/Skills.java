@@ -55,6 +55,17 @@ public final class Skills {
 		MENU.put("barter_loop", new Entry(NetherRoutes.BarterLoop::new, "barter_loop:n: gold on, trade with piglins until n pearls"));
 		MENU.put("portal_return", new Entry(NetherRoutes.PortalReturn::new, "back to the overworld through our portal (or build one)"));
 		MENU.put("enderman_warped", new Entry(NetherRoutes.EndermanWarped::new, "enderman_warped:n: a 2-high hut, hit endermen's legs until n pearls"));
+		MENU.put("bow_kit", new Entry(StrongholdRoutes.BowKit::new, "bow_kit:n: string, feathers and flint into a bow and n arrows"));
+		MENU.put("eye_triangulate", new Entry(StrongholdRoutes.EyeTriangulate::new, "locate_stronghold runs until the bearings cross close by"));
+		MENU.put("dig_to_stronghold", new Entry(StrongholdRoutes.DigToStronghold::new, "at the stronghold point: safe stairs down until its bricks show"));
+		MENU.put("stronghold_navigate", new Entry(StrongholdRoutes.Navigate::new, "corridor search rounds until the portal room shows"));
+		MENU.put("silverfish_control", new Entry(StrongholdRoutes.Silverfish::new, "break the portal room's silverfish spawner"));
+		MENU.put("boat_cross", new Entry(StrongholdRoutes.BoatCross::new, "boat_cross [x z]: cross water by boat toward a point"));
+		MENU.put("end_landing", new Entry(EndRoutes.EndLanding::new, "from the End's spawn platform onto the main island"));
+		MENU.put("crystal_hunt", new Entry(EndRoutes.CrystalHunt::new, "shoot every end crystal, climbing to break caged ones' bars"));
+		MENU.put("bed_bomb", new Entry(EndRoutes.BedBomb::new, "blow up beds at the perched dragon's head"));
+		MENU.put("dragon_strike", new Entry(EndRoutes.DragonStrike::new, "arrows while the dragon circles, the head fight while it perches"));
+		MENU.put("end_guard", new Entry(EndRoutes.EndGuard::new, "the End's reflex: away from enderman eyes, out of void falls"));
 		MENU.put("shelter", new Entry(NightSkills.Shelter::new, "dig 3 down, cover the hole, wait for morning"));
 		MENU.put("sleep", new Entry(NightSkills.Sleep::new, "sleep in a bed (places one from the inventory if needed)"));
 		MENU.put("build_portal", new Entry(() -> CastPortal.needed() ? new CastPortal() : new PortalSkills.BuildPortal(),

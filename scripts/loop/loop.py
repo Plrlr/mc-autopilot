@@ -192,7 +192,8 @@ def cmd_propose(a):
     for g in racing_suggestions:
         if len(lineup) < sug_cap:
             lineup.append(g["id"])
-    for sug in s.get("suggest", []):
+    # Trim races (a crowned bundle minus one skill each) go first, then the settings queue.
+    for sug in st.get("trim", []) + s.get("suggest", []):
         key = json.dumps(sug, sort_keys=True)
         if key in tried or len(lineup) >= sug_cap:
             continue
@@ -430,6 +431,12 @@ def race(st, genes, challengers, champ, gen):
         st["champion"] = best
         out.append("%s is the new champion (%+.2f over %d seeds, t %.1f): %s" % (best, m, len(g["pairs"]), best_t, g["note"]))
         learn_from(st, g, m)
+        # A bundle of skills won (a whole wave of docs/skills-40.md at once): trim it. One race per
+        # skill with just that skill off; a skill dragging the bundle down loses its place that way.
+        bundle = [n for n in g.get("mutated", []) if n.startswith("skill.")]
+        if len(bundle) >= 3:
+            st.setdefault("trim", []).extend({n: 0} for n in bundle)
+            out.append("trim: %d leave-one-out races queued for %s" % (len(bundle), best))
         # The others were measured against the old champion: they start over against the new one.
         for gid in challengers:
             if st["genomes"][gid]["status"] == "contender":

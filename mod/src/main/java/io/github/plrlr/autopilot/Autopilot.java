@@ -388,6 +388,8 @@ public final class Autopilot {
 				return;
 			}
 		}
+		// The End's guard (gene skill.end_guard): never meet an enderman's eyes, never fall into the void.
+		if (Tune.on("skill.end_guard") && io.github.plrlr.autopilot.skills.EndRoutes.EndGuard.guard()) return;
 		Danger.Verdict danger = Tune.on("survival.danger_v2") ? DangerSense.assess(seen) : null;
 		boolean lavaWork = skill != null && java.util.Set.of("build_portal", "fill_bucket", "make_obsidian", "clutch").contains(skill.name());
 		if (danger != null && pl.isOnFire() && !lavaWork && !Mc.dimension().equals("the_nether")

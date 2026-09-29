@@ -19,8 +19,54 @@
    "brain.skill_stats": 1
   },
   {
+   "skill.kite": 1,
+   "skill.pillar": 1,
+   "skill.block_arrows": 1,
+   "skill.creeper_defuse": 1,
+   "skill.panic_box": 1,
+   "skill.respawn_reset": 1,
+   "skill.recover_items": 1,
+   "skill.make_bed": 1,
+   "skill.food_secure": 1,
+   "skill.fish": 1,
+   "skill.secure_camp": 1,
+   "skill.stair_down": 1
+  },
+  {
+   "skill.lava_scout": 1,
+   "skill.cast_portal": 1,
+   "skill.ruined_portal": 1,
+   "skill.obsidian_pool": 1,
+   "skill.diamond_hunt": 1,
+   "skill.portal_repair": 1,
+   "skill.stash": 1,
+   "skill.restock": 1
+  },
+  {
    "brain.strategist": 1,
    "plan.readiness": 1
+  },
+  {
+   "skill.nether_arrival": 1,
+   "skill.nether_bridge": 1,
+   "skill.fortress_scout": 1,
+   "skill.blaze_farm": 1,
+   "skill.ghast_defense": 1,
+   "skill.gold_armor": 1,
+   "skill.barter_loop": 1,
+   "skill.portal_return": 1,
+   "skill.enderman_warped": 1,
+   "skill.bow_kit": 1,
+   "skill.eye_triangulate": 1,
+   "skill.dig_to_stronghold": 1,
+   "skill.stronghold_navigate": 1,
+   "skill.silverfish_control": 1,
+   "skill.boat_cross": 1,
+   "skill.end_landing": 1,
+   "skill.crystal_hunt": 1,
+   "skill.bed_bomb": 1,
+   "skill.dragon_strike": 1,
+   "skill.end_guard": 1
   },
   {
    "food.keep_full": 1,
@@ -213,5 +259,5 @@
  "stage_lookahead": false,
  "model_gate": 0.1,
  "_focus": "2026-09-28, after 28 generations without progress: the same champion scored 1.1 to 7.1 between generations, so races of 5 seeds across 3 genomes measured noise. Now 2 genomes x 8 paired seeds (4 from spawn, 4 from the iron kit, the wall: portal lit in 3 of 454 runs), a crown needs 16 pairs at t 2.5, no look-ahead starts past the wall. Learned brain (2026-09-28): tree models, advantage R2 measured on a shared tree baseline (0.025; the old 0.05 was inflated by a weak linear baseline). The model can't learn which choice is better from the rules' habits alone, so the 2 data runs (15% deliberate tries) are back on; learned.* genes race once the gate passes.",
- "_suggest_order": "2026-09-28 (Claude, from gens 41-46: 120 games, 281 deaths): the danger model first (held-out AUC 0.86, never raced; 101 of 281 deaths came right after a retreat, the choices it rates), then brain v2: escalation (stop fleeing the same threat), skill-stat demotion, the strategist with readiness gates. Codex's 40 skills queue at the end as they land."
+ "_suggest_order": "2026-09-29 (Claude): the danger model (AUC 0.86, never raced), escalation and skill-stat demotion first; then the 40 skills of docs/skills-40.md raced as bundles, one per wave (wave 1 survival, wave 2 portal, then waves 3-5 together: the race's tasks rarely reach the Nether, so the late bundle mostly shows it does no harm early). A crowned bundle of 3+ skills queues its own trim: one race per skill with just that skill off (loop.py). Inside a bundle the brain balances: skill stats and the strategist push down options that keep failing."
 }

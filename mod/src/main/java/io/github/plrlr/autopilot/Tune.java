@@ -160,6 +160,17 @@ public final class Tune {
 		gene("skill.barter_loop", 0, 0, 1, Kind.BOOL, "gold on, then barter round after round until the pearls are in");
 		gene("skill.portal_return", 0, 0, 1, Kind.BOOL, "go home through our portal, rebuilding it from carried obsidian if lost");
 		gene("skill.enderman_warped", 0, 0, 1, Kind.BOOL, "farm endermen from a hut with a 2-high roof they can't enter");
+		gene("skill.bow_kit", 0, 0, 1, Kind.BOOL, "before the End: a bow and arrows from spiders, chickens and gravel");
+		gene("skill.eye_triangulate", 0, 0, 1, Kind.BOOL, "triangulate the stronghold with bearings 5+ degrees apart");
+		gene("skill.dig_to_stronghold", 0, 0, 1, Kind.BOOL, "at the stronghold point, safe stairs down (not a straight Baritone dig)");
+		gene("skill.stronghold_navigate", 0, 0, 1, Kind.BOOL, "search the stronghold's corridors round after round until the portal room");
+		gene("skill.silverfish_control", 0, 0, 1, Kind.BOOL, "break the portal room's silverfish spawner before filling the frames");
+		gene("skill.boat_cross", 0, 0, 1, Kind.BOOL, "cross water on the way by boat instead of swimming");
+		gene("skill.end_landing", 0, 0, 1, Kind.BOOL, "off the End's spawn platform onto the island, eyes on the ground");
+		gene("skill.crystal_hunt", 0, 0, 1, Kind.BOOL, "shoot every crystal, climbing to caged ones to break their bars");
+		gene("skill.bed_bomb", 0, 0, 1, Kind.BOOL, "blow up beds at the perched dragon's head (beds explode in the End)");
+		gene("skill.dragon_strike", 0, 0, 1, Kind.BOOL, "arrows while the dragon circles, the head fight while it perches");
+		gene("skill.end_guard", 0, 0, 1, Kind.BOOL, "End reflex: look away from enderman eyes, block or pearl out of a void fall");
 		gene("loop.stuck_s", 10, 5, 30, Kind.INT, "seconds without moving that mark the state as stuck for the brains");
 		gene("stuck.window_s", 12, 6, 40, Kind.INT, "a moving skill kept inside the stuck box this long starts the unstuck reflex");
 		gene("stuck.box", 2, 1, 4, Kind.REAL, "the square (blocks) the bot must leave to count as moving");

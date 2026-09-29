@@ -91,6 +91,31 @@ public final class SkillSpecs {
 				.gene("skill.portal_return").help("home through our portal").build());
 		s.add(SkillSpec.of("enderman_warped", "4").stage("any").needs("throwaway", 5).gives("ender_pearl", 4).prior(300, 0.35)
 				.gene("skill.enderman_warped").help("a hut endermen can't enter").build());
+		// ---- wave 4: the stronghold
+		s.add(SkillSpec.of("bow_kit", "32").stage("stronghold").facts("overworld").gives("bow", 1, "arrow", 32).prior(400, 0.4)
+				.gene("skill.bow_kit").help("a bow and arrows").build());
+		s.add(SkillSpec.of("eye_triangulate", null).stage("stronghold").needs("ender_eye", 2).facts("overworld")
+				.makes("stronghold_known").prior(300, 0.4).gene("skill.eye_triangulate").help("cross two bearings").build());
+		s.add(SkillSpec.of("dig_to_stronghold", null).stage("stronghold").facts("stronghold_known").makes("in_stronghold")
+				.prior(240, 0.5).gene("skill.dig_to_stronghold").help("safe stairs down at the point").build());
+		s.add(SkillSpec.of("stronghold_navigate", null).stage("stronghold").facts("in_stronghold").makes("frame_known")
+				.prior(300, 0.4).gene("skill.stronghold_navigate").help("corridor search rounds").build());
+		s.add(SkillSpec.of("silverfish_control", null).stage("stronghold").facts("frame_known").makes("room_safe")
+				.prior(30, 0.8).gene("skill.silverfish_control").help("break the silverfish spawner").build());
+		s.add(SkillSpec.of("boat_cross", null).stage("any").needs("boat", 1).facts("water_known").makes("crossed")
+				.prior(60, 0.7).gene("skill.boat_cross").help("cross water by boat").build());
+
+		// ---- wave 5: the End
+		s.add(SkillSpec.of("end_landing", null).stage("end").needs("throwaway", 48).facts("in_end").makes("on_island")
+				.prior(60, 0.7).gene("skill.end_landing").help("onto the main island").build());
+		s.add(SkillSpec.of("crystal_hunt", null).stage("end").needs("bow", 1, "arrow", 24, "throwaway", 64).facts("in_end")
+				.makes("crystals_down").prior(300, 0.35).gene("skill.crystal_hunt").help("every crystal down").build());
+		s.add(SkillSpec.of("bed_bomb", null).stage("end").needs("bed", 5).facts("in_end").makes("dragon_dead")
+				.prior(240, 0.3).gene("skill.bed_bomb").help("bed blasts at the perched dragon").build());
+		s.add(SkillSpec.of("dragon_strike", null).stage("end").facts("in_end").makes("dragon_dead")
+				.prior(900, 0.1).gene("skill.dragon_strike").help("arrows, then the head").build());
+		s.add(SkillSpec.of("end_guard", null).stage("end").facts("in_end").makes("threat_cleared")
+				.prior(5, 0.8).gene("skill.end_guard").help("eyes down, out of void falls").build());
 
 		// ---- finding things and filling buckets: what the routes below need first
 		s.add(SkillSpec.of("explore", "lava").stage("portal")
