@@ -1766,13 +1766,13 @@
  "days": {
   "2026-09-27": 15,
   "2026-09-28": 32,
-  "2026-09-29": 20
+  "2026-09-29": 21
  },
  "evolve_days": {
   "2026-09-27": 1,
   "2026-09-28": 7
  },
- "gen": 67,
+ "gen": 68,
  "gene_specs": {
   "bed.table_first": {
    "def": 0.0,
@@ -10153,7 +10153,71 @@
  "model_r2": null,
  "model_rows": 0,
  "next_id": 55,
- "pending": null,
+ "pending": {
+  "data_tasks": [],
+  "gen": 68,
+  "lineup": [
+   "g49",
+   "g45",
+   "g53",
+   "g54"
+  ],
+  "runs": [
+   "eval-g49-0",
+   "eval-g49-1",
+   "eval-g49-2",
+   "eval-g49-3",
+   "eval-g45-0",
+   "eval-g45-1",
+   "eval-g45-2",
+   "eval-g45-3",
+   "eval-g53-0",
+   "eval-g53-1",
+   "eval-g53-2",
+   "eval-g53-3",
+   "eval-g54-0",
+   "eval-g54-1",
+   "eval-g54-2",
+   "eval-g54-3"
+  ],
+  "seeds": [
+   "L68-q9tbvf",
+   "L68-utsjfy",
+   "L68-q4guyx",
+   "L68-an5gpb"
+  ],
+  "sha": "7bdd6608888dd9310da47d27cd5a0360a8dc2be3",
+  "started": "2026-09-29T21:22:04+00:00",
+  "tasks": [
+   {
+    "kind": "natural",
+    "seed": "L68-q9tbvf",
+    "stage": "spawn",
+    "synthetic": false
+   },
+   {
+    "kind": "natural",
+    "seed": "L68-utsjfy",
+    "stage": "spawn",
+    "synthetic": false
+   },
+   {
+    "asset": "lava-gen66-eval-g49-2.zip",
+    "kind": "start",
+    "seed": "L68-q4guyx",
+    "stage": "lava",
+    "synthetic": false
+   },
+   {
+    "kind": "combat",
+    "minutes": 10,
+    "scenario": "combat",
+    "seed": "L68-an5gpb",
+    "stage": "combat",
+    "synthetic": false
+   }
+  ]
+ },
  "score_version": 3,
  "settings": {
   "accept_pairs": 8,
