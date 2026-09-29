@@ -180,4 +180,21 @@ class PortalSiteTest {
 		t.blocks.put(O.above(4), "lava");
 		assertNull(PortalSite.placedPlan(O, Direction.EAST, t));
 	}
+
+	@Test
+	void roomDiggingStartsWithAnExposedFrontInsteadOfAHiddenFrameCell() {
+		BlockPos hidden = O, front = O.south(2), feet = O.south(3);
+		Set<BlockPos> visible = new java.util.HashSet<>(Set.of(front));
+		Terrain t = new Terrain() {
+			@Override String at(BlockPos p) {
+				assertTrue(visible.contains(p), "inspected hidden frame cell " + p);
+				return blocks.getOrDefault(p, "stone");
+			}
+		};
+		PortalSite.Plan plan = new PortalSite.Plan(O, Direction.EAST, java.util.List.of(hidden, front), java.util.List.of(), 4);
+		assertEquals(front, PortalSite.exposedDig(plan, feet, new FairProbe(t, visible::contains)));
+		t.blocks.put(front, "air");
+		visible.add(hidden);
+		assertEquals(hidden, PortalSite.exposedDig(plan, feet, new FairProbe(t, visible::contains)));
+	}
 }
