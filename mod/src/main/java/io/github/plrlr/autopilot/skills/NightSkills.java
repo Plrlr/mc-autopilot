@@ -51,6 +51,16 @@ public final class NightSkills {
 			return (phase == Phase.HEAL || phase == Phase.WAIT && nightWall) && sealed;
 		}
 
+		/**
+		 * Gene combat.finish_heal_wall: the wall gets finished only while it has time, no mob within 2
+		 * blocks and nothing hitting us. A zombie at arm's length stands in the gap the wall needs, so
+		 * holding the fight back only let it hit: local trial night2 (2026-09-29) walled in with a zombie
+		 * and a skeleton on it at 184 s and died 3 s later.
+		 */
+		public static boolean wallHasTime(double nearestHostile) {
+			return nearestHostile > 2.0 && Mc.player().hurtTime == 0;
+		}
+
 		/** Once wall placement stops, an unsealed gap needs the ordinary combat response again. */
 		public boolean buildingHealWall() {
 			return phase == Phase.WALL_IN && "heal".equals(arg);
