@@ -1843,13 +1843,13 @@
  "days": {
   "2026-09-27": 15,
   "2026-09-28": 32,
-  "2026-09-29": 22
+  "2026-09-29": 23
  },
  "evolve_days": {
   "2026-09-27": 1,
   "2026-09-28": 7
  },
- "gen": 69,
+ "gen": 70,
  "gene_specs": {
   "bed.table_first": {
    "def": 0.0,
@@ -10441,7 +10441,71 @@
  "model_r2": null,
  "model_rows": 0,
  "next_id": 56,
- "pending": null,
+ "pending": {
+  "data_tasks": [],
+  "gen": 70,
+  "lineup": [
+   "g49",
+   "g45",
+   "g53",
+   "g55"
+  ],
+  "runs": [
+   "eval-g49-0",
+   "eval-g49-1",
+   "eval-g49-2",
+   "eval-g49-3",
+   "eval-g45-0",
+   "eval-g45-1",
+   "eval-g45-2",
+   "eval-g45-3",
+   "eval-g53-0",
+   "eval-g53-1",
+   "eval-g53-2",
+   "eval-g53-3",
+   "eval-g55-0",
+   "eval-g55-1",
+   "eval-g55-2",
+   "eval-g55-3"
+  ],
+  "seeds": [
+   "L70-sxvhqz",
+   "L70-paep7k",
+   "L70-t6vuq3",
+   "L70-2afkak"
+  ],
+  "sha": "96fc787a2c8cc829b69d996d4cd65430d38a2bb2",
+  "started": "2026-09-29T23:09:48+00:00",
+  "tasks": [
+   {
+    "kind": "natural",
+    "seed": "L70-sxvhqz",
+    "stage": "spawn",
+    "synthetic": false
+   },
+   {
+    "kind": "natural",
+    "seed": "L70-paep7k",
+    "stage": "spawn",
+    "synthetic": false
+   },
+   {
+    "asset": "lava-gen57-eval-g41-0.zip",
+    "kind": "start",
+    "seed": "L70-t6vuq3",
+    "stage": "lava",
+    "synthetic": false
+   },
+   {
+    "kind": "combat",
+    "minutes": 10,
+    "scenario": "combat",
+    "seed": "L70-2afkak",
+    "stage": "combat",
+    "synthetic": false
+   }
+  ]
+ },
  "race_evidence_version": 1,
  "score_version": 3,
  "settings": {
