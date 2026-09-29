@@ -1046,6 +1046,10 @@
    "n": 1,
    "sum": 0.97025
   },
+  "combat.commit_target": {
+   "n": 0,
+   "sum": 0.0
+  },
   "combat.creeper_gap": {
    "n": 0,
    "sum": 0.0
@@ -1126,9 +1130,17 @@
    "n": 1,
    "sum": -0.1268666666666666
   },
+  "combat.zombie_pack": {
+   "n": 0,
+   "sum": 0.0
+  },
   "death.recover_night_armor": {
    "n": 2,
    "sum": -0.01736666666666653
+  },
+  "death.recover_value": {
+   "n": 0,
+   "sum": 0.0
   },
   "death.trip_commit": {
    "n": 0,
@@ -1181,6 +1193,10 @@
   "food.stock": {
    "n": 2,
    "sum": -2.08005
+  },
+  "gather.cautious_depth": {
+   "n": 0,
+   "sum": 0.0
   },
   "gather.coal_extra": {
    "n": 1,
@@ -1338,6 +1354,10 @@
    "n": 4,
    "sum": -2.2021738095238095
   },
+  "plan.livelock_break": {
+   "n": 0,
+   "sum": 0.0
+  },
   "plan.noop_success_pause": {
    "n": 0,
    "sum": 0.0
@@ -1437,6 +1457,10 @@
   "route.diamond_portal": {
    "n": 1,
    "sum": -0.2883333333333334
+  },
+  "safety.enderman_gaze": {
+   "n": 0,
+   "sum": 0.0
   },
   "safety.hazard": {
    "n": 1,
@@ -1670,13 +1694,13 @@
  "days": {
   "2026-09-27": 15,
   "2026-09-28": 32,
-  "2026-09-29": 16
+  "2026-09-29": 17
  },
  "evolve_days": {
   "2026-09-27": 1,
   "2026-09-28": 7
  },
- "gen": 63,
+ "gen": 64,
  "gene_specs": {
   "bed.table_first": {
    "def": 0.0,
@@ -1728,7 +1752,7 @@
    "min": 0.0
   },
   "cave.torches": {
-   "def": 0.0,
+   "def": 1.0,
    "help": "place a torch wherever it's dark underground (mobs spawn only in the dark)",
    "kind": "BOOL",
    "max": 1.0,
@@ -1737,6 +1761,13 @@
   "combat.backstep": {
    "def": 0.0,
    "help": "step back out of reach while the sword recharges",
+   "kind": "BOOL",
+   "max": 1.0,
+   "min": 0.0
+  },
+  "combat.commit_target": {
+   "def": 0.0,
+   "help": "while fighting a mob in reach, reflexes may pull us out but not switch us to another fight",
    "kind": "BOOL",
    "max": 1.0,
    "min": 0.0
@@ -1881,11 +1912,25 @@
    "max": 1.0,
    "min": 0.0
   },
+  "combat.zombie_pack": {
+   "def": 0.0,
+   "help": "keep space and answer the closest zombie in a pack; leave drops until the pack is gone",
+   "kind": "BOOL",
+   "max": 1.0,
+   "min": 0.0
+  },
   "death.recover_night_armor": {
-   "def": 10.0,
+   "def": 12.0,
    "help": "go back for dropped items at night only with this much armor",
    "kind": "INT",
    "max": 20.0,
+   "min": 0.0
+  },
+  "death.recover_value": {
+   "def": 0.0,
+   "help": "go back for dropped items only when they're worth it (iron-tier+) and health 12+ or food",
+   "kind": "BOOL",
+   "max": 1.0,
    "min": 0.0
   },
   "death.trip_commit": {
@@ -1924,7 +1969,7 @@
    "min": 0.0
   },
   "focus.commit": {
-   "def": 0.0,
+   "def": 1.0,
    "help": "finish the running task before switching, unless the top option is an emergency",
    "kind": "BOOL",
    "max": 1.0,
@@ -1977,6 +2022,13 @@
    "help": "cooked food to keep in stock",
    "kind": "INT",
    "max": 20.0,
+   "min": 0.0
+  },
+  "gather.cautious_depth": {
+   "def": 0.0,
+   "help": "without armor mine iron no deeper than y 40 (y 48 after a deep death); armor 10+ uses gather.iron_y",
+   "kind": "BOOL",
+   "max": 1.0,
    "min": 0.0
   },
   "gather.coal_extra": {
@@ -2239,7 +2291,7 @@
    "min": 12.0
   },
   "plan.hide_hp": {
-   "def": 12.0,
+   "def": 15.0,
    "help": "underground, wall in at or below this health with 2+ monsters near",
    "kind": "INT",
    "max": 18.0,
@@ -2251,6 +2303,13 @@
    "kind": "REAL",
    "max": 18.0,
    "min": 5.0
+  },
+  "plan.livelock_break": {
+   "def": 0.0,
+   "help": "a minute of actions with no movement, item or kill is a loop: leave those mobs, pause those actions",
+   "kind": "BOOL",
+   "max": 1.0,
+   "min": 0.0
   },
   "plan.noop_success_pause": {
    "def": 0.0,
@@ -2386,7 +2445,7 @@
    "min": 0.0
   },
   "route.armor_before_portal": {
-   "def": 1.0,
+   "def": 0.0,
    "help": "chestplate and helmet before the portal",
    "kind": "BOOL",
    "max": 1.0,
@@ -2423,6 +2482,13 @@
   "route.diamond_portal": {
    "def": 0.0,
    "help": "portal the classic way (diamond pickaxe, mine 10 obsidian) instead of casting it",
+   "kind": "BOOL",
+   "max": 1.0,
+   "min": 0.0
+  },
+  "safety.enderman_gaze": {
+   "def": 0.0,
+   "help": "never meet an enderman's eyes (any dimension); fight back when one is angry",
    "kind": "BOOL",
    "max": 1.0,
    "min": 0.0
@@ -10527,7 +10593,71 @@
  "model_r2": 0.217,
  "model_rows": 90683,
  "next_id": 50,
- "pending": null,
+ "pending": {
+  "data_tasks": [],
+  "gen": 64,
+  "lineup": [
+   "g45",
+   "g24",
+   "g48",
+   "g49"
+  ],
+  "runs": [
+   "eval-g45-0",
+   "eval-g45-1",
+   "eval-g45-2",
+   "eval-g45-3",
+   "eval-g24-0",
+   "eval-g24-1",
+   "eval-g24-2",
+   "eval-g24-3",
+   "eval-g48-0",
+   "eval-g48-1",
+   "eval-g48-2",
+   "eval-g48-3",
+   "eval-g49-0",
+   "eval-g49-1",
+   "eval-g49-2",
+   "eval-g49-3"
+  ],
+  "seeds": [
+   "L64-yp8sw5",
+   "L64-4qja9b",
+   "L64-829krk",
+   "L64-ztun5m"
+  ],
+  "sha": "ff99b8e948a5bbca1ea526bfac7915cfee5a09bf",
+  "started": "2026-09-29T17:24:51+00:00",
+  "tasks": [
+   {
+    "kind": "natural",
+    "seed": "L64-yp8sw5",
+    "stage": "spawn",
+    "synthetic": false
+   },
+   {
+    "kind": "natural",
+    "seed": "L64-4qja9b",
+    "stage": "spawn",
+    "synthetic": false
+   },
+   {
+    "asset": "lava-gen61-eval-g47-0.zip",
+    "kind": "start",
+    "seed": "L64-829krk",
+    "stage": "lava",
+    "synthetic": false
+   },
+   {
+    "kind": "combat",
+    "minutes": 10,
+    "scenario": "combat",
+    "seed": "L64-ztun5m",
+    "stage": "combat",
+    "synthetic": false
+   }
+  ]
+ },
  "score_version": 2,
  "settings": {
   "accept_pairs": 8,
@@ -10535,7 +10665,7 @@
   "bank_keep": 40,
   "combat_minutes": 10,
   "combat_seeds": 1,
-  "data_runs": 1,
+  "data_runs": 0,
   "drop_after_pairs": 4,
   "evolve": {
    "max_per_day": 12,
@@ -10547,7 +10677,7 @@
   "lean": true,
   "max_genomes": 4,
   "max_gens_per_day": 60,
-  "max_jobs": 21,
+  "max_jobs": 20,
   "max_pairs": 16,
   "metric_min": 40,
   "metric_safety_t": -1.5,
@@ -10562,6 +10692,32 @@
   "stage_lookahead": false,
   "stage_seeds": 1,
   "suggest": [
+   {
+    "_metric": "deaths",
+    "_priority": true,
+    "combat.commit_target": 1
+   },
+   {
+    "_metric": "deaths",
+    "_priority": true,
+    "gather.cautious_depth": 1
+   },
+   {
+    "_metric": "deaths",
+    "plan.livelock_break": 1
+   },
+   {
+    "_metric": "deaths",
+    "safety.enderman_gaze": 1
+   },
+   {
+    "_metric": "deaths",
+    "death.recover_value": 1
+   },
+   {
+    "_metric": "deaths",
+    "combat.zombie_pack": 1
+   },
    {
     "_metric": "ok:goto",
     "death.trip_commit": 1,
@@ -10920,6 +11076,7 @@
   "cave.torch_light": 0.15,
   "cave.torches": 0.25277384999999997,
   "combat.backstep": 0.21,
+  "combat.commit_target": 0.15,
   "combat.creeper_gap": 0.15,
   "combat.creeper_hit": 0.15,
   "combat.creeper_priority_range": 0.15,
@@ -10940,7 +11097,9 @@
   "combat.swing_at": 0.15,
   "combat.target_rule": 0.15,
   "combat.wall_in_anywhere": 0.1275,
+  "combat.zombie_pack": 0.15,
   "death.recover_night_armor": 0.1785,
+  "death.recover_value": 0.15,
   "death.trip_commit": 0.15,
   "dragon.eat_hp": 0.15,
   "dragon.max_center_dist": 0.15,
@@ -10954,6 +11113,7 @@
   "food.keep_full": 0.108375,
   "food.search_hunger": 0.15,
   "food.stock": 0.108375,
+  "gather.cautious_depth": 0.15,
   "gather.coal_extra": 0.1275,
   "gather.coal_upkeep_below": 0.1275,
   "gather.coal_view_dist": 0.15,
@@ -10993,6 +11153,7 @@
   "pearls.target": 0.15,
   "plan.hide_hp": 0.151725,
   "plan.hostile_range": 0.0783009375,
+  "plan.livelock_break": 0.15,
   "plan.noop_success_pause": 0.15,
   "plan.readiness": 0.21,
   "plan.upkeep_calm_radius": 0.15,
@@ -11018,6 +11179,7 @@
   "route.boots_before_portal": 0.15,
   "route.deep_for_lava": 0.15,
   "route.diamond_portal": 0.1275,
+  "safety.enderman_gaze": 0.15,
   "safety.hazard": 0.1275,
   "safety.hazard_margin": 0.1275,
   "safety.spawner_break": 0.15,
