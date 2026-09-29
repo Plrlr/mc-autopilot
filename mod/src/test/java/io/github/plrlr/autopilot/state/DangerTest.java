@@ -40,6 +40,16 @@ class DangerTest {
 	}
 
 	@Test
+	void withAShieldOrUpCloseASkeletonIsFoughtNotHiddenFrom() {
+		// Issue #16: cover-hopping stalled the drill's skeleton rounds. Shield up or close: fight.
+		var steps = List.of(new Danger.Step(0, 1, true, false, true));
+		var far = new Danger.Mob("skeleton", 10, 10, 0, true);
+		assertEquals(Danger.Kind.FIGHT, assess(input(12, true, false, true, List.of(far), steps)).kind());
+		var close = new Danger.Mob("skeleton", 5, 5, 0, true);
+		assertEquals(Danger.Kind.FIGHT, assess(input(12, false, false, true, List.of(close), steps)).kind());
+	}
+
+	@Test
 	void skeletonUsesCoverInsteadOfOpenRetreat() {
 		var skeleton = new Danger.Mob("skeleton", 10, 10, 0, true);
 		var verdict = assess(input(6, false, false, true, List.of(skeleton), List.of(
