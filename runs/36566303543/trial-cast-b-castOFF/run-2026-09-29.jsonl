@@ -1,0 +1,132 @@
+{"event":"autopilot_on","detail":"brain\u003drules","t":1790683967428}
+{"event":"params","detail":"params: trial (4 genes) changed\u003d{\"plan.hide_hp\":15.0,\"death.recover_night_armor\":12.0,\"focus.commit\":1.0,\"cave.torches\":1.0}","t":1790683967429}
+{"layer":"strategist","brain":"rules","choice":"nether_portal","reason":"start","t":1790683967431}
+{"event":"learned","detail":"learned model: none","t":1790683967441}
+{"layer":"tactician","gs":0,"brain":"rules","trigger":"idle","goal":"nether_portal","options":["equip shield","explore water"],"choice":"equip shield","x":[1.0,1.0,0.4,0.0,0.0,1.922,0.0,0.0,0.6,0.6,1.0,0.0,0.0,1.0,0.0,0.0,0.0,1.0,0.0,1.0,0.0,0.0,1.0,0.0,0.0,1.0,0.0,0.0,0.0,0.0,0.0,0.538,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1790683967456}
+{"event":"skill_start","skill":"equip shield","trigger":"idle","t":1790683967511}
+{"event":"skill_end","skill":"equip shield","ok":true,"detail":"shield in off hand","seconds":0.05,"t":1790683967653}
+{"layer":"tactician","gs":0,"brain":"rules","trigger":"skill_done","goal":"nether_portal","options":["explore water"],"choice":"explore water","x":[1.0,1.0,0.4,0.0,0.0,1.922,0.0,0.0,0.6,0.6,1.0,0.0,0.0,1.0,0.0,0.0,0.0,1.0,0.0,1.0,0.0,0.0,1.0,0.0,0.0,1.0,0.0,0.0,0.0,0.0,0.0,0.538,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1790683967659}
+{"event":"skill_start","skill":"explore water","trigger":"skill_done","t":1790683967664}
+{"event":"checkpoint","detail":"two_buckets","t":1790683968545}
+{"event":"checkpoint","detail":"flint_and_steel","t":1790683968545}
+{"event":"milestone","detail":"4 at 0 s","t":1790683968549}
+{"event":"skill_end","skill":"explore water","ok":true,"detail":"found water","seconds":1.0,"t":1790683970979}
+{"layer":"tactician","gs":1,"brain":"rules","trigger":"skill_done","goal":"nether_portal","options":["fill_bucket water","explore water"],"choice":"fill_bucket water","x":[1.0,1.0,0.4,0.0,1.0,1.938,0.0,0.0,0.6,0.6,1.0,0.0,0.0,1.0,0.0,0.0,0.0,1.0,0.0,1.0,0.0,0.0,1.0,0.0,0.0,1.0,1.0,1.0,0.0,0.308,0.333,0.538,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1790683970984}
+{"event":"skill_start","skill":"fill_bucket water","trigger":"skill_done","t":1790683971001}
+{"event":"checkpoint","detail":"lava_seen","t":1790683972059}
+{"event":"skill_end","skill":"fill_bucket water","ok":true,"detail":"filled a bucket with water","seconds":2.05,"t":1790683975937}
+{"layer":"tactician","gs":3,"brain":"rules","trigger":"skill_done","goal":"nether_portal","options":["build_portal","explore any"],"choice":"build_portal","x":[1.0,1.0,0.4,0.0,0.0,1.906,0.0,0.0,0.6,0.6,1.0,0.0,0.0,1.0,0.0,0.0,0.0,1.0,0.0,1.0,1.0,0.0,1.0,0.0,0.0,1.0,1.0,1.0,0.0,0.308,0.5,0.538,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1790683975938}
+{"event":"skill_start","skill":"build_portal","trigger":"skill_done","t":1790683975942}
+{"event":"skill_end","skill":"build_portal","ok":false,"code":"USE_FAILED","detail":"water won\u0027t drain from the frame","seconds":64.35,"t":1790684061472}
+{"layer":"tactician","gs":67,"brain":"rules","trigger":"skill_failed","goal":"nether_portal","options":["build_portal","explore any"],"choice":"build_portal","x":[1.0,1.0,0.4,0.0,0.0,1.922,0.0,0.0,0.6,0.6,1.0,0.0,0.0,1.0,0.0,0.0,0.0,1.0,0.0,1.0,1.0,0.0,1.0,0.0,0.0,1.0,1.0,1.0,0.0,0.308,0.667,0.538,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1790684061474}
+{"event":"skill_start","skill":"build_portal","trigger":"skill_failed","t":1790684061474}
+{"event":"skill_end","skill":"build_portal","ok":false,"code":"UNREACHABLE","detail":"couldn\u0027t get in front of the portal site","seconds":17.4,"t":1790684088694}
+{"layer":"tactician","gs":84,"brain":"rules","trigger":"skill_failed","goal":"nether_portal","options":["build_portal","explore any"],"choice":"build_portal","x":[1.0,1.0,0.4,0.0,0.0,1.922,0.0,0.0,0.6,0.6,1.0,0.0,0.0,1.0,0.0,0.0,0.0,1.0,0.0,1.0,1.0,0.0,1.0,0.0,0.0,1.0,1.0,1.0,0.0,0.308,0.667,0.538,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1790684088695}
+{"event":"skill_start","skill":"build_portal","trigger":"skill_failed","t":1790684088695}
+{"event":"skill_end","skill":"build_portal","ok":false,"code":"UNREACHABLE","detail":"couldn\u0027t get in front of the portal site","seconds":18.8,"t":1790684116157}
+{"layer":"tactician","gs":103,"brain":"rules","trigger":"skill_failed","goal":"nether_portal","options":["explore any"],"choice":"explore any","x":[1.0,1.0,0.4,0.0,0.0,1.922,0.0,0.0,0.6,0.6,1.0,0.0,0.0,1.0,0.0,0.0,0.0,1.0,0.0,1.0,1.0,0.0,1.0,0.0,0.0,1.0,1.0,1.0,0.0,0.308,0.667,0.538,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1790684116158}
+{"event":"skill_start","skill":"explore any","trigger":"skill_failed","t":1790684116158}
+{"event":"skill_end","skill":"explore any","ok":true,"detail":"explored 121 blocks","seconds":28.0,"t":1790684158981}
+{"layer":"tactician","gs":131,"brain":"rules","trigger":"skill_done","goal":"nether_portal","options":["explore any"],"choice":"explore any","x":[1.0,1.0,0.4,0.0,0.0,1.844,0.0,0.0,0.6,0.6,1.0,0.0,0.0,1.0,0.0,0.0,0.0,1.0,0.0,1.0,1.0,0.0,1.0,0.0,0.0,1.0,1.0,1.0,0.0,0.308,0.667,0.538,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1790684158982}
+{"event":"skill_start","skill":"explore any","trigger":"skill_done","t":1790684158982}
+{"layer":"reflex","gs":146,"brain":"rules","trigger":"reflex_fall","goal":"nether_portal","options":["clutch"],"choice":"clutch","x":[1.0,1.0,0.4,0.0,0.0,1.453,0.0,0.0,0.6,0.6,1.0,0.0,0.0,1.0,0.0,0.0,0.0,1.0,0.0,1.0,1.0,0.0,1.0,0.0,0.0,1.0,1.0,1.0,0.0,0.308,0.667,0.538,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["clutch"],"t":1790684182403}
+{"event":"skill_end","skill":"explore any","ok":false,"code":"INTERRUPTED","detail":"interrupted by reflex_fall","seconds":15.0,"t":1790684182404}
+{"event":"skill_start","skill":"clutch","trigger":"reflex_fall","t":1790684182404}
+{"event":"skill_end","skill":"clutch","ok":true,"detail":"landed in water","seconds":0.4,"t":1790684182774}
+{"layer":"tactician","gs":147,"brain":"rules","trigger":"skill_done","goal":"nether_portal","options":["explore any"],"choice":"explore any","x":[1.0,1.0,0.4,0.0,0.0,1.375,0.0,0.0,0.6,0.6,1.0,0.0,0.0,1.0,0.0,0.0,0.0,1.0,0.0,1.0,1.0,0.0,1.0,0.0,0.0,1.0,1.0,1.0,0.0,0.308,0.667,0.538,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1790684182774}
+{"event":"skill_start","skill":"explore any","trigger":"skill_done","t":1790684182775}
+{"event":"skill_end","skill":"explore any","ok":true,"detail":"explored 119 blocks","seconds":32.0,"t":1790684217182}
+{"layer":"tactician","gs":179,"brain":"rules","trigger":"skill_done","goal":"nether_portal","options":["build_portal","explore any"],"choice":"build_portal","x":[1.0,0.85,0.4,0.0,0.0,1.063,0.0,0.0,0.6,0.6,1.0,0.0,0.0,1.0,0.0,0.0,0.0,1.0,0.0,1.0,1.0,0.0,1.0,0.0,0.0,1.0,1.0,1.0,0.0,0.308,0.667,0.538,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1790684217182}
+{"event":"skill_start","skill":"build_portal","trigger":"skill_done","t":1790684217183}
+{"event":"skill_end","skill":"build_portal","ok":false,"code":"NEED_ITEM","detail":"need a second bucket for lava","seconds":0.05,"t":1790684217252}
+{"layer":"tactician","gs":179,"brain":"rules","trigger":"skill_failed","goal":"nether_portal","options":["build_portal","explore any"],"choice":"build_portal","x":[1.0,0.85,0.4,0.0,0.0,1.063,0.0,0.0,0.6,0.6,1.0,0.0,0.0,1.0,0.0,0.0,0.0,1.0,0.0,1.0,1.0,0.0,1.0,0.0,0.0,1.0,1.0,1.0,0.0,0.308,0.667,0.538,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1790684217254}
+{"event":"skill_start","skill":"build_portal","trigger":"skill_failed","t":1790684217254}
+{"event":"skill_end","skill":"build_portal","ok":false,"code":"NEED_ITEM","detail":"need a second bucket for lava","seconds":0.05,"t":1790684217318}
+{"layer":"tactician","gs":179,"brain":"rules","trigger":"skill_failed","goal":"nether_portal","options":["explore any"],"choice":"explore any","x":[1.0,0.85,0.4,0.0,0.0,1.063,0.0,0.0,0.6,0.6,1.0,0.0,0.0,1.0,0.0,0.0,0.0,1.0,0.0,1.0,1.0,0.0,1.0,0.0,0.0,1.0,1.0,1.0,0.0,0.308,0.667,0.538,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1790684217319}
+{"event":"skill_start","skill":"explore any","trigger":"skill_failed","t":1790684217319}
+{"event":"skill_end","skill":"explore any","ok":true,"detail":"explored 119 blocks","seconds":26.5,"t":1790684258338}
+{"layer":"tactician","gs":205,"brain":"rules","trigger":"skill_done","goal":"nether_portal","options":["eat","explore any"],"choice":"eat","x":[1.0,0.7,0.4,0.0,0.0,1.078,0.0,0.0,0.6,0.6,1.0,0.0,0.0,1.0,0.0,0.0,0.0,1.0,0.0,1.0,1.0,0.0,1.0,0.0,0.0,1.0,1.0,1.0,0.0,0.308,0.667,0.538,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["eat"],"t":1790684258339}
+{"event":"skill_start","skill":"eat","trigger":"skill_done","t":1790684258339}
+{"event":"skill_end","skill":"eat","ok":true,"detail":"ate cooked_beef","seconds":1.8,"t":1790684260132}
+{"layer":"tactician","gs":207,"brain":"rules","trigger":"skill_done","goal":"nether_portal","options":["explore any"],"choice":"explore any","x":[1.0,1.0,0.4,0.0,0.0,1.078,0.0,0.0,0.6,0.6,1.0,0.0,0.0,1.0,0.0,0.0,0.0,0.938,0.0,1.0,1.0,0.0,1.0,0.0,0.0,1.0,1.0,1.0,0.0,0.308,0.667,0.538,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1790684260133}
+{"event":"skill_start","skill":"explore any","trigger":"skill_done","t":1790684260133}
+{"layer":"reflex","gs":247,"brain":"rules","trigger":"reflex_creeper","goal":"nether_portal","options":["retreat"],"choice":"retreat","x":[1.0,1.0,0.4,0.0,1.0,0.953,0.0,0.0,0.6,0.6,1.0,0.0,0.0,1.0,0.0,0.0,0.0,0.938,0.0,1.0,1.0,0.0,1.0,0.0,0.25,0.432,1.0,1.0,0.0,0.308,0.667,0.538,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["retreat"],"t":1790684301981}
+{"event":"skill_end","skill":"explore any","ok":false,"code":"INTERRUPTED","detail":"interrupted by reflex_creeper","seconds":40.1,"t":1790684301981}
+{"event":"skill_start","skill":"retreat","trigger":"reflex_creeper","t":1790684301982}
+{"event":"skill_end","skill":"retreat","ok":true,"detail":"got away","seconds":4.75,"t":1790684306721}
+{"layer":"tactician","gs":252,"brain":"rules","trigger":"skill_done","goal":"nether_portal","options":["collect coal:6","build_portal","pickup","explore any"],"choice":"collect coal:6","x":[1.0,1.0,0.4,0.0,1.0,0.969,0.0,0.0,0.6,0.6,1.0,0.0,0.0,1.0,0.0,0.0,0.0,0.938,0.0,1.0,1.0,0.0,1.0,0.0,0.0,1.0,1.0,1.0,0.0,0.308,0.667,0.538,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1790684306721}
+{"event":"skill_start","skill":"collect coal:6","trigger":"skill_done","t":1790684306724}
+{"layer":"tactician","gs":254,"brain":"rules","trigger":"mob_near","goal":"nether_portal","options":["retreat","build_portal","explore any"],"choice":"retreat","x":[1.0,1.0,0.4,0.0,1.0,0.953,0.0,0.0,0.6,0.6,1.0,0.0,0.0,1.0,0.0,0.0,0.0,0.938,0.0,1.0,1.0,0.0,1.0,0.0,0.25,0.499,1.0,1.0,0.0,0.308,0.667,0.538,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["retreat"],"t":1790684308464}
+{"event":"skill_end","skill":"collect coal:6","ok":false,"code":"INTERRUPTED","detail":"interrupted: brain chose retreat","seconds":1.75,"t":1790684308465}
+{"event":"skill_start","skill":"retreat","trigger":"mob_near","t":1790684308465}
+{"event":"skill_end","skill":"retreat","ok":true,"detail":"got away","seconds":3.9,"t":1790684312359}
+{"layer":"tactician","gs":258,"brain":"rules","trigger":"skill_done","goal":"nether_portal","options":["collect coal:6","build_portal","explore any"],"choice":"collect coal:6","x":[1.0,1.0,0.4,0.0,0.0,0.984,0.0,0.0,0.6,0.6,1.0,0.0,0.0,1.0,0.0,0.0,0.0,0.938,0.0,1.0,1.0,0.0,1.0,0.0,0.0,1.0,1.0,1.0,0.0,0.308,0.667,0.538,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1790684312359}
+{"event":"skill_start","skill":"collect coal:6","trigger":"skill_done","t":1790684312359}
+{"layer":"tactician","gs":261,"brain":"rules","trigger":"mob_near","goal":"nether_portal","options":["retreat","build_portal","explore any"],"choice":"retreat","x":[1.0,1.0,0.4,0.0,1.0,0.953,0.0,0.0,0.6,0.6,1.0,0.0,0.0,1.0,0.0,0.0,0.0,0.938,0.0,1.0,1.0,0.0,1.0,0.0,0.25,0.488,1.0,1.0,0.0,0.308,0.667,0.538,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["retreat"],"t":1790684316225}
+{"event":"skill_end","skill":"collect coal:6","ok":false,"code":"INTERRUPTED","detail":"interrupted: brain chose retreat","seconds":3.85,"t":1790684316225}
+{"event":"skill_start","skill":"retreat","trigger":"mob_near","t":1790684316225}
+{"event":"skill_end","skill":"retreat","ok":true,"detail":"got away","seconds":5.0,"t":1790684321215}
+{"layer":"tactician","gs":266,"brain":"rules","trigger":"skill_done","goal":"nether_portal","options":["collect coal:6","build_portal","explore any"],"choice":"collect coal:6","x":[1.0,1.0,0.4,0.0,0.0,0.984,0.0,0.0,0.6,0.6,1.0,0.0,0.0,1.0,0.0,0.0,0.0,0.938,0.0,1.0,1.0,0.0,1.0,0.0,0.0,1.0,1.0,1.0,0.0,0.308,0.667,0.538,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1790684321215}
+{"event":"skill_start","skill":"collect coal:6","trigger":"skill_done","t":1790684321216}
+{"layer":"tactician","gs":270,"brain":"rules","trigger":"mob_near","goal":"nether_portal","options":["retreat","build_portal","explore any"],"choice":"retreat","x":[1.0,1.0,0.4,0.0,1.0,0.938,0.0,0.0,0.6,0.6,1.0,0.0,0.0,1.0,0.0,0.0,0.0,0.938,0.0,1.0,1.0,0.0,1.0,0.0,0.25,0.473,1.0,1.0,0.0,0.308,0.667,0.538,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["retreat"],"t":1790684325214}
+{"event":"skill_end","skill":"collect coal:6","ok":false,"code":"INTERRUPTED","detail":"interrupted: brain chose retreat","seconds":4.0,"t":1790684325214}
+{"event":"skill_start","skill":"retreat","trigger":"mob_near","t":1790684325214}
+{"event":"skill_end","skill":"retreat","ok":true,"detail":"got away","seconds":4.0,"t":1790684329233}
+{"layer":"tactician","gs":274,"brain":"rules","trigger":"skill_done","goal":"nether_portal","options":["collect coal:6","build_portal","explore any"],"choice":"collect coal:6","x":[1.0,1.0,0.4,0.0,0.0,0.984,0.0,0.0,0.6,0.6,1.0,0.0,0.0,1.0,0.0,0.0,0.0,0.938,0.0,1.0,1.0,0.0,1.0,0.0,0.0,1.0,1.0,1.0,0.0,0.308,0.667,0.538,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1790684329233}
+{"event":"skill_start","skill":"collect coal:6","trigger":"skill_done","t":1790684329234}
+{"layer":"tactician","gs":276,"brain":"rules","trigger":"mob_near","goal":"nether_portal","options":["retreat","build_portal","explore any"],"choice":"retreat","x":[1.0,1.0,0.4,0.0,1.0,1.0,0.0,0.0,0.6,0.6,1.0,0.0,0.0,1.0,0.0,0.0,0.0,0.938,0.0,1.0,1.0,0.0,1.0,0.0,0.25,0.472,1.0,1.0,0.0,0.308,0.667,0.538,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["retreat"],"t":1790684330737}
+{"event":"skill_end","skill":"collect coal:6","ok":false,"code":"INTERRUPTED","detail":"interrupted: brain chose retreat","seconds":1.5,"t":1790684330737}
+{"event":"skill_start","skill":"retreat","trigger":"mob_near","t":1790684330737}
+{"event":"skill_end","skill":"retreat","ok":true,"detail":"got away","seconds":3.6,"t":1790684334310}
+{"layer":"tactician","gs":279,"brain":"rules","trigger":"skill_done","goal":"nether_portal","options":["build_portal","explore any"],"choice":"build_portal","x":[1.0,1.0,0.4,0.0,1.0,0.984,0.0,0.0,0.6,0.6,1.0,0.0,0.0,1.0,0.0,0.0,0.0,0.938,0.0,1.0,1.0,0.0,1.0,0.0,0.0,1.0,1.0,1.0,0.0,0.308,0.667,0.538,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1790684334311}
+{"event":"skill_start","skill":"build_portal","trigger":"skill_done","t":1790684334311}
+{"event":"skill_end","skill":"build_portal","ok":false,"code":"NEED_ITEM","detail":"need a second bucket for lava","seconds":0.05,"t":1790684334384}
+{"layer":"tactician","gs":280,"brain":"rules","trigger":"skill_failed","goal":"nether_portal","options":["build_portal","explore any"],"choice":"build_portal","x":[1.0,1.0,0.4,0.0,1.0,0.984,0.0,0.0,0.6,0.6,1.0,0.0,0.0,1.0,0.0,0.0,0.0,0.938,0.0,1.0,1.0,0.0,1.0,0.0,0.0,1.0,1.0,1.0,0.0,0.308,0.667,0.538,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1790684334385}
+{"event":"skill_start","skill":"build_portal","trigger":"skill_failed","t":1790684334385}
+{"event":"skill_end","skill":"build_portal","ok":false,"code":"NEED_ITEM","detail":"need a second bucket for lava","seconds":0.05,"t":1790684334425}
+{"layer":"tactician","gs":280,"brain":"rules","trigger":"skill_failed","goal":"nether_portal","options":["explore any"],"choice":"explore any","x":[1.0,1.0,0.4,0.0,1.0,0.984,0.0,0.0,0.6,0.6,1.0,0.0,0.0,1.0,0.0,0.0,0.0,0.938,0.0,1.0,1.0,0.0,1.0,0.0,0.0,1.0,1.0,1.0,0.0,0.308,0.667,0.538,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1790684334425}
+{"event":"skill_start","skill":"explore any","trigger":"skill_failed","t":1790684334426}
+{"event":"skill_end","skill":"explore any","ok":true,"detail":"explored 120 blocks","seconds":25.5,"t":1790684361185}
+{"layer":"tactician","gs":305,"brain":"rules","trigger":"skill_done","goal":"nether_portal","options":["explore any"],"choice":"explore any","x":[1.0,1.0,0.4,0.0,0.0,0.984,0.0,0.0,0.6,0.6,1.0,0.0,0.0,1.0,0.0,0.0,0.0,0.938,0.0,1.0,1.0,0.0,1.0,0.0,0.0,1.0,1.0,1.0,0.0,0.308,0.667,0.538,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1790684361185}
+{"event":"skill_start","skill":"explore any","trigger":"skill_done","t":1790684361185}
+{"event":"skill_end","skill":"explore any","ok":true,"detail":"explored 119 blocks","seconds":27.5,"t":1790684389333}
+{"layer":"tactician","gs":333,"brain":"rules","trigger":"skill_done","goal":"nether_portal","options":["explore any"],"choice":"explore any","x":[1.0,1.0,0.4,0.0,0.0,1.063,0.0,0.0,0.6,0.6,1.0,0.0,0.0,1.0,0.0,0.0,0.0,0.938,0.0,1.0,1.0,0.0,1.0,0.0,0.0,1.0,1.0,1.0,0.0,0.308,0.667,0.538,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1790684389334}
+{"event":"skill_start","skill":"explore any","trigger":"skill_done","t":1790684389334}
+{"event":"skill_end","skill":"explore any","ok":true,"detail":"explored 119 blocks","seconds":26.5,"t":1790684416564}
+{"layer":"tactician","gs":359,"brain":"rules","trigger":"skill_done","goal":"nether_portal","options":["build_portal","explore any"],"choice":"build_portal","x":[1.0,0.95,0.4,0.0,0.0,1.031,0.0,0.0,0.6,0.6,1.0,0.0,0.0,1.0,0.0,0.0,0.0,0.938,0.0,1.0,1.0,0.0,1.0,0.0,0.0,1.0,1.0,1.0,0.0,0.308,0.667,0.538,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1790684416565}
+{"event":"skill_start","skill":"build_portal","trigger":"skill_done","t":1790684416565}
+{"event":"skill_end","skill":"build_portal","ok":false,"code":"NEED_ITEM","detail":"need a second bucket for lava","seconds":0.05,"t":1790684416631}
+{"layer":"tactician","gs":359,"brain":"rules","trigger":"skill_failed","goal":"nether_portal","options":["build_portal","explore any"],"choice":"build_portal","x":[1.0,0.95,0.4,0.0,0.0,1.031,0.0,0.0,0.6,0.6,1.0,0.0,0.0,1.0,0.0,0.0,0.0,0.938,0.0,1.0,1.0,0.0,1.0,0.0,0.0,1.0,1.0,1.0,0.0,0.308,0.667,0.538,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1790684416631}
+{"event":"skill_start","skill":"build_portal","trigger":"skill_failed","t":1790684416631}
+{"event":"skill_end","skill":"build_portal","ok":false,"code":"NEED_ITEM","detail":"need a second bucket for lava","seconds":0.05,"t":1790684416664}
+{"layer":"tactician","gs":359,"brain":"rules","trigger":"skill_failed","goal":"nether_portal","options":["explore any"],"choice":"explore any","x":[1.0,0.95,0.4,0.0,0.0,1.031,0.0,0.0,0.6,0.6,1.0,0.0,0.0,1.0,0.0,0.0,0.0,0.938,0.0,1.0,1.0,0.0,1.0,0.0,0.0,1.0,1.0,1.0,0.0,0.308,0.667,0.538,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1790684416664}
+{"event":"skill_start","skill":"explore any","trigger":"skill_failed","t":1790684416664}
+{"layer":"reflex","gs":378,"brain":"rules","trigger":"reflex_fall","goal":"nether_portal","options":["clutch"],"choice":"clutch","x":[1.0,0.85,0.4,0.0,1.0,1.281,0.0,0.0,0.6,0.6,1.0,0.0,0.0,1.0,0.0,0.0,0.0,0.938,0.0,1.0,1.0,0.0,1.0,0.0,0.0,1.0,1.0,1.0,0.0,0.308,0.667,0.538,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["clutch"],"t":1790684436364}
+{"event":"skill_end","skill":"explore any","ok":false,"code":"INTERRUPTED","detail":"interrupted by reflex_fall","seconds":19.15,"t":1790684436365}
+{"event":"skill_start","skill":"clutch","trigger":"reflex_fall","t":1790684436365}
+{"event":"skill_end","skill":"clutch","ok":true,"detail":"landed in water","seconds":0.2,"t":1790684436563}
+{"layer":"tactician","gs":379,"brain":"rules","trigger":"skill_done","goal":"nether_portal","options":["explore any"],"choice":"explore any","x":[1.0,0.85,0.4,0.0,1.0,1.25,0.0,0.0,0.6,0.6,1.0,0.0,0.0,1.0,0.0,0.0,0.0,0.938,0.0,1.0,1.0,0.0,1.0,0.0,0.0,1.0,1.0,1.0,0.0,0.308,0.667,0.538,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1790684436564}
+{"event":"skill_start","skill":"explore any","trigger":"skill_done","t":1790684436564}
+{"event":"skill_end","skill":"explore any","ok":true,"detail":"explored 119 blocks","seconds":26.0,"t":1790684462755}
+{"layer":"tactician","gs":405,"brain":"rules","trigger":"skill_done","goal":"nether_portal","options":["eat","explore any"],"choice":"eat","x":[1.0,0.7,0.4,0.0,1.0,1.031,0.0,0.0,0.6,0.6,1.0,0.0,0.0,1.0,0.0,0.0,0.0,0.938,0.0,1.0,1.0,0.0,1.0,0.0,0.0,1.0,1.0,1.0,0.0,0.308,0.667,0.538,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["eat"],"t":1790684462756}
+{"event":"skill_start","skill":"eat","trigger":"skill_done","t":1790684462756}
+{"event":"skill_end","skill":"eat","ok":true,"detail":"ate cooked_beef","seconds":1.8,"t":1790684464559}
+{"layer":"tactician","gs":406,"brain":"rules","trigger":"skill_done","goal":"nether_portal","options":["explore any"],"choice":"explore any","x":[1.0,1.0,0.4,0.0,1.0,1.031,0.0,0.0,0.6,0.6,1.0,0.0,0.0,1.0,0.0,0.0,0.0,0.875,0.0,1.0,1.0,0.0,1.0,0.0,0.0,1.0,1.0,1.0,0.0,0.308,0.667,0.538,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1790684464560}
+{"event":"skill_start","skill":"explore any","trigger":"skill_done","t":1790684464560}
+{"event":"skill_end","skill":"explore any","ok":true,"detail":"explored 119 blocks","seconds":32.5,"t":1790684497079}
+{"layer":"tactician","gs":439,"brain":"rules","trigger":"skill_done","goal":"nether_portal","options":["build_portal","pickup","explore any"],"choice":"build_portal","x":[1.0,1.0,0.4,0.0,1.0,1.063,0.0,0.0,0.6,0.6,1.0,0.0,0.0,1.0,0.0,0.0,0.0,0.875,0.0,1.0,1.0,0.0,1.0,0.0,0.0,1.0,1.0,1.0,0.0,0.308,0.667,0.538,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1790684497079}
+{"event":"skill_start","skill":"build_portal","trigger":"skill_done","t":1790684497079}
+{"event":"skill_end","skill":"build_portal","ok":false,"code":"NEED_ITEM","detail":"need a second bucket for lava","seconds":0.05,"t":1790684497111}
+{"layer":"tactician","gs":439,"brain":"rules","trigger":"skill_failed","goal":"nether_portal","options":["build_portal","explore any"],"choice":"build_portal","x":[1.0,1.0,0.4,0.0,1.0,1.063,0.0,0.0,0.6,0.6,1.0,0.0,0.0,1.0,0.0,0.0,0.0,0.875,0.0,1.0,1.0,0.0,1.0,0.0,0.0,1.0,1.0,1.0,0.0,0.308,0.667,0.538,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1790684497112}
+{"event":"skill_start","skill":"build_portal","trigger":"skill_failed","t":1790684497112}
+{"event":"skill_end","skill":"build_portal","ok":false,"code":"NEED_ITEM","detail":"need a second bucket for lava","seconds":0.05,"t":1790684497178}
+{"layer":"tactician","gs":439,"brain":"rules","trigger":"skill_failed","goal":"nether_portal","options":["explore any"],"choice":"explore any","x":[1.0,1.0,0.4,0.0,1.0,1.063,0.0,0.0,0.6,0.6,1.0,0.0,0.0,1.0,0.0,0.0,0.0,0.875,0.0,1.0,1.0,0.0,1.0,0.0,0.0,1.0,1.0,1.0,0.0,0.308,0.667,0.538,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1790684497179}
+{"event":"skill_start","skill":"explore any","trigger":"skill_failed","t":1790684497179}
+{"event":"skill_end","skill":"explore any","ok":true,"detail":"explored 119 blocks","seconds":24.0,"t":1790684521217}
+{"layer":"tactician","gs":463,"brain":"rules","trigger":"skill_done","goal":"nether_portal","options":["explore any"],"choice":"explore any","x":[1.0,1.0,0.4,0.0,0.0,1.078,0.0,0.0,0.6,0.6,1.0,0.0,0.0,1.0,0.0,0.0,0.0,0.875,0.0,1.0,1.0,0.0,1.0,0.0,0.0,1.0,1.0,1.0,0.0,0.308,0.667,0.538,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1790684521217}
+{"event":"skill_start","skill":"explore any","trigger":"skill_done","t":1790684521218}
+{"event":"skill_end","skill":"explore any","ok":true,"detail":"explored 119 blocks","seconds":32.0,"t":1790684581675}
+{"layer":"tactician","gs":495,"brain":"rules","trigger":"skill_done","goal":"nether_portal","options":["shelter","explore any"],"choice":"shelter","x":[1.0,1.0,0.4,1.0,0.0,1.0,0.0,0.0,0.6,0.6,1.0,0.0,0.0,1.0,0.0,0.0,0.0,0.875,0.0,1.0,1.0,0.0,1.0,0.0,0.0,1.0,1.0,1.0,0.0,0.308,0.667,0.538,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1790684581676}
+{"event":"skill_start","skill":"shelter","trigger":"skill_done","t":1790684581677}
+{"event":"skill_end","skill":"shelter","ok":false,"code":"INTERRUPTED","detail":"test finished","seconds":224.7,"t":1790685031184}
+{"event":"autopilot_off","detail":"test finished","t":1790685031185}

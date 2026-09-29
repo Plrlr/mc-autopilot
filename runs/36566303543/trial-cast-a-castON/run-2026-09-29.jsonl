@@ -1,0 +1,69 @@
+{"event":"autopilot_on","detail":"brain\u003drules","t":1790683887476}
+{"event":"params","detail":"params: trial (6 genes) changed\u003d{\"plan.hide_hp\":15.0,\"death.recover_night_armor\":12.0,\"focus.commit\":1.0,\"cave.torches\":1.0,\"skill.lava_scout\":1.0,\"skill.cast_portal\":1.0}","t":1790683887477}
+{"layer":"strategist","brain":"rules","choice":"nether_portal","reason":"start","t":1790683887479}
+{"event":"learned","detail":"learned model: none","t":1790683887493}
+{"layer":"tactician","gs":0,"brain":"rules","trigger":"idle","goal":"nether_portal","options":["equip shield","explore water"],"choice":"equip shield","x":[1.0,1.0,0.4,0.0,0.0,1.016,0.0,0.0,0.6,0.6,1.0,0.0,0.0,1.0,0.0,0.0,0.0,1.0,0.0,1.0,0.0,0.0,1.0,0.0,0.0,1.0,0.0,0.0,0.0,0.0,0.0,0.538,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1790683887511}
+{"event":"skill_start","skill":"equip shield","trigger":"idle","t":1790683887573}
+{"event":"skill_end","skill":"equip shield","ok":true,"detail":"shield in off hand","seconds":0.05,"t":1790683887703}
+{"layer":"tactician","gs":0,"brain":"rules","trigger":"skill_done","goal":"nether_portal","options":["explore water"],"choice":"explore water","x":[1.0,1.0,0.4,0.0,0.0,1.016,0.0,0.0,0.6,0.6,1.0,0.0,0.0,1.0,0.0,0.0,0.0,1.0,0.0,1.0,0.0,0.0,1.0,0.0,0.0,1.0,0.0,0.0,0.0,0.0,0.0,0.538,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1790683887709}
+{"event":"skill_start","skill":"explore water","trigger":"skill_done","t":1790683887718}
+{"event":"checkpoint","detail":"two_buckets","t":1790683888201}
+{"event":"checkpoint","detail":"flint_and_steel","t":1790683888201}
+{"event":"checkpoint","detail":"lava_seen","t":1790683888201}
+{"event":"milestone","detail":"4 at 0 s","t":1790683888210}
+{"event":"skill_end","skill":"explore water","ok":true,"detail":"explored 120 blocks, no water yet","seconds":23.5,"t":1790683919054}
+{"layer":"tactician","gs":23,"brain":"rules","trigger":"skill_done","goal":"nether_portal","options":["explore water"],"choice":"explore water","x":[1.0,1.0,0.4,0.0,0.0,1.063,0.0,0.0,0.6,0.6,1.0,0.0,0.0,1.0,0.0,0.0,0.0,1.0,0.0,1.0,0.0,0.0,1.0,0.0,0.0,1.0,1.0,0.0,0.0,0.308,0.5,0.538,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1790683919054}
+{"event":"skill_start","skill":"explore water","trigger":"skill_done","t":1790683919055}
+{"event":"skill_end","skill":"explore water","ok":true,"detail":"found water","seconds":17.5,"t":1790683938838}
+{"layer":"tactician","gs":41,"brain":"rules","trigger":"skill_done","goal":"nether_portal","options":["fill_bucket water","explore water"],"choice":"fill_bucket water","x":[1.0,1.0,0.4,0.0,0.0,1.094,0.0,0.0,0.6,0.6,1.0,0.0,0.0,1.0,0.0,0.0,0.0,1.0,0.0,1.0,0.0,0.0,1.0,0.0,0.0,1.0,1.0,1.0,0.0,0.308,0.5,0.538,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1790683938839}
+{"event":"skill_start","skill":"fill_bucket water","trigger":"skill_done","t":1790683938844}
+{"event":"skill_end","skill":"fill_bucket water","ok":true,"detail":"filled a bucket with water","seconds":15.55,"t":1790683956200}
+{"layer":"tactician","gs":56,"brain":"rules","trigger":"skill_done","goal":"nether_portal","options":["cast_portal","explore any"],"choice":"cast_portal","x":[1.0,0.95,0.4,0.0,0.0,0.984,0.0,0.0,0.6,0.6,1.0,0.0,0.0,1.0,0.0,0.0,0.0,1.0,0.0,1.0,1.0,0.0,1.0,0.0,0.0,1.0,1.0,1.0,0.0,0.308,0.5,0.538,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1790683956206}
+{"event":"skill_start","skill":"cast_portal","trigger":"skill_done","t":1790683956209}
+{"event":"skill_end","skill":"cast_portal","ok":false,"code":"NO_ROOM","detail":"no spot with a clear aim at the frame","seconds":101.95,"t":1790684063150}
+{"layer":"tactician","gs":158,"brain":"rules","trigger":"skill_failed","goal":"nether_portal","options":["eat","cast_portal","pickup","explore any"],"choice":"eat","x":[1.0,0.5,0.4,0.0,0.0,1.047,0.0,0.0,0.6,0.6,1.0,0.0,0.0,1.0,0.0,0.0,0.0,1.0,0.0,1.0,1.0,1.0,1.0,0.0,0.0,1.0,1.0,1.0,0.0,0.308,0.667,0.538,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["eat"],"t":1790684063151}
+{"event":"skill_start","skill":"eat","trigger":"skill_failed","t":1790684063151}
+{"event":"skill_end","skill":"eat","ok":true,"detail":"ate cooked_beef","seconds":1.8,"t":1790684064931}
+{"layer":"tactician","gs":160,"brain":"rules","trigger":"skill_done","goal":"nether_portal","options":["cast_portal","pickup","explore any"],"choice":"cast_portal","x":[1.0,0.9,0.4,0.0,0.0,1.047,0.0,0.0,0.6,0.6,1.0,0.0,0.0,1.0,0.0,0.0,0.0,0.938,0.0,1.0,1.0,1.0,1.0,0.0,0.0,1.0,1.0,1.0,0.0,0.308,0.667,0.538,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1790684064932}
+{"event":"skill_start","skill":"cast_portal","trigger":"skill_done","t":1790684064932}
+{"event":"skill_end","skill":"cast_portal","ok":false,"code":"USE_FAILED","detail":"couldn\u0027t light the portal","seconds":8.75,"t":1790684074091}
+{"layer":"tactician","gs":169,"brain":"rules","trigger":"skill_failed","goal":"nether_portal","options":["cast_portal","pickup","explore any"],"choice":"cast_portal","x":[1.0,0.9,0.4,0.0,0.0,1.109,0.0,0.0,0.6,0.6,1.0,0.0,0.0,1.0,0.0,0.0,0.0,0.938,0.0,1.0,1.0,0.0,1.0,0.0,0.0,1.0,1.0,1.0,0.0,0.308,0.833,0.538,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1790684074092}
+{"event":"skill_start","skill":"cast_portal","trigger":"skill_failed","t":1790684074092}
+{"event":"skill_end","skill":"cast_portal","ok":true,"detail":"cast and lit a nether portal","seconds":1.95,"t":1790684076030}
+{"layer":"tactician","gs":171,"brain":"rules","trigger":"skill_done","goal":"nether_portal","options":["enter_portal nether","pickup","explore any"],"choice":"enter_portal nether","x":[1.0,0.9,0.4,0.0,0.0,1.047,0.0,0.0,0.6,0.6,1.0,0.0,0.0,1.0,0.0,0.0,0.0,0.938,0.0,1.0,1.0,0.0,1.0,0.0,0.0,1.0,1.0,1.0,0.0,0.308,0.833,0.538,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0],"idx":0,"prop":1.0,"t":1790684076031}
+{"event":"skill_start","skill":"enter_portal nether","trigger":"skill_done","t":1790684076031}
+{"event":"checkpoint","detail":"portal_lit","t":1790684076188}
+{"layer":"strategist","brain":"rules","choice":"blaze_rods","reason":"goal_done","t":1790684076188}
+{"event":"milestone","detail":"7 at 177 s","t":1790684082565}
+{"event":"skill_end","skill":"enter_portal nether","ok":true,"detail":"now in the_nether","seconds":6.15,"t":1790684082566}
+{"layer":"tactician","gs":177,"brain":"rules","trigger":"skill_done","goal":"blaze_rods","options":["fortress find","explore any"],"choice":"fortress find","x":[1.0,0.9,0.4,0.0,1.0,1.172,1.0,0.0,0.6,0.6,1.0,0.0,0.0,1.0,0.0,0.0,0.0,0.938,0.0,1.0,1.0,0.0,1.0,0.0,0.0,1.0,0.0,0.0,0.0,0.538,1.0,0.615,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1790684082583}
+{"event":"skill_start","skill":"fortress find","trigger":"skill_done","t":1790684082583}
+{"event":"skill_end","skill":"fortress find","ok":false,"code":"UNREACHABLE","detail":"couldn\u0027t make headway that way (lava or cliffs); will turn","seconds":3.0,"t":1790684085608}
+{"layer":"tactician","gs":180,"brain":"rules","trigger":"skill_failed","goal":"blaze_rods","options":["fortress find","explore any"],"choice":"fortress find","x":[1.0,0.9,0.4,0.0,1.0,1.172,1.0,0.0,0.6,0.6,1.0,0.0,0.0,1.0,0.0,0.0,0.0,0.938,0.0,1.0,1.0,0.0,1.0,0.0,0.0,1.0,1.0,0.0,0.0,0.538,1.0,0.615,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1790684085613}
+{"event":"skill_start","skill":"fortress find","trigger":"skill_failed","t":1790684085613}
+{"layer":"reflex","gs":218,"brain":"rules","trigger":"reflex_fight","goal":"blaze_rods","options":["attack magma_cube","retreat"],"choice":"attack magma_cube","x":[1.0,0.9,0.4,0.0,1.0,1.438,1.0,0.0,0.6,0.6,1.0,0.0,0.0,1.0,0.0,0.0,0.0,0.938,0.0,1.0,1.0,0.0,1.0,0.0,0.25,0.169,1.0,0.0,0.0,0.538,1.0,0.615,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["attack magma_cube","retreat"],"t":1790684140729}
+{"event":"skill_end","skill":"fortress find","ok":false,"code":"INTERRUPTED","detail":"interrupted by reflex_fight","seconds":38.5,"t":1790684140729}
+{"event":"skill_start","skill":"attack magma_cube","trigger":"reflex_fight","t":1790684140730}
+{"event":"skill_end","skill":"attack magma_cube","ok":true,"detail":"killed the magma_cube","seconds":2.6,"t":1790684143347}
+{"layer":"tactician","gs":221,"brain":"rules","trigger":"skill_done","goal":"blaze_rods","options":["fortress find","explore any"],"choice":"fortress find","x":[1.0,0.9,0.4,0.0,1.0,1.469,1.0,0.0,0.6,0.6,1.0,0.0,0.0,1.0,0.0,0.0,0.0,0.938,0.0,1.0,1.0,0.0,1.0,0.0,0.0,1.0,1.0,0.0,0.0,0.538,1.0,0.615,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0],"idx":0,"prop":1.0,"t":1790684143347}
+{"event":"skill_start","skill":"fortress find","trigger":"skill_done","t":1790684143347}
+{"event":"skill_end","skill":"fortress find","ok":true,"detail":"walked 200 blocks, no fortress in view yet","seconds":125.5,"t":1790684287009}
+{"layer":"tactician","gs":346,"brain":"rules","trigger":"skill_done","goal":"blaze_rods","options":["fortress find","explore any"],"choice":"fortress find","x":[1.0,0.9,0.4,0.0,1.0,0.688,1.0,0.0,0.6,0.6,1.0,0.0,0.0,1.0,0.0,0.0,0.0,0.938,0.0,1.0,1.0,0.0,1.0,0.0,0.0,1.0,1.0,0.0,0.0,0.538,1.0,0.615,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0],"idx":0,"prop":1.0,"t":1790684287009}
+{"event":"skill_start","skill":"fortress find","trigger":"skill_done","t":1790684287009}
+{"layer":"tactician","gs":386,"brain":"rules","trigger":"heartbeat","goal":"blaze_rods","options":["eat","fortress find","explore any"],"choice":"eat","x":[0.965,0.8,0.4,0.0,1.0,0.688,1.0,0.0,0.6,0.6,1.0,0.0,0.0,1.0,0.0,0.0,0.0,0.938,0.0,1.0,1.0,0.0,1.0,0.0,0.0,1.0,1.0,0.0,0.0,0.538,1.0,0.615,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["eat"],"t":1790684346695}
+{"event":"skill_end","skill":"fortress find","ok":false,"code":"INTERRUPTED","detail":"interrupted: brain chose eat","seconds":40.1,"t":1790684346696}
+{"event":"skill_start","skill":"eat","trigger":"heartbeat","t":1790684346696}
+{"event":"skill_end","skill":"eat","ok":true,"detail":"ate cooked_beef","seconds":1.8,"t":1790684348480}
+{"layer":"tactician","gs":388,"brain":"rules","trigger":"skill_done","goal":"blaze_rods","options":["fortress find","explore any"],"choice":"fortress find","x":[0.965,1.0,0.4,0.0,1.0,0.688,1.0,0.0,0.6,0.6,1.0,0.0,0.0,1.0,0.0,0.0,0.0,0.875,0.0,1.0,1.0,0.0,1.0,0.0,0.0,1.0,1.0,0.0,0.0,0.538,1.0,0.615,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0],"idx":0,"prop":1.0,"t":1790684348480}
+{"event":"skill_start","skill":"fortress find","trigger":"skill_done","t":1790684348481}
+{"event":"skill_end","skill":"fortress find","ok":true,"detail":"walked 42 blocks, no fortress in view yet","seconds":16.0,"t":1790684366757}
+{"layer":"tactician","gs":404,"brain":"rules","trigger":"skill_done","goal":"blaze_rods","options":["fortress find","explore any"],"choice":"fortress find","x":[1.0,1.0,0.4,0.0,1.0,0.547,1.0,0.0,0.6,0.6,1.0,0.0,0.0,1.0,0.0,0.0,0.0,0.875,0.0,1.0,1.0,0.0,1.0,0.0,0.0,1.0,1.0,0.0,0.0,0.538,1.0,0.615,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0],"idx":0,"prop":1.0,"t":1790684366758}
+{"event":"skill_start","skill":"fortress find","trigger":"skill_done","t":1790684366758}
+{"event":"skill_end","skill":"fortress find","ok":true,"detail":"walked 61 blocks, no fortress in view yet","seconds":27.0,"t":1790684396136}
+{"layer":"tactician","gs":431,"brain":"rules","trigger":"skill_done","goal":"blaze_rods","options":["fortress find","explore any"],"choice":"fortress find","x":[1.0,1.0,0.4,0.0,1.0,0.531,1.0,0.0,0.6,0.6,1.0,0.0,0.0,1.0,0.0,0.0,0.0,0.875,0.0,1.0,1.0,0.0,1.0,0.0,0.0,1.0,1.0,0.0,0.0,0.538,1.0,0.615,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0],"idx":0,"prop":1.0,"t":1790684396136}
+{"event":"skill_start","skill":"fortress find","trigger":"skill_done","t":1790684396136}
+{"event":"skill_end","skill":"fortress find","ok":true,"detail":"walked 200 blocks, no fortress in view yet","seconds":237.5,"t":1790684820984}
+{"layer":"tactician","gs":669,"brain":"rules","trigger":"skill_done","goal":"blaze_rods","options":["fortress find","explore any"],"choice":"fortress find","x":[1.0,0.8,0.4,1.0,1.0,0.375,1.0,0.0,0.6,0.6,1.0,0.0,0.0,1.0,0.0,0.0,0.0,0.875,0.0,1.0,1.0,0.0,1.0,0.0,0.0,1.0,1.0,0.0,0.0,0.538,1.0,0.615,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0],"idx":0,"prop":1.0,"t":1790684820984}
+{"event":"skill_start","skill":"fortress find","trigger":"skill_done","t":1790684820984}
+{"event":"skill_end","skill":"fortress find","ok":false,"code":"INTERRUPTED","detail":"test finished","seconds":51.35,"t":1790684923783}
+{"event":"autopilot_off","detail":"test finished","t":1790684923784}

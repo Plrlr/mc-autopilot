@@ -1,0 +1,298 @@
+{"event":"autopilot_on","detail":"brain\u003drules","t":1790683888993}
+{"event":"params","detail":"params: trial (6 genes) changed\u003d{\"plan.hide_hp\":15.0,\"death.recover_night_armor\":12.0,\"focus.commit\":1.0,\"cave.torches\":1.0,\"skill.lava_scout\":1.0,\"skill.cast_portal\":1.0}","t":1790683888993}
+{"layer":"strategist","brain":"rules","choice":"nether_portal","reason":"start","t":1790683888996}
+{"event":"learned","detail":"learned model: none","t":1790683889002}
+{"layer":"tactician","gs":0,"brain":"rules","trigger":"idle","goal":"nether_portal","options":["equip shield","explore water"],"choice":"equip shield","x":[1.0,1.0,0.4,0.0,0.0,1.125,0.0,0.0,0.6,0.6,1.0,0.0,0.0,1.0,0.0,0.0,0.0,1.0,0.0,1.0,0.0,0.0,1.0,0.0,0.0,1.0,0.0,0.0,0.0,0.0,0.0,0.538,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1790683889021}
+{"event":"skill_start","skill":"equip shield","trigger":"idle","t":1790683889096}
+{"event":"skill_end","skill":"equip shield","ok":true,"detail":"shield in off hand","seconds":0.05,"t":1790683889241}
+{"layer":"tactician","gs":0,"brain":"rules","trigger":"skill_done","goal":"nether_portal","options":["explore water"],"choice":"explore water","x":[1.0,1.0,0.4,0.0,0.0,1.125,0.0,0.0,0.6,0.6,1.0,0.0,0.0,1.0,0.0,0.0,0.0,1.0,0.0,1.0,0.0,0.0,1.0,0.0,0.0,1.0,0.0,0.0,0.0,0.0,0.0,0.538,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1790683889247}
+{"event":"skill_start","skill":"explore water","trigger":"skill_done","t":1790683889253}
+{"event":"checkpoint","detail":"two_buckets","t":1790683891322}
+{"event":"checkpoint","detail":"flint_and_steel","t":1790683891322}
+{"event":"checkpoint","detail":"lava_seen","t":1790683891322}
+{"event":"milestone","detail":"4 at 0 s","t":1790683891327}
+{"event":"skill_end","skill":"explore water","ok":true,"detail":"found water","seconds":4.0,"t":1790683897508}
+{"layer":"tactician","gs":4,"brain":"rules","trigger":"skill_done","goal":"nether_portal","options":["fill_bucket water","explore water"],"choice":"fill_bucket water","x":[1.0,1.0,0.4,0.0,0.0,1.125,0.0,0.0,0.6,0.6,1.0,0.0,0.0,1.0,0.0,0.0,0.0,1.0,0.0,1.0,0.0,0.0,1.0,0.0,0.0,1.0,1.0,1.0,0.0,0.308,0.5,0.538,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1790683897509}
+{"event":"skill_start","skill":"fill_bucket water","trigger":"skill_done","t":1790683897511}
+{"event":"skill_end","skill":"fill_bucket water","ok":false,"code":"NOT_FOUND","detail":"no known water source with a bank to stand on","seconds":0.05,"t":1790683897574}
+{"layer":"tactician","gs":4,"brain":"rules","trigger":"skill_failed","goal":"nether_portal","options":["explore water"],"choice":"explore water","x":[1.0,1.0,0.4,0.0,0.0,1.125,0.0,0.0,0.6,0.6,1.0,0.0,0.0,1.0,0.0,0.0,0.0,1.0,0.0,1.0,0.0,0.0,1.0,0.0,0.0,1.0,1.0,0.0,0.0,0.308,0.5,0.538,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1790683897575}
+{"event":"skill_start","skill":"explore water","trigger":"skill_failed","t":1790683897575}
+{"event":"skill_end","skill":"explore water","ok":true,"detail":"found water","seconds":0.5,"t":1790683898412}
+{"layer":"tactician","gs":4,"brain":"rules","trigger":"skill_done","goal":"nether_portal","options":["fill_bucket water","explore water"],"choice":"fill_bucket water","x":[1.0,1.0,0.4,0.0,0.0,1.125,0.0,0.0,0.6,0.6,1.0,0.0,0.0,1.0,0.0,0.0,0.0,1.0,0.0,1.0,0.0,0.0,1.0,0.0,0.0,1.0,1.0,1.0,0.0,0.308,0.5,0.538,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1790683898413}
+{"event":"skill_start","skill":"fill_bucket water","trigger":"skill_done","t":1790683898415}
+{"event":"skill_end","skill":"fill_bucket water","ok":false,"code":"NOT_FOUND","detail":"no known water source with a bank to stand on","seconds":0.05,"t":1790683898500}
+{"layer":"tactician","gs":4,"brain":"rules","trigger":"skill_failed","goal":"nether_portal","options":["fill_bucket water","explore water"],"choice":"fill_bucket water","x":[1.0,1.0,0.4,0.0,0.0,1.125,0.0,0.0,0.6,0.6,1.0,0.0,0.0,1.0,0.0,0.0,0.0,1.0,0.0,1.0,0.0,0.0,1.0,0.0,0.0,1.0,1.0,1.0,0.0,0.308,0.5,0.538,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1790683898500}
+{"event":"skill_start","skill":"fill_bucket water","trigger":"skill_failed","t":1790683898501}
+{"event":"skill_end","skill":"fill_bucket water","ok":false,"code":"NOT_FOUND","detail":"no known water source with a bank to stand on","seconds":0.05,"t":1790683898575}
+{"layer":"tactician","gs":4,"brain":"rules","trigger":"skill_failed","goal":"nether_portal","options":["explore water"],"choice":"explore water","x":[1.0,1.0,0.4,0.0,0.0,1.125,0.0,0.0,0.6,0.6,1.0,0.0,0.0,1.0,0.0,0.0,0.0,1.0,0.0,1.0,0.0,0.0,1.0,0.0,0.0,1.0,1.0,1.0,0.0,0.308,0.5,0.538,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1790683898576}
+{"event":"skill_start","skill":"explore water","trigger":"skill_failed","t":1790683898576}
+{"event":"skill_end","skill":"explore water","ok":false,"code":"ALREADY_DONE","detail":"already see water","seconds":0.05,"t":1790683898659}
+{"layer":"tactician","gs":4,"brain":"rules","trigger":"skill_failed","goal":"nether_portal","options":["explore water"],"choice":"explore water","x":[1.0,1.0,0.4,0.0,0.0,1.109,0.0,0.0,0.6,0.6,1.0,0.0,0.0,1.0,0.0,0.0,0.0,1.0,0.0,1.0,0.0,0.0,1.0,0.0,0.0,1.0,1.0,1.0,0.0,0.308,0.5,0.538,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1790683898660}
+{"event":"skill_start","skill":"explore water","trigger":"skill_failed","t":1790683898660}
+{"event":"skill_end","skill":"explore water","ok":false,"code":"ALREADY_DONE","detail":"already see water","seconds":0.05,"t":1790683898719}
+{"layer":"tactician","gs":4,"brain":"rules","trigger":"skill_failed","goal":"nether_portal","options":["explore water"],"choice":"explore water","x":[1.0,1.0,0.4,0.0,0.0,1.109,0.0,0.0,0.6,0.6,1.0,0.0,0.0,1.0,0.0,0.0,0.0,1.0,0.0,1.0,0.0,0.0,1.0,0.0,0.0,1.0,1.0,1.0,0.0,0.308,0.5,0.538,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1790683898720}
+{"event":"skill_start","skill":"explore water","trigger":"skill_failed","t":1790683898720}
+{"event":"skill_end","skill":"explore water","ok":false,"code":"ALREADY_DONE","detail":"already see water","seconds":0.05,"t":1790683898776}
+{"layer":"tactician","gs":4,"brain":"rules","trigger":"skill_failed","goal":"nether_portal","options":["explore any"],"choice":"explore any","x":[1.0,1.0,0.4,0.0,0.0,1.109,0.0,0.0,0.6,0.6,1.0,0.0,0.0,1.0,0.0,0.0,0.0,1.0,0.0,1.0,0.0,0.0,1.0,0.0,0.0,1.0,1.0,1.0,0.0,0.308,0.5,0.538,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1790683898776}
+{"event":"skill_start","skill":"explore any","trigger":"skill_failed","t":1790683898777}
+{"event":"skill_end","skill":"explore any","ok":false,"code":"HAZARD","detail":"open water ahead; will turn","seconds":28.5,"t":1790683935471}
+{"layer":"tactician","gs":33,"brain":"rules","trigger":"skill_failed","goal":"nether_portal","options":["explore any"],"choice":"explore any","x":[1.0,1.0,0.4,0.0,0.0,0.969,0.0,0.0,0.6,0.6,1.0,0.0,0.0,1.0,0.0,0.0,0.0,1.0,0.0,1.0,0.0,0.0,1.0,0.0,0.0,1.0,1.0,1.0,0.0,0.308,0.5,0.538,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1790683935473}
+{"event":"skill_start","skill":"explore any","trigger":"skill_failed","t":1790683935473}
+{"event":"skill_end","skill":"explore any","ok":false,"code":"HAZARD","detail":"open water ahead; will turn","seconds":20.5,"t":1790683959992}
+{"layer":"tactician","gs":53,"brain":"rules","trigger":"skill_failed","goal":"nether_portal","options":["explore any"],"choice":"explore any","x":[1.0,1.0,0.4,0.0,0.0,0.969,0.0,0.0,0.6,0.6,1.0,0.0,0.0,1.0,0.0,0.0,0.0,1.0,0.0,1.0,0.0,0.0,1.0,0.0,0.0,1.0,1.0,1.0,0.0,0.308,0.5,0.538,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1790683959993}
+{"event":"skill_start","skill":"explore any","trigger":"skill_failed","t":1790683959993}
+{"event":"skill_end","skill":"explore any","ok":false,"code":"HAZARD","detail":"open water ahead; will turn","seconds":20.5,"t":1790683983760}
+{"layer":"tactician","gs":74,"brain":"rules","trigger":"skill_failed","goal":"nether_portal","options":["fill_bucket water","explore water"],"choice":"fill_bucket water","x":[1.0,1.0,0.4,0.0,0.0,0.969,0.0,0.0,0.6,0.6,1.0,0.0,0.0,1.0,0.0,0.0,0.0,1.0,0.0,1.0,0.0,0.0,1.0,0.0,0.0,1.0,1.0,1.0,0.0,0.308,0.5,0.538,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1790683983761}
+{"event":"skill_start","skill":"fill_bucket water","trigger":"skill_failed","t":1790683983763}
+{"event":"skill_end","skill":"fill_bucket water","ok":false,"code":"NOT_FOUND","detail":"no known water source with a bank to stand on","seconds":0.05,"t":1790683983816}
+{"layer":"tactician","gs":74,"brain":"rules","trigger":"skill_failed","goal":"nether_portal","options":["fill_bucket water","explore water"],"choice":"fill_bucket water","x":[1.0,1.0,0.4,0.0,0.0,0.969,0.0,0.0,0.6,0.6,1.0,0.0,0.0,1.0,0.0,0.0,0.0,1.0,0.0,1.0,0.0,0.0,1.0,0.0,0.0,1.0,1.0,1.0,0.0,0.308,0.5,0.538,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1790683983817}
+{"event":"skill_start","skill":"fill_bucket water","trigger":"skill_failed","t":1790683983818}
+{"event":"skill_end","skill":"fill_bucket water","ok":false,"code":"NOT_FOUND","detail":"no known water source with a bank to stand on","seconds":0.05,"t":1790683983872}
+{"layer":"tactician","gs":74,"brain":"rules","trigger":"skill_failed","goal":"nether_portal","options":["explore water"],"choice":"explore water","x":[1.0,1.0,0.4,0.0,0.0,0.969,0.0,0.0,0.6,0.6,1.0,0.0,0.0,1.0,0.0,0.0,0.0,1.0,0.0,1.0,0.0,0.0,1.0,0.0,0.0,1.0,1.0,1.0,0.0,0.308,0.5,0.538,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1790683983873}
+{"event":"skill_start","skill":"explore water","trigger":"skill_failed","t":1790683983873}
+{"event":"skill_end","skill":"explore water","ok":false,"code":"ALREADY_DONE","detail":"already see water","seconds":0.05,"t":1790683983928}
+{"layer":"tactician","gs":74,"brain":"rules","trigger":"skill_failed","goal":"nether_portal","options":["explore water"],"choice":"explore water","x":[1.0,1.0,0.4,0.0,0.0,0.969,0.0,0.0,0.6,0.6,1.0,0.0,0.0,1.0,0.0,0.0,0.0,1.0,0.0,1.0,0.0,0.0,1.0,0.0,0.0,1.0,1.0,1.0,0.0,0.308,0.5,0.538,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1790683983929}
+{"event":"skill_start","skill":"explore water","trigger":"skill_failed","t":1790683983929}
+{"event":"skill_end","skill":"explore water","ok":false,"code":"ALREADY_DONE","detail":"already see water","seconds":0.05,"t":1790683983984}
+{"layer":"tactician","gs":74,"brain":"rules","trigger":"skill_failed","goal":"nether_portal","options":["explore any"],"choice":"explore any","x":[1.0,1.0,0.4,0.0,0.0,0.969,0.0,0.0,0.6,0.6,1.0,0.0,0.0,1.0,0.0,0.0,0.0,1.0,0.0,1.0,0.0,0.0,1.0,0.0,0.0,1.0,1.0,1.0,0.0,0.308,0.5,0.538,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1790683983985}
+{"event":"skill_start","skill":"explore any","trigger":"skill_failed","t":1790683983985}
+{"event":"skill_end","skill":"explore any","ok":false,"code":"HAZARD","detail":"open water ahead; will turn","seconds":20.5,"t":1790684009212}
+{"layer":"tactician","gs":95,"brain":"rules","trigger":"skill_failed","goal":"nether_portal","options":["explore any"],"choice":"explore any","x":[1.0,1.0,0.4,0.0,0.0,0.969,0.0,0.0,0.6,0.6,1.0,0.0,0.0,1.0,0.0,0.0,0.0,1.0,0.0,1.0,0.0,0.0,1.0,0.0,0.0,1.0,1.0,1.0,0.0,0.308,0.5,0.538,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1790684009213}
+{"event":"skill_start","skill":"explore any","trigger":"skill_failed","t":1790684009213}
+{"event":"skill_end","skill":"explore any","ok":false,"code":"HAZARD","detail":"open water ahead; will turn","seconds":20.5,"t":1790684035576}
+{"layer":"tactician","gs":115,"brain":"rules","trigger":"skill_failed","goal":"nether_portal","options":["explore any"],"choice":"explore any","x":[1.0,1.0,0.4,0.0,0.0,0.969,0.0,0.0,0.6,0.6,1.0,0.0,0.0,1.0,0.0,0.0,0.0,1.0,0.0,1.0,0.0,0.0,1.0,0.0,0.0,1.0,1.0,1.0,0.0,0.308,0.5,0.538,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1790684035577}
+{"event":"skill_start","skill":"explore any","trigger":"skill_failed","t":1790684035577}
+{"event":"skill_end","skill":"explore any","ok":false,"code":"HAZARD","detail":"open water ahead; will turn","seconds":20.5,"t":1790684060724}
+{"layer":"tactician","gs":136,"brain":"rules","trigger":"skill_failed","goal":"nether_portal","options":["fill_bucket water","explore water"],"choice":"fill_bucket water","x":[1.0,1.0,0.4,0.0,0.0,0.969,0.0,0.0,0.6,0.6,1.0,0.0,0.0,1.0,0.0,0.0,0.0,1.0,0.0,1.0,0.0,0.0,1.0,0.0,0.0,1.0,1.0,1.0,0.0,0.308,0.5,0.538,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1790684060725}
+{"event":"skill_start","skill":"fill_bucket water","trigger":"skill_failed","t":1790684060726}
+{"event":"skill_end","skill":"fill_bucket water","ok":false,"code":"NOT_FOUND","detail":"no known water source with a bank to stand on","seconds":0.05,"t":1790684060781}
+{"layer":"tactician","gs":136,"brain":"rules","trigger":"skill_failed","goal":"nether_portal","options":["fill_bucket water","explore water"],"choice":"fill_bucket water","x":[1.0,1.0,0.4,0.0,0.0,0.969,0.0,0.0,0.6,0.6,1.0,0.0,0.0,1.0,0.0,0.0,0.0,1.0,0.0,1.0,0.0,0.0,1.0,0.0,0.0,1.0,1.0,1.0,0.0,0.308,0.5,0.538,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1790684060782}
+{"event":"skill_start","skill":"fill_bucket water","trigger":"skill_failed","t":1790684060783}
+{"event":"skill_end","skill":"fill_bucket water","ok":false,"code":"NOT_FOUND","detail":"no known water source with a bank to stand on","seconds":0.05,"t":1790684060836}
+{"layer":"tactician","gs":136,"brain":"rules","trigger":"skill_failed","goal":"nether_portal","options":["explore water"],"choice":"explore water","x":[1.0,1.0,0.4,0.0,0.0,0.969,0.0,0.0,0.6,0.6,1.0,0.0,0.0,1.0,0.0,0.0,0.0,1.0,0.0,1.0,0.0,0.0,1.0,0.0,0.0,1.0,1.0,1.0,0.0,0.308,0.5,0.538,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1790684060836}
+{"event":"skill_start","skill":"explore water","trigger":"skill_failed","t":1790684060837}
+{"event":"skill_end","skill":"explore water","ok":false,"code":"ALREADY_DONE","detail":"already see water","seconds":0.05,"t":1790684060890}
+{"layer":"tactician","gs":136,"brain":"rules","trigger":"skill_failed","goal":"nether_portal","options":["explore water"],"choice":"explore water","x":[1.0,1.0,0.4,0.0,0.0,0.969,0.0,0.0,0.6,0.6,1.0,0.0,0.0,1.0,0.0,0.0,0.0,1.0,0.0,1.0,0.0,0.0,1.0,0.0,0.0,1.0,1.0,1.0,0.0,0.308,0.5,0.538,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1790684060891}
+{"event":"skill_start","skill":"explore water","trigger":"skill_failed","t":1790684060891}
+{"event":"skill_end","skill":"explore water","ok":false,"code":"ALREADY_DONE","detail":"already see water","seconds":0.05,"t":1790684060945}
+{"layer":"tactician","gs":136,"brain":"rules","trigger":"skill_failed","goal":"nether_portal","options":["explore any"],"choice":"explore any","x":[1.0,1.0,0.4,0.0,0.0,0.969,0.0,0.0,0.6,0.6,1.0,0.0,0.0,1.0,0.0,0.0,0.0,1.0,0.0,1.0,0.0,0.0,1.0,0.0,0.0,1.0,1.0,1.0,0.0,0.308,0.5,0.538,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1790684060945}
+{"event":"skill_start","skill":"explore any","trigger":"skill_failed","t":1790684060946}
+{"event":"skill_end","skill":"explore any","ok":false,"code":"HAZARD","detail":"open water ahead; will turn","seconds":20.5,"t":1790684084551}
+{"layer":"tactician","gs":156,"brain":"rules","trigger":"skill_failed","goal":"nether_portal","options":["explore any"],"choice":"explore any","x":[1.0,1.0,0.4,0.0,0.0,0.969,0.0,0.0,0.6,0.6,1.0,0.0,0.0,1.0,0.0,0.0,0.0,1.0,0.0,1.0,0.0,0.0,1.0,0.0,0.0,1.0,1.0,1.0,0.0,0.308,0.5,0.538,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1790684084552}
+{"event":"skill_start","skill":"explore any","trigger":"skill_failed","t":1790684084552}
+{"event":"skill_end","skill":"explore any","ok":false,"code":"HAZARD","detail":"open water ahead; will turn","seconds":20.5,"t":1790684108972}
+{"layer":"tactician","gs":177,"brain":"rules","trigger":"skill_failed","goal":"nether_portal","options":["explore any"],"choice":"explore any","x":[1.0,1.0,0.4,0.0,0.0,0.969,0.0,0.0,0.6,0.6,1.0,0.0,0.0,1.0,0.0,0.0,0.0,1.0,0.0,1.0,0.0,0.0,1.0,0.0,0.0,1.0,1.0,1.0,0.0,0.308,0.5,0.538,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1790684108973}
+{"event":"skill_start","skill":"explore any","trigger":"skill_failed","t":1790684108973}
+{"event":"skill_end","skill":"explore any","ok":false,"code":"HAZARD","detail":"open water ahead; will turn","seconds":20.5,"t":1790684132533}
+{"layer":"tactician","gs":197,"brain":"rules","trigger":"skill_failed","goal":"nether_portal","options":["fill_bucket water","explore water"],"choice":"fill_bucket water","x":[1.0,1.0,0.4,0.0,0.0,0.969,0.0,0.0,0.6,0.6,1.0,0.0,0.0,1.0,0.0,0.0,0.0,1.0,0.0,1.0,0.0,0.0,1.0,0.0,0.0,1.0,1.0,1.0,0.0,0.308,0.5,0.538,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1790684132533}
+{"event":"skill_start","skill":"fill_bucket water","trigger":"skill_failed","t":1790684132534}
+{"event":"skill_end","skill":"fill_bucket water","ok":false,"code":"NOT_FOUND","detail":"no known water source with a bank to stand on","seconds":0.05,"t":1790684132583}
+{"layer":"tactician","gs":197,"brain":"rules","trigger":"skill_failed","goal":"nether_portal","options":["fill_bucket water","explore water"],"choice":"fill_bucket water","x":[1.0,1.0,0.4,0.0,0.0,0.969,0.0,0.0,0.6,0.6,1.0,0.0,0.0,1.0,0.0,0.0,0.0,1.0,0.0,1.0,0.0,0.0,1.0,0.0,0.0,1.0,1.0,1.0,0.0,0.308,0.5,0.538,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1790684132584}
+{"event":"skill_start","skill":"fill_bucket water","trigger":"skill_failed","t":1790684132585}
+{"event":"skill_end","skill":"fill_bucket water","ok":false,"code":"NOT_FOUND","detail":"no known water source with a bank to stand on","seconds":0.05,"t":1790684132633}
+{"layer":"tactician","gs":197,"brain":"rules","trigger":"skill_failed","goal":"nether_portal","options":["explore water"],"choice":"explore water","x":[1.0,1.0,0.4,0.0,0.0,0.969,0.0,0.0,0.6,0.6,1.0,0.0,0.0,1.0,0.0,0.0,0.0,1.0,0.0,1.0,0.0,0.0,1.0,0.0,0.0,1.0,1.0,1.0,0.0,0.308,0.5,0.538,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1790684132634}
+{"event":"skill_start","skill":"explore water","trigger":"skill_failed","t":1790684132634}
+{"event":"skill_end","skill":"explore water","ok":false,"code":"ALREADY_DONE","detail":"already see water","seconds":0.05,"t":1790684132682}
+{"layer":"tactician","gs":197,"brain":"rules","trigger":"skill_failed","goal":"nether_portal","options":["explore water"],"choice":"explore water","x":[1.0,1.0,0.4,0.0,0.0,0.969,0.0,0.0,0.6,0.6,1.0,0.0,0.0,1.0,0.0,0.0,0.0,1.0,0.0,1.0,0.0,0.0,1.0,0.0,0.0,1.0,1.0,1.0,0.0,0.308,0.5,0.538,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1790684132683}
+{"event":"skill_start","skill":"explore water","trigger":"skill_failed","t":1790684132683}
+{"event":"skill_end","skill":"explore water","ok":false,"code":"ALREADY_DONE","detail":"already see water","seconds":0.05,"t":1790684132732}
+{"layer":"tactician","gs":198,"brain":"rules","trigger":"skill_failed","goal":"nether_portal","options":["explore any"],"choice":"explore any","x":[1.0,1.0,0.4,0.0,0.0,0.969,0.0,0.0,0.6,0.6,1.0,0.0,0.0,1.0,0.0,0.0,0.0,1.0,0.0,1.0,0.0,0.0,1.0,0.0,0.0,1.0,1.0,1.0,0.0,0.308,0.5,0.538,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1790684132733}
+{"event":"skill_start","skill":"explore any","trigger":"skill_failed","t":1790684132733}
+{"event":"skill_end","skill":"explore any","ok":false,"code":"HAZARD","detail":"open water ahead; will turn","seconds":20.5,"t":1790684154063}
+{"layer":"tactician","gs":218,"brain":"rules","trigger":"skill_failed","goal":"nether_portal","options":["explore any"],"choice":"explore any","x":[1.0,1.0,0.4,0.0,0.0,0.969,0.0,0.0,0.6,0.6,1.0,0.0,0.0,1.0,0.0,0.0,0.0,1.0,0.0,1.0,0.0,0.0,1.0,0.0,0.0,1.0,1.0,1.0,0.0,0.308,0.5,0.538,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1790684154064}
+{"event":"skill_start","skill":"explore any","trigger":"skill_failed","t":1790684154064}
+{"event":"skill_end","skill":"explore any","ok":false,"code":"HAZARD","detail":"open water ahead; will turn","seconds":20.5,"t":1790684174972}
+{"layer":"tactician","gs":239,"brain":"rules","trigger":"skill_failed","goal":"nether_portal","options":["explore any"],"choice":"explore any","x":[1.0,1.0,0.4,0.0,0.0,0.969,0.0,0.0,0.6,0.6,1.0,0.0,0.0,1.0,0.0,0.0,0.0,1.0,0.0,1.0,0.0,0.0,1.0,0.0,0.0,1.0,1.0,1.0,0.0,0.308,0.5,0.538,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1790684174972}
+{"event":"skill_start","skill":"explore any","trigger":"skill_failed","t":1790684174972}
+{"event":"skill_end","skill":"explore any","ok":false,"code":"HAZARD","detail":"open water ahead; will turn","seconds":20.5,"t":1790684196538}
+{"layer":"tactician","gs":259,"brain":"rules","trigger":"skill_failed","goal":"nether_portal","options":["fill_bucket water","explore water"],"choice":"fill_bucket water","x":[1.0,1.0,0.4,0.0,0.0,0.969,0.0,0.0,0.6,0.6,1.0,0.0,0.0,1.0,0.0,0.0,0.0,1.0,0.0,1.0,0.0,0.0,1.0,0.0,0.0,1.0,1.0,1.0,0.0,0.308,0.5,0.538,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1790684196538}
+{"event":"skill_start","skill":"fill_bucket water","trigger":"skill_failed","t":1790684196539}
+{"event":"skill_end","skill":"fill_bucket water","ok":false,"code":"NOT_FOUND","detail":"no known water source with a bank to stand on","seconds":0.05,"t":1790684196592}
+{"layer":"tactician","gs":259,"brain":"rules","trigger":"skill_failed","goal":"nether_portal","options":["fill_bucket water","explore water"],"choice":"fill_bucket water","x":[1.0,1.0,0.4,0.0,0.0,0.969,0.0,0.0,0.6,0.6,1.0,0.0,0.0,1.0,0.0,0.0,0.0,1.0,0.0,1.0,0.0,0.0,1.0,0.0,0.0,1.0,1.0,1.0,0.0,0.308,0.5,0.538,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1790684196592}
+{"event":"skill_start","skill":"fill_bucket water","trigger":"skill_failed","t":1790684196593}
+{"event":"skill_end","skill":"fill_bucket water","ok":false,"code":"NOT_FOUND","detail":"no known water source with a bank to stand on","seconds":0.05,"t":1790684196642}
+{"layer":"tactician","gs":259,"brain":"rules","trigger":"skill_failed","goal":"nether_portal","options":["explore water"],"choice":"explore water","x":[1.0,1.0,0.4,0.0,0.0,0.969,0.0,0.0,0.6,0.6,1.0,0.0,0.0,1.0,0.0,0.0,0.0,1.0,0.0,1.0,0.0,0.0,1.0,0.0,0.0,1.0,1.0,1.0,0.0,0.308,0.5,0.538,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1790684196642}
+{"event":"skill_start","skill":"explore water","trigger":"skill_failed","t":1790684196642}
+{"event":"skill_end","skill":"explore water","ok":false,"code":"ALREADY_DONE","detail":"already see water","seconds":0.05,"t":1790684196692}
+{"layer":"tactician","gs":259,"brain":"rules","trigger":"skill_failed","goal":"nether_portal","options":["explore water"],"choice":"explore water","x":[1.0,1.0,0.4,0.0,0.0,0.969,0.0,0.0,0.6,0.6,1.0,0.0,0.0,1.0,0.0,0.0,0.0,1.0,0.0,1.0,0.0,0.0,1.0,0.0,0.0,1.0,1.0,1.0,0.0,0.308,0.5,0.538,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1790684196693}
+{"event":"skill_start","skill":"explore water","trigger":"skill_failed","t":1790684196693}
+{"event":"skill_end","skill":"explore water","ok":false,"code":"ALREADY_DONE","detail":"already see water","seconds":0.05,"t":1790684196742}
+{"layer":"tactician","gs":259,"brain":"rules","trigger":"skill_failed","goal":"nether_portal","options":["explore any"],"choice":"explore any","x":[1.0,1.0,0.4,0.0,0.0,0.969,0.0,0.0,0.6,0.6,1.0,0.0,0.0,1.0,0.0,0.0,0.0,1.0,0.0,1.0,0.0,0.0,1.0,0.0,0.0,1.0,1.0,1.0,0.0,0.308,0.5,0.538,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1790684196742}
+{"event":"skill_start","skill":"explore any","trigger":"skill_failed","t":1790684196742}
+{"event":"skill_end","skill":"explore any","ok":false,"code":"HAZARD","detail":"open water ahead; will turn","seconds":20.5,"t":1790684217976}
+{"layer":"tactician","gs":280,"brain":"rules","trigger":"skill_failed","goal":"nether_portal","options":["explore any"],"choice":"explore any","x":[1.0,1.0,0.4,0.0,0.0,0.969,0.0,0.0,0.6,0.6,1.0,0.0,0.0,1.0,0.0,0.0,0.0,1.0,0.0,1.0,0.0,0.0,1.0,0.0,0.0,1.0,1.0,1.0,0.0,0.308,0.5,0.538,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1790684217977}
+{"event":"skill_start","skill":"explore any","trigger":"skill_failed","t":1790684217977}
+{"event":"skill_end","skill":"explore any","ok":false,"code":"HAZARD","detail":"open water ahead; will turn","seconds":20.5,"t":1790684239143}
+{"layer":"tactician","gs":300,"brain":"rules","trigger":"skill_failed","goal":"nether_portal","options":["explore any"],"choice":"explore any","x":[1.0,1.0,0.4,0.0,0.0,0.969,0.0,0.0,0.6,0.6,1.0,0.0,0.0,1.0,0.0,0.0,0.0,1.0,0.0,1.0,0.0,0.0,1.0,0.0,0.0,1.0,1.0,1.0,0.0,0.308,0.5,0.538,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1790684239144}
+{"event":"skill_start","skill":"explore any","trigger":"skill_failed","t":1790684239144}
+{"event":"skill_end","skill":"explore any","ok":false,"code":"HAZARD","detail":"open water ahead; will turn","seconds":20.5,"t":1790684259921}
+{"layer":"tactician","gs":321,"brain":"rules","trigger":"skill_failed","goal":"nether_portal","options":["fill_bucket water","explore water"],"choice":"fill_bucket water","x":[1.0,1.0,0.4,0.0,0.0,0.969,0.0,0.0,0.6,0.6,1.0,0.0,0.0,1.0,0.0,0.0,0.0,1.0,0.0,1.0,0.0,0.0,1.0,0.0,0.0,1.0,1.0,1.0,0.0,0.308,0.5,0.538,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1790684259922}
+{"event":"skill_start","skill":"fill_bucket water","trigger":"skill_failed","t":1790684259922}
+{"event":"skill_end","skill":"fill_bucket water","ok":false,"code":"NOT_FOUND","detail":"no known water source with a bank to stand on","seconds":0.05,"t":1790684259965}
+{"layer":"tactician","gs":321,"brain":"rules","trigger":"skill_failed","goal":"nether_portal","options":["fill_bucket water","explore water"],"choice":"fill_bucket water","x":[1.0,1.0,0.4,0.0,0.0,0.969,0.0,0.0,0.6,0.6,1.0,0.0,0.0,1.0,0.0,0.0,0.0,1.0,0.0,1.0,0.0,0.0,1.0,0.0,0.0,1.0,1.0,1.0,0.0,0.308,0.5,0.538,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1790684259965}
+{"event":"skill_start","skill":"fill_bucket water","trigger":"skill_failed","t":1790684259966}
+{"event":"skill_end","skill":"fill_bucket water","ok":false,"code":"NOT_FOUND","detail":"no known water source with a bank to stand on","seconds":0.05,"t":1790684260016}
+{"layer":"tactician","gs":321,"brain":"rules","trigger":"skill_failed","goal":"nether_portal","options":["explore water"],"choice":"explore water","x":[1.0,1.0,0.4,0.0,0.0,0.969,0.0,0.0,0.6,0.6,1.0,0.0,0.0,1.0,0.0,0.0,0.0,1.0,0.0,1.0,0.0,0.0,1.0,0.0,0.0,1.0,1.0,1.0,0.0,0.308,0.5,0.538,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1790684260017}
+{"event":"skill_start","skill":"explore water","trigger":"skill_failed","t":1790684260017}
+{"event":"skill_end","skill":"explore water","ok":false,"code":"ALREADY_DONE","detail":"already see water","seconds":0.05,"t":1790684260098}
+{"layer":"tactician","gs":321,"brain":"rules","trigger":"skill_failed","goal":"nether_portal","options":["explore water"],"choice":"explore water","x":[1.0,1.0,0.4,0.0,0.0,0.969,0.0,0.0,0.6,0.6,1.0,0.0,0.0,1.0,0.0,0.0,0.0,1.0,0.0,1.0,0.0,0.0,1.0,0.0,0.0,1.0,1.0,1.0,0.0,0.308,0.5,0.538,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1790684260098}
+{"event":"skill_start","skill":"explore water","trigger":"skill_failed","t":1790684260098}
+{"event":"skill_end","skill":"explore water","ok":false,"code":"ALREADY_DONE","detail":"already see water","seconds":0.05,"t":1790684260144}
+{"layer":"tactician","gs":321,"brain":"rules","trigger":"skill_failed","goal":"nether_portal","options":["explore any"],"choice":"explore any","x":[1.0,1.0,0.4,0.0,0.0,0.969,0.0,0.0,0.6,0.6,1.0,0.0,0.0,1.0,0.0,0.0,0.0,1.0,0.0,1.0,0.0,0.0,1.0,0.0,0.0,1.0,1.0,1.0,0.0,0.308,0.5,0.538,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1790684260145}
+{"event":"skill_start","skill":"explore any","trigger":"skill_failed","t":1790684260145}
+{"event":"skill_end","skill":"explore any","ok":false,"code":"HAZARD","detail":"open water ahead; will turn","seconds":20.5,"t":1790684281416}
+{"layer":"tactician","gs":341,"brain":"rules","trigger":"skill_failed","goal":"nether_portal","options":["explore any"],"choice":"explore any","x":[1.0,1.0,0.4,0.0,0.0,0.969,0.0,0.0,0.6,0.6,1.0,0.0,0.0,1.0,0.0,0.0,0.0,1.0,0.0,1.0,0.0,0.0,1.0,0.0,0.0,1.0,1.0,1.0,0.0,0.308,0.5,0.538,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1790684281417}
+{"event":"skill_start","skill":"explore any","trigger":"skill_failed","t":1790684281417}
+{"event":"skill_end","skill":"explore any","ok":true,"detail":"explored 120 blocks","seconds":36.5,"t":1790684319928}
+{"layer":"tactician","gs":378,"brain":"rules","trigger":"skill_done","goal":"nether_portal","options":["explore any"],"choice":"explore any","x":[1.0,1.0,0.4,0.0,0.0,1.0,0.0,0.0,0.6,0.6,1.0,0.0,0.0,1.0,0.0,0.0,0.0,1.0,0.0,1.0,0.0,0.0,1.0,0.0,0.0,1.0,1.0,1.0,0.0,0.308,0.5,0.538,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1790684319929}
+{"event":"skill_start","skill":"explore any","trigger":"skill_done","t":1790684319929}
+{"event":"skill_end","skill":"explore any","ok":false,"code":"HAZARD","detail":"open water ahead; will turn","seconds":34.5,"t":1790684357170}
+{"layer":"tactician","gs":412,"brain":"rules","trigger":"skill_failed","goal":"nether_portal","options":["fill_bucket water","explore water"],"choice":"fill_bucket water","x":[1.0,0.95,0.4,0.0,0.0,0.969,0.0,0.0,0.6,0.6,1.0,0.0,0.0,1.0,0.0,0.0,0.0,1.0,0.0,1.0,0.0,0.0,1.0,0.0,0.0,1.0,1.0,1.0,0.0,0.308,0.5,0.538,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1790684357170}
+{"event":"skill_start","skill":"fill_bucket water","trigger":"skill_failed","t":1790684357171}
+{"event":"skill_end","skill":"fill_bucket water","ok":false,"code":"NOT_FOUND","detail":"no known water source with a bank to stand on","seconds":0.05,"t":1790684357228}
+{"layer":"tactician","gs":412,"brain":"rules","trigger":"skill_failed","goal":"nether_portal","options":["fill_bucket water","explore water"],"choice":"fill_bucket water","x":[1.0,0.95,0.4,0.0,0.0,0.969,0.0,0.0,0.6,0.6,1.0,0.0,0.0,1.0,0.0,0.0,0.0,1.0,0.0,1.0,0.0,0.0,1.0,0.0,0.0,1.0,1.0,1.0,0.0,0.308,0.5,0.538,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1790684357229}
+{"event":"skill_start","skill":"fill_bucket water","trigger":"skill_failed","t":1790684357231}
+{"event":"skill_end","skill":"fill_bucket water","ok":false,"code":"NOT_FOUND","detail":"no known water source with a bank to stand on","seconds":0.05,"t":1790684357291}
+{"layer":"tactician","gs":413,"brain":"rules","trigger":"skill_failed","goal":"nether_portal","options":["explore water"],"choice":"explore water","x":[1.0,0.95,0.4,0.0,0.0,0.969,0.0,0.0,0.6,0.6,1.0,0.0,0.0,1.0,0.0,0.0,0.0,1.0,0.0,1.0,0.0,0.0,1.0,0.0,0.0,1.0,1.0,1.0,0.0,0.308,0.5,0.538,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1790684357291}
+{"event":"skill_start","skill":"explore water","trigger":"skill_failed","t":1790684357292}
+{"event":"skill_end","skill":"explore water","ok":false,"code":"ALREADY_DONE","detail":"already see water","seconds":0.05,"t":1790684357366}
+{"layer":"tactician","gs":413,"brain":"rules","trigger":"skill_failed","goal":"nether_portal","options":["explore water"],"choice":"explore water","x":[1.0,0.95,0.4,0.0,0.0,0.969,0.0,0.0,0.6,0.6,1.0,0.0,0.0,1.0,0.0,0.0,0.0,1.0,0.0,1.0,0.0,0.0,1.0,0.0,0.0,1.0,1.0,1.0,0.0,0.308,0.5,0.538,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1790684357367}
+{"event":"skill_start","skill":"explore water","trigger":"skill_failed","t":1790684357368}
+{"event":"skill_end","skill":"explore water","ok":false,"code":"ALREADY_DONE","detail":"already see water","seconds":0.05,"t":1790684357418}
+{"layer":"tactician","gs":413,"brain":"rules","trigger":"skill_failed","goal":"nether_portal","options":["explore any"],"choice":"explore any","x":[1.0,0.95,0.4,0.0,0.0,0.969,0.0,0.0,0.6,0.6,1.0,0.0,0.0,1.0,0.0,0.0,0.0,1.0,0.0,1.0,0.0,0.0,1.0,0.0,0.0,1.0,1.0,1.0,0.0,0.308,0.5,0.538,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1790684357419}
+{"event":"skill_start","skill":"explore any","trigger":"skill_failed","t":1790684357419}
+{"event":"skill_end","skill":"explore any","ok":true,"detail":"explored 119 blocks","seconds":37.5,"t":1790684397621}
+{"layer":"tactician","gs":450,"brain":"rules","trigger":"skill_done","goal":"nether_portal","options":["explore any"],"choice":"explore any","x":[1.0,0.8,0.4,0.0,0.0,1.172,0.0,0.0,0.6,0.6,1.0,0.0,0.0,1.0,0.0,0.0,0.0,1.0,0.0,1.0,0.0,0.0,1.0,0.0,0.0,1.0,1.0,1.0,0.0,0.308,0.5,0.538,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1790684397621}
+{"event":"skill_start","skill":"explore any","trigger":"skill_done","t":1790684397621}
+{"layer":"tactician","gs":470,"brain":"rules","trigger":"heartbeat","goal":"nether_portal","options":["eat"],"choice":"eat","x":[1.0,0.7,0.4,0.0,0.0,1.125,0.0,0.0,0.6,0.6,1.0,0.0,0.0,1.0,0.0,0.0,0.0,1.0,0.0,1.0,0.0,0.0,1.0,0.0,0.0,1.0,1.0,1.0,0.0,0.308,0.5,0.538,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["eat"],"t":1790684419471}
+{"event":"skill_end","skill":"explore any","ok":false,"code":"INTERRUPTED","detail":"interrupted: brain chose eat","seconds":20.05,"t":1790684419472}
+{"event":"skill_start","skill":"eat","trigger":"heartbeat","t":1790684419472}
+{"event":"skill_end","skill":"eat","ok":true,"detail":"ate cooked_beef","seconds":1.8,"t":1790684421263}
+{"layer":"tactician","gs":472,"brain":"rules","trigger":"skill_done","goal":"nether_portal","options":["explore any"],"choice":"explore any","x":[1.0,1.0,0.4,0.0,0.0,1.125,0.0,0.0,0.6,0.6,1.0,0.0,0.0,1.0,0.0,0.0,0.0,0.938,0.0,1.0,0.0,0.0,1.0,0.0,0.0,1.0,1.0,1.0,0.0,0.308,0.5,0.538,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1790684421263}
+{"event":"skill_start","skill":"explore any","trigger":"skill_done","t":1790684421263}
+{"event":"skill_end","skill":"explore any","ok":true,"detail":"explored 121 blocks","seconds":35.0,"t":1790684459715}
+{"layer":"tactician","gs":507,"brain":"rules","trigger":"skill_done","goal":"nether_portal","options":["fill_bucket water","explore water"],"choice":"fill_bucket water","x":[1.0,1.0,0.4,0.0,0.0,0.969,0.0,0.0,0.6,0.6,1.0,0.0,0.0,1.0,0.0,0.0,0.0,0.938,0.0,1.0,0.0,0.0,1.0,0.0,0.0,1.0,1.0,1.0,0.0,0.308,0.5,0.538,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1790684459715}
+{"event":"skill_start","skill":"fill_bucket water","trigger":"skill_done","t":1790684459716}
+{"event":"skill_end","skill":"fill_bucket water","ok":false,"code":"NOT_FOUND","detail":"no known water source with a bank to stand on","seconds":0.05,"t":1790684459815}
+{"layer":"tactician","gs":507,"brain":"rules","trigger":"skill_failed","goal":"nether_portal","options":["fill_bucket water","explore water"],"choice":"fill_bucket water","x":[1.0,1.0,0.4,0.0,0.0,0.969,0.0,0.0,0.6,0.6,1.0,0.0,0.0,1.0,0.0,0.0,0.0,0.938,0.0,1.0,0.0,0.0,1.0,0.0,0.0,1.0,1.0,1.0,0.0,0.308,0.5,0.538,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1790684459816}
+{"event":"skill_start","skill":"fill_bucket water","trigger":"skill_failed","t":1790684459816}
+{"event":"skill_end","skill":"fill_bucket water","ok":false,"code":"NOT_FOUND","detail":"no known water source with a bank to stand on","seconds":0.05,"t":1790684459915}
+{"layer":"tactician","gs":507,"brain":"rules","trigger":"skill_failed","goal":"nether_portal","options":["explore water"],"choice":"explore water","x":[1.0,1.0,0.4,0.0,0.0,0.969,0.0,0.0,0.6,0.6,1.0,0.0,0.0,1.0,0.0,0.0,0.0,0.938,0.0,1.0,0.0,0.0,1.0,0.0,0.0,1.0,1.0,1.0,0.0,0.308,0.5,0.538,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1790684459916}
+{"event":"skill_start","skill":"explore water","trigger":"skill_failed","t":1790684459916}
+{"event":"skill_end","skill":"explore water","ok":false,"code":"ALREADY_DONE","detail":"already see water","seconds":0.05,"t":1790684460015}
+{"layer":"tactician","gs":507,"brain":"rules","trigger":"skill_failed","goal":"nether_portal","options":["explore water"],"choice":"explore water","x":[1.0,1.0,0.4,0.0,0.0,0.969,0.0,0.0,0.6,0.6,1.0,0.0,0.0,1.0,0.0,0.0,0.0,0.938,0.0,1.0,0.0,0.0,1.0,0.0,0.0,1.0,1.0,1.0,0.0,0.308,0.5,0.538,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1790684460016}
+{"event":"skill_start","skill":"explore water","trigger":"skill_failed","t":1790684460016}
+{"event":"skill_end","skill":"explore water","ok":false,"code":"ALREADY_DONE","detail":"already see water","seconds":0.05,"t":1790684460115}
+{"layer":"tactician","gs":507,"brain":"rules","trigger":"skill_failed","goal":"nether_portal","options":["explore any"],"choice":"explore any","x":[1.0,1.0,0.4,0.0,0.0,0.969,0.0,0.0,0.6,0.6,1.0,0.0,0.0,1.0,0.0,0.0,0.0,0.938,0.0,1.0,0.0,0.0,1.0,0.0,0.0,1.0,1.0,1.0,0.0,0.308,0.5,0.538,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1790684460116}
+{"event":"skill_start","skill":"explore any","trigger":"skill_failed","t":1790684460116}
+{"event":"skill_end","skill":"explore any","ok":false,"code":"HAZARD","detail":"open water ahead; will turn","seconds":20.5,"t":1790684501118}
+{"layer":"tactician","gs":528,"brain":"rules","trigger":"skill_failed","goal":"nether_portal","options":["shelter"],"choice":"shelter","x":[1.0,1.0,0.4,1.0,0.0,0.969,0.0,0.0,0.6,0.6,1.0,0.0,0.0,1.0,0.0,0.0,0.0,0.938,0.0,1.0,0.0,0.0,1.0,0.0,0.0,1.0,1.0,1.0,0.0,0.308,0.5,0.538,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1790684501118}
+{"event":"skill_start","skill":"shelter","trigger":"skill_failed","t":1790684501119}
+{"event":"skill_end","skill":"shelter","ok":false,"code":"NO_ROOM","detail":"no safe ground to dig into nearby","seconds":0.05,"t":1790684501217}
+{"layer":"tactician","gs":528,"brain":"rules","trigger":"skill_failed","goal":"nether_portal","options":["shelter"],"choice":"shelter","x":[1.0,1.0,0.4,1.0,0.0,0.969,0.0,0.0,0.6,0.6,1.0,0.0,0.0,1.0,0.0,0.0,0.0,0.938,0.0,1.0,0.0,0.0,1.0,0.0,0.0,1.0,1.0,1.0,0.0,0.308,0.5,0.538,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1790684501218}
+{"event":"skill_start","skill":"shelter","trigger":"skill_failed","t":1790684501218}
+{"event":"skill_end","skill":"shelter","ok":false,"code":"NO_ROOM","detail":"no safe ground to dig into nearby","seconds":0.05,"t":1790684501317}
+{"layer":"tactician","gs":528,"brain":"rules","trigger":"skill_failed","goal":"nether_portal","options":["shelter"],"choice":"shelter","x":[1.0,1.0,0.4,1.0,0.0,0.969,0.0,0.0,0.6,0.6,1.0,0.0,0.0,1.0,0.0,0.0,0.0,0.938,0.0,1.0,0.0,0.0,1.0,0.0,0.0,1.0,1.0,1.0,0.0,0.308,0.5,0.538,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1790684501318}
+{"event":"skill_start","skill":"shelter","trigger":"skill_failed","t":1790684501318}
+{"event":"skill_end","skill":"shelter","ok":false,"code":"NO_ROOM","detail":"no safe ground to dig into nearby","seconds":0.05,"t":1790684501417}
+{"layer":"tactician","gs":528,"brain":"rules","trigger":"skill_failed","goal":"nether_portal","options":["explore any"],"choice":"explore any","x":[1.0,1.0,0.4,1.0,0.0,0.969,0.0,0.0,0.6,0.6,1.0,0.0,0.0,1.0,0.0,0.0,0.0,0.938,0.0,1.0,0.0,0.0,1.0,0.0,0.0,1.0,1.0,1.0,0.0,0.308,0.5,0.538,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1790684501418}
+{"event":"skill_start","skill":"explore any","trigger":"skill_failed","t":1790684501418}
+{"event":"skill_end","skill":"explore any","ok":false,"code":"HAZARD","detail":"open water ahead; will turn","seconds":20.5,"t":1790684542421}
+{"layer":"tactician","gs":548,"brain":"rules","trigger":"skill_failed","goal":"nether_portal","options":["explore any"],"choice":"explore any","x":[1.0,1.0,0.4,1.0,0.0,0.969,0.0,0.0,0.6,0.6,1.0,0.0,0.0,1.0,0.0,0.0,0.0,0.938,0.0,1.0,0.0,0.0,1.0,0.0,0.0,1.0,1.0,1.0,0.0,0.308,0.5,0.538,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1790684542421}
+{"event":"skill_start","skill":"explore any","trigger":"skill_failed","t":1790684542422}
+{"event":"skill_end","skill":"explore any","ok":false,"code":"HAZARD","detail":"open water ahead; will turn","seconds":20.5,"t":1790684583422}
+{"layer":"tactician","gs":569,"brain":"rules","trigger":"skill_failed","goal":"nether_portal","options":["fill_bucket water","explore water"],"choice":"fill_bucket water","x":[1.0,1.0,0.4,1.0,0.0,0.969,0.0,0.0,0.6,0.6,1.0,0.0,0.0,1.0,0.0,0.0,0.0,0.938,0.0,1.0,0.0,0.0,1.0,0.0,0.0,1.0,1.0,1.0,0.0,0.308,0.5,0.538,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1790684583423}
+{"event":"skill_start","skill":"fill_bucket water","trigger":"skill_failed","t":1790684583424}
+{"event":"skill_end","skill":"fill_bucket water","ok":false,"code":"NOT_FOUND","detail":"no known water source with a bank to stand on","seconds":0.05,"t":1790684583521}
+{"layer":"tactician","gs":569,"brain":"rules","trigger":"skill_failed","goal":"nether_portal","options":["fill_bucket water","explore water"],"choice":"fill_bucket water","x":[1.0,1.0,0.4,1.0,0.0,0.969,0.0,0.0,0.6,0.6,1.0,0.0,0.0,1.0,0.0,0.0,0.0,0.938,0.0,1.0,0.0,0.0,1.0,0.0,0.0,1.0,1.0,1.0,0.0,0.308,0.5,0.538,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1790684583521}
+{"event":"skill_start","skill":"fill_bucket water","trigger":"skill_failed","t":1790684583522}
+{"event":"skill_end","skill":"fill_bucket water","ok":false,"code":"NOT_FOUND","detail":"no known water source with a bank to stand on","seconds":0.05,"t":1790684583621}
+{"layer":"tactician","gs":569,"brain":"rules","trigger":"skill_failed","goal":"nether_portal","options":["explore water"],"choice":"explore water","x":[1.0,1.0,0.4,1.0,0.0,0.969,0.0,0.0,0.6,0.6,1.0,0.0,0.0,1.0,0.0,0.0,0.0,0.938,0.0,1.0,0.0,0.0,1.0,0.0,0.0,1.0,1.0,1.0,0.0,0.308,0.5,0.538,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1790684583621}
+{"event":"skill_start","skill":"explore water","trigger":"skill_failed","t":1790684583622}
+{"event":"skill_end","skill":"explore water","ok":false,"code":"ALREADY_DONE","detail":"already see water","seconds":0.05,"t":1790684583721}
+{"layer":"tactician","gs":569,"brain":"rules","trigger":"skill_failed","goal":"nether_portal","options":["explore water"],"choice":"explore water","x":[1.0,1.0,0.4,1.0,0.0,0.969,0.0,0.0,0.6,0.6,1.0,0.0,0.0,1.0,0.0,0.0,0.0,0.938,0.0,1.0,0.0,0.0,1.0,0.0,0.0,1.0,1.0,1.0,0.0,0.308,0.5,0.538,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1790684583722}
+{"event":"skill_start","skill":"explore water","trigger":"skill_failed","t":1790684583722}
+{"event":"skill_end","skill":"explore water","ok":false,"code":"ALREADY_DONE","detail":"already see water","seconds":0.05,"t":1790684583821}
+{"layer":"tactician","gs":569,"brain":"rules","trigger":"skill_failed","goal":"nether_portal","options":["explore any"],"choice":"explore any","x":[1.0,1.0,0.4,1.0,0.0,0.969,0.0,0.0,0.6,0.6,1.0,0.0,0.0,1.0,0.0,0.0,0.0,0.938,0.0,1.0,0.0,0.0,1.0,0.0,0.0,1.0,1.0,1.0,0.0,0.308,0.5,0.538,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1790684583822}
+{"event":"skill_start","skill":"explore any","trigger":"skill_failed","t":1790684583822}
+{"event":"skill_end","skill":"explore any","ok":false,"code":"HAZARD","detail":"open water ahead; will turn","seconds":20.5,"t":1790684624824}
+{"layer":"tactician","gs":590,"brain":"rules","trigger":"skill_failed","goal":"nether_portal","options":["shelter"],"choice":"shelter","x":[1.0,1.0,0.4,1.0,0.0,0.969,0.0,0.0,0.6,0.6,1.0,0.0,0.0,1.0,0.0,0.0,0.0,0.938,0.0,1.0,0.0,0.0,1.0,0.0,0.0,1.0,1.0,1.0,0.0,0.308,0.5,0.538,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1790684624825}
+{"event":"skill_start","skill":"shelter","trigger":"skill_failed","t":1790684624825}
+{"event":"skill_end","skill":"shelter","ok":false,"code":"NO_ROOM","detail":"no safe ground to dig into nearby","seconds":0.05,"t":1790684624924}
+{"layer":"tactician","gs":590,"brain":"rules","trigger":"skill_failed","goal":"nether_portal","options":["shelter"],"choice":"shelter","x":[1.0,1.0,0.4,1.0,0.0,0.969,0.0,0.0,0.6,0.6,1.0,0.0,0.0,1.0,0.0,0.0,0.0,0.938,0.0,1.0,0.0,0.0,1.0,0.0,0.0,1.0,1.0,1.0,0.0,0.308,0.5,0.538,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1790684624925}
+{"event":"skill_start","skill":"shelter","trigger":"skill_failed","t":1790684624925}
+{"event":"skill_end","skill":"shelter","ok":false,"code":"NO_ROOM","detail":"no safe ground to dig into nearby","seconds":0.05,"t":1790684625024}
+{"layer":"tactician","gs":590,"brain":"rules","trigger":"skill_failed","goal":"nether_portal","options":["explore any"],"choice":"explore any","x":[1.0,1.0,0.4,1.0,0.0,0.969,0.0,0.0,0.6,0.6,1.0,0.0,0.0,1.0,0.0,0.0,0.0,0.938,0.0,1.0,0.0,0.0,1.0,0.0,0.0,1.0,1.0,1.0,0.0,0.308,0.5,0.538,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1790684625025}
+{"event":"skill_start","skill":"explore any","trigger":"skill_failed","t":1790684625025}
+{"event":"skill_end","skill":"explore any","ok":false,"code":"HAZARD","detail":"open water ahead; will turn","seconds":20.5,"t":1790684666026}
+{"layer":"tactician","gs":610,"brain":"rules","trigger":"skill_failed","goal":"nether_portal","options":["explore any"],"choice":"explore any","x":[1.0,1.0,0.4,1.0,0.0,0.969,0.0,0.0,0.6,0.6,1.0,0.0,0.0,1.0,0.0,0.0,0.0,0.938,0.0,1.0,0.0,0.0,1.0,0.0,0.0,1.0,1.0,1.0,0.0,0.308,0.5,0.538,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1790684666027}
+{"event":"skill_start","skill":"explore any","trigger":"skill_failed","t":1790684666027}
+{"event":"skill_end","skill":"explore any","ok":false,"code":"HAZARD","detail":"open water ahead; will turn","seconds":20.5,"t":1790684707028}
+{"layer":"tactician","gs":631,"brain":"rules","trigger":"skill_failed","goal":"nether_portal","options":["fill_bucket water","explore water"],"choice":"fill_bucket water","x":[1.0,1.0,0.4,1.0,0.0,0.969,0.0,0.0,0.6,0.6,1.0,0.0,0.0,1.0,0.0,0.0,0.0,0.938,0.0,1.0,0.0,0.0,1.0,0.0,0.0,1.0,1.0,1.0,0.0,0.308,0.5,0.538,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1790684707028}
+{"event":"skill_start","skill":"fill_bucket water","trigger":"skill_failed","t":1790684707029}
+{"event":"skill_end","skill":"fill_bucket water","ok":false,"code":"NOT_FOUND","detail":"no known water source with a bank to stand on","seconds":0.05,"t":1790684707127}
+{"layer":"tactician","gs":631,"brain":"rules","trigger":"skill_failed","goal":"nether_portal","options":["fill_bucket water","explore water"],"choice":"fill_bucket water","x":[1.0,1.0,0.4,1.0,0.0,0.969,0.0,0.0,0.6,0.6,1.0,0.0,0.0,1.0,0.0,0.0,0.0,0.938,0.0,1.0,0.0,0.0,1.0,0.0,0.0,1.0,1.0,1.0,0.0,0.308,0.5,0.538,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1790684707128}
+{"event":"skill_start","skill":"fill_bucket water","trigger":"skill_failed","t":1790684707128}
+{"event":"skill_end","skill":"fill_bucket water","ok":false,"code":"NOT_FOUND","detail":"no known water source with a bank to stand on","seconds":0.05,"t":1790684707227}
+{"layer":"tactician","gs":631,"brain":"rules","trigger":"skill_failed","goal":"nether_portal","options":["explore water"],"choice":"explore water","x":[1.0,1.0,0.4,1.0,0.0,0.969,0.0,0.0,0.6,0.6,1.0,0.0,0.0,1.0,0.0,0.0,0.0,0.938,0.0,1.0,0.0,0.0,1.0,0.0,0.0,1.0,1.0,1.0,0.0,0.308,0.5,0.538,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1790684707228}
+{"event":"skill_start","skill":"explore water","trigger":"skill_failed","t":1790684707228}
+{"event":"skill_end","skill":"explore water","ok":false,"code":"ALREADY_DONE","detail":"already see water","seconds":0.05,"t":1790684707327}
+{"layer":"tactician","gs":631,"brain":"rules","trigger":"skill_failed","goal":"nether_portal","options":["explore water"],"choice":"explore water","x":[1.0,1.0,0.4,1.0,0.0,0.969,0.0,0.0,0.6,0.6,1.0,0.0,0.0,1.0,0.0,0.0,0.0,0.938,0.0,1.0,0.0,0.0,1.0,0.0,0.0,1.0,1.0,1.0,0.0,0.308,0.5,0.538,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1790684707328}
+{"event":"skill_start","skill":"explore water","trigger":"skill_failed","t":1790684707328}
+{"event":"skill_end","skill":"explore water","ok":false,"code":"ALREADY_DONE","detail":"already see water","seconds":0.05,"t":1790684707427}
+{"layer":"tactician","gs":631,"brain":"rules","trigger":"skill_failed","goal":"nether_portal","options":["explore any"],"choice":"explore any","x":[1.0,1.0,0.4,1.0,0.0,0.969,0.0,0.0,0.6,0.6,1.0,0.0,0.0,1.0,0.0,0.0,0.0,0.938,0.0,1.0,0.0,0.0,1.0,0.0,0.0,1.0,1.0,1.0,0.0,0.308,0.5,0.538,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1790684707427}
+{"event":"skill_start","skill":"explore any","trigger":"skill_failed","t":1790684707428}
+{"layer":"tactician","gs":651,"brain":"rules","trigger":"heartbeat","goal":"nether_portal","options":["shelter"],"choice":"shelter","x":[1.0,1.0,0.4,1.0,0.0,0.969,0.0,0.0,0.6,0.6,1.0,0.0,0.0,1.0,0.0,0.0,0.0,0.938,0.0,1.0,0.0,0.0,1.0,0.0,0.0,0.822,1.0,1.0,0.0,0.308,0.5,0.538,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["shelter"],"t":1790684747528}
+{"event":"skill_end","skill":"explore any","ok":false,"code":"INTERRUPTED","detail":"interrupted: brain chose shelter","seconds":20.05,"t":1790684747528}
+{"event":"skill_start","skill":"shelter","trigger":"heartbeat","t":1790684747528}
+{"event":"skill_end","skill":"shelter","ok":false,"code":"NO_ROOM","detail":"no safe ground to dig into nearby","seconds":0.05,"t":1790684747628}
+{"layer":"tactician","gs":651,"brain":"rules","trigger":"skill_failed","goal":"nether_portal","options":["shelter"],"choice":"shelter","x":[1.0,1.0,0.4,1.0,0.0,0.969,0.0,0.0,0.6,0.6,1.0,0.0,0.0,1.0,0.0,0.0,0.0,0.938,0.0,1.0,0.0,0.0,1.0,0.0,0.0,0.813,1.0,1.0,0.0,0.308,0.5,0.538,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["shelter"],"t":1790684747628}
+{"event":"skill_start","skill":"shelter","trigger":"skill_failed","t":1790684747628}
+{"event":"skill_end","skill":"shelter","ok":false,"code":"NO_ROOM","detail":"no safe ground to dig into nearby","seconds":0.05,"t":1790684747727}
+{"layer":"tactician","gs":651,"brain":"rules","trigger":"skill_failed","goal":"nether_portal","options":["explore any"],"choice":"explore any","x":[1.0,1.0,0.4,1.0,0.0,0.969,0.0,0.0,0.6,0.6,1.0,0.0,0.0,1.0,0.0,0.0,0.0,0.938,0.0,1.0,0.0,0.0,1.0,0.0,0.0,0.813,1.0,1.0,0.0,0.308,0.5,0.538,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1790684747728}
+{"event":"skill_start","skill":"explore any","trigger":"skill_failed","t":1790684747728}
+{"layer":"tactician","gs":653,"brain":"rules","trigger":"mob_near","goal":"nether_portal","options":["attack drowned"],"choice":"attack drowned","x":[1.0,1.0,0.4,1.0,0.0,0.969,0.0,0.0,0.6,0.6,1.0,0.0,0.0,1.0,0.0,0.0,0.0,0.938,0.0,1.0,0.0,0.0,1.0,0.0,0.25,0.477,1.0,1.0,0.0,0.308,0.5,0.538,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["attack drowned"],"t":1790684751130}
+{"event":"skill_end","skill":"explore any","ok":false,"code":"INTERRUPTED","detail":"interrupted: brain chose attack drowned","seconds":1.7,"t":1790684751131}
+{"event":"skill_start","skill":"attack drowned","trigger":"mob_near","t":1790684751133}
+{"event":"skill_end","skill":"attack drowned","ok":true,"detail":"killed the drowned","seconds":7.2,"t":1790684765557}
+{"layer":"tactician","gs":660,"brain":"rules","trigger":"skill_done","goal":"nether_portal","options":["pickup"],"choice":"pickup","x":[1.0,1.0,0.4,1.0,1.0,0.953,0.0,0.0,0.6,0.6,1.0,0.0,0.0,1.0,0.0,0.0,0.0,0.938,0.0,1.0,0.0,0.0,1.0,0.0,0.0,1.0,1.0,1.0,0.0,0.308,0.5,0.538,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1790684765558}
+{"event":"skill_start","skill":"pickup","trigger":"skill_done","t":1790684765558}
+{"event":"skill_end","skill":"pickup","ok":false,"code":"INTERRUPTED","detail":"running out of air","seconds":4.8,"t":1790684775417}
+{"event":"reflex","detail":"drowning","t":1790684775417}
+{"layer":"tactician","gs":666,"brain":"rules","trigger":"idle","goal":"nether_portal","options":["pickup"],"choice":"pickup","x":[1.0,1.0,0.4,1.0,0.0,0.984,0.0,0.0,0.6,0.6,1.0,0.0,0.0,1.0,0.0,0.0,0.0,0.938,0.0,1.0,0.0,0.0,1.0,0.0,0.0,1.0,1.0,1.0,0.0,0.308,0.5,0.538,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1790684778417}
+{"event":"skill_start","skill":"pickup","trigger":"idle","t":1790684778417}
+{"event":"skill_end","skill":"pickup","ok":true,"detail":"picked up 1 stacks","seconds":4.9,"t":1790684788222}
+{"layer":"tactician","gs":671,"brain":"rules","trigger":"skill_done","goal":"nether_portal","options":["pickup"],"choice":"pickup","x":[1.0,1.0,0.4,1.0,0.0,0.969,0.0,0.0,0.6,0.6,1.0,0.0,0.0,1.0,0.0,0.0,0.0,0.938,0.0,1.0,0.0,0.0,1.0,0.0,0.0,1.0,1.0,1.0,0.0,0.308,0.5,0.538,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1790684788223}
+{"event":"skill_start","skill":"pickup","trigger":"skill_done","t":1790684788223}
+{"event":"skill_end","skill":"pickup","ok":true,"detail":"nothing left to pick up","seconds":0.05,"t":1790684788363}
+{"layer":"tactician","gs":671,"brain":"rules","trigger":"skill_done","goal":"nether_portal","options":["pickup"],"choice":"pickup","x":[1.0,1.0,0.4,1.0,0.0,0.969,0.0,0.0,0.6,0.6,1.0,0.0,0.0,1.0,0.0,0.0,0.0,0.938,0.0,1.0,0.0,0.0,1.0,0.0,0.0,1.0,1.0,1.0,0.0,0.308,0.5,0.538,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1790684788364}
+{"event":"skill_start","skill":"pickup","trigger":"skill_done","t":1790684788364}
+{"event":"skill_end","skill":"pickup","ok":true,"detail":"nothing left to pick up","seconds":0.05,"t":1790684788466}
+{"layer":"tactician","gs":671,"brain":"rules","trigger":"skill_done","goal":"nether_portal","options":["explore any"],"choice":"explore any","x":[1.0,1.0,0.4,1.0,0.0,0.969,0.0,0.0,0.6,0.6,1.0,0.0,0.0,1.0,0.0,0.0,0.0,0.938,0.0,1.0,0.0,0.0,1.0,0.0,0.0,1.0,1.0,1.0,0.0,0.308,0.5,0.538,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1790684788468}
+{"event":"skill_start","skill":"explore any","trigger":"skill_done","t":1790684788468}
+{"event":"skill_end","skill":"explore any","ok":false,"code":"HAZARD","detail":"open water ahead; will turn","seconds":20.5,"t":1790684829672}
+{"layer":"tactician","gs":692,"brain":"rules","trigger":"skill_failed","goal":"nether_portal","options":["fill_bucket water","explore water"],"choice":"fill_bucket water","x":[1.0,1.0,0.4,1.0,0.0,0.969,0.0,0.0,0.6,0.6,1.0,0.0,0.0,1.0,0.0,0.0,0.0,0.938,0.0,1.0,0.0,0.0,1.0,0.0,0.0,1.0,1.0,1.0,0.0,0.308,0.5,0.538,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1790684829672}
+{"event":"skill_start","skill":"fill_bucket water","trigger":"skill_failed","t":1790684829673}
+{"event":"skill_end","skill":"fill_bucket water","ok":false,"code":"NOT_FOUND","detail":"no known water source with a bank to stand on","seconds":0.05,"t":1790684829770}
+{"layer":"tactician","gs":692,"brain":"rules","trigger":"skill_failed","goal":"nether_portal","options":["fill_bucket water","explore water"],"choice":"fill_bucket water","x":[1.0,1.0,0.4,1.0,0.0,0.969,0.0,0.0,0.6,0.6,1.0,0.0,0.0,1.0,0.0,0.0,0.0,0.938,0.0,1.0,0.0,0.0,1.0,0.0,0.0,1.0,1.0,1.0,0.0,0.308,0.5,0.538,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1790684829771}
+{"event":"skill_start","skill":"fill_bucket water","trigger":"skill_failed","t":1790684829772}
+{"event":"skill_end","skill":"fill_bucket water","ok":false,"code":"NOT_FOUND","detail":"no known water source with a bank to stand on","seconds":0.05,"t":1790684829870}
+{"layer":"tactician","gs":692,"brain":"rules","trigger":"skill_failed","goal":"nether_portal","options":["explore water"],"choice":"explore water","x":[1.0,1.0,0.4,1.0,0.0,0.969,0.0,0.0,0.6,0.6,1.0,0.0,0.0,1.0,0.0,0.0,0.0,0.938,0.0,1.0,0.0,0.0,1.0,0.0,0.0,1.0,1.0,1.0,0.0,0.308,0.5,0.538,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1790684829871}
+{"event":"skill_start","skill":"explore water","trigger":"skill_failed","t":1790684829871}
+{"event":"skill_end","skill":"explore water","ok":false,"code":"ALREADY_DONE","detail":"already see water","seconds":0.05,"t":1790684829970}
+{"layer":"tactician","gs":692,"brain":"rules","trigger":"skill_failed","goal":"nether_portal","options":["explore water"],"choice":"explore water","x":[1.0,1.0,0.4,1.0,0.0,0.969,0.0,0.0,0.6,0.6,1.0,0.0,0.0,1.0,0.0,0.0,0.0,0.938,0.0,1.0,0.0,0.0,1.0,0.0,0.0,1.0,1.0,1.0,0.0,0.308,0.5,0.538,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1790684829971}
+{"event":"skill_start","skill":"explore water","trigger":"skill_failed","t":1790684829971}
+{"event":"skill_end","skill":"explore water","ok":false,"code":"ALREADY_DONE","detail":"already see water","seconds":0.05,"t":1790684830071}
+{"layer":"tactician","gs":692,"brain":"rules","trigger":"skill_failed","goal":"nether_portal","options":["explore any"],"choice":"explore any","x":[1.0,1.0,0.4,1.0,0.0,0.969,0.0,0.0,0.6,0.6,1.0,0.0,0.0,1.0,0.0,0.0,0.0,0.938,0.0,1.0,0.0,0.0,1.0,0.0,0.0,1.0,1.0,1.0,0.0,0.308,0.5,0.538,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1790684830071}
+{"event":"skill_start","skill":"explore any","trigger":"skill_failed","t":1790684830071}
+{"event":"skill_end","skill":"explore any","ok":false,"code":"HAZARD","detail":"open water ahead; will turn","seconds":20.5,"t":1790684871149}
+{"layer":"tactician","gs":712,"brain":"rules","trigger":"skill_failed","goal":"nether_portal","options":["shelter"],"choice":"shelter","x":[1.0,1.0,0.4,1.0,0.0,0.969,0.0,0.0,0.6,0.6,1.0,0.0,0.0,1.0,0.0,0.0,0.0,0.938,0.0,1.0,0.0,0.0,1.0,0.0,0.0,1.0,1.0,1.0,0.0,0.308,0.5,0.538,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1790684871150}
+{"event":"skill_start","skill":"shelter","trigger":"skill_failed","t":1790684871150}
+{"event":"skill_end","skill":"shelter","ok":false,"code":"NO_ROOM","detail":"no safe ground to dig into nearby","seconds":0.05,"t":1790684871249}
+{"layer":"tactician","gs":712,"brain":"rules","trigger":"skill_failed","goal":"nether_portal","options":["shelter"],"choice":"shelter","x":[1.0,1.0,0.4,1.0,0.0,0.969,0.0,0.0,0.6,0.6,1.0,0.0,0.0,1.0,0.0,0.0,0.0,0.938,0.0,1.0,0.0,0.0,1.0,0.0,0.0,1.0,1.0,1.0,0.0,0.308,0.5,0.538,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1790684871249}
+{"event":"skill_start","skill":"shelter","trigger":"skill_failed","t":1790684871249}
+{"event":"skill_end","skill":"shelter","ok":false,"code":"NO_ROOM","detail":"no safe ground to dig into nearby","seconds":0.05,"t":1790684871348}
+{"layer":"tactician","gs":712,"brain":"rules","trigger":"skill_failed","goal":"nether_portal","options":["explore any"],"choice":"explore any","x":[1.0,1.0,0.4,1.0,0.0,0.969,0.0,0.0,0.6,0.6,1.0,0.0,0.0,1.0,0.0,0.0,0.0,0.938,0.0,1.0,0.0,0.0,1.0,0.0,0.0,1.0,1.0,1.0,0.0,0.308,0.5,0.538,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1790684871349}
+{"event":"skill_start","skill":"explore any","trigger":"skill_failed","t":1790684871349}
+{"event":"skill_end","skill":"explore any","ok":false,"code":"INTERRUPTED","detail":"test finished","seconds":7.55,"t":1790684886642}
+{"event":"autopilot_off","detail":"test finished","t":1790684886643}
