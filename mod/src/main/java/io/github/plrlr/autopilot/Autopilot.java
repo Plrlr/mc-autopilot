@@ -282,6 +282,7 @@ public final class Autopilot {
 			worldName = name;
 			memory.clear();
 			PortalSkills.resetThrows();
+			io.github.plrlr.autopilot.plan.PortalPlan.reset();
 			io.github.plrlr.autopilot.skills.Station.forgetPlaced();
 			io.github.plrlr.autopilot.skills.ChestSkills.Stash.forget();
 			io.github.plrlr.autopilot.skills.SpawnerRoom.reset();

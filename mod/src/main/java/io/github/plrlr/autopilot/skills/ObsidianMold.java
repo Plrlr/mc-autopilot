@@ -28,17 +28,23 @@ import java.util.Set;
  *   SCOOP  take the water back
  *   MINE   mine the obsidian in the pit (it's on solid ground: nothing burns)
  *   PICKUP (child pickup) step down into the pit for it; around again from LAVA
+ * A site that goes bad with lava already in the pit gets it scooped back out first (UNDO): an
+ * open lava pit by the path is how the first trial got burned.
+ *
+ * Sites are planned from what we can see (FairProbe): the pit's hidden walls and floor are
+ * assumed solid, then checked once it's dug open.
  *
  * Needs a diamond pickaxe, a water bucket and a second bucket.
  */
 public final class ObsidianMold extends Composite {
-	private enum Phase {SITE, WALK, DIG, LAVA, POUR_LAVA, POUR_WATER, WAIT, SCOOP, MINE, PICKUP, DONE}
+	private enum Phase {SITE, WALK, DIG, LAVA, POUR_LAVA, POUR_WATER, WAIT, SCOOP, MINE, PICKUP, COUNT, UNDO, DONE}
 
 	private Phase phase = Phase.SITE, afterWalk = Phase.DIG;
 	private final Act.Breaker breaker = new Act.Breaker();
 	private final Set<BlockPos> bad = new HashSet<>();
 	private MoldSite.Site site;
 	private int want, start, sites, wait, tries, walkTries;
+	private String abandonWhy;
 
 	@Override
 	public String name() {
@@ -82,7 +88,7 @@ public final class ObsidianMold extends Composite {
 					fail(Fail.NO_ROOM, "four mold sites went bad");
 					return true;
 				}
-				site = MoldSite.find(Mc.player().blockPosition(), CastPortalSite.WORLD, bad);
+				site = MoldSite.find(Mc.player().blockPosition(), new FairProbe(), bad);
 				if (site == null) {
 					fail(Fail.NO_ROOM, "no spot for a one-block mold near here");
 					return true;
@@ -107,8 +113,9 @@ public final class ObsidianMold extends Composite {
 			}
 			case DIG -> {
 				BlockPos p = site.pit();
-				if (!CastPortalSite.WORLD.free(p) || CastPortalSite.WORLD.fluid(p)) {
-					if (CastPortalSite.WORLD.fluid(p) || CastPortalSite.WORLD.fluidNear(p)) {
+				FairProbe seen = new FairProbe();
+				if (!Mc.free(p) || seen.fluid(p)) {
+					if (seen.fluid(p) || seen.fluidNear(p)) {
 						siteWentBad("fluid by the pit");
 						return true;
 					}
@@ -116,6 +123,11 @@ public final class ObsidianMold extends Composite {
 					return true;
 				}
 				breaker.stop();
+				// Dug open, its walls and floor are in sight now: they must hold lava.
+				if (!MoldSite.pitHolds(p, seen)) {
+					siteWentBad("the pit has an open side or floor");
+					return true;
+				}
 				phase = Phase.LAVA;
 				return false;
 			}
@@ -130,6 +142,12 @@ public final class ObsidianMold extends Composite {
 				if (BucketSkills.isSource(site.pit(), "lava")) {
 					phase = Phase.POUR_WATER;
 					tries = 0;
+					return true;
+				}
+				// Water still running into the pit hardens the lava as it lands: mine it straight away
+				// (the first trial poured four blocks this way, then waited for lava that never stayed).
+				if (isObsidian(site.pit())) {
+					phase = Phase.MINE;
 					return true;
 				}
 				if (!atStand()) return true;
@@ -168,7 +186,7 @@ public final class ObsidianMold extends Composite {
 			case SCOOP -> {
 				if (Mc.count("water_bucket") > 0) {
 					// Let the running water drain off before mining, so the block doesn't float away.
-					if (!CastPortalSite.WORLD.fluid(site.open()) || ++wait > 40) {
+					if (Mc.state(site.open()).getFluidState().isEmpty() || ++wait > 40) {
 						phase = Phase.MINE;
 						wait = 0;
 					}
@@ -186,7 +204,7 @@ public final class ObsidianMold extends Composite {
 			}
 			case MINE -> {
 				BlockPos p = site.pit();
-				if (CastPortalSite.WORLD.free(p)) {
+				if (Mc.free(p)) {
 					breaker.stop();
 					phase = Phase.PICKUP;
 					return false;
@@ -198,6 +216,25 @@ public final class ObsidianMold extends Composite {
 					return true;
 				}
 				if (!breaker.tick(p) && breaker.ticks() > 20 * 20) siteWentBad("couldn't mine the pit");
+				return true;
+			}
+			case COUNT -> {
+				// After the pickup: the tenth block counts only once it's in the bag.
+				phase = made() >= want ? Phase.DONE : Phase.LAVA;
+				if (phase == Phase.DONE) Facts.report("obsidian_known");
+				return false;
+			}
+			case UNDO -> {
+				// Scoop the lava back out of the pit before leaving it.
+				if (!BucketSkills.isSource(site.pit(), "lava") || Mc.count("bucket") == 0 || ++tries > 10) {
+					if (BucketSkills.isSource(site.pit(), "lava")) log("left lava in the pit at " + site.pit().toShortString());
+					abandon();
+					return true;
+				}
+				if (ticks % 5 != 0) return true;
+				Mc.holdItem(s -> Items2.id(s).equals("bucket"));
+				Mc.lookAt(Vec3.atCenterOf(site.pit()).add(0, 0.3, 0));
+				Mc.useItem();
 				return true;
 			}
 			default -> {
@@ -217,8 +254,7 @@ public final class ObsidianMold extends Composite {
 				return new Option("fill_bucket", "lava", "a bucket of lava for the mold");
 			}
 			case PICKUP -> {
-				phase = made() >= want ? Phase.DONE : Phase.LAVA;
-				if (phase == Phase.DONE) Facts.report("obsidian_known");
+				phase = Phase.COUNT;
 				return new Option("pickup", null, "pick up the obsidian from the pit");
 			}
 			case DONE -> {
@@ -239,6 +275,8 @@ public final class ObsidianMold extends Composite {
 	@Override
 	protected void cleanup() {
 		breaker.stop();
+		Skill.Result r = result();
+		if (r != null && !r.ok()) log("failed " + r.code() + ": " + r.detail() + " (made " + made() + ")");
 		super.cleanup();
 	}
 
@@ -271,9 +309,19 @@ public final class ObsidianMold extends Composite {
 	}
 
 	private void siteWentBad(String why) {
-		log("site " + (site == null ? "?" : site.stand().toShortString()) + " abandoned: " + why);
+		abandonWhy = why;
 		breaker.stop();
 		Bari.stop();
+		if (site != null && BucketSkills.isSource(site.pit(), "lava") && Mc.count("bucket") > 0) {
+			phase = Phase.UNDO;
+			tries = 0;
+			return;
+		}
+		abandon();
+	}
+
+	private void abandon() {
+		log("site " + (site == null ? "?" : site.stand().toShortString()) + " abandoned: " + abandonWhy);
 		if (site != null) bad.add(site.stand());
 		phase = Phase.SITE;
 	}

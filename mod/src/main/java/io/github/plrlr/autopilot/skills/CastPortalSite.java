@@ -154,7 +154,8 @@ public final class CastPortalSite extends Composite {
 					fail(Fail.NO_ROOM, "three portal sites went bad");
 					return true;
 				}
-				plan = PortalSite.best(Mc.player().blockPosition(), pool, WORLD, bad);
+				// Planned from what we can see (no x-ray); what digging uncovers is checked in DIG.
+				plan = PortalSite.best(Mc.player().blockPosition(), pool, new FairProbe(), bad);
 				if (plan == null && placed && !climbed) {
 					// Nothing safe to dig here (lava and water all around, down at the lava caves):
 					// the frame needs no lava, so take it up to the surface and build there.
@@ -192,7 +193,8 @@ public final class CastPortalSite extends Composite {
 					return true;
 				}
 				BlockPos c = plan.dig().get(idx);
-				if (WORLD.fluid(c) || WORLD.fluidNear(c) && !Mc.free(c)) {
+				FairProbe seen = new FairProbe();
+				if (seen.fluid(c) || seen.fluidNear(c) && !Mc.free(c)) {
 					siteWentBad("fluid by " + c.toShortString());
 					return true;
 				}

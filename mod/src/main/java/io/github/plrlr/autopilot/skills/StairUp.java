@@ -79,7 +79,7 @@ public final class StairUp extends Skill {
 	/** Fluid in a cell we'd open (only cells next to us, which a player sees), or bedrock. */
 	private static boolean safe(BlockPos feet, Direction dir) {
 		for (BlockPos c : cut(feet, dir)) {
-			if (!Mc.state(c).getFluidState().isEmpty() || Act.lavaNear(c)) return false;
+			if (!Mc.state(c).getFluidState().isEmpty() && Mc.canSee(c) || FairProbe.lavaSeenNear(c)) return false;
 			if (Mc.state(c).getDestroySpeed(Mc.player().level(), c) < 0) return false;
 		}
 		BlockPos step = feet.relative(dir);

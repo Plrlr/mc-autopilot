@@ -50,6 +50,16 @@ final class MoldSite {
 		return site;
 	}
 
+	/** The dug pit (now open to view) will hold lava: solid walls and floor, no fluid in them. */
+	static boolean pitHolds(BlockPos p, PortalSite.Probe pr) {
+		if (!pr.solid(p.below()) || pr.fluid(p.below())) return false;
+		for (Direction h : Direction.Plane.HORIZONTAL) {
+			BlockPos side = p.relative(h);
+			if (!pr.solid(side) || pr.fluid(side)) return false;
+		}
+		return true;
+	}
+
 	/** The nearest site within 5 blocks of feet (2 up or down), skipping stands in `bad`. */
 	static Site find(BlockPos feet, PortalSite.Probe pr, Set<BlockPos> bad) {
 		for (int r = 0; r <= 5; r++)

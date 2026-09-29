@@ -241,20 +241,21 @@ final class RouteSteps {
 	private Option deepStep(int depth) {
 		Option head = PortalPlan.early(p.memory);
 		if (head != null) return head;
-		boolean up = Mc.player().getBlockY() > 0;
 		if (Goal.have("flint_and_steel") == 0) {
 			Option o = p.itemStep("flint_and_steel", 1, depth + 1);
 			if (o != null) return o;
 		}
 		boolean pick = Items2.bestTier("pickaxe") >= 3;
-		// Two buckets before going down: water to harden lava, and lava for the one-block mold
-		// (obsidian_mold). Down there or with the pickaxe made, one will do (the pool hardens).
-		int buckets = up && !pick ? 2 : 1;
+		// The kit is checked wherever we are (the portal rung can start down in the iron mine);
+		// what's missing is fetched from where it is. Two buckets while obsidian is still to make:
+		// water to harden lava, and lava for the one-block mold (obsidian_mold). A fall clutch can
+		// lose one, so this is re-checked every step.
+		int buckets = Goal.have("obsidian") < 10 ? 2 : 1;
 		if (Goal.have("bucket") < buckets) {
 			Option o = p.itemStep("bucket", buckets, depth + 1);
 			if (o != null) return o;
 		}
-		if (up && Goal.have("obsidian") < 10) {
+		if (Goal.have("obsidian") < 10) {
 			if (Mc.count("water_bucket") == 0) {
 				Option o = p.itemStep("water_bucket", 1, depth + 1);
 				if (o != null) return o;

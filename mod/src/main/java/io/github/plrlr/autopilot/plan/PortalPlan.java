@@ -52,9 +52,30 @@ public final class PortalPlan {
 	public static boolean poolNear(WorldMemory memory) {
 		BlockPos me = Mc.player().blockPosition();
 		int n = 0;
-		for (WorldMemory.Seen s : memory.all("lava")) if (s.pos().distSqr(me) <= 48 * 48 && ++n >= 6) return true;
-		for (WorldMemory.Seen s : memory.all("obsidian")) if (s.pos().distSqr(me) <= 24 * 24) return true;
+		for (WorldMemory.Seen s : memory.all("lava")) if (s.pos().distSqr(me) <= 48 * 48 && !failedPool(s.pos()) && ++n >= 6) return true;
+		for (WorldMemory.Seen s : memory.all("obsidian")) if (s.pos().distSqr(me) <= 24 * 24 && !failedPool(s.pos())) return true;
 		return false;
+	}
+
+	/**
+	 * Where obsidian_pool gave up (no safe block, no mold site, no reachable bank). Its lava stays
+	 * in memory, so without this the planner sent it straight back to the same pool, over and over
+	 * (mold-b trial, 2026-09-29: nine failures in a row); now the deep route mines on for another.
+	 */
+	private static final java.util.List<BlockPos> FAILED_POOLS = new java.util.concurrent.CopyOnWriteArrayList<>();
+
+	public static void poolFailed(BlockPos where) {
+		FAILED_POOLS.add(where.immutable());
+	}
+
+	static boolean failedPool(BlockPos p) {
+		for (BlockPos f : FAILED_POOLS) if (f.distSqr(p) <= 20 * 20) return true;
+		return false;
+	}
+
+	/** A new run (or a new world): every pool gets its chance again. */
+	public static void reset() {
+		FAILED_POOLS.clear();
 	}
 
 	/** When "collect diamond:n:lava" (mining deep for lava) has found it. */
