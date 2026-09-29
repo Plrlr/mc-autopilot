@@ -26,6 +26,8 @@ public final class Skills {
 		MENU.put("shore", new Entry(ShoreSkill::new, "swim to seen dry ground with room to work"));
 		MENU.put("goto", new Entry(MoveSkills.Goto::new, "walk to a remembered block (crafting_table, furnace, nether_bricks...)"));
 		MENU.put("retreat", new Entry(MoveSkills.Retreat::new, "run away from nearby monsters"));
+		MENU.put("kite", new Entry(Kite::new, "face a close melee pursuer, back onto safe ground, and strike when charged"));
+		MENU.put("pillar", new Entry(Pillar::new, "jump onto three placed blocks above melee mobs and descend after they leave"));
 		MENU.put("shelter", new Entry(NightSkills.Shelter::new, "dig 3 down, cover the hole, wait for morning"));
 		MENU.put("sleep", new Entry(NightSkills.Sleep::new, "sleep in a bed (places one from the inventory if needed)"));
 		MENU.put("build_portal", new Entry(() -> CastPortal.needed() ? new CastPortal() : new PortalSkills.BuildPortal(),

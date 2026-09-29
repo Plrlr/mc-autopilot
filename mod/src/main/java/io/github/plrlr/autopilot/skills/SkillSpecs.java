@@ -27,6 +27,12 @@ public final class SkillSpecs {
 
 	static {
 		List<SkillSpec> s = new ArrayList<>();
+		// ---- early survival
+		s.add(SkillSpec.of("kite", null).stage("any").makes("threat_cleared").prior(12, 0.7)
+				.gene("skill.kite").help("face a nearby melee pursuer and trade charged hits behind a shield").build());
+		s.add(SkillSpec.of("pillar", null).stage("early").needs("throwaway", 3)
+				.makes("threat_cleared").prior(40, 0.6).gene("skill.pillar")
+				.help("rise above clustered melee mobs and come down once the ground is clear").build());
 
 		// ---- finding things and filling buckets: what the routes below need first
 		s.add(SkillSpec.of("explore", "lava").stage("portal")

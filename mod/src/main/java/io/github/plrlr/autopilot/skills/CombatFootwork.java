@@ -10,14 +10,21 @@ final class CombatFootwork {
 	private CombatFootwork() {}
 
 	static boolean safe(LocalPlayer pl, double forward, double right) {
+		return safeDistance(pl, forward, right, 1);
+	}
+
+	static boolean safeDistance(LocalPlayer pl, double forward, double right, int cells) {
 		if (!pl.onGround()) return false;
 		double yaw = Math.toRadians(pl.getYRot());
-		int dx = (int) Math.round(-Math.sin(yaw) * forward + Math.cos(yaw) * right);
-		int dz = (int) Math.round(Math.cos(yaw) * forward + Math.sin(yaw) * right);
-		if (dx == 0 && dz == 0) return false;
 		BlockPos feet = pl.blockPosition();
-		if (dx != 0 && dz != 0 && (!safeCell(feet.offset(dx, 0, 0)) || !safeCell(feet.offset(0, 0, dz)))) return false;
-		return safeCell(feet.offset(dx, 0, dz));
+		for (int step = 1; step <= cells; step++) {
+			int dx = (int) Math.round((-Math.sin(yaw) * forward + Math.cos(yaw) * right) * step);
+			int dz = (int) Math.round((Math.cos(yaw) * forward + Math.sin(yaw) * right) * step);
+			if (dx == 0 && dz == 0) return false;
+			if (dx != 0 && dz != 0 && (!safeCell(feet.offset(dx, 0, 0)) || !safeCell(feet.offset(0, 0, dz)))) return false;
+			if (!safeCell(feet.offset(dx, 0, dz))) return false;
+		}
+		return true;
 	}
 
 	private static boolean safeCell(BlockPos at) {

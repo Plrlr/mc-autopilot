@@ -871,7 +871,8 @@ public final class Planner {
 			Option verdict = dangerOption(DangerSense.assess(seen), why);
 			if (verdict != null) return verdict;
 		}
-		return escape(seen, canHide(), why);
+		Option pillar = SurvivalPlan.pillar(seen, why);
+		return pillar != null ? pillar : SurvivalPlan.retreat(seen, escape(seen, canHide(), why));
 	}
 
 	/**
@@ -882,10 +883,12 @@ public final class Planner {
 	public static List<Option> escapeChoices(Perception seen, Option rulesPick) {
 		List<Option> out = new ArrayList<>();
 		out.add(rulesPick);
+		Option pillar = SurvivalPlan.pillar(seen, rulesPick.why());
+		if (pillar != null) out.add(pillar);
 		Perception.Seen h = seen.nearestHostile();
 		String why = rulesPick.why();
 		if (h != null && !h.type().equals("creeper") && h.dist() <= 6) out.add(new Option("attack", h.type(), why + ": fight it"));
-		out.add(new Option("retreat", null, why + ": run"));
+		out.add(SurvivalPlan.retreat(seen, new Option("retreat", null, why + ": run")));
 		if (canHide()) out.add(new Option("shelter", "heal", why + ": wall in and heal"));
 		List<Option> unique = new ArrayList<>();
 		for (Option o : out)

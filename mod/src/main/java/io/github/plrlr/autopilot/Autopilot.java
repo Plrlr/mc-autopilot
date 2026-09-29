@@ -415,8 +415,8 @@ public final class Autopilot {
 		// the escape would only restart the wall, so fight instead.
 		boolean walling = !hiding && skill != null && skill.name().equals("shelter") && skillOption != null && "heal".equals(skillOption.arg());
 		// Recheck combat with the gene: a pursuer can catch up and a creeper can approach mid-fight.
-		boolean reconsiderCombat = (Tune.on("combat.no_close_retreat") || Tune.on("survival.danger_v2")) && skill != null
-				&& (skill.name().equals("retreat") || skill.name().equals("attack"));
+		boolean reconsiderCombat = skill != null && ((Tune.on("combat.no_close_retreat") || Tune.on("survival.danger_v2"))
+				&& (skill.name().equals("retreat") || skill.name().equals("attack")) || Tune.on("skill.kite") && skill.name().equals("kite"));
 		if (skill != null && skillIsReflex && !hiding && !reconsiderCombat) return;
 		if (pl.isInLava()) {
 			// Stop everything, then jump and push forward for a moment (aborting releases keys,
