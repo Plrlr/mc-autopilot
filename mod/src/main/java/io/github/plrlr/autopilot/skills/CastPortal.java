@@ -553,7 +553,7 @@ public final class CastPortal extends Skill {
 			Mc.placeAt(spareWaterSpot);
 	}
 
-	private static BlockPos safeWaterSpot(BlockPos feet, Vec3 eye) {
+	static BlockPos safeWaterSpot(BlockPos feet, Vec3 eye) {
 		for (int r = 1; r <= 2; r++) {
 			for (int dx = -r; dx <= r; dx++) for (int dz = -r; dz <= r; dz++) {
 				if (Math.max(Math.abs(dx), Math.abs(dz)) != r) continue;
