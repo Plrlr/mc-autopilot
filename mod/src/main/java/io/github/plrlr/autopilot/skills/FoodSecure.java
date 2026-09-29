@@ -29,6 +29,7 @@ public final class FoodSecure extends Composite {
 	private boolean pickupNext;
 	private BlockPos lastAnimal;
 	private boolean walking;
+	private int surfaceTries;
 
 	@Override
 	public String name() {
@@ -80,6 +81,11 @@ public final class FoodSecure extends Composite {
 				return new Option("attack", s.type(), "hunt for food");
 			}
 		}
+		// Underground there's nothing to hunt, and a remembered animal up top has no path from here: go
+		// up first, as a player does. Run 3 of local trial night2 (2026-09-29) stood at y 44 in its
+		// tunnel for a minute and more, cycling walk-back and explore with neither able to start.
+		if (!Mc.player().level().canSeeSky(Mc.player().blockPosition().above()) && surfaceTries++ < 2)
+			return new Option("goto", "surface", "animals live up top");
 		if (lastAnimal != null && Act.flatDist(lastAnimal) >= 6) {
 			walking = true;
 			Bari.path(new GoalNear(lastAnimal, 4));
