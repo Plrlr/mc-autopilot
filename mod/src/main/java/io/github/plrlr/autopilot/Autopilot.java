@@ -267,15 +267,19 @@ public final class Autopilot {
 		}
 
 		checkGoal();
+		if (!enabled) return;
 		lighting.cave(this);
 		Reflexes.run(this, pl);
+		if (!enabled) return;
 		guard.guard(this, pl);
+		if (!enabled) return;
 		lighting.lighting(this, pl);
 
 		if (skill != null) {
 			skill.update();
 			if (skill.result() != null) onSkillEnd(true);
 		}
+		if (!enabled) return;
 		stuckWatch.trackStuck(this, pl);
 		triggers(pl);
 		status = skill != null ? skillOption.label() : "idle";
