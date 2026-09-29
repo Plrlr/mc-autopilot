@@ -57,6 +57,7 @@ public final class Autopilot {
 	long enableTick;
 	private String worldName;
 	private Boolean savedPauseOnLostFocus;
+	private net.minecraft.client.InactivityFpsLimit savedInactivityFps;
 
 	// Goal
 	Goal goal;
@@ -153,6 +154,12 @@ public final class Autopilot {
 		learned.loadAsync(model.isBlank() ? home.resolve("learned.json") : Path.of(model));
 		Bari.applyFairPlay();
 		savedPauseOnLostFocus = mc.options.pauseOnLostFocus;
+		// The autopilot's key presses aren't input to the game's AFK check: after ~10 minutes it capped
+		// the frame rate at 10, and at 10 fps the game plays at about half speed. Every loop game dropped
+		// from ~30 to 10 fps at ~570 s (gen 58's logs): 0.58-0.70x over 30 minutes against ~0.9x in
+		// 10-minute runs. Limit only when minimized while we play; the player's own choice comes back after.
+		savedInactivityFps = mc.options.inactivityFpsLimit().get();
+		mc.options.inactivityFpsLimit().set(net.minecraft.client.InactivityFpsLimit.MINIMIZED);
 		// Alt-tabbing would pause the world and freeze the AI mid-fight.
 		mc.options.pauseOnLostFocus = false;
 		goal = null;
@@ -174,6 +181,8 @@ public final class Autopilot {
 		Skill.releaseKeys();
 		if (savedPauseOnLostFocus != null && Mc.mc().options != null) Mc.mc().options.pauseOnLostFocus = savedPauseOnLostFocus;
 		savedPauseOnLostFocus = null;
+		if (savedInactivityFps != null && Mc.mc().options != null) Mc.mc().options.inactivityFpsLimit().set(savedInactivityFps);
+		savedInactivityFps = null;
 		status = "off";
 		lessons.save();
 		Mc.say("OFF (" + why + ").");
