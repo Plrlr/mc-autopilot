@@ -17,9 +17,10 @@ import subprocess
 import tempfile
 
 # Same list as Bank.java. "lava" (kit with lava in reach) came in at gen 30: the wall is lava to obsidian.
-STAGES = ["spawn", "kit", "lava", "nether", "rods", "eyes", "stronghold", "end"]
+# "diamond" (diamond pickaxe, a bucket, flint and steel) came in with the diamond route (2026-09-29).
+STAGES = ["spawn", "kit", "lava", "diamond", "nether", "rods", "eyes", "stronghold", "end"]
 # Staged scenarios (test-world commands) standing in for a stage until real checkpoints exist.
-SYNTHETIC = {"kit": "cast", "lava": "cast", "nether": "nether", "eyes": "stronghold", "end": "end"}
+SYNTHETIC = {"kit": "cast", "lava": "cast", "diamond": "mold", "nether": "nether", "eyes": "stronghold", "end": "end"}
 RELEASE = "checkpoints"
 
 
@@ -44,6 +45,10 @@ def migrate(st):
     if st.get("stages_version", 1) < 2:
         st.setdefault("stage_stats", {}).pop("kit", None)
         st["stages_version"] = 2
+    # v3, the diamond stage: getting past lava now means a diamond pickaxe, not the Nether.
+    if st["stages_version"] < 3:
+        st.setdefault("stage_stats", {}).pop("lava", None)
+        st["stages_version"] = 3
 
 
 def record_result(st, start, reached, gen):

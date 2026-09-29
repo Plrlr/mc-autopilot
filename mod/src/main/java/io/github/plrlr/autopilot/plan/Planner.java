@@ -107,13 +107,23 @@ public final class Planner {
 	private Option surfaceOption(Option main) {
 		boolean deep = !onSurface() && Mc.dimension().equals("overworld") && memory.surfaceEntry() != null
 				&& memory.surfaceEntry().getY() - Mc.player().getBlockY() > 8;
-		if (!(lostUnderground || (deep && needsSurface(main))) || MoveSkills.Goto.surfaceBlocked()) return null;
+		// The diamond route works down here for many minutes with only stone to show for it
+		// between diamonds: that isn't lost, and going up would throw away the whole descent.
+		boolean lost = lostUnderground && !deepWork(main);
+		if (!(lost || (deep && needsSurface(main))) || MoveSkills.Goto.surfaceBlocked()) return null;
 		return new Option("goto", "surface",
-				lostUnderground ? "a minute underground without progress: back up the way we came" : "the next step is on the surface");
+				lost ? "a minute underground without progress: back up the way we came" : "the next step is on the surface");
 	}
 
 	/** Set by the main loop: underground a while with nothing gained (see Autopilot.cave). */
 	public boolean lostUnderground;
+
+	/** The diamond route's underground steps: diamonds, the lava pool, obsidian, the frame's room. */
+	private static boolean deepWork(Option o) {
+		if (o == null) return false;
+		if (java.util.Set.of("diamond_hunt", "stair_down", "obsidian_pool", "obsidian_mold", "make_obsidian", "dig_portal").contains(o.skill())) return true;
+		return o.skill().equals("collect") && o.arg() != null && o.arg().startsWith("diamond");
+	}
 
 	/** Mining that happens below ground anyway: ores, stone, diamonds for lava depth. */
 	private static boolean undergroundWork(Option o) {

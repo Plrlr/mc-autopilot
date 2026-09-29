@@ -35,7 +35,9 @@ public final class StairUp extends Skill {
 
 	@Override
 	protected void start() {
-		timeoutTicks = 20 * 90;
+		// Up to 64 steps of about 2 s each, plus turns: 90 s gave up 10 blocks into a 60-block climb
+		// (local run 4 on night2, 2026-09-29: y 36 -> 46, then "stairs: timed out").
+		timeoutTicks = 20 * 240;
 		String[] a = arg == null ? new String[0] : arg.trim().split("\\s+");
 		for (int i = 0; i < a.length; i++) {
 			if (a[i].matches("\\d+")) maxSteps = Integer.parseInt(a[i]);
@@ -77,7 +79,7 @@ public final class StairUp extends Skill {
 	/** Fluid in a cell we'd open (only cells next to us, which a player sees), or bedrock. */
 	private static boolean safe(BlockPos feet, Direction dir) {
 		for (BlockPos c : cut(feet, dir)) {
-			if (!Mc.state(c).getFluidState().isEmpty() || Act.lavaNear(c)) return false;
+			if (!Mc.state(c).getFluidState().isEmpty() && Mc.canSee(c) || FairProbe.lavaSeenNear(c)) return false;
 			if (Mc.state(c).getDestroySpeed(Mc.player().level(), c) < 0) return false;
 		}
 		BlockPos step = feet.relative(dir);

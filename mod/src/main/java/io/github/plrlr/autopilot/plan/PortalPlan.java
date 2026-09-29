@@ -5,6 +5,7 @@ import io.github.plrlr.autopilot.Mc;
 import io.github.plrlr.autopilot.Tune;
 import io.github.plrlr.autopilot.skills.ChestSkills;
 import io.github.plrlr.autopilot.state.WorldMemory;
+import net.minecraft.core.BlockPos;
 
 /**
  * Wave 2 of docs/skills-40.md (the portal): where each portal skill replaces the rules' step.
@@ -43,9 +44,54 @@ public final class PortalPlan {
 		return new Option("obsidian_pool", null, "harden the lava pool and mine 10 obsidian, checking under each block");
 	}
 
-	/** Any "collect diamond" step (not the deep-for-lava one): safe stairs, then branch mining (gene skill.diamond_hunt). */
+	/**
+	 * A lava pool close enough to harden and mine: 4+ seen sources within 48 blocks (6 was too many:
+	 * down there only bits of a lake are in view; trial mold-c mined 12 diamonds past such pools,
+	 * and obsidian carries over from one pool to the next), or obsidian
+	 * we can mine within 24. A pool remembered from far away (a surface pool 300 blocks back)
+	 * isn't one: walking back to it from diamond depth is the long way round.
+	 */
+	public static boolean poolNear(WorldMemory memory) {
+		BlockPos me = Mc.player().blockPosition();
+		int n = 0;
+		for (WorldMemory.Seen s : memory.all("lava")) if (s.pos().distSqr(me) <= 48 * 48 && !failedPool(s.pos()) && ++n >= 4) return true;
+		for (WorldMemory.Seen s : memory.all("obsidian")) if (s.pos().distSqr(me) <= 24 * 24 && !failedPool(s.pos())) return true;
+		return false;
+	}
+
+	/**
+	 * Where obsidian_pool gave up (no safe block, no mold site, no reachable bank). Its lava stays
+	 * in memory, so without this the planner sent it straight back to the same pool, over and over
+	 * (mold-b trial, 2026-09-29: nine failures in a row); now the deep route mines on for another.
+	 */
+	private static final java.util.Set<BlockPos> FAILED_POOLS = java.util.concurrent.ConcurrentHashMap.newKeySet();
+
+	/** Sets aside the lava and obsidian obsidian_pool was working with: everything it counted as the pool. */
+	public static void poolFailed(WorldMemory memory) {
+		BlockPos me = Mc.player().blockPosition();
+		for (String g : new String[]{"lava", "obsidian"})
+			for (WorldMemory.Seen s : memory.all(g)) if (s.pos().distSqr(me) <= 48 * 48) FAILED_POOLS.add(s.pos().immutable());
+	}
+
+	static boolean failedPool(BlockPos p) {
+		return FAILED_POOLS.contains(p);
+	}
+
+	/** A new run (or a new world): every pool gets its chance again. */
+	public static void reset() {
+		FAILED_POOLS.clear();
+	}
+
+	/** When "collect diamond:n:lava" (mining deep for lava) has found it. */
+	public static boolean lavaFound(WorldMemory memory) {
+		if (Tune.on("route.diamond_portal") && Tune.on("route.deep_portal")) return poolNear(memory);
+		return memory.nearest("lava") != null;
+	}
+
+	/** Any "collect diamond" step (not the deep-for-lava one): safe stairs, then branch mining (gene skill.diamond_hunt; the deep route always). */
 	public static Option diamonds(Option old) {
-		if (old == null || !Tune.on("skill.diamond_hunt") || !old.skill().equals("collect") || old.arg() == null
+		boolean deep = Tune.on("route.diamond_portal") && Tune.on("route.deep_portal");
+		if (old == null || !(Tune.on("skill.diamond_hunt") || deep) || !old.skill().equals("collect") || old.arg() == null
 				|| !old.arg().startsWith("diamond") || old.arg().endsWith(":lava")) return old;
 		String[] a = old.arg().split(":");
 		return new Option("diamond_hunt", a.length > 1 ? a[1] : "3", "stairs to diamond depth, then branch-mine");

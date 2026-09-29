@@ -28,7 +28,7 @@ import java.util.List;
  * a portal frame doesn't need them.
  */
 public final class CastPortal extends Skill {
-	private enum Phase {SITE, APPROACH, PREPARE, RESERVE_BUCKET, CARVE, DIGIN, WALL, NEXT, PILLAR, FETCH, WALK, LAVA, POUR, SCOOP, REFILL, BREAK, CLEAR, LIGHT}
+	private enum Phase {SITE, APPROACH, MAKE_SITE, PREPARE, RESERVE_BUCKET, CARVE, DIGIN, WALL, NEXT, PILLAR, FETCH, WALK, LAVA, POUR, SCOOP, REFILL, BREAK, CLEAR, LIGHT}
 
 	/** Frame width 4 (x 0..3), height 5 (y 0..4); the wall behind also covers y 5 for the water. */
 	private static final int WALL_H = 6;
@@ -43,6 +43,7 @@ public final class CastPortal extends Skill {
 	/** The site, kept across runs of the skill so a retry finishes the same frame. */
 	private static BlockPos origin;
 	private static Direction along;
+	private static String lastSiteSearch = "not searched";
 
 	/** A frame is under way within 40 blocks and its cells are still castable: a retry should finish it. */
 	static boolean siteInProgress() {
@@ -76,6 +77,7 @@ public final class CastPortal extends Skill {
 	private PortalWorkArea.Site workArea;
 	private int prepareFailures;
 	private BlockPos spareWaterSpot;
+	private PortalSiteMaker siteMaker;
 
 	private record Plan(BlockPos stand, CastGeometry.Aim lava, CastGeometry.Aim water) {}
 	/**
@@ -181,7 +183,8 @@ public final class CastPortal extends Skill {
 						return;
 					}
 					if (!findSite(pl.blockPosition())) {
-						if (!startPrepare(pl) && !startCarve(pl) && !startDigIn(pl)) fail(Fail.NO_ROOM, "no flat open ground for a portal near the lava");
+						if (Tune.on("portal.site_maker")) startSiteMaker(pool == null ? null : pool.pos());
+						else if (!startPrepare(pl) && !startCarve(pl) && !startDigIn(pl)) fail(Fail.NO_ROOM, siteRefusal(pl));
 						return;
 					}
 				}
@@ -195,7 +198,8 @@ public final class CastPortal extends Skill {
 				}
 				if (wait > 10 && !Bari.pathing()) {
 					if (!findSite(pl.blockPosition())) {
-						if (!startPrepare(pl) && !startCarve(pl) && !startDigIn(pl)) fail(Fail.NO_ROOM, "no flat open ground for a portal near the lava");
+						if (Tune.on("portal.site_maker")) startSiteMaker(memory.nearest("lava") == null ? null : memory.nearest("lava").pos());
+						else if (!startPrepare(pl) && !startCarve(pl) && !startDigIn(pl)) fail(Fail.NO_ROOM, siteRefusal(pl));
 						return;
 					}
 					phase = Phase.WALL;
@@ -203,6 +207,17 @@ public final class CastPortal extends Skill {
 				}
 			}
 			case RESERVE_BUCKET -> reserveBucketTick(pl);
+			case MAKE_SITE -> {
+				siteMaker.tick();
+				if (siteMaker.failure() != null) { fail(Fail.NO_ROOM, siteMaker.failure()); return; }
+				PortalSite.Plan made = siteMaker.site();
+				if (made != null) {
+					useSite(made.origin(), made.along());
+					log("made portal site at " + origin.toShortString());
+					phase = Phase.WALL;
+					wait = 0;
+				}
+			}
 			case PREPARE -> prepareTick(pl);
 			case CARVE -> {
 				if (++wait > 20 * 120) {
@@ -469,6 +484,19 @@ public final class CastPortal extends Skill {
 		phase = Phase.PREPARE;
 		log("preparing a dry portal floor at " + workArea.origin().toShortString());
 		return true;
+	}
+
+	private void startSiteMaker(BlockPos pool) {
+		siteMaker = new PortalSiteMaker(pool);
+		phase = Phase.MAKE_SITE;
+		// A carved deepslate room takes longer than searching for a natural flat patch.
+		timeoutTicks = Math.max(timeoutTicks, ticks + 20 * 60 * 8);
+	}
+
+	private String siteRefusal(LocalPlayer pl) {
+		return "no flat open ground (" + lastSiteSearch + "); floor repair " + (Tune.on("portal.prepare_work_area") ? "found no suitable open frame or spare blocks" : "disabled")
+				+ "; carve " + (pl.level().canSeeSky(pl.blockPosition().above()) ? "requires underground" : "no room with solid floor, solid back and dry 4x6 cells")
+				+ "; dig-in " + (pl.level().canSeeSky(pl.blockPosition().above()) ? "blocked or already tried" : "requires sky");
 	}
 
 	private void prepareTick(LocalPlayer pl) {
@@ -860,6 +888,7 @@ public final class CastPortal extends Skill {
 	}
 
 	private static boolean findSite(BlockPos feet) {
+		int floor = 0, frame = 0, back = 0, stand = 0;
 		for (int r = 2; r <= 16; r++) {
 			for (int dx = -r; dx <= r; dx++) {
 				for (int dz = -r; dz <= r; dz++) {
@@ -867,17 +896,25 @@ public final class CastPortal extends Skill {
 					for (int dy = -3; dy <= 3; dy++) {
 						BlockPos o = feet.offset(dx, dy, dz);
 						for (Direction a : new Direction[]{Direction.EAST, Direction.SOUTH, Direction.WEST, Direction.NORTH}) {
-							if (CastGeometry.fits(o, a, WALL_H)) {
+							String refusal = CastGeometry.fitRefusal(o, a, WALL_H);
+							if (refusal == null) {
 								origin = o.immutable();
 								along = a;
 								log("portal site ready at " + origin.toShortString());
 								return true;
+							}
+							switch (refusal) {
+								case "floor" -> floor++;
+								case "frame" -> frame++;
+								case "back support", "back wall" -> back++;
+								default -> stand++;
 							}
 						}
 					}
 				}
 			}
 		}
+		lastSiteSearch = "first rejected check: floor " + floor + ", frame " + frame + ", back " + back + ", standing rows " + stand;
 		return false;
 	}
 
@@ -891,6 +928,7 @@ public final class CastPortal extends Skill {
 
 	@Override
 	protected void cleanup() {
+		if (siteMaker != null) siteMaker.stop();
 		if (fetch != null && fetch.result() == null) fetch.abort(Fail.INTERRUPTED, "stopped");
 		if (refill != null && refill.result() == null) refill.abort(Fail.INTERRUPTED, "stopped");
 		if (Mc.mc().gameMode != null) Mc.mc().gameMode.stopDestroyBlock();

@@ -168,7 +168,7 @@ public final class MoveSkills {
 			timeoutTicks = 20 * 120;
 			if ("surface".equals(arg)) {
 				// Room for the staircase after Baritone's try (StairUp's own limit is 90 s).
-				if (io.github.plrlr.autopilot.Tune.on("nav.surface_v2")) timeoutTicks = 20 * 240;
+				if (io.github.plrlr.autopilot.Tune.on("nav.surface_v2")) timeoutTicks = 20 * 360;
 				// Out of a cave the way we came in; with no known entry, dig up toward the sky.
 				LocalPlayer pl = Mc.player();
 				if (pl.level().canSeeSky(pl.blockPosition().above())) {
@@ -371,7 +371,9 @@ public final class MoveSkills {
 			if ("stations".equals(arg) && breakStations()) return;
 			if (current == null || !current.isAlive() || sinceRepath++ > 60) {
 				if (current != null && !current.isAlive()) picked++;
-				List<ItemEntity> items = Perception.look(16).items;
+				List<ItemEntity> items = new java.util.ArrayList<>(Perception.look(16).items);
+				// Not the junk we tossed ourselves (Tidy), or it would be picked straight back up.
+				if (io.github.plrlr.autopilot.Tune.on("inv.tidy")) items.removeIf(it -> io.github.plrlr.autopilot.Tidy.unwanted(it.getItem()));
 				if (items.isEmpty() || picked >= 12) {
 					done(picked > 0 ? "picked up " + picked + " stacks" : "nothing left to pick up");
 					return;

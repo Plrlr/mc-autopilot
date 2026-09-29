@@ -60,6 +60,12 @@ public final class SkillSpecs {
 				.needs("bucket", 2, "water_bucket", 1, "flint_and_steel", 1, "throwaway", 40).facts("overworld", "lava_pool")
 				.makes("portal_known").prior(480, 0.2).gene("skill.cast_portal")
 				.help("dig and floor a site by the lava, then cast the portal there").build());
+		s.add(SkillSpec.of("dig_portal", null).stage("portal").needs("obsidian", 10, "flint_and_steel", 1, "throwaway", 8).facts("overworld")
+				.makes("portal_known").prior(150, 0.6).gene("route.deep_portal")
+				.help("dig a room, build the frame from 10 obsidian, light it").build());
+		s.add(SkillSpec.of("obsidian_mold", "10").stage("portal").needs("diamond_pickaxe", 1, "water_bucket", 1, "bucket", 1).facts("overworld", "lava_pool")
+				.gives("obsidian", 10).prior(300, 0.5).gene("route.deep_portal")
+				.help("pit + lava bucket + water: obsidian on solid ground, a block at a time").build());
 		s.add(SkillSpec.of("ruined_portal", null).stage("portal").needs("diamond_pickaxe", 1).facts("ruined_portal_known")
 				.gives("obsidian", 6).prior(240, 0.4).gene("skill.ruined_portal").help("loot and mine a ruined portal").build());
 		s.add(SkillSpec.of("obsidian_pool", null).stage("portal").needs("diamond_pickaxe", 1, "water_bucket", 1).facts("lava_pool")
