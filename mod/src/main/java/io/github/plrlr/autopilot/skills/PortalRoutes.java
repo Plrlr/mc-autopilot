@@ -296,6 +296,8 @@ public final class PortalRoutes {
 			if (io.github.plrlr.autopilot.Tune.on("deep.stairs") && Mc.player().getBlockY() > -50 && stairs++ < 2)
 				return new Option("stair_down", "-54", "safe stairs to diamond depth");
 			if (tries++ >= 3) return null;
+			if (io.github.plrlr.autopilot.Tune.on("deep.branch"))
+				return new Option("diamond_branch", "diamond:" + want, "expose diamonds in narrow spaced tunnels");
 			return new Option("collect", "diamond:" + (want - Mc.count("diamond")), "branch-mine for diamonds in sight");
 		}
 

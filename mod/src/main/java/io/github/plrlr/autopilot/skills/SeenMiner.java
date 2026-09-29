@@ -29,6 +29,7 @@ final class SeenMiner {
 	private final WorldMemory memory;
 	private final String group;
 	private final int range;
+	private final boolean visibleOnly;
 	/**
 	 * Blocks we couldn't reach or break, until when (ms). Shared across runs of the skill and with
 	 * explore: otherwise explore says "already see a log" and collect says "can't get it", forever
@@ -46,9 +47,14 @@ final class SeenMiner {
 	private int mined;
 
 	SeenMiner(WorldMemory memory, String group, int range) {
+		this(memory, group, range, false);
+	}
+
+	SeenMiner(WorldMemory memory, String group, int range, boolean visibleOnly) {
 		this.memory = memory;
 		this.group = group;
 		this.range = range;
+		this.visibleOnly = visibleOnly;
 	}
 
 	/** Breaking a block (or the leaves in front of it): no walking expected. */
@@ -63,6 +69,10 @@ final class SeenMiner {
 	/** Is any seen block of this group within range? */
 	static boolean anySeen(WorldMemory memory, String group, int range) {
 		return nearest(memory, group, range) != null;
+	}
+
+	static boolean anyVisible(WorldMemory memory, String group, int range) {
+		return nearest(memory, group, range, true) != null;
 	}
 
 	/** The stair fallback needs this even when the separate dry-target gene is off. */
@@ -101,16 +111,29 @@ final class SeenMiner {
 
 	Status tick() {
 		wait++;
+		if (visibleOnly && target != null && (phase == Phase.WALK || phase == Phase.BREAK)
+				&& !visibleCandidate(target)) {
+			Mc.mc().gameMode.stopDestroyBlock();
+			giveUp();
+			return Status.WORKING;
+		}
 		switch (phase) {
 			case FIND -> {
 				// Gene gather.vein_follow: the block next to the one we just broke first, as a player follows
 				// a vein. Watching the local trial (2026-09-29), the bot mined one coal, then walked back to a
 				// coal it had seen earlier instead of the coal the break had just uncovered behind it.
-				BlockPos next = Tune.on("gather.vein_follow") ? veinNext(lastBroken, group) : null;
-				target = next != null ? next : nearest(memory, group, range);
+				BlockPos next = visibleOnly || Tune.on("gather.vein_follow") ? veinNext(lastBroken, group) : null;
+				if (visibleOnly && next != null && !visibleCandidate(next)) next = null;
+				target = next != null ? next : nearest(memory, group, range, visibleOnly);
 				if (target == null) return Status.NONE_LEFT;
-				Bari.path(new GoalGetToBlock(target));
-				to(Phase.WALK);
+				if (visibleOnly) {
+					Bari.stop();
+					blocker = null;
+					to(Phase.BREAK);
+				} else {
+					Bari.path(new GoalGetToBlock(target));
+					to(Phase.WALK);
+				}
 			}
 			case WALK -> walk();
 			case BREAK -> breakIt();
@@ -226,6 +249,18 @@ final class SeenMiner {
 	/** Drops land near the block (a high log's fall to the ground): walk over the nearest one. */
 	private void pickup() {
 		ItemEntity drop = nearestDrop(target);
+		if (visibleOnly && drop != null) {
+			FairProbe probe = new FairProbe();
+			BlockPos p = drop.blockPosition();
+			if (!Mc.canSee(drop) || p.distSqr(Mc.player().blockPosition()) > 4
+					|| p.getY() != Mc.player().getBlockY()
+					|| !probe.visible(p.below()) || !BranchPattern.walkable(p, probe)) {
+				Bari.stop();
+				// A floor ore's drop can still be collected from the adjacent ledge without stepping in.
+				if (wait > 20) to(Phase.FIND);
+				return;
+			}
+		}
 		if (drop == null) {
 			if (wait > 10) to(Phase.FIND);
 			return;
@@ -268,18 +303,23 @@ final class SeenMiner {
 	}
 
 	private static BlockPos nearest(WorldMemory memory, String group, int range) {
+		return nearest(memory, group, range, false);
+	}
+
+	private static BlockPos nearest(WorldMemory memory, String group, int range, boolean visibleOnly) {
 		BlockPos me = Mc.player().blockPosition();
 		BlockPos best = null;
 		double bestCost = Double.MAX_VALUE;
 		for (WorldMemory.Seen s : memory.all(group)) {
 			if (!s.dim().equals(Mc.dimension()) || unreachable(s.pos())) continue;
+			if (visibleOnly && !visibleCandidate(s.pos())) continue;
 			if (group.equals("stone") && Tune.on("gather.dry_stone") && !dry(s.pos())) continue;
 			// Range on the plain distance, like explore's "already see one": with the height
 			// penalty in the range check, a tree on a slope 20 blocks off was "not seen" while
 			// explore saw it, and the two bounced the job (17x 'no log seen' in one batch).
 			if (s.pos().distSqr(me) > (double) range * range) continue;
 			// Under deep water a block is out of reach for the pickaxe (and the air runs out).
-			if (!Mc.state(s.pos().above()).getFluidState().isEmpty() && !Mc.state(s.pos().above(2)).getFluidState().isEmpty()) continue;
+			if (!visibleOnly && !Mc.state(s.pos().above()).getFluidState().isEmpty() && !Mc.state(s.pos().above(2)).getFluidState().isEmpty()) continue;
 			// Low blocks first: a log above head height needs a pillar, the one at the trunk's foot doesn't.
 			double up = Math.max(0, s.pos().getY() - me.getY() - 2);
 			double cost = s.pos().distSqr(me) + 64 * up * up;
@@ -289,6 +329,11 @@ final class SeenMiner {
 			}
 		}
 		return best;
+	}
+
+	private static boolean visibleCandidate(BlockPos p) {
+		// A floor vein beside us is reachable from the ledge; never remove our own support.
+		return !p.equals(Mc.player().blockPosition().below()) && inReach(p) && !new FairProbe().fluidNear(p);
 	}
 
 	/** Water touching exposed stone makes the approach and the freshly opened cell unsafe. */

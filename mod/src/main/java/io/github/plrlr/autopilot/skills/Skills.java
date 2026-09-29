@@ -46,6 +46,7 @@ public final class Skills {
 		MENU.put("ruined_portal", new Entry(PortalRoutes.RuinedPortal::new, "loot a ruined portal's chest and mine its obsidian"));
 		MENU.put("obsidian_pool", new Entry(PortalRoutes.ObsidianPool::new, "harden a lava pool and mine 10 obsidian safely (diamond pickaxe)"));
 		MENU.put("diamond_hunt", new Entry(PortalRoutes.DiamondHunt::new, "diamond_hunt:n: safe stairs to y -54, then branch-mine for n diamonds"));
+		MENU.put("diamond_branch", new Entry(DiamondBranch::new, "deep.branch: expose diamonds in spaced 1x2 tunnels at y -58"));
 		MENU.put("portal_repair", new Entry(PortalRoutes.PortalRepair::new, "light a finished frame, or finish ours with carried obsidian"));
 		MENU.put("stash", new Entry(ChestSkills.Stash::new, "put spare iron, food, buckets... in a chest at base"));
 		MENU.put("restock", new Entry(ChestSkills.Restock::new, "restock[:items]: take spares back from our chest"));
