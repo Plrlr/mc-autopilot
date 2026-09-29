@@ -786,6 +786,8 @@ public final class Autopilot {
 
 	/** Where the bot was, once a second, while a moving skill ran (the stuck box check). */
 	private final Deque<Vec3> recentPos = new ArrayDeque<>();
+	/** The inventory at the last stuck sample: a gain means the skill is working, not stuck. */
+	private int stuckInvHash;
 	/** Skills that are supposed to move the bot. Crafting, smelting, eating, hiding or fighting in place are not stuck. */
 	private static final java.util.Set<String> MOVING = java.util.Set.of("collect", "explore", "shore", "goto", "retreat", "pickup",
 			"fill_bucket", "locate_stronghold");
@@ -809,6 +811,16 @@ public final class Autopilot {
 			return;
 		}
 		if (tick % 20 != 0) return;
+		// Gene stuck.item_progress: an item gained is progress. Gens 57-58's logs: 41 of 78 "stuck"
+		// calls were collect trips mining in place (coal, stone, iron); unstuck walked them off
+		// and the same collect then succeeded, so the call cost a trip and found nothing wrong.
+		int inv = inventoryHash();
+		if (inv != stuckInvHash && Tune.on("stuck.item_progress")) {
+			stuckInvHash = inv;
+			recentPos.clear();
+			return;
+		}
+		stuckInvHash = inv;
 		recentPos.addLast(p);
 		int window = Tune.i("stuck.window_s");
 		while (recentPos.size() > window) recentPos.removeFirst();
