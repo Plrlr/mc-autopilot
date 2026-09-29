@@ -1710,13 +1710,13 @@
  "days": {
   "2026-09-27": 15,
   "2026-09-28": 32,
-  "2026-09-29": 18
+  "2026-09-29": 19
  },
  "evolve_days": {
   "2026-09-27": 1,
   "2026-09-28": 7
  },
- "gen": 65,
+ "gen": 66,
  "gene_specs": {
   "bed.table_first": {
    "def": 0.0,
@@ -10397,6 +10397,56 @@
    "priority": true,
    "status": "rejected"
   },
+  "g51": {
+   "born": 66,
+   "code": null,
+   "evals": [],
+   "genes": {
+    "cave.torches": 1.0,
+    "combat.commit_target": 1.0,
+    "death.recover_night_armor": 12.0,
+    "focus.commit": 1.0,
+    "plan.hide_hp": 15.0,
+    "portal.prepare_work_area": 1.0,
+    "portal.reserve_lava_bucket": 1.0,
+    "route.armor_before_portal": 0.0
+   },
+   "id": "g51",
+   "metric": "deaths",
+   "mutated": [
+    "combat.commit_target"
+   ],
+   "note": "suggested: combat.commit_target 1",
+   "pairs": [],
+   "parent": "g45",
+   "priority": true,
+   "status": "contender"
+  },
+  "g52": {
+   "born": 66,
+   "code": null,
+   "evals": [],
+   "genes": {
+    "cave.torches": 1.0,
+    "combat.shield_guard": 1.0,
+    "death.recover_night_armor": 12.0,
+    "focus.commit": 1.0,
+    "plan.hide_hp": 15.0,
+    "portal.prepare_work_area": 1.0,
+    "portal.reserve_lava_bucket": 1.0,
+    "route.armor_before_portal": 0.0
+   },
+   "id": "g52",
+   "metric": "deaths",
+   "mutated": [
+    "combat.shield_guard"
+   ],
+   "note": "suggested: combat.shield_guard 1",
+   "pairs": [],
+   "parent": "g45",
+   "priority": true,
+   "status": "contender"
+  },
   "g6": {
    "born": 2,
    "code": null,
@@ -10954,8 +11004,72 @@
  "model_kind": "retired",
  "model_r2": null,
  "model_rows": 0,
- "next_id": 51,
- "pending": null,
+ "next_id": 53,
+ "pending": {
+  "data_tasks": [],
+  "gen": 66,
+  "lineup": [
+   "g45",
+   "g49",
+   "g51",
+   "g52"
+  ],
+  "runs": [
+   "eval-g45-0",
+   "eval-g45-1",
+   "eval-g45-2",
+   "eval-g45-3",
+   "eval-g49-0",
+   "eval-g49-1",
+   "eval-g49-2",
+   "eval-g49-3",
+   "eval-g51-0",
+   "eval-g51-1",
+   "eval-g51-2",
+   "eval-g51-3",
+   "eval-g52-0",
+   "eval-g52-1",
+   "eval-g52-2",
+   "eval-g52-3"
+  ],
+  "seeds": [
+   "L66-r8ryku",
+   "L66-y8fgnz",
+   "L66-5sqjg4",
+   "L66-gq28r3"
+  ],
+  "sha": "dbd4176800cac3e2dd421a9cdbd5857987fc5deb",
+  "started": "2026-09-29T19:28:55+00:00",
+  "tasks": [
+   {
+    "kind": "natural",
+    "seed": "L66-r8ryku",
+    "stage": "spawn",
+    "synthetic": false
+   },
+   {
+    "kind": "natural",
+    "seed": "L66-y8fgnz",
+    "stage": "spawn",
+    "synthetic": false
+   },
+   {
+    "asset": "lava-gen64-eval-g45-2.zip",
+    "kind": "start",
+    "seed": "L66-5sqjg4",
+    "stage": "lava",
+    "synthetic": false
+   },
+   {
+    "kind": "combat",
+    "minutes": 10,
+    "scenario": "combat",
+    "seed": "L66-gq28r3",
+    "stage": "combat",
+    "synthetic": false
+   }
+  ]
+ },
  "score_version": 2,
  "settings": {
   "accept_pairs": 8,
@@ -13401,7 +13515,9 @@
   "{\"reflex.lava_margin\": 1}",
   "{\"_max_pairs\": 40, \"_priority\": true, \"brain.skill_stats\": 1, \"brain.strategist\": 1, \"brain.thompson\": 1, \"brain.utility\": 1, \"plan.readiness\": 1}",
   "{\"_max_pairs\": 24, \"_metric\": \"ok:goto|unstuck\", \"_priority\": true, \"combat.ignore_walled_mobs\": 1, \"nav.surface_v2\": 1, \"nav.unstuck_v2\": 1, \"night.shelter_exit\": 1, \"stuck.item_progress\": 1}",
-  "{\"_metric\": \"deaths\", \"_priority\": true, \"brain.death_avoid\": 1}"
+  "{\"_metric\": \"deaths\", \"_priority\": true, \"brain.death_avoid\": 1}",
+  "{\"_metric\": \"deaths\", \"_priority\": true, \"combat.commit_target\": 1}",
+  "{\"_metric\": \"deaths\", \"_priority\": true, \"combat.shield_guard\": 1}"
  ],
  "version": 1
 }
