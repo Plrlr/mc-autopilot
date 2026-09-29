@@ -82,6 +82,32 @@ class SurvivalPlanTest {
 	}
 
 	@Test
+	void outnumberedBoxesInOnlyWithTheGeneAndThreeClose() {
+		Option attack = new Option("attack", "spider", "x");
+		Perception three = new Perception();
+		for (int i = 0; i < 3; i++) three.mobs.add(mob("spider", 3 + i));
+		// Gene off: the old fight stays.
+		assertSame(attack, SurvivalPlan.outnumbered(three, attack));
+		Perception two = new Perception();
+		two.mobs.add(mob("spider", 3));
+		two.mobs.add(mob("zombie", 4));
+		on("skill.panic_box");
+		// Two close isn't outnumbered enough to stop fighting.
+		assertSame(attack, SurvivalPlan.outnumbered(two, attack));
+	}
+
+	@Test
+	void aCrossingIsOfferedOnceAfterExploreTurnedBack() {
+		assertNull(SurvivalPlan.cross());
+		SurvivalPlan.crossAhead("10 20");
+		assertNull(SurvivalPlan.cross(), "gene off: no crossing");
+		on("skill.fluid_cross");
+		SurvivalPlan.crossAhead("10 20");
+		assertEquals("fluid_cross 10 20", SurvivalPlan.cross().label());
+		assertNull(SurvivalPlan.cross(), "offered once");
+	}
+
+	@Test
 	void targetsAreTheRightMobs() {
 		assertTrue(BlockArrows.suits(mob("stray", 20)));
 		assertFalse(BlockArrows.suits(mob("zombie", 5)));

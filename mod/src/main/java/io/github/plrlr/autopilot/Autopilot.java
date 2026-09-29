@@ -388,6 +388,13 @@ public final class Autopilot {
 				return;
 			}
 		}
+		// Lava guard (gene skill.lava_guard): lava showing up beside us while we work gets covered at once.
+		if (Tune.on("skill.lava_guard") && tick % 3 == 0 && skill != null
+				&& !java.util.Set.of("build_portal", "cast_portal", "fill_bucket", "make_obsidian", "obsidian_pool", "clutch").contains(skill.name())
+				&& io.github.plrlr.autopilot.skills.Fluids.LavaGuard.guard()) {
+			log.event("reflex", "lava covered");
+			return;
+		}
 		// The End's guard (gene skill.end_guard): never meet an enderman's eyes, never fall into the void.
 		if (Tune.on("skill.end_guard") && io.github.plrlr.autopilot.skills.EndRoutes.EndGuard.guard()) return;
 		Danger.Verdict danger = Tune.on("survival.danger_v2") ? DangerSense.assess(seen) : null;
@@ -522,7 +529,8 @@ public final class Autopilot {
 							|| !c.option().label().equals(skillOption.label())) startReflex(choices, c, x, "reflex_low_hp");
 				}
 				else {
-					List<Option> choices = Planner.escapeChoices(seen, io.github.plrlr.autopilot.plan.SurvivalPlan.fight(h, new Option("attack", h.type(), "it's attacking")));
+					List<Option> choices = Planner.escapeChoices(seen, io.github.plrlr.autopilot.plan.SurvivalPlan.outnumbered(seen,
+							io.github.plrlr.autopilot.plan.SurvivalPlan.fight(h, new Option("attack", h.type(), "it's attacking"))));
 					double[] x = Tune.on("safety.hazard") ? features() : null;
 					Brain.Choice c = brain.decideReflex(choices, x);
 					boolean already = skill != null && (c.option().skill().equals("attack") ? skill.name().equals("attack")
@@ -703,6 +711,10 @@ public final class Autopilot {
 		lastEndedKey = actionKey(skillOption);
 		lessons.record(actionKey(skillOption), r.ok() && !instantRepeat, instantRepeat ? "NO_PROGRESS" : r.code() == null ? null : r.code().name(),
 				instantRepeat ? "did nothing" : r.detail(), (tick - skillStartTick) / 20.0);
+		// Explore turned back at open water (gene skill.fluid_cross): next, cross it instead.
+		if (!r.ok() && r.code() == Fail.HAZARD && skillOption.skill().equals("explore") && r.detail() != null
+				&& r.detail().contains("water") && Tune.on("skill.fluid_cross"))
+			io.github.plrlr.autopilot.plan.SurvivalPlan.crossAhead(io.github.plrlr.autopilot.skills.Fluids.aheadXZ());
 		// Brain v2's skill stats learn from this try at once (an interruption says nothing about the skill).
 		if (r.code() != Fail.INTERRUPTED)
 			io.github.plrlr.autopilot.brains.SkillStats.shared().record(io.github.plrlr.autopilot.brains.Learned.key(skillOption), skillContexts,
@@ -785,7 +797,9 @@ public final class Autopilot {
 		String what = skillOption.label();
 		log.event("stuck", what + " at " + pl.blockPosition().toShortString() + (pl.isInWater() ? " in water" : ""));
 		abortSkill("stuck: stayed inside " + box + " blocks for " + window + " s", false);
-		startSkill(new Option("unstuck", null, "not moving while " + what), "reflex_stuck", true);
+		if (Tune.on("skill.drain_tunnel") && io.github.plrlr.autopilot.skills.Fluids.floodedTunnel())
+			startSkill(new Option("drain_tunnel", null, "stuck in a flooded tunnel while " + what), "reflex_stuck", true);
+		else startSkill(new Option("unstuck", null, "not moving while " + what), "reflex_stuck", true);
 		reflexCooldownUntil = tick + 40;
 	}
 

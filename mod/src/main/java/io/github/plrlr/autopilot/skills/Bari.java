@@ -63,6 +63,12 @@ public final class Bari {
 		s.blacklistClosestOnFailure.value = true;
 		// Swimming is slow and brings drowned; prefer land when there's a reasonable way round.
 		s.walkOnWaterOnePenalty.value = 5.0;
+		// Lay blocks across water and lava instead of swimming or detouring (gene nav.fluid_place): a
+		// player bridges a stream. The throwaway blocks are all fireproof, so lava is fine. And swim fast.
+		boolean fluidPlace = io.github.plrlr.autopilot.Tune.on("nav.fluid_place");
+		s.allowPlaceInFluidsSource.value = fluidPlace;
+		s.allowPlaceInFluidsFlow.value = fluidPlace;
+		s.sprintInWater.value = fluidPlace || s.sprintInWater.value;
 		updateThrowaway();
 		// Our own chat commands start with "!", Baritone's with "#"; keep them apart.
 		if (savedChatControl == null) savedChatControl = s.chatControl.value;

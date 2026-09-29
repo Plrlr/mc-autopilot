@@ -160,6 +160,16 @@ public final class MoveSkills {
 				Bari.path(new GoalXZ(0, 6));
 				return;
 			}
+			// "xz <x> <z>": a column to walk (or swim) to, e.g. across water for fluid_cross.
+			if (arg != null && arg.startsWith("xz ")) {
+				String[] a = arg.substring(3).trim().split("\\s+");
+				try {
+					Bari.path(new GoalXZ(Integer.parseInt(a[0]), Integer.parseInt(a[1])));
+				} catch (RuntimeException e) {
+					fail(Fail.ERROR, "goto xz needs two numbers");
+				}
+				return;
+			}
 			WorldMemory.Seen s = memory.nearest(arg == null ? "" : arg);
 			if (s == null) {
 				fail(Fail.NOT_FOUND, "no known " + arg + " in this dimension");

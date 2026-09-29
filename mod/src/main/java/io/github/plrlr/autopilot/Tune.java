@@ -171,6 +171,11 @@ public final class Tune {
 		gene("skill.bed_bomb", 0, 0, 1, Kind.BOOL, "blow up beds at the perched dragon's head (beds explode in the End)");
 		gene("skill.dragon_strike", 0, 0, 1, Kind.BOOL, "arrows while the dragon circles, the head fight while it perches");
 		gene("skill.end_guard", 0, 0, 1, Kind.BOOL, "End reflex: look away from enderman eyes, block or pearl out of a void fall");
+		gene("skill.fluid_seal", 0, 0, 1, Kind.BOOL, "block water or lava sources near us with fireproof blocks");
+		gene("skill.lava_guard", 0, 0, 1, Kind.BOOL, "reflex: lava showing beside feet, head or the block being dug gets covered at once");
+		gene("skill.fluid_cross", 0, 0, 1, Kind.BOOL, "water or lava in the way: bridge it, boat it or swim it instead of turning back");
+		gene("skill.drain_tunnel", 0, 0, 1, Kind.BOOL, "stuck in a flooded tunnel: seal the water's sources and fill the flow");
+		gene("nav.fluid_place", 0, 0, 1, Kind.BOOL, "let Baritone lay blocks across water and lava, and sprint-swim");
 		gene("loop.stuck_s", 10, 5, 30, Kind.INT, "seconds without moving that mark the state as stuck for the brains");
 		gene("stuck.window_s", 12, 6, 40, Kind.INT, "a moving skill kept inside the stuck box this long starts the unstuck reflex");
 		gene("stuck.box", 2, 1, 4, Kind.REAL, "the square (blocks) the bot must leave to count as moving");

@@ -35,9 +35,9 @@ class SkillSpecsTest {
 	}
 
 	@Test
-	void allFortySkillsHaveAGeneAMenuEntryAndASpec() {
+	void everySkillHasAGeneAMenuEntryAndASpec() {
 		var skillGenes = Tune.genes().keySet().stream().filter(n -> n.startsWith("skill.")).toList();
-		assertEquals(40, skillGenes.size(), "docs/skills-40.md: 40 skill genes");
+		assertEquals(44, skillGenes.size(), "docs/skills-40.md: 40 skill genes, plus wave 6 (fluids): 44");
 		for (String g : skillGenes) {
 			String name = g.substring("skill.".length());
 			assertTrue(Skills.MENU.containsKey(name), g + ": no skill named " + name);
