@@ -1777,13 +1777,13 @@
  "days": {
   "2026-09-27": 15,
   "2026-09-28": 32,
-  "2026-09-29": 21
+  "2026-09-29": 22
  },
  "evolve_days": {
   "2026-09-27": 1,
   "2026-09-28": 7
  },
- "gen": 68,
+ "gen": 69,
  "gene_specs": {
   "bed.table_first": {
    "def": 0.0,
@@ -8933,28 +8933,7 @@
     "portal.reserve_lava_bucket"
    ],
    "note": "suggested: portal.prepare_work_area 1, portal.reserve_lava_bucket 1 (defending)",
-   "pairs": [
-    [
-     68,
-     "L68-q9tbvf",
-     -0.001
-    ],
-    [
-     68,
-     "L68-utsjfy",
-     -3.138
-    ],
-    [
-     68,
-     "L68-q4guyx",
-     -3.048
-    ],
-    [
-     68,
-     "L68-an5gpb",
-     -0.125
-    ]
-   ],
+   "pairs": [],
    "parent": "g24",
    "status": "contender"
   },
@@ -9319,17 +9298,6 @@
    "id": "g49",
    "max_pairs": 24,
    "metric": "ok:goto|unstuck",
-   "metric_tally": {
-    "off": [
-     93,
-     140
-    ],
-    "on": [
-     82,
-     100
-    ]
-   },
-   "metric_z": 2.68,
    "mutated": [
     "night.shelter_exit",
     "nav.surface_v2",
@@ -9338,28 +9306,7 @@
     "combat.ignore_walled_mobs"
    ],
    "note": "suggested: night.shelter_exit 1, nav.surface_v2 1, nav.unstuck_v2 1, stuck.item_progress 1, combat.ignore_walled_mobs 1",
-   "pairs": [
-    [
-     67,
-     "L67-d9cu2f",
-     3.7
-    ],
-    [
-     67,
-     "L67-n7rxmn",
-     -0.916
-    ],
-    [
-     67,
-     "L67-bbyht9",
-     -3.032
-    ],
-    [
-     67,
-     "L67-qsf3pv",
-     0.119
-    ]
-   ],
+   "pairs": [],
    "parent": "g45",
    "priority": true,
    "status": "champion"
@@ -9440,17 +9387,6 @@
    },
    "id": "g50",
    "metric": "deaths",
-   "metric_tally": {
-    "off": [
-     8,
-     97.18
-    ],
-    "on": [
-     17,
-     99.35
-    ]
-   },
-   "metric_z": -1.74,
    "mutated": [
     "brain.death_avoid"
    ],
@@ -9497,17 +9433,6 @@
    },
    "id": "g51",
    "metric": "deaths",
-   "metric_tally": {
-    "off": [
-     8,
-     99.34
-    ],
-    "on": [
-     12,
-     99.34
-    ]
-   },
-   "metric_z": -0.89,
    "mutated": [
     "combat.commit_target"
    ],
@@ -9554,17 +9479,6 @@
    },
    "id": "g52",
    "metric": "deaths",
-   "metric_tally": {
-    "off": [
-     8,
-     99.34
-    ],
-    "on": [
-     10,
-     97.71
-    ]
-   },
-   "metric_z": -0.51,
    "mutated": [
     "combat.shield_guard"
    ],
@@ -9631,43 +9545,11 @@
    },
    "id": "g53",
    "metric": "ok:diamond_hunt",
-   "metric_tally": {
-    "off": [
-     1,
-     1
-    ],
-    "on": [
-     0,
-     0
-    ]
-   },
-   "metric_z": 0.0,
    "mutated": [
     "deep.branch"
    ],
    "note": "suggested: deep.branch 1",
-   "pairs": [
-    [
-     68,
-     "L68-q9tbvf",
-     3.711
-    ],
-    [
-     68,
-     "L68-utsjfy",
-     -3.89
-    ],
-    [
-     68,
-     "L68-q4guyx",
-     -3.15
-    ],
-    [
-     68,
-     "L68-an5gpb",
-     -0.255
-    ]
-   ],
+   "pairs": [],
    "parent": "g45",
    "priority": true,
    "status": "contender"
@@ -9728,46 +9610,46 @@
    },
    "id": "g54",
    "metric": "deaths",
-   "metric_tally": {
-    "off": [
-     12,
-     128.18
-    ],
-    "on": [
-     23,
-     129.19
-    ]
-   },
-   "metric_z": -1.84,
    "mutated": [
     "route.armor_before_portal"
    ],
    "note": "suggested: route.armor_before_portal 1",
-   "pairs": [
-    [
-     68,
-     "L68-q9tbvf",
-     4.757
-    ],
-    [
-     68,
-     "L68-utsjfy",
-     2.764
-    ],
-    [
-     68,
-     "L68-q4guyx",
-     -3.792
-    ],
-    [
-     68,
-     "L68-an5gpb",
-     0.165
-    ]
-   ],
+   "pairs": [],
    "parent": "g45",
    "priority": true,
    "status": "rejected"
+  },
+  "g55": {
+   "born": 69,
+   "code": null,
+   "evals": [],
+   "genes": {
+    "cave.torches": 1.0,
+    "combat.ignore_walled_mobs": 1.0,
+    "death.recover_night_armor": 12.0,
+    "focus.commit": 1.0,
+    "nav.surface_v2": 1.0,
+    "nav.unstuck_v2": 1.0,
+    "night.shelter_exit": 1.0,
+    "plan.hide_hp": 15.0,
+    "portal.prepare_work_area": 1.0,
+    "portal.reserve_lava_bucket": 1.0,
+    "reflex.lava_margin": 1.0,
+    "route.armor_before_portal": 0.0,
+    "skill.lava_guard": 1.0,
+    "stuck.item_progress": 1.0
+   },
+   "id": "g55",
+   "metric": "deaths",
+   "mutated": [
+    "skill.lava_guard",
+    "reflex.lava_margin"
+   ],
+   "note": "suggested: skill.lava_guard 1, reflex.lava_margin 1",
+   "pairs": [],
+   "parent": "g49",
+   "priority": true,
+   "status": "contender"
   },
   "g6": {
    "born": 2,
@@ -10326,8 +10208,73 @@
  "model_kind": "retired",
  "model_r2": null,
  "model_rows": 0,
- "next_id": 55,
- "pending": null,
+ "next_id": 56,
+ "pending": {
+  "data_tasks": [],
+  "gen": 69,
+  "lineup": [
+   "g49",
+   "g45",
+   "g53",
+   "g55"
+  ],
+  "runs": [
+   "eval-g49-0",
+   "eval-g49-1",
+   "eval-g49-2",
+   "eval-g49-3",
+   "eval-g45-0",
+   "eval-g45-1",
+   "eval-g45-2",
+   "eval-g45-3",
+   "eval-g53-0",
+   "eval-g53-1",
+   "eval-g53-2",
+   "eval-g53-3",
+   "eval-g55-0",
+   "eval-g55-1",
+   "eval-g55-2",
+   "eval-g55-3"
+  ],
+  "seeds": [
+   "L69-8csv9w",
+   "L69-fsqu9g",
+   "L69-tkt3mq",
+   "L69-z5dkm2"
+  ],
+  "sha": "96fc787a2c8cc829b69d996d4cd65430d38a2bb2",
+  "started": "2026-09-29T22:17:38+00:00",
+  "tasks": [
+   {
+    "kind": "natural",
+    "seed": "L69-8csv9w",
+    "stage": "spawn",
+    "synthetic": false
+   },
+   {
+    "kind": "natural",
+    "seed": "L69-fsqu9g",
+    "stage": "spawn",
+    "synthetic": false
+   },
+   {
+    "asset": "lava-gen67-eval-g53-2.zip",
+    "kind": "start",
+    "seed": "L69-tkt3mq",
+    "stage": "lava",
+    "synthetic": false
+   },
+   {
+    "kind": "combat",
+    "minutes": 10,
+    "scenario": "combat",
+    "seed": "L69-z5dkm2",
+    "stage": "combat",
+    "synthetic": false
+   }
+  ]
+ },
+ "race_evidence_version": 1,
  "score_version": 3,
  "settings": {
   "accept_pairs": 8,
@@ -10350,6 +10297,7 @@
   "max_jobs": 20,
   "max_pairs": 16,
   "metric_min": 40,
+  "metric_min_final": 10,
   "metric_safety_t": -1.5,
   "metric_z": 2.5,
   "min_gain": 0.3,
@@ -10386,14 +10334,6 @@
    {
     "_metric": "deaths",
     "deep.stairs": 1
-   },
-   {
-    "_metric": "ok:build_portal|cast_portal",
-    "_priority": true,
-    "_stages": [
-     "lava"
-    ],
-    "portal.site_maker": 1
    },
    {
     "_metric": "deaths",
@@ -12707,7 +12647,8 @@
   "{\"_metric\": \"deaths\", \"_priority\": true, \"combat.commit_target\": 1}",
   "{\"_metric\": \"deaths\", \"_priority\": true, \"combat.shield_guard\": 1}",
   "{\"_metric\": \"ok:diamond_hunt\", \"_priority\": true, \"deep.branch\": 1}",
-  "{\"_metric\": \"deaths\", \"_priority\": true, \"route.armor_before_portal\": 1}"
+  "{\"_metric\": \"deaths\", \"_priority\": true, \"route.armor_before_portal\": 1}",
+  "{\"_metric\": \"deaths\", \"_priority\": true, \"reflex.lava_margin\": 1, \"skill.lava_guard\": 1}"
  ],
  "version": 1
 }
