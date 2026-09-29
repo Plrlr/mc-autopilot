@@ -18,6 +18,8 @@ inputs:
   start: {description: 'Checkpoint to start from: an asset of the checkpoints release (learning loop)', default: ''}
   token: {description: 'Token to download the checkpoint', default: ''}
   save_at: {description: 'Bank self-test: save a checkpoint at this game second', default: '0'}
+  lp_threads: {description: 'Software renderer threads (LP_NUM_THREADS; empty = one per core). Fewer leaves CPU for the server', default: ''}
+  render: {description: 'Render distance in chunks (empty = 6)', default: ''}
   retention: {description: 'Days to keep the artifact', default: '14'}
 runs:
   using: composite
@@ -71,13 +73,17 @@ runs:
         PERF: ${{ inputs.perf_mods }}
         WINDOW: ${{ inputs.window }}
         SAVE_AT: ${{ inputs.save_at }}
+        RENDER: ${{ inputs.render }}
       run: |
         chmod +x gradlew
+        # llvmpipe draws with one thread per core by default; the integrated server then competes
+        # for CPU (server ticks cost 2-6 ms yet the game ran at 0.58-0.70x).
+        if [ -n "${{ inputs.lp_threads }}" ]; then export LP_NUM_THREADS="${{ inputs.lp_threads }}"; fi
         # The game exits with Baritone's known shutdown-watchdog crash after saving, which
         # fails the Gradle task; the summary step below judges the run instead.
         setsid xvfb-run -a -s "-screen 0 1280x720x24" ./gradlew runClientGameTest --console=plain \
           -PtestMinutes="$MINUTES" -PtestSeed="$SEED" -PtestScenario="$SCENARIO" -PtestTask="$TASK" -PtestGive="$GIVE" \
-          -PtestParams="$PARAMS" -PtestLearned="$LEARNED" -PtestLean="$LEAN" -PperfMods="$PERF" -PtestWindow="$WINDOW" -PtestStart="${START_ZIP:-}" -PtestSaveAt="$SAVE_AT" \
+          -PtestParams="$PARAMS" -PtestLearned="$LEARNED" -PtestLean="$LEAN" -PperfMods="$PERF" -PtestWindow="$WINDOW" -PtestStart="${START_ZIP:-}" -PtestSaveAt="$SAVE_AT" -PtestRender="$RENDER" \
           > trial.log 2>&1 &
         pid=$!
         # Watchdog: a game that can't open its window hangs instead of exiting, so stop it if

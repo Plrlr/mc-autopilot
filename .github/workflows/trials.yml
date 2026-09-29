@@ -50,7 +50,7 @@ jobs:
           runs=$(jq -cn --argjson seeds "$SEEDS" --arg sc "$SCENARIO" --argjson extra "$EXTRA" '
             [$seeds[] | {seed: ., scenario: $sc}] + $extra
             | map({seed, scenario: (.scenario // "natural"), task: (.task // ""), give: (.give // ""),
-                   minutes: ((.minutes // "") | tostring), id: (.id // ""), lean: (.lean // ""), perf_mods: (.perf_mods // ""), window: (.window // ""), start: (.start // ""), save_at: ((.save_at // "0") | tostring), genes: ((.genes // {}) | tojson)}
+                   minutes: ((.minutes // "") | tostring), id: (.id // ""), lean: (.lean // ""), perf_mods: (.perf_mods // ""), window: (.window // ""), start: (.start // ""), save_at: ((.save_at // "0") | tostring), lp_threads: ((.lp_threads // "") | tostring), render: ((.render // "") | tostring), genes: ((.genes // {}) | tojson)}
                   | .name = (.scenario + "-" + .seed + (if .id != "" then "-" + .id else "" end)))')
           echo "runs=$runs" | tee -a "$GITHUB_OUTPUT"
 
@@ -111,6 +111,8 @@ jobs:
           window: ${{ matrix.window || inputs.window }}
           start: ${{ matrix.start }}
           save_at: ${{ matrix.save_at }}
+          lp_threads: ${{ matrix.lp_threads }}
+          render: ${{ matrix.render }}
           token: ${{ github.token }}
 
   # Summarizes the batch here and commits the summary and the small logs to the trial-results

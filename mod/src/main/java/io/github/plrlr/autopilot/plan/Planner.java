@@ -49,7 +49,12 @@ public final class Planner {
 			if (prep != null) main = prep;
 		}
 		main = SurvivalPlan.beforeWork(PortalPlan.diamonds(main));
+		Option recovery = recoverStep();
 		List<Option> urgent = urgent(seen, main);
+		// Gens 57-58 cut 79 trips short, often for a distant fight or retreat. Once it is safe
+		// enough to go, leave those routine choices behind; close mobs and creepers still win.
+		if (Tune.on("death.trip_commit") && recovery != null && !SurvivalPlan.recoveryThreat(seen))
+			urgent.removeIf(o -> java.util.Set.of("attack", "retreat", "shelter", "panic_box", "kite").contains(o.skill()));
 		Option respawn = SurvivalPlan.respawn();
 		if (respawn != null) urgent.add(0, respawn);
 		Option arrival = NetherPlan.arrival();
@@ -68,7 +73,7 @@ public final class Planner {
 			return shore;
 		}
 		lastUrgent = urgent.stream().map(Option::label).collect(java.util.stream.Collectors.toSet());
-		return order(urgent, recoverStep(), surfaceOption(main), upkeep(seen, main), main, extras(seen, main));
+		return order(urgent, recovery, surfaceOption(main), upkeep(seen, main), main, extras(seen, main));
 	}
 
 	private static boolean groundWork(Option o) {
@@ -475,6 +480,15 @@ public final class Planner {
 	private Option itemsStep(Goal goal) {
 		for (var e : goal.needs.entrySet()) {
 			if (Goal.have(e.getKey()) >= e.getValue()) continue;
+			// Gene brain.utility (docs/brain-v3.md): every goal's items go through the strategist,
+			// not only the late game's. With only the plain way (mine, craft, smelt) it returns the
+			// rules' own step; where the specs hold other ways (food: hunt, fish, secure; iron:
+			// restock), the cheapest by measured cost wins.
+			if (Tune.on("brain.utility")) {
+				Option st = adopt(new Strategist(new GameWorld(memory), (it, k) -> itemStep(it, k, 1)).towardItem(e.getKey(), e.getValue()),
+						Perception.look(32), 0);
+				if (st != null) return st;
+			}
 			Option o = itemStep(e.getKey(), e.getValue(), 0);
 			if (o != null) return o;
 		}

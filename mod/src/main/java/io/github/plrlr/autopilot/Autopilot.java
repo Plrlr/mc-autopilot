@@ -284,6 +284,7 @@ public final class Autopilot {
 			io.github.plrlr.autopilot.skills.SmeltSkill.forgetJobs();
 			io.github.plrlr.autopilot.plan.Facts.clear();
 			io.github.plrlr.autopilot.brains.SkillStats.shared().clearLocal();
+			io.github.plrlr.autopilot.brains.Thompson.clear();
 			io.github.plrlr.autopilot.plan.Escalation.clear();
 			progress.load(name);
 			goal = null;
@@ -496,6 +497,12 @@ public final class Autopilot {
 		boolean fortressFight = skill != null && skill.name().equals("fortress") && Mc.dimension().equals("the_nether")
 				&& skillOption != null && skillOption.arg() != null && skillOption.arg().startsWith("blazes");
 		if (h != null && (fortressFight || h.type().equals("blaze") && skill != null && skill.name().equals("fortress"))) h = null;
+		// A lone mob still several blocks away need not reset the trip for dropped gear. The
+		// planner resumes retrieval after a real close-range interruption when the way clears.
+		boolean recoverySafe = Tune.on("death.trip_commit") && skill != null && (skill.name().equals("recover_items")
+				|| skill.name().equals("goto") && skillOption != null && "death".equals(skillOption.arg()))
+				&& !io.github.plrlr.autopilot.plan.SurvivalPlan.recoveryThreat(seen);
+		if (recoverySafe) h = null;
 		// Walled in on every side and healing: a monster beyond the blocks is no reason to break out.
 		// With a gap left (a mob standing in it) the reflexes still act; a creeper's blast breaks
 		// the wall either way (review R1: hiding used to turn off every reflex).
@@ -504,7 +511,7 @@ public final class Autopilot {
 			boolean blastThreat = Planner.escapeCreeper(seen) != null;
 			boolean urgentSwitch = danger.kind() == Danger.Kind.AVOID_HAZARD
 					|| blastThreat && danger.kind() == Danger.Kind.RETREAT;
-			if (action != null && (!hiding || blastThreat) && (!walling || blastThreat)
+			if (action != null && (!recoverySafe || urgentSwitch) && (!hiding || blastThreat) && (!walling || blastThreat)
 					&& (!skillIsReflex || tick >= dangerReflexUntil || urgentSwitch)
 					&& (skillOption == null || !action.label().equals(skillOption.label()))) {
 				startReflex(action, "reflex_danger");
@@ -523,7 +530,9 @@ public final class Autopilot {
 					startReflex(response, "reflex_creeper");
 				return;
 			}
-			if (!hiding && (h.dist() < Tune.get("reflex.melee_dist") || Tune.on("combat.no_close_retreat") && h.dist() <= 4)) {
+			if (!hiding && !(Tune.on("combat.finish_heal_wall")
+					&& skill instanceof io.github.plrlr.autopilot.skills.NightSkills.Shelter sh && sh.buildingHealWall())
+					&& (h.dist() < Tune.get("reflex.melee_dist") || Tune.on("combat.no_close_retreat") && h.dist() <= 4)) {
 				// Run only when outnumbered: one mob at arm's length follows and hits our back (batch
 				// 10: 14 retreats ended in death), and fighting it behind the shield wins. Not while
 				// walling in either, which would only restart the wall. Health 8 is the planner's line
@@ -857,6 +866,11 @@ public final class Autopilot {
 			return;
 		}
 		if (skillIsReflex || skill.ownsSafety()) return;
+		// A mob arriving while the healing wall is being placed used to restart combat before
+		// the shelter sealed (21 reflex interruptions in gens 57-58). The reflexes still handle
+		// creepers and environmental emergencies; the shelter itself detects hits after sealing.
+		if (Tune.on("combat.finish_heal_wall") && skill instanceof io.github.plrlr.autopilot.skills.NightSkills.Shelter sh
+				&& (sh.buildingHealWall() || sh.sealed())) return;
 		// The blaze fight handles getting hurt itself (it backs off out of sight to eat). A "hurt"
 		// decision picked eat and stopped it in the open while burning: the laptop's blaze run
 		// after e2e2ffe died that way 30 s in.

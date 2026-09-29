@@ -97,6 +97,7 @@ loom {
 				vmArg "-Dautopilot.params=${findProperty('testParams') ?: ''}"
 				vmArg "-Dautopilot.learned=${findProperty('testLearned') ?: ''}"
 				vmArg "-Dautopilot.test.lean=${findProperty('testLean') ?: 'false'}"
+				vmArg "-Dautopilot.test.render=${findProperty('testRender') ?: ''}"
 				// Start from a saved world (the loop's checkpoint bank): -PtestStart=path/to/checkpoint.zip
 				vmArg "-Dautopilot.test.start=${findProperty('testStart') ?: ''}"
 				vmArg "-Dautopilot.test.saveAt=${findProperty('testSaveAt') ?: '0'}"
