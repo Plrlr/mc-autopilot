@@ -61,6 +61,8 @@ DEFAULT_SETTINGS = {
     "sigma0": 0.15,            # starting mutation step, as a fraction of each gene's range
     "stage_lookahead": True,   # one stage start per generation goes past the frontier (False: all at the frontier)
     "model_gate": 0.02,        # learned.* genes race only when the model's held-out advantage R2 beats this
+    "focus_stage_seeds": 1,    # extra starts of a focused challenger's stage (suggestion "_stages") per generation
+    "max_jobs": 20,            # genomes x tasks per generation (GitHub's free plan runs 20 jobs at once)
 }
 
 
@@ -185,18 +187,13 @@ def cmd_propose(a):
         if g["status"] == "contender" and g["note"].endswith("(defending)") and len(lineup) < s["max_genomes"]:
             lineup.append(g["id"])
     sug_cap = min(s["max_genomes"], len(lineup) + s.get("suggest_slots", 1))
-    # Ideas already racing keep their slot until decided, oldest first.
-    racing_suggestions = sorted((g for g in st["genomes"].values() if g["status"] == "contender"
-                                 and g["note"].startswith("suggested") and g["id"] not in lineup),
-                                key=lambda g: g["born"])
-    for g in racing_suggestions:
-        if len(lineup) < sug_cap:
-            lineup.append(g["id"])
-    # Trim races (a crowned bundle minus one skill each) go first, then the settings queue.
-    for sug in st.get("trim", []) + s.get("suggest", []):
+    queue = st.get("trim", []) + s.get("suggest", [])
+
+    def enter(sug):
+        """A queued idea joins the race as the champion plus its genes (once: `tried` remembers it)."""
         key = json.dumps(sug, sort_keys=True)
         if key in tried or len(lineup) >= sug_cap:
-            continue
+            return
         changed = dict(st["genomes"][champ]["genes"])
         for n, v in sug.items():
             if n in genes:
@@ -205,14 +202,40 @@ def cmd_propose(a):
                     changed.pop(n)
         tried.append(key)
         if same_genes(changed, st["genomes"][champ]["genes"]):
-            continue  # the champion already plays it (e.g. cave.torches after g24): nothing to race
+            return  # the champion already plays it (e.g. cave.torches after g24): nothing to race
         gid = "g%d" % st["next_id"]
         st["next_id"] += 1
-        note = "suggested: " + ", ".join("%s %s" % (n, v) for n, v in sug.items())
+        note = "suggested: " + ", ".join("%s %s" % (n, v) for n, v in sug.items() if not n.startswith("_"))
         st["genomes"][gid] = new_genome(gid, champ, changed, gen, [n for n in sug if n in genes], note)
+        if sug.get("_stages"):
+            # A focused idea (e.g. the portal skills: "_stages": ["lava"]) acts only at those stages,
+            # so only those tasks' pairs judge it. Fresh-world pairs add only noise: the portal bundle
+            # g35 was +3.4 on its lava starts (it lit one of two portals all night) and dropped at
+            # +0.54 over 16 pairs, 12 of them from runs that never reached lava.
+            st["genomes"][gid]["focus"] = list(sug["_stages"])
         st["genomes"][gid]["status"] = "contender"
         st["genomes"][gid]["code"] = st["genomes"][champ].get("code")
         lineup.append(gid)
+
+    def racing(focused):
+        return sorted((g for g in st["genomes"].values() if g["status"] == "contender" and g["id"] not in lineup
+                       and g["note"].startswith("suggested") and bool(g.get("focus")) == focused),
+                      key=lambda g: g["born"])
+
+    # Focused ideas go first (the frontier's stage is where progress is stuck), racing ones before
+    # new ones; then the other ideas already racing keep their slot until decided, oldest first;
+    # then trim races (a crowned bundle minus one skill each) and the rest of the settings queue.
+    for g in racing(True):
+        if len(lineup) < sug_cap:
+            lineup.append(g["id"])
+    for sug in queue:
+        if sug.get("_stages"):
+            enter(sug)
+    for g in racing(False):
+        if len(lineup) < sug_cap:
+            lineup.append(g["id"])
+    for sug in queue:
+        enter(sug)
     # Contenders still in the race, most promising first.
     cont = [g for g in st["genomes"].values() if g["status"] == "contender" and g["id"] not in lineup]
     cont.sort(key=lambda g: -common.paired_t([p[2] for p in g["pairs"]]))
@@ -242,6 +265,13 @@ def cmd_propose(a):
     # from the checkpoint bank (or its staged scenario until real checkpoints exist).
     tasks = [{"kind": "natural", "stage": "spawn", "synthetic": False} for _ in range(s["seeds_per_gen"])]
     tasks += bank.pick_tasks(st, rng, s.get("stage_seeds", 0), s.get("stage_lookahead", True))
+    # A focused challenger in the race: more starts at its stages, so its pairs come faster.
+    focus = sorted({f for gid in lineup for f in st["genomes"][gid].get("focus", [])})
+    for stage in focus:
+        for _ in range(s.get("focus_stage_seeds", 0)):
+            t = bank.pick_stage(st, rng, stage)
+            if t:
+                tasks.append(t)
     # Combat drills: many short fights, scored on their own (common.score_fights). Deaths to mobs
     # are the wall (152 of 162 runs in gens 28-37 died), and a full run holds too few fights to
     # tell a better fighter from luck.
@@ -249,6 +279,11 @@ def cmd_propose(a):
                "minutes": s.get("combat_minutes", 10)} for _ in range(s.get("combat_seeds", 0))]
     for t in tasks:
         t["seed"] = bank.random_seed(rng, "L%d" % gen)
+    # Stay within the job limit: the last genomes in the lineup (unfocused contenders or fresh
+    # mutations) sit this generation out and keep their place.
+    while len(lineup) > 2 and len(lineup) * len(tasks) > s.get("max_jobs", 10 ** 6):
+        out_of_turn = [x for x in lineup[1:] if not st["genomes"][x].get("focus")] or lineup[1:]
+        lineup.remove(out_of_turn[-1])
     data_tasks = [{"kind": "natural", "stage": "spawn", "synthetic": False, "seed": bank.random_seed(rng, "D%d" % gen)}
                   for _ in range(s["data_runs"])]
     runs = []
@@ -349,7 +384,10 @@ def cmd_update(a):
     # Paired differences against the champion on the same seeds.
     for gid in p["lineup"][1:]:
         g = st["genomes"][gid]
+        focus = g.get("focus")
         for i in range(len(tasks)):
+            if focus and tasks[i].get("stage") not in focus:
+                continue
             if (gid, i) in by and (champ, i) in by:
                 g["pairs"].append([gen, seeds[i], round(by[(gid, i)] - by[(champ, i)], 3)])
     decisions = race(st, genes, p["lineup"][1:], champ, gen)
