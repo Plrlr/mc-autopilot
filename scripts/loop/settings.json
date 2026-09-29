@@ -14,6 +14,18 @@
    "_priority": true
   },
   {
+   "combat.shield_guard": 1,
+   "_metric": "deaths",
+   "_priority": true
+  },
+  {
+   "gather.vein_follow": 1,
+   "gather.iron_in_view": 1,
+   "gather.first_logs": 6,
+   "_priority": true,
+   "_max_pairs": 24
+  },
+  {
    "gather.cautious_depth": 1,
    "_metric": "deaths",
    "_priority": true
@@ -406,5 +418,6 @@
  "_metric_races": "2026-09-29 (Claude): a suggestion with \"_metric\" is judged by the thing it fixes (scripts/loop/metrics.py): a skill's success rate (\"ok:explore\") or deaths per game minute (\"deaths\"), counted over every paired task, both sides. Crowned at z >= metric_z once each side has metric_min tries, while its whole-game pairs stay above metric_safety_t; dropped at z <= 0 or when the game score says it hurts. Whole-game races alone crowned nothing in gens 50-58 (paired sd 3-4.7).",
  "_brain": "2026-09-29 (Claude): the brain = the strategist (routes by expected time from measured skill stats) plus skill-stat demotion. g40 (strategist + readiness) was +1.33 over 16 worlds when max_pairs cut it off in gen 59, so it races again with skill_stats, allowed 40 worlds (\"_max_pairs\"). One data run per generation (15% deliberate off-rules picks) gives the learned re-ranker counterfactuals: 82k rules-only rows left its advantage R2 at 0.008. Data runs count toward max_jobs. 2026-09-29 later: the advantage re-ranker is retired (train.py --advantage to revive it), so data runs are 0 again; Thompson sampling (brain.thompson) explores inside the strategist.",
  "_movement": "2026-09-29 (Claude): the movement overhaul races as one priority idea, judged by goto + unstuck success: night.shelter_exit (climb out of the covered shaft at morning), nav.surface_v2 (goto surface judged by height, staircase fallback), nav.unstuck_v2 (climb first in pits), stuck.item_progress and combat.ignore_walled_mobs. The pieces also race alone later in the queue.",
- "_brain_v3": "2026-09-29 (Claude): brain v3 step 3-4 races right after the v2 brain: brain.utility (every goal's items through the strategist) + brain.thompson (routes costed with a drawn success chance). Same 40 worlds, whole-game score."
+ "_brain_v3": "2026-09-29 (Claude): brain v3 step 3-4 races right after the v2 brain: brain.utility (every goal's items through the strategist) + brain.thompson (routes costed with a drawn success chance). Same 40 worlds, whole-game score.",
+ "_early_gathering": "2026-09-29 (user, watching local runs): gather like a player: ~9 logs on the first trip instead of climbing back for wood later, take iron ore in view while the route needs iron, and follow a vein to the next visible block instead of walking back to one seen earlier. Races as one priority idea on the whole-game score."
 }
