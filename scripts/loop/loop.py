@@ -196,8 +196,8 @@ def cmd_propose(a):
     def enter(sug):
         """A queued idea joins the race as the champion plus its genes (once: `tried` remembers it)."""
         key = json.dumps(sug, sort_keys=True)
-        if key in tried or len(lineup) >= sug_cap:
-            return
+        if key in tried or len(lineup) >= sug_cap or sug.get("_drill") == "fail":
+            return  # (an idea its PR drill failed never races: drill.py)
         changed = dict(st["genomes"][champ]["genes"])
         for n, v in sug.items():
             if n in genes:
