@@ -1158,6 +1158,26 @@
    "n": 0,
    "sum": 0.0
   },
+  "deep.branch": {
+   "n": 0,
+   "sum": 0.0
+  },
+  "deep.food": {
+   "n": 0,
+   "sum": 0.0
+  },
+  "deep.mold": {
+   "n": 0,
+   "sum": 0.0
+  },
+  "deep.stairs": {
+   "n": 0,
+   "sum": 0.0
+  },
+  "deep.sticks": {
+   "n": 0,
+   "sum": 0.0
+  },
   "dragon.eat_hp": {
    "n": 0,
    "sum": 0.0
@@ -1273,6 +1293,10 @@
   "gear.sword_early": {
    "n": 4,
    "sum": -1.0332666666666666
+  },
+  "inv.tidy": {
+   "n": 0,
+   "sum": 0.0
   },
   "learned.explore": {
    "n": 0,
@@ -1402,6 +1426,10 @@
    "n": 0,
    "sum": 0.0
   },
+  "portal.site_maker": {
+   "n": 0,
+   "sum": 0.0
+  },
   "ready.end_blocks": {
    "n": 0,
    "sum": 0.0
@@ -1467,6 +1495,10 @@
    "sum": 0.0
   },
   "route.deep_for_lava": {
+   "n": 0,
+   "sum": 0.0
+  },
+  "route.deep_portal": {
    "n": 0,
    "sum": 0.0
   },
@@ -1710,13 +1742,13 @@
  "days": {
   "2026-09-27": 15,
   "2026-09-28": 32,
-  "2026-09-29": 19
+  "2026-09-29": 20
  },
  "evolve_days": {
   "2026-09-27": 1,
   "2026-09-28": 7
  },
- "gen": 66,
+ "gen": 67,
  "gene_specs": {
   "bed.table_first": {
    "def": 0.0,
@@ -1977,6 +2009,41 @@
    "max": 1.0,
    "min": 0.0
   },
+  "deep.branch": {
+   "def": 0.0,
+   "help": "diamond_hunt uses spaced 1x2 tunnels at -58, taking visible veins and backing away from fluids and caves",
+   "kind": "BOOL",
+   "max": 1.0,
+   "min": 0.0
+  },
+  "deep.food": {
+   "def": 4.0,
+   "help": "cooked food to carry before going down for diamonds",
+   "kind": "INT",
+   "max": 12.0,
+   "min": 0.0
+  },
+  "deep.mold": {
+   "def": 1.0,
+   "help": "obsidian_pool: nothing safe to mine, so make obsidian a block at a time in a dug pit (two buckets)",
+   "kind": "BOOL",
+   "max": 1.0,
+   "min": 0.0
+  },
+  "deep.stairs": {
+   "def": 0.0,
+   "help": "diamond_hunt goes down by safe 1-wide stairs first (slow: 12 of 24 min in a trial) instead of collect's own descent",
+   "kind": "BOOL",
+   "max": 1.0,
+   "min": 0.0
+  },
+  "deep.sticks": {
+   "def": 4.0,
+   "help": "sticks to carry down for the diamond pickaxe (torches use them too)",
+   "kind": "INT",
+   "max": 8.0,
+   "min": 2.0
+  },
   "dragon.eat_hp": {
    "def": 12.0,
    "help": "in the End fight, eat at or below this health while it flies",
@@ -2176,6 +2243,13 @@
   "gear.sword_early": {
    "def": 0.0,
    "help": "craft a sword matching the pickaxe's tier as soon as possible",
+   "kind": "BOOL",
+   "max": 1.0,
+   "min": 0.0
+  },
+  "inv.tidy": {
+   "def": 1.0,
+   "help": "toss junk stacks (andesite, spare stone past 128) when fewer than 4 slots are free",
    "kind": "BOOL",
    "max": 1.0,
    "min": 0.0
@@ -2404,6 +2478,13 @@
    "max": 1.0,
    "min": 0.0
   },
+  "portal.site_maker": {
+   "def": 0.0,
+   "help": "dig a visible portal room and repair its floor when natural flat ground is absent",
+   "kind": "BOOL",
+   "max": 1.0,
+   "min": 0.0
+  },
   "ready.end_blocks": {
    "def": 64.0,
    "help": "throwaway blocks to carry into the End",
@@ -2523,8 +2604,15 @@
    "max": 1.0,
    "min": 0.0
   },
+  "route.deep_portal": {
+   "def": 1.0,
+   "help": "the diamond route as one plan: kit up top, diamonds and a lava pool at depth, frame built in a dug room",
+   "kind": "BOOL",
+   "max": 1.0,
+   "min": 0.0
+  },
   "route.diamond_portal": {
-   "def": 0.0,
+   "def": 1.0,
    "help": "portal the classic way (diamond pickaxe, mine 10 obsidian) instead of casting it",
    "kind": "BOOL",
    "max": 1.0,
@@ -5898,88 +5986,7 @@
     "cave.torches"
    ],
    "note": "suggested: cave.torches 1 (defending)",
-   "pairs": [
-    [
-     62,
-     "L62-svk77u",
-     -0.312
-    ],
-    [
-     62,
-     "L62-hsh6a5",
-     -0.192
-    ],
-    [
-     62,
-     "L62-qezefz",
-     2.286
-    ],
-    [
-     62,
-     "L62-f99hzh",
-     -0.09
-    ],
-    [
-     63,
-     "L63-xueatk",
-     0.005
-    ],
-    [
-     63,
-     "L63-b673kx",
-     4.337
-    ],
-    [
-     63,
-     "L63-v75e34",
-     -3.293
-    ],
-    [
-     63,
-     "L63-vxuk25",
-     -0.105
-    ],
-    [
-     64,
-     "L64-yp8sw5",
-     3.03
-    ],
-    [
-     64,
-     "L64-4qja9b",
-     -4.99
-    ],
-    [
-     64,
-     "L64-829krk",
-     0.633
-    ],
-    [
-     64,
-     "L64-ztun5m",
-     -0.086
-    ],
-    [
-     65,
-     "L65-pq97vd",
-     -0.577
-    ],
-    [
-     65,
-     "L65-2c6r7c",
-     -4.593
-    ],
-    [
-     65,
-     "L65-vqpg48",
-     3.134
-    ],
-    [
-     65,
-     "L65-xnug82",
-     -0.154
-    ]
-   ],
+   "pairs": [],
    "parent": "g10",
    "status": "rejected"
   },
@@ -6750,48 +6757,7 @@
     "night.wall_in"
    ],
    "note": "suggested: night.wall_in 1 (defending)",
-   "pairs": [
-    [
-     50,
-     "L50-kbaxft",
-     1.385
-    ],
-    [
-     50,
-     "L50-rm6uk6",
-     0.055
-    ],
-    [
-     50,
-     "L50-tqecvj",
-     0.332
-    ],
-    [
-     50,
-     "L50-f22yd2",
-     0.137
-    ],
-    [
-     51,
-     "L51-urcxt7",
-     -1.595
-    ],
-    [
-     51,
-     "L51-cvq4ek",
-     0.03
-    ],
-    [
-     51,
-     "L51-4f4dqc",
-     -0.939
-    ],
-    [
-     51,
-     "L51-22x4mz",
-     0.36
-    ]
-   ],
+   "pairs": [],
    "parent": "g24",
    "status": "rejected"
   },
@@ -7106,68 +7072,7 @@
     "gear.shield_early"
    ],
    "note": "suggested: food.keep_full 1, gear.armor_first 1, gear.shield_early 1",
-   "pairs": [
-    [
-     50,
-     "L50-kbaxft",
-     -5.893
-    ],
-    [
-     50,
-     "L50-rm6uk6",
-     4.105
-    ],
-    [
-     50,
-     "L50-tqecvj",
-     0.774
-    ],
-    [
-     50,
-     "L50-f22yd2",
-     -0.004
-    ],
-    [
-     51,
-     "L51-urcxt7",
-     -0.079
-    ],
-    [
-     51,
-     "L51-cvq4ek",
-     3.197
-    ],
-    [
-     51,
-     "L51-4f4dqc",
-     -0.56
-    ],
-    [
-     51,
-     "L51-22x4mz",
-     0.193
-    ],
-    [
-     52,
-     "L52-ptxaan",
-     2.621
-    ],
-    [
-     52,
-     "L52-8rxbwk",
-     -3.603
-    ],
-    [
-     52,
-     "L52-g3jdet",
-     -5.114
-    ],
-    [
-     52,
-     "L52-uuv3vf",
-     -1.447
-    ]
-   ],
+   "pairs": [],
    "parent": "g24",
    "status": "rejected"
   },
@@ -7249,48 +7154,7 @@
     "food.keep_full"
    ],
    "note": "suggested: food.keep_full 1",
-   "pairs": [
-    [
-     43,
-     "L43-pqpjuk",
-     1.344
-    ],
-    [
-     43,
-     "L43-hwfhak",
-     -4.762
-    ],
-    [
-     43,
-     "L43-s8wnft",
-     0.737
-    ],
-    [
-     43,
-     "L43-pm7pmv",
-     0.878
-    ],
-    [
-     44,
-     "L44-dy4adq",
-     -0.769
-    ],
-    [
-     44,
-     "L44-43y8m9",
-     -0.873
-    ],
-    [
-     44,
-     "L44-7kmx5x",
-     0.313
-    ],
-    [
-     44,
-     "L44-xjbkdk",
-     0.509
-    ]
-   ],
+   "pairs": [],
    "parent": "g24",
    "status": "rejected"
   },
@@ -7372,48 +7236,7 @@
     "gear.armor_first"
    ],
    "note": "suggested: gear.armor_first 1",
-   "pairs": [
-    [
-     43,
-     "L43-pqpjuk",
-     3.892
-    ],
-    [
-     43,
-     "L43-hwfhak",
-     -1.651
-    ],
-    [
-     43,
-     "L43-s8wnft",
-     0.706
-    ],
-    [
-     43,
-     "L43-pm7pmv",
-     0.833
-    ],
-    [
-     44,
-     "L44-dy4adq",
-     -7.652
-    ],
-    [
-     44,
-     "L44-43y8m9",
-     -0.797
-    ],
-    [
-     44,
-     "L44-7kmx5x",
-     1.778
-    ],
-    [
-     44,
-     "L44-xjbkdk",
-     0.615
-    ]
-   ],
+   "pairs": [],
    "parent": "g24",
    "status": "rejected"
   },
@@ -7595,68 +7418,7 @@
     "gear.shield_early"
    ],
    "note": "suggested: gear.shield_early 1",
-   "pairs": [
-    [
-     50,
-     "L50-kbaxft",
-     -3.664
-    ],
-    [
-     50,
-     "L50-rm6uk6",
-     1.54
-    ],
-    [
-     50,
-     "L50-tqecvj",
-     0.282
-    ],
-    [
-     50,
-     "L50-f22yd2",
-     -0.349
-    ],
-    [
-     51,
-     "L51-urcxt7",
-     7.823
-    ],
-    [
-     51,
-     "L51-cvq4ek",
-     0.101
-    ],
-    [
-     51,
-     "L51-4f4dqc",
-     -0.929
-    ],
-    [
-     51,
-     "L51-22x4mz",
-     0.436
-    ],
-    [
-     52,
-     "L52-ptxaan",
-     1.662
-    ],
-    [
-     52,
-     "L52-8rxbwk",
-     -4.276
-    ],
-    [
-     52,
-     "L52-g3jdet",
-     -2.342
-    ],
-    [
-     52,
-     "L52-uuv3vf",
-     -0.341
-    ]
-   ],
+   "pairs": [],
    "parent": "g24",
    "status": "rejected"
   },
@@ -7819,48 +7581,7 @@
     "food.early_stock"
    ],
    "note": "suggested: food.early_stock 1 (defending)",
-   "pairs": [
-    [
-     50,
-     "L50-kbaxft",
-     -1.101
-    ],
-    [
-     50,
-     "L50-rm6uk6",
-     0.968
-    ],
-    [
-     50,
-     "L50-tqecvj",
-     0.387
-    ],
-    [
-     50,
-     "L50-f22yd2",
-     -0.026
-    ],
-    [
-     51,
-     "L51-urcxt7",
-     -0.104
-    ],
-    [
-     51,
-     "L51-cvq4ek",
-     0.065
-    ],
-    [
-     51,
-     "L51-4f4dqc",
-     -1.103
-    ],
-    [
-     51,
-     "L51-22x4mz",
-     0.461
-    ]
-   ],
+   "pairs": [],
    "parent": "g24",
    "status": "rejected"
   },
@@ -7976,88 +7697,7 @@
     "skill.restock"
    ],
    "note": "suggested: skill.lava_scout 1, skill.cast_portal 1, skill.ruined_portal 1, skill.obsidian_pool 1, skill.diamond_hunt 1, skill.portal_repair 1, skill.stash 1, skill.restock 1",
-   "pairs": [
-    [
-     52,
-     "L52-ptxaan",
-     1.672
-    ],
-    [
-     52,
-     "L52-8rxbwk",
-     -6.297
-    ],
-    [
-     52,
-     "L52-g3jdet",
-     -2.352
-    ],
-    [
-     52,
-     "L52-uuv3vf",
-     -0.236
-    ],
-    [
-     53,
-     "L53-q7bb7j",
-     4.728
-    ],
-    [
-     53,
-     "L53-2vnwct",
-     3.422
-    ],
-    [
-     53,
-     "L53-hwcbsx",
-     2.742
-    ],
-    [
-     53,
-     "L53-ukrt4m",
-     0.408
-    ],
-    [
-     54,
-     "L54-jacbvp",
-     -2.037
-    ],
-    [
-     54,
-     "L54-dtqxj2",
-     -6.551
-    ],
-    [
-     54,
-     "L54-uewzhw",
-     13.837
-    ],
-    [
-     54,
-     "L54-ran8js",
-     0.187
-    ],
-    [
-     55,
-     "L55-ekrfr7",
-     -0.05
-    ],
-    [
-     55,
-     "L55-e3kuw7",
-     0.113
-    ],
-    [
-     55,
-     "L55-h3y5a4",
-     -0.539
-    ],
-    [
-     55,
-     "L55-3bsvjn",
-     -0.464
-    ]
-   ],
+   "pairs": [],
    "parent": "g24",
    "status": "rejected"
   },
@@ -8141,48 +7781,7 @@
     "skill.stair_down"
    ],
    "note": "suggested: skill.kite 1, skill.pillar 1, skill.block_arrows 1, skill.creeper_defuse 1, skill.panic_box 1, skill.respawn_reset 1, skill.recover_items 1, skill.make_bed 1, skill.food_secure 1, skill.fish 1, skill.secure_camp 1, skill.stair_down 1",
-   "pairs": [
-    [
-     52,
-     "L52-ptxaan",
-     -0.879
-    ],
-    [
-     52,
-     "L52-8rxbwk",
-     -7.536
-    ],
-    [
-     52,
-     "L52-g3jdet",
-     -5.399
-    ],
-    [
-     52,
-     "L52-uuv3vf",
-     -0.336
-    ],
-    [
-     53,
-     "L53-q7bb7j",
-     -1.623
-    ],
-    [
-     53,
-     "L53-2vnwct",
-     0.369
-    ],
-    [
-     53,
-     "L53-hwcbsx",
-     -1.765
-    ],
-    [
-     53,
-     "L53-ukrt4m",
-     -0.135
-    ]
-   ],
+   "pairs": [],
    "parent": "g24",
    "status": "rejected"
   },
@@ -8266,68 +7865,7 @@
     "safety.hazard_margin"
    ],
    "note": "suggested: safety.hazard 1, safety.hazard_margin 0.05",
-   "pairs": [
-    [
-     53,
-     "L53-q7bb7j",
-     3.184
-    ],
-    [
-     53,
-     "L53-2vnwct",
-     0.533
-    ],
-    [
-     53,
-     "L53-hwcbsx",
-     -1.816
-    ],
-    [
-     53,
-     "L53-ukrt4m",
-     0.287
-    ],
-    [
-     54,
-     "L54-jacbvp",
-     0.093
-    ],
-    [
-     54,
-     "L54-dtqxj2",
-     -4.787
-    ],
-    [
-     54,
-     "L54-uewzhw",
-     2.987
-    ],
-    [
-     54,
-     "L54-ran8js",
-     0.149
-    ],
-    [
-     55,
-     "L55-ekrfr7",
-     -4.676
-    ],
-    [
-     55,
-     "L55-e3kuw7",
-     0.27
-    ],
-    [
-     55,
-     "L55-h3y5a4",
-     -0.475
-    ],
-    [
-     55,
-     "L55-3bsvjn",
-     -1.704
-    ]
-   ],
+   "pairs": [],
    "parent": "g24",
    "status": "rejected"
   },
@@ -8429,88 +7967,7 @@
     "reflex.escalate"
    ],
    "note": "suggested: reflex.escalate 1",
-   "pairs": [
-    [
-     53,
-     "L53-q7bb7j",
-     5.359
-    ],
-    [
-     53,
-     "L53-2vnwct",
-     5.792
-    ],
-    [
-     53,
-     "L53-hwcbsx",
-     -1.533
-    ],
-    [
-     53,
-     "L53-ukrt4m",
-     0.24
-    ],
-    [
-     54,
-     "L54-jacbvp",
-     -0.273
-    ],
-    [
-     54,
-     "L54-dtqxj2",
-     -4.458
-    ],
-    [
-     54,
-     "L54-uewzhw",
-     0.049
-    ],
-    [
-     54,
-     "L54-ran8js",
-     -0.485
-    ],
-    [
-     55,
-     "L55-ekrfr7",
-     4.116
-    ],
-    [
-     55,
-     "L55-e3kuw7",
-     3.345
-    ],
-    [
-     55,
-     "L55-h3y5a4",
-     -0.517
-    ],
-    [
-     55,
-     "L55-3bsvjn",
-     -0.319
-    ],
-    [
-     56,
-     "L56-5brkhv",
-     -5.636
-    ],
-    [
-     56,
-     "L56-ygxh4s",
-     0.292
-    ],
-    [
-     56,
-     "L56-856txq",
-     -3.456
-    ],
-    [
-     56,
-     "L56-n5yff2",
-     -0.289
-    ]
-   ],
+   "pairs": [],
    "parent": "g24",
    "status": "rejected"
   },
@@ -8572,48 +8029,7 @@
     "brain.skill_stats"
    ],
    "note": "suggested: brain.skill_stats 1",
-   "pairs": [
-    [
-     54,
-     "L54-jacbvp",
-     4.307
-    ],
-    [
-     54,
-     "L54-dtqxj2",
-     -1.147
-    ],
-    [
-     54,
-     "L54-uewzhw",
-     0.186
-    ],
-    [
-     54,
-     "L54-ran8js",
-     -0.048
-    ],
-    [
-     55,
-     "L55-ekrfr7",
-     -1.531
-    ],
-    [
-     55,
-     "L55-e3kuw7",
-     0.093
-    ],
-    [
-     55,
-     "L55-h3y5a4",
-     -0.826
-    ],
-    [
-     55,
-     "L55-3bsvjn",
-     -1.068
-    ]
-   ],
+   "pairs": [],
    "parent": "g24",
    "status": "rejected"
   },
@@ -8849,88 +8265,7 @@
     "plan.readiness"
    ],
    "note": "suggested: brain.strategist 1, plan.readiness 1",
-   "pairs": [
-    [
-     56,
-     "L56-5brkhv",
-     -0.922
-    ],
-    [
-     56,
-     "L56-ygxh4s",
-     3.352
-    ],
-    [
-     56,
-     "L56-856txq",
-     -0.325
-    ],
-    [
-     56,
-     "L56-n5yff2",
-     -1.091
-    ],
-    [
-     57,
-     "L57-683x99",
-     5.031
-    ],
-    [
-     57,
-     "L57-r627tn",
-     -0.013
-    ],
-    [
-     57,
-     "L57-vert2y",
-     14.327
-    ],
-    [
-     57,
-     "L57-aw3qye",
-     -0.005
-    ],
-    [
-     58,
-     "L58-3p9c6n",
-     4.619
-    ],
-    [
-     58,
-     "L58-xrpuwj",
-     1.455
-    ],
-    [
-     58,
-     "L58-kt76gs",
-     0.484
-    ],
-    [
-     58,
-     "L58-bxssp2",
-     0.716
-    ],
-    [
-     59,
-     "L59-nwu9tc",
-     -2.618
-    ],
-    [
-     59,
-     "L59-99byz2",
-     -3.469
-    ],
-    [
-     59,
-     "L59-xt5bhz",
-     0.0
-    ],
-    [
-     59,
-     "L59-3ggeza",
-     -0.261
-    ]
-   ],
+   "pairs": [],
    "parent": "g24",
    "status": "rejected"
   },
@@ -9070,88 +8405,7 @@
     "skill.end_guard"
    ],
    "note": "suggested: skill.nether_arrival 1, skill.nether_bridge 1, skill.fortress_scout 1, skill.blaze_farm 1, skill.ghast_defense 1, skill.gold_armor 1, skill.barter_loop 1, skill.portal_return 1, skill.enderman_warped 1, skill.bow_kit 1, skill.eye_triangulate 1, skill.dig_to_stronghold 1, skill.stronghold_navigate 1, skill.silverfish_control 1, skill.boat_cross 1, skill.end_landing 1, skill.crystal_hunt 1, skill.bed_bomb 1, skill.dragon_strike 1, skill.end_guard 1",
-   "pairs": [
-    [
-     56,
-     "L56-5brkhv",
-     -2.3
-    ],
-    [
-     56,
-     "L56-ygxh4s",
-     2.767
-    ],
-    [
-     56,
-     "L56-856txq",
-     -0.11
-    ],
-    [
-     56,
-     "L56-n5yff2",
-     -0.105
-    ],
-    [
-     57,
-     "L57-683x99",
-     7.227
-    ],
-    [
-     57,
-     "L57-r627tn",
-     4.784
-    ],
-    [
-     57,
-     "L57-vert2y",
-     0.159
-    ],
-    [
-     57,
-     "L57-aw3qye",
-     -0.543
-    ],
-    [
-     58,
-     "L58-3p9c6n",
-     1.578
-    ],
-    [
-     58,
-     "L58-xrpuwj",
-     -2.622
-    ],
-    [
-     58,
-     "L58-kt76gs",
-     0.555
-    ],
-    [
-     58,
-     "L58-bxssp2",
-     1.015
-    ],
-    [
-     59,
-     "L59-nwu9tc",
-     4.211
-    ],
-    [
-     59,
-     "L59-99byz2",
-     -3.664
-    ],
-    [
-     59,
-     "L59-xt5bhz",
-     0.175
-    ],
-    [
-     59,
-     "L59-3ggeza",
-     -0.225
-    ]
-   ],
+   "pairs": [],
    "parent": "g24",
    "status": "rejected"
   },
@@ -9255,88 +8509,7 @@
     "combat.backstep"
    ],
    "note": "suggested: combat.crits 1, combat.backstep 1",
-   "pairs": [
-    [
-     56,
-     "L56-5brkhv",
-     2.378
-    ],
-    [
-     56,
-     "L56-ygxh4s",
-     -0.011
-    ],
-    [
-     56,
-     "L56-856txq",
-     0.993
-    ],
-    [
-     56,
-     "L56-n5yff2",
-     -1.162
-    ],
-    [
-     57,
-     "L57-683x99",
-     0.14
-    ],
-    [
-     57,
-     "L57-r627tn",
-     0.058
-    ],
-    [
-     57,
-     "L57-vert2y",
-     0.371
-    ],
-    [
-     57,
-     "L57-aw3qye",
-     -0.744
-    ],
-    [
-     58,
-     "L58-3p9c6n",
-     2.139
-    ],
-    [
-     58,
-     "L58-xrpuwj",
-     -3.967
-    ],
-    [
-     58,
-     "L58-kt76gs",
-     -0.064
-    ],
-    [
-     58,
-     "L58-bxssp2",
-     -0.118
-    ],
-    [
-     59,
-     "L59-nwu9tc",
-     0.055
-    ],
-    [
-     59,
-     "L59-99byz2",
-     1.599
-    ],
-    [
-     59,
-     "L59-xt5bhz",
-     14.485
-    ],
-    [
-     59,
-     "L59-3ggeza",
-     -0.628
-    ]
-   ],
+   "pairs": [],
    "parent": "g24",
    "status": "rejected"
   },
@@ -9438,88 +8611,7 @@
     "move.shore_first"
    ],
    "note": "suggested: move.shore_first 1",
-   "pairs": [
-    [
-     57,
-     "L57-683x99",
-     6.868
-    ],
-    [
-     57,
-     "L57-r627tn",
-     -1.702
-    ],
-    [
-     57,
-     "L57-vert2y",
-     -0.082
-    ],
-    [
-     57,
-     "L57-aw3qye",
-     -1.138
-    ],
-    [
-     58,
-     "L58-3p9c6n",
-     1.765
-    ],
-    [
-     58,
-     "L58-xrpuwj",
-     -1.25
-    ],
-    [
-     58,
-     "L58-kt76gs",
-     0.185
-    ],
-    [
-     58,
-     "L58-bxssp2",
-     0.432
-    ],
-    [
-     59,
-     "L59-nwu9tc",
-     -1.953
-    ],
-    [
-     59,
-     "L59-99byz2",
-     -3.554
-    ],
-    [
-     59,
-     "L59-xt5bhz",
-     3.176
-    ],
-    [
-     59,
-     "L59-3ggeza",
-     -0.023
-    ],
-    [
-     60,
-     "L60-h9uxtu",
-     0.332
-    ],
-    [
-     60,
-     "L60-gb7cwk",
-     -3.928
-    ],
-    [
-     60,
-     "L60-2myfv9",
-     2.806
-    ],
-    [
-     60,
-     "L60-e4mwwk",
-     -0.35
-    ]
-   ],
+   "pairs": [],
    "parent": "g24",
    "status": "rejected"
   },
@@ -9601,28 +8693,7 @@
     "safety.hazard"
    ],
    "note": "suggested: safety.hazard 1",
-   "pairs": [
-    [
-     62,
-     "L62-svk77u",
-     2.431
-    ],
-    [
-     62,
-     "L62-hsh6a5",
-     0.449
-    ],
-    [
-     62,
-     "L62-qezefz",
-     -0.739
-    ],
-    [
-     62,
-     "L62-f99hzh",
-     -0.349
-    ]
-   ],
+   "pairs": [],
    "parent": "g24",
    "status": "contender"
   },
@@ -9787,48 +8858,7 @@
     "portal.reserve_lava_bucket"
    ],
    "note": "suggested: portal.prepare_work_area 1, portal.reserve_lava_bucket 1",
-   "pairs": [
-    [
-     60,
-     "L60-h9uxtu",
-     1.089
-    ],
-    [
-     60,
-     "L60-gb7cwk",
-     1.073
-    ],
-    [
-     60,
-     "L60-2myfv9",
-     2.989
-    ],
-    [
-     60,
-     "L60-e4mwwk",
-     -0.306
-    ],
-    [
-     61,
-     "L61-rs5rpg",
-     0.027
-    ],
-    [
-     61,
-     "L61-xztv3n",
-     0.03
-    ],
-    [
-     61,
-     "L61-dcpus2",
-     2.78
-    ],
-    [
-     61,
-     "L61-9a4snw",
-     0.052
-    ]
-   ],
+   "pairs": [],
    "parent": "g24",
    "status": "champion"
   },
@@ -9910,28 +8940,7 @@
     "portal.retry_cast_view"
    ],
    "note": "suggested: portal.retry_cast_view 1",
-   "pairs": [
-    [
-     62,
-     "L62-svk77u",
-     -2.968
-    ],
-    [
-     62,
-     "L62-hsh6a5",
-     -2.933
-    ],
-    [
-     62,
-     "L62-qezefz",
-     -0.756
-    ],
-    [
-     62,
-     "L62-f99hzh",
-     -0.096
-    ]
-   ],
+   "pairs": [],
    "parent": "g24",
    "status": "contender"
   },
@@ -9993,28 +9002,7 @@
     "reflex.lava_margin"
    ],
    "note": "suggested: reflex.lava_margin 1",
-   "pairs": [
-    [
-     62,
-     "L62-svk77u",
-     -2.74
-    ],
-    [
-     62,
-     "L62-hsh6a5",
-     -3.07
-    ],
-    [
-     62,
-     "L62-qezefz",
-     -1.147
-    ],
-    [
-     62,
-     "L62-f99hzh",
-     -0.261
-    ]
-   ],
+   "pairs": [],
    "parent": "g24",
    "status": "contender"
   },
@@ -10087,48 +9075,7 @@
     "brain.thompson"
    ],
    "note": "suggested: brain.strategist 1, plan.readiness 1, brain.skill_stats 1, brain.utility 1, brain.thompson 1",
-   "pairs": [
-    [
-     63,
-     "L63-xueatk",
-     0.005
-    ],
-    [
-     63,
-     "L63-b673kx",
-     0.301
-    ],
-    [
-     63,
-     "L63-v75e34",
-     -3.312
-    ],
-    [
-     63,
-     "L63-vxuk25",
-     0.155
-    ],
-    [
-     64,
-     "L64-yp8sw5",
-     6.218
-    ],
-    [
-     64,
-     "L64-4qja9b",
-     -3.986
-    ],
-    [
-     64,
-     "L64-829krk",
-     -0.263
-    ],
-    [
-     64,
-     "L64-ztun5m",
-     0.422
-    ]
-   ],
+   "pairs": [],
    "parent": "g45",
    "priority": true,
    "status": "rejected"
@@ -10254,88 +9201,7 @@
     "combat.ignore_walled_mobs"
    ],
    "note": "suggested: night.shelter_exit 1, nav.surface_v2 1, nav.unstuck_v2 1, stuck.item_progress 1, combat.ignore_walled_mobs 1",
-   "pairs": [
-    [
-     63,
-     "L63-xueatk",
-     -1.243
-    ],
-    [
-     63,
-     "L63-b673kx",
-     0.678
-    ],
-    [
-     63,
-     "L63-v75e34",
-     -3.225
-    ],
-    [
-     63,
-     "L63-vxuk25",
-     0.163
-    ],
-    [
-     64,
-     "L64-yp8sw5",
-     3.047
-    ],
-    [
-     64,
-     "L64-4qja9b",
-     -0.657
-    ],
-    [
-     64,
-     "L64-829krk",
-     -0.271
-    ],
-    [
-     64,
-     "L64-ztun5m",
-     -0.167
-    ],
-    [
-     65,
-     "L65-pq97vd",
-     -2.815
-    ],
-    [
-     65,
-     "L65-2c6r7c",
-     0.202
-    ],
-    [
-     65,
-     "L65-vqpg48",
-     -0.167
-    ],
-    [
-     65,
-     "L65-xnug82",
-     -0.222
-    ],
-    [
-     66,
-     "L66-r8ryku",
-     0.003
-    ],
-    [
-     66,
-     "L66-y8fgnz",
-     2.358
-    ],
-    [
-     66,
-     "L66-5sqjg4",
-     -0.04
-    ],
-    [
-     66,
-     "L66-gq28r3",
-     -0.45
-    ]
-   ],
+   "pairs": [],
    "parent": "g45",
    "priority": true,
    "status": "contender"
@@ -10431,28 +9297,7 @@
     "brain.death_avoid"
    ],
    "note": "suggested: brain.death_avoid 1",
-   "pairs": [
-    [
-     65,
-     "L65-pq97vd",
-     -3.093
-    ],
-    [
-     65,
-     "L65-2c6r7c",
-     -5.943
-    ],
-    [
-     65,
-     "L65-vqpg48",
-     -0.309
-    ],
-    [
-     65,
-     "L65-xnug82",
-     -0.492
-    ]
-   ],
+   "pairs": [],
    "parent": "g45",
    "priority": true,
    "status": "rejected"
@@ -10509,28 +9354,7 @@
     "combat.commit_target"
    ],
    "note": "suggested: combat.commit_target 1",
-   "pairs": [
-    [
-     66,
-     "L66-r8ryku",
-     -5.294
-    ],
-    [
-     66,
-     "L66-y8fgnz",
-     5.309
-    ],
-    [
-     66,
-     "L66-5sqjg4",
-     0.139
-    ],
-    [
-     66,
-     "L66-gq28r3",
-     -0.129
-    ]
-   ],
+   "pairs": [],
    "parent": "g45",
    "priority": true,
    "status": "rejected"
@@ -10587,31 +9411,59 @@
     "combat.shield_guard"
    ],
    "note": "suggested: combat.shield_guard 1",
-   "pairs": [
-    [
-     66,
-     "L66-r8ryku",
-     -4.676
-    ],
-    [
-     66,
-     "L66-y8fgnz",
-     0.752
-    ],
-    [
-     66,
-     "L66-5sqjg4",
-     -0.015
-    ],
-    [
-     66,
-     "L66-gq28r3",
-     0.23
-    ]
-   ],
+   "pairs": [],
    "parent": "g45",
    "priority": true,
    "status": "rejected"
+  },
+  "g53": {
+   "born": 67,
+   "code": null,
+   "evals": [],
+   "genes": {
+    "cave.torches": 1.0,
+    "death.recover_night_armor": 12.0,
+    "deep.branch": 1.0,
+    "focus.commit": 1.0,
+    "plan.hide_hp": 15.0,
+    "portal.prepare_work_area": 1.0,
+    "portal.reserve_lava_bucket": 1.0,
+    "route.armor_before_portal": 0.0
+   },
+   "id": "g53",
+   "metric": "ok:diamond_hunt",
+   "mutated": [
+    "deep.branch"
+   ],
+   "note": "suggested: deep.branch 1",
+   "pairs": [],
+   "parent": "g45",
+   "priority": true,
+   "status": "contender"
+  },
+  "g54": {
+   "born": 67,
+   "code": null,
+   "evals": [],
+   "genes": {
+    "cave.torches": 1.0,
+    "death.recover_night_armor": 12.0,
+    "focus.commit": 1.0,
+    "plan.hide_hp": 15.0,
+    "portal.prepare_work_area": 1.0,
+    "portal.reserve_lava_bucket": 1.0,
+    "route.armor_before_portal": 1.0
+   },
+   "id": "g54",
+   "metric": "deaths",
+   "mutated": [
+    "route.armor_before_portal"
+   ],
+   "note": "suggested: route.armor_before_portal 1",
+   "pairs": [],
+   "parent": "g45",
+   "priority": true,
+   "status": "contender"
   },
   "g6": {
    "born": 2,
@@ -11170,9 +10022,73 @@
  "model_kind": "retired",
  "model_r2": null,
  "model_rows": 0,
- "next_id": 53,
- "pending": null,
- "score_version": 2,
+ "next_id": 55,
+ "pending": {
+  "data_tasks": [],
+  "gen": 67,
+  "lineup": [
+   "g45",
+   "g49",
+   "g53",
+   "g54"
+  ],
+  "runs": [
+   "eval-g45-0",
+   "eval-g45-1",
+   "eval-g45-2",
+   "eval-g45-3",
+   "eval-g49-0",
+   "eval-g49-1",
+   "eval-g49-2",
+   "eval-g49-3",
+   "eval-g53-0",
+   "eval-g53-1",
+   "eval-g53-2",
+   "eval-g53-3",
+   "eval-g54-0",
+   "eval-g54-1",
+   "eval-g54-2",
+   "eval-g54-3"
+  ],
+  "seeds": [
+   "L67-d9cu2f",
+   "L67-n7rxmn",
+   "L67-bbyht9",
+   "L67-qsf3pv"
+  ],
+  "sha": "547af5f2f62beeed1a3eae8a7710f36e4be1ec62",
+  "started": "2026-09-29T20:20:15+00:00",
+  "tasks": [
+   {
+    "kind": "natural",
+    "seed": "L67-d9cu2f",
+    "stage": "spawn",
+    "synthetic": false
+   },
+   {
+    "kind": "natural",
+    "seed": "L67-n7rxmn",
+    "stage": "spawn",
+    "synthetic": false
+   },
+   {
+    "asset": "lava-gen65-eval-g49-1.zip",
+    "kind": "start",
+    "seed": "L67-bbyht9",
+    "stage": "lava",
+    "synthetic": false
+   },
+   {
+    "kind": "combat",
+    "minutes": 10,
+    "scenario": "combat",
+    "seed": "L67-qsf3pv",
+    "stage": "combat",
+    "synthetic": false
+   }
+  ]
+ },
+ "score_version": 3,
  "settings": {
   "accept_pairs": 8,
   "accept_t": 2.0,
@@ -11197,7 +10113,7 @@
   "metric_safety_t": -1.5,
   "metric_z": 2.5,
   "min_gain": 0.3,
-  "minutes": 30,
+  "minutes": 40,
   "model_gate": 0.1,
   "perf_mods": "",
   "scenario": "natural",
@@ -11206,6 +10122,39 @@
   "stage_lookahead": false,
   "stage_seeds": 1,
   "suggest": [
+   {
+    "_metric": "ok:diamond_hunt",
+    "_priority": true,
+    "deep.branch": 1
+   },
+   {
+    "_metric": "deaths",
+    "_priority": true,
+    "route.armor_before_portal": 1
+   },
+   {
+    "_metric": "deaths",
+    "_priority": true,
+    "reflex.lava_margin": 1,
+    "skill.lava_guard": 1
+   },
+   {
+    "_priority": true,
+    "skill.portal_repair": 1,
+    "skill.ruined_portal": 1
+   },
+   {
+    "_metric": "deaths",
+    "deep.stairs": 1
+   },
+   {
+    "_metric": "ok:build_portal|cast_portal",
+    "_priority": true,
+    "_stages": [
+     "lava"
+    ],
+    "portal.site_maker": 1
+   },
    {
     "_metric": "deaths",
     "_priority": true,
@@ -11236,6 +10185,7 @@
     "_priority": true,
     "gather.first_logs": 6,
     "gather.iron_in_view": 1,
+    "gather.log_stock": 3,
     "gather.vein_follow": 1
    },
    {
@@ -11329,28 +10279,6 @@
    {
     "_metric": "ok:collect",
     "stuck.ignore_water_bob": 1
-   },
-   {
-    "_metric": "ok:build_portal",
-    "_stages": [
-     "lava"
-    ],
-    "portal.carve_search": 1
-   },
-   {
-    "_metric": "ok:build_portal|cast_portal",
-    "_stages": [
-     "lava"
-    ],
-    "skill.cast_portal": 1,
-    "skill.lava_scout": 1
-   },
-   {
-    "_metric": "ok:build_portal",
-    "_stages": [
-     "lava"
-    ],
-    "portal.prepare_work_area": 1
    },
    {
     "_metric": "ok:build_portal|cast_portal",
@@ -11453,14 +10381,6 @@
     "safety.hazard": 1
    },
    {
-    "_metric": "ok:build_portal",
-    "portal.prepare_work_area": 1,
-    "portal.reserve_lava_bucket": 1
-   },
-   {
-    "portal.retry_cast_view": 1
-   },
-   {
     "nav.mob_avoid_coef": 3,
     "plan.hostile_range": 4
    },
@@ -11517,9 +10437,6 @@
    },
    {
     "focus.commit": 1
-   },
-   {
-    "route.diamond_portal": 1
    },
    {
     "focus.commit": 1,
@@ -11583,9 +10500,6 @@
     "gather.iron_in_view": 1
    },
    {
-    "route.deep_for_lava": 0
-   },
-   {
     "gather.iron_y": 40
    },
    {
@@ -11601,6 +10515,25 @@
    {
     "survival.danger_v2": 1,
     "survival.melee_lock": 3
+   },
+   {
+    "_metric": "ok:obsidian_pool",
+    "deep.mold": 0
+   },
+   {
+    "deep.sticks": 6
+   },
+   {
+    "_metric": "deaths",
+    "deep.food": 0
+   },
+   {
+    "deep.food": 8
+   },
+   {
+    "_max_pairs": 24,
+    "_note": "control: the old bucket-cast route, raced once the diamond route has had its tuning",
+    "route.diamond_portal": 0
    }
   ],
   "suggest_slots": 3,
@@ -11645,6 +10578,11 @@
   "death.recover_night_armor": 0.1785,
   "death.recover_value": 0.15,
   "death.trip_commit": 0.15,
+  "deep.branch": 0.15,
+  "deep.food": 0.15,
+  "deep.mold": 0.15,
+  "deep.stairs": 0.15,
+  "deep.sticks": 0.15,
   "dragon.eat_hp": 0.15,
   "dragon.max_center_dist": 0.15,
   "dragon.wait_dist": 0.15,
@@ -11674,6 +10612,7 @@
   "gear.armor_first": 0.108375,
   "gear.shield_early": 0.108375,
   "gear.sword_early": 0.0783009375,
+  "inv.tidy": 0.15,
   "learned.explore": 0.15,
   "learned.weight": 0.15,
   "loop.lost_underground_s": 0.15,
@@ -11706,6 +10645,7 @@
   "portal.prepare_work_area": 0.21,
   "portal.reserve_lava_bucket": 0.21,
   "portal.retry_cast_view": 0.15,
+  "portal.site_maker": 0.15,
   "ready.end_blocks": 0.15,
   "ready.end_food": 0.15,
   "ready.nether_blocks": 0.15,
@@ -11723,6 +10663,7 @@
   "route.bed": 0.1275,
   "route.boots_before_portal": 0.15,
   "route.deep_for_lava": 0.15,
+  "route.deep_portal": 0.15,
   "route.diamond_portal": 0.1275,
   "safety.enderman_gaze": 0.15,
   "safety.hazard": 0.1275,
@@ -13136,168 +12077,6 @@
     1
    ]
   ],
-  "lava": [
-   [
-    51,
-    0
-   ],
-   [
-    52,
-    0
-   ],
-   [
-    52,
-    0
-   ],
-   [
-    52,
-    0
-   ],
-   [
-    52,
-    0
-   ],
-   [
-    54,
-    1
-   ],
-   [
-    55,
-    0
-   ],
-   [
-    55,
-    0
-   ],
-   [
-    55,
-    0
-   ],
-   [
-    55,
-    0
-   ],
-   [
-    55,
-    0
-   ],
-   [
-    58,
-    0
-   ],
-   [
-    58,
-    0
-   ],
-   [
-    58,
-    0
-   ],
-   [
-    58,
-    0
-   ],
-   [
-    58,
-    0
-   ],
-   [
-    59,
-    0
-   ],
-   [
-    59,
-    0
-   ],
-   [
-    59,
-    0
-   ],
-   [
-    59,
-    1
-   ],
-   [
-    59,
-    0
-   ],
-   [
-    60,
-    0
-   ],
-   [
-    60,
-    0
-   ],
-   [
-    60,
-    0
-   ],
-   [
-    60,
-    0
-   ],
-   [
-    60,
-    0
-   ],
-   [
-    61,
-    0
-   ],
-   [
-    61,
-    0
-   ],
-   [
-    61,
-    0
-   ],
-   [
-    61,
-    0
-   ],
-   [
-    61,
-    0
-   ],
-   [
-    62,
-    0
-   ],
-   [
-    62,
-    0
-   ],
-   [
-    62,
-    0
-   ],
-   [
-    62,
-    0
-   ],
-   [
-    63,
-    0
-   ],
-   [
-    65,
-    0
-   ],
-   [
-    65,
-    0
-   ],
-   [
-    65,
-    0
-   ],
-   [
-    65,
-    0
-   ]
-  ],
   "nether": [
    [
     7,
@@ -13595,7 +12374,7 @@
    ]
   ]
  },
- "stages_version": 2,
+ "stages_version": 3,
  "suggested": [
   "{\"focus.commit\": 1}",
   "{\"route.diamond_portal\": 1}",
@@ -13632,7 +12411,9 @@
   "{\"_max_pairs\": 24, \"_metric\": \"ok:goto|unstuck\", \"_priority\": true, \"combat.ignore_walled_mobs\": 1, \"nav.surface_v2\": 1, \"nav.unstuck_v2\": 1, \"night.shelter_exit\": 1, \"stuck.item_progress\": 1}",
   "{\"_metric\": \"deaths\", \"_priority\": true, \"brain.death_avoid\": 1}",
   "{\"_metric\": \"deaths\", \"_priority\": true, \"combat.commit_target\": 1}",
-  "{\"_metric\": \"deaths\", \"_priority\": true, \"combat.shield_guard\": 1}"
+  "{\"_metric\": \"deaths\", \"_priority\": true, \"combat.shield_guard\": 1}",
+  "{\"_metric\": \"ok:diamond_hunt\", \"_priority\": true, \"deep.branch\": 1}",
+  "{\"_metric\": \"deaths\", \"_priority\": true, \"route.armor_before_portal\": 1}"
  ],
  "version": 1
 }
