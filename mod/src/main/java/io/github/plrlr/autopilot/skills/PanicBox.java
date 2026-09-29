@@ -22,7 +22,12 @@ public final class PanicBox extends Composite {
 	public static boolean suits(Perception seen) {
 		if (Mc.dimension().equals("the_end") || Mc.count(Items2.matcher("throwaway")) < 9) return false;
 		Perception.Seen c = seen.nearest("creeper");
-		return c == null || c.dist() > 8;
+		if (c != null && c.dist() <= 8) return false;
+		// Gene combat.finish_heal_wall (as for the healing shelter, #46): no boxing in with a melee mob
+		// already on us, it stands in the gap. Rerun of local trial night2 (2026-09-29): fighting a
+		// zombie, hurt, the reflex picked panic_box with the zombie at arm's length; dead inside the box.
+		Perception.Seen h = seen.nearestHostile();
+		return !(io.github.plrlr.autopilot.Tune.on("combat.finish_heal_wall") && h != null && h.dist() <= 2.0);
 	}
 
 	@Override

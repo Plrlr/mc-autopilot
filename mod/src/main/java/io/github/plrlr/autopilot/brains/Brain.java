@@ -71,6 +71,25 @@ public final class Brain {
 		return good;
 	}
 
+	/**
+	 * Gene brain.death_avoid: options that clearly kill us in this context (SkillStats.Estimate
+	 * clearlyDeadly: from every death the loop has seen, and this game's) go behind the others, in
+	 * order. Emergencies keep their place; with only deadly options left, the rules' order stands.
+	 */
+	public static List<Option> demoteDeadly(List<Option> options, Set<String> urgent, List<String> contexts) {
+		var specs = io.github.plrlr.autopilot.skills.SkillSpecs.byKey();
+		List<Option> safe = new java.util.ArrayList<>(options.size()), deadly = new java.util.ArrayList<>();
+		for (Option o : options) {
+			String key = Learned.key(o);
+			var spec = specs.get(key);
+			SkillStats.Estimate e = SkillStats.shared().estimate(key, contexts, spec == null ? 0.5 : spec.success(), spec == null ? 60 : spec.seconds());
+			(!urgent.contains(o.label()) && e.clearlyDeadly() ? deadly : safe).add(o);
+		}
+		if (safe.isEmpty()) return options;
+		safe.addAll(deadly);
+		return safe;
+	}
+
 	/** "rules" or "learned m31" for the HUD. */
 	public String label() {
 		boolean active = Tune.get("learned.weight") > 0 || Tune.get("learned.explore") > 0;

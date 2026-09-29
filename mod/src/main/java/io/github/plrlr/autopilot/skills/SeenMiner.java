@@ -38,6 +38,8 @@ final class SeenMiner {
 	private static final long UNREACHABLE_MS = 3 * 60 * 1000;
 	private Phase phase = Phase.FIND;
 	private BlockPos target;
+	/** The last block of our kind we broke: its neighbours are where the vein goes on (gene gather.vein_follow). */
+	private BlockPos lastBroken;
 	/** A leaf (or other soft block) between us and the target: broken first, like a player does. */
 	private BlockPos blocker;
 	private int wait;
@@ -101,7 +103,11 @@ final class SeenMiner {
 		wait++;
 		switch (phase) {
 			case FIND -> {
-				target = nearest(memory, group, range);
+				// Gene gather.vein_follow: the block next to the one we just broke first, as a player follows
+				// a vein. Watching the local trial (2026-09-29), the bot mined one coal, then walked back to a
+				// coal it had seen earlier instead of the coal the break had just uncovered behind it.
+				BlockPos next = Tune.on("gather.vein_follow") ? veinNext(lastBroken, group) : null;
+				target = next != null ? next : nearest(memory, group, range);
 				if (target == null) return Status.NONE_LEFT;
 				Bari.path(new GoalGetToBlock(target));
 				to(Phase.WALK);
@@ -190,6 +196,7 @@ final class SeenMiner {
 			Mc.mc().gameMode.stopDestroyBlock();
 			memory.forget(group, target);
 			mined++;
+			lastBroken = target;
 			to(Phase.PICKUP);
 			return;
 		}
@@ -242,6 +249,21 @@ final class SeenMiner {
 				best = it;
 			}
 		}
+		return best;
+	}
+
+	/** A visible block of this group touching `at` (faces, edges and corners), nearest to us; null if none. */
+	private static BlockPos veinNext(BlockPos at, String group) {
+		if (at == null) return null;
+		BlockPos me = Mc.player().blockPosition(), best = null;
+		for (int dx = -1; dx <= 1; dx++)
+			for (int dy = -1; dy <= 1; dy++)
+				for (int dz = -1; dz <= 1; dz++) {
+					BlockPos p = at.offset(dx, dy, dz);
+					if (p.equals(at) || unreachable(p) || !Mc.canSee(p)) continue;
+					if (!group.equals(WorldMemory.groupOf(Mc.id(Mc.state(p).getBlock())))) continue;
+					if (best == null || p.distSqr(me) < best.distSqr(me)) best = p;
+				}
 		return best;
 	}
 

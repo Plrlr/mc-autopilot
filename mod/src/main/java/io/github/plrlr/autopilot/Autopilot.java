@@ -501,6 +501,8 @@ public final class Autopilot {
 		if (options.isEmpty()) options.add(new Option("explore", "any", "everything else failed recently"));
 		// Brain v2: options that clearly fail here (learned skill stats) go behind the ones that work.
 		if (Tune.on("brain.skill_stats")) options = Brain.demoteFailing(options, planner.lastUrgent, skillContextsNow());
+		// Learn from deaths: what keeps killing us here goes behind what doesn't (brains/Brain.demoteDeadly).
+		if (Tune.on("brain.death_avoid")) options = Brain.demoteDeadly(options, planner.lastUrgent, skillContextsNow());
 		// Focus, like a player: a task that's running is finished before the next one, unless the
 		// rules' top choice is an emergency (a mob on us, hunger, a creeper). Generation 1 split
 		// every iron trip into ~9 pieces of ~20 s: each heartbeat let upkeep or a furnace check win.
