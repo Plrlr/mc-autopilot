@@ -126,6 +126,18 @@ public final class SurvivalPlan {
 		return new Option("recover_items", null, old.why() + ", carefully");
 	}
 
+	/** A lone distant pursuer does not justify losing a five-minute kit retrieval window. */
+	public static boolean recoveryThreat(double hostileDistance, int nearby, double creeperDistance, float health) {
+		return health <= 8 || nearby >= 2 || hostileDistance <= 4 || creeperDistance < 7;
+	}
+
+	public static boolean recoveryThreat(Perception seen) {
+		Perception.Seen hostile = seen.nearestHostile();
+		Perception.Seen creeper = seen.nearest("creeper");
+		return recoveryThreat(hostile == null ? Double.POSITIVE_INFINITY : hostile.dist(), seen.hostilesWithin(6),
+				creeper == null ? Double.POSITIVE_INFINITY : creeper.dist(), Mc.player().getHealth());
+	}
+
 	// ---- upkeep
 
 	/** A bed when none is carried and sheep are in sight (gene skill.make_bed). */

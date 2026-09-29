@@ -49,7 +49,12 @@ public final class Planner {
 			if (prep != null) main = prep;
 		}
 		main = SurvivalPlan.beforeWork(PortalPlan.diamonds(main));
+		Option recovery = recoverStep();
 		List<Option> urgent = urgent(seen, main);
+		// Gens 57-58 cut 79 trips short, often for a distant fight or retreat. Once it is safe
+		// enough to go, leave those routine choices behind; close mobs and creepers still win.
+		if (Tune.on("death.trip_commit") && recovery != null && !SurvivalPlan.recoveryThreat(seen))
+			urgent.removeIf(o -> java.util.Set.of("attack", "retreat", "shelter", "panic_box", "kite").contains(o.skill()));
 		Option respawn = SurvivalPlan.respawn();
 		if (respawn != null) urgent.add(0, respawn);
 		Option arrival = NetherPlan.arrival();
@@ -68,7 +73,7 @@ public final class Planner {
 			return shore;
 		}
 		lastUrgent = urgent.stream().map(Option::label).collect(java.util.stream.Collectors.toSet());
-		return order(urgent, recoverStep(), surfaceOption(main), upkeep(seen, main), main, extras(seen, main));
+		return order(urgent, recovery, surfaceOption(main), upkeep(seen, main), main, extras(seen, main));
 	}
 
 	private static boolean groundWork(Option o) {

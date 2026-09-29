@@ -41,6 +41,8 @@ public final class Tune {
 		// Reflexes (Autopilot.reflexes)
 		gene("reflex.creeper_dist", 7, 4, 12, Kind.REAL, "back off from a creeper closer than this");
 		gene("reflex.melee_dist", 3.5, 2, 5, Kind.REAL, "a hostile this close triggers the fight/flee reflex");
+		gene("death.trip_commit", 0, 0, 1, Kind.BOOL, "keep going for dropped items past routine fights; respond to close or multiple mobs");
+		gene("combat.finish_heal_wall", 0, 0, 1, Kind.BOOL, "let shelter finish placing its healing wall before routine melee reflexes");
 		gene("combat.flee_hp", 8, 3, 14, Kind.INT, "at or below this health, run when outnumbered (reflex and planner share it)");
 		gene("combat.outnumbered", 2, 1, 4, Kind.INT, "hostiles within 6 blocks that count as outnumbered");
 		gene("reflex.starving_food", 6, 2, 12, Kind.INT, "eat at once at or below this hunger when safe");
@@ -81,6 +83,7 @@ public final class Tune {
 		gene("night.mine_instead", 0, 0, 1, Kind.BOOL, "at night, skip the shelter when the next step is mining underground anyway");
 		gene("night.shelter_max_s", 720, 60, 720, Kind.INT, "longest wait in a night shelter before going back to work");
 		gene("death.recover_night_armor", 10, 0, 20, Kind.INT, "go back for dropped items at night only with this much armor");
+		gene("night.no_shaft_wall", 0, 0, 1, Kind.BOOL, "wall in on safe footing when no nearby shelter shaft can be dug");
 		// Planner: gathering amounts
 		gene("gather.first_logs", 2, 1, 6, Kind.INT, "extra logs on the very first wood trip");
 		gene("gather.log_stock", 8, 3, 20, Kind.INT, "keep this many logs once there is a pickaxe");

@@ -13,6 +13,14 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
 class SurvivalPlanTest {
+	@Test
+	void recoveryIgnoresOnlyRoutineDistantMobs() {
+		assertFalse(SurvivalPlan.recoveryThreat(5, 1, Double.POSITIVE_INFINITY, 20));
+		assertTrue(SurvivalPlan.recoveryThreat(4, 1, Double.POSITIVE_INFINITY, 20));
+		assertTrue(SurvivalPlan.recoveryThreat(5, 2, Double.POSITIVE_INFINITY, 20));
+		assertTrue(SurvivalPlan.recoveryThreat(5, 1, 6, 20));
+		assertTrue(SurvivalPlan.recoveryThreat(5, 1, Double.POSITIVE_INFINITY, 8));
+	}
 	@AfterEach
 	void reset() {
 		Tune.reset();
