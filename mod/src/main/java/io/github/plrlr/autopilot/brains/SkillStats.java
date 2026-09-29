@@ -58,6 +58,16 @@ public final class SkillStats {
 		public boolean clearlyBad() {
 			return n >= CONTEXT_MIN && pHigh < 0.15;
 		}
+
+		/**
+		 * Clearly deadly here (gene brain.death_avoid): 12+ tries, a death rate of 15%+ per try, and the
+		 * low end of its 90% band above 3% (5 deaths in 20 tries is deadly; 2 in 20 isn't). Every death in every game adds to these counts (the
+		 * loop's data, plus this game's own tries at once), so this is how a death teaches what not to do.
+		 */
+		public boolean clearlyDeadly() {
+			double sd = Math.sqrt(death * (1 - death) / Math.max(1, n + PRIOR_N));
+			return n >= 12 && death >= 0.15 && death - 1.645 * sd >= 0.03;
+		}
 	}
 
 	private static final SkillStats SHARED = new SkillStats();
