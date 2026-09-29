@@ -427,6 +427,12 @@ public final class Autopilot {
 		return hash;
 	}
 
+	/** Blocks to the nearest hostile we perceive (infinite when none). */
+	private double nearestHostileDist() {
+		var h = seen == null ? null : seen.nearestHostile();
+		return h == null ? Double.POSITIVE_INFINITY : h.dist();
+	}
+
 	/** "collect log:3" and "collect log:2" are the same action; counts shrink as progress is made. */
 	static String actionKey(Option o) {
 		String a = o.arg() == null ? "" : o.arg();
@@ -455,7 +461,7 @@ public final class Autopilot {
 		// the shelter sealed (21 reflex interruptions in gens 57-58). The reflexes still handle
 		// creepers and environmental emergencies; the shelter itself detects hits after sealing.
 		if (Tune.on("combat.finish_heal_wall") && skill instanceof io.github.plrlr.autopilot.skills.NightSkills.Shelter sh
-				&& (sh.buildingHealWall() || sh.sealed())) return;
+				&& (sh.buildingHealWall() && io.github.plrlr.autopilot.skills.NightSkills.Shelter.wallHasTime(nearestHostileDist()) || sh.sealed())) return;
 		// The blaze fight handles getting hurt itself (it backs off out of sight to eat). A "hurt"
 		// decision picked eat and stopped it in the open while burning: the laptop's blaze run
 		// after e2e2ffe died that way 30 s in.

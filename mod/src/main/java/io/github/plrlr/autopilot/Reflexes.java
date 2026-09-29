@@ -162,7 +162,7 @@ final class Reflexes {
 					a.startReflex(response, "reflex_creeper");
 				return;
 			}
-			if (!hiding && !(Tune.on("combat.finish_heal_wall")
+			if (!hiding && !(Tune.on("combat.finish_heal_wall") && io.github.plrlr.autopilot.skills.NightSkills.Shelter.wallHasTime(h.dist())
 					&& a.skill instanceof io.github.plrlr.autopilot.skills.NightSkills.Shelter sh && sh.buildingHealWall())
 					&& (h.dist() < Tune.get("reflex.melee_dist") || Tune.on("combat.no_close_retreat") && h.dist() <= 4)) {
 				// Run only when outnumbered: one mob at arm's length follows and hits our back (batch
