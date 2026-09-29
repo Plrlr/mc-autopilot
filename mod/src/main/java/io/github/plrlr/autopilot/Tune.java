@@ -139,6 +139,7 @@ public final class Tune {
 		gene("skill.respawn_reset", 0, 0, 1, Kind.BOOL, "after respawning at night, dig or box in until morning before anything else");
 		gene("skill.recover_items", 0, 0, 1, Kind.BOOL, "go back for dropped items carefully: stop short, clear the spot, then pick up");
 		gene("skill.make_bed", 0, 0, 1, Kind.BOOL, "hunt sheep and craft a bed when sheep are in sight and we have none");
+		gene("stuck.ignore_water_bob", 0, 0, 1, Kind.BOOL, "detect a collect trip stuck in water using horizontal movement despite bobbing");
 		gene("skill.food_secure", 0, 0, 1, Kind.BOOL, "get food by a ladder of sources (cook, hunt, remembered animals, fish, explore)");
 		gene("skill.fish", 0, 0, 1, Kind.BOOL, "fish with a rod at known water");
 		gene("skill.secure_camp", 0, 0, 1, Kind.BOOL, "light the dark ground around us before smelting or casting in one spot");

@@ -792,7 +792,9 @@ public final class Autopilot {
 			minZ = Math.min(minZ, v.z); maxZ = Math.max(maxZ, v.z);
 		}
 		double box = Tune.get("stuck.box");
-		if (maxX - minX >= box || maxZ - minZ >= box || maxY - minY >= 1.5) return;
+		// Swimming in place bobs vertically without making progress toward a block on shore.
+		if (!StuckBox.stalled(maxX - minX, maxY - minY, maxZ - minZ, box,
+				pl.isInWater(), Tune.on("stuck.ignore_water_bob"))) return;
 		recentPos.clear();
 		String what = skillOption.label();
 		log.event("stuck", what + " at " + pl.blockPosition().toShortString() + (pl.isInWater() ? " in water" : ""));
