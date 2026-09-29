@@ -90,10 +90,12 @@ def load_state(d, genes):
     bank.migrate(st)
     # A new scorer measures something else: differences scored the old way can't be added to new
     # ones, so every race starts over (the champion keeps its crown until beaten the new way).
-    if st.get("score_version", 1) != common.SCORE_VERSION:
+    if (st.get("score_version", 1) != common.SCORE_VERSION
+            or st.get("race_evidence_version", 0) != 1):
         for g in st["genomes"].values():
-            g["pairs"] = []
+            reset_race(g)
         st["score_version"] = common.SCORE_VERSION
+        st["race_evidence_version"] = 1
     for n in genes:
         st["sigma"].setdefault(n, st["settings"]["sigma0"])
         st["credit"].setdefault(n, {"n": 0, "sum": 0.0})
@@ -103,6 +105,13 @@ def load_state(d, genes):
 def new_genome(gid, parent, changed, gen, mutated, note):
     return {"id": gid, "parent": parent, "genes": changed, "born": gen, "code": None, "status": "new",
             "mutated": mutated, "note": note, "evals": [], "pairs": []}
+
+
+def reset_race(g):
+    """Both kinds of evidence belong to one opponent and one scoring version."""
+    g["pairs"] = []
+    g.pop("metric_tally", None)
+    g.pop("metric_z", None)
 
 
 # ---------------------------------------------------------------------------------- mutation
@@ -493,7 +502,7 @@ def race(st, genes, challengers, champ, gen):
         # reversed by the same rule that made it.
         old = st["genomes"][champ]
         old["status"] = "contender"
-        old["pairs"] = []
+        reset_race(old)
         old["note"] = old["note"].split(" (defending")[0] + " (defending)"
         g["status"] = "champion"
         g["crowned"] = gen
@@ -516,14 +525,15 @@ def race(st, genes, challengers, champ, gen):
         # The others were measured against the old champion: they start over against the new one.
         for gid in challengers:
             if st["genomes"][gid]["status"] == "contender":
-                st["genomes"][gid]["pairs"] = []
-                st["genomes"][gid].pop("metric_tally", None)
+                reset_race(st["genomes"][gid])
     return out
 
 
 def metric_verdict(s, g, t):
     """crown / drop / wait for a challenger judged by its targeted metric (metrics.py)."""
     s = dict(s, max_pairs=g.get("max_pairs", s["max_pairs"]))
+    if not g["pairs"]:
+        return "wait"
     tl = g.get("metric_tally")
     if not tl:
         return "drop" if len(g["pairs"]) >= s["max_pairs"] else "wait"
