@@ -117,6 +117,16 @@ public final class SkillSpecs {
 		s.add(SkillSpec.of("end_guard", null).stage("end").facts("in_end").makes("threat_cleared")
 				.prior(5, 0.8).gene("skill.end_guard").help("eyes down, out of void falls").build());
 
+		// ---- wave 6: water and lava
+		s.add(SkillSpec.of("fluid_seal", null).stage("any").needs("throwaway", 4).makes("fluid_sealed").prior(15, 0.8)
+				.gene("skill.fluid_seal").help("block fluid sources near us").build());
+		s.add(SkillSpec.of("lava_guard", null).stage("any").needs("throwaway", 1).makes("threat_cleared").prior(2, 0.9)
+				.gene("skill.lava_guard").help("cover lava beside us").build());
+		s.add(SkillSpec.of("fluid_cross", null).stage("any").makes("crossed").prior(60, 0.6)
+				.gene("skill.fluid_cross").help("bridge, boat or swim across").build());
+		s.add(SkillSpec.of("drain_tunnel", null).stage("any").needs("throwaway", 4).makes("tunnel_dry").prior(30, 0.7)
+				.gene("skill.drain_tunnel").help("dry a flooded tunnel").build());
+
 		// ---- finding things and filling buckets: what the routes below need first
 		s.add(SkillSpec.of("explore", "lava").stage("portal")
 				.facts("overworld").makes("lava_pool").prior(240, 0.5)

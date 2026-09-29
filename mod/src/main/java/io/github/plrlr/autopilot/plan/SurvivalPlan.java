@@ -36,13 +36,29 @@ public final class SurvivalPlan {
 	/** Several melee mobs and nothing that shoots or blows up: rise out of reach (Codex, skill 2). */
 	public static Option pillar(Perception seen, String why) {
 		if (!Tune.on("skill.pillar") || !Mc.dimension().equals("overworld")) return null;
+		// Room to rise: the pillar needs 4 free blocks overhead. Underground there rarely is, and
+		// offering it there wasted the escape in the first all-skills trial (NO_ROOM at once, dead 8 s later).
+		var feet = Mc.player().blockPosition();
+		for (int i = 2; i <= 4; i++) if (!Mc.free(feet.above(i))) return null;
 		int melee = 0;
 		boolean ranged = false;
 		for (Perception.Seen mob : seen.mobs) if (mob.hostile()) {
+			// Spiders climb walls, pillars too: they make a pillar pointless, not safer.
+			if (Set.of("spider", "cave_spider").contains(mob.type()) && mob.dist() < 12) return null;
 			if (Kite.suits(mob)) melee++;
 			if (Set.of("skeleton", "stray", "bogged", "creeper").contains(mob.type())) ranged = true;
 		}
 		return Pillar.canPillar(Mc.count("throwaway"), melee, ranged) ? new Option("pillar", null, why + ": rise above melee") : null;
+	}
+
+	/**
+	 * Three or more monsters within 6 blocks and a box is possible: box in instead of trading hits
+	 * (gene skill.panic_box). The first all-skills trial died this way: three spiders underground,
+	 * full health to dead in 20 s, fighting while panic_box and shelter heal sat unused on the list.
+	 */
+	public static Option outnumbered(Perception seen, Option old) {
+		if (old == null || !Tune.on("skill.panic_box") || seen.hostilesWithin(6) < 3 || !PanicBox.suits(seen)) return old;
+		return new Option("panic_box", null, "outnumbered " + seen.hostilesWithin(6) + " to 1: box in and heal");
 	}
 
 	/** A fight the rules chose (attack or the creeper response): the skill made for that mob instead. */
@@ -52,6 +68,26 @@ public final class SurvivalPlan {
 		if (Tune.on("skill.block_arrows") && BlockArrows.suits(mob) && old.skill().equals("attack"))
 			return new Option("block_arrows", null, old.why() + ": shield up and close in");
 		return old;
+	}
+
+	// ---- water and lava in the way (wave 6)
+
+	private static volatile String crossTo;
+	private static volatile long crossMs;
+
+	/** Explore turned back at water heading this way: offer fluid_cross for the next half minute. */
+	public static void crossAhead(String xz) {
+		crossTo = xz;
+		crossMs = System.currentTimeMillis();
+	}
+
+	/** fluid_cross toward where explore was heading, once, soon after it turned back. */
+	public static Option cross() {
+		String to = crossTo;
+		if (to == null || !Tune.on("skill.fluid_cross")) return null;
+		crossTo = null;
+		if (System.currentTimeMillis() - crossMs > 30_000) return null;
+		return new Option("fluid_cross", to, "water ahead: bridge, boat or swim across instead of turning back");
 	}
 
 	// ---- after a death
