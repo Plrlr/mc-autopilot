@@ -13,7 +13,7 @@ import static org.junit.jupiter.api.Assertions.*;
 /** The site planner on made-up terrain: flat, bumpy, a hole, water, bedrock, lava pool distance. */
 class PortalSiteTest {
 	/** Terrain: stone below y 64, air from y 64 up, plus overrides. */
-	static final class Terrain implements PortalSite.Probe {
+	static class Terrain implements PortalSite.Probe {
 		final Map<BlockPos, String> blocks = new HashMap<>();
 
 		String at(BlockPos p) {
@@ -64,6 +64,21 @@ class PortalSiteTest {
 		t.blocks.put(O.east().above(3), "dirt");
 		PortalSite.Plan p = PortalSite.plan(O, Direction.EAST, t);
 		assertEquals(Set.of(O.above(2), O.east().above(3)), Set.copyOf(p.dig()));
+	}
+
+	@Test
+	void aFlowerWhereTheWallGoesGetsDugOut() {
+		Terrain t = new Terrain() {
+			@Override
+			public boolean solid(BlockPos p) {
+				return !at(p).equals("poppy") && super.solid(p);
+			}
+		};
+		// Along EAST the front is SOUTH, so the wall is one block NORTH of the frame.
+		BlockPos wall = O.north().above(1);
+		t.blocks.put(wall, "poppy");
+		PortalSite.Plan p = PortalSite.plan(O, Direction.EAST, t);
+		assertTrue(p.dig().contains(wall), "dig " + p.dig());
 	}
 
 	@Test
