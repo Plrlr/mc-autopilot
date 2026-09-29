@@ -1,0 +1,235 @@
+	- autopilot-test 0.1.0
+[18:49:12] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test] start at 6, 124, -3
+[18:49:12] [Test thread/INFO] (Minecraft) [STDOUT]: [autopilot-test] STAGE start kit
+[18:49:12] [Test thread/INFO] (Minecraft) [STDOUT]: [autopilot-test] FREE RUN: client and server run in parallel (no lockstep)
+[18:49:54] [Test thread/INFO] (Minecraft) [STDOUT]: [autopilot-test] CHECKPOINT lava at 25s (3392 KB)
+[18:50:01] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test] mold 30s: brain rules, goal nether_portal, doing collect coal:6, milestone 6/13, deaths 0
+[autopilot-test]    perf fps 16, server 7.0 ms/tick, mod 1.20 ms/tick
+[18:50:01] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    at 18 109 -2 hp 20 food 20 inv {bucket=1, coal=2, cobblestone=76, cooked_beef=16, diamond_pickaxe=1, flint_and_steel=1, iron_sword=1, water_bucket=1}
+[18:50:01] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    known water none, lava 16, 123, -2
+[18:50:01] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    equip shield -> ok: shield in off hand
+[18:50:01] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    collect diamond:1:lava -> failed INTERRUPTED: interrupted by reflex_creeper
+[18:50:01] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    retreat -> ok: got away
+[18:50:31] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test] mold 60s: brain rules, goal nether_portal, doing collect diamond:1:lava, milestone 6/13, deaths 0
+[autopilot-test]    perf fps 53, server 6.5 ms/tick, mod 1.23 ms/tick
+[18:50:31] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    at -10 49 39 hp 20 food 18 inv {bucket=1, coal=2, cobblestone=75, cooked_beef=16, diamond_pickaxe=1, flint_and_steel=1, iron_sword=1, rotten_flesh=2, water_bucket=1}
+[18:50:31] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    known water none, lava 15, 123, -2
+[18:50:31] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    equip shield -> ok: shield in off hand
+[18:50:31] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    collect diamond:1:lava -> failed INTERRUPTED: interrupted by reflex_creeper
+[18:50:31] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    retreat -> ok: got away
+[18:50:31] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    collect coal:6 -> failed INTERRUPTED: interrupted: brain chose attack zombie
+[18:50:31] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    attack zombie -> ok: killed the zombie
+[18:51:02] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test] mold 90s: brain rules, goal nether_portal, doing collect diamond:1:lava, milestone 6/13, deaths 0
+[autopilot-test]    perf fps 51, server 4.7 ms/tick, mod 1.15 ms/tick
+[18:51:02] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    at -33 -9 77 hp 20 food 17 inv {amethyst_block=1, bucket=1, calcite=2, coal=2, cobbled_deepslate=1, cobblestone=84, cooked_beef=16, diamond_pickaxe=1, flint_and_steel=1, granite=2, iron_sword=1, rotten_flesh=2, smooth_basalt=2, water_bucket=1}
+[18:51:02] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    known water -27, 32, 40, lava 15, 123, -2
+[18:51:02] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    collect diamond:1:lava -> failed INTERRUPTED: interrupted: brain chose retreat
+[18:51:02] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    retreat -> failed INTERRUPTED: interrupted by reflex_creeper
+[18:51:02] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    retreat -> failed INTERRUPTED: interrupted by reflex_fall
+[18:51:02] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    clutch -> ok: landed in water
+[18:51:02] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    collect diamond:1:lava -> failed INTERRUPTED: interrupted by reflex_creeper
+[18:51:02] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    retreat -> ok: got away
+[18:51:32] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test] mold 120s: brain rules, goal nether_portal, doing explore any, milestone 6/13, deaths 0
+[autopilot-test]    perf fps 62, server 4.4 ms/tick, mod 1.15 ms/tick
+[18:51:32] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    at -45 -37 72 hp 20 food 16 inv {amethyst_block=3, bucket=1, coal=2, cobbled_deepslate=3, cobblestone=84, cooked_beef=16, diamond_pickaxe=1, flint_and_steel=1, iron_sword=1, rotten_flesh=2, smooth_basalt=4, water_bucket=1}
+[18:51:32] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    known water -27, 32, 40, lava -48, -55, 72
+[18:51:32] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    clutch -> ok: landed in water
+[18:51:32] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    collect diamond:1:lava -> failed INTERRUPTED: interrupted by reflex_fall
+[18:51:32] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    clutch -> ok: landed in water
+[18:51:32] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    obsidian_pool -> failed NOT_FOUND: make_obsidian obsidian failed: no lava source we can safely pour water next to
+[18:51:32] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    obsidian_pool -> failed NOT_FOUND: make_obsidian obsidian failed: no lava source we can safely pour water next to
+[18:51:32] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    obsidian_pool -> failed NOT_FOUND: make_obsidian obsidian failed: no lava source we can safely pour water next to
+[18:52:02] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test] mold 150s: brain rules, goal nether_portal, doing explore any, milestone 6/13, deaths 0
+[autopilot-test]    perf fps 42, server 5.2 ms/tick, mod 1.13 ms/tick
+[18:52:02] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    at -92 -37 106 hp 20 food 15 inv {amethyst_block=3, coal=2, cobbled_deepslate=7, cobblestone=83, cooked_beef=16, diamond_pickaxe=1, flint_and_steel=1, iron_sword=1, pointed_dripstone=2, rotten_flesh=2, smooth_basalt=4, water_bucket=2}
+[18:52:02] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    known water -89, -39, 106, lava -51, -55, 72
+[18:52:02] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    clutch -> ok: landed in water
+[18:52:02] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    collect diamond:1:lava -> failed INTERRUPTED: interrupted by reflex_fall
+[18:52:02] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    clutch -> ok: landed in water
+[18:52:02] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    obsidian_pool -> failed NOT_FOUND: make_obsidian obsidian failed: no lava source we can safely pour water next to
+[18:52:02] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    obsidian_pool -> failed NOT_FOUND: make_obsidian obsidian failed: no lava source we can safely pour water next to
+[18:52:02] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    obsidian_pool -> failed NOT_FOUND: make_obsidian obsidian failed: no lava source we can safely pour water next to
+[18:52:33] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test] mold 180s: brain rules, goal nether_portal, doing collect diamond:1:lava, milestone 6/13, deaths 0
+[autopilot-test]    perf fps 35, server 5.3 ms/tick, mod 1.12 ms/tick
+[18:52:33] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    at -134 -27 118 hp 20 food 20 inv {amethyst_block=3, coal=2, cobbled_deepslate=17, cobblestone=79, cooked_beef=15, diamond=1, diamond_pickaxe=1, flint_and_steel=1, iron_sword=1, pointed_dripstone=2, rotten_flesh=2, smooth_basalt=4, water_bucket=2}
+[18:52:33] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    known water -117, -32, 105, lava -51, -55, 72
+[18:52:33] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    obsidian_pool -> failed NOT_FOUND: make_obsidian obsidian failed: no lava source we can safely pour water next to
+[18:52:33] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    obsidian_pool -> failed NOT_FOUND: make_obsidian obsidian failed: no lava source we can safely pour water next to
+[18:52:33] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    obsidian_pool -> failed NOT_FOUND: make_obsidian obsidian failed: no lava source we can safely pour water next to
+[18:52:33] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    explore any -> failed INTERRUPTED: interrupted: brain chose eat
+[18:52:33] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    eat -> ok: ate cooked_beef
+[18:52:33] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    collect diamond:1:lava -> ok: collected 1 diamond (seen blocks)
+[18:53:03] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test] mold 210s: brain rules, goal nether_portal, doing collect diamond:1:lava, milestone 6/13, deaths 0
+[autopilot-test]    perf fps 44, server 3.8 ms/tick, mod 1.10 ms/tick
+[18:53:03] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    at -135 -32 120 hp 20 food 18 inv {amethyst_block=3, coal=2, cobbled_deepslate=22, cobblestone=78, cooked_beef=15, diamond=1, diamond_pickaxe=1, flint_and_steel=1, iron_sword=1, pointed_dripstone=2, rotten_flesh=2, smooth_basalt=4, tuff=1, water_bucket=2}
+[18:53:03] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    known water -117, -32, 105, lava -132, -44, 126
+[18:53:03] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    eat -> ok: ate cooked_beef
+[18:53:03] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    collect diamond:1:lava -> ok: collected 1 diamond (seen blocks)
+[18:53:03] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    collect diamond:1:lava -> failed INTERRUPTED: interrupted by reflex_fall
+[18:53:03] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    clutch -> ok: landed in water
+[18:53:03] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    collect diamond:1:lava -> failed INTERRUPTED: interrupted by reflex_creeper
+[18:53:03] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    retreat -> ok: got away
+[18:53:34] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test] mold 240s: brain rules, goal nether_portal, doing collect log:3, milestone 6/13, deaths 1
+[autopilot-test]    perf fps 10, server 6.7 ms/tick, mod 1.08 ms/tick
+[18:53:34] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    at -2 123 6 hp 20 food 20 inv {}
+[18:53:34] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    known water -27, 32, 40, lava 15, 123, -2
+[18:53:34] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    attack skeleton -> ok: killed the skeleton
+[18:53:34] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    attack skeleton -> failed INTERRUPTED: interrupted by reflex_fall
+[18:53:34] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    clutch -> ok: landed in water
+[18:53:34] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    attack skeleton -> failed INTERRUPTED: interrupted: brain chose shelter heal
+[18:53:34] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    shelter heal -> failed INTERRUPTED: interrupted by reflex_fight
+[18:53:34] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    attack skeleton -> failed DIED: died
+[18:54:13] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test] mold 270s: brain rules, goal nether_portal, doing collect coal:6, milestone 6/13, deaths 1
+[autopilot-test]    perf fps 43, server 4.5 ms/tick, mod 1.04 ms/tick
+[18:54:13] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    at 16 120 0 hp 20 food 20 inv {cobblestone=4, crafting_table=1, spruce_planks=3, spruce_sapling=1, stick=2, wooden_pickaxe=1}
+[18:54:13] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    known water -27, 32, 40, lava 16, 123, -2
+[18:54:13] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    craft stick:4 -> ok: crafted 4 stick
+[18:54:13] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    craft planks:4 -> ok: crafted 4 planks
+[18:54:13] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    craft crafting_table:1 -> ok: crafted 1 crafting_table
+[18:54:13] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    craft planks:4 -> ok: crafted 4 planks
+[18:54:13] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    craft wooden_pickaxe:1 -> ok: crafted 1 wooden_pickaxe
+[18:54:13] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    pickup stations -> ok: picked up 2 stacks
+[18:54:46] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test] mold 300s: brain rules, goal nether_portal, doing goto death, milestone 6/13, deaths 1
+[autopilot-test]    perf fps 14, server 4.8 ms/tick, mod 1.02 ms/tick
+[18:54:46] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    at 11 114 -22 hp 20 food 20 inv {coal=6, cobblestone=5, spruce_planks=3, spruce_sapling=1, stone_pickaxe=1, wooden_pickaxe=1}
+[18:54:46] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    known water -27, 32, 40, lava 13, 123, -4
+[18:54:46] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    pickup stations -> ok: picked up 2 stacks
+[18:54:46] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    collect coal:6 -> ok: collected 6 coal (seen blocks)
+[18:54:46] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    craft torch:8 -> failed NO_RECIPE: no known recipe for torch (not unlocked yet?)
+[18:54:46] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    craft torch:8 -> failed NO_RECIPE: no known recipe for torch (not unlocked yet?)
+[18:54:46] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    craft torch:8 -> failed NO_RECIPE: no known recipe for torch (not unlocked yet?)
+[18:54:46] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    craft stone_pickaxe:1 -> ok: crafted 1 stone_pickaxe
+[18:55:30] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test] mold 330s: brain rules, goal nether_portal, doing goto death, milestone 6/13, deaths 1
+[autopilot-test]    perf fps 14, server 5.5 ms/tick, mod 0.98 ms/tick
+[18:55:30] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    at -77 91 58 hp 20 food 20 inv {coal=6, cobblestone=5, spruce_planks=3, spruce_sapling=1, stone_pickaxe=1, wooden_pickaxe=1}
+[18:55:30] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    known water -93, 62, 86, lava 13, 123, -2
+[18:55:30] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    pickup stations -> ok: picked up 2 stacks
+[18:55:30] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    collect coal:6 -> ok: collected 6 coal (seen blocks)
+[18:55:30] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    craft torch:8 -> failed NO_RECIPE: no known recipe for torch (not unlocked yet?)
+[18:55:30] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    craft torch:8 -> failed NO_RECIPE: no known recipe for torch (not unlocked yet?)
+[18:55:30] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    craft torch:8 -> failed NO_RECIPE: no known recipe for torch (not unlocked yet?)
+[18:55:30] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    craft stone_pickaxe:1 -> ok: crafted 1 stone_pickaxe
+[18:56:03] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test] mold 360s: brain rules, goal nether_portal, doing goto death, milestone 6/13, deaths 1
+[autopilot-test]    perf fps 16, server 4.0 ms/tick, mod 0.96 ms/tick
+[18:56:03] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    at -117 71 106 hp 20 food 20 inv {coal=6, cobblestone=5, spruce_planks=3, spruce_sapling=1, stone_pickaxe=1, wooden_pickaxe=1}
+[18:56:03] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    known water -104, 62, 105, lava -132, -44, 126
+[18:56:03] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    pickup stations -> ok: picked up 2 stacks
+[18:56:03] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    collect coal:6 -> ok: collected 6 coal (seen blocks)
+[18:56:03] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    craft torch:8 -> failed NO_RECIPE: no known recipe for torch (not unlocked yet?)
+[18:56:03] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    craft torch:8 -> failed NO_RECIPE: no known recipe for torch (not unlocked yet?)
+[18:56:03] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    craft torch:8 -> failed NO_RECIPE: no known recipe for torch (not unlocked yet?)
+[18:56:03] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    craft stone_pickaxe:1 -> ok: crafted 1 stone_pickaxe
+[18:56:34] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test] mold 390s: brain rules, goal nether_portal, doing goto death, milestone 6/13, deaths 1
+[autopilot-test]    perf fps 85, server 4.1 ms/tick, mod 0.95 ms/tick
+[18:56:34] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    at -133 44 117 hp 20 food 20 inv {coal=6, cobblestone=28, dirt=3, spruce_planks=3, spruce_sapling=1, stone_pickaxe=1, wooden_pickaxe=1}
+[18:56:34] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    known water -102, 62, 118, lava -132, -44, 126
+[18:56:34] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    pickup stations -> ok: picked up 2 stacks
+[18:56:34] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    collect coal:6 -> ok: collected 6 coal (seen blocks)
+[18:56:34] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    craft torch:8 -> failed NO_RECIPE: no known recipe for torch (not unlocked yet?)
+[18:56:34] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    craft torch:8 -> failed NO_RECIPE: no known recipe for torch (not unlocked yet?)
+[18:56:34] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    craft torch:8 -> failed NO_RECIPE: no known recipe for torch (not unlocked yet?)
+[18:56:34] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    craft stone_pickaxe:1 -> ok: crafted 1 stone_pickaxe
+[18:57:04] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test] mold 420s: brain rules, goal nether_portal, doing goto death, milestone 6/13, deaths 1
+[autopilot-test]    perf fps 80, server 4.3 ms/tick, mod 0.95 ms/tick
+[18:57:04] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    at -133 12 117 hp 20 food 20 inv {coal=6, cobblestone=56, diorite=4, dirt=3, spruce_planks=3, spruce_sapling=1, stone_pickaxe=1, wooden_pickaxe=1}
+[18:57:04] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    known water -102, 62, 118, lava -132, -44, 126
+[18:57:04] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    collect coal:6 -> ok: collected 6 coal (seen blocks)
+[18:57:04] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    craft torch:8 -> failed NO_RECIPE: no known recipe for torch (not unlocked yet?)
+[18:57:04] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    craft torch:8 -> failed NO_RECIPE: no known recipe for torch (not unlocked yet?)
+[18:57:04] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    craft torch:8 -> failed NO_RECIPE: no known recipe for torch (not unlocked yet?)
+[18:57:04] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    craft stone_pickaxe:1 -> ok: crafted 1 stone_pickaxe
+[18:57:04] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    goto death -> failed TIMEOUT: timed out after 120 s
+[18:57:35] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test] mold 450s: brain rules, goal nether_portal, doing goto death, milestone 6/13, deaths 1
+[autopilot-test]    perf fps 37, server 3.6 ms/tick, mod 0.95 ms/tick
+[18:57:35] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    at -132 -6 121 hp 20 food 20 inv {coal=6, cobbled_deepslate=9, cobblestone=58, diorite=21, dirt=3, spruce_planks=3, spruce_sapling=1, stone_pickaxe=1, wooden_pickaxe=1}
+[18:57:35] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    known water -102, 62, 119, lava -132, -44, 126
+[18:57:35] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    collect coal:6 -> ok: collected 6 coal (seen blocks)
+[18:57:35] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    craft torch:8 -> failed NO_RECIPE: no known recipe for torch (not unlocked yet?)
+[18:57:35] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    craft torch:8 -> failed NO_RECIPE: no known recipe for torch (not unlocked yet?)
+[18:57:35] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    craft torch:8 -> failed NO_RECIPE: no known recipe for torch (not unlocked yet?)
+[18:57:35] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    craft stone_pickaxe:1 -> ok: crafted 1 stone_pickaxe
+[18:57:35] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    goto death -> failed TIMEOUT: timed out after 120 s
+[18:58:05] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test] mold 480s: brain rules, goal nether_portal, doing goto death, milestone 6/13, deaths 1
+[autopilot-test]    perf fps 43, server 3.6 ms/tick, mod 0.95 ms/tick
+[18:58:05] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    at -134 -32 119 hp 20 food 20 inv {coal=6, cobbled_deepslate=29, cobblestone=58, diorite=21, dirt=3, spruce_planks=3, spruce_sapling=1, stone_pickaxe=1, wooden_pickaxe=1}
+[18:58:05] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    known water -102, 62, 119, lava -132, -44, 126
+[18:58:05] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    collect coal:6 -> ok: collected 6 coal (seen blocks)
+[18:58:05] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    craft torch:8 -> failed NO_RECIPE: no known recipe for torch (not unlocked yet?)
+[18:58:05] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    craft torch:8 -> failed NO_RECIPE: no known recipe for torch (not unlocked yet?)
+[18:58:05] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    craft torch:8 -> failed NO_RECIPE: no known recipe for torch (not unlocked yet?)
+[18:58:05] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    craft stone_pickaxe:1 -> ok: crafted 1 stone_pickaxe
+[18:58:05] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    goto death -> failed TIMEOUT: timed out after 120 s
+[18:58:35] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test] mold 510s: brain rules, goal nether_portal, doing collect raw_iron:9, milestone 6/13, deaths 1
+[autopilot-test]    perf fps 51, server 3.9 ms/tick, mod 0.95 ms/tick
+[18:58:35] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    at -138 -25 124 hp 20 food 19 inv {bone=2, bucket=1, coal=4, cobbled_deepslate=31, cobblestone=137, cooked_beef=15, diamond_pickaxe=1, diorite=15, flint_and_steel=1, raw_iron=2, rotten_flesh=2, spruce_planks=1, spruce_sapling=1, stick=2, stone_pickaxe=1, torch=2, water_bucket=1, wooden_pickaxe=1}
+[18:58:35] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    known water -136, -37, 118, lava -132, -44, 126
+[18:58:35] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    craft torch:8 -> failed NO_RECIPE: no known recipe for torch (not unlocked yet?)
+[18:58:35] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    craft stone_pickaxe:1 -> ok: crafted 1 stone_pickaxe
+[18:58:35] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    goto death -> failed TIMEOUT: timed out after 120 s
+[18:58:35] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    goto death -> ok: arrived near death
+[18:58:35] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    craft stick:4 -> ok: crafted 4 stick
+[18:58:35] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    craft torch:8 -> ok: crafted 8 torch
+[18:59:05] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test] mold 540s: brain rules, goal nether_portal, doing collect raw_iron:9, milestone 6/13, deaths 1
+[autopilot-test]    perf fps 47, server 3.6 ms/tick, mod 0.95 ms/tick
+[18:59:05] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    at -153 -18 125 hp 20 food 18 inv {bone=2, bucket=1, coal=4, cobbled_deepslate=34, cobblestone=137, cooked_beef=15, diamond_pickaxe=1, diorite=2, flint_and_steel=1, raw_iron=7, rotten_flesh=2, spruce_planks=1, spruce_sapling=1, stick=2, stone_pickaxe=1, water_bucket=1, wooden_pickaxe=1}
+[18:59:05] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    known water -136, -37, 118, lava -132, -44, 126
+[18:59:05] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    craft torch:8 -> failed NO_RECIPE: no known recipe for torch (not unlocked yet?)
+[18:59:05] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    craft stone_pickaxe:1 -> ok: crafted 1 stone_pickaxe
+[18:59:05] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    goto death -> failed TIMEOUT: timed out after 120 s
+[18:59:05] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    goto death -> ok: arrived near death
+[18:59:05] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    craft stick:4 -> ok: crafted 4 stick
+[18:59:05] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    craft torch:8 -> ok: crafted 8 torch
+[18:59:35] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test] mold 570s: brain rules, goal nether_portal, doing goto surface, milestone 6/13, deaths 1
+[autopilot-test]    perf fps 46, server 2.9 ms/tick, mod 0.95 ms/tick
+[18:59:35] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    at -139 -10 123 hp 20 food 18 inv {bone=2, bucket=1, coal=4, cobbled_deepslate=52, cobblestone=124, cooked_beef=15, diamond_pickaxe=1, dripstone_block=3, flint_and_steel=1, raw_iron=9, rotten_flesh=2, spruce_planks=1, spruce_sapling=1, stick=2, stone_pickaxe=1, water_bucket=1, wooden_pickaxe=1}
+[18:59:35] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    known water -136, -37, 118, lava -132, -44, 126
+[18:59:35] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    craft stone_pickaxe:1 -> ok: crafted 1 stone_pickaxe
+[18:59:35] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    goto death -> failed TIMEOUT: timed out after 120 s
+[18:59:35] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    goto death -> ok: arrived near death
+[18:59:35] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    craft stick:4 -> ok: crafted 4 stick
+[18:59:35] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    craft torch:8 -> ok: crafted 8 torch
+[18:59:35] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    collect raw_iron:9 -> ok: collected 9 raw_iron (seen blocks)
+[19:00:05] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test] mold 600s: brain rules, goal nether_portal, doing collect log:9, milestone 6/13, deaths 1
+[autopilot-test]    perf fps 38, server 3.2 ms/tick, mod 0.95 ms/tick
+[19:00:05] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    at -132 1 121 hp 20 food 17 inv {bone=2, bucket=1, coal=2, cobbled_deepslate=77, cobblestone=120, cooked_beef=15, diamond_pickaxe=1, diorite=1, dripstone_block=3, flint_and_steel=1, raw_iron=9, rotten_flesh=2, spruce_planks=1, spruce_sapling=1, stone_pickaxe=1, torch=7, water_bucket=1, wooden_pickaxe=1}
+[19:00:05] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    known water -136, -37, 118, lava -132, -44, 126
+[19:00:05] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    goto death -> ok: arrived near death
+[19:00:05] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    craft stick:4 -> ok: crafted 4 stick
+[19:00:05] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    craft torch:8 -> ok: crafted 8 torch
+[19:00:05] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    collect raw_iron:9 -> ok: collected 9 raw_iron (seen blocks)
+[19:00:05] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    goto surface -> failed UNREACHABLE: couldn't find the way up
+[19:00:05] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    craft torch:8 -> ok: crafted 8 torch
+[19:00:35] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test] mold 630s: brain rules, goal nether_portal, doing collect log:9, milestone 6/13, deaths 1
+[autopilot-test]    perf fps 62, server 3.3 ms/tick, mod 0.95 ms/tick
+[19:00:35] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    at -147 -30 123 hp 20 food 17 inv {bone=2, bucket=1, coal=2, cobbled_deepslate=78, cobblestone=122, cooked_beef=15, diamond_pickaxe=1, diorite=2, dripstone_block=3, flint_and_steel=1, oak_log=2, oak_planks=1, raw_iron=13, rotten_flesh=2, spruce_planks=1, spruce_sapling=1, stone_pickaxe=1, torch=4, water_bucket=1, wooden_pickaxe=1}
+[19:00:35] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    known water -136, -37, 118, lava -132, -44, 126
+[19:00:35] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    goto death -> ok: arrived near death
+[19:00:35] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    craft stick:4 -> ok: crafted 4 stick
+[19:00:35] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    craft torch:8 -> ok: crafted 8 torch
+[19:00:35] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    collect raw_iron:9 -> ok: collected 9 raw_iron (seen blocks)
+[19:00:35] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    goto surface -> failed UNREACHABLE: couldn't find the way up
+[19:00:35] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    craft torch:8 -> ok: crafted 8 torch
+[19:01:05] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test] mold 660s: brain rules, goal nether_portal, doing attack spider, milestone 6/13, deaths 1
+[autopilot-test]    perf fps 26, server 4.0 ms/tick, mod 0.95 ms/tick
+[19:01:05] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    at -155 -34 128 hp 16 food 17 inv {bone=2, bucket=1, coal=2, cobbled_deepslate=78, cobblestone=122, cooked_beef=15, diamond_pickaxe=1, diorite=2, dripstone_block=3, flint_and_steel=1, oak_log=7, oak_planks=1, raw_iron=14, rotten_flesh=2, spruce_planks=1, spruce_sapling=1, stone_pickaxe=1, torch=3, water_bucket=1, wooden_pickaxe=1}
+[19:01:05] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    known water -136, -37, 118, lava -132, -44, 126
+[19:01:05] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    craft stick:4 -> ok: crafted 4 stick
+[19:01:05] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    craft torch:8 -> ok: crafted 8 torch
+[19:01:05] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    collect raw_iron:9 -> ok: collected 9 raw_iron (seen blocks)
+[19:01:05] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    goto surface -> failed UNREACHABLE: couldn't find the way up
+[19:01:05] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    craft torch:8 -> ok: crafted 8 torch
+[19:01:05] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    collect log:9 -> failed INTERRUPTED: interrupted: brain chose attack spider
+[19:01:35] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test] mold 690s: brain rules, goal nether_portal, doing smelt iron_ingot:14, milestone 6/13, deaths 1
+[autopilot-test]    perf fps 31, server 3.2 ms/tick, mod 0.94 ms/tick
+[19:01:35] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    at -152 -34 125 hp 20 food 20 inv {bone=2, bucket=1, cobbled_deepslate=70, cobblestone=122, cooked_beef=14, diamond_pickaxe=1, diorite=2, dripstone_block=3, flint_and_steel=1, iron_ingot=1, oak_log=5, oak_planks=6, rotten_flesh=2, spruce_sapling=1, stone_pickaxe=1, string=1, torch=4, water_bucket=1, wooden_pickaxe=1}
+[19:01:35] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    known water -136, -37, 118, lava -132, -44, 126
+[19:01:35] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    eat -> ok: ate cooked_beef
+[19:01:35] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    craft planks:4 -> ok: crafted 4 planks
+[19:01:35] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    craft crafting_table:1 -> ok: crafted 1 crafting_table
+[19:01:35] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    craft planks:4 -> ok: crafted 4 planks
+[19:01:35] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    craft furnace:1 -> ok: crafted 1 furnace
+[19:01:35] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    smelt iron_ingot:14 -> ok: loaded 14 to smelt into iron_ingot; working nearby meanwhile
+[autopilot-test] SPEED 0.932 game s per wall s (720 game s in 772 wall s), mod 0.94 ms per tick
+[19:02:05] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test] FINAL mold: brain rules, goal nether_portal, doing smelt iron_ingot:14, milestone 6/13, deaths 1, dimension overworld, milestone times m6@0s, checkpoints two_buckets@0s flint_and_steel@0s lava_seen@1s
+[19:02:05] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test] LESSON obsidian_pool  failed 3 of 3 (mostly NOT_FOUND: make_obsidian obsidian failed: no lava source we can safely pour water)
+[19:02:05] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test] LESSON craft torch failed 3 of 5 (mostly NO_RECIPE: no known recipe for torch (not unlocked yet?))
