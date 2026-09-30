@@ -25,6 +25,7 @@ import glob
 import json
 import os
 import random
+import re
 import sys
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
@@ -70,8 +71,15 @@ def lava_starts(st, n):
     return random.Random().sample(pool, min(n, len(pool))) if pool else []
 
 
+def ideas_of(a):
+    """The ideas to drill: one given as JSON (--idea, a skill the loop wrote), or those a PR adds."""
+    if getattr(a, "idea", None):
+        return [json.loads(a.idea)]
+    return new_ideas(a.base, a.head)[:MAX_IDEAS]
+
+
 def cmd_plan(a):
-    ideas = new_ideas(a.base, a.head)[:MAX_IDEAS]
+    ideas = ideas_of(a)
     st = common.read_json(a.state, {}) or {}
     champ = st.get("genomes", {}).get(st.get("champion", ""), {}).get("genes", {})
     runs = []
@@ -85,6 +93,11 @@ def cmd_plan(a):
                              "scenario": "combat" if k == "combat" else "natural", "minutes": MINUTES[k],
                              "start": asset or "",
                              "params": json.dumps({"id": "drill-" + side, "genes": genes}, separators=(",", ":"))})
+    if getattr(a, "format", "matrix") == "extra":
+        # trials.yml's "extra" runs (a skill the loop wrote is drilled there, on its own branch).
+        runs = [{"seed": r["seed"], "scenario": r["scenario"], "minutes": r["minutes"], "start": r["start"],
+                 "id": r["name"], "genes": json.loads(r["params"])["genes"], "lean": "true", "window": "427x240"}
+                for r in runs]
     print(json.dumps(runs, separators=(",", ":")))
 
 
@@ -100,9 +113,21 @@ def verdict(z, crashed, has_evidence):
     return "FAIL" if (z <= -1.5 and has_evidence) or crashed else "PASS"
 
 
+def drill_dirs(batch, j):
+    """(side, start, dir) of idea j's games: PR drills name them trial-drill-0-on-1, trials.yml
+    batches (runs/<id>/) trial-natural-drill-0-1-drill-0-on-1."""
+    out = []
+    for d in sorted(glob.glob(os.path.join(batch, "*drill-%d-*" % j))):
+        m = re.search(r"drill-%d-(on|off)-(\d+)$" % j, os.path.basename(d))
+        if m and os.path.isdir(d):
+            out.append((m.group(1), m.group(2), d))
+    return out
+
+
 def cmd_report(a):
     sb = common.summarizer()
-    ideas = new_ideas(a.base, a.head)[:MAX_IDEAS]
+    ideas = ideas_of(a)
+    verdicts = []
     out = ["### Drill gate (3 pairs per idea: a gate against breakage and clear harm; the loop's race decides)", ""]
     for j, idea in enumerate(ideas):
         k, m = kind(idea), metric_of(idea)
@@ -110,8 +135,7 @@ def cmd_report(a):
         tally = {"on": [0, 0.0], "off": [0, 0.0]}
         played = {"on": 0, "off": 0}
         rows = []
-        for d in sorted(glob.glob(os.path.join(a.batch, "trial-drill-%d-*" % j))):
-            side, i = os.path.basename(d).split("-")[3:5]
+        for side, i, d in drill_dirs(a.batch, j):
             r = sb.read_run(d)
             if not r["final"]:
                 rows.append("| %s | %s | didn't play | | |" % (i, side))
@@ -130,21 +154,31 @@ def cmd_report(a):
                 "| start | side | %s | deaths | portal steps |" % header, "|---|---|---|---|---|"] + rows + [""]
         if v == "FAIL":
             out.append('Mark it `"_drill": "fail"` in settings.json before merging (the loop skips those).\n')
+        verdicts.append({"idea": idea, "verdict": v, "metric": m, "z": round(z, 2), "on": tally["on"], "off": tally["off"],
+                         "played": played, "text": "%s: on %s, off %s, z %+.1f" % (
+                             v, metrics.describe(m, tally["on"]), metrics.describe(m, tally["off"]), z)})
+    if getattr(a, "json", None):
+        common.write_json(a.json, verdicts)
     print("\n".join(out))
+    return verdicts
 
 
 def main():
     ap = argparse.ArgumentParser()
     sub = ap.add_subparsers(dest="cmd", required=True)
     p = sub.add_parser("plan")
-    p.add_argument("--base", required=True)
-    p.add_argument("--head", required=True)
+    p.add_argument("--base")
+    p.add_argument("--head")
+    p.add_argument("--idea", help="drill this idea (JSON) instead of the ones settings.json adds")
     p.add_argument("--state", required=True)
     p.add_argument("--n", type=int, default=3)
+    p.add_argument("--format", choices=("matrix", "extra"), default="matrix", help="extra: trials.yml's runs")
     r = sub.add_parser("report")
-    r.add_argument("--base", required=True)
-    r.add_argument("--head", required=True)
+    r.add_argument("--base")
+    r.add_argument("--head")
+    r.add_argument("--idea")
     r.add_argument("--batch", required=True)
+    r.add_argument("--json", help="also write the verdicts here")
     a = ap.parse_args()
     {"plan": cmd_plan, "report": cmd_report}[a.cmd](a)
 
