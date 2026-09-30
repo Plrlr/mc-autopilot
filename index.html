@@ -416,6 +416,11 @@ function render(data) {
   $("status").innerHTML = last
     ? `Generation <b>${last.gen}</b> scored ${ago < 90 ? `<b>${ago} min ago</b>` : `${Math.round(ago / 60)} h ago`}. Real speed ${last.speed ? fmt(last.speed, 2) + "× game time" : "–"}. Code <code>${esc(last.sha || "")}</code>.`
     : "Waiting for the first generation to finish.";
+  if (state && state.pending) {
+    const pending = state.pending;
+    const elapsed = Math.max(0, Math.round((Date.now() - Date.parse(pending.started)) / 60000));
+    $("status").innerHTML = `Generation <b>${esc(pending.gen)}</b> in progress, started ${elapsed} min ago. Code <code>${esc((pending.sha || "").slice(0, 7))}</code>. ` + $("status").innerHTML;
+  }
   const tiles = [
     ["Generations", last ? fmt(last.gen) : "0", state && state.pending ? "one is playing now" : ""],
     ["Runs played", last ? fmt(last.total_runs) : "0", state && state.settings && state.settings.minutes ? `${state.settings.minutes} game minutes each` : ""],
@@ -427,6 +432,7 @@ function render(data) {
   const hz = (model && model.hazard) || null;
   const nSkills = state && state.skill_stats ? Object.keys(state.skill_stats).length : 0;
   const mt = [
+    ["Action model", model ? `${model.kind === "mlp" ? "Neural" : model.kind || "–"} ${model.id || ""}` : "–", champ && (champ.genes["learned.weight"] || 0) > 0 ? "champion uses learned choices" : "champion uses rules; learned choices await a winning race"],
     ["Decisions learned from", hz ? fmt(hz.rows) : "0", model && model.runs ? `from ${fmt(model.runs)} games` : "no model yet"],
     ["Danger model", hz && hz.auc != null ? fmt(hz.auc, 2) : "–", "tells a deadly moment from a safe one (1 perfect, 0.5 guessing)"],
     ["Deadly moments", hz ? fmt(hz.death_rows) : "0", `decisions ${hz && hz.horizon ? hz.horizon : 45} s or less before a death`],
