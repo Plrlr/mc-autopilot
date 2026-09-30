@@ -145,14 +145,20 @@ def main():
     # A fifth is the test set (the R2 the loop's gate reads); 15% stops the tree boosting early.
     rng = random.Random(7)
     part = {f: rng.random() for f in files}
-    rows = list(examples(files, feats, a.horizon)) if a.advantage else []
-    hazard = None
+    ap_rows = list(examples(files, feats, a.horizon))
+    rows = ap_rows if a.advantage else []
+    hazard = net = None
     keys, stats, kind = {}, {"r2": None, "adv_r2": None}, "retired"
     try:
         import numpy  # noqa: F401
         if a.advantage:
             keys, stats = train_trees(rows, part)
             kind = "trees"
+        else:
+            # 2026-09-30: the neural brain (mlp.py, ~110k parameters) replaces the retired trees.
+            net, stats = train_mlp(ap_rows, part)
+            if net:
+                kind, rows = "mlp", ap_rows
         hazard = train_hazard(files, feats, part)
     except ImportError:
         if a.advantage:
@@ -169,6 +175,8 @@ def main():
              "trained": datetime.datetime.now(datetime.timezone.utc).isoformat(timespec="seconds")}
     if hazard:
         model["hazard"] = hazard
+    if net:
+        model["mlp"] = net  # "keys" stays empty: older mods read an empty model and play the rules
     # Brain v2: per action key, how often it works, how long it takes, how often it kills us.
     model["skills"] = skillstats.train_skill_stats(files, feats)
     common.write_json(os.path.join(a.state, "learned.json"), model)
@@ -176,13 +184,15 @@ def main():
         st["model_rows"] = len(ys)
         st["model_r2"] = stats["r2"]
         st["model_adv_r2"] = stats["adv_r2"]
-        st["model_keys"] = len(keys)
+        st["model_keys"] = len(net["heads"]) - 1 if net else len(keys)
         st["model_kind"] = kind
         st["hazard_auc"] = hazard["auc"] if hazard else None
         st["skill_stats"] = {k: v for k, v in model["skills"].items() if "@" not in k}
         common.write_json(st_path, st)
+    if net:
+        print("neural brain: %d parameters, %d heads" % (net["params"], len(net["heads"])))
     print("learned model m%d (%s): %d decisions from %d runs, %d action kinds, held-out R2 %s (choice part %s)"
-          % (gen, kind, len(ys), len(files), len(keys), stats["r2"], stats["adv_r2"]))
+          % (gen, kind, len(ys), len(files), len(net["heads"]) - 1 if net else len(keys), stats["r2"], stats["adv_r2"]))
     if hazard:
         print("danger model: %d decisions (%d followed by a death), held-out AUC %s, %d trees"
               % (hazard["rows"], hazard["death_rows"], hazard["auc"], len(hazard["trees"])))
@@ -327,6 +337,45 @@ def train_trees(rows, part):
         r2 = rsq(list(zip(be + adv, ye)))
         adv_r2 = rsq(list(zip(adv, ye - be)))
     return keys, {"r2": r2, "adv_r2": adv_r2}
+
+
+def train_mlp(rows, part):
+    """The neural brain (mlp.py). Trained on runs with split >= 0.35, stopped early on 0.2-0.35,
+    tested on the rest. adv_r2 is measured like the trees': the net's choice part (its action head
+    minus its own "_v") against what a tree baseline of the state leaves unexplained. A net that only
+    learned the state can't pass the gate."""
+    import numpy as np
+    import gbt
+    import mlp
+
+    tr = [(k, x, y, w) for f, k, x, y, w in rows if part[f] >= 0.35]
+    va = [(k, x, y, w) for f, k, x, y, w in rows if 0.2 <= part[f] < 0.35]
+    te = [(k, x, y, w) for f, k, x, y, w in rows if part[f] < 0.2]
+    if len(tr) < 20 * mlp.MIN_HEAD_ROWS or len(va) < MIN_ROWS:
+        return None, {"r2": None, "adv_r2": None}
+    # The newest 300k training rows at most: keeps a generation's training under ~6 minutes.
+    tr = tr[-300000:]
+    heads = mlp.heads_for(tr)
+    scale = max(0.1, statistics_std([r[2] for r in tr]))
+    layers, sizes = mlp.fit(tr, va, heads, scale)
+    r2 = adv_r2 = None
+    if te:
+        col = {h: i for i, h in enumerate(heads)}
+        Xe = np.array([r[1] for r in te], dtype=float)
+        ye = np.array([r[2] for r in te], dtype=float)
+        out = mlp.predict(layers, heads, scale, Xe)
+        Xt = np.array([r[1] for r in tr], dtype=float)
+        yt = np.array([r[2] for r in tr], dtype=float)
+        V = gbt.fit(Xt, yt, np.array([r[3] for r in tr], dtype=float), depth=4, lr=0.05, min_leaf=40, trees=150)
+        be = gbt.predict(V, Xe)
+        pred, adv = [], []
+        for i, (k, _, _, _) in enumerate(te):
+            j = col.get(k, col.get(k.split(":")[0]))
+            q = out[i, j] if j is not None else out[i, 0]
+            pred.append((q, ye[i]))
+            adv.append((q - out[i, 0], ye[i] - be[i]))
+        r2, adv_r2 = rsq(pred), rsq(adv)
+    return mlp.export(layers, sizes, heads, scale), {"r2": r2, "adv_r2": adv_r2}
 
 
 def train_linear(rows, part):

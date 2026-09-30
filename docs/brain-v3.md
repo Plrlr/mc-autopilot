@@ -59,3 +59,13 @@ Its held-out choice R2 was 0.008 on 82k rows (and -0.018 when retrained on gens 
 its 0.1 gate, so it never played. `train.py` now trains only the danger model and the skill stats
 (the strategist's data): 17 s instead of 30 s on 9 generations. `--advantage` revives it. Data runs
 are 0 again: Thompson sampling in the strategist (brain.thompson) is the exploration now.
+
+## 2026-09-30: the neural brain
+
+The advantage re-ranker is now a network (`scripts/loop/mlp.py`, `brains/MlpModel.java`): 40
+features -> 256 -> 256 -> 128 -> one head per action kind (~117k parameters, 63 heads on the 1,432
+games so far), retrained on every game each generation (~6 min with the danger model). First
+fit: held-out R2 0.19 for progress, choice part 0.006, the trees' level. Size doesn't fix that:
+the data held only the rules' habits. The 2 data runs per generation (15% deliberate tries) are back
+on to give it choices to compare. It plays (learned.* genes race) only once its choice R2 passes
+model_gate, measured against the same tree baseline as before.
