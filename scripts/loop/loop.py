@@ -58,6 +58,7 @@ DEFAULT_SETTINGS = {
     "accept_t": 2.0,           # ...and a one-sided t this high (many looks per challenger: keep it strict)...
     "min_gain": 0.3,           # ...and a mean gain at least this big (a real difference, not a fluke)
     "drop_after_pairs": 4,     # below zero after this many pairs: out
+    "drop_t": -1.0,            # ...but a suggestion or code change only if its paired t is this low too
     "max_pairs": 24,           # never promoted after this many pairs: out (not better enough to tell)
     "sigma0": 0.15,            # starting mutation step, as a fraction of each gene's range
     "stage_lookahead": True,   # one stage start per generation goes past the frontier (False: all at the frontier)
@@ -120,9 +121,14 @@ def reset_race(g):
 def pick_genes(st, genes, rng, k):
     """Genes to mutate: more often those whose past changes paid off (softmax of mean credit),
     always with some chance for every gene."""
-    # The learned brain's genes only once its model predicts unseen runs better than the baseline
-    # (held-out R2 of the choice part above 0.02): before that, turning it on only wastes a race slot.
-    model_ok = (st.get("model_adv_r2") or -1) > st["settings"].get("model_gate", 0.02)
+    # The learned brain's genes only once its model predicts unseen runs better than the baseline.
+    # The neural brain reports a 5% lower bound over resampled games (train.gain_lower_bound): above
+    # zero is enough, and the race then judges it in play. A fixed R2 bar (model_gate) could never
+    # pass: R2 is capped by how random outcomes are, not by choice quality. Trees still use the bar.
+    if st.get("model_adv_lo") is not None:
+        model_ok = st["model_adv_lo"] > 0
+    else:
+        model_ok = (st.get("model_adv_r2") or -1) > st["settings"].get("model_gate", 0.02)
     names = [n for n in genes if not n.startswith("learned.") or model_ok]
     w = []
     for n in names:
@@ -492,7 +498,12 @@ def race(st, genes, challengers, champ, gen):
             continue
         if len(diffs) >= s["accept_pairs"] and m >= s["min_gain"] and t >= s["accept_t"] and t > best_t:
             best, best_t = gid, t
-        elif (len(diffs) >= min_pairs and m <= 0) or len(diffs) >= max_pairs:
+            continue
+        # A queued idea is dropped early only on evidence it hurts (t <= drop_t), not on a mean just
+        # under zero: g47 (reflex.lava_margin) went out at -0.13 over 8 worlds (t -0.1, sd ~3 per
+        # world), a coin flip. A neutral idea still leaves at max_pairs. Mutations stay cheap to drop.
+        hurts = m <= 0 and (t <= s.get("drop_t", -1.0) or not g["note"].startswith(("suggested", "code:")))
+        if (len(diffs) >= min_pairs and hurts) or len(diffs) >= max_pairs:
             g["status"] = "rejected"
             out.append("%s dropped (%+.2f over %d seeds)" % (gid, m, len(diffs)))
             learn_from(st, g, m)
@@ -597,8 +608,11 @@ def save_training_rows(state_dir, gen, name, d):
                 opts = o.get("options", [])
                 idx = o.get("idx", 0)
                 label = opts[idx] if 0 <= idx < len(opts) else o.get("choice", "")
+                # "o": the options it chose among (since 2026-09-30). Without them training saw only
+                # the pick, never what else was on the table, so it couldn't compare the two.
                 rows.append({"k": "d", "gs": o["gs"], "x": o["x"], "a": action_key(label),
-                             "p": o.get("prop", 1), "i": idx, "u": label in o.get("urgent", [])})
+                             "p": o.get("prop", 1), "i": idx, "u": label in o.get("urgent", []),
+                             "o": [action_key(l) for l in opts[:6]]})
             elif o.get("event") in ("death", "milestone", "checkpoint"):
                 events.append((o["t"], o["event"], o.get("detail", "")))
             elif o.get("event") == "skill_end" and "t" in o:
