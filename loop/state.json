@@ -2666,7 +2666,7 @@
   "2026-09-27": 15,
   "2026-09-28": 32,
   "2026-09-29": 24,
-  "2026-09-30": 23
+  "2026-09-30": 24
  },
  "evolve_days": {
   "2026-09-27": 1,
@@ -2714,7 +2714,7 @@
    "target": "explore:any HAZARD"
   }
  ],
- "gen": 94,
+ "gen": 95,
  "gene_specs": {
   "bed.table_first": {
    "def": 0.0,
@@ -15096,6 +15096,37 @@
    "parent": "g56",
    "status": "contender"
   },
+  "g76": {
+   "born": 95,
+   "code": null,
+   "evals": [],
+   "genes": {
+    "cave.torches": 1.0,
+    "combat.ignore_walled_mobs": 1.0,
+    "death.recover_night_armor": 12.0,
+    "focus.commit": 1.0,
+    "nav.surface_v2": 1.0,
+    "nav.unstuck_v2": 1.0,
+    "night.shelter_exit": 1.0,
+    "plan.hide_hp": 15.0,
+    "portal.prepare_work_area": 1.0,
+    "portal.reserve_lava_bucket": 1.0,
+    "route.armor_before_portal": 0.0,
+    "skill.portal_repair": 1.0,
+    "skill.ruined_portal": 1.0,
+    "stuck.ignore_water_bob": 1.0,
+    "stuck.item_progress": 1.0
+   },
+   "id": "g76",
+   "metric": "ok:collect",
+   "mutated": [
+    "stuck.ignore_water_bob"
+   ],
+   "note": "suggested: stuck.ignore_water_bob 1",
+   "pairs": [],
+   "parent": "g56",
+   "status": "contender"
+  },
   "g8": {
    "born": 6,
    "code": null,
@@ -15262,8 +15293,87 @@
   "mean_gap_ok": null,
   "n": 108
  },
- "next_id": 76,
- "pending": null,
+ "next_id": 77,
+ "pending": {
+  "data_tasks": [
+   {
+    "kind": "natural",
+    "seed": "D95-ffhy5e",
+    "stage": "spawn",
+    "synthetic": false
+   },
+   {
+    "kind": "natural",
+    "seed": "D95-by2yfa",
+    "stage": "spawn",
+    "synthetic": false
+   }
+  ],
+  "gen": 95,
+  "lineup": [
+   "g56",
+   "g73",
+   "g75",
+   "g76"
+  ],
+  "runs": [
+   "eval-g56-0",
+   "eval-g56-1",
+   "eval-g56-2",
+   "eval-g56-3",
+   "eval-g73-0",
+   "eval-g73-1",
+   "eval-g73-2",
+   "eval-g73-3",
+   "eval-g75-0",
+   "eval-g75-1",
+   "eval-g75-2",
+   "eval-g75-3",
+   "eval-g76-0",
+   "eval-g76-1",
+   "eval-g76-2",
+   "eval-g76-3",
+   "data-g56-0",
+   "data-g56-1"
+  ],
+  "seeds": [
+   "L95-jzq2vu",
+   "L95-fmrfxc",
+   "L95-yd58zb",
+   "L95-5e6g3x"
+  ],
+  "sha": "537d4ceac1dc7374b57ddce580f96f9511e1468c",
+  "started": "2026-09-30T23:13:27+00:00",
+  "tasks": [
+   {
+    "kind": "natural",
+    "seed": "L95-jzq2vu",
+    "stage": "spawn",
+    "synthetic": false
+   },
+   {
+    "kind": "natural",
+    "seed": "L95-fmrfxc",
+    "stage": "spawn",
+    "synthetic": false
+   },
+   {
+    "asset": "diamond-gen88-eval-g56-0.zip",
+    "kind": "start",
+    "seed": "L95-yd58zb",
+    "stage": "diamond",
+    "synthetic": false
+   },
+   {
+    "kind": "combat",
+    "minutes": 10,
+    "scenario": "combat",
+    "seed": "L95-5e6g3x",
+    "stage": "combat",
+    "synthetic": false
+   }
+  ]
+ },
  "race_evidence_version": 1,
  "score_version": 3,
  "settings": {
@@ -18037,7 +18147,8 @@
   "{\"_metric\": \"ok:attack\", \"combat.ignore_walled_mobs\": 1}",
   "{\"_metric\": \"ok:collect\", \"stuck.item_progress\": 1}",
   "{\"_metric\": \"ok:collect\", \"gather.stair_for_stone\": 1}",
-  "{\"_metric\": \"ok:collect\", \"fluid.enclosed_tunnel\": 1, \"gather.dry_stone\": 1}"
+  "{\"_metric\": \"ok:collect\", \"fluid.enclosed_tunnel\": 1, \"gather.dry_stone\": 1}",
+  "{\"_metric\": \"ok:collect\", \"stuck.ignore_water_bob\": 1}"
  ],
  "version": 1
 }
