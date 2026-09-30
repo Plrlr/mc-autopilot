@@ -27,6 +27,7 @@ import json
 import math
 import os
 import random
+import re
 import sys
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
@@ -52,7 +53,8 @@ def potential(x, idx):
     return sum(w * x[idx[n]] for n, w in POTENTIAL.items() if n in idx)
 
 
-def examples(files, feats, horizon):
+def examples(files, feats, horizon, choices=None):
+    """Keep the five-value rows; optionally append (i, o) alongside each yielded row."""
     idx = {n: i for i, n in enumerate(feats)}
     for f in files:
         try:
@@ -78,6 +80,8 @@ def examples(files, feats, horizon):
             y = potential(later["x"], idx) - potential(r["x"], idx)
             y -= DEATH * sum(1 for t in deaths if r["gs"] <= t <= target)
             w = min(MAX_WEIGHT, 1.0 / max(1e-3, r.get("p", 1)))
+            if choices is not None:
+                choices.append((r.get("i", 0), r.get("o")))
             yield f, r["a"], r["x"], y, w
 
 
@@ -144,8 +148,11 @@ def main():
     # Split by run, never by row: rows of one run are alike, so a row split would flatter the model.
     # A fifth is the test set (the R2 the loop's gate reads); 15% stops the tree boosting early.
     rng = random.Random(7)
-    part = {f: rng.random() for f in files}
-    ap_rows = list(examples(files, feats, a.horizon))
+    # By world, not by file: the genomes of a generation play the same seeds (game_group).
+    worlds = {}
+    part = {f: worlds.setdefault(game_group(f), rng.random()) for f in files}
+    choices = []
+    ap_rows = list(examples(files, feats, a.horizon, choices))
     rows = ap_rows if a.advantage else []
     hazard = net = None
     keys, stats, kind = {}, {"r2": None, "adv_r2": None}, "retired"
@@ -156,7 +163,7 @@ def main():
             kind = "trees"
         else:
             # 2026-09-30: the neural brain (mlp.py, ~110k parameters) replaces the retired trees.
-            net, stats = train_mlp(ap_rows, part)
+            net, stats = train_mlp(ap_rows, part, choices)
             if net:
                 kind, rows = "mlp", ap_rows
         hazard = train_hazard(files, feats, part)
@@ -172,6 +179,7 @@ def main():
     model = {"id": "m%d" % gen, "kind": kind, "features": feats, "keys": keys, "scale": round(scale, 4),
              "horizon": a.horizon, "rows": len(ys), "runs": len(files), "r2_heldout": stats["r2"],
              "adv_r2_heldout": stats["adv_r2"], "adv_lo_heldout": stats.get("adv_lo"),
+             "sign_check": stats.get("sign"),
              "trained": datetime.datetime.now(datetime.timezone.utc).isoformat(timespec="seconds")}
     if hazard:
         model["hazard"] = hazard
@@ -185,6 +193,7 @@ def main():
         st["model_r2"] = stats["r2"]
         st["model_adv_r2"] = stats["adv_r2"]
         st["model_adv_lo"] = stats.get("adv_lo")
+        st["model_sign"] = stats.get("sign")
         st["model_keys"] = len(net["heads"]) - 1 if net else len(keys)
         st["model_kind"] = kind
         st["hazard_auc"] = hazard["auc"] if hazard else None
@@ -192,8 +201,14 @@ def main():
         common.write_json(st_path, st)
     if net:
         print("neural brain: %d parameters, %d heads" % (net["params"], len(net["heads"])))
-    print("learned model m%d (%s): %d decisions from %d runs, %d action kinds, held-out R2 %s (choice part %s, 5%% bound %s)"
-          % (gen, kind, len(ys), len(files), len(net["heads"]) - 1 if net else len(keys), stats["r2"], stats["adv_r2"], stats.get("adv_lo")))
+    sign = stats.get("sign")
+    if sign and sign["agree"] is not None:
+        sign_text = "sign check %.2f (5%% bound %.2f) on %d deviations in %d games" % (
+            sign["agree"], sign["lo"], sign["n"], sign["games"])
+    else:
+        sign_text = "sign check: too few deviations yet (n=%d)" % (sign["n"] if sign else 0)
+    print("learned model m%d (%s): %d decisions from %d runs, %d action kinds, held-out R2 %s (choice part %s, 5%% bound %s), %s"
+          % (gen, kind, len(ys), len(files), len(net["heads"]) - 1 if net else len(keys), stats["r2"], stats["adv_r2"], stats.get("adv_lo"), sign_text))
     if hazard:
         print("danger model: %d decisions (%d followed by a death), held-out AUC %s, %d trees"
               % (hazard["rows"], hazard["death_rows"], hazard["auc"], len(hazard["trees"])))
@@ -340,7 +355,7 @@ def train_trees(rows, part):
     return keys, {"r2": r2, "adv_r2": adv_r2}
 
 
-def train_mlp(rows, part):
+def train_mlp(rows, part, choices=None):
     """The neural brain (mlp.py). Trained on runs with split >= 0.35, stopped early on 0.2-0.35,
     tested on the rest. adv_r2 is measured like the trees': the net's choice part (its action head
     minus its own "_v") against what a tree baseline of the state leaves unexplained. A net that only
@@ -351,9 +366,13 @@ def train_mlp(rows, part):
 
     tr = [(k, x, y, w) for f, k, x, y, w in rows if part[f] >= 0.35]
     va = [(k, x, y, w) for f, k, x, y, w in rows if 0.2 <= part[f] < 0.35]
-    te = [(k, x, y, f) for f, k, x, y, w in rows if part[f] < 0.2]
+    # Test rows carry their world (game_group), not their file: games on one seed move together.
+    te = [(k, x, y, game_group(f)) for f, k, x, y, w in rows if part[f] < 0.2]
+    test_choices = [choices[i] if choices is not None else (0, None)
+                    for i, r in enumerate(rows) if part[r[0]] < 0.2]
+    sign = sign_check([], [], [], [])
     if len(tr) < 20 * mlp.MIN_HEAD_ROWS or len(va) < MIN_ROWS:
-        return None, {"r2": None, "adv_r2": None}
+        return None, {"r2": None, "adv_r2": None, "sign": sign}
     # The newest 300k training rows at most: keeps a generation's training under ~6 minutes.
     tr = tr[-300000:]
     heads = mlp.heads_for(tr)
@@ -365,19 +384,94 @@ def train_mlp(rows, part):
         Xe = np.array([r[1] for r in te], dtype=float)
         ye = np.array([r[2] for r in te], dtype=float)
         out = mlp.predict(layers, heads, scale, Xe)
+        sign = sign_check(te, test_choices, heads, out)
         Xt = np.array([r[1] for r in tr], dtype=float)
         yt = np.array([r[2] for r in tr], dtype=float)
         V = gbt.fit(Xt, yt, np.array([r[3] for r in tr], dtype=float), depth=4, lr=0.05, min_leaf=40, trees=150)
         be = gbt.predict(V, Xe)
         pred, adv = [], []
-        for i, (k, _, _, _) in enumerate(te):
-            j = col.get(k, col.get(k.split(":")[0]))
+        for i, (k, _, _, g) in enumerate(te):
+            j = head_col(col, k)
             q = out[i, j] if j is not None else out[i, 0]
             pred.append((q, ye[i]))
             adv.append((q - out[i, 0], ye[i] - be[i]))
+        choice, groups = choice_part(te, test_choices, out, col, ye - be)
         r2, adv_r2 = rsq(pred), rsq(adv)
-        adv_lo = gain_lower_bound(adv, [r[3] for r in te])
-    return mlp.export(layers, sizes, heads, scale), {"r2": r2, "adv_r2": adv_r2, "adv_lo": adv_lo}
+        adv_lo = gain_lower_bound(choice, groups)
+    return mlp.export(layers, sizes, heads, scale), {"r2": r2, "adv_r2": adv_r2, "adv_lo": adv_lo, "sign": sign,
+                                                     "adv_rows": len(choice)}
+
+
+def choice_part(te, choices, out, col, resid):
+    """The gate's (predicted, actual) pairs and their worlds: the pick's head against the mean of
+    the heads of the options it was chosen from, so a shift common to every head (a state error)
+    cancels, and what the tree baseline of the state left unexplained. Rows without their options
+    ("o", logged since 2026-09-30) or with fewer than two scored options can't say anything about
+    the choice and are left out. Against "_v" instead, identical heads Q=1 over _v=0 opened the gate
+    with no choice skill at all (Codex's review, 2026-09-30)."""
+    pairs, groups = [], []
+    for i, (k, _, _, g) in enumerate(te):
+        j = head_col(col, k)
+        opts = [c for c in (head_col(col, o) for o in (choices[i][1] or [])) if c is not None]
+        if j is not None and len(opts) >= 2:
+            pairs.append((float(out[i, j] - sum(out[i, c] for c in opts) / len(opts)), float(resid[i])))
+            groups.append(g)
+    return pairs, groups
+
+
+def head_col(col, key):
+    """The head for an action key, else for its skill ("collect:log" -> "collect"), else None."""
+    return col.get(key, col.get(key.split(":")[0]))
+
+
+def game_group(f):
+    """The world a run played: every genome of a generation plays the same seeds (eval-<g>-<i> for
+    task i), so their games are one unit for the split and the bootstrap. Resampled as separate
+    files, four copies of one world passed for four worlds and flattered the bound (Codex,
+    2026-09-30). A data or laptop run has a world of its own."""
+    m = re.match(r"eval-[^-]+-(\d+)\.jsonl\.gz$", os.path.basename(f))
+    return "%s/eval-%s" % (os.path.basename(os.path.dirname(f)), m.group(1)) if m else f
+
+
+def sign_check(rows, choices, heads, out, draws=400, seed=7):
+    """Held-out (key, x, y, run) rows: does Q(chosen) - Q(rules) have the sign of y - V(x)?
+
+    Resample whole games, as in gain_lower_bound: one game's decisions aren't independent.
+    Keep the counts when data is thin so the loop can report how many usable deviations it has.
+    """
+    col = {h: i for i, h in enumerate(heads)}
+    per, better, worse = {}, [], []
+    for (key, _, y, run), (i, options), pred in zip(rows, choices, out):
+        if i <= 0 or not options:
+            continue
+        chosen = col.get(key, col.get(key.split(":")[0]))
+        rules = col.get(options[0], col.get(options[0].split(":")[0]))
+        if chosen is None or rules is None:
+            continue
+        gap = float(pred[chosen] - pred[rules])
+        if gap == 0:
+            continue
+        actual = float(y - pred[col["_v"]])
+        g = per.setdefault(run, [0, 0])
+        g[0] += int(gap * actual > 0)
+        g[1] += 1
+        (better if gap > 0 else worse).append(actual)
+    games = list(per.values())
+    n = sum(g[1] for g in games)
+    result = {"n": n, "games": len(games), "agree": None, "lo": None,
+              "mean_gap_ok": None, "mean_gap_bad": None}
+    if n < 30 or len(games) < 10:
+        return result
+    rng = random.Random(seed)
+    stats = []
+    for _ in range(draws):
+        pick = [games[rng.randrange(len(games))] for _ in games]
+        stats.append(sum(g[0] for g in pick) / sum(g[1] for g in pick))
+    stats.sort()
+    result.update(agree=round(sum(g[0] for g in games) / n, 4), lo=round(stats[int(0.05 * draws)], 4),
+                  mean_gap_ok=round(sum(better) / len(better), 4) if better else None,
+                  mean_gap_bad=round(sum(worse) / len(worse), 4) if worse else None)
+    return result
 
 
 def gain_lower_bound(adv, runs, draws=400, seed=7):
