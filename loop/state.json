@@ -2656,7 +2656,7 @@
   "2026-09-27": 15,
   "2026-09-28": 32,
   "2026-09-29": 24,
-  "2026-09-30": 21
+  "2026-09-30": 22
  },
  "evolve_days": {
   "2026-09-27": 1,
@@ -2693,7 +2693,7 @@
    "target": "explore:any HAZARD"
   }
  ],
- "gen": 92,
+ "gen": 93,
  "gene_specs": {
   "bed.table_first": {
    "def": 0.0,
@@ -14705,6 +14705,37 @@
    "parent": "g56",
    "status": "contender"
   },
+  "g74": {
+   "born": 93,
+   "code": null,
+   "evals": [],
+   "genes": {
+    "cave.torches": 1.0,
+    "combat.ignore_walled_mobs": 1.0,
+    "death.recover_night_armor": 12.0,
+    "focus.commit": 1.0,
+    "gather.stair_for_stone": 1.0,
+    "nav.surface_v2": 1.0,
+    "nav.unstuck_v2": 1.0,
+    "night.shelter_exit": 1.0,
+    "plan.hide_hp": 15.0,
+    "portal.prepare_work_area": 1.0,
+    "portal.reserve_lava_bucket": 1.0,
+    "route.armor_before_portal": 0.0,
+    "skill.portal_repair": 1.0,
+    "skill.ruined_portal": 1.0,
+    "stuck.item_progress": 1.0
+   },
+   "id": "g74",
+   "metric": "ok:collect",
+   "mutated": [
+    "gather.stair_for_stone"
+   ],
+   "note": "suggested: gather.stair_for_stone 1",
+   "pairs": [],
+   "parent": "g56",
+   "status": "contender"
+  },
   "g8": {
    "born": 6,
    "code": null,
@@ -14871,8 +14902,87 @@
   "mean_gap_ok": null,
   "n": 61
  },
- "next_id": 74,
- "pending": null,
+ "next_id": 75,
+ "pending": {
+  "data_tasks": [
+   {
+    "kind": "natural",
+    "seed": "D93-yzny9d",
+    "stage": "spawn",
+    "synthetic": false
+   },
+   {
+    "kind": "natural",
+    "seed": "D93-29e5sh",
+    "stage": "spawn",
+    "synthetic": false
+   }
+  ],
+  "gen": 93,
+  "lineup": [
+   "g56",
+   "g72",
+   "g73",
+   "g74"
+  ],
+  "runs": [
+   "eval-g56-0",
+   "eval-g56-1",
+   "eval-g56-2",
+   "eval-g56-3",
+   "eval-g72-0",
+   "eval-g72-1",
+   "eval-g72-2",
+   "eval-g72-3",
+   "eval-g73-0",
+   "eval-g73-1",
+   "eval-g73-2",
+   "eval-g73-3",
+   "eval-g74-0",
+   "eval-g74-1",
+   "eval-g74-2",
+   "eval-g74-3",
+   "data-g56-0",
+   "data-g56-1"
+  ],
+  "seeds": [
+   "L93-52df3g",
+   "L93-z327x9",
+   "L93-az6vtr",
+   "L93-65qtvj"
+  ],
+  "sha": "537d4ceac1dc7374b57ddce580f96f9511e1468c",
+  "started": "2026-09-30T21:20:46+00:00",
+  "tasks": [
+   {
+    "kind": "natural",
+    "seed": "L93-52df3g",
+    "stage": "spawn",
+    "synthetic": false
+   },
+   {
+    "kind": "natural",
+    "seed": "L93-z327x9",
+    "stage": "spawn",
+    "synthetic": false
+   },
+   {
+    "asset": "diamond-gen74-eval-g56-2.zip",
+    "kind": "start",
+    "seed": "L93-az6vtr",
+    "stage": "diamond",
+    "synthetic": false
+   },
+   {
+    "kind": "combat",
+    "minutes": 10,
+    "scenario": "combat",
+    "seed": "L93-65qtvj",
+    "stage": "combat",
+    "synthetic": false
+   }
+  ]
+ },
  "race_evidence_version": 1,
  "score_version": 3,
  "settings": {
@@ -17618,7 +17728,10 @@
   "{\"_metric\": \"deaths\", \"combat.no_close_retreat\": 1}",
   "{\"_metric\": \"deaths\", \"safety.spawner_room\": 1}",
   "{\"_metric\": \"deaths\", \"safety.spawner_break\": 1, \"safety.spawner_room\": 1}",
-  "{\"bed.table_first\": 1, \"plan.noop_success_pause\": 1, \"restock.stash_only\": 1}"
+  "{\"bed.table_first\": 1, \"plan.noop_success_pause\": 1, \"restock.stash_only\": 1}",
+  "{\"_metric\": \"ok:attack\", \"combat.ignore_walled_mobs\": 1}",
+  "{\"_metric\": \"ok:collect\", \"stuck.item_progress\": 1}",
+  "{\"_metric\": \"ok:collect\", \"gather.stair_for_stone\": 1}"
  ],
  "version": 1
 }
