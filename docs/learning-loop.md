@@ -46,7 +46,10 @@ traces, every earlier attempt with its result and lesson (ExpeL-style memory), a
 failures point to. Its edits must apply exactly, stay out of frozen files (genes, model features,
 logs, the harness, the scorer; DGM showed self-editing agents learn to fool their own judge), use
 nothing command-like, and compile. The change races like a gene change; a winner is merged into
-main. At most 12 calls a day, after 2 generations without a new champion (scripts/loop/settings.json "evolve"). Needs the `CLAUDE_CODE_OAUTH_TOKEN` secret (below); without it the
+main. A code change races first (ahead of queued ideas), replayed on each generation's main so it
+differs from the champion only by the change; one that never got a slot retires after 6 generations.
+(Level 3 made no call from gen 41 to 85 because code genome g29 waited behind the queue and never
+played, and evolve.py writes nothing while a code change "races"; fixed 2026-09-30.) At most 12 calls a day, after 2 generations without a new champion (scripts/loop/settings.json "evolve"). Needs the `CLAUDE_CODE_OAUTH_TOKEN` secret (below); without it the
 loop runs levels 1 and 2 only.
 
 ## The road to the dragon (long-term design, 2026-09-27)

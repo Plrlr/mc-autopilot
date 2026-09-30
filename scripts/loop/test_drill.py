@@ -22,6 +22,16 @@ def test_verdict_needs_evidence_to_fail():
     assert drill.verdict(-3.0, False, drill.enough("deaths", (6, 30), (0, 30))) == "FAIL"
 
 
+def test_a_failed_idea_is_not_drilled_again():
+    import json
+    import tempfile
+    with tempfile.TemporaryDirectory() as d:
+        base, head = os.path.join(d, "base.json"), os.path.join(d, "head.json")
+        json.dump({"suggest": []}, open(base, "w"))
+        json.dump({"suggest": [{"a.b": 1, "_drill": "fail"}, {"c.d": 1}]}, open(head, "w"))
+        assert drill.new_ideas(base, head) == [{"c.d": 1}]
+
+
 if __name__ == "__main__":
     for name, fn in list(globals().items()):
         if name.startswith("test_"):

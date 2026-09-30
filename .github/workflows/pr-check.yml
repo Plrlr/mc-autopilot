@@ -28,5 +28,5 @@ jobs:
       - name: Loop self-tests
         # The learning loop's Python (scripts/loop): a broken race rule costs a night of generations.
         run: |
-          pip install -q numpy
+          pip install -q numpy pyyaml
           for t in scripts/loop/test_*.py; do python3 "$t" || exit 1; done

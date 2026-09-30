@@ -25,6 +25,7 @@ import os
 import re
 import subprocess
 import sys
+import time
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import bank  # noqa: E402
@@ -77,7 +78,7 @@ Rules:
 
 
 def git(*a, cwd=common.ROOT, check=True):
-    return subprocess.run(["git", *a], cwd=cwd, check=check, capture_output=True, text=True).stdout.strip()
+    return subprocess.run(["git", *a], cwd=cwd, check=check, capture_output=True, text=True, timeout=120).stdout.strip()
 
 
 def evidence(batch, champ, frontier=None):
@@ -218,7 +219,10 @@ def main():
     ap.add_argument("--batch", required=True)
     ap.add_argument("--claude", default="claude")
     ap.add_argument("--force", action="store_true", help="skip the plateau check")
+    ap.add_argument("--minutes", type=float, default=35,
+                    help="this step's share of the update job's 60 minutes: a retry starts only if it still fits")
     a = ap.parse_args()
+    t0 = time.time()
     genes = common.load_genes()
     st_path = os.path.join(a.state, "state.json")
     st = common.read_json(st_path)
@@ -257,11 +261,21 @@ def main():
         budget -= len(text)
         parts.append("=== FILE %s ===\n%s" % (f, text))
     prompt = "\n".join(parts)
-    st["evolve_days"][today] = used + 1
-    common.write_json(st_path, st)
     base = git("rev-parse", "HEAD")
     result, why = None, ""
     for attempt in range(2):
+        # Every call counts against evolve.max_per_day, the retry included: the budget is the
+        # user's Claude plan. --force (a test by hand) still counts, but isn't stopped by it.
+        if attempt and used >= s["max_per_day"] and not a.force:
+            why += " (no retry: today's budget is spent)"
+            break
+        # A retry is a call (up to 10 min) and a compile (up to 15): it must end in our share of the job.
+        if attempt and time.time() - t0 > (a.minutes - 25) * 60:
+            why += " (no retry: out of time)"
+            break
+        used += 1
+        st["evolve_days"][today] = used
+        common.write_json(st_path, st)
         try:
             so = ask_claude(prompt if attempt == 0 else prompt + "\n\nYOUR LAST EDITS FAILED:\n" + why +
                             "\nFix them (search text copied exactly from the files above).", a.claude)
