@@ -2328,13 +2328,13 @@
   "2026-09-27": 15,
   "2026-09-28": 32,
   "2026-09-29": 24,
-  "2026-09-30": 9
+  "2026-09-30": 10
  },
  "evolve_days": {
   "2026-09-27": 1,
   "2026-09-28": 7
  },
- "gen": 80,
+ "gen": 81,
  "gene_specs": {
   "bed.table_first": {
    "def": 0.0,
@@ -12531,7 +12531,71 @@
  "model_r2": null,
  "model_rows": 0,
  "next_id": 61,
- "pending": null,
+ "pending": {
+  "data_tasks": [],
+  "gen": 81,
+  "lineup": [
+   "g49",
+   "g56",
+   "g46",
+   "g47"
+  ],
+  "runs": [
+   "eval-g49-0",
+   "eval-g49-1",
+   "eval-g49-2",
+   "eval-g49-3",
+   "eval-g56-0",
+   "eval-g56-1",
+   "eval-g56-2",
+   "eval-g56-3",
+   "eval-g46-0",
+   "eval-g46-1",
+   "eval-g46-2",
+   "eval-g46-3",
+   "eval-g47-0",
+   "eval-g47-1",
+   "eval-g47-2",
+   "eval-g47-3"
+  ],
+  "seeds": [
+   "L81-j7rh2f",
+   "L81-m5g5mb",
+   "L81-an5qxw",
+   "L81-qrk8nj"
+  ],
+  "sha": "96fc787a2c8cc829b69d996d4cd65430d38a2bb2",
+  "started": "2026-09-30T08:30:49+00:00",
+  "tasks": [
+   {
+    "kind": "natural",
+    "seed": "L81-j7rh2f",
+    "stage": "spawn",
+    "synthetic": false
+   },
+   {
+    "kind": "natural",
+    "seed": "L81-m5g5mb",
+    "stage": "spawn",
+    "synthetic": false
+   },
+   {
+    "asset": "diamond-gen75-eval-g56-2.zip",
+    "kind": "start",
+    "seed": "L81-an5qxw",
+    "stage": "diamond",
+    "synthetic": false
+   },
+   {
+    "kind": "combat",
+    "minutes": 10,
+    "scenario": "combat",
+    "seed": "L81-qrk8nj",
+    "stage": "combat",
+    "synthetic": false
+   }
+  ]
+ },
  "race_evidence_version": 1,
  "score_version": 3,
  "settings": {
