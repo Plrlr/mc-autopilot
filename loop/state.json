@@ -1953,13 +1953,14 @@
  "days": {
   "2026-09-27": 15,
   "2026-09-28": 32,
-  "2026-09-29": 24
+  "2026-09-29": 24,
+  "2026-09-30": 1
  },
  "evolve_days": {
   "2026-09-27": 1,
   "2026-09-28": 7
  },
- "gen": 71,
+ "gen": 72,
  "gene_specs": {
   "bed.table_first": {
    "def": 0.0,
@@ -10306,6 +10307,36 @@
    "priority": true,
    "status": "contender"
   },
+  "g57": {
+   "born": 72,
+   "code": null,
+   "evals": [],
+   "genes": {
+    "cave.torch_recipe": 1.0,
+    "cave.torches": 1.0,
+    "combat.ignore_walled_mobs": 1.0,
+    "death.recover_night_armor": 12.0,
+    "focus.commit": 1.0,
+    "nav.surface_v2": 1.0,
+    "nav.unstuck_v2": 1.0,
+    "night.shelter_exit": 1.0,
+    "plan.hide_hp": 15.0,
+    "portal.prepare_work_area": 1.0,
+    "portal.reserve_lava_bucket": 1.0,
+    "route.armor_before_portal": 0.0,
+    "stuck.item_progress": 1.0
+   },
+   "id": "g57",
+   "metric": "deaths",
+   "mutated": [
+    "cave.torch_recipe"
+   ],
+   "note": "suggested: cave.torch_recipe 1",
+   "pairs": [],
+   "parent": "g49",
+   "priority": true,
+   "status": "contender"
+  },
   "g6": {
    "born": 2,
    "code": null,
@@ -10863,8 +10894,72 @@
  "model_kind": "retired",
  "model_r2": null,
  "model_rows": 0,
- "next_id": 57,
- "pending": null,
+ "next_id": 58,
+ "pending": {
+  "data_tasks": [],
+  "gen": 72,
+  "lineup": [
+   "g49",
+   "g53",
+   "g56",
+   "g57"
+  ],
+  "runs": [
+   "eval-g49-0",
+   "eval-g49-1",
+   "eval-g49-2",
+   "eval-g49-3",
+   "eval-g53-0",
+   "eval-g53-1",
+   "eval-g53-2",
+   "eval-g53-3",
+   "eval-g56-0",
+   "eval-g56-1",
+   "eval-g56-2",
+   "eval-g56-3",
+   "eval-g57-0",
+   "eval-g57-1",
+   "eval-g57-2",
+   "eval-g57-3"
+  ],
+  "seeds": [
+   "L72-tcgv8j",
+   "L72-6j5jjm",
+   "L72-uvhvct",
+   "L72-nt2547"
+  ],
+  "sha": "96fc787a2c8cc829b69d996d4cd65430d38a2bb2",
+  "started": "2026-09-30T00:47:08+00:00",
+  "tasks": [
+   {
+    "kind": "natural",
+    "seed": "L72-tcgv8j",
+    "stage": "spawn",
+    "synthetic": false
+   },
+   {
+    "kind": "natural",
+    "seed": "L72-6j5jjm",
+    "stage": "spawn",
+    "synthetic": false
+   },
+   {
+    "asset": "lava-gen70-eval-g53-2.zip",
+    "kind": "start",
+    "seed": "L72-uvhvct",
+    "stage": "lava",
+    "synthetic": false
+   },
+   {
+    "kind": "combat",
+    "minutes": 10,
+    "scenario": "combat",
+    "seed": "L72-nt2547",
+    "stage": "combat",
+    "synthetic": false
+   }
+  ]
+ },
  "race_evidence_version": 1,
  "score_version": 3,
  "settings": {
@@ -13293,7 +13388,8 @@
   "{\"_metric\": \"ok:diamond_hunt\", \"_priority\": true, \"deep.branch\": 1}",
   "{\"_metric\": \"deaths\", \"_priority\": true, \"route.armor_before_portal\": 1}",
   "{\"_metric\": \"deaths\", \"_priority\": true, \"reflex.lava_margin\": 1, \"skill.lava_guard\": 1}",
-  "{\"_priority\": true, \"skill.portal_repair\": 1, \"skill.ruined_portal\": 1}"
+  "{\"_priority\": true, \"skill.portal_repair\": 1, \"skill.ruined_portal\": 1}",
+  "{\"_metric\": \"deaths\", \"_priority\": true, \"cave.torch_recipe\": 1}"
  ],
  "version": 1
 }
