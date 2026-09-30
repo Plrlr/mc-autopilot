@@ -2042,6 +2042,10 @@
    "n": 0,
    "sum": 0.0
   },
+  "mine.tread_water": {
+   "n": 0,
+   "sum": 0.0
+  },
   "move.shore_first": {
    "n": 1,
    "sum": 0.09900000000000005
@@ -2471,13 +2475,13 @@
   "2026-09-27": 15,
   "2026-09-28": 32,
   "2026-09-29": 24,
-  "2026-09-30": 14
+  "2026-09-30": 15
  },
  "evolve_days": {
   "2026-09-27": 1,
   "2026-09-28": 7
  },
- "gen": 85,
+ "gen": 86,
  "gene_specs": {
   "bed.table_first": {
    "def": 0.0,
@@ -3010,6 +3014,13 @@
    "kind": "INT",
    "max": 30.0,
    "min": 5.0
+  },
+  "mine.tread_water": {
+   "def": 0.0,
+   "help": "breaking a block while floating in water: hold jump to stay level instead of sinking away from it",
+   "kind": "BOOL",
+   "max": 1.0,
+   "min": 0.0
   },
   "move.shore_first": {
    "def": 0.0,
@@ -13122,6 +13133,68 @@
    "parent": "g56",
    "status": "rejected"
   },
+  "g65": {
+   "born": 86,
+   "code": null,
+   "evals": [],
+   "genes": {
+    "cave.torches": 1.0,
+    "combat.ignore_walled_mobs": 1.0,
+    "death.recover_night_armor": 12.0,
+    "focus.commit": 1.0,
+    "nav.surface_v2": 1.0,
+    "nav.unstuck_v2": 1.0,
+    "night.shelter_exit": 1.0,
+    "plan.hide_hp": 15.0,
+    "portal.prepare_work_area": 1.0,
+    "portal.reserve_lava_bucket": 1.0,
+    "reflex.lava_margin": 1.0,
+    "route.armor_before_portal": 0.0,
+    "skill.portal_repair": 1.0,
+    "skill.ruined_portal": 1.0,
+    "stuck.item_progress": 1.0
+   },
+   "id": "g65",
+   "mutated": [
+    "reflex.lava_margin"
+   ],
+   "note": "suggested: reflex.lava_margin 1",
+   "pairs": [],
+   "parent": "g56",
+   "priority": true,
+   "status": "contender"
+  },
+  "g66": {
+   "born": 86,
+   "code": null,
+   "evals": [],
+   "genes": {
+    "cave.torches": 1.0,
+    "combat.ignore_walled_mobs": 1.0,
+    "combat.zombie_pack": 1.0,
+    "death.recover_night_armor": 12.0,
+    "focus.commit": 1.0,
+    "nav.surface_v2": 1.0,
+    "nav.unstuck_v2": 1.0,
+    "night.shelter_exit": 1.0,
+    "plan.hide_hp": 15.0,
+    "portal.prepare_work_area": 1.0,
+    "portal.reserve_lava_bucket": 1.0,
+    "route.armor_before_portal": 0.0,
+    "skill.portal_repair": 1.0,
+    "skill.ruined_portal": 1.0,
+    "stuck.item_progress": 1.0
+   },
+   "id": "g66",
+   "metric": "deaths",
+   "mutated": [
+    "combat.zombie_pack"
+   ],
+   "note": "suggested: combat.zombie_pack 1",
+   "pairs": [],
+   "parent": "g56",
+   "status": "contender"
+  },
   "g7": {
    "born": 3,
    "code": null,
@@ -13367,8 +13440,87 @@
  "model_kind": "retired",
  "model_r2": null,
  "model_rows": 0,
- "next_id": 65,
- "pending": null,
+ "next_id": 67,
+ "pending": {
+  "data_tasks": [
+   {
+    "kind": "natural",
+    "seed": "D86-nd9gfu",
+    "stage": "spawn",
+    "synthetic": false
+   },
+   {
+    "kind": "natural",
+    "seed": "D86-rmctm7",
+    "stage": "spawn",
+    "synthetic": false
+   }
+  ],
+  "gen": 86,
+  "lineup": [
+   "g56",
+   "g65",
+   "g46",
+   "g66"
+  ],
+  "runs": [
+   "eval-g56-0",
+   "eval-g56-1",
+   "eval-g56-2",
+   "eval-g56-3",
+   "eval-g65-0",
+   "eval-g65-1",
+   "eval-g65-2",
+   "eval-g65-3",
+   "eval-g46-0",
+   "eval-g46-1",
+   "eval-g46-2",
+   "eval-g46-3",
+   "eval-g66-0",
+   "eval-g66-1",
+   "eval-g66-2",
+   "eval-g66-3",
+   "data-g56-0",
+   "data-g56-1"
+  ],
+  "seeds": [
+   "L86-fzjren",
+   "L86-3ttctm",
+   "L86-ufkb4w",
+   "L86-fcfu3m"
+  ],
+  "sha": "bf927e7686edcbe64b2d1916296e552cbd24870b",
+  "started": "2026-09-30T13:24:22+00:00",
+  "tasks": [
+   {
+    "kind": "natural",
+    "seed": "L86-fzjren",
+    "stage": "spawn",
+    "synthetic": false
+   },
+   {
+    "kind": "natural",
+    "seed": "L86-3ttctm",
+    "stage": "spawn",
+    "synthetic": false
+   },
+   {
+    "asset": "diamond-gen84-eval-g46-0.zip",
+    "kind": "start",
+    "seed": "L86-ufkb4w",
+    "stage": "diamond",
+    "synthetic": false
+   },
+   {
+    "kind": "combat",
+    "minutes": 10,
+    "scenario": "combat",
+    "seed": "L86-fcfu3m",
+    "stage": "combat",
+    "synthetic": false
+   }
+  ]
+ },
  "race_evidence_version": 1,
  "score_version": 3,
  "settings": {
@@ -13377,14 +13529,15 @@
   "bank_keep": 40,
   "combat_minutes": 10,
   "combat_seeds": 1,
-  "data_runs": 0,
+  "data_runs": 2,
   "drop_after_pairs": 4,
+  "drop_t": -1.0,
   "evolve": {
    "max_per_day": 12,
    "max_prompt_chars": 160000,
    "plateau_gens": 2
   },
-  "explore_data": 0.15,
+  "explore_data": 0.3,
   "focus_stage_seeds": 1,
   "lean": true,
   "max_genomes": 4,
@@ -13406,6 +13559,11 @@
   "stage_seeds": 1,
   "suggest": [
    {
+    "_priority": true,
+    "_retry": "g47 dropped at -0.13 over 8 worlds (t -0.1) by the old drop rule; its pairs were reset when g49 was crowned, losing its Nether run",
+    "reflex.lava_margin": 1
+   },
+   {
     "_metric": "ok:diamond_hunt",
     "_priority": true,
     "deep.branch": 1
@@ -13420,6 +13578,13 @@
     "_priority": true,
     "reflex.lava_margin": 1,
     "skill.lava_guard": 1
+   },
+   {
+    "_drill": "fail",
+    "_drill_note": "PR #78 drill 2026-09-30: collect 14/34 ok on vs 31/39 off (z -3.4), mostly one world where collect log refused 11 times in water (WRONG_PLACE, a refusal loop the gene doesn't touch). Re-drill once that loop is fixed.",
+    "_metric": "ok:collect",
+    "_priority": true,
+    "mine.tread_water": 1
    },
    {
     "_priority": true,
@@ -13892,6 +14057,7 @@
   "learned.weight": 0.15,
   "loop.lost_underground_s": 0.15,
   "loop.stuck_s": 0.15,
+  "mine.tread_water": 0.15,
   "move.shore_first": 0.21,
   "nav.fluid_place": 0.15,
   "nav.mob_avoid_coef": 0.108375,
@@ -16010,7 +16176,9 @@
   "{\"_metric\": \"deaths\", \"deep.stairs\": 1}",
   "{\"_metric\": \"deaths\", \"plan.livelock_break\": 1}",
   "{\"_metric\": \"deaths\", \"safety.enderman_gaze\": 1}",
-  "{\"_metric\": \"deaths\", \"death.recover_value\": 1}"
+  "{\"_metric\": \"deaths\", \"death.recover_value\": 1}",
+  "{\"_priority\": true, \"_retry\": \"g47 dropped at -0.13 over 8 worlds (t -0.1) by the old drop rule; its pairs were reset when g49 was crowned, losing its Nether run\", \"reflex.lava_margin\": 1}",
+  "{\"_metric\": \"deaths\", \"combat.zombie_pack\": 1}"
  ],
  "version": 1
 }
