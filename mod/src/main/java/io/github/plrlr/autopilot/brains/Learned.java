@@ -32,7 +32,9 @@ import java.util.concurrent.atomic.AtomicInteger;
  * the progress the bot makes in the next two minutes after choosing it in a given state
  * (inventory value, milestones and checkpoints gained, minus deaths). Since 2026-09-28 the models
  * are small boosted trees predicting each action's advantage over the state's baseline (TreeModel);
- * older files hold one linear formula per action and still load. It re-ranks the rules' options:
+ * older files hold one linear formula per action and still load. Since 2026-09-30 the file holds
+ * a neural network instead (MlpModel, ~110k parameters, one head per action kind), retrained on
+ * every game each generation. It re-ranks the rules' options:
  *
  *   score(i) = -i + learned.weight * (Q(option i) - Q(option 0)) / scale
  *
@@ -41,7 +43,7 @@ import java.util.concurrent.atomic.AtomicInteger;
  * it sometimes tries another option on purpose, and logs the probability it had (the propensity),
  * so training can tell deliberate tries from the rules' habits.
  *
- * Pure arithmetic on a few dozen numbers: microseconds on the game thread, no network.
+ * Pure arithmetic: one pass of the network per decision (tens of microseconds), no I/O.
  */
 public final class Learned {
 	/** Feature names, in order. The trainer reads them from the log; a model with other names is ignored. */
@@ -55,8 +57,12 @@ public final class Learned {
 
 	private final Random rng = new Random();
 	/** One loaded model, swapped in whole so the game thread never sees half of one. */
-	private record Model(Map<String, double[]> weights, Map<String, TreeModel> trees, double scale, String id, HazardModel hazard) {
-		static final Model NONE = new Model(Map.of(), Map.of(), 1, "none", null);
+	private record Model(Map<String, double[]> weights, Map<String, TreeModel> trees, MlpModel mlp, double scale, String id, HazardModel hazard) {
+		static final Model NONE = new Model(Map.of(), Map.of(), null, 1, "none", null);
+
+		boolean empty() {
+			return mlp == null && weights.isEmpty() && trees.isEmpty();
+		}
 	}
 
 	private volatile Model model = Model.NONE;
@@ -137,10 +143,13 @@ public final class Learned {
 			}
 			double scale = o.has("scale") ? Math.max(1e-6, o.get("scale").getAsDouble()) : 1;
 			String id = o.has("id") ? o.get("id").getAsString() : "unnamed";
+			// The neural brain (since 2026-09-30, scripts/loop/mlp.py): one network, a head per action kind.
+			MlpModel mlp = o.has("mlp") ? MlpModel.parse(o.getAsJsonObject("mlp"), FEATURES.size()) : null;
 			HazardModel hz = o.has("hazard") ? new HazardModel(o.getAsJsonObject("hazard"), FEATURES.size()) : null;
 			JsonObject skills = o.has("skills") && o.get("skills").isJsonObject() ? o.getAsJsonObject("skills") : null;
-			return new Loaded(new Model(w, tm, scale, id, hz),
-					"learned model: " + id + " (" + (isTrees ? tm.size() + " action kinds, trees" : w.size() + " action kinds")
+			return new Loaded(new Model(w, tm, mlp, scale, id, hz),
+					"learned model: " + id + " (" + (mlp != null ? String.format("neural, %d parameters, %d heads", mlp.params(), mlp.heads())
+							: isTrees ? tm.size() + " action kinds, trees" : w.size() + " action kinds")
 							+ (hz == null ? "" : String.format(", danger model AUC %.2f", hz.auc))
 							+ (skills == null ? "" : ", skill stats for " + skills.size() + " keys") + ")", skills);
 		} catch (Exception e) {
@@ -188,7 +197,13 @@ public final class Learned {
 		return o.skill() + ":" + a.substring(0, cut);
 	}
 
-	private static double q(Model m, Option o, double[] x) {
+	/** out: the network's heads for x (one pass per decision), null without a network. */
+	private static double q(Model m, Option o, double[] x, double[] out) {
+		if (out != null) {
+			int i = m.mlp().head(key(o));
+			if (i < 0) i = m.mlp().head(o.skill());
+			return i < 0 ? Double.NaN : out[i];
+		}
 		if (!m.trees().isEmpty()) {
 			TreeModel t = m.trees().get(key(o));
 			if (t == null) t = m.trees().get(o.skill());
@@ -250,12 +265,13 @@ public final class Learned {
 		int best = 0;
 		String why = "rules";
 		Model m = model;
-		if (weight > 0 && (!m.weights().isEmpty() || !m.trees().isEmpty())) {
-			double q0 = q(m, options.get(0), x);
+		if (weight > 0 && !m.empty()) {
+			double[] out = m.mlp() == null ? null : m.mlp().forward(x);
+			double q0 = q(m, options.get(0), x, out);
 			double bestScore = 0;
 			for (int k = 1; k < n; k++) {
 				int i = cand[k];
-				double qi = q(m, options.get(i), x);
+				double qi = q(m, options.get(i), x, out);
 				if (Double.isNaN(q0) || Double.isNaN(qi)) continue;
 				double score = -i + weight * (qi - q0) / m.scale();
 				if (score > bestScore) {
