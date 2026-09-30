@@ -176,7 +176,8 @@ jobs:
           python3 scripts/loop/evolve.py --state "results/$STATE" --batch batch || echo "evolve step failed; the loop goes on"
       - name: Save level 3's result
         if: env.HAS_CLAUDE == 'true'
-        run: scripts/loop/results.sh commit results "Loop generation ${{ needs.propose.outputs.gen }}: level 3"
+        run: |
+          scripts/loop/results.sh commit results "Loop generation ${{ needs.propose.outputs.gen }}: level 3"
       - name: Next generation
         env:
           GH_TOKEN: ${{ github.token }}
