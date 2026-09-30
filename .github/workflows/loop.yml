@@ -20,6 +20,9 @@ on:
       smoke:
         description: 'Plumbing test: one tiny generation (2 game minutes) in loop-smoke/, no next generation'
         default: 'false'
+      recover_run:
+        description: 'Score the pending generation from this completed/cancelled workflow run without replaying games'
+        default: ''
   schedule:
     - cron: '23 * * * *'
 
@@ -48,9 +51,17 @@ jobs:
           GH_TOKEN: ${{ github.token }}
           EVENT: ${{ github.event_name }}
           SMOKE: ${{ inputs.smoke || 'false' }}
+          RECOVER_RUN: ${{ inputs.recover_run || '' }}
         run: |
           echo "runs=[]" >> "$GITHUB_OUTPUT"
           scripts/loop/results.sh checkout results
+          if [ -n "$RECOVER_RUN" ]; then
+            python3 scripts/loop/recover.py --state results/loop --run "$RECOVER_RUN" --out runs.json
+            echo 'runs=[{"name":"recover-existing-artifacts"}]' >> "$GITHUB_OUTPUT"
+            echo "gen=$(jq -r .gen runs.json)" >> "$GITHUB_OUTPUT"
+            echo "state=loop" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
           # Only actual generations count as activity. A skipped hourly run must not keep a
           # broken chain alive forever. Concurrency ensures no other generation is running here.
           if [ "$EVENT" = "schedule" ] && python3 scripts/loop/restart.py results/loop; then
@@ -72,7 +83,7 @@ jobs:
 
   trial:
     needs: propose
-    if: needs.propose.outputs.runs != '[]'
+    if: needs.propose.outputs.runs != '[]' && inputs.recover_run == ''
     runs-on: ubuntu-latest
     timeout-minutes: 150
     strategy:
@@ -123,6 +134,8 @@ jobs:
           fetch-depth: 0
       - uses: actions/download-artifact@v8
         with:
+          run-id: ${{ inputs.recover_run || github.run_id }}
+          github-token: ${{ github.token }}
           pattern: trial-*
           path: batch
       - name: Score, race, learn
