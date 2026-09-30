@@ -171,7 +171,7 @@ def main():
     gen = st.get("gen", 0)
     model = {"id": "m%d" % gen, "kind": kind, "features": feats, "keys": keys, "scale": round(scale, 4),
              "horizon": a.horizon, "rows": len(ys), "runs": len(files), "r2_heldout": stats["r2"],
-             "adv_r2_heldout": stats["adv_r2"],
+             "adv_r2_heldout": stats["adv_r2"], "adv_lo_heldout": stats.get("adv_lo"),
              "trained": datetime.datetime.now(datetime.timezone.utc).isoformat(timespec="seconds")}
     if hazard:
         model["hazard"] = hazard
@@ -184,6 +184,7 @@ def main():
         st["model_rows"] = len(ys)
         st["model_r2"] = stats["r2"]
         st["model_adv_r2"] = stats["adv_r2"]
+        st["model_adv_lo"] = stats.get("adv_lo")
         st["model_keys"] = len(net["heads"]) - 1 if net else len(keys)
         st["model_kind"] = kind
         st["hazard_auc"] = hazard["auc"] if hazard else None
@@ -191,8 +192,8 @@ def main():
         common.write_json(st_path, st)
     if net:
         print("neural brain: %d parameters, %d heads" % (net["params"], len(net["heads"])))
-    print("learned model m%d (%s): %d decisions from %d runs, %d action kinds, held-out R2 %s (choice part %s)"
-          % (gen, kind, len(ys), len(files), len(net["heads"]) - 1 if net else len(keys), stats["r2"], stats["adv_r2"]))
+    print("learned model m%d (%s): %d decisions from %d runs, %d action kinds, held-out R2 %s (choice part %s, 5%% bound %s)"
+          % (gen, kind, len(ys), len(files), len(net["heads"]) - 1 if net else len(keys), stats["r2"], stats["adv_r2"], stats.get("adv_lo")))
     if hazard:
         print("danger model: %d decisions (%d followed by a death), held-out AUC %s, %d trees"
               % (hazard["rows"], hazard["death_rows"], hazard["auc"], len(hazard["trees"])))
@@ -350,7 +351,7 @@ def train_mlp(rows, part):
 
     tr = [(k, x, y, w) for f, k, x, y, w in rows if part[f] >= 0.35]
     va = [(k, x, y, w) for f, k, x, y, w in rows if 0.2 <= part[f] < 0.35]
-    te = [(k, x, y, w) for f, k, x, y, w in rows if part[f] < 0.2]
+    te = [(k, x, y, f) for f, k, x, y, w in rows if part[f] < 0.2]
     if len(tr) < 20 * mlp.MIN_HEAD_ROWS or len(va) < MIN_ROWS:
         return None, {"r2": None, "adv_r2": None}
     # The newest 300k training rows at most: keeps a generation's training under ~6 minutes.
@@ -358,7 +359,7 @@ def train_mlp(rows, part):
     heads = mlp.heads_for(tr)
     scale = max(0.1, statistics_std([r[2] for r in tr]))
     layers, sizes = mlp.fit(tr, va, heads, scale)
-    r2 = adv_r2 = None
+    r2 = adv_r2 = adv_lo = None
     if te:
         col = {h: i for i, h in enumerate(heads)}
         Xe = np.array([r[1] for r in te], dtype=float)
@@ -375,7 +376,39 @@ def train_mlp(rows, part):
             pred.append((q, ye[i]))
             adv.append((q - out[i, 0], ye[i] - be[i]))
         r2, adv_r2 = rsq(pred), rsq(adv)
-    return mlp.export(layers, sizes, heads, scale), {"r2": r2, "adv_r2": adv_r2}
+        adv_lo = gain_lower_bound(adv, [r[3] for r in te])
+    return mlp.export(layers, sizes, heads, scale), {"r2": r2, "adv_r2": adv_r2, "adv_lo": adv_lo}
+
+
+def gain_lower_bound(adv, runs, draws=400, seed=7):
+    """How much of the unexplained progress the choice part explains on unseen games, at its 5th
+    percentile over games resampled whole (rows of one game move together).
+
+    Why not a fixed R2 bar: R2 is capped by how random one decision's outcome is, not by how good
+    the choices are. On synthetic games where the net picked the better action 92% of the time, its
+    choice R2 was 0.02, so the old 0.1 gate (and the trees' before it) could never pass, whatever
+    the model learned. Above zero here means "better than knowing only the state, on games it never
+    saw"; whether it helps the bot is then the in-game race's call (learned.weight)."""
+    per = {}
+    for (a, r), f in zip(adv, runs):
+        g = per.setdefault(f, [0.0, 0.0, 0.0, 0])
+        g[0] += r * r - (r - a) ** 2   # squared error removed by the choice part
+        g[1] += r * r
+        g[2] += r
+        g[3] += 1
+    games = list(per.values())
+    if len(games) < 10:
+        return None
+    rng = random.Random(seed)
+    stats = []
+    for _ in range(draws):
+        pick = [games[rng.randrange(len(games))] for _ in games]
+        n = sum(g[3] for g in pick)
+        mu = sum(g[2] for g in pick) / n
+        tot = sum(g[1] for g in pick) - n * mu * mu
+        stats.append(sum(g[0] for g in pick) / tot if tot > 0 else 0.0)
+    stats.sort()
+    return round(stats[int(0.05 * draws)], 4)
 
 
 def train_linear(rows, part):

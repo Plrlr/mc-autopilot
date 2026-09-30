@@ -69,3 +69,15 @@ fit: held-out R2 0.19 for progress, choice part 0.006, the trees' level. Size do
 the data held only the rules' habits. The 2 data runs per generation (15% deliberate tries) are back
 on to give it choices to compare. It plays (learned.* genes race) only once its choice R2 passes
 model_gate, measured against the same tree baseline as before.
+
+### The gate bug (found 2026-09-30)
+
+The learned brain was benched by its own grading. The gate asked for a held-out "choice R2" above
+0.1, but R2 is capped by how random one decision's outcome is, not by how good the choices are. On
+synthetic games where the net picked the better action 92% of the time, its choice R2 was 0.02:
+no model could pass, the trees included. Now the gate is the 5% lower bound, over resampled whole
+games, of how much the choice part improves on the state-only tree baseline (`gain_lower_bound`);
+above zero, the learned.* genes race and the game decides. On the 1,432 loop games so far it is
+-0.004 (not yet above zero): only 631 of ~146k non-urgent decisions differed from the rules' pick,
+and training rows kept only the pick, not the options. Now rows keep the options ("o"), and the
+data runs try other options 30% of the time.
