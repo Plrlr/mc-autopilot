@@ -244,7 +244,11 @@ def framework_text():
         if os.path.exists(p):
             parts.append("=== FILE skills/evolved/%s ===\n%s" % (name, open(p, encoding="utf-8").read()))
     for rel in ("state/WorldMemory.java", "skills/FairProbe.java", "skills/Fail.java", "plan/Option.java", "skills/Skill.java"):
-        parts.append("=== PUBLIC API of %s ===\n%s" % (rel, signatures(os.path.join(common.ROOT, evolve.SRC, rel))))
+        p = os.path.join(common.ROOT, evolve.SRC, rel)
+        text = open(p, encoding="utf-8").read() if os.path.exists(p) else ""
+        # Small files whole (Fail's constants, Option), the rest as their public/protected lines.
+        small = len(text) < 3000
+        parts.append("=== %s %s ===\n%s" % ("FILE" if small else "PUBLIC API of", rel, text if small else signatures(p)))
     return "\n\n".join(parts)
 
 
