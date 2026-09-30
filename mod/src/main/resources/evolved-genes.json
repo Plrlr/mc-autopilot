@@ -1,1 +1,15 @@
-{"_about": "append-only list of genes for evolved skills (scripts/loop/evolve.py appends)", "genes": []}
+{
+ "_about": "append-only list of genes for evolved skills (scripts/loop/evolve.py appends)",
+ "genes": [
+  {
+   "name": "evolved.swim_to_shore",
+   "kind": "BOOL",
+   "def": 0,
+   "skill": "swim_to_shore",
+   "why": "swim_to_shore: after explore hit open water, swim to seen dry land (or hold a heading until land shows)",
+   "gen": 86,
+   "target": "explore:any HAZARD",
+   "metric": "ok:explore"
+  }
+ ]
+}

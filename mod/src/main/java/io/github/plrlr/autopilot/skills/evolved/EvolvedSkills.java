@@ -31,6 +31,7 @@ public final class EvolvedSkills {
 
 	static {
 		// evolve:entries (scripts/loop/evolve.py appends one add(...) line per evolved skill here)
+		add(new Entry("evolved.swim_to_shore", "swim_to_shore", SwimToShore::new, SwimToShore::offer, "swim_to_shore: after explore hit open water, swim to seen dry land (or hold a heading until land shows)"));
 		// evolve:end
 	}
 
