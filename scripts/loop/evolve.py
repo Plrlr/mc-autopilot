@@ -25,14 +25,18 @@ import os
 import re
 import subprocess
 import sys
+import time
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import bank  # noqa: E402
 import common  # noqa: E402
 
 SRC = "mod/src/main/java/io/github/plrlr/autopilot/"
-# Files a patch may never touch: the genes, the model's inputs, logging (what the scorer reads).
-FROZEN = ("Tune.java", "brains/Learned.java", "log/", "state/StateBuilder.java")
+# Files a patch may never touch: the genes, the model's inputs, logging (what the scorer reads), and
+# the fair-play boundary of loop-written skills (the facade they may use, the registry, their genes,
+# FairProbe): a patch that widened Player would hand every later generated skill a way to cheat.
+FROZEN = ("Tune.java", "EvolvedGenes.java", "brains/Learned.java", "log/", "state/StateBuilder.java",
+          "skills/evolved/", "skills/EvolvedActions.java", "skills/FairProbe.java")
 # Nothing that talks to the game's command system or reads what a player couldn't see.
 FORBIDDEN = ("runCommand", "performCommand", "sendCommand", "sendChat", "getServer()", "getSingleplayerServer",
              "ServerLevel", "commands.", "setBlock(", "Runtime.getRuntime", "ProcessBuilder")
@@ -77,7 +81,7 @@ Rules:
 
 
 def git(*a, cwd=common.ROOT, check=True):
-    return subprocess.run(["git", *a], cwd=cwd, check=check, capture_output=True, text=True).stdout.strip()
+    return subprocess.run(["git", *a], cwd=cwd, check=check, capture_output=True, text=True, timeout=120).stdout.strip()
 
 
 def evidence(batch, champ, frontier=None):
@@ -166,10 +170,11 @@ def champion_genes_text(st, genes):
         "%s=%s" % (n, full[n]) for n in genes if full[n] != genes[n]["def"]) or "none")
 
 
-def ask_claude(prompt, claude):
-    cmd = [claude, "-p", "Propose the change as JSON. The evidence and files are on stdin.", "--model", "opus",
+def ask_claude(prompt, claude, system=SYSTEM, schema=SCHEMA,
+               instruction="Propose the change as JSON. The evidence and files are on stdin."):
+    cmd = [claude, "-p", instruction, "--model", "opus",
            "--tools", "", "--no-session-persistence", "--output-format", "json",
-           "--system-prompt", SYSTEM, "--json-schema", json.dumps(SCHEMA)]
+           "--system-prompt", system, "--json-schema", json.dumps(schema)]
     r = subprocess.run(cmd, input=prompt, capture_output=True, text=True, timeout=600,
                        cwd=os.environ.get("RUNNER_TEMP", "/tmp"))
     if r.returncode != 0:
@@ -218,7 +223,13 @@ def main():
     ap.add_argument("--batch", required=True)
     ap.add_argument("--claude", default="claude")
     ap.add_argument("--force", action="store_true", help="skip the plateau check")
+    ap.add_argument("--minutes", type=float, default=35,
+                    help="this step's share of the update job's 60 minutes: a retry starts only if it still fits")
+    ap.add_argument("--mode", choices=("auto", "edit", "skill"), default="auto",
+                    help="edit: change existing code; skill: write a new skill (evolve_skill.py); auto: the rule below")
+    ap.add_argument("--branch-prefix", default="evolve/", help="evolve-test/ for a test that must not race")
     a = ap.parse_args()
+    t0 = time.time()
     genes = common.load_genes()
     st_path = os.path.join(a.state, "state.json")
     st = common.read_json(st_path)
@@ -230,14 +241,31 @@ def main():
     used = st.setdefault("evolve_days", {}).get(today, 0)
     champ = st["genomes"][st["champion"]]
     last_crown = max([g.get("crowned", 0) for g in st["genomes"].values()] + [0])
-    racing = [g for g in st["genomes"].values() if g.get("code") and g["status"] == "contender"]
+    racing = [g for g in st["genomes"].values() if g.get("code") and g["status"] in ("contender", "drilling")]
     if not a.force:
         if used >= s["max_per_day"]:
             print("evolve: today's %d Claude calls are used" % s["max_per_day"]); return
         if st["gen"] - last_crown < s["plateau_gens"]:
             print("evolve: the gene search is still finding things (last champion at gen %d)" % last_crown); return
         if racing:
-            print("evolve: %s is already racing" % racing[0]["id"]); return
+            print("evolve: %s is already %s" % (racing[0]["id"], racing[0]["status"])); return
+    # Level 3 v2 (evolve_skill.py): a failure that stays among the costliest for generations gets a
+    # new skill instead of an edit, taking turns with edits (settings "evolve": {"skills": true}).
+    import evolve_skill
+    mode = a.mode
+    if mode == "auto":
+        last = (st.get("evolve_log") or [{}])[-1].get("mode")
+        target = evolve_skill.pick_target(st, a.state) if s.get("skills") and last != "skill" else None
+        mode = "skill" if target else "edit"
+    elif mode == "skill":
+        target = evolve_skill.pick_target(st, a.state, strict=not a.force)
+    if mode == "skill":
+        if not target:
+            print("evolve: no lasting failure for a new skill to target")
+            return
+        print("evolve: writing a new skill for %s (%.0f game minutes lost over %d generations)" % (
+            target["name"], target["minutes"], target["gens"]))
+        return evolve_skill.run(a, st, st_path, s, target, genes, today, used, t0, a.branch_prefix)
     ev, skills = evidence(a.batch, champ["id"], bank.frontier(st))
     files = ["plan/Planner.java"]
     for sk in skills:
@@ -257,11 +285,21 @@ def main():
         budget -= len(text)
         parts.append("=== FILE %s ===\n%s" % (f, text))
     prompt = "\n".join(parts)
-    st["evolve_days"][today] = used + 1
-    common.write_json(st_path, st)
     base = git("rev-parse", "HEAD")
     result, why = None, ""
     for attempt in range(2):
+        # Every call counts against evolve.max_per_day, the retry included: the budget is the
+        # user's Claude plan. --force (a test by hand) still counts, but isn't stopped by it.
+        if attempt and used >= s["max_per_day"] and not a.force:
+            why += " (no retry: today's budget is spent)"
+            break
+        # A retry is a call (up to 10 min) and a compile (up to 15): it must end in our share of the job.
+        if attempt and time.time() - t0 > (a.minutes - 25) * 60:
+            why += " (no retry: out of time)"
+            break
+        used += 1
+        st["evolve_days"][today] = used
+        common.write_json(st_path, st)
         try:
             so = ask_claude(prompt if attempt == 0 else prompt + "\n\nYOUR LAST EDITS FAILED:\n" + why +
                             "\nFix them (search text copied exactly from the files above).", a.claude)
@@ -282,6 +320,7 @@ def main():
     if not result:
         st = common.read_json(st_path)
         st.setdefault("code_failures", []).append({"gen": st["gen"], "summary": "(no usable patch)", "why": why})
+        st.setdefault("evolve_log", []).append({"gen": st["gen"], "mode": "edit", "result": "no usable patch"})
         common.write_json(st_path, st)
         print("evolve: no usable patch: " + why[:300])
         return
@@ -289,7 +328,8 @@ def main():
     st = common.read_json(st_path)
     gid = "g%d" % st["next_id"]
     st["next_id"] += 1
-    branch = "evolve/%s" % gid
+    branch = a.branch_prefix + gid
+    st.setdefault("evolve_log", []).append({"gen": st["gen"], "mode": "edit", "gid": gid, "result": "racing"})
     git("checkout", "-q", "-b", branch)
     git("add", *touched)
     git("-c", "user.name=github-actions[bot]", "-c", "user.email=41898282+github-actions[bot]@users.noreply.github.com",

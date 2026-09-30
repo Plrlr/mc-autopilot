@@ -113,7 +113,8 @@ jobs:
     needs: [propose, trial]
     if: always() && needs.propose.outputs.runs != '[]' && needs.propose.outputs.runs != ''
     runs-on: ubuntu-latest
-    timeout-minutes: 45
+    # Scoring and training take ~15 minutes; level 3 (evolve.py) gets up to 35 of the rest.
+    timeout-minutes: 60
     env:
       STATE: ${{ needs.propose.outputs.state }}
     steps:
@@ -134,6 +135,14 @@ jobs:
           python3 scripts/loop/train.py --state "results/$STATE"
       - name: Merge a winning code change into main
         run: python3 scripts/loop/loop.py merge --state "results/$STATE"
+      # Published before level 3: a timeout there must not lose the generation's scores.
+      - name: Publish
+        run: |
+          python3 scripts/loop/loop.py status --state "results/$STATE" | tee -a "$GITHUB_STEP_SUMMARY"
+          # The dashboard lives next to its data (GitHub Pages serves the trial-results branch).
+          cp scripts/loop/dashboard.html results/index.html
+          touch results/.nojekyll
+          scripts/loop/results.sh commit results "Loop generation ${{ needs.propose.outputs.gen }}: scored"
       # Level 3 (code changes by Claude) runs only when this secret exists: see docs/learning-loop.md.
       # Checked in a step: a secrets comparison in the job's env came out false with the secret set.
       - name: Is level 3 on?
@@ -154,21 +163,22 @@ jobs:
             mod/gradle/wrapper/gradle-wrapper.properties
       - name: Claude writes a code change (when the gene search has stalled)
         if: env.HAS_CLAUDE == 'true'
+        # A hang here must not break the chain: the next generation is still started below.
+        timeout-minutes: 38
+        continue-on-error: true
         env:
           CLAUDE_CODE_OAUTH_TOKEN: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
+          GH_TOKEN: ${{ github.token }}  # a new skill's drill is started on trials.yml
         run: |
           git fetch -q origin main && git checkout -q --detach FETCH_HEAD
           curl -fsSL https://claude.ai/install.sh | bash
           export PATH="$HOME/.local/bin:$PATH"
           chmod +x mod/gradlew
           python3 scripts/loop/evolve.py --state "results/$STATE" --batch batch || echo "evolve step failed; the loop goes on"
-      - name: Publish
+      - name: Save level 3's result
+        if: env.HAS_CLAUDE == 'true'
         run: |
-          python3 scripts/loop/loop.py status --state "results/$STATE" | tee -a "$GITHUB_STEP_SUMMARY"
-          # The dashboard lives next to its data (GitHub Pages serves the trial-results branch).
-          cp scripts/loop/dashboard.html results/index.html
-          touch results/.nojekyll
-          scripts/loop/results.sh commit results "Loop generation ${{ needs.propose.outputs.gen }}: scored"
+          scripts/loop/results.sh commit results "Loop generation ${{ needs.propose.outputs.gen }}: level 3"
       - name: Next generation
         env:
           GH_TOKEN: ${{ github.token }}

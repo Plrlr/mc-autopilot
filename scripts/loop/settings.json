@@ -435,9 +435,10 @@
  "evolve": {
   "max_per_day": 12,
   "plateau_gens": 2,
-  "max_prompt_chars": 160000
+  "max_prompt_chars": 160000,
+  "skills": true
  },
- "_evolve": "Level 3 (Claude code changes): at most max_per_day calls a day (~40k tokens each on your plan), tried once the gene search has gone plateau_gens generations without a new champion; one code change races at a time.",
+ "_evolve": "Level 3 (Claude code changes): at most max_per_day calls a day (~40k tokens each on your plan), tried once the gene search has gone plateau_gens generations without a new champion; one code change races at a time. skills: level 3 v2 (evolve_skill.py) also writes NEW skills for the costliest lasting failure, taking turns with edits, each drilled before it races; enabled 2026-09-30 after swim_to_shore's end-to-end smoke gate passed (run 36722793499, ok:explore on 2/7, off 0/5, z +1.31). The race still decides improvement.",
  "accept_pairs": 8,
  "accept_t": 2.0,
  "drop_after_pairs": 4,

@@ -1,0 +1,99 @@
+# Level 3 v2 by hand: one new skill written, gated and drilled on this branch's code, sandboxed.
+# evolve.py --mode skill --force runs against a COPY of the loop's state (the live loop never sees the
+# genome): Claude writes a skill for the costliest lasting failure, the gates check it (fair play,
+# paths, gradlew test compileGametestJava), its branch evolve-test/<id> is pushed and trials.yml
+# drills it (3 starts with and without its gene). The job summary names the drill's run; its verdict:
+#   python scripts/loop/evolve_skill.py verdict --state <the sandbox from this run's artifact>
+# Start: push a branch named evolve-test-run/<anything> (a workflow must be on main before it can be
+# dispatched), or once this file is on main: gh workflow run evolve-test.yml --ref <branch>.
+name: Level 3 skill test
+
+on:
+  workflow_dispatch:
+  push:
+    branches: ['evolve-test-run/**']
+
+permissions:
+  contents: write
+  actions: write
+
+concurrency:
+  group: evolve-test
+  cancel-in-progress: false
+
+jobs:
+  skill:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-java@v6
+        with:
+          distribution: temurin
+          java-version: '25'
+          cache: gradle
+          cache-dependency-path: |
+            mod/*.gradle*
+            mod/gradle.properties
+            mod/gradle/wrapper/gradle-wrapper.properties
+      - name: A sandbox copy of the loop's state, and the last generation's champion games
+        timeout-minutes: 15
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          pip install -q numpy
+          scripts/loop/results.sh checkout results
+          S="$RUNNER_TEMP/sandbox"
+          mkdir -p "$S"
+          cp results/loop/state.json "$S/"
+          ln -s "$PWD/results/loop/data" "$S/data"
+          champ=$(jq -r .champion "$S/state.json")
+          run=$(gh run list --workflow loop.yml --status success --limit 1 --json databaseId --jq '.[0].databaseId')
+          timeout 600 gh run download "$run" -p "trial-eval-$champ-*" -D batch || echo "no evidence artifacts from run $run"
+          echo "SANDBOX=$S" >> "$GITHUB_ENV"
+      - name: Claude writes a new skill (forced, sandboxed)
+        timeout-minutes: 38
+        env:
+          CLAUDE_CODE_OAUTH_TOKEN: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          curl -fsSL https://claude.ai/install.sh | bash
+          export PATH="$HOME/.local/bin:$PATH"
+          claude --version
+          chmod +x mod/gradlew
+          mkdir -p batch
+          python3 scripts/loop/evolve.py --state "$SANDBOX" --batch batch --force --mode skill --branch-prefix evolve-test/
+      - name: Report
+        if: always()
+        run: |
+          python3 - >> "$GITHUB_STEP_SUMMARY" <<'EOF'
+          import json, os
+          st = json.load(open(os.path.join(os.environ["SANDBOX"], "state.json")))
+          new = [g for g in st["genomes"].values() if (g.get("code") or {}).get("kind") == "skill"]
+          print("### Level 3 skill test\n")
+          print("Claude calls today (sandbox copy): %s\n" % st.get("evolve_days"))
+          for f in st.get("code_failures", [])[-2:]:
+              print("- failure: %s: %s\n" % (f["summary"], f["why"][:1500]))
+          for g in new:
+              c = g["code"]
+              print("- **%s** `%s` on `%s` (%s), target `%s`, metric `%s`, drill run %s: %s\n" % (
+                  g["id"], c["skill"], c["branch"], c["sha"][:7], c["target"], g["metric"], g["drill"].get("run"), c["summary"]))
+          # Every answer Claude gave (evolve_skill.py keeps them), with its source, used or not.
+          d = os.path.join(os.environ["SANDBOX"], "skills")
+          for name in sorted(os.listdir(d)) if os.path.isdir(d) else []:
+              so = json.load(open(os.path.join(d, name)))
+              print("<details><summary>%s: <code>%s</code> (%s)</summary>\n" % (name, so.get("skill"), so.get("summary", "")[:200]))
+              for f in so.get("files", []):
+                  print("\n%s\n\n```java\n%s\n```\n" % (f["name"], f["content"]))
+              print("</details>\n")
+          EOF
+      - uses: actions/upload-artifact@v7
+        if: always()
+        with:
+          name: evolve-test-sandbox
+          path: |
+            ${{ env.SANDBOX }}/state.json
+            ${{ env.SANDBOX }}/skills/
+          retention-days: 14

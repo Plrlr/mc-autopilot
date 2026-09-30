@@ -7,6 +7,7 @@ import io.github.plrlr.autopilot.plan.Option;
 import io.github.plrlr.autopilot.skills.Fail;
 import io.github.plrlr.autopilot.skills.Skill;
 import io.github.plrlr.autopilot.skills.Skills;
+import io.github.plrlr.autopilot.skills.evolved.EvolvedSkills;
 import java.util.List;
 final class SkillBook {
 	static void startSkill(Autopilot a, Option o, String trigger, boolean reflex) {
@@ -61,6 +62,7 @@ final class SkillBook {
 		j.addProperty("detail", r.detail());
 		j.addProperty("seconds", (a.tick - a.skillStartTick) / 20.0);
 		a.log.write(j);
+		EvolvedSkills.onSkillEnd(a.skillOption.skill(), a.skillOption.arg(), r);
 		if (r.code() == Fail.ERROR) {
 			if (a.testTask != null && a.skillOption == a.testTask) a.testTaskResult = r;
 			// Detach first: disable() must not abort and log this completed skill recursively.

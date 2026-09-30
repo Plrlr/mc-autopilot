@@ -81,3 +81,16 @@ above zero, the learned.* genes race and the game decides. On the 1,432 loop gam
 -0.004 (not yet above zero): only 631 of ~146k non-urgent decisions differed from the rules' pick,
 and training rows kept only the pick, not the options. Now rows keep the options ("o"), and the
 data runs try other options 30% of the time.
+
+### The gate, reviewed (2026-09-30, Codex's review of the merge to main)
+
+Three holes, all fixed before the gate could open: (1) the four genomes of a generation play the
+same seeds, and those games were split and resampled as separate files, so four copies of one
+world counted as four worlds; they now split and resample by world (`game_group`). (2) The choice
+part was the pick's head minus `_v`, so heads sharing an offset over `_v` (a state error) passed for
+choice skill; it is now the pick's head minus the mean head of the options it was chosen from, on
+rows that logged their options ("o"). (3) A neural model with no bound yet fell back to the old R2
+bar; now no bound is a closed gate. A second check sits next to it: on held-out decisions where the
+bot deviated from the rules, does the sign of the net's Q(chosen) - Q(rules' pick) match what
+happened relative to V(x) (`sign_check`: agreement, 0.5 = chance, with a 5% bound over worlds)?
+When the gate opens, loop.py queues the champion with `learned.weight` 1 as a priority race.

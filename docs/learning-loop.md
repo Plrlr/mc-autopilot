@@ -46,8 +46,43 @@ traces, every earlier attempt with its result and lesson (ExpeL-style memory), a
 failures point to. Its edits must apply exactly, stay out of frozen files (genes, model features,
 logs, the harness, the scorer; DGM showed self-editing agents learn to fool their own judge), use
 nothing command-like, and compile. The change races like a gene change; a winner is merged into
-main. At most 12 calls a day, after 2 generations without a new champion (scripts/loop/settings.json "evolve"). Needs the `CLAUDE_CODE_OAUTH_TOKEN` secret (below); without it the
+main. A code change races first (ahead of queued ideas), replayed on each generation's main so it
+differs from the champion only by the change; one that never got a slot retires after 6 generations.
+(Level 3 made no call from gen 41 to 85 because code genome g29 waited behind the queue and never
+played, and evolve.py writes nothing while a code change "races"; fixed 2026-09-30.) At most 12 calls a day, after 2 generations without a new champion (scripts/loop/settings.json "evolve"). Needs the `CLAUDE_CODE_OAUTH_TOKEN` secret (below); without it the
 loop runs levels 1 and 2 only.
+
+**3b. New skills (level 3 v2, 2026-09-30; `evolve_skill.py`, setting `evolve.skills`).** "The bot
+learns a new skill" means three steps, each by a different part:
+1. *Claude writes it.* When one failure stays among the costliest for generations (failures.py's
+   table, game minutes lost, among each generation's top 5 in at least half of the last 8) and the
+   last level-3 attempt was an edit, evolve.py asks Claude for a NEW skill aimed at it, with the
+   failure table, the skill stats of the failing action, examples with what led to them, earlier
+   attempts, and the framework's source. The skill is new files in `skills/evolved/` only, written
+   against `Player` (the fair-play facade: normal player keys, looking, mining and placing within
+   reach of visible blocks, Baritone paths to a known position, blocks only if visible, a FairProbe,
+   mobs in sight). evolve_skill.py itself adds its one registry line and its gene (`evolved.<skill>`,
+   BOOL, default 0, appended to `evolved-genes.json`); the model never edits Tune.java, the framework
+   or anything the scorer reads. Gates, cheapest first: `fairplay.py` (an allowlist of what the code
+   may use; Mc, level, Baritone, Perception, threads, reflection, files and fully qualified names are
+   rejected), the path check, pr-check's build (`gradlew test compileGametestJava`) and
+   `test_evolved_genes.py`; one retry with the errors. It counts against `evolve.max_per_day`.
+2. *The race keeps it.* Its branch `evolve/<id>` is drilled by trials.yml with drill.py's plan (3
+   starts with and without the gene; trials.yml's unit-tests job is pr-check's Java check again). A
+   PASS makes it a contender: it races first, as the champion plus its gene, replayed on each
+   generation's main, judged by the metric of the failure it targets (e.g. `ok:explore`) with the
+   whole-game score as a safety check. A winner is merged into main like any code change.
+3. *The brain learns when to use it.* Its option carries its own action key, so the neural brain
+   grows a head for it once it has rows (data runs try it on purpose) and can re-rank it against
+   the rules' order when `learned.weight` wins its race. EvolvedSkills also benches a skill for a
+   minute after three failures in a row.
+
+What it can't do: it can't learn motor skills from pixels or invent abilities the facade doesn't
+expose (a new skill is Java composed of the player's controls, chosen by Claude from evidence, and
+kept only if it wins); it doesn't learn inside one game (skills and genes change between
+generations; within a game only the skill stats and the danger model adapt); and a skill judged by
+a rare metric may need many generations to be decided. Test it by hand, sandboxed:
+push a branch `evolve-test-run/<x>` (workflow `evolve-test.yml`).
 
 ## The road to the dragon (long-term design, 2026-09-27)
 

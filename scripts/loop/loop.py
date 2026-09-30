@@ -125,8 +125,9 @@ def pick_genes(st, genes, rng, k):
     # The neural brain reports a 5% lower bound over resampled games (train.gain_lower_bound): above
     # zero is enough, and the race then judges it in play. A fixed R2 bar (model_gate) could never
     # pass: R2 is capped by how random outcomes are, not by choice quality. Trees still use the bar.
-    if st.get("model_adv_lo") is not None:
-        model_ok = st["model_adv_lo"] > 0
+    if st.get("model_kind") == "mlp" or st.get("model_adv_lo") is not None:
+        # No bound yet (too few held-out worlds) is a closed gate, not a fall back to the R2 bar.
+        model_ok = (st.get("model_adv_lo") or 0) > 0
     else:
         model_ok = (st.get("model_adv_r2") or -1) > st["settings"].get("model_gate", 0.02)
     names = [n for n in genes if not n.startswith("learned.") or model_ok]
@@ -194,6 +195,10 @@ def cmd_propose(a):
     st["gen"] += 1
     gen = st["gen"]
     st["days"][today()] = st["days"].get(today(), 0) + 1
+    # A skill the loop wrote races only after its drill passed (evolve_skill.py; trials.yml plays it).
+    if any(g["status"] == "drilling" for g in st["genomes"].values()):
+        import evolve_skill
+        evolve_skill.check_drills(st, a.state, gen)
     champ = st["champion"]
     lineup = [champ]
     # Suggestions (settings.json "suggest": ideas from people or Claude sessions) race ahead of
@@ -206,8 +211,20 @@ def cmd_propose(a):
     for g in st["genomes"].values():
         if g["status"] == "contender" and g["note"].endswith("(defending)") and len(lineup) < s["max_genomes"]:
             lineup.append(g["id"])
+    # A code change (level 3) races next: each cost a Claude call, and evolve.py writes no other
+    # while one races. Behind the queue, g29 waited 44 generations without playing a run, and level
+    # 3 made no call in all that time (found 2026-09-30). One that still never played is retired.
+    for g in sorted(st["genomes"].values(), key=lambda g: g["born"]):
+        if not (g.get("code") and g["status"] == "contender" and g["note"].startswith("code:")):
+            continue
+        if not g["evals"] and gen - g["born"] > s.get("code_wait_gens", 6):
+            g["status"] = "retired"
+            g["retired_why"] = "never got a race slot in %d generations; its base is stale" % (gen - g["born"])
+            print("%s retired: %s" % (g["id"], g["retired_why"]))
+        elif g["id"] not in lineup and len(lineup) < s["max_genomes"]:
+            lineup.append(g["id"])
     sug_cap = min(s["max_genomes"], len(lineup) + s.get("suggest_slots", 1))
-    queue = st.get("trim", []) + s.get("suggest", [])
+    queue = learned_idea(st) + st.get("trim", []) + s.get("suggest", [])
 
     def enter(sug):
         """A queued idea joins the race as the champion plus its genes (once: `tried` remembers it)."""
@@ -243,10 +260,13 @@ def cmd_propose(a):
             st["genomes"][gid]["metric"] = sug["_metric"]
         st["genomes"][gid]["status"] = "contender"
         st["genomes"][gid]["code"] = st["genomes"][champ].get("code")
+        if sug.get("_auto", "").startswith("learned"):
+            st["learned_race"] = {"gid": gid, "gen": gen}
         lineup.append(gid)
 
     def first(g):
-        return bool(g.get("focus") or g.get("priority"))
+        # A code change too: the job limit must not bench it (it holds up evolve.py while it waits).
+        return bool(g.get("focus") or g.get("priority") or g["note"].startswith("code:"))
 
     def racing(focused):
         return sorted((g for g in st["genomes"].values() if g["status"] == "contender" and g["id"] not in lineup
@@ -317,6 +337,9 @@ def cmd_propose(a):
         lineup.remove(out_of_turn[-1])
     data_tasks = [{"kind": "natural", "stage": "spawn", "synthetic": False, "seed": bank.random_seed(rng, "D%d" % gen)}
                   for _ in range(s["data_runs"])]
+    for gid in list(lineup):
+        if st["genomes"][gid].get("code") and not rebase_code(st, gid, a.sha, gen) and gid != champ:
+            lineup.remove(gid)
     runs = []
     for gid in lineup:
         for i, t in enumerate(tasks):
@@ -335,6 +358,71 @@ def cmd_propose(a):
     common.write_json(a.out, out)
     print("generation %d: %s on %d tasks (%s), %d data runs" % (gen, " ".join(lineup), len(tasks),
           ", ".join(t["stage"] + ("*" if t["synthetic"] else "") for t in tasks), s["data_runs"]))
+
+
+def learned_idea(st):
+    """The learned brain's race, queued first once its gate opens (model_adv_lo > 0: on unseen games
+    its choices explain progress the state alone doesn't): the champion with learned.weight 1. Waiting
+    for a mutation to pick the gene never came: queued ideas fill every slot. Once per opening; after
+    a lost race, again 10 generations later if the gate is still open. learned.explore stays with the
+    data runs (explore_data): deliberate tries cost the score a race is judged on."""
+    lo = st.get("model_adv_lo")
+    champ = st["genomes"][st["champion"]]
+    if lo is None or lo <= 0 or champ["genes"].get("learned.weight", 0) > 0:
+        return []
+    last = st.get("learned_race")
+    if last:
+        g = st["genomes"].get(last["gid"], {})
+        if g.get("status") in ("contender", "champion") or st["gen"] - last["gen"] < 10:
+            return []
+    return [{"learned.weight": 1, "_priority": True,
+             "_auto": "learned brain gate open at gen %d (5%% bound %+.4f)" % (st["gen"], lo)}]
+
+
+def rebase_code(st, gid, main_sha, gen):
+    """Replays a code genome's commit on this generation's main, so it and the champion differ only
+    by the change: g29 would have played gen 41's main against a champion on gen 85's. Returns False
+    when the change no longer applies (the genome retires). Process trouble keeps the old commit."""
+    import subprocess
+    import tempfile
+    code = st["genomes"][gid]["code"]
+    if code.get("base") == main_sha or os.environ.get("LOOP_NO_REBASE"):
+        return True
+
+    def git(*args, cwd=common.ROOT, check=True):
+        return subprocess.run(["git", *args], cwd=cwd, check=check, capture_output=True, text=True, timeout=120)
+    tmp = tempfile.mkdtemp(prefix="rebase-")
+    new, applies = None, True
+    try:
+        git("fetch", "-q", "--depth", "2", "origin", code["sha"])
+        git("worktree", "add", "-q", "--detach", tmp, main_sha)
+        r = git("-c", "user.name=github-actions[bot]", "-c", "user.email=41898282+github-actions[bot]@users.noreply.github.com",
+                "cherry-pick", code["sha"], cwd=tmp, check=False)
+        if r.returncode != 0:
+            git("cherry-pick", "--abort", cwd=tmp, check=False)
+            applies = False
+        else:
+            new = git("rev-parse", "HEAD", cwd=tmp).stdout.strip()
+            git("push", "-q", "--force", "origin", "%s:refs/heads/%s" % (new, code["branch"]))
+    except (subprocess.SubprocessError, OSError) as e:
+        print("rebase %s: process failed, it plays %s as before: %s" % (gid, code["sha"][:7], e))
+        return True
+    finally:
+        subprocess.run(["git", "worktree", "remove", "--force", tmp], cwd=common.ROOT, capture_output=True, timeout=60)
+        shutil.rmtree(tmp, ignore_errors=True)
+    old = code["sha"]
+    for g in st["genomes"].values():
+        c = g.get("code")
+        if not c or c["sha"] != old:
+            continue
+        if applies:
+            c.setdefault("first_sha", old)
+            c["sha"], c["base"] = new, main_sha
+        elif g["id"] != st["champion"]:
+            g["status"] = "retired"
+            g["retired_why"] = "its change no longer applies to main (gen %d)" % gen
+    print("rebase %s: %s" % (gid, ("%s -> %s on main %s" % (old[:7], new[:7], main_sha[:7])) if applies else "conflicts with main: retired"))
+    return applies
 
 
 def ref_of(st, gid, main_sha):
@@ -457,6 +545,10 @@ def cmd_update(a):
         "total_runs": (prev.get("total_runs", 0) if prev else 0) + len(all_ok),
         "game_hours": round((prev.get("game_hours", 0) if prev else 0) + len(all_ok) * length / 3600, 2),
         "model_rows": st.get("model_rows", 0),
+        # The learned model that played this generation (trained at the end of the one before):
+        # its gate (5% bound, > 0 opens it) and its choice check on held-out deviations.
+        "model": {"kind": st.get("model_kind"), "adv_lo": st.get("model_adv_lo"), "adv_r2": st.get("model_adv_r2"),
+                  "sign": st.get("model_sign"), "heads": st.get("model_keys")},
         "showcase": showcase,
         "tasks": [t["stage"] + ("*" if t.get("synthetic") else "") for t in tasks],
         "banked": banked, "frontier": bank.frontier(st), "bank": bank.summary(st),
@@ -534,10 +626,11 @@ def race(st, genes, challengers, champ, gen):
         if len(bundle) >= 3:
             st.setdefault("trim", []).extend({n: 0} for n in bundle)
             out.append("trim: %d leave-one-out races queued for %s" % (len(bundle), best))
-        # The others were measured against the old champion: they start over against the new one.
-        for gid in challengers:
-            if st["genomes"][gid]["status"] == "contender":
-                reset_race(st["genomes"][gid])
+        # The others were measured against the old champion: they start over against the new one,
+        # the ones sitting this generation out too (else they keep pairs against a champion that's gone).
+        for other in st["genomes"].values():
+            if other["status"] == "contender" and other["id"] != champ:
+                reset_race(other)
     return out
 
 

@@ -1,5 +1,7 @@
 package io.github.plrlr.autopilot.skills;
 
+import io.github.plrlr.autopilot.skills.evolved.EvolvedSkills;
+
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.function.Supplier;
@@ -92,6 +94,7 @@ public final class Skills {
 		MENU.put("dig_portal", new Entry(() -> new CastPortalSite(true), "dig a room for the frame and build the portal from 10 carried obsidian, then light it"));
 		MENU.put("obsidian_mold", new Entry(ObsidianMold::new, "obsidian_mold [n]: make obsidian a block at a time in a dug pit (lava bucket, then water), mine it on solid ground"));
 		MENU.put("make_obsidian", new Entry(BucketSkills.MakeObsidian::new, "pour a water bucket next to lava pool sources to harden them into obsidian"));
+		EvolvedSkills.register(MENU);
 	}
 
 	public static Skill create(String name) {
