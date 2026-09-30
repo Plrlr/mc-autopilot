@@ -103,6 +103,12 @@ def check_source(src, file_name, skill=None):
     bad = []
     if len(src.splitlines()) > MAX_LINES:
         bad.append("longer than %d lines" % MAX_LINES)
+    # Java decodes unicode escapes everywhere before it reads the code, so "Mc" is Mc to the
+    # compiler and "Mc" to every check below: none may appear, strings and comments included.
+    if re.search(r"\\+u+[0-9a-fA-F]{4}", src):
+        bad.append("unicode escapes aren't allowed (Java decodes them before any check could read the name)")
+    if any(ord(ch) > 126 for ch in strip(src)):
+        bad.append("non-ASCII characters in code (write names in plain ASCII)")
     code = strip(src)
     code_s = strip(src, keep_strings=True)
     if not re.search(r"^\s*package\s+%s\s*;" % re.escape(PACKAGE), code, re.M):

@@ -57,6 +57,9 @@ def test_a_fair_skill_passes():
 def test_cheats_are_caught():
     cases = {
         "raw game access": GOOD.replace("Player.inWater() && Player.onGround()", "Mc.player().isInWater()"),
+        "a unicode-escaped name": GOOD.replace("Player.inWater() && Player.onGround()", "\\u004Dc.player().isInWater()"),
+        "an escape in a comment": GOOD.replace("// \"level\" and Mc", "// \\u000A Mc.player();"),
+        "a non-ASCII name": GOOD.replace("private BlockPos land;", "private BlockPos länd;"),
         "reading any block": GOOD.replace("WorldMemory m = memory;", "WorldMemory m = memory; var b = m.hashCode() > 0 ? null : level;"),
         "x-ray by import": GOOD.replace("import java.util.Set;", "import java.util.Set;\nimport net.minecraft.client.Minecraft;"),
         "fully qualified bypass": GOOD.replace("WorldMemory m = memory;", "WorldMemory m = memory; var mc = net.minecraft.client.Minecraft.getInstance();"),
