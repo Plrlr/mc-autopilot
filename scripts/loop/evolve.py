@@ -32,8 +32,11 @@ import bank  # noqa: E402
 import common  # noqa: E402
 
 SRC = "mod/src/main/java/io/github/plrlr/autopilot/"
-# Files a patch may never touch: the genes, the model's inputs, logging (what the scorer reads).
-FROZEN = ("Tune.java", "brains/Learned.java", "log/", "state/StateBuilder.java")
+# Files a patch may never touch: the genes, the model's inputs, logging (what the scorer reads), and
+# the fair-play boundary of loop-written skills (the facade they may use, the registry, their genes,
+# FairProbe): a patch that widened Player would hand every later generated skill a way to cheat.
+FROZEN = ("Tune.java", "EvolvedGenes.java", "brains/Learned.java", "log/", "state/StateBuilder.java",
+          "skills/evolved/", "skills/EvolvedActions.java", "skills/FairProbe.java")
 # Nothing that talks to the game's command system or reads what a player couldn't see.
 FORBIDDEN = ("runCommand", "performCommand", "sendCommand", "sendChat", "getServer()", "getSingleplayerServer",
              "ServerLevel", "commands.", "setBlock(", "Runtime.getRuntime", "ProcessBuilder")

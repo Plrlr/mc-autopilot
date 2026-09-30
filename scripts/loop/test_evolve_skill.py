@@ -157,6 +157,19 @@ def test_the_loop_knows_evolved_genes():
         assert genes["evolved.leave_water"]["kind"] == "BOOL" and genes["evolved.leave_water"]["max"] == 1.0
 
 
+def test_patches_cant_touch_the_fair_play_boundary():
+    """Edit mode (evolve.apply_edits) may change game code, but not the facade, the registry, the
+    evolved genes or FairProbe: widening those would open a door for every later generated skill."""
+    import evolve
+    for rel in ("skills/evolved/Player.java", "skills/evolved/EvolvedSkills.java", "EvolvedGenes.java",
+                "skills/FairProbe.java", "skills/EvolvedActions.java", "Tune.java"):
+        try:
+            evolve.apply_edits([{"file": rel, "search": "x", "replace": "y"}], dry=True)
+            raise AssertionError("a patch may edit " + rel)
+        except ValueError as e:
+            assert "not allowed" in str(e), (rel, e)
+
+
 if __name__ == "__main__":
     for name, fn in list(globals().items()):
         if name.startswith("test_") and callable(fn):

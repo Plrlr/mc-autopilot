@@ -345,10 +345,11 @@ def apply_skill(so, target, gen, genes):
 
 def build_check():
     """pr-check's commands: the Java unit tests with the game-test code compiled, then the loop's
-    evolved-gene test. (ok, log tail)."""
+    evolved-gene test. (ok, log tail). 15 minutes at most (the first end-to-end build took ~4): an
+    attempt, a retry and this build must fit the evolve step's 38."""
     try:
         r = subprocess.run(["./gradlew", "test", "compileGametestJava", "--console=plain", "-q"],
-                           cwd=os.path.join(common.ROOT, "mod"), capture_output=True, text=True, timeout=1200)
+                           cwd=os.path.join(common.ROOT, "mod"), capture_output=True, text=True, timeout=900)
         if r.returncode:
             return False, (r.stdout + r.stderr)[-3000:]
         r = subprocess.run([sys.executable, os.path.join(common.ROOT, "scripts", "loop", "test_evolved_genes.py")],
