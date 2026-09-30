@@ -3,6 +3,15 @@
 Moved out of CLAUDE.md; CLAUDE.md links here. Batch-by-batch results are in docs/batches.md.
 
 ## Decisions
+- 2026-09-30: the week's final push. Level 3 had been silent since gen 41: code genome g29 never
+  got a race slot (queued ideas fill every lineup) and evolve.py writes nothing while a code change
+  "races". Code changes now race first, replayed on each generation's main (#81). The neural brain
+  (#79) plays through a gate that counts worlds, not files, and choices, not state (#82, from
+  Codex's review). Level 3 v2 (#83): the loop can write NEW skills in skills/evolved/ against a
+  fair-play facade, gated by a static allowlist, the build and a drill before they race; its first
+  end-to-end test wrote swim_to_shore for the costliest lasting failure (explore stopped by open
+  water). The tread-water gene (#78) failed its drill and doesn't race. Natural runs now reach the
+  Nether in ~8% of games and got a first blaze rod (gen 84).
 - 2026-09-27: restart around a self-improving loop (docs/learning-loop.md). 19 cloud batches of
   hand-diagnosed fixes by four coordinating sessions plateaued at iron tools (~6:00, ~1.2
   deaths/run, no natural portal) and cost the most tokens. Branches consolidated into main;

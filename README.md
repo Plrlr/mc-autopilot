@@ -10,10 +10,14 @@ model, trained on every decision it has made (plus human play from OpenAI's publ
 No language model plays the game. Watch it live: **[plrlr.github.io/mc-autopilot](https://plrlr.github.io/mc-autopilot/)**.
 How it works: [docs/learning-loop.md](docs/learning-loop.md).
 
-**Where it stands (hand-tuned code, before the loop, Easy):** it reliably gets wood and stone
-tools, and iron tools on 7 of 8 seeds in about 6 game minutes. No natural run has reached the
-Nether yet; a staged test with a ready lava pool lit a portal and went through once. Everything
-past the Nether portal is code that no run has reached. Details in [Results so far](#results-so-far).
+**Where it stands (the loop's genomes, gens 76-85, 2026-09-30, Easy):** in 80 full natural
+runs (fresh random worlds from spawn, 40 game minutes, no staged starts) it got wood tools in
+all, stone tools in 96%, iron tools in 61%, a diamond pickaxe in 15%, and **entered the Nether in
+6 runs (8%)**, fastest 25:07, median 31:57. **Furthest so far: one blaze rod** (milestone 8), in
+gen 84 at 34:58 (champion g56: iron 6:34, diamond pickaxe 20:27, Nether 28:55). No natural run has
+reached milestone 9 (ender pearls) or later; everything past the first blaze rod is code no run
+has reached.
+It dies about twice per game. Details in [Results so far](#results-so-far).
 
 - **One brain, its own.** A planner lists the sensible next actions in order; the bot's learned
   model re-ranks them as far as the loop has shown it helps. Decisions take microseconds, on
@@ -79,6 +83,21 @@ use commands in a throwaway test world to test late-game skills quickly; their n
 reported separately and never counted as results.
 
 ## Results so far
+
+**The learning loop (since 2026-09-27).** Full natural runs only: the race's fresh-world games
+from spawn (stage starts and combat drills are left out), random seeds, Easy. Game length: 20
+game minutes until gen 49, 30 in gens 50-66, 40 since gen 67, so the 30-85 row mixes them.
+Counted from `loop/data` on the trial-results branch.
+
+| generations | runs | wood | stone tools | iron tools | diamond pickaxe | Nether | blaze rod | deaths/run |
+|---|---|---|---|---|---|---|---|---|
+| 30-85 | 495 | 99% | 94% | 62% | 6% | 10 (2%), best 13:24 | 1 | 3.0 |
+| 76-85 | 80 | 100%, 0:29 | 96%, 2:18 | 61%, 15:56 | 15%, 27:51 | 6 (8%), 31:57 | 1, 34:58 | 2.0 |
+
+Times are medians of the runs that got there, in game minutes. A run that dies keeps going
+(respawns), so these are milestones within one 40-minute game, not deathless runs.
+
+**Before the loop (hand-tuned rules, trial batches):**
 
 ![Share of runs reaching each milestone, and the median time, per trial batch](docs/progress.svg)
 
@@ -148,18 +167,20 @@ and why, across runs.
 
 ## Honest limitations
 
-- **It hasn't reached the Nether on its own.** Casting the portal works on a staged lava pool,
-  once so far; real pools with odd shapes, lava deep in caves and nights spent on other upkeep
-  have stopped every natural run.
-- **Nether and later: implemented, never reached.** Fortress search and blaze fights are new
-  code that hasn't been in a trial batch yet; ender pearls, stronghold search, filling the end portal
+- **The Nether is rare.** Since the diamond route (iron kit, diamonds at depth, obsidian from a
+  lava pool there, a frame in a dug room) about 8% of natural games enter the Nether, late (25-35
+  game minutes), and one has held a blaze rod. The funnel in gens 76-85 (80 games): 44 saw lava,
+  22 reached diamond depth, 12 made a diamond pickaxe, 6 mined 10 obsidian, and those 6 built,
+  lit and entered a portal.
+- **Past the first blaze rod: implemented, never reached.** Ender pearls, stronghold search, filling the end portal
   and the dragon fight have never run in a trial. Known gaps: eyes of ender lead to the
   stronghold but there's no search for the portal room inside it; thrown eyes aren't picked back
   up; the speedrun route never makes a bow, so the dragon's healing crystals can't be shot; angry
   endermen and piglins aren't fought back. Reaching the dragon is a long shot for any AI today.
 - **Milestones 8-10 count the first item** (one blaze rod, one pearl, one eye), not the 6/12/12
   the goals need.
-- **Deaths:** 14 in batch 9's eight 20-minute runs (in batch 8b, 16 of 24 happened while fleeing).
+- **Deaths:** about 2 per 40-minute game in the loop's recent natural runs (3 per game over gens
+  30-85).
 - Tool and armor milestones stay reached after a death; the planner rebuilds lost tools on the
   way to the next one instead of starting the ladder over.
 - Single-player only on purpose; Baritone on servers can break rules.
