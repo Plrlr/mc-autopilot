@@ -2651,7 +2651,7 @@
   "2026-09-27": 15,
   "2026-09-28": 32,
   "2026-09-29": 24,
-  "2026-09-30": 20
+  "2026-09-30": 21
  },
  "evolve_days": {
   "2026-09-27": 1,
@@ -2682,7 +2682,7 @@
    "result": "no usable patch"
   }
  ],
- "gen": 91,
+ "gen": 92,
  "gene_specs": {
   "bed.table_first": {
    "def": 0.0,
@@ -14472,6 +14472,73 @@
    "parent": "g56",
    "status": "rejected"
   },
+  "g72": {
+   "born": 92,
+   "code": null,
+   "evals": [],
+   "genes": {
+    "cave.torches": 1.0,
+    "combat.ignore_walled_mobs": 1.0,
+    "death.recover_night_armor": 12.0,
+    "focus.commit": 1.0,
+    "nav.surface_v2": 1.0,
+    "nav.unstuck_v2": 1.0,
+    "night.shelter_exit": 1.0,
+    "plan.hide_hp": 15.0,
+    "portal.prepare_work_area": 1.0,
+    "portal.reserve_lava_bucket": 1.0,
+    "route.armor_before_portal": 0.0,
+    "safety.spawner_break": 1.0,
+    "safety.spawner_room": 1.0,
+    "skill.portal_repair": 1.0,
+    "skill.ruined_portal": 1.0,
+    "stuck.item_progress": 1.0
+   },
+   "id": "g72",
+   "metric": "deaths",
+   "mutated": [
+    "safety.spawner_room",
+    "safety.spawner_break"
+   ],
+   "note": "suggested: safety.spawner_room 1, safety.spawner_break 1",
+   "pairs": [],
+   "parent": "g56",
+   "status": "contender"
+  },
+  "g73": {
+   "born": 92,
+   "code": null,
+   "evals": [],
+   "genes": {
+    "bed.table_first": 1.0,
+    "cave.torches": 1.0,
+    "combat.ignore_walled_mobs": 1.0,
+    "death.recover_night_armor": 12.0,
+    "focus.commit": 1.0,
+    "nav.surface_v2": 1.0,
+    "nav.unstuck_v2": 1.0,
+    "night.shelter_exit": 1.0,
+    "plan.hide_hp": 15.0,
+    "plan.noop_success_pause": 1.0,
+    "portal.prepare_work_area": 1.0,
+    "portal.reserve_lava_bucket": 1.0,
+    "restock.stash_only": 1.0,
+    "route.armor_before_portal": 0.0,
+    "skill.portal_repair": 1.0,
+    "skill.ruined_portal": 1.0,
+    "stuck.item_progress": 1.0
+   },
+   "id": "g73",
+   "mutated": [
+    "restock.stash_only",
+    "plan.noop_success_pause",
+    "bed.table_first"
+   ],
+   "note": "suggested: restock.stash_only 1, plan.noop_success_pause 1, bed.table_first 1",
+   "pairs": [],
+   "parent": "g56",
+   "status": "contender"
+  },
   "g8": {
    "born": 6,
    "code": null,
@@ -14638,8 +14705,87 @@
   "mean_gap_ok": null,
   "n": 61
  },
- "next_id": 72,
- "pending": null,
+ "next_id": 74,
+ "pending": {
+  "data_tasks": [
+   {
+    "kind": "natural",
+    "seed": "D92-b275hw",
+    "stage": "spawn",
+    "synthetic": false
+   },
+   {
+    "kind": "natural",
+    "seed": "D92-syut8f",
+    "stage": "spawn",
+    "synthetic": false
+   }
+  ],
+  "gen": 92,
+  "lineup": [
+   "g56",
+   "g69",
+   "g72",
+   "g73"
+  ],
+  "runs": [
+   "eval-g56-0",
+   "eval-g56-1",
+   "eval-g56-2",
+   "eval-g56-3",
+   "eval-g69-0",
+   "eval-g69-1",
+   "eval-g69-2",
+   "eval-g69-3",
+   "eval-g72-0",
+   "eval-g72-1",
+   "eval-g72-2",
+   "eval-g72-3",
+   "eval-g73-0",
+   "eval-g73-1",
+   "eval-g73-2",
+   "eval-g73-3",
+   "data-g56-0",
+   "data-g56-1"
+  ],
+  "seeds": [
+   "L92-2qvrkv",
+   "L92-ht3mjz",
+   "L92-h48rkt",
+   "L92-2dwahe"
+  ],
+  "sha": "537d4ceac1dc7374b57ddce580f96f9511e1468c",
+  "started": "2026-09-30T20:23:36+00:00",
+  "tasks": [
+   {
+    "kind": "natural",
+    "seed": "L92-2qvrkv",
+    "stage": "spawn",
+    "synthetic": false
+   },
+   {
+    "kind": "natural",
+    "seed": "L92-ht3mjz",
+    "stage": "spawn",
+    "synthetic": false
+   },
+   {
+    "asset": "diamond-gen79-eval-g47-1.zip",
+    "kind": "start",
+    "seed": "L92-h48rkt",
+    "stage": "diamond",
+    "synthetic": false
+   },
+   {
+    "kind": "combat",
+    "minutes": 10,
+    "scenario": "combat",
+    "seed": "L92-2dwahe",
+    "stage": "combat",
+    "synthetic": false
+   }
+  ]
+ },
  "race_evidence_version": 1,
  "score_version": 3,
  "settings": {
@@ -17380,7 +17526,9 @@
   "{\"_metric\": \"deaths\", \"combat.finish_heal_wall\": 1}",
   "{\"_metric\": \"ok:shelter\", \"night.no_shaft_wall\": 1}",
   "{\"_metric\": \"deaths\", \"combat.no_close_retreat\": 1}",
-  "{\"_metric\": \"deaths\", \"safety.spawner_room\": 1}"
+  "{\"_metric\": \"deaths\", \"safety.spawner_room\": 1}",
+  "{\"_metric\": \"deaths\", \"safety.spawner_break\": 1, \"safety.spawner_room\": 1}",
+  "{\"bed.table_first\": 1, \"plan.noop_success_pause\": 1, \"restock.stash_only\": 1}"
  ],
  "version": 1
 }
