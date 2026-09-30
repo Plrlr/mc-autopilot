@@ -77,7 +77,7 @@ Rules:
 
 
 def git(*a, cwd=common.ROOT, check=True):
-    return subprocess.run(["git", *a], cwd=cwd, check=check, capture_output=True, text=True).stdout.strip()
+    return subprocess.run(["git", *a], cwd=cwd, check=check, capture_output=True, text=True, timeout=120).stdout.strip()
 
 
 def evidence(batch, champ, frontier=None):
@@ -257,11 +257,17 @@ def main():
         budget -= len(text)
         parts.append("=== FILE %s ===\n%s" % (f, text))
     prompt = "\n".join(parts)
-    st["evolve_days"][today] = used + 1
-    common.write_json(st_path, st)
     base = git("rev-parse", "HEAD")
     result, why = None, ""
     for attempt in range(2):
+        # Every call counts against evolve.max_per_day, the retry included: the budget is the
+        # user's Claude plan. --force (a test by hand) still counts, but isn't stopped by it.
+        if attempt and used >= s["max_per_day"] and not a.force:
+            why += " (no retry: today's budget is spent)"
+            break
+        used += 1
+        st["evolve_days"][today] = used
+        common.write_json(st_path, st)
         try:
             so = ask_claude(prompt if attempt == 0 else prompt + "\n\nYOUR LAST EDITS FAILED:\n" + why +
                             "\nFix them (search text copied exactly from the files above).", a.claude)

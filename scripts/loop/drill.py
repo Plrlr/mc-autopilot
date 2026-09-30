@@ -37,9 +37,11 @@ MINUTES = {"lava": "12", "combat": "10", "natural": "20"}
 
 
 def new_ideas(base, head):
-    """The suggestions head adds, in head's order (a dict per idea)."""
+    """The suggestions head adds, in head's order (a dict per idea). An idea already marked
+    "_drill": "fail" is left out: marking it re-ran its whole drill on PR #78 (6 games)."""
     old = {json.dumps(x, sort_keys=True) for x in (common.read_json(base, {}) or {}).get("suggest", [])}
-    return [x for x in (common.read_json(head, {}) or {}).get("suggest", []) if json.dumps(x, sort_keys=True) not in old]
+    return [x for x in (common.read_json(head, {}) or {}).get("suggest", [])
+            if json.dumps(x, sort_keys=True) not in old and x.get("_drill") != "fail"]
 
 
 def kind(idea):
