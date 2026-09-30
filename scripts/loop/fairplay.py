@@ -60,6 +60,9 @@ BANNED_NAMES = [
      "files or network"),
     (r"\bnative\b", "native code"),
     (r"\bmemory\s*\.\s*(remember|forget|scan|clear)\s*\(|\bworldKey\b", "writing WorldMemory (read it; the scan fills it)"),
+    # The game thread runs start/tick/offer: a loop that waits freezes Minecraft. Bounded loops over
+    # collections are fine; the drill catches a subtler hang (its games never finish: FAIL).
+    (r"\bwhile\s*\(\s*true\s*\)|\bfor\s*\(\s*;\s*;\s*\)|\bdo\s*\{", "a loop that waits (do a little each tick instead)"),
 ]
 # The same list evolve.py applies to every patch (commands, server, world edits, processes).
 FORBIDDEN = ("runCommand", "performCommand", "sendCommand", "sendChat", "getServer()", "getSingleplayerServer",
@@ -158,7 +161,9 @@ def check_gene_list(old, new, known=()):
     old, new = list(old or []), list(new or [])
     if new[:len(old)] != old:
         bad.append("evolved-genes.json is append-only: an existing entry changed or moved")
-    seen = set(known)
+    # Tune's own genes may not be shadowed; evolved ones in `known` are the list itself (load_genes
+    # reads both), so they don't count as duplicates of themselves.
+    seen = {n for n in known if not n.startswith("evolved.")}
     for e in new:
         name = e.get("name", "")
         m = GENE.match(name)

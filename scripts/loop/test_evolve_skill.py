@@ -142,6 +142,21 @@ def test_gh_trouble_waits():
         assert st["genomes"]["g70"]["status"] == "drilling"
 
 
+def test_the_loop_knows_evolved_genes():
+    """A skill that won is in main's evolved-genes.json: exports and mutations must keep its gene."""
+    with tempfile.TemporaryDirectory() as d:
+        tune = os.path.join(d, "mod/src/main/java/io/github/plrlr/autopilot/Tune.java")
+        os.makedirs(os.path.dirname(tune))
+        open(tune, "w").write('gene("a.b", 1, 0, 2, Kind.INT, "x");\n')
+        os.makedirs(os.path.join(d, "mod/src/main/resources"))
+        json.dump({"genes": [{"name": "evolved.leave_water", "kind": "BOOL", "def": 0, "skill": "leave_water", "why": "w"},
+                             {"name": "evolved.bad", "kind": "REAL", "def": 0, "skill": "bad", "why": "no"}]},
+                  open(os.path.join(d, "mod/src/main/resources/evolved-genes.json"), "w"))
+        genes = common.load_genes(tune)
+        assert list(genes) == ["a.b", "evolved.leave_water"], genes
+        assert genes["evolved.leave_water"]["kind"] == "BOOL" and genes["evolved.leave_water"]["max"] == 1.0
+
+
 if __name__ == "__main__":
     for name, fn in list(globals().items()):
         if name.startswith("test_") and callable(fn):

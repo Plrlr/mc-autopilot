@@ -71,7 +71,9 @@ public final class EvolvedSkills {
 			Option o;
 			try {
 				o = e.offer().offer(c);
-			} catch (RuntimeException ex) {
+			} catch (RuntimeException | LinkageError | StackOverflowError ex) {
+				// LinkageError: the skill's class failed to load (a throwing static initializer is an
+				// ExceptionInInitializerError, not a RuntimeException). Either way: no offer, play on.
 				if (REPORTED.add(e.skill())) AutopilotMod.LOGGER.warn("Evolved offer {} failed", e.skill(), ex);
 				continue;
 			}

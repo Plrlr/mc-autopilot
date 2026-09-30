@@ -75,6 +75,8 @@ def test_cheats_are_caught():
         "name mismatch": GOOD.replace('return "leave_water"', 'return "collect"'),
         "genes": GOOD.replace("WorldMemory m = memory;", 'WorldMemory m = memory; Tune.get("reflex.creeper_dist");'),
         "memory writes": GOOD.replace("WorldMemory m = memory;", 'WorldMemory m = memory; memory.remember("log", land, "oak_log");'),
+        "a waiting loop": GOOD.replace("WorldMemory m = memory;", "WorldMemory m = memory; while (true) { if (Player.onGround()) break; }"),
+        "a waiting for": GOOD.replace("WorldMemory m = memory;", "WorldMemory m = memory; for (;;) { break; }"),
     }
     for name, src in cases.items():
         assert src != GOOD, name
@@ -97,7 +99,8 @@ def test_gene_list_is_append_only_and_valid():
     assert fairplay.check_gene_list([], [dict(e, name="evolved.X")])
     assert fairplay.check_gene_list([], [dict(e, skill="other")])
     assert fairplay.check_gene_list([], [e, e])
-    assert fairplay.check_gene_list([], [e], known={"evolved.leave_water"})
+    # load_genes returns Tune's genes and the evolved list together: the list's own names aren't clashes.
+    assert fairplay.check_gene_list([e], [e], known={"evolved.leave_water", "reflex.creeper_dist"}) == []
 
 
 def test_patch_paths():

@@ -16,7 +16,9 @@ LEARNED = os.path.join(ROOT, "mod", "src", "main", "java", "io", "github", "plrl
 
 
 def load_genes(path=TUNE):
-    """{name: {def, min, max, kind, help}} in declaration order."""
+    """{name: {def, min, max, kind, help}} in declaration order: Tune.java's genes, then the evolved
+    skills' switches (evolved-genes.json, loaded into Tune at startup the same way), so a params
+    export or a mutation keeps a skill the loop wrote and kept."""
     src = open(path, encoding="utf-8").read()
     genes = {}
     for m in re.finditer(r'gene\("([\w.]+)",\s*([-\d.]+),\s*([-\d.]+),\s*([-\d.]+),\s*Kind\.(\w+),\s*"([^"]*)"\)', src):
@@ -24,6 +26,14 @@ def load_genes(path=TUNE):
         genes[name] = {"def": float(d), "min": float(lo), "max": float(hi), "kind": kind, "help": help_}
     if not genes:
         raise SystemExit("no genes found in " + path)
+    evolved = os.path.join(os.path.dirname(path), *[".."] * 5, "resources", "evolved-genes.json")
+    try:
+        for e in json.load(open(evolved, encoding="utf-8")).get("genes", []):
+            n = e.get("name", "")
+            if re.match(r"^evolved\.[a-z][a-z0-9_]{2,39}$", n) and e.get("kind") == "BOOL" and e.get("def") == 0 and n not in genes:
+                genes[n] = {"def": 0.0, "min": 0.0, "max": 1.0, "kind": "BOOL", "help": e.get("why", "")}
+    except (OSError, ValueError, AttributeError):
+        pass  # no list (or a broken one, which test_evolved_genes.py fails on): Tune's genes only
     return genes
 
 
