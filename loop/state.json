@@ -2497,13 +2497,13 @@
   "2026-09-27": 15,
   "2026-09-28": 32,
   "2026-09-29": 24,
-  "2026-09-30": 15
+  "2026-09-30": 16
  },
  "evolve_days": {
   "2026-09-27": 1,
   "2026-09-28": 7
  },
- "gen": 86,
+ "gen": 87,
  "gene_specs": {
   "bed.table_first": {
    "def": 0.0,
@@ -13372,6 +13372,70 @@
    "parent": "g56",
    "status": "rejected"
   },
+  "g67": {
+   "born": 87,
+   "code": null,
+   "evals": [],
+   "genes": {
+    "cave.torches": 1.0,
+    "combat.ignore_walled_mobs": 1.0,
+    "death.recover_night_armor": 12.0,
+    "death.trip_commit": 1.0,
+    "focus.commit": 1.0,
+    "nav.surface_v2": 1.0,
+    "nav.unstuck_v2": 1.0,
+    "night.shelter_exit": 1.0,
+    "plan.hide_hp": 15.0,
+    "portal.prepare_work_area": 1.0,
+    "portal.reserve_lava_bucket": 1.0,
+    "route.armor_before_portal": 0.0,
+    "skill.portal_repair": 1.0,
+    "skill.recover_items": 1.0,
+    "skill.ruined_portal": 1.0,
+    "stuck.item_progress": 1.0
+   },
+   "id": "g67",
+   "metric": "ok:goto",
+   "mutated": [
+    "death.trip_commit",
+    "skill.recover_items"
+   ],
+   "note": "suggested: death.trip_commit 1, skill.recover_items 1",
+   "pairs": [],
+   "parent": "g56",
+   "status": "contender"
+  },
+  "g68": {
+   "born": 87,
+   "code": null,
+   "evals": [],
+   "genes": {
+    "cave.torches": 1.0,
+    "combat.finish_heal_wall": 1.0,
+    "combat.ignore_walled_mobs": 1.0,
+    "death.recover_night_armor": 12.0,
+    "focus.commit": 1.0,
+    "nav.surface_v2": 1.0,
+    "nav.unstuck_v2": 1.0,
+    "night.shelter_exit": 1.0,
+    "plan.hide_hp": 15.0,
+    "portal.prepare_work_area": 1.0,
+    "portal.reserve_lava_bucket": 1.0,
+    "route.armor_before_portal": 0.0,
+    "skill.portal_repair": 1.0,
+    "skill.ruined_portal": 1.0,
+    "stuck.item_progress": 1.0
+   },
+   "id": "g68",
+   "metric": "deaths",
+   "mutated": [
+    "combat.finish_heal_wall"
+   ],
+   "note": "suggested: combat.finish_heal_wall 1",
+   "pairs": [],
+   "parent": "g56",
+   "status": "contender"
+  },
   "g7": {
    "born": 3,
    "code": null,
@@ -13618,8 +13682,87 @@
  "model_kind": "mlp",
  "model_r2": 0.194,
  "model_rows": 134712,
- "next_id": 67,
- "pending": null,
+ "next_id": 69,
+ "pending": {
+  "data_tasks": [
+   {
+    "kind": "natural",
+    "seed": "D87-jgzrwb",
+    "stage": "spawn",
+    "synthetic": false
+   },
+   {
+    "kind": "natural",
+    "seed": "D87-zkzw6n",
+    "stage": "spawn",
+    "synthetic": false
+   }
+  ],
+  "gen": 87,
+  "lineup": [
+   "g56",
+   "g65",
+   "g67",
+   "g68"
+  ],
+  "runs": [
+   "eval-g56-0",
+   "eval-g56-1",
+   "eval-g56-2",
+   "eval-g56-3",
+   "eval-g65-0",
+   "eval-g65-1",
+   "eval-g65-2",
+   "eval-g65-3",
+   "eval-g67-0",
+   "eval-g67-1",
+   "eval-g67-2",
+   "eval-g67-3",
+   "eval-g68-0",
+   "eval-g68-1",
+   "eval-g68-2",
+   "eval-g68-3",
+   "data-g56-0",
+   "data-g56-1"
+  ],
+  "seeds": [
+   "L87-bc4gea",
+   "L87-4bkecb",
+   "L87-fa3y3j",
+   "L87-kdnzpf"
+  ],
+  "sha": "bf927e7686edcbe64b2d1916296e552cbd24870b",
+  "started": "2026-09-30T14:19:48+00:00",
+  "tasks": [
+   {
+    "kind": "natural",
+    "seed": "L87-bc4gea",
+    "stage": "spawn",
+    "synthetic": false
+   },
+   {
+    "kind": "natural",
+    "seed": "L87-4bkecb",
+    "stage": "spawn",
+    "synthetic": false
+   },
+   {
+    "asset": "diamond-gen73-eval-g56-2.zip",
+    "kind": "start",
+    "seed": "L87-fa3y3j",
+    "stage": "diamond",
+    "synthetic": false
+   },
+   {
+    "kind": "combat",
+    "minutes": 10,
+    "scenario": "combat",
+    "seed": "L87-kdnzpf",
+    "stage": "combat",
+    "synthetic": false
+   }
+  ]
+ },
  "race_evidence_version": 1,
  "score_version": 3,
  "settings": {
@@ -16295,7 +16438,9 @@
   "{\"_metric\": \"deaths\", \"safety.enderman_gaze\": 1}",
   "{\"_metric\": \"deaths\", \"death.recover_value\": 1}",
   "{\"_priority\": true, \"_retry\": \"g47 dropped at -0.13 over 8 worlds (t -0.1) by the old drop rule; its pairs were reset when g49 was crowned, losing its Nether run\", \"reflex.lava_margin\": 1}",
-  "{\"_metric\": \"deaths\", \"combat.zombie_pack\": 1}"
+  "{\"_metric\": \"deaths\", \"combat.zombie_pack\": 1}",
+  "{\"_metric\": \"ok:goto\", \"death.trip_commit\": 1, \"skill.recover_items\": 1}",
+  "{\"_metric\": \"deaths\", \"combat.finish_heal_wall\": 1}"
  ],
  "version": 1
 }
