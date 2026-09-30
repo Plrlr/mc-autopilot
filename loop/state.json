@@ -2661,7 +2661,7 @@
   "2026-09-27": 15,
   "2026-09-28": 32,
   "2026-09-29": 24,
-  "2026-09-30": 22
+  "2026-09-30": 23
  },
  "evolve_days": {
   "2026-09-27": 1,
@@ -2703,7 +2703,7 @@
    "result": "no usable patch"
   }
  ],
- "gen": 93,
+ "gen": 94,
  "gene_specs": {
   "bed.table_first": {
    "def": 0.0,
@@ -14899,6 +14899,39 @@
    "parent": "g56",
    "status": "rejected"
   },
+  "g75": {
+   "born": 94,
+   "code": null,
+   "evals": [],
+   "genes": {
+    "cave.torches": 1.0,
+    "combat.ignore_walled_mobs": 1.0,
+    "death.recover_night_armor": 12.0,
+    "fluid.enclosed_tunnel": 1.0,
+    "focus.commit": 1.0,
+    "gather.dry_stone": 1.0,
+    "nav.surface_v2": 1.0,
+    "nav.unstuck_v2": 1.0,
+    "night.shelter_exit": 1.0,
+    "plan.hide_hp": 15.0,
+    "portal.prepare_work_area": 1.0,
+    "portal.reserve_lava_bucket": 1.0,
+    "route.armor_before_portal": 0.0,
+    "skill.portal_repair": 1.0,
+    "skill.ruined_portal": 1.0,
+    "stuck.item_progress": 1.0
+   },
+   "id": "g75",
+   "metric": "ok:collect",
+   "mutated": [
+    "gather.dry_stone",
+    "fluid.enclosed_tunnel"
+   ],
+   "note": "suggested: gather.dry_stone 1, fluid.enclosed_tunnel 1",
+   "pairs": [],
+   "parent": "g56",
+   "status": "contender"
+  },
   "g8": {
    "born": 6,
    "code": null,
@@ -15065,8 +15098,87 @@
   "mean_gap_ok": null,
   "n": 88
  },
- "next_id": 75,
- "pending": null,
+ "next_id": 76,
+ "pending": {
+  "data_tasks": [
+   {
+    "kind": "natural",
+    "seed": "D94-ps29bf",
+    "stage": "spawn",
+    "synthetic": false
+   },
+   {
+    "kind": "natural",
+    "seed": "D94-9kem4c",
+    "stage": "spawn",
+    "synthetic": false
+   }
+  ],
+  "gen": 94,
+  "lineup": [
+   "g56",
+   "g72",
+   "g73",
+   "g75"
+  ],
+  "runs": [
+   "eval-g56-0",
+   "eval-g56-1",
+   "eval-g56-2",
+   "eval-g56-3",
+   "eval-g72-0",
+   "eval-g72-1",
+   "eval-g72-2",
+   "eval-g72-3",
+   "eval-g73-0",
+   "eval-g73-1",
+   "eval-g73-2",
+   "eval-g73-3",
+   "eval-g75-0",
+   "eval-g75-1",
+   "eval-g75-2",
+   "eval-g75-3",
+   "data-g56-0",
+   "data-g56-1"
+  ],
+  "seeds": [
+   "L94-gcd4wt",
+   "L94-p7ky4v",
+   "L94-x2zrkg",
+   "L94-gv2bkx"
+  ],
+  "sha": "537d4ceac1dc7374b57ddce580f96f9511e1468c",
+  "started": "2026-09-30T22:15:58+00:00",
+  "tasks": [
+   {
+    "kind": "natural",
+    "seed": "L94-gcd4wt",
+    "stage": "spawn",
+    "synthetic": false
+   },
+   {
+    "kind": "natural",
+    "seed": "L94-p7ky4v",
+    "stage": "spawn",
+    "synthetic": false
+   },
+   {
+    "asset": "diamond-gen78-eval-g49-2.zip",
+    "kind": "start",
+    "seed": "L94-x2zrkg",
+    "stage": "diamond",
+    "synthetic": false
+   },
+   {
+    "kind": "combat",
+    "minutes": 10,
+    "scenario": "combat",
+    "seed": "L94-gv2bkx",
+    "stage": "combat",
+    "synthetic": false
+   }
+  ]
+ },
  "race_evidence_version": 1,
  "score_version": 3,
  "settings": {
@@ -17828,7 +17940,8 @@
   "{\"bed.table_first\": 1, \"plan.noop_success_pause\": 1, \"restock.stash_only\": 1}",
   "{\"_metric\": \"ok:attack\", \"combat.ignore_walled_mobs\": 1}",
   "{\"_metric\": \"ok:collect\", \"stuck.item_progress\": 1}",
-  "{\"_metric\": \"ok:collect\", \"gather.stair_for_stone\": 1}"
+  "{\"_metric\": \"ok:collect\", \"gather.stair_for_stone\": 1}",
+  "{\"_metric\": \"ok:collect\", \"fluid.enclosed_tunnel\": 1, \"gather.dry_stone\": 1}"
  ],
  "version": 1
 }
