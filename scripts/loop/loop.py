@@ -195,6 +195,10 @@ def cmd_propose(a):
     st["gen"] += 1
     gen = st["gen"]
     st["days"][today()] = st["days"].get(today(), 0) + 1
+    # A skill the loop wrote races only after its drill passed (evolve_skill.py; trials.yml plays it).
+    if any(g["status"] == "drilling" for g in st["genomes"].values()):
+        import evolve_skill
+        evolve_skill.check_drills(st, a.state, gen)
     champ = st["champion"]
     lineup = [champ]
     # Suggestions (settings.json "suggest": ideas from people or Claude sessions) race ahead of

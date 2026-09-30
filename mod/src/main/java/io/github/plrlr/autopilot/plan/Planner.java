@@ -8,6 +8,7 @@ import io.github.plrlr.autopilot.skills.MoveSkills;
 import io.github.plrlr.autopilot.skills.SmeltSkill;
 import io.github.plrlr.autopilot.skills.Station;
 import io.github.plrlr.autopilot.skills.ShoreSkill;
+import io.github.plrlr.autopilot.skills.evolved.EvolvedSkills;
 import io.github.plrlr.autopilot.state.Perception;
 import io.github.plrlr.autopilot.state.Danger;
 import io.github.plrlr.autopilot.state.DangerSense;
@@ -76,7 +77,12 @@ public final class Planner {
 			return shore;
 		}
 		lastUrgent = urgent.stream().map(Option::label).collect(java.util.stream.Collectors.toSet());
-		return order(urgent, recovery, surfaceOption(main), upkeep(seen, main), main, extras(seen, main));
+		Option surface = surfaceOption(main);
+		List<Option> up = new ArrayList<>(upkeep(seen, main));
+		List<Option> soFar = new ArrayList<>(urgent);
+		soFar.addAll(up);
+		up.addAll(EvolvedSkills.offers(main, soFar, memory));
+		return order(urgent, recovery, surface, up, main, extras(seen, main));
 	}
 
 	private static boolean groundWork(Option o) {

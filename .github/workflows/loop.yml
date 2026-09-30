@@ -168,6 +168,7 @@ jobs:
         continue-on-error: true
         env:
           CLAUDE_CODE_OAUTH_TOKEN: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
+          GH_TOKEN: ${{ github.token }}  # a new skill's drill is started on trials.yml
         run: |
           git fetch -q origin main && git checkout -q --detach FETCH_HEAD
           curl -fsSL https://claude.ai/install.sh | bash

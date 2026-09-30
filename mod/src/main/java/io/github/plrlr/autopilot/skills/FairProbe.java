@@ -16,7 +16,7 @@ import java.util.function.Predicate;
  *
  * One probe per plan: sight lines are cached, so a site search costs one raycast per cell.
  */
-final class FairProbe implements PortalSite.Probe {
+public final class FairProbe implements PortalSite.Probe {
 	private final Map<BlockPos, Boolean> seen = new HashMap<>();
 	private final PortalSite.Probe world;
 	private final Predicate<BlockPos> sight;
@@ -28,7 +28,7 @@ final class FairProbe implements PortalSite.Probe {
 	 */
 	static final int RAY_BUDGET = 600;
 
-	FairProbe() {
+	public FairProbe() {
 		this(CastPortalSite.WORLD, Mc::canSee);
 	}
 
@@ -37,7 +37,7 @@ final class FairProbe implements PortalSite.Probe {
 		this.sight = sight;
 	}
 
-	boolean visible(BlockPos p) {
+	public boolean visible(BlockPos p) {
 		Boolean v = seen.get(p);
 		if (v != null) return v;
 		v = rays++ < RAY_BUDGET && sight.test(p);
@@ -45,7 +45,7 @@ final class FairProbe implements PortalSite.Probe {
 		return v;
 	}
 
-	boolean exhausted() { return rays > RAY_BUDGET; }
+	public boolean exhausted() { return rays > RAY_BUDGET; }
 
 	@Override
 	public boolean free(BlockPos p) {
@@ -68,7 +68,7 @@ final class FairProbe implements PortalSite.Probe {
 		return false;
 	}
 
-	boolean lavaNear(BlockPos p) {
+	public boolean lavaNear(BlockPos p) {
 		for (Direction d : Direction.values()) {
 			BlockPos n = p.relative(d);
 			if (visible(n) && world.lava(n)) return true;
@@ -82,7 +82,7 @@ final class FairProbe implements PortalSite.Probe {
 	}
 
 	/** Lava we can see in p or touching it (the stairs' check before opening a cell). */
-	static boolean lavaSeenNear(BlockPos p) {
+	public static boolean lavaSeenNear(BlockPos p) {
 		if (Mc.canSee(p) && Mc.state(p).getFluidState().is(net.minecraft.tags.FluidTags.LAVA)) return true;
 		for (Direction d : Direction.values()) {
 			BlockPos n = p.relative(d);
