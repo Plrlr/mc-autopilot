@@ -2629,13 +2629,13 @@
   "2026-09-27": 15,
   "2026-09-28": 32,
   "2026-09-29": 24,
-  "2026-09-30": 16
+  "2026-09-30": 17
  },
  "evolve_days": {
   "2026-09-27": 1,
   "2026-09-28": 7
  },
- "gen": 87,
+ "gen": 88,
  "gene_specs": {
   "bed.table_first": {
    "def": 0.0,
@@ -7681,7 +7681,8 @@
    "note": "code: build_portal always pours out one of two water buckets when it has no empty or lava bucket. It no longer fails NEED_ITEM \"need a second bucket for lava\" in a loop, which happened because the planner counts water buckets as buckets.",
    "pairs": [],
    "parent": "g24",
-   "status": "contender"
+   "retired_why": "never got a race slot in 47 generations; its base is stale",
+   "status": "retired"
   },
   "g3": {
    "born": 1,
@@ -13714,6 +13715,37 @@
    "parent": "g56",
    "status": "rejected"
   },
+  "g69": {
+   "born": 88,
+   "code": null,
+   "evals": [],
+   "genes": {
+    "cave.torches": 1.0,
+    "combat.ignore_walled_mobs": 1.0,
+    "death.recover_night_armor": 12.0,
+    "focus.commit": 1.0,
+    "nav.surface_v2": 1.0,
+    "nav.unstuck_v2": 1.0,
+    "night.no_shaft_wall": 1.0,
+    "night.shelter_exit": 1.0,
+    "plan.hide_hp": 15.0,
+    "portal.prepare_work_area": 1.0,
+    "portal.reserve_lava_bucket": 1.0,
+    "route.armor_before_portal": 0.0,
+    "skill.portal_repair": 1.0,
+    "skill.ruined_portal": 1.0,
+    "stuck.item_progress": 1.0
+   },
+   "id": "g69",
+   "metric": "ok:shelter",
+   "mutated": [
+    "night.no_shaft_wall"
+   ],
+   "note": "suggested: night.no_shaft_wall 1",
+   "pairs": [],
+   "parent": "g56",
+   "status": "contender"
+  },
   "g7": {
    "born": 3,
    "code": null,
@@ -13968,8 +14000,87 @@
   "mean_gap_ok": null,
   "n": 33
  },
- "next_id": 69,
- "pending": null,
+ "next_id": 70,
+ "pending": {
+  "data_tasks": [
+   {
+    "kind": "natural",
+    "seed": "D88-3gzth9",
+    "stage": "spawn",
+    "synthetic": false
+   },
+   {
+    "kind": "natural",
+    "seed": "D88-6k38uk",
+    "stage": "spawn",
+    "synthetic": false
+   }
+  ],
+  "gen": 88,
+  "lineup": [
+   "g56",
+   "g65",
+   "g67",
+   "g69"
+  ],
+  "runs": [
+   "eval-g56-0",
+   "eval-g56-1",
+   "eval-g56-2",
+   "eval-g56-3",
+   "eval-g65-0",
+   "eval-g65-1",
+   "eval-g65-2",
+   "eval-g65-3",
+   "eval-g67-0",
+   "eval-g67-1",
+   "eval-g67-2",
+   "eval-g67-3",
+   "eval-g69-0",
+   "eval-g69-1",
+   "eval-g69-2",
+   "eval-g69-3",
+   "data-g56-0",
+   "data-g56-1"
+  ],
+  "seeds": [
+   "L88-pr8gne",
+   "L88-y4ym9a",
+   "L88-bg79qb",
+   "L88-d8ns7e"
+  ],
+  "sha": "537d4ceac1dc7374b57ddce580f96f9511e1468c",
+  "started": "2026-09-30T16:22:56+00:00",
+  "tasks": [
+   {
+    "kind": "natural",
+    "seed": "L88-pr8gne",
+    "stage": "spawn",
+    "synthetic": false
+   },
+   {
+    "kind": "natural",
+    "seed": "L88-y4ym9a",
+    "stage": "spawn",
+    "synthetic": false
+   },
+   {
+    "asset": "diamond-gen73-eval-g56-2.zip",
+    "kind": "start",
+    "seed": "L88-bg79qb",
+    "stage": "diamond",
+    "synthetic": false
+   },
+   {
+    "kind": "combat",
+    "minutes": 10,
+    "scenario": "combat",
+    "seed": "L88-d8ns7e",
+    "stage": "combat",
+    "synthetic": false
+   }
+  ]
+ },
  "race_evidence_version": 1,
  "score_version": 3,
  "settings": {
@@ -16668,7 +16779,8 @@
   "{\"_priority\": true, \"_retry\": \"g47 dropped at -0.13 over 8 worlds (t -0.1) by the old drop rule; its pairs were reset when g49 was crowned, losing its Nether run\", \"reflex.lava_margin\": 1}",
   "{\"_metric\": \"deaths\", \"combat.zombie_pack\": 1}",
   "{\"_metric\": \"ok:goto\", \"death.trip_commit\": 1, \"skill.recover_items\": 1}",
-  "{\"_metric\": \"deaths\", \"combat.finish_heal_wall\": 1}"
+  "{\"_metric\": \"deaths\", \"combat.finish_heal_wall\": 1}",
+  "{\"_metric\": \"ok:shelter\", \"night.no_shaft_wall\": 1}"
  ],
  "version": 1
 }
