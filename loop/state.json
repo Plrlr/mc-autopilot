@@ -2394,13 +2394,13 @@
   "2026-09-27": 15,
   "2026-09-28": 32,
   "2026-09-29": 24,
-  "2026-09-30": 12
+  "2026-09-30": 13
  },
  "evolve_days": {
   "2026-09-27": 1,
   "2026-09-28": 7
  },
- "gen": 83,
+ "gen": 84,
  "gene_specs": {
   "bed.table_first": {
    "def": 0.0,
@@ -12677,6 +12677,37 @@
    "parent": "g56",
    "status": "rejected"
   },
+  "g63": {
+   "born": 84,
+   "code": null,
+   "evals": [],
+   "genes": {
+    "cave.torches": 1.0,
+    "combat.ignore_walled_mobs": 1.0,
+    "death.recover_night_armor": 12.0,
+    "focus.commit": 1.0,
+    "nav.surface_v2": 1.0,
+    "nav.unstuck_v2": 1.0,
+    "night.shelter_exit": 1.0,
+    "plan.hide_hp": 15.0,
+    "portal.prepare_work_area": 1.0,
+    "portal.reserve_lava_bucket": 1.0,
+    "route.armor_before_portal": 0.0,
+    "safety.enderman_gaze": 1.0,
+    "skill.portal_repair": 1.0,
+    "skill.ruined_portal": 1.0,
+    "stuck.item_progress": 1.0
+   },
+   "id": "g63",
+   "metric": "deaths",
+   "mutated": [
+    "safety.enderman_gaze"
+   ],
+   "note": "suggested: safety.enderman_gaze 1",
+   "pairs": [],
+   "parent": "g56",
+   "status": "contender"
+  },
   "g7": {
    "born": 3,
    "code": null,
@@ -12922,8 +12953,72 @@
  "model_kind": "retired",
  "model_r2": null,
  "model_rows": 0,
- "next_id": 63,
- "pending": null,
+ "next_id": 64,
+ "pending": {
+  "data_tasks": [],
+  "gen": 84,
+  "lineup": [
+   "g56",
+   "g49",
+   "g46",
+   "g63"
+  ],
+  "runs": [
+   "eval-g56-0",
+   "eval-g56-1",
+   "eval-g56-2",
+   "eval-g56-3",
+   "eval-g49-0",
+   "eval-g49-1",
+   "eval-g49-2",
+   "eval-g49-3",
+   "eval-g46-0",
+   "eval-g46-1",
+   "eval-g46-2",
+   "eval-g46-3",
+   "eval-g63-0",
+   "eval-g63-1",
+   "eval-g63-2",
+   "eval-g63-3"
+  ],
+  "seeds": [
+   "L84-u8wz4t",
+   "L84-tdzvbk",
+   "L84-87nqfp",
+   "L84-as3s4a"
+  ],
+  "sha": "96fc787a2c8cc829b69d996d4cd65430d38a2bb2",
+  "started": "2026-09-30T11:16:57+00:00",
+  "tasks": [
+   {
+    "kind": "natural",
+    "seed": "L84-u8wz4t",
+    "stage": "spawn",
+    "synthetic": false
+   },
+   {
+    "kind": "natural",
+    "seed": "L84-tdzvbk",
+    "stage": "spawn",
+    "synthetic": false
+   },
+   {
+    "asset": "diamond-gen68-eval-g49-2.zip",
+    "kind": "start",
+    "seed": "L84-87nqfp",
+    "stage": "diamond",
+    "synthetic": false
+   },
+   {
+    "kind": "combat",
+    "minutes": 10,
+    "scenario": "combat",
+    "seed": "L84-as3s4a",
+    "stage": "combat",
+    "synthetic": false
+   }
+  ]
+ },
  "race_evidence_version": 1,
  "score_version": 3,
  "settings": {
@@ -15512,7 +15607,8 @@
   "{\"_max_pairs\": 24, \"_priority\": true, \"gather.first_logs\": 6, \"gather.iron_in_view\": 1, \"gather.log_stock\": 3, \"gather.vein_follow\": 1}",
   "{\"_metric\": \"deaths\", \"_priority\": true, \"gather.cautious_depth\": 1}",
   "{\"_metric\": \"deaths\", \"deep.stairs\": 1}",
-  "{\"_metric\": \"deaths\", \"plan.livelock_break\": 1}"
+  "{\"_metric\": \"deaths\", \"plan.livelock_break\": 1}",
+  "{\"_metric\": \"deaths\", \"safety.enderman_gaze\": 1}"
  ],
  "version": 1
 }
