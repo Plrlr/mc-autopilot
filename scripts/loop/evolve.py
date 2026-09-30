@@ -25,6 +25,7 @@ import os
 import re
 import subprocess
 import sys
+import time
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import bank  # noqa: E402
@@ -218,7 +219,10 @@ def main():
     ap.add_argument("--batch", required=True)
     ap.add_argument("--claude", default="claude")
     ap.add_argument("--force", action="store_true", help="skip the plateau check")
+    ap.add_argument("--minutes", type=float, default=35,
+                    help="this step's share of the update job's 60 minutes: a retry starts only if it still fits")
     a = ap.parse_args()
+    t0 = time.time()
     genes = common.load_genes()
     st_path = os.path.join(a.state, "state.json")
     st = common.read_json(st_path)
@@ -264,6 +268,10 @@ def main():
         # user's Claude plan. --force (a test by hand) still counts, but isn't stopped by it.
         if attempt and used >= s["max_per_day"] and not a.force:
             why += " (no retry: today's budget is spent)"
+            break
+        # A retry is a call (up to 10 min) and a compile (up to 15): it must end in our share of the job.
+        if attempt and time.time() - t0 > (a.minutes - 25) * 60:
+            why += " (no retry: out of time)"
             break
         used += 1
         st["evolve_days"][today] = used

@@ -131,6 +131,16 @@ def test_rebase_conflict_retires_the_genome():
     assert remote == old  # nothing pushed
 
 
+def test_a_promotion_resets_parked_contenders_too():
+    st = base_state(90, [genome("g1", 80, "suggested: a.b 1"), genome("g2", 80, "suggested: c.d 1")])
+    st["settings"] = dict(loop.DEFAULT_SETTINGS)
+    st["genomes"]["g1"]["pairs"] = [[88, "s", 1.0 + 0.1 * (i % 3)] for i in range(8)]
+    st["genomes"]["g2"]["pairs"] = [[85, "s", 0.5]] * 3  # sat this generation out
+    loop.race(st, common.load_genes(), ["g1"], "g0", 90)
+    assert st["champion"] == "g1"
+    assert st["genomes"]["g2"]["pairs"] == []  # measured against g0, who is no longer champion
+
+
 if __name__ == "__main__":
     for name, fn in list(globals().items()):
         if name.startswith("test_"):

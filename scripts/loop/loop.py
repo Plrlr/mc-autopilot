@@ -260,7 +260,8 @@ def cmd_propose(a):
         lineup.append(gid)
 
     def first(g):
-        return bool(g.get("focus") or g.get("priority"))
+        # A code change too: the job limit must not bench it (it holds up evolve.py while it waits).
+        return bool(g.get("focus") or g.get("priority") or g["note"].startswith("code:"))
 
     def racing(focused):
         return sorted((g for g in st["genomes"].values() if g["status"] == "contender" and g["id"] not in lineup
@@ -620,10 +621,11 @@ def race(st, genes, challengers, champ, gen):
         if len(bundle) >= 3:
             st.setdefault("trim", []).extend({n: 0} for n in bundle)
             out.append("trim: %d leave-one-out races queued for %s" % (len(bundle), best))
-        # The others were measured against the old champion: they start over against the new one.
-        for gid in challengers:
-            if st["genomes"][gid]["status"] == "contender":
-                reset_race(st["genomes"][gid])
+        # The others were measured against the old champion: they start over against the new one,
+        # the ones sitting this generation out too (else they keep pairs against a champion that's gone).
+        for other in st["genomes"].values():
+            if other["status"] == "contender" and other["id"] != champ:
+                reset_race(other)
     return out
 
 
