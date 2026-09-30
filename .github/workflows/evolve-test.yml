@@ -80,10 +80,20 @@ jobs:
               c = g["code"]
               print("- **%s** `%s` on `%s` (%s), target `%s`, metric `%s`, drill run %s: %s\n" % (
                   g["id"], c["skill"], c["branch"], c["sha"][:7], c["target"], g["metric"], g["drill"].get("run"), c["summary"]))
+          # Every answer Claude gave (evolve_skill.py keeps them), with its source, used or not.
+          d = os.path.join(os.environ["SANDBOX"], "skills")
+          for name in sorted(os.listdir(d)) if os.path.isdir(d) else []:
+              so = json.load(open(os.path.join(d, name)))
+              print("<details><summary>%s: <code>%s</code> (%s)</summary>\n" % (name, so.get("skill"), so.get("summary", "")[:200]))
+              for f in so.get("files", []):
+                  print("\n%s\n\n```java\n%s\n```\n" % (f["name"], f["content"]))
+              print("</details>\n")
           EOF
       - uses: actions/upload-artifact@v7
         if: always()
         with:
           name: evolve-test-sandbox
-          path: ${{ env.SANDBOX }}/state.json
+          path: |
+            ${{ env.SANDBOX }}/state.json
+            ${{ env.SANDBOX }}/skills/
           retention-days: 14
