@@ -360,17 +360,24 @@ def build_check():
 
 def undo():
     """Back to the base: the registry and gene list restored, new (untracked) files in
-    skills/evolved/ removed. Nothing else is touched."""
-    evolve.git("checkout", "--", fairplay.REGISTRY, fairplay.GENES_FILE, check=False)
-    evolve.git("clean", "-fq", "--", fairplay.EVOLVED_DIR, check=False)
+    skills/evolved/ removed. Nothing else is touched. (The repo is resolved now: evolve.git's
+    default cwd was fixed when evolve.py was imported.)"""
+    for cmd in (["checkout", "--", fairplay.REGISTRY, fairplay.GENES_FILE], ["clean", "-fq", "--", fairplay.EVOLVED_DIR]):
+        subprocess.run(["git", *cmd], cwd=common.ROOT, capture_output=True, text=True, timeout=60)
 
 
-def changed_paths():
-    """(status, path) of the mod's changes (the loop's checkout also holds batch/ and results/)."""
+def changed_paths(porcelain=None):
+    """(status, path) of the mod's changes (the loop's checkout also holds batch/ and results/).
+    Not through evolve.git: it strips the output, and " M mod/..." lost its first column (the first
+    end-to-end test read "od/src/..." and refused a skill that had passed every other gate)."""
+    if porcelain is None:
+        porcelain = subprocess.run(["git", "status", "--porcelain", "--untracked-files=all", "--", "mod", "scripts", ".github"],
+                                   cwd=common.ROOT, capture_output=True, text=True, timeout=60, check=True).stdout
     out = []
-    for line in evolve.git("status", "--porcelain", "--untracked-files=all", "--", "mod", "scripts", ".github").splitlines():
-        status, path = line[:2].strip(), line[3:].strip()
-        out.append(("A" if status == "??" else status[0], path))
+    for line in porcelain.splitlines():
+        if len(line) > 3:
+            status = line[:2]
+            out.append(("A" if status == "??" else status.strip()[:1], line[3:].strip().strip('"')))
     return out
 
 
@@ -474,6 +481,11 @@ def run(a, st, st_path, s, target, genes, today, used, t0, prefix="evolve/"):
         except Exception as e:  # noqa: BLE001 - a failed call just ends this cycle
             why = str(e)
             break
+        # Every answer is kept (loop/skills/ on trial-results), used or not: what Claude wrote, and
+        # why a gate refused it, is the record a person reviews and the next attempt learns from.
+        keep = os.path.join(a.state, "skills", "%s-%d-%d.json" % (target["name"].replace(" ", "_").replace(":", "-"), st["gen"], attempt))
+        os.makedirs(os.path.dirname(keep), exist_ok=True)
+        common.write_json(keep, dict(so, target=target))
         try:
             touched = apply_skill(so, target, st["gen"], genes)
             bad = fairplay.check_paths(changed_paths())

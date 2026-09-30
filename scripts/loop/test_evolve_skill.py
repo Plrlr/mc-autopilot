@@ -66,6 +66,8 @@ TARGET = {"name": "collect WRONG_PLACE", "metric": "ok:collect"}
 def test_a_fair_skill_is_written_with_its_line_and_gene():
     with tempfile.TemporaryDirectory() as d, patch.object(common, "ROOT", d):
         scratch_repo(d)
+        for cmd in (["init", "-q"], ["add", "."], ["-c", "user.name=t", "-c", "user.email=t@t", "commit", "-qm", "base"]):
+            subprocess.run(["git", *cmd], cwd=d, check=True, capture_output=True)
         touched = evolve_skill.apply_skill(claude_says(), TARGET, 86, {"reflex.creeper_dist": {}})
         assert touched == [fairplay.EVOLVED_DIR + "LeaveWater.java", fairplay.REGISTRY, fairplay.GENES_FILE], touched
         reg = open(os.path.join(d, fairplay.REGISTRY), encoding="utf-8").read()
@@ -74,7 +76,12 @@ def test_a_fair_skill_is_written_with_its_line_and_gene():
         genes = json.load(open(os.path.join(d, fairplay.GENES_FILE)))["genes"]
         assert genes == [{"name": "evolved.leave_water", "kind": "BOOL", "def": 0, "skill": "leave_water",
                           "why": "swim to seen dry ground", "gen": 86, "target": "collect WRONG_PLACE", "metric": "ok:collect"}]
-        assert fairplay.check_paths([("A", touched[0]), ("M", touched[1]), ("M", touched[2])]) == []
+        # The real git status, as the loop reads it (the first end-to-end test misread its first line).
+        changed = evolve_skill.changed_paths()
+        assert sorted(changed) == sorted([("A", touched[0]), ("M", touched[1]), ("M", touched[2])]), changed
+        assert fairplay.check_paths(changed) == []
+        evolve_skill.undo()
+        assert evolve_skill.changed_paths() == []
 
 
 def test_a_cheat_or_a_clash_writes_nothing():
