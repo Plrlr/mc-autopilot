@@ -237,6 +237,7 @@ public final class Tune {
 		gene("ready.nether_food", 6, 0, 32, Kind.INT, "food to carry into the Nether");
 		gene("ready.end_blocks", 64, 0, 192, Kind.INT, "throwaway blocks to carry into the End");
 		gene("ready.end_food", 10, 0, 32, Kind.INT, "food to carry into the End");
+		EvolvedGenes.load(GENES.keySet()).forEach(e -> gene(e.name(), 0, 0, 1, Kind.BOOL, e.why()));
 		reset();
 	}
 
