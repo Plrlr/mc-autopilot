@@ -125,8 +125,9 @@ def pick_genes(st, genes, rng, k):
     # The neural brain reports a 5% lower bound over resampled games (train.gain_lower_bound): above
     # zero is enough, and the race then judges it in play. A fixed R2 bar (model_gate) could never
     # pass: R2 is capped by how random outcomes are, not by choice quality. Trees still use the bar.
-    if st.get("model_adv_lo") is not None:
-        model_ok = st["model_adv_lo"] > 0
+    if st.get("model_kind") == "mlp" or st.get("model_adv_lo") is not None:
+        # No bound yet (too few held-out worlds) is a closed gate, not a fall back to the R2 bar.
+        model_ok = (st.get("model_adv_lo") or 0) > 0
     else:
         model_ok = (st.get("model_adv_r2") or -1) > st["settings"].get("model_gate", 0.02)
     names = [n for n in genes if not n.startswith("learned.") or model_ok]

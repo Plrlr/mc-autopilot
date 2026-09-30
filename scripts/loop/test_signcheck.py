@@ -199,7 +199,42 @@ def main_writes_and_prints_sign(sign):
                 "held-out R2 0.1 (choice part 0.01, 5% bound 0.02), " + suffix), output.getvalue()
 
 
+def gate_review_fixes():
+    """Codex's review of the gate (2026-09-30): worlds, not files; state shifts aren't choice skill;
+    no bound is a closed gate."""
+    import loop
+    # One world per generation and task: four genomes on seed 0 are one unit; a data run is its own.
+    g = train.game_group
+    assert g("d/gen-00086/eval-g56-0.jsonl.gz") == g("d/gen-00086/eval-g64-0.jsonl.gz") == "gen-00086/eval-0"
+    assert g("d/gen-00086/eval-g56-1.jsonl.gz") != g("d/gen-00087/eval-g56-1.jsonl.gz")
+    assert g("d/gen-00086/data-g56-0.jsonl.gz") == "d/gen-00086/data-g56-0.jsonl.gz"
+    # Identical heads over a wrong _v: no choice skill, so the gate's pairs predict nothing.
+    col = {h: i for i, h in enumerate(HEADS)}
+    rng = random.Random(3)
+    te, choices, out, resid = [], [], [], []
+    for game in range(20):
+        for _ in range(10):
+            te.append(("collect:log", [0.0] * 40, 1.0, "g%d" % game))
+            choices.append((1, ["explore:any", "collect:log"]))
+            out.append([0.0, 1.0, 1.0, 1.0, 1.0])
+            resid.append(1.0 + rng.choice([-0.1, 0.1]))
+    pairs, groups = train.choice_part(te, choices, np.array(out), col, np.array(resid))
+    assert len(pairs) == 200 and all(p == 0 for p, _ in pairs)
+    lo = train.gain_lower_bound(pairs, groups)
+    assert lo is not None and lo <= 0, lo
+    # Rows without options say nothing about the choice.
+    pairs, _ = train.choice_part(te, [(1, None)] * len(te), np.array(out), col, np.array(resid))
+    assert pairs == []
+    # An MLP without a bound (too few held-out worlds) keeps the learned genes out.
+    genes = {"learned.weight": {"def": 0, "min": 0, "max": 3, "kind": "REAL"}, "a.b": {"def": 0, "min": 0, "max": 1, "kind": "BOOL"}}
+    st = {"model_kind": "mlp", "model_adv_lo": None, "model_adv_r2": 0.2, "settings": {"model_gate": 0.1},
+          "credit": {n: {"n": 0, "sum": 0.0} for n in genes}, "sigma": {}}
+    picks = {n for s in range(50) for n in loop.pick_genes(st, genes, random.Random(s), 1)}
+    assert "learned.weight" not in picks, picks
+
+
 def main():
+    gate_review_fixes()
     sign = known_signs_and_whole_games()
     unusable_rows_are_skipped()
     thin_data_and_zero_outcomes()

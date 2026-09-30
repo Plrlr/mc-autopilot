@@ -27,6 +27,7 @@ import json
 import math
 import os
 import random
+import re
 import sys
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
@@ -147,7 +148,9 @@ def main():
     # Split by run, never by row: rows of one run are alike, so a row split would flatter the model.
     # A fifth is the test set (the R2 the loop's gate reads); 15% stops the tree boosting early.
     rng = random.Random(7)
-    part = {f: rng.random() for f in files}
+    # By world, not by file: the genomes of a generation play the same seeds (game_group).
+    worlds = {}
+    part = {f: worlds.setdefault(game_group(f), rng.random()) for f in files}
     choices = []
     ap_rows = list(examples(files, feats, a.horizon, choices))
     rows = ap_rows if a.advantage else []
@@ -363,7 +366,8 @@ def train_mlp(rows, part, choices=None):
 
     tr = [(k, x, y, w) for f, k, x, y, w in rows if part[f] >= 0.35]
     va = [(k, x, y, w) for f, k, x, y, w in rows if 0.2 <= part[f] < 0.35]
-    te = [(k, x, y, f) for f, k, x, y, w in rows if part[f] < 0.2]
+    # Test rows carry their world (game_group), not their file: games on one seed move together.
+    te = [(k, x, y, game_group(f)) for f, k, x, y, w in rows if part[f] < 0.2]
     test_choices = [choices[i] if choices is not None else (0, None)
                     for i, r in enumerate(rows) if part[r[0]] < 0.2]
     sign = sign_check([], [], [], [])
@@ -386,14 +390,47 @@ def train_mlp(rows, part, choices=None):
         V = gbt.fit(Xt, yt, np.array([r[3] for r in tr], dtype=float), depth=4, lr=0.05, min_leaf=40, trees=150)
         be = gbt.predict(V, Xe)
         pred, adv = [], []
-        for i, (k, _, _, _) in enumerate(te):
-            j = col.get(k, col.get(k.split(":")[0]))
+        for i, (k, _, _, g) in enumerate(te):
+            j = head_col(col, k)
             q = out[i, j] if j is not None else out[i, 0]
             pred.append((q, ye[i]))
             adv.append((q - out[i, 0], ye[i] - be[i]))
+        choice, groups = choice_part(te, test_choices, out, col, ye - be)
         r2, adv_r2 = rsq(pred), rsq(adv)
-        adv_lo = gain_lower_bound(adv, [r[3] for r in te])
-    return mlp.export(layers, sizes, heads, scale), {"r2": r2, "adv_r2": adv_r2, "adv_lo": adv_lo, "sign": sign}
+        adv_lo = gain_lower_bound(choice, groups)
+    return mlp.export(layers, sizes, heads, scale), {"r2": r2, "adv_r2": adv_r2, "adv_lo": adv_lo, "sign": sign,
+                                                     "adv_rows": len(choice)}
+
+
+def choice_part(te, choices, out, col, resid):
+    """The gate's (predicted, actual) pairs and their worlds: the pick's head against the mean of
+    the heads of the options it was chosen from, so a shift common to every head (a state error)
+    cancels, and what the tree baseline of the state left unexplained. Rows without their options
+    ("o", logged since 2026-09-30) or with fewer than two scored options can't say anything about
+    the choice and are left out. Against "_v" instead, identical heads Q=1 over _v=0 opened the gate
+    with no choice skill at all (Codex's review, 2026-09-30)."""
+    pairs, groups = [], []
+    for i, (k, _, _, g) in enumerate(te):
+        j = head_col(col, k)
+        opts = [c for c in (head_col(col, o) for o in (choices[i][1] or [])) if c is not None]
+        if j is not None and len(opts) >= 2:
+            pairs.append((float(out[i, j] - sum(out[i, c] for c in opts) / len(opts)), float(resid[i])))
+            groups.append(g)
+    return pairs, groups
+
+
+def head_col(col, key):
+    """The head for an action key, else for its skill ("collect:log" -> "collect"), else None."""
+    return col.get(key, col.get(key.split(":")[0]))
+
+
+def game_group(f):
+    """The world a run played: every genome of a generation plays the same seeds (eval-<g>-<i> for
+    task i), so their games are one unit for the split and the bootstrap. Resampled as separate
+    files, four copies of one world passed for four worlds and flattered the bound (Codex,
+    2026-09-30). A data or laptop run has a world of its own."""
+    m = re.match(r"eval-[^-]+-(\d+)\.jsonl\.gz$", os.path.basename(f))
+    return "%s/eval-%s" % (os.path.basename(os.path.dirname(f)), m.group(1)) if m else f
 
 
 def sign_check(rows, choices, heads, out, draws=400, seed=7):
