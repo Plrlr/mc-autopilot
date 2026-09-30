@@ -1,0 +1,765 @@
+{"event":"autopilot_on","detail":"brain\u003drules","t":1790775879391}
+{"event":"params","detail":"params: trial (15 genes) changed\u003d{\"portal.prepare_work_area\":1.0,\"portal.reserve_lava_bucket\":1.0,\"combat.ignore_walled_mobs\":1.0,\"night.shelter_exit\":1.0,\"nav.surface_v2\":1.0,\"nav.unstuck_v2\":1.0,\"stuck.item_progress\":1.0,\"skill.ruined_portal\":1.0,\"skill.portal_repair\":1.0,\"evolved.swim_to_shore\":1.0}","t":1790775879392}
+{"layer":"strategist","brain":"rules","choice":"wood_tools","reason":"start","t":1790775879394}
+{"event":"learned","detail":"learned model: none","t":1790775879402}
+{"layer":"tactician","gs":0,"brain":"rules","trigger":"idle","goal":"wood_tools","options":["collect log:3","explore log"],"choice":"collect log:3","x":[1.0,1.0,0.0,0.0,0.0,1.063,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.0,0.0,0.0,0.077,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1790775879425}
+{"event":"skill_start","skill":"collect log:3","trigger":"idle","t":1790775879518}
+{"event":"skill_end","skill":"collect log:3","ok":false,"code":"NOT_FOUND","detail":"no log seen nearby","seconds":3.05,"t":1790775884461}
+{"layer":"tactician","gs":3,"brain":"rules","trigger":"skill_failed","goal":"wood_tools","options":["collect log:3","explore log"],"choice":"collect log:3","x":[1.0,1.0,0.0,0.0,0.0,1.063,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.0,0.0,0.0,0.077,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1790775884463}
+{"event":"skill_start","skill":"collect log:3","trigger":"skill_failed","t":1790775884464}
+{"event":"skill_end","skill":"collect log:3","ok":false,"code":"NOT_FOUND","detail":"no log seen nearby","seconds":3.05,"t":1790775888352}
+{"layer":"tactician","gs":6,"brain":"rules","trigger":"skill_failed","goal":"wood_tools","options":["attack sheep","collect log:3","explore log"],"choice":"attack sheep","x":[1.0,1.0,0.0,0.0,0.0,1.063,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.0,0.0,0.0,0.077,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1790775888355}
+{"event":"skill_start","skill":"attack sheep","trigger":"skill_failed","t":1790775888357}
+{"event":"skill_end","skill":"attack sheep","ok":true,"detail":"killed the sheep","seconds":12.6,"t":1790775903504}
+{"layer":"tactician","gs":18,"brain":"rules","trigger":"skill_done","goal":"wood_tools","options":["attack sheep","collect log:3","explore log"],"choice":"attack sheep","x":[1.0,1.0,0.0,0.0,0.0,0.969,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.125,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.0,0.0,0.0,0.077,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1790775903505}
+{"event":"skill_start","skill":"attack sheep","trigger":"skill_done","t":1790775903505}
+{"event":"skill_end","skill":"attack sheep","ok":true,"detail":"killed the sheep","seconds":9.0,"t":1790775913912}
+{"layer":"tactician","gs":27,"brain":"rules","trigger":"skill_done","goal":"wood_tools","options":["attack sheep","collect log:3","explore log"],"choice":"attack sheep","x":[1.0,1.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.25,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.0,0.0,0.0,0.077,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1790775913913}
+{"event":"skill_start","skill":"attack sheep","trigger":"skill_done","t":1790775913913}
+{"event":"skill_end","skill":"attack sheep","ok":true,"detail":"killed the sheep","seconds":10.1,"t":1790775924966}
+{"layer":"tactician","gs":37,"brain":"rules","trigger":"skill_done","goal":"wood_tools","options":["attack sheep","collect log:3","explore log"],"choice":"attack sheep","x":[1.0,1.0,0.0,0.0,1.0,1.016,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.313,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.0,0.0,0.0,0.077,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1790775924966}
+{"event":"skill_start","skill":"attack sheep","trigger":"skill_done","t":1790775924967}
+{"event":"skill_end","skill":"attack sheep","ok":true,"detail":"killed the sheep","seconds":10.75,"t":1790775936431}
+{"layer":"tactician","gs":48,"brain":"rules","trigger":"skill_done","goal":"wood_tools","options":["collect log:3","pickup","explore log"],"choice":"collect log:3","x":[1.0,1.0,0.0,0.0,0.0,0.984,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.313,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.0,0.0,0.0,0.077,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1790775936432}
+{"event":"skill_start","skill":"collect log:3","trigger":"skill_done","t":1790775936433}
+{"event":"skill_end","skill":"collect log:3","ok":true,"detail":"collected 3 log (seen blocks)","seconds":15.35,"t":1790775951932}
+{"layer":"tactician","gs":63,"brain":"rules","trigger":"skill_done","goal":"wood_tools","options":["craft planks:4","pickup","explore any"],"choice":"craft planks:4","x":[1.0,1.0,0.0,0.0,1.0,0.984,0.0,0.0,0.0,0.0,0.0,0.188,0.0,0.0,0.0,0.0,0.0,0.0,0.313,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.0,0.0,0.0,0.077,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1790775951933}
+{"event":"skill_start","skill":"craft planks:4","trigger":"skill_done","t":1790775951938}
+{"event":"skill_end","skill":"craft planks:4","ok":true,"detail":"crafted 4 planks","seconds":0.45,"t":1790775952384}
+{"layer":"tactician","gs":64,"brain":"rules","trigger":"skill_done","goal":"wood_tools","options":["craft stick:4","pickup","explore any"],"choice":"craft stick:4","x":[1.0,1.0,0.0,0.0,1.0,0.984,0.0,0.0,0.0,0.0,0.0,0.125,0.25,0.0,0.0,0.0,0.0,0.0,0.313,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.0,0.0,0.0,0.077,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1790775952384}
+{"event":"skill_start","skill":"craft stick:4","trigger":"skill_done","t":1790775952385}
+{"event":"skill_end","skill":"craft stick:4","ok":true,"detail":"crafted 4 stick","seconds":0.45,"t":1790775952831}
+{"layer":"tactician","gs":64,"brain":"rules","trigger":"skill_done","goal":"wood_tools","options":["craft planks:4","pickup","explore any"],"choice":"craft planks:4","x":[1.0,1.0,0.0,0.0,1.0,0.984,0.0,0.0,0.0,0.0,0.0,0.125,0.125,0.0,0.0,0.0,0.0,0.0,0.313,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.0,0.0,0.0,0.077,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1790775952832}
+{"event":"skill_start","skill":"craft planks:4","trigger":"skill_done","t":1790775952832}
+{"event":"skill_end","skill":"craft planks:4","ok":true,"detail":"crafted 4 planks","seconds":0.45,"t":1790775953281}
+{"layer":"tactician","gs":65,"brain":"rules","trigger":"skill_done","goal":"wood_tools","options":["craft crafting_table:1","pickup","explore any"],"choice":"craft crafting_table:1","x":[1.0,1.0,0.0,0.0,1.0,0.984,0.0,0.0,0.0,0.0,0.0,0.063,0.375,0.0,0.0,0.0,0.0,0.0,0.313,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.0,0.0,0.0,0.077,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1790775953282}
+{"event":"skill_start","skill":"craft crafting_table:1","trigger":"skill_done","t":1790775953282}
+{"event":"milestone","detail":"1 at 65 s","t":1790775953584}
+{"layer":"strategist","brain":"rules","choice":"stone_tools","reason":"goal_done","t":1790775953585}
+{"event":"skill_end","skill":"craft crafting_table:1","ok":true,"detail":"crafted 1 crafting_table","seconds":0.45,"t":1790775953732}
+{"layer":"tactician","gs":65,"brain":"rules","trigger":"skill_done","goal":"stone_tools","options":["craft planks:4","pickup","explore any"],"choice":"craft planks:4","x":[1.0,1.0,0.0,0.0,1.0,0.984,0.0,0.0,0.0,0.0,0.0,0.063,0.125,0.0,0.0,0.0,0.0,0.0,0.313,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.0,0.077,0.0,0.154,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1790775953732}
+{"event":"skill_start","skill":"craft planks:4","trigger":"skill_done","t":1790775953733}
+{"event":"skill_end","skill":"craft planks:4","ok":true,"detail":"crafted 4 planks","seconds":0.45,"t":1790775954184}
+{"layer":"tactician","gs":66,"brain":"rules","trigger":"skill_done","goal":"stone_tools","options":["craft wooden_pickaxe:1","pickup","explore any"],"choice":"craft wooden_pickaxe:1","x":[1.0,1.0,0.0,0.0,1.0,0.984,0.0,0.0,0.0,0.0,0.0,0.0,0.375,0.0,0.0,0.0,0.0,0.0,0.313,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.0,0.077,0.0,0.154,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1790775954184}
+{"event":"skill_start","skill":"craft wooden_pickaxe:1","trigger":"skill_done","t":1790775954186}
+{"event":"skill_end","skill":"craft wooden_pickaxe:1","ok":true,"detail":"crafted 1 wooden_pickaxe","seconds":0.85,"t":1790775955065}
+{"layer":"tactician","gs":67,"brain":"rules","trigger":"skill_done","goal":"stone_tools","options":["pickup stations","craft bed:1","collect stone:13","pickup","explore any"],"choice":"pickup stations","x":[1.0,1.0,0.0,0.0,1.0,0.984,0.0,0.0,0.2,0.0,0.0,0.0,0.188,0.0,0.0,0.0,0.0,0.0,0.313,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.0,0.077,0.0,0.154,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1790775955066}
+{"event":"skill_start","skill":"pickup stations","trigger":"skill_done","t":1790775955066}
+{"event":"skill_end","skill":"pickup stations","ok":true,"detail":"picked up 2 stacks","seconds":6.05,"t":1790775961116}
+{"layer":"tactician","gs":73,"brain":"rules","trigger":"skill_done","goal":"stone_tools","options":["craft bed:1","collect stone:13","explore any"],"choice":"craft bed:1","x":[1.0,1.0,0.0,0.0,0.0,0.984,0.0,0.0,0.2,0.0,0.0,0.0,0.188,0.0,0.0,0.0,0.0,0.0,0.438,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.0,0.077,0.0,0.154,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1790775961116}
+{"event":"skill_start","skill":"craft bed:1","trigger":"skill_done","t":1790775961117}
+{"event":"skill_end","skill":"craft bed:1","ok":true,"detail":"crafted 1 bed","seconds":0.85,"t":1790775961965}
+{"layer":"tactician","gs":73,"brain":"rules","trigger":"skill_done","goal":"stone_tools","options":["pickup stations","collect stone:13","explore any"],"choice":"pickup stations","x":[1.0,1.0,0.0,0.0,0.0,0.984,0.0,0.0,0.2,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.438,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.0,0.077,0.0,0.154,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1790775961965}
+{"event":"skill_start","skill":"pickup stations","trigger":"skill_done","t":1790775961966}
+{"event":"skill_end","skill":"pickup stations","ok":true,"detail":"picked up 1 stacks","seconds":4.6,"t":1790775966543}
+{"layer":"tactician","gs":78,"brain":"rules","trigger":"skill_done","goal":"stone_tools","options":["collect stone:13","pickup","explore any"],"choice":"collect stone:13","x":[1.0,1.0,0.0,0.0,0.0,0.984,0.0,0.0,0.2,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.438,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.0,0.077,0.0,0.154,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1790775966544}
+{"event":"skill_start","skill":"collect stone:13","trigger":"skill_done","t":1790775966544}
+{"event":"stuck","detail":"collect stone:13 at 6, 60, -84","t":1790775990584}
+{"event":"skill_end","skill":"collect stone:13","ok":false,"code":"STUCK","detail":"stuck: stayed inside 2.0 blocks for 12 s","seconds":24.05,"t":1790775990586}
+{"event":"skill_start","skill":"unstuck","trigger":"reflex_stuck","t":1790775990587}
+{"event":"skill_end","skill":"unstuck","ok":false,"code":"STUCK","detail":"couldn\u0027t get out (walked, tunnelled and climbed 0 blocks)","seconds":36.3,"t":1790776026881}
+{"layer":"tactician","gs":138,"brain":"rules","trigger":"skill_failed","goal":"stone_tools","options":["craft stone_pickaxe:1","explore any"],"choice":"craft stone_pickaxe:1","x":[1.0,1.0,0.0,0.0,1.0,0.922,0.0,0.0,0.2,0.0,0.0,0.0,0.0,0.438,0.0,0.0,0.0,0.0,0.438,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.0,0.077,0.0,0.154,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1790776026882}
+{"event":"skill_start","skill":"craft stone_pickaxe:1","trigger":"skill_failed","t":1790776026883}
+{"event":"skill_end","skill":"craft stone_pickaxe:1","ok":false,"code":"NO_ROOM","detail":"no room to place a crafting_table","seconds":0.1,"t":1790776026984}
+{"layer":"tactician","gs":139,"brain":"rules","trigger":"skill_failed","goal":"stone_tools","options":["craft stone_pickaxe:1","explore any"],"choice":"craft stone_pickaxe:1","x":[1.0,1.0,0.0,0.0,1.0,0.922,0.0,0.0,0.2,0.0,0.0,0.0,0.0,0.438,0.0,0.0,0.0,0.0,0.438,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.0,0.077,0.0,0.154,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1790776026985}
+{"event":"skill_start","skill":"craft stone_pickaxe:1","trigger":"skill_failed","t":1790776026985}
+{"event":"skill_end","skill":"craft stone_pickaxe:1","ok":false,"code":"NO_ROOM","detail":"no room to place a crafting_table","seconds":0.1,"t":1790776027088}
+{"layer":"tactician","gs":139,"brain":"rules","trigger":"skill_failed","goal":"stone_tools","options":["craft stone_pickaxe:1","explore any"],"choice":"craft stone_pickaxe:1","x":[1.0,1.0,0.0,0.0,1.0,0.922,0.0,0.0,0.2,0.0,0.0,0.0,0.0,0.438,0.0,0.0,0.0,0.0,0.438,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.0,0.077,0.0,0.154,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1790776027088}
+{"event":"skill_start","skill":"craft stone_pickaxe:1","trigger":"skill_failed","t":1790776027089}
+{"event":"skill_end","skill":"craft stone_pickaxe:1","ok":false,"code":"NO_ROOM","detail":"no room to place a crafting_table","seconds":0.1,"t":1790776027181}
+{"layer":"tactician","gs":139,"brain":"rules","trigger":"skill_failed","goal":"stone_tools","options":["explore any"],"choice":"explore any","x":[1.0,1.0,0.0,0.0,1.0,0.922,0.0,0.0,0.2,0.0,0.0,0.0,0.0,0.438,0.0,0.0,0.0,0.0,0.438,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.0,0.077,0.0,0.154,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1790776027182}
+{"event":"skill_start","skill":"explore any","trigger":"skill_failed","t":1790776027182}
+{"event":"stuck","detail":"explore any at 5, 59, -85 in water","t":1790776039645}
+{"event":"skill_end","skill":"explore any","ok":false,"code":"STUCK","detail":"stuck: stayed inside 2.0 blocks for 12 s","seconds":12.4,"t":1790776039645}
+{"event":"skill_start","skill":"unstuck","trigger":"reflex_stuck","t":1790776039646}
+{"event":"skill_end","skill":"unstuck","ok":true,"detail":"got out (tunnel)","seconds":23.75,"t":1790776063392}
+{"layer":"tactician","gs":175,"brain":"rules","trigger":"skill_done","goal":"stone_tools","options":["goto surface","pickup","explore any"],"choice":"goto surface","x":[1.0,1.0,0.0,0.0,1.0,0.953,0.0,0.0,0.2,0.0,0.0,0.0,0.0,0.625,0.0,0.0,0.0,0.0,0.438,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.0,0.077,0.0,0.154,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1790776063393}
+{"event":"skill_start","skill":"goto surface","trigger":"skill_done","t":1790776063393}
+{"event":"skill_end","skill":"goto surface","ok":true,"detail":"climbed to open sky by stairs","seconds":11.05,"t":1790776074438}
+{"layer":"tactician","gs":186,"brain":"rules","trigger":"skill_done","goal":"stone_tools","options":["explore any"],"choice":"explore any","x":[1.0,1.0,0.0,0.0,0.0,0.984,0.0,0.0,0.2,0.0,0.0,0.0,0.0,0.781,0.0,0.0,0.0,0.0,0.438,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.0,0.077,0.0,0.154,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1790776074438}
+{"event":"skill_start","skill":"explore any","trigger":"skill_done","t":1790776074439}
+{"event":"skill_end","skill":"explore any","ok":false,"code":"HAZARD","detail":"open water ahead; will turn","seconds":34.0,"t":1790776108786}
+{"layer":"tactician","gs":220,"brain":"rules","trigger":"skill_failed","goal":"stone_tools","options":["swim_to_shore","craft stone_pickaxe:1","explore any"],"choice":"swim_to_shore","x":[1.0,1.0,0.0,0.0,0.0,0.969,0.0,0.0,0.2,0.0,0.0,0.0,0.0,0.875,0.0,0.0,0.0,0.0,0.438,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.0,0.077,0.0,0.154,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1790776108787}
+{"event":"skill_start","skill":"swim_to_shore","trigger":"skill_failed","t":1790776108787}
+{"event":"skill_end","skill":"swim_to_shore","ok":false,"code":"TIMEOUT","detail":"timed out after 80 s","seconds":80.05,"t":1790776189207}
+{"layer":"tactician","gs":300,"brain":"rules","trigger":"skill_failed","goal":"stone_tools","options":["craft stone_pickaxe:1","explore any"],"choice":"craft stone_pickaxe:1","x":[1.0,1.0,0.0,0.0,1.0,0.953,0.0,0.0,0.2,0.0,0.0,0.0,0.0,0.875,0.0,0.0,0.0,0.0,0.438,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.0,0.077,0.0,0.154,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1790776189208}
+{"event":"skill_start","skill":"craft stone_pickaxe:1","trigger":"skill_failed","t":1790776189208}
+{"event":"milestone","detail":"2 at 306 s","t":1790776195413}
+{"layer":"strategist","brain":"rules","choice":"iron_tools","reason":"goal_done","t":1790776195413}
+{"event":"skill_end","skill":"craft stone_pickaxe:1","ok":true,"detail":"crafted 1 stone_pickaxe","seconds":6.3,"t":1790776195553}
+{"layer":"tactician","gs":306,"brain":"rules","trigger":"skill_done","goal":"iron_tools","options":["pickup stations","collect raw_iron:13","explore any"],"choice":"pickup stations","x":[1.0,1.0,0.0,0.0,1.0,0.984,0.0,0.0,0.4,0.0,0.0,0.0,0.0,0.781,0.0,0.0,0.0,0.0,0.438,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.0,0.154,0.0,0.308,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1790776195554}
+{"event":"skill_start","skill":"pickup stations","trigger":"skill_done","t":1790776195554}
+{"event":"skill_end","skill":"pickup stations","ok":true,"detail":"picked up 1 stacks","seconds":4.35,"t":1790776199905}
+{"layer":"tactician","gs":311,"brain":"rules","trigger":"skill_done","goal":"iron_tools","options":["collect raw_iron:13","explore any"],"choice":"collect raw_iron:13","x":[1.0,1.0,0.0,0.0,1.0,0.984,0.0,0.0,0.4,0.0,0.0,0.0,0.0,0.781,0.0,0.0,0.0,0.0,0.438,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.0,0.154,0.0,0.308,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1790776199906}
+{"event":"skill_start","skill":"collect raw_iron:13","trigger":"skill_done","t":1790776199906}
+{"layer":"tactician","gs":330,"brain":"rules","trigger":"mob_near","goal":"iron_tools","options":["attack spider","collect raw_iron:13","explore any"],"choice":"attack spider","x":[1.0,1.0,0.0,0.0,1.0,0.547,0.0,0.0,0.4,0.0,0.0,0.0,0.0,0.781,0.0,0.0,0.0,0.0,0.438,0.0,0.0,0.0,0.0,0.0,0.25,0.36,0.0,1.0,0.0,0.154,0.0,0.308,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["attack spider"],"t":1790776219650}
+{"event":"skill_end","skill":"collect raw_iron:13","ok":false,"code":"INTERRUPTED","detail":"interrupted: brain chose attack spider","seconds":19.0,"t":1790776219650}
+{"event":"skill_start","skill":"attack spider","trigger":"mob_near","t":1790776219650}
+{"event":"skill_end","skill":"attack spider","ok":true,"detail":"killed the spider","seconds":6.9,"t":1790776226741}
+{"layer":"tactician","gs":337,"brain":"rules","trigger":"skill_done","goal":"iron_tools","options":["collect coal:6","collect raw_iron:13","pickup","explore any"],"choice":"collect coal:6","x":[1.0,0.95,0.0,0.0,1.0,0.484,0.0,0.0,0.4,0.0,0.0,0.0,0.0,0.813,0.0,0.0,0.0,0.0,0.438,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.0,0.154,0.0,0.308,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1790776226742}
+{"event":"skill_start","skill":"collect coal:6","trigger":"skill_done","t":1790776226742}
+{"event":"skill_end","skill":"collect coal:6","ok":true,"detail":"collected 6 coal (seen blocks)","seconds":14.8,"t":1790776241558}
+{"layer":"tactician","gs":351,"brain":"rules","trigger":"skill_done","goal":"iron_tools","options":["collect raw_iron:13","pickup","explore any"],"choice":"collect raw_iron:13","x":[1.0,0.95,0.0,0.0,1.0,0.5,0.0,0.0,0.4,0.0,0.0,0.0,0.0,0.875,0.0,0.0,0.375,0.0,0.438,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.0,0.154,0.0,0.308,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1790776241559}
+{"event":"skill_start","skill":"collect raw_iron:13","trigger":"skill_done","t":1790776241559}
+{"layer":"tactician","gs":371,"brain":"rules","trigger":"mob_near","goal":"iron_tools","options":["retreat","craft furnace:1","explore any"],"choice":"retreat","x":[1.0,0.9,0.0,0.0,1.0,0.516,0.0,0.0,0.4,0.0,0.0,0.0,0.0,0.844,0.0,0.25,0.375,0.0,0.438,0.0,0.0,0.0,0.0,0.0,0.5,0.439,0.0,1.0,0.0,0.154,0.0,0.308,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["retreat"],"t":1790776261511}
+{"event":"skill_end","skill":"collect raw_iron:13","ok":false,"code":"INTERRUPTED","detail":"interrupted: brain chose retreat","seconds":19.8,"t":1790776261512}
+{"event":"skill_start","skill":"retreat","trigger":"mob_near","t":1790776261512}
+{"layer":"reflex","gs":371,"brain":"rules","trigger":"reflex_creeper","goal":"iron_tools","options":["retreat"],"choice":"retreat","x":[1.0,0.9,0.0,0.0,1.0,0.516,0.0,0.0,0.4,0.0,0.0,0.0,0.0,0.844,0.0,0.25,0.375,0.0,0.438,0.0,0.0,0.0,0.0,0.0,0.5,0.431,0.0,1.0,0.0,0.154,0.0,0.308,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["retreat"],"t":1790776261742}
+{"event":"skill_end","skill":"retreat","ok":false,"code":"INTERRUPTED","detail":"interrupted by reflex_creeper","seconds":0.25,"t":1790776261742}
+{"event":"skill_start","skill":"retreat","trigger":"reflex_creeper","t":1790776261743}
+{"event":"skill_end","skill":"retreat","ok":true,"detail":"got away","seconds":3.45,"t":1790776265199}
+{"layer":"tactician","gs":375,"brain":"rules","trigger":"skill_done","goal":"iron_tools","options":["craft furnace:1","explore any"],"choice":"craft furnace:1","x":[1.0,0.9,0.0,0.0,1.0,0.516,0.0,0.0,0.4,0.0,0.0,0.0,0.0,0.844,0.0,0.25,0.375,0.0,0.438,0.0,0.0,0.0,0.0,0.0,0.0,0.664,0.0,1.0,0.0,0.154,0.0,0.308,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1790776265200}
+{"event":"skill_start","skill":"craft furnace:1","trigger":"skill_done","t":1790776265200}
+{"event":"skill_end","skill":"craft furnace:1","ok":true,"detail":"crafted 1 furnace","seconds":0.85,"t":1790776266053}
+{"layer":"tactician","gs":376,"brain":"rules","trigger":"skill_done","goal":"iron_tools","options":["attack spider","smelt iron_ingot:4","explore any"],"choice":"attack spider","x":[1.0,0.9,0.0,0.0,1.0,0.516,0.0,0.0,0.4,0.0,0.0,0.0,0.0,0.594,0.0,0.25,0.375,0.0,0.438,0.0,0.0,0.0,0.0,0.0,0.0,0.509,0.0,1.0,0.0,0.154,0.0,0.308,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["attack spider"],"t":1790776266053}
+{"event":"skill_start","skill":"attack spider","trigger":"skill_done","t":1790776266053}
+{"layer":"reflex","gs":378,"brain":"rules","trigger":"reflex_creeper","goal":"iron_tools","options":["retreat"],"choice":"retreat","x":[1.0,0.85,0.0,0.0,1.0,0.516,0.0,0.0,0.4,0.0,0.0,0.0,0.0,0.594,0.0,0.25,0.375,0.0,0.438,0.0,0.0,0.0,0.0,0.0,0.5,0.24,0.0,1.0,0.0,0.154,0.0,0.308,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["retreat"],"t":1790776267999}
+{"event":"skill_end","skill":"attack spider","ok":false,"code":"INTERRUPTED","detail":"interrupted by reflex_creeper","seconds":1.95,"t":1790776268000}
+{"event":"skill_start","skill":"retreat","trigger":"reflex_creeper","t":1790776268000}
+{"event":"skill_end","skill":"retreat","ok":true,"detail":"got away","seconds":4.3,"t":1790776272358}
+{"layer":"tactician","gs":382,"brain":"rules","trigger":"skill_done","goal":"iron_tools","options":["smelt iron_ingot:4","explore any"],"choice":"smelt iron_ingot:4","x":[1.0,0.85,0.0,0.0,1.0,0.531,0.0,0.0,0.4,0.0,0.0,0.0,0.0,0.594,0.0,0.25,0.375,0.0,0.438,0.0,0.0,0.0,0.0,0.0,0.0,0.741,0.0,1.0,0.0,0.154,0.0,0.308,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1790776272359}
+{"event":"skill_start","skill":"smelt iron_ingot:4","trigger":"skill_done","t":1790776272359}
+{"event":"skill_end","skill":"smelt iron_ingot:4","ok":true,"detail":"loaded 4 to smelt into iron_ingot; working nearby meanwhile","seconds":0.5,"t":1790776272845}
+{"layer":"tactician","gs":382,"brain":"rules","trigger":"skill_done","goal":"iron_tools","options":["collect coal:3","explore any"],"choice":"collect coal:3","x":[1.0,0.85,0.0,0.0,1.0,0.531,0.0,0.0,0.4,0.0,0.0,0.0,0.0,0.594,0.0,0.0,0.313,0.0,0.438,0.0,0.0,0.0,0.0,0.0,0.0,0.698,0.0,1.0,0.0,0.154,0.0,0.308,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1790776272846}
+{"event":"skill_start","skill":"collect coal:3","trigger":"skill_done","t":1790776272846}
+{"layer":"tactician","gs":388,"brain":"rules","trigger":"mob_near","goal":"iron_tools","options":["attack spider","collect coal:3","explore any"],"choice":"attack spider","x":[1.0,0.85,0.0,0.0,1.0,0.5,0.0,0.0,0.4,0.0,0.0,0.0,0.0,0.594,0.0,0.0,0.313,0.0,0.438,0.0,0.0,0.0,0.0,0.0,0.25,0.373,0.0,1.0,0.0,0.154,0.0,0.308,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["attack spider"],"t":1790776278319}
+{"event":"skill_end","skill":"collect coal:3","ok":false,"code":"INTERRUPTED","detail":"interrupted: brain chose attack spider","seconds":5.45,"t":1790776278319}
+{"event":"skill_start","skill":"attack spider","trigger":"mob_near","t":1790776278319}
+{"layer":"tactician","gs":391,"brain":"rules","trigger":"hurt","goal":"iron_tools","options":["attack spider","collect coal:3","explore any"],"choice":"attack spider","x":[0.8,0.8,0.0,0.0,1.0,0.516,0.0,0.0,0.4,0.0,0.0,0.0,0.0,0.594,0.0,0.0,0.313,0.0,0.438,0.0,0.0,0.0,0.0,0.0,0.25,0.118,0.0,1.0,0.0,0.154,0.0,0.308,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["attack spider"],"t":1790776281657}
+{"layer":"reflex","gs":395,"brain":"rules","trigger":"reflex_creeper","goal":"iron_tools","options":["retreat"],"choice":"retreat","x":[0.8,0.8,0.0,0.0,1.0,0.547,0.0,0.0,0.4,0.0,0.0,0.0,0.0,0.563,0.0,0.0,0.313,0.0,0.438,0.0,0.0,0.0,0.0,0.0,0.25,0.353,0.0,1.0,0.0,0.154,0.0,0.308,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["retreat"],"t":1790776285547}
+{"event":"skill_end","skill":"attack spider","ok":false,"code":"INTERRUPTED","detail":"interrupted by reflex_creeper","seconds":7.25,"t":1790776285547}
+{"event":"skill_start","skill":"retreat","trigger":"reflex_creeper","t":1790776285547}
+{"event":"skill_end","skill":"retreat","ok":true,"detail":"got away","seconds":4.4,"t":1790776289952}
+{"layer":"tactician","gs":400,"brain":"rules","trigger":"skill_done","goal":"iron_tools","options":["eat","smelt cooked_mutton:7","collect coal:3","explore any"],"choice":"eat","x":[0.8,0.8,0.0,0.0,1.0,0.516,0.0,0.0,0.4,0.0,0.0,0.0,0.0,0.563,0.0,0.0,0.313,0.0,0.438,0.0,0.0,0.0,0.0,0.0,0.0,0.914,0.0,1.0,0.0,0.154,0.0,0.308,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["eat"],"t":1790776289952}
+{"event":"skill_start","skill":"eat","trigger":"skill_done","t":1790776289953}
+{"event":"skill_end","skill":"eat","ok":true,"detail":"ate mutton","seconds":1.8,"t":1790776291747}
+{"layer":"tactician","gs":401,"brain":"rules","trigger":"skill_done","goal":"iron_tools","options":["collect coal:3","explore any"],"choice":"collect coal:3","x":[0.8,0.9,0.0,0.0,1.0,0.516,0.0,0.0,0.4,0.0,0.0,0.0,0.0,0.563,0.0,0.0,0.313,0.0,0.375,0.0,0.0,0.0,0.0,0.0,0.0,0.713,0.0,1.0,0.0,0.154,0.0,0.308,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1790776291748}
+{"event":"skill_start","skill":"collect coal:3","trigger":"skill_done","t":1790776291748}
+{"layer":"tactician","gs":402,"brain":"rules","trigger":"mob_near","goal":"iron_tools","options":["retreat","collect coal:3","explore any"],"choice":"retreat","x":[0.8,0.9,0.0,0.0,1.0,0.516,0.0,0.0,0.4,0.0,0.0,0.0,0.0,0.563,0.0,0.0,0.313,0.0,0.375,0.0,0.0,0.0,0.0,0.0,0.25,0.49,0.0,1.0,0.0,0.154,0.0,0.308,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["retreat"],"t":1790776292790}
+{"event":"skill_end","skill":"collect coal:3","ok":false,"code":"INTERRUPTED","detail":"interrupted: brain chose retreat","seconds":1.05,"t":1790776292791}
+{"event":"skill_start","skill":"retreat","trigger":"mob_near","t":1790776292791}
+{"layer":"tactician","gs":404,"brain":"rules","trigger":"mob_near","goal":"iron_tools","options":["retreat","collect coal:3","explore any"],"choice":"retreat","x":[0.8,0.9,0.0,0.0,1.0,0.516,0.0,0.0,0.4,0.0,0.0,0.0,0.0,0.563,0.0,0.0,0.313,0.0,0.375,0.0,0.0,0.0,0.0,0.0,0.25,0.488,0.0,1.0,0.0,0.154,0.0,0.308,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["retreat"],"t":1790776294551}
+{"layer":"reflex","gs":404,"brain":"rules","trigger":"reflex_creeper","goal":"iron_tools","options":["retreat"],"choice":"retreat","x":[0.8,0.9,0.0,0.0,1.0,0.516,0.0,0.0,0.4,0.0,0.0,0.0,0.0,0.563,0.0,0.0,0.313,0.0,0.375,0.0,0.0,0.0,0.0,0.0,0.25,0.37,0.0,1.0,0.0,0.154,0.0,0.308,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["retreat"],"t":1790776294805}
+{"event":"skill_end","skill":"retreat","ok":false,"code":"INTERRUPTED","detail":"interrupted by reflex_creeper","seconds":2.0,"t":1790776294805}
+{"event":"skill_start","skill":"retreat","trigger":"reflex_creeper","t":1790776294805}
+{"event":"skill_end","skill":"retreat","ok":true,"detail":"got away","seconds":5.35,"t":1790776300144}
+{"layer":"tactician","gs":410,"brain":"rules","trigger":"skill_done","goal":"iron_tools","options":["eat","smelt cooked_mutton:6","collect coal:3","explore any"],"choice":"eat","x":[0.85,0.85,0.0,0.0,1.0,0.594,0.0,0.0,0.4,0.0,0.0,0.0,0.0,0.563,0.0,0.0,0.313,0.0,0.375,0.0,0.0,0.0,0.0,0.0,0.0,0.936,0.0,1.0,0.0,0.154,0.0,0.308,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["eat"],"t":1790776300145}
+{"event":"skill_start","skill":"eat","trigger":"skill_done","t":1790776300145}
+{"event":"skill_end","skill":"eat","ok":true,"detail":"ate mutton","seconds":1.8,"t":1790776301944}
+{"layer":"tactician","gs":412,"brain":"rules","trigger":"skill_done","goal":"iron_tools","options":["collect coal:3","explore any"],"choice":"collect coal:3","x":[0.85,0.95,0.0,0.0,1.0,0.594,0.0,0.0,0.4,0.0,0.0,0.0,0.0,0.563,0.0,0.0,0.313,0.0,0.313,0.0,0.0,0.0,0.0,0.0,0.0,0.707,0.0,1.0,0.0,0.154,0.0,0.308,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1790776301944}
+{"event":"skill_start","skill":"collect coal:3","trigger":"skill_done","t":1790776301944}
+{"layer":"tactician","gs":413,"brain":"rules","trigger":"mob_near","goal":"iron_tools","options":["retreat","collect coal:3","explore any"],"choice":"retreat","x":[0.85,0.95,0.0,0.0,1.0,0.578,0.0,0.0,0.4,0.0,0.0,0.0,0.0,0.563,0.0,0.0,0.313,0.0,0.313,0.0,0.0,0.0,0.0,0.0,0.25,0.475,0.0,1.0,0.0,0.154,0.0,0.308,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["retreat"],"t":1790776303045}
+{"event":"skill_end","skill":"collect coal:3","ok":false,"code":"INTERRUPTED","detail":"interrupted: brain chose retreat","seconds":1.1,"t":1790776303045}
+{"event":"skill_start","skill":"retreat","trigger":"mob_near","t":1790776303046}
+{"event":"skill_end","skill":"retreat","ok":true,"detail":"got away","seconds":3.65,"t":1790776306694}
+{"layer":"tactician","gs":416,"brain":"rules","trigger":"skill_done","goal":"iron_tools","options":["smelt cooked_mutton:5","collect stone:10","explore any"],"choice":"smelt cooked_mutton:5","x":[0.9,0.95,0.0,0.0,1.0,0.609,0.0,0.0,0.4,0.0,0.0,0.0,0.0,0.563,0.0,0.0,0.313,0.0,0.313,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.0,0.154,0.0,0.308,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1790776306695}
+{"event":"skill_start","skill":"smelt cooked_mutton:5","trigger":"skill_done","t":1790776306695}
+{"layer":"tactician","gs":418,"brain":"rules","trigger":"mob_near","goal":"iron_tools","options":["retreat","collect coal:3","explore any"],"choice":"retreat","x":[0.9,0.95,0.0,0.0,1.0,0.609,0.0,0.0,0.4,0.0,0.0,0.0,0.0,0.563,0.0,0.0,0.313,0.0,0.313,0.0,0.0,0.0,0.0,0.0,0.25,0.497,0.0,1.0,0.0,0.154,0.0,0.308,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["retreat"],"t":1790776308054}
+{"event":"skill_end","skill":"smelt cooked_mutton:5","ok":false,"code":"INTERRUPTED","detail":"interrupted: brain chose retreat","seconds":1.35,"t":1790776308054}
+{"event":"skill_start","skill":"retreat","trigger":"mob_near","t":1790776308054}
+{"layer":"reflex","gs":418,"brain":"rules","trigger":"reflex_creeper","goal":"iron_tools","options":["retreat"],"choice":"retreat","x":[0.9,0.95,0.0,0.0,1.0,0.578,0.0,0.0,0.4,0.0,0.0,0.0,0.0,0.563,0.0,0.0,0.313,0.0,0.313,0.0,0.0,0.0,0.0,0.0,0.25,0.424,0.0,1.0,0.0,0.154,0.0,0.308,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["retreat"],"t":1790776308799}
+{"event":"skill_end","skill":"retreat","ok":false,"code":"INTERRUPTED","detail":"interrupted by reflex_creeper","seconds":0.75,"t":1790776308799}
+{"event":"skill_start","skill":"retreat","trigger":"reflex_creeper","t":1790776308799}
+{"event":"skill_end","skill":"retreat","ok":false,"code":"NO_PROGRESS","detail":"couldn\u0027t get away (nearest monster 4 blocks)","seconds":3.45,"t":1790776312241}
+{"layer":"tactician","gs":422,"brain":"rules","trigger":"skill_failed","goal":"iron_tools","options":["attack zombie","collect coal:3","explore any"],"choice":"attack zombie","x":[0.95,0.85,0.0,0.0,1.0,0.563,0.0,0.0,0.4,0.0,0.0,0.0,0.0,0.563,0.0,0.0,0.313,0.0,0.313,0.0,0.0,0.0,0.0,0.0,0.5,0.27,0.0,1.0,0.0,0.154,0.0,0.308,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["attack zombie"],"t":1790776312242}
+{"event":"skill_start","skill":"attack zombie","trigger":"skill_failed","t":1790776312242}
+{"layer":"tactician","gs":426,"brain":"rules","trigger":"hurt","goal":"iron_tools","options":["attack zombie","smelt iron_ingot:4","explore any"],"choice":"attack zombie","x":[0.7,0.85,0.0,0.0,1.0,0.438,0.0,0.0,0.4,0.0,0.0,0.0,0.0,0.563,0.0,0.0,0.313,0.0,0.313,0.0,0.0,0.0,0.0,0.0,0.25,0.244,0.0,1.0,0.0,0.154,0.0,0.308,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["attack zombie"],"t":1790776316497}
+{"layer":"reflex","gs":428,"brain":"rules","trigger":"reflex_creeper","goal":"iron_tools","options":["retreat"],"choice":"retreat","x":[0.7,0.85,0.0,0.0,1.0,0.438,0.0,0.0,0.4,0.0,0.0,0.0,0.0,0.563,0.0,0.0,0.313,0.0,0.313,0.0,0.0,0.0,0.0,0.0,0.25,0.399,0.0,1.0,0.0,0.154,0.0,0.308,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["retreat"],"t":1790776318296}
+{"event":"skill_end","skill":"attack zombie","ok":false,"code":"INTERRUPTED","detail":"interrupted by reflex_creeper","seconds":6.05,"t":1790776318297}
+{"event":"skill_start","skill":"retreat","trigger":"reflex_creeper","t":1790776318297}
+{"event":"skill_end","skill":"retreat","ok":false,"code":"NO_PROGRESS","detail":"couldn\u0027t get away (nearest monster 4 blocks)","seconds":6.2,"t":1790776324518}
+{"layer":"tactician","gs":434,"brain":"rules","trigger":"skill_failed","goal":"iron_tools","options":["retreat","smelt iron_ingot:4","explore any"],"choice":"retreat","x":[0.7,0.8,0.0,0.0,1.0,0.516,0.0,0.0,0.4,0.0,0.0,0.0,0.0,0.594,0.0,0.0,0.313,0.0,0.313,0.0,0.0,0.0,0.0,0.0,0.5,0.239,0.0,1.0,0.0,0.154,0.0,0.308,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["retreat"],"t":1790776324519}
+{"event":"skill_start","skill":"retreat","trigger":"skill_failed","t":1790776324519}
+{"layer":"reflex","gs":434,"brain":"rules","trigger":"reflex_creeper","goal":"iron_tools","options":["retreat"],"choice":"retreat","x":[0.7,0.8,0.0,0.0,1.0,0.516,0.0,0.0,0.4,0.0,0.0,0.0,0.0,0.594,0.0,0.0,0.313,0.0,0.313,0.0,0.0,0.0,0.0,0.0,0.5,0.173,0.0,1.0,0.0,0.154,0.0,0.308,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["retreat"],"t":1790776324798}
+{"event":"skill_end","skill":"retreat","ok":false,"code":"INTERRUPTED","detail":"interrupted by reflex_creeper","seconds":0.3,"t":1790776324798}
+{"event":"skill_start","skill":"retreat","trigger":"reflex_creeper","t":1790776324798}
+{"event":"skill_end","skill":"retreat","ok":true,"detail":"got away","seconds":5.5,"t":1790776330308}
+{"layer":"tactician","gs":440,"brain":"rules","trigger":"skill_done","goal":"iron_tools","options":["eat","smelt cooked_mutton:5","smelt iron_ingot:4","explore any"],"choice":"eat","x":[0.644,0.8,0.0,0.0,1.0,0.516,0.0,0.0,0.4,0.0,0.0,0.0,0.0,0.594,0.0,0.0,0.313,0.0,0.313,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.0,0.154,0.0,0.308,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["eat"],"t":1790776330308}
+{"event":"skill_start","skill":"eat","trigger":"skill_done","t":1790776330309}
+{"event":"skill_end","skill":"eat","ok":true,"detail":"ate mutton","seconds":1.8,"t":1790776332100}
+{"layer":"tactician","gs":442,"brain":"rules","trigger":"skill_done","goal":"iron_tools","options":["smelt cooked_mutton:4","smelt iron_ingot:4","explore any"],"choice":"smelt cooked_mutton:4","x":[0.644,0.9,0.0,0.0,1.0,0.516,0.0,0.0,0.4,0.0,0.0,0.0,0.0,0.594,0.0,0.0,0.313,0.0,0.25,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.0,0.154,0.0,0.308,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1790776332101}
+{"event":"skill_start","skill":"smelt cooked_mutton:4","trigger":"skill_done","t":1790776332101}
+{"event":"skill_end","skill":"smelt cooked_mutton:4","ok":true,"detail":"loaded 4 to smelt into cooked_mutton; working nearby meanwhile","seconds":2.75,"t":1790776334844}
+{"layer":"tactician","gs":444,"brain":"rules","trigger":"skill_done","goal":"iron_tools","options":["goto surface","collect log:9","explore log"],"choice":"goto surface","x":[0.644,0.9,0.0,0.0,1.0,0.531,0.0,0.0,0.4,0.0,0.0,0.0,0.0,0.594,0.25,0.0,0.25,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.0,0.154,0.0,0.308,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1790776334844}
+{"event":"skill_start","skill":"goto surface","trigger":"skill_done","t":1790776334844}
+{"event":"skill_end","skill":"goto surface","ok":true,"detail":"back under open sky","seconds":13.5,"t":1790776348345}
+{"layer":"tactician","gs":458,"brain":"rules","trigger":"skill_done","goal":"iron_tools","options":["collect log:9","explore log"],"choice":"collect log:9","x":[0.744,0.8,0.0,0.0,0.0,0.875,0.0,0.0,0.4,0.0,0.0,0.0,0.0,0.531,0.25,0.0,0.25,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.0,0.154,0.0,0.308,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1790776348346}
+{"event":"skill_start","skill":"collect log:9","trigger":"skill_done","t":1790776348347}
+{"event":"skill_end","skill":"collect log:9","ok":true,"detail":"collected 9 log (seen blocks)","seconds":50.4,"t":1790776400748}
+{"layer":"tactician","gs":508,"brain":"rules","trigger":"skill_done","goal":"iron_tools","options":["craft planks:4","pickup","explore any"],"choice":"craft planks:4","x":[0.744,0.75,0.0,0.0,1.0,1.016,0.0,0.0,0.4,0.0,0.0,0.563,0.0,0.469,0.25,0.0,0.25,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.0,0.154,0.0,0.308,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1790776400748}
+{"event":"skill_start","skill":"craft planks:4","trigger":"skill_done","t":1790776400749}
+{"event":"skill_end","skill":"craft planks:4","ok":true,"detail":"crafted 4 planks","seconds":0.45,"t":1790776401212}
+{"layer":"tactician","gs":509,"brain":"rules","trigger":"skill_done","goal":"iron_tools","options":["craft stick:4","explore any"],"choice":"craft stick:4","x":[0.744,0.75,0.0,0.0,1.0,1.016,0.0,0.0,0.4,0.0,0.0,0.5,0.25,0.469,0.25,0.0,0.25,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.0,0.154,0.0,0.308,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1790776401212}
+{"event":"skill_start","skill":"craft stick:4","trigger":"skill_done","t":1790776401213}
+{"event":"skill_end","skill":"craft stick:4","ok":true,"detail":"crafted 4 stick","seconds":0.45,"t":1790776401647}
+{"layer":"tactician","gs":509,"brain":"rules","trigger":"skill_done","goal":"iron_tools","options":["craft torch:8","craft iron_pickaxe:1","explore any"],"choice":"craft torch:8","x":[0.744,0.75,0.0,0.0,1.0,1.016,0.0,0.0,0.4,0.0,0.0,0.5,0.125,0.469,0.25,0.0,0.25,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.0,0.154,0.0,0.308,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1790776401647}
+{"event":"skill_start","skill":"craft torch:8","trigger":"skill_done","t":1790776401647}
+{"event":"skill_end","skill":"craft torch:8","ok":true,"detail":"crafted 8 torch","seconds":0.85,"t":1790776402507}
+{"layer":"tactician","gs":510,"brain":"rules","trigger":"skill_done","goal":"iron_tools","options":["craft iron_pickaxe:1","explore any"],"choice":"craft iron_pickaxe:1","x":[0.744,0.75,0.0,0.0,1.0,1.016,0.0,0.0,0.4,0.0,0.0,0.5,0.125,0.469,0.25,0.0,0.125,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.0,0.154,0.0,0.308,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1790776402508}
+{"event":"skill_start","skill":"craft iron_pickaxe:1","trigger":"skill_done","t":1790776402508}
+{"layer":"tactician","gs":521,"brain":"rules","trigger":"mob_near","goal":"iron_tools","options":["retreat","craft iron_pickaxe:1","explore any"],"choice":"retreat","x":[0.744,0.7,0.0,0.0,1.0,0.672,0.0,0.0,0.4,0.0,0.0,0.5,0.125,0.469,0.25,0.0,0.125,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.25,0.477,0.0,1.0,0.0,0.154,0.0,0.308,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["retreat"],"t":1790776413306}
+{"event":"skill_end","skill":"craft iron_pickaxe:1","ok":false,"code":"INTERRUPTED","detail":"interrupted: brain chose retreat","seconds":10.8,"t":1790776413306}
+{"event":"skill_start","skill":"retreat","trigger":"mob_near","t":1790776413306}
+{"layer":"reflex","gs":522,"brain":"rules","trigger":"reflex_creeper","goal":"iron_tools","options":["retreat"],"choice":"retreat","x":[0.744,0.7,0.0,0.0,1.0,0.641,0.0,0.0,0.4,0.0,0.0,0.5,0.125,0.469,0.25,0.0,0.125,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.25,0.388,0.0,1.0,0.0,0.154,0.0,0.308,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["retreat"],"t":1790776414306}
+{"event":"skill_end","skill":"retreat","ok":false,"code":"INTERRUPTED","detail":"interrupted by reflex_creeper","seconds":1.0,"t":1790776414306}
+{"event":"skill_start","skill":"retreat","trigger":"reflex_creeper","t":1790776414306}
+{"event":"skill_end","skill":"retreat","ok":true,"detail":"got away","seconds":6.9,"t":1790776421201}
+{"layer":"tactician","gs":529,"brain":"rules","trigger":"skill_done","goal":"iron_tools","options":["collect coal:6","craft iron_pickaxe:1","explore any"],"choice":"collect coal:6","x":[0.744,0.7,0.0,0.0,1.0,0.516,0.0,0.0,0.4,0.0,0.0,0.5,0.125,0.469,0.25,0.0,0.125,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.996,0.0,1.0,0.0,0.154,0.0,0.308,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1790776421202}
+{"event":"skill_start","skill":"collect coal:6","trigger":"skill_done","t":1790776421202}
+{"event":"torch","detail":"151, 33, -73","t":1790776421551}
+{"layer":"tactician","gs":536,"brain":"rules","trigger":"mob_near","goal":"iron_tools","options":["attack skeleton","craft iron_pickaxe:1","explore any"],"choice":"attack skeleton","x":[0.594,0.7,0.0,0.0,1.0,0.5,0.0,0.0,0.4,0.0,0.0,0.5,0.125,0.406,0.25,0.0,0.313,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.25,0.488,0.0,1.0,0.0,0.154,0.0,0.308,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["attack skeleton"],"t":1790776428546}
+{"event":"skill_end","skill":"collect coal:6","ok":false,"code":"INTERRUPTED","detail":"interrupted: brain chose attack skeleton","seconds":7.35,"t":1790776428547}
+{"event":"skill_start","skill":"attack skeleton","trigger":"mob_near","t":1790776428547}
+{"layer":"tactician","gs":539,"brain":"rules","trigger":"hurt","goal":"iron_tools","options":["attack skeleton","craft iron_pickaxe:1","explore any"],"choice":"attack skeleton","x":[0.294,0.65,0.0,0.0,1.0,0.516,0.0,0.0,0.4,0.0,0.0,0.5,0.125,0.375,0.25,0.0,0.313,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.25,0.247,0.0,1.0,0.0,0.154,0.0,0.308,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["attack skeleton"],"t":1790776431865}
+{"layer":"reflex","gs":545,"brain":"rules","trigger":"reflex_low_hp","goal":"iron_tools","options":["retreat","attack skeleton"],"choice":"retreat","x":[0.144,0.65,0.0,0.0,1.0,0.516,0.0,0.0,0.4,0.0,0.0,0.5,0.125,0.375,0.25,0.0,0.313,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.5,0.216,0.0,1.0,0.0,0.154,0.0,0.308,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["retreat","attack skeleton"],"t":1790776437083}
+{"event":"skill_end","skill":"attack skeleton","ok":false,"code":"INTERRUPTED","detail":"interrupted by reflex_low_hp","seconds":8.5,"t":1790776437083}
+{"event":"skill_start","skill":"retreat","trigger":"reflex_low_hp","t":1790776437083}
+{"event":"skill_end","skill":"retreat","ok":false,"code":"NO_PROGRESS","detail":"couldn\u0027t get away (nearest monster 1 blocks)","seconds":5.45,"t":1790776442572}
+{"layer":"tactician","gs":550,"brain":"rules","trigger":"skill_failed","goal":"iron_tools","options":["retreat","craft iron_pickaxe:1","explore any"],"choice":"retreat","x":[0.144,0.6,0.0,0.0,1.0,0.516,0.0,0.0,0.4,0.0,0.0,0.5,0.125,0.375,0.25,0.0,0.313,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.5,0.032,0.0,1.0,0.0,0.154,0.0,0.308,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["retreat"],"t":1790776442572}
+{"event":"skill_start","skill":"retreat","trigger":"skill_failed","t":1790776442572}
+{"layer":"reflex","gs":550,"brain":"rules","trigger":"reflex_creeper","goal":"iron_tools","options":["retreat"],"choice":"retreat","x":[0.144,0.6,0.0,0.0,1.0,0.516,0.0,0.0,0.4,0.0,0.0,0.5,0.125,0.375,0.25,0.0,0.313,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.5,0.068,0.0,1.0,0.0,0.154,0.0,0.308,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["retreat"],"t":1790776442637}
+{"event":"skill_end","skill":"retreat","ok":false,"code":"INTERRUPTED","detail":"interrupted by reflex_creeper","seconds":0.05,"t":1790776442637}
+{"event":"skill_start","skill":"retreat","trigger":"reflex_creeper","t":1790776442637}
+{"event":"skill_end","skill":"retreat","ok":false,"code":"DIED","detail":"died","seconds":0.85,"t":1790776443530}
+{"event":"death","detail":"explosion.player:creeper","t":1790776443530}
+{"layer":"reflex","gs":554,"brain":"rules","trigger":"reflex_creeper","goal":"iron_tools","options":["retreat"],"choice":"retreat","x":[1.0,1.0,0.0,0.0,0.0,0.984,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.5,0.02,0.0,1.0,0.2,0.154,0.0,0.308,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["retreat"],"t":1790776446733}
+{"event":"skill_start","skill":"retreat","trigger":"reflex_creeper","t":1790776446736}
+{"event":"skill_end","skill":"retreat","ok":true,"detail":"nothing to run from","seconds":0.0,"t":1790776446736}
+{"layer":"tactician","gs":554,"brain":"rules","trigger":"skill_done","goal":"iron_tools","options":["smelt iron_ingot:4","explore any"],"choice":"smelt iron_ingot:4","x":[1.0,1.0,0.0,0.0,0.0,0.984,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.5,0.02,0.0,1.0,0.2,0.154,0.0,0.308,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1790776446736}
+{"event":"skill_start","skill":"smelt iron_ingot:4","trigger":"skill_done","t":1790776446736}
+{"layer":"reflex","gs":582,"brain":"rules","trigger":"reflex_creeper","goal":"iron_tools","options":["retreat"],"choice":"retreat","x":[1.0,1.0,0.0,0.0,1.0,0.875,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.25,0.363,0.0,1.0,0.2,0.154,0.0,0.308,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["retreat"],"t":1790776480304}
+{"event":"skill_end","skill":"smelt iron_ingot:4","ok":false,"code":"INTERRUPTED","detail":"interrupted by reflex_creeper","seconds":27.6,"t":1790776480304}
+{"event":"skill_start","skill":"retreat","trigger":"reflex_creeper","t":1790776480304}
+{"event":"skill_end","skill":"retreat","ok":true,"detail":"got away","seconds":7.9,"t":1790776488315}
+{"layer":"tactician","gs":590,"brain":"rules","trigger":"skill_done","goal":"iron_tools","options":["smelt iron_ingot:4","explore any"],"choice":"smelt iron_ingot:4","x":[1.0,1.0,0.0,0.0,1.0,1.031,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.2,0.154,0.0,0.308,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1790776488316}
+{"event":"skill_start","skill":"smelt iron_ingot:4","trigger":"skill_done","t":1790776488316}
+{"layer":"reflex","gs":593,"brain":"rules","trigger":"reflex_creeper","goal":"iron_tools","options":["retreat"],"choice":"retreat","x":[1.0,1.0,0.0,0.0,0.0,0.938,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.25,0.185,0.0,1.0,0.2,0.154,0.0,0.308,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["retreat"],"t":1790776492256}
+{"event":"skill_end","skill":"smelt iron_ingot:4","ok":false,"code":"INTERRUPTED","detail":"interrupted by reflex_creeper","seconds":3.85,"t":1790776492256}
+{"event":"skill_start","skill":"retreat","trigger":"reflex_creeper","t":1790776492256}
+{"event":"skill_end","skill":"retreat","ok":true,"detail":"got away","seconds":6.55,"t":1790776499073}
+{"layer":"tactician","gs":600,"brain":"rules","trigger":"skill_done","goal":"iron_tools","options":["smelt iron_ingot:4","explore any"],"choice":"smelt iron_ingot:4","x":[1.0,1.0,0.0,0.0,0.0,1.016,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.2,0.154,0.0,0.308,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1790776499074}
+{"event":"skill_start","skill":"smelt iron_ingot:4","trigger":"skill_done","t":1790776499074}
+{"layer":"reflex","gs":604,"brain":"rules","trigger":"reflex_creeper","goal":"iron_tools","options":["retreat"],"choice":"retreat","x":[1.0,1.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.25,0.387,0.0,1.0,0.2,0.154,0.0,0.308,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["retreat"],"t":1790776503056}
+{"event":"skill_end","skill":"smelt iron_ingot:4","ok":false,"code":"INTERRUPTED","detail":"interrupted by reflex_creeper","seconds":3.7,"t":1790776503057}
+{"event":"skill_start","skill":"retreat","trigger":"reflex_creeper","t":1790776503057}
+{"event":"skill_end","skill":"retreat","ok":true,"detail":"got away","seconds":4.75,"t":1790776508117}
+{"layer":"tactician","gs":608,"brain":"rules","trigger":"skill_done","goal":"iron_tools","options":["smelt iron_ingot:4","explore any"],"choice":"smelt iron_ingot:4","x":[1.0,1.0,0.0,0.0,0.0,1.031,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.2,0.154,0.0,0.308,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1790776508117}
+{"event":"skill_start","skill":"smelt iron_ingot:4","trigger":"skill_done","t":1790776508117}
+{"layer":"tactician","gs":627,"brain":"rules","trigger":"mob_near","goal":"iron_tools","options":["retreat","smelt iron_ingot:4","pickup","shelter","explore any"],"choice":"retreat","x":[1.0,1.0,0.0,1.0,1.0,0.547,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.25,0.0,0.0,0.0,0.0,0.0,0.0,0.25,0.471,0.0,1.0,0.2,0.154,0.0,0.308,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["retreat"],"t":1790776527103}
+{"event":"skill_end","skill":"smelt iron_ingot:4","ok":false,"code":"INTERRUPTED","detail":"interrupted: brain chose retreat","seconds":18.5,"t":1790776527104}
+{"event":"skill_start","skill":"retreat","trigger":"mob_near","t":1790776527104}
+{"layer":"tactician","gs":627,"brain":"rules","trigger":"hurt","goal":"iron_tools","options":["retreat","smelt iron_ingot:4","pickup","shelter","explore any"],"choice":"retreat","x":[0.825,1.0,0.0,1.0,1.0,0.531,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.25,0.0,0.0,0.0,0.0,0.0,0.0,0.25,0.469,0.0,1.0,0.2,0.154,0.0,0.308,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["retreat"],"t":1790776527506}
+{"event":"skill_end","skill":"retreat","ok":false,"code":"NO_PROGRESS","detail":"couldn\u0027t get away (nearest monster 9 blocks)","seconds":5.75,"t":1790776532858}
+{"layer":"tactician","gs":633,"brain":"rules","trigger":"skill_failed","goal":"iron_tools","options":["attack skeleton","smelt iron_ingot:4","shelter","explore any"],"choice":"attack skeleton","x":[0.733,0.9,0.0,1.0,1.0,0.625,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.25,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.584,0.0,1.0,0.2,0.154,0.0,0.308,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["attack skeleton"],"t":1790776532859}
+{"event":"skill_start","skill":"attack skeleton","trigger":"skill_failed","t":1790776532859}
+{"layer":"tactician","gs":636,"brain":"rules","trigger":"hurt","goal":"iron_tools","options":["retreat","smelt iron_ingot:4","pickup","shelter","explore any"],"choice":"retreat","x":[0.458,0.9,0.0,1.0,1.0,0.609,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.25,0.0,0.0,0.0,0.0,0.0,0.0,0.75,0.116,0.0,1.0,0.2,0.154,0.0,0.308,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["retreat"],"t":1790776535902}
+{"event":"skill_end","skill":"attack skeleton","ok":false,"code":"INTERRUPTED","detail":"interrupted: brain chose retreat","seconds":3.0,"t":1790776535903}
+{"event":"skill_start","skill":"retreat","trigger":"hurt","t":1790776535903}
+{"layer":"reflex","gs":636,"brain":"rules","trigger":"reflex_fight","goal":"iron_tools","options":["attack skeleton","retreat"],"choice":"attack skeleton","x":[0.508,0.9,0.0,1.0,1.0,0.609,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.25,0.0,0.0,0.0,0.0,0.0,0.0,0.75,0.116,0.0,1.0,0.2,0.154,0.0,0.308,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["attack skeleton","retreat"],"t":1790776535972}
+{"event":"skill_end","skill":"retreat","ok":false,"code":"INTERRUPTED","detail":"interrupted by reflex_fight","seconds":0.05,"t":1790776535972}
+{"event":"skill_start","skill":"attack skeleton","trigger":"reflex_fight","t":1790776535973}
+{"event":"skill_end","skill":"attack skeleton","ok":false,"code":"DIED","detail":"died","seconds":9.3,"t":1790776545259}
+{"event":"death","detail":"explosion.player:creeper","t":1790776545260}
+{"layer":"reflex","gs":648,"brain":"rules","trigger":"reflex_creeper","goal":"iron_tools","options":["retreat"],"choice":"retreat","x":[1.0,1.0,0.0,1.0,0.0,0.984,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.15,0.0,1.0,0.4,0.154,0.0,0.308,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["retreat"],"t":1790776548334}
+{"event":"skill_start","skill":"retreat","trigger":"reflex_creeper","t":1790776548334}
+{"event":"skill_end","skill":"retreat","ok":true,"detail":"nothing to run from","seconds":0.0,"t":1790776548334}
+{"layer":"tactician","gs":648,"brain":"rules","trigger":"skill_done","goal":"iron_tools","options":["retreat","shelter","smelt iron_ingot:4","explore any"],"choice":"retreat","x":[1.0,1.0,0.0,1.0,0.0,0.984,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.15,0.0,1.0,0.4,0.154,0.0,0.308,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["retreat","shelter"],"t":1790776548335}
+{"event":"skill_start","skill":"retreat","trigger":"skill_done","t":1790776548335}
+{"event":"skill_end","skill":"retreat","ok":true,"detail":"nothing to run from","seconds":0.05,"t":1790776548369}
+{"layer":"tactician","gs":648,"brain":"rules","trigger":"skill_done","goal":"iron_tools","options":["retreat","shelter","smelt iron_ingot:4","explore any"],"choice":"retreat","x":[1.0,1.0,0.0,1.0,0.0,0.984,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.15,0.0,1.0,0.4,0.154,0.0,0.308,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["retreat","shelter"],"t":1790776548370}
+{"event":"skill_start","skill":"retreat","trigger":"skill_done","t":1790776548370}
+{"event":"skill_end","skill":"retreat","ok":true,"detail":"nothing to run from","seconds":0.05,"t":1790776548444}
+{"layer":"tactician","gs":648,"brain":"rules","trigger":"skill_done","goal":"iron_tools","options":["smelt iron_ingot:4","shelter","explore any"],"choice":"smelt iron_ingot:4","x":[1.0,1.0,0.0,1.0,0.0,0.984,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.4,0.154,0.0,0.308,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1790776548446}
+{"event":"skill_start","skill":"smelt iron_ingot:4","trigger":"skill_done","t":1790776548446}
+{"layer":"reflex","gs":681,"brain":"rules","trigger":"reflex_creeper","goal":"iron_tools","options":["retreat"],"choice":"retreat","x":[1.0,1.0,0.0,1.0,1.0,0.672,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.25,0.367,0.0,1.0,0.4,0.154,0.0,0.308,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["retreat"],"t":1790776586613}
+{"event":"skill_end","skill":"smelt iron_ingot:4","ok":false,"code":"INTERRUPTED","detail":"interrupted by reflex_creeper","seconds":33.0,"t":1790776586613}
+{"event":"skill_start","skill":"retreat","trigger":"reflex_creeper","t":1790776586613}
+{"event":"skill_end","skill":"retreat","ok":true,"detail":"got away","seconds":6.2,"t":1790776592802}
+{"layer":"tactician","gs":687,"brain":"rules","trigger":"skill_done","goal":"iron_tools","options":["smelt iron_ingot:4","pickup","shelter","explore any"],"choice":"smelt iron_ingot:4","x":[0.9,1.0,0.0,1.0,1.0,0.547,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.818,0.0,1.0,0.4,0.154,0.0,0.308,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1790776592803}
+{"event":"skill_start","skill":"smelt iron_ingot:4","trigger":"skill_done","t":1790776592803}
+{"layer":"tactician","gs":689,"brain":"rules","trigger":"mob_near","goal":"iron_tools","options":["attack skeleton","smelt iron_ingot:4","pickup","shelter","explore any"],"choice":"attack skeleton","x":[0.9,1.0,0.0,1.0,1.0,0.547,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.25,0.47,0.0,1.0,0.4,0.154,0.0,0.308,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["attack skeleton"],"t":1790776594864}
+{"event":"skill_end","skill":"smelt iron_ingot:4","ok":false,"code":"INTERRUPTED","detail":"interrupted: brain chose attack skeleton","seconds":2.05,"t":1790776594864}
+{"event":"skill_start","skill":"attack skeleton","trigger":"mob_near","t":1790776594864}
+{"layer":"tactician","gs":696,"brain":"rules","trigger":"hurt","goal":"iron_tools","options":["attack skeleton","smelt iron_ingot:4","pickup","shelter","explore any"],"choice":"attack skeleton","x":[0.725,0.8,0.0,1.0,1.0,0.531,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.25,0.183,0.0,1.0,0.4,0.154,0.0,0.308,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["attack skeleton"],"t":1790776601877}
+{"layer":"tactician","gs":699,"brain":"rules","trigger":"hurt","goal":"iron_tools","options":["attack skeleton","smelt iron_ingot:4","pickup","shelter","explore any"],"choice":"attack skeleton","x":[0.55,0.8,0.0,1.0,1.0,0.531,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.5,0.178,0.0,1.0,0.4,0.154,0.0,0.308,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["attack skeleton"],"t":1790776604899}
+{"event":"skill_end","skill":"attack skeleton","ok":false,"code":"UNREACHABLE","detail":"can\u0027t reach the skeleton (4 blocks away)","seconds":11.55,"t":1790776606893}
+{"layer":"tactician","gs":701,"brain":"rules","trigger":"skill_failed","goal":"iron_tools","options":["smelt iron_ingot:4","pickup","shelter","explore any"],"choice":"smelt iron_ingot:4","x":[0.55,0.8,0.0,1.0,1.0,0.531,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.5,0.239,0.0,1.0,0.4,0.154,0.0,0.308,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1790776606894}
+{"event":"skill_start","skill":"smelt iron_ingot:4","trigger":"skill_failed","t":1790776606894}
+{"layer":"reflex","gs":702,"brain":"rules","trigger":"reflex_creeper","goal":"iron_tools","options":["retreat"],"choice":"retreat","x":[0.55,0.8,0.0,1.0,1.0,0.531,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.5,0.349,0.0,1.0,0.4,0.154,0.0,0.308,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["retreat"],"t":1790776607593}
+{"event":"skill_end","skill":"smelt iron_ingot:4","ok":false,"code":"INTERRUPTED","detail":"interrupted by reflex_creeper","seconds":0.7,"t":1790776607593}
+{"event":"skill_start","skill":"retreat","trigger":"reflex_creeper","t":1790776607593}
+{"event":"skill_end","skill":"retreat","ok":true,"detail":"got away","seconds":4.2,"t":1790776611925}
+{"layer":"tactician","gs":706,"brain":"rules","trigger":"skill_done","goal":"iron_tools","options":["smelt iron_ingot:4","pickup","shelter","explore any"],"choice":"smelt iron_ingot:4","x":[0.55,0.75,0.0,1.0,1.0,0.531,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.719,0.0,1.0,0.4,0.154,0.0,0.308,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1790776611926}
+{"event":"skill_start","skill":"smelt iron_ingot:4","trigger":"skill_done","t":1790776611926}
+{"layer":"tactician","gs":707,"brain":"rules","trigger":"mob_near","goal":"iron_tools","options":["retreat","smelt iron_ingot:4","pickup","shelter","explore any"],"choice":"retreat","x":[0.55,0.75,0.0,1.0,1.0,0.516,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.25,0.491,0.0,1.0,0.4,0.154,0.0,0.308,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["retreat"],"t":1790776613456}
+{"event":"skill_end","skill":"smelt iron_ingot:4","ok":false,"code":"INTERRUPTED","detail":"interrupted: brain chose retreat","seconds":1.55,"t":1790776613456}
+{"event":"skill_start","skill":"retreat","trigger":"mob_near","t":1790776613456}
+{"layer":"reflex","gs":708,"brain":"rules","trigger":"reflex_creeper","goal":"iron_tools","options":["retreat"],"choice":"retreat","x":[0.55,0.75,0.0,1.0,1.0,0.516,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.25,0.428,0.0,1.0,0.4,0.154,0.0,0.308,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["retreat"],"t":1790776613984}
+{"event":"skill_end","skill":"retreat","ok":false,"code":"INTERRUPTED","detail":"interrupted by reflex_creeper","seconds":0.5,"t":1790776613984}
+{"event":"skill_start","skill":"retreat","trigger":"reflex_creeper","t":1790776613984}
+{"event":"skill_end","skill":"retreat","ok":true,"detail":"got away","seconds":3.6,"t":1790776617571}
+{"layer":"tactician","gs":711,"brain":"rules","trigger":"skill_done","goal":"iron_tools","options":["smelt iron_ingot:4","pickup","shelter","explore any"],"choice":"smelt iron_ingot:4","x":[0.55,0.75,0.0,1.0,1.0,0.516,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.836,0.0,1.0,0.4,0.154,0.0,0.308,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1790776617572}
+{"event":"skill_start","skill":"smelt iron_ingot:4","trigger":"skill_done","t":1790776617572}
+{"event":"skill_end","skill":"smelt iron_ingot:4","ok":false,"code":"NO_PROGRESS","detail":"furnace stopped (out of fuel?)","seconds":12.0,"t":1790776629654}
+{"layer":"tactician","gs":723,"brain":"rules","trigger":"skill_failed","goal":"iron_tools","options":["goto surface","collect log:3","pickup","shelter","explore log"],"choice":"goto surface","x":[0.55,0.7,0.0,1.0,1.0,0.531,0.0,0.0,0.0,0.0,0.0,0.0,0.125,0.063,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.4,0.154,0.0,0.308,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1790776629655}
+{"event":"skill_start","skill":"goto surface","trigger":"skill_failed","t":1790776629655}
+{"event":"skill_end","skill":"goto surface","ok":true,"detail":"back under open sky","seconds":13.0,"t":1790776642659}
+{"layer":"tactician","gs":736,"brain":"rules","trigger":"skill_done","goal":"iron_tools","options":["collect log:3","shelter","explore log"],"choice":"collect log:3","x":[0.55,0.65,0.0,1.0,0.0,0.875,0.0,0.0,0.0,0.0,0.0,0.0,0.125,0.031,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.4,0.154,0.0,0.308,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1790776642659}
+{"event":"skill_start","skill":"collect log:3","trigger":"skill_done","t":1790776642660}
+{"event":"skill_end","skill":"collect log:3","ok":true,"detail":"collected 3 log (seen blocks)","seconds":22.75,"t":1790776665622}
+{"layer":"tactician","gs":759,"brain":"rules","trigger":"skill_done","goal":"iron_tools","options":["craft planks:4","pickup","shelter","explore any"],"choice":"craft planks:4","x":[0.55,0.6,0.0,1.0,1.0,1.0,0.0,0.0,0.0,0.0,0.0,0.188,0.125,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.4,0.154,0.0,0.308,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1790776665623}
+{"event":"skill_start","skill":"craft planks:4","trigger":"skill_done","t":1790776665624}
+{"event":"skill_end","skill":"craft planks:4","ok":true,"detail":"crafted 4 planks","seconds":0.45,"t":1790776666064}
+{"layer":"tactician","gs":760,"brain":"rules","trigger":"skill_done","goal":"iron_tools","options":["craft stick:4","shelter","explore any"],"choice":"craft stick:4","x":[0.55,0.6,0.0,1.0,1.0,1.0,0.0,0.0,0.0,0.0,0.0,0.125,0.375,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.4,0.154,0.0,0.308,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1790776666065}
+{"event":"skill_start","skill":"craft stick:4","trigger":"skill_done","t":1790776666065}
+{"event":"skill_end","skill":"craft stick:4","ok":true,"detail":"crafted 4 stick","seconds":0.45,"t":1790776666505}
+{"layer":"tactician","gs":760,"brain":"rules","trigger":"skill_done","goal":"iron_tools","options":["craft crafting_table:1","shelter","explore any"],"choice":"craft crafting_table:1","x":[0.55,0.6,0.0,1.0,1.0,1.0,0.0,0.0,0.0,0.0,0.0,0.125,0.25,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.4,0.154,0.0,0.308,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1790776666506}
+{"event":"skill_start","skill":"craft crafting_table:1","trigger":"skill_done","t":1790776666506}
+{"event":"skill_end","skill":"craft crafting_table:1","ok":true,"detail":"crafted 1 crafting_table","seconds":0.45,"t":1790776666971}
+{"layer":"tactician","gs":761,"brain":"rules","trigger":"skill_done","goal":"iron_tools","options":["craft planks:4","shelter","explore any"],"choice":"craft planks:4","x":[0.55,0.6,0.0,1.0,1.0,1.0,0.0,0.0,0.0,0.0,0.0,0.125,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.4,0.154,0.0,0.308,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1790776666971}
+{"event":"skill_start","skill":"craft planks:4","trigger":"skill_done","t":1790776666971}
+{"event":"skill_end","skill":"craft planks:4","ok":true,"detail":"crafted 4 planks","seconds":0.45,"t":1790776667422}
+{"layer":"tactician","gs":761,"brain":"rules","trigger":"skill_done","goal":"iron_tools","options":["craft wooden_pickaxe:1","shelter","explore any"],"choice":"craft wooden_pickaxe:1","x":[0.55,0.6,0.0,1.0,1.0,1.0,0.0,0.0,0.0,0.0,0.0,0.063,0.25,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.4,0.154,0.0,0.308,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1790776667422}
+{"event":"skill_start","skill":"craft wooden_pickaxe:1","trigger":"skill_done","t":1790776667423}
+{"event":"skill_end","skill":"craft wooden_pickaxe:1","ok":true,"detail":"crafted 1 wooden_pickaxe","seconds":0.85,"t":1790776668268}
+{"layer":"tactician","gs":762,"brain":"rules","trigger":"skill_done","goal":"iron_tools","options":["pickup stations","collect stone:13","shelter","explore any"],"choice":"pickup stations","x":[0.55,0.6,0.0,1.0,1.0,1.0,0.0,0.0,0.2,0.0,0.0,0.063,0.063,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.4,0.154,0.0,0.308,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1790776668268}
+{"event":"skill_start","skill":"pickup stations","trigger":"skill_done","t":1790776668269}
+{"event":"skill_end","skill":"pickup stations","ok":true,"detail":"picked up 1 stacks","seconds":4.6,"t":1790776672862}
+{"layer":"tactician","gs":766,"brain":"rules","trigger":"skill_done","goal":"iron_tools","options":["collect stone:13","pickup","shelter","explore any"],"choice":"collect stone:13","x":[0.55,0.6,0.0,1.0,1.0,0.984,0.0,0.0,0.2,0.0,0.0,0.063,0.063,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.4,0.154,0.0,0.308,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1790776672863}
+{"event":"skill_start","skill":"collect stone:13","trigger":"skill_done","t":1790776672863}
+{"event":"stuck","detail":"collect stone:13 at 96, 62, -29","t":1790776692502}
+{"event":"skill_end","skill":"collect stone:13","ok":false,"code":"STUCK","detail":"stuck: stayed inside 2.0 blocks for 12 s","seconds":19.65,"t":1790776692502}
+{"event":"skill_start","skill":"unstuck","trigger":"reflex_stuck","t":1790776692502}
+{"event":"skill_end","skill":"unstuck","ok":true,"detail":"got out (climb)","seconds":6.8,"t":1790776699309}
+{"layer":"tactician","gs":793,"brain":"rules","trigger":"skill_done","goal":"iron_tools","options":["collect stone:12","shelter","explore any"],"choice":"collect stone:12","x":[0.55,0.6,0.0,1.0,1.0,0.984,0.0,0.0,0.2,0.0,0.0,0.063,0.063,0.281,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.4,0.154,0.0,0.308,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1790776699309}
+{"event":"skill_start","skill":"collect stone:12","trigger":"skill_done","t":1790776699309}
+{"event":"skill_end","skill":"collect stone:12","ok":false,"code":"INTERRUPTED","detail":"running out of air","seconds":21.15,"t":1790776720496}
+{"event":"reflex","detail":"drowning","t":1790776720497}
+{"layer":"tactician","gs":816,"brain":"rules","trigger":"idle","goal":"iron_tools","options":["craft stone_pickaxe:1","shelter","explore any"],"choice":"craft stone_pickaxe:1","x":[0.55,0.6,0.0,1.0,1.0,0.922,0.0,0.0,0.2,0.0,0.0,0.063,0.063,0.531,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.4,0.154,0.0,0.308,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1790776721981}
+{"event":"skill_start","skill":"craft stone_pickaxe:1","trigger":"idle","t":1790776721981}
+{"event":"skill_end","skill":"craft stone_pickaxe:1","ok":true,"detail":"crafted 1 stone_pickaxe","seconds":0.85,"t":1790776722830}
+{"layer":"tactician","gs":816,"brain":"rules","trigger":"skill_done","goal":"iron_tools","options":["pickup stations","collect raw_iron:13","shelter","explore any"],"choice":"pickup stations","x":[0.55,0.6,0.0,1.0,1.0,0.906,0.0,0.0,0.4,0.0,0.0,0.063,0.063,0.438,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.4,0.154,0.0,0.308,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1790776722831}
+{"event":"skill_start","skill":"pickup stations","trigger":"skill_done","t":1790776722831}
+{"event":"skill_end","skill":"pickup stations","ok":false,"code":"INTERRUPTED","detail":"running out of air","seconds":2.15,"t":1790776724955}
+{"event":"reflex","detail":"drowning","t":1790776724955}
+{"layer":"tactician","gs":820,"brain":"rules","trigger":"idle","goal":"iron_tools","options":["pickup stations","collect raw_iron:13","shelter","explore any"],"choice":"pickup stations","x":[0.55,0.6,0.0,1.0,1.0,0.922,0.0,0.0,0.4,0.0,0.0,0.063,0.063,0.438,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.4,0.154,0.0,0.308,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1790776726464}
+{"event":"skill_start","skill":"pickup stations","trigger":"idle","t":1790776726464}
+{"event":"skill_end","skill":"pickup stations","ok":false,"code":"INTERRUPTED","detail":"running out of air","seconds":2.25,"t":1790776728715}
+{"event":"reflex","detail":"drowning","t":1790776728715}
+{"layer":"tactician","gs":824,"brain":"rules","trigger":"idle","goal":"iron_tools","options":["pickup stations","collect raw_iron:13","shelter","explore any"],"choice":"pickup stations","x":[0.55,0.6,0.0,1.0,1.0,0.922,0.0,0.0,0.4,0.0,0.0,0.063,0.063,0.438,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.4,0.154,0.0,0.308,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1790776730209}
+{"event":"skill_start","skill":"pickup stations","trigger":"idle","t":1790776730209}
+{"event":"skill_end","skill":"pickup stations","ok":false,"code":"INTERRUPTED","detail":"running out of air","seconds":2.0,"t":1790776732216}
+{"event":"reflex","detail":"drowning","t":1790776732216}
+{"layer":"tactician","gs":827,"brain":"rules","trigger":"idle","goal":"iron_tools","options":["pickup stations","collect raw_iron:13","shelter","explore any"],"choice":"pickup stations","x":[0.55,0.6,0.0,1.0,1.0,0.922,0.0,0.0,0.4,0.0,0.0,0.063,0.063,0.438,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.4,0.154,0.0,0.308,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1790776733715}
+{"event":"skill_start","skill":"pickup stations","trigger":"idle","t":1790776733716}
+{"event":"skill_end","skill":"pickup stations","ok":false,"code":"INTERRUPTED","detail":"running out of air","seconds":2.25,"t":1790776735959}
+{"event":"reflex","detail":"drowning","t":1790776735959}
+{"layer":"tactician","gs":831,"brain":"rules","trigger":"idle","goal":"iron_tools","options":["pickup stations","collect raw_iron:13","shelter","explore any"],"choice":"pickup stations","x":[0.55,0.6,0.0,1.0,1.0,0.922,0.0,0.0,0.4,0.0,0.0,0.063,0.063,0.438,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.4,0.154,0.0,0.308,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1790776737454}
+{"event":"skill_start","skill":"pickup stations","trigger":"idle","t":1790776737454}
+{"event":"skill_end","skill":"pickup stations","ok":false,"code":"INTERRUPTED","detail":"running out of air","seconds":2.05,"t":1790776739503}
+{"event":"reflex","detail":"drowning","t":1790776739503}
+{"layer":"tactician","gs":835,"brain":"rules","trigger":"idle","goal":"iron_tools","options":["pickup stations","collect raw_iron:13","shelter","explore any"],"choice":"pickup stations","x":[0.55,0.6,0.0,1.0,1.0,0.922,0.0,0.0,0.4,0.0,0.0,0.063,0.063,0.438,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.4,0.154,0.0,0.308,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1790776741006}
+{"event":"skill_start","skill":"pickup stations","trigger":"idle","t":1790776741006}
+{"event":"skill_end","skill":"pickup stations","ok":false,"code":"INTERRUPTED","detail":"running out of air","seconds":2.2,"t":1790776743205}
+{"event":"reflex","detail":"drowning","t":1790776743205}
+{"layer":"tactician","gs":838,"brain":"rules","trigger":"idle","goal":"iron_tools","options":["pickup stations","collect raw_iron:13","shelter","explore any"],"choice":"pickup stations","x":[0.55,0.6,0.0,1.0,1.0,0.922,0.0,0.0,0.4,0.0,0.0,0.063,0.063,0.438,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.4,0.154,0.0,0.308,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1790776744711}
+{"event":"skill_start","skill":"pickup stations","trigger":"idle","t":1790776744711}
+{"event":"skill_end","skill":"pickup stations","ok":false,"code":"INTERRUPTED","detail":"running out of air","seconds":2.0,"t":1790776746711}
+{"event":"reflex","detail":"drowning","t":1790776746711}
+{"layer":"tactician","gs":842,"brain":"rules","trigger":"idle","goal":"iron_tools","options":["pickup stations","collect raw_iron:13","shelter","explore any"],"choice":"pickup stations","x":[0.55,0.6,0.0,1.0,1.0,0.922,0.0,0.0,0.4,0.0,0.0,0.063,0.063,0.438,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.4,0.154,0.0,0.308,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1790776748217}
+{"event":"skill_start","skill":"pickup stations","trigger":"idle","t":1790776748217}
+{"event":"skill_end","skill":"pickup stations","ok":false,"code":"INTERRUPTED","detail":"running out of air","seconds":2.25,"t":1790776750463}
+{"event":"reflex","detail":"drowning","t":1790776750463}
+{"layer":"tactician","gs":846,"brain":"rules","trigger":"idle","goal":"iron_tools","options":["pickup stations","collect raw_iron:13","shelter","explore any"],"choice":"pickup stations","x":[0.55,0.6,0.0,1.0,1.0,0.922,0.0,0.0,0.4,0.0,0.0,0.063,0.063,0.438,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.4,0.154,0.0,0.308,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1790776751958}
+{"event":"skill_start","skill":"pickup stations","trigger":"idle","t":1790776751958}
+{"event":"skill_end","skill":"pickup stations","ok":false,"code":"INTERRUPTED","detail":"running out of air","seconds":2.0,"t":1790776753959}
+{"event":"reflex","detail":"drowning","t":1790776753959}
+{"layer":"tactician","gs":849,"brain":"rules","trigger":"idle","goal":"iron_tools","options":["pickup stations","collect raw_iron:13","shelter","explore any"],"choice":"pickup stations","x":[0.55,0.6,0.0,1.0,1.0,0.922,0.0,0.0,0.4,0.0,0.0,0.063,0.063,0.438,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.4,0.154,0.0,0.308,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1790776755457}
+{"event":"skill_start","skill":"pickup stations","trigger":"idle","t":1790776755457}
+{"event":"skill_end","skill":"pickup stations","ok":false,"code":"INTERRUPTED","detail":"running out of air","seconds":2.25,"t":1790776757707}
+{"event":"reflex","detail":"drowning","t":1790776757707}
+{"layer":"tactician","gs":853,"brain":"rules","trigger":"idle","goal":"iron_tools","options":["pickup stations","collect raw_iron:13","shelter","explore any"],"choice":"pickup stations","x":[0.55,0.6,0.0,1.0,1.0,0.922,0.0,0.0,0.4,0.0,0.0,0.063,0.063,0.438,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.4,0.154,0.0,0.308,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1790776759207}
+{"event":"skill_start","skill":"pickup stations","trigger":"idle","t":1790776759207}
+{"event":"skill_end","skill":"pickup stations","ok":false,"code":"INTERRUPTED","detail":"running out of air","seconds":2.0,"t":1790776761213}
+{"event":"reflex","detail":"drowning","t":1790776761213}
+{"layer":"tactician","gs":856,"brain":"rules","trigger":"idle","goal":"iron_tools","options":["pickup stations","collect raw_iron:13","shelter","explore any"],"choice":"pickup stations","x":[0.55,0.6,0.0,1.0,1.0,0.922,0.0,0.0,0.4,0.0,0.0,0.063,0.063,0.438,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.4,0.154,0.0,0.308,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1790776762711}
+{"event":"skill_start","skill":"pickup stations","trigger":"idle","t":1790776762711}
+{"event":"skill_end","skill":"pickup stations","ok":false,"code":"INTERRUPTED","detail":"running out of air","seconds":2.25,"t":1790776764960}
+{"event":"reflex","detail":"drowning","t":1790776764960}
+{"layer":"tactician","gs":860,"brain":"rules","trigger":"idle","goal":"iron_tools","options":["pickup stations","collect raw_iron:13","shelter","explore any"],"choice":"pickup stations","x":[0.55,0.6,0.0,1.0,1.0,0.922,0.0,0.0,0.4,0.0,0.0,0.063,0.063,0.438,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.4,0.154,0.0,0.308,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1790776766463}
+{"event":"skill_start","skill":"pickup stations","trigger":"idle","t":1790776766463}
+{"event":"skill_end","skill":"pickup stations","ok":false,"code":"INTERRUPTED","detail":"running out of air","seconds":2.0,"t":1790776768465}
+{"event":"reflex","detail":"drowning","t":1790776768466}
+{"layer":"tactician","gs":864,"brain":"rules","trigger":"idle","goal":"iron_tools","options":["pickup stations","collect raw_iron:13","shelter","explore any"],"choice":"pickup stations","x":[0.55,0.6,0.0,1.0,1.0,0.922,0.0,0.0,0.4,0.0,0.0,0.063,0.063,0.438,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.4,0.154,0.0,0.308,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1790776769962}
+{"event":"skill_start","skill":"pickup stations","trigger":"idle","t":1790776769963}
+{"event":"skill_end","skill":"pickup stations","ok":false,"code":"INTERRUPTED","detail":"running out of air","seconds":2.25,"t":1790776772217}
+{"event":"reflex","detail":"drowning","t":1790776772217}
+{"layer":"tactician","gs":867,"brain":"rules","trigger":"idle","goal":"iron_tools","options":["pickup stations","collect raw_iron:13","shelter","explore any"],"choice":"pickup stations","x":[0.55,0.6,0.0,1.0,1.0,0.922,0.0,0.0,0.4,0.0,0.0,0.063,0.063,0.438,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.4,0.154,0.0,0.308,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1790776773708}
+{"event":"skill_start","skill":"pickup stations","trigger":"idle","t":1790776773708}
+{"event":"skill_end","skill":"pickup stations","ok":false,"code":"INTERRUPTED","detail":"running out of air","seconds":2.0,"t":1790776775709}
+{"event":"reflex","detail":"drowning","t":1790776775709}
+{"layer":"tactician","gs":871,"brain":"rules","trigger":"idle","goal":"iron_tools","options":["pickup stations","collect raw_iron:13","shelter","explore any"],"choice":"pickup stations","x":[0.55,0.6,0.0,1.0,1.0,0.922,0.0,0.0,0.4,0.0,0.0,0.063,0.063,0.438,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.4,0.154,0.0,0.308,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1790776777214}
+{"event":"skill_start","skill":"pickup stations","trigger":"idle","t":1790776777214}
+{"event":"skill_end","skill":"pickup stations","ok":false,"code":"INTERRUPTED","detail":"running out of air","seconds":2.25,"t":1790776779466}
+{"event":"reflex","detail":"drowning","t":1790776779466}
+{"layer":"tactician","gs":875,"brain":"rules","trigger":"idle","goal":"iron_tools","options":["pickup stations","collect raw_iron:13","shelter","explore any"],"choice":"pickup stations","x":[0.55,0.6,0.0,1.0,1.0,0.922,0.0,0.0,0.4,0.0,0.0,0.063,0.063,0.438,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.4,0.154,0.0,0.308,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1790776780961}
+{"event":"skill_start","skill":"pickup stations","trigger":"idle","t":1790776780961}
+{"event":"skill_end","skill":"pickup stations","ok":false,"code":"INTERRUPTED","detail":"running out of air","seconds":2.0,"t":1790776782966}
+{"event":"reflex","detail":"drowning","t":1790776782966}
+{"layer":"tactician","gs":878,"brain":"rules","trigger":"idle","goal":"iron_tools","options":["pickup stations","collect raw_iron:13","shelter","explore any"],"choice":"pickup stations","x":[0.55,0.6,0.0,1.0,1.0,0.922,0.0,0.0,0.4,0.0,0.0,0.063,0.063,0.438,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.4,0.154,0.0,0.308,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1790776784456}
+{"event":"skill_start","skill":"pickup stations","trigger":"idle","t":1790776784456}
+{"event":"skill_end","skill":"pickup stations","ok":false,"code":"INTERRUPTED","detail":"running out of air","seconds":2.25,"t":1790776786710}
+{"event":"reflex","detail":"drowning","t":1790776786710}
+{"layer":"tactician","gs":882,"brain":"rules","trigger":"idle","goal":"iron_tools","options":["goto surface","pickup stations","collect raw_iron:13","shelter","explore any"],"choice":"goto surface","x":[0.55,0.6,0.0,1.0,1.0,0.922,0.0,0.0,0.4,0.0,0.0,0.063,0.063,0.438,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.4,0.154,0.0,0.308,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1790776788209}
+{"event":"skill_start","skill":"goto surface","trigger":"idle","t":1790776788209}
+{"event":"skill_end","skill":"goto surface","ok":false,"code":"INTERRUPTED","detail":"running out of air","seconds":2.0,"t":1790776790208}
+{"event":"reflex","detail":"drowning","t":1790776790208}
+{"layer":"tactician","gs":885,"brain":"rules","trigger":"idle","goal":"iron_tools","options":["goto surface","pickup stations","collect raw_iron:13","shelter","explore any"],"choice":"goto surface","x":[0.55,0.6,0.0,1.0,1.0,0.922,0.0,0.0,0.4,0.0,0.0,0.063,0.063,0.438,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.4,0.154,0.0,0.308,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1790776791706}
+{"event":"skill_start","skill":"goto surface","trigger":"idle","t":1790776791706}
+{"event":"skill_end","skill":"goto surface","ok":false,"code":"INTERRUPTED","detail":"running out of air","seconds":2.25,"t":1790776793959}
+{"event":"reflex","detail":"drowning","t":1790776793959}
+{"layer":"tactician","gs":889,"brain":"rules","trigger":"idle","goal":"iron_tools","options":["goto surface","pickup stations","collect raw_iron:13","shelter","explore any"],"choice":"goto surface","x":[0.55,0.6,0.0,1.0,1.0,0.922,0.0,0.0,0.4,0.0,0.0,0.063,0.063,0.438,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.4,0.154,0.0,0.308,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1790776795465}
+{"event":"skill_start","skill":"goto surface","trigger":"idle","t":1790776795465}
+{"event":"skill_end","skill":"goto surface","ok":false,"code":"INTERRUPTED","detail":"running out of air","seconds":2.0,"t":1790776797464}
+{"event":"reflex","detail":"drowning","t":1790776797464}
+{"layer":"tactician","gs":893,"brain":"rules","trigger":"idle","goal":"iron_tools","options":["goto surface","pickup stations","collect raw_iron:13","shelter","explore any"],"choice":"goto surface","x":[0.55,0.6,0.0,1.0,1.0,0.922,0.0,0.0,0.4,0.0,0.0,0.063,0.063,0.438,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.4,0.154,0.0,0.308,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1790776798960}
+{"event":"skill_start","skill":"goto surface","trigger":"idle","t":1790776798961}
+{"event":"skill_end","skill":"goto surface","ok":false,"code":"INTERRUPTED","detail":"running out of air","seconds":2.25,"t":1790776801209}
+{"event":"reflex","detail":"drowning","t":1790776801209}
+{"layer":"tactician","gs":896,"brain":"rules","trigger":"idle","goal":"iron_tools","options":["goto surface","pickup stations","collect raw_iron:13","shelter","explore any"],"choice":"goto surface","x":[0.55,0.6,0.0,1.0,1.0,0.922,0.0,0.0,0.4,0.0,0.0,0.063,0.063,0.438,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.4,0.154,0.0,0.308,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1790776802708}
+{"event":"skill_start","skill":"goto surface","trigger":"idle","t":1790776802708}
+{"event":"skill_end","skill":"goto surface","ok":false,"code":"INTERRUPTED","detail":"running out of air","seconds":2.0,"t":1790776804710}
+{"event":"reflex","detail":"drowning","t":1790776804710}
+{"layer":"tactician","gs":900,"brain":"rules","trigger":"idle","goal":"iron_tools","options":["goto surface","pickup stations","collect raw_iron:13","shelter","explore any"],"choice":"goto surface","x":[0.55,0.6,0.0,1.0,1.0,0.922,0.0,0.0,0.4,0.0,0.0,0.063,0.063,0.438,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.4,0.154,0.0,0.308,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1790776806210}
+{"event":"skill_start","skill":"goto surface","trigger":"idle","t":1790776806211}
+{"event":"skill_end","skill":"goto surface","ok":false,"code":"INTERRUPTED","detail":"running out of air","seconds":2.25,"t":1790776808462}
+{"event":"reflex","detail":"drowning","t":1790776808462}
+{"layer":"tactician","gs":904,"brain":"rules","trigger":"idle","goal":"iron_tools","options":["goto surface","pickup stations","collect raw_iron:13","shelter","explore any"],"choice":"goto surface","x":[0.55,0.6,0.0,1.0,1.0,0.922,0.0,0.0,0.4,0.0,0.0,0.063,0.063,0.438,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.4,0.154,0.0,0.308,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1790776809960}
+{"event":"skill_start","skill":"goto surface","trigger":"idle","t":1790776809960}
+{"event":"skill_end","skill":"goto surface","ok":false,"code":"INTERRUPTED","detail":"running out of air","seconds":2.0,"t":1790776811968}
+{"event":"reflex","detail":"drowning","t":1790776811968}
+{"layer":"tactician","gs":907,"brain":"rules","trigger":"idle","goal":"iron_tools","options":["goto surface","pickup stations","collect raw_iron:13","shelter","explore any"],"choice":"goto surface","x":[0.55,0.6,0.0,1.0,1.0,0.922,0.0,0.0,0.4,0.0,0.0,0.063,0.063,0.438,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.4,0.154,0.0,0.308,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1790776813463}
+{"event":"skill_start","skill":"goto surface","trigger":"idle","t":1790776813463}
+{"event":"skill_end","skill":"goto surface","ok":false,"code":"INTERRUPTED","detail":"running out of air","seconds":2.25,"t":1790776815714}
+{"event":"reflex","detail":"drowning","t":1790776815714}
+{"layer":"tactician","gs":911,"brain":"rules","trigger":"idle","goal":"iron_tools","options":["goto surface","pickup stations","collect raw_iron:13","shelter","explore any"],"choice":"goto surface","x":[0.55,0.6,0.0,1.0,1.0,0.922,0.0,0.0,0.4,0.0,0.0,0.063,0.063,0.438,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.4,0.154,0.0,0.308,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1790776817207}
+{"event":"skill_start","skill":"goto surface","trigger":"idle","t":1790776817207}
+{"event":"skill_end","skill":"goto surface","ok":false,"code":"INTERRUPTED","detail":"running out of air","seconds":2.0,"t":1790776819209}
+{"event":"reflex","detail":"drowning","t":1790776819209}
+{"layer":"tactician","gs":914,"brain":"rules","trigger":"idle","goal":"iron_tools","options":["goto surface","pickup stations","collect raw_iron:13","shelter","explore any"],"choice":"goto surface","x":[0.55,0.6,0.0,1.0,1.0,0.922,0.0,0.0,0.4,0.0,0.0,0.063,0.063,0.438,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.4,0.154,0.0,0.308,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1790776820718}
+{"event":"skill_start","skill":"goto surface","trigger":"idle","t":1790776820718}
+{"event":"skill_end","skill":"goto surface","ok":false,"code":"INTERRUPTED","detail":"running out of air","seconds":2.25,"t":1790776822959}
+{"event":"reflex","detail":"drowning","t":1790776822959}
+{"layer":"tactician","gs":918,"brain":"rules","trigger":"idle","goal":"iron_tools","options":["goto surface","pickup stations","collect raw_iron:13","shelter","explore any"],"choice":"goto surface","x":[0.55,0.6,0.0,1.0,1.0,0.922,0.0,0.0,0.4,0.0,0.0,0.063,0.063,0.438,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.4,0.154,0.0,0.308,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1790776824460}
+{"event":"skill_start","skill":"goto surface","trigger":"idle","t":1790776824460}
+{"event":"skill_end","skill":"goto surface","ok":false,"code":"INTERRUPTED","detail":"running out of air","seconds":2.0,"t":1790776826460}
+{"event":"reflex","detail":"drowning","t":1790776826460}
+{"layer":"tactician","gs":922,"brain":"rules","trigger":"idle","goal":"iron_tools","options":["goto surface","pickup stations","collect raw_iron:13","shelter","explore any"],"choice":"goto surface","x":[0.55,0.6,0.0,1.0,1.0,0.922,0.0,0.0,0.4,0.0,0.0,0.063,0.063,0.438,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.4,0.154,0.0,0.308,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1790776827962}
+{"event":"skill_start","skill":"goto surface","trigger":"idle","t":1790776827962}
+{"event":"skill_end","skill":"goto surface","ok":false,"code":"INTERRUPTED","detail":"running out of air","seconds":2.25,"t":1790776830217}
+{"event":"reflex","detail":"drowning","t":1790776830217}
+{"layer":"tactician","gs":925,"brain":"rules","trigger":"idle","goal":"iron_tools","options":["goto surface","pickup stations","collect raw_iron:13","shelter","explore any"],"choice":"goto surface","x":[0.55,0.6,0.0,1.0,1.0,0.922,0.0,0.0,0.4,0.0,0.0,0.063,0.063,0.438,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.4,0.154,0.0,0.308,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1790776831717}
+{"event":"skill_start","skill":"goto surface","trigger":"idle","t":1790776831717}
+{"event":"skill_end","skill":"goto surface","ok":false,"code":"INTERRUPTED","detail":"running out of air","seconds":2.0,"t":1790776833709}
+{"event":"reflex","detail":"drowning","t":1790776833709}
+{"layer":"tactician","gs":929,"brain":"rules","trigger":"idle","goal":"iron_tools","options":["goto surface","pickup stations","collect raw_iron:13","shelter","explore any"],"choice":"goto surface","x":[0.55,0.6,0.0,1.0,1.0,0.922,0.0,0.0,0.4,0.0,0.0,0.063,0.063,0.438,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.4,0.154,0.0,0.308,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1790776835220}
+{"event":"skill_start","skill":"goto surface","trigger":"idle","t":1790776835220}
+{"event":"skill_end","skill":"goto surface","ok":false,"code":"INTERRUPTED","detail":"running out of air","seconds":2.25,"t":1790776837462}
+{"event":"reflex","detail":"drowning","t":1790776837462}
+{"layer":"tactician","gs":933,"brain":"rules","trigger":"idle","goal":"iron_tools","options":["goto surface","pickup stations","collect raw_iron:13","shelter","explore any"],"choice":"goto surface","x":[0.55,0.6,0.0,1.0,1.0,0.922,0.0,0.0,0.4,0.0,0.0,0.063,0.063,0.438,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.4,0.154,0.0,0.308,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1790776838958}
+{"event":"skill_start","skill":"goto surface","trigger":"idle","t":1790776838958}
+{"event":"skill_end","skill":"goto surface","ok":false,"code":"INTERRUPTED","detail":"running out of air","seconds":2.0,"t":1790776840967}
+{"event":"reflex","detail":"drowning","t":1790776840967}
+{"layer":"tactician","gs":936,"brain":"rules","trigger":"idle","goal":"iron_tools","options":["goto surface","pickup stations","collect raw_iron:13","shelter","explore any"],"choice":"goto surface","x":[0.55,0.6,0.0,1.0,1.0,0.922,0.0,0.0,0.4,0.0,0.0,0.063,0.063,0.438,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.4,0.154,0.0,0.308,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1790776842458}
+{"event":"skill_start","skill":"goto surface","trigger":"idle","t":1790776842458}
+{"event":"skill_end","skill":"goto surface","ok":false,"code":"INTERRUPTED","detail":"running out of air","seconds":2.25,"t":1790776844716}
+{"event":"reflex","detail":"drowning","t":1790776844716}
+{"layer":"tactician","gs":940,"brain":"rules","trigger":"idle","goal":"iron_tools","options":["goto surface","pickup stations","collect raw_iron:13","shelter","explore any"],"choice":"goto surface","x":[0.55,0.6,0.0,1.0,1.0,0.922,0.0,0.0,0.4,0.0,0.0,0.063,0.063,0.438,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.4,0.154,0.0,0.308,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1790776846212}
+{"event":"skill_start","skill":"goto surface","trigger":"idle","t":1790776846213}
+{"event":"skill_end","skill":"goto surface","ok":false,"code":"INTERRUPTED","detail":"running out of air","seconds":2.0,"t":1790776848208}
+{"event":"reflex","detail":"drowning","t":1790776848208}
+{"layer":"tactician","gs":943,"brain":"rules","trigger":"idle","goal":"iron_tools","options":["goto surface","pickup stations","collect raw_iron:13","shelter","explore any"],"choice":"goto surface","x":[0.55,0.6,0.0,1.0,1.0,0.922,0.0,0.0,0.4,0.0,0.0,0.063,0.063,0.438,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.4,0.154,0.0,0.308,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1790776849708}
+{"event":"skill_start","skill":"goto surface","trigger":"idle","t":1790776849708}
+{"event":"skill_end","skill":"goto surface","ok":false,"code":"INTERRUPTED","detail":"running out of air","seconds":2.25,"t":1790776851963}
+{"event":"reflex","detail":"drowning","t":1790776851963}
+{"layer":"tactician","gs":947,"brain":"rules","trigger":"idle","goal":"iron_tools","options":["goto surface","pickup stations","collect raw_iron:13","shelter","explore any"],"choice":"goto surface","x":[0.55,0.6,0.0,1.0,1.0,0.922,0.0,0.0,0.4,0.0,0.0,0.063,0.063,0.438,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.4,0.154,0.0,0.308,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1790776853468}
+{"event":"skill_start","skill":"goto surface","trigger":"idle","t":1790776853468}
+{"event":"skill_end","skill":"goto surface","ok":false,"code":"INTERRUPTED","detail":"running out of air","seconds":2.0,"t":1790776855468}
+{"event":"reflex","detail":"drowning","t":1790776855468}
+{"layer":"tactician","gs":951,"brain":"rules","trigger":"idle","goal":"iron_tools","options":["goto surface","pickup stations","collect raw_iron:13","shelter","explore any"],"choice":"goto surface","x":[0.55,0.6,0.0,1.0,1.0,0.922,0.0,0.0,0.4,0.0,0.0,0.063,0.063,0.438,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.4,0.154,0.0,0.308,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1790776856957}
+{"event":"skill_start","skill":"goto surface","trigger":"idle","t":1790776856957}
+{"event":"skill_end","skill":"goto surface","ok":false,"code":"INTERRUPTED","detail":"running out of air","seconds":2.25,"t":1790776859210}
+{"event":"reflex","detail":"drowning","t":1790776859211}
+{"layer":"tactician","gs":954,"brain":"rules","trigger":"idle","goal":"iron_tools","options":["goto surface","pickup stations","collect raw_iron:13","shelter","explore any"],"choice":"goto surface","x":[0.55,0.6,0.0,1.0,1.0,0.922,0.0,0.0,0.4,0.0,0.0,0.063,0.063,0.438,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.4,0.154,0.0,0.308,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1790776860707}
+{"event":"skill_start","skill":"goto surface","trigger":"idle","t":1790776860707}
+{"event":"skill_end","skill":"goto surface","ok":false,"code":"INTERRUPTED","detail":"running out of air","seconds":2.0,"t":1790776862712}
+{"event":"reflex","detail":"drowning","t":1790776862712}
+{"layer":"tactician","gs":958,"brain":"rules","trigger":"idle","goal":"iron_tools","options":["goto surface","pickup stations","collect raw_iron:13","shelter","explore any"],"choice":"goto surface","x":[0.55,0.6,0.0,1.0,1.0,0.922,0.0,0.0,0.4,0.0,0.0,0.063,0.063,0.438,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.4,0.154,0.0,0.308,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1790776864209}
+{"event":"skill_start","skill":"goto surface","trigger":"idle","t":1790776864209}
+{"event":"skill_end","skill":"goto surface","ok":false,"code":"INTERRUPTED","detail":"running out of air","seconds":2.25,"t":1790776866463}
+{"event":"reflex","detail":"drowning","t":1790776866463}
+{"layer":"tactician","gs":962,"brain":"rules","trigger":"idle","goal":"iron_tools","options":["goto surface","pickup stations","collect raw_iron:13","shelter","explore any"],"choice":"goto surface","x":[0.55,0.6,0.0,1.0,1.0,0.922,0.0,0.0,0.4,0.0,0.0,0.063,0.063,0.438,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.4,0.154,0.0,0.308,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1790776867965}
+{"event":"skill_start","skill":"goto surface","trigger":"idle","t":1790776867965}
+{"event":"skill_end","skill":"goto surface","ok":false,"code":"INTERRUPTED","detail":"running out of air","seconds":2.0,"t":1790776869969}
+{"event":"reflex","detail":"drowning","t":1790776869969}
+{"layer":"tactician","gs":965,"brain":"rules","trigger":"idle","goal":"iron_tools","options":["goto surface","pickup stations","collect raw_iron:13","shelter","explore any"],"choice":"goto surface","x":[0.55,0.6,0.0,1.0,1.0,0.922,0.0,0.0,0.4,0.0,0.0,0.063,0.063,0.438,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.4,0.154,0.0,0.308,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1790776871470}
+{"event":"skill_start","skill":"goto surface","trigger":"idle","t":1790776871470}
+{"event":"skill_end","skill":"goto surface","ok":false,"code":"INTERRUPTED","detail":"running out of air","seconds":2.25,"t":1790776873710}
+{"event":"reflex","detail":"drowning","t":1790776873710}
+{"layer":"tactician","gs":969,"brain":"rules","trigger":"idle","goal":"iron_tools","options":["goto surface","pickup stations","collect raw_iron:13","shelter","explore any"],"choice":"goto surface","x":[0.55,0.6,0.0,1.0,1.0,0.922,0.0,0.0,0.4,0.0,0.0,0.063,0.063,0.438,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.4,0.154,0.0,0.308,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1790776875210}
+{"event":"skill_start","skill":"goto surface","trigger":"idle","t":1790776875210}
+{"event":"skill_end","skill":"goto surface","ok":false,"code":"INTERRUPTED","detail":"running out of air","seconds":2.0,"t":1790776877210}
+{"event":"reflex","detail":"drowning","t":1790776877210}
+{"layer":"tactician","gs":972,"brain":"rules","trigger":"idle","goal":"iron_tools","options":["goto surface","pickup stations","collect raw_iron:13","shelter","explore any"],"choice":"goto surface","x":[0.55,0.6,0.0,1.0,1.0,0.922,0.0,0.0,0.4,0.0,0.0,0.063,0.063,0.438,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.4,0.154,0.0,0.308,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1790776878716}
+{"event":"skill_start","skill":"goto surface","trigger":"idle","t":1790776878716}
+{"event":"skill_end","skill":"goto surface","ok":false,"code":"INTERRUPTED","detail":"running out of air","seconds":2.25,"t":1790776880962}
+{"event":"reflex","detail":"drowning","t":1790776880962}
+{"layer":"tactician","gs":976,"brain":"rules","trigger":"idle","goal":"iron_tools","options":["goto surface","pickup stations","collect raw_iron:13","shelter","explore any"],"choice":"goto surface","x":[0.55,0.6,0.0,1.0,1.0,0.922,0.0,0.0,0.4,0.0,0.0,0.063,0.063,0.438,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.4,0.154,0.0,0.308,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1790776882460}
+{"event":"skill_start","skill":"goto surface","trigger":"idle","t":1790776882460}
+{"event":"skill_end","skill":"goto surface","ok":false,"code":"INTERRUPTED","detail":"running out of air","seconds":2.0,"t":1790776884470}
+{"event":"reflex","detail":"drowning","t":1790776884470}
+{"layer":"tactician","gs":980,"brain":"rules","trigger":"idle","goal":"iron_tools","options":["goto surface","pickup stations","collect raw_iron:13","shelter","explore any"],"choice":"goto surface","x":[0.55,0.6,0.0,1.0,1.0,0.922,0.0,0.0,0.4,0.0,0.0,0.063,0.063,0.438,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.4,0.154,0.0,0.308,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1790776885963}
+{"event":"skill_start","skill":"goto surface","trigger":"idle","t":1790776885963}
+{"event":"skill_end","skill":"goto surface","ok":false,"code":"INTERRUPTED","detail":"running out of air","seconds":2.25,"t":1790776888213}
+{"event":"reflex","detail":"drowning","t":1790776888213}
+{"layer":"tactician","gs":983,"brain":"rules","trigger":"idle","goal":"iron_tools","options":["goto surface","pickup stations","collect raw_iron:13","shelter","explore any"],"choice":"goto surface","x":[0.55,0.6,0.0,1.0,1.0,0.922,0.0,0.0,0.4,0.0,0.0,0.063,0.063,0.438,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.4,0.154,0.0,0.308,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1790776889719}
+{"event":"skill_start","skill":"goto surface","trigger":"idle","t":1790776889719}
+{"event":"skill_end","skill":"goto surface","ok":false,"code":"INTERRUPTED","detail":"running out of air","seconds":2.0,"t":1790776891716}
+{"event":"reflex","detail":"drowning","t":1790776891716}
+{"layer":"tactician","gs":987,"brain":"rules","trigger":"idle","goal":"iron_tools","options":["goto surface","pickup stations","collect raw_iron:13","shelter","explore any"],"choice":"goto surface","x":[0.55,0.6,0.0,1.0,1.0,0.922,0.0,0.0,0.4,0.0,0.0,0.063,0.063,0.438,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.4,0.154,0.0,0.308,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1790776893218}
+{"event":"skill_start","skill":"goto surface","trigger":"idle","t":1790776893218}
+{"event":"skill_end","skill":"goto surface","ok":false,"code":"INTERRUPTED","detail":"running out of air","seconds":2.25,"t":1790776895467}
+{"event":"reflex","detail":"drowning","t":1790776895467}
+{"layer":"tactician","gs":991,"brain":"rules","trigger":"idle","goal":"iron_tools","options":["goto surface","pickup stations","collect raw_iron:13","shelter","explore any"],"choice":"goto surface","x":[0.55,0.55,0.0,1.0,1.0,0.922,0.0,0.0,0.4,0.0,0.0,0.063,0.063,0.438,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.4,0.154,0.0,0.308,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1790776896966}
+{"event":"skill_start","skill":"goto surface","trigger":"idle","t":1790776896966}
+{"event":"skill_end","skill":"goto surface","ok":false,"code":"INTERRUPTED","detail":"running out of air","seconds":2.0,"t":1790776898960}
+{"event":"reflex","detail":"drowning","t":1790776898960}
+{"layer":"tactician","gs":994,"brain":"rules","trigger":"idle","goal":"iron_tools","options":["goto surface","pickup stations","collect raw_iron:13","shelter","explore any"],"choice":"goto surface","x":[0.55,0.55,0.0,1.0,1.0,0.922,0.0,0.0,0.4,0.0,0.0,0.063,0.063,0.438,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.4,0.154,0.0,0.308,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1790776900466}
+{"event":"skill_start","skill":"goto surface","trigger":"idle","t":1790776900466}
+{"event":"skill_end","skill":"goto surface","ok":false,"code":"INTERRUPTED","detail":"running out of air","seconds":2.25,"t":1790776902715}
+{"event":"reflex","detail":"drowning","t":1790776902715}
+{"layer":"tactician","gs":998,"brain":"rules","trigger":"idle","goal":"iron_tools","options":["goto surface","pickup stations","collect raw_iron:13","shelter","explore any"],"choice":"goto surface","x":[0.55,0.55,0.0,1.0,1.0,0.922,0.0,0.0,0.4,0.0,0.0,0.063,0.063,0.438,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.4,0.154,0.0,0.308,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1790776904219}
+{"event":"skill_start","skill":"goto surface","trigger":"idle","t":1790776904219}
+{"event":"skill_end","skill":"goto surface","ok":false,"code":"INTERRUPTED","detail":"running out of air","seconds":2.0,"t":1790776906218}
+{"event":"reflex","detail":"drowning","t":1790776906218}
+{"layer":"tactician","gs":1001,"brain":"rules","trigger":"idle","goal":"iron_tools","options":["goto surface","pickup stations","collect raw_iron:13","shelter","explore any"],"choice":"goto surface","x":[0.55,0.55,0.0,1.0,1.0,0.922,0.0,0.0,0.4,0.0,0.0,0.063,0.063,0.438,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.4,0.154,0.0,0.308,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1790776907716}
+{"event":"skill_start","skill":"goto surface","trigger":"idle","t":1790776907716}
+{"event":"skill_end","skill":"goto surface","ok":false,"code":"INTERRUPTED","detail":"running out of air","seconds":2.25,"t":1790776909964}
+{"event":"reflex","detail":"drowning","t":1790776909964}
+{"layer":"tactician","gs":1005,"brain":"rules","trigger":"idle","goal":"iron_tools","options":["goto surface","pickup stations","collect raw_iron:13","shelter","explore any"],"choice":"goto surface","x":[0.55,0.55,0.0,1.0,1.0,0.922,0.0,0.0,0.4,0.0,0.0,0.063,0.063,0.438,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.4,0.154,0.0,0.308,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1790776911470}
+{"event":"skill_start","skill":"goto surface","trigger":"idle","t":1790776911470}
+{"event":"skill_end","skill":"goto surface","ok":false,"code":"INTERRUPTED","detail":"running out of air","seconds":2.0,"t":1790776913464}
+{"event":"reflex","detail":"drowning","t":1790776913465}
+{"layer":"tactician","gs":1009,"brain":"rules","trigger":"idle","goal":"iron_tools","options":["goto surface","pickup stations","collect raw_iron:13","shelter","explore any"],"choice":"goto surface","x":[0.55,0.55,0.0,1.0,1.0,0.922,0.0,0.0,0.4,0.0,0.0,0.063,0.063,0.438,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.4,0.154,0.0,0.308,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1790776914959}
+{"event":"skill_start","skill":"goto surface","trigger":"idle","t":1790776914959}
+{"event":"skill_end","skill":"goto surface","ok":false,"code":"INTERRUPTED","detail":"running out of air","seconds":2.25,"t":1790776917213}
+{"event":"reflex","detail":"drowning","t":1790776917214}
+{"layer":"tactician","gs":1012,"brain":"rules","trigger":"idle","goal":"iron_tools","options":["goto surface","pickup stations","collect raw_iron:13","shelter","explore any"],"choice":"goto surface","x":[0.55,0.55,0.0,1.0,1.0,0.922,0.0,0.0,0.4,0.0,0.0,0.063,0.063,0.438,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.4,0.154,0.0,0.308,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1790776918712}
+{"event":"skill_start","skill":"goto surface","trigger":"idle","t":1790776918712}
+{"event":"skill_end","skill":"goto surface","ok":false,"code":"INTERRUPTED","detail":"running out of air","seconds":2.0,"t":1790776920720}
+{"event":"reflex","detail":"drowning","t":1790776920721}
+{"layer":"tactician","gs":1016,"brain":"rules","trigger":"idle","goal":"iron_tools","options":["goto surface","pickup stations","collect raw_iron:13","shelter","explore any"],"choice":"goto surface","x":[0.55,0.55,0.0,1.0,1.0,0.922,0.0,0.0,0.4,0.0,0.0,0.063,0.063,0.438,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.4,0.154,0.0,0.308,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1790776922211}
+{"event":"skill_start","skill":"goto surface","trigger":"idle","t":1790776922211}
+{"event":"skill_end","skill":"goto surface","ok":false,"code":"INTERRUPTED","detail":"running out of air","seconds":2.25,"t":1790776924462}
+{"event":"reflex","detail":"drowning","t":1790776924462}
+{"layer":"tactician","gs":1020,"brain":"rules","trigger":"idle","goal":"iron_tools","options":["goto surface","pickup stations","collect raw_iron:13","shelter","explore any"],"choice":"goto surface","x":[0.55,0.55,0.0,1.0,1.0,0.922,0.0,0.0,0.4,0.0,0.0,0.063,0.063,0.438,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.4,0.154,0.0,0.308,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1790776925963}
+{"event":"skill_start","skill":"goto surface","trigger":"idle","t":1790776925963}
+{"event":"skill_end","skill":"goto surface","ok":false,"code":"INTERRUPTED","detail":"running out of air","seconds":2.0,"t":1790776927966}
+{"event":"reflex","detail":"drowning","t":1790776927966}
+{"layer":"tactician","gs":1023,"brain":"rules","trigger":"idle","goal":"iron_tools","options":["goto surface","pickup stations","collect raw_iron:13","shelter","explore any"],"choice":"goto surface","x":[0.55,0.55,0.0,1.0,1.0,0.922,0.0,0.0,0.4,0.0,0.0,0.063,0.063,0.438,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.4,0.154,0.0,0.308,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1790776929462}
+{"event":"skill_start","skill":"goto surface","trigger":"idle","t":1790776929462}
+{"event":"skill_end","skill":"goto surface","ok":false,"code":"INTERRUPTED","detail":"running out of air","seconds":2.25,"t":1790776931710}
+{"event":"reflex","detail":"drowning","t":1790776931710}
+{"layer":"tactician","gs":1027,"brain":"rules","trigger":"idle","goal":"iron_tools","options":["goto surface","pickup stations","collect raw_iron:13","shelter","explore any"],"choice":"goto surface","x":[0.55,0.55,0.0,1.0,1.0,0.922,0.0,0.0,0.4,0.0,0.0,0.063,0.063,0.438,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.4,0.154,0.0,0.308,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1790776933214}
+{"event":"skill_start","skill":"goto surface","trigger":"idle","t":1790776933214}
+{"event":"skill_end","skill":"goto surface","ok":false,"code":"INTERRUPTED","detail":"running out of air","seconds":2.0,"t":1790776935220}
+{"event":"reflex","detail":"drowning","t":1790776935220}
+{"layer":"tactician","gs":1030,"brain":"rules","trigger":"idle","goal":"iron_tools","options":["goto surface","pickup stations","collect raw_iron:13","shelter","explore any"],"choice":"goto surface","x":[0.55,0.55,0.0,1.0,1.0,0.922,0.0,0.0,0.4,0.0,0.0,0.063,0.063,0.438,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.4,0.154,0.0,0.308,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1790776936715}
+{"event":"skill_start","skill":"goto surface","trigger":"idle","t":1790776936715}
+{"event":"skill_end","skill":"goto surface","ok":false,"code":"INTERRUPTED","detail":"running out of air","seconds":2.25,"t":1790776938967}
+{"event":"reflex","detail":"drowning","t":1790776938967}
+{"layer":"tactician","gs":1034,"brain":"rules","trigger":"idle","goal":"iron_tools","options":["goto surface","pickup stations","collect raw_iron:13","shelter","explore any"],"choice":"goto surface","x":[0.55,0.55,0.0,1.0,1.0,0.922,0.0,0.0,0.4,0.0,0.0,0.063,0.063,0.438,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.4,0.154,0.0,0.308,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1790776940465}
+{"event":"skill_start","skill":"goto surface","trigger":"idle","t":1790776940465}
+{"event":"skill_end","skill":"goto surface","ok":false,"code":"INTERRUPTED","detail":"running out of air","seconds":2.0,"t":1790776942464}
+{"event":"reflex","detail":"drowning","t":1790776942464}
+{"layer":"tactician","gs":1038,"brain":"rules","trigger":"idle","goal":"iron_tools","options":["goto surface","pickup stations","collect raw_iron:13","shelter","explore any"],"choice":"goto surface","x":[0.55,0.55,0.0,1.0,1.0,0.922,0.0,0.0,0.4,0.0,0.0,0.063,0.063,0.438,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.4,0.154,0.0,0.308,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1790776943969}
+{"event":"skill_start","skill":"goto surface","trigger":"idle","t":1790776943969}
+{"event":"skill_end","skill":"goto surface","ok":false,"code":"INTERRUPTED","detail":"running out of air","seconds":2.25,"t":1790776946222}
+{"event":"reflex","detail":"drowning","t":1790776946222}
+{"layer":"tactician","gs":1041,"brain":"rules","trigger":"idle","goal":"iron_tools","options":["goto surface","pickup stations","collect raw_iron:13","shelter","explore any"],"choice":"goto surface","x":[0.55,0.55,0.0,1.0,1.0,0.922,0.0,0.0,0.4,0.0,0.0,0.063,0.063,0.438,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.4,0.154,0.0,0.308,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1790776947720}
+{"event":"skill_start","skill":"goto surface","trigger":"idle","t":1790776947720}
+{"event":"skill_end","skill":"goto surface","ok":false,"code":"INTERRUPTED","detail":"running out of air","seconds":2.0,"t":1790776949712}
+{"event":"reflex","detail":"drowning","t":1790776949713}
+{"layer":"tactician","gs":1045,"brain":"rules","trigger":"idle","goal":"iron_tools","options":["goto surface","pickup stations","collect raw_iron:13","shelter","explore any"],"choice":"goto surface","x":[0.55,0.55,0.0,1.0,1.0,0.922,0.0,0.0,0.4,0.0,0.0,0.063,0.063,0.438,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.4,0.154,0.0,0.308,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1790776951215}
+{"event":"skill_start","skill":"goto surface","trigger":"idle","t":1790776951215}
+{"event":"skill_end","skill":"goto surface","ok":false,"code":"INTERRUPTED","detail":"running out of air","seconds":2.25,"t":1790776953469}
+{"event":"reflex","detail":"drowning","t":1790776953469}
+{"layer":"tactician","gs":1049,"brain":"rules","trigger":"idle","goal":"iron_tools","options":["goto surface","pickup stations","collect raw_iron:13","shelter","explore any"],"choice":"goto surface","x":[0.55,0.55,0.0,1.0,1.0,0.922,0.0,0.0,0.4,0.0,0.0,0.063,0.063,0.438,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.4,0.154,0.0,0.308,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1790776954961}
+{"event":"skill_start","skill":"goto surface","trigger":"idle","t":1790776954961}
+{"event":"skill_end","skill":"goto surface","ok":false,"code":"INTERRUPTED","detail":"running out of air","seconds":2.0,"t":1790776956963}
+{"event":"reflex","detail":"drowning","t":1790776956964}
+{"layer":"tactician","gs":1052,"brain":"rules","trigger":"idle","goal":"iron_tools","options":["goto surface","pickup stations","collect raw_iron:13","shelter","explore any"],"choice":"goto surface","x":[0.55,0.55,0.0,1.0,1.0,0.922,0.0,0.0,0.4,0.0,0.0,0.063,0.063,0.438,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.4,0.154,0.0,0.308,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1790776958471}
+{"event":"skill_start","skill":"goto surface","trigger":"idle","t":1790776958471}
+{"event":"skill_end","skill":"goto surface","ok":false,"code":"INTERRUPTED","detail":"running out of air","seconds":2.25,"t":1790776960712}
+{"event":"reflex","detail":"drowning","t":1790776960712}
+{"layer":"tactician","gs":1056,"brain":"rules","trigger":"idle","goal":"iron_tools","options":["goto surface","pickup stations","collect raw_iron:13","shelter","explore any"],"choice":"goto surface","x":[0.55,0.55,0.0,1.0,1.0,0.922,0.0,0.0,0.4,0.0,0.0,0.063,0.063,0.438,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.4,0.154,0.0,0.308,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1790776962211}
+{"event":"skill_start","skill":"goto surface","trigger":"idle","t":1790776962211}
+{"event":"skill_end","skill":"goto surface","ok":false,"code":"INTERRUPTED","detail":"running out of air","seconds":2.0,"t":1790776964212}
+{"event":"reflex","detail":"drowning","t":1790776964212}
+{"layer":"tactician","gs":1059,"brain":"rules","trigger":"idle","goal":"iron_tools","options":["goto surface","pickup stations","collect raw_iron:13","shelter","explore any"],"choice":"goto surface","x":[0.55,0.55,0.0,1.0,1.0,0.922,0.0,0.0,0.4,0.0,0.0,0.063,0.063,0.438,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.4,0.154,0.0,0.308,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1790776965719}
+{"event":"skill_start","skill":"goto surface","trigger":"idle","t":1790776965720}
+{"event":"skill_end","skill":"goto surface","ok":false,"code":"INTERRUPTED","detail":"running out of air","seconds":2.25,"t":1790776967970}
+{"event":"reflex","detail":"drowning","t":1790776967970}
+{"layer":"tactician","gs":1063,"brain":"rules","trigger":"idle","goal":"iron_tools","options":["goto surface","pickup stations","collect raw_iron:13","shelter","explore any"],"choice":"goto surface","x":[0.55,0.55,0.0,1.0,1.0,0.922,0.0,0.0,0.4,0.0,0.0,0.063,0.063,0.438,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.4,0.154,0.0,0.308,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1790776969466}
+{"event":"skill_start","skill":"goto surface","trigger":"idle","t":1790776969466}
+{"event":"skill_end","skill":"goto surface","ok":false,"code":"INTERRUPTED","detail":"running out of air","seconds":2.0,"t":1790776971471}
+{"event":"reflex","detail":"drowning","t":1790776971471}
+{"layer":"tactician","gs":1067,"brain":"rules","trigger":"idle","goal":"iron_tools","options":["goto surface","pickup stations","collect raw_iron:13","shelter","explore any"],"choice":"goto surface","x":[0.55,0.55,0.0,1.0,1.0,0.922,0.0,0.0,0.4,0.0,0.0,0.063,0.063,0.438,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.4,0.154,0.0,0.308,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1790776972970}
+{"event":"skill_start","skill":"goto surface","trigger":"idle","t":1790776972970}
+{"event":"skill_end","skill":"goto surface","ok":false,"code":"INTERRUPTED","detail":"running out of air","seconds":2.25,"t":1790776975215}
+{"event":"reflex","detail":"drowning","t":1790776975215}
+{"layer":"tactician","gs":1070,"brain":"rules","trigger":"idle","goal":"iron_tools","options":["goto surface","pickup stations","collect raw_iron:13","shelter","explore any"],"choice":"goto surface","x":[0.55,0.55,0.0,1.0,1.0,0.922,0.0,0.0,0.4,0.0,0.0,0.063,0.063,0.438,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.4,0.154,0.0,0.308,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1790776976710}
+{"event":"skill_start","skill":"goto surface","trigger":"idle","t":1790776976711}
+{"event":"skill_end","skill":"goto surface","ok":false,"code":"INTERRUPTED","detail":"running out of air","seconds":2.0,"t":1790776978723}
+{"event":"reflex","detail":"drowning","t":1790776978723}
+{"layer":"tactician","gs":1074,"brain":"rules","trigger":"idle","goal":"iron_tools","options":["goto surface","pickup stations","collect raw_iron:13","shelter","explore any"],"choice":"goto surface","x":[0.55,0.55,0.0,1.0,1.0,0.922,0.0,0.0,0.4,0.0,0.0,0.063,0.063,0.438,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.4,0.154,0.0,0.308,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1790776980213}
+{"event":"skill_start","skill":"goto surface","trigger":"idle","t":1790776980213}
+{"event":"skill_end","skill":"goto surface","ok":false,"code":"INTERRUPTED","detail":"running out of air","seconds":2.25,"t":1790776982473}
+{"event":"reflex","detail":"drowning","t":1790776982473}
+{"layer":"tactician","gs":1078,"brain":"rules","trigger":"idle","goal":"iron_tools","options":["goto surface","pickup stations","collect raw_iron:13","shelter","explore any"],"choice":"goto surface","x":[0.55,0.55,0.0,1.0,1.0,0.922,0.0,0.0,0.4,0.0,0.0,0.063,0.063,0.438,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.4,0.154,0.0,0.308,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1790776983971}
+{"event":"skill_start","skill":"goto surface","trigger":"idle","t":1790776983971}
+{"event":"skill_end","skill":"goto surface","ok":false,"code":"INTERRUPTED","detail":"running out of air","seconds":2.0,"t":1790776985967}
+{"event":"reflex","detail":"drowning","t":1790776985967}
+{"layer":"tactician","gs":1081,"brain":"rules","trigger":"idle","goal":"iron_tools","options":["goto surface","pickup stations","collect raw_iron:13","shelter","explore any"],"choice":"goto surface","x":[0.55,0.55,0.0,1.0,1.0,0.922,0.0,0.0,0.4,0.0,0.0,0.063,0.063,0.438,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.4,0.154,0.0,0.308,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1790776987464}
+{"event":"skill_start","skill":"goto surface","trigger":"idle","t":1790776987464}
+{"event":"skill_end","skill":"goto surface","ok":false,"code":"INTERRUPTED","detail":"running out of air","seconds":2.25,"t":1790776989717}
+{"event":"reflex","detail":"drowning","t":1790776989717}
+{"layer":"tactician","gs":1085,"brain":"rules","trigger":"idle","goal":"iron_tools","options":["goto surface","pickup stations","collect raw_iron:13","shelter","explore any"],"choice":"goto surface","x":[0.55,0.55,0.0,1.0,1.0,0.922,0.0,0.0,0.4,0.0,0.0,0.063,0.063,0.438,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.4,0.154,0.0,0.308,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1790776991212}
+{"event":"skill_start","skill":"goto surface","trigger":"idle","t":1790776991212}
+{"event":"skill_end","skill":"goto surface","ok":false,"code":"INTERRUPTED","detail":"running out of air","seconds":2.0,"t":1790776993213}
+{"event":"reflex","detail":"drowning","t":1790776993213}
+{"layer":"tactician","gs":1088,"brain":"rules","trigger":"idle","goal":"iron_tools","options":["goto surface","pickup stations","collect raw_iron:13","shelter","explore any"],"choice":"goto surface","x":[0.55,0.55,0.0,1.0,1.0,0.922,0.0,0.0,0.4,0.0,0.0,0.063,0.063,0.438,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.4,0.154,0.0,0.308,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1790776994716}
+{"event":"skill_start","skill":"goto surface","trigger":"idle","t":1790776994716}
+{"event":"skill_end","skill":"goto surface","ok":false,"code":"INTERRUPTED","detail":"running out of air","seconds":2.25,"t":1790776996967}
+{"event":"reflex","detail":"drowning","t":1790776996967}
+{"layer":"tactician","gs":1092,"brain":"rules","trigger":"idle","goal":"iron_tools","options":["goto surface","pickup stations","collect raw_iron:13","shelter","explore any"],"choice":"goto surface","x":[0.55,0.55,0.0,1.0,1.0,0.922,0.0,0.0,0.4,0.0,0.0,0.063,0.063,0.438,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.4,0.154,0.0,0.308,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1790776998465}
+{"event":"skill_start","skill":"goto surface","trigger":"idle","t":1790776998465}
+{"event":"skill_end","skill":"goto surface","ok":false,"code":"INTERRUPTED","detail":"running out of air","seconds":2.0,"t":1790777000467}
+{"event":"reflex","detail":"drowning","t":1790777000467}
+{"layer":"tactician","gs":1096,"brain":"rules","trigger":"idle","goal":"iron_tools","options":["goto surface","pickup stations","collect raw_iron:13","shelter","explore any"],"choice":"goto surface","x":[0.55,0.55,0.0,1.0,1.0,0.922,0.0,0.0,0.4,0.0,0.0,0.063,0.063,0.438,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.4,0.154,0.0,0.308,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1790777001964}
+{"event":"skill_start","skill":"goto surface","trigger":"idle","t":1790777001964}
+{"event":"skill_end","skill":"goto surface","ok":false,"code":"INTERRUPTED","detail":"running out of air","seconds":2.25,"t":1790777004213}
+{"event":"reflex","detail":"drowning","t":1790777004213}
+{"layer":"tactician","gs":1099,"brain":"rules","trigger":"idle","goal":"iron_tools","options":["goto surface","pickup stations","collect raw_iron:13","shelter","explore any"],"choice":"goto surface","x":[0.55,0.55,0.0,1.0,1.0,0.922,0.0,0.0,0.4,0.0,0.0,0.063,0.063,0.438,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.4,0.154,0.0,0.308,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1790777005723}
+{"event":"skill_start","skill":"goto surface","trigger":"idle","t":1790777005723}
+{"event":"skill_end","skill":"goto surface","ok":false,"code":"INTERRUPTED","detail":"running out of air","seconds":2.0,"t":1790777007724}
+{"event":"reflex","detail":"drowning","t":1790777007724}
+{"layer":"tactician","gs":1103,"brain":"rules","trigger":"idle","goal":"iron_tools","options":["goto surface","pickup stations","collect raw_iron:13","shelter","explore any"],"choice":"goto surface","x":[0.55,0.55,0.0,1.0,1.0,0.922,0.0,0.0,0.4,0.0,0.0,0.063,0.063,0.438,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.4,0.154,0.0,0.308,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1790777009215}
+{"event":"skill_start","skill":"goto surface","trigger":"idle","t":1790777009215}
+{"event":"skill_end","skill":"goto surface","ok":false,"code":"INTERRUPTED","detail":"running out of air","seconds":2.25,"t":1790777011465}
+{"event":"reflex","detail":"drowning","t":1790777011466}
+{"layer":"tactician","gs":1107,"brain":"rules","trigger":"idle","goal":"iron_tools","options":["goto surface","pickup stations","collect raw_iron:13","shelter","explore any"],"choice":"goto surface","x":[0.55,0.55,0.0,1.0,1.0,0.922,0.0,0.0,0.4,0.0,0.0,0.063,0.063,0.438,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.4,0.154,0.0,0.308,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1790777012965}
+{"event":"skill_start","skill":"goto surface","trigger":"idle","t":1790777012965}
+{"event":"skill_end","skill":"goto surface","ok":false,"code":"INTERRUPTED","detail":"running out of air","seconds":2.0,"t":1790777014966}
+{"event":"reflex","detail":"drowning","t":1790777014966}
+{"layer":"tactician","gs":1110,"brain":"rules","trigger":"idle","goal":"iron_tools","options":["goto surface","pickup stations","collect raw_iron:13","shelter","explore any"],"choice":"goto surface","x":[0.55,0.55,0.0,1.0,1.0,0.922,0.0,0.0,0.4,0.0,0.0,0.063,0.063,0.438,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.4,0.154,0.0,0.308,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1790777016472}
+{"event":"skill_start","skill":"goto surface","trigger":"idle","t":1790777016472}
+{"event":"skill_end","skill":"goto surface","ok":false,"code":"INTERRUPTED","detail":"running out of air","seconds":2.25,"t":1790777018717}
+{"event":"reflex","detail":"drowning","t":1790777018717}
+{"layer":"tactician","gs":1114,"brain":"rules","trigger":"idle","goal":"iron_tools","options":["goto surface","pickup stations","collect raw_iron:13","shelter","explore any"],"choice":"goto surface","x":[0.55,0.55,0.0,1.0,1.0,0.922,0.0,0.0,0.4,0.0,0.0,0.063,0.063,0.438,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.4,0.154,0.0,0.308,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1790777020212}
+{"event":"skill_start","skill":"goto surface","trigger":"idle","t":1790777020212}
+{"event":"skill_end","skill":"goto surface","ok":false,"code":"INTERRUPTED","detail":"running out of air","seconds":2.0,"t":1790777022217}
+{"event":"reflex","detail":"drowning","t":1790777022217}
+{"layer":"tactician","gs":1117,"brain":"rules","trigger":"idle","goal":"iron_tools","options":["goto surface","pickup stations","collect raw_iron:13","explore any"],"choice":"goto surface","x":[0.55,0.55,0.0,0.0,1.0,0.922,0.0,0.0,0.4,0.0,0.0,0.063,0.063,0.438,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.4,0.154,0.0,0.308,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1790777023722}
+{"event":"skill_start","skill":"goto surface","trigger":"idle","t":1790777023722}
+{"event":"skill_end","skill":"goto surface","ok":false,"code":"INTERRUPTED","detail":"running out of air","seconds":2.25,"t":1790777025971}
+{"event":"reflex","detail":"drowning","t":1790777025971}
+{"layer":"tactician","gs":1121,"brain":"rules","trigger":"idle","goal":"iron_tools","options":["goto surface","pickup stations","collect raw_iron:13","explore any"],"choice":"goto surface","x":[0.55,0.55,0.0,0.0,1.0,0.922,0.0,0.0,0.4,0.0,0.0,0.063,0.063,0.438,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.4,0.154,0.0,0.308,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1790777027468}
+{"event":"skill_start","skill":"goto surface","trigger":"idle","t":1790777027468}
+{"event":"skill_end","skill":"goto surface","ok":false,"code":"INTERRUPTED","detail":"running out of air","seconds":2.0,"t":1790777029465}
+{"event":"reflex","detail":"drowning","t":1790777029465}
+{"layer":"tactician","gs":1125,"brain":"rules","trigger":"idle","goal":"iron_tools","options":["goto surface","pickup stations","collect raw_iron:13","explore any"],"choice":"goto surface","x":[0.55,0.55,0.0,0.0,1.0,0.922,0.0,0.0,0.4,0.0,0.0,0.063,0.063,0.438,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.4,0.154,0.0,0.308,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1790777030974}
+{"event":"skill_start","skill":"goto surface","trigger":"idle","t":1790777030974}
+{"event":"skill_end","skill":"goto surface","ok":false,"code":"INTERRUPTED","detail":"running out of air","seconds":2.25,"t":1790777033223}
+{"event":"reflex","detail":"drowning","t":1790777033223}
+{"layer":"tactician","gs":1128,"brain":"rules","trigger":"idle","goal":"iron_tools","options":["goto surface","pickup stations","collect raw_iron:13","explore any"],"choice":"goto surface","x":[0.55,0.55,0.0,0.0,1.0,0.922,0.0,0.0,0.4,0.0,0.0,0.063,0.063,0.438,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.4,0.154,0.0,0.308,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1790777034721}
+{"event":"skill_start","skill":"goto surface","trigger":"idle","t":1790777034721}
+{"event":"skill_end","skill":"goto surface","ok":false,"code":"INTERRUPTED","detail":"running out of air","seconds":2.0,"t":1790777036724}
+{"event":"reflex","detail":"drowning","t":1790777036724}
+{"layer":"tactician","gs":1132,"brain":"rules","trigger":"idle","goal":"iron_tools","options":["goto surface","pickup stations","collect raw_iron:13","explore any"],"choice":"goto surface","x":[0.55,0.55,0.0,0.0,1.0,0.922,0.0,0.0,0.4,0.0,0.0,0.063,0.063,0.438,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.4,0.154,0.0,0.308,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1790777038216}
+{"event":"skill_start","skill":"goto surface","trigger":"idle","t":1790777038216}
+{"event":"skill_end","skill":"goto surface","ok":false,"code":"INTERRUPTED","detail":"running out of air","seconds":2.25,"t":1790777040473}
+{"event":"reflex","detail":"drowning","t":1790777040473}
+{"layer":"tactician","gs":1136,"brain":"rules","trigger":"idle","goal":"iron_tools","options":["goto surface","pickup stations","collect raw_iron:13","explore any"],"choice":"goto surface","x":[0.55,0.55,0.0,0.0,1.0,0.922,0.0,0.0,0.4,0.0,0.0,0.063,0.063,0.438,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.4,0.154,0.0,0.308,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1790777041973}
+{"event":"skill_start","skill":"goto surface","trigger":"idle","t":1790777041973}
+{"event":"skill_end","skill":"goto surface","ok":false,"code":"INTERRUPTED","detail":"running out of air","seconds":2.0,"t":1790777043970}
+{"event":"reflex","detail":"drowning","t":1790777043970}
+{"layer":"tactician","gs":1139,"brain":"rules","trigger":"idle","goal":"iron_tools","options":["goto surface","pickup stations","collect raw_iron:13","explore any"],"choice":"goto surface","x":[0.55,0.55,0.0,0.0,1.0,0.922,0.0,0.0,0.4,0.0,0.0,0.063,0.063,0.438,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.4,0.154,0.0,0.308,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1790777045473}
+{"event":"skill_start","skill":"goto surface","trigger":"idle","t":1790777045473}
+{"event":"skill_end","skill":"goto surface","ok":false,"code":"INTERRUPTED","detail":"running out of air","seconds":2.25,"t":1790777047721}
+{"event":"reflex","detail":"drowning","t":1790777047721}
+{"layer":"tactician","gs":1143,"brain":"rules","trigger":"idle","goal":"iron_tools","options":["goto surface","pickup stations","collect raw_iron:13","explore any"],"choice":"goto surface","x":[0.55,0.55,0.0,0.0,1.0,0.922,0.0,0.0,0.4,0.0,0.0,0.063,0.063,0.438,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.4,0.154,0.0,0.308,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1790777049221}
+{"event":"skill_start","skill":"goto surface","trigger":"idle","t":1790777049221}
+{"event":"skill_end","skill":"goto surface","ok":false,"code":"INTERRUPTED","detail":"running out of air","seconds":2.0,"t":1790777051220}
+{"event":"reflex","detail":"drowning","t":1790777051220}
+{"layer":"tactician","gs":1146,"brain":"rules","trigger":"idle","goal":"iron_tools","options":["goto surface","pickup stations","collect raw_iron:13","explore any"],"choice":"goto surface","x":[0.55,0.55,0.0,0.0,1.0,0.922,0.0,0.0,0.4,0.0,0.0,0.063,0.063,0.438,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.4,0.154,0.0,0.308,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1790777052719}
+{"event":"skill_start","skill":"goto surface","trigger":"idle","t":1790777052719}
+{"event":"skill_end","skill":"goto surface","ok":false,"code":"INTERRUPTED","detail":"running out of air","seconds":2.25,"t":1790777054965}
+{"event":"reflex","detail":"drowning","t":1790777054965}
+{"layer":"tactician","gs":1150,"brain":"rules","trigger":"idle","goal":"iron_tools","options":["goto surface","pickup stations","collect raw_iron:13","explore any"],"choice":"goto surface","x":[0.55,0.55,0.0,0.0,1.0,0.922,0.0,0.0,0.4,0.0,0.0,0.063,0.063,0.438,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.4,0.154,0.0,0.308,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1790777056470}
+{"event":"skill_start","skill":"goto surface","trigger":"idle","t":1790777056470}
+{"event":"skill_end","skill":"goto surface","ok":false,"code":"INTERRUPTED","detail":"running out of air","seconds":2.0,"t":1790777058469}
+{"event":"reflex","detail":"drowning","t":1790777058469}
+{"layer":"tactician","gs":1154,"brain":"rules","trigger":"idle","goal":"iron_tools","options":["goto surface","pickup stations","collect raw_iron:13","explore any"],"choice":"goto surface","x":[0.55,0.55,0.0,0.0,1.0,0.922,0.0,0.0,0.4,0.0,0.0,0.063,0.063,0.438,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.4,0.154,0.0,0.308,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1790777059973}
+{"event":"skill_start","skill":"goto surface","trigger":"idle","t":1790777059973}
+{"event":"skill_end","skill":"goto surface","ok":false,"code":"INTERRUPTED","detail":"running out of air","seconds":2.25,"t":1790777062215}
+{"event":"reflex","detail":"drowning","t":1790777062215}
+{"layer":"tactician","gs":1157,"brain":"rules","trigger":"idle","goal":"iron_tools","options":["goto surface","pickup stations","collect raw_iron:13","explore any"],"choice":"goto surface","x":[0.55,0.55,0.0,0.0,1.0,0.922,0.0,0.0,0.4,0.0,0.0,0.063,0.063,0.438,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.4,0.154,0.0,0.308,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1790777063718}
+{"event":"skill_start","skill":"goto surface","trigger":"idle","t":1790777063718}
+{"event":"skill_end","skill":"goto surface","ok":false,"code":"INTERRUPTED","detail":"running out of air","seconds":2.0,"t":1790777065718}
+{"event":"reflex","detail":"drowning","t":1790777065718}
+{"layer":"tactician","gs":1161,"brain":"rules","trigger":"idle","goal":"iron_tools","options":["goto surface","pickup stations","collect raw_iron:13","explore any"],"choice":"goto surface","x":[0.55,0.55,0.0,0.0,1.0,0.922,0.0,0.0,0.4,0.0,0.0,0.063,0.063,0.438,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.4,0.154,0.0,0.308,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1790777067219}
+{"event":"skill_start","skill":"goto surface","trigger":"idle","t":1790777067219}
+{"event":"skill_end","skill":"goto surface","ok":false,"code":"INTERRUPTED","detail":"running out of air","seconds":2.25,"t":1790777069467}
+{"event":"reflex","detail":"drowning","t":1790777069467}
+{"layer":"tactician","gs":1165,"brain":"rules","trigger":"idle","goal":"iron_tools","options":["goto surface","pickup stations","collect raw_iron:13","explore any"],"choice":"goto surface","x":[0.55,0.55,0.0,0.0,1.0,0.922,0.0,0.0,0.4,0.0,0.0,0.063,0.063,0.438,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.4,0.154,0.0,0.308,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1790777070972}
+{"event":"skill_start","skill":"goto surface","trigger":"idle","t":1790777070972}
+{"event":"skill_end","skill":"goto surface","ok":false,"code":"INTERRUPTED","detail":"running out of air","seconds":2.0,"t":1790777072975}
+{"event":"reflex","detail":"drowning","t":1790777072975}
+{"layer":"tactician","gs":1168,"brain":"rules","trigger":"idle","goal":"iron_tools","options":["goto surface","pickup stations","collect raw_iron:13","explore any"],"choice":"goto surface","x":[0.55,0.55,0.0,0.0,1.0,0.922,0.0,0.0,0.4,0.0,0.0,0.063,0.063,0.438,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.4,0.154,0.0,0.308,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1790777074468}
+{"event":"skill_start","skill":"goto surface","trigger":"idle","t":1790777074468}
+{"event":"skill_end","skill":"goto surface","ok":false,"code":"INTERRUPTED","detail":"running out of air","seconds":2.25,"t":1790777076714}
+{"event":"reflex","detail":"drowning","t":1790777076714}
+{"layer":"tactician","gs":1172,"brain":"rules","trigger":"idle","goal":"iron_tools","options":["goto surface","pickup stations","collect raw_iron:13","explore any"],"choice":"goto surface","x":[0.55,0.55,0.0,0.0,1.0,0.922,0.0,0.0,0.4,0.0,0.0,0.063,0.063,0.438,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.4,0.154,0.0,0.308,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1790777078218}
+{"event":"skill_start","skill":"goto surface","trigger":"idle","t":1790777078218}
+{"event":"skill_end","skill":"goto surface","ok":false,"code":"INTERRUPTED","detail":"running out of air","seconds":2.0,"t":1790777080214}
+{"event":"reflex","detail":"drowning","t":1790777080214}
+{"layer":"tactician","gs":1175,"brain":"rules","trigger":"idle","goal":"iron_tools","options":["goto surface","pickup stations","collect raw_iron:13","explore any"],"choice":"goto surface","x":[0.55,0.55,0.0,0.0,1.0,0.922,0.0,0.0,0.4,0.0,0.0,0.063,0.063,0.438,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.4,0.154,0.0,0.308,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1790777081714}
+{"event":"skill_start","skill":"goto surface","trigger":"idle","t":1790777081714}
+{"event":"skill_end","skill":"goto surface","ok":false,"code":"INTERRUPTED","detail":"running out of air","seconds":2.25,"t":1790777083972}
+{"event":"reflex","detail":"drowning","t":1790777083972}
+{"layer":"tactician","gs":1179,"brain":"rules","trigger":"idle","goal":"iron_tools","options":["goto surface","pickup stations","collect raw_iron:13","explore any"],"choice":"goto surface","x":[0.55,0.55,0.0,0.0,1.0,0.922,0.0,0.0,0.4,0.0,0.0,0.063,0.063,0.438,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.4,0.154,0.0,0.308,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1790777085475}
+{"event":"skill_start","skill":"goto surface","trigger":"idle","t":1790777085475}
+{"event":"skill_end","skill":"goto surface","ok":false,"code":"INTERRUPTED","detail":"running out of air","seconds":2.0,"t":1790777087475}
+{"event":"reflex","detail":"drowning","t":1790777087475}
+{"layer":"tactician","gs":1183,"brain":"rules","trigger":"idle","goal":"iron_tools","options":["goto surface","pickup stations","collect raw_iron:13","explore any"],"choice":"goto surface","x":[0.55,0.55,0.0,0.0,1.0,0.922,0.0,0.0,0.4,0.0,0.0,0.063,0.063,0.438,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.4,0.154,0.0,0.308,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1790777088975}
+{"event":"skill_start","skill":"goto surface","trigger":"idle","t":1790777088975}
+{"event":"skill_end","skill":"goto surface","ok":false,"code":"INTERRUPTED","detail":"running out of air","seconds":2.25,"t":1790777091218}
+{"event":"reflex","detail":"drowning","t":1790777091218}
+{"layer":"tactician","gs":1186,"brain":"rules","trigger":"idle","goal":"iron_tools","options":["goto surface","pickup stations","collect raw_iron:13","explore any"],"choice":"goto surface","x":[0.55,0.55,0.0,0.0,1.0,0.922,0.0,0.0,0.4,0.0,0.0,0.063,0.063,0.438,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.4,0.154,0.0,0.308,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1790777092726}
+{"event":"skill_start","skill":"goto surface","trigger":"idle","t":1790777092726}
+{"event":"skill_end","skill":"goto surface","ok":false,"code":"INTERRUPTED","detail":"running out of air","seconds":2.0,"t":1790777094722}
+{"event":"reflex","detail":"drowning","t":1790777094722}
+{"layer":"tactician","gs":1190,"brain":"rules","trigger":"idle","goal":"iron_tools","options":["goto surface","pickup stations","collect raw_iron:13","explore any"],"choice":"goto surface","x":[0.55,0.55,0.0,0.0,1.0,0.922,0.0,0.0,0.4,0.0,0.0,0.063,0.063,0.438,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.4,0.154,0.0,0.308,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1790777096215}
+{"event":"skill_start","skill":"goto surface","trigger":"idle","t":1790777096215}
+{"event":"skill_end","skill":"goto surface","ok":false,"code":"INTERRUPTED","detail":"running out of air","seconds":2.25,"t":1790777098469}
+{"event":"reflex","detail":"drowning","t":1790777098469}
+{"layer":"tactician","gs":1194,"brain":"rules","trigger":"idle","goal":"iron_tools","options":["goto surface","pickup stations","collect raw_iron:13","explore any"],"choice":"goto surface","x":[0.55,0.55,0.0,0.0,1.0,0.922,0.0,0.0,0.4,0.0,0.0,0.063,0.063,0.438,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.4,0.154,0.0,0.308,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1790777099971}
+{"event":"skill_start","skill":"goto surface","trigger":"idle","t":1790777099972}
+{"event":"skill_end","skill":"goto surface","ok":false,"code":"INTERRUPTED","detail":"running out of air","seconds":2.0,"t":1790777101968}
+{"event":"reflex","detail":"drowning","t":1790777101968}
+{"layer":"tactician","gs":1197,"brain":"rules","trigger":"idle","goal":"iron_tools","options":["goto surface","pickup stations","collect raw_iron:13","explore any"],"choice":"goto surface","x":[0.55,0.55,0.0,0.0,1.0,0.922,0.0,0.0,0.4,0.0,0.0,0.063,0.063,0.438,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.4,0.154,0.0,0.308,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1790777103470}
+{"event":"skill_start","skill":"goto surface","trigger":"idle","t":1790777103470}
+{"event":"skill_end","skill":"goto surface","ok":false,"code":"INTERRUPTED","detail":"running out of air","seconds":2.25,"t":1790777105723}
+{"event":"reflex","detail":"drowning","t":1790777105723}
+{"event":"autopilot_off","detail":"test finished","t":1790777106253}
