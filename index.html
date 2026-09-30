@@ -86,7 +86,7 @@ a { color: var(--s1); }
 
   <div class="card">
     <h2>Champion score per generation</h2>
-    <p class="note">Mean score of the champion on that generation's fresh worlds (x axis: generation; from generation 5 on, stage starts are left out: they're on the road to the dragon). Gray dots are challengers. Points come from milestones and steps toward the Nether portal (more for reaching them early), minus deaths. Stars mark a new champion.</p>
+    <p class="note">Mean score of the champion on that generation's fresh worlds (x axis: generation; from generation 5 on, stage starts are left out: they're on the road to the dragon). Gray dots are challengers. Each point is only 2 worlds, so it swings on luck; the thick line is the 10-generation mean. Points come from milestones and steps toward the Nether portal (more for reaching them early), minus deaths. Stars mark a new champion.</p>
     <div id="scoreChart"></div>
   </div>
 
@@ -232,7 +232,15 @@ function scoreChart(history) {
   });
   const pts = history.filter((h) => h.champion_score != null);
   const d = pts.map((h, i) => (i ? "L" : "M") + f.X(h.gen) + " " + f.Y(Math.max(0, h.champion_score))).join(" ");
-  el("path", { d, fill: "none", stroke: s1, "stroke-width": 2, "stroke-linejoin": "round", "stroke-linecap": "round" }, f.svg);
+  el("path", { d, fill: "none", stroke: s1, "stroke-width": 1.5, "stroke-opacity": 0.45, "stroke-linejoin": "round", "stroke-linecap": "round" }, f.svg);
+  // One generation is 2 worlds (sd ~2.7 each), so a point swings ~±2 on luck alone: the thick line
+  // is the mean of the last 10 generations, the level to read.
+  const avg = pts.map((h, i) => {
+    const w = pts.slice(Math.max(0, i - 9), i + 1);
+    return [h.gen, w.reduce((a, p) => a + p.champion_score, 0) / w.length];
+  });
+  const da = avg.map(([g, v], i) => (i ? "L" : "M") + f.X(g) + " " + f.Y(Math.max(0, v))).join(" ");
+  el("path", { d: da, fill: "none", stroke: s1, "stroke-width": 3, "stroke-linejoin": "round", "stroke-linecap": "round" }, f.svg);
   pts.forEach((h) => {
     const promoted = h.champion !== h.old_champion;
     const cx = f.X(h.gen), cy = f.Y(Math.max(0, h.champion_score));
@@ -248,6 +256,8 @@ function scoreChart(history) {
   });
   const last = pts[pts.length - 1];
   if (last) el("text", { x: f.X(last.gen) + 10, y: f.Y(Math.max(0, last.champion_score)) + 4, class: "lbl" }, f.svg).textContent = "champion " + fmt(last.champion_score, 2);
+  const lastAvg = avg[avg.length - 1];
+  if (lastAvg) el("text", { x: f.X(lastAvg[0]) + 10, y: f.Y(Math.max(0, lastAvg[1])) + 18, class: "lbl" }, f.svg).textContent = "10-gen mean " + fmt(lastAvg[1], 2);
 }
 
 const STEPS = [
