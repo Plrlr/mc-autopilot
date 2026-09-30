@@ -179,6 +179,7 @@ final class FlintSteps {
 			return;
 		}
 		Mc.lookAt(Vec3.atCenterOf(target));
+		Swim.whileBreaking(target);
 		NightSkills.Shelter.holdBestTool(Mc.state(target));
 		if (wait == 1) {
 			Mc.mc().gameMode.startDestroyBlock(target, Direction.UP);

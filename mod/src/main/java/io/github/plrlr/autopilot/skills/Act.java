@@ -29,6 +29,7 @@ final class Act {
 				return true;
 			}
 			Mc.lookAt(Vec3.atCenterOf(p));
+			Swim.whileBreaking(p);
 			Direction face = faceToward(p);
 			if (!p.equals(at)) {
 				NightSkills.Shelter.holdBestTool(Mc.state(p));

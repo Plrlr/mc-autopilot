@@ -236,6 +236,7 @@ public final class Autopilot {
 		// Paused (Esc menu): the world is frozen, so freeze our timers too.
 		if (mc.isPaused()) return;
 		if (tick == lavaKeysUntil) Skill.releaseKeys();
+		io.github.plrlr.autopilot.skills.Swim.newTick(tick);
 		if (tick - enableTick > 10 && mc.gui.screen() == null && userIsMoving(mc)) {
 			disable("you pressed a movement key");
 			return;
