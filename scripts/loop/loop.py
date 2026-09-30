@@ -58,6 +58,7 @@ DEFAULT_SETTINGS = {
     "accept_t": 2.0,           # ...and a one-sided t this high (many looks per challenger: keep it strict)...
     "min_gain": 0.3,           # ...and a mean gain at least this big (a real difference, not a fluke)
     "drop_after_pairs": 4,     # below zero after this many pairs: out
+    "drop_t": -1.0,            # ...but a suggestion or code change only if its paired t is this low too
     "max_pairs": 24,           # never promoted after this many pairs: out (not better enough to tell)
     "sigma0": 0.15,            # starting mutation step, as a fraction of each gene's range
     "stage_lookahead": True,   # one stage start per generation goes past the frontier (False: all at the frontier)
@@ -497,7 +498,12 @@ def race(st, genes, challengers, champ, gen):
             continue
         if len(diffs) >= s["accept_pairs"] and m >= s["min_gain"] and t >= s["accept_t"] and t > best_t:
             best, best_t = gid, t
-        elif (len(diffs) >= min_pairs and m <= 0) or len(diffs) >= max_pairs:
+            continue
+        # A queued idea is dropped early only on evidence it hurts (t <= drop_t), not on a mean just
+        # under zero: g47 (reflex.lava_margin) went out at -0.13 over 8 worlds (t -0.1, sd ~3 per
+        # world), a coin flip. A neutral idea still leaves at max_pairs. Mutations stay cheap to drop.
+        hurts = m <= 0 and (t <= s.get("drop_t", -1.0) or not g["note"].startswith(("suggested", "code:")))
+        if (len(diffs) >= min_pairs and hurts) or len(diffs) >= max_pairs:
             g["status"] = "rejected"
             out.append("%s dropped (%+.2f over %d seeds)" % (gid, m, len(diffs)))
             learn_from(st, g, m)

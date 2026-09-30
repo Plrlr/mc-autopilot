@@ -5,9 +5,14 @@
  "combat_seeds": 1,
  "max_genomes": 4,
  "suggest_slots": 3,
- "data_runs": 0,
+ "data_runs": 2,
  "_suggest": "Ideas to race next: each entry becomes one challenger (champion + these genes), tried once. Higher-priority suggestions go first.",
  "suggest": [
+  {
+   "_retry": "g47 dropped at -0.13 over 8 worlds (t -0.1) by the old drop rule; its pairs were reset when g49 was crowned, losing its Nether run",
+   "reflex.lava_margin": 1,
+   "_priority": true
+  },
   {
    "deep.branch": 1,
    "_priority": true,
@@ -445,6 +450,7 @@
  "_brain_v3": "2026-09-29 (Claude): brain v3 step 3-4 races right after the v2 brain: brain.utility (every goal's items through the strategist) + brain.thompson (routes costed with a drawn success chance). Same 40 worlds, whole-game score.",
  "_early_gathering": "2026-09-29 (user, watching local runs): gather like a player: ~9 logs on the first trip instead of climbing back for wood later, take iron ore in view while the route needs iron, and follow a vein to the next visible block instead of walking back to one seen earlier. Races as one priority idea on the whole-game score.",
  "_diamond_route": "2026-09-29 (the user's call, Claude): the portal goes the classic way by default (route.diamond_portal, route.deep_portal): iron kit, stairs to diamond depth, diamond_hunt, a lava pool at depth, obsidian_pool (safe pool blocks, then obsidian_mold: a block at a time in a dug pit), dig_portal (a room dug for the frame, or the surface when there's none). The cast-only ideas left the queue (they no longer act). Score version 3 adds its steps: at_depth 0.5, diamond_pickaxe 1.5, obsidian_10 2. Queued first: armor before going deep, lava safety, ruined portals; last, the cast route itself as a control.",
+ "_data_runs": "2026-09-30 (Claude): 2 champion runs per generation with deliberate tries again (explore_data). Without them the brain only sees the rules' habits and can't learn which choice is better (the retired re-ranker's lesson). 16 race jobs + 2 = 18 of GitHub's 20.",
  "explore_data": 0.3,
  "_explore_data": "2026-09-30 (Claude): 30% deliberate tries in the data runs (unscored). In 1,432 games only 631 of ~146k non-urgent decisions differed from the rules' pick, too few for the brain to learn what else works."
 }
