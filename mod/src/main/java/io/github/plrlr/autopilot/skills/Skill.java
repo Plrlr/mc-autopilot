@@ -144,6 +144,7 @@ public abstract class Skill {
 	}
 
 	public static void releaseKeys() {
+		Swim.forget();
 		var o = Mc.mc().options;
 		for (KeyMapping k : new KeyMapping[]{o.keyUse, o.keyAttack, o.keyUp, o.keyDown, o.keyLeft, o.keyRight, o.keyJump, o.keyShift, o.keySprint}) {
 			k.setDown(false);

@@ -218,6 +218,7 @@ public final class Tune {
 		gene("skill.fluid_cross", 0, 0, 1, Kind.BOOL, "water or lava in the way: bridge it, boat it or swim it instead of turning back");
 		gene("skill.drain_tunnel", 0, 0, 1, Kind.BOOL, "stuck in a flooded tunnel: seal the water's sources and fill the flow");
 		gene("nav.fluid_place", 0, 0, 1, Kind.BOOL, "let Baritone lay blocks across water and lava, and sprint-swim");
+		gene("mine.tread_water", 0, 0, 1, Kind.BOOL, "breaking a block while floating in water: hold jump to stay level instead of sinking away from it");
 		gene("loop.stuck_s", 10, 5, 30, Kind.INT, "seconds without moving that mark the state as stuck for the brains");
 		gene("stuck.window_s", 12, 6, 40, Kind.INT, "a moving skill kept inside the stuck box this long starts the unstuck reflex");
 		gene("stuck.box", 2, 1, 4, Kind.REAL, "the square (blocks) the bot must leave to count as moving");
