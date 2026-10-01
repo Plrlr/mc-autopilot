@@ -2727,7 +2727,7 @@
   "2026-09-28": 32,
   "2026-09-29": 24,
   "2026-09-30": 24,
-  "2026-10-01": 23
+  "2026-10-01": 24
  },
  "evolve_days": {
   "2026-09-27": 1,
@@ -2842,7 +2842,7 @@
    "target": "shore TIMEOUT"
   }
  ],
- "gen": 118,
+ "gen": 119,
  "gene_specs": {
   "bed.table_first": {
    "def": 0.0,
@@ -19247,6 +19247,111 @@
    ],
    "parent": "g87",
    "status": "rejected"
+  },
+  "g96": {
+   "born": 119,
+   "code": null,
+   "evals": [],
+   "genes": {
+    "combat.ignore_walled_mobs": 1.0,
+    "combat.shield_guard": 1.0,
+    "combat.swing_at": 0.85,
+    "death.recover_night_armor": 12.0,
+    "focus.commit": 1.0,
+    "gear.sword_early": 1.0,
+    "move.shore_first": 1.0,
+    "nav.surface_v2": 1.0,
+    "nav.unstuck_v2": 1.0,
+    "night.shelter_exit": 1.0,
+    "night.wall_in": 1.0,
+    "plan.hide_hp": 15.0,
+    "portal.prepare_work_area": 1.0,
+    "portal.reserve_lava_bucket": 1.0,
+    "route.armor_before_portal": 1.0,
+    "skill.portal_repair": 1.0,
+    "skill.ruined_portal": 1.0,
+    "stuck.item_progress": 1.0
+   },
+   "id": "g96",
+   "mutated": [
+    "combat.swing_at"
+   ],
+   "note": "suggested: combat.swing_at 0.85",
+   "pairs": [],
+   "parent": "g87",
+   "status": "contender"
+  },
+  "g97": {
+   "born": 119,
+   "code": null,
+   "evals": [],
+   "genes": {
+    "combat.backstep": 1.0,
+    "combat.ignore_walled_mobs": 1.0,
+    "combat.keep_dist": 2.8,
+    "combat.shield_guard": 1.0,
+    "combat.strafe": 12.0,
+    "death.recover_night_armor": 12.0,
+    "focus.commit": 1.0,
+    "gear.sword_early": 1.0,
+    "move.shore_first": 1.0,
+    "nav.surface_v2": 1.0,
+    "nav.unstuck_v2": 1.0,
+    "night.shelter_exit": 1.0,
+    "night.wall_in": 1.0,
+    "plan.hide_hp": 15.0,
+    "portal.prepare_work_area": 1.0,
+    "portal.reserve_lava_bucket": 1.0,
+    "route.armor_before_portal": 1.0,
+    "skill.portal_repair": 1.0,
+    "skill.ruined_portal": 1.0,
+    "stuck.item_progress": 1.0
+   },
+   "id": "g97",
+   "metric": "deaths",
+   "mutated": [
+    "combat.backstep",
+    "combat.keep_dist",
+    "combat.strafe"
+   ],
+   "note": "suggested: combat.backstep 1, combat.keep_dist 2.8, combat.strafe 12",
+   "pairs": [],
+   "parent": "g87",
+   "status": "contender"
+  },
+  "g98": {
+   "born": 119,
+   "code": null,
+   "evals": [],
+   "genes": {
+    "combat.ignore_walled_mobs": 1.0,
+    "combat.shield_guard": 1.0,
+    "combat.sprint_hit": 1.0,
+    "death.recover_night_armor": 12.0,
+    "focus.commit": 1.0,
+    "gear.sword_early": 1.0,
+    "move.shore_first": 1.0,
+    "nav.surface_v2": 1.0,
+    "nav.unstuck_v2": 1.0,
+    "night.shelter_exit": 1.0,
+    "night.wall_in": 1.0,
+    "plan.hide_hp": 15.0,
+    "portal.prepare_work_area": 1.0,
+    "portal.reserve_lava_bucket": 1.0,
+    "route.armor_before_portal": 1.0,
+    "skill.portal_repair": 1.0,
+    "skill.ruined_portal": 1.0,
+    "stuck.item_progress": 1.0
+   },
+   "id": "g98",
+   "mutated": [
+    "combat.sprint_hit",
+    "combat.sprint_hit_dist"
+   ],
+   "note": "suggested: combat.sprint_hit 1, combat.sprint_hit_dist 4",
+   "pairs": [],
+   "parent": "g87",
+   "status": "contender"
   }
  },
  "hazard_auc": 0.843,
@@ -19274,8 +19379,87 @@
   "mean_gap_ok": -0.2459,
   "n": 446
  },
- "next_id": 96,
- "pending": null,
+ "next_id": 99,
+ "pending": {
+  "data_tasks": [
+   {
+    "kind": "natural",
+    "seed": "D119-uq7w7z",
+    "stage": "spawn",
+    "synthetic": false
+   },
+   {
+    "kind": "natural",
+    "seed": "D119-2nrn34",
+    "stage": "spawn",
+    "synthetic": false
+   }
+  ],
+  "gen": 119,
+  "lineup": [
+   "g87",
+   "g96",
+   "g97",
+   "g98"
+  ],
+  "runs": [
+   "eval-g87-0",
+   "eval-g87-1",
+   "eval-g87-2",
+   "eval-g87-3",
+   "eval-g96-0",
+   "eval-g96-1",
+   "eval-g96-2",
+   "eval-g96-3",
+   "eval-g97-0",
+   "eval-g97-1",
+   "eval-g97-2",
+   "eval-g97-3",
+   "eval-g98-0",
+   "eval-g98-1",
+   "eval-g98-2",
+   "eval-g98-3",
+   "data-g87-0",
+   "data-g87-1"
+  ],
+  "seeds": [
+   "L119-rmptwq",
+   "L119-evhu89",
+   "L119-fhhy7a",
+   "L119-g4nvzz"
+  ],
+  "sha": "537d4ceac1dc7374b57ddce580f96f9511e1468c",
+  "started": "2026-10-01T23:50:43+00:00",
+  "tasks": [
+   {
+    "kind": "natural",
+    "seed": "L119-rmptwq",
+    "stage": "spawn",
+    "synthetic": false
+   },
+   {
+    "kind": "natural",
+    "seed": "L119-evhu89",
+    "stage": "spawn",
+    "synthetic": false
+   },
+   {
+    "asset": "nether-gen112-eval-g87-0.zip",
+    "kind": "start",
+    "seed": "L119-fhhy7a",
+    "stage": "nether",
+    "synthetic": false
+   },
+   {
+    "kind": "combat",
+    "minutes": 10,
+    "scenario": "combat",
+    "seed": "L119-g4nvzz",
+    "stage": "combat",
+    "synthetic": false
+   }
+  ]
+ },
  "race_evidence_version": 1,
  "score_version": 3,
  "settings": {
@@ -22343,7 +22527,10 @@
   "{\"night.mine_instead\": 1, \"night.shelter_max_s\": 150}",
   "{\"night.shelter_max_s\": 150}",
   "{\"_metric\": \"deaths\", \"combat.crits\": 1}",
-  "{\"_metric\": \"deaths\", \"combat.backstep\": 1}"
+  "{\"_metric\": \"deaths\", \"combat.backstep\": 1}",
+  "{\"combat.swing_at\": 0.85}",
+  "{\"_metric\": \"deaths\", \"combat.backstep\": 1, \"combat.keep_dist\": 2.8, \"combat.strafe\": 12}",
+  "{\"combat.sprint_hit\": 1, \"combat.sprint_hit_dist\": 4}"
  ],
  "version": 1
 }
