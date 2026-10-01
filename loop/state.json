@@ -2697,7 +2697,7 @@
   "2026-09-28": 32,
   "2026-09-29": 24,
   "2026-09-30": 24,
-  "2026-10-01": 5
+  "2026-10-01": 6
  },
  "evolve_days": {
   "2026-09-27": 1,
@@ -2779,7 +2779,7 @@
    "target": "explore:any HAZARD"
   }
  ],
- "gen": 100,
+ "gen": 101,
  "gene_specs": {
   "bed.table_first": {
    "def": 0.0,
@@ -16366,6 +16366,74 @@
    "parent": "g56",
    "status": "contender"
   },
+  "g83": {
+   "born": 101,
+   "code": null,
+   "evals": [],
+   "genes": {
+    "cave.torches": 1.0,
+    "combat.ignore_walled_mobs": 1.0,
+    "death.recover_night_armor": 12.0,
+    "focus.commit": 1.0,
+    "nav.surface_v2": 1.0,
+    "nav.unstuck_v2": 1.0,
+    "night.shelter_exit": 1.0,
+    "plan.hide_hp": 15.0,
+    "portal.prepare_work_area": 1.0,
+    "portal.reserve_lava_bucket": 1.0,
+    "route.armor_before_portal": 0.0,
+    "safety.hazard": 1.0,
+    "skill.portal_repair": 1.0,
+    "skill.ruined_portal": 1.0,
+    "stuck.item_progress": 1.0
+   },
+   "id": "g83",
+   "metric": "deaths",
+   "mutated": [
+    "safety.hazard"
+   ],
+   "note": "suggested: safety.hazard 1",
+   "pairs": [],
+   "parent": "g56",
+   "status": "contender"
+  },
+  "g84": {
+   "born": 101,
+   "code": null,
+   "evals": [],
+   "genes": {
+    "combat.ignore_walled_mobs": 1.0,
+    "combat.shield_guard": 1.0,
+    "death.recover_night_armor": 12.0,
+    "focus.commit": 1.0,
+    "gear.sword_early": 1.0,
+    "nav.mob_avoid_coef": 3.0,
+    "nav.surface_v2": 1.0,
+    "nav.unstuck_v2": 1.0,
+    "night.shelter_exit": 1.0,
+    "plan.hide_hp": 15.0,
+    "plan.hostile_range": 5.0,
+    "portal.prepare_work_area": 1.0,
+    "portal.reserve_lava_bucket": 1.0,
+    "route.armor_before_portal": 0.0,
+    "skill.portal_repair": 1.0,
+    "skill.ruined_portal": 1.0,
+    "stuck.item_progress": 1.0
+   },
+   "id": "g84",
+   "metric": "deaths",
+   "mutated": [
+    "nav.mob_avoid_coef",
+    "plan.hostile_range",
+    "gear.sword_early",
+    "cave.torches",
+    "combat.shield_guard"
+   ],
+   "note": "suggested: nav.mob_avoid_coef 3, plan.hostile_range 4, gear.sword_early 1, cave.torches 1, combat.shield_guard 1",
+   "pairs": [],
+   "parent": "g56",
+   "status": "contender"
+  },
   "g9": {
    "born": 7,
    "code": null,
@@ -16487,8 +16555,87 @@
   "mean_gap_ok": null,
   "n": 268
  },
- "next_id": 83,
- "pending": null,
+ "next_id": 85,
+ "pending": {
+  "data_tasks": [
+   {
+    "kind": "natural",
+    "seed": "D101-95w4j6",
+    "stage": "spawn",
+    "synthetic": false
+   },
+   {
+    "kind": "natural",
+    "seed": "D101-e7haqe",
+    "stage": "spawn",
+    "synthetic": false
+   }
+  ],
+  "gen": 101,
+  "lineup": [
+   "g56",
+   "g82",
+   "g83",
+   "g84"
+  ],
+  "runs": [
+   "eval-g56-0",
+   "eval-g56-1",
+   "eval-g56-2",
+   "eval-g56-3",
+   "eval-g82-0",
+   "eval-g82-1",
+   "eval-g82-2",
+   "eval-g82-3",
+   "eval-g83-0",
+   "eval-g83-1",
+   "eval-g83-2",
+   "eval-g83-3",
+   "eval-g84-0",
+   "eval-g84-1",
+   "eval-g84-2",
+   "eval-g84-3",
+   "data-g56-0",
+   "data-g56-1"
+  ],
+  "seeds": [
+   "L101-4d2km7",
+   "L101-5j6bqj",
+   "L101-tvrevr",
+   "L101-hyrdqk"
+  ],
+  "sha": "537d4ceac1dc7374b57ddce580f96f9511e1468c",
+  "started": "2026-10-01T04:39:50+00:00",
+  "tasks": [
+   {
+    "kind": "natural",
+    "seed": "L101-4d2km7",
+    "stage": "spawn",
+    "synthetic": false
+   },
+   {
+    "kind": "natural",
+    "seed": "L101-5j6bqj",
+    "stage": "spawn",
+    "synthetic": false
+   },
+   {
+    "asset": "nether-gen90-eval-g56-0.zip",
+    "kind": "start",
+    "seed": "L101-tvrevr",
+    "stage": "nether",
+    "synthetic": false
+   },
+   {
+    "kind": "combat",
+    "minutes": 10,
+    "scenario": "combat",
+    "seed": "L101-hyrdqk",
+    "stage": "combat",
+    "synthetic": false
+   }
+  ]
+ },
  "race_evidence_version": 1,
  "score_version": 3,
  "settings": {
@@ -19508,7 +19655,9 @@
   "{\"_metric\": \"deaths\", \"safety.hazard\": 1, \"safety.hazard_margin\": 0.05}",
   "{\"_metric\": \"deaths\", \"reflex.escalate\": 1}",
   "{\"_metric\": \"deaths\", \"combat.backstep\": 1, \"combat.crits\": 1}",
-  "{\"_metric\": \"ok:collect\", \"move.shore_first\": 1}"
+  "{\"_metric\": \"ok:collect\", \"move.shore_first\": 1}",
+  "{\"_metric\": \"deaths\", \"safety.hazard\": 1}",
+  "{\"_metric\": \"deaths\", \"cave.torches\": 1, \"combat.shield_guard\": 1, \"gear.sword_early\": 1, \"nav.mob_avoid_coef\": 3, \"plan.hostile_range\": 4}"
  ],
  "version": 1
 }
