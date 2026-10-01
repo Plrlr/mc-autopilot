@@ -2727,7 +2727,7 @@
   "2026-09-28": 32,
   "2026-09-29": 24,
   "2026-09-30": 24,
-  "2026-10-01": 22
+  "2026-10-01": 23
  },
  "evolve_days": {
   "2026-09-27": 1,
@@ -2842,7 +2842,7 @@
    "target": "shore TIMEOUT"
   }
  ],
- "gen": 117,
+ "gen": 118,
  "gene_specs": {
   "bed.table_first": {
    "def": 0.0,
@@ -19013,6 +19013,74 @@
    ],
    "parent": "g87",
    "status": "contender"
+  },
+  "g94": {
+   "born": 118,
+   "code": null,
+   "evals": [],
+   "genes": {
+    "combat.crits": 1.0,
+    "combat.ignore_walled_mobs": 1.0,
+    "combat.shield_guard": 1.0,
+    "death.recover_night_armor": 12.0,
+    "focus.commit": 1.0,
+    "gear.sword_early": 1.0,
+    "move.shore_first": 1.0,
+    "nav.surface_v2": 1.0,
+    "nav.unstuck_v2": 1.0,
+    "night.shelter_exit": 1.0,
+    "night.wall_in": 1.0,
+    "plan.hide_hp": 15.0,
+    "portal.prepare_work_area": 1.0,
+    "portal.reserve_lava_bucket": 1.0,
+    "route.armor_before_portal": 1.0,
+    "skill.portal_repair": 1.0,
+    "skill.ruined_portal": 1.0,
+    "stuck.item_progress": 1.0
+   },
+   "id": "g94",
+   "metric": "deaths",
+   "mutated": [
+    "combat.crits"
+   ],
+   "note": "suggested: combat.crits 1",
+   "pairs": [],
+   "parent": "g87",
+   "status": "contender"
+  },
+  "g95": {
+   "born": 118,
+   "code": null,
+   "evals": [],
+   "genes": {
+    "combat.backstep": 1.0,
+    "combat.ignore_walled_mobs": 1.0,
+    "combat.shield_guard": 1.0,
+    "death.recover_night_armor": 12.0,
+    "focus.commit": 1.0,
+    "gear.sword_early": 1.0,
+    "move.shore_first": 1.0,
+    "nav.surface_v2": 1.0,
+    "nav.unstuck_v2": 1.0,
+    "night.shelter_exit": 1.0,
+    "night.wall_in": 1.0,
+    "plan.hide_hp": 15.0,
+    "portal.prepare_work_area": 1.0,
+    "portal.reserve_lava_bucket": 1.0,
+    "route.armor_before_portal": 1.0,
+    "skill.portal_repair": 1.0,
+    "skill.ruined_portal": 1.0,
+    "stuck.item_progress": 1.0
+   },
+   "id": "g95",
+   "metric": "deaths",
+   "mutated": [
+    "combat.backstep"
+   ],
+   "note": "suggested: combat.backstep 1",
+   "pairs": [],
+   "parent": "g87",
+   "status": "contender"
   }
  },
  "hazard_auc": 0.842,
@@ -19040,8 +19108,87 @@
   "mean_gap_ok": -0.1226,
   "n": 446
  },
- "next_id": 94,
- "pending": null,
+ "next_id": 96,
+ "pending": {
+  "data_tasks": [
+   {
+    "kind": "natural",
+    "seed": "D118-c84uxu",
+    "stage": "spawn",
+    "synthetic": false
+   },
+   {
+    "kind": "natural",
+    "seed": "D118-nzbqw4",
+    "stage": "spawn",
+    "synthetic": false
+   }
+  ],
+  "gen": 118,
+  "lineup": [
+   "g87",
+   "g93",
+   "g94",
+   "g95"
+  ],
+  "runs": [
+   "eval-g87-0",
+   "eval-g87-1",
+   "eval-g87-2",
+   "eval-g87-3",
+   "eval-g93-0",
+   "eval-g93-1",
+   "eval-g93-2",
+   "eval-g93-3",
+   "eval-g94-0",
+   "eval-g94-1",
+   "eval-g94-2",
+   "eval-g94-3",
+   "eval-g95-0",
+   "eval-g95-1",
+   "eval-g95-2",
+   "eval-g95-3",
+   "data-g87-0",
+   "data-g87-1"
+  ],
+  "seeds": [
+   "L118-647u3j",
+   "L118-6vdbj4",
+   "L118-bfvwws",
+   "L118-gqmm89"
+  ],
+  "sha": "537d4ceac1dc7374b57ddce580f96f9511e1468c",
+  "started": "2026-10-01T22:51:27+00:00",
+  "tasks": [
+   {
+    "kind": "natural",
+    "seed": "L118-647u3j",
+    "stage": "spawn",
+    "synthetic": false
+   },
+   {
+    "kind": "natural",
+    "seed": "L118-6vdbj4",
+    "stage": "spawn",
+    "synthetic": false
+   },
+   {
+    "asset": "nether-gen111-eval-g87-0.zip",
+    "kind": "start",
+    "seed": "L118-bfvwws",
+    "stage": "nether",
+    "synthetic": false
+   },
+   {
+    "kind": "combat",
+    "minutes": 10,
+    "scenario": "combat",
+    "seed": "L118-gqmm89",
+    "stage": "combat",
+    "synthetic": false
+   }
+  ]
+ },
  "race_evidence_version": 1,
  "score_version": 3,
  "settings": {
@@ -22107,7 +22254,9 @@
   "{\"focus.commit\": 1, \"gather.coal_upkeep_below\": 12, \"gather.iron_in_view\": 1, \"night.mine_instead\": 1}",
   "{\"night.mine_instead\": 1}",
   "{\"night.mine_instead\": 1, \"night.shelter_max_s\": 150}",
-  "{\"night.shelter_max_s\": 150}"
+  "{\"night.shelter_max_s\": 150}",
+  "{\"_metric\": \"deaths\", \"combat.crits\": 1}",
+  "{\"_metric\": \"deaths\", \"combat.backstep\": 1}"
  ],
  "version": 1
 }
