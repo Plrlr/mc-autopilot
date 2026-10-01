@@ -2697,7 +2697,7 @@
   "2026-09-28": 32,
   "2026-09-29": 24,
   "2026-09-30": 24,
-  "2026-10-01": 7
+  "2026-10-01": 8
  },
  "evolve_days": {
   "2026-09-27": 1,
@@ -2779,7 +2779,7 @@
    "target": "explore:any HAZARD"
   }
  ],
- "gen": 102,
+ "gen": 103,
  "gene_specs": {
   "bed.table_first": {
    "def": 0.0,
@@ -16641,6 +16641,41 @@
    "parent": "g56",
    "status": "contender"
   },
+  "g85": {
+   "born": 103,
+   "code": null,
+   "evals": [],
+   "genes": {
+    "combat.ignore_walled_mobs": 1.0,
+    "combat.shield_guard": 1.0,
+    "death.recover_night_armor": 12.0,
+    "focus.commit": 1.0,
+    "gear.sword_early": 1.0,
+    "move.shore_first": 1.0,
+    "nav.surface_v2": 1.0,
+    "nav.unstuck_v2": 1.0,
+    "night.shelter_exit": 1.0,
+    "plan.hide_hp": 15.0,
+    "portal.prepare_work_area": 1.0,
+    "portal.reserve_lava_bucket": 1.0,
+    "route.armor_before_portal": 1.0,
+    "skill.portal_repair": 1.0,
+    "skill.ruined_portal": 1.0,
+    "stuck.item_progress": 1.0
+   },
+   "id": "g85",
+   "metric": "deaths",
+   "mutated": [
+    "gear.sword_early",
+    "cave.torches",
+    "combat.shield_guard",
+    "route.armor_before_portal"
+   ],
+   "note": "suggested: gear.sword_early 1, cave.torches 1, combat.shield_guard 1, route.armor_before_portal 1",
+   "pairs": [],
+   "parent": "g82",
+   "status": "contender"
+  },
   "g9": {
    "born": 7,
    "code": null,
@@ -16762,8 +16797,87 @@
   "mean_gap_ok": -0.2187,
   "n": 310
  },
- "next_id": 85,
- "pending": null,
+ "next_id": 86,
+ "pending": {
+  "data_tasks": [
+   {
+    "kind": "natural",
+    "seed": "D103-fp3ucf",
+    "stage": "spawn",
+    "synthetic": false
+   },
+   {
+    "kind": "natural",
+    "seed": "D103-8pvxrr",
+    "stage": "spawn",
+    "synthetic": false
+   }
+  ],
+  "gen": 103,
+  "lineup": [
+   "g82",
+   "g56",
+   "g84",
+   "g85"
+  ],
+  "runs": [
+   "eval-g82-0",
+   "eval-g82-1",
+   "eval-g82-2",
+   "eval-g82-3",
+   "eval-g56-0",
+   "eval-g56-1",
+   "eval-g56-2",
+   "eval-g56-3",
+   "eval-g84-0",
+   "eval-g84-1",
+   "eval-g84-2",
+   "eval-g84-3",
+   "eval-g85-0",
+   "eval-g85-1",
+   "eval-g85-2",
+   "eval-g85-3",
+   "data-g82-0",
+   "data-g82-1"
+  ],
+  "seeds": [
+   "L103-36h79f",
+   "L103-zebdrf",
+   "L103-jgspas",
+   "L103-9rqfpd"
+  ],
+  "sha": "537d4ceac1dc7374b57ddce580f96f9511e1468c",
+  "started": "2026-10-01T06:34:13+00:00",
+  "tasks": [
+   {
+    "kind": "natural",
+    "seed": "L103-36h79f",
+    "stage": "spawn",
+    "synthetic": false
+   },
+   {
+    "kind": "natural",
+    "seed": "L103-zebdrf",
+    "stage": "spawn",
+    "synthetic": false
+   },
+   {
+    "asset": "nether-gen97-eval-g78-2.zip",
+    "kind": "start",
+    "seed": "L103-jgspas",
+    "stage": "nether",
+    "synthetic": false
+   },
+   {
+    "kind": "combat",
+    "minutes": 10,
+    "scenario": "combat",
+    "seed": "L103-9rqfpd",
+    "stage": "combat",
+    "synthetic": false
+   }
+  ]
+ },
  "race_evidence_version": 1,
  "score_version": 3,
  "settings": {
@@ -19797,7 +19911,8 @@
   "{\"_metric\": \"deaths\", \"combat.backstep\": 1, \"combat.crits\": 1}",
   "{\"_metric\": \"ok:collect\", \"move.shore_first\": 1}",
   "{\"_metric\": \"deaths\", \"safety.hazard\": 1}",
-  "{\"_metric\": \"deaths\", \"cave.torches\": 1, \"combat.shield_guard\": 1, \"gear.sword_early\": 1, \"nav.mob_avoid_coef\": 3, \"plan.hostile_range\": 4}"
+  "{\"_metric\": \"deaths\", \"cave.torches\": 1, \"combat.shield_guard\": 1, \"gear.sword_early\": 1, \"nav.mob_avoid_coef\": 3, \"plan.hostile_range\": 4}",
+  "{\"_metric\": \"deaths\", \"cave.torches\": 1, \"combat.shield_guard\": 1, \"gear.sword_early\": 1, \"route.armor_before_portal\": 1}"
  ],
  "version": 1
 }
