@@ -2702,7 +2702,7 @@
   "2026-09-28": 32,
   "2026-09-29": 24,
   "2026-09-30": 24,
-  "2026-10-01": 10
+  "2026-10-01": 11
  },
  "evolve_days": {
   "2026-09-27": 1,
@@ -2789,7 +2789,7 @@
    "result": "no usable patch"
   }
  ],
- "gen": 105,
+ "gen": 106,
  "gene_specs": {
   "bed.table_first": {
    "def": 0.0,
@@ -17045,6 +17045,71 @@
    "parent": "g82",
    "status": "rejected"
   },
+  "g87": {
+   "born": 106,
+   "code": null,
+   "evals": [],
+   "genes": {
+    "combat.ignore_walled_mobs": 1.0,
+    "combat.shield_guard": 1.0,
+    "death.recover_night_armor": 12.0,
+    "focus.commit": 1.0,
+    "gear.sword_early": 1.0,
+    "move.shore_first": 1.0,
+    "nav.surface_v2": 1.0,
+    "nav.unstuck_v2": 1.0,
+    "night.shelter_exit": 1.0,
+    "night.wall_in": 1.0,
+    "plan.hide_hp": 15.0,
+    "portal.prepare_work_area": 1.0,
+    "portal.reserve_lava_bucket": 1.0,
+    "route.armor_before_portal": 1.0,
+    "skill.portal_repair": 1.0,
+    "skill.ruined_portal": 1.0,
+    "stuck.item_progress": 1.0
+   },
+   "id": "g87",
+   "metric": "deaths",
+   "mutated": [
+    "night.wall_in"
+   ],
+   "note": "suggested: night.wall_in 1",
+   "pairs": [],
+   "parent": "g85",
+   "status": "contender"
+  },
+  "g88": {
+   "born": 106,
+   "code": null,
+   "evals": [],
+   "genes": {
+    "combat.deflect": 1.0,
+    "combat.ignore_walled_mobs": 1.0,
+    "combat.shield_guard": 1.0,
+    "death.recover_night_armor": 12.0,
+    "focus.commit": 1.0,
+    "gear.sword_early": 1.0,
+    "move.shore_first": 1.0,
+    "nav.surface_v2": 1.0,
+    "nav.unstuck_v2": 1.0,
+    "night.shelter_exit": 1.0,
+    "plan.hide_hp": 15.0,
+    "portal.prepare_work_area": 1.0,
+    "portal.reserve_lava_bucket": 1.0,
+    "route.armor_before_portal": 1.0,
+    "skill.portal_repair": 1.0,
+    "skill.ruined_portal": 1.0,
+    "stuck.item_progress": 1.0
+   },
+   "id": "g88",
+   "mutated": [
+    "combat.deflect"
+   ],
+   "note": "suggested: combat.deflect 1",
+   "pairs": [],
+   "parent": "g85",
+   "status": "contender"
+  },
   "g9": {
    "born": 7,
    "code": null,
@@ -17166,8 +17231,87 @@
   "mean_gap_ok": -0.48,
   "n": 358
  },
- "next_id": 87,
- "pending": null,
+ "next_id": 89,
+ "pending": {
+  "data_tasks": [
+   {
+    "kind": "natural",
+    "seed": "D106-63mppm",
+    "stage": "spawn",
+    "synthetic": false
+   },
+   {
+    "kind": "natural",
+    "seed": "D106-nt2ns4",
+    "stage": "spawn",
+    "synthetic": false
+   }
+  ],
+  "gen": 106,
+  "lineup": [
+   "g85",
+   "g84",
+   "g87",
+   "g88"
+  ],
+  "runs": [
+   "eval-g85-0",
+   "eval-g85-1",
+   "eval-g85-2",
+   "eval-g85-3",
+   "eval-g84-0",
+   "eval-g84-1",
+   "eval-g84-2",
+   "eval-g84-3",
+   "eval-g87-0",
+   "eval-g87-1",
+   "eval-g87-2",
+   "eval-g87-3",
+   "eval-g88-0",
+   "eval-g88-1",
+   "eval-g88-2",
+   "eval-g88-3",
+   "data-g85-0",
+   "data-g85-1"
+  ],
+  "seeds": [
+   "L106-uxtjgm",
+   "L106-4xr9za",
+   "L106-aahh5u",
+   "L106-y3k8w2"
+  ],
+  "sha": "537d4ceac1dc7374b57ddce580f96f9511e1468c",
+  "started": "2026-10-01T09:14:05+00:00",
+  "tasks": [
+   {
+    "kind": "natural",
+    "seed": "L106-uxtjgm",
+    "stage": "spawn",
+    "synthetic": false
+   },
+   {
+    "kind": "natural",
+    "seed": "L106-4xr9za",
+    "stage": "spawn",
+    "synthetic": false
+   },
+   {
+    "asset": "nether-gen82-eval-g56-2.zip",
+    "kind": "start",
+    "seed": "L106-aahh5u",
+    "stage": "nether",
+    "synthetic": false
+   },
+   {
+    "kind": "combat",
+    "minutes": 10,
+    "scenario": "combat",
+    "seed": "L106-y3k8w2",
+    "stage": "combat",
+    "synthetic": false
+   }
+  ]
+ },
  "race_evidence_version": 1,
  "score_version": 3,
  "settings": {
@@ -20219,7 +20363,9 @@
   "{\"_metric\": \"deaths\", \"safety.hazard\": 1}",
   "{\"_metric\": \"deaths\", \"cave.torches\": 1, \"combat.shield_guard\": 1, \"gear.sword_early\": 1, \"nav.mob_avoid_coef\": 3, \"plan.hostile_range\": 4}",
   "{\"_metric\": \"deaths\", \"cave.torches\": 1, \"combat.shield_guard\": 1, \"gear.sword_early\": 1, \"route.armor_before_portal\": 1}",
-  "{\"_metric\": \"deaths\", \"cave.torches\": 1, \"combat.shield_guard\": 1}"
+  "{\"_metric\": \"deaths\", \"cave.torches\": 1, \"combat.shield_guard\": 1}",
+  "{\"_metric\": \"deaths\", \"night.wall_in\": 1}",
+  "{\"combat.deflect\": 1}"
  ],
  "version": 1
 }
