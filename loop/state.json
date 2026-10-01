@@ -2702,7 +2702,7 @@
   "2026-09-28": 32,
   "2026-09-29": 24,
   "2026-09-30": 24,
-  "2026-10-01": 9
+  "2026-10-01": 10
  },
  "evolve_days": {
   "2026-09-27": 1,
@@ -2789,7 +2789,7 @@
    "result": "no usable patch"
   }
  ],
- "gen": 104,
+ "gen": 105,
  "gene_specs": {
   "bed.table_first": {
    "def": 0.0,
@@ -16991,7 +16991,86 @@
   "n": 330
  },
  "next_id": 87,
- "pending": null,
+ "pending": {
+  "data_tasks": [
+   {
+    "kind": "natural",
+    "seed": "D105-nfmbww",
+    "stage": "spawn",
+    "synthetic": false
+   },
+   {
+    "kind": "natural",
+    "seed": "D105-sa3fdw",
+    "stage": "spawn",
+    "synthetic": false
+   }
+  ],
+  "gen": 105,
+  "lineup": [
+   "g85",
+   "g82",
+   "g84",
+   "g86"
+  ],
+  "runs": [
+   "eval-g85-0",
+   "eval-g85-1",
+   "eval-g85-2",
+   "eval-g85-3",
+   "eval-g82-0",
+   "eval-g82-1",
+   "eval-g82-2",
+   "eval-g82-3",
+   "eval-g84-0",
+   "eval-g84-1",
+   "eval-g84-2",
+   "eval-g84-3",
+   "eval-g86-0",
+   "eval-g86-1",
+   "eval-g86-2",
+   "eval-g86-3",
+   "data-g85-0",
+   "data-g85-1"
+  ],
+  "seeds": [
+   "L105-xj3hb2",
+   "L105-62qpue",
+   "L105-hjaxrv",
+   "L105-fbjhjj"
+  ],
+  "sha": "537d4ceac1dc7374b57ddce580f96f9511e1468c",
+  "started": "2026-10-01T08:22:06+00:00",
+  "tasks": [
+   {
+    "kind": "natural",
+    "seed": "L105-xj3hb2",
+    "stage": "spawn",
+    "synthetic": false
+   },
+   {
+    "kind": "natural",
+    "seed": "L105-62qpue",
+    "stage": "spawn",
+    "synthetic": false
+   },
+   {
+    "asset": "nether-gen84-eval-g56-0.zip",
+    "kind": "start",
+    "seed": "L105-hjaxrv",
+    "stage": "nether",
+    "synthetic": false
+   },
+   {
+    "kind": "combat",
+    "minutes": 10,
+    "scenario": "combat",
+    "seed": "L105-fbjhjj",
+    "stage": "combat",
+    "synthetic": false
+   }
+  ]
+ },
  "race_evidence_version": 1,
  "score_version": 3,
  "settings": {
