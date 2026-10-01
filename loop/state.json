@@ -2692,7 +2692,7 @@
   "2026-09-28": 32,
   "2026-09-29": 24,
   "2026-09-30": 24,
-  "2026-10-01": 4
+  "2026-10-01": 5
  },
  "evolve_days": {
   "2026-09-27": 1,
@@ -2768,7 +2768,7 @@
    "result": "no usable patch"
   }
  ],
- "gen": 99,
+ "gen": 100,
  "gene_specs": {
   "bed.table_first": {
    "def": 0.0,
@@ -16081,6 +16081,101 @@
    "parent": "g6",
    "status": "rejected"
   },
+  "g80": {
+   "born": 100,
+   "code": null,
+   "evals": [],
+   "genes": {
+    "cave.torches": 1.0,
+    "combat.ignore_walled_mobs": 1.0,
+    "death.recover_night_armor": 12.0,
+    "focus.commit": 1.0,
+    "nav.surface_v2": 1.0,
+    "nav.unstuck_v2": 1.0,
+    "night.shelter_exit": 1.0,
+    "plan.hide_hp": 15.0,
+    "portal.prepare_work_area": 1.0,
+    "portal.reserve_lava_bucket": 1.0,
+    "reflex.escalate": 1.0,
+    "route.armor_before_portal": 0.0,
+    "skill.portal_repair": 1.0,
+    "skill.ruined_portal": 1.0,
+    "stuck.item_progress": 1.0
+   },
+   "id": "g80",
+   "metric": "deaths",
+   "mutated": [
+    "reflex.escalate"
+   ],
+   "note": "suggested: reflex.escalate 1",
+   "pairs": [],
+   "parent": "g56",
+   "status": "contender"
+  },
+  "g81": {
+   "born": 100,
+   "code": null,
+   "evals": [],
+   "genes": {
+    "cave.torches": 1.0,
+    "combat.backstep": 1.0,
+    "combat.crits": 1.0,
+    "combat.ignore_walled_mobs": 1.0,
+    "death.recover_night_armor": 12.0,
+    "focus.commit": 1.0,
+    "nav.surface_v2": 1.0,
+    "nav.unstuck_v2": 1.0,
+    "night.shelter_exit": 1.0,
+    "plan.hide_hp": 15.0,
+    "portal.prepare_work_area": 1.0,
+    "portal.reserve_lava_bucket": 1.0,
+    "route.armor_before_portal": 0.0,
+    "skill.portal_repair": 1.0,
+    "skill.ruined_portal": 1.0,
+    "stuck.item_progress": 1.0
+   },
+   "id": "g81",
+   "metric": "deaths",
+   "mutated": [
+    "combat.crits",
+    "combat.backstep"
+   ],
+   "note": "suggested: combat.crits 1, combat.backstep 1",
+   "pairs": [],
+   "parent": "g56",
+   "status": "contender"
+  },
+  "g82": {
+   "born": 100,
+   "code": null,
+   "evals": [],
+   "genes": {
+    "cave.torches": 1.0,
+    "combat.ignore_walled_mobs": 1.0,
+    "death.recover_night_armor": 12.0,
+    "focus.commit": 1.0,
+    "move.shore_first": 1.0,
+    "nav.surface_v2": 1.0,
+    "nav.unstuck_v2": 1.0,
+    "night.shelter_exit": 1.0,
+    "plan.hide_hp": 15.0,
+    "portal.prepare_work_area": 1.0,
+    "portal.reserve_lava_bucket": 1.0,
+    "route.armor_before_portal": 0.0,
+    "skill.portal_repair": 1.0,
+    "skill.ruined_portal": 1.0,
+    "stuck.item_progress": 1.0
+   },
+   "id": "g82",
+   "metric": "ok:collect",
+   "mutated": [
+    "move.shore_first"
+   ],
+   "note": "suggested: move.shore_first 1",
+   "pairs": [],
+   "parent": "g56",
+   "status": "contender"
+  },
   "g9": {
    "born": 7,
    "code": null,
@@ -16202,8 +16297,87 @@
   "mean_gap_ok": null,
   "n": 268
  },
- "next_id": 80,
- "pending": null,
+ "next_id": 83,
+ "pending": {
+  "data_tasks": [
+   {
+    "kind": "natural",
+    "seed": "D100-64kgze",
+    "stage": "spawn",
+    "synthetic": false
+   },
+   {
+    "kind": "natural",
+    "seed": "D100-narby3",
+    "stage": "spawn",
+    "synthetic": false
+   }
+  ],
+  "gen": 100,
+  "lineup": [
+   "g56",
+   "g80",
+   "g81",
+   "g82"
+  ],
+  "runs": [
+   "eval-g56-0",
+   "eval-g56-1",
+   "eval-g56-2",
+   "eval-g56-3",
+   "eval-g80-0",
+   "eval-g80-1",
+   "eval-g80-2",
+   "eval-g80-3",
+   "eval-g81-0",
+   "eval-g81-1",
+   "eval-g81-2",
+   "eval-g81-3",
+   "eval-g82-0",
+   "eval-g82-1",
+   "eval-g82-2",
+   "eval-g82-3",
+   "data-g56-0",
+   "data-g56-1"
+  ],
+  "seeds": [
+   "L100-ny25nj",
+   "L100-gc92zs",
+   "L100-nnmbcb",
+   "L100-pusk2f"
+  ],
+  "sha": "537d4ceac1dc7374b57ddce580f96f9511e1468c",
+  "started": "2026-10-01T03:46:27+00:00",
+  "tasks": [
+   {
+    "kind": "natural",
+    "seed": "L100-ny25nj",
+    "stage": "spawn",
+    "synthetic": false
+   },
+   {
+    "kind": "natural",
+    "seed": "L100-gc92zs",
+    "stage": "spawn",
+    "synthetic": false
+   },
+   {
+    "asset": "nether-gen92-eval-g73-2.zip",
+    "kind": "start",
+    "seed": "L100-nnmbcb",
+    "stage": "nether",
+    "synthetic": false
+   },
+   {
+    "kind": "combat",
+    "minutes": 10,
+    "scenario": "combat",
+    "seed": "L100-pusk2f",
+    "stage": "combat",
+    "synthetic": false
+   }
+  ]
+ },
  "race_evidence_version": 1,
  "score_version": 3,
  "settings": {
@@ -19218,7 +19392,10 @@
   "{\"_metric\": \"ok:collect\", \"stuck.ignore_water_bob\": 1}",
   "{\"_metric\": \"ok:build_portal|cast_portal\", \"skill.cast_portal\": 1, \"skill.diamond_hunt\": 1, \"skill.lava_scout\": 1, \"skill.obsidian_pool\": 1, \"skill.portal_repair\": 1, \"skill.restock\": 1, \"skill.ruined_portal\": 1, \"skill.stash\": 1}",
   "{\"nav.fluid_place\": 1, \"skill.drain_tunnel\": 1, \"skill.fluid_cross\": 1, \"skill.fluid_seal\": 1, \"skill.lava_guard\": 1}",
-  "{\"_metric\": \"deaths\", \"safety.hazard\": 1, \"safety.hazard_margin\": 0.05}"
+  "{\"_metric\": \"deaths\", \"safety.hazard\": 1, \"safety.hazard_margin\": 0.05}",
+  "{\"_metric\": \"deaths\", \"reflex.escalate\": 1}",
+  "{\"_metric\": \"deaths\", \"combat.backstep\": 1, \"combat.crits\": 1}",
+  "{\"_metric\": \"ok:collect\", \"move.shore_first\": 1}"
  ],
  "version": 1
 }
