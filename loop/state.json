@@ -2727,7 +2727,7 @@
   "2026-09-28": 32,
   "2026-09-29": 24,
   "2026-09-30": 24,
-  "2026-10-01": 21
+  "2026-10-01": 22
  },
  "evolve_days": {
   "2026-09-27": 1,
@@ -2842,7 +2842,7 @@
    "target": "shore TIMEOUT"
   }
  ],
- "gen": 116,
+ "gen": 117,
  "gene_specs": {
   "bed.table_first": {
    "def": 0.0,
@@ -18838,6 +18838,39 @@
    ],
    "parent": "g87",
    "status": "contender"
+  },
+  "g93": {
+   "born": 117,
+   "code": null,
+   "evals": [],
+   "genes": {
+    "combat.ignore_walled_mobs": 1.0,
+    "combat.shield_guard": 1.0,
+    "death.recover_night_armor": 12.0,
+    "focus.commit": 1.0,
+    "gear.sword_early": 1.0,
+    "move.shore_first": 1.0,
+    "nav.surface_v2": 1.0,
+    "nav.unstuck_v2": 1.0,
+    "night.shelter_exit": 1.0,
+    "night.shelter_max_s": 150.0,
+    "night.wall_in": 1.0,
+    "plan.hide_hp": 15.0,
+    "portal.prepare_work_area": 1.0,
+    "portal.reserve_lava_bucket": 1.0,
+    "route.armor_before_portal": 1.0,
+    "skill.portal_repair": 1.0,
+    "skill.ruined_portal": 1.0,
+    "stuck.item_progress": 1.0
+   },
+   "id": "g93",
+   "mutated": [
+    "night.shelter_max_s"
+   ],
+   "note": "suggested: night.shelter_max_s 150",
+   "pairs": [],
+   "parent": "g87",
+   "status": "contender"
   }
  },
  "hazard_auc": 0.842,
@@ -18865,8 +18898,87 @@
   "mean_gap_ok": -0.1493,
   "n": 446
  },
- "next_id": 93,
- "pending": null,
+ "next_id": 94,
+ "pending": {
+  "data_tasks": [
+   {
+    "kind": "natural",
+    "seed": "D117-8k3sgu",
+    "stage": "spawn",
+    "synthetic": false
+   },
+   {
+    "kind": "natural",
+    "seed": "D117-3q8vs7",
+    "stage": "spawn",
+    "synthetic": false
+   }
+  ],
+  "gen": 117,
+  "lineup": [
+   "g87",
+   "g91",
+   "g92",
+   "g93"
+  ],
+  "runs": [
+   "eval-g87-0",
+   "eval-g87-1",
+   "eval-g87-2",
+   "eval-g87-3",
+   "eval-g91-0",
+   "eval-g91-1",
+   "eval-g91-2",
+   "eval-g91-3",
+   "eval-g92-0",
+   "eval-g92-1",
+   "eval-g92-2",
+   "eval-g92-3",
+   "eval-g93-0",
+   "eval-g93-1",
+   "eval-g93-2",
+   "eval-g93-3",
+   "data-g87-0",
+   "data-g87-1"
+  ],
+  "seeds": [
+   "L117-pbpu9t",
+   "L117-wt83tu",
+   "L117-z2kegj",
+   "L117-nhnsp2"
+  ],
+  "sha": "537d4ceac1dc7374b57ddce580f96f9511e1468c",
+  "started": "2026-10-01T21:47:26+00:00",
+  "tasks": [
+   {
+    "kind": "natural",
+    "seed": "L117-pbpu9t",
+    "stage": "spawn",
+    "synthetic": false
+   },
+   {
+    "kind": "natural",
+    "seed": "L117-wt83tu",
+    "stage": "spawn",
+    "synthetic": false
+   },
+   {
+    "asset": "nether-gen97-eval-g56-2.zip",
+    "kind": "start",
+    "seed": "L117-z2kegj",
+    "stage": "nether",
+    "synthetic": false
+   },
+   {
+    "kind": "combat",
+    "minutes": 10,
+    "scenario": "combat",
+    "seed": "L117-nhnsp2",
+    "stage": "combat",
+    "synthetic": false
+   }
+  ]
+ },
  "race_evidence_version": 1,
  "score_version": 3,
  "settings": {
@@ -21931,7 +22043,8 @@
   "{\"focus.commit\": 1, \"route.diamond_portal\": 1}",
   "{\"focus.commit\": 1, \"gather.coal_upkeep_below\": 12, \"gather.iron_in_view\": 1, \"night.mine_instead\": 1}",
   "{\"night.mine_instead\": 1}",
-  "{\"night.mine_instead\": 1, \"night.shelter_max_s\": 150}"
+  "{\"night.mine_instead\": 1, \"night.shelter_max_s\": 150}",
+  "{\"night.shelter_max_s\": 150}"
  ],
  "version": 1
 }
