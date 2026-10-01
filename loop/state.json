@@ -2671,7 +2671,8 @@
   "2026-09-27": 15,
   "2026-09-28": 32,
   "2026-09-29": 24,
-  "2026-09-30": 24
+  "2026-09-30": 24,
+  "2026-10-01": 1
  },
  "evolve_days": {
   "2026-09-27": 1,
@@ -2725,7 +2726,7 @@
    "result": "no usable patch"
   }
  ],
- "gen": 95,
+ "gen": 96,
  "gene_specs": {
   "bed.table_first": {
    "def": 0.0,
@@ -15291,6 +15292,120 @@
    "parent": "g56",
    "status": "rejected"
   },
+  "g77": {
+   "born": 96,
+   "code": null,
+   "evals": [],
+   "genes": {
+    "cave.torches": 1.0,
+    "combat.ignore_walled_mobs": 1.0,
+    "death.recover_night_armor": 12.0,
+    "focus.commit": 1.0,
+    "nav.surface_v2": 1.0,
+    "nav.unstuck_v2": 1.0,
+    "night.shelter_exit": 1.0,
+    "plan.hide_hp": 15.0,
+    "portal.prepare_work_area": 1.0,
+    "portal.reserve_lava_bucket": 1.0,
+    "route.armor_before_portal": 0.0,
+    "skill.cast_portal": 1.0,
+    "skill.diamond_hunt": 1.0,
+    "skill.lava_scout": 1.0,
+    "skill.obsidian_pool": 1.0,
+    "skill.portal_repair": 1.0,
+    "skill.restock": 1.0,
+    "skill.ruined_portal": 1.0,
+    "skill.stash": 1.0,
+    "stuck.item_progress": 1.0
+   },
+   "id": "g77",
+   "metric": "ok:build_portal|cast_portal",
+   "mutated": [
+    "skill.lava_scout",
+    "skill.cast_portal",
+    "skill.ruined_portal",
+    "skill.obsidian_pool",
+    "skill.diamond_hunt",
+    "skill.portal_repair",
+    "skill.stash",
+    "skill.restock"
+   ],
+   "note": "suggested: skill.lava_scout 1, skill.cast_portal 1, skill.ruined_portal 1, skill.obsidian_pool 1, skill.diamond_hunt 1, skill.portal_repair 1, skill.stash 1, skill.restock 1",
+   "pairs": [],
+   "parent": "g56",
+   "status": "contender"
+  },
+  "g78": {
+   "born": 96,
+   "code": null,
+   "evals": [],
+   "genes": {
+    "cave.torches": 1.0,
+    "combat.ignore_walled_mobs": 1.0,
+    "death.recover_night_armor": 12.0,
+    "focus.commit": 1.0,
+    "nav.fluid_place": 1.0,
+    "nav.surface_v2": 1.0,
+    "nav.unstuck_v2": 1.0,
+    "night.shelter_exit": 1.0,
+    "plan.hide_hp": 15.0,
+    "portal.prepare_work_area": 1.0,
+    "portal.reserve_lava_bucket": 1.0,
+    "route.armor_before_portal": 0.0,
+    "skill.drain_tunnel": 1.0,
+    "skill.fluid_cross": 1.0,
+    "skill.fluid_seal": 1.0,
+    "skill.lava_guard": 1.0,
+    "skill.portal_repair": 1.0,
+    "skill.ruined_portal": 1.0,
+    "stuck.item_progress": 1.0
+   },
+   "id": "g78",
+   "mutated": [
+    "skill.fluid_seal",
+    "skill.lava_guard",
+    "skill.fluid_cross",
+    "skill.drain_tunnel",
+    "nav.fluid_place"
+   ],
+   "note": "suggested: skill.fluid_seal 1, skill.lava_guard 1, skill.fluid_cross 1, skill.drain_tunnel 1, nav.fluid_place 1",
+   "pairs": [],
+   "parent": "g56",
+   "status": "contender"
+  },
+  "g79": {
+   "born": 96,
+   "code": null,
+   "evals": [],
+   "genes": {
+    "cave.torches": 1.0,
+    "combat.ignore_walled_mobs": 1.0,
+    "death.recover_night_armor": 12.0,
+    "focus.commit": 1.0,
+    "nav.surface_v2": 1.0,
+    "nav.unstuck_v2": 1.0,
+    "night.shelter_exit": 1.0,
+    "plan.hide_hp": 15.0,
+    "portal.prepare_work_area": 1.0,
+    "portal.reserve_lava_bucket": 1.0,
+    "route.armor_before_portal": 0.0,
+    "safety.hazard": 1.0,
+    "safety.hazard_margin": 0.05,
+    "skill.portal_repair": 1.0,
+    "skill.ruined_portal": 1.0,
+    "stuck.item_progress": 1.0
+   },
+   "id": "g79",
+   "metric": "deaths",
+   "mutated": [
+    "safety.hazard",
+    "safety.hazard_margin"
+   ],
+   "note": "suggested: safety.hazard 1, safety.hazard_margin 0.05",
+   "pairs": [],
+   "parent": "g56",
+   "status": "contender"
+  },
   "g8": {
    "born": 6,
    "code": null,
@@ -15457,8 +15572,87 @@
   "mean_gap_ok": null,
   "n": 108
  },
- "next_id": 77,
- "pending": null,
+ "next_id": 80,
+ "pending": {
+  "data_tasks": [
+   {
+    "kind": "natural",
+    "seed": "D96-6j5hwf",
+    "stage": "spawn",
+    "synthetic": false
+   },
+   {
+    "kind": "natural",
+    "seed": "D96-2aef9r",
+    "stage": "spawn",
+    "synthetic": false
+   }
+  ],
+  "gen": 96,
+  "lineup": [
+   "g56",
+   "g77",
+   "g78",
+   "g79"
+  ],
+  "runs": [
+   "eval-g56-0",
+   "eval-g56-1",
+   "eval-g56-2",
+   "eval-g56-3",
+   "eval-g77-0",
+   "eval-g77-1",
+   "eval-g77-2",
+   "eval-g77-3",
+   "eval-g78-0",
+   "eval-g78-1",
+   "eval-g78-2",
+   "eval-g78-3",
+   "eval-g79-0",
+   "eval-g79-1",
+   "eval-g79-2",
+   "eval-g79-3",
+   "data-g56-0",
+   "data-g56-1"
+  ],
+  "seeds": [
+   "L96-rcrehb",
+   "L96-jm68ac",
+   "L96-emh82t",
+   "L96-tzf4nr"
+  ],
+  "sha": "537d4ceac1dc7374b57ddce580f96f9511e1468c",
+  "started": "2026-10-01T00:12:59+00:00",
+  "tasks": [
+   {
+    "kind": "natural",
+    "seed": "L96-rcrehb",
+    "stage": "spawn",
+    "synthetic": false
+   },
+   {
+    "kind": "natural",
+    "seed": "L96-jm68ac",
+    "stage": "spawn",
+    "synthetic": false
+   },
+   {
+    "asset": "diamond-gen74-eval-g58-2.zip",
+    "kind": "start",
+    "seed": "L96-emh82t",
+    "stage": "diamond",
+    "synthetic": false
+   },
+   {
+    "kind": "combat",
+    "minutes": 10,
+    "scenario": "combat",
+    "seed": "L96-tzf4nr",
+    "stage": "combat",
+    "synthetic": false
+   }
+  ]
+ },
  "race_evidence_version": 1,
  "score_version": 3,
  "settings": {
@@ -18236,7 +18430,10 @@
   "{\"_metric\": \"ok:collect\", \"stuck.item_progress\": 1}",
   "{\"_metric\": \"ok:collect\", \"gather.stair_for_stone\": 1}",
   "{\"_metric\": \"ok:collect\", \"fluid.enclosed_tunnel\": 1, \"gather.dry_stone\": 1}",
-  "{\"_metric\": \"ok:collect\", \"stuck.ignore_water_bob\": 1}"
+  "{\"_metric\": \"ok:collect\", \"stuck.ignore_water_bob\": 1}",
+  "{\"_metric\": \"ok:build_portal|cast_portal\", \"skill.cast_portal\": 1, \"skill.diamond_hunt\": 1, \"skill.lava_scout\": 1, \"skill.obsidian_pool\": 1, \"skill.portal_repair\": 1, \"skill.restock\": 1, \"skill.ruined_portal\": 1, \"skill.stash\": 1}",
+  "{\"nav.fluid_place\": 1, \"skill.drain_tunnel\": 1, \"skill.fluid_cross\": 1, \"skill.fluid_seal\": 1, \"skill.lava_guard\": 1}",
+  "{\"_metric\": \"deaths\", \"safety.hazard\": 1, \"safety.hazard_margin\": 0.05}"
  ],
  "version": 1
 }
