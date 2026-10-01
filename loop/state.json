@@ -2717,7 +2717,7 @@
   "2026-09-28": 32,
   "2026-09-29": 24,
   "2026-09-30": 24,
-  "2026-10-01": 15
+  "2026-10-01": 16
  },
  "evolve_days": {
   "2026-09-27": 1,
@@ -2821,7 +2821,7 @@
    "target": "shore TIMEOUT"
   }
  ],
- "gen": 110,
+ "gen": 111,
  "gene_specs": {
   "bed.table_first": {
    "def": 0.0,
@@ -17914,7 +17914,86 @@
   "n": 430
  },
  "next_id": 90,
- "pending": null,
+ "pending": {
+  "data_tasks": [
+   {
+    "kind": "natural",
+    "seed": "D111-p2u85f",
+    "stage": "spawn",
+    "synthetic": false
+   },
+   {
+    "kind": "natural",
+    "seed": "D111-jc2v9t",
+    "stage": "spawn",
+    "synthetic": false
+   }
+  ],
+  "gen": 111,
+  "lineup": [
+   "g87",
+   "g85",
+   "g88",
+   "g89"
+  ],
+  "runs": [
+   "eval-g87-0",
+   "eval-g87-1",
+   "eval-g87-2",
+   "eval-g87-3",
+   "eval-g85-0",
+   "eval-g85-1",
+   "eval-g85-2",
+   "eval-g85-3",
+   "eval-g88-0",
+   "eval-g88-1",
+   "eval-g88-2",
+   "eval-g88-3",
+   "eval-g89-0",
+   "eval-g89-1",
+   "eval-g89-2",
+   "eval-g89-3",
+   "data-g87-0",
+   "data-g87-1"
+  ],
+  "seeds": [
+   "L111-pmz672",
+   "L111-cg9fg9",
+   "L111-3qnard",
+   "L111-jqrzsy"
+  ],
+  "sha": "537d4ceac1dc7374b57ddce580f96f9511e1468c",
+  "started": "2026-10-01T13:58:59+00:00",
+  "tasks": [
+   {
+    "kind": "natural",
+    "seed": "L111-pmz672",
+    "stage": "spawn",
+    "synthetic": false
+   },
+   {
+    "kind": "natural",
+    "seed": "L111-cg9fg9",
+    "stage": "spawn",
+    "synthetic": false
+   },
+   {
+    "asset": "nether-gen94-eval-g73-2.zip",
+    "kind": "start",
+    "seed": "L111-3qnard",
+    "stage": "nether",
+    "synthetic": false
+   },
+   {
+    "kind": "combat",
+    "minutes": 10,
+    "scenario": "combat",
+    "seed": "L111-jqrzsy",
+    "stage": "combat",
+    "synthetic": false
+   }
+  ]
+ },
  "race_evidence_version": 1,
  "score_version": 3,
  "settings": {
