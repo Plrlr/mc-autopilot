@@ -2732,7 +2732,8 @@
   "2026-09-28": 32,
   "2026-09-29": 24,
   "2026-09-30": 24,
-  "2026-10-01": 24
+  "2026-10-01": 24,
+  "2026-10-02": 1
  },
  "evolve_days": {
   "2026-09-27": 1,
@@ -2853,7 +2854,7 @@
    "result": "no usable patch"
   }
  ],
- "gen": 119,
+ "gen": 120,
  "gene_specs": {
   "bed.table_first": {
    "def": 0.0,
@@ -19548,7 +19549,86 @@
   "n": 446
  },
  "next_id": 99,
- "pending": null,
+ "pending": {
+  "data_tasks": [
+   {
+    "kind": "natural",
+    "seed": "D120-bbb36z",
+    "stage": "spawn",
+    "synthetic": false
+   },
+   {
+    "kind": "natural",
+    "seed": "D120-spqtfg",
+    "stage": "spawn",
+    "synthetic": false
+   }
+  ],
+  "gen": 120,
+  "lineup": [
+   "g87",
+   "g96",
+   "g97",
+   "g98"
+  ],
+  "runs": [
+   "eval-g87-0",
+   "eval-g87-1",
+   "eval-g87-2",
+   "eval-g87-3",
+   "eval-g96-0",
+   "eval-g96-1",
+   "eval-g96-2",
+   "eval-g96-3",
+   "eval-g97-0",
+   "eval-g97-1",
+   "eval-g97-2",
+   "eval-g97-3",
+   "eval-g98-0",
+   "eval-g98-1",
+   "eval-g98-2",
+   "eval-g98-3",
+   "data-g87-0",
+   "data-g87-1"
+  ],
+  "seeds": [
+   "L120-dwsmcg",
+   "L120-yury3k",
+   "L120-r9k6gx",
+   "L120-3v83xe"
+  ],
+  "sha": "537d4ceac1dc7374b57ddce580f96f9511e1468c",
+  "started": "2026-10-02T00:50:47+00:00",
+  "tasks": [
+   {
+    "kind": "natural",
+    "seed": "L120-dwsmcg",
+    "stage": "spawn",
+    "synthetic": false
+   },
+   {
+    "kind": "natural",
+    "seed": "L120-yury3k",
+    "stage": "spawn",
+    "synthetic": false
+   },
+   {
+    "asset": "nether-gen96-eval-g77-2.zip",
+    "kind": "start",
+    "seed": "L120-r9k6gx",
+    "stage": "nether",
+    "synthetic": false
+   },
+   {
+    "kind": "combat",
+    "minutes": 10,
+    "scenario": "combat",
+    "seed": "L120-3v83xe",
+    "stage": "combat",
+    "synthetic": false
+   }
+  ]
+ },
  "race_evidence_version": 1,
  "score_version": 3,
  "settings": {
