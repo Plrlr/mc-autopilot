@@ -2788,7 +2788,7 @@
   "2026-09-29": 24,
   "2026-09-30": 24,
   "2026-10-01": 24,
-  "2026-10-02": 19
+  "2026-10-02": 20
  },
  "evolve_days": {
   "2026-09-27": 1,
@@ -2970,7 +2970,7 @@
    "target": "shore TIMEOUT"
   }
  ],
- "gen": 138,
+ "gen": 139,
  "gene_specs": {
   "bed.table_first": {
    "def": 0.0,
@@ -7365,6 +7365,75 @@
      -0.225
     ]
    ],
+   "parent": "g99",
+   "status": "contender"
+  },
+  "g113": {
+   "born": 139,
+   "code": null,
+   "evals": [],
+   "genes": {
+    "combat.creeper_hit": 1.0,
+    "combat.ignore_walled_mobs": 1.0,
+    "combat.shield_guard": 1.0,
+    "death.recover_night_armor": 12.0,
+    "focus.commit": 1.0,
+    "gear.sword_early": 1.0,
+    "move.shore_first": 1.0,
+    "nav.surface_v2": 1.0,
+    "nav.unstuck_v2": 1.0,
+    "night.shelter_exit": 1.0,
+    "night.wall_in": 1.0,
+    "plan.hide_hp": 15.0,
+    "portal.prepare_work_area": 1.0,
+    "portal.reserve_lava_bucket": 1.0,
+    "route.armor_before_portal": 1.0,
+    "route.diamond_portal": 0.0,
+    "skill.portal_repair": 1.0,
+    "skill.ruined_portal": 1.0,
+    "stuck.item_progress": 1.0
+   },
+   "id": "g113",
+   "max_pairs": 24,
+   "mutated": [
+    "route.diamond_portal"
+   ],
+   "note": "suggested: route.diamond_portal 0",
+   "pairs": [],
+   "parent": "g99",
+   "status": "contender"
+  },
+  "g114": {
+   "born": 139,
+   "code": null,
+   "evals": [],
+   "genes": {
+    "combat.creeper_hit": 1.0,
+    "combat.ignore_walled_mobs": 1.0,
+    "combat.shield_guard": 1.0,
+    "death.recover_night_armor": 12.0,
+    "focus.commit": 1.0,
+    "gear.sword_early": 1.0,
+    "move.shore_first": 1.0,
+    "nav.surface_v2": 1.0,
+    "nav.unstuck_v2": 1.0,
+    "night.mine_instead": 1.0,
+    "night.shelter_exit": 1.0,
+    "night.wall_in": 1.0,
+    "plan.hide_hp": 15.0,
+    "portal.prepare_work_area": 1.0,
+    "portal.reserve_lava_bucket": 1.0,
+    "route.armor_before_portal": 1.0,
+    "skill.portal_repair": 1.0,
+    "skill.ruined_portal": 1.0,
+    "stuck.item_progress": 1.0
+   },
+   "id": "g114",
+   "mutated": [
+    "night.mine_instead"
+   ],
+   "note": "night.mine_instead 1",
+   "pairs": [],
    "parent": "g99",
    "status": "contender"
   },
@@ -22719,8 +22788,87 @@
   "mean_gap_ok": -0.1101,
   "n": 554
  },
- "next_id": 113,
- "pending": null,
+ "next_id": 115,
+ "pending": {
+  "data_tasks": [
+   {
+    "kind": "natural",
+    "seed": "D139-eracvf",
+    "stage": "spawn",
+    "synthetic": false
+   },
+   {
+    "kind": "natural",
+    "seed": "D139-jr6654",
+    "stage": "spawn",
+    "synthetic": false
+   }
+  ],
+  "gen": 139,
+  "lineup": [
+   "g99",
+   "g112",
+   "g113",
+   "g114"
+  ],
+  "runs": [
+   "eval-g99-0",
+   "eval-g99-1",
+   "eval-g99-2",
+   "eval-g99-3",
+   "eval-g112-0",
+   "eval-g112-1",
+   "eval-g112-2",
+   "eval-g112-3",
+   "eval-g113-0",
+   "eval-g113-1",
+   "eval-g113-2",
+   "eval-g113-3",
+   "eval-g114-0",
+   "eval-g114-1",
+   "eval-g114-2",
+   "eval-g114-3",
+   "data-g99-0",
+   "data-g99-1"
+  ],
+  "seeds": [
+   "L139-evsekw",
+   "L139-75d37z",
+   "L139-a47k6u",
+   "L139-hpgnhr"
+  ],
+  "sha": "537d4ceac1dc7374b57ddce580f96f9511e1468c",
+  "started": "2026-10-02T20:04:49+00:00",
+  "tasks": [
+   {
+    "kind": "natural",
+    "seed": "L139-evsekw",
+    "stage": "spawn",
+    "synthetic": false
+   },
+   {
+    "kind": "natural",
+    "seed": "L139-75d37z",
+    "stage": "spawn",
+    "synthetic": false
+   },
+   {
+    "asset": "nether-gen97-eval-g56-2.zip",
+    "kind": "start",
+    "seed": "L139-a47k6u",
+    "stage": "nether",
+    "synthetic": false
+   },
+   {
+    "kind": "combat",
+    "minutes": 10,
+    "scenario": "combat",
+    "seed": "L139-hpgnhr",
+    "stage": "combat",
+    "synthetic": false
+   }
+  ]
+ },
  "race_evidence_version": 1,
  "score_version": 3,
  "settings": {
@@ -25834,7 +25982,8 @@
   "{\"_metric\": \"ok:obsidian_pool\", \"deep.mold\": 0}",
   "{\"deep.sticks\": 6}",
   "{\"_metric\": \"deaths\", \"deep.food\": 0}",
-  "{\"deep.food\": 8}"
+  "{\"deep.food\": 8}",
+  "{\"_max_pairs\": 24, \"_note\": \"control: the old bucket-cast route, raced once the diamond route has had its tuning\", \"route.diamond_portal\": 0}"
  ],
  "version": 1
 }
