@@ -2753,7 +2753,7 @@
   "2026-09-29": 24,
   "2026-09-30": 24,
   "2026-10-01": 24,
-  "2026-10-02": 6
+  "2026-10-02": 7
  },
  "evolve_days": {
   "2026-09-27": 1,
@@ -2896,7 +2896,7 @@
    "result": "no usable patch"
   }
  ],
- "gen": 125,
+ "gen": 126,
  "gene_specs": {
   "bed.table_first": {
    "def": 0.0,
@@ -5183,6 +5183,42 @@
     ]
    ],
    "parent": "g87",
+   "status": "contender"
+  },
+  "g102": {
+   "born": 126,
+   "code": null,
+   "evals": [],
+   "genes": {
+    "combat.creeper_hit": 1.0,
+    "combat.ignore_walled_mobs": 1.0,
+    "combat.shield_guard": 1.0,
+    "combat.target_rule": 2.0,
+    "death.recover_night_armor": 12.0,
+    "focus.commit": 1.0,
+    "gear.sword_early": 1.0,
+    "move.shore_first": 1.0,
+    "nav.surface_v2": 1.0,
+    "nav.unstuck_v2": 1.0,
+    "night.shelter_exit": 1.0,
+    "night.wall_in": 1.0,
+    "plan.hide_hp": 15.0,
+    "portal.prepare_work_area": 1.0,
+    "portal.reserve_lava_bucket": 1.0,
+    "route.armor_before_portal": 1.0,
+    "skill.portal_repair": 1.0,
+    "skill.ruined_portal": 1.0,
+    "stuck.item_progress": 1.0
+   },
+   "id": "g102",
+   "mutated": [
+    "combat.target_rule",
+    "combat.creeper_hit",
+    "combat.creeper_priority_range"
+   ],
+   "note": "suggested: combat.target_rule 2, combat.creeper_hit 1, combat.creeper_priority_range 5",
+   "pairs": [],
+   "parent": "g99",
    "status": "contender"
   },
   "g11": {
@@ -20398,8 +20434,87 @@
   "mean_gap_ok": 0.0011,
   "n": 469
  },
- "next_id": 102,
- "pending": null,
+ "next_id": 103,
+ "pending": {
+  "data_tasks": [
+   {
+    "kind": "natural",
+    "seed": "D126-jqvzsn",
+    "stage": "spawn",
+    "synthetic": false
+   },
+   {
+    "kind": "natural",
+    "seed": "D126-vcfryn",
+    "stage": "spawn",
+    "synthetic": false
+   }
+  ],
+  "gen": 126,
+  "lineup": [
+   "g99",
+   "g100",
+   "g101",
+   "g102"
+  ],
+  "runs": [
+   "eval-g99-0",
+   "eval-g99-1",
+   "eval-g99-2",
+   "eval-g99-3",
+   "eval-g100-0",
+   "eval-g100-1",
+   "eval-g100-2",
+   "eval-g100-3",
+   "eval-g101-0",
+   "eval-g101-1",
+   "eval-g101-2",
+   "eval-g101-3",
+   "eval-g102-0",
+   "eval-g102-1",
+   "eval-g102-2",
+   "eval-g102-3",
+   "data-g99-0",
+   "data-g99-1"
+  ],
+  "seeds": [
+   "L126-m3qke4",
+   "L126-jwsf48",
+   "L126-vuhf4v",
+   "L126-fn9kac"
+  ],
+  "sha": "537d4ceac1dc7374b57ddce580f96f9511e1468c",
+  "started": "2026-10-02T06:42:45+00:00",
+  "tasks": [
+   {
+    "kind": "natural",
+    "seed": "L126-m3qke4",
+    "stage": "spawn",
+    "synthetic": false
+   },
+   {
+    "kind": "natural",
+    "seed": "L126-jwsf48",
+    "stage": "spawn",
+    "synthetic": false
+   },
+   {
+    "asset": "nether-gen98-eval-g78-0.zip",
+    "kind": "start",
+    "seed": "L126-vuhf4v",
+    "stage": "nether",
+    "synthetic": false
+   },
+   {
+    "kind": "combat",
+    "minutes": 10,
+    "scenario": "combat",
+    "seed": "L126-fn9kac",
+    "stage": "combat",
+    "synthetic": false
+   }
+  ]
+ },
  "race_evidence_version": 1,
  "score_version": 3,
  "settings": {
@@ -23501,7 +23616,8 @@
   "{\"combat.sprint_hit\": 1, \"combat.sprint_hit_dist\": 4}",
   "{\"combat.creeper_gap\": 6, \"combat.creeper_hit\": 1}",
   "{\"combat.skeleton_approach\": 1, \"combat.skeleton_zigzag\": 12}",
-  "{\"combat.target_rule\": 1}"
+  "{\"combat.target_rule\": 1}",
+  "{\"combat.creeper_hit\": 1, \"combat.creeper_priority_range\": 5, \"combat.target_rule\": 2}"
  ],
  "version": 1
 }
