@@ -2788,7 +2788,7 @@
   "2026-09-29": 24,
   "2026-09-30": 24,
   "2026-10-01": 24,
-  "2026-10-02": 21
+  "2026-10-02": 22
  },
  "evolve_days": {
   "2026-09-27": 1,
@@ -2970,7 +2970,7 @@
    "target": "shore TIMEOUT"
   }
  ],
- "gen": 140,
+ "gen": 141,
  "gene_specs": {
   "bed.table_first": {
    "def": 0.0,
@@ -7751,6 +7751,42 @@
      0.047
     ]
    ],
+   "parent": "g99",
+   "status": "contender"
+  },
+  "g117": {
+   "born": 141,
+   "code": null,
+   "evals": [],
+   "genes": {
+    "combat.creeper_hit": 1.0,
+    "combat.ignore_walled_mobs": 1.0,
+    "combat.shield_guard": 1.0,
+    "death.recover_night_armor": 12.0,
+    "focus.commit": 1.0,
+    "gear.sword_early": 1.0,
+    "move.shore_first": 1.0,
+    "nav.surface_v2": 1.0,
+    "nav.unstuck_v2": 1.0,
+    "night.shelter_exit": 1.0,
+    "night.wall_in": 1.0,
+    "plan.hide_hp": 15.0,
+    "plan.noop_success_pause": 1.0,
+    "portal.prepare_work_area": 1.0,
+    "portal.reserve_lava_bucket": 1.0,
+    "reflex.creeper_dist": 6.712333414007024,
+    "route.armor_before_portal": 1.0,
+    "skill.portal_repair": 1.0,
+    "skill.ruined_portal": 1.0,
+    "stuck.item_progress": 1.0
+   },
+   "id": "g117",
+   "mutated": [
+    "plan.noop_success_pause",
+    "reflex.creeper_dist"
+   ],
+   "note": "plan.noop_success_pause 1, reflex.creeper_dist 6.71233",
+   "pairs": [],
    "parent": "g99",
    "status": "contender"
   },
@@ -23145,8 +23181,87 @@
   "mean_gap_ok": -0.3777,
   "n": 575
  },
- "next_id": 117,
- "pending": null,
+ "next_id": 118,
+ "pending": {
+  "data_tasks": [
+   {
+    "kind": "natural",
+    "seed": "D141-qr8uhq",
+    "stage": "spawn",
+    "synthetic": false
+   },
+   {
+    "kind": "natural",
+    "seed": "D141-84vajy",
+    "stage": "spawn",
+    "synthetic": false
+   }
+  ],
+  "gen": 141,
+  "lineup": [
+   "g99",
+   "g116",
+   "g115",
+   "g117"
+  ],
+  "runs": [
+   "eval-g99-0",
+   "eval-g99-1",
+   "eval-g99-2",
+   "eval-g99-3",
+   "eval-g116-0",
+   "eval-g116-1",
+   "eval-g116-2",
+   "eval-g116-3",
+   "eval-g115-0",
+   "eval-g115-1",
+   "eval-g115-2",
+   "eval-g115-3",
+   "eval-g117-0",
+   "eval-g117-1",
+   "eval-g117-2",
+   "eval-g117-3",
+   "data-g99-0",
+   "data-g99-1"
+  ],
+  "seeds": [
+   "L141-ecp4xx",
+   "L141-b6dgde",
+   "L141-7fryke",
+   "L141-knftss"
+  ],
+  "sha": "537d4ceac1dc7374b57ddce580f96f9511e1468c",
+  "started": "2026-10-02T22:11:06+00:00",
+  "tasks": [
+   {
+    "kind": "natural",
+    "seed": "L141-ecp4xx",
+    "stage": "spawn",
+    "synthetic": false
+   },
+   {
+    "kind": "natural",
+    "seed": "L141-b6dgde",
+    "stage": "spawn",
+    "synthetic": false
+   },
+   {
+    "asset": "nether-gen112-eval-g87-0.zip",
+    "kind": "start",
+    "seed": "L141-7fryke",
+    "stage": "nether",
+    "synthetic": false
+   },
+   {
+    "kind": "combat",
+    "minutes": 10,
+    "scenario": "combat",
+    "seed": "L141-knftss",
+    "stage": "combat",
+    "synthetic": false
+   }
+  ]
+ },
  "race_evidence_version": 1,
  "score_version": 3,
  "settings": {
