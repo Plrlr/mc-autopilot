@@ -2788,7 +2788,7 @@
   "2026-09-29": 24,
   "2026-09-30": 24,
   "2026-10-01": 24,
-  "2026-10-02": 15
+  "2026-10-02": 16
  },
  "evolve_days": {
   "2026-09-27": 1,
@@ -2970,7 +2970,7 @@
    "target": "shore TIMEOUT"
   }
  ],
- "gen": 134,
+ "gen": 135,
  "gene_specs": {
   "bed.table_first": {
    "def": 0.0,
@@ -6598,6 +6598,41 @@
    "parent": "g99",
    "status": "rejected"
   },
+  "g109": {
+   "born": 135,
+   "code": null,
+   "evals": [],
+   "genes": {
+    "combat.creeper_hit": 1.0,
+    "combat.ignore_walled_mobs": 1.0,
+    "combat.shield_guard": 1.0,
+    "death.recover_night_armor": 12.0,
+    "deep.mold": 0.0,
+    "focus.commit": 1.0,
+    "gear.sword_early": 1.0,
+    "move.shore_first": 1.0,
+    "nav.surface_v2": 1.0,
+    "nav.unstuck_v2": 1.0,
+    "night.shelter_exit": 1.0,
+    "night.wall_in": 1.0,
+    "plan.hide_hp": 15.0,
+    "portal.prepare_work_area": 1.0,
+    "portal.reserve_lava_bucket": 1.0,
+    "route.armor_before_portal": 1.0,
+    "skill.portal_repair": 1.0,
+    "skill.ruined_portal": 1.0,
+    "stuck.item_progress": 1.0
+   },
+   "id": "g109",
+   "metric": "ok:obsidian_pool",
+   "mutated": [
+    "deep.mold"
+   ],
+   "note": "suggested: deep.mold 0",
+   "pairs": [],
+   "parent": "g99",
+   "status": "contender"
+  },
   "g11": {
    "born": 10,
    "code": null,
@@ -6719,6 +6754,75 @@
    "pairs": [],
    "parent": "g6",
    "status": "rejected"
+  },
+  "g110": {
+   "born": 135,
+   "code": null,
+   "evals": [],
+   "genes": {
+    "combat.creeper_hit": 1.0,
+    "combat.ignore_walled_mobs": 1.0,
+    "combat.shield_guard": 1.0,
+    "death.recover_night_armor": 12.0,
+    "deep.sticks": 6.0,
+    "focus.commit": 1.0,
+    "gear.sword_early": 1.0,
+    "move.shore_first": 1.0,
+    "nav.surface_v2": 1.0,
+    "nav.unstuck_v2": 1.0,
+    "night.shelter_exit": 1.0,
+    "night.wall_in": 1.0,
+    "plan.hide_hp": 15.0,
+    "portal.prepare_work_area": 1.0,
+    "portal.reserve_lava_bucket": 1.0,
+    "route.armor_before_portal": 1.0,
+    "skill.portal_repair": 1.0,
+    "skill.ruined_portal": 1.0,
+    "stuck.item_progress": 1.0
+   },
+   "id": "g110",
+   "mutated": [
+    "deep.sticks"
+   ],
+   "note": "suggested: deep.sticks 6",
+   "pairs": [],
+   "parent": "g99",
+   "status": "contender"
+  },
+  "g111": {
+   "born": 135,
+   "code": null,
+   "evals": [],
+   "genes": {
+    "combat.creeper_hit": 1.0,
+    "combat.ignore_walled_mobs": 1.0,
+    "combat.shield_guard": 1.0,
+    "death.recover_night_armor": 12.0,
+    "deep.food": 0.0,
+    "focus.commit": 1.0,
+    "gear.sword_early": 1.0,
+    "move.shore_first": 1.0,
+    "nav.surface_v2": 1.0,
+    "nav.unstuck_v2": 1.0,
+    "night.shelter_exit": 1.0,
+    "night.wall_in": 1.0,
+    "plan.hide_hp": 15.0,
+    "portal.prepare_work_area": 1.0,
+    "portal.reserve_lava_bucket": 1.0,
+    "route.armor_before_portal": 1.0,
+    "skill.portal_repair": 1.0,
+    "skill.ruined_portal": 1.0,
+    "stuck.item_progress": 1.0
+   },
+   "id": "g111",
+   "metric": "deaths",
+   "mutated": [
+    "deep.food"
+   ],
+   "note": "suggested: deep.food 0",
+   "pairs": [],
+   "parent": "g99",
+   "status": "contender"
   },
   "g12": {
    "born": 13,
@@ -21991,8 +22095,87 @@
   "mean_gap_ok": -0.1246,
   "n": 533
  },
- "next_id": 109,
- "pending": null,
+ "next_id": 112,
+ "pending": {
+  "data_tasks": [
+   {
+    "kind": "natural",
+    "seed": "D135-ghj76c",
+    "stage": "spawn",
+    "synthetic": false
+   },
+   {
+    "kind": "natural",
+    "seed": "D135-jgt5nf",
+    "stage": "spawn",
+    "synthetic": false
+   }
+  ],
+  "gen": 135,
+  "lineup": [
+   "g99",
+   "g109",
+   "g110",
+   "g111"
+  ],
+  "runs": [
+   "eval-g99-0",
+   "eval-g99-1",
+   "eval-g99-2",
+   "eval-g99-3",
+   "eval-g109-0",
+   "eval-g109-1",
+   "eval-g109-2",
+   "eval-g109-3",
+   "eval-g110-0",
+   "eval-g110-1",
+   "eval-g110-2",
+   "eval-g110-3",
+   "eval-g111-0",
+   "eval-g111-1",
+   "eval-g111-2",
+   "eval-g111-3",
+   "data-g99-0",
+   "data-g99-1"
+  ],
+  "seeds": [
+   "L135-b8jku8",
+   "L135-n3pg2k",
+   "L135-z9sk4n",
+   "L135-bk7787"
+  ],
+  "sha": "537d4ceac1dc7374b57ddce580f96f9511e1468c",
+  "started": "2026-10-02T15:48:39+00:00",
+  "tasks": [
+   {
+    "kind": "natural",
+    "seed": "L135-b8jku8",
+    "stage": "spawn",
+    "synthetic": false
+   },
+   {
+    "kind": "natural",
+    "seed": "L135-n3pg2k",
+    "stage": "spawn",
+    "synthetic": false
+   },
+   {
+    "asset": "nether-gen85-eval-g49-2.zip",
+    "kind": "start",
+    "seed": "L135-z9sk4n",
+    "stage": "nether",
+    "synthetic": false
+   },
+   {
+    "kind": "combat",
+    "minutes": 10,
+    "scenario": "combat",
+    "seed": "L135-bk7787",
+    "stage": "combat",
+    "synthetic": false
+   }
+  ]
+ },
  "race_evidence_version": 1,
  "score_version": 3,
  "settings": {
@@ -25101,7 +25284,10 @@
   "{\"pearls.boat_trap\": 1}",
   "{\"pearls.boat_trap\": 1, \"route.barter\": 1}",
   "{\"route.barter\": 1}",
-  "{\"survival.danger_v2\": 1, \"survival.melee_lock\": 3}"
+  "{\"survival.danger_v2\": 1, \"survival.melee_lock\": 3}",
+  "{\"_metric\": \"ok:obsidian_pool\", \"deep.mold\": 0}",
+  "{\"deep.sticks\": 6}",
+  "{\"_metric\": \"deaths\", \"deep.food\": 0}"
  ],
  "version": 1
 }
