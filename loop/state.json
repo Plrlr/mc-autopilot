@@ -2748,7 +2748,7 @@
   "2026-09-29": 24,
   "2026-09-30": 24,
   "2026-10-01": 24,
-  "2026-10-02": 3
+  "2026-10-02": 4
  },
  "evolve_days": {
   "2026-09-27": 1,
@@ -2886,7 +2886,7 @@
    "target": "shore TIMEOUT"
   }
  ],
- "gen": 122,
+ "gen": 123,
  "gene_specs": {
   "bed.table_first": {
    "def": 0.0,
@@ -4943,6 +4943,73 @@
    "pairs": [],
    "parent": "g6",
    "status": "rejected"
+  },
+  "g100": {
+   "born": 123,
+   "code": null,
+   "evals": [],
+   "genes": {
+    "combat.ignore_walled_mobs": 1.0,
+    "combat.shield_guard": 1.0,
+    "combat.skeleton_approach": 1.0,
+    "death.recover_night_armor": 12.0,
+    "focus.commit": 1.0,
+    "gear.sword_early": 1.0,
+    "move.shore_first": 1.0,
+    "nav.surface_v2": 1.0,
+    "nav.unstuck_v2": 1.0,
+    "night.shelter_exit": 1.0,
+    "night.wall_in": 1.0,
+    "plan.hide_hp": 15.0,
+    "portal.prepare_work_area": 1.0,
+    "portal.reserve_lava_bucket": 1.0,
+    "route.armor_before_portal": 1.0,
+    "skill.portal_repair": 1.0,
+    "skill.ruined_portal": 1.0,
+    "stuck.item_progress": 1.0
+   },
+   "id": "g100",
+   "mutated": [
+    "combat.skeleton_approach",
+    "combat.skeleton_zigzag"
+   ],
+   "note": "suggested: combat.skeleton_approach 1, combat.skeleton_zigzag 12",
+   "pairs": [],
+   "parent": "g87",
+   "status": "contender"
+  },
+  "g101": {
+   "born": 123,
+   "code": null,
+   "evals": [],
+   "genes": {
+    "combat.ignore_walled_mobs": 1.0,
+    "combat.shield_guard": 1.0,
+    "combat.target_rule": 1.0,
+    "death.recover_night_armor": 12.0,
+    "focus.commit": 1.0,
+    "gear.sword_early": 1.0,
+    "move.shore_first": 1.0,
+    "nav.surface_v2": 1.0,
+    "nav.unstuck_v2": 1.0,
+    "night.shelter_exit": 1.0,
+    "night.wall_in": 1.0,
+    "plan.hide_hp": 15.0,
+    "portal.prepare_work_area": 1.0,
+    "portal.reserve_lava_bucket": 1.0,
+    "route.armor_before_portal": 1.0,
+    "skill.portal_repair": 1.0,
+    "skill.ruined_portal": 1.0,
+    "stuck.item_progress": 1.0
+   },
+   "id": "g101",
+   "mutated": [
+    "combat.target_rule"
+   ],
+   "note": "suggested: combat.target_rule 1",
+   "pairs": [],
+   "parent": "g87",
+   "status": "contender"
   },
   "g11": {
    "born": 10,
@@ -19973,6 +20040,40 @@
    ],
    "parent": "g87",
    "status": "rejected"
+  },
+  "g99": {
+   "born": 123,
+   "code": null,
+   "evals": [],
+   "genes": {
+    "combat.creeper_hit": 1.0,
+    "combat.ignore_walled_mobs": 1.0,
+    "combat.shield_guard": 1.0,
+    "death.recover_night_armor": 12.0,
+    "focus.commit": 1.0,
+    "gear.sword_early": 1.0,
+    "move.shore_first": 1.0,
+    "nav.surface_v2": 1.0,
+    "nav.unstuck_v2": 1.0,
+    "night.shelter_exit": 1.0,
+    "night.wall_in": 1.0,
+    "plan.hide_hp": 15.0,
+    "portal.prepare_work_area": 1.0,
+    "portal.reserve_lava_bucket": 1.0,
+    "route.armor_before_portal": 1.0,
+    "skill.portal_repair": 1.0,
+    "skill.ruined_portal": 1.0,
+    "stuck.item_progress": 1.0
+   },
+   "id": "g99",
+   "mutated": [
+    "combat.creeper_hit",
+    "combat.creeper_gap"
+   ],
+   "note": "suggested: combat.creeper_hit 1, combat.creeper_gap 6",
+   "pairs": [],
+   "parent": "g87",
+   "status": "contender"
   }
  },
  "hazard_auc": 0.843,
@@ -20000,8 +20101,87 @@
   "mean_gap_ok": -0.28,
   "n": 469
  },
- "next_id": 99,
- "pending": null,
+ "next_id": 102,
+ "pending": {
+  "data_tasks": [
+   {
+    "kind": "natural",
+    "seed": "D123-hber57",
+    "stage": "spawn",
+    "synthetic": false
+   },
+   {
+    "kind": "natural",
+    "seed": "D123-yy4qez",
+    "stage": "spawn",
+    "synthetic": false
+   }
+  ],
+  "gen": 123,
+  "lineup": [
+   "g87",
+   "g99",
+   "g100",
+   "g101"
+  ],
+  "runs": [
+   "eval-g87-0",
+   "eval-g87-1",
+   "eval-g87-2",
+   "eval-g87-3",
+   "eval-g99-0",
+   "eval-g99-1",
+   "eval-g99-2",
+   "eval-g99-3",
+   "eval-g100-0",
+   "eval-g100-1",
+   "eval-g100-2",
+   "eval-g100-3",
+   "eval-g101-0",
+   "eval-g101-1",
+   "eval-g101-2",
+   "eval-g101-3",
+   "data-g87-0",
+   "data-g87-1"
+  ],
+  "seeds": [
+   "L123-ecpht8",
+   "L123-nqr9cf",
+   "L123-94hwkd",
+   "L123-kz2ybp"
+  ],
+  "sha": "537d4ceac1dc7374b57ddce580f96f9511e1468c",
+  "started": "2026-10-02T03:47:12+00:00",
+  "tasks": [
+   {
+    "kind": "natural",
+    "seed": "L123-ecpht8",
+    "stage": "spawn",
+    "synthetic": false
+   },
+   {
+    "kind": "natural",
+    "seed": "L123-nqr9cf",
+    "stage": "spawn",
+    "synthetic": false
+   },
+   {
+    "asset": "nether-gen86-eval-g65-2.zip",
+    "kind": "start",
+    "seed": "L123-94hwkd",
+    "stage": "nether",
+    "synthetic": false
+   },
+   {
+    "kind": "combat",
+    "minutes": 10,
+    "scenario": "combat",
+    "seed": "L123-kz2ybp",
+    "stage": "combat",
+    "synthetic": false
+   }
+  ]
+ },
  "race_evidence_version": 1,
  "score_version": 3,
  "settings": {
@@ -23087,7 +23267,10 @@
   "{\"_metric\": \"deaths\", \"combat.backstep\": 1}",
   "{\"combat.swing_at\": 0.85}",
   "{\"_metric\": \"deaths\", \"combat.backstep\": 1, \"combat.keep_dist\": 2.8, \"combat.strafe\": 12}",
-  "{\"combat.sprint_hit\": 1, \"combat.sprint_hit_dist\": 4}"
+  "{\"combat.sprint_hit\": 1, \"combat.sprint_hit_dist\": 4}",
+  "{\"combat.creeper_gap\": 6, \"combat.creeper_hit\": 1}",
+  "{\"combat.skeleton_approach\": 1, \"combat.skeleton_zigzag\": 12}",
+  "{\"combat.target_rule\": 1}"
  ],
  "version": 1
 }
