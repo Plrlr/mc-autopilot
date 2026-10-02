@@ -2788,7 +2788,7 @@
   "2026-09-29": 24,
   "2026-09-30": 24,
   "2026-10-01": 24,
-  "2026-10-02": 20
+  "2026-10-02": 21
  },
  "evolve_days": {
   "2026-09-27": 1,
@@ -2970,7 +2970,7 @@
    "target": "shore TIMEOUT"
   }
  ],
- "gen": 139,
+ "gen": 140,
  "gene_specs": {
   "bed.table_first": {
    "def": 0.0,
@@ -7560,6 +7560,75 @@
    ],
    "parent": "g99",
    "status": "rejected"
+  },
+  "g115": {
+   "born": 140,
+   "code": null,
+   "evals": [],
+   "genes": {
+    "combat.creeper_hit": 1.0,
+    "combat.ignore_walled_mobs": 1.0,
+    "combat.shield_guard": 1.0,
+    "death.recover_night_armor": 12.0,
+    "focus.commit": 1.0,
+    "gear.sword_early": 1.0,
+    "move.shore_first": 1.0,
+    "nav.surface_v2": 1.0,
+    "nav.unstuck_v2": 1.0,
+    "night.shelter_exit": 1.0,
+    "night.wall_in": 1.0,
+    "plan.hide_hp": 15.0,
+    "portal.prepare_work_area": 1.0,
+    "portal.reserve_lava_bucket": 1.0,
+    "route.armor_before_portal": 1.0,
+    "route.diamond_portal": 0.0,
+    "skill.dig_to_stronghold": 1.0,
+    "skill.portal_repair": 1.0,
+    "skill.ruined_portal": 1.0,
+    "stuck.item_progress": 1.0
+   },
+   "id": "g115",
+   "mutated": [
+    "skill.dig_to_stronghold"
+   ],
+   "note": "skill.dig_to_stronghold 1",
+   "pairs": [],
+   "parent": "g113",
+   "status": "contender"
+  },
+  "g116": {
+   "born": 140,
+   "code": null,
+   "evals": [],
+   "genes": {
+    "combat.creeper_hit": 1.0,
+    "combat.ignore_walled_mobs": 1.0,
+    "combat.shield_guard": 1.0,
+    "death.recover_night_armor": 12.0,
+    "focus.commit": 1.0,
+    "gear.sword_early": 1.0,
+    "move.shore_first": 1.0,
+    "nav.surface_v2": 1.0,
+    "nav.unstuck_v2": 1.0,
+    "night.shelter_exit": 1.0,
+    "night.wall_in": 1.0,
+    "plan.hide_hp": 15.0,
+    "portal.prepare_work_area": 1.0,
+    "portal.reserve_lava_bucket": 1.0,
+    "route.armor_before_portal": 1.0,
+    "safety.spawner_break": 1.0,
+    "skill.portal_repair": 1.0,
+    "skill.ruined_portal": 1.0,
+    "stuck.item_progress": 1.0
+   },
+   "id": "g116",
+   "mutated": [
+    "safety.spawner_break"
+   ],
+   "note": "safety.spawner_break 1",
+   "pairs": [],
+   "parent": "g99",
+   "status": "contender"
   },
   "g12": {
    "born": 13,
@@ -22932,8 +23001,87 @@
   "mean_gap_ok": -0.3074,
   "n": 575
  },
- "next_id": 115,
- "pending": null,
+ "next_id": 117,
+ "pending": {
+  "data_tasks": [
+   {
+    "kind": "natural",
+    "seed": "D140-ws99es",
+    "stage": "spawn",
+    "synthetic": false
+   },
+   {
+    "kind": "natural",
+    "seed": "D140-sjg7aa",
+    "stage": "spawn",
+    "synthetic": false
+   }
+  ],
+  "gen": 140,
+  "lineup": [
+   "g99",
+   "g113",
+   "g115",
+   "g116"
+  ],
+  "runs": [
+   "eval-g99-0",
+   "eval-g99-1",
+   "eval-g99-2",
+   "eval-g99-3",
+   "eval-g113-0",
+   "eval-g113-1",
+   "eval-g113-2",
+   "eval-g113-3",
+   "eval-g115-0",
+   "eval-g115-1",
+   "eval-g115-2",
+   "eval-g115-3",
+   "eval-g116-0",
+   "eval-g116-1",
+   "eval-g116-2",
+   "eval-g116-3",
+   "data-g99-0",
+   "data-g99-1"
+  ],
+  "seeds": [
+   "L140-2zpdrd",
+   "L140-ysusn3",
+   "L140-nxya47",
+   "L140-xnuw8j"
+  ],
+  "sha": "537d4ceac1dc7374b57ddce580f96f9511e1468c",
+  "started": "2026-10-02T21:07:07+00:00",
+  "tasks": [
+   {
+    "kind": "natural",
+    "seed": "L140-2zpdrd",
+    "stage": "spawn",
+    "synthetic": false
+   },
+   {
+    "kind": "natural",
+    "seed": "L140-ysusn3",
+    "stage": "spawn",
+    "synthetic": false
+   },
+   {
+    "asset": "nether-gen86-eval-g65-2.zip",
+    "kind": "start",
+    "seed": "L140-nxya47",
+    "stage": "nether",
+    "synthetic": false
+   },
+   {
+    "kind": "combat",
+    "minutes": 10,
+    "scenario": "combat",
+    "seed": "L140-xnuw8j",
+    "stage": "combat",
+    "synthetic": false
+   }
+  ]
+ },
  "race_evidence_version": 1,
  "score_version": 3,
  "settings": {
