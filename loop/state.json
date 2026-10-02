@@ -2788,7 +2788,7 @@
   "2026-09-29": 24,
   "2026-09-30": 24,
   "2026-10-01": 24,
-  "2026-10-02": 16
+  "2026-10-02": 17
  },
  "evolve_days": {
   "2026-09-27": 1,
@@ -2970,7 +2970,7 @@
    "target": "shore TIMEOUT"
   }
  ],
- "gen": 135,
+ "gen": 136,
  "gene_specs": {
   "bed.table_first": {
    "def": 0.0,
@@ -6971,6 +6971,40 @@
    ],
    "parent": "g99",
    "status": "rejected"
+  },
+  "g112": {
+   "born": 136,
+   "code": null,
+   "evals": [],
+   "genes": {
+    "combat.creeper_hit": 1.0,
+    "combat.ignore_walled_mobs": 1.0,
+    "combat.shield_guard": 1.0,
+    "death.recover_night_armor": 12.0,
+    "deep.food": 8.0,
+    "focus.commit": 1.0,
+    "gear.sword_early": 1.0,
+    "move.shore_first": 1.0,
+    "nav.surface_v2": 1.0,
+    "nav.unstuck_v2": 1.0,
+    "night.shelter_exit": 1.0,
+    "night.wall_in": 1.0,
+    "plan.hide_hp": 15.0,
+    "portal.prepare_work_area": 1.0,
+    "portal.reserve_lava_bucket": 1.0,
+    "route.armor_before_portal": 1.0,
+    "skill.portal_repair": 1.0,
+    "skill.ruined_portal": 1.0,
+    "stuck.item_progress": 1.0
+   },
+   "id": "g112",
+   "mutated": [
+    "deep.food"
+   ],
+   "note": "suggested: deep.food 8",
+   "pairs": [],
+   "parent": "g99",
+   "status": "contender"
   },
   "g12": {
    "born": 13,
@@ -22263,8 +22297,87 @@
   "mean_gap_ok": 0.0198,
   "n": 533
  },
- "next_id": 112,
- "pending": null,
+ "next_id": 113,
+ "pending": {
+  "data_tasks": [
+   {
+    "kind": "natural",
+    "seed": "D136-2tp7r7",
+    "stage": "spawn",
+    "synthetic": false
+   },
+   {
+    "kind": "natural",
+    "seed": "D136-adymg3",
+    "stage": "spawn",
+    "synthetic": false
+   }
+  ],
+  "gen": 136,
+  "lineup": [
+   "g99",
+   "g109",
+   "g110",
+   "g112"
+  ],
+  "runs": [
+   "eval-g99-0",
+   "eval-g99-1",
+   "eval-g99-2",
+   "eval-g99-3",
+   "eval-g109-0",
+   "eval-g109-1",
+   "eval-g109-2",
+   "eval-g109-3",
+   "eval-g110-0",
+   "eval-g110-1",
+   "eval-g110-2",
+   "eval-g110-3",
+   "eval-g112-0",
+   "eval-g112-1",
+   "eval-g112-2",
+   "eval-g112-3",
+   "data-g99-0",
+   "data-g99-1"
+  ],
+  "seeds": [
+   "L136-2byx8p",
+   "L136-wehg8g",
+   "L136-kv4yyn",
+   "L136-9m8ycu"
+  ],
+  "sha": "537d4ceac1dc7374b57ddce580f96f9511e1468c",
+  "started": "2026-10-02T16:59:31+00:00",
+  "tasks": [
+   {
+    "kind": "natural",
+    "seed": "L136-2byx8p",
+    "stage": "spawn",
+    "synthetic": false
+   },
+   {
+    "kind": "natural",
+    "seed": "L136-wehg8g",
+    "stage": "spawn",
+    "synthetic": false
+   },
+   {
+    "asset": "nether-gen96-eval-g79-2.zip",
+    "kind": "start",
+    "seed": "L136-kv4yyn",
+    "stage": "nether",
+    "synthetic": false
+   },
+   {
+    "kind": "combat",
+    "minutes": 10,
+    "scenario": "combat",
+    "seed": "L136-9m8ycu",
+    "stage": "combat",
+    "synthetic": false
+   }
+  ]
+ },
  "race_evidence_version": 1,
  "score_version": 3,
  "settings": {
@@ -25376,7 +25489,8 @@
   "{\"survival.danger_v2\": 1, \"survival.melee_lock\": 3}",
   "{\"_metric\": \"ok:obsidian_pool\", \"deep.mold\": 0}",
   "{\"deep.sticks\": 6}",
-  "{\"_metric\": \"deaths\", \"deep.food\": 0}"
+  "{\"_metric\": \"deaths\", \"deep.food\": 0}",
+  "{\"deep.food\": 8}"
  ],
  "version": 1
 }
