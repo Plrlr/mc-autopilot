@@ -2768,7 +2768,7 @@
   "2026-09-29": 24,
   "2026-09-30": 24,
   "2026-10-01": 24,
-  "2026-10-02": 9
+  "2026-10-02": 10
  },
  "evolve_days": {
   "2026-09-27": 1,
@@ -2928,7 +2928,7 @@
    "target": "shore TIMEOUT"
   }
  ],
- "gen": 128,
+ "gen": 129,
  "gene_specs": {
   "bed.table_first": {
    "def": 0.0,
@@ -20999,7 +20999,86 @@
   "n": 469
  },
  "next_id": 106,
- "pending": null,
+ "pending": {
+  "data_tasks": [
+   {
+    "kind": "natural",
+    "seed": "D129-2xv7s9",
+    "stage": "spawn",
+    "synthetic": false
+   },
+   {
+    "kind": "natural",
+    "seed": "D129-m637dz",
+    "stage": "spawn",
+    "synthetic": false
+   }
+  ],
+  "gen": 129,
+  "lineup": [
+   "g99",
+   "g103",
+   "g104",
+   "g105"
+  ],
+  "runs": [
+   "eval-g99-0",
+   "eval-g99-1",
+   "eval-g99-2",
+   "eval-g99-3",
+   "eval-g103-0",
+   "eval-g103-1",
+   "eval-g103-2",
+   "eval-g103-3",
+   "eval-g104-0",
+   "eval-g104-1",
+   "eval-g104-2",
+   "eval-g104-3",
+   "eval-g105-0",
+   "eval-g105-1",
+   "eval-g105-2",
+   "eval-g105-3",
+   "data-g99-0",
+   "data-g99-1"
+  ],
+  "seeds": [
+   "L129-y67a7z",
+   "L129-8ytg9y",
+   "L129-dfnwk4",
+   "L129-guyg2u"
+  ],
+  "sha": "537d4ceac1dc7374b57ddce580f96f9511e1468c",
+  "started": "2026-10-02T09:46:54+00:00",
+  "tasks": [
+   {
+    "kind": "natural",
+    "seed": "L129-y67a7z",
+    "stage": "spawn",
+    "synthetic": false
+   },
+   {
+    "kind": "natural",
+    "seed": "L129-8ytg9y",
+    "stage": "spawn",
+    "synthetic": false
+   },
+   {
+    "asset": "nether-gen119-eval-g98-1.zip",
+    "kind": "start",
+    "seed": "L129-dfnwk4",
+    "stage": "nether",
+    "synthetic": false
+   },
+   {
+    "kind": "combat",
+    "minutes": 10,
+    "scenario": "combat",
+    "seed": "L129-guyg2u",
+    "stage": "combat",
+    "synthetic": false
+   }
+  ]
+ },
  "race_evidence_version": 1,
  "score_version": 3,
  "settings": {
