@@ -2753,7 +2753,7 @@
   "2026-09-29": 24,
   "2026-09-30": 24,
   "2026-10-01": 24,
-  "2026-10-02": 5
+  "2026-10-02": 6
  },
  "evolve_days": {
   "2026-09-27": 1,
@@ -2896,7 +2896,7 @@
    "result": "no usable patch"
   }
  ],
- "gen": 124,
+ "gen": 125,
  "gene_specs": {
   "bed.table_first": {
    "def": 0.0,
@@ -20245,7 +20245,86 @@
   "n": 469
  },
  "next_id": 102,
- "pending": null,
+ "pending": {
+  "data_tasks": [
+   {
+    "kind": "natural",
+    "seed": "D125-6wxatx",
+    "stage": "spawn",
+    "synthetic": false
+   },
+   {
+    "kind": "natural",
+    "seed": "D125-4x8axe",
+    "stage": "spawn",
+    "synthetic": false
+   }
+  ],
+  "gen": 125,
+  "lineup": [
+   "g99",
+   "g87",
+   "g100",
+   "g101"
+  ],
+  "runs": [
+   "eval-g99-0",
+   "eval-g99-1",
+   "eval-g99-2",
+   "eval-g99-3",
+   "eval-g87-0",
+   "eval-g87-1",
+   "eval-g87-2",
+   "eval-g87-3",
+   "eval-g100-0",
+   "eval-g100-1",
+   "eval-g100-2",
+   "eval-g100-3",
+   "eval-g101-0",
+   "eval-g101-1",
+   "eval-g101-2",
+   "eval-g101-3",
+   "data-g99-0",
+   "data-g99-1"
+  ],
+  "seeds": [
+   "L125-c86yvw",
+   "L125-4vfzr5",
+   "L125-9xq592",
+   "L125-fqqnr4"
+  ],
+  "sha": "537d4ceac1dc7374b57ddce580f96f9511e1468c",
+  "started": "2026-10-02T05:44:59+00:00",
+  "tasks": [
+   {
+    "kind": "natural",
+    "seed": "L125-c86yvw",
+    "stage": "spawn",
+    "synthetic": false
+   },
+   {
+    "kind": "natural",
+    "seed": "L125-4vfzr5",
+    "stage": "spawn",
+    "synthetic": false
+   },
+   {
+    "asset": "nether-gen111-eval-g87-0.zip",
+    "kind": "start",
+    "seed": "L125-9xq592",
+    "stage": "nether",
+    "synthetic": false
+   },
+   {
+    "kind": "combat",
+    "minutes": 10,
+    "scenario": "combat",
+    "seed": "L125-fqqnr4",
+    "stage": "combat",
+    "synthetic": false
+   }
+  ]
+ },
  "race_evidence_version": 1,
  "score_version": 3,
  "settings": {
