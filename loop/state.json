@@ -2793,7 +2793,8 @@
   "2026-09-29": 24,
   "2026-09-30": 24,
   "2026-10-01": 24,
-  "2026-10-02": 23
+  "2026-10-02": 23,
+  "2026-10-03": 1
  },
  "evolve_days": {
   "2026-09-27": 1,
@@ -2981,7 +2982,7 @@
    "result": "no usable patch"
   }
  ],
- "gen": 142,
+ "gen": 143,
  "gene_specs": {
   "bed.table_first": {
    "def": 0.0,
@@ -8248,6 +8249,108 @@
    ],
    "parent": "g99",
    "status": "rejected"
+  },
+  "g121": {
+   "born": 143,
+   "code": null,
+   "evals": [],
+   "genes": {
+    "combat.creeper_hit": 1.0,
+    "combat.ignore_walled_mobs": 1.0,
+    "combat.shield_guard": 1.0,
+    "death.recover_night_armor": 12.0,
+    "focus.commit": 1.0,
+    "gear.sword_early": 1.0,
+    "move.shore_first": 1.0,
+    "nav.surface_v2": 1.0,
+    "nav.unstuck_v2": 1.0,
+    "night.shelter_exit": 1.0,
+    "night.wall_in": 1.0,
+    "plan.hide_hp": 15.0,
+    "portal.prepare_work_area": 1.0,
+    "portal.reserve_lava_bucket": 1.0,
+    "route.armor_before_portal": 1.0,
+    "skill.fortress_scout": 1.0,
+    "skill.portal_repair": 1.0,
+    "skill.ruined_portal": 1.0,
+    "stuck.item_progress": 1.0
+   },
+   "id": "g121",
+   "mutated": [
+    "skill.fortress_scout"
+   ],
+   "note": "skill.fortress_scout 1",
+   "pairs": [],
+   "parent": "g99",
+   "status": "contender"
+  },
+  "g122": {
+   "born": 143,
+   "code": null,
+   "evals": [],
+   "genes": {
+    "combat.creeper_hit": 1.0,
+    "combat.ignore_walled_mobs": 1.0,
+    "combat.shield_guard": 1.0,
+    "death.recover_night_armor": 12.0,
+    "focus.commit": 1.0,
+    "gear.sword_early": 1.0,
+    "move.shore_first": 1.0,
+    "nav.surface_v2": 1.0,
+    "nav.unstuck_v2": 1.0,
+    "night.shelter_exit": 1.0,
+    "night.wall_in": 1.0,
+    "plan.hide_hp": 15.0,
+    "portal.prepare_work_area": 1.0,
+    "portal.reserve_lava_bucket": 1.0,
+    "portal.retry_cast_view": 1.0,
+    "route.armor_before_portal": 1.0,
+    "skill.portal_repair": 1.0,
+    "skill.ruined_portal": 1.0,
+    "stuck.item_progress": 1.0
+   },
+   "id": "g122",
+   "mutated": [
+    "portal.retry_cast_view"
+   ],
+   "note": "portal.retry_cast_view 1",
+   "pairs": [],
+   "parent": "g99",
+   "status": "contender"
+  },
+  "g123": {
+   "born": 143,
+   "code": null,
+   "evals": [],
+   "genes": {
+    "combat.creeper_hit": 1.0,
+    "combat.ignore_walled_mobs": 1.0,
+    "combat.shield_guard": 1.0,
+    "death.recover_night_armor": 12.0,
+    "focus.commit": 1.0,
+    "gear.armor_first": 1.0,
+    "gear.sword_early": 1.0,
+    "nav.surface_v2": 1.0,
+    "nav.unstuck_v2": 1.0,
+    "night.shelter_exit": 1.0,
+    "night.wall_in": 1.0,
+    "plan.hide_hp": 15.0,
+    "portal.prepare_work_area": 1.0,
+    "portal.reserve_lava_bucket": 1.0,
+    "route.armor_before_portal": 1.0,
+    "skill.portal_repair": 1.0,
+    "skill.ruined_portal": 1.0,
+    "stuck.item_progress": 1.0
+   },
+   "id": "g123",
+   "mutated": [
+    "move.shore_first",
+    "gear.armor_first"
+   ],
+   "note": "move.shore_first 0, gear.armor_first 1",
+   "pairs": [],
+   "parent": "g99",
+   "status": "contender"
   },
   "g13": {
    "born": 14,
@@ -23582,8 +23685,87 @@
   "mean_gap_ok": -0.0322,
   "n": 599
  },
- "next_id": 121,
- "pending": null,
+ "next_id": 124,
+ "pending": {
+  "data_tasks": [
+   {
+    "kind": "natural",
+    "seed": "D143-g9reba",
+    "stage": "spawn",
+    "synthetic": false
+   },
+   {
+    "kind": "natural",
+    "seed": "D143-dn3egu",
+    "stage": "spawn",
+    "synthetic": false
+   }
+  ],
+  "gen": 143,
+  "lineup": [
+   "g99",
+   "g121",
+   "g122",
+   "g123"
+  ],
+  "runs": [
+   "eval-g99-0",
+   "eval-g99-1",
+   "eval-g99-2",
+   "eval-g99-3",
+   "eval-g121-0",
+   "eval-g121-1",
+   "eval-g121-2",
+   "eval-g121-3",
+   "eval-g122-0",
+   "eval-g122-1",
+   "eval-g122-2",
+   "eval-g122-3",
+   "eval-g123-0",
+   "eval-g123-1",
+   "eval-g123-2",
+   "eval-g123-3",
+   "data-g99-0",
+   "data-g99-1"
+  ],
+  "seeds": [
+   "L143-bjyn9w",
+   "L143-fx5n57",
+   "L143-efpkrb",
+   "L143-nu2jtq"
+  ],
+  "sha": "537d4ceac1dc7374b57ddce580f96f9511e1468c",
+  "started": "2026-10-03T00:09:18+00:00",
+  "tasks": [
+   {
+    "kind": "natural",
+    "seed": "L143-bjyn9w",
+    "stage": "spawn",
+    "synthetic": false
+   },
+   {
+    "kind": "natural",
+    "seed": "L143-fx5n57",
+    "stage": "spawn",
+    "synthetic": false
+   },
+   {
+    "asset": "nether-gen96-eval-g78-2.zip",
+    "kind": "start",
+    "seed": "L143-efpkrb",
+    "stage": "nether",
+    "synthetic": false
+   },
+   {
+    "kind": "combat",
+    "minutes": 10,
+    "scenario": "combat",
+    "seed": "L143-nu2jtq",
+    "stage": "combat",
+    "synthetic": false
+   }
+  ]
+ },
  "race_evidence_version": 1,
  "score_version": 3,
  "settings": {
