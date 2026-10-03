@@ -2829,7 +2829,7 @@
   "2026-09-30": 24,
   "2026-10-01": 24,
   "2026-10-02": 23,
-  "2026-10-03": 7
+  "2026-10-03": 8
  },
  "evolve_days": {
   "2026-09-27": 1,
@@ -3056,7 +3056,7 @@
    "target": "shore TIMEOUT"
   }
  ],
- "gen": 149,
+ "gen": 150,
  "gene_specs": {
   "bed.table_first": {
    "def": 0.0,
@@ -25223,7 +25223,86 @@
   "n": 678
  },
  "next_id": 137,
- "pending": null,
+ "pending": {
+  "data_tasks": [
+   {
+    "kind": "natural",
+    "seed": "D150-mmcgf8",
+    "stage": "spawn",
+    "synthetic": false
+   },
+   {
+    "kind": "natural",
+    "seed": "D150-bt598a",
+    "stage": "spawn",
+    "synthetic": false
+   }
+  ],
+  "gen": 150,
+  "lineup": [
+   "g99",
+   "g136",
+   "g135",
+   "g131"
+  ],
+  "runs": [
+   "eval-g99-0",
+   "eval-g99-1",
+   "eval-g99-2",
+   "eval-g99-3",
+   "eval-g136-0",
+   "eval-g136-1",
+   "eval-g136-2",
+   "eval-g136-3",
+   "eval-g135-0",
+   "eval-g135-1",
+   "eval-g135-2",
+   "eval-g135-3",
+   "eval-g131-0",
+   "eval-g131-1",
+   "eval-g131-2",
+   "eval-g131-3",
+   "data-g99-0",
+   "data-g99-1"
+  ],
+  "seeds": [
+   "L150-ke4ycm",
+   "L150-vecjf8",
+   "L150-qy67sw",
+   "L150-422ckg"
+  ],
+  "sha": "537d4ceac1dc7374b57ddce580f96f9511e1468c",
+  "started": "2026-10-03T07:39:58+00:00",
+  "tasks": [
+   {
+    "kind": "natural",
+    "seed": "L150-ke4ycm",
+    "stage": "spawn",
+    "synthetic": false
+   },
+   {
+    "kind": "natural",
+    "seed": "L150-vecjf8",
+    "stage": "spawn",
+    "synthetic": false
+   },
+   {
+    "asset": "nether-gen112-eval-g87-1.zip",
+    "kind": "start",
+    "seed": "L150-qy67sw",
+    "stage": "nether",
+    "synthetic": false
+   },
+   {
+    "kind": "combat",
+    "minutes": 10,
+    "scenario": "combat",
+    "seed": "L150-422ckg",
+    "stage": "combat",
+    "synthetic": false
+   }
+  ]
+ },
  "race_evidence_version": 1,
  "score_version": 3,
  "settings": {
