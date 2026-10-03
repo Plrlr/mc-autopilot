@@ -2834,7 +2834,7 @@
   "2026-09-30": 24,
   "2026-10-01": 24,
   "2026-10-02": 23,
-  "2026-10-03": 8
+  "2026-10-03": 9
  },
  "evolve_days": {
   "2026-09-27": 1,
@@ -3066,7 +3066,7 @@
    "result": "no usable patch"
   }
  ],
- "gen": 150,
+ "gen": 151,
  "gene_specs": {
   "bed.table_first": {
    "def": 0.0,
@@ -9980,6 +9980,39 @@
     ]
    ],
    "parent": "g131",
+   "status": "contender"
+  },
+  "g137": {
+   "born": 151,
+   "code": null,
+   "evals": [],
+   "genes": {
+    "combat.creeper_hit": 1.0,
+    "combat.ignore_walled_mobs": 1.0,
+    "combat.shield_guard": 1.0,
+    "death.recover_night_armor": 12.0,
+    "focus.commit": 1.0,
+    "gear.sword_early": 1.0,
+    "move.shore_first": 1.0,
+    "nav.surface_v2": 1.0,
+    "nav.unstuck_v2": 1.0,
+    "night.shelter_exit": 1.0,
+    "night.wall_in": 1.0,
+    "plan.hide_hp": 12.0,
+    "portal.prepare_work_area": 1.0,
+    "portal.reserve_lava_bucket": 1.0,
+    "route.armor_before_portal": 1.0,
+    "skill.portal_repair": 1.0,
+    "skill.ruined_portal": 1.0,
+    "stuck.item_progress": 1.0
+   },
+   "id": "g137",
+   "mutated": [
+    "plan.hide_hp"
+   ],
+   "note": "plan.hide_hp 12",
+   "pairs": [],
+   "parent": "g99",
    "status": "contender"
   },
   "g14": {
@@ -25372,8 +25405,87 @@
   "mean_gap_ok": -0.459,
   "n": 716
  },
- "next_id": 137,
- "pending": null,
+ "next_id": 138,
+ "pending": {
+  "data_tasks": [
+   {
+    "kind": "natural",
+    "seed": "D151-vtaue5",
+    "stage": "spawn",
+    "synthetic": false
+   },
+   {
+    "kind": "natural",
+    "seed": "D151-u8ynp4",
+    "stage": "spawn",
+    "synthetic": false
+   }
+  ],
+  "gen": 151,
+  "lineup": [
+   "g99",
+   "g136",
+   "g135",
+   "g137"
+  ],
+  "runs": [
+   "eval-g99-0",
+   "eval-g99-1",
+   "eval-g99-2",
+   "eval-g99-3",
+   "eval-g136-0",
+   "eval-g136-1",
+   "eval-g136-2",
+   "eval-g136-3",
+   "eval-g135-0",
+   "eval-g135-1",
+   "eval-g135-2",
+   "eval-g135-3",
+   "eval-g137-0",
+   "eval-g137-1",
+   "eval-g137-2",
+   "eval-g137-3",
+   "data-g99-0",
+   "data-g99-1"
+  ],
+  "seeds": [
+   "L151-fpkmg2",
+   "L151-yp3ugv",
+   "L151-ck4yg7",
+   "L151-4x66eb"
+  ],
+  "sha": "537d4ceac1dc7374b57ddce580f96f9511e1468c",
+  "started": "2026-10-03T08:44:12+00:00",
+  "tasks": [
+   {
+    "kind": "natural",
+    "seed": "L151-fpkmg2",
+    "stage": "spawn",
+    "synthetic": false
+   },
+   {
+    "kind": "natural",
+    "seed": "L151-yp3ugv",
+    "stage": "spawn",
+    "synthetic": false
+   },
+   {
+    "asset": "nether-gen122-eval-g98-1.zip",
+    "kind": "start",
+    "seed": "L151-ck4yg7",
+    "stage": "nether",
+    "synthetic": false
+   },
+   {
+    "kind": "combat",
+    "minutes": 10,
+    "scenario": "combat",
+    "seed": "L151-4x66eb",
+    "stage": "combat",
+    "synthetic": false
+   }
+  ]
+ },
  "race_evidence_version": 1,
  "score_version": 3,
  "settings": {
