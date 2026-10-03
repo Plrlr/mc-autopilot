@@ -2804,7 +2804,7 @@
   "2026-09-30": 24,
   "2026-10-01": 24,
   "2026-10-02": 23,
-  "2026-10-03": 2
+  "2026-10-03": 3
  },
  "evolve_days": {
   "2026-09-27": 1,
@@ -3003,7 +3003,7 @@
    "result": "no usable patch"
   }
  ],
- "gen": 144,
+ "gen": 145,
  "gene_specs": {
   "bed.table_first": {
    "def": 0.0,
@@ -8730,6 +8730,111 @@
    ],
    "parent": "g99",
    "status": "rejected"
+  },
+  "g127": {
+   "born": 145,
+   "code": null,
+   "evals": [],
+   "genes": {
+    "combat.creeper_hit": 1.0,
+    "combat.ignore_walled_mobs": 1.0,
+    "combat.shield_guard": 1.0,
+    "death.recover_night_armor": 12.0,
+    "focus.commit": 1.0,
+    "gear.sword_early": 1.0,
+    "move.shore_first": 1.0,
+    "nav.surface_v2": 1.0,
+    "nav.unstuck_v2": 1.0,
+    "night.shelter_exit": 1.0,
+    "night.wall_in": 1.0,
+    "plan.hide_hp": 15.0,
+    "portal.prepare_work_area": 1.0,
+    "portal.reserve_lava_bucket": 1.0,
+    "route.armor_before_portal": 1.0,
+    "skill.portal_repair": 1.0,
+    "skill.ruined_portal": 1.0
+   },
+   "id": "g127",
+   "mutated": [
+    "stuck.item_progress"
+   ],
+   "note": "stuck.item_progress 0",
+   "pairs": [],
+   "parent": "g99",
+   "status": "contender"
+  },
+  "g128": {
+   "born": 145,
+   "code": null,
+   "evals": [],
+   "genes": {
+    "combat.creeper_hit": 1.0,
+    "combat.ignore_walled_mobs": 1.0,
+    "combat.shield_guard": 1.0,
+    "death.recover_night_armor": 12.0,
+    "focus.commit": 1.0,
+    "gear.sword_early": 1.0,
+    "mine.tread_water": 1.0,
+    "move.shore_first": 1.0,
+    "nav.surface_v2": 1.0,
+    "nav.unstuck_v2": 1.0,
+    "night.no_shaft_wall": 1.0,
+    "night.shelter_exit": 1.0,
+    "night.wall_in": 1.0,
+    "plan.hide_hp": 15.0,
+    "portal.prepare_work_area": 1.0,
+    "portal.reserve_lava_bucket": 1.0,
+    "route.armor_before_portal": 1.0,
+    "skill.portal_repair": 1.0,
+    "skill.ruined_portal": 1.0,
+    "skill.silverfish_control": 1.0,
+    "stuck.item_progress": 1.0
+   },
+   "id": "g128",
+   "mutated": [
+    "skill.silverfish_control",
+    "mine.tread_water",
+    "night.no_shaft_wall"
+   ],
+   "note": "skill.silverfish_control 1, mine.tread_water 1, night.no_shaft_wall 1",
+   "pairs": [],
+   "parent": "g99",
+   "status": "contender"
+  },
+  "g129": {
+   "born": 145,
+   "code": null,
+   "evals": [],
+   "genes": {
+    "combat.creeper_hit": 1.0,
+    "combat.ignore_walled_mobs": 1.0,
+    "combat.shield_guard": 1.0,
+    "death.recover_night_armor": 12.0,
+    "focus.commit": 1.0,
+    "gear.sword_early": 1.0,
+    "move.shore_first": 1.0,
+    "nav.surface_v2": 1.0,
+    "nav.unstuck_v2": 1.0,
+    "night.shelter_exit": 1.0,
+    "night.wall_in": 1.0,
+    "plan.hide_hp": 13.0,
+    "plan.hostile_range": 10.09868139112516,
+    "portal.prepare_work_area": 1.0,
+    "portal.reserve_lava_bucket": 1.0,
+    "route.armor_before_portal": 1.0,
+    "skill.portal_repair": 1.0,
+    "skill.ruined_portal": 1.0,
+    "stuck.item_progress": 1.0
+   },
+   "id": "g129",
+   "mutated": [
+    "plan.hostile_range",
+    "plan.hide_hp"
+   ],
+   "note": "plan.hostile_range 10.0987, plan.hide_hp 13",
+   "pairs": [],
+   "parent": "g99",
+   "status": "contender"
   },
   "g13": {
    "born": 14,
@@ -24104,8 +24209,87 @@
   "mean_gap_ok": -0.1952,
   "n": 620
  },
- "next_id": 127,
- "pending": null,
+ "next_id": 130,
+ "pending": {
+  "data_tasks": [
+   {
+    "kind": "natural",
+    "seed": "D145-gcxawt",
+    "stage": "spawn",
+    "synthetic": false
+   },
+   {
+    "kind": "natural",
+    "seed": "D145-nqd23v",
+    "stage": "spawn",
+    "synthetic": false
+   }
+  ],
+  "gen": 145,
+  "lineup": [
+   "g99",
+   "g127",
+   "g128",
+   "g129"
+  ],
+  "runs": [
+   "eval-g99-0",
+   "eval-g99-1",
+   "eval-g99-2",
+   "eval-g99-3",
+   "eval-g127-0",
+   "eval-g127-1",
+   "eval-g127-2",
+   "eval-g127-3",
+   "eval-g128-0",
+   "eval-g128-1",
+   "eval-g128-2",
+   "eval-g128-3",
+   "eval-g129-0",
+   "eval-g129-1",
+   "eval-g129-2",
+   "eval-g129-3",
+   "data-g99-0",
+   "data-g99-1"
+  ],
+  "seeds": [
+   "L145-wkbcw2",
+   "L145-hgcgxf",
+   "L145-d8487d",
+   "L145-8vhyud"
+  ],
+  "sha": "537d4ceac1dc7374b57ddce580f96f9511e1468c",
+  "started": "2026-10-03T02:15:51+00:00",
+  "tasks": [
+   {
+    "kind": "natural",
+    "seed": "L145-wkbcw2",
+    "stage": "spawn",
+    "synthetic": false
+   },
+   {
+    "kind": "natural",
+    "seed": "L145-hgcgxf",
+    "stage": "spawn",
+    "synthetic": false
+   },
+   {
+    "asset": "nether-gen97-eval-g79-2.zip",
+    "kind": "start",
+    "seed": "L145-d8487d",
+    "stage": "nether",
+    "synthetic": false
+   },
+   {
+    "kind": "combat",
+    "minutes": 10,
+    "scenario": "combat",
+    "seed": "L145-8vhyud",
+    "stage": "combat",
+    "synthetic": false
+   }
+  ]
+ },
  "race_evidence_version": 1,
  "score_version": 3,
  "settings": {
