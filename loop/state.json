@@ -2849,7 +2849,7 @@
   "2026-09-30": 24,
   "2026-10-01": 24,
   "2026-10-02": 23,
-  "2026-10-03": 20
+  "2026-10-03": 21
  },
  "evolve_days": {
   "2026-09-27": 1,
@@ -3098,7 +3098,7 @@
    "target": "shore TIMEOUT"
   }
  ],
- "gen": 162,
+ "gen": 163,
  "gene_specs": {
   "bed.table_first": {
    "def": 0.0,
@@ -27602,7 +27602,86 @@
   "n": 811
  },
  "next_id": 153,
- "pending": null,
+ "pending": {
+  "data_tasks": [
+   {
+    "kind": "natural",
+    "seed": "D163-63tt49",
+    "stage": "spawn",
+    "synthetic": false
+   },
+   {
+    "kind": "natural",
+    "seed": "D163-aqbupp",
+    "stage": "spawn",
+    "synthetic": false
+   }
+  ],
+  "gen": 163,
+  "lineup": [
+   "g141",
+   "g152",
+   "g151",
+   "g149"
+  ],
+  "runs": [
+   "eval-g141-0",
+   "eval-g141-1",
+   "eval-g141-2",
+   "eval-g141-3",
+   "eval-g152-0",
+   "eval-g152-1",
+   "eval-g152-2",
+   "eval-g152-3",
+   "eval-g151-0",
+   "eval-g151-1",
+   "eval-g151-2",
+   "eval-g151-3",
+   "eval-g149-0",
+   "eval-g149-1",
+   "eval-g149-2",
+   "eval-g149-3",
+   "data-g141-0",
+   "data-g141-1"
+  ],
+  "seeds": [
+   "L163-ejnhbq",
+   "L163-ydxrcj",
+   "L163-mcz8a6",
+   "L163-4bqvex"
+  ],
+  "sha": "537d4ceac1dc7374b57ddce580f96f9511e1468c",
+  "started": "2026-10-03T21:37:34+00:00",
+  "tasks": [
+   {
+    "kind": "natural",
+    "seed": "L163-ejnhbq",
+    "stage": "spawn",
+    "synthetic": false
+   },
+   {
+    "kind": "natural",
+    "seed": "L163-ydxrcj",
+    "stage": "spawn",
+    "synthetic": false
+   },
+   {
+    "asset": "nether-gen109-eval-g87-0.zip",
+    "kind": "start",
+    "seed": "L163-mcz8a6",
+    "stage": "nether",
+    "synthetic": false
+   },
+   {
+    "kind": "combat",
+    "minutes": 10,
+    "scenario": "combat",
+    "seed": "L163-4bqvex",
+    "stage": "combat",
+    "synthetic": false
+   }
+  ]
+ },
  "race_evidence_version": 1,
  "score_version": 3,
  "settings": {
