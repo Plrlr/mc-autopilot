@@ -2849,7 +2849,7 @@
   "2026-09-30": 24,
   "2026-10-01": 24,
   "2026-10-02": 23,
-  "2026-10-03": 19
+  "2026-10-03": 20
  },
  "evolve_days": {
   "2026-09-27": 1,
@@ -3098,7 +3098,7 @@
    "target": "shore TIMEOUT"
   }
  ],
- "gen": 161,
+ "gen": 162,
  "gene_specs": {
   "bed.table_first": {
    "def": 0.0,
@@ -11929,6 +11929,80 @@
    ],
    "parent": "g141",
    "status": "rejected"
+  },
+  "g151": {
+   "born": 162,
+   "code": null,
+   "evals": [],
+   "genes": {
+    "combat.creeper_hit": 1.0,
+    "combat.ignore_walled_mobs": 1.0,
+    "combat.shield_guard": 1.0,
+    "death.recover_night_armor": 12.0,
+    "focus.commit": 1.0,
+    "gear.sword_early": 1.0,
+    "move.shore_first": 1.0,
+    "nav.surface_v2": 1.0,
+    "nav.unstuck_v2": 1.0,
+    "night.shelter_exit": 1.0,
+    "night.wall_in": 1.0,
+    "plan.hide_hp": 15.0,
+    "plan.readiness": 1.0,
+    "portal.prepare_work_area": 1.0,
+    "portal.reserve_lava_bucket": 1.0,
+    "portal.site_maker": 1.0,
+    "route.armor_before_portal": 1.0,
+    "skill.blaze_farm": 1.0,
+    "skill.enderman_warped": 1.0,
+    "skill.portal_repair": 1.0,
+    "skill.ruined_portal": 1.0,
+    "stuck.item_progress": 1.0
+   },
+   "id": "g151",
+   "mutated": [
+    "portal.site_maker",
+    "skill.blaze_farm"
+   ],
+   "note": "portal.site_maker 1, skill.blaze_farm 1",
+   "pairs": [],
+   "parent": "g141",
+   "status": "contender"
+  },
+  "g152": {
+   "born": 162,
+   "code": null,
+   "evals": [],
+   "genes": {
+    "combat.creeper_hit": 1.0,
+    "combat.shield_guard": 1.0,
+    "death.recover_night_armor": 12.0,
+    "focus.commit": 1.0,
+    "gather.stone_extra": 11.0,
+    "gear.sword_early": 1.0,
+    "move.shore_first": 1.0,
+    "nav.surface_v2": 1.0,
+    "nav.unstuck_v2": 1.0,
+    "night.shelter_exit": 1.0,
+    "night.wall_in": 1.0,
+    "plan.hide_hp": 15.0,
+    "plan.readiness": 1.0,
+    "portal.prepare_work_area": 1.0,
+    "portal.reserve_lava_bucket": 1.0,
+    "route.armor_before_portal": 1.0,
+    "skill.enderman_warped": 1.0,
+    "skill.portal_repair": 1.0,
+    "skill.ruined_portal": 1.0,
+    "stuck.item_progress": 1.0
+   },
+   "id": "g152",
+   "mutated": [
+    "gather.stone_extra",
+    "combat.ignore_walled_mobs"
+   ],
+   "note": "gather.stone_extra 11, combat.ignore_walled_mobs 0",
+   "pairs": [],
+   "parent": "g141",
+   "status": "contender"
   },
   "g16": {
    "born": 18,
@@ -27383,8 +27457,87 @@
   "mean_gap_ok": -0.3582,
   "n": 811
  },
- "next_id": 151,
- "pending": null,
+ "next_id": 153,
+ "pending": {
+  "data_tasks": [
+   {
+    "kind": "natural",
+    "seed": "D162-mhj78y",
+    "stage": "spawn",
+    "synthetic": false
+   },
+   {
+    "kind": "natural",
+    "seed": "D162-p6vtum",
+    "stage": "spawn",
+    "synthetic": false
+   }
+  ],
+  "gen": 162,
+  "lineup": [
+   "g141",
+   "g149",
+   "g151",
+   "g152"
+  ],
+  "runs": [
+   "eval-g141-0",
+   "eval-g141-1",
+   "eval-g141-2",
+   "eval-g141-3",
+   "eval-g149-0",
+   "eval-g149-1",
+   "eval-g149-2",
+   "eval-g149-3",
+   "eval-g151-0",
+   "eval-g151-1",
+   "eval-g151-2",
+   "eval-g151-3",
+   "eval-g152-0",
+   "eval-g152-1",
+   "eval-g152-2",
+   "eval-g152-3",
+   "data-g141-0",
+   "data-g141-1"
+  ],
+  "seeds": [
+   "L162-qyyg98",
+   "L162-ppgu35",
+   "L162-hpxqdu",
+   "L162-6kpc96"
+  ],
+  "sha": "537d4ceac1dc7374b57ddce580f96f9511e1468c",
+  "started": "2026-10-03T20:40:17+00:00",
+  "tasks": [
+   {
+    "kind": "natural",
+    "seed": "L162-qyyg98",
+    "stage": "spawn",
+    "synthetic": false
+   },
+   {
+    "kind": "natural",
+    "seed": "L162-ppgu35",
+    "stage": "spawn",
+    "synthetic": false
+   },
+   {
+    "asset": "nether-gen92-eval-g56-2.zip",
+    "kind": "start",
+    "seed": "L162-hpxqdu",
+    "stage": "nether",
+    "synthetic": false
+   },
+   {
+    "kind": "combat",
+    "minutes": 10,
+    "scenario": "combat",
+    "seed": "L162-6kpc96",
+    "stage": "combat",
+    "synthetic": false
+   }
+  ]
+ },
  "race_evidence_version": 1,
  "score_version": 3,
  "settings": {
