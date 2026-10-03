@@ -2849,7 +2849,7 @@
   "2026-09-30": 24,
   "2026-10-01": 24,
   "2026-10-02": 23,
-  "2026-10-03": 18
+  "2026-10-03": 19
  },
  "evolve_days": {
   "2026-09-27": 1,
@@ -3098,7 +3098,7 @@
    "target": "shore TIMEOUT"
   }
  ],
- "gen": 160,
+ "gen": 161,
  "gene_specs": {
   "bed.table_first": {
    "def": 0.0,
@@ -11596,6 +11596,80 @@
    "parent": "g141",
    "status": "rejected"
   },
+  "g148": {
+   "born": 161,
+   "code": null,
+   "evals": [],
+   "genes": {
+    "brain.utility": 1.0,
+    "combat.creeper_hit": 1.0,
+    "combat.ignore_walled_mobs": 1.0,
+    "combat.shield_guard": 1.0,
+    "death.recover_night_armor": 12.0,
+    "focus.commit": 1.0,
+    "gear.sword_early": 1.0,
+    "move.shore_first": 1.0,
+    "nav.surface_v2": 1.0,
+    "nav.unstuck_v2": 1.0,
+    "night.shelter_exit": 1.0,
+    "night.wall_in": 1.0,
+    "plan.hide_hp": 15.0,
+    "plan.noop_success_pause": 1.0,
+    "plan.readiness": 1.0,
+    "portal.prepare_work_area": 1.0,
+    "portal.reserve_lava_bucket": 1.0,
+    "route.armor_before_portal": 1.0,
+    "skill.enderman_warped": 1.0,
+    "skill.portal_repair": 1.0,
+    "skill.ruined_portal": 1.0,
+    "stuck.item_progress": 1.0
+   },
+   "id": "g148",
+   "mutated": [
+    "plan.noop_success_pause",
+    "brain.utility"
+   ],
+   "note": "plan.noop_success_pause 1, brain.utility 1",
+   "pairs": [],
+   "parent": "g141",
+   "status": "contender"
+  },
+  "g149": {
+   "born": 161,
+   "code": null,
+   "evals": [],
+   "genes": {
+    "combat.creeper_hit": 1.0,
+    "combat.ignore_walled_mobs": 1.0,
+    "combat.shield_guard": 1.0,
+    "death.recover_night_armor": 12.0,
+    "focus.commit": 1.0,
+    "gear.sword_early": 1.0,
+    "move.shore_first": 1.0,
+    "nav.surface_v2": 1.0,
+    "nav.unstuck_v2": 1.0,
+    "plan.hide_hp": 15.0,
+    "plan.readiness": 1.0,
+    "portal.prepare_work_area": 1.0,
+    "portal.reserve_lava_bucket": 1.0,
+    "route.armor_before_portal": 1.0,
+    "skill.enderman_warped": 1.0,
+    "skill.eye_triangulate": 1.0,
+    "skill.portal_repair": 1.0,
+    "skill.ruined_portal": 1.0,
+    "stuck.item_progress": 1.0
+   },
+   "id": "g149",
+   "mutated": [
+    "night.wall_in",
+    "night.shelter_exit",
+    "skill.eye_triangulate"
+   ],
+   "note": "night.wall_in 0, night.shelter_exit 0, skill.eye_triangulate 1",
+   "pairs": [],
+   "parent": "g141",
+   "status": "contender"
+  },
   "g15": {
    "born": 17,
    "code": {
@@ -11673,6 +11747,42 @@
    "pairs": [],
    "parent": "g10",
    "status": "rejected"
+  },
+  "g150": {
+   "born": 161,
+   "code": null,
+   "evals": [],
+   "genes": {
+    "combat.creeper_hit": 1.0,
+    "combat.ignore_walled_mobs": 1.0,
+    "combat.shield_guard": 1.0,
+    "death.recover_night_armor": 12.0,
+    "focus.commit": 1.0,
+    "gear.sword_early": 1.0,
+    "move.shore_first": 1.0,
+    "nav.surface_v2": 1.0,
+    "nav.unstuck_v2": 1.0,
+    "night.no_shaft_wall": 1.0,
+    "night.wall_in": 1.0,
+    "plan.hide_hp": 15.0,
+    "plan.readiness": 1.0,
+    "portal.prepare_work_area": 1.0,
+    "portal.reserve_lava_bucket": 1.0,
+    "route.armor_before_portal": 1.0,
+    "skill.enderman_warped": 1.0,
+    "skill.portal_repair": 1.0,
+    "skill.ruined_portal": 1.0,
+    "stuck.item_progress": 1.0
+   },
+   "id": "g150",
+   "mutated": [
+    "night.no_shaft_wall",
+    "night.shelter_exit"
+   ],
+   "note": "night.no_shaft_wall 1, night.shelter_exit 0",
+   "pairs": [],
+   "parent": "g141",
+   "status": "contender"
   },
   "g16": {
    "born": 18,
@@ -27127,8 +27237,87 @@
   "mean_gap_ok": -0.214,
   "n": 811
  },
- "next_id": 148,
- "pending": null,
+ "next_id": 151,
+ "pending": {
+  "data_tasks": [
+   {
+    "kind": "natural",
+    "seed": "D161-kktd7z",
+    "stage": "spawn",
+    "synthetic": false
+   },
+   {
+    "kind": "natural",
+    "seed": "D161-2fvtqz",
+    "stage": "spawn",
+    "synthetic": false
+   }
+  ],
+  "gen": 161,
+  "lineup": [
+   "g141",
+   "g148",
+   "g149",
+   "g150"
+  ],
+  "runs": [
+   "eval-g141-0",
+   "eval-g141-1",
+   "eval-g141-2",
+   "eval-g141-3",
+   "eval-g148-0",
+   "eval-g148-1",
+   "eval-g148-2",
+   "eval-g148-3",
+   "eval-g149-0",
+   "eval-g149-1",
+   "eval-g149-2",
+   "eval-g149-3",
+   "eval-g150-0",
+   "eval-g150-1",
+   "eval-g150-2",
+   "eval-g150-3",
+   "data-g141-0",
+   "data-g141-1"
+  ],
+  "seeds": [
+   "L161-py3epk",
+   "L161-ew3u2q",
+   "L161-u885wc",
+   "L161-6ek4q2"
+  ],
+  "sha": "537d4ceac1dc7374b57ddce580f96f9511e1468c",
+  "started": "2026-10-03T19:35:28+00:00",
+  "tasks": [
+   {
+    "kind": "natural",
+    "seed": "L161-py3epk",
+    "stage": "spawn",
+    "synthetic": false
+   },
+   {
+    "kind": "natural",
+    "seed": "L161-ew3u2q",
+    "stage": "spawn",
+    "synthetic": false
+   },
+   {
+    "asset": "nether-gen97-eval-g77-2.zip",
+    "kind": "start",
+    "seed": "L161-u885wc",
+    "stage": "nether",
+    "synthetic": false
+   },
+   {
+    "kind": "combat",
+    "minutes": 10,
+    "scenario": "combat",
+    "seed": "L161-6ek4q2",
+    "stage": "combat",
+    "synthetic": false
+   }
+  ]
+ },
  "race_evidence_version": 1,
  "score_version": 3,
  "settings": {
