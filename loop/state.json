@@ -2849,7 +2849,7 @@
   "2026-09-30": 24,
   "2026-10-01": 24,
   "2026-10-02": 23,
-  "2026-10-03": 22
+  "2026-10-03": 23
  },
  "evolve_days": {
   "2026-09-27": 1,
@@ -3098,7 +3098,7 @@
    "target": "shore TIMEOUT"
   }
  ],
- "gen": 164,
+ "gen": 165,
  "gene_specs": {
   "bed.table_first": {
    "def": 0.0,
@@ -12539,6 +12539,83 @@
      0.262
     ]
    ],
+   "parent": "g141",
+   "status": "contender"
+  },
+  "g156": {
+   "born": 165,
+   "code": null,
+   "evals": [],
+   "genes": {
+    "cave.torches": 0.0,
+    "combat.creeper_hit": 1.0,
+    "combat.ignore_walled_mobs": 1.0,
+    "combat.shield_guard": 1.0,
+    "combat.sprint_hit_dist": 3.2474436006668066,
+    "death.recover_night_armor": 12.0,
+    "focus.commit": 1.0,
+    "gear.sword_early": 1.0,
+    "move.shore_first": 1.0,
+    "nav.surface_v2": 1.0,
+    "nav.unstuck_v2": 1.0,
+    "night.shelter_exit": 1.0,
+    "night.wall_in": 1.0,
+    "plan.hide_hp": 15.0,
+    "plan.readiness": 1.0,
+    "portal.prepare_work_area": 1.0,
+    "portal.reserve_lava_bucket": 1.0,
+    "route.armor_before_portal": 1.0,
+    "skill.bed_bomb": 1.0,
+    "skill.enderman_warped": 1.0,
+    "skill.portal_repair": 1.0,
+    "skill.ruined_portal": 1.0,
+    "stuck.item_progress": 1.0
+   },
+   "id": "g156",
+   "mutated": [
+    "cave.torches",
+    "skill.bed_bomb"
+   ],
+   "note": "cave.torches 0, skill.bed_bomb 1",
+   "pairs": [],
+   "parent": "g155",
+   "status": "contender"
+  },
+  "g157": {
+   "born": 165,
+   "code": null,
+   "evals": [],
+   "genes": {
+    "combat.creeper_hit": 1.0,
+    "combat.ignore_walled_mobs": 1.0,
+    "combat.shield_guard": 1.0,
+    "combat.sprint_hit": 1.0,
+    "death.recover_night_armor": 12.0,
+    "focus.commit": 1.0,
+    "gear.sword_early": 1.0,
+    "move.shore_first": 1.0,
+    "nav.surface_v2": 1.0,
+    "nav.unstuck_v2": 1.0,
+    "night.shelter_exit": 1.0,
+    "night.wall_in": 1.0,
+    "plan.hide_hp": 15.0,
+    "plan.readiness": 1.0,
+    "portal.prepare_work_area": 1.0,
+    "portal.reserve_lava_bucket": 1.0,
+    "route.armor_before_portal": 1.0,
+    "skill.enderman_warped": 1.0,
+    "skill.portal_repair": 1.0,
+    "skill.portal_return": 1.0,
+    "skill.ruined_portal": 1.0,
+    "stuck.item_progress": 1.0
+   },
+   "id": "g157",
+   "mutated": [
+    "combat.sprint_hit",
+    "skill.portal_return"
+   ],
+   "note": "combat.sprint_hit 1, skill.portal_return 1",
+   "pairs": [],
    "parent": "g141",
    "status": "contender"
   },
@@ -27995,8 +28072,87 @@
   "mean_gap_ok": -0.2485,
   "n": 903
  },
- "next_id": 156,
- "pending": null,
+ "next_id": 158,
+ "pending": {
+  "data_tasks": [
+   {
+    "kind": "natural",
+    "seed": "D165-ypturd",
+    "stage": "spawn",
+    "synthetic": false
+   },
+   {
+    "kind": "natural",
+    "seed": "D165-k5e2da",
+    "stage": "spawn",
+    "synthetic": false
+   }
+  ],
+  "gen": 165,
+  "lineup": [
+   "g141",
+   "g155",
+   "g156",
+   "g157"
+  ],
+  "runs": [
+   "eval-g141-0",
+   "eval-g141-1",
+   "eval-g141-2",
+   "eval-g141-3",
+   "eval-g155-0",
+   "eval-g155-1",
+   "eval-g155-2",
+   "eval-g155-3",
+   "eval-g156-0",
+   "eval-g156-1",
+   "eval-g156-2",
+   "eval-g156-3",
+   "eval-g157-0",
+   "eval-g157-1",
+   "eval-g157-2",
+   "eval-g157-3",
+   "data-g141-0",
+   "data-g141-1"
+  ],
+  "seeds": [
+   "L165-vgbdj5",
+   "L165-gzvzdm",
+   "L165-fe3mhc",
+   "L165-wn7xcp"
+  ],
+  "sha": "537d4ceac1dc7374b57ddce580f96f9511e1468c",
+  "started": "2026-10-03T23:57:06+00:00",
+  "tasks": [
+   {
+    "kind": "natural",
+    "seed": "L165-vgbdj5",
+    "stage": "spawn",
+    "synthetic": false
+   },
+   {
+    "kind": "natural",
+    "seed": "L165-gzvzdm",
+    "stage": "spawn",
+    "synthetic": false
+   },
+   {
+    "asset": "nether-gen96-eval-g79-2.zip",
+    "kind": "start",
+    "seed": "L165-fe3mhc",
+    "stage": "nether",
+    "synthetic": false
+   },
+   {
+    "kind": "combat",
+    "minutes": 10,
+    "scenario": "combat",
+    "seed": "L165-wn7xcp",
+    "stage": "combat",
+    "synthetic": false
+   }
+  ]
+ },
  "race_evidence_version": 1,
  "score_version": 3,
  "settings": {
