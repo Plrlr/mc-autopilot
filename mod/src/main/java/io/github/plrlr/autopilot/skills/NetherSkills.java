@@ -292,15 +292,19 @@ public final class NetherSkills {
 			Perception seen = Perception.look(32);
 			Perception.Seen blaze = reachableBlaze(seen);
 			var keyUse = Mc.mc().options.keyUse;
-			if (recover(pl, blaze, keyUse)) return;
-			// Between blazes, keep hunger at 18+ so health comes back between hits: below 18 it
-			// doesn't regenerate at all (loop 0341 fought at hunger 15 with 16 steaks in the bag).
-			if (pl.getFoodData().getFoodLevel() < 18 && (blaze == null || blaze.dist() > 6) && eat(pl, keyUse)) return;
-			stopEating(keyUse);
+			if (recover(pl, blaze, seen, keyUse)) return;
+			if (result() != null) return;
 			// Wither skeletons and other fortress mobs walk up and hit us: fight them here. Leaving
 			// them to the generic reflex restarted this skill every time (loop 0355).
 			Perception.Seen close = seen.nearestHostile();
-			if (close != null && close.dist() <= 3.2 && !close.type().equals("blaze")) {
+			boolean closeMob = close != null && close.dist() <= 3.2 && !close.type().equals("blaze");
+			// Between blazes, keep hunger at 18+ so health comes back between hits: below 18 it
+			// doesn't regenerate at all (loop 0341 fought at hunger 15 with 16 steaks in the bag).
+			// Gene nether.recover_bounded: not while a mob is at arm's length (eating stands still).
+			if (pl.getFoodData().getFoodLevel() < 18 && (blaze == null || blaze.dist() > 6)
+					&& !(closeMob && io.github.plrlr.autopilot.Tune.on("nether.recover_bounded")) && eat(pl, keyUse)) return;
+			stopEating(keyUse);
+			if (closeMob) {
 				keyUse.setDown(false);
 				if (Bari.pathing()) Bari.stop();
 				walking = false;
@@ -404,6 +408,8 @@ public final class NetherSkills {
 		private boolean recovering;
 		private boolean eating;
 		private boolean shielding;
+		private int recoverStart;
+		private float recoverBest;
 
 		/**
 		 * Low health (12, since burning keeps hurting after we stop): eat, then shield, then fight
@@ -414,7 +420,7 @@ public final class NetherSkills {
 		 * room with no cover until it died, twice, even at full hunger (batch 14 blaze runs 1 and 2).
 		 * Returns true while recovering.
 		 */
-		private boolean recover(LocalPlayer pl, Perception.Seen blaze, net.minecraft.client.KeyMapping keyUse) {
+		private boolean recover(LocalPlayer pl, Perception.Seen blaze, Perception seen, net.minecraft.client.KeyMapping keyUse) {
 			float hp = pl.getHealth();
 			if (!recovering && hp > 12) return false;
 			if (recovering && hp >= 16) {
@@ -423,7 +429,22 @@ public final class NetherSkills {
 				stopShielding(keyUse);
 				return false;
 			}
+			if (!recovering) {
+				recoverStart = ticks;
+				recoverBest = hp;
+			}
+			recoverBest = Math.max(recoverBest, hp);
 			recovering = true;
+			String stop = hopeless(pl, seen);
+			if (stop != null && io.github.plrlr.autopilot.Exposure.mark("nether.recover_bounded", stop)) {
+				recovering = false;
+				stopEating(keyUse);
+				stopShielding(keyUse);
+				// A mob at arm's length: the fight code below answers it. Healing that can't come: leave
+				// (the planner can take us home to eat, NetherPlan.homeToEat).
+				if (!stop.startsWith("threat")) fail(stop.startsWith("no food") ? Fail.NEED_ITEM : Fail.NO_PROGRESS, stop);
+				return false;
+			}
 			if (pl.getFoodData().getFoodLevel() < 20 && eat(pl, keyUse)) {
 				shielding = false;
 				return true;
@@ -449,6 +470,23 @@ public final class NetherSkills {
 			// Out of sight and full: wait for health to come back.
 			if (Bari.pathing()) Bari.stop();
 			return true;
+		}
+
+		/**
+		 * Gene nether.recover_bounded: why waiting to heal here is pointless, or null. Recovery stood
+		 * still while a wither skeleton hit it (gen176 eval-g159-2 died that way), and waited for
+		 * health that can't come back: below 18 hunger with nothing to eat, health doesn't regenerate.
+		 */
+		private String hopeless(LocalPlayer pl, Perception seen) {
+			Perception.Seen close = seen.nearestHostile();
+			if (close != null && close.dist() <= 3.2 && !close.type().equals("blaze"))
+				return "threat: " + close.type() + " at " + Math.round(close.dist()) + " while waiting to heal";
+			int hunger = pl.getFoodData().getFoodLevel();
+			if (hunger < 18 && Mc.count(Items2.matcher("food")) == 0)
+				return "no food: hunger " + hunger + " and nothing to eat, health can't come back";
+			if (ticks - recoverStart > 20 * 45 && recoverBest <= pl.getHealth() + 0.5f && pl.getHealth() < 14)
+				return "no health back in 45 s (at " + Math.round(pl.getHealth()) + ")";
+			return null;
 		}
 
 		private void stopShielding(net.minecraft.client.KeyMapping keyUse) {

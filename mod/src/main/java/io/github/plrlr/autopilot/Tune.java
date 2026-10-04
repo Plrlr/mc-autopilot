@@ -148,6 +148,7 @@ public final class Tune {
 		gene("tools.diamond_pick_if_found", 1, 0, 1, Kind.BOOL, "3+ diamonds in the bag: make a diamond pickaxe and portal the classic way");
 		gene("tools.stone_axe", 1, 0, 1, Kind.BOOL, "craft a stone axe before chopping more wood (logs break ~3x faster)");
 		gene("nether.pie_chart", 1, 0, 1, Kind.BOOL, "look for a fortress where the F3 pie chart shows spawners, like speedrunners (pie-ray)");
+		gene("nether.recover_bounded", 0, 0, 1, Kind.BOOL, "fortress recovery answers a mob at arm's length, leaves when healing can't come (no food, hunger < 18) or 45 s pass, and goes home to eat");
 		gene("portal.prepare_work_area", 0, 0, 1, Kind.BOOL, "prepare a dry floor for the portal frame when no natural site fits");
 		gene("portal.reserve_lava_bucket", 0, 0, 1, Kind.BOOL, "retired 2026-09-29 (always on: two water buckets deadlocked the cast); kept so old genomes load");
 		gene("brain.death_avoid", 0, 0, 1, Kind.BOOL, "options that clearly kill us in this context (every game's deaths) go behind the safe ones");

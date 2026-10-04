@@ -84,6 +84,8 @@ public final class Planner {
 		lastUrgent = urgent.stream().map(Option::label).collect(java.util.stream.Collectors.toSet());
 		Option surface = surfaceOption(main);
 		List<Option> up = new ArrayList<>(upkeep(seen, main));
+		Option eatHome = NetherPlan.homeToEat(memory);
+		if (eatHome != null) up.add(0, eatHome);
 		List<Option> soFar = new ArrayList<>(urgent);
 		soFar.addAll(up);
 		up.addAll(EvolvedSkills.offers(main, soFar, memory));
