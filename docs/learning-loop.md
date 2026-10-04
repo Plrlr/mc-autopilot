@@ -82,6 +82,15 @@ learns a new skill" means three steps, each by a different part:
    the rules' order when `learned.weight` wins its race. EvolvedSkills also benches a skill for a
    minute after three failures in a row.
 
+**Running on its own (2026-10-04).** Genes and queued ideas run out (all 87 were tried by gen 177),
+so level 3 is what keeps the loop improving without a person. It shares the Claude plan with
+people's own sessions: a call that hits the plan's limit (HTTP 429) now pauses level 3 until the
+reset and counts as nothing (gens 120-166 lost 45 calls that way, each recorded as a failure). Each
+call gets `patterns.py`'s report of the bot's own behavior (time by action, dithering, refusals in
+a row, the situation at each first death) beside the failure table, and new-skill targets rank on
+first lives only. Ideas that log their exposure (an evolved skill, or a gene using `Exposure.mark`)
+must have acted to win, and leave as inconclusive if they never act.
+
 What it can't do: it can't learn motor skills from pixels or invent abilities the facade doesn't
 expose (a new skill is Java composed of the player's controls, chosen by Claude from evidence, and
 kept only if it wins); it doesn't learn inside one game (skills and genes change between

@@ -137,6 +137,19 @@ workflow's unit-tests job compiles and tests in about a minute, the trial jobs t
   game speed), stops at the SPEED line's end, and keeps sessions apart. Scores before v4 are not
   comparable: the version bump cleared every race's pairs and elite ranking starts over.
 
+- **The whole history, gens 1-177 (2026-10-04, 3,108 games, 1,735 game hours).** Spawn runs have
+  been flat since gen ~80: iron tools in ~50% of first lives, portal lit in 1-4%, 75-89% die in
+  their first life (median ~12-13 game minutes). First deaths in spawn runs: skeleton arrows,
+  zombies, lava, creepers; the last choice before a third of them was retreat, at median health
+  3-4 and hunger 14-15 (no regeneration below 18), 80% underground. In Nether starts every game
+  died; piglins first, then lava. The gene search is spent (2 promotions in the last 45 gens, all
+  87 queued ideas tried) and level 3 was starved by the shared plan's weekly limit (45 calls in
+  gens 120-166 hit HTTP 429; its 3 real attempts made 1 champion). Where first-life time goes:
+  shore 14-15%, collect raw_iron 13-14%, collect log 8-9%, smelt iron 7%. Dithering: 12-18% of calm
+  decisions flip A->B->A within 30 s (food and iron on one furnace, packing the table between two
+  crafts, explore and collect disagreeing about remembered logs). patterns.py reports all of this
+  per generation and level 3 reads it.
+
 ## Open problems (next candidates)
 
 - **Food and iron preparation (generations 30-37, not yet raced):** 152 of 162 runs died, with
