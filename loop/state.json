@@ -2860,7 +2860,7 @@
   "2026-10-01": 24,
   "2026-10-02": 23,
   "2026-10-03": 23,
-  "2026-10-04": 9
+  "2026-10-04": 10
  },
  "evolve_days": {
   "2026-09-27": 1,
@@ -3140,7 +3140,7 @@
    "result": "racing"
   }
  ],
- "gen": 174,
+ "gen": 175,
  "gene_specs": {
   "bed.table_first": {
    "def": 0.0,
@@ -14491,6 +14491,43 @@
    "note": "code: After a flint collect fails NO_ROOM (no flat spot to place gravel), the next flint collect mines seen gravel blocks in the world directly (10% flint each), breaking the collect flint NO_ROOM / explore gravel ALREADY_DONE loop.",
    "pairs": [],
    "parent": "g159",
+   "status": "contender"
+  },
+  "g168": {
+   "born": 175,
+   "code": null,
+   "evals": [],
+   "genes": {
+    "combat.creeper_hit": 1.0,
+    "combat.ignore_walled_mobs": 1.0,
+    "combat.shield_guard": 1.0,
+    "death.recover_night_armor": 12.0,
+    "death.recover_value": 1.0,
+    "focus.commit": 1.0,
+    "gear.sword_early": 1.0,
+    "move.shore_first": 1.0,
+    "nav.surface_v2": 1.0,
+    "nav.unstuck_v2": 1.0,
+    "night.shelter_exit": 1.0,
+    "night.wall_in": 1.0,
+    "plan.hide_hp": 15.0,
+    "plan.readiness": 1.0,
+    "portal.prepare_work_area": 1.0,
+    "portal.reserve_lava_bucket": 1.0,
+    "route.armor_before_portal": 1.0,
+    "route.barter": 1.0,
+    "skill.portal_repair": 1.0,
+    "skill.ruined_portal": 1.0,
+    "stuck.item_progress": 1.0
+   },
+   "id": "g168",
+   "mutated": [
+    "skill.enderman_warped",
+    "death.recover_value"
+   ],
+   "note": "skill.enderman_warped 0, death.recover_value 1",
+   "pairs": [],
+   "parent": "g166",
    "status": "contender"
   },
   "g17": {
@@ -29879,8 +29916,87 @@
   "mean_gap_ok": -0.1397,
   "n": 998
  },
- "next_id": 168,
- "pending": null,
+ "next_id": 169,
+ "pending": {
+  "data_tasks": [
+   {
+    "kind": "natural",
+    "seed": "D175-furmmp",
+    "stage": "spawn",
+    "synthetic": false
+   },
+   {
+    "kind": "natural",
+    "seed": "D175-quwcmm",
+    "stage": "spawn",
+    "synthetic": false
+   }
+  ],
+  "gen": 175,
+  "lineup": [
+   "g159",
+   "g167",
+   "g166",
+   "g168"
+  ],
+  "runs": [
+   "eval-g159-0",
+   "eval-g159-1",
+   "eval-g159-2",
+   "eval-g159-3",
+   "eval-g167-0",
+   "eval-g167-1",
+   "eval-g167-2",
+   "eval-g167-3",
+   "eval-g166-0",
+   "eval-g166-1",
+   "eval-g166-2",
+   "eval-g166-3",
+   "eval-g168-0",
+   "eval-g168-1",
+   "eval-g168-2",
+   "eval-g168-3",
+   "data-g159-0",
+   "data-g159-1"
+  ],
+  "seeds": [
+   "L175-rsganz",
+   "L175-v5h8ay",
+   "L175-6sy6u6",
+   "L175-ugkwz8"
+  ],
+  "sha": "edb493ed02bb044d7f07cd0165be5e40c56c1f03",
+  "started": "2026-10-04T12:00:55+00:00",
+  "tasks": [
+   {
+    "kind": "natural",
+    "seed": "L175-rsganz",
+    "stage": "spawn",
+    "synthetic": false
+   },
+   {
+    "kind": "natural",
+    "seed": "L175-v5h8ay",
+    "stage": "spawn",
+    "synthetic": false
+   },
+   {
+    "asset": "nether-gen173-eval-g159-0.zip",
+    "kind": "start",
+    "seed": "L175-6sy6u6",
+    "stage": "nether",
+    "synthetic": false
+   },
+   {
+    "kind": "combat",
+    "minutes": 10,
+    "scenario": "combat",
+    "seed": "L175-ugkwz8",
+    "stage": "combat",
+    "synthetic": false
+   }
+  ]
+ },
  "race_evidence_version": 1,
  "score_version": 3,
  "settings": {
