@@ -148,6 +148,11 @@ public final class Tune {
 		gene("tools.diamond_pick_if_found", 1, 0, 1, Kind.BOOL, "3+ diamonds in the bag: make a diamond pickaxe and portal the classic way");
 		gene("tools.stone_axe", 1, 0, 1, Kind.BOOL, "craft a stone axe before chopping more wood (logs break ~3x faster)");
 		gene("nether.pie_chart", 1, 0, 1, Kind.BOOL, "look for a fortress where the F3 pie chart shows spawners, like speedrunners (pie-ray)");
+		// 2026-10-04 (Claude, the Oct 4 audit): getting to the blazes in a fortress, one gene each.
+		gene("fortress.no_tunnel", 0, 0, 1, Kind.BOOL, "Baritone may not break fortress blocks during the blaze fight: walk the bridges and doorways");
+		gene("fortress.floor_anchor", 0, 0, 1, Kind.BOOL, "fight anchors are floor patches, not wall tops; with no floor in view stand off the wall");
+		gene("fortress.anchor_scope", 0, 0, 1, Kind.BOOL, "tried anchors open again after 2 minutes and belong to one life and dimension");
+		gene("fortress.spawner_check", 0, 0, 1, Kind.BOOL, "a spawner is the blaze spawner only with fortress bricks or a blaze near it");
 		gene("nether.recover_bounded", 0, 0, 1, Kind.BOOL, "fortress recovery answers a mob at arm's length, leaves when healing can't come (no food, hunger < 18) or 45 s pass, and goes home to eat");
 		gene("portal.prepare_work_area", 0, 0, 1, Kind.BOOL, "prepare a dry floor for the portal frame when no natural site fits");
 		gene("portal.reserve_lava_bucket", 0, 0, 1, Kind.BOOL, "retired 2026-09-29 (always on: two water buckets deadlocked the cast); kept so old genomes load");
