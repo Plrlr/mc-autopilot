@@ -2860,7 +2860,7 @@
   "2026-10-01": 24,
   "2026-10-02": 23,
   "2026-10-03": 23,
-  "2026-10-04": 10
+  "2026-10-04": 11
  },
  "evolve_days": {
   "2026-09-27": 1,
@@ -3140,7 +3140,7 @@
    "result": "racing"
   }
  ],
- "gen": 175,
+ "gen": 176,
  "gene_specs": {
   "bed.table_first": {
    "def": 0.0,
@@ -14673,6 +14673,43 @@
    ],
    "parent": "g166",
    "status": "rejected"
+  },
+  "g169": {
+   "born": 176,
+   "code": null,
+   "evals": [],
+   "genes": {
+    "combat.creeper_hit": 1.0,
+    "combat.ignore_walled_mobs": 1.0,
+    "combat.shield_guard": 1.0,
+    "combat.sprint_hit_dist": 2.696381392244941,
+    "death.recover_night_armor": 12.0,
+    "focus.commit": 1.0,
+    "gear.sword_early": 1.0,
+    "move.shore_first": 1.0,
+    "nav.surface_v2": 1.0,
+    "nav.unstuck_v2": 1.0,
+    "night.shelter_exit": 1.0,
+    "night.wall_in": 1.0,
+    "plan.hide_hp": 15.0,
+    "plan.readiness": 1.0,
+    "portal.prepare_work_area": 1.0,
+    "portal.reserve_lava_bucket": 1.0,
+    "route.armor_before_portal": 1.0,
+    "route.barter": 1.0,
+    "skill.enderman_warped": 1.0,
+    "skill.portal_repair": 1.0,
+    "skill.ruined_portal": 1.0,
+    "stuck.item_progress": 1.0
+   },
+   "id": "g169",
+   "mutated": [
+    "combat.sprint_hit_dist"
+   ],
+   "note": "combat.sprint_hit_dist 2.69638",
+   "pairs": [],
+   "parent": "g166",
+   "status": "contender"
   },
   "g17": {
    "born": 19,
@@ -30060,8 +30097,87 @@
   "mean_gap_ok": -0.2296,
   "n": 1005
  },
- "next_id": 169,
- "pending": null,
+ "next_id": 170,
+ "pending": {
+  "data_tasks": [
+   {
+    "kind": "natural",
+    "seed": "D176-55g9qa",
+    "stage": "spawn",
+    "synthetic": false
+   },
+   {
+    "kind": "natural",
+    "seed": "D176-9x27dm",
+    "stage": "spawn",
+    "synthetic": false
+   }
+  ],
+  "gen": 176,
+  "lineup": [
+   "g159",
+   "g167",
+   "g166",
+   "g169"
+  ],
+  "runs": [
+   "eval-g159-0",
+   "eval-g159-1",
+   "eval-g159-2",
+   "eval-g159-3",
+   "eval-g167-0",
+   "eval-g167-1",
+   "eval-g167-2",
+   "eval-g167-3",
+   "eval-g166-0",
+   "eval-g166-1",
+   "eval-g166-2",
+   "eval-g166-3",
+   "eval-g169-0",
+   "eval-g169-1",
+   "eval-g169-2",
+   "eval-g169-3",
+   "data-g159-0",
+   "data-g159-1"
+  ],
+  "seeds": [
+   "L176-m7af86",
+   "L176-pta85q",
+   "L176-uanycf",
+   "L176-jrsrwb"
+  ],
+  "sha": "edb493ed02bb044d7f07cd0165be5e40c56c1f03",
+  "started": "2026-10-04T13:06:47+00:00",
+  "tasks": [
+   {
+    "kind": "natural",
+    "seed": "L176-m7af86",
+    "stage": "spawn",
+    "synthetic": false
+   },
+   {
+    "kind": "natural",
+    "seed": "L176-pta85q",
+    "stage": "spawn",
+    "synthetic": false
+   },
+   {
+    "asset": "nether-gen137-eval-g99-0.zip",
+    "kind": "start",
+    "seed": "L176-uanycf",
+    "stage": "nether",
+    "synthetic": false
+   },
+   {
+    "kind": "combat",
+    "minutes": 10,
+    "scenario": "combat",
+    "seed": "L176-jrsrwb",
+    "stage": "combat",
+    "synthetic": false
+   }
+  ]
+ },
  "race_evidence_version": 1,
  "score_version": 3,
  "settings": {
