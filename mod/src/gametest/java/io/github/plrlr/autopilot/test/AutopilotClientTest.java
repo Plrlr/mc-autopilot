@@ -247,6 +247,20 @@ public class AutopilotClientTest implements FabricClientGameTest {
 			server.runCommand("execute at @p run fill ~-1 ~ ~-1 ~1 ~1 ~1 air");
 			return Goal.NETHER_PORTAL;
 		}
+		if (scenario.equals("nether_entry")) {
+			// A lit portal 6 blocks east and the iron kit, but no food and no gold: does the bot walk
+			// straight in (the old rule at a known portal) or pack first (ready.portal_entry, ready.nether_gold)?
+			for (String g : List.of("iron_pickaxe", "iron_sword", "shield", "bucket", "flint_and_steel", "cobblestone 64",
+					"crafting_table", "furnace", "coal 8"))
+				server.runCommand("give @a " + g);
+			server.runCommand("item replace entity @a armor.chest with iron_chestplate");
+			server.runCommand("item replace entity @a armor.head with iron_helmet");
+			server.runCommand("execute at @p run fill ~5 ~-1 ~-2 ~7 ~4 ~2 air");
+			server.runCommand("execute at @p run fill ~6 ~-1 ~-1 ~6 ~3 ~2 obsidian");
+			server.runCommand("execute at @p run fill ~6 ~ ~ ~6 ~2 ~1 air");
+			server.runCommand("execute at @p run setblock ~6 ~ ~ fire");
+			return Goal.BLAZE_RODS;
+		}
 		if (scenario.equals("enderman")) {
 			// Pearls from endermen: a boat, planks for another, a sword; two endermen 8-10 blocks out.
 			for (String g : List.of("iron_sword", "oak_boat", "oak_planks 10", "cooked_beef 16", "crafting_table"))
@@ -306,7 +320,8 @@ public class AutopilotClientTest implements FabricClientGameTest {
 	 * Oct 4 audit's first deaths and stalls: nether_piglins (two piglins and a brute, no gold worn),
 	 * nether_hungry (a blaze room and a wither skeleton with no food, hunger draining, hurt), and
 	 * nether_fortress (a brick courtyard whose only door faces away from the bot, a blaze spawner
-	 * inside: does it walk round to the door or dig through the wall?).
+	 * inside: does it walk round to the door or dig through the wall?). nether_entry (overworld, a
+	 * lit portal and no food or gold) is set up in stage().
 	 */
 	private static final java.util.Set<String> NETHER_DRILLS = java.util.Set.of("nether_piglins", "nether_hungry", "nether_fortress");
 

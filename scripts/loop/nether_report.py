@@ -27,7 +27,7 @@ import common  # noqa: E402
 
 INV = re.compile(r"\[autopilot-test\]    at (-?\d+) (-?\d+) (-?\d+) hp (\d+) food (\d+) inv \{(.*)\}")
 STATUS = re.compile(r"\[autopilot-test\] \S+ \d+s: .*deaths (\d+)")
-STAGED = ("nether_piglins", "nether_hungry", "nether_fortress", "nether", "blaze")
+STAGED = ("nether_piglins", "nether_hungry", "nether_fortress", "nether_entry", "nether", "blaze")
 
 
 def _rows(d):

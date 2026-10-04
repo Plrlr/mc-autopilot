@@ -9,6 +9,9 @@ what it targets:
     "_stages": ["lava"] or an ok:build_portal metric  -> saved lava starts, 12 game minutes
     "_stages": ["nether"]                              -> saved Nether starts (real runs that got
                                                           there), 12 game minutes
+    "_stages": ["diamond"] (or "kit")                  -> saved starts of that stage, 20 game minutes
+    "_drill_scenario": "nether_entry"                  -> that staged scenario (test harness setup,
+                                                          labeled staged), 12 game minutes
     "_metric": "deaths"                                -> the combat drill (~30 staged fights), 10 min
     anything else                                      -> fresh worlds, 20 min
 Each start is played twice on the PR's code: the champion's genes ("off") and the champion plus the
@@ -38,7 +41,7 @@ import metrics  # noqa: E402
 
 PORTAL = ("lava_seen", "obsidian_placed", "frame_complete", "portal_lit")
 MAX_IDEAS = 3
-MINUTES = {"lava": "12", "nether": "12", "combat": "10", "natural": "20"}
+MINUTES = {"lava": "12", "nether": "12", "diamond": "20", "kit": "20", "staged": "12", "combat": "10", "natural": "20"}
 
 
 def new_ideas(base, head):
@@ -54,10 +57,15 @@ def kind(idea):
     m = idea.get("_metric", "")
     if "lava" in idea.get("_stages", []) or "build_portal" in m or "cast_portal" in m:
         return "lava"
+    if idea.get("_drill_scenario"):
+        return "staged"
     if "nether" in idea.get("_stages", []):
         # A Nether change judged in fresh worlds or arenas would almost never act (g141's readiness
         # gene raced 24 worlds; 1 in 12 spawn runs reaches the Nether).
         return "nether"
+    for stage in ("diamond", "kit"):
+        if stage in idea.get("_stages", []):
+            return stage
     if m == "deaths":
         return "combat"
     return "natural"
@@ -94,12 +102,13 @@ def cmd_plan(a):
     for j, idea in enumerate(ideas):
         genes_on = {k: v for k, v in idea.items() if not k.startswith("_")}
         k = kind(idea)
-        starts = lava_starts(st, a.n) if k == "lava" else lava_starts(st, a.n, "nether", "nether") \
-            if k == "nether" else [None] * a.n
+        starts = lava_starts(st, a.n) if k == "lava" else lava_starts(st, a.n, k, k) \
+            if k in ("nether", "diamond", "kit") else [None] * a.n
         for i, asset in enumerate(starts):
             for side, genes in (("off", champ), ("on", dict(champ, **genes_on))):
+                scenario = idea["_drill_scenario"] if k == "staged" else "combat" if k == "combat" else "natural"
                 runs.append({"name": "drill-%d-%s-%d" % (j, side, i), "seed": "drill-%d-%d" % (j, i),
-                             "scenario": "combat" if k == "combat" else "natural", "minutes": MINUTES[k],
+                             "scenario": scenario, "minutes": MINUTES[k],
                              "start": asset or "",
                              "params": json.dumps({"id": "drill-" + side, "genes": genes}, separators=(",", ":"))})
     if getattr(a, "format", "matrix") == "extra":
@@ -190,7 +199,7 @@ def cmd_report(a):
                          "played": played, "acted_games": acted_games, "exposure": ex_on,
                          "text": "%s: on %s, off %s, z %+.1f; %s" % (
                              v, metrics.describe(m, tally["on"]), metrics.describe(m, tally["off"]), z, exposure_text)})
-    if any(kind(idea) == "nether" for idea in ideas):
+    if any(kind(idea) in ("nether", "staged") for idea in ideas):
         import nether_report
         out += ["### Nether outcomes, first life (saved starts are real runs' saves; staged ones are labeled)", "",
                 nether_report.table(a.batch), ""]
