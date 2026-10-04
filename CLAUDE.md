@@ -49,9 +49,16 @@ in Java 25 (Gradle, Loom). Versions, install paths and Windows details: docs/set
   room (dig_portal); plan/RouteSteps.deepStep. Digs are planned from visible blocks only
   (skills/FairProbe). The old bucket-cast route races only as a control.
 - The learning loop (docs/learning-loop.md): genes in `Tune.java`, the learned brain in
-  `brains/Learned.java`, `scripts/loop/` (loop.py, train.py, evolve.py, dashboard.html),
-  `.github/workflows/loop.yml` (one generation per run, self-dispatching), state and data in
-  `loop/` on the `trial-results` branch. `scripts/laptop-loop.ps1` is the laptop's part.
+  `brains/Learned.java`, the memory of outcomes in `brains/SkillStats.java`, `scripts/loop/`
+  (loop.py, common.py + clock.py: scores, metrics.py + drill.py: race and drill rules with
+  exposure, train.py, evolve.py + evolve_skill.py: level 3, patterns.py: the behavior report,
+  nether_report.py, dashboard.html), `.github/workflows/loop.yml` (one generation per run,
+  self-dispatching), state and data in `loop/` on the `trial-results` branch.
+  `scripts/laptop-loop.ps1` is the laptop's part.
+- A gene that acts only in some moments logs them with `Exposure.mark(gene, what)`, and its
+  suggestion names `"_exposure"`: a race won't crown it before it acted in 3 games and calls it
+  inconclusive if it never acts. Nether ideas drill on saved Nether starts (`"_stages": ["nether"]`)
+  or a staged scenario (`"_drill_scenario"`).
 - `.github/workflows/trials.yml`: hand-started batches (one machine per run) and quick task tests;
   results committed to `trial-results` (runs/<id>/). Both workflows share `.github/actions/play`.
 - `scripts/cycle` (run a batch and summarize), `scripts/summarize_batch`, `scripts/plot_progress`,
@@ -70,6 +77,9 @@ in Java 25 (Gradle, Loom). Versions, install paths and Windows details: docs/set
   `codex/*` branches into `dev`, each behind a gene with a queued suggestion. Claude owns the loop and
   the harness and reviews Codex's PRs (they must pass pr-check.yml; merge only what keeps these rules).
 - Save tokens: read a batch's summary.md, not its logs, unless the summary points at a failure.
+  For the loop's own games, `python scripts/loop/patterns.py --state <trial-results>/loop`.
+- Level 3 shares the user's Claude plan: a session that uses it heavily leaves the loop's code
+  step waiting for the reset (it pauses on HTTP 429 and counts nothing).
   Don't read whole large files (Autopilot.java, Planner.java) when a grep will do.
 - Improve the bot through the loop: a new gene, a new skill, a better score or feature, a fix to
   the harness. A behavior change by hand should still race (put it behind a gene or let it run

@@ -3,55 +3,68 @@
 How the mod works in detail (moved out of CLAUDE.md to keep sessions cheap). Read the section
 you need, not the whole file.
 
-## How it works (three layers)
-1. **Strategist: Opus via `claude -p`.** Picks the current objective from the milestone ladder
-   (below), with a short reason and a plan of steps. Called on events only: objective done or
-   failed, death, dimension change, stuck, or at most every 10 minutes (~7 s per call).
-2. **Tactician: picks the next skill** and its argument from a short candidate list, whenever a
-   skill ends. Default `auto`: the first free LLM with a key (groq, cerebras, gemini), else
-   `mock` (rules, free, always works, the fallback for everything). Opus only sets goals by
-   default; still swappable to `opus` (same `claude -p` route) or any single provider.
-3. **Skills and reflexes: plain Java code, no AI.** Skills do the work (walk, mine, craft, fight),
-   using Baritone for pathfinding and mining. Reflexes react instantly in code: eat when hungry,
-   fight or back off from mobs in range, step away from lava and fire, stop falling into holes.
+## How it works (four layers, no language model in the game)
+1. **Goal ladder** (plan/Goal, GoalLadder): the lowest unfinished of 13 rungs, wood tools to the
+   dragon. Rungs already reached stay done; lost tools are rebuilt on the way.
+2. **Planner** (plan/Planner and its parts: RouteSteps, ItemPlan, PortalPlan, NetherPlan,
+   SurvivalPlan, EscapePlan, LatePlan): a short list of sensible options in the rules' order:
+   urgent (fight, flee, eat, shore), getting dropped items back, upkeep, the goal's next step,
+   extras. Evolved skills the loop wrote (skills/evolved) are offered here too, behind their genes.
+3. **Brain** (brains/Brain): the rules' pick, then, as far as the races have shown it helps:
+   the memory of what fails or kills in this place and moment (SkillStats, genes brain.skill_stats,
+   brain.death_avoid, brain.situations), the danger model (HazardModel, safety.hazard) and the
+   learned re-ranker (Learned, learned.weight). Emergencies always stay with the rules.
+   Decisions take microseconds on the game thread.
+4. **Skills and reflexes**: plain Java over Baritone. Skills do the work (collect, craft, smelt,
+   attack, shelter, the portal, the fortress...), each with a timeout and a fixed failure code;
+   reflexes (Reflexes, Guard) react at once: fight or back off, eat, step out of lava, clutch a fall.
+
+Every behavior change is a gene in Tune.java (default = the old behavior), raced by the learning
+loop (docs/learning-loop.md). A gene that acts only in some moments logs those moments
+(Exposure.mark) so its race can tell "never got the chance" from "lost".
 
 ## Project layout
 ```
 mc-build-crew/            (the folder name is historical; the project is MC Autopilot)
-  CLAUDE.md  START_HERE.md  README.md  docs/research-notes.md  mc-autopilot.env.example
-  mod/                    Fabric mod (Gradle, Loom)
-    build.gradle          Baritone is read straight from its GitHub release (ivy repo)
+  CLAUDE.md  AGENTS.md  START_HERE.md  README.md
+  mod/                    Fabric mod (Gradle, Loom); Baritone is compileOnly/runtimeOnly, never bundled
     src/main/java/io/github/plrlr/autopilot/
       AutopilotMod.java     entry point: K key, tick loop, HUD, "!" chat commands
-      Autopilot.java        main loop: triggers, reflexes, skill lifecycle, death, takeover
-      Config.java Mc.java Items2.java Progress.java
-      state/                WorldMemory (seen blocks, no x-ray), Perception (mobs, items), StateBuilder (JSON)
-      plan/                 Goal (13-rung ladder), TechTree (recipes/sources), Planner (options), Option
-      skills/               Skill base, Skills menu, Bari (Baritone), one class/group per skill
-      brains/               ClaudeCli (claude -p), Backends (opus, groq, gemini), Tactician,
-                            Strategist, RateLimiter, Decision, Prompts
-      log/                  RunLog (JSONL decision log), Lessons (failure codes per action, across runs)
+      Autopilot.java        main loop: triggers, decisions, skill lifecycle, death, takeover
+      SkillBook.java        starting and ending skills; Reflexes, Guard, StuckWatch, LivelockWatch, Tidy, Lighting
+      Tune.java             the genes; EvolvedGenes (evolved skills' switches); Exposure (race evidence)
+      Mc.java Items2.java Progress.java
+      state/                WorldMemory (seen blocks only, no x-ray), Perception (mobs and items in sight),
+                            Danger, DangerSense, PieChart (the F3 pie chart, a direction only)
+      plan/                 Goal, GoalLadder, TechTree, Planner and its parts, Strategist, GameWorld, Facts, Escalation
+      brains/               Brain, SkillStats (memory of outcomes), HazardModel, Learned + TreeModel/MlpModel, Thompson
+      skills/               Skill base, Skills menu, SkillSpecs, Bari (Baritone), one class per skill or group;
+                            evolved/ (the framework the loop's own skills are written against: Player, Offer, Context)
+      log/                  RunLog (JSONL decision log), Lessons, Checkpoints (frozen: the loop reads them)
       ui/                   PanelScreen (K panel), Hud (status line)
-    src/main/resources/autopilot-prompts/   strategist.txt, tactician.txt (plain text, easy to tweak)
+    src/main/resources/     evolved-genes.json (the loop's skills' genes), fabric.mod.json, lang
     src/test/               unit tests (gradlew test)
-    src/gametest/           in-game test: fresh survival world, autopilot plays (gradlew runClientGameTest);
-                            -PtestScenario=portal|cast|stronghold|end stages a late-game step with test-world commands;
-                            -PtestTask="<skill> <arg>" -PtestGive="<items>" runs one skill alone (quick fix check)
-.github/workflows/trials.yml  cloud trial batches (one machine per run); logs as artifacts
+    src/gametest/           the in-game trial: a fresh world, a banked checkpoint (-PtestStart) or a staged
+                            scenario (-PtestScenario: cast, mold, nether, blaze, nether_piglins, nether_hungry,
+                            nether_fortress, nether_entry, stronghold, end, ...); -PtestTask runs one skill alone
+.github/workflows/        loop.yml (the learning loop), trials.yml (batches by hand), pr-check.yml, pr-drill.yml,
+                          evolve-test.yml, marathon.yml, vpt.yml; .github/actions/play plays one game
+scripts/loop/             the learning loop (docs/learning-loop.md): loop.py, common.py (scores), clock.py
+                          (game seconds), metrics.py, drill.py, train.py, skillstats.py, evolve.py,
+                          evolve_skill.py, fairplay.py, patterns.py (behavior report), nether_report.py, ...
 scripts/cycle             push, run a batch, wait, download, summarize (one command)
 scripts/summarize_batch   one-page scoreboard from a batch's logs
-docs/                     batches.md (one line per batch), lessons.md (what the loop learned),
-                          roadmap.txt, setup.md, history.md, research-notes.md
+docs/                     learning-loop.md (the plan), lessons.md, batches.md, roadmap.txt, setup.md,
+                          history.md, research-notes.md, brain-v2.md, brain-v3.md, skills-40.md; archive/
 ```
-Runtime files (settings, logs, lessons.json, progress) live in the Minecraft folder: docs/setup.md.
+Runtime files (params.json, learned.json, logs, lessons.json) live in the Minecraft folder: docs/setup.md.
 
 ## In-game UI
 - A keybind (default K, rebindable in Controls) opens a small panel that doesn't pause the game:
-  Autopilot on/off, action brain (auto / mock / groq / cerebras / gemini / opus), goals by Opus or rules, "ask Opus
-  for a new goal", the current goal and Opus's reason, recent decisions, Opus calls this hour.
-- A one-line HUD in the corner while autopilot is on: brain, objective, current skill.
-- Chat commands typed by the user (not sent to the world): !start, !stop, !status,
-  !brain <name>, !goal <name>, !opus on|off.
+  Autopilot on/off.
+- A one-line HUD in the corner while autopilot is on: brain, goal, current skill.
+- Chat commands typed by the user (never sent to the world): !start, !stop, !status, !goal <name>.
+- Any movement key the user presses turns the autopilot off at once.
 - When autopilot turns on, set pauseOnLostFocus off so alt-tab doesn't pause the world;
   restore the user's setting when it turns off.
 

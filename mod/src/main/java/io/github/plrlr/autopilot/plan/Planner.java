@@ -24,7 +24,7 @@ import java.util.Map;
 
 /**
  * Turns the current goal into a short list of concrete options. The first option is what the
- * rules would do (the mock brain picks it); LLM brains may pick any option on the list.
+ * rules would do; the brain (brains/Brain) may reorder the rest by what it has learned.
  */
 public final class Planner {
 	final WorldMemory memory;

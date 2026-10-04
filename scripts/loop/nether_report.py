@@ -59,6 +59,8 @@ def outcome(d, features=None):
     for o in rows:
         if o.get("event") == "death":
             break
+        if o.get("event") == "milestone" and str(o.get("detail", "")).split(" ")[0] == "8":
+            rods = max(rods, 1)  # a rod in hand, even with no decision logged after it
         x = o.get("x")
         if x and len(x) > max(i_rods, i_fort):
             rods = max(rods, round(x[i_rods] * 6))
