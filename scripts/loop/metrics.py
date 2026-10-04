@@ -7,6 +7,8 @@ death rate moves the needle in a generation or two. A suggestion names its metri
     "_metric": "ok:explore"                 success rate of explore (any arg)
     "_metric": "ok:build_portal|cast_portal" either skill counts
     "_metric": "deaths"                      deaths per game minute (lower is better)
+    "_metric": "rods"                        blaze rods held before the first death, per game (the
+                                             Nether stage's own goal; one number per world)
     "_metric": "resolve:shore:TIMEOUT|STUCK+swim_out"
                                              share of shore TIMEOUT/STUCK failures followed, within
                                              3 minutes and before a death, by an ok shore or swim_out:
@@ -73,10 +75,30 @@ def _resolve(rows, metric):
     return hits, n
 
 
+_RODS = []
+
+
+def _rods(rows):
+    """(blaze rods held before the first death, 1): the decision rows' rods feature (rods / 6)."""
+    if not _RODS:
+        import common
+        _RODS.append(common.load_features().index("rods"))
+    i, best = _RODS[0], 0
+    for o in rows:
+        if o.get("event") == "death":
+            break
+        x = o.get("x")
+        if x and len(x) > i:
+            best = max(best, int(round(x[i] * 6)))
+    return best, 1
+
+
 def tally(rows, metric):
     """(hits, trials) of `metric` over a run's log rows. For "deaths": (deaths, game minutes)."""
     if metric.startswith("resolve:"):
         return _resolve(rows, metric)
+    if metric == "rods":
+        return _rods(rows)
     if metric == "deaths":
         deaths, last = 0, 0.0
         for o in rows:
@@ -212,4 +234,6 @@ def describe(metric, t):
         return "%d deaths in %.0f min" % (h, n)
     if metric.startswith("resolve:"):
         return "%d/%d fixed (%.0f%%)" % (h, n, 100.0 * h / n if n else 0)
+    if metric == "rods":
+        return "%d rods before a death in %d games" % (h, n)
     return "%d/%d ok (%.0f%%)" % (h, n, 100.0 * h / n if n else 0)

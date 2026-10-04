@@ -266,12 +266,12 @@ public class AutopilotClientTest implements FabricClientGameTest {
 			server.runCommand("execute in minecraft:the_nether run tp @a 0 70 0");
 			return Goal.ENDER_PEARLS;
 		}
-		if (scenario.equals("nether") || scenario.equals("blaze")) {
+		if (scenario.equals("nether") || scenario.equals("blaze") || NETHER_DRILLS.contains(scenario)) {
 			// What the speedrun route really carries into the Nether since 9980cfe: iron tools, a
 			// shield, and an iron chestplate + helmet (worn, not just carried - the planner puts
-			// armor on at once) before it ever makes the portal.
+			// armor on at once) before it ever makes the portal. The hungry drill carries no food.
 			for (String g : List.of("iron_pickaxe", "iron_sword", "shield", "cooked_beef 16", "cobblestone 64", "flint_and_steel"))
-				server.runCommand("give @a " + g);
+				if (!(scenario.equals("nether_hungry") && g.startsWith("cooked_"))) server.runCommand("give @a " + g);
 			server.runCommand("item replace entity @a armor.chest with iron_chestplate");
 			server.runCommand("item replace entity @a armor.head with iron_helmet");
 			// Blocks can only be set once the Nether chunks are loaded ("That position is not
@@ -301,9 +301,22 @@ public class AutopilotClientTest implements FabricClientGameTest {
 		}
 	}
 
+	/**
+	 * Staged Nether drills (labeled staged, never natural results), one situation each, from the
+	 * Oct 4 audit's first deaths and stalls: nether_piglins (two piglins and a brute, no gold worn),
+	 * nether_hungry (a blaze room and a wither skeleton with no food, hunger draining, hurt), and
+	 * nether_fortress (a brick courtyard whose only door faces away from the bot, a blaze spawner
+	 * inside: does it walk round to the door or dig through the wall?).
+	 */
+	private static final java.util.Set<String> NETHER_DRILLS = java.util.Set.of("nether_piglins", "nether_hungry", "nether_fortress");
+
 	/** Building for scenarios that teleport first: runs after the player has arrived and chunks are loaded. */
 	private static void arrive(TestSingleplayerContext sp, String scenario) {
 		var server = sp.getServer();
+		if (NETHER_DRILLS.contains(scenario)) {
+			netherDrill(server::runCommand, scenario);
+			return;
+		}
 		if (!scenario.equals("nether") && !scenario.equals("blaze") && !scenario.equals("barter")) return;
 		// A pocket of air on a netherrack floor, so the arrival spot isn't inside rock or over lava.
 		server.runCommand("execute in minecraft:the_nether run fill -3 70 -3 3 74 3 air");
@@ -322,6 +335,41 @@ public class AutopilotClientTest implements FabricClientGameTest {
 			server.runCommand("execute in minecraft:the_nether run setblock 4 70 0 spawner{SpawnData:{entity:{id:\"minecraft:blaze\"}}}");
 		}
 		server.runCommand("execute in minecraft:the_nether run tp @a 0 70 0");
+	}
+
+	private static void netherDrill(java.util.function.Consumer<String> run, String scenario) {
+		String in = "execute in minecraft:the_nether run ";
+		if (scenario.equals("nether_fortress")) {
+			// A netherrack field, a 21x21 courtyard walled 6 high in nether bricks with its one door on
+			// the far (east) side and a blaze spawner on its brick floor; the bot starts 12 blocks west.
+			run.accept(in + "fill -36 69 -24 24 69 24 netherrack");
+			run.accept(in + "fill -36 70 -24 24 80 24 air");
+			run.accept(in + "fill -10 69 -10 10 69 10 nether_bricks");
+			run.accept(in + "fill -10 70 -10 10 75 -10 nether_bricks");
+			run.accept(in + "fill -10 70 10 10 75 10 nether_bricks");
+			run.accept(in + "fill -10 70 -10 -10 75 10 nether_bricks");
+			run.accept(in + "fill 10 70 -10 10 75 10 nether_bricks");
+			run.accept(in + "fill 10 70 -1 10 72 1 air");
+			run.accept(in + "setblock 0 70 0 spawner{SpawnData:{entity:{id:\"minecraft:blaze\"}}}");
+			run.accept(in + "tp @a -22 70 0 -90 0");
+			return;
+		}
+		// The piglin and hungry drills: a closed room on a netherrack floor.
+		run.accept(in + "fill -9 69 -9 9 76 9 " + (scenario.equals("nether_hungry") ? "nether_bricks" : "netherrack") + " hollow");
+		run.accept(in + "fill -8 70 -8 8 75 8 air");
+		if (scenario.equals("nether_piglins")) {
+			// Piglins attack a player without gold; a brute attacks whatever the player wears.
+			run.accept(in + "summon piglin 6 70 3 {IsImmuneToZombification:1b}");
+			run.accept(in + "summon piglin 6 70 -3 {IsImmuneToZombification:1b}");
+			run.accept(in + "summon piglin_brute -6 70 5 {IsImmuneToZombification:1b}");
+		} else {
+			run.accept(in + "setblock 6 70 0 spawner{SpawnData:{entity:{id:\"minecraft:blaze\"}}}");
+			run.accept(in + "summon wither_skeleton -6 70 -5");
+			// Hurt and hungry with nothing to eat: health can't come back below 18 hunger.
+			run.accept("effect give @a minecraft:hunger 40 60");
+			run.accept("damage @a 9");
+		}
+		run.accept(in + "tp @a 0 70 0");
 	}
 
 	/** A 4x3 lava pool set into the ground 7 blocks east, and water to fill a bucket from 6 blocks west. */

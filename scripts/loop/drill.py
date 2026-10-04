@@ -7,6 +7,8 @@
 plan: every suggestion the PR adds to settings.json (up to MAX_IDEAS) gets its own drill, picked by
 what it targets:
     "_stages": ["lava"] or an ok:build_portal metric  -> saved lava starts, 12 game minutes
+    "_stages": ["nether"]                              -> saved Nether starts (real runs that got
+                                                          there), 12 game minutes
     "_metric": "deaths"                                -> the combat drill (~30 staged fights), 10 min
     anything else                                      -> fresh worlds, 20 min
 Each start is played twice on the PR's code: the champion's genes ("off") and the champion plus the
@@ -36,7 +38,7 @@ import metrics  # noqa: E402
 
 PORTAL = ("lava_seen", "obsidian_placed", "frame_complete", "portal_lit")
 MAX_IDEAS = 3
-MINUTES = {"lava": "12", "combat": "10", "natural": "20"}
+MINUTES = {"lava": "12", "nether": "12", "combat": "10", "natural": "20"}
 
 
 def new_ideas(base, head):
@@ -48,10 +50,14 @@ def new_ideas(base, head):
 
 
 def kind(idea):
-    """lava, combat or natural: where the idea acts, so where its drill plays."""
+    """lava, nether, combat or natural: where the idea acts, so where its drill plays."""
     m = idea.get("_metric", "")
     if "lava" in idea.get("_stages", []) or "build_portal" in m or "cast_portal" in m:
         return "lava"
+    if "nether" in idea.get("_stages", []):
+        # A Nether change judged in fresh worlds or arenas would almost never act (g141's readiness
+        # gene raced 24 worlds; 1 in 12 spawn runs reaches the Nether).
+        return "nether"
     if m == "deaths":
         return "combat"
     return "natural"
@@ -61,10 +67,10 @@ def metric_of(idea):
     return idea.get("_metric") or ("ok:build_portal|cast_portal" if kind(idea) == "lava" else "deaths")
 
 
-def lava_starts(st, n):
+def lava_starts(st, n, stage="lava", fallback="kit"):
     bank = st.get("bank", {})
-    real = [c for c in bank.get("lava", []) if not c.get("synthetic")] or \
-           [c for c in bank.get("kit", []) if not c.get("synthetic")]
+    real = [c for c in bank.get(stage, []) if not c.get("synthetic")] or \
+           [c for c in bank.get(fallback, []) if not c.get("synthetic")]
     # Newest saves only: the drill's games wait behind the loop's, and meanwhile the loop prunes
     # the oldest saves from the release (bank_keep). A random old one was gone by the time PR #21's
     # drill ran ("no assets match the file pattern"), failing both sides in 20 s.
@@ -88,7 +94,8 @@ def cmd_plan(a):
     for j, idea in enumerate(ideas):
         genes_on = {k: v for k, v in idea.items() if not k.startswith("_")}
         k = kind(idea)
-        starts = lava_starts(st, a.n) if k == "lava" else [None] * a.n
+        starts = lava_starts(st, a.n) if k == "lava" else lava_starts(st, a.n, "nether", "nether") \
+            if k == "nether" else [None] * a.n
         for i, asset in enumerate(starts):
             for side, genes in (("off", champ), ("on", dict(champ, **genes_on))):
                 runs.append({"name": "drill-%d-%s-%d" % (j, side, i), "seed": "drill-%d-%d" % (j, i),
@@ -183,6 +190,10 @@ def cmd_report(a):
                          "played": played, "acted_games": acted_games, "exposure": ex_on,
                          "text": "%s: on %s, off %s, z %+.1f; %s" % (
                              v, metrics.describe(m, tally["on"]), metrics.describe(m, tally["off"]), z, exposure_text)})
+    if any(kind(idea) == "nether" for idea in ideas):
+        import nether_report
+        out += ["### Nether outcomes, first life (saved starts are real runs' saves; staged ones are labeled)", "",
+                nether_report.table(a.batch), ""]
     if getattr(a, "json", None):
         common.write_json(a.json, verdicts)
     print("\n".join(out))
