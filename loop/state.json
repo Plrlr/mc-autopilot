@@ -2869,7 +2869,7 @@
   "2026-10-01": 12,
   "2026-10-02": 12,
   "2026-10-03": 12,
-  "2026-10-04": 2
+  "2026-10-04": 3
  },
  "evolve_log": [
   {
@@ -3119,6 +3119,12 @@
    "mode": "skill",
    "result": "no usable skill",
    "target": "shore TIMEOUT"
+  },
+  {
+   "gen": 167,
+   "gid": "g159",
+   "mode": "edit",
+   "result": "racing"
   }
  ],
  "gen": 167,
@@ -13101,6 +13107,49 @@
      -0.266
     ]
    ],
+   "parent": "g141",
+   "status": "contender"
+  },
+  "g159": {
+   "born": 167,
+   "code": {
+    "base": "537d4ceac1dc7374b57ddce580f96f9511e1468c",
+    "branch": "evolve/g159",
+    "files": [
+     "mod/src/main/java/io/github/plrlr/autopilot/skills/CombatSkills.java"
+    ],
+    "sha": "edb493ed02bb044d7f07cd0165be5e40c56c1f03",
+    "summary": "When a creeper lights its fuse before our first hit, the attack backs straight away from it (the creeper stands still while it swells) instead of failing HAZARD and starting a retreat. It only goes back to fighting once the fuse is out and we're at the gap distance."
+   },
+   "evals": [],
+   "genes": {
+    "combat.creeper_hit": 1.0,
+    "combat.ignore_walled_mobs": 1.0,
+    "combat.shield_guard": 1.0,
+    "death.recover_night_armor": 12.0,
+    "focus.commit": 1.0,
+    "gear.sword_early": 1.0,
+    "move.shore_first": 1.0,
+    "nav.surface_v2": 1.0,
+    "nav.unstuck_v2": 1.0,
+    "night.shelter_exit": 1.0,
+    "night.wall_in": 1.0,
+    "plan.hide_hp": 15.0,
+    "plan.readiness": 1.0,
+    "portal.prepare_work_area": 1.0,
+    "portal.reserve_lava_bucket": 1.0,
+    "route.armor_before_portal": 1.0,
+    "skill.enderman_warped": 1.0,
+    "skill.portal_repair": 1.0,
+    "skill.ruined_portal": 1.0,
+    "stuck.item_progress": 1.0
+   },
+   "id": "g159",
+   "mutated": [
+    "code"
+   ],
+   "note": "code: When a creeper lights its fuse before our first hit, the attack backs straight away from it (the creeper stands still while it swells) instead of failing HAZARD and starting a retreat. It only goes back to fighting once the fuse is out and we're at the gap distance.",
+   "pairs": [],
    "parent": "g141",
    "status": "contender"
   },
@@ -28541,7 +28590,8 @@
   "At the ocean the remembered water sources had no dry bank, so fill_bucket failed NOT_FOUND while explore water said ALREADY_DONE; a refusing skill needs the fallback a player would use (scoop from where you stand) or the planner loops between two refusals.",
   "A retreat that starts with a monster 3-4 blocks away can't get away: the mob follows and hits our back. Fleeing only makes sense past melee range, or when we can wall in on the spot.",
   "A reflex that checks only distance keeps restarting a fight the planner has already given up on (unreachable mark). The reflex's trigger should honour the same unreachable memory, with an exception for a mob that is really in reach.",
-  "When the planner's inventory test (Goal.have bucket counts filled buckets) says a step is ready but the skill's own check refuses, the skill must fix the state itself (pour out the spare water), or the planner offers the same refused step forever."
+  "When the planner's inventory test (Goal.have bucket counts filled buckets) says a step is ready but the skill's own check refuses, the skill must fix the state itself (pour out the spare water), or the planner offers the same refused step forever.",
+  "Creeper HAZARD failures happened because the attack quit as soon as it saw a lit fuse. The follow-up retreat then started 2-3 blocks from the creeper and failed with NO_PROGRESS, so backing off at once inside the attack should beat handing over to a new skill."
  ],
  "model_adv_lo": -0.0357,
  "model_adv_r2": -0.001,
@@ -28557,7 +28607,7 @@
   "mean_gap_ok": -0.0889,
   "n": 922
  },
- "next_id": 159,
+ "next_id": 160,
  "pending": null,
  "race_evidence_version": 1,
  "score_version": 3,
