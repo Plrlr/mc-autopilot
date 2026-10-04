@@ -137,6 +137,28 @@ def test_compact_rows_keep_what_led_to_a_death():
         assert any("lava beside us" in line for line in patterns.report(a))
 
 
+def test_late_practice_rotates_past_the_frontier_and_is_reported():
+    import random
+    import bank
+    st = {"bank": {"nether": [{"asset": "nether-1.zip", "gen": 1}]},
+          "stage_stats": {"kit": [[1, 1]] * 8, "lava": [[1, 1]] * 8, "diamond": [[1, 1]] * 8, "nether": [[1, 0]] * 8}}
+    stages = [bank.late_task(st, random.Random(1), g)["stage"] for g in range(4)]
+    assert set(stages) == {"eyes", "end"} and all(s in ("eyes", "end") for s in stages), stages
+    t = bank.late_task(st, random.Random(1), 0)
+    assert t["late"] and t["kind"] == "scenario" and t["synthetic"]
+    with tempfile.TemporaryDirectory() as d:
+        with open(os.path.join(d, "history.jsonl"), "w") as f:
+            f.write(json.dumps({"gen": 1, "tasks": ["spawn"], "data_tasks": ["end*", "spawn"]}) + "\n")
+        g = os.path.join(d, "data", "gen-00001")
+        os.makedirs(g)
+        for name in ("data-g1-0", "data-g1-1", "eval-g1-0"):
+            with gzip.open(os.path.join(g, name + ".jsonl.gz"), "wt", encoding="utf-8") as f:
+                f.write(json.dumps({"k": "s", "gs": 5, "a": "dragon_fight", "ok": False, "c": "TIMEOUT", "sec": 60}) + "\n")
+        assert len(patterns.load(d, 5, "data:end")) == 1
+        assert len(patterns.load(d, 5, None)) == 1  # all stages: scored games only
+        assert "[end practice" in patterns.text(d, 5)
+
+
 if __name__ == "__main__":
     for name, fn in list(globals().items()):
         if name.startswith("test_"):

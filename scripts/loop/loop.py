@@ -46,6 +46,7 @@ DEFAULT_SETTINGS = {
     "combat_minutes": 10,      # game minutes per combat drill (a fight every ~30-60 s)
     "bank_keep": 40,           # checkpoints kept per stage
     "data_runs": 2,            # extra champion runs with exploration on: data for the learned brain
+    "late_data_runs": 0,       # of those, how many practice a stage past the frontier instead (bank.late_task; unscored)
     "explore_data": 0.15,      # learned.explore in the data runs
     "minutes": 20,             # game minutes per run
     "scenario": "natural",
@@ -348,6 +349,11 @@ def cmd_propose(a):
         lineup.remove(out_of_turn[-1])
     data_tasks = [{"kind": "natural", "stage": "spawn", "synthetic": False, "seed": bank.random_seed(rng, "D%d" % gen)}
                   for _ in range(s["data_runs"])]
+    for i in range(min(s.get("late_data_runs", 0), len(data_tasks))):
+        late = bank.late_task(st, rng, gen + i)
+        if late:
+            late["seed"] = data_tasks[i]["seed"]
+            data_tasks[i] = late
     for gid in list(lineup):
         if st["genomes"][gid].get("code") and not rebase_code(st, gid, a.sha, gen) and gid != champ:
             lineup.remove(gid)
@@ -358,7 +364,8 @@ def cmd_propose(a):
     # Data runs: the champion with exploration on, on their own seeds (never scored for the race).
     for i, t in enumerate(data_tasks):
         g = dict(st["genomes"][champ]["genes"])
-        g["learned.explore"] = s["explore_data"]
+        # Late-game practice plays the champion as it is: deliberate odd picks there teach nothing yet.
+        g["learned.explore"] = 0 if t.get("late") else s["explore_data"]
         runs.append(run_entry(s, champ, t, "data", g, gen, i, ref_of(st, champ, a.sha)))
     st["pending"] = {"gen": gen, "sha": a.sha, "lineup": lineup, "tasks": tasks, "data_tasks": data_tasks,
                      "seeds": [t["seed"] for t in tasks], "runs": [r["name"] for r in runs],
@@ -574,6 +581,7 @@ def cmd_update(a):
                   "sign": st.get("model_sign"), "heads": st.get("model_keys")},
         "showcase": showcase,
         "tasks": [t["stage"] + ("*" if t.get("synthetic") else "") for t in tasks],
+        "data_tasks": [t["stage"] + ("*" if t.get("synthetic") else "") for t in data_tasks],
         "banked": banked, "frontier": bank.frontier(st), "bank": bank.summary(st),
         "stage_scores": stage_scores(results),
         "portal_drill": portal_drill(results),
