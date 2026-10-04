@@ -21,7 +21,9 @@ public final class NetherPlan {
 
 	/** The next step toward blaze rods, for a player already in the Nether. */
 	public static Option blazeStep(WorldMemory memory, Perception seen) {
-		Option o = blazeStep(memory.nearest("spawner") != null || memory.nearest("nether_bricks") != null, seen.nearest("blaze") != null);
+		boolean spawner = memory.nearest("spawner") != null
+				&& (!Tune.on("fortress.spawner_check") || io.github.plrlr.autopilot.skills.NetherSkills.blazeSpawner(memory, seen) != null);
+		Option o = blazeStep(spawner || memory.nearest("nether_bricks") != null, seen.nearest("blaze") != null);
 		return withSkills(o, memory);
 	}
 
