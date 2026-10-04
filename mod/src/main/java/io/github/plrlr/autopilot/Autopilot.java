@@ -71,10 +71,28 @@ public final class Autopilot {
 	/** The last strategist route written to the log. */
 	private String loggedPlan = "";
 
-	/** The skill stats contexts for the state right now. */
-	static java.util.List<String> skillContextsNow() {
-		return io.github.plrlr.autopilot.brains.SkillStats.contexts(Mc.dimension(), Mc.isNight(),
-				!Mc.player().level().canSeeSky(Mc.player().blockPosition().above()));
+	/** The skill stats contexts for the state right now (with gene brain.situations, the moment too). */
+	java.util.List<String> skillContextsNow() {
+		var pl = Mc.player();
+		java.util.List<String> place = io.github.plrlr.autopilot.brains.SkillStats.contexts(Mc.dimension(), Mc.isNight(),
+				!pl.level().canSeeSky(pl.blockPosition().above()));
+		if (!Tune.on("brain.situations")) return place;
+		Perception.Seen h = seen.nearestHostile();
+		java.util.List<String> out = new java.util.ArrayList<>(place);
+		out.addAll(io.github.plrlr.autopilot.brains.SkillStats.situation(pl.getHealth(), pl.getFoodData().getFoodLevel(),
+				Mc.count(Items2.matcher("food")), h == null ? 99 : h.dist()));
+		return out;
+	}
+
+	/**
+	 * What every game so far (and this one) taught, applied: the demoted list when the gene is on.
+	 * Logs the moments it changes the first choice on both sides of a race (Exposure), so a race can
+	 * tell a memory that acted from one that never had a say.
+	 */
+	private static List<Option> remember(String gene, List<Option> options, List<Option> demoted, String why) {
+		boolean topMoves = !demoted.isEmpty() && !options.isEmpty() && !demoted.get(0).equals(options.get(0));
+		boolean on = topMoves ? Exposure.mark(gene, options.get(0).label() + " " + why) : Tune.on(gene);
+		return on ? demoted : options;
 	}
 
 	/** The skill stats contexts (dimension, night, underground) when the running skill started. */
@@ -511,9 +529,10 @@ public final class Autopilot {
 		}
 		if (options.isEmpty()) options.add(new Option("explore", "any", "everything else failed recently"));
 		// Brain v2: options that clearly fail here (learned skill stats) go behind the ones that work.
-		if (Tune.on("brain.skill_stats")) options = Brain.demoteFailing(options, planner.lastUrgent, skillContextsNow());
+		List<String> ctx = skillContextsNow();
+		options = remember("brain.skill_stats", options, Brain.demoteFailing(options, planner.lastUrgent, ctx), "clearly fails here");
 		// Learn from deaths: what keeps killing us here goes behind what doesn't (brains/Brain.demoteDeadly).
-		if (Tune.on("brain.death_avoid")) options = Brain.demoteDeadly(options, planner.lastUrgent, skillContextsNow());
+		options = remember("brain.death_avoid", options, Brain.demoteDeadly(options, planner.lastUrgent, ctx), "clearly kills here");
 		// Focus, like a player: a task that's running is finished before the next one, unless the
 		// rules' top choice is an emergency (a mob on us, hunger, a creeper). Generation 1 split
 		// every iron trip into ~9 pieces of ~20 s: each heartbeat let upkeep or a furnace check win.

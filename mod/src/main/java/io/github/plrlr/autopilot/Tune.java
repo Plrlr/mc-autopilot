@@ -243,6 +243,7 @@ public final class Tune {
 		gene("brain.death_s", 600, 120, 1800, Kind.INT, "what a death costs in the strategist's sums, in seconds (the kit is lost)");
 		gene("brain.skill_stats", 0, 0, 1, Kind.BOOL, "options that clearly fail here (learned skill stats) go behind the ones that work");
 		gene("reflex.escalate", 0, 0, 1, Kind.BOOL, "fled the same way twice in 30 s: stand and fight or wall in instead of running again");
+		gene("brain.situations", 0, 0, 1, Kind.BOOL, "skill memory also keyed by the moment (hurt, a monster close, nothing to eat), not only the place");
 		gene("plan.readiness", 0, 0, 1, Kind.BOOL, "check the kit before a one-way door (Nether, End) and get what's missing first");
 		gene("ready.nether_blocks", 32, 0, 128, Kind.INT, "throwaway blocks to carry into the Nether");
 		gene("ready.nether_food", 6, 0, 32, Kind.INT, "food to carry into the Nether");

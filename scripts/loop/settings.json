@@ -11,6 +11,43 @@
  "_suggest": "Ideas to race next: each entry becomes one challenger (champion + these genes), tried once. Higher-priority suggestions go first.",
  "suggest": [
   {
+   "_note": "2026-10-04 (Claude): learn from mistakes, every game's and this one's. The memory (learned.json skill stats from all 3,000+ games, plus this game's own tries counted double) demotes what clearly fails or clearly kills in this place AND moment (brain.situations: hurt, a monster close, nothing to eat). Raced at gens 54-65 with a few games of memory, 20-minute games, the old death clock, and death_avoid dropped on 4 pooled games; now with exposure logged and world-by-world judging.",
+   "brain.skill_stats": 1,
+   "brain.death_avoid": 1,
+   "brain.situations": 1,
+   "_exposure": {
+    "gene": [
+     "brain.skill_stats",
+     "brain.death_avoid"
+    ]
+   },
+   "_priority": true
+  },
+  {
+   "_retry": "g80 (gen 100) was +1.73 on the game score over 4 worlds and dropped on 14 vs 10 pooled deaths in two games each, the pooled rule #92 replaced.",
+   "reflex.escalate": 1,
+   "_metric": "deaths",
+   "_exposure": {
+    "gene": "reflex.escalate"
+   },
+   "_priority": true
+  },
+  {
+   "brain.death_avoid": 1,
+   "brain.situations": 1,
+   "_metric": "deaths",
+   "_exposure": {
+    "gene": "brain.death_avoid"
+   }
+  },
+  {
+   "brain.skill_stats": 1,
+   "brain.situations": 1,
+   "_exposure": {
+    "gene": "brain.skill_stats"
+   }
+  },
+  {
    "_note": "2026-10-04 (Claude, from all 1,735 game hours, gens 1-177: patterns.py): finish one thing at a time, like a player. 12-18% of calm decisions in spawn first lives were A->B->A flips within 30 s; the top ones were food and iron taking turns on one furnace (each pulling the other's load out), packing up the crafting table between two crafts, and explore and collect disagreeing about remembered logs. The three fixes together; each also races alone below.",
    "smelt.own_furnace": 1,
    "stations.pickup_last": 1,

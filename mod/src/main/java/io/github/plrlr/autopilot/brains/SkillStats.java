@@ -143,6 +143,23 @@ public final class SkillStats {
 		return o.has(k) && !o.get(k).isJsonNull() ? o.get(k).getAsDouble() : 0;
 	}
 
+	/**
+	 * Gene brain.situations: the moment as well as the place, so a lesson is about what mattered.
+	 * Retreating at full health and retreating at 3 health with a zombie at arm's length were one
+	 * key: a third of first deaths in spawn runs came right after a retreat, at median health 3-4.
+	 * Same thresholds as skillstats.py situation(): hurt (8 health or less), a monster within 6
+	 * blocks, both at once, and hungry with nothing to eat (health can't come back below 18).
+	 */
+	public static List<String> situation(double health, int hunger, int foodCount, double mobDist) {
+		List<String> out = new java.util.ArrayList<>(4);
+		boolean hurt = health <= 8, mob = mobDist <= 6;
+		if (hunger < 18 && foodCount == 0) out.add("nofood");
+		if (mob) out.add("mob");
+		if (hurt) out.add("hurt");
+		if (hurt && mob) out.add("hurt_mob");
+		return out;
+	}
+
 	/** The contexts skillstats.py uses, from the state as the game sees it. */
 	public static List<String> contexts(String dimension, boolean night, boolean underground) {
 		List<String> out = new java.util.ArrayList<>(3);
