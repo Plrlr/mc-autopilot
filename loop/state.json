@@ -2860,7 +2860,7 @@
   "2026-10-01": 24,
   "2026-10-02": 23,
   "2026-10-03": 23,
-  "2026-10-04": 3
+  "2026-10-04": 4
  },
  "evolve_days": {
   "2026-09-27": 1,
@@ -3127,7 +3127,7 @@
    "result": "racing"
   }
  ],
- "gen": 168,
+ "gen": 169,
  "gene_specs": {
   "bed.table_first": {
    "def": 0.0,
@@ -13365,6 +13365,46 @@
    "pairs": [],
    "parent": "g10",
    "status": "rejected"
+  },
+  "g160": {
+   "born": 169,
+   "code": null,
+   "evals": [],
+   "genes": {
+    "combat.creeper_hit": 1.0,
+    "combat.ignore_walled_mobs": 1.0,
+    "combat.shield_guard": 1.0,
+    "death.recover_night_armor": 12.0,
+    "focus.commit": 1.0,
+    "gear.sword_early": 1.0,
+    "move.shore_first": 1.0,
+    "nav.surface_v2": 1.0,
+    "nav.unstuck_v2": 1.0,
+    "night.shelter_exit": 1.0,
+    "night.wall_in": 1.0,
+    "plan.hide_hp": 15.0,
+    "plan.readiness": 1.0,
+    "portal.prepare_work_area": 1.0,
+    "portal.reserve_lava_bucket": 1.0,
+    "reflex.melee_dist": 3.726483176484361,
+    "route.armor_before_portal": 1.0,
+    "skill.enderman_warped": 1.0,
+    "skill.nether_bridge": 1.0,
+    "skill.portal_repair": 1.0,
+    "skill.ruined_portal": 1.0,
+    "skill.stronghold_navigate": 1.0,
+    "stuck.item_progress": 1.0
+   },
+   "id": "g160",
+   "mutated": [
+    "reflex.melee_dist",
+    "skill.stronghold_navigate",
+    "skill.nether_bridge"
+   ],
+   "note": "reflex.melee_dist 3.72648, skill.stronghold_navigate 1, skill.nether_bridge 1",
+   "pairs": [],
+   "parent": "g141",
+   "status": "contender"
   },
   "g17": {
    "born": 19,
@@ -28749,8 +28789,87 @@
   "mean_gap_ok": -0.407,
   "n": 952
  },
- "next_id": 160,
- "pending": null,
+ "next_id": 161,
+ "pending": {
+  "data_tasks": [
+   {
+    "kind": "natural",
+    "seed": "D169-wfsxdd",
+    "stage": "spawn",
+    "synthetic": false
+   },
+   {
+    "kind": "natural",
+    "seed": "D169-9ctg9c",
+    "stage": "spawn",
+    "synthetic": false
+   }
+  ],
+  "gen": 169,
+  "lineup": [
+   "g141",
+   "g159",
+   "g158",
+   "g160"
+  ],
+  "runs": [
+   "eval-g141-0",
+   "eval-g141-1",
+   "eval-g141-2",
+   "eval-g141-3",
+   "eval-g159-0",
+   "eval-g159-1",
+   "eval-g159-2",
+   "eval-g159-3",
+   "eval-g158-0",
+   "eval-g158-1",
+   "eval-g158-2",
+   "eval-g158-3",
+   "eval-g160-0",
+   "eval-g160-1",
+   "eval-g160-2",
+   "eval-g160-3",
+   "data-g141-0",
+   "data-g141-1"
+  ],
+  "seeds": [
+   "L169-acecsk",
+   "L169-cs7j6u",
+   "L169-7evyam",
+   "L169-jchew3"
+  ],
+  "sha": "537d4ceac1dc7374b57ddce580f96f9511e1468c",
+  "started": "2026-10-04T04:50:25+00:00",
+  "tasks": [
+   {
+    "kind": "natural",
+    "seed": "L169-acecsk",
+    "stage": "spawn",
+    "synthetic": false
+   },
+   {
+    "kind": "natural",
+    "seed": "L169-cs7j6u",
+    "stage": "spawn",
+    "synthetic": false
+   },
+   {
+    "asset": "nether-gen96-eval-g77-2.zip",
+    "kind": "start",
+    "seed": "L169-7evyam",
+    "stage": "nether",
+    "synthetic": false
+   },
+   {
+    "kind": "combat",
+    "minutes": 10,
+    "scenario": "combat",
+    "seed": "L169-jchew3",
+    "stage": "combat",
+    "synthetic": false
+   }
+  ]
+ },
  "race_evidence_version": 1,
  "score_version": 3,
  "settings": {
