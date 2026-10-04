@@ -27,7 +27,7 @@ def stamp(ms):
     return datetime.datetime.fromtimestamp(ms / 1000.0, datetime.timezone.utc).strftime("[%H:%M:%S]")
 
 
-def game(root, name, rows, log, final_dim="the_nether", deaths=0):
+def game(root, name, rows, log, final_dim="the_nether", deaths=0, scenario="natural"):
     d = os.path.join(root, name)
     logs = os.path.join(d, "build", "run", "clientGameTest", "mc-autopilot", "logs")
     os.makedirs(logs)
@@ -39,9 +39,9 @@ def game(root, name, rows, log, final_dim="the_nether", deaths=0):
                      "blaze_rods, doing fortress blazes:8, milestone 7/13, deaths %d" % (stamp(ms), gs, dn))
         lines.append("%s [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    at 1 70 1 hp 20 food 20 inv {%s}"
                      % (stamp(ms), ", ".join("%s=%d" % kv for kv in inv.items())))
-    lines.append("%s [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test] FINAL nether: brain rules, goal x, "
+    lines.append("%s [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test] FINAL %s: brain rules, goal x, "
                  "doing y, milestone 7/13, deaths %d, dimension %s, milestone times none, checkpoints none"
-                 % (stamp(T0 + 700000), deaths, final_dim))
+                 % (stamp(T0 + 700000), scenario, deaths, final_dim))
     with open(os.path.join(d, "autopilot-test.log"), "w") as f:
         f.write("\n".join(lines) + "\n")
     return d
@@ -67,9 +67,9 @@ def test_first_life_rods_fight_and_tunneling():
 def test_safe_return_needs_life_overworld_and_a_rod():
     with tempfile.TemporaryDirectory() as root:
         rows = [{"event": "autopilot_on", "t": T0}, {"gs": 0, "t": T0, "x": x(0, 1), "choice": "fortress blazes:8"}]
-        game(root, "trial-nether_fortress-a-drill-0-off-0", rows, [(T0 + 30000, 30, 0, {"blaze_rod": 2})],
-             final_dim="overworld")
-        o = nether_report.outcome(os.path.join(root, "trial-nether_fortress-a-drill-0-off-0"))
+        game(root, "trial-drill-0-off-0", rows, [(T0 + 30000, 30, 0, {"blaze_rod": 2})],
+             final_dim="overworld", scenario="nether_fortress")
+        o = nether_report.outcome(os.path.join(root, "trial-drill-0-off-0"))
         assert o["safe_return"] and o["staged"] and o["rods_first_life"] == 2, o
         assert "staged" in nether_report.table(root)
 

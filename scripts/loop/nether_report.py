@@ -81,7 +81,10 @@ def outcome(d, features=None):
     dim = re.search(r"dimension (\w+)", run["final"] or "")
     first = min(run["death_times"]) if run["death_times"] else None
     name = os.path.basename(d.rstrip("/\\"))
-    return {"name": name, "staged": name.split("-")[1] in STAGED if name.startswith("trial-") else False,
+    # The scenario from the FINAL line ("FINAL nether_entry: ..."): PR drills name their games
+    # drill-0-on-1, without it.
+    scenario = run["final"].split()[1].rstrip(":") if run["final"] and len(run["final"].split()) > 1 else ""
+    return {"name": name, "scenario": scenario, "staged": scenario in STAGED,
             "rods_first_life": rods, "fortress_known": bool(fort), "fortress_fight_s": round(fight),
             "bricks_dug": bricks, "first_death_s": first,
             "first_death": run["deaths"][0][0] if run["deaths"] else None, "deaths": len(run["deaths"]),

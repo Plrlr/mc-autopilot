@@ -357,8 +357,11 @@ public class AutopilotClientTest implements FabricClientGameTest {
 		if (scenario.equals("nether_fortress")) {
 			// A netherrack field, a 21x21 courtyard walled 6 high in nether bricks with its one door on
 			// the far (east) side and a blaze spawner on its brick floor; the bot starts 12 blocks west.
+			// /fill stops at 32,768 blocks: the air goes in two layers (one fill of 61x11x49 failed
+			// silently and the bot started inside netherrack, "inWall at 2s").
 			run.accept(in + "fill -36 69 -24 24 69 24 netherrack");
-			run.accept(in + "fill -36 70 -24 24 80 24 air");
+			run.accept(in + "fill -36 70 -24 24 75 24 air");
+			run.accept(in + "fill -36 76 -24 24 81 24 air");
 			run.accept(in + "fill -10 69 -10 10 69 10 nether_bricks");
 			run.accept(in + "fill -10 70 -10 10 75 -10 nether_bricks");
 			run.accept(in + "fill -10 70 10 10 75 10 nether_bricks");
