@@ -1905,6 +1905,10 @@
    "n": 0,
    "sum": 0.0
   },
+  "brain.situations": {
+   "n": 0,
+   "sum": 0.0
+  },
   "brain.skill_stats": {
    "n": 2,
    "sum": -0.061749999999999965
@@ -2073,6 +2077,10 @@
    "n": 0,
    "sum": 0.0
   },
+  "explore.same_blocks": {
+   "n": 0,
+   "sum": 0.0
+  },
   "fluid.enclosed_tunnel": {
    "n": 1,
    "sum": -0.36775
@@ -2108,6 +2116,22 @@
   "food.stock": {
    "n": 2,
    "sum": -2.08005
+  },
+  "fortress.anchor_scope": {
+   "n": 0,
+   "sum": 0.0
+  },
+  "fortress.floor_anchor": {
+   "n": 0,
+   "sum": 0.0
+  },
+  "fortress.no_tunnel": {
+   "n": 0,
+   "sum": 0.0
+  },
+  "fortress.spawner_check": {
+   "n": 0,
+   "sum": 0.0
   },
   "gather.cautious_depth": {
    "n": 1,
@@ -2229,6 +2253,14 @@
    "n": 0,
    "sum": 0.0
   },
+  "nether.piglin_threat": {
+   "n": 0,
+   "sum": 0.0
+  },
+  "nether.recover_bounded": {
+   "n": 0,
+   "sum": 0.0
+  },
   "night.mine_instead": {
    "n": 4,
    "sum": -3.1264901315789473
@@ -2332,6 +2364,14 @@
   "ready.nether_food": {
    "n": 1,
    "sum": -2.93025
+  },
+  "ready.nether_gold": {
+   "n": 0,
+   "sum": 0.0
+  },
+  "ready.portal_entry": {
+   "n": 0,
+   "sum": 0.0
   },
   "reflex.burning_hp": {
    "n": 0,
@@ -2589,6 +2629,14 @@
    "n": 2,
    "sum": 0.28837500000000005
   },
+  "smelt.own_furnace": {
+   "n": 0,
+   "sum": 0.0
+  },
+  "stations.pickup_last": {
+   "n": 0,
+   "sum": 0.0
+  },
   "stronghold.sidestep": {
    "n": 0,
    "sum": 0.0
@@ -2634,7 +2682,7 @@
   "2026-10-01": 24,
   "2026-10-02": 23,
   "2026-10-03": 23,
-  "2026-10-04": 13
+  "2026-10-04": 14
  },
  "evolve_days": {
   "2026-09-27": 1,
@@ -2666,7 +2714,7 @@
    "result": "racing"
   }
  ],
- "gen": 178,
+ "gen": 179,
  "gene_specs": {
   "bed.table_first": {
    "def": 0.0,
@@ -2688,6 +2736,13 @@
    "kind": "INT",
    "max": 1800.0,
    "min": 120.0
+  },
+  "brain.situations": {
+   "def": 0.0,
+   "help": "skill memory also keyed by the moment (hurt, a monster close, nothing to eat), not only the place",
+   "kind": "BOOL",
+   "max": 1.0,
+   "min": 0.0
   },
   "brain.skill_stats": {
    "def": 0.0,
@@ -2983,6 +3038,13 @@
    "max": 20.0,
    "min": 5.0
   },
+  "explore.same_blocks": {
+   "def": 0.0,
+   "help": "explore counts a remembered block only if collect would use it (no 'already seen' for logs under water)",
+   "kind": "BOOL",
+   "max": 1.0,
+   "min": 0.0
+  },
   "fluid.enclosed_tunnel": {
    "def": 0.0,
    "help": "drain only flooded passages with a solid roof and walls, not open lakes",
@@ -3044,6 +3106,34 @@
    "help": "cooked food to keep in stock",
    "kind": "INT",
    "max": 20.0,
+   "min": 0.0
+  },
+  "fortress.anchor_scope": {
+   "def": 0.0,
+   "help": "tried anchors open again after 2 minutes and belong to one life and dimension",
+   "kind": "BOOL",
+   "max": 1.0,
+   "min": 0.0
+  },
+  "fortress.floor_anchor": {
+   "def": 0.0,
+   "help": "fight anchors are floor patches, not wall tops; with no floor in view stand off the wall",
+   "kind": "BOOL",
+   "max": 1.0,
+   "min": 0.0
+  },
+  "fortress.no_tunnel": {
+   "def": 0.0,
+   "help": "Baritone may not break fortress blocks during the blaze fight: walk the bridges and doorways",
+   "kind": "BOOL",
+   "max": 1.0,
+   "min": 0.0
+  },
+  "fortress.spawner_check": {
+   "def": 0.0,
+   "help": "a spawner is the blaze spawner only with fortress bricks or a blaze near it",
+   "kind": "BOOL",
+   "max": 1.0,
    "min": 0.0
   },
   "gather.cautious_depth": {
@@ -3256,6 +3346,20 @@
    "max": 1.0,
    "min": 0.0
   },
+  "nether.piglin_threat": {
+   "def": 0.0,
+   "help": "a piglin in attack pose is a threat to answer, a brute always (they were all neutral)",
+   "kind": "BOOL",
+   "max": 1.0,
+   "min": 0.0
+  },
+  "nether.recover_bounded": {
+   "def": 0.0,
+   "help": "fortress recovery answers a mob at arm's length, leaves when healing can't come (no food, hunger < 18) or 45 s pass, and goes home to eat",
+   "kind": "BOOL",
+   "max": 1.0,
+   "min": 0.0
+  },
   "night.mine_instead": {
    "def": 0.0,
    "help": "at night, skip the shelter when the next step is mining underground anyway",
@@ -3436,6 +3540,20 @@
    "help": "food to carry into the Nether",
    "kind": "INT",
    "max": 32.0,
+   "min": 0.0
+  },
+  "ready.nether_gold": {
+   "def": 0.0,
+   "help": "carry a gold helmet into the Nether and wear it there (piglins leave gold alone)",
+   "kind": "BOOL",
+   "max": 1.0,
+   "min": 0.0
+  },
+  "ready.portal_entry": {
+   "def": 0.0,
+   "help": "at a known nether portal, get the route's kit and readiness's blocks, food and flint and steel before walking in",
+   "kind": "BOOL",
+   "max": 1.0,
    "min": 0.0
   },
   "reflex.burning_hp": {
@@ -3882,6 +4000,20 @@
   "skill.stronghold_navigate": {
    "def": 0.0,
    "help": "search the stronghold's corridors round after round until the portal room",
+   "kind": "BOOL",
+   "max": 1.0,
+   "min": 0.0
+  },
+  "smelt.own_furnace": {
+   "def": 0.0,
+   "help": "never pull another load of ours out of a furnace: use or make a second furnace",
+   "kind": "BOOL",
+   "max": 1.0,
+   "min": 0.0
+  },
+  "stations.pickup_last": {
+   "def": 0.0,
+   "help": "pick the crafting table and furnace up only after the crafting and smelting that need them",
    "kind": "BOOL",
    "max": 1.0,
    "min": 0.0
@@ -4835,48 +4967,7 @@
     "combat.skeleton_zigzag"
    ],
    "note": "suggested: combat.skeleton_approach 1, combat.skeleton_zigzag 12",
-   "pairs": [
-    [
-     125,
-     "L125-c86yvw",
-     0.012
-    ],
-    [
-     125,
-     "L125-4vfzr5",
-     -3.269
-    ],
-    [
-     125,
-     "L125-9xq592",
-     0.233
-    ],
-    [
-     125,
-     "L125-fqqnr4",
-     0.178
-    ],
-    [
-     126,
-     "L126-m3qke4",
-     -0.116
-    ],
-    [
-     126,
-     "L126-jwsf48",
-     -7.525
-    ],
-    [
-     126,
-     "L126-vuhf4v",
-     0.151
-    ],
-    [
-     126,
-     "L126-fn9kac",
-     -0.46
-    ]
-   ],
+   "pairs": [],
    "parent": "g87",
    "status": "rejected"
   },
@@ -4990,48 +5081,7 @@
     "combat.target_rule"
    ],
    "note": "suggested: combat.target_rule 1",
-   "pairs": [
-    [
-     125,
-     "L125-c86yvw",
-     -2.289
-    ],
-    [
-     125,
-     "L125-4vfzr5",
-     -0.399
-    ],
-    [
-     125,
-     "L125-9xq592",
-     0.103
-    ],
-    [
-     125,
-     "L125-fqqnr4",
-     -0.559
-    ],
-    [
-     126,
-     "L126-m3qke4",
-     0.407
-    ],
-    [
-     126,
-     "L126-jwsf48",
-     -7.525
-    ],
-    [
-     126,
-     "L126-vuhf4v",
-     0.001
-    ],
-    [
-     126,
-     "L126-fn9kac",
-     -0.064
-    ]
-   ],
+   "pairs": [],
    "parent": "g87",
    "status": "rejected"
   },
@@ -5108,48 +5158,7 @@
     "combat.creeper_priority_range"
    ],
    "note": "suggested: combat.target_rule 2, combat.creeper_hit 1, combat.creeper_priority_range 5",
-   "pairs": [
-    [
-     126,
-     "L126-m3qke4",
-     -3.915
-    ],
-    [
-     126,
-     "L126-jwsf48",
-     -0.942
-    ],
-    [
-     126,
-     "L126-vuhf4v",
-     0.278
-    ],
-    [
-     126,
-     "L126-fn9kac",
-     0.027
-    ],
-    [
-     127,
-     "L127-44wurg",
-     -1.282
-    ],
-    [
-     127,
-     "L127-m58def",
-     -2.513
-    ],
-    [
-     127,
-     "L127-b68d35",
-     -0.206
-    ],
-    [
-     127,
-     "L127-5c8h8x",
-     0.072
-    ]
-   ],
+   "pairs": [],
    "parent": "g99",
    "status": "rejected"
   },
@@ -5266,88 +5275,7 @@
     "gather.coal_upkeep_below"
    ],
    "note": "suggested: gather.iron_in_view 1, gather.coal_upkeep_below 12",
-   "pairs": [
-    [
-     127,
-     "L127-44wurg",
-     6.141
-    ],
-    [
-     127,
-     "L127-m58def",
-     -3.525
-    ],
-    [
-     127,
-     "L127-b68d35",
-     0.076
-    ],
-    [
-     127,
-     "L127-5c8h8x",
-     -0.032
-    ],
-    [
-     128,
-     "L128-e4dqsu",
-     -0.288
-    ],
-    [
-     128,
-     "L128-bxquef",
-     -7.204
-    ],
-    [
-     128,
-     "L128-4xvuev",
-     -0.132
-    ],
-    [
-     128,
-     "L128-6htrb5",
-     0.038
-    ],
-    [
-     129,
-     "L129-y67a7z",
-     4.435
-    ],
-    [
-     129,
-     "L129-8ytg9y",
-     -4.756
-    ],
-    [
-     129,
-     "L129-dfnwk4",
-     -0.015
-    ],
-    [
-     129,
-     "L129-guyg2u",
-     0.218
-    ],
-    [
-     130,
-     "L130-zbf6b9",
-     0.458
-    ],
-    [
-     130,
-     "L130-62f8vt",
-     -3.868
-    ],
-    [
-     130,
-     "L130-7np9qb",
-     -0.063
-    ],
-    [
-     130,
-     "L130-9wjkrj",
-     0.057
-    ]
-   ],
+   "pairs": [],
    "parent": "g99",
    "status": "rejected"
   },
@@ -5462,88 +5390,7 @@
     "gather.iron_y"
    ],
    "note": "suggested: gather.iron_y 40",
-   "pairs": [
-    [
-     127,
-     "L127-44wurg",
-     -1.229
-    ],
-    [
-     127,
-     "L127-m58def",
-     6.527
-    ],
-    [
-     127,
-     "L127-b68d35",
-     0.116
-    ],
-    [
-     127,
-     "L127-5c8h8x",
-     0.207
-    ],
-    [
-     128,
-     "L128-e4dqsu",
-     2.588
-    ],
-    [
-     128,
-     "L128-bxquef",
-     -7.251
-    ],
-    [
-     128,
-     "L128-4xvuev",
-     -1.136
-    ],
-    [
-     128,
-     "L128-6htrb5",
-     0.024
-    ],
-    [
-     129,
-     "L129-y67a7z",
-     -1.962
-    ],
-    [
-     129,
-     "L129-8ytg9y",
-     -3.573
-    ],
-    [
-     129,
-     "L129-dfnwk4",
-     -0.015
-    ],
-    [
-     129,
-     "L129-guyg2u",
-     0.273
-    ],
-    [
-     130,
-     "L130-zbf6b9",
-     -0.065
-    ],
-    [
-     130,
-     "L130-62f8vt",
-     1.445
-    ],
-    [
-     130,
-     "L130-7np9qb",
-     -0.057
-    ],
-    [
-     130,
-     "L130-9wjkrj",
-     0.092
-    ]
-   ],
+   "pairs": [],
    "parent": "g99",
    "status": "rejected"
   },
@@ -5638,68 +5485,7 @@
     "pearls.boat_trap"
    ],
    "note": "suggested: pearls.boat_trap 1",
-   "pairs": [
-    [
-     128,
-     "L128-e4dqsu",
-     4.365
-    ],
-    [
-     128,
-     "L128-bxquef",
-     -7.465
-    ],
-    [
-     128,
-     "L128-4xvuev",
-     -1.126
-    ],
-    [
-     128,
-     "L128-6htrb5",
-     0.165
-    ],
-    [
-     129,
-     "L129-y67a7z",
-     -2.174
-    ],
-    [
-     129,
-     "L129-8ytg9y",
-     -2.924
-    ],
-    [
-     129,
-     "L129-dfnwk4",
-     -0.015
-    ],
-    [
-     129,
-     "L129-guyg2u",
-     0.051
-    ],
-    [
-     130,
-     "L130-zbf6b9",
-     -3.68
-    ],
-    [
-     130,
-     "L130-62f8vt",
-     -0.808
-    ],
-    [
-     130,
-     "L130-7np9qb",
-     -0.067
-    ],
-    [
-     130,
-     "L130-9wjkrj",
-     0.154
-    ]
-   ],
+   "pairs": [],
    "parent": "g99",
    "status": "rejected"
   },
@@ -5816,88 +5602,7 @@
     "route.barter"
    ],
    "note": "suggested: pearls.boat_trap 1, route.barter 1",
-   "pairs": [
-    [
-     131,
-     "L131-24x77c",
-     -4.401
-    ],
-    [
-     131,
-     "L131-js2j78",
-     12.927
-    ],
-    [
-     131,
-     "L131-p87t6c",
-     -0.348
-    ],
-    [
-     131,
-     "L131-6yvxhk",
-     -0.381
-    ],
-    [
-     132,
-     "L132-uank5j",
-     -0.074
-    ],
-    [
-     132,
-     "L132-357wk3",
-     4.688
-    ],
-    [
-     132,
-     "L132-stkquj",
-     -0.263
-    ],
-    [
-     132,
-     "L132-ymwnq4",
-     0.291
-    ],
-    [
-     133,
-     "L133-c4c5bs",
-     1.077
-    ],
-    [
-     133,
-     "L133-ttfymv",
-     -0.264
-    ],
-    [
-     133,
-     "L133-6vthms",
-     -0.797
-    ],
-    [
-     133,
-     "L133-ekkcgr",
-     -1.022
-    ],
-    [
-     134,
-     "L134-9n7766",
-     5.303
-    ],
-    [
-     134,
-     "L134-7secsa",
-     5.345
-    ],
-    [
-     134,
-     "L134-v9ktur",
-     -0.009
-    ],
-    [
-     134,
-     "L134-vfk4cq",
-     0.07
-    ]
-   ],
+   "pairs": [],
    "parent": "g99",
    "status": "rejected"
   },
@@ -6012,88 +5717,7 @@
     "route.barter"
    ],
    "note": "suggested: route.barter 1",
-   "pairs": [
-    [
-     131,
-     "L131-24x77c",
-     -4.713
-    ],
-    [
-     131,
-     "L131-js2j78",
-     -4.615
-    ],
-    [
-     131,
-     "L131-p87t6c",
-     0.12
-    ],
-    [
-     131,
-     "L131-6yvxhk",
-     -0.252
-    ],
-    [
-     132,
-     "L132-uank5j",
-     6.111
-    ],
-    [
-     132,
-     "L132-357wk3",
-     5.44
-    ],
-    [
-     132,
-     "L132-stkquj",
-     -0.269
-    ],
-    [
-     132,
-     "L132-ymwnq4",
-     0.271
-    ],
-    [
-     133,
-     "L133-c4c5bs",
-     -4.457
-    ],
-    [
-     133,
-     "L133-ttfymv",
-     -0.236
-    ],
-    [
-     133,
-     "L133-6vthms",
-     1.339
-    ],
-    [
-     133,
-     "L133-ekkcgr",
-     0.305
-    ],
-    [
-     134,
-     "L134-9n7766",
-     5.509
-    ],
-    [
-     134,
-     "L134-7secsa",
-     4.076
-    ],
-    [
-     134,
-     "L134-v9ktur",
-     0.193
-    ],
-    [
-     134,
-     "L134-vfk4cq",
-     -0.094
-    ]
-   ],
+   "pairs": [],
    "parent": "g99",
    "status": "rejected"
   },
@@ -6209,88 +5833,7 @@
     "survival.melee_lock"
    ],
    "note": "suggested: survival.danger_v2 1, survival.melee_lock 3",
-   "pairs": [
-    [
-     131,
-     "L131-24x77c",
-     -5.564
-    ],
-    [
-     131,
-     "L131-js2j78",
-     -8.904
-    ],
-    [
-     131,
-     "L131-p87t6c",
-     -0.257
-    ],
-    [
-     131,
-     "L131-6yvxhk",
-     -0.386
-    ],
-    [
-     132,
-     "L132-uank5j",
-     -0.017
-    ],
-    [
-     132,
-     "L132-357wk3",
-     5.438
-    ],
-    [
-     132,
-     "L132-stkquj",
-     -0.393
-    ],
-    [
-     132,
-     "L132-ymwnq4",
-     -0.408
-    ],
-    [
-     133,
-     "L133-c4c5bs",
-     -1.571
-    ],
-    [
-     133,
-     "L133-ttfymv",
-     2.191
-    ],
-    [
-     133,
-     "L133-6vthms",
-     -0.797
-    ],
-    [
-     133,
-     "L133-ekkcgr",
-     -0.733
-    ],
-    [
-     134,
-     "L134-9n7766",
-     0.309
-    ],
-    [
-     134,
-     "L134-7secsa",
-     4.591
-    ],
-    [
-     134,
-     "L134-v9ktur",
-     -0.053
-    ],
-    [
-     134,
-     "L134-vfk4cq",
-     -0.265
-    ]
-   ],
+   "pairs": [],
    "parent": "g99",
    "status": "rejected"
   },
@@ -6402,103 +5945,11 @@
    },
    "id": "g109",
    "metric": "ok:obsidian_pool",
-   "metric_tally": {
-    "off": [
-     1,
-     1
-    ],
-    "on": [
-     0,
-     2
-    ]
-   },
-   "metric_z": -1.73,
    "mutated": [
     "deep.mold"
    ],
    "note": "suggested: deep.mold 0",
-   "pairs": [
-    [
-     135,
-     "L135-b8jku8",
-     7.334
-    ],
-    [
-     135,
-     "L135-n3pg2k",
-     0.917
-    ],
-    [
-     135,
-     "L135-z9sk4n",
-     1.556
-    ],
-    [
-     135,
-     "L135-bk7787",
-     0.345
-    ],
-    [
-     136,
-     "L136-2byx8p",
-     -3.909
-    ],
-    [
-     136,
-     "L136-wehg8g",
-     -0.131
-    ],
-    [
-     136,
-     "L136-kv4yyn",
-     -1.573
-    ],
-    [
-     136,
-     "L136-9m8ycu",
-     -0.088
-    ],
-    [
-     137,
-     "L137-pz5vv9",
-     -22.166
-    ],
-    [
-     137,
-     "L137-7ggee9",
-     -2.86
-    ],
-    [
-     137,
-     "L137-5uecsn",
-     0.499
-    ],
-    [
-     137,
-     "L137-dhqkur",
-     -0.019
-    ],
-    [
-     138,
-     "L138-zwz3wj",
-     3.852
-    ],
-    [
-     138,
-     "L138-edk9xd",
-     -3.325
-    ],
-    [
-     138,
-     "L138-dwgfna",
-     -0.005
-    ],
-    [
-     138,
-     "L138-uyjppj",
-     -0.346
-    ]
-   ],
+   "pairs": [],
    "parent": "g99",
    "status": "rejected"
   },
@@ -6735,88 +6186,7 @@
     "deep.sticks"
    ],
    "note": "suggested: deep.sticks 6",
-   "pairs": [
-    [
-     135,
-     "L135-b8jku8",
-     -2.626
-    ],
-    [
-     135,
-     "L135-n3pg2k",
-     -0.007
-    ],
-    [
-     135,
-     "L135-z9sk4n",
-     0.252
-    ],
-    [
-     135,
-     "L135-bk7787",
-     0.106
-    ],
-    [
-     136,
-     "L136-2byx8p",
-     2.057
-    ],
-    [
-     136,
-     "L136-wehg8g",
-     7.893
-    ],
-    [
-     136,
-     "L136-kv4yyn",
-     0.892
-    ],
-    [
-     136,
-     "L136-9m8ycu",
-     -0.189
-    ],
-    [
-     137,
-     "L137-pz5vv9",
-     -17.758
-    ],
-    [
-     137,
-     "L137-7ggee9",
-     -2.904
-    ],
-    [
-     137,
-     "L137-5uecsn",
-     0.499
-    ],
-    [
-     137,
-     "L137-dhqkur",
-     0.114
-    ],
-    [
-     138,
-     "L138-zwz3wj",
-     2.825
-    ],
-    [
-     138,
-     "L138-edk9xd",
-     -0.512
-    ],
-    [
-     138,
-     "L138-dwgfna",
-     -0.005
-    ],
-    [
-     138,
-     "L138-uyjppj",
-     0.065
-    ]
-   ],
+   "pairs": [],
    "parent": "g99",
    "status": "rejected"
   },
@@ -6868,43 +6238,11 @@
    },
    "id": "g111",
    "metric": "deaths",
-   "metric_tally": {
-    "off": [
-     7,
-     128.86
-    ],
-    "on": [
-     15,
-     128.6
-    ]
-   },
-   "metric_z": -1.71,
    "mutated": [
     "deep.food"
    ],
    "note": "suggested: deep.food 0",
-   "pairs": [
-    [
-     135,
-     "L135-b8jku8",
-     -1.461
-    ],
-    [
-     135,
-     "L135-n3pg2k",
-     2.977
-    ],
-    [
-     135,
-     "L135-z9sk4n",
-     0.251
-    ],
-    [
-     135,
-     "L135-bk7787",
-     0.252
-    ]
-   ],
+   "pairs": [],
    "parent": "g99",
    "status": "rejected"
   },
@@ -7019,88 +6357,7 @@
     "deep.food"
    ],
    "note": "suggested: deep.food 8",
-   "pairs": [
-    [
-     136,
-     "L136-2byx8p",
-     -2.102
-    ],
-    [
-     136,
-     "L136-wehg8g",
-     9.662
-    ],
-    [
-     136,
-     "L136-kv4yyn",
-     0.101
-    ],
-    [
-     136,
-     "L136-9m8ycu",
-     -0.304
-    ],
-    [
-     137,
-     "L137-pz5vv9",
-     -21.185
-    ],
-    [
-     137,
-     "L137-7ggee9",
-     -2.888
-    ],
-    [
-     137,
-     "L137-5uecsn",
-     0.499
-    ],
-    [
-     137,
-     "L137-dhqkur",
-     0.064
-    ],
-    [
-     138,
-     "L138-zwz3wj",
-     -0.165
-    ],
-    [
-     138,
-     "L138-edk9xd",
-     3.204
-    ],
-    [
-     138,
-     "L138-dwgfna",
-     0.001
-    ],
-    [
-     138,
-     "L138-uyjppj",
-     -0.225
-    ],
-    [
-     139,
-     "L139-evsekw",
-     -22.499
-    ],
-    [
-     139,
-     "L139-75d37z",
-     -2.045
-    ],
-    [
-     139,
-     "L139-a47k6u",
-     0.811
-    ],
-    [
-     139,
-     "L139-hpgnhr",
-     0.529
-    ]
-   ],
+   "pairs": [],
    "parent": "g99",
    "status": "rejected"
   },
@@ -7176,48 +6433,7 @@
     "route.diamond_portal"
    ],
    "note": "suggested: route.diamond_portal 0",
-   "pairs": [
-    [
-     139,
-     "L139-evsekw",
-     -21.642
-    ],
-    [
-     139,
-     "L139-75d37z",
-     -6.84
-    ],
-    [
-     139,
-     "L139-a47k6u",
-     -0.005
-    ],
-    [
-     139,
-     "L139-hpgnhr",
-     0.062
-    ],
-    [
-     140,
-     "L140-2zpdrd",
-     -7.183
-    ],
-    [
-     140,
-     "L140-ysusn3",
-     -0.874
-    ],
-    [
-     140,
-     "L140-nxya47",
-     0.042
-    ],
-    [
-     140,
-     "L140-xnuw8j",
-     -0.012
-    ]
-   ],
+   "pairs": [],
    "parent": "g99",
    "status": "rejected"
   },
@@ -7272,28 +6488,7 @@
     "night.mine_instead"
    ],
    "note": "night.mine_instead 1",
-   "pairs": [
-    [
-     139,
-     "L139-evsekw",
-     -21.364
-    ],
-    [
-     139,
-     "L139-75d37z",
-     -9.365
-    ],
-    [
-     139,
-     "L139-a47k6u",
-     0.763
-    ],
-    [
-     139,
-     "L139-hpgnhr",
-     0.149
-    ]
-   ],
+   "pairs": [],
    "parent": "g99",
    "status": "rejected"
   },
@@ -7369,48 +6564,7 @@
     "skill.dig_to_stronghold"
    ],
    "note": "skill.dig_to_stronghold 1",
-   "pairs": [
-    [
-     140,
-     "L140-2zpdrd",
-     1.107
-    ],
-    [
-     140,
-     "L140-ysusn3",
-     0.211
-    ],
-    [
-     140,
-     "L140-nxya47",
-     0.037
-    ],
-    [
-     140,
-     "L140-xnuw8j",
-     -0.085
-    ],
-    [
-     141,
-     "L141-ecp4xx",
-     -1.952
-    ],
-    [
-     141,
-     "L141-b6dgde",
-     -5.445
-    ],
-    [
-     141,
-     "L141-7fryke",
-     0.132
-    ],
-    [
-     141,
-     "L141-knftss",
-     0.146
-    ]
-   ],
+   "pairs": [],
    "parent": "g113",
    "status": "rejected"
   },
@@ -7485,48 +6639,7 @@
     "safety.spawner_break"
    ],
    "note": "safety.spawner_break 1",
-   "pairs": [
-    [
-     140,
-     "L140-2zpdrd",
-     1.595
-    ],
-    [
-     140,
-     "L140-ysusn3",
-     6.537
-    ],
-    [
-     140,
-     "L140-nxya47",
-     0.815
-    ],
-    [
-     140,
-     "L140-xnuw8j",
-     0.047
-    ],
-    [
-     141,
-     "L141-ecp4xx",
-     -4.701
-    ],
-    [
-     141,
-     "L141-b6dgde",
-     -5.077
-    ],
-    [
-     141,
-     "L141-7fryke",
-     -0.286
-    ],
-    [
-     141,
-     "L141-knftss",
-     -0.155
-    ]
-   ],
+   "pairs": [],
    "parent": "g99",
    "status": "rejected"
   },
@@ -7583,28 +6696,7 @@
     "reflex.creeper_dist"
    ],
    "note": "plan.noop_success_pause 1, reflex.creeper_dist 6.71233",
-   "pairs": [
-    [
-     141,
-     "L141-ecp4xx",
-     -3.195
-    ],
-    [
-     141,
-     "L141-b6dgde",
-     -5.465
-    ],
-    [
-     141,
-     "L141-7fryke",
-     0.1
-    ],
-    [
-     141,
-     "L141-knftss",
-     0.137
-    ]
-   ],
+   "pairs": [],
    "parent": "g99",
    "status": "rejected"
   },
@@ -7659,28 +6751,7 @@
     "skill.fortress_scout"
    ],
    "note": "skill.fortress_scout 1",
-   "pairs": [
-    [
-     142,
-     "L142-fzvk3y",
-     -3.013
-    ],
-    [
-     142,
-     "L142-qtyqen",
-     -2.707
-    ],
-    [
-     142,
-     "L142-g4ze3y",
-     0.129
-    ],
-    [
-     142,
-     "L142-feaax3",
-     -0.365
-    ]
-   ],
+   "pairs": [],
    "parent": "g99",
    "status": "rejected"
   },
@@ -7735,28 +6806,7 @@
     "survival.melee_lock"
    ],
    "note": "survival.melee_lock 2.73128",
-   "pairs": [
-    [
-     142,
-     "L142-fzvk3y",
-     0.124
-    ],
-    [
-     142,
-     "L142-qtyqen",
-     -4.202
-    ],
-    [
-     142,
-     "L142-g4ze3y",
-     0.007
-    ],
-    [
-     142,
-     "L142-feaax3",
-     0.471
-    ]
-   ],
+   "pairs": [],
    "parent": "g99",
    "status": "rejected"
   },
@@ -7909,28 +6959,7 @@
     "skill.crystal_hunt"
    ],
    "note": "skill.crystal_hunt 1",
-   "pairs": [
-    [
-     142,
-     "L142-fzvk3y",
-     -0.004
-    ],
-    [
-     142,
-     "L142-qtyqen",
-     -1.65
-    ],
-    [
-     142,
-     "L142-g4ze3y",
-     0.01
-    ],
-    [
-     142,
-     "L142-feaax3",
-     0.46
-    ]
-   ],
+   "pairs": [],
    "parent": "g99",
    "status": "rejected"
   },
@@ -7985,28 +7014,7 @@
     "skill.fortress_scout"
    ],
    "note": "skill.fortress_scout 1",
-   "pairs": [
-    [
-     143,
-     "L143-bjyn9w",
-     -3.272
-    ],
-    [
-     143,
-     "L143-fx5n57",
-     -6.315
-    ],
-    [
-     143,
-     "L143-efpkrb",
-     0.85
-    ],
-    [
-     143,
-     "L143-nu2jtq",
-     0.229
-    ]
-   ],
+   "pairs": [],
    "parent": "g99",
    "status": "rejected"
   },
@@ -8061,28 +7069,7 @@
     "portal.retry_cast_view"
    ],
    "note": "portal.retry_cast_view 1",
-   "pairs": [
-    [
-     143,
-     "L143-bjyn9w",
-     0.228
-    ],
-    [
-     143,
-     "L143-fx5n57",
-     -9.695
-    ],
-    [
-     143,
-     "L143-efpkrb",
-     0.495
-    ],
-    [
-     143,
-     "L143-nu2jtq",
-     0.098
-    ]
-   ],
+   "pairs": [],
    "parent": "g99",
    "status": "rejected"
   },
@@ -8137,28 +7124,7 @@
     "gear.armor_first"
    ],
    "note": "move.shore_first 0, gear.armor_first 1",
-   "pairs": [
-    [
-     143,
-     "L143-bjyn9w",
-     1.157
-    ],
-    [
-     143,
-     "L143-fx5n57",
-     -5.695
-    ],
-    [
-     143,
-     "L143-efpkrb",
-     0.172
-    ],
-    [
-     143,
-     "L143-nu2jtq",
-     0.097
-    ]
-   ],
+   "pairs": [],
    "parent": "g99",
    "status": "rejected"
   },
@@ -8215,28 +7181,7 @@
     "skill.fluid_cross"
    ],
    "note": "ready.nether_blocks 26, skill.fluid_cross 1",
-   "pairs": [
-    [
-     144,
-     "L144-myuass",
-     2.171
-    ],
-    [
-     144,
-     "L144-sfd28f",
-     -6.075
-    ],
-    [
-     144,
-     "L144-jye49s",
-     -0.065
-    ],
-    [
-     144,
-     "L144-7e73nf",
-     0.083
-    ]
-   ],
+   "pairs": [],
    "parent": "g99",
    "status": "rejected"
   },
@@ -8293,28 +7238,7 @@
     "reflex.escalate"
    ],
    "note": "ready.nether_food 12, reflex.escalate 1",
-   "pairs": [
-    [
-     144,
-     "L144-myuass",
-     -3.485
-    ],
-    [
-     144,
-     "L144-sfd28f",
-     -8.109
-    ],
-    [
-     144,
-     "L144-jye49s",
-     -0.111
-    ],
-    [
-     144,
-     "L144-7e73nf",
-     -0.016
-    ]
-   ],
+   "pairs": [],
    "parent": "g99",
    "status": "rejected"
   },
@@ -8369,28 +7293,7 @@
     "loop.lost_underground_s"
    ],
    "note": "loop.lost_underground_s 75",
-   "pairs": [
-    [
-     144,
-     "L144-myuass",
-     5.608
-    ],
-    [
-     144,
-     "L144-sfd28f",
-     -7.327
-    ],
-    [
-     144,
-     "L144-jye49s",
-     -0.078
-    ],
-    [
-     144,
-     "L144-7e73nf",
-     -0.086
-    ]
-   ],
+   "pairs": [],
    "parent": "g99",
    "status": "rejected"
   },
@@ -8443,28 +7346,7 @@
     "stuck.item_progress"
    ],
    "note": "stuck.item_progress 0",
-   "pairs": [
-    [
-     145,
-     "L145-wkbcw2",
-     -6.337
-    ],
-    [
-     145,
-     "L145-hgcgxf",
-     -0.042
-    ],
-    [
-     145,
-     "L145-d8487d",
-     -0.769
-    ],
-    [
-     145,
-     "L145-8vhyud",
-     -0.17
-    ]
-   ],
+   "pairs": [],
    "parent": "g99",
    "status": "rejected"
   },
@@ -8543,48 +7425,7 @@
     "night.no_shaft_wall"
    ],
    "note": "skill.silverfish_control 1, mine.tread_water 1, night.no_shaft_wall 1",
-   "pairs": [
-    [
-     145,
-     "L145-wkbcw2",
-     -3.104
-    ],
-    [
-     145,
-     "L145-hgcgxf",
-     3.251
-    ],
-    [
-     145,
-     "L145-d8487d",
-     0.235
-    ],
-    [
-     145,
-     "L145-8vhyud",
-     0.056
-    ],
-    [
-     146,
-     "L146-tpvuqp",
-     -3.971
-    ],
-    [
-     146,
-     "L146-hwbhns",
-     -1.173
-    ],
-    [
-     146,
-     "L146-gu3rc6",
-     0.035
-    ],
-    [
-     146,
-     "L146-nmczga",
-     -0.157
-    ]
-   ],
+   "pairs": [],
    "parent": "g99",
    "status": "rejected"
   },
@@ -8660,48 +7501,7 @@
     "plan.hide_hp"
    ],
    "note": "plan.hostile_range 10.0987, plan.hide_hp 13",
-   "pairs": [
-    [
-     145,
-     "L145-wkbcw2",
-     -3.9
-    ],
-    [
-     145,
-     "L145-hgcgxf",
-     6.314
-    ],
-    [
-     145,
-     "L145-d8487d",
-     0.276
-    ],
-    [
-     145,
-     "L145-8vhyud",
-     0.096
-    ],
-    [
-     146,
-     "L146-tpvuqp",
-     -3.956
-    ],
-    [
-     146,
-     "L146-hwbhns",
-     -5.751
-    ],
-    [
-     146,
-     "L146-gu3rc6",
-     -0.011
-    ],
-    [
-     146,
-     "L146-nmczga",
-     0.134
-    ]
-   ],
+   "pairs": [],
    "parent": "g99",
    "status": "rejected"
   },
@@ -8859,28 +7659,7 @@
     "food.early_stock"
    ],
    "note": "portal.prepare_work_area 0, food.early_stock 1",
-   "pairs": [
-    [
-     146,
-     "L146-tpvuqp",
-     0.822
-    ],
-    [
-     146,
-     "L146-hwbhns",
-     -5.734
-    ],
-    [
-     146,
-     "L146-gu3rc6",
-     0.403
-    ],
-    [
-     146,
-     "L146-nmczga",
-     0.118
-    ]
-   ],
+   "pairs": [],
    "parent": "g99",
    "status": "rejected"
   },
@@ -8995,88 +7774,7 @@
     "pearls.target"
    ],
    "note": "night.shelter_exit 0, pearls.target 13",
-   "pairs": [
-    [
-     147,
-     "L147-653ymt",
-     -1.681
-    ],
-    [
-     147,
-     "L147-pfy8pw",
-     -0.836
-    ],
-    [
-     147,
-     "L147-u947pt",
-     5.334
-    ],
-    [
-     147,
-     "L147-hxfx6c",
-     -0.22
-    ],
-    [
-     148,
-     "L148-ds7fwb",
-     0.797
-    ],
-    [
-     148,
-     "L148-8k4aym",
-     0.528
-    ],
-    [
-     148,
-     "L148-3rrt4n",
-     0.164
-    ],
-    [
-     148,
-     "L148-ydfgbu",
-     -0.002
-    ],
-    [
-     149,
-     "L149-q63due",
-     -6.491
-    ],
-    [
-     149,
-     "L149-zbhgjf",
-     3.41
-    ],
-    [
-     149,
-     "L149-qrxz8c",
-     0.106
-    ],
-    [
-     149,
-     "L149-447snt",
-     0.276
-    ],
-    [
-     150,
-     "L150-ke4ycm",
-     -1.676
-    ],
-    [
-     150,
-     "L150-vecjf8",
-     1.48
-    ],
-    [
-     150,
-     "L150-qy67sw",
-     -0.078
-    ],
-    [
-     150,
-     "L150-422ckg",
-     -0.094
-    ]
-   ],
+   "pairs": [],
    "parent": "g99",
    "status": "rejected"
   },
@@ -9131,28 +7829,7 @@
     "gather.coal_upkeep_below"
    ],
    "note": "gather.coal_upkeep_below 5",
-   "pairs": [
-    [
-     147,
-     "L147-653ymt",
-     -7.994
-    ],
-    [
-     147,
-     "L147-pfy8pw",
-     -5.92
-    ],
-    [
-     147,
-     "L147-u947pt",
-     -0.035
-    ],
-    [
-     147,
-     "L147-hxfx6c",
-     -0.309
-    ]
-   ],
+   "pairs": [],
    "parent": "g99",
    "status": "rejected"
   },
@@ -9209,28 +7886,7 @@
     "combat.backstep"
    ],
    "note": "skill.obsidian_pool 1, combat.backstep 1",
-   "pairs": [
-    [
-     147,
-     "L147-653ymt",
-     -4.912
-    ],
-    [
-     147,
-     "L147-pfy8pw",
-     -1.879
-    ],
-    [
-     147,
-     "L147-u947pt",
-     -0.02
-    ],
-    [
-     147,
-     "L147-hxfx6c",
-     -0.112
-    ]
-   ],
+   "pairs": [],
    "parent": "g99",
    "status": "rejected"
   },
@@ -9287,28 +7943,7 @@
     "combat.shield_guard"
    ],
    "note": "skill.barter_loop 1, combat.keep_dist 2.11051, combat.shield_guard 0",
-   "pairs": [
-    [
-     148,
-     "L148-ds7fwb",
-     -2.098
-    ],
-    [
-     148,
-     "L148-8k4aym",
-     -0.218
-    ],
-    [
-     148,
-     "L148-3rrt4n",
-     -0.517
-    ],
-    [
-     148,
-     "L148-ydfgbu",
-     0.047
-    ]
-   ],
+   "pairs": [],
    "parent": "g99",
    "status": "rejected"
   },
@@ -9423,88 +8058,7 @@
     "skill.bed_bomb"
    ],
    "note": "skill.bed_bomb 1",
-   "pairs": [
-    [
-     148,
-     "L148-ds7fwb",
-     8.695
-    ],
-    [
-     148,
-     "L148-8k4aym",
-     -0.119
-    ],
-    [
-     148,
-     "L148-3rrt4n",
-     0.307
-    ],
-    [
-     148,
-     "L148-ydfgbu",
-     0.257
-    ],
-    [
-     149,
-     "L149-q63due",
-     -5.752
-    ],
-    [
-     149,
-     "L149-zbhgjf",
-     3.371
-    ],
-    [
-     149,
-     "L149-qrxz8c",
-     0.163
-    ],
-    [
-     149,
-     "L149-447snt",
-     0.379
-    ],
-    [
-     150,
-     "L150-ke4ycm",
-     -8.525
-    ],
-    [
-     150,
-     "L150-vecjf8",
-     4.865
-    ],
-    [
-     150,
-     "L150-qy67sw",
-     -0.108
-    ],
-    [
-     150,
-     "L150-422ckg",
-     0.152
-    ],
-    [
-     151,
-     "L151-fpkmg2",
-     2.157
-    ],
-    [
-     151,
-     "L151-yp3ugv",
-     0.279
-    ],
-    [
-     151,
-     "L151-ck4yg7",
-     -0.2
-    ],
-    [
-     151,
-     "L151-4x66eb",
-     -0.166
-    ]
-   ],
+   "pairs": [],
    "parent": "g131",
    "status": "rejected"
   },
@@ -9617,88 +8171,7 @@
     "combat.creeper_hit"
    ],
    "note": "combat.creeper_hit 0",
-   "pairs": [
-    [
-     149,
-     "L149-q63due",
-     -6.181
-    ],
-    [
-     149,
-     "L149-zbhgjf",
-     21.903
-    ],
-    [
-     149,
-     "L149-qrxz8c",
-     -0.002
-    ],
-    [
-     149,
-     "L149-447snt",
-     0.113
-    ],
-    [
-     150,
-     "L150-ke4ycm",
-     0.714
-    ],
-    [
-     150,
-     "L150-vecjf8",
-     4.195
-    ],
-    [
-     150,
-     "L150-qy67sw",
-     -0.005
-    ],
-    [
-     150,
-     "L150-422ckg",
-     -0.017
-    ],
-    [
-     151,
-     "L151-fpkmg2",
-     5.786
-    ],
-    [
-     151,
-     "L151-yp3ugv",
-     0.827
-    ],
-    [
-     151,
-     "L151-ck4yg7",
-     -0.183
-    ],
-    [
-     151,
-     "L151-4x66eb",
-     -0.263
-    ],
-    [
-     152,
-     "L152-5fugdv",
-     1.011
-    ],
-    [
-     152,
-     "L152-fqc5dz",
-     -5.243
-    ],
-    [
-     152,
-     "L152-sy3ks9",
-     0.0
-    ],
-    [
-     152,
-     "L152-fmeetb",
-     0.375
-    ]
-   ],
+   "pairs": [],
    "parent": "g131",
    "status": "rejected"
   },
@@ -9772,48 +8245,7 @@
     "plan.hide_hp"
    ],
    "note": "plan.hide_hp 12",
-   "pairs": [
-    [
-     151,
-     "L151-fpkmg2",
-     -2.565
-    ],
-    [
-     151,
-     "L151-yp3ugv",
-     2.423
-    ],
-    [
-     151,
-     "L151-ck4yg7",
-     0.3
-    ],
-    [
-     151,
-     "L151-4x66eb",
-     0.086
-    ],
-    [
-     152,
-     "L152-5fugdv",
-     0.651
-    ],
-    [
-     152,
-     "L152-fqc5dz",
-     -4.904
-    ],
-    [
-     152,
-     "L152-sy3ks9",
-     0.0
-    ],
-    [
-     152,
-     "L152-fmeetb",
-     -0.128
-    ]
-   ],
+   "pairs": [],
    "parent": "g99",
    "status": "rejected"
   },
@@ -9870,28 +8302,7 @@
     "pearls.barter_ingots"
    ],
    "note": "bed.table_first 1, nav.surface_v2 0, pearls.barter_ingots 27",
-   "pairs": [
-    [
-     152,
-     "L152-5fugdv",
-     0.457
-    ],
-    [
-     152,
-     "L152-fqc5dz",
-     -4.84
-    ],
-    [
-     152,
-     "L152-sy3ks9",
-     0.0
-    ],
-    [
-     152,
-     "L152-fmeetb",
-     -0.002
-    ]
-   ],
+   "pairs": [],
    "parent": "g99",
    "status": "rejected"
   },
@@ -9950,28 +8361,7 @@
     "death.recover_value"
    ],
    "note": "combat.swing_at 1, skill.gold_armor 1, death.recover_value 1",
-   "pairs": [
-    [
-     153,
-     "L153-htfmb3",
-     -5.441
-    ],
-    [
-     153,
-     "L153-zs8vtz",
-     -2.884
-    ],
-    [
-     153,
-     "L153-jfazjt",
-     0.072
-    ],
-    [
-     153,
-     "L153-b543ps",
-     -0.459
-    ]
-   ],
+   "pairs": [],
    "parent": "g99",
    "status": "rejected"
   },
@@ -10107,28 +8497,7 @@
     "skill.crystal_hunt"
    ],
    "note": "skill.bow_kit 1, skill.crystal_hunt 1",
-   "pairs": [
-    [
-     153,
-     "L153-htfmb3",
-     0.987
-    ],
-    [
-     153,
-     "L153-zs8vtz",
-     -2.92
-    ],
-    [
-     153,
-     "L153-jfazjt",
-     0.005
-    ],
-    [
-     153,
-     "L153-b543ps",
-     -0.398
-    ]
-   ],
+   "pairs": [],
    "parent": "g99",
    "status": "rejected"
   },
@@ -10526,28 +8895,7 @@
     "plan.readiness"
    ],
    "note": "skill.enderman_warped 1, plan.readiness 1 (defending)",
-   "pairs": [
-    [
-     170,
-     "L170-scrzsk",
-     -6.82
-    ],
-    [
-     170,
-     "L170-987eax",
-     -0.064
-    ],
-    [
-     170,
-     "L170-sg67wc",
-     0.088
-    ],
-    [
-     170,
-     "L170-92rr53",
-     -0.083
-    ]
-   ],
+   "pairs": [],
    "parent": "g99",
    "status": "rejected"
   },
@@ -10682,68 +9030,7 @@
     "combat.commit_target"
    ],
    "note": "skill.portal_repair 0, combat.commit_target 1",
-   "pairs": [
-    [
-     156,
-     "L156-8tb5uv",
-     2.748
-    ],
-    [
-     156,
-     "L156-gxm4xb",
-     1.94
-    ],
-    [
-     156,
-     "L156-phj2xf",
-     0.023
-    ],
-    [
-     156,
-     "L156-ag7rzv",
-     0.314
-    ],
-    [
-     157,
-     "L157-aq29zw",
-     -0.061
-    ],
-    [
-     157,
-     "L157-rprhbp",
-     -1.86
-    ],
-    [
-     157,
-     "L157-y7rt6n",
-     0.0
-    ],
-    [
-     157,
-     "L157-puehcn",
-     0.118
-    ],
-    [
-     158,
-     "L158-xkky9n",
-     2.382
-    ],
-    [
-     158,
-     "L158-5swr4j",
-     -23.098
-    ],
-    [
-     158,
-     "L158-fttws9",
-     0.769
-    ],
-    [
-     158,
-     "L158-qnhy8j",
-     -0.505
-    ]
-   ],
+   "pairs": [],
    "parent": "g99",
    "status": "rejected"
   },
@@ -10800,28 +9087,7 @@
     "skill.barter_loop"
    ],
    "note": "skill.barter_loop 1",
-   "pairs": [
-    [
-     154,
-     "L154-9afeux",
-     -2.947
-    ],
-    [
-     154,
-     "L154-fpdm66",
-     -1.608
-    ],
-    [
-     154,
-     "L154-2bwyk7",
-     -0.004
-    ],
-    [
-     154,
-     "L154-d42y8r",
-     0.045
-    ]
-   ],
+   "pairs": [],
    "parent": "g141",
    "status": "rejected"
   },
@@ -10877,28 +9143,7 @@
     "combat.target_rule"
    ],
    "note": "skill.nether_arrival 1, combat.target_rule 0",
-   "pairs": [
-    [
-     155,
-     "L155-rcp68z",
-     0.012
-    ],
-    [
-     155,
-     "L155-6a72gs",
-     -0.054
-    ],
-    [
-     155,
-     "L155-xudqvb",
-     -0.264
-    ],
-    [
-     155,
-     "L155-qt2hay",
-     -0.082
-    ]
-   ],
+   "pairs": [],
    "parent": "g99",
    "status": "rejected"
   },
@@ -11030,103 +9275,7 @@
     "restock.stash_only"
    ],
    "note": "restock.stash_only 1",
-   "pairs": [
-    [
-     156,
-     "L156-8tb5uv",
-     9.907
-    ],
-    [
-     156,
-     "L156-gxm4xb",
-     6.93
-    ],
-    [
-     156,
-     "L156-phj2xf",
-     1.526
-    ],
-    [
-     156,
-     "L156-ag7rzv",
-     0.284
-    ],
-    [
-     157,
-     "L157-aq29zw",
-     6.431
-    ],
-    [
-     157,
-     "L157-rprhbp",
-     -7.287
-    ],
-    [
-     157,
-     "L157-y7rt6n",
-     1.115
-    ],
-    [
-     157,
-     "L157-puehcn",
-     0.071
-    ],
-    [
-     158,
-     "L158-xkky9n",
-     5.438
-    ],
-    [
-     158,
-     "L158-5swr4j",
-     -20.981
-    ],
-    [
-     158,
-     "L158-fttws9",
-     0.521
-    ],
-    [
-     159,
-     "L159-gdrzy6",
-     0.357
-    ],
-    [
-     159,
-     "L159-r92wta",
-     -0.259
-    ],
-    [
-     159,
-     "L159-3u5a3c",
-     -0.671
-    ],
-    [
-     159,
-     "L159-34vktt",
-     0.156
-    ],
-    [
-     160,
-     "L160-qzvx79",
-     -2.014
-    ],
-    [
-     160,
-     "L160-zr6gv7",
-     -0.162
-    ],
-    [
-     160,
-     "L160-d8e3qh",
-     0.007
-    ],
-    [
-     160,
-     "L160-mm3exz",
-     0.085
-    ]
-   ],
+   "pairs": [],
    "parent": "g141",
    "status": "rejected"
   },
@@ -11201,48 +9350,7 @@
     "skill.end_landing"
    ],
    "note": "skill.end_landing 1",
-   "pairs": [
-    [
-     159,
-     "L159-gdrzy6",
-     0.712
-    ],
-    [
-     159,
-     "L159-r92wta",
-     2.129
-    ],
-    [
-     159,
-     "L159-3u5a3c",
-     -0.586
-    ],
-    [
-     159,
-     "L159-34vktt",
-     0.029
-    ],
-    [
-     160,
-     "L160-qzvx79",
-     -3.714
-    ],
-    [
-     160,
-     "L160-zr6gv7",
-     -7.41
-    ],
-    [
-     160,
-     "L160-d8e3qh",
-     0.115
-    ],
-    [
-     160,
-     "L160-mm3exz",
-     0.22
-    ]
-   ],
+   "pairs": [],
    "parent": "g99",
    "status": "rejected"
   },
@@ -11299,28 +9407,7 @@
     "skill.bow_kit"
    ],
    "note": "skill.bow_kit 1",
-   "pairs": [
-    [
-     160,
-     "L160-qzvx79",
-     -3.717
-    ],
-    [
-     160,
-     "L160-zr6gv7",
-     3.356
-    ],
-    [
-     160,
-     "L160-d8e3qh",
-     -0.376
-    ],
-    [
-     160,
-     "L160-mm3exz",
-     0.069
-    ]
-   ],
+   "pairs": [],
    "parent": "g141",
    "status": "rejected"
   },
@@ -11379,28 +9466,7 @@
     "brain.utility"
    ],
    "note": "plan.noop_success_pause 1, brain.utility 1",
-   "pairs": [
-    [
-     161,
-     "L161-py3epk",
-     -1.756
-    ],
-    [
-     161,
-     "L161-ew3u2q",
-     0.403
-    ],
-    [
-     161,
-     "L161-u885wc",
-     -0.002
-    ],
-    [
-     161,
-     "L161-6ek4q2",
-     0.045
-    ]
-   ],
+   "pairs": [],
    "parent": "g141",
    "status": "rejected"
   },
@@ -11497,68 +9563,7 @@
     "skill.eye_triangulate"
    ],
    "note": "night.wall_in 0, night.shelter_exit 0, skill.eye_triangulate 1",
-   "pairs": [
-    [
-     161,
-     "L161-py3epk",
-     -1.195
-    ],
-    [
-     161,
-     "L161-ew3u2q",
-     5.421
-    ],
-    [
-     161,
-     "L161-u885wc",
-     -0.776
-    ],
-    [
-     161,
-     "L161-6ek4q2",
-     0.071
-    ],
-    [
-     162,
-     "L162-qyyg98",
-     -2.267
-    ],
-    [
-     162,
-     "L162-ppgu35",
-     1.766
-    ],
-    [
-     162,
-     "L162-hpxqdu",
-     -0.02
-    ],
-    [
-     162,
-     "L162-6kpc96",
-     -0.804
-    ],
-    [
-     163,
-     "L163-ejnhbq",
-     -8.401
-    ],
-    [
-     163,
-     "L163-ydxrcj",
-     -7.927
-    ],
-    [
-     163,
-     "L163-mcz8a6",
-     -0.284
-    ],
-    [
-     163,
-     "L163-4bqvex",
-     0.091
-    ]
-   ],
+   "pairs": [],
    "parent": "g141",
    "status": "rejected"
   },
@@ -11693,28 +9698,7 @@
     "night.shelter_exit"
    ],
    "note": "night.no_shaft_wall 1, night.shelter_exit 0",
-   "pairs": [
-    [
-     161,
-     "L161-py3epk",
-     -5.393
-    ],
-    [
-     161,
-     "L161-ew3u2q",
-     4.737
-    ],
-    [
-     161,
-     "L161-u885wc",
-     0.002
-    ],
-    [
-     161,
-     "L161-6ek4q2",
-     0.015
-    ]
-   ],
+   "pairs": [],
    "parent": "g141",
    "status": "rejected"
   },
@@ -11793,48 +9777,7 @@
     "skill.blaze_farm"
    ],
    "note": "portal.site_maker 1, skill.blaze_farm 1",
-   "pairs": [
-    [
-     162,
-     "L162-qyyg98",
-     3.847
-    ],
-    [
-     162,
-     "L162-ppgu35",
-     -0.51
-    ],
-    [
-     162,
-     "L162-hpxqdu",
-     0.013
-    ],
-    [
-     162,
-     "L162-6kpc96",
-     -0.204
-    ],
-    [
-     163,
-     "L163-ejnhbq",
-     -5.991
-    ],
-    [
-     163,
-     "L163-ydxrcj",
-     -6.12
-    ],
-    [
-     163,
-     "L163-mcz8a6",
-     -0.232
-    ],
-    [
-     163,
-     "L163-4bqvex",
-     0.067
-    ]
-   ],
+   "pairs": [],
    "parent": "g141",
    "status": "rejected"
   },
@@ -11911,48 +9854,7 @@
     "combat.ignore_walled_mobs"
    ],
    "note": "gather.stone_extra 11, combat.ignore_walled_mobs 0",
-   "pairs": [
-    [
-     162,
-     "L162-qyyg98",
-     0.613
-    ],
-    [
-     162,
-     "L162-ppgu35",
-     1.706
-    ],
-    [
-     162,
-     "L162-hpxqdu",
-     -0.009
-    ],
-    [
-     162,
-     "L162-6kpc96",
-     -0.131
-    ],
-    [
-     163,
-     "L163-ejnhbq",
-     -3.057
-    ],
-    [
-     163,
-     "L163-ydxrcj",
-     -5.488
-    ],
-    [
-     163,
-     "L163-mcz8a6",
-     0.211
-    ],
-    [
-     163,
-     "L163-4bqvex",
-     0.122
-    ]
-   ],
+   "pairs": [],
    "parent": "g141",
    "status": "rejected"
   },
@@ -12009,28 +9911,7 @@
     "nav.fluid_place"
    ],
    "note": "nav.fluid_place 1",
-   "pairs": [
-    [
-     164,
-     "L164-4kxs3y",
-     -6.378
-    ],
-    [
-     164,
-     "L164-r7tfxn",
-     -5.053
-    ],
-    [
-     164,
-     "L164-ftag8d",
-     0.317
-    ],
-    [
-     164,
-     "L164-9qw54r",
-     -0.203
-    ]
-   ],
+   "pairs": [],
    "parent": "g141",
    "status": "rejected"
   },
@@ -12087,28 +9968,7 @@
     "combat.commit_target"
    ],
    "note": "combat.commit_target 1",
-   "pairs": [
-    [
-     164,
-     "L164-4kxs3y",
-     -3.431
-    ],
-    [
-     164,
-     "L164-r7tfxn",
-     0.207
-    ],
-    [
-     164,
-     "L164-ftag8d",
-     0.0
-    ],
-    [
-     164,
-     "L164-9qw54r",
-     0.328
-    ]
-   ],
+   "pairs": [],
    "parent": "g141",
    "status": "rejected"
   },
@@ -12225,88 +10085,7 @@
     "combat.sprint_hit_dist"
    ],
    "note": "combat.sprint_hit_dist 3.24744",
-   "pairs": [
-    [
-     164,
-     "L164-4kxs3y",
-     -0.37
-    ],
-    [
-     164,
-     "L164-r7tfxn",
-     2.535
-    ],
-    [
-     164,
-     "L164-ftag8d",
-     0.072
-    ],
-    [
-     164,
-     "L164-9qw54r",
-     0.262
-    ],
-    [
-     165,
-     "L165-vgbdj5",
-     22.883
-    ],
-    [
-     165,
-     "L165-gzvzdm",
-     -4.468
-    ],
-    [
-     165,
-     "L165-fe3mhc",
-     -0.073
-    ],
-    [
-     165,
-     "L165-wn7xcp",
-     0.446
-    ],
-    [
-     166,
-     "L166-cnx58v",
-     -4.195
-    ],
-    [
-     166,
-     "L166-549c8g",
-     -0.433
-    ],
-    [
-     166,
-     "L166-ujryua",
-     4.092
-    ],
-    [
-     166,
-     "L166-vwsjvb",
-     0.115
-    ],
-    [
-     167,
-     "L167-hpguav",
-     23.223
-    ],
-    [
-     167,
-     "L167-ex6dyy",
-     4.985
-    ],
-    [
-     167,
-     "L167-z4wuhj",
-     0.271
-    ],
-    [
-     167,
-     "L167-psf8vs",
-     -0.495
-    ]
-   ],
+   "pairs": [],
    "parent": "g141",
    "status": "rejected"
   },
@@ -12426,88 +10205,7 @@
     "skill.bed_bomb"
    ],
    "note": "cave.torches 0, skill.bed_bomb 1",
-   "pairs": [
-    [
-     165,
-     "L165-vgbdj5",
-     23.513
-    ],
-    [
-     165,
-     "L165-gzvzdm",
-     0.119
-    ],
-    [
-     165,
-     "L165-fe3mhc",
-     0.05
-    ],
-    [
-     165,
-     "L165-wn7xcp",
-     0.316
-    ],
-    [
-     166,
-     "L166-cnx58v",
-     -4.573
-    ],
-    [
-     166,
-     "L166-549c8g",
-     -0.739
-    ],
-    [
-     166,
-     "L166-ujryua",
-     0.229
-    ],
-    [
-     166,
-     "L166-vwsjvb",
-     -0.17
-    ],
-    [
-     167,
-     "L167-hpguav",
-     1.174
-    ],
-    [
-     167,
-     "L167-ex6dyy",
-     0.693
-    ],
-    [
-     167,
-     "L167-z4wuhj",
-     0.102
-    ],
-    [
-     167,
-     "L167-psf8vs",
-     0.288
-    ],
-    [
-     168,
-     "L168-2c8vk6",
-     -0.509
-    ],
-    [
-     168,
-     "L168-q3js73",
-     7.421
-    ],
-    [
-     168,
-     "L168-kyt9ut",
-     0.03
-    ],
-    [
-     168,
-     "L168-v7y22q",
-     -0.022
-    ]
-   ],
+   "pairs": [],
    "parent": "g155",
    "status": "rejected"
   },
@@ -12566,28 +10264,7 @@
     "skill.portal_return"
    ],
    "note": "combat.sprint_hit 1, skill.portal_return 1",
-   "pairs": [
-    [
-     165,
-     "L165-vgbdj5",
-     -0.05
-    ],
-    [
-     165,
-     "L165-gzvzdm",
-     -6.248
-    ],
-    [
-     165,
-     "L165-fe3mhc",
-     0.016
-    ],
-    [
-     165,
-     "L165-wn7xcp",
-     0.385
-    ]
-   ],
+   "pairs": [],
    "parent": "g141",
    "status": "rejected"
   },
@@ -12704,88 +10381,7 @@
     "restock.stash_only"
    ],
    "note": "restock.stash_only 1",
-   "pairs": [
-    [
-     166,
-     "L166-cnx58v",
-     16.771
-    ],
-    [
-     166,
-     "L166-549c8g",
-     4.454
-    ],
-    [
-     166,
-     "L166-ujryua",
-     -0.29
-    ],
-    [
-     166,
-     "L166-vwsjvb",
-     -0.016
-    ],
-    [
-     167,
-     "L167-hpguav",
-     3.71
-    ],
-    [
-     167,
-     "L167-ex6dyy",
-     1.131
-    ],
-    [
-     167,
-     "L167-z4wuhj",
-     0.122
-    ],
-    [
-     167,
-     "L167-psf8vs",
-     -0.266
-    ],
-    [
-     168,
-     "L168-2c8vk6",
-     -0.736
-    ],
-    [
-     168,
-     "L168-q3js73",
-     0.838
-    ],
-    [
-     168,
-     "L168-kyt9ut",
-     -0.027
-    ],
-    [
-     168,
-     "L168-v7y22q",
-     -0.062
-    ],
-    [
-     169,
-     "L169-acecsk",
-     -0.025
-    ],
-    [
-     169,
-     "L169-cs7j6u",
-     3.287
-    ],
-    [
-     169,
-     "L169-7evyam",
-     0.302
-    ],
-    [
-     169,
-     "L169-jchew3",
-     0.183
-    ]
-   ],
+   "pairs": [],
    "parent": "g141",
    "status": "rejected"
   },
@@ -13051,48 +10647,7 @@
     "code"
    ],
    "note": "code: When a creeper lights its fuse before our first hit, the attack backs straight away from it (the creeper stands still while it swells) instead of failing HAZARD and starting a retreat. It only goes back to fighting once the fuse is out and we're at the gap distance.",
-   "pairs": [
-    [
-     168,
-     "L168-2c8vk6",
-     0.125
-    ],
-    [
-     168,
-     "L168-q3js73",
-     5.664
-    ],
-    [
-     168,
-     "L168-kyt9ut",
-     -0.04
-    ],
-    [
-     168,
-     "L168-v7y22q",
-     -0.103
-    ],
-    [
-     169,
-     "L169-acecsk",
-     2.958
-    ],
-    [
-     169,
-     "L169-cs7j6u",
-     4.548
-    ],
-    [
-     169,
-     "L169-7evyam",
-     0.359
-    ],
-    [
-     169,
-     "L169-jchew3",
-     0.083
-    ]
-   ],
+   "pairs": [],
    "parent": "g141",
    "status": "champion"
   },
@@ -13244,28 +10799,7 @@
     "skill.nether_bridge"
    ],
    "note": "reflex.melee_dist 3.72648, skill.stronghold_navigate 1, skill.nether_bridge 1",
-   "pairs": [
-    [
-     170,
-     "L170-scrzsk",
-     -6.822
-    ],
-    [
-     170,
-     "L170-987eax",
-     4.939
-    ],
-    [
-     170,
-     "L170-sg67wc",
-     -0.082
-    ],
-    [
-     170,
-     "L170-92rr53",
-     -0.107
-    ]
-   ],
+   "pairs": [],
    "parent": "g141",
    "status": "rejected"
   },
@@ -13384,88 +10918,7 @@
     "restock.stash_only"
    ],
    "note": "skill.end_guard 1, restock.stash_only 1",
-   "pairs": [
-    [
-     170,
-     "L170-scrzsk",
-     1.307
-    ],
-    [
-     170,
-     "L170-987eax",
-     2.733
-    ],
-    [
-     170,
-     "L170-sg67wc",
-     0.123
-    ],
-    [
-     170,
-     "L170-92rr53",
-     -0.174
-    ],
-    [
-     171,
-     "L171-jqvpah",
-     -2.924
-    ],
-    [
-     171,
-     "L171-ww2rya",
-     0.068
-    ],
-    [
-     171,
-     "L171-tkv25q",
-     0.754
-    ],
-    [
-     171,
-     "L171-awbkgw",
-     -0.372
-    ],
-    [
-     172,
-     "L172-wakeus",
-     4.268
-    ],
-    [
-     172,
-     "L172-g9jm95",
-     0.021
-    ],
-    [
-     172,
-     "L172-7g6gbe",
-     -0.318
-    ],
-    [
-     172,
-     "L172-bcy3eh",
-     0.0
-    ],
-    [
-     174,
-     "L174-mfuamk",
-     -0.083
-    ],
-    [
-     174,
-     "L174-y4tqvh",
-     -4.165
-    ],
-    [
-     174,
-     "L174-vr4wkp",
-     0.113
-    ],
-    [
-     174,
-     "L174-3vccrv",
-     -0.587
-    ]
-   ],
+   "pairs": [],
    "parent": "g159",
    "status": "rejected"
   },
@@ -13520,28 +10973,7 @@
     "nav.unstuck_v2"
    ],
    "note": "nav.unstuck_v2 0",
-   "pairs": [
-    [
-     171,
-     "L171-jqvpah",
-     -2.359
-    ],
-    [
-     171,
-     "L171-ww2rya",
-     -0.01
-    ],
-    [
-     171,
-     "L171-tkv25q",
-     0.0
-    ],
-    [
-     171,
-     "L171-awbkgw",
-     -0.222
-    ]
-   ],
+   "pairs": [],
    "parent": "g159",
    "status": "rejected"
   },
@@ -13639,68 +11071,7 @@
     "plan.hide_hp"
    ],
    "note": "plan.hide_hp 18",
-   "pairs": [
-    [
-     171,
-     "L171-jqvpah",
-     -0.222
-    ],
-    [
-     171,
-     "L171-ww2rya",
-     3.196
-    ],
-    [
-     171,
-     "L171-tkv25q",
-     0.767
-    ],
-    [
-     171,
-     "L171-awbkgw",
-     0.004
-    ],
-    [
-     172,
-     "L172-wakeus",
-     1.15
-    ],
-    [
-     172,
-     "L172-g9jm95",
-     6.166
-    ],
-    [
-     172,
-     "L172-7g6gbe",
-     -0.286
-    ],
-    [
-     172,
-     "L172-bcy3eh",
-     -0.075
-    ],
-    [
-     173,
-     "L173-pgbvjg",
-     -22.309
-    ],
-    [
-     173,
-     "L173-ccj6x5",
-     5.521
-    ],
-    [
-     173,
-     "L173-phayw8",
-     0.107
-    ],
-    [
-     173,
-     "L173-n4acaq",
-     -0.202
-    ]
-   ],
+   "pairs": [],
    "parent": "g161",
    "status": "rejected"
   },
@@ -13798,64 +11169,12 @@
    },
    "id": "g164",
    "metric": "ok:shore",
-   "metric_tally": {
-    "off": [
-     27,
-     45
-    ],
-    "on": [
-     12,
-     40
-    ]
-   },
-   "metric_z": -2.77,
    "mutated": [
     "code",
     "evolved.swim_out"
    ],
    "note": "code: new skill swim_out for shore TIMEOUT: swim_out steers by hand, holding forward and jump, toward the nearest dry land the bot has seen. It is offered after shore times out or gets stuck, so the bot stops repeating 90 s shore timeouts in open water.",
-   "pairs": [
-    [
-     173,
-     "L173-pgbvjg",
-     -16.73
-    ],
-    [
-     173,
-     "L173-ccj6x5",
-     -3.078
-    ],
-    [
-     173,
-     "L173-phayw8",
-     0.149
-    ],
-    [
-     173,
-     "L173-n4acaq",
-     -0.045
-    ],
-    [
-     174,
-     "L174-mfuamk",
-     1.623
-    ],
-    [
-     174,
-     "L174-y4tqvh",
-     -7.024
-    ],
-    [
-     174,
-     "L174-vr4wkp",
-     0.068
-    ],
-    [
-     174,
-     "L174-3vccrv",
-     -0.061
-    ]
-   ],
+   "pairs": [],
    "parent": "g159",
    "status": "rejected"
   },
@@ -13933,48 +11252,7 @@
     "cave.torch_recipe"
    ],
    "note": "death.recover_night_armor 11, cave.torch_recipe 1",
-   "pairs": [
-    [
-     172,
-     "L172-wakeus",
-     0.678
-    ],
-    [
-     172,
-     "L172-g9jm95",
-     3.562
-    ],
-    [
-     172,
-     "L172-7g6gbe",
-     -0.301
-    ],
-    [
-     172,
-     "L172-bcy3eh",
-     -0.243
-    ],
-    [
-     173,
-     "L173-pgbvjg",
-     -23.562
-    ],
-    [
-     173,
-     "L173-ccj6x5",
-     1.737
-    ],
-    [
-     173,
-     "L173-phayw8",
-     0.534
-    ],
-    [
-     173,
-     "L173-n4acaq",
-     -0.598
-    ]
-   ],
+   "pairs": [],
    "parent": "g159",
    "status": "rejected"
   },
@@ -14071,68 +11349,7 @@
     "route.barter"
    ],
    "note": "route.barter 1",
-   "pairs": [
-    [
-     174,
-     "L174-mfuamk",
-     1.583
-    ],
-    [
-     174,
-     "L174-y4tqvh",
-     2.503
-    ],
-    [
-     174,
-     "L174-vr4wkp",
-     0.02
-    ],
-    [
-     174,
-     "L174-3vccrv",
-     -0.519
-    ],
-    [
-     175,
-     "L175-rsganz",
-     -3.416
-    ],
-    [
-     175,
-     "L175-v5h8ay",
-     0.459
-    ],
-    [
-     175,
-     "L175-6sy6u6",
-     0.757
-    ],
-    [
-     175,
-     "L175-ugkwz8",
-     -0.219
-    ],
-    [
-     176,
-     "L176-m7af86",
-     -6.838
-    ],
-    [
-     176,
-     "L176-pta85q",
-     5.429
-    ],
-    [
-     176,
-     "L176-uanycf",
-     0.002
-    ],
-    [
-     176,
-     "L176-jrsrwb",
-     0.08
-    ]
-   ],
+   "pairs": [],
    "parent": "g159",
    "status": "rejected"
   },
@@ -14256,88 +11473,7 @@
     "code"
    ],
    "note": "code: After a flint collect fails NO_ROOM (no flat spot to place gravel), the next flint collect mines seen gravel blocks in the world directly (10% flint each), breaking the collect flint NO_ROOM / explore gravel ALREADY_DONE loop.",
-   "pairs": [
-    [
-     175,
-     "L175-rsganz",
-     -2.147
-    ],
-    [
-     175,
-     "L175-v5h8ay",
-     4.035
-    ],
-    [
-     175,
-     "L175-6sy6u6",
-     0.935
-    ],
-    [
-     175,
-     "L175-ugkwz8",
-     0.197
-    ],
-    [
-     176,
-     "L176-m7af86",
-     -6.666
-    ],
-    [
-     176,
-     "L176-pta85q",
-     1.32
-    ],
-    [
-     176,
-     "L176-uanycf",
-     0.0
-    ],
-    [
-     176,
-     "L176-jrsrwb",
-     -0.023
-    ],
-    [
-     177,
-     "L177-bz9m8f",
-     -1.521
-    ],
-    [
-     177,
-     "L177-wqh436",
-     0.374
-    ],
-    [
-     177,
-     "L177-jg7tya",
-     0.091
-    ],
-    [
-     177,
-     "L177-y8u4xt",
-     0.397
-    ],
-    [
-     178,
-     "L178-w4bbgz",
-     6.587
-    ],
-    [
-     178,
-     "L178-96ectz",
-     5.266
-    ],
-    [
-     178,
-     "L178-ga6s35",
-     -0.117
-    ],
-    [
-     178,
-     "L178-syxuxv",
-     0.036
-    ]
-   ],
+   "pairs": [],
    "parent": "g159",
    "status": "rejected"
   },
@@ -14395,28 +11531,7 @@
     "death.recover_value"
    ],
    "note": "skill.enderman_warped 0, death.recover_value 1",
-   "pairs": [
-    [
-     175,
-     "L175-rsganz",
-     -10.596
-    ],
-    [
-     175,
-     "L175-v5h8ay",
-     -0.217
-    ],
-    [
-     175,
-     "L175-6sy6u6",
-     1.36
-    ],
-    [
-     175,
-     "L175-ugkwz8",
-     -0.185
-    ]
-   ],
+   "pairs": [],
    "parent": "g166",
    "status": "rejected"
   },
@@ -14474,28 +11589,7 @@
     "combat.sprint_hit_dist"
    ],
    "note": "combat.sprint_hit_dist 2.69638",
-   "pairs": [
-    [
-     176,
-     "L176-m7af86",
-     -2.001
-    ],
-    [
-     176,
-     "L176-pta85q",
-     -3.534
-    ],
-    [
-     176,
-     "L176-uanycf",
-     -0.001
-    ],
-    [
-     176,
-     "L176-jrsrwb",
-     0.25
-    ]
-   ],
+   "pairs": [],
    "parent": "g166",
    "status": "rejected"
   },
@@ -14630,28 +11724,7 @@
     "skill.drain_tunnel"
    ],
    "note": "skill.drain_tunnel 1",
-   "pairs": [
-    [
-     177,
-     "L177-bz9m8f",
-     -6.541
-    ],
-    [
-     177,
-     "L177-wqh436",
-     5.357
-    ],
-    [
-     177,
-     "L177-jg7tya",
-     -0.021
-    ],
-    [
-     177,
-     "L177-y8u4xt",
-     -0.093
-    ]
-   ],
+   "pairs": [],
    "parent": "g159",
    "status": "rejected"
   },
@@ -14712,28 +11785,7 @@
     "bed.table_first"
    ],
    "note": "route.deep_for_lava 0, skill.recover_items 1, bed.table_first 1",
-   "pairs": [
-    [
-     177,
-     "L177-bz9m8f",
-     -6.597
-    ],
-    [
-     177,
-     "L177-wqh436",
-     -3.583
-    ],
-    [
-     177,
-     "L177-jg7tya",
-     0.057
-    ],
-    [
-     177,
-     "L177-y8u4xt",
-     0.304
-    ]
-   ],
+   "pairs": [],
    "parent": "g159",
    "status": "rejected"
   },
@@ -14800,28 +11852,7 @@
     "nav.mob_avoid_radius"
    ],
    "note": "skill.boat_cross 1, nav.mob_avoid_radius 7",
-   "pairs": [
-    [
-     178,
-     "L178-w4bbgz",
-     4.734
-    ],
-    [
-     178,
-     "L178-96ectz",
-     2.187
-    ],
-    [
-     178,
-     "L178-ga6s35",
-     -0.136
-    ],
-    [
-     178,
-     "L178-syxuxv",
-     0.204
-    ]
-   ],
+   "pairs": [],
    "parent": "g167",
    "status": "contender"
   },
@@ -14876,29 +11907,147 @@
     "portal.reserve_lava_bucket"
    ],
    "note": "portal.reserve_lava_bucket 0",
-   "pairs": [
-    [
-     178,
-     "L178-w4bbgz",
-     1.722
-    ],
-    [
-     178,
-     "L178-96ectz",
-     1.882
-    ],
-    [
-     178,
-     "L178-ga6s35",
-     -0.33
-    ],
-    [
-     178,
-     "L178-syxuxv",
-     0.261
-    ]
-   ],
+   "pairs": [],
    "parent": "g159",
+   "status": "contender"
+  },
+  "g174": {
+   "born": 179,
+   "code": null,
+   "evals": [],
+   "exposure_spec": {
+    "gene": [
+     "brain.skill_stats",
+     "brain.death_avoid"
+    ]
+   },
+   "genes": {
+    "brain.death_avoid": 1.0,
+    "brain.situations": 1.0,
+    "brain.skill_stats": 1.0,
+    "combat.creeper_hit": 1.0,
+    "combat.ignore_walled_mobs": 1.0,
+    "combat.shield_guard": 1.0,
+    "death.recover_night_armor": 12.0,
+    "focus.commit": 1.0,
+    "gear.sword_early": 1.0,
+    "move.shore_first": 1.0,
+    "nav.surface_v2": 1.0,
+    "nav.unstuck_v2": 1.0,
+    "night.shelter_exit": 1.0,
+    "night.wall_in": 1.0,
+    "plan.hide_hp": 15.0,
+    "plan.readiness": 1.0,
+    "portal.prepare_work_area": 1.0,
+    "portal.reserve_lava_bucket": 1.0,
+    "route.armor_before_portal": 1.0,
+    "skill.enderman_warped": 1.0,
+    "skill.portal_repair": 1.0,
+    "skill.ruined_portal": 1.0,
+    "stuck.item_progress": 1.0
+   },
+   "id": "g174",
+   "mutated": [
+    "brain.skill_stats",
+    "brain.death_avoid",
+    "brain.situations"
+   ],
+   "note": "suggested: brain.skill_stats 1, brain.death_avoid 1, brain.situations 1",
+   "pairs": [],
+   "parent": "g159",
+   "priority": true,
+   "status": "contender"
+  },
+  "g175": {
+   "born": 179,
+   "code": null,
+   "evals": [],
+   "exposure_spec": {
+    "gene": "reflex.escalate"
+   },
+   "genes": {
+    "combat.creeper_hit": 1.0,
+    "combat.ignore_walled_mobs": 1.0,
+    "combat.shield_guard": 1.0,
+    "death.recover_night_armor": 12.0,
+    "focus.commit": 1.0,
+    "gear.sword_early": 1.0,
+    "move.shore_first": 1.0,
+    "nav.surface_v2": 1.0,
+    "nav.unstuck_v2": 1.0,
+    "night.shelter_exit": 1.0,
+    "night.wall_in": 1.0,
+    "plan.hide_hp": 15.0,
+    "plan.readiness": 1.0,
+    "portal.prepare_work_area": 1.0,
+    "portal.reserve_lava_bucket": 1.0,
+    "reflex.escalate": 1.0,
+    "route.armor_before_portal": 1.0,
+    "skill.enderman_warped": 1.0,
+    "skill.portal_repair": 1.0,
+    "skill.ruined_portal": 1.0,
+    "stuck.item_progress": 1.0
+   },
+   "id": "g175",
+   "metric": "deaths",
+   "mutated": [
+    "reflex.escalate"
+   ],
+   "note": "suggested: reflex.escalate 1",
+   "pairs": [],
+   "parent": "g159",
+   "priority": true,
+   "status": "contender"
+  },
+  "g176": {
+   "born": 179,
+   "code": null,
+   "evals": [],
+   "exposure_spec": {
+    "gene": [
+     "smelt.own_furnace",
+     "stations.pickup_last",
+     "explore.same_blocks"
+    ]
+   },
+   "focus": [
+    "spawn"
+   ],
+   "genes": {
+    "combat.creeper_hit": 1.0,
+    "combat.ignore_walled_mobs": 1.0,
+    "combat.shield_guard": 1.0,
+    "death.recover_night_armor": 12.0,
+    "explore.same_blocks": 1.0,
+    "focus.commit": 1.0,
+    "gear.sword_early": 1.0,
+    "move.shore_first": 1.0,
+    "nav.surface_v2": 1.0,
+    "nav.unstuck_v2": 1.0,
+    "night.shelter_exit": 1.0,
+    "night.wall_in": 1.0,
+    "plan.hide_hp": 15.0,
+    "plan.readiness": 1.0,
+    "portal.prepare_work_area": 1.0,
+    "portal.reserve_lava_bucket": 1.0,
+    "route.armor_before_portal": 1.0,
+    "skill.enderman_warped": 1.0,
+    "skill.portal_repair": 1.0,
+    "skill.ruined_portal": 1.0,
+    "smelt.own_furnace": 1.0,
+    "stations.pickup_last": 1.0,
+    "stuck.item_progress": 1.0
+   },
+   "id": "g176",
+   "mutated": [
+    "smelt.own_furnace",
+    "stations.pickup_last",
+    "explore.same_blocks"
+   ],
+   "note": "suggested: smelt.own_furnace 1, stations.pickup_last 1, explore.same_blocks 1",
+   "pairs": [],
+   "parent": "g159",
+   "priority": true,
    "status": "contender"
   },
   "g18": {
@@ -19207,48 +16356,7 @@
     "safety.hazard"
    ],
    "note": "suggested: safety.hazard 1",
-   "pairs": [
-    [
-     77,
-     "L77-qag6vg",
-     0.762
-    ],
-    [
-     77,
-     "L77-xc2vsr",
-     -7.479
-    ],
-    [
-     77,
-     "L77-k6s5hj",
-     0.951
-    ],
-    [
-     77,
-     "L77-hurg2h",
-     0.207
-    ],
-    [
-     78,
-     "L78-vbx4f7",
-     -1.351
-    ],
-    [
-     78,
-     "L78-q6tfdb",
-     -5.964
-    ],
-    [
-     78,
-     "L78-ubhng4",
-     -0.139
-    ],
-    [
-     78,
-     "L78-9u2apr",
-     -0.45
-    ]
-   ],
+   "pairs": [],
    "parent": "g24",
    "status": "rejected"
   },
@@ -19493,48 +16601,7 @@
     "portal.reserve_lava_bucket"
    ],
    "note": "suggested: portal.prepare_work_area 1, portal.reserve_lava_bucket 1 (defending)",
-   "pairs": [
-    [
-     69,
-     "L69-8csv9w",
-     8.026
-    ],
-    [
-     69,
-     "L69-fsqu9g",
-     9.973
-    ],
-    [
-     69,
-     "L69-tkt3mq",
-     -16.515
-    ],
-    [
-     69,
-     "L69-z5dkm2",
-     0.169
-    ],
-    [
-     70,
-     "L70-sxvhqz",
-     -1.333
-    ],
-    [
-     70,
-     "L70-paep7k",
-     -1.828
-    ],
-    [
-     70,
-     "L70-t6vuq3",
-     -15.531
-    ],
-    [
-     70,
-     "L70-2afkak",
-     -0.091
-    ]
-   ],
+   "pairs": [],
    "parent": "g24",
    "status": "rejected"
   },
@@ -19796,88 +16863,7 @@
     "portal.retry_cast_view"
    ],
    "note": "suggested: portal.retry_cast_view 1",
-   "pairs": [
-    [
-     83,
-     "L83-cnr2y5",
-     0.186
-    ],
-    [
-     83,
-     "L83-k5c9ze",
-     -4.427
-    ],
-    [
-     83,
-     "L83-6dqb7w",
-     14.085
-    ],
-    [
-     83,
-     "L83-futtdz",
-     0.111
-    ],
-    [
-     84,
-     "L84-u8wz4t",
-     -1.116
-    ],
-    [
-     84,
-     "L84-tdzvbk",
-     0.361
-    ],
-    [
-     84,
-     "L84-87nqfp",
-     0.048
-    ],
-    [
-     84,
-     "L84-as3s4a",
-     0.264
-    ],
-    [
-     85,
-     "L85-x8brx4",
-     0.857
-    ],
-    [
-     85,
-     "L85-2s569y",
-     3.019
-    ],
-    [
-     85,
-     "L85-2w89th",
-     -0.272
-    ],
-    [
-     85,
-     "L85-8sh9b8",
-     -0.018
-    ],
-    [
-     86,
-     "L86-fzjren",
-     0.114
-    ],
-    [
-     86,
-     "L86-3ttctm",
-     -5.654
-    ],
-    [
-     86,
-     "L86-ufkb4w",
-     18.923
-    ],
-    [
-     86,
-     "L86-fcfu3m",
-     -0.651
-    ]
-   ],
+   "pairs": [],
    "parent": "g24",
    "status": "rejected"
   },
@@ -19999,48 +16985,7 @@
     "reflex.lava_margin"
    ],
    "note": "suggested: reflex.lava_margin 1",
-   "pairs": [
-    [
-     80,
-     "L80-a5r7am",
-     -3.768
-    ],
-    [
-     80,
-     "L80-3a7afk",
-     3.482
-    ],
-    [
-     80,
-     "L80-45ba6e",
-     0.007
-    ],
-    [
-     80,
-     "L80-2wypse",
-     0.003
-    ],
-    [
-     81,
-     "L81-j7rh2f",
-     3.8
-    ],
-    [
-     81,
-     "L81-m5g5mb",
-     -3.694
-    ],
-    [
-     81,
-     "L81-an5qxw",
-     -0.942
-    ],
-    [
-     81,
-     "L81-qrk8nj",
-     0.11
-    ]
-   ],
+   "pairs": [],
    "parent": "g24",
    "status": "rejected"
   },
@@ -20596,17 +17541,6 @@
    "id": "g49",
    "max_pairs": 24,
    "metric": "ok:goto|unstuck",
-   "metric_tally": {
-    "off": [
-     69,
-     80
-    ],
-    "on": [
-     32,
-     41
-    ]
-   },
-   "metric_z": -1.15,
    "mutated": [
     "night.shelter_exit",
     "nav.surface_v2",
@@ -20615,68 +17549,7 @@
     "combat.ignore_walled_mobs"
    ],
    "note": "suggested: night.shelter_exit 1, nav.surface_v2 1, nav.unstuck_v2 1, stuck.item_progress 1, combat.ignore_walled_mobs 1 (defending)",
-   "pairs": [
-    [
-     83,
-     "L83-cnr2y5",
-     1.622
-    ],
-    [
-     83,
-     "L83-k5c9ze",
-     -1.882
-    ],
-    [
-     83,
-     "L83-6dqb7w",
-     -3.282
-    ],
-    [
-     83,
-     "L83-futtdz",
-     0.122
-    ],
-    [
-     84,
-     "L84-u8wz4t",
-     -21.718
-    ],
-    [
-     84,
-     "L84-tdzvbk",
-     1.459
-    ],
-    [
-     84,
-     "L84-87nqfp",
-     12.875
-    ],
-    [
-     84,
-     "L84-as3s4a",
-     0.13
-    ],
-    [
-     85,
-     "L85-x8brx4",
-     0.026
-    ],
-    [
-     85,
-     "L85-2s569y",
-     4.056
-    ],
-    [
-     85,
-     "L85-2w89th",
-     18.382
-    ],
-    [
-     85,
-     "L85-8sh9b8",
-     -0.111
-    ]
-   ],
+   "pairs": [],
    "parent": "g45",
    "priority": true,
    "status": "rejected"
@@ -21015,118 +17888,11 @@
    },
    "id": "g53",
    "metric": "ok:diamond_hunt",
-   "metric_tally": {
-    "off": [
-     3,
-     4
-    ],
-    "on": [
-     1,
-     9
-    ]
-   },
-   "metric_z": -2.3,
    "mutated": [
     "deep.branch"
    ],
    "note": "suggested: deep.branch 1",
-   "pairs": [
-    [
-     69,
-     "L69-8csv9w",
-     -0.742
-    ],
-    [
-     69,
-     "L69-fsqu9g",
-     3.867
-    ],
-    [
-     69,
-     "L69-tkt3mq",
-     -18.326
-    ],
-    [
-     69,
-     "L69-z5dkm2",
-     -0.125
-    ],
-    [
-     70,
-     "L70-sxvhqz",
-     -2.785
-    ],
-    [
-     70,
-     "L70-paep7k",
-     -3.278
-    ],
-    [
-     70,
-     "L70-t6vuq3",
-     1.221
-    ],
-    [
-     70,
-     "L70-2afkak",
-     0.556
-    ],
-    [
-     71,
-     "L71-bb8jvs",
-     1.035
-    ],
-    [
-     71,
-     "L71-t6nfez",
-     -5.231
-    ],
-    [
-     71,
-     "L71-z2gvwn",
-     -0.328
-    ],
-    [
-     71,
-     "L71-958w42",
-     -0.14
-    ],
-    [
-     72,
-     "L72-tcgv8j",
-     4.168
-    ],
-    [
-     72,
-     "L72-6j5jjm",
-     4.857
-    ],
-    [
-     72,
-     "L72-nt2547",
-     -0.029
-    ],
-    [
-     73,
-     "L73-u8mv7g",
-     3.935
-    ],
-    [
-     73,
-     "L73-8e4rx7",
-     0.422
-    ],
-    [
-     73,
-     "L73-p2kxe7",
-     0.835
-    ],
-    [
-     73,
-     "L73-r7jbk3",
-     -0.301
-    ]
-   ],
+   "pairs": [],
    "parent": "g45",
    "priority": true,
    "status": "rejected"
@@ -21279,84 +18045,12 @@
    },
    "id": "g55",
    "metric": "deaths",
-   "metric_tally": {
-    "off": [
-     33,
-     386.16
-    ],
-    "on": [
-     36,
-     388.29
-    ]
-   },
-   "metric_z": -0.34,
    "mutated": [
     "skill.lava_guard",
     "reflex.lava_margin"
    ],
    "note": "suggested: skill.lava_guard 1, reflex.lava_margin 1",
-   "pairs": [
-    [
-     69,
-     "L69-8csv9w",
-     0.536
-    ],
-    [
-     69,
-     "L69-fsqu9g",
-     -0.067
-    ],
-    [
-     69,
-     "L69-tkt3mq",
-     -16.309
-    ],
-    [
-     69,
-     "L69-z5dkm2",
-     0.108
-    ],
-    [
-     70,
-     "L70-sxvhqz",
-     4.192
-    ],
-    [
-     70,
-     "L70-paep7k",
-     -1.624
-    ],
-    [
-     70,
-     "L70-t6vuq3",
-     -13.139
-    ],
-    [
-     70,
-     "L70-2afkak",
-     0.686
-    ],
-    [
-     71,
-     "L71-bb8jvs",
-     1.323
-    ],
-    [
-     71,
-     "L71-t6nfez",
-     -5.479
-    ],
-    [
-     71,
-     "L71-z2gvwn",
-     -0.368
-    ],
-    [
-     71,
-     "L71-958w42",
-     -0.382
-    ]
-   ],
+   "pairs": [],
    "parent": "g49",
    "priority": true,
    "status": "rejected"
@@ -22034,48 +18728,7 @@
     "skill.portal_repair"
    ],
    "note": "suggested: skill.ruined_portal 1, skill.portal_repair 1 (defending)",
-   "pairs": [
-    [
-     102,
-     "L102-qjm4jk",
-     -1.534
-    ],
-    [
-     102,
-     "L102-j2zape",
-     -4.716
-    ],
-    [
-     102,
-     "L102-dmtck7",
-     0.677
-    ],
-    [
-     102,
-     "L102-eze3tx",
-     -0.189
-    ],
-    [
-     103,
-     "L103-36h79f",
-     -0.755
-    ],
-    [
-     103,
-     "L103-zebdrf",
-     -3.025
-    ],
-    [
-     103,
-     "L103-jgspas",
-     -0.769
-    ],
-    [
-     103,
-     "L103-9rqfpd",
-     -0.235
-    ]
-   ],
+   "pairs": [],
    "parent": "g49",
    "priority": true,
    "status": "rejected"
@@ -22122,38 +18775,11 @@
    },
    "id": "g57",
    "metric": "deaths",
-   "metric_tally": {
-    "off": [
-     4,
-     89.43
-    ],
-    "on": [
-     7,
-     89.83
-    ]
-   },
-   "metric_z": -0.9,
    "mutated": [
     "cave.torch_recipe"
    ],
    "note": "suggested: cave.torch_recipe 1",
-   "pairs": [
-    [
-     72,
-     "L72-tcgv8j",
-     2.537
-    ],
-    [
-     72,
-     "L72-6j5jjm",
-     2.193
-    ],
-    [
-     72,
-     "L72-nt2547",
-     -0.025
-    ]
-   ],
+   "pairs": [],
    "parent": "g49",
    "priority": true,
    "status": "rejected"
@@ -22280,103 +18906,11 @@
    },
    "id": "g58",
    "metric": "deaths",
-   "metric_tally": {
-    "off": [
-     43,
-     508.3
-    ],
-    "on": [
-     42,
-     514.83
-    ]
-   },
-   "metric_z": 0.17,
    "mutated": [
     "cave.seal_openings"
    ],
    "note": "suggested: cave.seal_openings 1",
-   "pairs": [
-    [
-     74,
-     "L74-63kcey",
-     -6.408
-    ],
-    [
-     74,
-     "L74-u3b77m",
-     0.715
-    ],
-    [
-     74,
-     "L74-9t2xjc",
-     14.672
-    ],
-    [
-     74,
-     "L74-rwhg82",
-     0.24
-    ],
-    [
-     75,
-     "L75-pqeyny",
-     -2.957
-    ],
-    [
-     75,
-     "L75-mye76b",
-     -5.025
-    ],
-    [
-     75,
-     "L75-2pdsuh",
-     0.03
-    ],
-    [
-     75,
-     "L75-3mq57w",
-     -0.396
-    ],
-    [
-     76,
-     "L76-fbc3y3",
-     1.763
-    ],
-    [
-     76,
-     "L76-w92ajv",
-     -4.763
-    ],
-    [
-     76,
-     "L76-aas3u9",
-     -0.04
-    ],
-    [
-     76,
-     "L76-abkhqd",
-     -0.135
-    ],
-    [
-     77,
-     "L77-qag6vg",
-     0.713
-    ],
-    [
-     77,
-     "L77-xc2vsr",
-     -5.822
-    ],
-    [
-     77,
-     "L77-k6s5hj",
-     0.415
-    ],
-    [
-     77,
-     "L77-hurg2h",
-     0.096
-    ]
-   ],
+   "pairs": [],
    "parent": "g49",
    "priority": true,
    "status": "rejected"
@@ -22455,48 +18989,7 @@
     "gather.log_stock"
    ],
    "note": "suggested: gather.vein_follow 1, gather.iron_in_view 1, gather.first_logs 6, gather.log_stock 3",
-   "pairs": [
-    [
-     74,
-     "L74-63kcey",
-     -3.506
-    ],
-    [
-     74,
-     "L74-u3b77m",
-     -0.123
-    ],
-    [
-     74,
-     "L74-9t2xjc",
-     -0.764
-    ],
-    [
-     74,
-     "L74-rwhg82",
-     0.3
-    ],
-    [
-     75,
-     "L75-pqeyny",
-     -3.21
-    ],
-    [
-     75,
-     "L75-mye76b",
-     -4.173
-    ],
-    [
-     75,
-     "L75-2pdsuh",
-     -0.043
-    ],
-    [
-     75,
-     "L75-3mq57w",
-     -0.508
-    ]
-   ],
+   "pairs": [],
    "parent": "g56",
    "priority": true,
    "status": "rejected"
@@ -22857,43 +19350,11 @@
    },
    "id": "g60",
    "metric": "deaths",
-   "metric_tally": {
-    "off": [
-     7,
-     124.6
-    ],
-    "on": [
-     8,
-     128.65
-    ]
-   },
-   "metric_z": -0.2,
    "mutated": [
     "gather.cautious_depth"
    ],
    "note": "suggested: gather.cautious_depth 1",
-   "pairs": [
-    [
-     76,
-     "L76-fbc3y3",
-     4.243
-    ],
-    [
-     76,
-     "L76-w92ajv",
-     -3.096
-    ],
-    [
-     76,
-     "L76-aas3u9",
-     -0.085
-    ],
-    [
-     76,
-     "L76-abkhqd",
-     -0.653
-    ]
-   ],
+   "pairs": [],
    "parent": "g56",
    "priority": true,
    "status": "rejected"
@@ -22940,43 +19401,11 @@
    },
    "id": "g61",
    "metric": "deaths",
-   "metric_tally": {
-    "off": [
-     7,
-     128.96
-    ],
-    "on": [
-     8,
-     128.7
-    ]
-   },
-   "metric_z": -0.26,
    "mutated": [
     "deep.stairs"
    ],
    "note": "suggested: deep.stairs 1",
-   "pairs": [
-    [
-     82,
-     "L82-3dtcez",
-     2.14
-    ],
-    [
-     82,
-     "L82-83aswn",
-     -0.137
-    ],
-    [
-     82,
-     "L82-eqvvqj",
-     -0.041
-    ],
-    [
-     82,
-     "L82-3rnund",
-     -0.051
-    ]
-   ],
+   "pairs": [],
    "parent": "g49",
    "status": "rejected"
   },
@@ -23024,43 +19453,11 @@
    },
    "id": "g62",
    "metric": "deaths",
-   "metric_tally": {
-    "off": [
-     5,
-     124.44
-    ],
-    "on": [
-     7,
-     129.74
-    ]
-   },
-   "metric_z": -0.51,
    "mutated": [
     "plan.livelock_break"
    ],
    "note": "suggested: plan.livelock_break 1",
-   "pairs": [
-    [
-     83,
-     "L83-cnr2y5",
-     0.121
-    ],
-    [
-     83,
-     "L83-k5c9ze",
-     -1.958
-    ],
-    [
-     83,
-     "L83-6dqb7w",
-     -3.313
-    ],
-    [
-     83,
-     "L83-futtdz",
-     -0.408
-    ]
-   ],
+   "pairs": [],
    "parent": "g56",
    "status": "rejected"
   },
@@ -23108,43 +19505,11 @@
    },
    "id": "g63",
    "metric": "deaths",
-   "metric_tally": {
-    "off": [
-     4,
-     118.51
-    ],
-    "on": [
-     20,
-     126.55
-    ]
-   },
-   "metric_z": -3.11,
    "mutated": [
     "safety.enderman_gaze"
    ],
    "note": "suggested: safety.enderman_gaze 1",
-   "pairs": [
-    [
-     84,
-     "L84-u8wz4t",
-     -23.058
-    ],
-    [
-     84,
-     "L84-tdzvbk",
-     0.423
-    ],
-    [
-     84,
-     "L84-87nqfp",
-     0.052
-    ],
-    [
-     84,
-     "L84-as3s4a",
-     -0.09
-    ]
-   ],
+   "pairs": [],
    "parent": "g56",
    "status": "rejected"
   },
@@ -23192,43 +19557,11 @@
    },
    "id": "g64",
    "metric": "deaths",
-   "metric_tally": {
-    "off": [
-     10,
-     129.04
-    ],
-    "on": [
-     10,
-     127.17
-    ]
-   },
-   "metric_z": -0.03,
    "mutated": [
     "death.recover_value"
    ],
    "note": "suggested: death.recover_value 1",
-   "pairs": [
-    [
-     85,
-     "L85-x8brx4",
-     6.37
-    ],
-    [
-     85,
-     "L85-2s569y",
-     -3.22
-    ],
-    [
-     85,
-     "L85-2w89th",
-     17.431
-    ],
-    [
-     85,
-     "L85-8sh9b8",
-     -0.047
-    ]
-   ],
+   "pairs": [],
    "parent": "g56",
    "status": "rejected"
   },
@@ -23354,98 +19687,7 @@
     "reflex.lava_margin"
    ],
    "note": "suggested: reflex.lava_margin 1",
-   "pairs": [
-    [
-     86,
-     "L86-fzjren",
-     -4.162
-    ],
-    [
-     86,
-     "L86-3ttctm",
-     -3.845
-    ],
-    [
-     86,
-     "L86-ufkb4w",
-     17.201
-    ],
-    [
-     86,
-     "L86-fcfu3m",
-     -0.531
-    ],
-    [
-     87,
-     "L87-bc4gea",
-     0.976
-    ],
-    [
-     87,
-     "L87-4bkecb",
-     -19.254
-    ],
-    [
-     87,
-     "L87-fa3y3j",
-     0.275
-    ],
-    [
-     88,
-     "L88-pr8gne",
-     1.579
-    ],
-    [
-     88,
-     "L88-y4ym9a",
-     8.303
-    ],
-    [
-     88,
-     "L88-bg79qb",
-     -0.269
-    ],
-    [
-     88,
-     "L88-d8ns7e",
-     -0.018
-    ],
-    [
-     89,
-     "L89-42hzbs",
-     1.08
-    ],
-    [
-     89,
-     "L89-medbsa",
-     -2.839
-    ],
-    [
-     89,
-     "L89-d7seqc",
-     -0.74
-    ],
-    [
-     90,
-     "L90-bd7wmf",
-     -21.776
-    ],
-    [
-     90,
-     "L90-mjcjbg",
-     3.24
-    ],
-    [
-     90,
-     "L90-tzy44r",
-     1.728
-    ],
-    [
-     90,
-     "L90-5zk65g",
-     0.26
-    ]
-   ],
+   "pairs": [],
    "parent": "g56",
    "priority": true,
    "status": "rejected"
@@ -23494,43 +19736,11 @@
    },
    "id": "g66",
    "metric": "deaths",
-   "metric_tally": {
-    "off": [
-     7,
-     124.13
-    ],
-    "on": [
-     11,
-     127.89
-    ]
-   },
-   "metric_z": -0.88,
    "mutated": [
     "combat.zombie_pack"
    ],
    "note": "suggested: combat.zombie_pack 1",
-   "pairs": [
-    [
-     86,
-     "L86-fzjren",
-     -4.362
-    ],
-    [
-     86,
-     "L86-3ttctm",
-     -2.839
-    ],
-    [
-     86,
-     "L86-ufkb4w",
-     -0.209
-    ],
-    [
-     86,
-     "L86-fcfu3m",
-     -0.064
-    ]
-   ],
+   "pairs": [],
    "parent": "g56",
    "status": "rejected"
   },
@@ -23634,94 +19844,12 @@
    },
    "id": "g67",
    "metric": "ok:goto",
-   "metric_tally": {
-    "off": [
-     53,
-     58
-    ],
-    "on": [
-     39,
-     43
-    ]
-   },
-   "metric_z": -0.12,
    "mutated": [
     "death.trip_commit",
     "skill.recover_items"
    ],
    "note": "suggested: death.trip_commit 1, skill.recover_items 1",
-   "pairs": [
-    [
-     87,
-     "L87-bc4gea",
-     4.658
-    ],
-    [
-     87,
-     "L87-4bkecb",
-     -14.908
-    ],
-    [
-     87,
-     "L87-fa3y3j",
-     -0.32
-    ],
-    [
-     88,
-     "L88-pr8gne",
-     -2.27
-    ],
-    [
-     88,
-     "L88-y4ym9a",
-     8.931
-    ],
-    [
-     88,
-     "L88-bg79qb",
-     0.0
-    ],
-    [
-     88,
-     "L88-d8ns7e",
-     -0.294
-    ],
-    [
-     89,
-     "L89-42hzbs",
-     0.404
-    ],
-    [
-     89,
-     "L89-medbsa",
-     -2.374
-    ],
-    [
-     89,
-     "L89-d7seqc",
-     -0.181
-    ],
-    [
-     90,
-     "L90-bd7wmf",
-     -19.715
-    ],
-    [
-     90,
-     "L90-mjcjbg",
-     2.972
-    ],
-    [
-     90,
-     "L90-tzy44r",
-     -0.312
-    ],
-    [
-     90,
-     "L90-5zk65g",
-     0.477
-    ]
-   ],
+   "pairs": [],
    "parent": "g56",
    "status": "rejected"
   },
@@ -23769,38 +19897,11 @@
    },
    "id": "g68",
    "metric": "deaths",
-   "metric_tally": {
-    "off": [
-     12,
-     119.45
-    ],
-    "on": [
-     12,
-     112.98
-    ]
-   },
-   "metric_z": -0.14,
    "mutated": [
     "combat.finish_heal_wall"
    ],
    "note": "suggested: combat.finish_heal_wall 1",
-   "pairs": [
-    [
-     87,
-     "L87-bc4gea",
-     0.068
-    ],
-    [
-     87,
-     "L87-4bkecb",
-     -24.034
-    ],
-    [
-     87,
-     "L87-fa3y3j",
-     -0.224
-    ]
-   ],
+   "pairs": [],
    "parent": "g56",
    "status": "rejected"
   },
@@ -23918,113 +20019,11 @@
    },
    "id": "g69",
    "metric": "ok:shelter",
-   "metric_tally": {
-    "off": [
-     10,
-     73
-    ],
-    "on": [
-     5,
-     59
-    ]
-   },
-   "metric_z": -0.94,
    "mutated": [
     "night.no_shaft_wall"
    ],
    "note": "suggested: night.no_shaft_wall 1",
-   "pairs": [
-    [
-     88,
-     "L88-pr8gne",
-     5.816
-    ],
-    [
-     88,
-     "L88-y4ym9a",
-     5.384
-    ],
-    [
-     88,
-     "L88-bg79qb",
-     2.711
-    ],
-    [
-     88,
-     "L88-d8ns7e",
-     0.016
-    ],
-    [
-     89,
-     "L89-42hzbs",
-     7.003
-    ],
-    [
-     89,
-     "L89-medbsa",
-     -1.777
-    ],
-    [
-     89,
-     "L89-d7seqc",
-     -0.282
-    ],
-    [
-     90,
-     "L90-bd7wmf",
-     -13.773
-    ],
-    [
-     90,
-     "L90-mjcjbg",
-     6.141
-    ],
-    [
-     90,
-     "L90-tzy44r",
-     2.469
-    ],
-    [
-     90,
-     "L90-5zk65g",
-     0.314
-    ],
-    [
-     91,
-     "L91-6wntc6",
-     23.18
-    ],
-    [
-     91,
-     "L91-kkdc5w",
-     3.453
-    ],
-    [
-     91,
-     "L91-ebj47h",
-     0.128
-    ],
-    [
-     92,
-     "L92-2qvrkv",
-     4.215
-    ],
-    [
-     92,
-     "L92-ht3mjz",
-     -4.494
-    ],
-    [
-     92,
-     "L92-h48rkt",
-     0.09
-    ],
-    [
-     92,
-     "L92-2dwahe",
-     -0.252
-    ]
-   ],
+   "pairs": [],
    "parent": "g56",
    "status": "rejected"
   },
@@ -24155,38 +20154,11 @@
    },
    "id": "g70",
    "metric": "deaths",
-   "metric_tally": {
-    "off": [
-     5,
-     89.72
-    ],
-    "on": [
-     7,
-     88.0
-    ]
-   },
-   "metric_z": -0.61,
    "mutated": [
     "combat.no_close_retreat"
    ],
    "note": "suggested: combat.no_close_retreat 1",
-   "pairs": [
-    [
-     91,
-     "L91-6wntc6",
-     0.385
-    ],
-    [
-     91,
-     "L91-kkdc5w",
-     -2.974
-    ],
-    [
-     91,
-     "L91-ebj47h",
-     0.144
-    ]
-   ],
+   "pairs": [],
    "parent": "g56",
    "status": "rejected"
   },
@@ -24229,38 +20201,11 @@
    },
    "id": "g71",
    "metric": "deaths",
-   "metric_tally": {
-    "off": [
-     5,
-     89.72
-    ],
-    "on": [
-     15,
-     88.31
-    ]
-   },
-   "metric_z": -2.27,
    "mutated": [
     "safety.spawner_room"
    ],
    "note": "suggested: safety.spawner_room 1",
-   "pairs": [
-    [
-     91,
-     "L91-6wntc6",
-     0.043
-    ],
-    [
-     91,
-     "L91-kkdc5w",
-     -2.812
-    ],
-    [
-     91,
-     "L91-ebj47h",
-     -0.389
-    ]
-   ],
+   "pairs": [],
    "parent": "g56",
    "status": "rejected"
   },
@@ -24349,84 +20294,12 @@
    },
    "id": "g72",
    "metric": "deaths",
-   "metric_tally": {
-    "off": [
-     27,
-     374.69
-    ],
-    "on": [
-     30,
-     379.34
-    ]
-   },
-   "metric_z": -0.35,
    "mutated": [
     "safety.spawner_room",
     "safety.spawner_break"
    ],
    "note": "suggested: safety.spawner_room 1, safety.spawner_break 1",
-   "pairs": [
-    [
-     92,
-     "L92-2qvrkv",
-     1.358
-    ],
-    [
-     92,
-     "L92-ht3mjz",
-     0.129
-    ],
-    [
-     92,
-     "L92-h48rkt",
-     0.663
-    ],
-    [
-     92,
-     "L92-2dwahe",
-     -0.087
-    ],
-    [
-     93,
-     "L93-52df3g",
-     -4.809
-    ],
-    [
-     93,
-     "L93-z327x9",
-     -4.209
-    ],
-    [
-     93,
-     "L93-az6vtr",
-     1.233
-    ],
-    [
-     93,
-     "L93-65qtvj",
-     0.005
-    ],
-    [
-     94,
-     "L94-gcd4wt",
-     -2.784
-    ],
-    [
-     94,
-     "L94-p7ky4v",
-     3.239
-    ],
-    [
-     94,
-     "L94-x2zrkg",
-     17.621
-    ],
-    [
-     94,
-     "L94-gv2bkx",
-     0.383
-    ]
-   ],
+   "pairs": [],
    "parent": "g56",
    "status": "rejected"
   },
@@ -24541,88 +20414,7 @@
     "bed.table_first"
    ],
    "note": "suggested: restock.stash_only 1, plan.noop_success_pause 1, bed.table_first 1",
-   "pairs": [
-    [
-     92,
-     "L92-2qvrkv",
-     7.06
-    ],
-    [
-     92,
-     "L92-ht3mjz",
-     0.72
-    ],
-    [
-     92,
-     "L92-h48rkt",
-     0.047
-    ],
-    [
-     92,
-     "L92-2dwahe",
-     -0.259
-    ],
-    [
-     93,
-     "L93-52df3g",
-     -3.071
-    ],
-    [
-     93,
-     "L93-z327x9",
-     -5.226
-    ],
-    [
-     93,
-     "L93-az6vtr",
-     -0.171
-    ],
-    [
-     93,
-     "L93-65qtvj",
-     -0.65
-    ],
-    [
-     94,
-     "L94-gcd4wt",
-     0.47
-    ],
-    [
-     94,
-     "L94-p7ky4v",
-     6.46
-    ],
-    [
-     94,
-     "L94-x2zrkg",
-     17.324
-    ],
-    [
-     94,
-     "L94-gv2bkx",
-     0.06
-    ],
-    [
-     95,
-     "L95-jzq2vu",
-     -5.652
-    ],
-    [
-     95,
-     "L95-fmrfxc",
-     -6.366
-    ],
-    [
-     95,
-     "L95-yd58zb",
-     16.961
-    ],
-    [
-     95,
-     "L95-5e6g3x",
-     -0.253
-    ]
-   ],
+   "pairs": [],
    "parent": "g56",
    "status": "rejected"
   },
@@ -24670,43 +20462,11 @@
    },
    "id": "g74",
    "metric": "ok:collect",
-   "metric_tally": {
-    "off": [
-     35,
-     72
-    ],
-    "on": [
-     28,
-     77
-    ]
-   },
-   "metric_z": -1.51,
    "mutated": [
     "gather.stair_for_stone"
    ],
    "note": "suggested: gather.stair_for_stone 1",
-   "pairs": [
-    [
-     93,
-     "L93-52df3g",
-     -4.677
-    ],
-    [
-     93,
-     "L93-z327x9",
-     -4.841
-    ],
-    [
-     93,
-     "L93-az6vtr",
-     -0.291
-    ],
-    [
-     93,
-     "L93-65qtvj",
-     -0.657
-    ]
-   ],
+   "pairs": [],
    "parent": "g56",
    "status": "rejected"
   },
@@ -24775,64 +20535,12 @@
    },
    "id": "g75",
    "metric": "ok:collect",
-   "metric_tally": {
-    "off": [
-     85,
-     147
-    ],
-    "on": [
-     71,
-     141
-    ]
-   },
-   "metric_z": -1.27,
    "mutated": [
     "gather.dry_stone",
     "fluid.enclosed_tunnel"
    ],
    "note": "suggested: gather.dry_stone 1, fluid.enclosed_tunnel 1",
-   "pairs": [
-    [
-     94,
-     "L94-gcd4wt",
-     -3.101
-    ],
-    [
-     94,
-     "L94-p7ky4v",
-     0.153
-    ],
-    [
-     94,
-     "L94-x2zrkg",
-     4.423
-    ],
-    [
-     94,
-     "L94-gv2bkx",
-     -0.131
-    ],
-    [
-     95,
-     "L95-jzq2vu",
-     -2.067
-    ],
-    [
-     95,
-     "L95-fmrfxc",
-     -1.611
-    ],
-    [
-     95,
-     "L95-yd58zb",
-     0.236
-    ],
-    [
-     95,
-     "L95-5e6g3x",
-     -0.844
-    ]
-   ],
+   "pairs": [],
    "parent": "g56",
    "status": "rejected"
   },
@@ -24880,43 +20588,11 @@
    },
    "id": "g76",
    "metric": "ok:collect",
-   "metric_tally": {
-    "off": [
-     36,
-     61
-    ],
-    "on": [
-     32,
-     76
-    ]
-   },
-   "metric_z": -1.97,
    "mutated": [
     "stuck.ignore_water_bob"
    ],
    "note": "suggested: stuck.ignore_water_bob 1",
-   "pairs": [
-    [
-     95,
-     "L95-jzq2vu",
-     -8.486
-    ],
-    [
-     95,
-     "L95-fmrfxc",
-     -1.141
-    ],
-    [
-     95,
-     "L95-yd58zb",
-     0.389
-    ],
-    [
-     95,
-     "L95-5e6g3x",
-     -0.472
-    ]
-   ],
+   "pairs": [],
    "parent": "g56",
    "status": "rejected"
   },
@@ -25029,17 +20705,6 @@
    },
    "id": "g77",
    "metric": "ok:build_portal|cast_portal",
-   "metric_tally": {
-    "off": [
-     0,
-     0
-    ],
-    "on": [
-     0,
-     0
-    ]
-   },
-   "metric_z": 0.0,
    "mutated": [
     "skill.lava_scout",
     "skill.cast_portal",
@@ -25051,88 +20716,7 @@
     "skill.restock"
    ],
    "note": "suggested: skill.lava_scout 1, skill.cast_portal 1, skill.ruined_portal 1, skill.obsidian_pool 1, skill.diamond_hunt 1, skill.portal_repair 1, skill.stash 1, skill.restock 1",
-   "pairs": [
-    [
-     96,
-     "L96-rcrehb",
-     -0.131
-    ],
-    [
-     96,
-     "L96-jm68ac",
-     2.778
-    ],
-    [
-     96,
-     "L96-emh82t",
-     0.216
-    ],
-    [
-     96,
-     "L96-tzf4nr",
-     -0.575
-    ],
-    [
-     97,
-     "L97-capqvt",
-     1.693
-    ],
-    [
-     97,
-     "L97-c32w9v",
-     3.128
-    ],
-    [
-     97,
-     "L97-8ebmgm",
-     -4.421
-    ],
-    [
-     97,
-     "L97-w8jkq7",
-     -0.069
-    ],
-    [
-     98,
-     "L98-c5dcz7",
-     -9.614
-    ],
-    [
-     98,
-     "L98-6uus4v",
-     2.815
-    ],
-    [
-     98,
-     "L98-jsy5ad",
-     0.01
-    ],
-    [
-     98,
-     "L98-d7vp9u",
-     0.13
-    ],
-    [
-     99,
-     "L99-pxmv2x",
-     0.079
-    ],
-    [
-     99,
-     "L99-qua4p2",
-     1.855
-    ],
-    [
-     99,
-     "L99-mcmyng",
-     0.138
-    ],
-    [
-     99,
-     "L99-zbzgux",
-     0.589
-    ]
-   ],
+   "pairs": [],
    "parent": "g56",
    "status": "rejected"
   },
@@ -25251,88 +20835,7 @@
     "nav.fluid_place"
    ],
    "note": "suggested: skill.fluid_seal 1, skill.lava_guard 1, skill.fluid_cross 1, skill.drain_tunnel 1, nav.fluid_place 1",
-   "pairs": [
-    [
-     96,
-     "L96-rcrehb",
-     -1.797
-    ],
-    [
-     96,
-     "L96-jm68ac",
-     -0.843
-    ],
-    [
-     96,
-     "L96-emh82t",
-     2.604
-    ],
-    [
-     96,
-     "L96-tzf4nr",
-     -0.425
-    ],
-    [
-     97,
-     "L97-capqvt",
-     7.0
-    ],
-    [
-     97,
-     "L97-c32w9v",
-     1.608
-    ],
-    [
-     97,
-     "L97-8ebmgm",
-     0.026
-    ],
-    [
-     97,
-     "L97-w8jkq7",
-     0.039
-    ],
-    [
-     98,
-     "L98-c5dcz7",
-     14.024
-    ],
-    [
-     98,
-     "L98-6uus4v",
-     0.743
-    ],
-    [
-     98,
-     "L98-jsy5ad",
-     1.046
-    ],
-    [
-     98,
-     "L98-d7vp9u",
-     -0.52
-    ],
-    [
-     99,
-     "L99-pxmv2x",
-     -2.137
-    ],
-    [
-     99,
-     "L99-qua4p2",
-     -1.826
-    ],
-    [
-     99,
-     "L99-mcmyng",
-     -0.052
-    ],
-    [
-     99,
-     "L99-zbzgux",
-     0.147
-    ]
-   ],
+   "pairs": [],
    "parent": "g56",
    "status": "rejected"
   },
@@ -25441,104 +20944,12 @@
    },
    "id": "g79",
    "metric": "deaths",
-   "metric_tally": {
-    "off": [
-     40,
-     494.47
-    ],
-    "on": [
-     38,
-     513.8
-    ]
-   },
-   "metric_z": 0.4,
    "mutated": [
     "safety.hazard",
     "safety.hazard_margin"
    ],
    "note": "suggested: safety.hazard 1, safety.hazard_margin 0.05",
-   "pairs": [
-    [
-     96,
-     "L96-rcrehb",
-     -4.41
-    ],
-    [
-     96,
-     "L96-jm68ac",
-     3.682
-    ],
-    [
-     96,
-     "L96-emh82t",
-     0.14
-    ],
-    [
-     96,
-     "L96-tzf4nr",
-     -1.146
-    ],
-    [
-     97,
-     "L97-capqvt",
-     -0.004
-    ],
-    [
-     97,
-     "L97-c32w9v",
-     2.437
-    ],
-    [
-     97,
-     "L97-8ebmgm",
-     -4.409
-    ],
-    [
-     97,
-     "L97-w8jkq7",
-     0.482
-    ],
-    [
-     98,
-     "L98-c5dcz7",
-     -4.661
-    ],
-    [
-     98,
-     "L98-6uus4v",
-     -0.007
-    ],
-    [
-     98,
-     "L98-jsy5ad",
-     0.733
-    ],
-    [
-     98,
-     "L98-d7vp9u",
-     -0.284
-    ],
-    [
-     99,
-     "L99-pxmv2x",
-     2.065
-    ],
-    [
-     99,
-     "L99-qua4p2",
-     3.005
-    ],
-    [
-     99,
-     "L99-mcmyng",
-     0.305
-    ],
-    [
-     99,
-     "L99-zbzgux",
-     0.126
-    ]
-   ],
+   "pairs": [],
    "parent": "g56",
    "status": "rejected"
   },
@@ -25631,43 +21042,11 @@
    },
    "id": "g80",
    "metric": "deaths",
-   "metric_tally": {
-    "off": [
-     10,
-     125.15
-    ],
-    "on": [
-     14,
-     129.47
-    ]
-   },
-   "metric_z": -0.73,
    "mutated": [
     "reflex.escalate"
    ],
    "note": "suggested: reflex.escalate 1",
-   "pairs": [
-    [
-     100,
-     "L100-ny25nj",
-     3.059
-    ],
-    [
-     100,
-     "L100-gc92zs",
-     3.888
-    ],
-    [
-     100,
-     "L100-nnmbcb",
-     0.022
-    ],
-    [
-     100,
-     "L100-pusk2f",
-     -0.037
-    ]
-   ],
+   "pairs": [],
    "parent": "g56",
    "status": "rejected"
   },
@@ -25716,44 +21095,12 @@
    },
    "id": "g81",
    "metric": "deaths",
-   "metric_tally": {
-    "off": [
-     10,
-     125.15
-    ],
-    "on": [
-     12,
-     127.94
-    ]
-   },
-   "metric_z": -0.37,
    "mutated": [
     "combat.crits",
     "combat.backstep"
    ],
    "note": "suggested: combat.crits 1, combat.backstep 1",
-   "pairs": [
-    [
-     100,
-     "L100-ny25nj",
-     3.982
-    ],
-    [
-     100,
-     "L100-gc92zs",
-     0.022
-    ],
-    [
-     100,
-     "L100-nnmbcb",
-     -0.001
-    ],
-    [
-     100,
-     "L100-pusk2f",
-     -0.22
-    ]
-   ],
+   "pairs": [],
    "parent": "g56",
    "status": "rejected"
   },
@@ -25902,43 +21249,11 @@
    },
    "id": "g82",
    "metric": "ok:collect",
-   "metric_tally": {
-    "off": [
-     58,
-     84
-    ],
-    "on": [
-     37,
-     58
-    ]
-   },
-   "metric_z": -0.65,
    "mutated": [
     "move.shore_first"
    ],
    "note": "suggested: move.shore_first 1 (defending)",
-   "pairs": [
-    [
-     105,
-     "L105-xj3hb2",
-     -7.063
-    ],
-    [
-     105,
-     "L105-62qpue",
-     0.692
-    ],
-    [
-     105,
-     "L105-hjaxrv",
-     0.13
-    ],
-    [
-     105,
-     "L105-fbjhjj",
-     -0.085
-    ]
-   ],
+   "pairs": [],
    "parent": "g56",
    "status": "rejected"
   },
@@ -26006,43 +21321,11 @@
    },
    "id": "g83",
    "metric": "deaths",
-   "metric_tally": {
-    "off": [
-     4,
-     126.9
-    ],
-    "on": [
-     9,
-     128.37
-    ]
-   },
-   "metric_z": -1.37,
    "mutated": [
     "safety.hazard"
    ],
    "note": "suggested: safety.hazard 1",
-   "pairs": [
-    [
-     102,
-     "L102-qjm4jk",
-     -1.685
-    ],
-    [
-     102,
-     "L102-j2zape",
-     -4.628
-    ],
-    [
-     102,
-     "L102-dmtck7",
-     0.004
-    ],
-    [
-     102,
-     "L102-eze3tx",
-     -0.016
-    ]
-   ],
+   "pairs": [],
    "parent": "g56",
    "status": "rejected"
   },
@@ -26232,17 +21515,6 @@
    },
    "id": "g84",
    "metric": "deaths",
-   "metric_tally": {
-    "off": [
-     60,
-     510.01
-    ],
-    "on": [
-     45,
-     506.24
-    ]
-   },
-   "metric_z": 1.43,
    "mutated": [
     "nav.mob_avoid_coef",
     "plan.hostile_range",
@@ -26251,88 +21523,7 @@
     "combat.shield_guard"
    ],
    "note": "suggested: nav.mob_avoid_coef 3, plan.hostile_range 4, gear.sword_early 1, cave.torches 1, combat.shield_guard 1",
-   "pairs": [
-    [
-     105,
-     "L105-xj3hb2",
-     -2.19
-    ],
-    [
-     105,
-     "L105-62qpue",
-     0.726
-    ],
-    [
-     105,
-     "L105-hjaxrv",
-     4.958
-    ],
-    [
-     105,
-     "L105-fbjhjj",
-     0.051
-    ],
-    [
-     106,
-     "L106-uxtjgm",
-     4.504
-    ],
-    [
-     106,
-     "L106-4xr9za",
-     0.799
-    ],
-    [
-     106,
-     "L106-aahh5u",
-     0.048
-    ],
-    [
-     106,
-     "L106-y3k8w2",
-     -0.303
-    ],
-    [
-     107,
-     "L107-tpx562",
-     -1.126
-    ],
-    [
-     107,
-     "L107-xh3575",
-     8.044
-    ],
-    [
-     107,
-     "L107-jyrt9u",
-     1.329
-    ],
-    [
-     107,
-     "L107-n7x7t9",
-     -0.218
-    ],
-    [
-     108,
-     "L108-4maccr",
-     1.256
-    ],
-    [
-     108,
-     "L108-dkr3qn",
-     -6.545
-    ],
-    [
-     108,
-     "L108-2n643t",
-     -0.018
-    ],
-    [
-     108,
-     "L108-nazrhy",
-     -0.447
-    ]
-   ],
+   "pairs": [],
    "parent": "g56",
    "status": "rejected"
   },
@@ -26562,17 +21753,6 @@
    },
    "id": "g85",
    "metric": "deaths",
-   "metric_tally": {
-    "off": [
-     26,
-     512.84
-    ],
-    "on": [
-     20,
-     515.78
-    ]
-   },
-   "metric_z": 0.9,
    "mutated": [
     "gear.sword_early",
     "cave.torches",
@@ -26580,88 +21760,7 @@
     "route.armor_before_portal"
    ],
    "note": "suggested: gear.sword_early 1, cave.torches 1, combat.shield_guard 1, route.armor_before_portal 1 (defending)",
-   "pairs": [
-    [
-     109,
-     "L109-wgjv5b",
-     5.701
-    ],
-    [
-     109,
-     "L109-gvh3aq",
-     4.025
-    ],
-    [
-     109,
-     "L109-a5uupk",
-     0.458
-    ],
-    [
-     109,
-     "L109-z6p8nc",
-     0.151
-    ],
-    [
-     110,
-     "L110-hfhy6k",
-     0.0
-    ],
-    [
-     110,
-     "L110-8gjkm7",
-     5.579
-    ],
-    [
-     110,
-     "L110-xjnnv7",
-     0.123
-    ],
-    [
-     110,
-     "L110-wun76s",
-     -0.083
-    ],
-    [
-     111,
-     "L111-pmz672",
-     -3.002
-    ],
-    [
-     111,
-     "L111-cg9fg9",
-     -0.16
-    ],
-    [
-     111,
-     "L111-3qnard",
-     -0.128
-    ],
-    [
-     111,
-     "L111-jqrzsy",
-     -0.129
-    ],
-    [
-     112,
-     "L112-8syxft",
-     -21.583
-    ],
-    [
-     112,
-     "L112-c89rqr",
-     -19.189
-    ],
-    [
-     112,
-     "L112-m73wj7",
-     0.72
-    ],
-    [
-     112,
-     "L112-29s5ys",
-     0.059
-    ]
-   ],
+   "pairs": [],
    "parent": "g82",
    "status": "rejected"
   },
@@ -26729,44 +21828,12 @@
    },
    "id": "g86",
    "metric": "deaths",
-   "metric_tally": {
-    "off": [
-     10,
-     128.82
-    ],
-    "on": [
-     18,
-     128.82
-    ]
-   },
-   "metric_z": -1.51,
    "mutated": [
     "cave.torches",
     "combat.shield_guard"
    ],
    "note": "suggested: cave.torches 1, combat.shield_guard 1",
-   "pairs": [
-    [
-     105,
-     "L105-xj3hb2",
-     -4.307
-    ],
-    [
-     105,
-     "L105-62qpue",
-     0.673
-    ],
-    [
-     105,
-     "L105-hjaxrv",
-     0.121
-    ],
-    [
-     105,
-     "L105-fbjhjj",
-     -0.201
-    ]
-   ],
+   "pairs": [],
    "parent": "g82",
    "status": "rejected"
   },
@@ -27197,43 +22264,11 @@
    },
    "id": "g87",
    "metric": "deaths",
-   "metric_tally": {
-    "off": [
-     6,
-     118.83
-    ],
-    "on": [
-     12,
-     127.62
-    ]
-   },
-   "metric_z": -1.26,
    "mutated": [
     "night.wall_in"
    ],
    "note": "suggested: night.wall_in 1 (defending)",
-   "pairs": [
-    [
-     125,
-     "L125-c86yvw",
-     -3.022
-    ],
-    [
-     125,
-     "L125-4vfzr5",
-     1.055
-    ],
-    [
-     125,
-     "L125-9xq592",
-     0.137
-    ],
-    [
-     125,
-     "L125-fqqnr4",
-     0.346
-    ]
-   ],
+   "pairs": [],
    "parent": "g85",
    "status": "rejected"
   },
@@ -27406,88 +22441,7 @@
     "combat.deflect"
    ],
    "note": "suggested: combat.deflect 1",
-   "pairs": [
-    [
-     109,
-     "L109-wgjv5b",
-     7.374
-    ],
-    [
-     109,
-     "L109-gvh3aq",
-     0.105
-    ],
-    [
-     109,
-     "L109-a5uupk",
-     0.083
-    ],
-    [
-     109,
-     "L109-z6p8nc",
-     -0.045
-    ],
-    [
-     110,
-     "L110-hfhy6k",
-     1.786
-    ],
-    [
-     110,
-     "L110-8gjkm7",
-     1.259
-    ],
-    [
-     110,
-     "L110-xjnnv7",
-     0.131
-    ],
-    [
-     110,
-     "L110-wun76s",
-     0.014
-    ],
-    [
-     111,
-     "L111-pmz672",
-     -3.064
-    ],
-    [
-     111,
-     "L111-cg9fg9",
-     1.438
-    ],
-    [
-     111,
-     "L111-3qnard",
-     -0.209
-    ],
-    [
-     111,
-     "L111-jqrzsy",
-     0.18
-    ],
-    [
-     112,
-     "L112-8syxft",
-     -15.708
-    ],
-    [
-     112,
-     "L112-c89rqr",
-     -21.229
-    ],
-    [
-     112,
-     "L112-m73wj7",
-     0.77
-    ],
-    [
-     112,
-     "L112-29s5ys",
-     -0.191
-    ]
-   ],
+   "pairs": [],
    "parent": "g85",
    "status": "rejected"
   },
@@ -27600,88 +22554,7 @@
     "focus.commit"
    ],
    "note": "suggested: route.diamond_portal 1, focus.commit 1",
-   "pairs": [
-    [
-     109,
-     "L109-wgjv5b",
-     -0.071
-    ],
-    [
-     109,
-     "L109-gvh3aq",
-     4.583
-    ],
-    [
-     109,
-     "L109-a5uupk",
-     0.085
-    ],
-    [
-     109,
-     "L109-z6p8nc",
-     0.057
-    ],
-    [
-     110,
-     "L110-hfhy6k",
-     1.677
-    ],
-    [
-     110,
-     "L110-8gjkm7",
-     8.976
-    ],
-    [
-     110,
-     "L110-xjnnv7",
-     0.087
-    ],
-    [
-     110,
-     "L110-wun76s",
-     -0.688
-    ],
-    [
-     111,
-     "L111-pmz672",
-     -2.971
-    ],
-    [
-     111,
-     "L111-cg9fg9",
-     -1.093
-    ],
-    [
-     111,
-     "L111-3qnard",
-     -0.336
-    ],
-    [
-     111,
-     "L111-jqrzsy",
-     -0.389
-    ],
-    [
-     112,
-     "L112-8syxft",
-     -24.04
-    ],
-    [
-     112,
-     "L112-c89rqr",
-     -13.912
-    ],
-    [
-     112,
-     "L112-m73wj7",
-     0.79
-    ],
-    [
-     112,
-     "L112-29s5ys",
-     -0.397
-    ]
-   ],
+   "pairs": [],
    "parent": "g87",
    "status": "rejected"
   },
@@ -27894,88 +22767,7 @@
     "gather.coal_upkeep_below"
    ],
    "note": "suggested: focus.commit 1, night.mine_instead 1, gather.iron_in_view 1, gather.coal_upkeep_below 12",
-   "pairs": [
-    [
-     113,
-     "L113-53mnsg",
-     4.692
-    ],
-    [
-     113,
-     "L113-whq8q4",
-     2.896
-    ],
-    [
-     113,
-     "L113-f8rsrg",
-     -0.001
-    ],
-    [
-     113,
-     "L113-4my5ww",
-     -0.28
-    ],
-    [
-     114,
-     "L114-v5pjfc",
-     -0.648
-    ],
-    [
-     114,
-     "L114-qqkw37",
-     -23.339
-    ],
-    [
-     114,
-     "L114-9jzub8",
-     -0.09
-    ],
-    [
-     114,
-     "L114-2eppu6",
-     0.017
-    ],
-    [
-     115,
-     "L115-a6uxwj",
-     6.593
-    ],
-    [
-     115,
-     "L115-jusnyd",
-     -1.033
-    ],
-    [
-     115,
-     "L115-v4gxgc",
-     -0.615
-    ],
-    [
-     115,
-     "L115-fw45f5",
-     0.126
-    ],
-    [
-     116,
-     "L116-jkfuva",
-     2.0
-    ],
-    [
-     116,
-     "L116-zhqvfh",
-     4.756
-    ],
-    [
-     116,
-     "L116-ecx96c",
-     0.799
-    ],
-    [
-     116,
-     "L116-xu8w7t",
-     0.04
-    ]
-   ],
+   "pairs": [],
    "parent": "g87",
    "status": "rejected"
   },
@@ -28104,103 +22896,7 @@
     "night.mine_instead"
    ],
    "note": "suggested: night.mine_instead 1",
-   "pairs": [
-    [
-     113,
-     "L113-whq8q4",
-     2.003
-    ],
-    [
-     113,
-     "L113-f8rsrg",
-     1.125
-    ],
-    [
-     113,
-     "L113-4my5ww",
-     -0.409
-    ],
-    [
-     114,
-     "L114-v5pjfc",
-     3.444
-    ],
-    [
-     114,
-     "L114-qqkw37",
-     -16.138
-    ],
-    [
-     114,
-     "L114-9jzub8",
-     0.251
-    ],
-    [
-     114,
-     "L114-2eppu6",
-     -0.04
-    ],
-    [
-     115,
-     "L115-a6uxwj",
-     0.089
-    ],
-    [
-     115,
-     "L115-jusnyd",
-     0.43
-    ],
-    [
-     115,
-     "L115-v4gxgc",
-     -0.707
-    ],
-    [
-     115,
-     "L115-fw45f5",
-     0.198
-    ],
-    [
-     116,
-     "L116-jkfuva",
-     0.638
-    ],
-    [
-     116,
-     "L116-zhqvfh",
-     4.979
-    ],
-    [
-     116,
-     "L116-ecx96c",
-     -0.013
-    ],
-    [
-     116,
-     "L116-xu8w7t",
-     -0.197
-    ],
-    [
-     117,
-     "L117-pbpu9t",
-     -3.441
-    ],
-    [
-     117,
-     "L117-wt83tu",
-     3.287
-    ],
-    [
-     117,
-     "L117-z2kegj",
-     0.797
-    ],
-    [
-     117,
-     "L117-nhnsp2",
-     -0.129
-    ]
-   ],
+   "pairs": [],
    "parent": "g87",
    "status": "rejected"
   },
@@ -28331,103 +23027,7 @@
     "night.shelter_max_s"
    ],
    "note": "suggested: night.mine_instead 1, night.shelter_max_s 150",
-   "pairs": [
-    [
-     113,
-     "L113-53mnsg",
-     1.633
-    ],
-    [
-     113,
-     "L113-f8rsrg",
-     0.0
-    ],
-    [
-     113,
-     "L113-4my5ww",
-     0.312
-    ],
-    [
-     114,
-     "L114-v5pjfc",
-     2.403
-    ],
-    [
-     114,
-     "L114-qqkw37",
-     -18.667
-    ],
-    [
-     114,
-     "L114-9jzub8",
-     -0.073
-    ],
-    [
-     114,
-     "L114-2eppu6",
-     -0.151
-    ],
-    [
-     115,
-     "L115-a6uxwj",
-     2.965
-    ],
-    [
-     115,
-     "L115-jusnyd",
-     19.547
-    ],
-    [
-     115,
-     "L115-v4gxgc",
-     -0.642
-    ],
-    [
-     115,
-     "L115-fw45f5",
-     0.47
-    ],
-    [
-     116,
-     "L116-jkfuva",
-     2.007
-    ],
-    [
-     116,
-     "L116-zhqvfh",
-     -0.064
-    ],
-    [
-     116,
-     "L116-ecx96c",
-     -0.014
-    ],
-    [
-     116,
-     "L116-xu8w7t",
-     -0.05
-    ],
-    [
-     117,
-     "L117-pbpu9t",
-     -0.634
-    ],
-    [
-     117,
-     "L117-wt83tu",
-     -3.171
-    ],
-    [
-     117,
-     "L117-z2kegj",
-     0.052
-    ],
-    [
-     117,
-     "L117-nhnsp2",
-     0.36
-    ]
-   ],
+   "pairs": [],
    "parent": "g87",
    "status": "rejected"
   },
@@ -28501,48 +23101,7 @@
     "night.shelter_max_s"
    ],
    "note": "suggested: night.shelter_max_s 150",
-   "pairs": [
-    [
-     117,
-     "L117-pbpu9t",
-     -6.654
-    ],
-    [
-     117,
-     "L117-wt83tu",
-     -3.108
-    ],
-    [
-     117,
-     "L117-z2kegj",
-     0.044
-    ],
-    [
-     117,
-     "L117-nhnsp2",
-     0.67
-    ],
-    [
-     118,
-     "L118-647u3j",
-     1.013
-    ],
-    [
-     118,
-     "L118-6vdbj4",
-     -1.278
-    ],
-    [
-     118,
-     "L118-bfvwws",
-     -0.268
-    ],
-    [
-     118,
-     "L118-gqmm89",
-     -0.087
-    ]
-   ],
+   "pairs": [],
    "parent": "g87",
    "status": "rejected"
   },
@@ -28593,43 +23152,11 @@
    },
    "id": "g94",
    "metric": "deaths",
-   "metric_tally": {
-    "off": [
-     3,
-     122.22
-    ],
-    "on": [
-     17,
-     129.49
-    ]
-   },
-   "metric_z": -3.0,
    "mutated": [
     "combat.crits"
    ],
    "note": "suggested: combat.crits 1",
-   "pairs": [
-    [
-     118,
-     "L118-647u3j",
-     4.785
-    ],
-    [
-     118,
-     "L118-6vdbj4",
-     -4.897
-    ],
-    [
-     118,
-     "L118-bfvwws",
-     -0.132
-    ],
-    [
-     118,
-     "L118-gqmm89",
-     -0.28
-    ]
-   ],
+   "pairs": [],
    "parent": "g87",
    "status": "rejected"
   },
@@ -28680,43 +23207,11 @@
    },
    "id": "g95",
    "metric": "deaths",
-   "metric_tally": {
-    "off": [
-     3,
-     122.22
-    ],
-    "on": [
-     7,
-     129.41
-    ]
-   },
-   "metric_z": -1.18,
    "mutated": [
     "combat.backstep"
    ],
    "note": "suggested: combat.backstep 1",
-   "pairs": [
-    [
-     118,
-     "L118-647u3j",
-     3.101
-    ],
-    [
-     118,
-     "L118-6vdbj4",
-     -0.074
-    ],
-    [
-     118,
-     "L118-bfvwws",
-     -1.049
-    ],
-    [
-     118,
-     "L118-gqmm89",
-     -0.126
-    ]
-   ],
+   "pairs": [],
    "parent": "g87",
    "status": "rejected"
   },
@@ -28830,88 +23325,7 @@
     "combat.swing_at"
    ],
    "note": "suggested: combat.swing_at 0.85",
-   "pairs": [
-    [
-     119,
-     "L119-rmptwq",
-     -3.36
-    ],
-    [
-     119,
-     "L119-evhu89",
-     3.745
-    ],
-    [
-     119,
-     "L119-fhhy7a",
-     0.054
-    ],
-    [
-     119,
-     "L119-g4nvzz",
-     -0.309
-    ],
-    [
-     120,
-     "L120-dwsmcg",
-     -7.196
-    ],
-    [
-     120,
-     "L120-yury3k",
-     1.941
-    ],
-    [
-     120,
-     "L120-r9k6gx",
-     0.647
-    ],
-    [
-     120,
-     "L120-3v83xe",
-     -0.202
-    ],
-    [
-     121,
-     "L121-gfnnwg",
-     18.401
-    ],
-    [
-     121,
-     "L121-wjqaw5",
-     -1.925
-    ],
-    [
-     121,
-     "L121-3swc8g",
-     0.809
-    ],
-    [
-     121,
-     "L121-56vfru",
-     -0.066
-    ],
-    [
-     122,
-     "L122-nxggvx",
-     1.517
-    ],
-    [
-     122,
-     "L122-y2rs3b",
-     7.897
-    ],
-    [
-     122,
-     "L122-jhv3hk",
-     0.724
-    ],
-    [
-     122,
-     "L122-75b7qv",
-     -0.418
-    ]
-   ],
+   "pairs": [],
    "parent": "g87",
    "status": "rejected"
   },
@@ -29024,105 +23438,13 @@
    },
    "id": "g97",
    "metric": "deaths",
-   "metric_tally": {
-    "off": [
-     26,
-     508.87
-    ],
-    "on": [
-     22,
-     517.18
-    ]
-   },
-   "metric_z": 0.63,
    "mutated": [
     "combat.backstep",
     "combat.keep_dist",
     "combat.strafe"
    ],
    "note": "suggested: combat.backstep 1, combat.keep_dist 2.8, combat.strafe 12",
-   "pairs": [
-    [
-     119,
-     "L119-rmptwq",
-     0.42
-    ],
-    [
-     119,
-     "L119-evhu89",
-     2.606
-    ],
-    [
-     119,
-     "L119-fhhy7a",
-     0.614
-    ],
-    [
-     119,
-     "L119-g4nvzz",
-     0.022
-    ],
-    [
-     120,
-     "L120-dwsmcg",
-     -6.788
-    ],
-    [
-     120,
-     "L120-yury3k",
-     -3.407
-    ],
-    [
-     120,
-     "L120-r9k6gx",
-     0.071
-    ],
-    [
-     120,
-     "L120-3v83xe",
-     -0.066
-    ],
-    [
-     121,
-     "L121-gfnnwg",
-     5.668
-    ],
-    [
-     121,
-     "L121-wjqaw5",
-     -1.099
-    ],
-    [
-     121,
-     "L121-3swc8g",
-     0.878
-    ],
-    [
-     121,
-     "L121-56vfru",
-     0.009
-    ],
-    [
-     122,
-     "L122-nxggvx",
-     3.394
-    ],
-    [
-     122,
-     "L122-y2rs3b",
-     0.193
-    ],
-    [
-     122,
-     "L122-jhv3hk",
-     0.071
-    ],
-    [
-     122,
-     "L122-75b7qv",
-     -0.257
-    ]
-   ],
+   "pairs": [],
    "parent": "g87",
    "status": "rejected"
   },
@@ -29237,88 +23559,7 @@
     "combat.sprint_hit_dist"
    ],
    "note": "suggested: combat.sprint_hit 1, combat.sprint_hit_dist 4",
-   "pairs": [
-    [
-     119,
-     "L119-rmptwq",
-     -0.659
-    ],
-    [
-     119,
-     "L119-evhu89",
-     16.867
-    ],
-    [
-     119,
-     "L119-fhhy7a",
-     0.173
-    ],
-    [
-     119,
-     "L119-g4nvzz",
-     -0.138
-    ],
-    [
-     120,
-     "L120-dwsmcg",
-     -4.359
-    ],
-    [
-     120,
-     "L120-yury3k",
-     -3.948
-    ],
-    [
-     120,
-     "L120-r9k6gx",
-     0.03
-    ],
-    [
-     120,
-     "L120-3v83xe",
-     -0.074
-    ],
-    [
-     121,
-     "L121-gfnnwg",
-     -0.605
-    ],
-    [
-     121,
-     "L121-wjqaw5",
-     -6.232
-    ],
-    [
-     121,
-     "L121-3swc8g",
-     0.799
-    ],
-    [
-     121,
-     "L121-56vfru",
-     0.155
-    ],
-    [
-     122,
-     "L122-nxggvx",
-     -1.754
-    ],
-    [
-     122,
-     "L122-y2rs3b",
-     21.443
-    ],
-    [
-     122,
-     "L122-jhv3hk",
-     4.721
-    ],
-    [
-     122,
-     "L122-75b7qv",
-     0.023
-    ]
-   ],
+   "pairs": [],
    "parent": "g87",
    "status": "rejected"
   },
@@ -30094,88 +24335,7 @@
     "combat.creeper_gap"
    ],
    "note": "suggested: combat.creeper_hit 1, combat.creeper_gap 6 (defending)",
-   "pairs": [
-    [
-     156,
-     "L156-8tb5uv",
-     7.465
-    ],
-    [
-     156,
-     "L156-gxm4xb",
-     -6.727
-    ],
-    [
-     156,
-     "L156-phj2xf",
-     1.032
-    ],
-    [
-     156,
-     "L156-ag7rzv",
-     0.011
-    ],
-    [
-     157,
-     "L157-aq29zw",
-     4.665
-    ],
-    [
-     157,
-     "L157-rprhbp",
-     0.437
-    ],
-    [
-     157,
-     "L157-y7rt6n",
-     0.259
-    ],
-    [
-     157,
-     "L157-puehcn",
-     0.027
-    ],
-    [
-     158,
-     "L158-xkky9n",
-     2.32
-    ],
-    [
-     158,
-     "L158-5swr4j",
-     -19.312
-    ],
-    [
-     158,
-     "L158-fttws9",
-     0.295
-    ],
-    [
-     158,
-     "L158-qnhy8j",
-     -0.421
-    ],
-    [
-     159,
-     "L159-gdrzy6",
-     0.466
-    ],
-    [
-     159,
-     "L159-r92wta",
-     -0.085
-    ],
-    [
-     159,
-     "L159-3u5a3c",
-     -0.31
-    ],
-    [
-     159,
-     "L159-34vktt",
-     0.25
-    ]
-   ],
+   "pairs": [],
    "parent": "g87",
    "status": "rejected"
   }
@@ -30209,10 +24369,92 @@
   "mean_gap_ok": -0.0858,
   "n": 1005
  },
- "next_id": 174,
- "pending": null,
- "race_evidence_version": 1,
- "score_version": 3,
+ "next_id": 177,
+ "pending": {
+  "data_tasks": [
+   {
+    "kind": "scenario",
+    "late": true,
+    "scenario": "end",
+    "seed": "D179-gbhc6k",
+    "stage": "end",
+    "synthetic": true
+   },
+   {
+    "kind": "natural",
+    "seed": "D179-hk7c4u",
+    "stage": "spawn",
+    "synthetic": false
+   }
+  ],
+  "gen": 179,
+  "lineup": [
+   "g159",
+   "g174",
+   "g175",
+   "g176"
+  ],
+  "runs": [
+   "eval-g159-0",
+   "eval-g159-1",
+   "eval-g159-2",
+   "eval-g159-3",
+   "eval-g174-0",
+   "eval-g174-1",
+   "eval-g174-2",
+   "eval-g174-3",
+   "eval-g175-0",
+   "eval-g175-1",
+   "eval-g175-2",
+   "eval-g175-3",
+   "eval-g176-0",
+   "eval-g176-1",
+   "eval-g176-2",
+   "eval-g176-3",
+   "data-g159-0",
+   "data-g159-1"
+  ],
+  "seeds": [
+   "L179-d2q9eu",
+   "L179-hb44uc",
+   "L179-ut9cm7",
+   "L179-tafs8p"
+  ],
+  "sha": "18db3a1421e3bf5079ec7262cc5a8bcd01ccda80",
+  "started": "2026-10-04T18:01:59+00:00",
+  "tasks": [
+   {
+    "kind": "natural",
+    "seed": "L179-d2q9eu",
+    "stage": "spawn",
+    "synthetic": false
+   },
+   {
+    "kind": "natural",
+    "seed": "L179-hb44uc",
+    "stage": "spawn",
+    "synthetic": false
+   },
+   {
+    "asset": "nether-gen112-eval-g87-0.zip",
+    "kind": "start",
+    "seed": "L179-ut9cm7",
+    "stage": "nether",
+    "synthetic": false
+   },
+   {
+    "kind": "combat",
+    "minutes": 10,
+    "scenario": "combat",
+    "seed": "L179-tafs8p",
+    "stage": "combat",
+    "synthetic": false
+   }
+  ]
+ },
+ "race_evidence_version": 2,
+ "score_since_gen": 179,
+ "score_version": 4,
  "settings": {
   "accept_pairs": 8,
   "accept_t": 2.0,
@@ -30229,7 +24471,9 @@
    "skills": true
   },
   "explore_data": 0.3,
+  "exposure_min_games": 3,
   "focus_stage_seeds": 1,
+  "late_data_runs": 1,
   "lean": true,
   "max_genomes": 4,
   "max_gens_per_day": 60,
@@ -30237,6 +24481,8 @@
   "max_pairs": 16,
   "metric_min": 40,
   "metric_min_final": 10,
+  "metric_min_worlds": 8,
+  "metric_min_worlds_final": 5,
   "metric_safety_t": -1.5,
   "metric_z": 2.5,
   "min_gain": 0.3,
@@ -30249,6 +24495,187 @@
   "stage_lookahead": false,
   "stage_seeds": 1,
   "suggest": [
+   {
+    "_exposure": {
+     "gene": [
+      "brain.skill_stats",
+      "brain.death_avoid"
+     ]
+    },
+    "_note": "2026-10-04 (Claude): learn from mistakes, every game's and this one's. The memory (learned.json skill stats from all 3,000+ games, plus this game's own tries counted double) demotes what clearly fails or clearly kills in this place AND moment (brain.situations: hurt, a monster close, nothing to eat). Raced at gens 54-65 with a few games of memory, 20-minute games, the old death clock, and death_avoid dropped on 4 pooled games; now with exposure logged and world-by-world judging.",
+    "_priority": true,
+    "brain.death_avoid": 1,
+    "brain.situations": 1,
+    "brain.skill_stats": 1
+   },
+   {
+    "_exposure": {
+     "gene": "reflex.escalate"
+    },
+    "_metric": "deaths",
+    "_priority": true,
+    "_retry": "g80 (gen 100) was +1.73 on the game score over 4 worlds and dropped on 14 vs 10 pooled deaths in two games each, the pooled rule #92 replaced.",
+    "reflex.escalate": 1
+   },
+   {
+    "_exposure": {
+     "gene": "brain.death_avoid"
+    },
+    "_metric": "deaths",
+    "brain.death_avoid": 1,
+    "brain.situations": 1
+   },
+   {
+    "_exposure": {
+     "gene": "brain.skill_stats"
+    },
+    "brain.situations": 1,
+    "brain.skill_stats": 1
+   },
+   {
+    "_exposure": {
+     "gene": [
+      "smelt.own_furnace",
+      "stations.pickup_last",
+      "explore.same_blocks"
+     ]
+    },
+    "_note": "2026-10-04 (Claude, from all 1,735 game hours, gens 1-177: patterns.py): finish one thing at a time, like a player. 12-18% of calm decisions in spawn first lives were A->B->A flips within 30 s; the top ones were food and iron taking turns on one furnace (each pulling the other's load out), packing up the crafting table between two crafts, and explore and collect disagreeing about remembered logs. The three fixes together; each also races alone below.",
+    "_priority": true,
+    "_stages": [
+     "spawn"
+    ],
+    "explore.same_blocks": 1,
+    "smelt.own_furnace": 1,
+    "stations.pickup_last": 1
+   },
+   {
+    "_exposure": {
+     "gene": "smelt.own_furnace"
+    },
+    "_stages": [
+     "spawn"
+    ],
+    "smelt.own_furnace": 1
+   },
+   {
+    "_exposure": {
+     "gene": "stations.pickup_last"
+    },
+    "_stages": [
+     "spawn"
+    ],
+    "stations.pickup_last": 1
+   },
+   {
+    "_exposure": {
+     "gene": "explore.same_blocks"
+    },
+    "_stages": [
+     "spawn"
+    ],
+    "explore.same_blocks": 1
+   },
+   {
+    "_drill_scenario": "nether_fortress",
+    "_exposure": {
+     "gene": "fortress.no_tunnel"
+    },
+    "_metric": "rods",
+    "_note": "2026-10-04 (Claude, Oct 4 audit): Baritone dug through fortress bricks during the blaze fight despite the break penalty (gen176 eval-g159-2 carried 19 bricks). No fortress block may be broken there, so it walks bridges and doorways. Judged by rods before the first death.",
+    "_priority": true,
+    "_stages": [
+     "nether"
+    ],
+    "fortress.no_tunnel": 1
+   },
+   {
+    "_drill_scenario": "nether_fortress",
+    "_exposure": {
+     "gene": "fortress.floor_anchor"
+    },
+    "_metric": "rods",
+    "_note": "2026-10-04 (Claude, Oct 4 audit): fight anchors fell back to any remembered brick, wall tops included; a floor patch (bricks both ways) instead, and with no floor in view stand off the wall and look.",
+    "_priority": true,
+    "_stages": [
+     "nether"
+    ],
+    "fortress.floor_anchor": 1
+   },
+   {
+    "_exposure": {
+     "gene": "fortress.anchor_scope"
+    },
+    "_metric": "rods",
+    "_note": "2026-10-04 (Claude, Oct 4 audit): tried anchors stayed tried for the whole game (the list cleared only when a find started, never while bricks are known): fortress blazes NOT_FOUND 113 times in the audit's Nether first lives. Tries now open again after 2 minutes and belong to one life and dimension.",
+    "_priority": true,
+    "_stages": [
+     "nether"
+    ],
+    "fortress.anchor_scope": 1
+   },
+   {
+    "_exposure": {
+     "gene": "fortress.spawner_check"
+    },
+    "_metric": "rods",
+    "_note": "2026-10-04 (Claude, Oct 4 audit): any spawner seen in the Nether was taken for the blaze spawner; bastions hold magma cube spawners. Only one with fortress bricks or a blaze near it.",
+    "_priority": true,
+    "_stages": [
+     "nether"
+    ],
+    "fortress.spawner_check": 1
+   },
+   {
+    "_drill_scenario": "nether_hungry",
+    "_exposure": {
+     "gene": "nether.recover_bounded"
+    },
+    "_metric": "deaths",
+    "_note": "2026-10-04 (Claude, Oct 4 audit): fortress recovery stood still while a wither skeleton hit it (gen176 eval-g159-2) and waited for health that can't come back (hunger < 18, no food). Bounded: answer a mob at arm's length, leave when healing is impossible or 45 s pass, go home through a known portal to eat.",
+    "_priority": true,
+    "_stages": [
+     "nether"
+    ],
+    "nether.recover_bounded": 1
+   },
+   {
+    "_drill_scenario": "nether_piglins",
+    "_exposure": {
+     "gene": "nether.piglin_threat"
+    },
+    "_metric": "deaths",
+    "_note": "2026-10-04 (Claude, Oct 4 audit): piglins were always neutral in Perception, so one hitting the bot was never fought or fled; ordinary piglins made 66 of 172 first deaths in the audit's Nether games. A piglin in attack pose (the synced aggressive flag) is a threat; a brute always is.",
+    "_priority": true,
+    "_stages": [
+     "nether"
+    ],
+    "nether.piglin_threat": 1
+   },
+   {
+    "_drill_scenario": "nether_entry",
+    "_exposure": {
+     "gene": "ready.portal_entry"
+    },
+    "_note": "2026-10-04 (Claude, Oct 4 audit): at a known nether portal, pack the route's kit and readiness's blocks, food and flint and steel before walking in. Champion g159's plan.readiness never acted (it only ran on the strategist's path). Acts where a portal is known in the overworld: after lighting one, or after a respawn.",
+    "_priority": true,
+    "_stages": [
+     "diamond"
+    ],
+    "ready.portal_entry": 1
+   },
+   {
+    "_drill_scenario": "nether_entry",
+    "_exposure": {
+     "gene": "ready.nether_gold"
+    },
+    "_note": "2026-10-04 (Claude, Oct 4 audit): a gold helmet carried in and worn in the Nether. Ordinary piglins made 66 of 172 first deaths in the audit's Nether games; piglins leave a player in gold alone (brutes do not).",
+    "_priority": true,
+    "_stages": [
+     "diamond"
+    ],
+    "ready.nether_gold": 1
+   },
    {
     "_priority": true,
     "_retry": "g47 dropped at -0.13 over 8 worlds (t -0.1) by the old drop rule; its pairs were reset when g49 was crowned, losing its Nether run",
@@ -30675,6 +25102,7 @@
   "bed.table_first": 0.151725,
   "brain.death_avoid": 0.1275,
   "brain.death_s": 0.15,
+  "brain.situations": 0.15,
   "brain.skill_stats": 0.108375,
   "brain.strategist": 0.1785,
   "brain.thompson": 0.1275,
@@ -30717,6 +25145,7 @@
   "dragon.eat_hp": 0.15,
   "dragon.max_center_dist": 0.15,
   "dragon.wait_dist": 0.15,
+  "explore.same_blocks": 0.15,
   "fluid.enclosed_tunnel": 0.1275,
   "focus.commit": 0.1096213125,
   "food.early_stock": 0.151725,
@@ -30726,6 +25155,10 @@
   "food.keep_full": 0.108375,
   "food.search_hunger": 0.15,
   "food.stock": 0.108375,
+  "fortress.anchor_scope": 0.15,
+  "fortress.floor_anchor": 0.15,
+  "fortress.no_tunnel": 0.15,
+  "fortress.spawner_check": 0.15,
   "gather.cautious_depth": 0.21,
   "gather.coal_extra": 0.1275,
   "gather.coal_upkeep_below": 0.0783009375,
@@ -30756,6 +25189,8 @@
   "nav.surface_v2": 0.212415,
   "nav.unstuck_v2": 0.212415,
   "nether.pie_chart": 0.15,
+  "nether.piglin_threat": 0.15,
+  "nether.recover_bounded": 0.15,
   "night.mine_instead": 0.12896625,
   "night.no_shaft_wall": 0.151725,
   "night.shelter_armor": 0.1275,
@@ -30782,6 +25217,8 @@
   "ready.end_food": 0.15,
   "ready.nether_blocks": 0.1275,
   "ready.nether_food": 0.1275,
+  "ready.nether_gold": 0.15,
+  "ready.portal_entry": 0.15,
   "reflex.burning_hp": 0.15,
   "reflex.clutch_fall": 0.15,
   "reflex.creeper_dist": 0.1275,
@@ -30846,6 +25283,8 @@
   "skill.stair_down": 0.1275,
   "skill.stash": 0.1785,
   "skill.stronghold_navigate": 0.1785,
+  "smelt.own_furnace": 0.15,
+  "stations.pickup_last": 0.15,
   "stronghold.sidestep": 0.15,
   "stuck.box": 0.15,
   "stuck.ignore_water_bob": 0.1275,
@@ -33394,7 +27833,10 @@
   "{\"deep.sticks\": 6}",
   "{\"_metric\": \"deaths\", \"deep.food\": 0}",
   "{\"deep.food\": 8}",
-  "{\"_max_pairs\": 24, \"_note\": \"control: the old bucket-cast route, raced once the diamond route has had its tuning\", \"route.diamond_portal\": 0}"
+  "{\"_max_pairs\": 24, \"_note\": \"control: the old bucket-cast route, raced once the diamond route has had its tuning\", \"route.diamond_portal\": 0}",
+  "{\"_exposure\": {\"gene\": [\"brain.skill_stats\", \"brain.death_avoid\"]}, \"_note\": \"2026-10-04 (Claude): learn from mistakes, every game's and this one's. The memory (learned.json skill stats from all 3,000+ games, plus this game's own tries counted double) demotes what clearly fails or clearly kills in this place AND moment (brain.situations: hurt, a monster close, nothing to eat). Raced at gens 54-65 with a few games of memory, 20-minute games, the old death clock, and death_avoid dropped on 4 pooled games; now with exposure logged and world-by-world judging.\", \"_priority\": true, \"brain.death_avoid\": 1, \"brain.situations\": 1, \"brain.skill_stats\": 1}",
+  "{\"_exposure\": {\"gene\": \"reflex.escalate\"}, \"_metric\": \"deaths\", \"_priority\": true, \"_retry\": \"g80 (gen 100) was +1.73 on the game score over 4 worlds and dropped on 14 vs 10 pooled deaths in two games each, the pooled rule #92 replaced.\", \"reflex.escalate\": 1}",
+  "{\"_exposure\": {\"gene\": [\"smelt.own_furnace\", \"stations.pickup_last\", \"explore.same_blocks\"]}, \"_note\": \"2026-10-04 (Claude, from all 1,735 game hours, gens 1-177: patterns.py): finish one thing at a time, like a player. 12-18% of calm decisions in spawn first lives were A->B->A flips within 30 s; the top ones were food and iron taking turns on one furnace (each pulling the other's load out), packing up the crafting table between two crafts, and explore and collect disagreeing about remembered logs. The three fixes together; each also races alone below.\", \"_priority\": true, \"_stages\": [\"spawn\"], \"explore.same_blocks\": 1, \"smelt.own_furnace\": 1, \"stations.pickup_last\": 1}"
  ],
  "version": 1
 }
