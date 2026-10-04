@@ -602,7 +602,9 @@ public final class Planner {
 
 	public static int armorTier(String id) {
 		// Trading in the Nether: the gold helmet beats any helmet (piglins attack without gold).
-		if (id.equals("golden_helmet") && Tune.on("route.barter") && Mc.player() != null && Mc.dimension().equals("the_nether")) return 9;
+		// Gene ready.nether_gold carries one in for the same reason; in the overworld iron wins again.
+		if (id.equals("golden_helmet") && (Tune.on("route.barter") || Tune.on("ready.nether_gold"))
+				&& Mc.player() != null && Mc.dimension().equals("the_nether")) return 9;
 		if (id.startsWith("leather_")) return 0;
 		if (id.startsWith("golden_") || id.startsWith("chainmail_")) return 1;
 		if (id.startsWith("iron_")) return 2;

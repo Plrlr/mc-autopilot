@@ -1,5 +1,6 @@
 package io.github.plrlr.autopilot.plan;
 
+import io.github.plrlr.autopilot.Exposure;
 import io.github.plrlr.autopilot.Items2;
 import io.github.plrlr.autopilot.Mc;
 import io.github.plrlr.autopilot.Tune;
@@ -33,7 +34,7 @@ final class RouteSteps {
 			}
 			case NETHER_PORTAL -> {
 				if (dim.equals("the_nether")) return null;
-				if (p.memory.nearest("nether_portal") != null) return new Option("enter_portal", "nether", "walk into the nether portal");
+				if (p.memory.nearest("nether_portal") != null) return enterNether(depth);
 				// Finish the iron kit first. The iron-tools rung counts as reached with the pickaxe alone
 				// and stays done, so the shield and iron sword were never made: no run in batch 11 ever
 				// held a shield, though the iron for them was mined (seed g carried 7 spare ingots).
@@ -198,6 +199,50 @@ final class RouteSteps {
 			if (r != null) return r;
 		}
 		return o;
+	}
+
+	/**
+	 * A known portal meant "walk in" at once, before any gear check: after a respawn with nothing,
+	 * or right after lighting it with no food or blocks. Champion g159 has plan.readiness on, but
+	 * readiness only ran on the strategist's path (brain.strategist, off), so it never acted (the
+	 * Oct 4 audit). Gene ready.portal_entry packs the kit here first: the route's iron kit and
+	 * armor, then readiness's blocks, food and flint and steel. Gene ready.nether_gold adds a gold
+	 * helmet to wear there: piglins leave a player in gold alone (brutes don't), and ordinary
+	 * piglins made 66 of 172 first deaths in the audit's Nether games. Separate genes, separate races.
+	 */
+	private Option enterNether(int depth) {
+		Option enter = new Option("enter_portal", "nether", "walk into the nether portal");
+		Option kit = entryKit(enter, depth);
+		if (kit != null && Exposure.mark("ready.portal_entry", "known portal, short of " + kit.label())) return kit;
+		Option gold = goldStep(depth);
+		if (gold != null && Exposure.mark("ready.nether_gold", "known portal, no gold to wear: " + gold.label())) return gold;
+		return enter;
+	}
+
+	/** What the route would have fetched before building a portal, then readiness's list. */
+	private Option entryKit(Option enter, int depth) {
+		for (String item : Goal.IRON_TOOLS.needs.keySet()) {
+			if (Goal.have(item) < Goal.IRON_TOOLS.needs.get(item)) {
+				Option o = p.itemStep(item, Goal.IRON_TOOLS.needs.get(item), depth + 1);
+				if (o != null) return o;
+			}
+		}
+		for (String piece : new String[]{"iron_chestplate", "iron_helmet"}) {
+			if (Tune.on("route.armor_before_portal") && !Goal.hasArmor(piece)) {
+				Option o = p.itemStep(piece, 1, depth + 1);
+				if (o != null) return o;
+			}
+		}
+		return readiness(enter, depth);
+	}
+
+	/** A gold helmet in the bag (worn in the Nether: Planner.armorTier), unless gold is on already. */
+	private Option goldStep(int depth) {
+		if (io.github.plrlr.autopilot.skills.NetherRoutes.wearingGold()) return null;
+		for (String piece : new String[]{"golden_helmet", "golden_chestplate", "golden_leggings", "golden_boots"})
+			if (Mc.count(piece) > 0) return null;
+		Option o = p.itemStep("golden_helmet", 1, depth + 1);
+		return o == null ? null : new Option(o.skill(), o.arg(), "gold to wear in the Nether (piglins leave gold alone): " + o.why());
 	}
 
 	/**

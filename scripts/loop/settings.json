@@ -9,6 +9,30 @@
  "_suggest": "Ideas to race next: each entry becomes one challenger (champion + these genes), tried once. Higher-priority suggestions go first.",
  "suggest": [
   {
+   "_note": "2026-10-04 (Claude, Oct 4 audit): at a known nether portal, pack the route's kit and readiness's blocks, food and flint and steel before walking in. Champion g159's plan.readiness never acted (it only ran on the strategist's path). Acts where a portal is known in the overworld: after lighting one, or after a respawn.",
+   "ready.portal_entry": 1,
+   "_stages": [
+    "diamond"
+   ],
+   "_exposure": {
+    "gene": "ready.portal_entry"
+   },
+   "_drill_scenario": "nether_entry",
+   "_priority": true
+  },
+  {
+   "_note": "2026-10-04 (Claude, Oct 4 audit): a gold helmet carried in and worn in the Nether. Ordinary piglins made 66 of 172 first deaths in the audit's Nether games; piglins leave a player in gold alone (brutes do not).",
+   "ready.nether_gold": 1,
+   "_stages": [
+    "diamond"
+   ],
+   "_exposure": {
+    "gene": "ready.nether_gold"
+   },
+   "_drill_scenario": "nether_entry",
+   "_priority": true
+  },
+  {
    "_retry": "g47 dropped at -0.13 over 8 worlds (t -0.1) by the old drop rule; its pairs were reset when g49 was crowned, losing its Nether run",
    "reflex.lava_margin": 1,
    "_priority": true
