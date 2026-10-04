@@ -108,6 +108,35 @@ def test_patterns_count_thrash_refusals_and_deaths_in_first_lives_only():
         assert patterns.load(d, 5, "nether") == []
 
 
+def test_compact_rows_keep_what_led_to_a_death():
+    import loop
+    t0 = 1791119311000
+    raw = [{"event": "autopilot_on", "t": t0},
+           {"layer": "tactician", "gs": 0, "x": [0.0] * len(common.load_features()), "options": ["fortress find"],
+            "idx": 0, "choice": "fortress find", "t": t0},
+           {"event": "reflex", "detail": "lava beside us", "t": t0 + 15000},
+           {"event": "skill_end", "skill": "fortress find", "ok": False, "code": "DIED", "detail": "died", "seconds": 18, "t": t0 + 18000},
+           {"event": "death", "detail": "lava", "t": t0 + 18100},
+           {"layer": "tactician", "gs": 30, "x": [0.0] * len(common.load_features()), "options": ["collect log:3"],
+            "idx": 0, "choice": "collect log:3", "t": t0 + 30000}]
+    with tempfile.TemporaryDirectory() as d:
+        run = os.path.join(d, "trial-eval-g1-0")
+        os.makedirs(run)
+        with open(os.path.join(run, "run-2026-10-04.jsonl"), "w") as f:
+            f.write("\n".join(json.dumps(r) for r in raw) + "\n")
+        loop.save_training_rows(d, 1, "eval-g1-0", run)
+        rows = [json.loads(l) for l in gzip.open(os.path.join(d, "data", "gen-00001", "eval-g1-0.jsonl.gz"), "rt")]
+        ev = [r for r in rows if r["k"] == "e"]
+        assert ev == [{"k": "e", "gs": 15.0, "e": "reflex", "t": "lava beside us"}], ev
+        s = next(r for r in rows if r["k"] == "s")
+        assert s["c"] == "DIED" and s["t"] == "died"
+        with open(os.path.join(d, "history.jsonl"), "w") as f:
+            f.write(json.dumps({"gen": 1, "tasks": ["nether"]}) + "\n")
+        a = patterns.analyse(patterns.load(d, 5, "nether"))
+        assert a["before"]["reflex: lava beside us"] == 1, a["before"]
+        assert any("lava beside us" in line for line in patterns.report(a))
+
+
 if __name__ == "__main__":
     for name, fn in list(globals().items()):
         if name.startswith("test_"):

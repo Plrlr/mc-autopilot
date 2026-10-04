@@ -26,6 +26,7 @@ sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import common  # noqa: E402
 
 FLIP_S = 30
+BEFORE_S = 20
 
 
 def stage_of(history, gen, name):
@@ -69,7 +70,7 @@ def analyse(games, features=None):
     feats = features or common.load_features()
     idx = {n: feats.index(n) for n in ("hp", "food", "underground", "night")}
     secs, flips, repeats = collections.Counter(), collections.Counter(), collections.Counter()
-    causes, last_pick, ctx = collections.Counter(), collections.Counter(), []
+    causes, last_pick, ctx, before = collections.Counter(), collections.Counter(), [], collections.Counter()
     life, decisions = 0.0, 0
     for rows, first in games:
         cut = first if first is not None else max((r.get("gs", 0) for r in rows), default=0)
@@ -89,6 +90,15 @@ def analyse(games, features=None):
         if first is not None:
             death = next(r for r in rows if r.get("k") == "death" and r["gs"] == first)
             causes[death.get("detail", "?")] += 1
+            # The last 20 s: reflexes, being stuck, failed skills with their reasons (rows since 2026-10-04).
+            seen = set()
+            for r in rows:
+                if first - BEFORE_S <= r["gs"] <= first and (r.get("k") == "e" or (r.get("k") == "s" and not r.get("ok"))):
+                    what = ("%s: %s" % (r["e"], r.get("t", ""))) if r.get("k") == "e" else "%s %s: %s" % (r["a"], r.get("c"), r.get("t", ""))
+                    what = what[:70]
+                    if what not in seen and not what.startswith("gene:"):
+                        seen.add(what)
+                        before[what] += 1
             if d:
                 last_pick[d[-1]["a"]] += 1
                 x = d[-1].get("x") or []
@@ -96,7 +106,7 @@ def analyse(games, features=None):
                     ctx.append({k: x[i] for k, i in idx.items()})
     return {"games": len(games), "died": sum(1 for _, f in games if f is not None), "life_s": life,
             "decisions": decisions, "secs": secs, "flips": flips, "repeats": repeats, "causes": causes,
-            "last_pick": last_pick, "ctx": ctx}
+            "last_pick": last_pick, "ctx": ctx, "before": before}
 
 
 def report(a, top=10):
@@ -120,6 +130,9 @@ def report(a, top=10):
         out.append("Then: median health %.0f/20, median hunger %.0f/20 (health only comes back at 18+), underground %.0f%%, night %.0f%%" % (
             20 * statistics.median(x["hp"] for x in c), 20 * statistics.median(x["food"] for x in c),
             100 * sum(x["underground"] > 0 for x in c) / len(c), 100 * sum(x["night"] > 0 for x in c) / len(c)))
+    if a.get("before"):
+        out.append("In the %d s before a first death (games logged since 2026-10-04): " % BEFORE_S + "; ".join(
+            "%s x%d" % kv for kv in a["before"].most_common(top)))
     return out
 
 

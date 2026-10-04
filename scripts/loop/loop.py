@@ -750,7 +750,7 @@ def save_training_rows(state_dir, gen, name, d):
     seconds from the run's clock, clock.py, the same one the scorer uses). Written as
     loop/data/gen-NNNNN/<run>.jsonl.gz."""
     rows, raw = [], []
-    events, skills = [], []
+    events, skills, context = [], [], []
     for f in sorted(glob.glob(os.path.join(d, "**", "run-*.jsonl"), recursive=True)):
         for line in open(f, errors="replace"):
             try:
@@ -771,10 +771,13 @@ def save_training_rows(state_dir, gen, name, d):
                              "o": [action_key(l) for l in opts[:6]]})
             elif o.get("event") in ("death", "milestone", "checkpoint"):
                 events.append((o["t"], o["event"], o.get("detail", "")))
+            elif o.get("event") in CONTEXT_EVENTS and "t" in o:
+                context.append((o["t"], o["event"], str(o.get("detail", ""))[:80]))
             elif o.get("event") == "skill_end" and "t" in o:
-                # Skill results (brain v2's skill stats): which action, ok or its fail code, how long.
+                # Skill results (brain v2's skill stats): which action, ok or its fail code, how long,
+                # and for a failure its reason (what a death's last seconds are read from).
                 skills.append((o["t"], action_key(o.get("skill", "")), bool(o.get("ok")), o.get("code"),
-                               round(float(o.get("seconds", 0)), 1)))
+                               round(float(o.get("seconds", 0)), 1), "" if o.get("ok") else str(o.get("detail", ""))[:80]))
     if not rows:
         return
     test_log = os.path.join(d, "autopilot-test.log")
@@ -786,17 +789,27 @@ def save_training_rows(state_dir, gen, name, d):
 
     for t, ev, detail in events:
         rows.append({"k": ev, "gs": gs_at(t), "detail": detail})
-    for t, key, ok, code, sec in skills:
+    for t, key, ok, code, sec, why in skills:
         r = {"k": "s", "gs": gs_at(t), "a": key, "ok": ok, "sec": sec}
         if code:
             r["c"] = code
+        if why:
+            r["t"] = why
         rows.append(r)
+    for t, kind, detail in context:
+        rows.append({"k": "e", "gs": gs_at(t), "e": kind, "t": detail})
     rows.sort(key=lambda r: r["gs"])
     out = os.path.join(state_dir, "data", "gen-%05d" % gen, name + ".jsonl.gz")
     os.makedirs(os.path.dirname(out), exist_ok=True)
     with gzip.open(out, "wt", encoding="utf-8") as f:
         for r in rows:
             f.write(json.dumps(r, separators=(",", ":")) + "\n")
+
+
+# Events kept in the compact rows (since 2026-10-04): what the reflexes did, being stuck, and each
+# gene's opportunities (Exposure). Raw logs expire with their artifacts; without these, the reason
+# for a death (lava at full health 18 s into a walk, 28% of Nether first deaths) can't be read later.
+CONTEXT_EVENTS = ("reflex", "guard", "stuck", "livelock", "bad_skill", "gene")
 
 
 def action_key(label):
