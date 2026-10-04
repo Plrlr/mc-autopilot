@@ -1,0 +1,234 @@
+	- autopilot-test 0.1.0
+[16:51:56] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test] start at -22, 70, 0
+[16:51:56] [Test thread/INFO] (Minecraft) [STDOUT]: [autopilot-test] STAGE start nether
+[16:51:56] [Test thread/INFO] (Minecraft) [STDOUT]: [autopilot-test] FREE RUN: client and server run in parallel (no lockstep)
+[16:52:51] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test] nether_fortress 30s: brain rules, goal blaze_rods, doing fortress blazes:8, milestone 7/13, deaths 0
+[autopilot-test]    perf fps 13, server 5.6 ms/tick, mod 1.03 ms/tick
+[16:52:51] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    at -22 70 0 hp 20 food 19 inv {cobblestone=64, cooked_beef=15, flint_and_steel=1, iron_pickaxe=1, iron_sword=1}
+[16:52:51] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    known water none, lava none
+[16:52:51] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    equip shield -> ok: shield in off hand
+[16:52:51] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    fortress find -> ok: saw a fortress 12 blocks away
+[16:53:32] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test] nether_fortress 60s: brain rules, goal ender_pearls, doing explore enderman, milestone 8/13, deaths 0
+[autopilot-test]    perf fps 19, server 6.3 ms/tick, mod 0.80 ms/tick
+[16:53:32] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    at 25 65 -32 hp 12 food 19 inv {blaze_rod=1, cobblestone=64, cooked_beef=14, flint_and_steel=1, iron_pickaxe=1, iron_sword=1, nether_bricks=2, netherrack=8}
+[16:53:32] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    known water none, lava 23, 71, -25
+[16:53:32] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    fortress blazes:8 -> failed NOT_FOUND: no blazes in the parts of the fortress we know
+[16:53:32] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    fortress blazes:8 -> failed NOT_FOUND: no fortress or blaze known
+[16:53:32] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    fortress blazes:8 -> failed NOT_FOUND: no fortress or blaze known
+[16:53:32] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    explore any -> failed INTERRUPTED: interrupted by reflex_fight
+[16:53:32] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    attack blaze -> ok: killed the blaze
+[16:53:32] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    eat -> ok: ate cooked_beef
+[16:54:02] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test] nether_fortress 90s: brain rules, goal ender_pearls, doing explore enderman, milestone 8/13, deaths 0
+[autopilot-test]    perf fps 50, server 6.4 ms/tick, mod 0.70 ms/tick
+[16:54:02] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    at 67 63 -100 hp 20 food 19 inv {blaze_rod=1, cobblestone=64, cooked_beef=13, flint_and_steel=1, iron_pickaxe=1, iron_sword=1, nether_brick_fence=1, nether_bricks=3, netherrack=22}
+[16:54:02] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    known water none, lava 23, 71, -25
+[16:54:02] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    fortress blazes:8 -> failed NOT_FOUND: no fortress or blaze known
+[16:54:02] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    explore any -> failed INTERRUPTED: interrupted by reflex_fight
+[16:54:02] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    attack blaze -> ok: killed the blaze
+[16:54:02] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    eat -> ok: ate cooked_beef
+[16:54:02] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    explore enderman -> failed INTERRUPTED: interrupted: brain chose eat
+[16:54:02] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    eat -> ok: ate cooked_beef
+[16:54:35] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test] nether_fortress 120s: brain rules, goal ender_pearls, doing explore enderman, milestone 8/13, deaths 0
+[autopilot-test]    perf fps 49, server 5.6 ms/tick, mod 0.63 ms/tick
+[16:54:35] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    at 123 45 -133 hp 20 food 16 inv {blaze_rod=1, cobblestone=64, cooked_beef=13, flint_and_steel=1, iron_pickaxe=1, iron_sword=1, nether_brick_fence=1, nether_bricks=5, netherrack=33}
+[16:54:35] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    known water none, lava 102, 31, -146
+[16:54:35] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    explore any -> failed INTERRUPTED: interrupted by reflex_fight
+[16:54:35] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    attack blaze -> ok: killed the blaze
+[16:54:35] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    eat -> ok: ate cooked_beef
+[16:54:35] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    explore enderman -> failed INTERRUPTED: interrupted: brain chose eat
+[16:54:35] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    eat -> ok: ate cooked_beef
+[16:54:35] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    explore enderman -> ok: explored 119 blocks, no enderman yet
+[16:55:18] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test] nether_fortress 150s: brain rules, goal ender_pearls, doing explore enderman, milestone 8/13, deaths 0
+[autopilot-test]    perf fps 73, server 6.7 ms/tick, mod 0.59 ms/tick
+[16:55:18] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    at 176 33 -206 hp 20 food 13 inv {blaze_rod=1, cobblestone=64, cooked_beef=13, flint_and_steel=1, iron_pickaxe=1, iron_sword=1, magma_block=2, nether_brick_fence=1, nether_bricks=5, netherrack=38}
+[16:55:18] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    known water none, lava 172, 31, -204
+[16:55:18] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    explore any -> failed INTERRUPTED: interrupted by reflex_fight
+[16:55:18] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    attack blaze -> ok: killed the blaze
+[16:55:18] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    eat -> ok: ate cooked_beef
+[16:55:18] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    explore enderman -> failed INTERRUPTED: interrupted: brain chose eat
+[16:55:18] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    eat -> ok: ate cooked_beef
+[16:55:18] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    explore enderman -> ok: explored 119 blocks, no enderman yet
+[16:56:04] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test] nether_fortress 180s: brain rules, goal eyes_of_ender, doing explore blaze, milestone 9/13, deaths 0
+[autopilot-test]    perf fps 20, server 6.1 ms/tick, mod 0.58 ms/tick
+[16:56:04] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    at 235 50 -198 hp 19 food 17 inv {blaze_rod=1, cobblestone=64, cooked_beef=12, ender_pearl=1, flint_and_steel=1, iron_pickaxe=1, iron_sword=1, magma_block=2, nether_brick_fence=1, nether_bricks=5, netherrack=45, warped_nylium=1}
+[16:56:04] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    known water none, lava 229, 31, -216
+[16:56:04] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    eat -> ok: ate cooked_beef
+[16:56:04] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    explore enderman -> ok: explored 119 blocks, no enderman yet
+[16:56:04] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    explore enderman -> failed INTERRUPTED: interrupted: brain chose eat
+[16:56:04] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    eat -> ok: ate cooked_beef
+[16:56:04] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    explore enderman -> ok: found enderman
+[16:56:04] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    attack enderman -> ok: killed the enderman
+[16:56:44] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test] nether_fortress 210s: brain rules, goal eyes_of_ender, doing explore blaze, milestone 9/13, deaths 0
+[autopilot-test]    perf fps 15, server 7.7 ms/tick, mod 0.55 ms/tick
+[16:56:44] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    at 293 82 -133 hp 20 food 20 inv {blaze_rod=1, cobblestone=64, cooked_beef=11, ender_pearl=1, flint_and_steel=1, iron_pickaxe=1, iron_sword=1, magma_block=2, nether_brick_fence=1, nether_bricks=5, netherrack=49, warped_nylium=1}
+[16:56:44] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    known water none, lava 246, 106, -152
+[16:56:44] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    explore enderman -> failed INTERRUPTED: interrupted: brain chose eat
+[16:56:44] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    eat -> ok: ate cooked_beef
+[16:56:44] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    explore enderman -> ok: found enderman
+[16:56:44] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    attack enderman -> ok: killed the enderman
+[16:56:44] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    explore blaze -> failed INTERRUPTED: interrupted: brain chose eat
+[16:56:44] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    eat -> ok: ate cooked_beef
+[16:57:16] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test] nether_fortress 240s: brain rules, goal eyes_of_ender, doing explore blaze, milestone 9/13, deaths 0
+[autopilot-test]    perf fps 40, server 5.7 ms/tick, mod 0.52 ms/tick
+[16:57:16] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    at 345 90 -108 hp 20 food 20 inv {blaze_rod=1, cobblestone=64, cooked_beef=11, ender_pearl=1, flint_and_steel=1, iron_pickaxe=1, iron_sword=1, magma_block=2, nether_brick_fence=1, nether_bricks=5, netherrack=82, warped_nylium=1}
+[16:57:16] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    known water none, lava 338, 31, -118
+[16:57:16] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    eat -> ok: ate cooked_beef
+[16:57:16] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    explore enderman -> ok: found enderman
+[16:57:16] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    attack enderman -> ok: killed the enderman
+[16:57:16] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    explore blaze -> failed INTERRUPTED: interrupted: brain chose eat
+[16:57:16] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    eat -> ok: ate cooked_beef
+[16:57:16] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    explore blaze -> ok: explored 120 blocks, no blaze yet
+[16:57:45] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test] nether_fortress 270s: brain rules, goal eyes_of_ender, doing explore blaze, milestone 9/13, deaths 0
+[autopilot-test]    perf fps 97, server 7.1 ms/tick, mod 0.50 ms/tick
+[16:57:45] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    at 382 90 -108 hp 20 food 20 inv {blaze_rod=1, cobblestone=64, cooked_beef=11, ender_pearl=1, flint_and_steel=1, iron_pickaxe=1, iron_sword=1, magma_block=2, nether_brick_fence=1, nether_bricks=5, netherrack=156, warped_nylium=1}
+[16:57:45] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    known water none, lava 348, 31, -137
+[16:57:45] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    eat -> ok: ate cooked_beef
+[16:57:45] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    explore enderman -> ok: found enderman
+[16:57:45] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    attack enderman -> ok: killed the enderman
+[16:57:45] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    explore blaze -> failed INTERRUPTED: interrupted: brain chose eat
+[16:57:45] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    eat -> ok: ate cooked_beef
+[16:57:45] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    explore blaze -> ok: explored 120 blocks, no blaze yet
+[16:58:18] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test] nether_fortress 300s: brain rules, goal eyes_of_ender, doing explore blaze, milestone 9/13, deaths 0
+[autopilot-test]    perf fps 14, server 8.8 ms/tick, mod 0.48 ms/tick
+[16:58:18] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    at 465 68 -111 hp 3 food 20 inv {blaze_rod=1, cobblestone=64, cooked_beef=11, cracked_polished_blackstone_bricks=1, ender_pearl=1, flint_and_steel=1, iron_pickaxe=1, iron_sword=1, magma_block=2, nether_brick_fence=1, nether_bricks=5, netherrack=176, polished_blackstone_bricks=2, warped_nylium=1}
+[16:58:18] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    known water none, lava 461, 58, -111
+[16:58:18] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    eat -> ok: ate cooked_beef
+[16:58:18] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    explore enderman -> ok: found enderman
+[16:58:18] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    attack enderman -> ok: killed the enderman
+[16:58:18] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    explore blaze -> failed INTERRUPTED: interrupted: brain chose eat
+[16:58:18] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    eat -> ok: ate cooked_beef
+[16:58:18] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    explore blaze -> ok: explored 120 blocks, no blaze yet
+[16:58:58] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test] nether_fortress 330s: brain rules, goal eyes_of_ender, doing explore blaze, milestone 9/13, deaths 1
+[autopilot-test]    perf fps 24, server 5.7 ms/tick, mod 0.54 ms/tick
+[16:58:58] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    at 800 63 396 hp 20 food 20 inv {}
+[16:58:58] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    known water 800, 62, 395, lava none
+[16:58:58] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    explore enderman -> ok: found enderman
+[16:58:58] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    attack enderman -> ok: killed the enderman
+[16:58:58] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    explore blaze -> failed INTERRUPTED: interrupted: brain chose eat
+[16:58:58] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    eat -> ok: ate cooked_beef
+[16:58:58] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    explore blaze -> ok: explored 120 blocks, no blaze yet
+[16:58:58] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    explore blaze -> failed DIED: died
+[16:59:30] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test] nether_fortress 360s: brain rules, goal eyes_of_ender, doing explore blaze, milestone 9/13, deaths 1
+[autopilot-test]    perf fps 24, server 6.5 ms/tick, mod 0.55 ms/tick
+[16:59:30] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    at 873 81 403 hp 20 food 20 inv {mutton=1, white_wool=1}
+[16:59:30] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    known water 838, 62, 382, lava none
+[16:59:30] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    explore blaze -> failed INTERRUPTED: interrupted: brain chose eat
+[16:59:30] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    eat -> ok: ate cooked_beef
+[16:59:30] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    explore blaze -> ok: explored 120 blocks, no blaze yet
+[16:59:30] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    explore blaze -> failed DIED: died
+[16:59:30] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    explore blaze -> ok: explored 120 blocks, no blaze yet
+[16:59:30] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    attack sheep -> ok: killed the sheep
+[17:00:02] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test] nether_fortress 390s: brain rules, goal eyes_of_ender, doing explore blaze, milestone 9/13, deaths 1
+[autopilot-test]    perf fps 28, server 6.4 ms/tick, mod 0.56 ms/tick
+[17:00:02] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    at 1007 78 397 hp 20 food 17 inv {mutton=1, white_wool=1}
+[17:00:02] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    known water 838, 62, 382, lava none
+[17:00:02] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    eat -> ok: ate cooked_beef
+[17:00:02] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    explore blaze -> ok: explored 120 blocks, no blaze yet
+[17:00:02] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    explore blaze -> failed DIED: died
+[17:00:02] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    explore blaze -> ok: explored 120 blocks, no blaze yet
+[17:00:02] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    attack sheep -> ok: killed the sheep
+[17:00:02] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    explore blaze -> ok: explored 120 blocks, no blaze yet
+[17:00:33] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test] nether_fortress 420s: brain rules, goal eyes_of_ender, doing explore blaze, milestone 9/13, deaths 1
+[autopilot-test]    perf fps 32, server 7.8 ms/tick, mod 0.57 ms/tick
+[17:00:33] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    at 1121 74 406 hp 20 food 15 inv {mutton=1, white_wool=1}
+[17:00:33] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    known water 1127, 62, 399, lava none
+[17:00:33] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    explore blaze -> ok: explored 120 blocks, no blaze yet
+[17:00:33] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    explore blaze -> failed DIED: died
+[17:00:33] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    explore blaze -> ok: explored 120 blocks, no blaze yet
+[17:00:33] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    attack sheep -> ok: killed the sheep
+[17:00:33] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    explore blaze -> ok: explored 120 blocks, no blaze yet
+[17:00:33] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    explore blaze -> ok: explored 120 blocks, no blaze yet
+[17:01:03] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test] nether_fortress 450s: brain rules, goal eyes_of_ender, doing shore, milestone 9/13, deaths 1
+[autopilot-test]    perf fps 24, server 4.5 ms/tick, mod 0.60 ms/tick
+[17:01:03] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    at 1141 64 405 hp 20 food 14 inv {mutton=1, white_wool=1}
+[17:01:03] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    known water 1142, 62, 404, lava none
+[17:01:03] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    explore blaze -> failed DIED: died
+[17:01:03] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    explore blaze -> ok: explored 120 blocks, no blaze yet
+[17:01:03] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    attack sheep -> ok: killed the sheep
+[17:01:03] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    explore blaze -> ok: explored 120 blocks, no blaze yet
+[17:01:03] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    explore blaze -> ok: explored 120 blocks, no blaze yet
+[17:01:03] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    explore blaze -> failed INTERRUPTED: interrupted: brain chose shore
+[17:01:33] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test] nether_fortress 480s: brain rules, goal eyes_of_ender, doing explore blaze, milestone 9/13, deaths 1
+[autopilot-test]    perf fps 43, server 5.4 ms/tick, mod 0.61 ms/tick
+[17:01:33] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    at 1184 82 383 hp 20 food 16 inv {dirt=2, white_wool=1}
+[17:01:33] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    known water 1187, 62, 400, lava none
+[17:01:33] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    attack sheep -> ok: killed the sheep
+[17:01:33] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    explore blaze -> ok: explored 120 blocks, no blaze yet
+[17:01:33] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    explore blaze -> ok: explored 120 blocks, no blaze yet
+[17:01:33] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    explore blaze -> failed INTERRUPTED: interrupted: brain chose shore
+[17:01:33] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    shore -> ok: reached dry ground with room to work
+[17:01:33] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    eat -> ok: ate mutton
+[17:02:03] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test] nether_fortress 510s: brain rules, goal eyes_of_ender, doing explore blaze, milestone 9/13, deaths 1
+[autopilot-test]    perf fps 51, server 5.8 ms/tick, mod 0.63 ms/tick
+[17:02:03] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    at 1260 73 286 hp 20 food 15 inv {dirt=2, white_wool=1}
+[17:02:03] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    known water 1192, 62, 403, lava none
+[17:02:03] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    explore blaze -> ok: explored 120 blocks, no blaze yet
+[17:02:03] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    explore blaze -> ok: explored 120 blocks, no blaze yet
+[17:02:03] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    explore blaze -> failed INTERRUPTED: interrupted: brain chose shore
+[17:02:03] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    shore -> ok: reached dry ground with room to work
+[17:02:03] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    eat -> ok: ate mutton
+[17:02:03] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    explore blaze -> ok: explored 120 blocks, no blaze yet
+[17:02:34] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test] nether_fortress 540s: brain rules, goal eyes_of_ender, doing shore, milestone 9/13, deaths 1
+[autopilot-test]    perf fps 33, server 4.8 ms/tick, mod 0.64 ms/tick
+[17:02:34] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    at 1268 62 256 hp 20 food 14 inv {dirt=2, white_wool=1}
+[17:02:34] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    known water 1268, 62, 256, lava none
+[17:02:34] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    explore blaze -> ok: explored 120 blocks, no blaze yet
+[17:02:34] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    explore blaze -> failed INTERRUPTED: interrupted: brain chose shore
+[17:02:34] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    shore -> ok: reached dry ground with room to work
+[17:02:34] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    eat -> ok: ate mutton
+[17:02:34] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    explore blaze -> ok: explored 120 blocks, no blaze yet
+[17:02:34] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    explore blaze -> failed INTERRUPTED: interrupted: brain chose shore
+[17:03:04] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test] nether_fortress 570s: brain rules, goal eyes_of_ender, doing explore blaze, milestone 9/13, deaths 1
+[autopilot-test]    perf fps 30, server 5.1 ms/tick, mod 0.65 ms/tick
+[17:03:04] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    at 1280 62 253 hp 20 food 14 inv {white_wool=1}
+[17:03:04] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    known water 1280, 62, 254, lava none
+[17:03:04] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    explore blaze -> failed INTERRUPTED: interrupted: brain chose shore
+[17:03:04] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    shore -> ok: reached dry ground with room to work
+[17:03:04] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    eat -> ok: ate mutton
+[17:03:04] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    explore blaze -> ok: explored 120 blocks, no blaze yet
+[17:03:04] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    explore blaze -> failed INTERRUPTED: interrupted: brain chose shore
+[17:03:04] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    shore -> ok: reached dry ground with room to work
+[17:03:35] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test] nether_fortress 600s: brain rules, goal eyes_of_ender, doing retreat, milestone 9/13, deaths 1
+[autopilot-test]    perf fps 17, server 6.8 ms/tick, mod 0.65 ms/tick
+[17:03:35] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    at 1306 72 204 hp 6 food 12 inv {white_wool=1}
+[17:03:35] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    known water 1285, 62, 231, lava none
+[17:03:35] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    explore blaze -> ok: explored 120 blocks, no blaze yet
+[17:03:35] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    explore blaze -> failed INTERRUPTED: interrupted: brain chose shore
+[17:03:35] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    shore -> ok: reached dry ground with room to work
+[17:03:35] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    explore blaze -> failed INTERRUPTED: interrupted: brain chose attack spider
+[17:03:35] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    attack spider -> failed INTERRUPTED: interrupted: brain chose attack zombie
+[17:03:35] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    attack zombie -> failed INTERRUPTED: interrupted by reflex_low_hp
+[17:04:05] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test] nether_fortress 630s: brain rules, goal eyes_of_ender, doing attack chicken, milestone 9/13, deaths 1
+[autopilot-test]    perf fps 20, server 6.2 ms/tick, mod 0.65 ms/tick
+[17:04:05] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    at 1236 76 225 hp 6 food 9 inv {dirt=2, white_wool=1}
+[17:04:05] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    known water 1270, 62, 250, lava none
+[17:04:05] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    retreat -> ok: got away
+[17:04:05] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    shelter -> failed INTERRUPTED: interrupted: brain chose retreat
+[17:04:05] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    retreat -> ok: got away
+[17:04:05] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    shelter -> failed INTERRUPTED: interrupted: brain chose retreat
+[17:04:05] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    retreat -> failed NO_PROGRESS: couldn't get away (nearest monster 7 blocks)
+[17:04:05] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    retreat -> ok: got away
+[17:04:37] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test] nether_fortress 660s: brain rules, goal eyes_of_ender, doing shelter, milestone 9/13, deaths 2
+[autopilot-test]    perf fps 43, server 5.5 ms/tick, mod 0.65 ms/tick
+[17:04:37] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    at 678 64 396 hp 20 food 20 inv {}
+[17:04:37] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    known water 677, 62, 395, lava none
+[17:04:37] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    eat -> failed INTERRUPTED: interrupted: brain chose retreat
+[17:04:37] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    retreat -> ok: got away
+[17:04:37] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    eat -> ok: ate spider_eye
+[17:04:37] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    retreat -> failed INTERRUPTED: interrupted: brain chose shelter
+[17:04:37] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    shelter -> failed DIED: died
+[17:04:37] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    shelter -> failed NO_ROOM: no safe ground to dig into nearby
+[17:05:11] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test] nether_fortress 690s: brain rules, goal eyes_of_ender, doing attack spider, milestone 9/13, deaths 2
+[autopilot-test]    perf fps 14, server 4.8 ms/tick, mod 0.66 ms/tick
+[17:05:11] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    at 702 70 372 hp 16 food 18 inv {gravel=4}
+[17:05:11] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    known water 680, 62, 380, lava none
+[17:05:11] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    eat -> ok: ate spider_eye
+[17:05:11] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    retreat -> failed INTERRUPTED: interrupted: brain chose shelter
+[17:05:11] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    shelter -> failed DIED: died
+[17:05:11] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    shelter -> failed NO_ROOM: no safe ground to dig into nearby
+[17:05:11] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    shelter -> failed NEED_ITEM: no block to cover the hole
+[17:05:11] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    explore blaze -> failed INTERRUPTED: interrupted: brain chose attack spider
+[autopilot-test] SPEED 0.869 game s per wall s (720 game s in 829 wall s), mod 0.66 ms per tick
+[17:05:45] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test] FINAL nether_fortress: brain rules, goal eyes_of_ender, doing shelter, milestone 9/13, deaths 3, dimension overworld, milestone times m7@0s m8@44s m9@165s, checkpoints flint_and_steel@0s lava_seen@52s
+[17:05:45] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test] LESSON fortress blazes failed 3 of 3 (mostly NOT_FOUND: no fortress or blaze known)
+[17:05:45] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test] LESSON attack zombie failed 3 of 3 (mostly NOT_FOUND: no reachable zombie in sight)

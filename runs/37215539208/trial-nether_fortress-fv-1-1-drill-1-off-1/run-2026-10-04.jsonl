@@ -1,0 +1,142 @@
+{"event":"autopilot_on","detail":"brain\u003drules","t":1791132980761}
+{"event":"params","detail":"params: trial (20 genes) changed\u003d{\"combat.creeper_hit\":1.0,\"combat.shield_guard\":1.0,\"route.armor_before_portal\":1.0,\"night.wall_in\":1.0,\"gear.sword_early\":1.0,\"move.shore_first\":1.0,\"portal.prepare_work_area\":1.0,\"portal.reserve_lava_bucket\":1.0,\"combat.ignore_walled_mobs\":1.0,\"night.shelter_exit\":1.0,\"nav.surface_v2\":1.0,\"nav.unstuck_v2\":1.0,\"stuck.item_progress\":1.0,\"skill.ruined_portal\":1.0,\"skill.portal_repair\":1.0,\"skill.enderman_warped\":1.0,\"plan.readiness\":1.0}","t":1791132980762}
+{"layer":"strategist","brain":"rules","choice":"iron_tools","reason":"start","t":1791132980763}
+{"layer":"strategist","brain":"rules","choice":"blaze_rods","reason":"user","t":1791132980763}
+{"event":"learned","detail":"learned model: none","t":1791132980769}
+{"layer":"tactician","gs":0,"brain":"rules","trigger":"idle","goal":"blaze_rods","options":["equip shield","fortress find","explore any"],"choice":"equip shield","x":[0.45,1.0,0.4,0.0,1.0,1.094,1.0,0.0,0.6,0.6,1.0,0.0,0.0,1.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,1.0,0.0,0.0,0.0,0.0,0.0,0.615,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1791132980780}
+{"event":"skill_start","skill":"equip shield","trigger":"idle","t":1791132980807}
+{"event":"skill_end","skill":"equip shield","ok":true,"detail":"shield in off hand","seconds":0.05,"t":1791132980861}
+{"layer":"tactician","gs":0,"brain":"rules","trigger":"skill_done","goal":"blaze_rods","options":["fortress find","explore any"],"choice":"fortress find","x":[0.45,1.0,0.4,0.0,1.0,1.094,1.0,0.0,0.6,0.6,1.0,0.0,0.0,1.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,1.0,0.0,0.0,0.0,0.0,0.0,0.615,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1791132980863}
+{"event":"skill_start","skill":"fortress find","trigger":"skill_done","t":1791132980863}
+{"event":"checkpoint","detail":"flint_and_steel","t":1791132980918}
+{"event":"milestone","detail":"7 at 0 s","t":1791132980921}
+{"event":"skill_end","skill":"fortress find","ok":true,"detail":"saw a fortress 12 blocks away","seconds":2.0,"t":1791132983623}
+{"layer":"tactician","gs":2,"brain":"rules","trigger":"skill_done","goal":"blaze_rods","options":["fortress blazes:8","explore any"],"choice":"fortress blazes:8","x":[0.525,1.0,0.4,0.0,1.0,1.094,1.0,0.0,0.6,0.6,1.0,0.0,0.0,1.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,1.0,0.0,0.0,0.0,0.538,0.167,0.615,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1791132983624}
+{"event":"gene","detail":"fortress.no_tunnel off: fighting at a fortress: bricks could be dug","t":1791132983625}
+{"event":"gene","detail":"fortress.floor_anchor off: no floor in view: stand off the wall","t":1791132983625}
+{"event":"skill_start","skill":"fortress blazes:8","trigger":"skill_done","t":1791132983626}
+{"event":"skill_end","skill":"fortress blazes:8","ok":false,"code":"NOT_FOUND","detail":"no blazes in the parts of the fortress we know","seconds":35.35,"t":1791133021541}
+{"layer":"tactician","gs":37,"brain":"rules","trigger":"skill_failed","goal":"blaze_rods","options":["fortress blazes:8","explore any"],"choice":"fortress blazes:8","x":[1.0,0.95,0.4,0.0,1.0,1.094,1.0,0.0,0.6,0.6,1.0,0.0,0.0,1.0,0.0,0.0,0.0,0.938,0.0,0.0,0.0,0.0,1.0,0.0,0.0,1.0,0.0,0.0,0.0,0.538,0.167,0.615,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1791133021542}
+{"event":"gene","detail":"fortress.no_tunnel off: fighting at a fortress: bricks could be dug","t":1791133021542}
+{"event":"skill_start","skill":"fortress blazes:8","trigger":"skill_failed","t":1791133021542}
+{"event":"skill_end","skill":"fortress blazes:8","ok":false,"code":"NOT_FOUND","detail":"no fortress or blaze known","seconds":0.05,"t":1791133021591}
+{"layer":"tactician","gs":37,"brain":"rules","trigger":"skill_failed","goal":"blaze_rods","options":["fortress blazes:8","explore any"],"choice":"fortress blazes:8","x":[1.0,0.95,0.4,0.0,1.0,1.094,1.0,0.0,0.6,0.6,1.0,0.0,0.0,1.0,0.0,0.0,0.0,0.938,0.0,0.0,0.0,0.0,1.0,0.0,0.0,1.0,0.0,0.0,0.0,0.538,0.167,0.615,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1791133021591}
+{"event":"skill_start","skill":"fortress blazes:8","trigger":"skill_failed","t":1791133021592}
+{"event":"skill_end","skill":"fortress blazes:8","ok":false,"code":"NOT_FOUND","detail":"no fortress or blaze known","seconds":0.05,"t":1791133021641}
+{"layer":"tactician","gs":37,"brain":"rules","trigger":"skill_failed","goal":"blaze_rods","options":["explore any"],"choice":"explore any","x":[1.0,0.95,0.4,0.0,1.0,1.094,1.0,0.0,0.6,0.6,1.0,0.0,0.0,1.0,0.0,0.0,0.0,0.938,0.0,0.0,0.0,0.0,1.0,0.0,0.0,1.0,0.0,0.0,0.0,0.538,0.167,0.615,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1791133021642}
+{"event":"skill_start","skill":"explore any","trigger":"skill_failed","t":1791133021642}
+{"layer":"reflex","gs":43,"brain":"rules","trigger":"reflex_fight","goal":"blaze_rods","options":["attack blaze","retreat"],"choice":"attack blaze","x":[1.0,0.9,0.4,0.0,1.0,1.094,1.0,0.0,0.6,0.6,1.0,0.0,0.0,1.0,0.0,0.0,0.0,0.938,0.0,0.0,0.0,0.0,1.0,0.0,0.25,0.141,0.0,0.0,0.0,0.538,0.167,0.615,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["attack blaze","retreat"],"t":1791133028513}
+{"event":"skill_end","skill":"explore any","ok":false,"code":"INTERRUPTED","detail":"interrupted by reflex_fight","seconds":5.85,"t":1791133028513}
+{"event":"skill_start","skill":"attack blaze","trigger":"reflex_fight","t":1791133028513}
+{"event":"checkpoint","detail":"lava_seen","t":1791133037255}
+{"event":"skill_end","skill":"attack blaze","ok":false,"code":"UNREACHABLE","detail":"can\u0027t reach the blaze (7 blocks away)","seconds":10.5,"t":1791133039012}
+{"layer":"tactician","gs":53,"brain":"rules","trigger":"skill_failed","goal":"blaze_rods","options":["explore any"],"choice":"explore any","x":[1.0,0.9,0.4,0.0,1.0,1.094,1.0,0.0,0.6,0.6,1.0,0.0,0.0,1.0,0.0,0.0,0.0,0.938,0.0,0.0,0.0,0.0,1.0,0.0,0.25,0.407,1.0,0.0,0.0,0.538,0.333,0.615,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1791133039013}
+{"event":"skill_start","skill":"explore any","trigger":"skill_failed","t":1791133039013}
+{"layer":"tactician","gs":103,"brain":"rules","trigger":"mob_near","goal":"blaze_rods","options":["eat","fortress blazes:8","explore any"],"choice":"eat","x":[1.0,0.7,0.4,0.0,1.0,1.297,1.0,0.0,0.6,0.6,1.0,0.0,0.0,1.0,0.0,0.0,0.0,0.938,0.0,0.0,0.0,0.0,1.0,0.0,0.25,0.49,1.0,0.0,0.0,0.538,0.333,0.615,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["eat"],"t":1791133090314}
+{"event":"skill_end","skill":"explore any","ok":false,"code":"INTERRUPTED","detail":"interrupted: brain chose eat","seconds":49.25,"t":1791133090314}
+{"event":"skill_start","skill":"eat","trigger":"mob_near","t":1791133090314}
+{"event":"skill_end","skill":"eat","ok":true,"detail":"ate cooked_beef","seconds":1.8,"t":1791133092105}
+{"layer":"tactician","gs":104,"brain":"rules","trigger":"skill_done","goal":"blaze_rods","options":["fortress blazes:8","explore any"],"choice":"fortress blazes:8","x":[1.0,1.0,0.4,0.0,1.0,1.297,1.0,0.0,0.6,0.6,1.0,0.0,0.0,1.0,0.0,0.0,0.0,0.875,0.0,0.0,0.0,0.0,1.0,0.0,0.5,0.305,1.0,0.0,0.0,0.538,0.333,0.615,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1791133092106}
+{"event":"gene","detail":"fortress.no_tunnel off: fighting at a fortress: bricks could be dug","t":1791133092106}
+{"event":"skill_start","skill":"fortress blazes:8","trigger":"skill_done","t":1791133092106}
+{"event":"gene","detail":"nether.piglin_threat off: piglin in attack pose at 12","t":1791133143882}
+{"event":"gene","detail":"nether.piglin_threat off: piglin in attack pose at 3","t":1791133153911}
+{"event":"gene","detail":"fortress.spawner_check off: a spawner with no fortress bricks or blaze near it","t":1791133164321}
+{"event":"gene","detail":"nether.recover_bounded off: threat: wither_skeleton at 3 while waiting to heal","t":1791133165981}
+{"event":"gene","detail":"fortress.spawner_check off: a spawner with no fortress bricks or blaze near it","t":1791133174380}
+{"event":"gene","detail":"fortress.spawner_check off: a spawner with no fortress bricks or blaze near it","t":1791133184403}
+{"event":"gene","detail":"fortress.spawner_check off: a spawner with no fortress bricks or blaze near it","t":1791133194407}
+{"event":"gene","detail":"fortress.spawner_check off: a spawner with no fortress bricks or blaze near it","t":1791133204414}
+{"event":"gene","detail":"fortress.spawner_check off: a spawner with no fortress bricks or blaze near it","t":1791133214469}
+{"event":"gene","detail":"fortress.spawner_check off: a spawner with no fortress bricks or blaze near it","t":1791133224503}
+{"event":"gene","detail":"fortress.spawner_check off: a spawner with no fortress bricks or blaze near it","t":1791133234508}
+{"event":"gene","detail":"fortress.anchor_scope off: an anchor tried over 2 minutes ago is open again","t":1791133242356}
+{"event":"gene","detail":"fortress.spawner_check off: a spawner with no fortress bricks or blaze near it","t":1791133244559}
+{"event":"gene","detail":"fortress.anchor_scope off: an anchor tried over 2 minutes ago is open again","t":1791133252408}
+{"event":"gene","detail":"fortress.spawner_check off: a spawner with no fortress bricks or blaze near it","t":1791133254606}
+{"event":"gene","detail":"fortress.anchor_scope off: an anchor tried over 2 minutes ago is open again","t":1791133262453}
+{"event":"gene","detail":"fortress.spawner_check off: a spawner with no fortress bricks or blaze near it","t":1791133264612}
+{"event":"gene","detail":"fortress.anchor_scope off: an anchor tried over 2 minutes ago is open again","t":1791133272460}
+{"event":"gene","detail":"fortress.spawner_check off: a spawner with no fortress bricks or blaze near it","t":1791133274618}
+{"event":"gene","detail":"fortress.anchor_scope off: an anchor tried over 2 minutes ago is open again","t":1791133282488}
+{"event":"gene","detail":"fortress.spawner_check off: a spawner with no fortress bricks or blaze near it","t":1791133284641}
+{"event":"gene","detail":"fortress.anchor_scope off: an anchor tried over 2 minutes ago is open again","t":1791133292539}
+{"event":"gene","detail":"fortress.spawner_check off: a spawner with no fortress bricks or blaze near it","t":1791133294674}
+{"event":"gene","detail":"fortress.anchor_scope off: an anchor tried over 2 minutes ago is open again","t":1791133302560}
+{"event":"gene","detail":"fortress.spawner_check off: a spawner with no fortress bricks or blaze near it","t":1791133304734}
+{"event":"gene","detail":"fortress.anchor_scope off: an anchor tried over 2 minutes ago is open again","t":1791133312586}
+{"event":"gene","detail":"fortress.spawner_check off: a spawner with no fortress bricks or blaze near it","t":1791133314763}
+{"event":"gene","detail":"fortress.anchor_scope off: an anchor tried over 2 minutes ago is open again","t":1791133322607}
+{"event":"gene","detail":"fortress.spawner_check off: a spawner with no fortress bricks or blaze near it","t":1791133324785}
+{"event":"milestone","detail":"8 at 344 s","t":1791133335115}
+{"layer":"strategist","brain":"rules","choice":"ender_pearls","reason":"goal_done","t":1791133335115}
+{"event":"skill_end","skill":"fortress blazes:8","ok":false,"code":"TIMEOUT","detail":"timed out after 300 s","seconds":300.05,"t":1791133400522}
+{"layer":"tactician","gs":405,"brain":"rules","trigger":"skill_failed","goal":"ender_pearls","options":["explore enderman"],"choice":"explore enderman","x":[1.0,0.95,0.4,0.0,1.0,0.859,1.0,0.0,0.6,0.6,1.0,0.0,0.0,1.0,0.0,0.0,0.0,0.563,0.0,0.0,0.0,0.0,1.0,0.0,0.0,1.0,1.0,0.0,0.0,0.615,0.333,0.692,0.5,0.0,0.0,0.0,1.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1791133400523}
+{"event":"skill_start","skill":"explore enderman","trigger":"skill_failed","t":1791133400523}
+{"layer":"tactician","gs":406,"brain":"rules","trigger":"mob_near","goal":"ender_pearls","options":["fortress blazes:8","explore enderman"],"choice":"fortress blazes:8","x":[1.0,0.95,0.4,0.0,1.0,0.828,1.0,0.0,0.6,0.6,1.0,0.0,0.0,1.0,0.0,0.0,0.0,0.563,0.0,0.0,0.0,0.0,1.0,0.0,0.25,0.386,1.0,0.0,0.0,0.615,0.333,0.692,0.5,0.0,0.0,0.0,1.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["fortress blazes:8"],"t":1791133402577}
+{"event":"skill_end","skill":"explore enderman","ok":false,"code":"INTERRUPTED","detail":"interrupted: brain chose fortress blazes:8","seconds":1.4,"t":1791133402577}
+{"event":"gene","detail":"fortress.no_tunnel off: fighting at a fortress: bricks could be dug","t":1791133402577}
+{"event":"skill_start","skill":"fortress blazes:8","trigger":"mob_near","t":1791133402578}
+{"event":"skill_end","skill":"fortress blazes:8","ok":false,"code":"DIED","detail":"died","seconds":99.1,"t":1791133503124}
+{"event":"death","detail":"onFire","t":1791133503124}
+{"layer":"reflex","gs":508,"brain":"rules","trigger":"reflex_fight","goal":"ender_pearls","options":["attack blaze","retreat"],"choice":"attack blaze","x":[1.0,1.0,0.0,0.0,0.0,1.063,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.75,0.158,0.0,1.0,0.2,0.615,0.333,0.692,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["attack blaze","retreat"],"t":1791133506392}
+{"event":"skill_start","skill":"attack blaze","trigger":"reflex_fight","t":1791133506393}
+{"event":"skill_end","skill":"attack blaze","ok":false,"code":"NOT_FOUND","detail":"no reachable blaze in sight","seconds":0.0,"t":1791133506393}
+{"layer":"tactician","gs":508,"brain":"rules","trigger":"skill_failed","goal":"ender_pearls","options":["attack blaze","explore enderman"],"choice":"attack blaze","x":[1.0,1.0,0.0,0.0,0.0,1.063,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.75,0.158,0.0,1.0,0.2,0.615,0.333,0.692,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["attack blaze"],"t":1791133506400}
+{"event":"skill_start","skill":"attack blaze","trigger":"skill_failed","t":1791133506400}
+{"event":"skill_end","skill":"attack blaze","ok":false,"code":"NOT_FOUND","detail":"no reachable blaze in sight","seconds":0.05,"t":1791133506471}
+{"layer":"tactician","gs":508,"brain":"rules","trigger":"skill_failed","goal":"ender_pearls","options":["explore enderman","pickup"],"choice":"explore enderman","x":[1.0,1.0,0.0,0.0,0.0,1.063,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.2,0.615,0.333,0.692,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1791133506479}
+{"event":"skill_start","skill":"explore enderman","trigger":"skill_failed","t":1791133506479}
+{"layer":"tactician","gs":528,"brain":"rules","trigger":"heartbeat","goal":"ender_pearls","options":["shore"],"choice":"shore","x":[1.0,1.0,0.0,0.0,0.0,0.969,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.2,0.615,0.333,0.692,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["shore"],"t":1791133528890}
+{"event":"skill_end","skill":"explore enderman","ok":false,"code":"INTERRUPTED","detail":"interrupted: brain chose shore","seconds":20.05,"t":1791133528891}
+{"event":"skill_start","skill":"shore","trigger":"heartbeat","t":1791133528891}
+{"event":"skill_end","skill":"shore","ok":true,"detail":"reached dry ground with room to work","seconds":11.0,"t":1791133539966}
+{"layer":"tactician","gs":539,"brain":"rules","trigger":"skill_done","goal":"ender_pearls","options":["explore enderman"],"choice":"explore enderman","x":[1.0,1.0,0.0,0.0,0.0,0.984,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.2,0.615,0.333,0.692,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1791133539966}
+{"event":"skill_start","skill":"explore enderman","trigger":"skill_done","t":1791133539966}
+{"layer":"tactician","gs":559,"brain":"rules","trigger":"heartbeat","goal":"ender_pearls","options":["shore"],"choice":"shore","x":[1.0,1.0,0.0,0.0,0.0,0.969,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.2,0.615,0.333,0.692,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["shore"],"t":1791133560265}
+{"event":"skill_end","skill":"explore enderman","ok":false,"code":"INTERRUPTED","detail":"interrupted: brain chose shore","seconds":20.05,"t":1791133560265}
+{"event":"skill_start","skill":"shore","trigger":"heartbeat","t":1791133560265}
+{"event":"skill_end","skill":"shore","ok":true,"detail":"reached dry ground with room to work","seconds":20.5,"t":1791133580944}
+{"layer":"tactician","gs":580,"brain":"rules","trigger":"skill_done","goal":"ender_pearls","options":["explore enderman","shelter"],"choice":"explore enderman","x":[1.0,1.0,0.0,1.0,0.0,0.984,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.2,0.615,0.333,0.692,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1791133580945}
+{"event":"skill_start","skill":"explore enderman","trigger":"skill_done","t":1791133580945}
+{"layer":"tactician","gs":600,"brain":"rules","trigger":"heartbeat","goal":"ender_pearls","options":["shore"],"choice":"shore","x":[1.0,1.0,0.0,1.0,0.0,0.969,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.2,0.615,0.333,0.692,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["shore"],"t":1791133601030}
+{"event":"skill_end","skill":"explore enderman","ok":false,"code":"INTERRUPTED","detail":"interrupted: brain chose shore","seconds":20.05,"t":1791133601030}
+{"event":"skill_start","skill":"shore","trigger":"heartbeat","t":1791133601030}
+{"event":"skill_end","skill":"shore","ok":true,"detail":"reached dry ground with room to work","seconds":20.0,"t":1791133621189}
+{"layer":"tactician","gs":620,"brain":"rules","trigger":"skill_done","goal":"ender_pearls","options":["explore enderman","shelter"],"choice":"explore enderman","x":[1.0,1.0,0.0,1.0,0.0,0.984,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.2,0.615,0.333,0.692,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1791133621189}
+{"event":"skill_start","skill":"explore enderman","trigger":"skill_done","t":1791133621190}
+{"layer":"tactician","gs":640,"brain":"rules","trigger":"heartbeat","goal":"ender_pearls","options":["shore"],"choice":"shore","x":[1.0,1.0,0.0,1.0,0.0,0.969,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.2,0.615,0.333,0.692,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["shore"],"t":1791133641464}
+{"event":"skill_end","skill":"explore enderman","ok":false,"code":"INTERRUPTED","detail":"interrupted: brain chose shore","seconds":20.05,"t":1791133641464}
+{"event":"skill_start","skill":"shore","trigger":"heartbeat","t":1791133641465}
+{"event":"skill_end","skill":"shore","ok":true,"detail":"reached dry ground with room to work","seconds":11.5,"t":1791133653022}
+{"layer":"tactician","gs":651,"brain":"rules","trigger":"skill_done","goal":"ender_pearls","options":["explore enderman","shelter"],"choice":"explore enderman","x":[1.0,1.0,0.0,1.0,0.0,1.031,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.2,0.615,0.333,0.692,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1791133653023}
+{"event":"skill_start","skill":"explore enderman","trigger":"skill_done","t":1791133653023}
+{"layer":"tactician","gs":674,"brain":"rules","trigger":"mob_near","goal":"ender_pearls","options":["attack skeleton","shelter","explore enderman"],"choice":"attack skeleton","x":[1.0,1.0,0.0,1.0,0.0,1.328,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.25,0.483,0.0,1.0,0.2,0.615,0.333,0.692,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["attack skeleton","shelter"],"t":1791133675697}
+{"event":"skill_end","skill":"explore enderman","ok":false,"code":"INTERRUPTED","detail":"interrupted: brain chose attack skeleton","seconds":22.3,"t":1791133675700}
+{"event":"skill_start","skill":"attack skeleton","trigger":"mob_near","t":1791133675700}
+{"layer":"tactician","gs":681,"brain":"rules","trigger":"hurt","goal":"ender_pearls","options":["attack zombie","shelter","explore enderman"],"choice":"attack zombie","x":[0.783,0.95,0.0,1.0,0.0,1.375,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.5,0.253,0.0,1.0,0.2,0.615,0.333,0.692,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["attack zombie","shelter"],"t":1791133682866}
+{"event":"skill_end","skill":"attack skeleton","ok":false,"code":"INTERRUPTED","detail":"interrupted: brain chose attack zombie","seconds":7.15,"t":1791133682866}
+{"event":"skill_start","skill":"attack zombie","trigger":"hurt","t":1791133682866}
+{"event":"skill_end","skill":"attack zombie","ok":false,"code":"UNREACHABLE","detail":"can\u0027t reach the zombie (4 blocks away)","seconds":12.3,"t":1791133695163}
+{"layer":"tactician","gs":693,"brain":"rules","trigger":"skill_failed","goal":"ender_pearls","options":["shelter","explore enderman"],"choice":"shelter","x":[0.708,0.8,0.0,1.0,0.0,1.25,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.25,0.279,0.0,1.0,0.2,0.615,0.333,0.692,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["shelter"],"t":1791133695163}
+{"event":"skill_start","skill":"shelter","trigger":"skill_failed","t":1791133695164}
+{"layer":"tactician","gs":693,"brain":"rules","trigger":"mob_near","goal":"ender_pearls","options":["shelter","explore enderman"],"choice":"shelter","x":[0.708,0.8,0.0,1.0,0.0,1.25,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.25,0.222,0.0,1.0,0.2,0.615,0.333,0.692,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["shelter"],"t":1791133695468}
+{"layer":"reflex","gs":694,"brain":"rules","trigger":"reflex_fight","goal":"ender_pearls","options":["attack zombie","retreat"],"choice":"attack zombie","x":[0.708,0.8,0.0,1.0,0.0,1.25,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.5,0.188,0.0,1.0,0.2,0.615,0.333,0.692,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["attack zombie","retreat"],"t":1791133695714}
+{"event":"skill_end","skill":"shelter","ok":false,"code":"INTERRUPTED","detail":"interrupted by reflex_fight","seconds":0.55,"t":1791133695714}
+{"event":"skill_start","skill":"attack zombie","trigger":"reflex_fight","t":1791133695714}
+{"event":"skill_end","skill":"attack zombie","ok":true,"detail":"killed the zombie","seconds":7.8,"t":1791133703518}
+{"layer":"tactician","gs":701,"brain":"rules","trigger":"skill_done","goal":"ender_pearls","options":["attack skeleton","shelter","explore enderman"],"choice":"attack skeleton","x":[0.433,0.8,0.0,1.0,0.0,1.219,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.25,0.468,0.0,1.0,0.2,0.615,0.333,0.692,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["attack skeleton","shelter"],"t":1791133703519}
+{"event":"skill_start","skill":"attack skeleton","trigger":"skill_done","t":1791133703519}
+{"layer":"tactician","gs":705,"brain":"rules","trigger":"hurt","goal":"ender_pearls","options":["attack skeleton","shelter","explore enderman"],"choice":"attack skeleton","x":[0.133,0.8,0.0,1.0,0.0,1.203,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.25,0.173,0.0,1.0,0.2,0.615,0.333,0.692,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["attack skeleton","shelter"],"t":1791133706866}
+{"event":"skill_end","skill":"attack skeleton","ok":false,"code":"DIED","detail":"died","seconds":9.85,"t":1791133713370}
+{"event":"death","detail":"arrow:skeleton","t":1791133713371}
+{"layer":"reflex","gs":714,"brain":"rules","trigger":"reflex_fight","goal":"ender_pearls","options":["attack skeleton","retreat"],"choice":"attack skeleton","x":[1.0,1.0,0.0,1.0,0.0,1.016,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.25,0.133,0.0,1.0,0.4,0.615,0.333,0.692,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["attack skeleton","retreat"],"t":1791133716448}
+{"event":"skill_start","skill":"attack skeleton","trigger":"reflex_fight","t":1791133716448}
+{"event":"skill_end","skill":"attack skeleton","ok":false,"code":"NOT_FOUND","detail":"no reachable skeleton in sight","seconds":0.0,"t":1791133716448}
+{"layer":"tactician","gs":714,"brain":"rules","trigger":"skill_failed","goal":"ender_pearls","options":["attack skeleton","shelter","explore enderman"],"choice":"attack skeleton","x":[1.0,1.0,0.0,1.0,0.0,1.016,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.25,0.133,0.0,1.0,0.4,0.615,0.333,0.692,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["attack skeleton","shelter"],"t":1791133716448}
+{"event":"skill_start","skill":"attack skeleton","trigger":"skill_failed","t":1791133716448}
+{"event":"skill_end","skill":"attack skeleton","ok":false,"code":"NOT_FOUND","detail":"no reachable skeleton in sight","seconds":0.05,"t":1791133716503}
+{"layer":"tactician","gs":714,"brain":"rules","trigger":"skill_failed","goal":"ender_pearls","options":["explore enderman","shelter"],"choice":"explore enderman","x":[1.0,1.0,0.0,1.0,0.0,1.016,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.4,0.615,0.333,0.692,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1791133716504}
+{"event":"skill_start","skill":"explore enderman","trigger":"skill_failed","t":1791133716504}
+{"event":"skill_end","skill":"explore enderman","ok":false,"code":"INTERRUPTED","detail":"test finished","seconds":6.1,"t":1791133723138}
+{"event":"autopilot_off","detail":"test finished","t":1791133723138}
