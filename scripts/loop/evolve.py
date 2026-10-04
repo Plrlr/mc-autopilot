@@ -84,7 +84,7 @@ def git(*a, cwd=common.ROOT, check=True):
     return subprocess.run(["git", *a], cwd=cwd, check=check, capture_output=True, text=True, timeout=120).stdout.strip()
 
 
-def evidence(batch, champ, frontier=None):
+def evidence(batch, champ, frontier=None, length_s=1200):
     sb = common.summarizer()
     fails, deaths, runs = {}, {}, []
     front_fails, front_runs = {}, 0
@@ -104,7 +104,8 @@ def evidence(batch, champ, frontier=None):
             deaths[k] = deaths.get(k, 0) + 1
         # Combat drills have their own score (fights); the worst-run traces are about the route.
         if r["final"] and ("-%s-" % champ) in d and not r["fights"]:
-            runs.append((common.score_run(r, 1200), d, r))
+            # Ranked on the loop's own horizon (settings "minutes"), not a fixed 20 minutes.
+            runs.append((common.score_run(r, length_s), d, r))
     runs.sort()
     top = sorted(fails.items(), key=lambda kv: -kv[1][0])[:12]
     lines = ["Most common failures this generation (action code: count, one example):"]
@@ -266,7 +267,7 @@ def main():
         print("evolve: writing a new skill for %s (%.0f game minutes lost over %d generations)" % (
             target["name"], target["minutes"], target["gens"]))
         return evolve_skill.run(a, st, st_path, s, target, genes, today, used, t0, a.branch_prefix)
-    ev, skills = evidence(a.batch, champ["id"], bank.frontier(st))
+    ev, skills = evidence(a.batch, champ["id"], bank.frontier(st), int(st.get("settings", {}).get("minutes", 20)) * 60)
     files = ["plan/Planner.java"]
     for sk in skills:
         f = SKILL_FILES.get(sk)

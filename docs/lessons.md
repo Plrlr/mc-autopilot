@@ -128,6 +128,15 @@ workflow's unit-tests job compiles and tests in about a minute, the trial jobs t
   current target leaves reach, and delays drop collection until the pack is clear. It still needs
   the paired drill race before being judged effective.
 
+- **A death's game second needs both clocks (2026-10-04, score v4).** Deaths are logged with wall
+  time only. The scorer took the last decision's game second before a death, but one long skill logs
+  no decisions: gen176 eval-g159-2 decided at gs 11, fought at a fortress for five minutes and was
+  scored dead at 11 s (the test log said 0 deaths at 300 s; next decision 307). In gens 134-176,
+  239 of 2,272 eval runs with a death had their first death placed 30+ s early, 29 of them 3+ minutes.
+  clock.py now interpolates between decision rows and the test's 30-second progress lines (local
+  game speed), stops at the SPEED line's end, and keeps sessions apart. Scores before v4 are not
+  comparable: the version bump cleared every race's pairs and elite ranking starts over.
+
 ## Open problems (next candidates)
 
 - **Food and iron preparation (generations 30-37, not yet raced):** 152 of 162 runs died, with

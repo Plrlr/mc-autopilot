@@ -33,6 +33,7 @@ import sys
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import bank  # noqa: E402
+import clock  # noqa: E402
 import common  # noqa: E402
 import metrics  # noqa: E402
 
@@ -96,6 +97,9 @@ def load_state(d, genes):
             or st.get("race_evidence_version", 0) != 1):
         for g in st["genomes"].values():
             reset_race(g)
+        if st.get("score_version", 1) != common.SCORE_VERSION:
+            # Scores from before can't be ranked with new ones either (elites, the dashboard's line).
+            st["score_since_gen"] = st.get("gen", 0) + (1 if st.get("pending") is None else 0)
         st["score_version"] = common.SCORE_VERSION
         st["race_evidence_version"] = 1
     for n in genes:
@@ -296,10 +300,12 @@ def cmd_propose(a):
     tries = 0
     while len(lineup) < s["max_genomes"] and tries < 50:
         tries += 1
-        elites = [g for g in st["genomes"].values() if g["status"] in ("retired", "contender") and g["evals"]]
+        since = st.get("score_since_gen", 0)
+        elites = [g for g in st["genomes"].values() if g["status"] in ("retired", "contender")
+                  and any(e[0] >= since for e in g["evals"])]
         parent = champ
         if elites and rng.random() < 0.25:
-            elites.sort(key=lambda g: -common.mean([e[2] for e in g["evals"]]))
+            elites.sort(key=lambda g: -common.mean([e[2] for e in g["evals"] if e[0] >= since]))
             parent = rng.choice(elites[:5])["id"]
         changed, chosen = mutate(st, genes, parent, rng)
         if any(same_genes(changed, st["genomes"][x]["genes"]) for x in lineup):
@@ -533,6 +539,7 @@ def cmd_update(a):
     prev = last_history(a.state)
     line = {
         "gen": gen, "time": datetime.datetime.now(datetime.timezone.utc).isoformat(timespec="seconds"),
+        "score_version": common.SCORE_VERSION,
         "sha": p["sha"][:7], "champion": st["champion"], "old_champion": champ,
         "champion_score": round(common.mean([by[(champ, i)] for i in natural_idx if (champ, i) in by]), 3),
         "champion_score_all": round(common.mean(gen_scores.get(champ, [])), 3),
@@ -685,8 +692,9 @@ def read_speed(d):
 def save_training_rows(state_dir, gen, name, d):
     """The learned brain's data from one run, compact: decisions (game second, state features,
     action kind, propensity, urgent) and outcomes (milestones, checkpoints, deaths with game
-    seconds interpolated from wall time). Written as loop/data/gen-NNNNN/<run>.jsonl.gz."""
-    rows, wall_to_gs = [], []
+    seconds from the run's clock, clock.py, the same one the scorer uses). Written as
+    loop/data/gen-NNNNN/<run>.jsonl.gz."""
+    rows, raw = [], []
     events, skills = [], []
     for f in sorted(glob.glob(os.path.join(d, "**", "run-*.jsonl"), recursive=True)):
         for line in open(f, errors="replace"):
@@ -694,10 +702,10 @@ def save_training_rows(state_dir, gen, name, d):
                 o = json.loads(line)
             except ValueError:
                 continue
+            raw.append(o)
             # Reflex rows (fights and escapes, logged since 2026-09-28) are emergencies: the
             # advantage trees skip them, the danger model learns from them most of all.
             if o.get("layer") in ("tactician", "reflex") and "x" in o and "gs" in o:
-                wall_to_gs.append((o["t"], o["gs"]))
                 opts = o.get("options", [])
                 idx = o.get("idx", 0)
                 label = opts[idx] if 0 <= idx < len(opts) else o.get("choice", "")
@@ -714,10 +722,17 @@ def save_training_rows(state_dir, gen, name, d):
                                round(float(o.get("seconds", 0)), 1)))
     if not rows:
         return
+    test_log = os.path.join(d, "autopilot-test.log")
+    run_clock = clock.Clock(raw, open(test_log, errors="replace").read().splitlines() if os.path.exists(test_log) else [])
+
+    def gs_at(t):
+        g = run_clock.game_second(t)
+        return 0 if g is None else round(g, 1)
+
     for t, ev, detail in events:
-        rows.append({"k": ev, "gs": interp(wall_to_gs, t), "detail": detail})
+        rows.append({"k": ev, "gs": gs_at(t), "detail": detail})
     for t, key, ok, code, sec in skills:
-        r = {"k": "s", "gs": interp(wall_to_gs, t), "a": key, "ok": ok, "sec": sec}
+        r = {"k": "s", "gs": gs_at(t), "a": key, "ok": ok, "sec": sec}
         if code:
             r["c"] = code
         rows.append(r)
@@ -727,17 +742,6 @@ def save_training_rows(state_dir, gen, name, d):
     with gzip.open(out, "wt", encoding="utf-8") as f:
         for r in rows:
             f.write(json.dumps(r, separators=(",", ":")) + "\n")
-
-
-def interp(pairs, t):
-    if not pairs:
-        return 0
-    if t <= pairs[0][0]:
-        return pairs[0][1]
-    for (t0, g0), (t1, g1) in zip(pairs, pairs[1:]):
-        if t0 <= t <= t1:
-            return g0 + (g1 - g0) * (t - t0) / max(1, t1 - t0)
-    return pairs[-1][1] + (t - pairs[-1][0]) / 1000.0
 
 
 def action_key(label):

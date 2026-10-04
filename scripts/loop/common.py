@@ -85,7 +85,10 @@ CHECKPOINT_POINTS = {"two_buckets": 0.5, "flint_and_steel": 0.5, "lava_seen": 0.
 # with the same progress wins the pair. Play after a death still feeds the learned brain's data.
 DEATH_PENALTY = 1.0
 SURVIVE_POINTS = 2.0
-SCORE_VERSION = 3  # pairs measured under another version are cleared (loop.load_state)
+# Version 4 (2026-10-04): a death's game second comes from clock.py (decision rows and the test's
+# progress lines, interpolated), not the last decision before it, which could end a life minutes
+# early during one long skill (gen176 eval-g159-2: scored dead at 11 s, alive at 300 s).
+SCORE_VERSION = 4  # pairs measured under another version are cleared (loop.load_state)
 
 
 def score_run(run, length_s, skip_before=0):
