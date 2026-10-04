@@ -10,14 +10,18 @@ model, trained on every decision it has made (plus human play from OpenAI's publ
 No language model plays the game. Watch it live: **[plrlr.github.io/mc-autopilot](https://plrlr.github.io/mc-autopilot/)**.
 How it works: [docs/learning-loop.md](docs/learning-loop.md).
 
-**Where it stands (the loop's genomes, gens 76-85, 2026-09-30, Easy):** in 80 full natural
-runs (fresh random worlds from spawn, 40 game minutes, no staged starts) it got wood tools in
-all, stone tools in 96%, iron tools in 61%, a diamond pickaxe in 15%, and **entered the Nether in
-6 runs (8%)**, fastest 25:07, median 31:57. **Furthest so far: one blaze rod** (milestone 8), in
-gen 84 at 34:58 (champion g56: iron 6:34, diamond pickaxe 20:27, Nether 28:55). No natural run has
-reached milestone 9 (ender pearls) or later; everything past the first blaze rod is code no run
-has reached.
-It dies about twice per game. Details in [Results so far](#results-so-far).
+**Where it stands (the loop's genomes, gens 158-177, 2026-10-04, Easy):** in 160 full natural
+runs (the race's fresh random worlds from spawn, 40 game minutes, no staged starts) it got wood
+tools in 96%, stone tools in 93%, iron tools in 81%, a diamond pickaxe in 10% and **entered the
+Nether in 6 runs (4%)**: more iron than in gens 76-85, fewer diamond pickaxes and Nethers (15%
+and 8% then). **Furthest so far: a blaze rod** (milestone 8), in two natural runs (gens 84 and
+165). From saved Nether starts, 11 games in gens 139-171 got a rod before their first death, none
+got 6, and every game died in the Nether (piglins first, then lava). No run has reached milestone
+9 (ender pearls) or later; everything past the first blaze rod is code no run has reached. 75-89%
+of runs die in their first life. All 1,735 game hours are analysed in
+[docs/lessons.md](docs/lessons.md) ("The whole history"); since 2026-10-04 the loop writes that
+analysis itself every generation (`scripts/loop/patterns.py`) and its code step reads it.
+Details in [Results so far](#results-so-far).
 
 - **One brain, its own.** A planner lists the sensible next actions in order; the bot's learned
   model re-ranks them as far as the loop has shown it helps. Decisions take microseconds, on
@@ -93,6 +97,7 @@ Counted from `loop/data` on the trial-results branch.
 |---|---|---|---|---|---|---|---|---|
 | 30-85 | 495 | 99% | 94% | 62% | 6% | 10 (2%), best 13:24 | 1 | 3.0 |
 | 76-85 | 80 | 100%, 0:29 | 96%, 2:18 | 61%, 15:56 | 15%, 27:51 | 6 (8%), 31:57 | 1, 34:58 | 2.0 |
+| 158-177 | 160 | 96%, 0:28 | 93%, 3:23 | 81%, 11:38 | 10%, 27:38 | 6 (4%), 29:05 | 1, 32:23 | 2.3 |
 
 Times are medians of the runs that got there, in game minutes. A run that dies keeps going
 (respawns), so these are milestones within one 40-minute game, not deathless runs.

@@ -82,6 +82,13 @@ def test_nether_ideas_drill_on_saved_nether_starts():
     assert len(starts) == 3 and all(int(s[10:13]) >= 166 for s in starts), starts  # the newest saves
 
 
+
+def test_a_rod_counts_from_the_milestone_too():
+    """A rod picked up just before dying never shows in a decision row: milestone 8 still counts it."""
+    rows = [{"x": x(0, 1)}, {"event": "milestone", "detail": "8 at 300 s"}, {"event": "death"}]
+    assert metrics.tally(rows, "rods") == (1, 1)
+    assert metrics.tally([{"event": "death"}, {"event": "milestone", "detail": "8 at 400 s"}], "rods") == (0, 1)
+
 if __name__ == "__main__":
     for name, fn in list(globals().items()):
         if name.startswith("test_"):

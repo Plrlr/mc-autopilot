@@ -79,7 +79,9 @@ _RODS = []
 
 
 def _rods(rows):
-    """(blaze rods held before the first death, 1): the decision rows' rods feature (rods / 6)."""
+    """(blaze rods held before the first death, 1): the decision rows' rods feature (rods / 6), and
+    at least 1 once milestone 8 (a rod in hand) is logged. The feature alone missed a rod picked up
+    with no decision before the death: 3 rod games in gens 134-176 by it, 11 by the milestone."""
     if not _RODS:
         import common
         _RODS.append(common.load_features().index("rods"))
@@ -87,6 +89,8 @@ def _rods(rows):
     for o in rows:
         if o.get("event") == "death":
             break
+        if o.get("event") == "milestone" and str(o.get("detail", "")).split(" ")[0] in ("8", "9", "10", "11", "12", "13"):
+            best = max(best, 1)
         x = o.get("x")
         if x and len(x) > i:
             best = max(best, int(round(x[i] * 6)))
