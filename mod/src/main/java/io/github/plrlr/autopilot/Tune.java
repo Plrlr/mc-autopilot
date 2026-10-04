@@ -100,6 +100,10 @@ public final class Tune {
 		gene("gather.coal_upkeep_below", 4, 0, 16, Kind.INT, "grab coal in view while carrying fewer than this");
 		gene("gather.coal_view_dist", 12, 4, 24, Kind.INT, "coal (and iron) ore this close counts as in view");
 		gene("gather.iron_in_view", 0, 0, 1, Kind.BOOL, "take iron ore in view while the route still needs iron");
+		// 2026-10-04 (Claude, from gens 118-177's first lives: patterns.py): finish one thing at a time.
+		gene("explore.same_blocks", 0, 0, 1, Kind.BOOL, "explore counts a remembered block only if collect would use it (no 'already seen' for logs under water)");
+		gene("stations.pickup_last", 0, 0, 1, Kind.BOOL, "pick the crafting table and furnace up only after the crafting and smelting that need them");
+		gene("smelt.own_furnace", 0, 0, 1, Kind.BOOL, "never pull another load of ours out of a furnace: use or make a second furnace");
 		gene("gather.iron_y", 16, -16, 64, Kind.INT, "height to branch-mine iron at (16: most ore, most caves)");
 		gene("gather.coal_y", 45, 0, 96, Kind.INT, "height to branch-mine coal at");
 		// Route choices (switches)

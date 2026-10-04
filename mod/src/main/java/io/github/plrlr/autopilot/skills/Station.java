@@ -69,6 +69,13 @@ public final class Station {
 		this(group, menuClass, memory, null);
 	}
 
+	/** A station set down from the inventory here, whatever is nearby (a second furnace). */
+	static Station placing(String group, Class<?> menuClass, WorldMemory memory) {
+		Station s = new Station(group, menuClass, memory, null);
+		s.phase = Phase.PLACE;
+		return s;
+	}
+
 	/** prefer: use that station (a furnace with our load in it), not just the nearest one. */
 	Station(String group, Class<?> menuClass, WorldMemory memory, BlockPos prefer) {
 		this.group = group;
