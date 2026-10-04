@@ -2860,7 +2860,7 @@
   "2026-10-01": 24,
   "2026-10-02": 23,
   "2026-10-03": 23,
-  "2026-10-04": 1
+  "2026-10-04": 2
  },
  "evolve_days": {
   "2026-09-27": 1,
@@ -3121,7 +3121,7 @@
    "target": "shore TIMEOUT"
   }
  ],
- "gen": 166,
+ "gen": 167,
  "gene_specs": {
   "bed.table_first": {
    "def": 0.0,
@@ -28418,7 +28418,86 @@
   "n": 922
  },
  "next_id": 159,
- "pending": null,
+ "pending": {
+  "data_tasks": [
+   {
+    "kind": "natural",
+    "seed": "D167-mr6qjn",
+    "stage": "spawn",
+    "synthetic": false
+   },
+   {
+    "kind": "natural",
+    "seed": "D167-mz2p3j",
+    "stage": "spawn",
+    "synthetic": false
+   }
+  ],
+  "gen": 167,
+  "lineup": [
+   "g141",
+   "g158",
+   "g155",
+   "g156"
+  ],
+  "runs": [
+   "eval-g141-0",
+   "eval-g141-1",
+   "eval-g141-2",
+   "eval-g141-3",
+   "eval-g158-0",
+   "eval-g158-1",
+   "eval-g158-2",
+   "eval-g158-3",
+   "eval-g155-0",
+   "eval-g155-1",
+   "eval-g155-2",
+   "eval-g155-3",
+   "eval-g156-0",
+   "eval-g156-1",
+   "eval-g156-2",
+   "eval-g156-3",
+   "data-g141-0",
+   "data-g141-1"
+  ],
+  "seeds": [
+   "L167-hpguav",
+   "L167-ex6dyy",
+   "L167-z4wuhj",
+   "L167-psf8vs"
+  ],
+  "sha": "537d4ceac1dc7374b57ddce580f96f9511e1468c",
+  "started": "2026-10-04T02:16:00+00:00",
+  "tasks": [
+   {
+    "kind": "natural",
+    "seed": "L167-hpguav",
+    "stage": "spawn",
+    "synthetic": false
+   },
+   {
+    "kind": "natural",
+    "seed": "L167-ex6dyy",
+    "stage": "spawn",
+    "synthetic": false
+   },
+   {
+    "asset": "nether-gen165-eval-g155-0.zip",
+    "kind": "start",
+    "seed": "L167-z4wuhj",
+    "stage": "nether",
+    "synthetic": false
+   },
+   {
+    "kind": "combat",
+    "minutes": 10,
+    "scenario": "combat",
+    "seed": "L167-psf8vs",
+    "stage": "combat",
+    "synthetic": false
+   }
+  ]
+ },
  "race_evidence_version": 1,
  "score_version": 3,
  "settings": {
