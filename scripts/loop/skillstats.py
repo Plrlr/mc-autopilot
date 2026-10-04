@@ -27,8 +27,29 @@ import statistics
 MIN_TRIES = 3   # keys with fewer tries in a context are left out (the overall entry still counts them)
 
 
+def situation(x, idx):
+    """The moment (2026-10-04, brains/SkillStats.situation, gene brain.situations): hurt (8 health or
+    less), a monster within 6 blocks, both, and hungry with nothing to eat. Features: hp = health/20,
+    food = hunger/20, cooked = food carried/16, hostile_dist = blocks/16 (1 = none in sight)."""
+    if any(k not in idx or idx[k] >= len(x) for k in ("hp", "food", "cooked", "hostile_dist")):
+        return []
+    out = []
+    hurt = x[idx["hp"]] * 20 <= 8 + 1e-6
+    mob = x[idx["hostile_dist"]] * 16 <= 6 + 1e-6
+    if x[idx["food"]] * 20 < 18 - 1e-6 and x[idx["cooked"]] <= 0:
+        out.append("nofood")
+    if mob:
+        out.append("mob")
+    if hurt:
+        out.append("hurt")
+    if hurt and mob:
+        out.append("hurt_mob")
+    return out
+
+
 def context(x, idx):
-    """Contexts a skill start belongs to, from the decision row's features just before it."""
+    """Contexts a skill start belongs to, from the decision row's features just before it: the
+    place (dimension, night, underground), then the moment (situation)."""
     if x is None:
         return []
     out = []
@@ -42,7 +63,7 @@ def context(x, idx):
             out.append("night")
     if x[idx["underground"]] > 0.5:
         out.append("under")
-    return out
+    return out + situation(x, idx)
 
 
 def rows_of(path):

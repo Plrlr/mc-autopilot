@@ -79,7 +79,8 @@ final class EscapePlan {
 	static Option escape(Perception seen, boolean canShelter, String why) {
 		// Fled twice in 30 s (gene reflex.escalate): running isn't working, so stand our ground,
 		// walled in if we can. Not from a creeper: its blast breaks walls and hurts fighters.
-		if (Tune.on("reflex.escalate") && Escalation.ranTwice() && escapeCreeper(seen) == null) {
+		if (Escalation.ranTwice() && escapeCreeper(seen) == null
+				&& io.github.plrlr.autopilot.Exposure.mark("reflex.escalate", "fled twice in 30 s, about to run again")) {
 			Perception.Seen h = seen.nearestHostile();
 			if (canShelter) return new Option("shelter", "heal", why + ": fled twice already, wall in");
 			if (h != null) return new Option("attack", h.type(), why + ": fled twice already, stand and fight");

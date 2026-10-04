@@ -4,6 +4,7 @@ import baritone.api.BaritoneAPI;
 import baritone.api.Settings;
 import baritone.api.pathing.goals.GoalNear;
 import baritone.api.pathing.goals.GoalXZ;
+import io.github.plrlr.autopilot.Exposure;
 import io.github.plrlr.autopilot.Items2;
 import io.github.plrlr.autopilot.Mc;
 import io.github.plrlr.autopilot.state.Perception;
@@ -35,6 +36,11 @@ import java.util.List;
  */
 public final class NetherSkills {
 	private NetherSkills() {}
+
+	/** A brick with remembered bricks beside it in both directions: a floor, not a wall's top line. */
+	static boolean floorPatch(BlockPos p, java.util.Set<BlockPos> known) {
+		return (known.contains(p.east()) || known.contains(p.west())) && (known.contains(p.north()) || known.contains(p.south()));
+	}
 
 	/** Blocks only fortresses are made of (bastions use blackstone, so they don't count). */
 	static boolean fortressBlock(String id) {
@@ -73,6 +79,35 @@ public final class NetherSkills {
 		return n;
 	}
 
+	/**
+	 * The spawner to fight at. A spawner seen in the Nether was taken for the blaze spawner, but
+	 * bastions hold magma cube spawners. Gene fortress.spawner_check: only one with fortress bricks
+	 * within 6 blocks (a fortress spawner stands on a brick platform) or a blaze seen near it.
+	 */
+	public static WorldMemory.Seen blazeSpawner(WorldMemory memory, Perception seen) {
+		WorldMemory.Seen first = memory.nearest("spawner");
+		if (first == null) return null;
+		List<WorldMemory.Seen> bricks = memory.all("nether_bricks");
+		WorldMemory.Seen best = null;
+		double bd = Double.MAX_VALUE;
+		BlockPos me = Mc.player().blockPosition();
+		for (WorldMemory.Seen s : memory.all("spawner")) {
+			boolean fortress = false;
+			for (WorldMemory.Seen b : bricks) if (b.pos().distSqr(s.pos()) <= 36) { fortress = true; break; }
+			if (!fortress && seen != null)
+				for (Perception.Seen m : seen.mobs) if (m.type().equals("blaze") && m.entity() != null
+						&& m.entity().blockPosition().distSqr(s.pos()) <= 16 * 16) { fortress = true; break; }
+			double d = s.pos().distSqr(me);
+			if (fortress && d < bd) {
+				bd = d;
+				best = s;
+			}
+		}
+		if (best == first) return first;
+		// The nearest spawner isn't a corroborated blaze spawner: the old rule would still go there.
+		return Exposure.mark("fortress.spawner_check", "a spawner with no fortress bricks or blaze near it") ? best : first;
+	}
+
 	public static final class Fortress extends Skill {
 		private static final int LEG = 200;
 		private static final double VIEW = 96;
@@ -91,6 +126,12 @@ public final class NetherSkills {
 		// and a fresh list sent it back to the same empty corner (loop 0355).
 		private BlockPos anchor;
 		private static final List<BlockPos> visitedAnchors = new ArrayList<>();
+		/** Gene fortress.anchor_scope: when each anchor was tried, and the life and dimension they belong to. */
+		private static final java.util.Map<BlockPos, Long> visitedAt = new java.util.HashMap<>();
+		private static String visitedScope = "";
+		private static final long ANCHOR_RETRY_MS = 120_000;
+		/** Approaching a wall face (no floor known yet): stand off it instead of walking into it. */
+		private boolean approach;
 		private int sinceBlaze;
 		private int rodsBefore;
 		private boolean walking;
@@ -98,6 +139,7 @@ public final class NetherSkills {
 		// Baritone settings changed while this skill runs, restored in cleanup.
 		private Boolean savedItemSaver, savedAllowPlace;
 		private Double savedBreakPenalty, savedSpawnerAvoid;
+		private List<net.minecraft.world.level.block.Block> savedNoBreak;
 
 		/**
 		 * The first test walked a 200-block leg through solid netherrack near the roof and wore the
@@ -120,6 +162,18 @@ public final class NetherSkills {
 			if (!findMode) {
 				savedSpawnerAvoid = st.mobSpawnerAvoidanceCoefficient.value;
 				st.mobSpawnerAvoidanceCoefficient.value = 1.0;
+				// Gene fortress.no_tunnel: the penalty alone didn't stop it (gen176 eval-g159-2 carried 19
+				// bricks it dug while fighting there). Baritone may not break fortress blocks at all, so it
+				// walks the bridges and doorways, where blazes can be seen and reached.
+				if (Exposure.mark("fortress.no_tunnel", "fighting at a fortress: bricks could be dug")) {
+					savedNoBreak = st.blocksToDisallowBreaking.value;
+					List<net.minecraft.world.level.block.Block> keep = new ArrayList<>(savedNoBreak);
+					keep.addAll(List.of(net.minecraft.world.level.block.Blocks.NETHER_BRICKS,
+							net.minecraft.world.level.block.Blocks.NETHER_BRICK_FENCE, net.minecraft.world.level.block.Blocks.NETHER_BRICK_STAIRS,
+							net.minecraft.world.level.block.Blocks.NETHER_BRICK_SLAB, net.minecraft.world.level.block.Blocks.NETHER_BRICK_WALL,
+							net.minecraft.world.level.block.Blocks.SPAWNER));
+					st.blocksToDisallowBreaking.value = keep;
+				}
 			}
 		}
 
@@ -129,6 +183,7 @@ public final class NetherSkills {
 			if (savedAllowPlace != null) st.allowPlace.value = savedAllowPlace;
 			if (savedBreakPenalty != null) st.blockBreakAdditionalPenalty.value = savedBreakPenalty;
 			if (savedSpawnerAvoid != null) st.mobSpawnerAvoidanceCoefficient.value = savedSpawnerAvoid;
+			if (savedNoBreak != null) st.blocksToDisallowBreaking.value = savedNoBreak;
 		}
 
 		@Override
@@ -158,6 +213,7 @@ public final class NetherSkills {
 					return;
 				}
 				visitedAnchors.clear();
+				visitedAt.clear();
 				startX = pl.getX();
 				startZ = pl.getZ();
 				if (io.github.plrlr.autopilot.Tune.on("nether.pie_chart")) sweep = 0;
@@ -183,19 +239,22 @@ public final class NetherSkills {
 
 		/** The spawner if we know one (blazes appear right there), else the nearest fortress block not yet tried. */
 		private BlockPos pickAnchor() {
-			WorldMemory.Seen s = memory.nearest("spawner");
-			if (s != null && !visitedAnchors.contains(s.pos())) return s.pos();
+			scopeAnchors();
+			approach = false;
+			WorldMemory.Seen s = blazeSpawner(memory, Perception.look(32));
+			if (s != null && !tried(s.pos(), 0)) return s.pos();
 			LocalPlayer pl = Mc.player();
 			// Floors and bridge tops first: a brick in a wall or under the floor made Baritone tunnel
 			// into the fortress, out of sight of every blaze. Seen from afar, though, a fortress is
 			// only wall faces (the fight found no anchor at all, NOT_FOUND x3 right after "saw a
 			// fortress 61 blocks away"), so then walk to the nearest brick; floors come into view.
-			BlockPos best = null, bestAny = null;
-			double bd = Double.MAX_VALUE, bdAny = Double.MAX_VALUE;
-			for (WorldMemory.Seen b : memory.all("nether_bricks")) {
-				boolean tried = false;
-				for (BlockPos v : visitedAnchors) if (v.distSqr(b.pos()) < 20 * 20) tried = true;
-				if (tried) continue;
+			BlockPos best = null, bestAny = null, bestPatch = null;
+			double bd = Double.MAX_VALUE, bdAny = Double.MAX_VALUE, bdPatch = Double.MAX_VALUE;
+			List<WorldMemory.Seen> bricks = memory.all("nether_bricks");
+			java.util.Set<BlockPos> known = new java.util.HashSet<>();
+			for (WorldMemory.Seen b : bricks) known.add(b.pos());
+			for (WorldMemory.Seen b : bricks) {
+				if (tried(b.pos(), 20 * 20)) continue;
 				double d = b.pos().distSqr(pl.blockPosition());
 				if (d < bdAny) {
 					bdAny = d;
@@ -204,14 +263,64 @@ public final class NetherSkills {
 				if (d < bd && Mc.free(b.pos().above()) && Mc.free(b.pos().above(2))) {
 					bd = d;
 					best = b.pos();
+					if (d < bdPatch && floorPatch(b.pos(), known)) {
+						bdPatch = d;
+						bestPatch = b.pos();
+					}
 				}
 			}
-			return best != null ? best : bestAny;
+			BlockPos old = best != null ? best : bestAny;
+			// Gene fortress.floor_anchor: a floor, not the top of a wall (bricks with free space above
+			// in a line, so the old rule sent Baritone up or into walls); with no floor in view, stand
+			// off the nearest wall and look, rather than walking into it.
+			BlockPos neu = bestPatch != null ? bestPatch : bestAny;
+			if (neu != null && !neu.equals(old)
+					&& Exposure.mark("fortress.floor_anchor", bestPatch != null ? "a floor patch instead of a wall top" : "no floor in view: stand off the wall")) {
+				approach = bestPatch == null;
+				return neu;
+			}
+			return old;
+		}
+
+		/**
+		 * An anchor tried within `radius` (squared; 0 = that block). Gene fortress.anchor_scope: only
+		 * tries in the last 2 minutes count. The list was static and cleared only when a find started,
+		 * which never happens while bricks are known, so once every anchor was tried the fight failed
+		 * NOT_FOUND at once for the rest of the game (113 times in the audit's Nether first lives),
+		 * though blazes spawn again all over a fortress.
+		 */
+		private boolean tried(BlockPos p, double radius) {
+			long now = System.currentTimeMillis();
+			for (BlockPos v : visitedAnchors) {
+				if (radius == 0 ? !v.equals(p) : v.distSqr(p) >= radius) continue;
+				Long at = visitedAt.get(v);
+				if (at != null && now - at > ANCHOR_RETRY_MS
+						&& Exposure.mark("fortress.anchor_scope", "an anchor tried over 2 minutes ago is open again")) continue;
+				return true;
+			}
+			return false;
+		}
+
+		private static void visit(BlockPos p) {
+			visitedAnchors.add(p);
+			visitedAt.put(p, System.currentTimeMillis());
+		}
+
+		/** Gene fortress.anchor_scope: tries belong to one life in one dimension. */
+		private static void scopeAnchors() {
+			var a = io.github.plrlr.autopilot.AutopilotMod.instance();
+			String scope = Mc.dimension() + "/" + (a == null ? 0 : a.progress.deaths());
+			if (scope.equals(visitedScope)) return;
+			visitedScope = scope;
+			if (!visitedAnchors.isEmpty() && Exposure.mark("fortress.anchor_scope", "a new life or dimension: " + visitedAnchors.size() + " old anchors")) {
+				visitedAnchors.clear();
+				visitedAt.clear();
+			}
 		}
 
 		private void walkTo(BlockPos p) {
 			walking = true;
-			Bari.path(new GoalNear(p, 3));
+			Bari.path(new GoalNear(p, approach ? 6 : 3));
 		}
 
 		@Override
@@ -284,23 +393,28 @@ public final class NetherSkills {
 				return;
 			}
 			// A better anchor came into view (the spawner itself): go there instead.
-			WorldMemory.Seen spawner = memory.nearest("spawner");
-			if (spawner != null && !spawner.pos().equals(anchor) && !visitedAnchors.contains(spawner.pos())) {
+			WorldMemory.Seen spawner = blazeSpawner(memory, null);
+			if (spawner != null && !spawner.pos().equals(anchor) && !tried(spawner.pos(), 0)) {
 				anchor = spawner.pos();
+				approach = false;
 				walkTo(anchor);
 			}
 			Perception seen = Perception.look(32);
 			Perception.Seen blaze = reachableBlaze(seen);
 			var keyUse = Mc.mc().options.keyUse;
-			if (recover(pl, blaze, keyUse)) return;
-			// Between blazes, keep hunger at 18+ so health comes back between hits: below 18 it
-			// doesn't regenerate at all (loop 0341 fought at hunger 15 with 16 steaks in the bag).
-			if (pl.getFoodData().getFoodLevel() < 18 && (blaze == null || blaze.dist() > 6) && eat(pl, keyUse)) return;
-			stopEating(keyUse);
+			if (recover(pl, blaze, seen, keyUse)) return;
+			if (result() != null) return;
 			// Wither skeletons and other fortress mobs walk up and hit us: fight them here. Leaving
 			// them to the generic reflex restarted this skill every time (loop 0355).
 			Perception.Seen close = seen.nearestHostile();
-			if (close != null && close.dist() <= 3.2 && !close.type().equals("blaze")) {
+			boolean closeMob = close != null && close.dist() <= 3.2 && !close.type().equals("blaze");
+			// Between blazes, keep hunger at 18+ so health comes back between hits: below 18 it
+			// doesn't regenerate at all (loop 0341 fought at hunger 15 with 16 steaks in the bag).
+			// Gene nether.recover_bounded: not while a mob is at arm's length (eating stands still).
+			if (pl.getFoodData().getFoodLevel() < 18 && (blaze == null || blaze.dist() > 6)
+					&& !(closeMob && io.github.plrlr.autopilot.Tune.on("nether.recover_bounded")) && eat(pl, keyUse)) return;
+			stopEating(keyUse);
+			if (closeMob) {
 				keyUse.setDown(false);
 				if (Bari.pathing()) Bari.stop();
 				walking = false;
@@ -352,8 +466,8 @@ public final class NetherSkills {
 			// No blaze for 30 s here: try another part of the fortress (blazes spawn all over it).
 			if (sinceBlaze > 20 * 30) {
 				sinceBlaze = 0;
-				if (anchor != null) visitedAnchors.add(anchor);
-				visitedAnchors.add(pl.blockPosition().immutable());
+				if (anchor != null) visit(anchor);
+				visit(pl.blockPosition().immutable());
 				anchor = pickAnchor();
 				if (anchor == null) {
 					if (rods > rodsBefore) done("got " + (rods - rodsBefore) + " blaze rods; no more blazes found here");
@@ -404,6 +518,8 @@ public final class NetherSkills {
 		private boolean recovering;
 		private boolean eating;
 		private boolean shielding;
+		private int recoverStart;
+		private float recoverBest;
 
 		/**
 		 * Low health (12, since burning keeps hurting after we stop): eat, then shield, then fight
@@ -414,7 +530,7 @@ public final class NetherSkills {
 		 * room with no cover until it died, twice, even at full hunger (batch 14 blaze runs 1 and 2).
 		 * Returns true while recovering.
 		 */
-		private boolean recover(LocalPlayer pl, Perception.Seen blaze, net.minecraft.client.KeyMapping keyUse) {
+		private boolean recover(LocalPlayer pl, Perception.Seen blaze, Perception seen, net.minecraft.client.KeyMapping keyUse) {
 			float hp = pl.getHealth();
 			if (!recovering && hp > 12) return false;
 			if (recovering && hp >= 16) {
@@ -423,7 +539,22 @@ public final class NetherSkills {
 				stopShielding(keyUse);
 				return false;
 			}
+			if (!recovering) {
+				recoverStart = ticks;
+				recoverBest = hp;
+			}
+			recoverBest = Math.max(recoverBest, hp);
 			recovering = true;
+			String stop = hopeless(pl, seen);
+			if (stop != null && io.github.plrlr.autopilot.Exposure.mark("nether.recover_bounded", stop)) {
+				recovering = false;
+				stopEating(keyUse);
+				stopShielding(keyUse);
+				// A mob at arm's length: the fight code below answers it. Healing that can't come: leave
+				// (the planner can take us home to eat, NetherPlan.homeToEat).
+				if (!stop.startsWith("threat")) fail(stop.startsWith("no food") ? Fail.NEED_ITEM : Fail.NO_PROGRESS, stop);
+				return false;
+			}
 			if (pl.getFoodData().getFoodLevel() < 20 && eat(pl, keyUse)) {
 				shielding = false;
 				return true;
@@ -449,6 +580,23 @@ public final class NetherSkills {
 			// Out of sight and full: wait for health to come back.
 			if (Bari.pathing()) Bari.stop();
 			return true;
+		}
+
+		/**
+		 * Gene nether.recover_bounded: why waiting to heal here is pointless, or null. Recovery stood
+		 * still while a wither skeleton hit it (gen176 eval-g159-2 died that way), and waited for
+		 * health that can't come back: below 18 hunger with nothing to eat, health doesn't regenerate.
+		 */
+		private String hopeless(LocalPlayer pl, Perception seen) {
+			Perception.Seen close = seen.nearestHostile();
+			if (close != null && close.dist() <= 3.2 && !close.type().equals("blaze"))
+				return "threat: " + close.type() + " at " + Math.round(close.dist()) + " while waiting to heal";
+			int hunger = pl.getFoodData().getFoodLevel();
+			if (hunger < 18 && Mc.count(Items2.matcher("food")) == 0)
+				return "no food: hunger " + hunger + " and nothing to eat, health can't come back";
+			if (ticks - recoverStart > 20 * 45 && recoverBest <= pl.getHealth() + 0.5f && pl.getHealth() < 14)
+				return "no health back in 45 s (at " + Math.round(pl.getHealth()) + ")";
+			return null;
 		}
 
 		private void stopShielding(net.minecraft.client.KeyMapping keyUse) {

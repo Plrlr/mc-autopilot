@@ -80,6 +80,21 @@ def frontier(st):
     return STAGES[-1]
 
 
+def late_task(st, rng, gen):
+    """A start past the frontier for unscored practice, rotating by generation (the stages with a
+    real or staged start: today the staged stronghold search and the End). Scored look-aheads were
+    turned off because a wall nobody crosses only added deaths to the score; practice in a data run
+    costs no race anything, and keeps the late-game skills from going untested for months."""
+    after = STAGES[STAGES.index(frontier(st)) + 1:]
+    stages = [s for s in after if available(st, s)]
+    if not stages:
+        return None
+    t = pick_stage(st, rng, stages[gen % len(stages)])
+    if t:
+        t["late"] = True
+    return t
+
+
 def pick_tasks(st, rng, count, lookahead=True):
     """`count` stage starts: the frontier, then (with lookahead) one later stage for data from
     further on. Without it every start is at the frontier: look-aheads past a wall nobody crosses

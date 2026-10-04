@@ -68,9 +68,20 @@ public final class MoveSkills {
 			for (String t : targets) {
 				if (seen.nearest(t) != null) return t;
 				// Not the ones collect just failed to reach, or the two keep handing the job back.
+				boolean remembered = false;
 				for (WorldMemory.Seen b : memory.all(t)) {
-					if (b.dim().equals(Mc.dimension()) && b.pos().distSqr(pl.blockPosition()) < 48 * 48 && !SeenMiner.unreachable(b.pos())) return t;
+					if (b.dim().equals(Mc.dimension()) && b.pos().distSqr(pl.blockPosition()) < 48 * 48 && !SeenMiner.unreachable(b.pos())) {
+						remembered = true;
+						break;
+					}
 				}
+				// Gene explore.same_blocks: for what collect takes only from seen blocks (logs, sand), the
+				// same test collect uses. Logs under deep water (a shipwreck's) were "already seen" here
+				// and "none seen" there: collect:log NOT_FOUND then explore:log ALREADY_DONE, 1,194 and
+				// 957 times in gens 118-177, while no tree was found.
+				if (remembered && (t.equals("log") || t.equals("sand")) && !SeenMiner.anySeen(memory, t, 48)
+						&& io.github.plrlr.autopilot.Exposure.mark("explore.same_blocks", "remembered " + t + " that collect can't use")) continue;
+				if (remembered) return t;
 			}
 			return null;
 		}

@@ -33,6 +33,7 @@ import sys
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import bank  # noqa: E402
+import clock  # noqa: E402
 import common  # noqa: E402
 import metrics  # noqa: E402
 
@@ -45,6 +46,7 @@ DEFAULT_SETTINGS = {
     "combat_minutes": 10,      # game minutes per combat drill (a fight every ~30-60 s)
     "bank_keep": 40,           # checkpoints kept per stage
     "data_runs": 2,            # extra champion runs with exploration on: data for the learned brain
+    "late_data_runs": 0,       # of those, how many practice a stage past the frontier instead (bank.late_task; unscored)
     "explore_data": 0.15,      # learned.explore in the data runs
     "minutes": 20,             # game minutes per run
     "scenario": "natural",
@@ -65,9 +67,10 @@ DEFAULT_SETTINGS = {
     "model_gate": 0.02,        # learned.* genes race only when the model's held-out advantage R2 beats this
     "focus_stage_seeds": 1,    # extra starts of a focused challenger's stage (suggestion "_stages") per generation
     "max_jobs": 20,
-    "metric_min": 40,          # tries per side before a targeted metric (suggestion "_metric") can decide
-    "metric_min_final": 10,    # rare skill tries per side at the pair cap; same z and game safety bars
-    "metric_z": 2.5,           # ...and how many standard errors better the challenger must be (many looks)
+    "metric_min_worlds": 8,    # worlds with tries on both sides before a targeted metric (suggestion "_metric") can decide
+    "metric_min_worlds_final": 5,  # rare skills at the pair cap; same t and game safety bars
+    "metric_z": 2.5,           # ...and the paired t over those worlds the challenger must reach (many looks)
+    "exposure_min_games": 3,   # games its change must have acted in before an idea with logged exposure can win
     "metric_safety_t": -1.5,   # ...while its whole-game pairs aren't worse than this paired t (a safety check)            # genomes x tasks per generation (GitHub's free plan runs 20 jobs at once)
 }
 
@@ -93,11 +96,15 @@ def load_state(d, genes):
     # A new scorer measures something else: differences scored the old way can't be added to new
     # ones, so every race starts over (the champion keeps its crown until beaten the new way).
     if (st.get("score_version", 1) != common.SCORE_VERSION
-            or st.get("race_evidence_version", 0) != 1):
+            or st.get("race_evidence_version", 0) != 2):
         for g in st["genomes"].values():
             reset_race(g)
+        if st.get("score_version", 1) != common.SCORE_VERSION:
+            # Scores from before can't be ranked with new ones either (elites, the dashboard's line).
+            st["score_since_gen"] = st.get("gen", 0) + (1 if st.get("pending") is None else 0)
         st["score_version"] = common.SCORE_VERSION
-        st["race_evidence_version"] = 1
+        # Evidence v2 (2026-10-04): metrics compared world by world, plus exposure counts.
+        st["race_evidence_version"] = 2
     for n in genes:
         st["sigma"].setdefault(n, st["settings"]["sigma0"])
         st["credit"].setdefault(n, {"n": 0, "sum": 0.0})
@@ -112,8 +119,8 @@ def new_genome(gid, parent, changed, gen, mutated, note):
 def reset_race(g):
     """Both kinds of evidence belong to one opponent and one scoring version."""
     g["pairs"] = []
-    g.pop("metric_tally", None)
-    g.pop("metric_z", None)
+    for k in ("metric_tally", "metric_z", "metric_worlds", "exposure"):
+        g.pop(k, None)
 
 
 # ---------------------------------------------------------------------------------- mutation
@@ -258,6 +265,9 @@ def cmd_propose(a):
         if sug.get("_metric"):
             # Judged by the thing it fixes (metrics.py): hundreds of tries a generation, not 4 scores.
             st["genomes"][gid]["metric"] = sug["_metric"]
+        if metrics.exposure_spec(sug):
+            # What shows its change ran (metrics.exposure): no win without it, no verdict if it never ran.
+            st["genomes"][gid]["exposure_spec"] = metrics.exposure_spec(sug)
         st["genomes"][gid]["status"] = "contender"
         st["genomes"][gid]["code"] = st["genomes"][champ].get("code")
         if sug.get("_auto", "").startswith("learned"):
@@ -296,10 +306,12 @@ def cmd_propose(a):
     tries = 0
     while len(lineup) < s["max_genomes"] and tries < 50:
         tries += 1
-        elites = [g for g in st["genomes"].values() if g["status"] in ("retired", "contender") and g["evals"]]
+        since = st.get("score_since_gen", 0)
+        elites = [g for g in st["genomes"].values() if g["status"] in ("retired", "contender")
+                  and any(e[0] >= since for e in g["evals"])]
         parent = champ
         if elites and rng.random() < 0.25:
-            elites.sort(key=lambda g: -common.mean([e[2] for e in g["evals"]]))
+            elites.sort(key=lambda g: -common.mean([e[2] for e in g["evals"] if e[0] >= since]))
             parent = rng.choice(elites[:5])["id"]
         changed, chosen = mutate(st, genes, parent, rng)
         if any(same_genes(changed, st["genomes"][x]["genes"]) for x in lineup):
@@ -337,6 +349,11 @@ def cmd_propose(a):
         lineup.remove(out_of_turn[-1])
     data_tasks = [{"kind": "natural", "stage": "spawn", "synthetic": False, "seed": bank.random_seed(rng, "D%d" % gen)}
                   for _ in range(s["data_runs"])]
+    for i in range(min(s.get("late_data_runs", 0), len(data_tasks))):
+        late = bank.late_task(st, rng, gen + i)
+        if late:
+            late["seed"] = data_tasks[i]["seed"]
+            data_tasks[i] = late
     for gid in list(lineup):
         if st["genomes"][gid].get("code") and not rebase_code(st, gid, a.sha, gen) and gid != champ:
             lineup.remove(gid)
@@ -347,7 +364,8 @@ def cmd_propose(a):
     # Data runs: the champion with exploration on, on their own seeds (never scored for the race).
     for i, t in enumerate(data_tasks):
         g = dict(st["genomes"][champ]["genes"])
-        g["learned.explore"] = s["explore_data"]
+        # Late-game practice plays the champion as it is: deliberate odd picks there teach nothing yet.
+        g["learned.explore"] = 0 if t.get("late") else s["explore_data"]
         runs.append(run_entry(s, champ, t, "data", g, gen, i, ref_of(st, champ, a.sha)))
     st["pending"] = {"gen": gen, "sha": a.sha, "lineup": lineup, "tasks": tasks, "data_tasks": data_tasks,
                      "seeds": [t["seed"] for t in tasks], "runs": [r["name"] for r in runs],
@@ -511,10 +529,21 @@ def cmd_update(a):
                 g["pairs"].append([gen, seeds[i], round(by[(gid, i)] - by[(champ, i)], 3)])
                 if g.get("metric"):
                     t = g.setdefault("metric_tally", {"on": [0, 0], "off": [0, 0]})
+                    world = [gen, seeds[i]]
                     for side, who in (("on", gid), ("off", champ)):
                         h, n = metrics.tally_run(os.path.join(a.batch, "trial-eval-%s-%d" % (who, i)), g["metric"])
                         t[side][0] += h
                         t[side][1] = round(t[side][1] + n, 2)
+                        world += [h, round(n, 2)]
+                    # One row per world: tries within a game aren't independent (metrics.world_diffs).
+                    g.setdefault("metric_worlds", []).append(world)
+                if g.get("exposure_spec"):
+                    ex = metrics.exposure_run(os.path.join(a.batch, "trial-eval-%s-%d" % (gid, i)), g["exposure_spec"])
+                    e = g.setdefault("exposure", {"games": 0, "acted": 0})
+                    e["games"] += 1
+                    e["acted"] += 1 if metrics.acted(g["exposure_spec"], ex) else 0
+                    for k, v in ex.items():
+                        e[k] = e.get(k, 0) + v
     decisions = race(st, genes, p["lineup"][1:], champ, gen)
     showcase = ingest_inbox(a.state, st, sb, gen, upload)
     # History line for the dashboard.
@@ -533,6 +562,7 @@ def cmd_update(a):
     prev = last_history(a.state)
     line = {
         "gen": gen, "time": datetime.datetime.now(datetime.timezone.utc).isoformat(timespec="seconds"),
+        "score_version": common.SCORE_VERSION,
         "sha": p["sha"][:7], "champion": st["champion"], "old_champion": champ,
         "champion_score": round(common.mean([by[(champ, i)] for i in natural_idx if (champ, i) in by]), 3),
         "champion_score_all": round(common.mean(gen_scores.get(champ, [])), 3),
@@ -551,6 +581,7 @@ def cmd_update(a):
                   "sign": st.get("model_sign"), "heads": st.get("model_keys")},
         "showcase": showcase,
         "tasks": [t["stage"] + ("*" if t.get("synthetic") else "") for t in tasks],
+        "data_tasks": [t["stage"] + ("*" if t.get("synthetic") else "") for t in data_tasks],
         "banked": banked, "frontier": bank.frontier(st), "bank": bank.summary(st),
         "stage_scores": stage_scores(results),
         "portal_drill": portal_drill(results),
@@ -577,18 +608,30 @@ def race(st, genes, challengers, champ, gen):
         # dropped: focus.commit was dropped after 5 worlds at -0.24, which is noise at this spread.
         min_pairs = s["accept_pairs"] if g["note"].startswith(("suggested", "code:")) else s["drop_after_pairs"]
         max_pairs = g.get("max_pairs", s["max_pairs"])
+        gate = exposure_gate(s, g, max_pairs)
+        if gate == "inconclusive":
+            # Its change never got the chance to act: the pairs measured the champion's behavior.
+            # Not a loss (no gene credit) and not a win: out, marked so evolve's memory says so.
+            e = g.get("exposure") or {"games": 0, "acted": 0}
+            g["status"] = "rejected"
+            g["inconclusive"] = "its change acted in %d of %d games" % (e["acted"], e["games"])
+            out.append("%s inconclusive (%s)" % (gid, g["inconclusive"]))
+            continue
         if g.get("metric"):
             verdict = metric_verdict(s, g, t)
+            if verdict == "crown" and gate != "ok":
+                verdict = "wait"
             # Ranked by its metric's z (2.5+ is strong evidence); a whole-game t 2+ ranks alongside.
             if verdict == "crown" and g["metric_z"] > best_t:
                 best, best_t = gid, g["metric_z"]
             elif verdict == "drop":
                 g["status"] = "rejected"
-                out.append("%s dropped (%s: %s vs %s)" % (gid, g["metric"], metrics.describe(g["metric"], g["metric_tally"]["on"]),
-                                                         metrics.describe(g["metric"], g["metric_tally"]["off"])))
+                on, off = metric_sums(g)
+                out.append("%s dropped (%s: %s vs %s, world t %.1f)" % (gid, g["metric"], metrics.describe(g["metric"], on),
+                                                                     metrics.describe(g["metric"], off), g.get("metric_z", 0)))
                 learn_from(st, g, m)
             continue
-        if len(diffs) >= s["accept_pairs"] and m >= s["min_gain"] and t >= s["accept_t"] and t > best_t:
+        if len(diffs) >= s["accept_pairs"] and m >= s["min_gain"] and t >= s["accept_t"] and t > best_t and gate == "ok":
             best, best_t = gid, t
             continue
         # A queued idea is dropped early only on evidence it hurts (t <= drop_t), not on a mean just
@@ -614,9 +657,10 @@ def race(st, genes, challengers, champ, gen):
             st["merge"] = dict(g["code"], genome=best)  # the workflow merges it into main (loop.py merge)
         st["champion"] = best
         if g.get("metric"):
-            out.append("%s is the new champion (%s: %s vs %s, z %.1f; game %+.2f over %d seeds): %s" % (
-                best, g["metric"], metrics.describe(g["metric"], g["metric_tally"]["on"]),
-                metrics.describe(g["metric"], g["metric_tally"]["off"]), best_t, m, len(g["pairs"]), g["note"]))
+            on, off = metric_sums(g)
+            out.append("%s is the new champion (%s: %s vs %s, world t %.1f; game %+.2f over %d seeds): %s" % (
+                best, g["metric"], metrics.describe(g["metric"], on), metrics.describe(g["metric"], off),
+                best_t, m, len(g["pairs"]), g["note"]))
         else:
             out.append("%s is the new champion (%+.2f over %d seeds, t %.1f): %s" % (best, m, len(g["pairs"]), best_t, g["note"]))
         learn_from(st, g, m)
@@ -634,22 +678,48 @@ def race(st, genes, challengers, champ, gen):
     return out
 
 
+def metric_sums(g):
+    """(hits, tries) on each side over the worlds raced, for messages."""
+    on, off = [0, 0.0], [0, 0.0]
+    for w in g.get("metric_worlds", []):
+        on = [on[0] + w[2], on[1] + w[3]]
+        off = [off[0] + w[4], off[1] + w[5]]
+    return on, off
+
+
+def exposure_gate(s, g, max_pairs):
+    """ok / thin / inconclusive for an idea whose change logs its exposure (metrics.exposure_spec):
+    inconclusive once it had a promotion's worth of worlds (or its last) and never acted, or reached
+    its last with too few games acted in; thin while it acted in fewer than exposure_min_games games
+    (it can't win yet). Ideas without logged exposure: ok (judged as before)."""
+    if not g.get("exposure_spec"):
+        return "ok"
+    e = g.get("exposure") or {"games": 0, "acted": 0}
+    n = len(g["pairs"])
+    if e["acted"] == 0 and n > 0 and n >= min(s["accept_pairs"], max_pairs):
+        return "inconclusive"
+    if e["acted"] < s.get("exposure_min_games", 3):
+        return "inconclusive" if n >= max_pairs else "thin"
+    return "ok"
+
+
 def metric_verdict(s, g, t):
-    """crown / drop / wait for a challenger judged by its targeted metric (metrics.py)."""
+    """crown / drop / wait for a challenger judged by its targeted metric (metrics.py), world by
+    world: the paired t of (challenger's rate - champion's) over worlds where both sides had tries.
+    Pooled tries counted a dozen shore timeouts in one swamp as a dozen independent trials."""
     s = dict(s, max_pairs=g.get("max_pairs", s["max_pairs"]))
     if not g["pairs"]:
         return "wait"
-    tl = g.get("metric_tally")
-    if not tl:
-        return "drop" if len(g["pairs"]) >= s["max_pairs"] else "wait"
-    enough = min(tl["on"][1], tl["off"][1]) >= s.get("metric_min", 40)
+    worlds = g.get("metric_worlds")
     at_limit = len(g["pairs"]) >= s["max_pairs"]
-    # A hunt may finish only once per world. At the final look, allow a rare success metric
-    # to decide after enough paired worlds; minutes of death exposure keep the usual minimum.
-    if (at_limit and g["metric"].startswith("ok:")
-            and len(g["pairs"]) >= s["accept_pairs"]):
-        enough = enough or min(tl["on"][1], tl["off"][1]) >= s.get("metric_min_final", 10)
-    zv = metrics.z(g["metric"], tl["on"], tl["off"])
+    if not worlds:
+        return "drop" if at_limit else "wait"
+    diffs = metrics.world_diffs(g["metric"], [w[2:6] for w in worlds])
+    enough = len(diffs) >= s.get("metric_min_worlds", 8)
+    # A hunt may finish only once per world: at the final look, fewer worlds with tries may decide.
+    if at_limit and len(g["pairs"]) >= s["accept_pairs"]:
+        enough = enough or len(diffs) >= s.get("metric_min_worlds_final", 5)
+    zv = common.paired_t(diffs)
     g["metric_z"] = round(zv, 2)
     safe = len(g["pairs"]) < 2 or t >= s.get("metric_safety_t", -1.5)
     if enough and zv >= s.get("metric_z", 2.5) and safe:
@@ -685,19 +755,20 @@ def read_speed(d):
 def save_training_rows(state_dir, gen, name, d):
     """The learned brain's data from one run, compact: decisions (game second, state features,
     action kind, propensity, urgent) and outcomes (milestones, checkpoints, deaths with game
-    seconds interpolated from wall time). Written as loop/data/gen-NNNNN/<run>.jsonl.gz."""
-    rows, wall_to_gs = [], []
-    events, skills = [], []
+    seconds from the run's clock, clock.py, the same one the scorer uses). Written as
+    loop/data/gen-NNNNN/<run>.jsonl.gz."""
+    rows, raw = [], []
+    events, skills, context = [], [], []
     for f in sorted(glob.glob(os.path.join(d, "**", "run-*.jsonl"), recursive=True)):
         for line in open(f, errors="replace"):
             try:
                 o = json.loads(line)
             except ValueError:
                 continue
+            raw.append(o)
             # Reflex rows (fights and escapes, logged since 2026-09-28) are emergencies: the
             # advantage trees skip them, the danger model learns from them most of all.
             if o.get("layer") in ("tactician", "reflex") and "x" in o and "gs" in o:
-                wall_to_gs.append((o["t"], o["gs"]))
                 opts = o.get("options", [])
                 idx = o.get("idx", 0)
                 label = opts[idx] if 0 <= idx < len(opts) else o.get("choice", "")
@@ -708,19 +779,33 @@ def save_training_rows(state_dir, gen, name, d):
                              "o": [action_key(l) for l in opts[:6]]})
             elif o.get("event") in ("death", "milestone", "checkpoint"):
                 events.append((o["t"], o["event"], o.get("detail", "")))
+            elif o.get("event") in CONTEXT_EVENTS and "t" in o:
+                context.append((o["t"], o["event"], str(o.get("detail", ""))[:80]))
             elif o.get("event") == "skill_end" and "t" in o:
-                # Skill results (brain v2's skill stats): which action, ok or its fail code, how long.
+                # Skill results (brain v2's skill stats): which action, ok or its fail code, how long,
+                # and for a failure its reason (what a death's last seconds are read from).
                 skills.append((o["t"], action_key(o.get("skill", "")), bool(o.get("ok")), o.get("code"),
-                               round(float(o.get("seconds", 0)), 1)))
+                               round(float(o.get("seconds", 0)), 1), "" if o.get("ok") else str(o.get("detail", ""))[:80]))
     if not rows:
         return
+    test_log = os.path.join(d, "autopilot-test.log")
+    run_clock = clock.Clock(raw, open(test_log, errors="replace").read().splitlines() if os.path.exists(test_log) else [])
+
+    def gs_at(t):
+        g = run_clock.game_second(t)
+        return 0 if g is None else round(g, 1)
+
     for t, ev, detail in events:
-        rows.append({"k": ev, "gs": interp(wall_to_gs, t), "detail": detail})
-    for t, key, ok, code, sec in skills:
-        r = {"k": "s", "gs": interp(wall_to_gs, t), "a": key, "ok": ok, "sec": sec}
+        rows.append({"k": ev, "gs": gs_at(t), "detail": detail})
+    for t, key, ok, code, sec, why in skills:
+        r = {"k": "s", "gs": gs_at(t), "a": key, "ok": ok, "sec": sec}
         if code:
             r["c"] = code
+        if why:
+            r["t"] = why
         rows.append(r)
+    for t, kind, detail in context:
+        rows.append({"k": "e", "gs": gs_at(t), "e": kind, "t": detail})
     rows.sort(key=lambda r: r["gs"])
     out = os.path.join(state_dir, "data", "gen-%05d" % gen, name + ".jsonl.gz")
     os.makedirs(os.path.dirname(out), exist_ok=True)
@@ -729,15 +814,10 @@ def save_training_rows(state_dir, gen, name, d):
             f.write(json.dumps(r, separators=(",", ":")) + "\n")
 
 
-def interp(pairs, t):
-    if not pairs:
-        return 0
-    if t <= pairs[0][0]:
-        return pairs[0][1]
-    for (t0, g0), (t1, g1) in zip(pairs, pairs[1:]):
-        if t0 <= t <= t1:
-            return g0 + (g1 - g0) * (t - t0) / max(1, t1 - t0)
-    return pairs[-1][1] + (t - pairs[-1][0]) / 1000.0
+# Events kept in the compact rows (since 2026-10-04): what the reflexes did, being stuck, and each
+# gene's opportunities (Exposure). Raw logs expire with their artifacts; without these, the reason
+# for a death (lava at full health 18 s into a walk, 28% of Nether first deaths) can't be read later.
+CONTEXT_EVENTS = ("reflex", "guard", "stuck", "livelock", "bad_skill", "gene")
 
 
 def action_key(label):

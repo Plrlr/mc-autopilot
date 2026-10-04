@@ -69,20 +69,64 @@ public final class Planner {
 				&& (groundWork(main) || urgent.stream().anyMatch(Planner::groundWork))) {
 			// One shared decision prevents collect, station, shelter and explore from handing the
 			// same watery spot back and forth. Combat and eating can still take precedence.
-			List<Option> shore = new ArrayList<>();
-			for (Option o : urgent) if (o.skill().equals("attack") || o.skill().equals("retreat") || o.skill().equals("eat")) shore.add(o);
+			List<Option> safety = new ArrayList<>();
+			for (Option o : urgent) if (o.skill().equals("attack") || o.skill().equals("retreat") || o.skill().equals("eat")) safety.add(o);
 			Option move = new Option("shore", null, "reach seen dry ground before " + (main == null ? "working" : main.label()));
-			shore.add(move);
-			lastUrgent = shore.stream().map(Option::label).collect(java.util.stream.Collectors.toSet());
+			// Shore is the step that runs here, so evolved fallbacks see it as the main step (g164's
+			// swim_out waited for main = shore and was never offered: this list returned first).
+			List<Option> shore = shoreOptions(safety, move, EvolvedSkills.offers(move, safety, memory));
+			java.util.Set<String> urgentNow = new java.util.HashSet<>();
+			for (Option o : safety) urgentNow.add(o.label());
+			urgentNow.add(move.label());
+			lastUrgent = urgentNow;
 			return shore;
 		}
 		lastUrgent = urgent.stream().map(Option::label).collect(java.util.stream.Collectors.toSet());
 		Option surface = surfaceOption(main);
 		List<Option> up = new ArrayList<>(upkeep(seen, main));
+		Option eatHome = NetherPlan.homeToEat(memory);
+		if (eatHome != null) up.add(0, eatHome);
 		List<Option> soFar = new ArrayList<>(urgent);
 		soFar.addAll(up);
 		up.addAll(EvolvedSkills.offers(main, soFar, memory));
-		return order(urgent, recovery, surface, up, main, extras(seen, main));
+		return packUpLast(order(urgent, recovery, surface, up, main, extras(seen, main)));
+	}
+
+	/**
+	 * Gene stations.pickup_last: take the crafting table and furnace along only after the work that
+	 * needs them. Upkeep ranked "pickup stations" above the next craft, so after a wooden pickaxe the
+	 * bot packed the table, then set it down again for the sword (craft:wooden_sword and
+	 * pickup:stations took turns 345 times in gens 118-177, with "stuck" pickups among them).
+	 */
+	static List<Option> packUpLast(List<Option> list) {
+		int pickup = -1, lastUse = -1;
+		for (int i = 0; i < list.size(); i++) {
+			Option o = list.get(i);
+			if (o.skill().equals("pickup") && "stations".equals(o.arg())) pickup = i;
+			else if (o.skill().equals("craft") || o.skill().equals("smelt")) lastUse = i;
+		}
+		if (pickup < 0 || lastUse < pickup) return list;
+		if (!io.github.plrlr.autopilot.Exposure.mark("stations.pickup_last", "packing up before " + list.get(lastUse).label())) return list;
+		return packUpAfter(list, pickup, lastUse);
+	}
+
+	/** The list with the item at `from` moved to just after `after` (pure, for unit tests). */
+	static List<Option> packUpAfter(List<Option> list, int from, int after) {
+		List<Option> out = new ArrayList<>(list);
+		Option o = out.remove(from);
+		out.add(after, o);
+		return out;
+	}
+
+	/**
+	 * The shore phase's list: safety first (a fight, a retreat, eating), then fallbacks offered for
+	 * shore (not urgent: the brain may still rank them), then shore itself. Pure for unit tests.
+	 */
+	public static List<Option> shoreOptions(List<Option> safety, Option move, List<Option> fallbacks) {
+		List<Option> out = new ArrayList<>(safety);
+		for (Option o : fallbacks) if (!o.skill().equals(move.skill())) out.add(o);
+		out.add(move);
+		return out;
 	}
 
 	private static boolean groundWork(Option o) {
@@ -586,7 +630,9 @@ public final class Planner {
 
 	public static int armorTier(String id) {
 		// Trading in the Nether: the gold helmet beats any helmet (piglins attack without gold).
-		if (id.equals("golden_helmet") && Tune.on("route.barter") && Mc.player() != null && Mc.dimension().equals("the_nether")) return 9;
+		// Gene ready.nether_gold carries one in for the same reason; in the overworld iron wins again.
+		if (id.equals("golden_helmet") && (Tune.on("route.barter") || Tune.on("ready.nether_gold"))
+				&& Mc.player() != null && Mc.dimension().equals("the_nether")) return 9;
 		if (id.startsWith("leather_")) return 0;
 		if (id.startsWith("golden_") || id.startsWith("chainmail_")) return 1;
 		if (id.startsWith("iron_")) return 2;

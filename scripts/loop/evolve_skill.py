@@ -138,7 +138,7 @@ def gen_tables(state_dir, gens):
     for g in sorted(glob.glob(os.path.join(state_dir, "data", "gen-*")))[-gens:]:
         files = glob.glob(os.path.join(g, "*.jsonl.gz"))
         if files:
-            runs, lost, tries, died = failures.table(files)
+            runs, lost, tries, died = failures.table(files, first_life=True)
             out.append((os.path.basename(g), lost, tries, runs))
     return out
 
@@ -176,10 +176,14 @@ def pick_target(st, state_dir, strict=True, gens=8, top=5, share=0.5):
     return None
 
 
-def metric_for(action, code):
-    """What the race judges the new skill by: the failing action's success rate (metrics.py), or
-    deaths per minute for a failure that kills."""
-    return "deaths" if code == "DIED" else "ok:" + action.split(":")[0]
+def metric_for(action, code, skill=None):
+    """What the race judges the new skill by: whether the failure it targets gets fixed (an ok end
+    of the failing action, or of the new skill, within 3 minutes: metrics.py resolve), or deaths per
+    minute for a failure that kills. Not the failing action's own success rate: g164's swim_out was
+    judged by ok:shore, which measures shore, and "passed" without ever running."""
+    if code == "DIED":
+        return "deaths"
+    return "resolve:%s:%s%s" % (action.split(":")[0], code, "+" + skill if skill else "")
 
 
 # ---------------------------------------------------------------------------------- evidence
@@ -261,12 +265,16 @@ def prompt_for(st, state_dir, batch, target, genes, budget):
     lines = ["TARGET: %s: %.0f game minutes lost over %d tries in the last %d generations (%d games)%s." % (
                  target["name"], target["minutes"], target["tries"], target["gens"], target["runs"],
                  ", among each generation's 5 costliest in at least half of them" if target["persistent"] else ""),
-             "The race will judge your skill by: %s (plus the whole-game score as a safety check)." % target["metric"],
+             "The race will judge your skill by: %s (plus the whole-game score as a safety check)." % target["metric"]
+             + (" That is: of the %s failures, the share fixed within 3 minutes by an ok %s or by your skill."
+                % (target["name"], target["action"].split(":")[0]) if target["metric"].startswith("resolve:") else "")
+             + " It must actually run: a skill never offered, chosen and started in its drill is INCONCLUSIVE"
+               " and does not race, so make sure your offer fires in the situation the examples show.",
              "", "Failure table, last %d generations (game minutes lost, tries):" % len(tables)]
     lines += ["- %s %s: %.0f min, %d tries" % (k[0], k[1], s / 60, tries[k]) for k, s in total.most_common(14)]
     lines += ["", skill_stats_text(st, target["action"]), "", "Examples of the target failure this generation:"]
     lines += examples(batch, target) or ["(no game logs of it in this batch)"]
-    parts = ["\n".join(lines), "", evolve.attempts_text(st), skill_attempts_text(st), "",
+    parts = ["\n".join(lines), "", evolve.behavior_text(state_dir), "", evolve.attempts_text(st), skill_attempts_text(st), "",
              evolve.champion_genes_text(st, genes), "", "THE FRAMEWORK YOUR SKILL PLUGS INTO:", framework_text(), "",
              "=== EXAMPLE ===\n" + EXAMPLE]
     left = budget - sum(len(p) for p in parts)
@@ -452,9 +460,13 @@ def check_drills(st, state_dir, gen, log=print):
             continue
         d["verdict"], d["why"] = verdict, why
         g["status"] = "contender" if verdict == "PASS" else "rejected"
+        if verdict == "INCONCLUSIVE":
+            # Never offered or started in its drill: says nothing about the skill (check its offer).
+            g["inconclusive"] = "never ran in its drill"
         for a in st.get("skill_attempts", []):
             if a["gid"] == g["id"]:
-                a["result"] = "racing" if verdict == "PASS" else "drill failed: " + why
+                a["result"] = {"PASS": "racing", "INCONCLUSIVE": "inconclusive: never ran in its drill (its offer "
+                               "never fired): "}.get(verdict, "drill failed: ") + ("" if verdict == "PASS" else why)
         log("%s drill %s: %s" % (g["id"], verdict, why))
 
 
@@ -479,6 +491,9 @@ def run(a, st, st_path, s, target, genes, today, used, t0, prefix="evolve/"):
             so = evolve.ask_claude(prompt if attempt == 0 else prompt + "\n\nYOUR LAST SKILL FAILED ITS GATES:\n" + why +
                                    "\nFix it and return the whole skill again.", a.claude, SYSTEM, SCHEMA,
                                    "Write the new skill as JSON. The evidence and the framework are on stdin.")
+        except evolve.RateLimited as e:
+            undo()
+            return evolve.pause_for_limit(st_path, today, e)
         except Exception as e:  # noqa: BLE001 - a failed call just ends this cycle
             why = str(e)
             break
@@ -527,12 +542,13 @@ def run(a, st, st_path, s, target, genes, today, used, t0, prefix="evolve/"):
     evolve.git("push", "-q", "origin", "%s:refs/heads/%s" % (sha, branch))
     evolve.git("checkout", "-q", base)
     champ = st["genomes"][st["champion"]]
-    idea = {gene: 1, "_metric": target["metric"]}
+    metric = metric_for(target["action"], target["code"], skill)
+    idea = {gene: 1, "_metric": metric}
     st["genomes"][gid] = {
         "id": gid, "parent": champ["id"], "genes": dict(champ["genes"], **{gene: 1.0}), "born": st["gen"],
         "code": {"branch": branch, "sha": sha, "base": base, "summary": so["summary"], "files": touched,
                  "kind": "skill", "skill": skill, "gene": gene, "target": target["name"]},
-        "status": "drilling", "mutated": ["code", gene], "metric": target["metric"],
+        "status": "drilling", "mutated": ["code", gene], "metric": metric, "exposure_spec": {"skill": skill},
         "note": "code: new skill %s for %s: %s" % (skill, target["name"], so["summary"]),
         "drill": {"idea": idea, "gen": st["gen"]}, "evals": [], "pairs": []}
     if so.get("lesson"):

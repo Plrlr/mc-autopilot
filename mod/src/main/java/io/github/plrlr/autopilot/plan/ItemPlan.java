@@ -115,7 +115,7 @@ final class ItemPlan {
 			Option o = itemStep(p,"planks", planksNeed, depth + 1);
 			if (o != null) return o;
 		}
-		if (p.memory.nearestStation("furnace") == null && Mc.count("furnace") == 0) {
+		if ((p.memory.nearestStation("furnace") == null && Mc.count("furnace") == 0) || SmeltSkill.needSecondFurnace(p.memory, item)) {
 			Option o = itemStep(p,"furnace", 1, depth + 1);
 			if (o != null) return o;
 		}

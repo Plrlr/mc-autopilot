@@ -19,6 +19,9 @@ import re
 import statistics
 import sys
 
+sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), "loop"))
+import clock  # noqa: E402  (scripts/loop/clock.py: the one wall -> game second conversion)
+
 ANIMALS = {"cow", "pig", "sheep", "chicken", "rabbit"}
 # Where each skill's time goes. Anything unlisted counts as "other".
 CATEGORY = {
@@ -62,8 +65,10 @@ def read_run(path):
     run = {"name": name, "milestones": [], "deaths": [], "fights": [], "final": None, "task": None, "length": 0, "checkpoints": {},
            "time": collections.Counter(), "fails": [], "shots": [], "notes": []}
     test_log = os.path.join(path, "autopilot-test.log")
+    log_lines = []
     if os.path.exists(test_log):
-        for line in open(test_log, errors="replace"):
+        log_lines = open(test_log, errors="replace").read().splitlines()
+        for line in log_lines:
             line = line.split("[autopilot-test] ", 1)[-1].rstrip()
             m = re.match(r"\S+ (\d+)s: ", line)
             if m:
@@ -87,17 +92,16 @@ def read_run(path):
                 run["task"] = line[5:]
             elif line.startswith("NOTE"):
                 run["notes"].append(line[5:])
-    # Deaths are logged with wall time only; decision rows carry (wall, game second) pairs, so the
-    # game second of each death is read off them. One-life scoring needs it (loop/common.py).
-    clock, death_walls = [], []
+    # Deaths are logged with wall time only; their game second comes from the run's clock anchors
+    # (decision rows and the test's progress lines, clock.py). One-life scoring needs it (common.py).
+    rows, death_walls = [], []
     for f in sorted(glob.glob(os.path.join(path, "**", "run-*.jsonl"), recursive=True)):
         for line in open(f, errors="replace"):
             try:
                 o = json.loads(line)
             except ValueError:
                 continue
-            if "t" in o and "gs" in o:
-                clock.append((o["t"], o["gs"]))
+            rows.append(o)
             if o.get("event") == "death":
                 run["deaths"].append((o.get("detail", "?"), run.get("_doing", "?")))
                 death_walls.append(o.get("t"))
@@ -118,7 +122,10 @@ def read_run(path):
                     if code is None:
                         code = "text"
                     run["fails"].append((action_of(label) + " " + code, detail))
-    run["death_times"] = [game_second(clock, t) for t in death_walls if t is not None]
+    run_clock = clock.Clock(rows, log_lines)
+    # Rounded down: a death known only to within its anchors is not moved later than it can be.
+    run["death_times"] = [int(gs) for gs in (run_clock.game_second(t) for t in death_walls if t is not None)
+                          if gs is not None]
     for f in glob.glob(os.path.join(path, "**", "screenshots", "*.png"), recursive=True):
         run["shots"].append(re.sub(r"^\d+_", "", os.path.basename(f))[:-4])
     if run["length"]:
@@ -130,14 +137,6 @@ def read_run(path):
         if cast:
             run["cast"] = cast[-8:]
     return run
-
-
-def game_second(clock, t):
-    """Game second at wall time t: the last (wall, game second) pair logged at or before it."""
-    before = [g for w, g in clock if w <= t]
-    if before:
-        return int(max(before))
-    return int(min(g for _, g in clock)) if clock else 0
 
 
 # Seconds a natural run lasts (--minutes); 0 = use each run's last progress report.

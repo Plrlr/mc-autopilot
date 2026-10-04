@@ -70,12 +70,26 @@ learns a new skill" means three steps, each by a different part:
 2. *The race keeps it.* Its branch `evolve/<id>` is drilled by trials.yml with drill.py's plan (3
    starts with and without the gene; trials.yml's unit-tests job is pr-check's Java check again). A
    PASS makes it a contender: it races first, as the champion plus its gene, replayed on each
-   generation's main, judged by the metric of the failure it targets (e.g. `ok:explore`) with the
-   whole-game score as a safety check. A winner is merged into main like any code change.
+   generation's main, judged by whether the failure it targets gets fixed (e.g.
+   `resolve:shore:TIMEOUT+swim_out`: the share of shore timeouts followed by an ok shore or swim_out
+   within 3 minutes), world by world, with the whole-game score as a safety check. A winner is
+   merged into main like any code change. It must run to be judged (since 2026-10-04): a skill
+   never offered and started in its drill is INCONCLUSIVE and doesn't race, and in the race one that
+   acted in no game leaves as inconclusive (g164's swim_out "passed" its drill on `ok:shore`, which
+   measured shore itself: the shore phase returned before evolved offers were asked).
 3. *The brain learns when to use it.* Its option carries its own action key, so the neural brain
    grows a head for it once it has rows (data runs try it on purpose) and can re-rank it against
    the rules' order when `learned.weight` wins its race. EvolvedSkills also benches a skill for a
    minute after three failures in a row.
+
+**Running on its own (2026-10-04).** Genes and queued ideas run out (all 87 were tried by gen 177),
+so level 3 is what keeps the loop improving without a person. It shares the Claude plan with
+people's own sessions: a call that hits the plan's limit (HTTP 429) now pauses level 3 until the
+reset and counts as nothing (gens 120-166 lost 45 calls that way, each recorded as a failure). Each
+call gets `patterns.py`'s report of the bot's own behavior (time by action, dithering, refusals in
+a row, the situation at each first death) beside the failure table, and new-skill targets rank on
+first lives only. Ideas that log their exposure (an evolved skill, or a gene using `Exposure.mark`)
+must have acted to win, and leave as inconclusive if they never act.
 
 What it can't do: it can't learn motor skills from pixels or invent abilities the facade doesn't
 expose (a new skill is Java composed of the player's controls, chosen by Claude from evidence, and
@@ -130,7 +144,8 @@ cascade), and more parallel seeds once the cloud's speed is fixed (the renderer 
    with real time on the cloud (0.98x). A 10 fps cap halved the game speed, so it isn't used.
 3. **update**: scores every run (`common.score_run`: points per milestone and portal step, up to
    50% more the earlier; one life: only what came before the first death counts, plus up to 2
-   points for the share of the run lived, minus 1 for dying), races, retrains the model, merges a winning code
+   points for the share of the run lived, minus 1 for dying; a death's game second comes from
+   `clock.py`, score v4 since 2026-10-04), races, retrains the model, merges a winning code
    change, maybe asks Claude for one, writes `loop/history.jsonl` and the dashboard, and starts
    the next generation.
 

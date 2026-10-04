@@ -43,6 +43,7 @@ public final class Tune {
 		gene("reflex.melee_dist", 3.5, 2, 5, Kind.REAL, "a hostile this close triggers the fight/flee reflex");
 		gene("death.trip_commit", 0, 0, 1, Kind.BOOL, "keep going for dropped items past routine fights; respond to close or multiple mobs");
 		gene("safety.enderman_gaze", 0, 0, 1, Kind.BOOL, "never meet an enderman's eyes (any dimension); fight back when one is angry");
+		gene("nether.piglin_threat", 0, 0, 1, Kind.BOOL, "a piglin in attack pose is a threat to answer, a brute always (they were all neutral)");
 		gene("death.recover_value", 0, 0, 1, Kind.BOOL, "go back for dropped items only when they're worth it (iron-tier+) and health 12+ or food");
 		gene("combat.finish_heal_wall", 0, 0, 1, Kind.BOOL, "let shelter finish placing its healing wall before routine melee reflexes");
 		gene("combat.flee_hp", 8, 3, 14, Kind.INT, "at or below this health, run when outnumbered (reflex and planner share it)");
@@ -99,6 +100,10 @@ public final class Tune {
 		gene("gather.coal_upkeep_below", 4, 0, 16, Kind.INT, "grab coal in view while carrying fewer than this");
 		gene("gather.coal_view_dist", 12, 4, 24, Kind.INT, "coal (and iron) ore this close counts as in view");
 		gene("gather.iron_in_view", 0, 0, 1, Kind.BOOL, "take iron ore in view while the route still needs iron");
+		// 2026-10-04 (Claude, from gens 118-177's first lives: patterns.py): finish one thing at a time.
+		gene("explore.same_blocks", 0, 0, 1, Kind.BOOL, "explore counts a remembered block only if collect would use it (no 'already seen' for logs under water)");
+		gene("stations.pickup_last", 0, 0, 1, Kind.BOOL, "pick the crafting table and furnace up only after the crafting and smelting that need them");
+		gene("smelt.own_furnace", 0, 0, 1, Kind.BOOL, "never pull another load of ours out of a furnace: use or make a second furnace");
 		gene("gather.iron_y", 16, -16, 64, Kind.INT, "height to branch-mine iron at (16: most ore, most caves)");
 		gene("gather.coal_y", 45, 0, 96, Kind.INT, "height to branch-mine coal at");
 		// Route choices (switches)
@@ -147,6 +152,12 @@ public final class Tune {
 		gene("tools.diamond_pick_if_found", 1, 0, 1, Kind.BOOL, "3+ diamonds in the bag: make a diamond pickaxe and portal the classic way");
 		gene("tools.stone_axe", 1, 0, 1, Kind.BOOL, "craft a stone axe before chopping more wood (logs break ~3x faster)");
 		gene("nether.pie_chart", 1, 0, 1, Kind.BOOL, "look for a fortress where the F3 pie chart shows spawners, like speedrunners (pie-ray)");
+		// 2026-10-04 (Claude, the Oct 4 audit): getting to the blazes in a fortress, one gene each.
+		gene("fortress.no_tunnel", 0, 0, 1, Kind.BOOL, "Baritone may not break fortress blocks during the blaze fight: walk the bridges and doorways");
+		gene("fortress.floor_anchor", 0, 0, 1, Kind.BOOL, "fight anchors are floor patches, not wall tops; with no floor in view stand off the wall");
+		gene("fortress.anchor_scope", 0, 0, 1, Kind.BOOL, "tried anchors open again after 2 minutes and belong to one life and dimension");
+		gene("fortress.spawner_check", 0, 0, 1, Kind.BOOL, "a spawner is the blaze spawner only with fortress bricks or a blaze near it");
+		gene("nether.recover_bounded", 0, 0, 1, Kind.BOOL, "fortress recovery answers a mob at arm's length, leaves when healing can't come (no food, hunger < 18) or 45 s pass, and goes home to eat");
 		gene("portal.prepare_work_area", 0, 0, 1, Kind.BOOL, "prepare a dry floor for the portal frame when no natural site fits");
 		gene("portal.reserve_lava_bucket", 0, 0, 1, Kind.BOOL, "retired 2026-09-29 (always on: two water buckets deadlocked the cast); kept so old genomes load");
 		gene("brain.death_avoid", 0, 0, 1, Kind.BOOL, "options that clearly kill us in this context (every game's deaths) go behind the safe ones");
@@ -232,11 +243,15 @@ public final class Tune {
 		gene("brain.death_s", 600, 120, 1800, Kind.INT, "what a death costs in the strategist's sums, in seconds (the kit is lost)");
 		gene("brain.skill_stats", 0, 0, 1, Kind.BOOL, "options that clearly fail here (learned skill stats) go behind the ones that work");
 		gene("reflex.escalate", 0, 0, 1, Kind.BOOL, "fled the same way twice in 30 s: stand and fight or wall in instead of running again");
+		gene("brain.situations", 0, 0, 1, Kind.BOOL, "skill memory also keyed by the moment (hurt, a monster close, nothing to eat), not only the place");
 		gene("plan.readiness", 0, 0, 1, Kind.BOOL, "check the kit before a one-way door (Nether, End) and get what's missing first");
 		gene("ready.nether_blocks", 32, 0, 128, Kind.INT, "throwaway blocks to carry into the Nether");
 		gene("ready.nether_food", 6, 0, 32, Kind.INT, "food to carry into the Nether");
 		gene("ready.end_blocks", 64, 0, 192, Kind.INT, "throwaway blocks to carry into the End");
 		gene("ready.end_food", 10, 0, 32, Kind.INT, "food to carry into the End");
+		// 2026-10-04 (Claude, the Oct 4 audit): readiness on the path the rules actually take.
+		gene("ready.portal_entry", 0, 0, 1, Kind.BOOL, "at a known nether portal, get the route's kit and readiness's blocks, food and flint and steel before walking in");
+		gene("ready.nether_gold", 0, 0, 1, Kind.BOOL, "carry a gold helmet into the Nether and wear it there (piglins leave gold alone)");
 		EvolvedGenes.load(GENES.keySet()).forEach(e -> gene(e.name(), 0, 0, 1, Kind.BOOL, e.why()));
 		reset();
 	}
