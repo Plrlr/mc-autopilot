@@ -12,10 +12,12 @@ what it targets:
 Each start is played twice on the PR's code: the champion's genes ("off") and the champion plus the
 idea ("on"). Prints the job matrix as JSON ([] when the PR adds no suggestion).
 
-report: per idea, its metric on both sides (metrics.py), deaths, and a verdict:
-    FAIL  the metric is clearly worse (z <= -1.5, with 5+ tries a side or 5+ deaths in all), or the
-          idea's side never finished a game
-    PASS  otherwise (3 pairs are a gate against breakage and clear harm, not a crown: the loop decides)
+report: per idea, its metric on both sides (metrics.py), deaths, its exposure, and a verdict:
+    FAIL          the idea's side never finished a game, or the metric is clearly worse (z <= -1.5,
+                  with 5+ tries a side or 5+ deaths in all) in most of the worlds that had tries
+    INCONCLUSIVE  the change never ran on its side (an evolved skill never started, a gene logged no
+                  "on" event): its metric then measured the old behavior, so it says nothing (g164)
+    PASS          otherwise (3 pairs are a gate against breakage and clear harm, not a crown: the loop decides)
 A failing idea gets "_drill": "fail" in settings.json before merging; loop.py never races those.
 2026-09-29: the old drill lumped all of a PR's ideas into one side and judged portal steps only, so a
 combat or movement idea got no drill that could see it.
@@ -108,9 +110,14 @@ def enough(m, on, off):
     return min(on[1], off[1]) >= 5
 
 
-def verdict(z, crashed, has_evidence):
-    """FAIL on clear harm with enough evidence, or when the idea's side never finished a game."""
-    return "FAIL" if (z <= -1.5 and has_evidence) or crashed else "PASS"
+def verdict(z, crashed, has_evidence, exposed=True, worse_worlds=True):
+    """FAIL on clear harm with enough evidence (in most worlds, not a few tries in one), or when the
+    idea's side never finished a game; INCONCLUSIVE when the change never ran."""
+    if crashed:
+        return "FAIL"
+    if not exposed:
+        return "INCONCLUSIVE"
+    return "FAIL" if z <= -1.5 and has_evidence and worse_worlds else "PASS"
 
 
 def drill_dirs(batch, j):
@@ -132,31 +139,50 @@ def cmd_report(a):
     for j, idea in enumerate(ideas):
         k, m = kind(idea), metric_of(idea)
         genes = ", ".join("%s %s" % (n, v) for n, v in idea.items() if not n.startswith("_"))
+        spec = metrics.exposure_spec(idea)
         tally = {"on": [0, 0.0], "off": [0, 0.0]}
         played = {"on": 0, "off": 0}
+        acted_games, ex_on, per_start = 0, metrics.exposure([], None), {}
         rows = []
         for side, i, d in drill_dirs(a.batch, j):
             r = sb.read_run(d)
             if not r["final"]:
-                rows.append("| %s | %s | didn't play | | |" % (i, side))
+                rows.append("| %s | %s | didn't play | | | |" % (i, side))
                 continue
             played[side] += 1
             h, n = metrics.tally_run(d, m)
             tally[side][0] += h
             tally[side][1] += n
+            per_start.setdefault(i, {})[side] = [h, n]
+            ex = metrics.exposure_run(d, spec)
+            if side == "on":
+                acted_games += 1 if metrics.acted(spec, ex) else 0
+                ex_on = {key: ex_on[key] + ex[key] for key in ex_on}
             steps = " ".join(c for c in PORTAL if c in r["checkpoints"]) if k == "lava" else ""
-            rows.append("| %s | %s | %s | %d | %s |" % (i, side, metrics.describe(m, (h, n)), len(r["deaths"]), steps))
+            rows.append("| %s | %s | %s | %d | %s | %s |" % (i, side, metrics.describe(m, (h, n)), len(r["deaths"]),
+                                                          metrics.describe_exposure(spec, ex), steps))
         z = metrics.z(m, tally["on"], tally["off"])
-        v = verdict(z, played["on"] == 0 and played["off"] > 0, enough(m, tally["on"], tally["off"]))
+        diffs = metrics.world_diffs(m, [w["on"] + w["off"] for w in per_start.values() if "on" in w and "off" in w])
+        worse = sum(1 for x in diffs if x < 0) > len(diffs) / 2
+        # An idea that logs no exposure (an old gene) can't be checked for it: judged as before.
+        exposed = spec is None or acted_games > 0
+        v = verdict(z, played["on"] == 0 and played["off"] > 0, enough(m, tally["on"], tally["off"]), exposed, worse)
         header = m.replace("|", r"\|")
+        exposure_text = "exposure on its side: %s; acted in %d of %d games" % (
+            metrics.describe_exposure(spec, ex_on), acted_games, played["on"])
         out += ["#### %s: %s (%s drill, metric `%s`)" % (v, genes, k, m), "",
-                "on: %s, off: %s, z %+.1f" % (metrics.describe(m, tally["on"]), metrics.describe(m, tally["off"]), z), "",
-                "| start | side | %s | deaths | portal steps |" % header, "|---|---|---|---|---|"] + rows + [""]
+                "on: %s, off: %s, z %+.1f (pooled tries, for scale); worse in %d of %d worlds with tries" % (
+                    metrics.describe(m, tally["on"]), metrics.describe(m, tally["off"]), z,
+                    sum(1 for x in diffs if x < 0), len(diffs)), "", exposure_text, "",
+                "| start | side | %s | deaths | exposure | portal steps |" % header, "|---|---|---|---|---|---|"] + rows + [""]
         if v == "FAIL":
             out.append('Mark it `"_drill": "fail"` in settings.json before merging (the loop skips those).\n')
+        if v == "INCONCLUSIVE":
+            out.append("The change never ran on its side, so the metric measured the old behavior: no evidence either way.\n")
         verdicts.append({"idea": idea, "verdict": v, "metric": m, "z": round(z, 2), "on": tally["on"], "off": tally["off"],
-                         "played": played, "text": "%s: on %s, off %s, z %+.1f" % (
-                             v, metrics.describe(m, tally["on"]), metrics.describe(m, tally["off"]), z)})
+                         "played": played, "acted_games": acted_games, "exposure": ex_on,
+                         "text": "%s: on %s, off %s, z %+.1f; %s" % (
+                             v, metrics.describe(m, tally["on"]), metrics.describe(m, tally["off"]), z, exposure_text)})
     if getattr(a, "json", None):
         common.write_json(a.json, verdicts)
     print("\n".join(out))
