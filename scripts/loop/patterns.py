@@ -30,13 +30,15 @@ BEFORE_S = 20
 
 
 def stage_of(history, gen, name):
-    """The task a compact log played (history's "tasks" by slot), "data" for data runs."""
-    if name.startswith("data-"):
-        return "data"
+    """The task a compact log played (history's "tasks" by slot); data runs are "data:<stage>"
+    (their "data_tasks", logged since 2026-10-04), else "data"."""
     try:
         i = int(name.rsplit("-", 1)[1])
     except (ValueError, IndexError):
         return "?"
+    if name.startswith("data-"):
+        tasks = (history.get(gen) or {}).get("data_tasks") or []
+        return "data:" + tasks[i].rstrip("*") if i < len(tasks) else "data"
     tasks = (history.get(gen) or {}).get("tasks") or []
     return tasks[i].rstrip("*") if i < len(tasks) else "?"
 
@@ -53,9 +55,10 @@ def load(state_dir, gens, stage=None):
     out = []
     for g in sorted(glob.glob(os.path.join(state_dir, "data", "gen-*")))[-gens:]:
         gen = int(os.path.basename(g)[4:])
-        for f in sorted(glob.glob(os.path.join(g, "eval-*.jsonl.gz"))):
+        for f in sorted(glob.glob(os.path.join(g, "eval-*.jsonl.gz")) + glob.glob(os.path.join(g, "data-*.jsonl.gz"))):
             name = os.path.basename(f)[:-len(".jsonl.gz")]
-            if stage and stage_of(hist, gen, name) != stage:
+            # One stage: just its games. All stages: the scored games (data runs explore on purpose).
+            if (stage_of(hist, gen, name) != stage) if stage else name.startswith("data-"):
                 continue
             try:
                 rows = [json.loads(l) for l in gzip.open(f, "rt", encoding="utf-8")]
@@ -136,12 +139,20 @@ def report(a, top=10):
     return out
 
 
+LATE = ("data:rods", "data:eyes", "data:stronghold", "data:end")
+
+
 def text(state_dir, gens=12, stages=("spawn", "nether")):
-    """The report for level 3's prompt: one block per stage."""
+    """The report for level 3's prompt: one block per stage, plus the late-game practice runs."""
     lines = ["HOW THE BOT BEHAVES (first lives, last %d generations; scripts/loop/patterns.py):" % gens]
     for stage in stages:
         lines.append("[%s starts]" % stage)
         lines += ["- " + l for l in report(analyse(load(state_dir, gens, stage)))]
+    for stage in LATE:
+        games = load(state_dir, gens, stage)
+        if games:
+            lines.append("[%s practice: staged or banked starts past the frontier, unscored]" % stage[5:])
+            lines += ["- " + l for l in report(analyse(games))]
     return "\n".join(lines)
 
 
