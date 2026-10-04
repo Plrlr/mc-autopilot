@@ -40,6 +40,8 @@ public final class CollectSkill extends Skill {
 	private final java.util.ArrayDeque<BlockPos> mineTrail = new java.util.ArrayDeque<>();
 	private BlockPos alternateStart;
 	private int diversionTicks;
+	/** When the place-and-break flint method last found no room (ms). */
+	private static long flintNoRoomAt;
 
 	@Override
 	public String name() {
@@ -57,6 +59,16 @@ public final class CollectSkill extends Skill {
 			return;
 		}
 		if (item.equals("flint")) {
+			// No flat spot to place gravel here recently: break seen gravel where it lies instead
+			// (each block drops flint 1 in 10), like a player at a gravel bank.
+			if (System.currentTimeMillis() - flintNoRoomAt < 300_000 && SeenMiner.anySeen(memory, "gravel", SEEN_RANGE)) {
+				before = Mc.count(item);
+				lastCount = before;
+				seenOnly = true;
+				seenMiner = new SeenMiner(memory, "gravel", SEEN_RANGE, false);
+				timeoutTicks = 20 * 360;
+				return;
+			}
 			flint = new FlintSteps(this, memory);
 			return;
 		}
@@ -153,6 +165,7 @@ public final class CollectSkill extends Skill {
 		if (stoneStep != null && stoneStep.result() == null) stoneStep.abort(Fail.INTERRUPTED, "collect ended");
 		// Cut off as stuck on the way to a seen block: the next collect would pick the same one.
 		if (seenMiner != null && result() != null && result().code() == Fail.STUCK) seenMiner.setAsideTarget();
+		if (flint != null && result() != null && result().code() == Fail.NO_ROOM) flintNoRoomAt = System.currentTimeMillis();
 		super.cleanup();
 	}
 
