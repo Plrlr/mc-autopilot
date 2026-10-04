@@ -9,6 +9,19 @@
  "_suggest": "Ideas to race next: each entry becomes one challenger (champion + these genes), tried once. Higher-priority suggestions go first.",
  "suggest": [
   {
+   "_note": "2026-10-04 (Claude, Oct 4 audit): piglins were always neutral in Perception, so one hitting the bot was never fought or fled; ordinary piglins made 66 of 172 first deaths in the audit's Nether games. A piglin in attack pose (the synced aggressive flag) is a threat; a brute always is.",
+   "nether.piglin_threat": 1,
+   "_stages": [
+    "nether"
+   ],
+   "_metric": "deaths",
+   "_exposure": {
+    "gene": "nether.piglin_threat"
+   },
+   "_drill_scenario": "nether_piglins",
+   "_priority": true
+  },
+  {
    "_note": "2026-10-04 (Claude, Oct 4 audit): at a known nether portal, pack the route's kit and readiness's blocks, food and flint and steel before walking in. Champion g159's plan.readiness never acted (it only ran on the strategist's path). Acts where a portal is known in the overworld: after lighting one, or after a respawn.",
    "ready.portal_entry": 1,
    "_stages": [

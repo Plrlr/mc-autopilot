@@ -43,6 +43,7 @@ public final class Tune {
 		gene("reflex.melee_dist", 3.5, 2, 5, Kind.REAL, "a hostile this close triggers the fight/flee reflex");
 		gene("death.trip_commit", 0, 0, 1, Kind.BOOL, "keep going for dropped items past routine fights; respond to close or multiple mobs");
 		gene("safety.enderman_gaze", 0, 0, 1, Kind.BOOL, "never meet an enderman's eyes (any dimension); fight back when one is angry");
+		gene("nether.piglin_threat", 0, 0, 1, Kind.BOOL, "a piglin in attack pose is a threat to answer, a brute always (they were all neutral)");
 		gene("death.recover_value", 0, 0, 1, Kind.BOOL, "go back for dropped items only when they're worth it (iron-tier+) and health 12+ or food");
 		gene("combat.finish_heal_wall", 0, 0, 1, Kind.BOOL, "let shelter finish placing its healing wall before routine melee reflexes");
 		gene("combat.flee_hp", 8, 3, 14, Kind.INT, "at or below this health, run when outnumbered (reflex and planner share it)");
