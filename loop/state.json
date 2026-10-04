@@ -2860,7 +2860,7 @@
   "2026-10-01": 24,
   "2026-10-02": 23,
   "2026-10-03": 23,
-  "2026-10-04": 6
+  "2026-10-04": 7
  },
  "evolve_days": {
   "2026-09-27": 1,
@@ -3134,7 +3134,7 @@
    "target": "shore TIMEOUT"
   }
  ],
- "gen": 171,
+ "gen": 172,
  "gene_specs": {
   "bed.table_first": {
    "def": 0.0,
@@ -13931,6 +13931,43 @@
    "pairs": [],
    "parent": "g159",
    "status": "drilling"
+  },
+  "g165": {
+   "born": 172,
+   "code": null,
+   "evals": [],
+   "genes": {
+    "cave.torch_recipe": 1.0,
+    "combat.creeper_hit": 1.0,
+    "combat.ignore_walled_mobs": 1.0,
+    "combat.shield_guard": 1.0,
+    "death.recover_night_armor": 11.0,
+    "focus.commit": 1.0,
+    "gear.sword_early": 1.0,
+    "move.shore_first": 1.0,
+    "nav.surface_v2": 1.0,
+    "nav.unstuck_v2": 1.0,
+    "night.shelter_exit": 1.0,
+    "night.wall_in": 1.0,
+    "plan.hide_hp": 15.0,
+    "plan.readiness": 1.0,
+    "portal.prepare_work_area": 1.0,
+    "portal.reserve_lava_bucket": 1.0,
+    "route.armor_before_portal": 1.0,
+    "skill.enderman_warped": 1.0,
+    "skill.portal_repair": 1.0,
+    "skill.ruined_portal": 1.0,
+    "stuck.item_progress": 1.0
+   },
+   "id": "g165",
+   "mutated": [
+    "death.recover_night_armor",
+    "cave.torch_recipe"
+   ],
+   "note": "death.recover_night_armor 11, cave.torch_recipe 1",
+   "pairs": [],
+   "parent": "g159",
+   "status": "contender"
   },
   "g17": {
    "born": 19,
@@ -29317,8 +29354,87 @@
   "mean_gap_ok": -0.353,
   "n": 998
  },
- "next_id": 165,
- "pending": null,
+ "next_id": 166,
+ "pending": {
+  "data_tasks": [
+   {
+    "kind": "natural",
+    "seed": "D172-979m62",
+    "stage": "spawn",
+    "synthetic": false
+   },
+   {
+    "kind": "natural",
+    "seed": "D172-man2a3",
+    "stage": "spawn",
+    "synthetic": false
+   }
+  ],
+  "gen": 172,
+  "lineup": [
+   "g159",
+   "g163",
+   "g161",
+   "g165"
+  ],
+  "runs": [
+   "eval-g159-0",
+   "eval-g159-1",
+   "eval-g159-2",
+   "eval-g159-3",
+   "eval-g163-0",
+   "eval-g163-1",
+   "eval-g163-2",
+   "eval-g163-3",
+   "eval-g161-0",
+   "eval-g161-1",
+   "eval-g161-2",
+   "eval-g161-3",
+   "eval-g165-0",
+   "eval-g165-1",
+   "eval-g165-2",
+   "eval-g165-3",
+   "data-g159-0",
+   "data-g159-1"
+  ],
+  "seeds": [
+   "L172-wakeus",
+   "L172-g9jm95",
+   "L172-7g6gbe",
+   "L172-bcy3eh"
+  ],
+  "sha": "edb493ed02bb044d7f07cd0165be5e40c56c1f03",
+  "started": "2026-10-04T08:08:36+00:00",
+  "tasks": [
+   {
+    "kind": "natural",
+    "seed": "L172-wakeus",
+    "stage": "spawn",
+    "synthetic": false
+   },
+   {
+    "kind": "natural",
+    "seed": "L172-g9jm95",
+    "stage": "spawn",
+    "synthetic": false
+   },
+   {
+    "asset": "nether-gen91-eval-g69-0.zip",
+    "kind": "start",
+    "seed": "L172-7g6gbe",
+    "stage": "nether",
+    "synthetic": false
+   },
+   {
+    "kind": "combat",
+    "minutes": 10,
+    "scenario": "combat",
+    "seed": "L172-bcy3eh",
+    "stage": "combat",
+    "synthetic": false
+   }
+  ]
+ },
  "race_evidence_version": 1,
  "score_version": 3,
  "settings": {
