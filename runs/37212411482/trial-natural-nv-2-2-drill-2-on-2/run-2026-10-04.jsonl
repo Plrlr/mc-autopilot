@@ -1,0 +1,178 @@
+{"event":"autopilot_on","detail":"brain\u003drules","t":1791128179007}
+{"event":"params","detail":"params: trial (26 genes) changed\u003d{\"nether.piglin_threat\":1.0,\"combat.creeper_hit\":1.0,\"combat.shield_guard\":1.0,\"route.armor_before_portal\":1.0,\"night.wall_in\":1.0,\"gear.sword_early\":1.0,\"move.shore_first\":1.0,\"fortress.no_tunnel\":1.0,\"fortress.floor_anchor\":1.0,\"fortress.anchor_scope\":1.0,\"fortress.spawner_check\":1.0,\"nether.recover_bounded\":1.0,\"portal.prepare_work_area\":1.0,\"portal.reserve_lava_bucket\":1.0,\"combat.ignore_walled_mobs\":1.0,\"night.shelter_exit\":1.0,\"nav.surface_v2\":1.0,\"nav.unstuck_v2\":1.0,\"stuck.item_progress\":1.0,\"skill.ruined_portal\":1.0,\"skill.portal_repair\":1.0,\"skill.enderman_warped\":1.0,\"plan.readiness\":1.0}","t":1791128179008}
+{"layer":"strategist","brain":"rules","choice":"blaze_rods","reason":"start","t":1791128179010}
+{"event":"learned","detail":"learned model: none","t":1791128179016}
+{"layer":"tactician","gs":0,"brain":"rules","trigger":"idle","goal":"blaze_rods","options":["fortress find","explore any"],"choice":"fortress find","x":[1.0,1.0,0.4,1.0,1.0,0.813,1.0,0.0,0.8,0.6,1.0,0.188,0.25,1.0,0.0,0.0,0.0,0.25,0.0,1.0,1.0,0.0,1.0,0.0,0.0,1.0,0.0,0.0,0.0,0.0,0.0,0.615,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1791128179030}
+{"event":"skill_start","skill":"fortress find","trigger":"idle","t":1791128179076}
+{"event":"checkpoint","detail":"two_buckets","t":1791128179742}
+{"event":"checkpoint","detail":"flint_and_steel","t":1791128179742}
+{"event":"checkpoint","detail":"diamond_pickaxe","t":1791128179742}
+{"event":"checkpoint","detail":"portal_lit","t":1791128179742}
+{"event":"milestone","detail":"7 at 0 s","t":1791128179751}
+{"event":"gene","detail":"nether.piglin_threat on: piglin in attack pose at 2","t":1791128181251}
+{"layer":"reflex","gs":0,"brain":"rules","trigger":"reflex_fight","goal":"blaze_rods","options":["attack piglin","retreat"],"choice":"attack piglin","x":[0.905,1.0,0.4,1.0,1.0,0.813,1.0,0.0,0.8,0.6,1.0,0.188,0.25,1.0,0.0,0.0,0.0,0.25,0.0,1.0,1.0,0.0,1.0,0.0,0.25,0.11,0.0,0.0,0.0,0.538,0.667,0.615,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["attack piglin","retreat"],"t":1791128181254}
+{"event":"skill_end","skill":"fortress find","ok":false,"code":"INTERRUPTED","detail":"interrupted by reflex_fight","seconds":0.75,"t":1791128181256}
+{"event":"skill_start","skill":"attack piglin","trigger":"reflex_fight","t":1791128181258}
+{"event":"skill_end","skill":"attack piglin","ok":true,"detail":"killed the piglin","seconds":3.35,"t":1791128188610}
+{"layer":"tactician","gs":4,"brain":"rules","trigger":"skill_done","goal":"blaze_rods","options":["fortress find","explore any"],"choice":"fortress find","x":[0.952,1.0,0.4,1.0,1.0,0.813,1.0,0.0,0.8,0.6,1.0,0.188,0.25,1.0,0.0,0.0,0.0,0.25,0.0,1.0,1.0,0.0,1.0,0.0,0.0,1.0,0.0,0.0,0.0,0.538,0.667,0.615,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0],"idx":0,"prop":1.0,"t":1791128188613}
+{"event":"skill_start","skill":"fortress find","trigger":"skill_done","t":1791128188613}
+{"layer":"reflex","gs":4,"brain":"rules","trigger":"reflex_fight","goal":"blaze_rods","options":["attack piglin","retreat"],"choice":"attack piglin","x":[0.952,1.0,0.4,1.0,0.0,-0.687,0.0,0.0,0.8,0.6,1.0,0.188,0.25,1.0,0.0,0.0,0.0,0.25,0.0,1.0,1.0,0.0,1.0,0.0,0.25,0.173,0.0,0.0,0.0,0.538,0.667,0.615,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["attack piglin","retreat"],"t":1791128189580}
+{"event":"skill_end","skill":"fortress find","ok":false,"code":"INTERRUPTED","detail":"interrupted by reflex_fight","seconds":0.4,"t":1791128189580}
+{"event":"skill_start","skill":"attack piglin","trigger":"reflex_fight","t":1791128189580}
+{"event":"checkpoint","detail":"at_depth","t":1791128190873}
+{"event":"gene","detail":"nether.piglin_threat on: piglin in attack pose at 2","t":1791128191550}
+{"event":"skill_end","skill":"attack piglin","ok":true,"detail":"killed the piglin","seconds":4.7,"t":1791128195255}
+{"event":"gene","detail":"ready.portal_entry off: known portal, short of explore cow,pig,sheep,chicken","t":1791128195255}
+{"event":"gene","detail":"ready.nether_gold off: known portal, no gold to wear: collect raw_gold:5","t":1791128195258}
+{"layer":"tactician","gs":9,"brain":"rules","trigger":"skill_done","goal":"blaze_rods","options":["eat","enter_portal nether","pickup","shelter","explore any"],"choice":"eat","x":[0.857,0.85,0.4,1.0,1.0,-0.703,0.0,0.0,0.8,0.6,1.0,0.188,0.25,1.0,0.0,0.0,0.0,0.25,0.0,1.0,1.0,0.0,1.0,0.0,0.0,1.0,0.0,0.0,0.0,0.538,0.833,0.615,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["eat"],"t":1791128195259}
+{"event":"skill_start","skill":"eat","trigger":"skill_done","t":1791128195262}
+{"event":"skill_end","skill":"eat","ok":true,"detail":"ate cooked_porkchop","seconds":1.85,"t":1791128197115}
+{"layer":"tactician","gs":11,"brain":"rules","trigger":"skill_done","goal":"blaze_rods","options":["enter_portal nether","pickup","shelter","explore any"],"choice":"enter_portal nether","x":[0.857,1.0,0.4,1.0,1.0,-0.703,0.0,0.0,0.8,0.6,1.0,0.188,0.25,1.0,0.0,0.0,0.0,0.188,0.0,1.0,1.0,0.0,1.0,0.0,0.0,1.0,0.0,0.0,0.0,0.538,0.833,0.615,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0],"idx":0,"prop":1.0,"t":1791128197116}
+{"event":"skill_start","skill":"enter_portal nether","trigger":"skill_done","t":1791128197116}
+{"event":"skill_end","skill":"enter_portal nether","ok":true,"detail":"now in the_nether","seconds":4.65,"t":1791128201812}
+{"layer":"tactician","gs":15,"brain":"rules","trigger":"skill_done","goal":"blaze_rods","options":["fortress find","explore any"],"choice":"fortress find","x":[1.0,1.0,0.4,1.0,1.0,0.813,1.0,0.0,0.8,0.6,1.0,0.188,0.25,1.0,0.0,0.0,0.0,0.188,0.0,1.0,1.0,0.0,1.0,0.0,0.0,1.0,0.0,0.0,0.0,0.538,0.833,0.615,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0],"idx":0,"prop":1.0,"t":1791128201821}
+{"event":"skill_start","skill":"fortress find","trigger":"skill_done","t":1791128201821}
+{"event":"checkpoint","detail":"lava_seen","t":1791128211799}
+{"layer":"reflex","gs":51,"brain":"rules","trigger":"reflex_fight","goal":"blaze_rods","options":["attack hoglin","retreat"],"choice":"attack hoglin","x":[1.0,1.0,0.4,1.0,1.0,1.047,1.0,0.0,0.8,0.6,1.0,0.188,0.25,1.0,0.0,0.0,0.0,0.188,0.0,1.0,1.0,0.0,1.0,0.0,0.5,0.204,1.0,0.0,0.0,0.538,1.0,0.615,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["attack hoglin","retreat"],"t":1791128252291}
+{"event":"skill_end","skill":"fortress find","ok":false,"code":"INTERRUPTED","detail":"interrupted by reflex_fight","seconds":35.3,"t":1791128252292}
+{"event":"skill_start","skill":"attack hoglin","trigger":"reflex_fight","t":1791128252292}
+{"event":"skill_end","skill":"attack hoglin","ok":false,"code":"DIED","detail":"died","seconds":7.65,"t":1791128263252}
+{"event":"death","detail":"mob:hoglin","t":1791128263253}
+{"layer":"reflex","gs":61,"brain":"rules","trigger":"reflex_fight","goal":"blaze_rods","options":["attack hoglin","retreat"],"choice":"attack hoglin","x":[1.0,1.0,0.0,1.0,0.0,1.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.5,0.059,0.0,0.0,0.2,0.538,1.0,0.615,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["attack hoglin","retreat"],"t":1791128267204}
+{"event":"skill_start","skill":"attack hoglin","trigger":"reflex_fight","t":1791128267205}
+{"event":"skill_end","skill":"attack hoglin","ok":false,"code":"NOT_FOUND","detail":"no reachable hoglin in sight","seconds":0.0,"t":1791128267205}
+{"event":"gene","detail":"ready.portal_entry off: known portal, short of collect log:3","t":1791128267205}
+{"event":"gene","detail":"ready.nether_gold off: known portal, no gold to wear: craft wooden_pickaxe:1","t":1791128267205}
+{"layer":"tactician","gs":61,"brain":"rules","trigger":"skill_failed","goal":"blaze_rods","options":["attack hoglin","shelter","enter_portal nether","pickup","explore any"],"choice":"attack hoglin","x":[1.0,1.0,0.0,1.0,0.0,1.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.5,0.059,0.0,0.0,0.2,0.538,1.0,0.615,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["attack hoglin","shelter"],"t":1791128267209}
+{"event":"skill_start","skill":"attack hoglin","trigger":"skill_failed","t":1791128267209}
+{"event":"skill_end","skill":"attack hoglin","ok":false,"code":"NOT_FOUND","detail":"no reachable hoglin in sight","seconds":0.05,"t":1791128267259}
+{"layer":"tactician","gs":61,"brain":"rules","trigger":"skill_failed","goal":"blaze_rods","options":["enter_portal nether","shelter","explore any"],"choice":"enter_portal nether","x":[1.0,1.0,0.0,1.0,0.0,1.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.2,0.538,1.0,0.615,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0],"idx":0,"prop":1.0,"t":1791128267260}
+{"event":"skill_start","skill":"enter_portal nether","trigger":"skill_failed","t":1791128267260}
+{"layer":"tactician","gs":66,"brain":"rules","trigger":"mob_near","goal":"blaze_rods","options":["retreat","shelter","enter_portal nether","explore any"],"choice":"retreat","x":[1.0,1.0,0.0,1.0,0.0,0.984,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.25,0.499,0.0,1.0,0.2,0.538,1.0,0.615,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["retreat","shelter"],"t":1791128274193}
+{"event":"skill_end","skill":"enter_portal nether","ok":false,"code":"INTERRUPTED","detail":"interrupted: brain chose retreat","seconds":4.5,"t":1791128274194}
+{"event":"skill_start","skill":"retreat","trigger":"mob_near","t":1791128274194}
+{"event":"skill_end","skill":"retreat","ok":true,"detail":"got away","seconds":3.05,"t":1791128277595}
+{"event":"gene","detail":"ready.portal_entry off: known portal, short of collect log:3","t":1791128277595}
+{"event":"gene","detail":"ready.nether_gold off: known portal, no gold to wear: craft wooden_pickaxe:1","t":1791128277596}
+{"layer":"tactician","gs":69,"brain":"rules","trigger":"skill_done","goal":"blaze_rods","options":["enter_portal nether","shelter","explore any"],"choice":"enter_portal nether","x":[1.0,1.0,0.0,1.0,1.0,0.984,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.959,0.0,1.0,0.2,0.538,1.0,0.615,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0],"idx":0,"prop":1.0,"t":1791128277596}
+{"event":"skill_start","skill":"enter_portal nether","trigger":"skill_done","t":1791128277596}
+{"layer":"tactician","gs":71,"brain":"rules","trigger":"mob_near","goal":"blaze_rods","options":["retreat","enter_portal nether","shelter","explore any"],"choice":"retreat","x":[1.0,1.0,0.0,1.0,1.0,0.984,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.25,0.448,0.0,1.0,0.2,0.538,1.0,0.615,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["retreat"],"t":1791128279374}
+{"event":"skill_end","skill":"enter_portal nether","ok":false,"code":"INTERRUPTED","detail":"interrupted: brain chose retreat","seconds":1.7,"t":1791128279374}
+{"event":"skill_start","skill":"retreat","trigger":"mob_near","t":1791128279375}
+{"event":"skill_end","skill":"retreat","ok":true,"detail":"got away","seconds":3.15,"t":1791128282563}
+{"layer":"tactician","gs":74,"brain":"rules","trigger":"skill_done","goal":"blaze_rods","options":["shelter","enter_portal nether","explore any"],"choice":"shelter","x":[1.0,1.0,0.0,1.0,0.0,0.984,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.943,0.0,1.0,0.2,0.538,1.0,0.615,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["shelter"],"t":1791128282564}
+{"event":"skill_start","skill":"shelter","trigger":"skill_done","t":1791128282565}
+{"event":"skill_end","skill":"shelter","ok":true,"detail":"it\u0027s morning; climbed out","seconds":299.5,"t":1791128582066}
+{"event":"gene","detail":"ready.portal_entry off: known portal, short of collect log:3","t":1791128582066}
+{"event":"gene","detail":"ready.nether_gold off: known portal, no gold to wear: craft wooden_pickaxe:1","t":1791128582066}
+{"layer":"tactician","gs":373,"brain":"rules","trigger":"skill_done","goal":"blaze_rods","options":["goto surface","enter_portal nether","explore any"],"choice":"goto surface","x":[1.0,1.0,0.0,0.0,0.0,0.938,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.063,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.2,0.538,1.0,0.615,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0],"idx":0,"prop":1.0,"t":1791128582067}
+{"event":"skill_start","skill":"goto surface","trigger":"skill_done","t":1791128582067}
+{"event":"skill_end","skill":"goto surface","ok":true,"detail":"already under open sky","seconds":0.05,"t":1791128582108}
+{"layer":"tactician","gs":373,"brain":"rules","trigger":"skill_done","goal":"blaze_rods","options":["goto surface","enter_portal nether","explore any"],"choice":"goto surface","x":[1.0,1.0,0.0,0.0,0.0,0.938,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.063,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.2,0.538,1.0,0.615,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0],"idx":0,"prop":1.0,"t":1791128582110}
+{"event":"skill_start","skill":"goto surface","trigger":"skill_done","t":1791128582110}
+{"event":"skill_end","skill":"goto surface","ok":true,"detail":"already under open sky","seconds":0.05,"t":1791128582161}
+{"layer":"tactician","gs":373,"brain":"rules","trigger":"skill_done","goal":"blaze_rods","options":["goto surface","enter_portal nether","pickup","explore any"],"choice":"goto surface","x":[1.0,1.0,0.0,0.0,0.0,0.938,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.063,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.2,0.538,1.0,0.615,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0],"idx":0,"prop":1.0,"t":1791128582163}
+{"event":"skill_start","skill":"goto surface","trigger":"skill_done","t":1791128582163}
+{"event":"skill_end","skill":"goto surface","ok":true,"detail":"already under open sky","seconds":0.05,"t":1791128582205}
+{"layer":"tactician","gs":373,"brain":"rules","trigger":"skill_done","goal":"blaze_rods","options":["enter_portal nether","pickup","explore any"],"choice":"enter_portal nether","x":[1.0,1.0,0.0,0.0,0.0,0.938,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.063,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.2,0.538,1.0,0.615,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0],"idx":0,"prop":1.0,"t":1791128582206}
+{"event":"skill_start","skill":"enter_portal nether","trigger":"skill_done","t":1791128582206}
+{"event":"skill_end","skill":"enter_portal nether","ok":false,"code":"TIMEOUT","detail":"timed out after 90 s","seconds":90.05,"t":1791128672913}
+{"event":"gene","detail":"ready.portal_entry off: known portal, short of collect log:3","t":1791128672913}
+{"event":"gene","detail":"ready.nether_gold off: known portal, no gold to wear: craft wooden_pickaxe:1","t":1791128672913}
+{"layer":"tactician","gs":463,"brain":"rules","trigger":"skill_failed","goal":"blaze_rods","options":["enter_portal nether","explore any"],"choice":"enter_portal nether","x":[1.0,0.95,0.0,0.0,1.0,-0.625,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.063,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.2,0.538,1.0,0.615,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0],"idx":0,"prop":1.0,"t":1791128672914}
+{"event":"skill_start","skill":"enter_portal nether","trigger":"skill_failed","t":1791128672914}
+{"event":"skill_end","skill":"enter_portal nether","ok":false,"code":"TIMEOUT","detail":"timed out after 90 s","seconds":90.05,"t":1791128763113}
+{"event":"gene","detail":"ready.portal_entry off: known portal, short of collect log:3","t":1791128763113}
+{"event":"gene","detail":"ready.nether_gold off: known portal, no gold to wear: craft wooden_pickaxe:1","t":1791128763113}
+{"layer":"tactician","gs":553,"brain":"rules","trigger":"skill_failed","goal":"blaze_rods","options":["goto surface","enter_portal nether","explore any"],"choice":"goto surface","x":[1.0,0.95,0.0,0.0,1.0,-0.625,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.063,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.2,0.538,1.0,0.615,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0],"idx":0,"prop":1.0,"t":1791128763113}
+{"event":"skill_start","skill":"goto surface","trigger":"skill_failed","t":1791128763114}
+{"layer":"tactician","gs":559,"brain":"rules","trigger":"mob_near","goal":"blaze_rods","options":["attack skeleton","goto surface","enter_portal nether","explore any"],"choice":"attack skeleton","x":[1.0,0.95,0.0,0.0,1.0,-0.531,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.063,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.25,0.493,0.0,1.0,0.2,0.538,1.0,0.615,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["attack skeleton"],"t":1791128768707}
+{"event":"skill_end","skill":"goto surface","ok":false,"code":"INTERRUPTED","detail":"interrupted: brain chose attack skeleton","seconds":5.6,"t":1791128768707}
+{"event":"skill_start","skill":"attack skeleton","trigger":"mob_near","t":1791128768707}
+{"event":"gene","detail":"ready.portal_entry off: known portal, short of collect log:3","t":1791128774765}
+{"event":"gene","detail":"ready.nether_gold off: known portal, no gold to wear: craft wooden_pickaxe:1","t":1791128774766}
+{"layer":"tactician","gs":565,"brain":"rules","trigger":"hurt","goal":"blaze_rods","options":["attack skeleton","goto surface","enter_portal nether","explore any"],"choice":"attack skeleton","x":[0.7,0.95,0.0,0.0,1.0,-0.516,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.063,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.25,0.19,0.0,1.0,0.2,0.538,1.0,0.615,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["attack skeleton"],"t":1791128774766}
+{"layer":"tactician","gs":571,"brain":"rules","trigger":"hurt","goal":"blaze_rods","options":["attack skeleton","goto surface","enter_portal nether","explore any"],"choice":"attack skeleton","x":[0.45,0.85,0.0,0.0,1.0,-0.547,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.063,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.25,0.21,0.0,1.0,0.2,0.538,1.0,0.615,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["attack skeleton"],"t":1791128780759}
+{"event":"skill_end","skill":"attack skeleton","ok":false,"code":"UNREACHABLE","detail":"can\u0027t reach the skeleton (4 blocks away)","seconds":16.15,"t":1791128784915}
+{"event":"gene","detail":"ready.portal_entry off: known portal, short of collect log:3","t":1791128784916}
+{"event":"gene","detail":"ready.nether_gold off: known portal, no gold to wear: craft wooden_pickaxe:1","t":1791128784916}
+{"layer":"tactician","gs":575,"brain":"rules","trigger":"skill_failed","goal":"blaze_rods","options":["goto surface","enter_portal nether","explore any"],"choice":"goto surface","x":[0.3,0.85,0.0,0.0,1.0,-0.578,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.063,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.25,0.206,0.0,1.0,0.2,0.538,1.0,0.615,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0],"idx":0,"prop":1.0,"t":1791128784916}
+{"event":"skill_start","skill":"goto surface","trigger":"skill_failed","t":1791128784916}
+{"layer":"reflex","gs":575,"brain":"rules","trigger":"reflex_fight","goal":"blaze_rods","options":["attack skeleton","retreat"],"choice":"attack skeleton","x":[0.3,0.85,0.0,0.0,1.0,-0.578,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.063,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.25,0.206,0.0,1.0,0.2,0.538,1.0,0.615,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["attack skeleton","retreat"],"t":1791128784979}
+{"event":"skill_end","skill":"goto surface","ok":false,"code":"INTERRUPTED","detail":"interrupted by reflex_fight","seconds":0.05,"t":1791128784979}
+{"event":"skill_start","skill":"attack skeleton","trigger":"reflex_fight","t":1791128784979}
+{"event":"skill_end","skill":"attack skeleton","ok":false,"code":"UNREACHABLE","detail":"can\u0027t reach the skeleton (4 blocks away)","seconds":8.05,"t":1791128793013}
+{"layer":"tactician","gs":583,"brain":"rules","trigger":"skill_failed","goal":"blaze_rods","options":["goto surface","enter_portal nether","explore any"],"choice":"goto surface","x":[0.3,0.85,0.0,0.0,1.0,-0.578,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.063,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.843,0.0,1.0,0.2,0.538,1.0,0.615,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0],"idx":0,"prop":1.0,"t":1791128793013}
+{"event":"skill_start","skill":"goto surface","trigger":"skill_failed","t":1791128793014}
+{"event":"gene","detail":"ready.portal_entry off: known portal, short of collect log:3","t":1791128804258}
+{"event":"gene","detail":"ready.nether_gold off: known portal, no gold to wear: craft wooden_pickaxe:1","t":1791128804258}
+{"layer":"tactician","gs":595,"brain":"rules","trigger":"mob_near","goal":"blaze_rods","options":["retreat","goto surface","enter_portal nether","explore any"],"choice":"retreat","x":[0.3,0.85,0.0,0.0,1.0,-0.266,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.25,0.441,0.0,1.0,0.2,0.538,1.0,0.615,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["retreat"],"t":1791128804258}
+{"event":"skill_end","skill":"goto surface","ok":false,"code":"INTERRUPTED","detail":"interrupted: brain chose retreat","seconds":11.25,"t":1791128804258}
+{"event":"skill_start","skill":"retreat","trigger":"mob_near","t":1791128804259}
+{"layer":"tactician","gs":600,"brain":"rules","trigger":"mob_near","goal":"blaze_rods","options":["retreat","goto surface","enter_portal nether","explore any"],"choice":"retreat","x":[0.3,0.85,0.0,0.0,1.0,-0.156,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.25,0.473,0.0,1.0,0.2,0.538,1.0,0.615,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["retreat"],"t":1791128809760}
+{"event":"skill_end","skill":"retreat","ok":true,"detail":"got away","seconds":10.4,"t":1791128814662}
+{"event":"gene","detail":"ready.portal_entry off: known portal, short of collect log:3","t":1791128814663}
+{"event":"gene","detail":"ready.nether_gold off: known portal, no gold to wear: craft wooden_pickaxe:1","t":1791128814663}
+{"layer":"tactician","gs":605,"brain":"rules","trigger":"skill_done","goal":"blaze_rods","options":["goto surface","enter_portal nether","explore any"],"choice":"goto surface","x":[0.3,0.8,0.0,0.0,1.0,-0.062,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.2,0.538,1.0,0.615,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0],"idx":0,"prop":1.0,"t":1791128814663}
+{"event":"skill_start","skill":"goto surface","trigger":"skill_done","t":1791128814663}
+{"event":"gene","detail":"ready.portal_entry off: known portal, short of collect log:3","t":1791128834728}
+{"event":"gene","detail":"ready.nether_gold off: known portal, no gold to wear: craft wooden_pickaxe:1","t":1791128834728}
+{"event":"gene","detail":"ready.portal_entry off: known portal, short of collect log:3","t":1791128854761}
+{"event":"gene","detail":"ready.nether_gold off: known portal, no gold to wear: craft wooden_pickaxe:1","t":1791128854761}
+{"event":"gene","detail":"ready.portal_entry off: known portal, short of collect log:3","t":1791128874821}
+{"event":"gene","detail":"ready.nether_gold off: known portal, no gold to wear: craft wooden_pickaxe:1","t":1791128874821}
+{"event":"stuck","detail":"goto surface at 29, 56, -13","t":1791128882522}
+{"event":"skill_end","skill":"goto surface","ok":false,"code":"STUCK","detail":"stuck: stayed inside 2.0 blocks for 12 s","seconds":67.85,"t":1791128882524}
+{"event":"skill_start","skill":"unstuck","trigger":"reflex_stuck","t":1791128882526}
+{"event":"skill_end","skill":"unstuck","ok":true,"detail":"got out (climb)","seconds":9.85,"t":1791128892378}
+{"event":"gene","detail":"ready.portal_entry off: known portal, short of collect log:3","t":1791128892378}
+{"event":"gene","detail":"ready.nether_gold off: known portal, no gold to wear: craft wooden_pickaxe:1","t":1791128892378}
+{"layer":"tactician","gs":683,"brain":"rules","trigger":"skill_done","goal":"blaze_rods","options":["enter_portal nether","explore any"],"choice":"enter_portal nether","x":[0.3,0.7,0.0,0.0,1.0,0.906,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.125,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.2,0.538,1.0,0.615,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0],"idx":0,"prop":1.0,"t":1791128892379}
+{"event":"skill_start","skill":"enter_portal nether","trigger":"skill_done","t":1791128892379}
+{"event":"skill_end","skill":"enter_portal nether","ok":false,"code":"INTERRUPTED","detail":"running out of air","seconds":8.4,"t":1791128900825}
+{"event":"reflex","detail":"drowning","t":1791128900826}
+{"event":"reflex","detail":"drowning","t":1791128902316}
+{"event":"reflex","detail":"drowning","t":1791128903817}
+{"event":"reflex","detail":"drowning","t":1791128905313}
+{"event":"reflex","detail":"drowning","t":1791128906816}
+{"event":"reflex","detail":"drowning","t":1791128908327}
+{"event":"death","detail":"drown","t":1791128909683}
+{"event":"gene","detail":"ready.portal_entry off: known portal, short of collect log:3","t":1791128912739}
+{"event":"gene","detail":"ready.nether_gold off: known portal, no gold to wear: craft wooden_pickaxe:1","t":1791128912739}
+{"layer":"tactician","gs":703,"brain":"rules","trigger":"idle","goal":"blaze_rods","options":["goto death","enter_portal nether","explore any"],"choice":"goto death","x":[1.0,1.0,0.0,0.0,0.0,0.984,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.4,0.538,1.0,0.615,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0],"idx":0,"prop":1.0,"t":1791128912740}
+{"event":"skill_start","skill":"goto death","trigger":"idle","t":1791128912740}
+{"event":"skill_end","skill":"goto death","ok":true,"detail":"arrived near death","seconds":3.7,"t":1791128918436}
+{"layer":"tactician","gs":707,"brain":"rules","trigger":"skill_done","goal":"blaze_rods","options":["enter_portal nether","pickup","explore any"],"choice":"enter_portal nether","x":[1.0,1.0,0.0,0.0,0.0,0.969,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.4,0.538,1.0,0.615,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0],"idx":0,"prop":1.0,"t":1791128918436}
+{"event":"skill_start","skill":"enter_portal nether","trigger":"skill_done","t":1791128918436}
+{"event":"skill_end","skill":"enter_portal nether","ok":false,"code":"TIMEOUT","detail":"timed out after 90 s","seconds":90.05,"t":1791129009430}
+{"event":"gene","detail":"ready.portal_entry off: known portal, short of collect log:3","t":1791129009430}
+{"event":"gene","detail":"ready.nether_gold off: known portal, no gold to wear: craft wooden_pickaxe:1","t":1791129009430}
+{"layer":"tactician","gs":797,"brain":"rules","trigger":"skill_failed","goal":"blaze_rods","options":["attack zombie","goto surface","explore any"],"choice":"attack zombie","x":[1.0,1.0,0.0,0.0,1.0,-0.578,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.582,0.0,1.0,0.4,0.538,1.0,0.615,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["attack zombie"],"t":1791129009430}
+{"event":"skill_start","skill":"attack zombie","trigger":"skill_failed","t":1791129009430}
+{"event":"skill_end","skill":"attack zombie","ok":false,"code":"UNREACHABLE","detail":"no sightline to the zombie","seconds":4.15,"t":1791129013578}
+{"layer":"tactician","gs":801,"brain":"rules","trigger":"skill_failed","goal":"blaze_rods","options":["goto surface","explore any"],"choice":"goto surface","x":[1.0,1.0,0.0,0.0,1.0,-0.547,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.25,0.149,0.0,1.0,0.4,0.538,1.0,0.615,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0],"idx":0,"prop":1.0,"t":1791129013579}
+{"event":"skill_start","skill":"goto surface","trigger":"skill_failed","t":1791129013579}
+{"layer":"reflex","gs":801,"brain":"rules","trigger":"reflex_fight","goal":"blaze_rods","options":["attack zombie","retreat"],"choice":"attack zombie","x":[1.0,1.0,0.0,0.0,1.0,-0.547,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.25,0.149,0.0,1.0,0.4,0.538,1.0,0.615,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["attack zombie","retreat"],"t":1791129013639}
+{"event":"skill_end","skill":"goto surface","ok":false,"code":"INTERRUPTED","detail":"interrupted by reflex_fight","seconds":0.05,"t":1791129013639}
+{"event":"skill_start","skill":"attack zombie","trigger":"reflex_fight","t":1791129013639}
+{"event":"skill_end","skill":"attack zombie","ok":false,"code":"NOT_FOUND","detail":"no reachable zombie in sight","seconds":0.0,"t":1791129013639}
+{"layer":"tactician","gs":801,"brain":"rules","trigger":"skill_failed","goal":"blaze_rods","options":["goto surface","explore any"],"choice":"goto surface","x":[1.0,1.0,0.0,0.0,1.0,-0.547,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.25,0.149,0.0,1.0,0.4,0.538,1.0,0.615,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0],"idx":0,"prop":1.0,"t":1791129013640}
+{"event":"skill_start","skill":"goto surface","trigger":"skill_failed","t":1791129013640}
+{"layer":"reflex","gs":803,"brain":"rules","trigger":"reflex_fight","goal":"blaze_rods","options":["attack zombie","retreat"],"choice":"attack zombie","x":[1.0,1.0,0.0,0.0,1.0,-0.531,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.25,0.185,0.0,1.0,0.4,0.538,1.0,0.615,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["attack zombie","retreat"],"t":1791129015640}
+{"event":"skill_end","skill":"goto surface","ok":false,"code":"INTERRUPTED","detail":"interrupted by reflex_fight","seconds":2.0,"t":1791129015641}
+{"event":"skill_start","skill":"attack zombie","trigger":"reflex_fight","t":1791129015641}
+{"event":"skill_end","skill":"attack zombie","ok":false,"code":"UNREACHABLE","detail":"can\u0027t reach the zombie (5 blocks away)","seconds":8.95,"t":1791129024558}
+{"event":"gene","detail":"ready.portal_entry off: known portal, short of collect log:3","t":1791129024559}
+{"event":"gene","detail":"ready.nether_gold off: known portal, no gold to wear: craft wooden_pickaxe:1","t":1791129024559}
+{"layer":"tactician","gs":812,"brain":"rules","trigger":"skill_failed","goal":"blaze_rods","options":["goto surface","explore any"],"choice":"goto surface","x":[1.0,1.0,0.0,0.0,1.0,-0.578,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.854,0.0,1.0,0.4,0.538,1.0,0.615,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0],"idx":0,"prop":1.0,"t":1791129024559}
+{"event":"skill_start","skill":"goto surface","trigger":"skill_failed","t":1791129024559}
+{"event":"gene","detail":"ready.portal_entry off: known portal, short of collect log:3","t":1791129044660}
+{"event":"gene","detail":"ready.nether_gold off: known portal, no gold to wear: craft wooden_pickaxe:1","t":1791129044660}
+{"event":"gene","detail":"ready.portal_entry off: known portal, short of collect log:3","t":1791129064763}
+{"event":"gene","detail":"ready.nether_gold off: known portal, no gold to wear: craft wooden_pickaxe:1","t":1791129064763}
+{"event":"gene","detail":"ready.portal_entry off: known portal, short of collect log:3","t":1791129084913}
+{"event":"gene","detail":"ready.nether_gold off: known portal, no gold to wear: craft wooden_pickaxe:1","t":1791129084913}
+{"event":"gene","detail":"ready.portal_entry off: known portal, short of collect log:3","t":1791129104967}
+{"event":"gene","detail":"ready.nether_gold off: known portal, no gold to wear: craft wooden_pickaxe:1","t":1791129104967}
+{"event":"skill_end","skill":"goto surface","ok":false,"code":"INTERRUPTED","detail":"test finished","seconds":88.4,"t":1791129113192}
+{"event":"autopilot_off","detail":"test finished","t":1791129113193}

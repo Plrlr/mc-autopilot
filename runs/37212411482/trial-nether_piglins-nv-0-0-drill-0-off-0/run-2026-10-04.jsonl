@@ -1,0 +1,230 @@
+{"event":"autopilot_on","detail":"brain\u003drules","t":1791127792614}
+{"event":"params","detail":"params: trial (20 genes) changed\u003d{\"combat.creeper_hit\":1.0,\"combat.shield_guard\":1.0,\"route.armor_before_portal\":1.0,\"night.wall_in\":1.0,\"gear.sword_early\":1.0,\"move.shore_first\":1.0,\"portal.prepare_work_area\":1.0,\"portal.reserve_lava_bucket\":1.0,\"combat.ignore_walled_mobs\":1.0,\"night.shelter_exit\":1.0,\"nav.surface_v2\":1.0,\"nav.unstuck_v2\":1.0,\"stuck.item_progress\":1.0,\"skill.ruined_portal\":1.0,\"skill.portal_repair\":1.0,\"skill.enderman_warped\":1.0,\"plan.readiness\":1.0}","t":1791127792615}
+{"layer":"strategist","brain":"rules","choice":"iron_tools","reason":"start","t":1791127792616}
+{"layer":"strategist","brain":"rules","choice":"blaze_rods","reason":"user","t":1791127792616}
+{"event":"learned","detail":"learned model: none","t":1791127792625}
+{"layer":"tactician","gs":0,"brain":"rules","trigger":"idle","goal":"blaze_rods","options":["equip shield","fortress find","explore any"],"choice":"equip shield","x":[0.35,1.0,0.4,0.0,1.0,1.094,1.0,0.0,0.6,0.6,1.0,0.0,0.0,1.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,1.0,0.0,0.0,0.0,0.0,0.0,0.615,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1791127792636}
+{"event":"skill_start","skill":"equip shield","trigger":"idle","t":1791127792671}
+{"event":"skill_end","skill":"equip shield","ok":true,"detail":"shield in off hand","seconds":0.05,"t":1791127792764}
+{"layer":"tactician","gs":0,"brain":"rules","trigger":"skill_done","goal":"blaze_rods","options":["fortress find","explore any"],"choice":"fortress find","x":[0.35,1.0,0.4,0.0,1.0,1.094,1.0,0.0,0.6,0.6,1.0,0.0,0.0,1.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,1.0,0.0,0.0,0.0,0.0,0.0,0.615,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1791127792770}
+{"event":"skill_start","skill":"fortress find","trigger":"skill_done","t":1791127792771}
+{"event":"gene","detail":"nether.piglin_threat off: piglin in attack pose at 6","t":1791127792902}
+{"event":"skill_end","skill":"fortress find","ok":false,"code":"DIED","detail":"died","seconds":0.35,"t":1791127793412}
+{"event":"death","detail":"mob:piglin","t":1791127793415}
+{"layer":"strategist","brain":"rules","choice":"wood_tools","reason":"respawned","t":1791127797294}
+{"layer":"tactician","gs":3,"brain":"rules","trigger":"idle","goal":"wood_tools","options":["collect log:3","explore log"],"choice":"collect log:3","x":[1.0,1.0,0.0,0.0,0.0,1.094,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.2,0.0,0.0,0.077,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1791127797319}
+{"event":"skill_start","skill":"collect log:3","trigger":"idle","t":1791127797321}
+{"event":"skill_end","skill":"collect log:3","ok":true,"detail":"collected 3 log (seen blocks)","seconds":19.25,"t":1791127818029}
+{"layer":"tactician","gs":22,"brain":"rules","trigger":"skill_done","goal":"wood_tools","options":["attack sheep","craft planks:4","pickup","explore any"],"choice":"attack sheep","x":[1.0,1.0,0.0,0.0,1.0,1.078,0.0,0.0,0.0,0.0,0.0,0.188,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.2,0.0,0.0,0.077,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1791127818030}
+{"event":"skill_start","skill":"attack sheep","trigger":"skill_done","t":1791127818031}
+{"event":"skill_end","skill":"attack sheep","ok":true,"detail":"killed the sheep","seconds":9.9,"t":1791127828128}
+{"layer":"tactician","gs":32,"brain":"rules","trigger":"skill_done","goal":"wood_tools","options":["attack sheep","craft planks:4","explore any"],"choice":"attack sheep","x":[1.0,1.0,0.0,0.0,0.0,1.063,0.0,0.0,0.0,0.0,0.0,0.188,0.0,0.0,0.0,0.0,0.0,0.0,0.125,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.2,0.0,0.0,0.077,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1791127828128}
+{"event":"skill_start","skill":"attack sheep","trigger":"skill_done","t":1791127828128}
+{"event":"skill_end","skill":"attack sheep","ok":true,"detail":"killed the sheep","seconds":11.4,"t":1791127839846}
+{"layer":"tactician","gs":44,"brain":"rules","trigger":"skill_done","goal":"wood_tools","options":["craft planks:4","explore any"],"choice":"craft planks:4","x":[1.0,1.0,0.0,0.0,1.0,1.063,0.0,0.0,0.0,0.0,0.0,0.188,0.0,0.0,0.0,0.0,0.0,0.0,0.188,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.2,0.0,0.0,0.077,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1791127839847}
+{"event":"skill_start","skill":"craft planks:4","trigger":"skill_done","t":1791127839851}
+{"event":"skill_end","skill":"craft planks:4","ok":true,"detail":"crafted 4 planks","seconds":0.45,"t":1791127840290}
+{"layer":"tactician","gs":44,"brain":"rules","trigger":"skill_done","goal":"wood_tools","options":["craft stick:4","explore any"],"choice":"craft stick:4","x":[1.0,1.0,0.0,0.0,1.0,1.063,0.0,0.0,0.0,0.0,0.0,0.125,0.25,0.0,0.0,0.0,0.0,0.0,0.188,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.2,0.0,0.0,0.077,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1791127840290}
+{"event":"skill_start","skill":"craft stick:4","trigger":"skill_done","t":1791127840291}
+{"event":"skill_end","skill":"craft stick:4","ok":true,"detail":"crafted 4 stick","seconds":0.45,"t":1791127840747}
+{"layer":"tactician","gs":44,"brain":"rules","trigger":"skill_done","goal":"wood_tools","options":["craft planks:4","explore any"],"choice":"craft planks:4","x":[1.0,1.0,0.0,0.0,1.0,1.063,0.0,0.0,0.0,0.0,0.0,0.125,0.125,0.0,0.0,0.0,0.0,0.0,0.188,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.2,0.0,0.0,0.077,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1791127840748}
+{"event":"skill_start","skill":"craft planks:4","trigger":"skill_done","t":1791127840748}
+{"event":"skill_end","skill":"craft planks:4","ok":true,"detail":"crafted 4 planks","seconds":0.45,"t":1791127841175}
+{"layer":"tactician","gs":45,"brain":"rules","trigger":"skill_done","goal":"wood_tools","options":["craft crafting_table:1","explore any"],"choice":"craft crafting_table:1","x":[1.0,1.0,0.0,0.0,1.0,1.063,0.0,0.0,0.0,0.0,0.0,0.063,0.375,0.0,0.0,0.0,0.0,0.0,0.188,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.2,0.0,0.0,0.077,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1791127841176}
+{"event":"skill_start","skill":"craft crafting_table:1","trigger":"skill_done","t":1791127841176}
+{"event":"skill_end","skill":"craft crafting_table:1","ok":true,"detail":"crafted 1 crafting_table","seconds":0.45,"t":1791127841641}
+{"layer":"tactician","gs":45,"brain":"rules","trigger":"skill_done","goal":"wood_tools","options":["craft planks:4","explore any"],"choice":"craft planks:4","x":[1.0,1.0,0.0,0.0,1.0,1.063,0.0,0.0,0.0,0.0,0.0,0.063,0.125,0.0,0.0,0.0,0.0,0.0,0.188,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.2,0.0,0.0,0.077,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1791127841642}
+{"event":"skill_start","skill":"craft planks:4","trigger":"skill_done","t":1791127841642}
+{"event":"milestone","detail":"1 at 45 s","t":1791127841685}
+{"layer":"strategist","brain":"rules","choice":"stone_tools","reason":"goal_done","t":1791127841685}
+{"event":"skill_end","skill":"craft planks:4","ok":true,"detail":"crafted 4 planks","seconds":0.45,"t":1791127842076}
+{"layer":"tactician","gs":46,"brain":"rules","trigger":"skill_done","goal":"stone_tools","options":["craft wooden_pickaxe:1","explore any"],"choice":"craft wooden_pickaxe:1","x":[1.0,1.0,0.0,0.0,1.0,1.063,0.0,0.0,0.0,0.0,0.0,0.0,0.375,0.0,0.0,0.0,0.0,0.0,0.188,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.2,0.077,0.0,0.154,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1791127842076}
+{"event":"skill_start","skill":"craft wooden_pickaxe:1","trigger":"skill_done","t":1791127842077}
+{"event":"skill_end","skill":"craft wooden_pickaxe:1","ok":true,"detail":"crafted 1 wooden_pickaxe","seconds":0.85,"t":1791127842934}
+{"layer":"tactician","gs":47,"brain":"rules","trigger":"skill_done","goal":"stone_tools","options":["pickup stations","craft wooden_sword:1","collect stone:13","explore any"],"choice":"pickup stations","x":[1.0,1.0,0.0,0.0,1.0,1.063,0.0,0.0,0.2,0.0,0.0,0.0,0.188,0.0,0.0,0.0,0.0,0.0,0.188,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.2,0.077,0.0,0.154,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1791127842936}
+{"event":"skill_start","skill":"pickup stations","trigger":"skill_done","t":1791127842937}
+{"event":"skill_end","skill":"pickup stations","ok":true,"detail":"picked up 1 stacks","seconds":4.6,"t":1791127847526}
+{"layer":"tactician","gs":51,"brain":"rules","trigger":"skill_done","goal":"stone_tools","options":["craft wooden_sword:1","collect stone:13","pickup","explore any"],"choice":"craft wooden_sword:1","x":[1.0,1.0,0.0,0.0,1.0,1.063,0.0,0.0,0.2,0.0,0.0,0.0,0.188,0.0,0.0,0.0,0.0,0.0,0.188,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.2,0.077,0.0,0.154,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1791127847527}
+{"event":"skill_start","skill":"craft wooden_sword:1","trigger":"skill_done","t":1791127847527}
+{"event":"skill_end","skill":"craft wooden_sword:1","ok":true,"detail":"crafted 1 wooden_sword","seconds":0.85,"t":1791127848387}
+{"layer":"tactician","gs":52,"brain":"rules","trigger":"skill_done","goal":"stone_tools","options":["pickup stations","collect stone:13","explore any"],"choice":"pickup stations","x":[1.0,1.0,0.0,0.0,1.0,1.063,0.0,0.0,0.2,0.2,0.0,0.0,0.063,0.0,0.0,0.0,0.0,0.0,0.188,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.2,0.077,0.0,0.154,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1791127848388}
+{"event":"skill_start","skill":"pickup stations","trigger":"skill_done","t":1791127848388}
+{"event":"skill_end","skill":"pickup stations","ok":true,"detail":"picked up 1 stacks","seconds":4.6,"t":1791127852994}
+{"layer":"tactician","gs":57,"brain":"rules","trigger":"skill_done","goal":"stone_tools","options":["collect stone:13","pickup","explore any"],"choice":"collect stone:13","x":[1.0,1.0,0.0,0.0,1.0,1.063,0.0,0.0,0.2,0.2,0.0,0.0,0.063,0.0,0.0,0.0,0.0,0.0,0.188,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.2,0.077,0.0,0.154,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1791127852994}
+{"event":"skill_start","skill":"collect stone:13","trigger":"skill_done","t":1791127852995}
+{"event":"skill_end","skill":"collect stone:13","ok":true,"detail":"collected 13 stone (seen blocks)","seconds":80.6,"t":1791127933585}
+{"layer":"tactician","gs":137,"brain":"rules","trigger":"skill_done","goal":"stone_tools","options":["goto surface","collect coal:6","collect log:9","pickup","explore log"],"choice":"goto surface","x":[1.0,1.0,0.0,0.0,1.0,0.672,0.0,0.0,0.2,0.2,0.0,0.0,0.063,0.594,0.0,0.0,0.063,0.0,0.188,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.2,0.077,0.0,0.154,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1791127933585}
+{"event":"skill_start","skill":"goto surface","trigger":"skill_done","t":1791127933585}
+{"event":"skill_end","skill":"goto surface","ok":true,"detail":"back under open sky","seconds":23.0,"t":1791127956583}
+{"layer":"tactician","gs":160,"brain":"rules","trigger":"skill_done","goal":"stone_tools","options":["collect log:9","pickup","explore log"],"choice":"collect log:9","x":[1.0,0.95,0.0,0.0,0.0,1.016,0.0,0.0,0.2,0.2,0.0,0.0,0.063,0.625,0.0,0.0,0.063,0.0,0.188,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.2,0.077,0.0,0.154,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1791127956584}
+{"event":"skill_start","skill":"collect log:9","trigger":"skill_done","t":1791127956584}
+{"event":"skill_end","skill":"collect log:9","ok":true,"detail":"collected 9 log (seen blocks)","seconds":48.7,"t":1791128005545}
+{"layer":"tactician","gs":209,"brain":"rules","trigger":"skill_done","goal":"stone_tools","options":["craft planks:4","pickup","explore any"],"choice":"craft planks:4","x":[1.0,0.95,0.0,0.0,1.0,1.063,0.0,0.0,0.2,0.2,0.0,0.563,0.063,0.563,0.0,0.0,0.063,0.0,0.188,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.2,0.077,0.0,0.154,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1791128005546}
+{"event":"skill_start","skill":"craft planks:4","trigger":"skill_done","t":1791128005546}
+{"event":"skill_end","skill":"craft planks:4","ok":true,"detail":"crafted 4 planks","seconds":0.45,"t":1791128006002}
+{"layer":"tactician","gs":209,"brain":"rules","trigger":"skill_done","goal":"stone_tools","options":["craft stick:4","explore any"],"choice":"craft stick:4","x":[1.0,0.95,0.0,0.0,1.0,1.063,0.0,0.0,0.2,0.2,0.0,0.5,0.313,0.563,0.0,0.0,0.063,0.0,0.188,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.2,0.077,0.0,0.154,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1791128006003}
+{"event":"skill_start","skill":"craft stick:4","trigger":"skill_done","t":1791128006003}
+{"event":"skill_end","skill":"craft stick:4","ok":true,"detail":"crafted 4 stick","seconds":0.45,"t":1791128006431}
+{"layer":"tactician","gs":210,"brain":"rules","trigger":"skill_done","goal":"stone_tools","options":["craft stone_pickaxe:1","explore any"],"choice":"craft stone_pickaxe:1","x":[1.0,0.95,0.0,0.0,1.0,1.063,0.0,0.0,0.2,0.2,0.0,0.5,0.188,0.563,0.0,0.0,0.063,0.0,0.188,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.2,0.077,0.0,0.154,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1791128006432}
+{"event":"skill_start","skill":"craft stone_pickaxe:1","trigger":"skill_done","t":1791128006432}
+{"event":"skill_end","skill":"craft stone_pickaxe:1","ok":true,"detail":"crafted 1 stone_pickaxe","seconds":0.85,"t":1791128007279}
+{"layer":"tactician","gs":211,"brain":"rules","trigger":"skill_done","goal":"stone_tools","options":["craft stone_sword:1","explore any"],"choice":"craft stone_sword:1","x":[1.0,0.95,0.0,0.0,1.0,1.063,0.0,0.0,0.4,0.2,0.0,0.5,0.188,0.469,0.0,0.0,0.063,0.0,0.188,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.2,0.077,0.0,0.154,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1791128007279}
+{"event":"skill_start","skill":"craft stone_sword:1","trigger":"skill_done","t":1791128007280}
+{"event":"milestone","detail":"2 at 211 s","t":1791128007930}
+{"layer":"strategist","brain":"rules","choice":"iron_tools","reason":"goal_done","t":1791128007930}
+{"event":"skill_end","skill":"craft stone_sword:1","ok":true,"detail":"crafted 1 stone_sword","seconds":0.75,"t":1791128008031}
+{"layer":"tactician","gs":212,"brain":"rules","trigger":"skill_done","goal":"iron_tools","options":["pickup stations","collect raw_iron:13","explore any"],"choice":"pickup stations","x":[1.0,0.95,0.0,0.0,1.0,1.063,0.0,0.0,0.4,0.4,0.0,0.5,0.188,0.406,0.0,0.0,0.063,0.0,0.188,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.2,0.154,0.0,0.308,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1791128008031}
+{"event":"skill_start","skill":"pickup stations","trigger":"skill_done","t":1791128008031}
+{"event":"skill_end","skill":"pickup stations","ok":true,"detail":"picked up 1 stacks","seconds":4.35,"t":1791128012395}
+{"layer":"tactician","gs":216,"brain":"rules","trigger":"skill_done","goal":"iron_tools","options":["collect raw_iron:13","pickup","explore any"],"choice":"collect raw_iron:13","x":[1.0,0.95,0.0,0.0,1.0,1.063,0.0,0.0,0.4,0.4,0.0,0.5,0.188,0.406,0.0,0.0,0.063,0.0,0.188,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.2,0.154,0.0,0.308,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1791128012396}
+{"event":"skill_start","skill":"collect raw_iron:13","trigger":"skill_done","t":1791128012396}
+{"layer":"tactician","gs":234,"brain":"rules","trigger":"mob_near","goal":"iron_tools","options":["attack zombie","collect raw_iron:13","explore any"],"choice":"attack zombie","x":[1.0,0.9,0.0,0.0,1.0,0.609,0.0,0.0,0.4,0.4,0.0,0.5,0.188,0.5,0.0,0.0,0.063,0.0,0.188,0.0,0.0,0.0,0.0,0.0,0.25,0.424,0.0,1.0,0.2,0.154,0.0,0.308,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["attack zombie"],"t":1791128030183}
+{"event":"skill_end","skill":"collect raw_iron:13","ok":false,"code":"INTERRUPTED","detail":"interrupted: brain chose attack zombie","seconds":17.8,"t":1791128030184}
+{"event":"skill_start","skill":"attack zombie","trigger":"mob_near","t":1791128030185}
+{"event":"skill_end","skill":"attack zombie","ok":true,"detail":"killed the zombie","seconds":6.45,"t":1791128036629}
+{"layer":"tactician","gs":240,"brain":"rules","trigger":"skill_done","goal":"iron_tools","options":["eat","collect raw_iron:13","explore any"],"choice":"eat","x":[0.925,0.8,0.0,0.0,1.0,0.563,0.0,0.0,0.4,0.4,0.0,0.5,0.188,0.5,0.0,0.0,0.063,0.0,0.188,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.2,0.154,0.0,0.308,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["eat"],"t":1791128036630}
+{"event":"skill_start","skill":"eat","trigger":"skill_done","t":1791128036630}
+{"layer":"tactician","gs":241,"brain":"rules","trigger":"mob_near","goal":"iron_tools","options":["attack zombie","collect raw_iron:13","explore any"],"choice":"attack zombie","x":[0.925,0.8,0.0,0.0,1.0,0.563,0.0,0.0,0.4,0.4,0.0,0.5,0.188,0.5,0.0,0.0,0.063,0.0,0.188,0.0,0.0,0.0,0.0,0.0,0.25,0.349,0.0,1.0,0.2,0.154,0.0,0.308,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["attack zombie"],"t":1791128037180}
+{"event":"skill_end","skill":"eat","ok":false,"code":"INTERRUPTED","detail":"interrupted: brain chose attack zombie","seconds":0.55,"t":1791128037180}
+{"event":"skill_start","skill":"attack zombie","trigger":"mob_near","t":1791128037180}
+{"layer":"reflex","gs":248,"brain":"rules","trigger":"reflex_creeper","goal":"iron_tools","options":["attack creeper"],"choice":"attack creeper","x":[0.8,0.8,0.0,0.0,1.0,0.516,0.0,0.0,0.4,0.4,0.0,0.5,0.188,0.469,0.0,0.0,0.063,0.0,0.188,0.0,0.0,0.0,0.0,0.0,0.5,0.225,0.0,1.0,0.2,0.154,0.0,0.308,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["attack creeper"],"t":1791128044436}
+{"event":"skill_end","skill":"attack zombie","ok":false,"code":"INTERRUPTED","detail":"interrupted by reflex_creeper","seconds":7.25,"t":1791128044436}
+{"event":"skill_start","skill":"attack creeper","trigger":"reflex_creeper","t":1791128044437}
+{"event":"skill_end","skill":"attack creeper","ok":false,"code":"HAZARD","detail":"creeper started its fuse before the hit","seconds":0.35,"t":1791128044785}
+{"layer":"tactician","gs":248,"brain":"rules","trigger":"skill_failed","goal":"iron_tools","options":["retreat","collect raw_iron:13","explore any"],"choice":"retreat","x":[0.8,0.8,0.0,0.0,1.0,0.516,0.0,0.0,0.4,0.4,0.0,0.5,0.188,0.469,0.0,0.0,0.063,0.0,0.188,0.0,0.0,0.0,0.0,0.0,0.5,0.195,0.0,1.0,0.2,0.154,0.0,0.308,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["retreat"],"t":1791128044786}
+{"event":"skill_start","skill":"retreat","trigger":"skill_failed","t":1791128044787}
+{"event":"skill_end","skill":"retreat","ok":true,"detail":"got away","seconds":7.6,"t":1791128052484}
+{"layer":"tactician","gs":256,"brain":"rules","trigger":"skill_done","goal":"iron_tools","options":["eat","collect raw_iron:13","explore any"],"choice":"eat","x":[0.75,0.8,0.0,0.0,1.0,0.578,0.0,0.0,0.4,0.4,0.0,0.5,0.188,0.5,0.0,0.0,0.063,0.0,0.188,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.2,0.154,0.0,0.308,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["eat"],"t":1791128052484}
+{"event":"skill_start","skill":"eat","trigger":"skill_done","t":1791128052484}
+{"event":"skill_end","skill":"eat","ok":true,"detail":"ate mutton","seconds":1.8,"t":1791128054286}
+{"layer":"tactician","gs":258,"brain":"rules","trigger":"skill_done","goal":"iron_tools","options":["collect raw_iron:13","explore any"],"choice":"collect raw_iron:13","x":[0.75,0.9,0.0,0.0,1.0,0.578,0.0,0.0,0.4,0.4,0.0,0.5,0.188,0.5,0.0,0.0,0.063,0.0,0.125,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.2,0.154,0.0,0.308,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1791128054286}
+{"event":"skill_start","skill":"collect raw_iron:13","trigger":"skill_done","t":1791128054287}
+{"layer":"tactician","gs":278,"brain":"rules","trigger":"heartbeat","goal":"iron_tools","options":["eat","shore"],"choice":"eat","x":[0.8,0.85,0.0,0.0,1.0,0.578,0.0,0.0,0.4,0.4,0.0,0.5,0.188,0.5,0.0,0.125,0.063,0.0,0.125,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.2,0.154,0.0,0.308,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["eat","shore"],"t":1791128074330}
+{"event":"skill_end","skill":"collect raw_iron:13","ok":false,"code":"INTERRUPTED","detail":"interrupted: brain chose eat","seconds":20.05,"t":1791128074331}
+{"event":"skill_start","skill":"eat","trigger":"heartbeat","t":1791128074331}
+{"event":"skill_end","skill":"eat","ok":true,"detail":"ate mutton","seconds":1.8,"t":1791128076134}
+{"layer":"tactician","gs":280,"brain":"rules","trigger":"skill_done","goal":"iron_tools","options":["shore"],"choice":"shore","x":[0.8,0.95,0.0,0.0,1.0,0.578,0.0,0.0,0.4,0.4,0.0,0.5,0.188,0.5,0.0,0.125,0.063,0.0,0.063,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.2,0.154,0.0,0.308,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["shore"],"t":1791128076134}
+{"event":"skill_start","skill":"shore","trigger":"skill_done","t":1791128076135}
+{"event":"skill_end","skill":"shore","ok":true,"detail":"reached dry ground with room to work","seconds":1.0,"t":1791128077131}
+{"layer":"tactician","gs":281,"brain":"rules","trigger":"skill_done","goal":"iron_tools","options":["collect coal:6","collect raw_iron:11","pickup","explore any"],"choice":"collect coal:6","x":[0.8,0.95,0.0,0.0,1.0,0.578,0.0,0.0,0.4,0.4,0.0,0.5,0.188,0.5,0.0,0.125,0.063,0.0,0.063,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.2,0.154,0.0,0.308,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1791128077132}
+{"event":"skill_start","skill":"collect coal:6","trigger":"skill_done","t":1791128077132}
+{"layer":"tactician","gs":301,"brain":"rules","trigger":"heartbeat","goal":"iron_tools","options":["eat","collect coal:6","collect raw_iron:11","pickup","explore any"],"choice":"eat","x":[0.95,0.85,0.0,0.0,1.0,0.594,0.0,0.0,0.4,0.4,0.0,0.5,0.188,0.5,0.0,0.125,0.063,0.0,0.063,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.2,0.154,0.0,0.308,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["eat"],"t":1791128097185}
+{"event":"skill_end","skill":"collect coal:6","ok":false,"code":"INTERRUPTED","detail":"interrupted: brain chose eat","seconds":20.05,"t":1791128097185}
+{"event":"skill_start","skill":"eat","trigger":"heartbeat","t":1791128097185}
+{"event":"skill_end","skill":"eat","ok":true,"detail":"ate mutton","seconds":1.8,"t":1791128098980}
+{"layer":"tactician","gs":302,"brain":"rules","trigger":"skill_done","goal":"iron_tools","options":["collect coal:6","collect raw_iron:11","pickup","explore any"],"choice":"collect coal:6","x":[0.95,0.95,0.0,0.0,1.0,0.594,0.0,0.0,0.4,0.4,0.0,0.5,0.188,0.5,0.0,0.125,0.063,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.2,0.154,0.0,0.308,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1791128098981}
+{"event":"skill_start","skill":"collect coal:6","trigger":"skill_done","t":1791128098981}
+{"event":"stuck","detail":"collect coal:6 at -45, 38, -217","t":1791128112089}
+{"event":"skill_end","skill":"collect coal:6","ok":false,"code":"STUCK","detail":"stuck: stayed inside 2.0 blocks for 12 s","seconds":13.05,"t":1791128112091}
+{"event":"skill_start","skill":"unstuck","trigger":"reflex_stuck","t":1791128112091}
+{"event":"skill_end","skill":"unstuck","ok":true,"detail":"got out (walk)","seconds":2.45,"t":1791128114535}
+{"layer":"tactician","gs":318,"brain":"rules","trigger":"skill_done","goal":"iron_tools","options":["craft torch:8","collect coal:6","collect raw_iron:11","pickup","explore any"],"choice":"craft torch:8","x":[1.0,0.95,0.0,0.0,1.0,0.578,0.0,0.0,0.4,0.4,0.0,0.5,0.188,0.531,0.0,0.125,0.125,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.2,0.154,0.0,0.308,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1791128114535}
+{"event":"skill_start","skill":"craft torch:8","trigger":"skill_done","t":1791128114536}
+{"event":"skill_end","skill":"craft torch:8","ok":true,"detail":"crafted 8 torch","seconds":0.85,"t":1791128115438}
+{"layer":"tactician","gs":319,"brain":"rules","trigger":"skill_done","goal":"iron_tools","options":["shore"],"choice":"shore","x":[1.0,0.95,0.0,0.0,1.0,0.563,0.0,0.0,0.4,0.4,0.0,0.5,0.188,0.531,0.0,0.125,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.2,0.154,0.0,0.308,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["shore"],"t":1791128115438}
+{"event":"skill_start","skill":"shore","trigger":"skill_done","t":1791128115438}
+{"event":"checkpoint","detail":"lava_seen","t":1791128116138}
+{"event":"skill_end","skill":"shore","ok":true,"detail":"reached dry ground with room to work","seconds":6.0,"t":1791128121433}
+{"layer":"tactician","gs":325,"brain":"rules","trigger":"skill_done","goal":"iron_tools","options":["collect coal:6","collect raw_iron:11","pickup","explore any"],"choice":"collect coal:6","x":[1.0,0.95,0.0,0.0,1.0,0.563,0.0,0.0,0.4,0.4,0.0,0.5,0.188,0.531,0.0,0.125,0.125,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,1.0,1.0,0.2,0.154,0.167,0.308,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1791128121434}
+{"event":"skill_start","skill":"collect coal:6","trigger":"skill_done","t":1791128121434}
+{"event":"torch","detail":"-40, 37, -217","t":1791128123139}
+{"event":"torch","detail":"-39, 35, -225","t":1791128125139}
+{"layer":"reflex","gs":331,"brain":"rules","trigger":"reflex_creeper","goal":"iron_tools","options":["attack creeper"],"choice":"attack creeper","x":[1.0,0.95,0.0,0.0,1.0,0.5,0.0,0.0,0.4,0.4,0.0,0.5,0.188,0.625,0.0,0.125,0.125,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.25,0.355,1.0,1.0,0.2,0.154,0.167,0.308,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["attack creeper"],"t":1791128128141}
+{"event":"skill_end","skill":"collect coal:6","ok":false,"code":"INTERRUPTED","detail":"interrupted by reflex_creeper","seconds":6.7,"t":1791128128141}
+{"event":"skill_start","skill":"attack creeper","trigger":"reflex_creeper","t":1791128128141}
+{"event":"skill_end","skill":"attack creeper","ok":false,"code":"HAZARD","detail":"no safe gap after hitting the creeper","seconds":1.25,"t":1791128129381}
+{"layer":"tactician","gs":333,"brain":"rules","trigger":"skill_failed","goal":"iron_tools","options":["attack creeper","collect raw_iron:11","explore any"],"choice":"attack creeper","x":[1.0,0.95,0.0,0.0,1.0,0.469,0.0,0.0,0.4,0.4,0.0,0.5,0.188,0.625,0.0,0.125,0.125,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.25,0.17,1.0,1.0,0.2,0.154,0.167,0.308,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["attack creeper"],"t":1791128129382}
+{"event":"skill_start","skill":"attack creeper","trigger":"skill_failed","t":1791128129382}
+{"event":"skill_end","skill":"attack creeper","ok":false,"code":"HAZARD","detail":"creeper started its fuse before the hit","seconds":0.05,"t":1791128129433}
+{"layer":"tactician","gs":333,"brain":"rules","trigger":"skill_failed","goal":"iron_tools","options":["retreat","collect raw_iron:11","explore any"],"choice":"retreat","x":[1.0,0.95,0.0,0.0,1.0,0.469,0.0,0.0,0.4,0.4,0.0,0.5,0.188,0.625,0.0,0.125,0.125,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.25,0.17,1.0,1.0,0.2,0.154,0.167,0.308,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["retreat"],"t":1791128129433}
+{"event":"skill_start","skill":"retreat","trigger":"skill_failed","t":1791128129433}
+{"layer":"reflex","gs":333,"brain":"rules","trigger":"reflex_creeper","goal":"iron_tools","options":["retreat"],"choice":"retreat","x":[1.0,0.95,0.0,0.0,1.0,0.438,0.0,0.0,0.4,0.4,0.0,0.5,0.188,0.625,0.0,0.125,0.125,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.25,0.112,1.0,1.0,0.2,0.154,0.167,0.308,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["retreat"],"t":1791128130139}
+{"event":"skill_end","skill":"retreat","ok":false,"code":"INTERRUPTED","detail":"interrupted by reflex_creeper","seconds":0.7,"t":1791128130139}
+{"event":"skill_start","skill":"retreat","trigger":"reflex_creeper","t":1791128130139}
+{"event":"skill_end","skill":"retreat","ok":true,"detail":"got away","seconds":6.25,"t":1791128136385}
+{"layer":"tactician","gs":340,"brain":"rules","trigger":"skill_done","goal":"iron_tools","options":["eat","collect raw_iron:11","explore any"],"choice":"eat","x":[0.672,0.8,0.0,0.0,1.0,0.5,0.0,0.0,0.4,0.4,0.0,0.5,0.188,0.625,0.0,0.125,0.125,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,1.0,1.0,0.2,0.154,0.167,0.308,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["eat"],"t":1791128136388}
+{"event":"skill_start","skill":"eat","trigger":"skill_done","t":1791128136388}
+{"event":"skill_end","skill":"eat","ok":true,"detail":"ate rotten_flesh","seconds":1.8,"t":1791128138184}
+{"layer":"tactician","gs":341,"brain":"rules","trigger":"skill_done","goal":"iron_tools","options":["collect raw_iron:11","explore any"],"choice":"collect raw_iron:11","x":[0.672,1.0,0.0,0.0,1.0,0.5,0.0,0.0,0.4,0.4,0.0,0.5,0.188,0.625,0.0,0.125,0.125,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,1.0,1.0,0.2,0.154,0.167,0.308,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1791128138184}
+{"event":"skill_start","skill":"collect raw_iron:11","trigger":"skill_done","t":1791128138185}
+{"event":"torch","detail":"-19, 32, -208","t":1791128138637}
+{"event":"torch","detail":"-35, 28, -222","t":1791128153634}
+{"event":"torch","detail":"-37, 35, -225","t":1791128160639}
+{"event":"torch","detail":"-26, 36, -227","t":1791128164136}
+{"event":"torch","detail":"-44, 37, -208","t":1791128174636}
+{"event":"torch","detail":"-50, 36, -203","t":1791128188132}
+{"event":"skill_end","skill":"collect raw_iron:11","ok":true,"detail":"collected 11 raw_iron (seen blocks)","seconds":53.95,"t":1791128192133}
+{"layer":"tactician","gs":395,"brain":"rules","trigger":"skill_done","goal":"iron_tools","options":["craft stick:4","craft furnace:1","explore any"],"choice":"craft stick:4","x":[0.806,0.75,0.0,0.0,1.0,0.563,0.0,0.0,0.4,0.4,0.0,0.5,0.188,0.844,0.0,0.813,0.125,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,1.0,1.0,0.2,0.154,0.167,0.308,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1791128192134}
+{"event":"skill_start","skill":"craft stick:4","trigger":"skill_done","t":1791128192134}
+{"event":"skill_end","skill":"craft stick:4","ok":true,"detail":"crafted 4 stick","seconds":0.45,"t":1791128192589}
+{"layer":"tactician","gs":396,"brain":"rules","trigger":"skill_done","goal":"iron_tools","options":["craft torch:8","craft furnace:1","pickup","explore any"],"choice":"craft torch:8","x":[0.806,0.75,0.0,0.0,1.0,0.563,0.0,0.0,0.4,0.4,0.0,0.5,0.063,0.844,0.0,0.813,0.125,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,1.0,1.0,0.2,0.154,0.167,0.308,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1791128192590}
+{"event":"skill_start","skill":"craft torch:8","trigger":"skill_done","t":1791128192590}
+{"event":"skill_end","skill":"craft torch:8","ok":true,"detail":"crafted 9 torch","seconds":0.85,"t":1791128193439}
+{"layer":"tactician","gs":397,"brain":"rules","trigger":"skill_done","goal":"iron_tools","options":["craft furnace:1","explore any"],"choice":"craft furnace:1","x":[0.806,0.75,0.0,0.0,1.0,0.563,0.0,0.0,0.4,0.4,0.0,0.5,0.063,0.844,0.0,0.813,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,1.0,1.0,0.2,0.154,0.167,0.308,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1791128193440}
+{"event":"skill_start","skill":"craft furnace:1","trigger":"skill_done","t":1791128193440}
+{"event":"skill_end","skill":"craft furnace:1","ok":true,"detail":"crafted 1 furnace","seconds":0.85,"t":1791128194287}
+{"layer":"tactician","gs":398,"brain":"rules","trigger":"skill_done","goal":"iron_tools","options":["smelt iron_ingot:13","explore any"],"choice":"smelt iron_ingot:13","x":[0.806,0.75,0.0,0.0,1.0,0.563,0.0,0.0,0.4,0.4,0.0,0.5,0.063,0.594,0.0,0.813,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,1.0,1.0,0.2,0.154,0.167,0.308,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1791128194287}
+{"event":"skill_start","skill":"smelt iron_ingot:13","trigger":"skill_done","t":1791128194288}
+{"event":"skill_end","skill":"smelt iron_ingot:13","ok":true,"detail":"loaded 13 to smelt into iron_ingot; working nearby meanwhile","seconds":0.5,"t":1791128194788}
+{"layer":"tactician","gs":398,"brain":"rules","trigger":"skill_done","goal":"iron_tools","options":["pickup stations","collect coal:8","explore any"],"choice":"pickup stations","x":[0.806,0.75,0.0,0.0,1.0,0.563,0.0,0.0,0.4,0.4,0.0,0.0,0.063,0.594,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,1.0,1.0,0.2,0.154,0.167,0.308,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1791128194789}
+{"event":"skill_start","skill":"pickup stations","trigger":"skill_done","t":1791128194789}
+{"event":"skill_end","skill":"pickup stations","ok":true,"detail":"picked up 1 stacks","seconds":4.35,"t":1791128199142}
+{"layer":"tactician","gs":402,"brain":"rules","trigger":"skill_done","goal":"iron_tools","options":["collect coal:8","explore any"],"choice":"collect coal:8","x":[0.806,0.75,0.0,0.0,1.0,0.563,0.0,0.0,0.4,0.4,0.0,0.0,0.063,0.594,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,1.0,1.0,0.2,0.154,0.167,0.308,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1791128199142}
+{"event":"skill_start","skill":"collect coal:8","trigger":"skill_done","t":1791128199142}
+{"event":"torch","detail":"-45, 35, -230","t":1791128212137}
+{"event":"torch","detail":"-45, 35, -231","t":1791128219138}
+{"layer":"tactician","gs":422,"brain":"rules","trigger":"heartbeat","goal":"iron_tools","options":["shore"],"choice":"shore","x":[0.806,0.7,0.0,0.0,1.0,0.547,0.0,0.0,0.4,0.4,0.0,0.0,0.063,0.75,0.0,0.063,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,1.0,1.0,0.2,0.154,0.167,0.308,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["shore"],"t":1791128219186}
+{"event":"skill_end","skill":"collect coal:8","ok":false,"code":"INTERRUPTED","detail":"interrupted: brain chose shore","seconds":20.05,"t":1791128219186}
+{"event":"skill_start","skill":"shore","trigger":"heartbeat","t":1791128219186}
+{"event":"torch","detail":"-45, 36, -231","t":1791128225141}
+{"event":"skill_end","skill":"shore","ok":true,"detail":"reached dry ground with room to work","seconds":16.0,"t":1791128235191}
+{"layer":"tactician","gs":438,"brain":"rules","trigger":"skill_done","goal":"iron_tools","options":["collect coal:6","collect raw_iron:2","explore any"],"choice":"collect coal:6","x":[0.806,0.7,0.0,0.0,1.0,0.547,0.0,0.0,0.4,0.4,0.0,0.0,0.063,0.719,0.0,0.063,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,1.0,1.0,0.2,0.154,0.167,0.308,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1791128235191}
+{"event":"skill_start","skill":"collect coal:6","trigger":"skill_done","t":1791128235191}
+{"event":"torch","detail":"-47, 41, -218","t":1791128269134}
+{"event":"torch","detail":"-46, 38, -218","t":1791128285141}
+{"event":"torch","detail":"-50, 43, -221","t":1791128288151}
+{"event":"torch","detail":"-56, 48, -222","t":1791128290648}
+{"event":"torch","detail":"-49, 55, -227","t":1791128296143}
+{"event":"torch","detail":"-41, 55, -229","t":1791128298141}
+{"event":"torch","detail":"-36, 52, -235","t":1791128300150}
+{"event":"torch","detail":"-39, 45, -238","t":1791128302643}
+{"event":"skill_end","skill":"collect coal:6","ok":true,"detail":"collected 6 coal (seen blocks)","seconds":68.85,"t":1791128304042}
+{"layer":"tactician","gs":507,"brain":"rules","trigger":"skill_done","goal":"iron_tools","options":["craft torch:8","collect raw_iron:2","pickup","explore any"],"choice":"craft torch:8","x":[0.806,0.6,0.0,0.0,1.0,0.719,0.0,0.0,0.4,0.4,0.0,0.0,0.063,0.875,0.0,0.063,0.375,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,1.0,1.0,0.2,0.154,0.167,0.308,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1791128304043}
+{"event":"skill_start","skill":"craft torch:8","trigger":"skill_done","t":1791128304043}
+{"event":"skill_end","skill":"craft torch:8","ok":true,"detail":"crafted 8 torch","seconds":0.85,"t":1791128304888}
+{"layer":"tactician","gs":508,"brain":"rules","trigger":"skill_done","goal":"iron_tools","options":["collect raw_iron:2","explore any"],"choice":"collect raw_iron:2","x":[0.806,0.6,0.0,0.0,1.0,0.719,0.0,0.0,0.4,0.4,0.0,0.0,0.063,0.875,0.0,0.063,0.25,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,1.0,1.0,0.2,0.154,0.167,0.308,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1791128304888}
+{"event":"skill_start","skill":"collect raw_iron:2","trigger":"skill_done","t":1791128304889}
+{"event":"torch","detail":"-34, 40, -234","t":1791128308141}
+{"layer":"tactician","gs":538,"brain":"rules","trigger":"mob_near","goal":"iron_tools","options":["attack skeleton","collect raw_iron:1","explore any"],"choice":"attack skeleton","x":[0.806,0.55,0.0,0.0,1.0,0.531,0.0,0.0,0.4,0.4,0.0,0.0,0.063,1.0,0.0,0.125,0.25,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.5,0.348,1.0,1.0,0.2,0.154,0.167,0.308,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["attack skeleton"],"t":1791128334638}
+{"event":"skill_end","skill":"collect raw_iron:2","ok":false,"code":"INTERRUPTED","detail":"interrupted: brain chose attack skeleton","seconds":29.75,"t":1791128334638}
+{"event":"skill_start","skill":"attack skeleton","trigger":"mob_near","t":1791128334638}
+{"layer":"tactician","gs":541,"brain":"rules","trigger":"hurt","goal":"iron_tools","options":["retreat","collect raw_iron:1","explore any"],"choice":"retreat","x":[0.506,0.55,0.0,0.0,1.0,0.484,0.0,0.0,0.4,0.4,0.0,0.0,0.063,1.0,0.0,0.125,0.25,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.5,0.113,1.0,1.0,0.2,0.154,0.167,0.308,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["retreat"],"t":1791128337697}
+{"event":"skill_end","skill":"attack skeleton","ok":false,"code":"INTERRUPTED","detail":"interrupted: brain chose retreat","seconds":3.05,"t":1791128337697}
+{"event":"skill_start","skill":"retreat","trigger":"hurt","t":1791128337697}
+{"layer":"reflex","gs":541,"brain":"rules","trigger":"reflex_fight","goal":"iron_tools","options":["attack skeleton","retreat"],"choice":"attack skeleton","x":[0.506,0.55,0.0,0.0,1.0,0.484,0.0,0.0,0.4,0.4,0.0,0.0,0.063,1.0,0.0,0.125,0.25,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.5,0.113,1.0,1.0,0.2,0.154,0.167,0.308,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["attack skeleton","retreat"],"t":1791128337753}
+{"event":"skill_end","skill":"retreat","ok":false,"code":"INTERRUPTED","detail":"interrupted by reflex_fight","seconds":0.05,"t":1791128337753}
+{"event":"skill_start","skill":"attack skeleton","trigger":"reflex_fight","t":1791128337754}
+{"event":"skill_end","skill":"attack skeleton","ok":true,"detail":"killed the skeleton","seconds":5.05,"t":1791128342787}
+{"layer":"tactician","gs":546,"brain":"rules","trigger":"skill_done","goal":"iron_tools","options":["attack zombie","collect raw_iron:1","explore any"],"choice":"attack zombie","x":[0.131,0.55,0.0,0.0,1.0,0.484,0.0,0.0,0.4,0.4,0.0,0.0,0.063,1.0,0.0,0.125,0.25,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.25,0.053,1.0,1.0,0.2,0.154,0.167,0.308,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["attack zombie"],"t":1791128342788}
+{"event":"skill_start","skill":"attack zombie","trigger":"skill_done","t":1791128342788}
+{"event":"skill_end","skill":"attack zombie","ok":true,"detail":"killed the zombie","seconds":7.4,"t":1791128350190}
+{"layer":"tactician","gs":553,"brain":"rules","trigger":"skill_done","goal":"iron_tools","options":["collect raw_iron:1","pickup","explore any"],"choice":"collect raw_iron:1","x":[0.006,0.5,0.0,0.0,1.0,0.484,0.0,0.0,0.4,0.4,0.0,0.0,0.063,1.0,0.0,0.125,0.25,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,1.0,1.0,0.2,0.154,0.167,0.308,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1791128350190}
+{"event":"skill_start","skill":"collect raw_iron:1","trigger":"skill_done","t":1791128350190}
+{"event":"torch","detail":"-53, 31, -230","t":1791128350638}
+{"event":"skill_end","skill":"collect raw_iron:1","ok":true,"detail":"collected 1 raw_iron (seen blocks)","seconds":2.25,"t":1791128352444}
+{"layer":"tactician","gs":556,"brain":"rules","trigger":"skill_done","goal":"iron_tools","options":["smelt iron_ingot:3","pickup","explore any"],"choice":"smelt iron_ingot:3","x":[0.006,0.5,0.0,0.0,1.0,0.484,0.0,0.0,0.4,0.4,0.0,0.0,0.063,1.0,0.0,0.188,0.25,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,1.0,1.0,0.2,0.154,0.167,0.308,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1791128352445}
+{"event":"skill_start","skill":"smelt iron_ingot:3","trigger":"skill_done","t":1791128352445}
+{"layer":"tactician","gs":560,"brain":"rules","trigger":"mob_near","goal":"iron_tools","options":["retreat","smelt iron_ingot:3","explore any"],"choice":"retreat","x":[0.006,0.5,0.0,0.0,1.0,0.547,0.0,0.0,0.4,0.4,0.0,0.0,0.063,1.0,0.0,0.188,0.25,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.25,0.472,1.0,1.0,0.2,0.154,0.167,0.308,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["retreat"],"t":1791128356641}
+{"event":"skill_end","skill":"smelt iron_ingot:3","ok":false,"code":"INTERRUPTED","detail":"interrupted: brain chose retreat","seconds":4.2,"t":1791128356641}
+{"event":"skill_start","skill":"retreat","trigger":"mob_near","t":1791128356641}
+{"event":"skill_end","skill":"retreat","ok":true,"detail":"got away","seconds":4.0,"t":1791128360643}
+{"layer":"tactician","gs":564,"brain":"rules","trigger":"skill_done","goal":"iron_tools","options":["smelt iron_ingot:3","explore any"],"choice":"smelt iron_ingot:3","x":[0.006,0.5,0.0,0.0,1.0,0.547,0.0,0.0,0.4,0.4,0.0,0.0,0.063,1.0,0.0,0.188,0.25,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,1.0,1.0,0.2,0.154,0.167,0.308,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1791128360643}
+{"event":"skill_start","skill":"smelt iron_ingot:3","trigger":"skill_done","t":1791128360643}
+{"event":"skill_end","skill":"smelt iron_ingot:3","ok":true,"detail":"loaded 4 to smelt into iron_ingot; working nearby meanwhile","seconds":8.0,"t":1791128368644}
+{"layer":"tactician","gs":572,"brain":"rules","trigger":"skill_done","goal":"iron_tools","options":["goto surface","collect log:9","explore log"],"choice":"goto surface","x":[0.006,0.45,0.0,0.0,1.0,0.563,0.0,0.0,0.4,0.4,0.0,0.0,0.063,1.0,0.75,0.0,0.125,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,1.0,1.0,0.2,0.154,0.167,0.308,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1791128368644}
+{"event":"skill_start","skill":"goto surface","trigger":"skill_done","t":1791128368644}
+{"event":"skill_end","skill":"goto surface","ok":true,"detail":"back under open sky","seconds":23.5,"t":1791128392139}
+{"layer":"tactician","gs":595,"brain":"rules","trigger":"skill_done","goal":"iron_tools","options":["explore cow,pig,sheep,chicken","collect log:9","shelter","explore log"],"choice":"explore cow,pig,sheep,chicken","x":[0.006,0.4,0.0,1.0,0.0,1.031,0.0,0.0,0.4,0.4,0.0,0.0,0.063,1.0,0.75,0.0,0.125,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,1.0,1.0,0.2,0.154,0.167,0.308,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1791128392140}
+{"event":"skill_start","skill":"explore cow,pig,sheep,chicken","trigger":"skill_done","t":1791128392141}
+{"event":"skill_end","skill":"explore cow,pig,sheep,chicken","ok":false,"code":"INTERRUPTED","detail":"test finished","seconds":4.4,"t":1791128396565}
+{"event":"autopilot_off","detail":"test finished","t":1791128396565}

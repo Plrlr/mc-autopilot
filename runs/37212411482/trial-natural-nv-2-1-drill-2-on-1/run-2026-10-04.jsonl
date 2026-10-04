@@ -1,0 +1,133 @@
+{"event":"autopilot_on","detail":"brain\u003drules","t":1791127755790}
+{"event":"params","detail":"params: trial (26 genes) changed\u003d{\"nether.piglin_threat\":1.0,\"combat.creeper_hit\":1.0,\"combat.shield_guard\":1.0,\"route.armor_before_portal\":1.0,\"night.wall_in\":1.0,\"gear.sword_early\":1.0,\"move.shore_first\":1.0,\"fortress.no_tunnel\":1.0,\"fortress.floor_anchor\":1.0,\"fortress.anchor_scope\":1.0,\"fortress.spawner_check\":1.0,\"nether.recover_bounded\":1.0,\"portal.prepare_work_area\":1.0,\"portal.reserve_lava_bucket\":1.0,\"combat.ignore_walled_mobs\":1.0,\"night.shelter_exit\":1.0,\"nav.surface_v2\":1.0,\"nav.unstuck_v2\":1.0,\"stuck.item_progress\":1.0,\"skill.ruined_portal\":1.0,\"skill.portal_repair\":1.0,\"skill.enderman_warped\":1.0,\"plan.readiness\":1.0}","t":1791127755791}
+{"layer":"strategist","brain":"rules","choice":"blaze_rods","reason":"start","t":1791127755793}
+{"event":"learned","detail":"learned model: none","t":1791127755799}
+{"layer":"tactician","gs":0,"brain":"rules","trigger":"idle","goal":"blaze_rods","options":["fortress find","explore any"],"choice":"fortress find","x":[1.0,1.0,0.5,1.0,1.0,0.656,1.0,0.0,0.8,0.6,1.0,0.313,0.375,1.0,0.0,0.0,0.0,0.25,0.0,1.0,1.0,0.0,1.0,0.0,0.0,1.0,0.0,0.0,0.0,0.0,0.0,0.615,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1791127755813}
+{"event":"skill_start","skill":"fortress find","trigger":"idle","t":1791127755847}
+{"event":"tidy","detail":"threw out a stack of junk","t":1791127756454}
+{"event":"checkpoint","detail":"two_buckets","t":1791127757568}
+{"event":"checkpoint","detail":"flint_and_steel","t":1791127757568}
+{"event":"checkpoint","detail":"diamond_pickaxe","t":1791127757568}
+{"event":"checkpoint","detail":"portal_lit","t":1791127757568}
+{"event":"milestone","detail":"7 at 0 s","t":1791127757572}
+{"event":"tidy","detail":"threw out a stack of junk","t":1791127758326}
+{"event":"tidy","detail":"threw out a stack of junk","t":1791127777575}
+{"event":"gene","detail":"nether.piglin_threat on: piglin in attack pose at 6","t":1791127781982}
+{"layer":"reflex","gs":12,"brain":"rules","trigger":"reflex_fight","goal":"blaze_rods","options":["attack hoglin","retreat"],"choice":"attack hoglin","x":[1.0,1.0,0.5,1.0,1.0,0.813,1.0,0.0,0.8,0.6,1.0,0.313,0.375,1.0,0.0,0.0,0.0,0.25,0.0,1.0,1.0,0.0,1.0,0.0,0.25,0.202,0.0,0.0,0.0,0.538,0.667,0.615,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["attack hoglin","retreat"],"t":1791127783498}
+{"event":"skill_end","skill":"fortress find","ok":false,"code":"INTERRUPTED","detail":"interrupted by reflex_fight","seconds":12.85,"t":1791127783499}
+{"event":"skill_start","skill":"attack hoglin","trigger":"reflex_fight","t":1791127783501}
+{"event":"checkpoint","detail":"lava_seen","t":1791127785201}
+{"event":"skill_end","skill":"attack hoglin","ok":true,"detail":"killed the hoglin","seconds":3.9,"t":1791127788960}
+{"layer":"tactician","gs":16,"brain":"rules","trigger":"skill_done","goal":"blaze_rods","options":["smelt cooked_porkchop:4","fortress find","explore any"],"choice":"smelt cooked_porkchop:4","x":[0.937,1.0,0.5,1.0,1.0,0.813,1.0,0.0,0.8,0.6,1.0,0.313,0.375,1.0,0.0,0.0,0.0,0.25,0.25,1.0,1.0,0.0,1.0,0.0,0.0,1.0,1.0,0.0,0.0,0.538,0.833,0.615,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0],"idx":0,"prop":1.0,"t":1791127788962}
+{"event":"skill_start","skill":"smelt cooked_porkchop:4","trigger":"skill_done","t":1791127788963}
+{"event":"skill_end","skill":"smelt cooked_porkchop:4","ok":true,"detail":"loaded 4 to smelt into cooked_porkchop; working nearby meanwhile","seconds":0.5,"t":1791127789564}
+{"layer":"tactician","gs":17,"brain":"rules","trigger":"skill_done","goal":"blaze_rods","options":["fortress find","explore any"],"choice":"fortress find","x":[0.943,1.0,0.5,1.0,1.0,0.813,1.0,0.0,0.8,0.6,1.0,0.313,0.188,1.0,0.0,0.0,0.0,0.25,0.0,1.0,1.0,0.0,1.0,0.0,0.0,1.0,1.0,0.0,0.0,0.538,0.833,0.615,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0],"idx":0,"prop":1.0,"t":1791127789565}
+{"event":"skill_start","skill":"fortress find","trigger":"skill_done","t":1791127789565}
+{"event":"tidy","detail":"threw out a stack of junk","t":1791127839755}
+{"event":"gene","detail":"nether.piglin_threat on: piglin in attack pose at 14","t":1791127846835}
+{"layer":"tactician","gs":57,"brain":"rules","trigger":"heartbeat","goal":"blaze_rods","options":["eat","fortress find","explore any"],"choice":"eat","x":[1.0,0.7,0.5,0.0,1.0,0.75,1.0,0.0,0.8,0.6,1.0,0.313,0.188,1.0,0.0,0.0,0.0,0.25,0.0,1.0,1.0,0.0,1.0,0.0,0.0,1.0,1.0,0.0,0.0,0.538,0.833,0.615,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["eat"],"t":1791127850894}
+{"event":"skill_end","skill":"fortress find","ok":false,"code":"INTERRUPTED","detail":"interrupted: brain chose eat","seconds":40.1,"t":1791127850895}
+{"event":"skill_start","skill":"eat","trigger":"heartbeat","t":1791127850895}
+{"event":"skill_end","skill":"eat","ok":true,"detail":"ate cooked_porkchop","seconds":1.75,"t":1791127852655}
+{"layer":"tactician","gs":59,"brain":"rules","trigger":"skill_done","goal":"blaze_rods","options":["fortress find","explore any"],"choice":"fortress find","x":[1.0,1.0,0.5,0.0,1.0,0.75,1.0,0.0,0.8,0.6,1.0,0.313,0.188,1.0,0.0,0.0,0.0,0.188,0.0,1.0,1.0,0.0,1.0,0.0,0.0,1.0,1.0,0.0,0.0,0.538,0.833,0.615,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0],"idx":0,"prop":1.0,"t":1791127852656}
+{"event":"skill_start","skill":"fortress find","trigger":"skill_done","t":1791127852656}
+{"event":"gene","detail":"nether.piglin_threat on: piglin in attack pose at 10","t":1791127856986}
+{"event":"gene","detail":"nether.piglin_threat on: piglin in attack pose at 8","t":1791127867034}
+{"event":"tidy","detail":"threw out a stack of junk","t":1791127883103}
+{"event":"tidy","detail":"threw out a stack of junk","t":1791127890541}
+{"event":"tidy","detail":"threw out a stack of junk","t":1791127892933}
+{"event":"tidy","detail":"threw out a stack of junk","t":1791127960355}
+{"event":"tidy","detail":"threw out a stack of junk","t":1791127961699}
+{"event":"tidy","detail":"threw out a stack of junk","t":1791127962859}
+{"event":"tidy","detail":"threw out a stack of junk","t":1791127992549}
+{"event":"skill_end","skill":"fortress find","ok":true,"detail":"walked 200 blocks, no fortress in view yet","seconds":140.0,"t":1791128002402}
+{"layer":"tactician","gs":199,"brain":"rules","trigger":"skill_done","goal":"blaze_rods","options":["fortress find","explore any"],"choice":"fortress find","x":[1.0,1.0,0.5,0.0,1.0,1.203,1.0,0.0,0.8,0.6,1.0,0.313,0.188,1.0,0.0,0.0,0.0,0.188,0.0,1.0,1.0,0.0,1.0,0.0,0.0,1.0,1.0,0.0,0.0,0.538,0.833,0.615,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0],"idx":0,"prop":1.0,"t":1791128002403}
+{"event":"skill_start","skill":"fortress find","trigger":"skill_done","t":1791128002403}
+{"event":"tidy","detail":"threw out a stack of junk","t":1791128033643}
+{"event":"tidy","detail":"threw out a stack of junk","t":1791128034632}
+{"event":"tidy","detail":"threw out a stack of junk","t":1791128035701}
+{"event":"skill_end","skill":"fortress find","ok":true,"detail":"walked 200 blocks, no fortress in view yet","seconds":65.5,"t":1791128069037}
+{"layer":"tactician","gs":264,"brain":"rules","trigger":"skill_done","goal":"blaze_rods","options":["fortress find","explore any"],"choice":"fortress find","x":[1.0,0.95,0.5,0.0,1.0,1.453,1.0,0.0,0.8,0.6,1.0,0.313,0.188,1.0,0.0,0.0,0.0,0.188,0.0,1.0,1.0,0.0,1.0,0.0,0.0,1.0,1.0,0.0,0.0,0.538,0.833,0.615,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0],"idx":0,"prop":1.0,"t":1791128069038}
+{"event":"skill_start","skill":"fortress find","trigger":"skill_done","t":1791128069038}
+{"event":"tidy","detail":"threw out a stack of junk","t":1791128097152}
+{"event":"tidy","detail":"threw out a stack of junk","t":1791128122534}
+{"event":"tidy","detail":"threw out a stack of junk","t":1791128123545}
+{"layer":"tactician","gs":324,"brain":"rules","trigger":"heartbeat","goal":"blaze_rods","options":["eat","fortress find","explore any"],"choice":"eat","x":[1.0,0.7,0.5,0.0,1.0,0.844,1.0,0.0,0.8,0.6,1.0,0.313,0.188,1.0,0.0,0.0,0.0,0.188,0.0,1.0,1.0,0.0,1.0,0.0,0.0,1.0,1.0,0.0,0.0,0.538,0.833,0.615,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["eat"],"t":1791128129933}
+{"event":"skill_end","skill":"fortress find","ok":false,"code":"INTERRUPTED","detail":"interrupted: brain chose eat","seconds":60.15,"t":1791128129933}
+{"event":"skill_start","skill":"eat","trigger":"heartbeat","t":1791128129934}
+{"layer":"tactician","gs":326,"brain":"rules","trigger":"hurt","goal":"blaze_rods","options":["eat","fortress find","explore any"],"choice":"eat","x":[0.3,0.7,0.5,0.0,1.0,0.578,1.0,0.0,0.8,0.6,1.0,0.313,0.188,1.0,0.0,0.0,0.0,0.188,0.0,1.0,1.0,0.0,1.0,0.0,0.0,1.0,1.0,0.0,0.0,0.538,0.833,0.615,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["eat"],"t":1791128131131}
+{"event":"skill_end","skill":"eat","ok":true,"detail":"ate cooked_porkchop","seconds":1.85,"t":1791128131782}
+{"layer":"tactician","gs":326,"brain":"rules","trigger":"skill_done","goal":"blaze_rods","options":["fortress find","explore any"],"choice":"fortress find","x":[0.3,1.0,0.5,0.0,1.0,0.578,1.0,0.0,0.8,0.6,1.0,0.313,0.188,1.0,0.0,0.0,0.0,0.125,0.0,1.0,1.0,0.0,1.0,0.0,0.0,1.0,1.0,0.0,0.0,0.538,0.833,0.615,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0],"idx":0,"prop":1.0,"t":1791128131783}
+{"event":"skill_start","skill":"fortress find","trigger":"skill_done","t":1791128131783}
+{"layer":"tactician","gs":346,"brain":"rules","trigger":"heartbeat","goal":"blaze_rods","options":["eat","fortress find","explore any"],"choice":"eat","x":[0.802,0.8,0.5,0.0,1.0,0.609,1.0,0.0,0.8,0.6,1.0,0.313,0.188,1.0,0.0,0.0,0.0,0.125,0.0,1.0,1.0,0.0,1.0,0.0,0.0,1.0,1.0,0.0,0.0,0.538,0.833,0.615,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["eat"],"t":1791128152103}
+{"event":"skill_end","skill":"fortress find","ok":false,"code":"INTERRUPTED","detail":"interrupted: brain chose eat","seconds":20.05,"t":1791128152103}
+{"event":"skill_start","skill":"eat","trigger":"heartbeat","t":1791128152103}
+{"event":"skill_end","skill":"eat","ok":true,"detail":"ate cooked_porkchop","seconds":1.85,"t":1791128153943}
+{"layer":"tactician","gs":348,"brain":"rules","trigger":"skill_done","goal":"blaze_rods","options":["fortress find","explore any"],"choice":"fortress find","x":[0.802,1.0,0.5,0.0,1.0,0.609,1.0,0.0,0.8,0.6,1.0,0.313,0.188,1.0,0.0,0.0,0.0,0.063,0.0,1.0,1.0,0.0,1.0,0.0,0.0,1.0,1.0,0.0,0.0,0.538,0.833,0.615,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0],"idx":0,"prop":1.0,"t":1791128153944}
+{"event":"skill_start","skill":"fortress find","trigger":"skill_done","t":1791128153944}
+{"event":"tidy","detail":"threw out a stack of junk","t":1791128185233}
+{"event":"tidy","detail":"threw out a stack of junk","t":1791128186238}
+{"layer":"reflex","gs":401,"brain":"rules","trigger":"reflex_fight","goal":"blaze_rods","options":["attack hoglin","retreat"],"choice":"attack hoglin","x":[1.0,1.0,0.5,0.0,1.0,0.844,1.0,0.0,0.8,0.6,1.0,0.313,0.188,1.0,0.0,0.0,0.0,0.063,0.0,1.0,1.0,0.0,1.0,0.0,0.5,0.194,1.0,0.0,0.0,0.538,0.833,0.615,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["attack hoglin","retreat"],"t":1791128208245}
+{"event":"skill_end","skill":"fortress find","ok":false,"code":"INTERRUPTED","detail":"interrupted by reflex_fight","seconds":52.85,"t":1791128208246}
+{"event":"skill_start","skill":"attack hoglin","trigger":"reflex_fight","t":1791128208246}
+{"event":"tidy","detail":"threw out a stack of junk","t":1791128213236}
+{"event":"skill_end","skill":"attack hoglin","ok":true,"detail":"killed the hoglin","seconds":6.9,"t":1791128215129}
+{"layer":"tactician","gs":408,"brain":"rules","trigger":"skill_done","goal":"blaze_rods","options":["fortress find","pickup","explore any"],"choice":"fortress find","x":[0.973,1.0,0.5,0.0,1.0,0.844,1.0,0.0,0.8,0.6,1.0,0.313,0.188,1.0,0.0,0.0,0.0,0.063,0.125,1.0,1.0,0.0,1.0,0.0,0.0,0.967,1.0,0.0,0.0,0.538,0.833,0.615,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0],"idx":0,"prop":1.0,"t":1791128215129}
+{"event":"skill_start","skill":"fortress find","trigger":"skill_done","t":1791128215130}
+{"event":"tidy","detail":"threw out a stack of junk","t":1791128215254}
+{"event":"tidy","detail":"threw out a stack of junk","t":1791128217289}
+{"layer":"tactician","gs":450,"brain":"rules","trigger":"heartbeat","goal":"blaze_rods","options":["eat","fortress find","explore any"],"choice":"eat","x":[0.969,0.7,0.5,0.0,1.0,0.781,1.0,0.0,0.8,0.6,1.0,0.313,0.188,1.0,0.0,0.0,0.0,0.063,0.125,1.0,1.0,0.0,1.0,0.0,0.0,1.0,1.0,0.0,0.0,0.538,0.833,0.615,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["eat"],"t":1791128257183}
+{"event":"skill_end","skill":"fortress find","ok":false,"code":"INTERRUPTED","detail":"interrupted: brain chose eat","seconds":41.95,"t":1791128257184}
+{"event":"skill_start","skill":"eat","trigger":"heartbeat","t":1791128257184}
+{"event":"skill_end","skill":"eat","ok":true,"detail":"ate cooked_porkchop","seconds":1.85,"t":1791128259044}
+{"layer":"tactician","gs":452,"brain":"rules","trigger":"skill_done","goal":"blaze_rods","options":["fortress find","explore any"],"choice":"fortress find","x":[0.969,1.0,0.5,0.0,1.0,0.781,1.0,0.0,0.8,0.6,1.0,0.313,0.188,1.0,0.0,0.0,0.0,0.0,0.125,1.0,1.0,0.0,1.0,0.0,0.0,1.0,1.0,0.0,0.0,0.538,0.833,0.615,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0],"idx":0,"prop":1.0,"t":1791128259044}
+{"event":"skill_start","skill":"fortress find","trigger":"skill_done","t":1791128259045}
+{"event":"gene","detail":"nether.recover_bounded on: can\u0027t heal here: health 11, hunger 17, no food; home to eat","t":1791128292240}
+{"layer":"tactician","gs":484,"brain":"rules","trigger":"hurt","goal":"blaze_rods","options":["eat","enter_portal overworld","fortress find","explore any"],"choice":"eat","x":[0.565,0.85,0.5,0.0,1.0,1.109,1.0,0.0,0.8,0.6,1.0,0.313,0.188,1.0,0.0,0.0,0.0,0.0,0.125,1.0,1.0,0.0,1.0,0.0,0.0,1.0,1.0,0.0,0.0,0.538,0.833,0.615,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["eat"],"t":1791128292241}
+{"event":"skill_end","skill":"fortress find","ok":false,"code":"INTERRUPTED","detail":"interrupted: brain chose eat","seconds":32.75,"t":1791128292241}
+{"event":"skill_start","skill":"eat","trigger":"hurt","t":1791128292242}
+{"event":"skill_end","skill":"eat","ok":true,"detail":"ate porkchop","seconds":1.8,"t":1791128294036}
+{"layer":"tactician","gs":486,"brain":"rules","trigger":"skill_done","goal":"blaze_rods","options":["fortress find","explore any"],"choice":"fortress find","x":[0.565,1.0,0.5,0.0,1.0,1.109,1.0,0.0,0.8,0.6,1.0,0.313,0.188,1.0,0.0,0.0,0.0,0.0,0.063,1.0,1.0,0.0,1.0,0.0,0.0,1.0,1.0,0.0,0.0,0.538,0.833,0.615,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0],"idx":0,"prop":1.0,"t":1791128294038}
+{"event":"skill_start","skill":"fortress find","trigger":"skill_done","t":1791128294038}
+{"event":"gene","detail":"nether.piglin_threat on: piglin in attack pose at 12","t":1791128314833}
+{"layer":"tactician","gs":506,"brain":"rules","trigger":"heartbeat","goal":"blaze_rods","options":["eat","fortress find","explore any"],"choice":"eat","x":[0.713,0.8,0.5,0.0,1.0,1.313,1.0,0.0,0.8,0.6,1.0,0.313,0.188,1.0,0.0,0.0,0.0,0.0,0.063,1.0,1.0,0.0,1.0,0.0,0.0,0.608,1.0,0.0,0.0,0.538,0.833,0.615,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["eat"],"t":1791128315387}
+{"event":"skill_end","skill":"fortress find","ok":false,"code":"INTERRUPTED","detail":"interrupted: brain chose eat","seconds":20.05,"t":1791128315388}
+{"event":"skill_start","skill":"eat","trigger":"heartbeat","t":1791128315388}
+{"layer":"reflex","gs":508,"brain":"rules","trigger":"reflex_fight","goal":"blaze_rods","options":["attack piglin","retreat"],"choice":"attack piglin","x":[0.713,0.8,0.5,0.0,1.0,1.313,1.0,0.0,0.8,0.6,1.0,0.313,0.188,1.0,0.0,0.0,0.0,0.0,0.063,1.0,1.0,0.0,1.0,0.0,0.25,0.174,1.0,0.0,0.0,0.538,0.833,0.615,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["attack piglin","retreat"],"t":1791128316830}
+{"event":"skill_end","skill":"eat","ok":false,"code":"INTERRUPTED","detail":"interrupted by reflex_fight","seconds":1.45,"t":1791128316830}
+{"event":"skill_start","skill":"attack piglin","trigger":"reflex_fight","t":1791128316830}
+{"event":"skill_end","skill":"attack piglin","ok":true,"detail":"killed the piglin","seconds":6.95,"t":1791128324284}
+{"layer":"tactician","gs":515,"brain":"rules","trigger":"skill_done","goal":"blaze_rods","options":["attack piglin","fortress find","explore any"],"choice":"attack piglin","x":[0.713,0.8,0.5,0.0,1.0,1.359,1.0,0.0,0.8,0.6,1.0,0.313,0.188,1.0,0.0,0.0,0.0,0.0,0.063,1.0,1.0,0.0,1.0,0.0,0.25,0.126,1.0,0.0,0.0,0.538,0.833,0.615,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["attack piglin"],"t":1791128324285}
+{"event":"skill_start","skill":"attack piglin","trigger":"skill_done","t":1791128324285}
+{"event":"tidy","detail":"threw out a stack of junk","t":1791128328117}
+{"event":"skill_end","skill":"attack piglin","ok":true,"detail":"killed the piglin","seconds":4.6,"t":1791128329572}
+{"layer":"tactician","gs":519,"brain":"rules","trigger":"skill_done","goal":"blaze_rods","options":["eat","fortress find","pickup","explore any"],"choice":"eat","x":[0.713,0.8,0.5,0.0,1.0,1.328,1.0,0.0,0.8,0.6,1.0,0.313,0.188,1.0,0.0,0.0,0.0,0.0,0.063,1.0,1.0,0.0,1.0,0.0,0.0,1.0,1.0,0.0,0.0,0.538,0.833,0.615,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["eat"],"t":1791128329573}
+{"event":"skill_start","skill":"eat","trigger":"skill_done","t":1791128329573}
+{"event":"skill_end","skill":"eat","ok":true,"detail":"ate porkchop","seconds":1.8,"t":1791128331343}
+{"layer":"tactician","gs":521,"brain":"rules","trigger":"skill_done","goal":"blaze_rods","options":["fortress find","explore any"],"choice":"fortress find","x":[0.713,0.95,0.5,0.0,1.0,1.328,1.0,0.0,0.8,0.6,1.0,0.313,0.188,1.0,0.0,0.0,0.0,0.0,0.0,1.0,1.0,0.0,1.0,0.0,0.0,1.0,1.0,0.0,0.0,0.538,0.833,0.615,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0],"idx":0,"prop":1.0,"t":1791128331343}
+{"event":"skill_start","skill":"fortress find","trigger":"skill_done","t":1791128331343}
+{"event":"tidy","detail":"threw out a stack of junk","t":1791128440022}
+{"event":"tidy","detail":"threw out a stack of junk","t":1791128441044}
+{"event":"tidy","detail":"threw out a stack of junk","t":1791128442108}
+{"event":"skill_end","skill":"fortress find","ok":true,"detail":"walked 200 blocks, no fortress in view yet","seconds":100.0,"t":1791128468048}
+{"layer":"tactician","gs":621,"brain":"rules","trigger":"skill_done","goal":"blaze_rods","options":["fortress find","explore any"],"choice":"fortress find","x":[0.832,0.5,0.5,0.0,1.0,1.063,1.0,0.0,0.8,0.6,1.0,0.313,0.188,1.0,0.0,0.0,0.0,0.0,0.0,1.0,1.0,0.0,1.0,0.0,0.0,1.0,1.0,0.0,0.0,0.538,0.833,0.615,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0],"idx":0,"prop":1.0,"t":1791128468048}
+{"event":"skill_start","skill":"fortress find","trigger":"skill_done","t":1791128468048}
+{"event":"tidy","detail":"threw out a stack of junk","t":1791128503284}
+{"event":"skill_end","skill":"fortress find","ok":true,"detail":"walked 127 blocks, no fortress in view yet","seconds":49.5,"t":1791128529560}
+{"layer":"tactician","gs":671,"brain":"rules","trigger":"skill_done","goal":"blaze_rods","options":["explore cow,pig,sheep,chicken","fortress find","explore any"],"choice":"explore cow,pig,sheep,chicken","x":[0.801,0.35,0.5,1.0,1.0,0.766,1.0,0.0,0.8,0.6,1.0,0.313,0.188,1.0,0.0,0.0,0.0,0.0,0.0,1.0,1.0,0.0,1.0,0.0,0.0,1.0,1.0,0.0,0.0,0.538,0.833,0.615,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0],"idx":0,"prop":1.0,"t":1791128529561}
+{"event":"skill_start","skill":"explore cow,pig,sheep,chicken","trigger":"skill_done","t":1791128529561}
+{"event":"skill_end","skill":"explore cow,pig,sheep,chicken","ok":true,"detail":"explored 120 blocks, no cow/pig/sheep/chicken yet","seconds":66.5,"t":1791128596736}
+{"layer":"tactician","gs":737,"brain":"rules","trigger":"skill_done","goal":"blaze_rods","options":["explore cow,pig,sheep,chicken","fortress find","explore any"],"choice":"explore cow,pig,sheep,chicken","x":[0.801,0.35,0.5,1.0,1.0,0.766,1.0,0.0,0.8,0.6,1.0,0.313,0.188,1.0,0.0,0.0,0.0,0.0,0.0,1.0,1.0,0.0,1.0,0.0,0.0,1.0,1.0,0.0,0.0,0.538,0.833,0.615,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0],"idx":0,"prop":1.0,"t":1791128596737}
+{"event":"skill_start","skill":"explore cow,pig,sheep,chicken","trigger":"skill_done","t":1791128596737}
+{"event":"skill_end","skill":"explore cow,pig,sheep,chicken","ok":false,"code":"UNREACHABLE","detail":"couldn\u0027t make headway that way; will turn","seconds":6.5,"t":1791128603238}
+{"layer":"tactician","gs":744,"brain":"rules","trigger":"skill_failed","goal":"blaze_rods","options":["explore cow,pig,sheep,chicken","fortress find","explore any"],"choice":"explore cow,pig,sheep,chicken","x":[0.801,0.35,0.5,1.0,1.0,0.766,1.0,0.0,0.8,0.6,1.0,0.313,0.188,1.0,0.0,0.0,0.0,0.0,0.0,1.0,1.0,0.0,1.0,0.0,0.0,1.0,1.0,0.0,0.0,0.538,0.833,0.615,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0],"idx":0,"prop":1.0,"t":1791128603239}
+{"event":"skill_start","skill":"explore cow,pig,sheep,chicken","trigger":"skill_failed","t":1791128603239}
+{"event":"skill_end","skill":"explore cow,pig,sheep,chicken","ok":true,"detail":"explored 120 blocks, no cow/pig/sheep/chicken yet","seconds":74.0,"t":1791128680637}
+{"layer":"tactician","gs":818,"brain":"rules","trigger":"skill_done","goal":"blaze_rods","options":["explore cow,pig,sheep,chicken","fortress find","explore any"],"choice":"explore cow,pig,sheep,chicken","x":[0.801,0.3,0.5,1.0,1.0,0.781,1.0,0.0,0.8,0.6,1.0,0.313,0.188,1.0,0.0,0.0,0.0,0.0,0.0,1.0,1.0,0.0,1.0,0.0,0.0,1.0,1.0,0.0,0.0,0.538,0.833,0.615,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0],"idx":0,"prop":1.0,"t":1791128680637}
+{"event":"skill_start","skill":"explore cow,pig,sheep,chicken","trigger":"skill_done","t":1791128680638}
+{"event":"gene","detail":"nether.piglin_threat on: piglin in attack pose at 10","t":1791128737192}
+{"event":"skill_end","skill":"explore cow,pig,sheep,chicken","ok":true,"detail":"explored 120 blocks, no cow/pig/sheep/chicken yet","seconds":61.5,"t":1791128744702}
+{"layer":"tactician","gs":879,"brain":"rules","trigger":"skill_done","goal":"blaze_rods","options":["explore cow,pig,sheep,chicken","fortress find","explore any"],"choice":"explore cow,pig,sheep,chicken","x":[0.801,0.3,0.5,1.0,1.0,0.828,1.0,0.0,0.8,0.6,1.0,0.313,0.188,1.0,0.0,0.0,0.0,0.0,0.0,1.0,1.0,0.0,1.0,0.0,0.0,1.0,1.0,0.0,0.0,0.538,0.833,0.615,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0],"idx":0,"prop":1.0,"t":1791128744703}
+{"event":"skill_start","skill":"explore cow,pig,sheep,chicken","trigger":"skill_done","t":1791128744703}
+{"event":"skill_end","skill":"explore cow,pig,sheep,chicken","ok":false,"code":"INTERRUPTED","detail":"test finished","seconds":21.35,"t":1791128766814}
+{"event":"autopilot_off","detail":"test finished","t":1791128766815}

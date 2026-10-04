@@ -1,0 +1,156 @@
+{"event":"autopilot_on","detail":"brain\u003drules","t":1791127743966}
+{"event":"params","detail":"params: trial (20 genes) changed\u003d{\"combat.creeper_hit\":1.0,\"combat.shield_guard\":1.0,\"route.armor_before_portal\":1.0,\"night.wall_in\":1.0,\"gear.sword_early\":1.0,\"move.shore_first\":1.0,\"portal.prepare_work_area\":1.0,\"portal.reserve_lava_bucket\":1.0,\"combat.ignore_walled_mobs\":1.0,\"night.shelter_exit\":1.0,\"nav.surface_v2\":1.0,\"nav.unstuck_v2\":1.0,\"stuck.item_progress\":1.0,\"skill.ruined_portal\":1.0,\"skill.portal_repair\":1.0,\"skill.enderman_warped\":1.0,\"plan.readiness\":1.0}","t":1791127743968}
+{"layer":"strategist","brain":"rules","choice":"iron_tools","reason":"start","t":1791127743970}
+{"layer":"strategist","brain":"rules","choice":"blaze_rods","reason":"user","t":1791127743970}
+{"event":"learned","detail":"learned model: none","t":1791127743982}
+{"event":"checkpoint","detail":"flint_and_steel","t":1791127743995}
+{"event":"milestone","detail":"7 at 0 s","t":1791127744006}
+{"layer":"tactician","gs":0,"brain":"rules","trigger":"idle","goal":"blaze_rods","options":["fortress blazes:8","equip shield","pickup","explore any"],"choice":"fortress blazes:8","x":[0.975,1.0,0.4,0.0,1.0,1.094,1.0,0.0,0.6,0.6,1.0,0.0,0.0,1.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.25,0.488,0.0,0.0,0.0,0.538,0.167,0.615,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1791127744018}
+{"event":"gene","detail":"fortress.no_tunnel off: fighting at a fortress: bricks could be dug","t":1791127744088}
+{"event":"skill_start","skill":"fortress blazes:8","trigger":"idle","t":1791127744090}
+{"event":"gene","detail":"nether.recover_bounded off: no food: hunger 14 and nothing to eat, health can\u0027t come back","t":1791127744529}
+{"event":"skill_end","skill":"fortress blazes:8","ok":false,"code":"DIED","detail":"died","seconds":1.35,"t":1791127746787}
+{"event":"death","detail":"mob:wither_skeleton","t":1791127746797}
+{"layer":"strategist","brain":"rules","choice":"nether_portal","reason":"respawned","t":1791127750294}
+{"layer":"reflex","gs":4,"brain":"rules","trigger":"reflex_fight","goal":"nether_portal","options":["attack wither_skeleton","retreat"],"choice":"attack wither_skeleton","x":[1.0,1.0,0.0,0.0,0.0,1.656,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.75,0.019,0.0,0.0,0.2,0.538,0.167,0.538,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["attack wither_skeleton","retreat"],"t":1791127750300}
+{"event":"skill_start","skill":"attack wither_skeleton","trigger":"reflex_fight","t":1791127750302}
+{"event":"skill_end","skill":"attack wither_skeleton","ok":false,"code":"NOT_FOUND","detail":"no reachable wither_skeleton in sight","seconds":0.0,"t":1791127750302}
+{"layer":"tactician","gs":4,"brain":"rules","trigger":"skill_failed","goal":"nether_portal","options":["attack wither_skeleton","collect log:3","pickup","explore log"],"choice":"attack wither_skeleton","x":[1.0,1.0,0.0,0.0,0.0,1.656,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.75,0.019,0.0,0.0,0.2,0.538,0.167,0.538,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["attack wither_skeleton"],"t":1791127750306}
+{"event":"skill_start","skill":"attack wither_skeleton","trigger":"skill_failed","t":1791127750306}
+{"event":"skill_end","skill":"attack wither_skeleton","ok":false,"code":"NOT_FOUND","detail":"no reachable wither_skeleton in sight","seconds":0.05,"t":1791127750358}
+{"layer":"tactician","gs":4,"brain":"rules","trigger":"skill_failed","goal":"nether_portal","options":["collect log:3","explore log"],"choice":"collect log:3","x":[1.0,1.0,0.0,0.0,0.0,1.656,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.2,0.538,0.167,0.538,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1791127750364}
+{"event":"skill_start","skill":"collect log:3","trigger":"skill_failed","t":1791127750369}
+{"event":"skill_end","skill":"collect log:3","ok":false,"code":"NOT_FOUND","detail":"no log seen nearby","seconds":3.05,"t":1791127753923}
+{"layer":"tactician","gs":7,"brain":"rules","trigger":"skill_failed","goal":"nether_portal","options":["collect log:3","explore log"],"choice":"collect log:3","x":[1.0,1.0,0.0,0.0,0.0,1.656,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.2,0.538,0.167,0.538,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1791127753924}
+{"event":"skill_start","skill":"collect log:3","trigger":"skill_failed","t":1791127753926}
+{"event":"skill_end","skill":"collect log:3","ok":false,"code":"NOT_FOUND","detail":"no log seen nearby","seconds":3.05,"t":1791127758676}
+{"layer":"tactician","gs":10,"brain":"rules","trigger":"skill_failed","goal":"nether_portal","options":["collect log:3","explore log"],"choice":"collect log:3","x":[1.0,1.0,0.0,0.0,0.0,1.656,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.2,0.538,0.167,0.538,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1791127758678}
+{"event":"skill_start","skill":"collect log:3","trigger":"skill_failed","t":1791127758678}
+{"event":"skill_end","skill":"collect log:3","ok":false,"code":"NOT_FOUND","detail":"no log seen nearby","seconds":3.05,"t":1791127764435}
+{"layer":"tactician","gs":13,"brain":"rules","trigger":"skill_failed","goal":"nether_portal","options":["explore log"],"choice":"explore log","x":[1.0,1.0,0.0,0.0,0.0,1.656,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.2,0.538,0.167,0.538,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1791127764436}
+{"event":"skill_start","skill":"explore log","trigger":"skill_failed","t":1791127764437}
+{"event":"skill_end","skill":"explore log","ok":true,"detail":"found log","seconds":2.5,"t":1791127768502}
+{"layer":"tactician","gs":16,"brain":"rules","trigger":"skill_done","goal":"nether_portal","options":["explore log"],"choice":"explore log","x":[1.0,1.0,0.0,0.0,0.0,1.609,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.2,0.538,0.167,0.538,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1791127768503}
+{"event":"skill_start","skill":"explore log","trigger":"skill_done","t":1791127768503}
+{"event":"skill_end","skill":"explore log","ok":false,"code":"ALREADY_DONE","detail":"already see log","seconds":0.05,"t":1791127768590}
+{"layer":"tactician","gs":16,"brain":"rules","trigger":"skill_failed","goal":"nether_portal","options":["explore log"],"choice":"explore log","x":[1.0,1.0,0.0,0.0,0.0,1.594,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.2,0.538,0.167,0.538,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1791127768591}
+{"event":"skill_start","skill":"explore log","trigger":"skill_failed","t":1791127768591}
+{"event":"skill_end","skill":"explore log","ok":false,"code":"ALREADY_DONE","detail":"already see log","seconds":0.05,"t":1791127768700}
+{"layer":"tactician","gs":16,"brain":"rules","trigger":"skill_failed","goal":"nether_portal","options":["explore log"],"choice":"explore log","x":[1.0,1.0,0.0,0.0,0.0,1.594,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.2,0.538,0.167,0.538,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1791127768701}
+{"event":"skill_start","skill":"explore log","trigger":"skill_failed","t":1791127768701}
+{"event":"skill_end","skill":"explore log","ok":false,"code":"ALREADY_DONE","detail":"already see log","seconds":0.05,"t":1791127768782}
+{"layer":"tactician","gs":16,"brain":"rules","trigger":"skill_failed","goal":"nether_portal","options":["explore any"],"choice":"explore any","x":[1.0,1.0,0.0,0.0,0.0,1.594,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.2,0.538,0.167,0.538,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1791127768783}
+{"event":"skill_start","skill":"explore any","trigger":"skill_failed","t":1791127768784}
+{"event":"skill_end","skill":"explore any","ok":true,"detail":"explored 120 blocks","seconds":29.5,"t":1791127811571}
+{"layer":"tactician","gs":45,"brain":"rules","trigger":"skill_done","goal":"nether_portal","options":["explore any"],"choice":"explore any","x":[1.0,1.0,0.0,0.0,0.0,1.188,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.2,0.538,0.167,0.538,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1791127811572}
+{"event":"skill_start","skill":"explore any","trigger":"skill_done","t":1791127811573}
+{"event":"skill_end","skill":"explore any","ok":true,"detail":"explored 120 blocks","seconds":33.0,"t":1791127856227}
+{"layer":"tactician","gs":78,"brain":"rules","trigger":"skill_done","goal":"nether_portal","options":["shore"],"choice":"shore","x":[1.0,1.0,0.0,0.0,0.0,0.969,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.2,0.538,0.167,0.538,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["shore"],"t":1791127856228}
+{"event":"skill_start","skill":"shore","trigger":"skill_done","t":1791127856229}
+{"event":"skill_end","skill":"shore","ok":true,"detail":"reached dry ground with room to work","seconds":1.5,"t":1791127857996}
+{"layer":"tactician","gs":80,"brain":"rules","trigger":"skill_done","goal":"nether_portal","options":["collect log:3","explore log"],"choice":"collect log:3","x":[1.0,1.0,0.0,0.0,1.0,0.984,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.2,0.538,0.167,0.538,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1791127857996}
+{"event":"skill_start","skill":"collect log:3","trigger":"skill_done","t":1791127857998}
+{"event":"skill_end","skill":"collect log:3","ok":true,"detail":"collected 3 log (seen blocks)","seconds":12.25,"t":1791127876953}
+{"layer":"tactician","gs":92,"brain":"rules","trigger":"skill_done","goal":"nether_portal","options":["craft planks:4","pickup","explore any"],"choice":"craft planks:4","x":[1.0,1.0,0.0,0.0,1.0,0.984,0.0,0.0,0.0,0.0,0.0,0.188,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.2,0.538,0.167,0.538,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1791127876954}
+{"event":"skill_start","skill":"craft planks:4","trigger":"skill_done","t":1791127876959}
+{"event":"skill_end","skill":"craft planks:4","ok":true,"detail":"crafted 4 planks","seconds":0.45,"t":1791127877391}
+{"layer":"tactician","gs":93,"brain":"rules","trigger":"skill_done","goal":"nether_portal","options":["craft stick:4","explore any"],"choice":"craft stick:4","x":[1.0,1.0,0.0,0.0,1.0,0.984,0.0,0.0,0.0,0.0,0.0,0.125,0.25,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.2,0.538,0.167,0.538,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1791127877392}
+{"event":"skill_start","skill":"craft stick:4","trigger":"skill_done","t":1791127877392}
+{"event":"skill_end","skill":"craft stick:4","ok":true,"detail":"crafted 4 stick","seconds":0.45,"t":1791127877842}
+{"layer":"tactician","gs":93,"brain":"rules","trigger":"skill_done","goal":"nether_portal","options":["craft planks:4","explore any"],"choice":"craft planks:4","x":[1.0,1.0,0.0,0.0,1.0,0.984,0.0,0.0,0.0,0.0,0.0,0.125,0.125,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.2,0.538,0.167,0.538,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1791127877842}
+{"event":"skill_start","skill":"craft planks:4","trigger":"skill_done","t":1791127877843}
+{"event":"skill_end","skill":"craft planks:4","ok":true,"detail":"crafted 4 planks","seconds":0.45,"t":1791127878292}
+{"layer":"tactician","gs":93,"brain":"rules","trigger":"skill_done","goal":"nether_portal","options":["craft crafting_table:1","explore any"],"choice":"craft crafting_table:1","x":[1.0,1.0,0.0,0.0,1.0,0.984,0.0,0.0,0.0,0.0,0.0,0.063,0.375,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.2,0.538,0.167,0.538,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1791127878292}
+{"event":"skill_start","skill":"craft crafting_table:1","trigger":"skill_done","t":1791127878293}
+{"event":"skill_end","skill":"craft crafting_table:1","ok":true,"detail":"crafted 1 crafting_table","seconds":0.45,"t":1791127878740}
+{"layer":"tactician","gs":94,"brain":"rules","trigger":"skill_done","goal":"nether_portal","options":["craft planks:4","explore any"],"choice":"craft planks:4","x":[1.0,1.0,0.0,0.0,1.0,0.984,0.0,0.0,0.0,0.0,0.0,0.063,0.125,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.2,0.538,0.167,0.538,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1791127878741}
+{"event":"skill_start","skill":"craft planks:4","trigger":"skill_done","t":1791127878741}
+{"event":"skill_end","skill":"craft planks:4","ok":true,"detail":"crafted 4 planks","seconds":0.45,"t":1791127879203}
+{"layer":"tactician","gs":94,"brain":"rules","trigger":"skill_done","goal":"nether_portal","options":["craft wooden_pickaxe:1","explore any"],"choice":"craft wooden_pickaxe:1","x":[1.0,1.0,0.0,0.0,1.0,0.984,0.0,0.0,0.0,0.0,0.0,0.0,0.375,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.2,0.538,0.167,0.538,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1791127879203}
+{"event":"skill_start","skill":"craft wooden_pickaxe:1","trigger":"skill_done","t":1791127879204}
+{"event":"skill_end","skill":"craft wooden_pickaxe:1","ok":true,"detail":"crafted 1 wooden_pickaxe","seconds":0.9,"t":1791127880090}
+{"layer":"tactician","gs":95,"brain":"rules","trigger":"skill_done","goal":"nether_portal","options":["pickup stations","craft wooden_sword:1","collect stone:13","explore any"],"choice":"pickup stations","x":[1.0,1.0,0.0,0.0,1.0,0.984,0.0,0.0,0.2,0.0,0.0,0.0,0.188,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.2,0.538,0.167,0.538,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1791127880091}
+{"event":"skill_start","skill":"pickup stations","trigger":"skill_done","t":1791127880091}
+{"event":"skill_end","skill":"pickup stations","ok":true,"detail":"picked up 1 stacks","seconds":4.5,"t":1791127885080}
+{"layer":"tactician","gs":100,"brain":"rules","trigger":"skill_done","goal":"nether_portal","options":["craft wooden_sword:1","collect stone:13","pickup","explore any"],"choice":"craft wooden_sword:1","x":[1.0,1.0,0.0,0.0,1.0,0.984,0.0,0.0,0.2,0.0,0.0,0.0,0.188,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.2,0.538,0.167,0.538,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1791127885081}
+{"event":"skill_start","skill":"craft wooden_sword:1","trigger":"skill_done","t":1791127885082}
+{"event":"skill_end","skill":"craft wooden_sword:1","ok":true,"detail":"crafted 1 wooden_sword","seconds":0.85,"t":1791127886214}
+{"layer":"tactician","gs":101,"brain":"rules","trigger":"skill_done","goal":"nether_portal","options":["pickup stations","collect stone:13","explore any"],"choice":"pickup stations","x":[1.0,1.0,0.0,0.0,1.0,0.984,0.0,0.0,0.2,0.2,0.0,0.0,0.063,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.2,0.538,0.167,0.538,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1791127886215}
+{"event":"skill_start","skill":"pickup stations","trigger":"skill_done","t":1791127886215}
+{"event":"skill_end","skill":"pickup stations","ok":true,"detail":"picked up 1 stacks","seconds":4.55,"t":1791127891158}
+{"layer":"tactician","gs":105,"brain":"rules","trigger":"skill_done","goal":"nether_portal","options":["collect stone:13","pickup","explore any"],"choice":"collect stone:13","x":[1.0,1.0,0.0,0.0,1.0,0.984,0.0,0.0,0.2,0.2,0.0,0.0,0.063,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.2,0.538,0.167,0.538,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1791127891159}
+{"event":"skill_start","skill":"collect stone:13","trigger":"skill_done","t":1791127891159}
+{"event":"skill_end","skill":"collect stone:13","ok":true,"detail":"collected 13 stone (seen blocks)","seconds":48.4,"t":1791127943758}
+{"layer":"tactician","gs":154,"brain":"rules","trigger":"skill_done","goal":"nether_portal","options":["collect log:9","explore log"],"choice":"collect log:9","x":[1.0,1.0,0.0,0.0,1.0,0.922,0.0,0.0,0.2,0.2,0.0,0.0,0.063,0.625,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.2,0.538,0.167,0.538,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1791127943759}
+{"event":"skill_start","skill":"collect log:9","trigger":"skill_done","t":1791127943760}
+{"event":"skill_end","skill":"collect log:9","ok":true,"detail":"collected 9 log (seen blocks)","seconds":89.3,"t":1791128037841}
+{"layer":"tactician","gs":243,"brain":"rules","trigger":"skill_done","goal":"nether_portal","options":["craft planks:4","pickup","explore any"],"choice":"craft planks:4","x":[1.0,0.95,0.0,0.0,1.0,1.047,0.0,0.0,0.2,0.2,0.0,0.563,0.063,0.75,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.2,0.538,0.167,0.538,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1791128037842}
+{"event":"skill_start","skill":"craft planks:4","trigger":"skill_done","t":1791128037843}
+{"event":"skill_end","skill":"craft planks:4","ok":true,"detail":"crafted 4 planks","seconds":0.45,"t":1791128038296}
+{"layer":"tactician","gs":243,"brain":"rules","trigger":"skill_done","goal":"nether_portal","options":["craft stick:4","explore any"],"choice":"craft stick:4","x":[1.0,0.95,0.0,0.0,1.0,1.047,0.0,0.0,0.2,0.2,0.0,0.5,0.313,0.75,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.2,0.538,0.167,0.538,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1791128038297}
+{"event":"skill_start","skill":"craft stick:4","trigger":"skill_done","t":1791128038297}
+{"event":"skill_end","skill":"craft stick:4","ok":true,"detail":"crafted 4 stick","seconds":0.45,"t":1791128038742}
+{"layer":"tactician","gs":244,"brain":"rules","trigger":"skill_done","goal":"nether_portal","options":["craft stone_pickaxe:1","explore any"],"choice":"craft stone_pickaxe:1","x":[1.0,0.95,0.0,0.0,1.0,1.047,0.0,0.0,0.2,0.2,0.0,0.5,0.188,0.75,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.2,0.538,0.167,0.538,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1791128038743}
+{"event":"skill_start","skill":"craft stone_pickaxe:1","trigger":"skill_done","t":1791128038743}
+{"event":"skill_end","skill":"craft stone_pickaxe:1","ok":true,"detail":"crafted 1 stone_pickaxe","seconds":0.85,"t":1791128039616}
+{"layer":"tactician","gs":245,"brain":"rules","trigger":"skill_done","goal":"nether_portal","options":["pickup stations","craft stone_sword:1","collect raw_iron:13","explore any"],"choice":"pickup stations","x":[1.0,0.95,0.0,0.0,1.0,1.047,0.0,0.0,0.4,0.2,0.0,0.5,0.188,0.656,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.2,0.538,0.167,0.538,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1791128039616}
+{"event":"skill_start","skill":"pickup stations","trigger":"skill_done","t":1791128039617}
+{"event":"skill_end","skill":"pickup stations","ok":true,"detail":"picked up 1 stacks","seconds":4.6,"t":1791128044195}
+{"layer":"tactician","gs":249,"brain":"rules","trigger":"skill_done","goal":"nether_portal","options":["craft stone_sword:1","collect raw_iron:13","pickup","explore any"],"choice":"craft stone_sword:1","x":[1.0,0.95,0.0,0.0,1.0,1.047,0.0,0.0,0.4,0.2,0.0,0.5,0.188,0.656,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.2,0.538,0.167,0.538,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1791128044196}
+{"event":"skill_start","skill":"craft stone_sword:1","trigger":"skill_done","t":1791128044196}
+{"event":"skill_end","skill":"craft stone_sword:1","ok":true,"detail":"crafted 1 stone_sword","seconds":0.85,"t":1791128045063}
+{"layer":"tactician","gs":250,"brain":"rules","trigger":"skill_done","goal":"nether_portal","options":["pickup stations","collect raw_iron:13","explore any"],"choice":"pickup stations","x":[1.0,0.95,0.0,0.0,1.0,1.047,0.0,0.0,0.4,0.4,0.0,0.5,0.188,0.594,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.2,0.538,0.167,0.538,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1791128045064}
+{"event":"skill_start","skill":"pickup stations","trigger":"skill_done","t":1791128045064}
+{"event":"skill_end","skill":"pickup stations","ok":true,"detail":"picked up 3 stacks","seconds":13.35,"t":1791128058442}
+{"layer":"tactician","gs":263,"brain":"rules","trigger":"skill_done","goal":"nether_portal","options":["collect raw_iron:13","pickup","explore any"],"choice":"collect raw_iron:13","x":[1.0,0.95,0.0,0.0,1.0,0.984,0.0,0.0,0.4,0.4,0.0,0.5,0.188,0.594,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.2,0.538,0.167,0.538,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1791128058443}
+{"event":"skill_start","skill":"collect raw_iron:13","trigger":"skill_done","t":1791128058443}
+{"event":"skill_end","skill":"collect raw_iron:13","ok":false,"code":"NOT_FOUND","detail":"can\u0027t find any raw_iron nearby","seconds":46.25,"t":1791128105544}
+{"layer":"tactician","gs":310,"brain":"rules","trigger":"skill_failed","goal":"nether_portal","options":["collect raw_iron:13","explore any"],"choice":"collect raw_iron:13","x":[1.0,0.95,0.0,0.0,1.0,0.297,0.0,0.0,0.4,0.4,0.0,0.5,0.188,1.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.2,0.538,0.167,0.538,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1791128105545}
+{"event":"skill_start","skill":"collect raw_iron:13","trigger":"skill_failed","t":1791128105545}
+{"event":"stuck","detail":"collect raw_iron:13 at -81, 19, 225","t":1791128111446}
+{"event":"skill_end","skill":"collect raw_iron:13","ok":false,"code":"STUCK","detail":"stuck: stayed inside 2.0 blocks for 12 s","seconds":5.9,"t":1791128111448}
+{"event":"skill_start","skill":"unstuck","trigger":"reflex_stuck","t":1791128111449}
+{"event":"skill_end","skill":"unstuck","ok":true,"detail":"got out (climb)","seconds":5.05,"t":1791128116539}
+{"layer":"tactician","gs":321,"brain":"rules","trigger":"skill_done","goal":"nether_portal","options":["collect raw_iron:13","pickup","explore any"],"choice":"collect raw_iron:13","x":[1.0,0.95,0.0,0.0,1.0,0.328,0.0,0.0,0.4,0.4,0.0,0.5,0.188,1.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.2,0.538,0.167,0.538,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1791128116540}
+{"event":"skill_start","skill":"collect raw_iron:13","trigger":"skill_done","t":1791128116540}
+{"layer":"tactician","gs":351,"brain":"rules","trigger":"mob_near","goal":"nether_portal","options":["attack zombie","collect raw_iron:13","explore any"],"choice":"attack zombie","x":[1.0,0.9,0.0,0.0,1.0,0.047,0.0,0.0,0.4,0.4,0.0,0.5,0.188,1.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.25,0.459,0.0,1.0,0.2,0.538,0.167,0.538,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["attack zombie"],"t":1791128146513}
+{"event":"skill_end","skill":"collect raw_iron:13","ok":false,"code":"INTERRUPTED","detail":"interrupted: brain chose attack zombie","seconds":29.95,"t":1791128146513}
+{"event":"skill_start","skill":"attack zombie","trigger":"mob_near","t":1791128146513}
+{"event":"skill_end","skill":"attack zombie","ok":true,"detail":"killed the zombie","seconds":5.05,"t":1791128151547}
+{"layer":"tactician","gs":356,"brain":"rules","trigger":"skill_done","goal":"nether_portal","options":["eat","collect raw_iron:13","explore any"],"choice":"eat","x":[0.925,0.85,0.0,0.0,1.0,0.063,0.0,0.0,0.4,0.4,0.0,0.5,0.188,1.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.2,0.538,0.167,0.538,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["eat"],"t":1791128151548}
+{"event":"skill_start","skill":"eat","trigger":"skill_done","t":1791128151548}
+{"event":"skill_end","skill":"eat","ok":true,"detail":"ate rotten_flesh","seconds":1.8,"t":1791128153341}
+{"layer":"tactician","gs":357,"brain":"rules","trigger":"skill_done","goal":"nether_portal","options":["collect raw_iron:13","explore any"],"choice":"collect raw_iron:13","x":[0.925,1.0,0.0,0.0,1.0,0.063,0.0,0.0,0.4,0.4,0.0,0.5,0.188,1.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.2,0.538,0.167,0.538,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1791128153342}
+{"event":"skill_start","skill":"collect raw_iron:13","trigger":"skill_done","t":1791128153342}
+{"event":"skill_end","skill":"collect raw_iron:13","ok":true,"detail":"collected 13 raw_iron","seconds":91.6,"t":1791128245598}
+{"layer":"tactician","gs":449,"brain":"rules","trigger":"skill_done","goal":"nether_portal","options":["craft furnace:1","pickup","explore any"],"choice":"craft furnace:1","x":[1.0,0.75,0.0,0.0,1.0,0.125,0.0,0.0,0.4,0.4,0.0,0.5,0.188,1.0,0.0,0.813,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.2,0.538,0.167,0.538,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1791128245598}
+{"event":"skill_start","skill":"craft furnace:1","trigger":"skill_done","t":1791128245599}
+{"event":"skill_end","skill":"craft furnace:1","ok":true,"detail":"crafted 1 furnace","seconds":0.9,"t":1791128246494}
+{"layer":"tactician","gs":450,"brain":"rules","trigger":"skill_done","goal":"nether_portal","options":["smelt iron_ingot:13","explore any"],"choice":"smelt iron_ingot:13","x":[1.0,0.75,0.0,0.0,1.0,0.125,0.0,0.0,0.4,0.4,0.0,0.5,0.188,1.0,0.0,0.813,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.2,0.538,0.167,0.538,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1791128246495}
+{"event":"skill_start","skill":"smelt iron_ingot:13","trigger":"skill_done","t":1791128246495}
+{"event":"skill_end","skill":"smelt iron_ingot:13","ok":true,"detail":"loaded 13 to smelt into iron_ingot; working nearby meanwhile","seconds":0.5,"t":1791128247008}
+{"layer":"tactician","gs":450,"brain":"rules","trigger":"skill_done","goal":"nether_portal","options":["pickup stations","collect flint:1","explore gravel,water"],"choice":"pickup stations","x":[1.0,0.75,0.0,0.0,1.0,0.125,0.0,0.0,0.4,0.4,0.0,0.0,0.188,1.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.2,0.538,0.167,0.538,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1791128247008}
+{"event":"skill_start","skill":"pickup stations","trigger":"skill_done","t":1791128247008}
+{"event":"skill_end","skill":"pickup stations","ok":true,"detail":"nothing left to pick up","seconds":3.9,"t":1791128250910}
+{"layer":"tactician","gs":454,"brain":"rules","trigger":"skill_done","goal":"nether_portal","options":["collect flint:1","explore gravel,water"],"choice":"collect flint:1","x":[1.0,0.75,0.0,0.0,1.0,0.125,0.0,0.0,0.4,0.4,0.0,0.0,0.188,1.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.2,0.538,0.167,0.538,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1791128250910}
+{"event":"skill_start","skill":"collect flint:1","trigger":"skill_done","t":1791128250912}
+{"event":"skill_end","skill":"collect flint:1","ok":true,"detail":"flint after 13 gravel breaks","seconds":33.8,"t":1791128284691}
+{"layer":"tactician","gs":488,"brain":"rules","trigger":"skill_done","goal":"nether_portal","options":["smelt iron_ingot:13","pickup","explore any"],"choice":"smelt iron_ingot:13","x":[1.0,0.7,0.0,0.0,1.0,0.047,0.0,0.0,0.4,0.4,0.0,0.0,0.188,1.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.2,0.538,0.167,0.538,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1791128284692}
+{"event":"skill_start","skill":"smelt iron_ingot:13","trigger":"skill_done","t":1791128284692}
+{"event":"skill_end","skill":"smelt iron_ingot:13","ok":true,"detail":"smelted 13 iron_ingot","seconds":96.0,"t":1791128380687}
+{"layer":"tactician","gs":584,"brain":"rules","trigger":"skill_done","goal":"nether_portal","options":["craft iron_pickaxe:1","shelter","explore any"],"choice":"craft iron_pickaxe:1","x":[1.0,0.7,0.0,1.0,1.0,0.109,0.0,0.0,0.4,0.4,0.0,0.0,0.125,1.0,0.813,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.2,0.538,0.167,0.538,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1791128380688}
+{"event":"skill_start","skill":"craft iron_pickaxe:1","trigger":"skill_done","t":1791128380689}
+{"event":"skill_end","skill":"craft iron_pickaxe:1","ok":true,"detail":"crafted 1 iron_pickaxe","seconds":0.85,"t":1791128381542}
+{"layer":"tactician","gs":585,"brain":"rules","trigger":"skill_done","goal":"nether_portal","options":["craft stick:4","shelter","explore any"],"choice":"craft stick:4","x":[1.0,0.7,0.0,1.0,1.0,0.109,0.0,0.0,0.6,0.4,0.0,0.0,0.125,1.0,0.625,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.2,0.538,0.167,0.538,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1791128381543}
+{"event":"skill_start","skill":"craft stick:4","trigger":"skill_done","t":1791128381543}
+{"event":"skill_end","skill":"craft stick:4","ok":true,"detail":"crafted 4 stick","seconds":0.45,"t":1791128381993}
+{"layer":"tactician","gs":585,"brain":"rules","trigger":"skill_done","goal":"nether_portal","options":["craft iron_sword:1","craft stone_axe:1","shelter","explore any"],"choice":"craft iron_sword:1","x":[1.0,0.7,0.0,1.0,1.0,0.109,0.0,0.0,0.6,0.4,0.0,0.0,0.0,1.0,0.625,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.2,0.538,0.167,0.538,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1791128381994}
+{"event":"skill_start","skill":"craft iron_sword:1","trigger":"skill_done","t":1791128381994}
+{"event":"skill_end","skill":"craft iron_sword:1","ok":true,"detail":"crafted 1 iron_sword","seconds":0.75,"t":1791128382736}
+{"layer":"tactician","gs":586,"brain":"rules","trigger":"skill_done","goal":"nether_portal","options":["craft stone_axe:1","shelter","explore any"],"choice":"craft stone_axe:1","x":[1.0,0.7,0.0,1.0,1.0,0.109,0.0,0.0,0.6,0.6,0.0,0.0,0.0,1.0,0.5,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.2,0.538,0.167,0.538,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1791128382737}
+{"event":"skill_start","skill":"craft stone_axe:1","trigger":"skill_done","t":1791128382737}
+{"event":"skill_end","skill":"craft stone_axe:1","ok":true,"detail":"crafted 1 stone_axe","seconds":0.75,"t":1791128383490}
+{"layer":"tactician","gs":587,"brain":"rules","trigger":"skill_done","goal":"nether_portal","options":["goto surface","pickup stations","collect log:10","shelter","explore log"],"choice":"goto surface","x":[1.0,0.7,0.0,1.0,1.0,0.109,0.0,0.0,0.6,0.6,0.0,0.0,0.0,1.0,0.5,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.2,0.538,0.167,0.538,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1791128383491}
+{"event":"skill_start","skill":"goto surface","trigger":"skill_done","t":1791128383491}
+{"event":"skill_end","skill":"goto surface","ok":false,"code":"INTERRUPTED","detail":"test finished","seconds":13.55,"t":1791128397093}
+{"event":"autopilot_off","detail":"test finished","t":1791128397094}
