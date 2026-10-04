@@ -2869,7 +2869,7 @@
   "2026-10-01": 12,
   "2026-10-02": 12,
   "2026-10-03": 12,
-  "2026-10-04": 4
+  "2026-10-04": 5
  },
  "evolve_log": [
   {
@@ -3132,6 +3132,12 @@
    "mode": "skill",
    "result": "drilling",
    "target": "shore TIMEOUT"
+  },
+  {
+   "gen": 174,
+   "gid": "g167",
+   "mode": "edit",
+   "result": "racing"
   }
  ],
  "gen": 174,
@@ -14441,6 +14447,49 @@
      -0.519
     ]
    ],
+   "parent": "g159",
+   "status": "contender"
+  },
+  "g167": {
+   "born": 174,
+   "code": {
+    "base": "edb493ed02bb044d7f07cd0165be5e40c56c1f03",
+    "branch": "evolve/g167",
+    "files": [
+     "mod/src/main/java/io/github/plrlr/autopilot/skills/CollectSkill.java"
+    ],
+    "sha": "71051cc5486ae6cc85c1c219a889a65f2aaf0596",
+    "summary": "After a flint collect fails NO_ROOM (no flat spot to place gravel), the next flint collect mines seen gravel blocks in the world directly (10% flint each), breaking the collect flint NO_ROOM / explore gravel ALREADY_DONE loop."
+   },
+   "evals": [],
+   "genes": {
+    "combat.creeper_hit": 1.0,
+    "combat.ignore_walled_mobs": 1.0,
+    "combat.shield_guard": 1.0,
+    "death.recover_night_armor": 12.0,
+    "focus.commit": 1.0,
+    "gear.sword_early": 1.0,
+    "move.shore_first": 1.0,
+    "nav.surface_v2": 1.0,
+    "nav.unstuck_v2": 1.0,
+    "night.shelter_exit": 1.0,
+    "night.wall_in": 1.0,
+    "plan.hide_hp": 15.0,
+    "plan.readiness": 1.0,
+    "portal.prepare_work_area": 1.0,
+    "portal.reserve_lava_bucket": 1.0,
+    "route.armor_before_portal": 1.0,
+    "skill.enderman_warped": 1.0,
+    "skill.portal_repair": 1.0,
+    "skill.ruined_portal": 1.0,
+    "stuck.item_progress": 1.0
+   },
+   "id": "g167",
+   "mutated": [
+    "code"
+   ],
+   "note": "code: After a flint collect fails NO_ROOM (no flat spot to place gravel), the next flint collect mines seen gravel blocks in the world directly (10% flint each), breaking the collect flint NO_ROOM / explore gravel ALREADY_DONE loop.",
+   "pairs": [],
    "parent": "g159",
    "status": "contender"
   },
@@ -29812,7 +29861,8 @@
   "A reflex that checks only distance keeps restarting a fight the planner has already given up on (unreachable mark). The reflex's trigger should honour the same unreachable memory, with an exception for a mob that is really in reach.",
   "When the planner's inventory test (Goal.have bucket counts filled buckets) says a step is ready but the skill's own check refuses, the skill must fix the state itself (pour out the spare water), or the planner offers the same refused step forever.",
   "Creeper HAZARD failures happened because the attack quit as soon as it saw a lit fuse. The follow-up retreat then started 2-3 blocks from the creeper and failed with NO_PROGRESS, so backing off at once inside the attack should beat handing over to a new skill.",
-  "Repeated shore TIMEOUTs come from a 90 s pathed swim that doesn't move the bot. After one failure, swimming by hand on the surface toward seen land (or straight ahead), and switching targets when it stalls, should beat trying the same route again."
+  "Repeated shore TIMEOUTs come from a 90 s pathed swim that doesn't move the bot. After one failure, swimming by hand on the surface toward seen land (or straight ahead), and switching targets when it stalls, should beat trying the same route again.",
+  "When a skill's special method needs room the spot lacks, a fallback that uses the visible resource as it stands (mine the world's gravel) should beat repeating the refusal while explore says the target is already seen."
  ],
  "merge": null,
  "model_adv_lo": -0.0362,
@@ -29829,7 +29879,7 @@
   "mean_gap_ok": -0.1397,
   "n": 998
  },
- "next_id": 167,
+ "next_id": 168,
  "pending": null,
  "race_evidence_version": 1,
  "score_version": 3,
