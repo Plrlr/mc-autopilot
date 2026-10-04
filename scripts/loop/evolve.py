@@ -173,6 +173,41 @@ def champion_genes_text(st, genes):
         "%s=%s" % (n, full[n]) for n in genes if full[n] != genes[n]["def"]) or "none")
 
 
+class RateLimited(RuntimeError):
+    """The Claude plan's limit was hit (HTTP 429): no attempt was made, and none should be counted.
+    Gens 120-166 burned 45 calls this way ("You've hit your weekly limit"), each recorded as a failed
+    patch or skill: the plan is shared with the people's own Claude sessions."""
+
+    def __init__(self, message, until):
+        super().__init__(message)
+        self.until = until
+
+
+def resume_time(message, now=None):
+    """When a limit message says it resets ("resets 3am (UTC)"), else in 3 hours."""
+    now = now or datetime.datetime.now(datetime.timezone.utc)
+    m = re.search(r"resets\s+(\d{1,2})(?::(\d\d))?\s*(am|pm)?\s*\(UTC\)", message, re.I)
+    if not m:
+        return now + datetime.timedelta(hours=3)
+    h = int(m.group(1)) % 12 if m.group(3) else int(m.group(1))
+    if (m.group(3) or "").lower() == "pm":
+        h += 12
+    t = now.replace(hour=h, minute=int(m.group(2) or 0), second=0, microsecond=0)
+    return t if t > now else t + datetime.timedelta(days=1)
+
+
+def claude_error(stdout, stderr):
+    """(message, rate limited) of a failed claude -p call: its JSON's "result", not the tail of the
+    JSON (the stored tail hid the 429 for 45 generations)."""
+    try:
+        out = json.loads(stdout)
+        msg, status = str(out.get("result") or out.get("error") or ""), out.get("api_error_status")
+    except (ValueError, AttributeError):
+        msg, status = (stderr or stdout or "")[-500:], None
+    limited = status == 429 or bool(re.search(r"hit your .*limit|usage limit|rate limit|quota", msg, re.I))
+    return msg or (stderr or stdout or "")[-300:], limited
+
+
 def ask_claude(prompt, claude, system=SYSTEM, schema=SCHEMA,
                instruction="Propose the change as JSON. The evidence and files are on stdin."):
     cmd = [claude, "-p", instruction, "--model", "opus",
@@ -180,13 +215,53 @@ def ask_claude(prompt, claude, system=SYSTEM, schema=SCHEMA,
            "--system-prompt", system, "--json-schema", json.dumps(schema)]
     r = subprocess.run(cmd, input=prompt, capture_output=True, text=True, timeout=600,
                        cwd=os.environ.get("RUNNER_TEMP", "/tmp"))
-    if r.returncode != 0:
-        raise RuntimeError("claude failed: " + (r.stderr or r.stdout)[-500:])
+    failed = r.returncode != 0
+    if not failed:
+        try:
+            failed = bool(json.loads(r.stdout).get("is_error"))
+        except (ValueError, AttributeError):
+            failed = False
+    if failed:
+        msg, limited = claude_error(r.stdout, r.stderr)
+        if limited:
+            raise RateLimited("claude limit: " + msg, resume_time(msg))
+        raise RuntimeError("claude failed: " + msg[-500:])
     out = json.loads(r.stdout)
     so = out.get("structured_output")
     if not isinstance(so, dict):
         raise RuntimeError("no structured_output: " + r.stdout[-300:])
     return so
+
+
+def behavior_text(state_dir):
+    """patterns.py's report (time sinks, thrash, refusal loops, death contexts), or nothing."""
+    try:
+        import patterns
+        return patterns.text(state_dir)
+    except Exception as e:  # noqa: BLE001 - evidence only: a broken report must not stop the step
+        return "(behavior report unavailable: %s)" % e
+
+
+def pause_for_limit(st_path, today, e):
+    """No call happened: give the day's slot back, record nothing as tried, wait for the reset."""
+    st = common.read_json(st_path)
+    st["evolve_days"][today] = max(0, st["evolve_days"].get(today, 1) - 1)
+    st["evolve_paused_until"] = e.until.isoformat(timespec="minutes")
+    common.write_json(st_path, st)
+    print("evolve: %s; paused until %s (nothing counted as tried)" % (str(e)[:200], st["evolve_paused_until"]))
+
+
+def forget_limit_failures(st):
+    """Drop the attempts that were only the plan's limit (gens 120-166): they taught nothing, and
+    their "no usable patch" entries filled the prompt's record of earlier attempts."""
+    bad = [c for c in st.get("code_failures", []) if "api_error_status\":429" in c.get("why", "")
+           or re.search(r"hit your .*limit", c.get("why", ""), re.I)]
+    if not bad:
+        return False
+    gens = {c["gen"] for c in bad}
+    st["code_failures"] = [c for c in st["code_failures"] if c not in bad]
+    st["evolve_log"] = [e for e in st.get("evolve_log", []) if not (e.get("gen") in gens and e.get("result", "").startswith("no usable"))]
+    return True
 
 
 def apply_edits(edits, dry=False):
@@ -242,6 +317,12 @@ def main():
     s = dict(SETTINGS, **st.get("settings", {}).get("evolve", {}))
     today = datetime.datetime.now(datetime.timezone.utc).strftime("%Y-%m-%d")
     used = st.setdefault("evolve_days", {}).get(today, 0)
+    if forget_limit_failures(st):
+        common.write_json(st_path, st)
+    paused = st.get("evolve_paused_until")
+    if paused and not a.force and datetime.datetime.fromisoformat(paused) > datetime.datetime.now(datetime.timezone.utc):
+        print("evolve: the Claude plan's limit was hit; waiting until %s" % paused)
+        return
     champ = st["genomes"][st["champion"]]
     last_crown = max([g.get("crowned", 0) for g in st["genomes"].values()] + [0])
     racing = [g for g in st["genomes"].values() if g.get("code") and g["status"] in ("contender", "drilling")]
@@ -279,7 +360,7 @@ def main():
             break
     if any("while retreat" in l or "while attack" in l for l in ev.splitlines()) and "Autopilot.java" not in files:
         files.append("Autopilot.java")
-    parts = [ev, "", attempts_text(st), "", champion_genes_text(st, genes), ""]
+    parts = [ev, "", behavior_text(a.state), "", attempts_text(st), "", champion_genes_text(st, genes), ""]
     budget = s["max_prompt_chars"] - sum(len(p) for p in parts)
     for f in files:
         text = open(os.path.join(common.ROOT, SRC, f), encoding="utf-8").read()
@@ -306,6 +387,8 @@ def main():
         try:
             so = ask_claude(prompt if attempt == 0 else prompt + "\n\nYOUR LAST EDITS FAILED:\n" + why +
                             "\nFix them (search text copied exactly from the files above).", a.claude)
+        except RateLimited as e:
+            return pause_for_limit(st_path, today, e)
         except Exception as e:  # noqa: BLE001 - any failure here just skips this cycle
             why = str(e)
             break

@@ -138,7 +138,7 @@ def gen_tables(state_dir, gens):
     for g in sorted(glob.glob(os.path.join(state_dir, "data", "gen-*")))[-gens:]:
         files = glob.glob(os.path.join(g, "*.jsonl.gz"))
         if files:
-            runs, lost, tries, died = failures.table(files)
+            runs, lost, tries, died = failures.table(files, first_life=True)
             out.append((os.path.basename(g), lost, tries, runs))
     return out
 
@@ -274,7 +274,7 @@ def prompt_for(st, state_dir, batch, target, genes, budget):
     lines += ["- %s %s: %.0f min, %d tries" % (k[0], k[1], s / 60, tries[k]) for k, s in total.most_common(14)]
     lines += ["", skill_stats_text(st, target["action"]), "", "Examples of the target failure this generation:"]
     lines += examples(batch, target) or ["(no game logs of it in this batch)"]
-    parts = ["\n".join(lines), "", evolve.attempts_text(st), skill_attempts_text(st), "",
+    parts = ["\n".join(lines), "", evolve.behavior_text(state_dir), "", evolve.attempts_text(st), skill_attempts_text(st), "",
              evolve.champion_genes_text(st, genes), "", "THE FRAMEWORK YOUR SKILL PLUGS INTO:", framework_text(), "",
              "=== EXAMPLE ===\n" + EXAMPLE]
     left = budget - sum(len(p) for p in parts)
@@ -491,6 +491,9 @@ def run(a, st, st_path, s, target, genes, today, used, t0, prefix="evolve/"):
             so = evolve.ask_claude(prompt if attempt == 0 else prompt + "\n\nYOUR LAST SKILL FAILED ITS GATES:\n" + why +
                                    "\nFix it and return the whole skill again.", a.claude, SYSTEM, SCHEMA,
                                    "Write the new skill as JSON. The evidence and the framework are on stdin.")
+        except evolve.RateLimited as e:
+            undo()
+            return evolve.pause_for_limit(st_path, today, e)
         except Exception as e:  # noqa: BLE001 - a failed call just ends this cycle
             why = str(e)
             break

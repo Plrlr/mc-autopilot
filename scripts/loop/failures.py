@@ -23,12 +23,18 @@ def action(a):
     return a if head in ("explore", "goto", "shelter") and arg else head
 
 
-def table(files):
+def table(files, first_life=False):
+    """first_life: only what happened before each game's first death, the part the score counts
+    (since 2026-10-04 for level 3's targets: post-death wandering ranked failures that never cost
+    a scored second)."""
     lost, tries, died, runs = collections.Counter(), collections.Counter(), collections.Counter(), 0
     for f in files:
         runs += 1
-        for line in gzip.open(f, "rt", encoding="utf-8"):
-            r = json.loads(line)
+        rows = [json.loads(line) for line in gzip.open(f, "rt", encoding="utf-8")]
+        first = min((r["gs"] for r in rows if r.get("k") == "death"), default=None) if first_life else None
+        for r in rows:
+            if first is not None and r.get("gs", 0) > first:
+                continue
             if r.get("k") != "s" or r.get("ok") or r.get("c") == "INTERRUPTED":
                 continue
             key = (action(r["a"]), r.get("c"))
@@ -43,10 +49,11 @@ def main():
     ap.add_argument("--state", required=True, help="the loop/ folder of the trial-results branch")
     ap.add_argument("--gens", type=int, default=8)
     ap.add_argument("--top", type=int, default=20)
+    ap.add_argument("--first-life", action="store_true", help="only before each game's first death")
     a = ap.parse_args()
     gens = sorted(glob.glob(os.path.join(a.state, "data", "gen-*")))[-a.gens:]
     files = [f for g in gens for f in glob.glob(os.path.join(g, "*.jsonl.gz"))]
-    runs, lost, tries, died = table(files)
+    runs, lost, tries, died = table(files, a.first_life)
     print("%d runs, %s" % (runs, ", ".join(os.path.basename(g) for g in gens[:1] + gens[-1:])))
     print("%-22s %-14s %8s %7s %6s" % ("action", "code", "min lost", "tries", "died"))
     for key, sec in lost.most_common(a.top):
