@@ -73,6 +73,20 @@ public final class NetherPlan {
 		arrivalPending = false;
 	}
 
+	/**
+	 * Gene nether.recover_bounded: hurt in the Nether with nothing to eat and hunger under 18, health
+	 * can't come back here, so go home through the portal we know and eat there.
+	 */
+	public static Option homeToEat(WorldMemory memory) {
+		var pl = Mc.player();
+		if (pl == null || !Mc.dimension().equals("the_nether") || memory.nearest("nether_portal") == null) return null;
+		int hunger = pl.getFoodData().getFoodLevel();
+		if (pl.getHealth() >= 14 || hunger >= 18 || Mc.count(io.github.plrlr.autopilot.Items2.matcher("food")) > 0) return null;
+		String why = "can't heal here: health " + Math.round(pl.getHealth()) + ", hunger " + hunger + ", no food; home to eat";
+		if (!io.github.plrlr.autopilot.Exposure.mark("nether.recover_bounded", why)) return null;
+		return home(new Option("enter_portal", "overworld", why));
+	}
+
 	/** Going back to the overworld: portal_return (it rebuilds a lost portal from carried obsidian). */
 	public static Option home(Option old) {
 		if (!Tune.on("skill.portal_return") || !Mc.dimension().equals("the_nether")) return old;

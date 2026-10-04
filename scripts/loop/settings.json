@@ -9,6 +9,19 @@
  "_suggest": "Ideas to race next: each entry becomes one challenger (champion + these genes), tried once. Higher-priority suggestions go first.",
  "suggest": [
   {
+   "_note": "2026-10-04 (Claude, Oct 4 audit): fortress recovery stood still while a wither skeleton hit it (gen176 eval-g159-2) and waited for health that can't come back (hunger < 18, no food). Bounded: answer a mob at arm's length, leave when healing is impossible or 45 s pass, go home through a known portal to eat.",
+   "nether.recover_bounded": 1,
+   "_stages": [
+    "nether"
+   ],
+   "_metric": "deaths",
+   "_exposure": {
+    "gene": "nether.recover_bounded"
+   },
+   "_drill_scenario": "nether_hungry",
+   "_priority": true
+  },
+  {
    "_note": "2026-10-04 (Claude, Oct 4 audit): piglins were always neutral in Perception, so one hitting the bot was never fought or fled; ordinary piglins made 66 of 172 first deaths in the audit's Nether games. A piglin in attack pose (the synced aggressive flag) is a threat; a brute always is.",
    "nether.piglin_threat": 1,
    "_stages": [
