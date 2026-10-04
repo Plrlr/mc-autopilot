@@ -2860,7 +2860,7 @@
   "2026-10-01": 24,
   "2026-10-02": 23,
   "2026-10-03": 23,
-  "2026-10-04": 7
+  "2026-10-04": 8
  },
  "evolve_days": {
   "2026-09-27": 1,
@@ -3134,7 +3134,7 @@
    "target": "shore TIMEOUT"
   }
  ],
- "gen": 172,
+ "gen": 173,
  "gene_specs": {
   "bed.table_first": {
    "def": 0.0,
@@ -13995,7 +13995,9 @@
      "_metric": "ok:shore",
      "evolved.swim_out": 1
     },
-    "run": 37187946897
+    "run": 37187946897,
+    "verdict": "PASS",
+    "why": "PASS: on 12/13 ok (92%), off 8/16 ok (50%), z +2.4"
    },
    "evals": [],
    "genes": {
@@ -14030,7 +14032,7 @@
    "note": "code: new skill swim_out for shore TIMEOUT: swim_out steers by hand, holding forward and jump, toward the nearest dry land the bot has seen. It is offered after shore times out or gets stuck, so the bot stops repeating 90 s shore timeouts in open water.",
    "pairs": [],
    "parent": "g159",
-   "status": "drilling"
+   "status": "contender"
   },
   "g165": {
    "born": 172,
@@ -29497,7 +29499,86 @@
   "n": 998
  },
  "next_id": 166,
- "pending": null,
+ "pending": {
+  "data_tasks": [
+   {
+    "kind": "natural",
+    "seed": "D173-nzfvan",
+    "stage": "spawn",
+    "synthetic": false
+   },
+   {
+    "kind": "natural",
+    "seed": "D173-gudu2f",
+    "stage": "spawn",
+    "synthetic": false
+   }
+  ],
+  "gen": 173,
+  "lineup": [
+   "g159",
+   "g164",
+   "g163",
+   "g165"
+  ],
+  "runs": [
+   "eval-g159-0",
+   "eval-g159-1",
+   "eval-g159-2",
+   "eval-g159-3",
+   "eval-g164-0",
+   "eval-g164-1",
+   "eval-g164-2",
+   "eval-g164-3",
+   "eval-g163-0",
+   "eval-g163-1",
+   "eval-g163-2",
+   "eval-g163-3",
+   "eval-g165-0",
+   "eval-g165-1",
+   "eval-g165-2",
+   "eval-g165-3",
+   "data-g159-0",
+   "data-g159-1"
+  ],
+  "seeds": [
+   "L173-pgbvjg",
+   "L173-ccj6x5",
+   "L173-phayw8",
+   "L173-n4acaq"
+  ],
+  "sha": "edb493ed02bb044d7f07cd0165be5e40c56c1f03",
+  "started": "2026-10-04T09:44:29+00:00",
+  "tasks": [
+   {
+    "kind": "natural",
+    "seed": "L173-pgbvjg",
+    "stage": "spawn",
+    "synthetic": false
+   },
+   {
+    "kind": "natural",
+    "seed": "L173-ccj6x5",
+    "stage": "spawn",
+    "synthetic": false
+   },
+   {
+    "asset": "nether-gen149-eval-g136-1.zip",
+    "kind": "start",
+    "seed": "L173-phayw8",
+    "stage": "nether",
+    "synthetic": false
+   },
+   {
+    "kind": "combat",
+    "minutes": 10,
+    "scenario": "combat",
+    "seed": "L173-n4acaq",
+    "stage": "combat",
+    "synthetic": false
+   }
+  ]
+ },
  "race_evidence_version": 1,
  "score_version": 3,
  "settings": {
@@ -30147,7 +30228,7 @@
   {
    "gen": 171,
    "gid": "g164",
-   "result": "drilling",
+   "result": "racing",
    "skill": "swim_out",
    "target": "shore TIMEOUT"
   }
