@@ -237,6 +237,9 @@ public final class Tune {
 		gene("ready.nether_food", 6, 0, 32, Kind.INT, "food to carry into the Nether");
 		gene("ready.end_blocks", 64, 0, 192, Kind.INT, "throwaway blocks to carry into the End");
 		gene("ready.end_food", 10, 0, 32, Kind.INT, "food to carry into the End");
+		// 2026-10-04 (Claude, the Oct 4 audit): readiness on the path the rules actually take.
+		gene("ready.portal_entry", 0, 0, 1, Kind.BOOL, "at a known nether portal, get the route's kit and readiness's blocks, food and flint and steel before walking in");
+		gene("ready.nether_gold", 0, 0, 1, Kind.BOOL, "carry a gold helmet into the Nether and wear it there (piglins leave gold alone)");
 		EvolvedGenes.load(GENES.keySet()).forEach(e -> gene(e.name(), 0, 0, 1, Kind.BOOL, e.why()));
 		reset();
 	}
