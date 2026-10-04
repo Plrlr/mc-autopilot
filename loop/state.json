@@ -2682,7 +2682,7 @@
   "2026-10-01": 24,
   "2026-10-02": 23,
   "2026-10-03": 23,
-  "2026-10-04": 15
+  "2026-10-04": 16
  },
  "evolve_days": {
   "2026-09-27": 1,
@@ -2714,7 +2714,7 @@
    "result": "racing"
   }
  ],
- "gen": 180,
+ "gen": 181,
  "gene_specs": {
   "bed.table_first": {
    "def": 0.0,
@@ -12424,6 +12424,48 @@
    ],
    "parent": "g159",
    "priority": true,
+   "status": "contender"
+  },
+  "g177": {
+   "born": 181,
+   "code": null,
+   "evals": [],
+   "exposure_spec": {
+    "gene": "smelt.own_furnace"
+   },
+   "focus": [
+    "spawn"
+   ],
+   "genes": {
+    "combat.creeper_hit": 1.0,
+    "combat.ignore_walled_mobs": 1.0,
+    "combat.shield_guard": 1.0,
+    "death.recover_night_armor": 12.0,
+    "focus.commit": 1.0,
+    "gear.sword_early": 1.0,
+    "move.shore_first": 1.0,
+    "nav.surface_v2": 1.0,
+    "nav.unstuck_v2": 1.0,
+    "night.shelter_exit": 1.0,
+    "night.wall_in": 1.0,
+    "plan.hide_hp": 15.0,
+    "plan.readiness": 1.0,
+    "portal.prepare_work_area": 1.0,
+    "portal.reserve_lava_bucket": 1.0,
+    "route.armor_before_portal": 1.0,
+    "skill.enderman_warped": 1.0,
+    "skill.portal_repair": 1.0,
+    "skill.ruined_portal": 1.0,
+    "smelt.own_furnace": 1.0,
+    "stuck.item_progress": 1.0
+   },
+   "id": "g177",
+   "mutated": [
+    "smelt.own_furnace"
+   ],
+   "note": "suggested: smelt.own_furnace 1",
+   "pairs": [],
+   "parent": "g159",
    "status": "contender"
   },
   "g18": {
@@ -24745,8 +24787,89 @@
   "mean_gap_ok": -0.3909,
   "n": 1005
  },
- "next_id": 177,
- "pending": null,
+ "next_id": 178,
+ "pending": {
+  "data_tasks": [
+   {
+    "kind": "scenario",
+    "late": true,
+    "scenario": "end",
+    "seed": "D181-p4dfa2",
+    "stage": "end",
+    "synthetic": true
+   },
+   {
+    "kind": "natural",
+    "seed": "D181-3qvnt5",
+    "stage": "spawn",
+    "synthetic": false
+   }
+  ],
+  "gen": 181,
+  "lineup": [
+   "g159",
+   "g174",
+   "g176",
+   "g177"
+  ],
+  "runs": [
+   "eval-g159-0",
+   "eval-g159-1",
+   "eval-g159-2",
+   "eval-g159-3",
+   "eval-g174-0",
+   "eval-g174-1",
+   "eval-g174-2",
+   "eval-g174-3",
+   "eval-g176-0",
+   "eval-g176-1",
+   "eval-g176-2",
+   "eval-g176-3",
+   "eval-g177-0",
+   "eval-g177-1",
+   "eval-g177-2",
+   "eval-g177-3",
+   "data-g159-0",
+   "data-g159-1"
+  ],
+  "seeds": [
+   "L181-q3vkz8",
+   "L181-6u8knx",
+   "L181-sax94z",
+   "L181-typ7m8"
+  ],
+  "sha": "18db3a1421e3bf5079ec7262cc5a8bcd01ccda80",
+  "started": "2026-10-04T20:30:37+00:00",
+  "tasks": [
+   {
+    "kind": "natural",
+    "seed": "L181-q3vkz8",
+    "stage": "spawn",
+    "synthetic": false
+   },
+   {
+    "kind": "natural",
+    "seed": "L181-6u8knx",
+    "stage": "spawn",
+    "synthetic": false
+   },
+   {
+    "asset": "nether-gen94-eval-g73-2.zip",
+    "kind": "start",
+    "seed": "L181-sax94z",
+    "stage": "nether",
+    "synthetic": false
+   },
+   {
+    "kind": "combat",
+    "minutes": 10,
+    "scenario": "combat",
+    "seed": "L181-typ7m8",
+    "stage": "combat",
+    "synthetic": false
+   }
+  ]
+ },
  "race_evidence_version": 2,
  "score_since_gen": 179,
  "score_version": 4,
@@ -28160,7 +28283,8 @@
   "{\"_max_pairs\": 24, \"_note\": \"control: the old bucket-cast route, raced once the diamond route has had its tuning\", \"route.diamond_portal\": 0}",
   "{\"_exposure\": {\"gene\": [\"brain.skill_stats\", \"brain.death_avoid\"]}, \"_note\": \"2026-10-04 (Claude): learn from mistakes, every game's and this one's. The memory (learned.json skill stats from all 3,000+ games, plus this game's own tries counted double) demotes what clearly fails or clearly kills in this place AND moment (brain.situations: hurt, a monster close, nothing to eat). Raced at gens 54-65 with a few games of memory, 20-minute games, the old death clock, and death_avoid dropped on 4 pooled games; now with exposure logged and world-by-world judging.\", \"_priority\": true, \"brain.death_avoid\": 1, \"brain.situations\": 1, \"brain.skill_stats\": 1}",
   "{\"_exposure\": {\"gene\": \"reflex.escalate\"}, \"_metric\": \"deaths\", \"_priority\": true, \"_retry\": \"g80 (gen 100) was +1.73 on the game score over 4 worlds and dropped on 14 vs 10 pooled deaths in two games each, the pooled rule #92 replaced.\", \"reflex.escalate\": 1}",
-  "{\"_exposure\": {\"gene\": [\"smelt.own_furnace\", \"stations.pickup_last\", \"explore.same_blocks\"]}, \"_note\": \"2026-10-04 (Claude, from all 1,735 game hours, gens 1-177: patterns.py): finish one thing at a time, like a player. 12-18% of calm decisions in spawn first lives were A->B->A flips within 30 s; the top ones were food and iron taking turns on one furnace (each pulling the other's load out), packing up the crafting table between two crafts, and explore and collect disagreeing about remembered logs. The three fixes together; each also races alone below.\", \"_priority\": true, \"_stages\": [\"spawn\"], \"explore.same_blocks\": 1, \"smelt.own_furnace\": 1, \"stations.pickup_last\": 1}"
+  "{\"_exposure\": {\"gene\": [\"smelt.own_furnace\", \"stations.pickup_last\", \"explore.same_blocks\"]}, \"_note\": \"2026-10-04 (Claude, from all 1,735 game hours, gens 1-177: patterns.py): finish one thing at a time, like a player. 12-18% of calm decisions in spawn first lives were A->B->A flips within 30 s; the top ones were food and iron taking turns on one furnace (each pulling the other's load out), packing up the crafting table between two crafts, and explore and collect disagreeing about remembered logs. The three fixes together; each also races alone below.\", \"_priority\": true, \"_stages\": [\"spawn\"], \"explore.same_blocks\": 1, \"smelt.own_furnace\": 1, \"stations.pickup_last\": 1}",
+  "{\"_exposure\": {\"gene\": \"smelt.own_furnace\"}, \"_stages\": [\"spawn\"], \"smelt.own_furnace\": 1}"
  ],
  "version": 1
 }
