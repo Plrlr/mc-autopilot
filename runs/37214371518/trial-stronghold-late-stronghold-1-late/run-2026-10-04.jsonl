@@ -1,0 +1,156 @@
+{"event":"autopilot_on","detail":"brain\u003drules","t":1791131155282}
+{"event":"params","detail":"params: trial (20 genes) changed\u003d{\"combat.creeper_hit\":1.0,\"combat.shield_guard\":1.0,\"route.armor_before_portal\":1.0,\"night.wall_in\":1.0,\"gear.sword_early\":1.0,\"move.shore_first\":1.0,\"portal.prepare_work_area\":1.0,\"portal.reserve_lava_bucket\":1.0,\"combat.ignore_walled_mobs\":1.0,\"night.shelter_exit\":1.0,\"nav.surface_v2\":1.0,\"nav.unstuck_v2\":1.0,\"stuck.item_progress\":1.0,\"skill.ruined_portal\":1.0,\"skill.portal_repair\":1.0,\"skill.enderman_warped\":1.0,\"plan.readiness\":1.0}","t":1791131155285}
+{"layer":"strategist","brain":"rules","choice":"iron_tools","reason":"start","t":1791131155289}
+{"layer":"strategist","brain":"rules","choice":"find_stronghold","reason":"user","t":1791131155289}
+{"event":"learned","detail":"learned model: none","t":1791131155305}
+{"layer":"tactician","gs":0,"brain":"rules","trigger":"idle","goal":"find_stronghold","options":["equip armor","equip shield","locate_stronghold","explore any"],"choice":"equip armor","x":[1.0,1.0,0.0,0.0,0.0,1.031,0.0,0.0,0.8,0.8,1.0,0.0,1.0,1.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,0.0,0.0,0.846,0.0,0.0,1.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1791131155330}
+{"event":"skill_start","skill":"equip armor","trigger":"idle","t":1791131155401}
+{"event":"checkpoint","detail":"diamond_pickaxe","t":1791131156079}
+{"event":"milestone","detail":"10 at 0 s","t":1791131156085}
+{"event":"skill_end","skill":"equip armor","ok":true,"detail":"wearing the best armor","seconds":1.0,"t":1791131156803}
+{"layer":"tactician","gs":1,"brain":"rules","trigger":"skill_done","goal":"find_stronghold","options":["equip shield","locate_stronghold","explore any"],"choice":"equip shield","x":[1.0,1.0,0.75,0.0,0.0,1.031,0.0,0.0,0.8,0.8,1.0,0.0,1.0,1.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.0,0.769,0.167,0.846,0.0,0.0,1.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1791131156807}
+{"event":"skill_start","skill":"equip shield","trigger":"skill_done","t":1791131156807}
+{"event":"skill_end","skill":"equip shield","ok":true,"detail":"shield in off hand","seconds":0.05,"t":1791131156874}
+{"layer":"tactician","gs":1,"brain":"rules","trigger":"skill_done","goal":"find_stronghold","options":["locate_stronghold","explore any"],"choice":"locate_stronghold","x":[1.0,1.0,0.75,0.0,0.0,1.031,0.0,0.0,0.8,0.8,1.0,0.0,1.0,1.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.0,0.769,0.167,0.846,0.0,0.0,1.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1791131156875}
+{"event":"skill_start","skill":"locate_stronghold","trigger":"skill_done","t":1791131156876}
+{"layer":"reflex","gs":171,"brain":"rules","trigger":"reflex_hunger","goal":"find_stronghold","options":["eat"],"choice":"eat","x":[1.0,0.3,0.75,0.0,0.0,1.203,0.0,0.0,0.8,0.8,1.0,0.0,1.0,1.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.0,0.769,0.167,0.846,0.0,0.0,1.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["eat"],"t":1791131354515}
+{"event":"skill_end","skill":"locate_stronghold","ok":false,"code":"INTERRUPTED","detail":"interrupted by reflex_hunger","seconds":170.25,"t":1791131354516}
+{"event":"skill_start","skill":"eat","trigger":"reflex_hunger","t":1791131354516}
+{"event":"skill_end","skill":"eat","ok":true,"detail":"ate cooked_beef","seconds":1.75,"t":1791131356252}
+{"layer":"tactician","gs":173,"brain":"rules","trigger":"skill_done","goal":"find_stronghold","options":["eat","locate_stronghold","explore any"],"choice":"eat","x":[1.0,0.7,0.75,0.0,0.0,1.203,0.0,0.0,0.8,0.8,1.0,0.0,1.0,1.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.0,0.769,0.167,0.846,0.0,0.0,1.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["eat"],"t":1791131356253}
+{"event":"skill_start","skill":"eat","trigger":"skill_done","t":1791131356253}
+{"event":"skill_end","skill":"eat","ok":true,"detail":"ate cooked_beef","seconds":1.8,"t":1791131358055}
+{"layer":"tactician","gs":174,"brain":"rules","trigger":"skill_done","goal":"find_stronghold","options":["locate_stronghold","explore any"],"choice":"locate_stronghold","x":[1.0,1.0,0.75,0.0,0.0,1.203,0.0,0.0,0.8,0.8,1.0,0.0,1.0,1.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.0,0.769,0.167,0.846,0.0,0.0,1.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1791131358056}
+{"event":"skill_start","skill":"locate_stronghold","trigger":"skill_done","t":1791131358056}
+{"layer":"tactician","gs":599,"brain":"rules","trigger":"mob_near","goal":"find_stronghold","options":["attack skeleton","locate_stronghold","shelter","explore any"],"choice":"attack skeleton","x":[1.0,1.0,0.75,1.0,0.0,1.125,0.0,0.0,0.8,0.8,1.0,0.0,1.0,1.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,0.0,0.0,0.0,0.25,0.41,0.0,1.0,0.0,0.769,0.167,0.846,0.0,0.0,1.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["attack skeleton"],"t":1791131782358}
+{"event":"skill_end","skill":"locate_stronghold","ok":false,"code":"INTERRUPTED","detail":"interrupted: brain chose attack skeleton","seconds":424.3,"t":1791131782359}
+{"event":"skill_start","skill":"attack skeleton","trigger":"mob_near","t":1791131782359}
+{"event":"guard","detail":"skeleton at 6","t":1791131782410}
+{"event":"guard","detail":"skeleton at 4","t":1791131785084}
+{"event":"skill_end","skill":"attack skeleton","ok":true,"detail":"killed the skeleton","seconds":5.55,"t":1791131788467}
+{"layer":"tactician","gs":604,"brain":"rules","trigger":"skill_done","goal":"find_stronghold","options":["attack zombie","locate_stronghold","shelter","explore any"],"choice":"attack zombie","x":[1.0,1.0,0.75,1.0,0.0,1.125,0.0,0.0,0.8,0.8,1.0,0.0,1.0,1.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,0.0,0.0,0.0,0.25,0.255,0.0,1.0,0.0,0.769,0.167,0.846,0.0,0.0,1.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["attack zombie"],"t":1791131788468}
+{"event":"skill_start","skill":"attack zombie","trigger":"skill_done","t":1791131788468}
+{"event":"skill_end","skill":"attack zombie","ok":true,"detail":"killed the zombie","seconds":4.5,"t":1791131793026}
+{"layer":"tactician","gs":609,"brain":"rules","trigger":"skill_done","goal":"find_stronghold","options":["locate_stronghold","shelter","explore any"],"choice":"locate_stronghold","x":[1.0,1.0,0.75,1.0,0.0,1.141,0.0,0.0,0.8,0.8,1.0,0.0,1.0,1.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.0,0.769,0.167,0.846,0.0,0.0,1.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1791131793027}
+{"event":"skill_start","skill":"locate_stronghold","trigger":"skill_done","t":1791131793027}
+{"layer":"tactician","gs":619,"brain":"rules","trigger":"mob_near","goal":"find_stronghold","options":["attack spider","locate_stronghold","shelter","explore any"],"choice":"attack spider","x":[1.0,1.0,0.75,1.0,1.0,1.094,0.0,0.0,0.8,0.8,1.0,0.0,1.0,1.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,0.0,0.0,0.0,0.25,0.481,0.0,1.0,0.0,0.769,0.167,0.846,0.0,0.0,1.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["attack spider"],"t":1791131804262}
+{"event":"skill_end","skill":"locate_stronghold","ok":false,"code":"INTERRUPTED","detail":"interrupted: brain chose attack spider","seconds":10.7,"t":1791131804262}
+{"event":"skill_start","skill":"attack spider","trigger":"mob_near","t":1791131804263}
+{"layer":"reflex","gs":623,"brain":"rules","trigger":"reflex_creeper","goal":"find_stronghold","options":["attack creeper"],"choice":"attack creeper","x":[1.0,1.0,0.75,1.0,0.0,1.078,0.0,0.0,0.8,0.8,1.0,0.0,1.0,1.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,0.0,0.0,0.0,0.25,0.418,0.0,1.0,0.0,0.769,0.167,0.846,0.0,0.0,1.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["attack creeper"],"t":1791131807541}
+{"event":"skill_end","skill":"attack spider","ok":false,"code":"INTERRUPTED","detail":"interrupted by reflex_creeper","seconds":3.25,"t":1791131807541}
+{"event":"skill_start","skill":"attack creeper","trigger":"reflex_creeper","t":1791131807541}
+{"event":"skill_end","skill":"attack creeper","ok":false,"code":"HAZARD","detail":"no safe gap after hitting the creeper","seconds":0.65,"t":1791131808204}
+{"layer":"tactician","gs":623,"brain":"rules","trigger":"skill_failed","goal":"find_stronghold","options":["attack creeper","locate_stronghold","shelter","explore any"],"choice":"attack creeper","x":[1.0,1.0,0.75,1.0,1.0,1.063,0.0,0.0,0.8,0.8,1.0,0.0,1.0,1.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,0.0,0.0,0.0,0.25,0.219,0.0,1.0,0.0,0.769,0.167,0.846,0.0,0.0,1.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["attack creeper"],"t":1791131808205}
+{"event":"skill_start","skill":"attack creeper","trigger":"skill_failed","t":1791131808205}
+{"event":"guard","detail":"creeper at 2","t":1791131808289}
+{"event":"skill_end","skill":"attack creeper","ok":false,"code":"HAZARD","detail":"creeper started its fuse before the hit","seconds":0.05,"t":1791131808289}
+{"layer":"tactician","gs":623,"brain":"rules","trigger":"skill_failed","goal":"find_stronghold","options":["retreat","locate_stronghold","shelter","explore any"],"choice":"retreat","x":[1.0,1.0,0.75,1.0,1.0,1.063,0.0,0.0,0.8,0.8,1.0,0.0,1.0,1.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,0.0,0.0,0.0,0.25,0.219,0.0,1.0,0.0,0.769,0.167,0.846,0.0,0.0,1.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["retreat"],"t":1791131808289}
+{"event":"skill_start","skill":"retreat","trigger":"skill_failed","t":1791131808290}
+{"event":"skill_end","skill":"retreat","ok":false,"code":"NO_PROGRESS","detail":"couldn\u0027t get away (nearest monster 4 blocks)","seconds":1.05,"t":1791131809334}
+{"layer":"tactician","gs":624,"brain":"rules","trigger":"skill_failed","goal":"find_stronghold","options":["retreat","locate_stronghold","shelter","explore any"],"choice":"retreat","x":[1.0,1.0,0.75,1.0,1.0,1.063,0.0,0.0,0.8,0.8,1.0,0.0,1.0,1.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,0.0,0.0,0.0,0.25,0.233,0.0,1.0,0.0,0.769,0.167,0.846,0.0,0.0,1.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["retreat"],"t":1791131809334}
+{"event":"skill_start","skill":"retreat","trigger":"skill_failed","t":1791131809335}
+{"layer":"reflex","gs":625,"brain":"rules","trigger":"reflex_creeper","goal":"find_stronghold","options":["retreat"],"choice":"retreat","x":[1.0,1.0,0.75,1.0,1.0,1.063,0.0,0.0,0.8,0.8,1.0,0.0,1.0,1.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,0.0,0.0,0.0,0.25,0.233,0.0,1.0,0.0,0.769,0.167,0.846,0.0,0.0,1.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["retreat"],"t":1791131809585}
+{"event":"skill_end","skill":"retreat","ok":false,"code":"INTERRUPTED","detail":"interrupted by reflex_creeper","seconds":0.25,"t":1791131809585}
+{"event":"skill_start","skill":"retreat","trigger":"reflex_creeper","t":1791131809585}
+{"event":"skill_end","skill":"retreat","ok":true,"detail":"got away","seconds":1.0,"t":1791131810558}
+{"layer":"tactician","gs":626,"brain":"rules","trigger":"skill_done","goal":"find_stronghold","options":["locate_stronghold","pickup","shelter","explore any"],"choice":"locate_stronghold","x":[0.862,1.0,0.75,1.0,1.0,1.063,0.0,0.0,0.8,0.8,1.0,0.0,1.0,1.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.0,0.769,0.167,0.846,0.0,0.0,1.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1791131810560}
+{"event":"skill_start","skill":"locate_stronghold","trigger":"skill_done","t":1791131810560}
+{"layer":"tactician","gs":628,"brain":"rules","trigger":"mob_near","goal":"find_stronghold","options":["retreat","locate_stronghold","pickup","shelter","explore any"],"choice":"retreat","x":[1.0,1.0,0.75,1.0,0.0,1.094,0.0,0.0,0.8,0.8,1.0,0.0,1.0,1.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,0.0,0.0,0.0,0.25,0.478,0.0,1.0,0.0,0.769,0.167,0.846,0.0,0.0,1.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["retreat"],"t":1791131813694}
+{"event":"skill_end","skill":"locate_stronghold","ok":false,"code":"INTERRUPTED","detail":"interrupted: brain chose retreat","seconds":2.75,"t":1791131813694}
+{"event":"skill_start","skill":"retreat","trigger":"mob_near","t":1791131813694}
+{"event":"skill_end","skill":"retreat","ok":true,"detail":"got away","seconds":3.3,"t":1791131817456}
+{"layer":"tactician","gs":632,"brain":"rules","trigger":"skill_done","goal":"find_stronghold","options":["attack sheep","locate_stronghold","shelter","explore any"],"choice":"attack sheep","x":[1.0,1.0,0.75,1.0,0.0,1.094,0.0,0.0,0.8,0.8,1.0,0.0,1.0,1.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.0,0.769,0.167,0.846,0.0,0.0,1.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1791131817457}
+{"event":"skill_start","skill":"attack sheep","trigger":"skill_done","t":1791131817457}
+{"event":"skill_end","skill":"attack sheep","ok":true,"detail":"killed the sheep","seconds":5.7,"t":1791131823686}
+{"layer":"tactician","gs":637,"brain":"rules","trigger":"skill_done","goal":"find_stronghold","options":["attack sheep","locate_stronghold","shelter","explore any"],"choice":"attack sheep","x":[1.0,1.0,0.75,1.0,0.0,1.094,0.0,0.0,0.8,0.8,1.0,0.0,1.0,1.0,0.0,0.0,0.0,1.0,0.125,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.0,0.769,0.167,0.846,0.0,0.0,1.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1791131823686}
+{"event":"skill_start","skill":"attack sheep","trigger":"skill_done","t":1791131823687}
+{"event":"skill_end","skill":"attack sheep","ok":true,"detail":"killed the sheep","seconds":4.25,"t":1791131827921}
+{"layer":"tactician","gs":642,"brain":"rules","trigger":"skill_done","goal":"find_stronghold","options":["locate_stronghold","shelter","explore any"],"choice":"locate_stronghold","x":[1.0,0.95,0.75,1.0,0.0,1.078,0.0,0.0,0.8,0.8,1.0,0.0,1.0,1.0,0.0,0.0,0.0,1.0,0.188,0.0,0.0,0.0,0.0,0.0,0.0,0.628,0.0,1.0,0.0,0.769,0.167,0.846,0.0,0.0,1.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1791131827922}
+{"event":"skill_start","skill":"locate_stronghold","trigger":"skill_done","t":1791131827922}
+{"layer":"tactician","gs":642,"brain":"rules","trigger":"mob_near","goal":"find_stronghold","options":["retreat","locate_stronghold","shelter","explore any"],"choice":"retreat","x":[1.0,0.95,0.75,1.0,0.0,1.078,0.0,0.0,0.8,0.8,1.0,0.0,1.0,1.0,0.0,0.0,0.0,1.0,0.188,0.0,0.0,0.0,0.0,0.0,0.25,0.487,0.0,1.0,0.0,0.769,0.167,0.846,0.0,0.0,1.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["retreat"],"t":1791131828728}
+{"event":"skill_end","skill":"locate_stronghold","ok":false,"code":"INTERRUPTED","detail":"interrupted: brain chose retreat","seconds":0.75,"t":1791131828728}
+{"event":"skill_start","skill":"retreat","trigger":"mob_near","t":1791131828728}
+{"layer":"reflex","gs":643,"brain":"rules","trigger":"reflex_creeper","goal":"find_stronghold","options":["attack creeper"],"choice":"attack creeper","x":[1.0,0.95,0.75,1.0,0.0,1.047,0.0,0.0,0.8,0.8,1.0,0.0,1.0,1.0,0.0,0.0,0.0,1.0,0.188,0.0,0.0,0.0,0.0,0.0,0.25,0.413,0.0,1.0,0.0,0.769,0.167,0.846,0.0,0.0,1.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["attack creeper"],"t":1791131829468}
+{"event":"skill_end","skill":"retreat","ok":false,"code":"INTERRUPTED","detail":"interrupted by reflex_creeper","seconds":0.75,"t":1791131829468}
+{"event":"skill_start","skill":"attack creeper","trigger":"reflex_creeper","t":1791131829468}
+{"event":"skill_end","skill":"attack creeper","ok":false,"code":"HAZARD","detail":"no safe gap after hitting the creeper","seconds":0.65,"t":1791131830114}
+{"layer":"tactician","gs":644,"brain":"rules","trigger":"skill_failed","goal":"find_stronghold","options":["locate_stronghold","shelter","explore any"],"choice":"locate_stronghold","x":[1.0,0.95,0.75,1.0,0.0,1.063,0.0,0.0,0.8,0.8,1.0,0.0,1.0,1.0,0.0,0.0,0.0,1.0,0.188,0.0,0.0,0.0,0.0,0.0,0.25,0.206,0.0,1.0,0.0,0.769,0.167,0.846,0.0,0.0,1.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1791131830115}
+{"event":"skill_start","skill":"locate_stronghold","trigger":"skill_failed","t":1791131830115}
+{"event":"guard","detail":"creeper at 2","t":1791131830188}
+{"layer":"reflex","gs":645,"brain":"rules","trigger":"reflex_creeper","goal":"find_stronghold","options":["retreat"],"choice":"retreat","x":[1.0,0.95,0.75,1.0,0.0,1.063,0.0,0.0,0.8,0.8,1.0,0.0,1.0,1.0,0.0,0.0,0.0,1.0,0.188,0.0,0.0,0.0,0.0,0.0,0.25,0.217,0.0,1.0,0.0,0.769,0.167,0.846,0.0,0.0,1.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["retreat"],"t":1791131831471}
+{"event":"skill_end","skill":"locate_stronghold","ok":false,"code":"INTERRUPTED","detail":"interrupted by reflex_creeper","seconds":1.35,"t":1791131831471}
+{"event":"skill_start","skill":"retreat","trigger":"reflex_creeper","t":1791131831472}
+{"event":"skill_end","skill":"retreat","ok":false,"code":"NO_PROGRESS","detail":"couldn\u0027t get away (nearest monster 5 blocks)","seconds":1.0,"t":1791131832470}
+{"layer":"tactician","gs":646,"brain":"rules","trigger":"skill_failed","goal":"find_stronghold","options":["attack zombie","locate_stronghold","shelter","explore any"],"choice":"attack zombie","x":[1.0,0.95,0.75,1.0,0.0,1.047,0.0,0.0,0.8,0.8,1.0,0.0,1.0,1.0,0.0,0.0,0.0,1.0,0.188,0.0,0.0,0.0,0.0,0.0,0.25,0.288,0.0,1.0,0.0,0.769,0.167,0.846,0.0,0.0,1.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["attack zombie"],"t":1791131832470}
+{"event":"skill_start","skill":"attack zombie","trigger":"skill_failed","t":1791131832471}
+{"event":"skill_end","skill":"attack zombie","ok":true,"detail":"killed the zombie","seconds":4.95,"t":1791131837805}
+{"layer":"tactician","gs":651,"brain":"rules","trigger":"skill_done","goal":"find_stronghold","options":["attack sheep","locate_stronghold","shelter","explore any"],"choice":"attack sheep","x":[1.0,0.95,0.75,1.0,0.0,1.047,0.0,0.0,0.8,0.8,1.0,0.0,1.0,1.0,0.0,0.0,0.0,1.0,0.188,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.0,0.769,0.167,0.846,0.0,0.0,1.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1791131837806}
+{"event":"skill_start","skill":"attack sheep","trigger":"skill_done","t":1791131837806}
+{"event":"skill_end","skill":"attack sheep","ok":true,"detail":"killed the sheep","seconds":5.9,"t":1791131843860}
+{"layer":"tactician","gs":657,"brain":"rules","trigger":"skill_done","goal":"find_stronghold","options":["craft bed:1","locate_stronghold","pickup","shelter","explore any"],"choice":"craft bed:1","x":[1.0,0.95,0.75,1.0,1.0,1.063,0.0,0.0,0.8,0.8,1.0,0.0,1.0,1.0,0.0,0.0,0.0,1.0,0.313,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.0,0.769,0.167,0.846,0.0,0.0,1.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["craft bed:1"],"t":1791131843863}
+{"event":"skill_start","skill":"craft bed:1","trigger":"skill_done","t":1791131843868}
+{"event":"skill_end","skill":"craft bed:1","ok":true,"detail":"crafted 1 bed","seconds":0.85,"t":1791131844715}
+{"layer":"tactician","gs":658,"brain":"rules","trigger":"skill_done","goal":"find_stronghold","options":["sleep","pickup stations","locate_stronghold","pickup","explore any"],"choice":"sleep","x":[1.0,0.95,0.75,1.0,1.0,1.063,0.0,0.0,0.8,0.8,1.0,0.0,1.0,1.0,0.0,0.0,0.0,1.0,0.313,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.0,0.769,0.167,0.846,0.0,0.0,1.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["sleep"],"t":1791131844716}
+{"event":"skill_start","skill":"sleep","trigger":"skill_done","t":1791131844716}
+{"event":"skill_end","skill":"sleep","ok":true,"detail":"slept through the night and packed the bed","seconds":9.5,"t":1791131854406}
+{"layer":"tactician","gs":667,"brain":"rules","trigger":"skill_done","goal":"find_stronghold","options":["pickup stations","locate_stronghold","pickup","explore any"],"choice":"pickup stations","x":[1.0,0.9,0.75,0.0,0.0,1.047,0.0,0.0,0.8,0.8,1.0,0.0,1.0,1.0,0.0,0.0,0.0,1.0,0.313,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.0,0.769,0.167,0.846,0.0,0.0,1.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1791131854407}
+{"event":"skill_start","skill":"pickup stations","trigger":"skill_done","t":1791131854407}
+{"event":"skill_end","skill":"pickup stations","ok":true,"detail":"nothing left to pick up","seconds":4.15,"t":1791131858620}
+{"layer":"tactician","gs":672,"brain":"rules","trigger":"skill_done","goal":"find_stronghold","options":["locate_stronghold","explore any"],"choice":"locate_stronghold","x":[1.0,0.9,0.75,0.0,0.0,1.047,0.0,0.0,0.8,0.8,1.0,0.0,1.0,1.0,0.0,0.0,0.0,1.0,0.313,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.0,0.769,0.167,0.846,0.0,0.0,1.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1791131858620}
+{"event":"skill_start","skill":"locate_stronghold","trigger":"skill_done","t":1791131858620}
+{"event":"stuck","detail":"locate_stronghold at 1801, 62, -938 in water","t":1791132004466}
+{"event":"skill_end","skill":"locate_stronghold","ok":false,"code":"STUCK","detail":"stuck: stayed inside 2.0 blocks for 12 s","seconds":137.4,"t":1791132004469}
+{"event":"skill_start","skill":"unstuck","trigger":"reflex_stuck","t":1791132004470}
+{"event":"skill_end","skill":"unstuck","ok":false,"code":"STUCK","detail":"couldn\u0027t get out (walked, tunnelled and climbed 0 blocks)","seconds":32.55,"t":1791132037011}
+{"layer":"tactician","gs":842,"brain":"rules","trigger":"skill_failed","goal":"find_stronghold","options":["eat","locate_stronghold","explore any"],"choice":"eat","x":[1.0,0.5,0.75,0.0,1.0,0.969,0.0,0.0,0.8,0.8,1.0,0.0,1.0,1.0,0.0,0.0,0.0,1.0,0.313,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.0,0.769,0.167,0.846,0.0,0.0,1.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["eat"],"t":1791132037012}
+{"event":"skill_start","skill":"eat","trigger":"skill_failed","t":1791132037012}
+{"event":"skill_end","skill":"eat","ok":true,"detail":"ate cooked_beef","seconds":1.8,"t":1791132038805}
+{"layer":"tactician","gs":843,"brain":"rules","trigger":"skill_done","goal":"find_stronghold","options":["locate_stronghold","explore any"],"choice":"locate_stronghold","x":[1.0,0.9,0.75,0.0,1.0,0.953,0.0,0.0,0.8,0.8,1.0,0.0,1.0,1.0,0.0,0.0,0.0,1.0,0.313,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.0,0.769,0.167,0.846,0.0,0.0,1.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1791132038806}
+{"event":"skill_start","skill":"locate_stronghold","trigger":"skill_done","t":1791132038806}
+{"layer":"tactician","gs":885,"brain":"rules","trigger":"mob_near","goal":"find_stronghold","options":["attack drowned","locate_stronghold","explore any"],"choice":"attack drowned","x":[1.0,0.9,0.75,0.0,0.0,0.969,0.0,0.0,0.8,0.8,1.0,0.0,1.0,1.0,0.0,0.0,0.0,1.0,0.313,0.0,0.0,0.0,0.0,0.0,0.25,0.474,0.0,1.0,0.0,0.769,0.167,0.846,0.0,0.0,1.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["attack drowned"],"t":1791132086285}
+{"event":"skill_end","skill":"locate_stronghold","ok":false,"code":"INTERRUPTED","detail":"interrupted: brain chose attack drowned","seconds":41.4,"t":1791132086286}
+{"event":"skill_start","skill":"attack drowned","trigger":"mob_near","t":1791132086286}
+{"event":"skill_end","skill":"attack drowned","ok":true,"detail":"killed the drowned","seconds":10.2,"t":1791132098181}
+{"layer":"tactician","gs":895,"brain":"rules","trigger":"skill_done","goal":"find_stronghold","options":["locate_stronghold","pickup","explore any"],"choice":"locate_stronghold","x":[1.0,0.9,0.75,0.0,1.0,0.938,0.0,0.0,0.8,0.8,1.0,0.0,1.0,1.0,0.0,0.0,0.0,1.0,0.313,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.0,0.769,0.167,0.846,0.0,0.0,1.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1791132098182}
+{"event":"skill_start","skill":"locate_stronghold","trigger":"skill_done","t":1791132098182}
+{"layer":"tactician","gs":959,"brain":"rules","trigger":"mob_near","goal":"find_stronghold","options":["attack zombie","locate_stronghold","explore any"],"choice":"attack zombie","x":[1.0,0.9,0.75,0.0,1.0,1.016,0.0,0.0,0.8,0.8,1.0,0.0,1.0,1.0,0.0,0.0,0.0,1.0,0.313,0.0,0.0,0.0,0.0,0.0,0.25,0.493,0.0,1.0,0.0,0.769,0.167,0.846,0.0,0.0,1.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["attack zombie"],"t":1791132183469}
+{"event":"skill_end","skill":"locate_stronghold","ok":false,"code":"INTERRUPTED","detail":"interrupted: brain chose attack zombie","seconds":63.8,"t":1791132183469}
+{"event":"skill_start","skill":"attack zombie","trigger":"mob_near","t":1791132183469}
+{"event":"skill_end","skill":"attack zombie","ok":true,"detail":"killed the zombie","seconds":4.8,"t":1791132191080}
+{"layer":"tactician","gs":964,"brain":"rules","trigger":"skill_done","goal":"find_stronghold","options":["locate_stronghold","explore any"],"choice":"locate_stronghold","x":[1.0,0.9,0.75,0.0,1.0,1.016,0.0,0.0,0.8,0.8,1.0,0.0,1.0,1.0,0.0,0.0,0.0,1.0,0.313,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.0,0.769,0.167,0.846,0.0,0.0,1.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1791132191081}
+{"event":"skill_start","skill":"locate_stronghold","trigger":"skill_done","t":1791132191081}
+{"event":"stuck","detail":"locate_stronghold at 2005, 62, -1170 in water","t":1791132471945}
+{"event":"skill_end","skill":"locate_stronghold","ok":false,"code":"STUCK","detail":"stuck: stayed inside 2.0 blocks for 12 s","seconds":185.45,"t":1791132471945}
+{"event":"skill_start","skill":"unstuck","trigger":"reflex_stuck","t":1791132471946}
+{"event":"skill_end","skill":"unstuck","ok":true,"detail":"got out (swim)","seconds":1.45,"t":1791132474569}
+{"layer":"tactician","gs":1150,"brain":"rules","trigger":"skill_done","goal":"find_stronghold","options":["collect coal:6","locate_stronghold","explore any"],"choice":"collect coal:6","x":[1.0,0.8,0.75,0.0,1.0,1.0,0.0,0.0,0.8,0.8,1.0,0.0,1.0,1.0,0.0,0.0,0.0,1.0,0.313,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.0,0.769,0.167,0.846,0.0,0.0,0.667,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1791132474570}
+{"event":"skill_start","skill":"collect coal:6","trigger":"skill_done","t":1791132475153}
+{"layer":"tactician","gs":1170,"brain":"rules","trigger":"heartbeat","goal":"find_stronghold","options":["sleep","craft stick:4","collect coal:6","locate_stronghold","explore any"],"choice":"sleep","x":[1.0,0.8,0.75,1.0,1.0,0.938,0.0,0.0,0.8,0.8,1.0,0.0,1.0,1.0,0.0,0.0,0.125,1.0,0.313,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.0,0.769,0.167,0.846,0.0,0.0,0.667,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["sleep"],"t":1791132498862}
+{"event":"skill_end","skill":"collect coal:6","ok":false,"code":"INTERRUPTED","detail":"interrupted: brain chose sleep","seconds":20.05,"t":1791132498863}
+{"event":"skill_start","skill":"sleep","trigger":"heartbeat","t":1791132498863}
+{"event":"skill_end","skill":"sleep","ok":false,"code":"NO_ROOM","detail":"no flat room for a bed nearby","seconds":0.05,"t":1791132498906}
+{"layer":"tactician","gs":1171,"brain":"rules","trigger":"skill_failed","goal":"find_stronghold","options":["sleep","craft stick:4","collect coal:6","locate_stronghold","explore any"],"choice":"sleep","x":[1.0,0.8,0.75,1.0,1.0,0.938,0.0,0.0,0.8,0.8,1.0,0.0,1.0,1.0,0.0,0.0,0.125,1.0,0.313,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.0,0.769,0.167,0.846,0.0,0.0,0.667,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["sleep"],"t":1791132498906}
+{"event":"skill_start","skill":"sleep","trigger":"skill_failed","t":1791132498906}
+{"event":"skill_end","skill":"sleep","ok":false,"code":"NO_ROOM","detail":"no flat room for a bed nearby","seconds":0.05,"t":1791132498961}
+{"layer":"tactician","gs":1171,"brain":"rules","trigger":"skill_failed","goal":"find_stronghold","options":["sleep","craft stick:4","collect coal:6","locate_stronghold","explore any"],"choice":"sleep","x":[1.0,0.8,0.75,1.0,1.0,0.938,0.0,0.0,0.8,0.8,1.0,0.0,1.0,1.0,0.0,0.0,0.125,1.0,0.313,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.0,0.769,0.167,0.846,0.0,0.0,0.667,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["sleep"],"t":1791132498961}
+{"event":"skill_start","skill":"sleep","trigger":"skill_failed","t":1791132498961}
+{"event":"skill_end","skill":"sleep","ok":false,"code":"NO_ROOM","detail":"no flat room for a bed nearby","seconds":0.05,"t":1791132499013}
+{"layer":"tactician","gs":1171,"brain":"rules","trigger":"skill_failed","goal":"find_stronghold","options":["craft stick:4","collect coal:6","locate_stronghold","explore any"],"choice":"craft stick:4","x":[1.0,0.8,0.75,1.0,1.0,0.938,0.0,0.0,0.8,0.8,1.0,0.0,1.0,1.0,0.0,0.0,0.125,1.0,0.313,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.0,0.769,0.167,0.846,0.0,0.0,0.667,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1791132499014}
+{"event":"skill_start","skill":"craft stick:4","trigger":"skill_failed","t":1791132499014}
+{"event":"skill_end","skill":"craft stick:4","ok":true,"detail":"crafted 4 stick","seconds":0.45,"t":1791132499456}
+{"layer":"tactician","gs":1171,"brain":"rules","trigger":"skill_done","goal":"find_stronghold","options":["craft torch:8","collect coal:6","locate_stronghold","explore any"],"choice":"craft torch:8","x":[1.0,0.8,0.75,1.0,1.0,0.922,0.0,0.0,0.8,0.8,1.0,0.0,1.0,1.0,0.0,0.0,0.125,1.0,0.313,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.0,0.769,0.167,0.846,0.0,0.0,0.667,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1791132499457}
+{"event":"skill_start","skill":"craft torch:8","trigger":"skill_done","t":1791132499458}
+{"event":"skill_end","skill":"craft torch:8","ok":false,"code":"NO_RECIPE","detail":"no known recipe for torch (not unlocked yet?)","seconds":0.05,"t":1791132499510}
+{"layer":"tactician","gs":1171,"brain":"rules","trigger":"skill_failed","goal":"find_stronghold","options":["craft torch:8","collect coal:6","locate_stronghold","explore any"],"choice":"craft torch:8","x":[1.0,0.8,0.75,1.0,1.0,0.922,0.0,0.0,0.8,0.8,1.0,0.0,1.0,1.0,0.0,0.0,0.125,1.0,0.313,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.0,0.769,0.167,0.846,0.0,0.0,0.667,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1791132499510}
+{"event":"skill_start","skill":"craft torch:8","trigger":"skill_failed","t":1791132499511}
+{"event":"skill_end","skill":"craft torch:8","ok":false,"code":"NO_RECIPE","detail":"no known recipe for torch (not unlocked yet?)","seconds":0.05,"t":1791132499564}
+{"layer":"tactician","gs":1171,"brain":"rules","trigger":"skill_failed","goal":"find_stronghold","options":["craft torch:8","collect coal:6","locate_stronghold","explore any"],"choice":"craft torch:8","x":[1.0,0.8,0.75,1.0,1.0,0.922,0.0,0.0,0.8,0.8,1.0,0.0,1.0,1.0,0.0,0.0,0.125,1.0,0.313,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.0,0.769,0.167,0.846,0.0,0.0,0.667,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1791132499565}
+{"event":"skill_start","skill":"craft torch:8","trigger":"skill_failed","t":1791132499565}
+{"event":"skill_end","skill":"craft torch:8","ok":false,"code":"NO_RECIPE","detail":"no known recipe for torch (not unlocked yet?)","seconds":0.05,"t":1791132499606}
+{"layer":"tactician","gs":1171,"brain":"rules","trigger":"skill_failed","goal":"find_stronghold","options":["collect coal:6","locate_stronghold","explore any"],"choice":"collect coal:6","x":[1.0,0.8,0.75,1.0,1.0,0.922,0.0,0.0,0.8,0.8,1.0,0.0,1.0,1.0,0.0,0.0,0.125,1.0,0.313,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.0,0.769,0.167,0.846,0.0,0.0,0.667,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1791132499607}
+{"event":"skill_start","skill":"collect coal:6","trigger":"skill_failed","t":1791132499608}
+{"layer":"tactician","gs":1191,"brain":"rules","trigger":"heartbeat","goal":"find_stronghold","options":["shore"],"choice":"shore","x":[1.0,0.8,0.75,1.0,1.0,0.922,0.0,0.0,0.8,0.8,1.0,0.0,1.0,1.0,0.0,0.0,0.125,1.0,0.313,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.0,0.769,0.167,0.846,0.0,0.0,0.667,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["shore"],"t":1791132519795}
+{"event":"skill_end","skill":"collect coal:6","ok":false,"code":"INTERRUPTED","detail":"interrupted: brain chose shore","seconds":20.05,"t":1791132519795}
+{"event":"skill_start","skill":"shore","trigger":"heartbeat","t":1791132519796}
+{"event":"skill_end","skill":"shore","ok":false,"code":"INTERRUPTED","detail":"test finished","seconds":8.5,"t":1791132528661}
+{"event":"autopilot_off","detail":"test finished","t":1791132528662}

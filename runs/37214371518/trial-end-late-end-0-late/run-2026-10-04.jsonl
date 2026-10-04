@@ -1,0 +1,318 @@
+{"event":"autopilot_on","detail":"brain\u003drules","t":1791132083586}
+{"event":"params","detail":"params: trial (20 genes) changed\u003d{\"combat.creeper_hit\":1.0,\"combat.shield_guard\":1.0,\"route.armor_before_portal\":1.0,\"night.wall_in\":1.0,\"gear.sword_early\":1.0,\"move.shore_first\":1.0,\"portal.prepare_work_area\":1.0,\"portal.reserve_lava_bucket\":1.0,\"combat.ignore_walled_mobs\":1.0,\"night.shelter_exit\":1.0,\"nav.surface_v2\":1.0,\"nav.unstuck_v2\":1.0,\"stuck.item_progress\":1.0,\"skill.ruined_portal\":1.0,\"skill.portal_repair\":1.0,\"skill.enderman_warped\":1.0,\"plan.readiness\":1.0}","t":1791132083587}
+{"layer":"strategist","brain":"rules","choice":"iron_tools","reason":"start","t":1791132083589}
+{"layer":"strategist","brain":"rules","choice":"kill_dragon","reason":"user","t":1791132083589}
+{"event":"learned","detail":"learned model: none","t":1791132083595}
+{"event":"checkpoint","detail":"diamond_pickaxe","t":1791132083602}
+{"event":"milestone","detail":"12 at 0 s","t":1791132083616}
+{"layer":"tactician","gs":0,"brain":"rules","trigger":"idle","goal":"kill_dragon","options":["equip armor","equip shield","shoot end_crystal","explore any"],"choice":"equip armor","x":[0.175,1.0,0.0,0.0,0.0,0.922,0.0,1.0,0.8,0.8,1.0,0.0,1.0,1.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,0.923,0.167,1.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0],"idx":0,"prop":1.0,"t":1791132083636}
+{"event":"skill_start","skill":"equip armor","trigger":"idle","t":1791132083697}
+{"event":"skill_end","skill":"equip armor","ok":true,"detail":"wearing the best armor","seconds":1.0,"t":1791132084687}
+{"layer":"tactician","gs":1,"brain":"rules","trigger":"skill_done","goal":"kill_dragon","options":["equip shield","shoot end_crystal","explore any"],"choice":"equip shield","x":[0.275,1.0,0.75,0.0,0.0,0.922,0.0,1.0,0.8,0.8,1.0,0.0,1.0,1.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,0.923,0.167,1.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0],"idx":0,"prop":1.0,"t":1791132084691}
+{"event":"skill_start","skill":"equip shield","trigger":"skill_done","t":1791132084692}
+{"event":"skill_end","skill":"equip shield","ok":true,"detail":"shield in off hand","seconds":0.05,"t":1791132084726}
+{"layer":"tactician","gs":1,"brain":"rules","trigger":"skill_done","goal":"kill_dragon","options":["shoot end_crystal","explore any"],"choice":"shoot end_crystal","x":[0.275,1.0,0.75,0.0,0.0,0.922,0.0,1.0,0.8,0.8,1.0,0.0,1.0,1.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,0.923,0.167,1.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0],"idx":0,"prop":1.0,"t":1791132084728}
+{"event":"skill_start","skill":"shoot end_crystal","trigger":"skill_done","t":1791132084730}
+{"event":"skill_end","skill":"shoot end_crystal","ok":true,"detail":"destroyed the end_crystal after 1 shots","seconds":2.8,"t":1791132087670}
+{"layer":"tactician","gs":3,"brain":"rules","trigger":"skill_done","goal":"kill_dragon","options":["shoot end_crystal","explore any"],"choice":"shoot end_crystal","x":[0.215,0.95,0.75,0.0,0.0,0.922,0.0,1.0,0.8,0.8,1.0,0.0,1.0,1.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,0.923,0.167,1.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0],"idx":0,"prop":1.0,"t":1791132087672}
+{"event":"skill_start","skill":"shoot end_crystal","trigger":"skill_done","t":1791132087673}
+{"event":"skill_end","skill":"shoot end_crystal","ok":false,"code":"DIED","detail":"died","seconds":1.2,"t":1791132088870}
+{"event":"death","detail":"mob:enderman","t":1791132088871}
+{"layer":"strategist","brain":"rules","choice":"enter_end","reason":"respawned","t":1791132092076}
+{"layer":"tactician","gs":8,"brain":"rules","trigger":"idle","goal":"enter_end","options":["explore blaze"],"choice":"explore blaze","x":[1.0,1.0,0.0,0.0,0.0,1.125,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.2,0.923,0.167,0.923,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0],"idx":0,"prop":1.0,"t":1791132092083}
+{"event":"skill_start","skill":"explore blaze","trigger":"idle","t":1791132092088}
+{"layer":"tactician","gs":28,"brain":"rules","trigger":"heartbeat","goal":"enter_end","options":["shore"],"choice":"shore","x":[1.0,1.0,0.0,0.0,0.0,0.969,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.2,0.923,0.167,0.923,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["shore"],"t":1791132119668}
+{"event":"skill_end","skill":"explore blaze","ok":false,"code":"INTERRUPTED","detail":"interrupted: brain chose shore","seconds":20.05,"t":1791132119669}
+{"event":"skill_start","skill":"shore","trigger":"heartbeat","t":1791132119677}
+{"event":"skill_end","skill":"shore","ok":true,"detail":"reached dry ground with room to work","seconds":10.5,"t":1791132131139}
+{"layer":"tactician","gs":38,"brain":"rules","trigger":"skill_done","goal":"enter_end","options":["explore blaze"],"choice":"explore blaze","x":[1.0,1.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.2,0.923,0.167,0.923,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1791132131140}
+{"event":"skill_start","skill":"explore blaze","trigger":"skill_done","t":1791132131141}
+{"layer":"tactician","gs":58,"brain":"rules","trigger":"heartbeat","goal":"enter_end","options":["shore"],"choice":"shore","x":[1.0,1.0,0.0,0.0,0.0,0.969,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.2,0.923,0.167,0.923,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["shore"],"t":1791132152482}
+{"event":"skill_end","skill":"explore blaze","ok":false,"code":"INTERRUPTED","detail":"interrupted: brain chose shore","seconds":20.05,"t":1791132152482}
+{"event":"skill_start","skill":"shore","trigger":"heartbeat","t":1791132152483}
+{"event":"skill_end","skill":"shore","ok":true,"detail":"reached dry ground with room to work","seconds":20.5,"t":1791132173249}
+{"layer":"tactician","gs":79,"brain":"rules","trigger":"skill_done","goal":"enter_end","options":["explore blaze"],"choice":"explore blaze","x":[1.0,1.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.2,0.923,0.167,0.923,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1791132173250}
+{"event":"skill_start","skill":"explore blaze","trigger":"skill_done","t":1791132173250}
+{"layer":"tactician","gs":99,"brain":"rules","trigger":"heartbeat","goal":"enter_end","options":["shore"],"choice":"shore","x":[1.0,1.0,0.0,0.0,0.0,0.969,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.2,0.923,0.167,0.923,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["shore"],"t":1791132193366}
+{"event":"skill_end","skill":"explore blaze","ok":false,"code":"INTERRUPTED","detail":"interrupted: brain chose shore","seconds":20.05,"t":1791132193367}
+{"event":"skill_start","skill":"shore","trigger":"heartbeat","t":1791132193367}
+{"layer":"tactician","gs":111,"brain":"rules","trigger":"mob_near","goal":"enter_end","options":["retreat","shore"],"choice":"retreat","x":[1.0,1.0,0.0,0.0,0.0,0.969,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.25,0.476,0.0,1.0,0.2,0.923,0.167,0.923,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["retreat","shore"],"t":1791132205748}
+{"event":"skill_end","skill":"shore","ok":false,"code":"INTERRUPTED","detail":"interrupted: brain chose retreat","seconds":12.2,"t":1791132205748}
+{"event":"skill_start","skill":"retreat","trigger":"mob_near","t":1791132205749}
+{"event":"skill_end","skill":"retreat","ok":true,"detail":"got away","seconds":8.65,"t":1791132214383}
+{"layer":"tactician","gs":120,"brain":"rules","trigger":"skill_done","goal":"enter_end","options":["shore"],"choice":"shore","x":[1.0,1.0,0.0,0.0,0.0,0.969,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.2,0.923,0.167,0.923,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["shore"],"t":1791132214383}
+{"event":"skill_start","skill":"shore","trigger":"skill_done","t":1791132214383}
+{"event":"skill_end","skill":"shore","ok":true,"detail":"reached dry ground with room to work","seconds":2.0,"t":1791132216367}
+{"layer":"tactician","gs":122,"brain":"rules","trigger":"skill_done","goal":"enter_end","options":["explore blaze"],"choice":"explore blaze","x":[1.0,1.0,0.0,0.0,0.0,0.984,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.2,0.923,0.167,0.923,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1791132216367}
+{"event":"skill_start","skill":"explore blaze","trigger":"skill_done","t":1791132216368}
+{"event":"skill_end","skill":"explore blaze","ok":true,"detail":"open water ahead; find shore","seconds":30.0,"t":1791132247523}
+{"layer":"tactician","gs":152,"brain":"rules","trigger":"skill_done","goal":"enter_end","options":["shore"],"choice":"shore","x":[1.0,1.0,0.0,0.0,0.0,0.969,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.2,0.923,0.167,0.923,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["shore"],"t":1791132247524}
+{"event":"skill_start","skill":"shore","trigger":"skill_done","t":1791132247524}
+{"event":"skill_end","skill":"shore","ok":true,"detail":"reached dry ground with room to work","seconds":9.0,"t":1791132256595}
+{"layer":"tactician","gs":161,"brain":"rules","trigger":"skill_done","goal":"enter_end","options":["explore blaze"],"choice":"explore blaze","x":[1.0,1.0,0.0,0.0,0.0,0.984,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.797,0.0,1.0,0.2,0.923,0.167,0.923,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1791132256595}
+{"event":"skill_start","skill":"explore blaze","trigger":"skill_done","t":1791132256596}
+{"layer":"tactician","gs":181,"brain":"rules","trigger":"heartbeat","goal":"enter_end","options":["shore"],"choice":"shore","x":[1.0,1.0,0.0,0.0,0.0,0.969,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.2,0.923,0.167,0.923,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["shore"],"t":1791132277034}
+{"event":"skill_end","skill":"explore blaze","ok":false,"code":"INTERRUPTED","detail":"interrupted: brain chose shore","seconds":20.05,"t":1791132277034}
+{"event":"skill_start","skill":"shore","trigger":"heartbeat","t":1791132277035}
+{"event":"skill_end","skill":"shore","ok":true,"detail":"reached dry ground with room to work","seconds":4.0,"t":1791132281036}
+{"layer":"tactician","gs":185,"brain":"rules","trigger":"skill_done","goal":"enter_end","options":["explore blaze"],"choice":"explore blaze","x":[1.0,1.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.2,0.923,0.167,0.923,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1791132281038}
+{"event":"skill_start","skill":"explore blaze","trigger":"skill_done","t":1791132281038}
+{"layer":"tactician","gs":205,"brain":"rules","trigger":"heartbeat","goal":"enter_end","options":["shore"],"choice":"shore","x":[1.0,1.0,0.0,0.0,0.0,0.969,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.2,0.923,0.167,0.923,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["shore"],"t":1791132301954}
+{"event":"skill_end","skill":"explore blaze","ok":false,"code":"INTERRUPTED","detail":"interrupted: brain chose shore","seconds":20.05,"t":1791132301954}
+{"event":"skill_start","skill":"shore","trigger":"heartbeat","t":1791132301954}
+{"event":"skill_end","skill":"shore","ok":true,"detail":"reached dry ground with room to work","seconds":10.5,"t":1791132313086}
+{"layer":"tactician","gs":215,"brain":"rules","trigger":"skill_done","goal":"enter_end","options":["explore blaze"],"choice":"explore blaze","x":[1.0,1.0,0.0,0.0,0.0,0.984,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.2,0.923,0.167,0.923,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1791132313086}
+{"event":"skill_start","skill":"explore blaze","trigger":"skill_done","t":1791132313087}
+{"layer":"tactician","gs":235,"brain":"rules","trigger":"heartbeat","goal":"enter_end","options":["shore"],"choice":"shore","x":[1.0,1.0,0.0,0.0,0.0,0.969,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.2,0.923,0.167,0.923,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["shore"],"t":1791132334841}
+{"event":"skill_end","skill":"explore blaze","ok":false,"code":"INTERRUPTED","detail":"interrupted: brain chose shore","seconds":20.05,"t":1791132334842}
+{"event":"skill_start","skill":"shore","trigger":"heartbeat","t":1791132334842}
+{"event":"skill_end","skill":"shore","ok":true,"detail":"reached dry ground with room to work","seconds":18.0,"t":1791132353052}
+{"layer":"tactician","gs":253,"brain":"rules","trigger":"skill_done","goal":"enter_end","options":["explore blaze"],"choice":"explore blaze","x":[1.0,1.0,0.0,0.0,0.0,0.984,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.2,0.923,0.167,0.923,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1791132353052}
+{"event":"skill_start","skill":"explore blaze","trigger":"skill_done","t":1791132353053}
+{"layer":"tactician","gs":273,"brain":"rules","trigger":"heartbeat","goal":"enter_end","options":["shore"],"choice":"shore","x":[1.0,1.0,0.0,0.0,0.0,0.969,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.2,0.923,0.167,0.923,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["shore"],"t":1791132374790}
+{"event":"skill_end","skill":"explore blaze","ok":false,"code":"INTERRUPTED","detail":"interrupted: brain chose shore","seconds":20.05,"t":1791132374790}
+{"event":"skill_start","skill":"shore","trigger":"heartbeat","t":1791132374791}
+{"event":"skill_end","skill":"shore","ok":true,"detail":"reached dry ground with room to work","seconds":3.0,"t":1791132377892}
+{"layer":"tactician","gs":276,"brain":"rules","trigger":"skill_done","goal":"enter_end","options":["explore blaze"],"choice":"explore blaze","x":[1.0,1.0,0.0,0.0,0.0,0.984,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.2,0.923,0.167,0.923,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1791132377893}
+{"event":"skill_start","skill":"explore blaze","trigger":"skill_done","t":1791132377893}
+{"layer":"tactician","gs":296,"brain":"rules","trigger":"heartbeat","goal":"enter_end","options":["shore"],"choice":"shore","x":[1.0,1.0,0.0,0.0,0.0,0.969,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.2,0.923,0.167,0.923,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["shore"],"t":1791132398771}
+{"event":"skill_end","skill":"explore blaze","ok":false,"code":"INTERRUPTED","detail":"interrupted: brain chose shore","seconds":20.05,"t":1791132398772}
+{"event":"skill_start","skill":"shore","trigger":"heartbeat","t":1791132398772}
+{"event":"skill_end","skill":"shore","ok":true,"detail":"reached dry ground with room to work","seconds":5.0,"t":1791132404071}
+{"layer":"tactician","gs":301,"brain":"rules","trigger":"skill_done","goal":"enter_end","options":["explore blaze"],"choice":"explore blaze","x":[1.0,1.0,0.0,0.0,0.0,1.016,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.2,0.923,0.167,0.923,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1791132404071}
+{"event":"skill_start","skill":"explore blaze","trigger":"skill_done","t":1791132404072}
+{"event":"skill_end","skill":"explore blaze","ok":true,"detail":"explored 119 blocks, no blaze yet","seconds":25.0,"t":1791132431363}
+{"layer":"tactician","gs":326,"brain":"rules","trigger":"skill_done","goal":"enter_end","options":["attack pig","explore blaze"],"choice":"attack pig","x":[1.0,0.9,0.0,0.0,0.0,1.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.2,0.923,0.167,0.923,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1791132431364}
+{"event":"skill_start","skill":"attack pig","trigger":"skill_done","t":1791132431364}
+{"event":"skill_end","skill":"attack pig","ok":true,"detail":"killed the pig","seconds":11.35,"t":1791132442968}
+{"layer":"tactician","gs":338,"brain":"rules","trigger":"skill_done","goal":"enter_end","options":["attack pig","explore blaze"],"choice":"attack pig","x":[1.0,0.9,0.0,0.0,0.0,1.016,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.125,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.2,0.923,0.167,0.923,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1791132442969}
+{"event":"skill_start","skill":"attack pig","trigger":"skill_done","t":1791132442969}
+{"event":"skill_end","skill":"attack pig","ok":true,"detail":"killed the pig","seconds":14.95,"t":1791132458033}
+{"layer":"tactician","gs":353,"brain":"rules","trigger":"skill_done","goal":"enter_end","options":["attack cow","explore blaze"],"choice":"attack cow","x":[1.0,0.8,0.0,0.0,0.0,1.031,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.188,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.2,0.923,0.167,0.923,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1791132458034}
+{"event":"skill_start","skill":"attack cow","trigger":"skill_done","t":1791132458034}
+{"event":"skill_end","skill":"attack cow","ok":true,"detail":"killed the cow","seconds":8.55,"t":1791132466790}
+{"layer":"tactician","gs":361,"brain":"rules","trigger":"skill_done","goal":"enter_end","options":["attack pig","explore blaze","pickup"],"choice":"attack pig","x":[1.0,0.8,0.0,0.0,0.0,1.031,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.188,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.2,0.923,0.167,0.923,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1791132466791}
+{"event":"skill_start","skill":"attack pig","trigger":"skill_done","t":1791132466791}
+{"event":"skill_end","skill":"attack pig","ok":false,"code":"UNREACHABLE","detail":"no sightline to the pig","seconds":8.85,"t":1791132475741}
+{"layer":"tactician","gs":370,"brain":"rules","trigger":"skill_failed","goal":"enter_end","options":["attack pig","explore blaze"],"choice":"attack pig","x":[1.0,0.8,0.0,0.0,0.0,1.016,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.375,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.2,0.923,0.167,0.923,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1791132475742}
+{"event":"skill_start","skill":"attack pig","trigger":"skill_failed","t":1791132475742}
+{"event":"skill_end","skill":"attack pig","ok":true,"detail":"killed the pig","seconds":15.25,"t":1791132491874}
+{"layer":"tactician","gs":385,"brain":"rules","trigger":"skill_done","goal":"enter_end","options":["eat","collect log:3","explore blaze"],"choice":"eat","x":[1.0,0.7,0.0,0.0,0.0,1.047,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.563,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.2,0.923,0.167,0.923,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["eat"],"t":1791132491875}
+{"event":"skill_start","skill":"eat","trigger":"skill_done","t":1791132491875}
+{"event":"skill_end","skill":"eat","ok":true,"detail":"ate porkchop","seconds":1.8,"t":1791132493662}
+{"layer":"tactician","gs":387,"brain":"rules","trigger":"skill_done","goal":"enter_end","options":["explore blaze"],"choice":"explore blaze","x":[1.0,0.85,0.0,0.0,0.0,1.047,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.5,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.2,0.923,0.167,0.923,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1791132493663}
+{"event":"skill_start","skill":"explore blaze","trigger":"skill_done","t":1791132493663}
+{"layer":"tactician","gs":407,"brain":"rules","trigger":"heartbeat","goal":"enter_end","options":["shore"],"choice":"shore","x":[1.0,0.85,0.0,0.0,0.0,0.969,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.5,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.2,0.923,0.167,0.923,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["shore"],"t":1791132513716}
+{"event":"skill_end","skill":"explore blaze","ok":false,"code":"INTERRUPTED","detail":"interrupted: brain chose shore","seconds":20.05,"t":1791132513717}
+{"event":"skill_start","skill":"shore","trigger":"heartbeat","t":1791132513717}
+{"event":"skill_end","skill":"shore","ok":true,"detail":"reached dry ground with room to work","seconds":1.0,"t":1791132514716}
+{"layer":"tactician","gs":408,"brain":"rules","trigger":"skill_done","goal":"enter_end","options":["explore blaze"],"choice":"explore blaze","x":[1.0,0.85,0.0,0.0,0.0,0.984,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.5,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.2,0.923,0.167,0.923,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1791132514716}
+{"event":"skill_start","skill":"explore blaze","trigger":"skill_done","t":1791132514716}
+{"layer":"tactician","gs":428,"brain":"rules","trigger":"heartbeat","goal":"enter_end","options":["shore"],"choice":"shore","x":[1.0,0.8,0.0,0.0,0.0,0.969,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.5,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.2,0.923,0.167,0.923,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["shore"],"t":1791132534764}
+{"event":"skill_end","skill":"explore blaze","ok":false,"code":"INTERRUPTED","detail":"interrupted: brain chose shore","seconds":20.05,"t":1791132534764}
+{"event":"skill_start","skill":"shore","trigger":"heartbeat","t":1791132534764}
+{"event":"skill_end","skill":"shore","ok":true,"detail":"reached dry ground with room to work","seconds":17.5,"t":1791132552261}
+{"layer":"tactician","gs":446,"brain":"rules","trigger":"skill_done","goal":"enter_end","options":["explore blaze"],"choice":"explore blaze","x":[1.0,0.8,0.0,0.0,0.0,0.984,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.5,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.2,0.923,0.167,0.923,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1791132552262}
+{"event":"skill_start","skill":"explore blaze","trigger":"skill_done","t":1791132552262}
+{"event":"skill_end","skill":"explore blaze","ok":true,"detail":"explored 119 blocks, no blaze yet","seconds":28.5,"t":1791132580761}
+{"layer":"tactician","gs":474,"brain":"rules","trigger":"skill_done","goal":"enter_end","options":["eat","collect log:3","explore blaze"],"choice":"eat","x":[1.0,0.65,0.0,0.0,0.0,1.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.5,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.2,0.923,0.167,0.923,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["eat"],"t":1791132580762}
+{"event":"skill_start","skill":"eat","trigger":"skill_done","t":1791132580762}
+{"event":"skill_end","skill":"eat","ok":true,"detail":"ate porkchop","seconds":1.8,"t":1791132582565}
+{"layer":"tactician","gs":476,"brain":"rules","trigger":"skill_done","goal":"enter_end","options":["attack pig","explore blaze"],"choice":"attack pig","x":[1.0,0.8,0.0,0.0,0.0,1.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.438,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.2,0.923,0.167,0.923,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1791132582565}
+{"event":"skill_start","skill":"attack pig","trigger":"skill_done","t":1791132582565}
+{"event":"skill_end","skill":"attack pig","ok":true,"detail":"killed the pig","seconds":10.65,"t":1791132593321}
+{"layer":"tactician","gs":487,"brain":"rules","trigger":"skill_done","goal":"enter_end","options":["explore blaze"],"choice":"explore blaze","x":[1.0,0.8,0.0,0.0,0.0,1.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.5,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.2,0.923,0.167,0.923,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1791132593321}
+{"event":"skill_start","skill":"explore blaze","trigger":"skill_done","t":1791132593322}
+{"event":"skill_end","skill":"explore blaze","ok":true,"detail":"explored 119 blocks, no blaze yet","seconds":27.0,"t":1791132620930}
+{"layer":"tactician","gs":514,"brain":"rules","trigger":"skill_done","goal":"enter_end","options":["explore blaze"],"choice":"explore blaze","x":[1.0,0.75,0.0,0.0,0.0,1.281,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.5,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.2,0.923,0.167,0.923,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1791132620930}
+{"event":"skill_start","skill":"explore blaze","trigger":"skill_done","t":1791132620930}
+{"layer":"tactician","gs":534,"brain":"rules","trigger":"heartbeat","goal":"enter_end","options":["eat","collect log:3","explore blaze"],"choice":"eat","x":[1.0,0.65,0.0,0.0,0.0,1.094,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.5,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.2,0.923,0.167,0.923,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["eat"],"t":1791132642314}
+{"event":"skill_end","skill":"explore blaze","ok":false,"code":"INTERRUPTED","detail":"interrupted: brain chose eat","seconds":20.05,"t":1791132642314}
+{"event":"skill_start","skill":"eat","trigger":"heartbeat","t":1791132642314}
+{"event":"skill_end","skill":"eat","ok":true,"detail":"ate porkchop","seconds":1.8,"t":1791132644117}
+{"layer":"tactician","gs":536,"brain":"rules","trigger":"skill_done","goal":"enter_end","options":["attack sheep","explore blaze"],"choice":"attack sheep","x":[1.0,0.8,0.0,0.0,0.0,1.094,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.438,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.2,0.923,0.167,0.923,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1791132644118}
+{"event":"skill_start","skill":"attack sheep","trigger":"skill_done","t":1791132644118}
+{"event":"skill_end","skill":"attack sheep","ok":true,"detail":"killed the sheep","seconds":9.9,"t":1791132654240}
+{"layer":"tactician","gs":546,"brain":"rules","trigger":"skill_done","goal":"enter_end","options":["explore blaze"],"choice":"explore blaze","x":[1.0,0.8,0.0,0.0,0.0,1.109,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.5,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.2,0.923,0.167,0.923,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1791132654241}
+{"event":"skill_start","skill":"explore blaze","trigger":"skill_done","t":1791132654241}
+{"event":"skill_end","skill":"explore blaze","ok":true,"detail":"explored 120 blocks, no blaze yet","seconds":24.0,"t":1791132679979}
+{"layer":"tactician","gs":570,"brain":"rules","trigger":"skill_done","goal":"enter_end","options":["eat","collect log:3","explore blaze","shelter"],"choice":"eat","x":[1.0,0.7,0.0,1.0,0.0,1.172,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.5,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.2,0.923,0.167,0.923,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["eat"],"t":1791132679980}
+{"event":"skill_start","skill":"eat","trigger":"skill_done","t":1791132679980}
+{"event":"skill_end","skill":"eat","ok":true,"detail":"ate porkchop","seconds":1.8,"t":1791132681765}
+{"layer":"tactician","gs":571,"brain":"rules","trigger":"skill_done","goal":"enter_end","options":["explore blaze","shelter"],"choice":"explore blaze","x":[1.0,0.85,0.0,1.0,0.0,1.172,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.438,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.2,0.923,0.167,0.923,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1791132681765}
+{"event":"skill_start","skill":"explore blaze","trigger":"skill_done","t":1791132681765}
+{"event":"skill_end","skill":"explore blaze","ok":true,"detail":"explored 119 blocks, no blaze yet","seconds":35.5,"t":1791132717267}
+{"layer":"tactician","gs":607,"brain":"rules","trigger":"skill_done","goal":"enter_end","options":["shore"],"choice":"shore","x":[1.0,0.8,0.0,1.0,0.0,0.969,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.438,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.2,0.923,0.167,0.923,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["shore"],"t":1791132717268}
+{"event":"skill_start","skill":"shore","trigger":"skill_done","t":1791132717268}
+{"event":"skill_end","skill":"shore","ok":true,"detail":"reached dry ground with room to work","seconds":10.0,"t":1791132727262}
+{"layer":"tactician","gs":617,"brain":"rules","trigger":"skill_done","goal":"enter_end","options":["explore blaze","shelter"],"choice":"explore blaze","x":[1.0,0.8,0.0,1.0,0.0,0.984,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.438,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.2,0.923,0.167,0.923,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1791132727263}
+{"event":"skill_start","skill":"explore blaze","trigger":"skill_done","t":1791132727263}
+{"layer":"tactician","gs":637,"brain":"rules","trigger":"heartbeat","goal":"enter_end","options":["shore"],"choice":"shore","x":[1.0,0.8,0.0,1.0,0.0,0.969,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.438,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.2,0.923,0.167,0.923,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["shore"],"t":1791132747314}
+{"event":"skill_end","skill":"explore blaze","ok":false,"code":"INTERRUPTED","detail":"interrupted: brain chose shore","seconds":20.05,"t":1791132747315}
+{"event":"skill_start","skill":"shore","trigger":"heartbeat","t":1791132747315}
+{"event":"skill_end","skill":"shore","ok":true,"detail":"reached dry ground with room to work","seconds":19.5,"t":1791132766813}
+{"layer":"tactician","gs":656,"brain":"rules","trigger":"skill_done","goal":"enter_end","options":["explore blaze","shelter"],"choice":"explore blaze","x":[1.0,0.8,0.0,1.0,0.0,0.984,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.438,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.2,0.923,0.167,0.923,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1791132766814}
+{"event":"skill_start","skill":"explore blaze","trigger":"skill_done","t":1791132766814}
+{"layer":"tactician","gs":676,"brain":"rules","trigger":"heartbeat","goal":"enter_end","options":["shore"],"choice":"shore","x":[1.0,0.75,0.0,1.0,0.0,0.969,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.438,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.2,0.923,0.167,0.923,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["shore"],"t":1791132786862}
+{"event":"skill_end","skill":"explore blaze","ok":false,"code":"INTERRUPTED","detail":"interrupted: brain chose shore","seconds":20.05,"t":1791132786863}
+{"event":"skill_start","skill":"shore","trigger":"heartbeat","t":1791132786863}
+{"event":"skill_end","skill":"shore","ok":true,"detail":"reached dry ground with room to work","seconds":4.0,"t":1791132790865}
+{"layer":"tactician","gs":680,"brain":"rules","trigger":"skill_done","goal":"enter_end","options":["explore blaze","shelter"],"choice":"explore blaze","x":[1.0,0.75,0.0,1.0,0.0,1.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.438,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.2,0.923,0.167,0.923,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1791132790865}
+{"event":"skill_start","skill":"explore blaze","trigger":"skill_done","t":1791132790866}
+{"layer":"tactician","gs":700,"brain":"rules","trigger":"heartbeat","goal":"enter_end","options":["shore"],"choice":"shore","x":[1.0,0.75,0.0,1.0,0.0,0.969,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.438,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.2,0.923,0.167,0.923,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["shore"],"t":1791132810917}
+{"event":"skill_end","skill":"explore blaze","ok":false,"code":"INTERRUPTED","detail":"interrupted: brain chose shore","seconds":20.05,"t":1791132810917}
+{"event":"skill_start","skill":"shore","trigger":"heartbeat","t":1791132810917}
+{"event":"skill_end","skill":"shore","ok":true,"detail":"reached dry ground with room to work","seconds":5.0,"t":1791132815913}
+{"layer":"tactician","gs":705,"brain":"rules","trigger":"skill_done","goal":"enter_end","options":["explore blaze","shelter"],"choice":"explore blaze","x":[1.0,0.75,0.0,1.0,0.0,1.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.438,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.2,0.923,0.167,0.923,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1791132815914}
+{"event":"skill_start","skill":"explore blaze","trigger":"skill_done","t":1791132815914}
+{"layer":"tactician","gs":726,"brain":"rules","trigger":"heartbeat","goal":"enter_end","options":["shore"],"choice":"shore","x":[1.0,0.75,0.0,1.0,0.0,0.969,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.438,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.2,0.923,0.167,0.923,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["shore"],"t":1791132835977}
+{"event":"skill_end","skill":"explore blaze","ok":false,"code":"INTERRUPTED","detail":"interrupted: brain chose shore","seconds":20.05,"t":1791132835978}
+{"event":"skill_start","skill":"shore","trigger":"heartbeat","t":1791132835978}
+{"event":"skill_end","skill":"shore","ok":true,"detail":"reached dry ground with room to work","seconds":12.5,"t":1791132848469}
+{"layer":"tactician","gs":738,"brain":"rules","trigger":"skill_done","goal":"enter_end","options":["eat","collect log:3","explore blaze","shelter"],"choice":"eat","x":[1.0,0.7,0.0,1.0,0.0,1.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.438,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.2,0.923,0.167,0.923,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["eat"],"t":1791132848470}
+{"event":"skill_start","skill":"eat","trigger":"skill_done","t":1791132848470}
+{"event":"skill_end","skill":"eat","ok":true,"detail":"ate porkchop","seconds":1.8,"t":1791132850263}
+{"layer":"tactician","gs":740,"brain":"rules","trigger":"skill_done","goal":"enter_end","options":["explore blaze","shelter"],"choice":"explore blaze","x":[1.0,0.85,0.0,1.0,0.0,1.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.375,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.2,0.923,0.167,0.923,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1791132850264}
+{"event":"skill_start","skill":"explore blaze","trigger":"skill_done","t":1791132850264}
+{"layer":"tactician","gs":760,"brain":"rules","trigger":"heartbeat","goal":"enter_end","options":["shore"],"choice":"shore","x":[1.0,0.85,0.0,1.0,0.0,0.969,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.375,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.2,0.923,0.167,0.923,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["shore"],"t":1791132870317}
+{"event":"skill_end","skill":"explore blaze","ok":false,"code":"INTERRUPTED","detail":"interrupted: brain chose shore","seconds":20.05,"t":1791132870317}
+{"event":"skill_start","skill":"shore","trigger":"heartbeat","t":1791132870317}
+{"event":"skill_end","skill":"shore","ok":true,"detail":"reached dry ground with room to work","seconds":20.5,"t":1791132890820}
+{"layer":"tactician","gs":780,"brain":"rules","trigger":"skill_done","goal":"enter_end","options":["explore blaze","shelter"],"choice":"explore blaze","x":[1.0,0.85,0.0,1.0,0.0,1.078,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.375,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.2,0.923,0.167,0.923,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1791132890821}
+{"event":"skill_start","skill":"explore blaze","trigger":"skill_done","t":1791132890821}
+{"layer":"tactician","gs":800,"brain":"rules","trigger":"heartbeat","goal":"enter_end","options":["shore"],"choice":"shore","x":[1.0,0.85,0.0,1.0,0.0,0.969,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.375,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.2,0.923,0.167,0.923,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["shore"],"t":1791132910863}
+{"event":"skill_end","skill":"explore blaze","ok":false,"code":"INTERRUPTED","detail":"interrupted: brain chose shore","seconds":20.05,"t":1791132910863}
+{"event":"skill_start","skill":"shore","trigger":"heartbeat","t":1791132910863}
+{"event":"skill_end","skill":"shore","ok":true,"detail":"reached dry ground with room to work","seconds":18.0,"t":1791132928865}
+{"layer":"tactician","gs":818,"brain":"rules","trigger":"skill_done","goal":"enter_end","options":["shelter","explore blaze"],"choice":"shelter","x":[1.0,0.85,0.0,1.0,0.0,1.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.375,0.0,0.0,0.0,0.0,0.0,0.0,0.936,0.0,1.0,0.2,0.923,0.167,0.923,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["shelter"],"t":1791132928866}
+{"event":"skill_start","skill":"shelter","trigger":"skill_done","t":1791132928867}
+{"layer":"tactician","gs":823,"brain":"rules","trigger":"mob_near","goal":"enter_end","options":["retreat","shelter","explore blaze","pickup"],"choice":"retreat","x":[1.0,0.85,0.0,1.0,0.0,1.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.375,0.0,0.0,0.0,0.0,0.0,0.25,0.486,0.0,1.0,0.2,0.923,0.167,0.923,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["retreat","shelter"],"t":1791132933577}
+{"event":"skill_end","skill":"shelter","ok":false,"code":"INTERRUPTED","detail":"interrupted: brain chose retreat","seconds":4.65,"t":1791132933577}
+{"event":"skill_start","skill":"retreat","trigger":"mob_near","t":1791132933577}
+{"layer":"reflex","gs":824,"brain":"rules","trigger":"reflex_creeper","goal":"enter_end","options":["retreat"],"choice":"retreat","x":[1.0,0.85,0.0,1.0,0.0,0.969,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.031,0.0,0.0,0.0,0.0,0.375,0.0,0.0,0.0,0.0,0.0,0.25,0.431,0.0,1.0,0.2,0.923,0.167,0.923,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["retreat"],"t":1791132934825}
+{"event":"skill_end","skill":"retreat","ok":false,"code":"INTERRUPTED","detail":"interrupted by reflex_creeper","seconds":1.25,"t":1791132934825}
+{"event":"skill_start","skill":"retreat","trigger":"reflex_creeper","t":1791132934825}
+{"event":"skill_end","skill":"retreat","ok":true,"detail":"got away","seconds":9.05,"t":1791132943874}
+{"layer":"tactician","gs":833,"brain":"rules","trigger":"skill_done","goal":"enter_end","options":["shore"],"choice":"shore","x":[1.0,0.85,0.0,1.0,0.0,0.969,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.031,0.0,0.0,0.0,0.0,0.375,0.0,0.0,0.0,0.0,0.0,0.0,0.839,0.0,1.0,0.2,0.923,0.167,0.923,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["shore"],"t":1791132943874}
+{"event":"skill_start","skill":"shore","trigger":"skill_done","t":1791132943874}
+{"layer":"tactician","gs":836,"brain":"rules","trigger":"mob_near","goal":"enter_end","options":["retreat","shore"],"choice":"retreat","x":[1.0,0.85,0.0,1.0,0.0,0.969,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.031,0.0,0.0,0.0,0.0,0.375,0.0,0.0,0.0,0.0,0.0,0.25,0.481,0.0,1.0,0.2,0.923,0.167,0.923,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["retreat","shore"],"t":1791132946578}
+{"event":"skill_end","skill":"shore","ok":false,"code":"INTERRUPTED","detail":"interrupted: brain chose retreat","seconds":2.7,"t":1791132946578}
+{"event":"skill_start","skill":"retreat","trigger":"mob_near","t":1791132946578}
+{"event":"skill_end","skill":"retreat","ok":true,"detail":"got away","seconds":9.1,"t":1791132955684}
+{"layer":"tactician","gs":845,"brain":"rules","trigger":"skill_done","goal":"enter_end","options":["shore"],"choice":"shore","x":[1.0,0.85,0.0,1.0,0.0,0.969,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.031,0.0,0.0,0.0,0.0,0.375,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.2,0.923,0.167,0.923,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["shore"],"t":1791132955685}
+{"event":"skill_start","skill":"shore","trigger":"skill_done","t":1791132955685}
+{"event":"skill_end","skill":"shore","ok":true,"detail":"reached dry ground with room to work","seconds":17.5,"t":1791132973161}
+{"layer":"tactician","gs":863,"brain":"rules","trigger":"skill_done","goal":"enter_end","options":["explore blaze","shelter"],"choice":"explore blaze","x":[1.0,0.85,0.0,1.0,0.0,1.016,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.031,0.0,0.0,0.0,0.0,0.375,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.2,0.923,0.167,0.923,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1791132973161}
+{"event":"skill_start","skill":"explore blaze","trigger":"skill_done","t":1791132973162}
+{"layer":"tactician","gs":872,"brain":"rules","trigger":"mob_near","goal":"enter_end","options":["retreat","shore"],"choice":"retreat","x":[1.0,0.85,0.0,1.0,0.0,0.969,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.031,0.0,0.0,0.0,0.0,0.375,0.0,0.0,0.0,0.0,0.0,0.25,0.499,0.0,1.0,0.2,0.923,0.167,0.923,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["retreat","shore"],"t":1791132982063}
+{"event":"skill_end","skill":"explore blaze","ok":false,"code":"INTERRUPTED","detail":"interrupted: brain chose retreat","seconds":8.9,"t":1791132982063}
+{"event":"skill_start","skill":"retreat","trigger":"mob_near","t":1791132982063}
+{"event":"skill_end","skill":"retreat","ok":true,"detail":"got away","seconds":8.3,"t":1791132990362}
+{"layer":"tactician","gs":880,"brain":"rules","trigger":"skill_done","goal":"enter_end","options":["shore"],"choice":"shore","x":[1.0,0.85,0.0,1.0,0.0,0.969,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.031,0.0,0.0,0.0,0.0,0.375,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.2,0.923,0.167,0.923,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["shore"],"t":1791132990362}
+{"event":"skill_start","skill":"shore","trigger":"skill_done","t":1791132990363}
+{"event":"skill_end","skill":"shore","ok":true,"detail":"reached dry ground with room to work","seconds":10.0,"t":1791133000364}
+{"layer":"tactician","gs":890,"brain":"rules","trigger":"skill_done","goal":"enter_end","options":["shelter","explore blaze"],"choice":"shelter","x":[1.0,0.85,0.0,1.0,0.0,1.016,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.031,0.0,0.0,0.0,0.0,0.375,0.0,0.0,0.0,0.0,0.0,0.0,0.819,0.0,1.0,0.2,0.923,0.167,0.923,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["shelter"],"t":1791133000365}
+{"event":"skill_start","skill":"shelter","trigger":"skill_done","t":1791133000365}
+{"layer":"tactician","gs":901,"brain":"rules","trigger":"mob_near","goal":"enter_end","options":["retreat","shelter","explore blaze","pickup"],"choice":"retreat","x":[1.0,0.85,0.0,1.0,0.0,1.016,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.031,0.0,0.0,0.0,0.0,0.375,0.0,0.0,0.0,0.0,0.0,0.25,0.491,0.0,1.0,0.2,0.923,0.167,0.923,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["retreat","shelter"],"t":1791133011822}
+{"event":"skill_end","skill":"shelter","ok":false,"code":"INTERRUPTED","detail":"interrupted: brain chose retreat","seconds":11.45,"t":1791133011822}
+{"event":"skill_start","skill":"retreat","trigger":"mob_near","t":1791133011822}
+{"layer":"tactician","gs":904,"brain":"rules","trigger":"mob_near","goal":"enter_end","options":["retreat","shelter","explore blaze"],"choice":"retreat","x":[1.0,0.85,0.0,1.0,0.0,1.063,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.031,0.0,0.0,0.0,0.0,0.375,0.0,0.0,0.0,0.0,0.0,0.25,0.496,0.0,1.0,0.2,0.923,0.167,0.923,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["retreat","shelter"],"t":1791133014563}
+{"layer":"reflex","gs":905,"brain":"rules","trigger":"reflex_creeper","goal":"enter_end","options":["retreat"],"choice":"retreat","x":[1.0,0.85,0.0,1.0,0.0,1.063,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.031,0.0,0.0,0.0,0.0,0.375,0.0,0.0,0.0,0.0,0.0,0.25,0.411,0.0,1.0,0.2,0.923,0.167,0.923,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["retreat"],"t":1791133015072}
+{"event":"skill_end","skill":"retreat","ok":false,"code":"INTERRUPTED","detail":"interrupted by reflex_creeper","seconds":3.25,"t":1791133015073}
+{"event":"skill_start","skill":"retreat","trigger":"reflex_creeper","t":1791133015073}
+{"event":"skill_end","skill":"retreat","ok":false,"code":"NO_PROGRESS","detail":"couldn\u0027t get away (nearest monster 8 blocks)","seconds":10.7,"t":1791133025761}
+{"layer":"tactician","gs":915,"brain":"rules","trigger":"skill_failed","goal":"enter_end","options":["retreat","shore"],"choice":"retreat","x":[1.0,0.85,0.0,1.0,0.0,0.969,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.063,0.0,0.0,0.0,0.0,0.375,0.0,0.0,0.0,0.0,0.0,0.25,0.454,0.0,1.0,0.2,0.923,0.167,0.923,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["retreat","shore"],"t":1791133025762}
+{"event":"skill_start","skill":"retreat","trigger":"skill_failed","t":1791133025762}
+{"event":"skill_end","skill":"retreat","ok":true,"detail":"got away","seconds":8.75,"t":1791133034574}
+{"layer":"tactician","gs":924,"brain":"rules","trigger":"skill_done","goal":"enter_end","options":["shore"],"choice":"shore","x":[1.0,0.85,0.0,1.0,0.0,0.969,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.063,0.0,0.0,0.0,0.0,0.375,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.2,0.923,0.167,0.923,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["shore"],"t":1791133034575}
+{"event":"skill_start","skill":"shore","trigger":"skill_done","t":1791133034575}
+{"event":"skill_end","skill":"shore","ok":true,"detail":"reached dry ground with room to work","seconds":12.5,"t":1791133047127}
+{"layer":"tactician","gs":937,"brain":"rules","trigger":"skill_done","goal":"enter_end","options":["explore blaze","shelter"],"choice":"explore blaze","x":[1.0,0.85,0.0,1.0,0.0,0.984,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.063,0.0,0.0,0.0,0.0,0.375,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.2,0.923,0.167,0.923,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1791133047128}
+{"event":"skill_start","skill":"explore blaze","trigger":"skill_done","t":1791133047128}
+{"layer":"tactician","gs":946,"brain":"rules","trigger":"mob_near","goal":"enter_end","options":["attack spider","shelter","explore blaze"],"choice":"attack spider","x":[1.0,0.8,0.0,1.0,0.0,1.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.063,0.0,0.0,0.0,0.0,0.375,0.0,0.0,0.0,0.0,0.0,0.25,0.405,0.0,1.0,0.2,0.923,0.167,0.923,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["attack spider","shelter"],"t":1791133057123}
+{"event":"skill_end","skill":"explore blaze","ok":false,"code":"INTERRUPTED","detail":"interrupted: brain chose attack spider","seconds":9.8,"t":1791133057123}
+{"event":"skill_start","skill":"attack spider","trigger":"mob_near","t":1791133057123}
+{"layer":"reflex","gs":950,"brain":"rules","trigger":"reflex_creeper","goal":"enter_end","options":["retreat"],"choice":"retreat","x":[1.0,0.8,0.0,1.0,0.0,1.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.063,0.0,0.0,0.0,0.0,0.375,0.0,0.0,0.0,0.0,0.0,0.5,0.17,0.0,1.0,0.2,0.923,0.167,0.923,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["retreat"],"t":1791133060383}
+{"event":"skill_end","skill":"attack spider","ok":false,"code":"INTERRUPTED","detail":"interrupted by reflex_creeper","seconds":3.25,"t":1791133060383}
+{"event":"skill_start","skill":"retreat","trigger":"reflex_creeper","t":1791133060383}
+{"event":"skill_end","skill":"retreat","ok":true,"detail":"got away","seconds":4.9,"t":1791133066139}
+{"layer":"tactician","gs":954,"brain":"rules","trigger":"skill_done","goal":"enter_end","options":["eat","explore blaze","shelter"],"choice":"eat","x":[0.497,0.75,0.0,1.0,0.0,1.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.063,0.0,0.0,0.0,0.0,0.375,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.2,0.923,0.167,0.923,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["eat"],"t":1791133066139}
+{"event":"skill_start","skill":"eat","trigger":"skill_done","t":1791133066139}
+{"event":"skill_end","skill":"eat","ok":true,"detail":"ate porkchop","seconds":1.8,"t":1791133067914}
+{"layer":"tactician","gs":956,"brain":"rules","trigger":"skill_done","goal":"enter_end","options":["explore blaze","shelter"],"choice":"explore blaze","x":[0.497,0.9,0.0,1.0,0.0,1.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.063,0.0,0.0,0.0,0.0,0.313,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.2,0.923,0.167,0.923,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1791133067915}
+{"event":"skill_start","skill":"explore blaze","trigger":"skill_done","t":1791133067915}
+{"layer":"tactician","gs":976,"brain":"rules","trigger":"heartbeat","goal":"enter_end","options":["eat","shore"],"choice":"eat","x":[0.597,0.85,0.0,1.0,0.0,0.969,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.063,0.0,0.0,0.0,0.0,0.313,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.2,0.923,0.167,0.923,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["eat","shore"],"t":1791133087961}
+{"event":"skill_end","skill":"explore blaze","ok":false,"code":"INTERRUPTED","detail":"interrupted: brain chose eat","seconds":20.05,"t":1791133087961}
+{"event":"skill_start","skill":"eat","trigger":"heartbeat","t":1791133087961}
+{"event":"skill_end","skill":"eat","ok":true,"detail":"ate porkchop","seconds":1.8,"t":1791133089762}
+{"layer":"tactician","gs":978,"brain":"rules","trigger":"skill_done","goal":"enter_end","options":["shore"],"choice":"shore","x":[0.597,1.0,0.0,1.0,1.0,0.953,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.063,0.0,0.0,0.0,0.0,0.25,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.2,0.923,0.167,0.923,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["shore"],"t":1791133089762}
+{"event":"skill_start","skill":"shore","trigger":"skill_done","t":1791133089763}
+{"event":"skill_end","skill":"shore","ok":true,"detail":"reached dry ground with room to work","seconds":11.0,"t":1791133100768}
+{"layer":"tactician","gs":989,"brain":"rules","trigger":"skill_done","goal":"enter_end","options":["eat","explore blaze","shelter"],"choice":"eat","x":[0.739,0.85,0.0,1.0,0.0,0.984,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.063,0.0,0.0,0.0,0.0,0.25,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.2,0.923,0.167,0.923,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["eat"],"t":1791133100769}
+{"event":"skill_start","skill":"eat","trigger":"skill_done","t":1791133100769}
+{"event":"skill_end","skill":"eat","ok":true,"detail":"ate beef","seconds":1.8,"t":1791133102561}
+{"layer":"tactician","gs":991,"brain":"rules","trigger":"skill_done","goal":"enter_end","options":["explore blaze","shelter"],"choice":"explore blaze","x":[0.739,1.0,0.0,1.0,0.0,0.984,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.063,0.0,0.0,0.0,0.0,0.188,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.2,0.923,0.167,0.923,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1791133102562}
+{"event":"skill_start","skill":"explore blaze","trigger":"skill_done","t":1791133102562}
+{"layer":"tactician","gs":1011,"brain":"rules","trigger":"heartbeat","goal":"enter_end","options":["eat","shore"],"choice":"eat","x":[0.904,0.85,0.0,1.0,0.0,0.969,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.063,0.0,0.0,0.0,0.0,0.188,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.2,0.923,0.167,0.923,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["eat","shore"],"t":1791133122612}
+{"event":"skill_end","skill":"explore blaze","ok":false,"code":"INTERRUPTED","detail":"interrupted: brain chose eat","seconds":20.05,"t":1791133122613}
+{"event":"skill_start","skill":"eat","trigger":"heartbeat","t":1791133122613}
+{"event":"skill_end","skill":"eat","ok":true,"detail":"ate beef","seconds":1.8,"t":1791133124410}
+{"layer":"tactician","gs":1013,"brain":"rules","trigger":"skill_done","goal":"enter_end","options":["shore"],"choice":"shore","x":[0.904,1.0,0.0,1.0,1.0,0.953,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.063,0.0,0.0,0.0,0.0,0.125,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.2,0.923,0.167,0.923,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["shore"],"t":1791133124411}
+{"event":"skill_start","skill":"shore","trigger":"skill_done","t":1791133124411}
+{"event":"skill_end","skill":"shore","ok":true,"detail":"reached dry ground with room to work","seconds":21.0,"t":1791133145412}
+{"layer":"tactician","gs":1034,"brain":"rules","trigger":"skill_done","goal":"enter_end","options":["explore blaze","shelter"],"choice":"explore blaze","x":[1.0,0.95,0.0,1.0,0.0,0.984,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.063,0.0,0.0,0.0,0.0,0.125,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.2,0.923,0.167,0.923,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1791133145413}
+{"event":"skill_start","skill":"explore blaze","trigger":"skill_done","t":1791133145413}
+{"layer":"tactician","gs":1054,"brain":"rules","trigger":"heartbeat","goal":"enter_end","options":["shore"],"choice":"shore","x":[1.0,0.95,0.0,1.0,0.0,0.969,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.063,0.0,0.0,0.0,0.0,0.125,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.2,0.923,0.167,0.923,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["shore"],"t":1791133165461}
+{"event":"skill_end","skill":"explore blaze","ok":false,"code":"INTERRUPTED","detail":"interrupted: brain chose shore","seconds":20.05,"t":1791133165461}
+{"event":"skill_start","skill":"shore","trigger":"heartbeat","t":1791133165461}
+{"event":"skill_end","skill":"shore","ok":true,"detail":"reached dry ground with room to work","seconds":18.5,"t":1791133183965}
+{"layer":"tactician","gs":1072,"brain":"rules","trigger":"skill_done","goal":"enter_end","options":["explore blaze","pickup"],"choice":"explore blaze","x":[1.0,0.95,0.0,0.0,0.0,0.984,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.063,0.0,0.0,0.0,0.0,0.125,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.2,0.923,0.167,0.923,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1791133183966}
+{"event":"skill_start","skill":"explore blaze","trigger":"skill_done","t":1791133183966}
+{"layer":"tactician","gs":1085,"brain":"rules","trigger":"mob_near","goal":"enter_end","options":["attack spider","explore blaze"],"choice":"attack spider","x":[1.0,0.85,0.0,0.0,0.0,1.094,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.063,0.0,0.0,0.0,0.0,0.125,0.0,0.0,0.0,0.0,0.0,0.25,0.472,0.0,1.0,0.2,0.923,0.167,0.923,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["attack spider"],"t":1791133196467}
+{"event":"skill_end","skill":"explore blaze","ok":false,"code":"INTERRUPTED","detail":"interrupted: brain chose attack spider","seconds":12.5,"t":1791133196467}
+{"event":"skill_start","skill":"attack spider","trigger":"mob_near","t":1791133196467}
+{"layer":"tactician","gs":1089,"brain":"rules","trigger":"hurt","goal":"enter_end","options":["attack zombie","explore blaze"],"choice":"attack zombie","x":[0.75,0.85,0.0,0.0,0.0,1.078,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.063,0.0,0.0,0.0,0.0,0.125,0.0,0.0,0.0,0.0,0.0,0.75,0.058,0.0,1.0,0.2,0.923,0.167,0.923,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["attack zombie"],"t":1791133200689}
+{"event":"skill_end","skill":"attack spider","ok":false,"code":"INTERRUPTED","detail":"interrupted: brain chose attack zombie","seconds":4.2,"t":1791133200689}
+{"event":"skill_start","skill":"attack zombie","trigger":"hurt","t":1791133200689}
+{"layer":"tactician","gs":1091,"brain":"rules","trigger":"hurt","goal":"enter_end","options":["attack spider","explore blaze"],"choice":"attack spider","x":[0.55,0.85,0.0,0.0,0.0,1.078,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.063,0.0,0.0,0.0,0.0,0.125,0.0,0.0,0.0,0.0,0.0,0.5,0.067,0.0,1.0,0.2,0.923,0.167,0.923,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["attack spider"],"t":1791133202479}
+{"event":"skill_end","skill":"attack zombie","ok":false,"code":"INTERRUPTED","detail":"interrupted: brain chose attack spider","seconds":1.8,"t":1791133202479}
+{"event":"skill_start","skill":"attack spider","trigger":"hurt","t":1791133202479}
+{"layer":"reflex","gs":1092,"brain":"rules","trigger":"reflex_low_hp","goal":"enter_end","options":["retreat","attack zombie"],"choice":"retreat","x":[0.3,0.85,0.0,0.0,0.0,1.063,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.063,0.0,0.0,0.0,0.0,0.125,0.0,0.0,0.0,0.0,0.0,0.5,0.078,0.0,1.0,0.2,0.923,0.167,0.923,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["retreat","attack zombie"],"t":1791133204140}
+{"event":"skill_end","skill":"attack spider","ok":false,"code":"INTERRUPTED","detail":"interrupted by reflex_low_hp","seconds":1.65,"t":1791133204140}
+{"event":"skill_start","skill":"retreat","trigger":"reflex_low_hp","t":1791133204140}
+{"event":"skill_end","skill":"retreat","ok":false,"code":"NO_PROGRESS","detail":"couldn\u0027t get away (nearest monster 4 blocks)","seconds":5.55,"t":1791133209670}
+{"layer":"tactician","gs":1098,"brain":"rules","trigger":"skill_failed","goal":"enter_end","options":["attack spider","explore blaze"],"choice":"attack spider","x":[0.2,0.8,0.0,0.0,0.0,1.078,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.063,0.0,0.0,0.0,0.0,0.125,0.0,0.0,0.0,0.0,0.0,0.25,0.243,0.0,1.0,0.2,0.923,0.167,0.923,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["attack spider"],"t":1791133209671}
+{"event":"skill_start","skill":"attack spider","trigger":"skill_failed","t":1791133209671}
+{"layer":"reflex","gs":1099,"brain":"rules","trigger":"reflex_low_hp","goal":"enter_end","options":["retreat","attack zombie"],"choice":"retreat","x":[0.2,0.8,0.0,0.0,0.0,1.078,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.063,0.0,0.0,0.0,0.0,0.125,0.0,0.0,0.0,0.0,0.0,0.75,0.109,0.0,1.0,0.2,0.923,0.167,0.923,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["retreat","attack zombie"],"t":1791133211092}
+{"event":"skill_end","skill":"attack spider","ok":false,"code":"INTERRUPTED","detail":"interrupted by reflex_low_hp","seconds":1.3,"t":1791133211092}
+{"event":"skill_start","skill":"retreat","trigger":"reflex_low_hp","t":1791133211092}
+{"event":"skill_end","skill":"retreat","ok":false,"code":"DIED","detail":"died","seconds":1.0,"t":1791133212218}
+{"event":"death","detail":"mob:spider","t":1791133212219}
+{"layer":"reflex","gs":1103,"brain":"rules","trigger":"reflex_fight","goal":"enter_end","options":["attack spider","retreat"],"choice":"attack spider","x":[1.0,1.0,0.0,0.0,0.0,1.109,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.75,0.124,0.0,1.0,0.4,0.923,0.167,0.923,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["attack spider","retreat"],"t":1791133215540}
+{"event":"skill_start","skill":"attack spider","trigger":"reflex_fight","t":1791133215540}
+{"event":"skill_end","skill":"attack spider","ok":false,"code":"NOT_FOUND","detail":"no reachable spider in sight","seconds":0.0,"t":1791133215540}
+{"layer":"tactician","gs":1103,"brain":"rules","trigger":"skill_failed","goal":"enter_end","options":["attack spider","goto death","explore blaze"],"choice":"attack spider","x":[1.0,1.0,0.0,0.0,0.0,1.109,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.75,0.124,0.0,1.0,0.4,0.923,0.167,0.923,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["attack spider"],"t":1791133215540}
+{"event":"skill_start","skill":"attack spider","trigger":"skill_failed","t":1791133215540}
+{"event":"skill_end","skill":"attack spider","ok":false,"code":"NOT_FOUND","detail":"no reachable spider in sight","seconds":0.05,"t":1791133215592}
+{"layer":"tactician","gs":1103,"brain":"rules","trigger":"skill_failed","goal":"enter_end","options":["attack spider","goto death","explore blaze"],"choice":"attack spider","x":[1.0,1.0,0.0,0.0,0.0,1.109,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.75,0.124,0.0,1.0,0.4,0.923,0.167,0.923,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["attack spider"],"t":1791133215593}
+{"event":"skill_start","skill":"attack spider","trigger":"skill_failed","t":1791133215593}
+{"event":"skill_end","skill":"attack spider","ok":false,"code":"NOT_FOUND","detail":"no reachable spider in sight","seconds":0.05,"t":1791133215613}
+{"layer":"tactician","gs":1103,"brain":"rules","trigger":"skill_failed","goal":"enter_end","options":["goto death","explore blaze"],"choice":"goto death","x":[1.0,1.0,0.0,0.0,0.0,1.109,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.75,0.124,0.0,1.0,0.4,0.923,0.167,0.923,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1791133215613}
+{"event":"skill_start","skill":"goto death","trigger":"skill_failed","t":1791133215614}
+{"layer":"tactician","gs":1124,"brain":"rules","trigger":"heartbeat","goal":"enter_end","options":["shore"],"choice":"shore","x":[1.0,1.0,0.0,0.0,0.0,0.969,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.4,0.923,0.167,0.923,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["shore"],"t":1791133236920}
+{"event":"skill_end","skill":"goto death","ok":false,"code":"INTERRUPTED","detail":"interrupted: brain chose shore","seconds":20.05,"t":1791133236921}
+{"event":"skill_start","skill":"shore","trigger":"heartbeat","t":1791133236921}
+{"event":"skill_end","skill":"shore","ok":true,"detail":"reached dry ground with room to work","seconds":1.0,"t":1791133237930}
+{"layer":"tactician","gs":1125,"brain":"rules","trigger":"skill_done","goal":"enter_end","options":["goto death","explore blaze"],"choice":"goto death","x":[1.0,1.0,0.0,0.0,1.0,0.984,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.4,0.923,0.167,0.923,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1791133237930}
+{"event":"skill_start","skill":"goto death","trigger":"skill_done","t":1791133237930}
+{"layer":"tactician","gs":1165,"brain":"rules","trigger":"heartbeat","goal":"enter_end","options":["shore"],"choice":"shore","x":[1.0,1.0,0.0,0.0,0.0,0.969,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.4,0.923,0.167,0.923,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["shore"],"t":1791133279623}
+{"event":"skill_end","skill":"goto death","ok":false,"code":"INTERRUPTED","detail":"interrupted: brain chose shore","seconds":40.1,"t":1791133279624}
+{"event":"skill_start","skill":"shore","trigger":"heartbeat","t":1791133279624}
+{"event":"skill_end","skill":"shore","ok":true,"detail":"reached dry ground with room to work","seconds":12.5,"t":1791133292118}
+{"layer":"tactician","gs":1177,"brain":"rules","trigger":"skill_done","goal":"enter_end","options":["goto death","explore blaze"],"choice":"goto death","x":[1.0,1.0,0.0,0.0,0.0,0.984,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.4,0.923,0.167,0.923,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1791133292118}
+{"event":"skill_start","skill":"goto death","trigger":"skill_done","t":1791133292118}
+{"layer":"tactician","gs":1197,"brain":"rules","trigger":"heartbeat","goal":"enter_end","options":["shore"],"choice":"shore","x":[1.0,1.0,0.0,0.0,0.0,0.969,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.4,0.923,0.167,0.923,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["shore"],"t":1791133312893}
+{"event":"skill_end","skill":"goto death","ok":false,"code":"INTERRUPTED","detail":"interrupted: brain chose shore","seconds":20.05,"t":1791133312893}
+{"event":"skill_start","skill":"shore","trigger":"heartbeat","t":1791133312894}
+{"event":"skill_end","skill":"shore","ok":false,"code":"INTERRUPTED","detail":"test finished","seconds":3.05,"t":1791133315996}
+{"event":"autopilot_off","detail":"test finished","t":1791133315997}

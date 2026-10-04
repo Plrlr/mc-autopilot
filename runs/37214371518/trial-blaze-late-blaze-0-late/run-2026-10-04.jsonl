@@ -1,0 +1,255 @@
+{"event":"autopilot_on","detail":"brain\u003drules","t":1791130645415}
+{"event":"params","detail":"params: trial (20 genes) changed\u003d{\"combat.creeper_hit\":1.0,\"combat.shield_guard\":1.0,\"route.armor_before_portal\":1.0,\"night.wall_in\":1.0,\"gear.sword_early\":1.0,\"move.shore_first\":1.0,\"portal.prepare_work_area\":1.0,\"portal.reserve_lava_bucket\":1.0,\"combat.ignore_walled_mobs\":1.0,\"night.shelter_exit\":1.0,\"nav.surface_v2\":1.0,\"nav.unstuck_v2\":1.0,\"stuck.item_progress\":1.0,\"skill.ruined_portal\":1.0,\"skill.portal_repair\":1.0,\"skill.enderman_warped\":1.0,\"plan.readiness\":1.0}","t":1791130645416}
+{"layer":"strategist","brain":"rules","choice":"iron_tools","reason":"start","t":1791130645418}
+{"layer":"strategist","brain":"rules","choice":"blaze_rods","reason":"user","t":1791130645418}
+{"event":"learned","detail":"learned model: none","t":1791130645428}
+{"layer":"tactician","gs":0,"brain":"rules","trigger":"idle","goal":"blaze_rods","options":["equip shield","fortress blazes:8","explore any"],"choice":"equip shield","x":[1.0,1.0,0.4,0.0,1.0,1.094,1.0,0.0,0.6,0.6,1.0,0.0,0.0,1.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,1.0,0.0,0.0,0.0,0.0,0.0,0.615,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1791130645457}
+{"event":"skill_start","skill":"equip shield","trigger":"idle","t":1791130645531}
+{"event":"skill_end","skill":"equip shield","ok":true,"detail":"shield in off hand","seconds":0.05,"t":1791130645658}
+{"layer":"tactician","gs":0,"brain":"rules","trigger":"skill_done","goal":"blaze_rods","options":["fortress blazes:8","explore any"],"choice":"fortress blazes:8","x":[1.0,1.0,0.4,0.0,1.0,1.094,1.0,0.0,0.6,0.6,1.0,0.0,0.0,1.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,1.0,0.0,0.0,0.0,0.0,0.0,0.615,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1791130645662}
+{"event":"skill_start","skill":"fortress blazes:8","trigger":"skill_done","t":1791130645665}
+{"event":"checkpoint","detail":"flint_and_steel","t":1791130645932}
+{"event":"milestone","detail":"7 at 0 s","t":1791130645941}
+{"event":"milestone","detail":"8 at 6 s","t":1791130655368}
+{"layer":"strategist","brain":"rules","choice":"ender_pearls","reason":"goal_done","t":1791130655369}
+{"event":"skill_end","skill":"fortress blazes:8","ok":false,"code":"DIED","detail":"died","seconds":60.1,"t":1791130711526}
+{"event":"death","detail":"onFire","t":1791130711527}
+{"layer":"reflex","gs":63,"brain":"rules","trigger":"reflex_fight","goal":"ender_pearls","options":["attack blaze","retreat"],"choice":"attack blaze","x":[1.0,1.0,0.0,0.0,0.0,1.344,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.75,0.204,0.0,0.0,0.2,0.615,0.167,0.692,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["attack blaze","retreat"],"t":1791130714900}
+{"event":"skill_start","skill":"attack blaze","trigger":"reflex_fight","t":1791130714900}
+{"event":"skill_end","skill":"attack blaze","ok":false,"code":"NOT_FOUND","detail":"no reachable blaze in sight","seconds":0.0,"t":1791130714900}
+{"layer":"tactician","gs":63,"brain":"rules","trigger":"skill_failed","goal":"ender_pearls","options":["attack blaze","explore enderman"],"choice":"attack blaze","x":[1.0,1.0,0.0,0.0,0.0,1.344,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.75,0.204,0.0,0.0,0.2,0.615,0.167,0.692,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["attack blaze"],"t":1791130714902}
+{"event":"skill_start","skill":"attack blaze","trigger":"skill_failed","t":1791130714902}
+{"event":"skill_end","skill":"attack blaze","ok":false,"code":"NOT_FOUND","detail":"no reachable blaze in sight","seconds":0.05,"t":1791130714930}
+{"layer":"tactician","gs":63,"brain":"rules","trigger":"skill_failed","goal":"ender_pearls","options":["attack blaze","explore enderman"],"choice":"attack blaze","x":[1.0,1.0,0.0,0.0,0.0,1.344,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.75,0.204,0.0,0.0,0.2,0.615,0.167,0.692,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["attack blaze"],"t":1791130714930}
+{"event":"skill_start","skill":"attack blaze","trigger":"skill_failed","t":1791130714931}
+{"event":"skill_end","skill":"attack blaze","ok":false,"code":"NOT_FOUND","detail":"no reachable blaze in sight","seconds":0.05,"t":1791130714953}
+{"layer":"tactician","gs":63,"brain":"rules","trigger":"skill_failed","goal":"ender_pearls","options":["explore enderman"],"choice":"explore enderman","x":[1.0,1.0,0.0,0.0,0.0,1.344,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.2,0.615,0.167,0.692,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1791130714954}
+{"event":"skill_start","skill":"explore enderman","trigger":"skill_failed","t":1791130714955}
+{"event":"skill_end","skill":"explore enderman","ok":true,"detail":"explored 119 blocks, no enderman yet","seconds":27.0,"t":1791130742999}
+{"layer":"tactician","gs":90,"brain":"rules","trigger":"skill_done","goal":"ender_pearls","options":["explore enderman"],"choice":"explore enderman","x":[1.0,1.0,0.0,0.0,0.0,1.203,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.2,0.615,0.167,0.692,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1791130743000}
+{"event":"skill_start","skill":"explore enderman","trigger":"skill_done","t":1791130743000}
+{"event":"skill_end","skill":"explore enderman","ok":true,"detail":"explored 120 blocks, no enderman yet","seconds":24.5,"t":1791130767944}
+{"layer":"tactician","gs":114,"brain":"rules","trigger":"skill_done","goal":"ender_pearls","options":["shore"],"choice":"shore","x":[1.0,1.0,0.0,0.0,0.0,0.969,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.2,0.615,0.167,0.692,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["shore"],"t":1791130767945}
+{"event":"skill_start","skill":"shore","trigger":"skill_done","t":1791130767946}
+{"event":"skill_end","skill":"shore","ok":true,"detail":"reached dry ground with room to work","seconds":1.0,"t":1791130768955}
+{"layer":"tactician","gs":115,"brain":"rules","trigger":"skill_done","goal":"ender_pearls","options":["attack cow","explore enderman"],"choice":"attack cow","x":[1.0,1.0,0.0,0.0,0.0,0.984,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.2,0.615,0.167,0.692,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1791130768956}
+{"event":"skill_start","skill":"attack cow","trigger":"skill_done","t":1791130768956}
+{"event":"skill_end","skill":"attack cow","ok":true,"detail":"killed the cow","seconds":11.45,"t":1791130780461}
+{"layer":"tactician","gs":127,"brain":"rules","trigger":"skill_done","goal":"ender_pearls","options":["attack cow","explore enderman"],"choice":"attack cow","x":[1.0,0.95,0.0,0.0,0.0,1.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.063,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.2,0.615,0.167,0.692,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1791130780462}
+{"event":"skill_start","skill":"attack cow","trigger":"skill_done","t":1791130780463}
+{"event":"skill_end","skill":"attack cow","ok":true,"detail":"killed the cow","seconds":14.25,"t":1791130794750}
+{"layer":"tactician","gs":141,"brain":"rules","trigger":"skill_done","goal":"ender_pearls","options":["attack cow","explore enderman"],"choice":"attack cow","x":[1.0,0.95,0.0,0.0,0.0,0.984,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.125,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.2,0.615,0.167,0.692,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1791130794751}
+{"event":"skill_start","skill":"attack cow","trigger":"skill_done","t":1791130794751}
+{"event":"skill_end","skill":"attack cow","ok":true,"detail":"killed the cow","seconds":14.15,"t":1791130808949}
+{"layer":"tactician","gs":155,"brain":"rules","trigger":"skill_done","goal":"ender_pearls","options":["shore"],"choice":"shore","x":[1.0,0.9,0.0,0.0,0.0,0.969,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.188,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.2,0.615,0.167,0.692,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["shore"],"t":1791130808951}
+{"event":"skill_start","skill":"shore","trigger":"skill_done","t":1791130808952}
+{"event":"skill_end","skill":"shore","ok":true,"detail":"reached dry ground with room to work","seconds":3.5,"t":1791130812461}
+{"layer":"tactician","gs":159,"brain":"rules","trigger":"skill_done","goal":"ender_pearls","options":["explore enderman"],"choice":"explore enderman","x":[1.0,0.9,0.0,0.0,0.0,0.984,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.188,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.2,0.615,0.167,0.692,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1791130812461}
+{"event":"skill_start","skill":"explore enderman","trigger":"skill_done","t":1791130812461}
+{"layer":"tactician","gs":179,"brain":"rules","trigger":"heartbeat","goal":"ender_pearls","options":["shore"],"choice":"shore","x":[1.0,0.9,0.0,0.0,0.0,0.969,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.188,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.2,0.615,0.167,0.692,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["shore"],"t":1791130832554}
+{"event":"skill_end","skill":"explore enderman","ok":false,"code":"INTERRUPTED","detail":"interrupted: brain chose shore","seconds":20.05,"t":1791130832554}
+{"event":"skill_start","skill":"shore","trigger":"heartbeat","t":1791130832555}
+{"event":"skill_end","skill":"shore","ok":true,"detail":"reached dry ground with room to work","seconds":3.0,"t":1791130835546}
+{"layer":"tactician","gs":182,"brain":"rules","trigger":"skill_done","goal":"ender_pearls","options":["explore enderman"],"choice":"explore enderman","x":[1.0,0.9,0.0,0.0,0.0,0.984,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.188,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.2,0.615,0.167,0.692,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1791130835547}
+{"event":"skill_start","skill":"explore enderman","trigger":"skill_done","t":1791130835547}
+{"event":"skill_end","skill":"explore enderman","ok":true,"detail":"explored 119 blocks, no enderman yet","seconds":24.5,"t":1791130860100}
+{"layer":"tactician","gs":206,"brain":"rules","trigger":"skill_done","goal":"ender_pearls","options":["attack pig","explore enderman"],"choice":"attack pig","x":[1.0,0.75,0.0,0.0,0.0,1.125,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.188,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.2,0.615,0.167,0.692,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1791130860101}
+{"event":"skill_start","skill":"attack pig","trigger":"skill_done","t":1791130860101}
+{"event":"skill_end","skill":"attack pig","ok":true,"detail":"killed the pig","seconds":10.45,"t":1791130870558}
+{"layer":"tactician","gs":217,"brain":"rules","trigger":"skill_done","goal":"ender_pearls","options":["eat","collect log:3","explore enderman"],"choice":"eat","x":[1.0,0.7,0.0,0.0,0.0,1.031,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.188,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.2,0.615,0.167,0.692,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["eat"],"t":1791130870561}
+{"event":"skill_start","skill":"eat","trigger":"skill_done","t":1791130870561}
+{"event":"skill_end","skill":"eat","ok":true,"detail":"ate beef","seconds":1.8,"t":1791130872346}
+{"layer":"tactician","gs":219,"brain":"rules","trigger":"skill_done","goal":"ender_pearls","options":["explore enderman"],"choice":"explore enderman","x":[1.0,0.85,0.0,0.0,0.0,1.031,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.125,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.2,0.615,0.167,0.692,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1791130872347}
+{"event":"skill_start","skill":"explore enderman","trigger":"skill_done","t":1791130872347}
+{"event":"skill_end","skill":"explore enderman","ok":true,"detail":"explored 119 blocks, no enderman yet","seconds":27.0,"t":1791130899350}
+{"layer":"tactician","gs":246,"brain":"rules","trigger":"skill_done","goal":"ender_pearls","options":["explore enderman"],"choice":"explore enderman","x":[1.0,0.8,0.0,0.0,0.0,1.063,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.125,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.2,0.615,0.167,0.692,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1791130899351}
+{"event":"skill_start","skill":"explore enderman","trigger":"skill_done","t":1791130899351}
+{"layer":"tactician","gs":266,"brain":"rules","trigger":"heartbeat","goal":"ender_pearls","options":["shore"],"choice":"shore","x":[1.0,0.75,0.0,0.0,0.0,0.969,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.125,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.2,0.615,0.167,0.692,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["shore"],"t":1791130919402}
+{"event":"skill_end","skill":"explore enderman","ok":false,"code":"INTERRUPTED","detail":"interrupted: brain chose shore","seconds":20.05,"t":1791130919402}
+{"event":"skill_start","skill":"shore","trigger":"heartbeat","t":1791130919403}
+{"event":"skill_end","skill":"shore","ok":true,"detail":"reached dry ground with room to work","seconds":11.0,"t":1791130930402}
+{"layer":"tactician","gs":277,"brain":"rules","trigger":"skill_done","goal":"ender_pearls","options":["explore enderman"],"choice":"explore enderman","x":[1.0,0.75,0.0,0.0,0.0,0.984,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.125,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.2,0.615,0.167,0.692,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1791130930402}
+{"event":"skill_start","skill":"explore enderman","trigger":"skill_done","t":1791130930403}
+{"layer":"tactician","gs":297,"brain":"rules","trigger":"heartbeat","goal":"ender_pearls","options":["eat","attack chicken","collect log:3","explore enderman"],"choice":"eat","x":[1.0,0.65,0.0,0.0,1.0,1.094,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.125,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.2,0.615,0.167,0.692,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["eat"],"t":1791130950451}
+{"event":"skill_end","skill":"explore enderman","ok":false,"code":"INTERRUPTED","detail":"interrupted: brain chose eat","seconds":20.05,"t":1791130950451}
+{"event":"skill_start","skill":"eat","trigger":"heartbeat","t":1791130950451}
+{"event":"skill_end","skill":"eat","ok":true,"detail":"ate beef","seconds":1.8,"t":1791130952249}
+{"layer":"tactician","gs":298,"brain":"rules","trigger":"skill_done","goal":"ender_pearls","options":["attack chicken","explore enderman"],"choice":"attack chicken","x":[1.0,0.8,0.0,0.0,1.0,1.094,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.063,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.2,0.615,0.167,0.692,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1791130952250}
+{"event":"skill_start","skill":"attack chicken","trigger":"skill_done","t":1791130952250}
+{"event":"skill_end","skill":"attack chicken","ok":true,"detail":"killed the chicken","seconds":8.1,"t":1791130960354}
+{"layer":"tactician","gs":307,"brain":"rules","trigger":"skill_done","goal":"ender_pearls","options":["attack pig","explore enderman"],"choice":"attack pig","x":[1.0,0.8,0.0,0.0,0.0,1.109,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.125,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.2,0.615,0.167,0.692,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1791130960355}
+{"event":"skill_start","skill":"attack pig","trigger":"skill_done","t":1791130960355}
+{"event":"skill_end","skill":"attack pig","ok":true,"detail":"killed the pig","seconds":11.35,"t":1791130971698}
+{"layer":"tactician","gs":318,"brain":"rules","trigger":"skill_done","goal":"ender_pearls","options":["attack pig","explore enderman"],"choice":"attack pig","x":[1.0,0.8,0.0,0.0,1.0,1.094,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.25,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.2,0.615,0.167,0.692,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1791130971699}
+{"event":"skill_start","skill":"attack pig","trigger":"skill_done","t":1791130971699}
+{"event":"skill_end","skill":"attack pig","ok":true,"detail":"killed the pig","seconds":10.6,"t":1791130982373}
+{"layer":"tactician","gs":329,"brain":"rules","trigger":"skill_done","goal":"ender_pearls","options":["attack pig","explore enderman"],"choice":"attack pig","x":[1.0,0.8,0.0,0.0,0.0,1.094,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.375,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.2,0.615,0.167,0.692,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1791130982374}
+{"event":"skill_start","skill":"attack pig","trigger":"skill_done","t":1791130982374}
+{"event":"skill_end","skill":"attack pig","ok":true,"detail":"killed the pig","seconds":13.25,"t":1791130995899}
+{"layer":"tactician","gs":342,"brain":"rules","trigger":"skill_done","goal":"ender_pearls","options":["explore enderman"],"choice":"explore enderman","x":[1.0,0.75,0.0,0.0,1.0,1.078,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.5,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.2,0.615,0.167,0.692,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1791130995899}
+{"event":"skill_start","skill":"explore enderman","trigger":"skill_done","t":1791130995900}
+{"layer":"tactician","gs":362,"brain":"rules","trigger":"heartbeat","goal":"ender_pearls","options":["eat","collect log:3","explore enderman"],"choice":"eat","x":[1.0,0.6,0.0,0.0,0.0,1.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.5,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.2,0.615,0.167,0.692,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["eat"],"t":1791131016623}
+{"event":"skill_end","skill":"explore enderman","ok":false,"code":"INTERRUPTED","detail":"interrupted: brain chose eat","seconds":20.05,"t":1791131016623}
+{"event":"skill_start","skill":"eat","trigger":"heartbeat","t":1791131016623}
+{"event":"skill_end","skill":"eat","ok":true,"detail":"ate beef","seconds":1.8,"t":1791131018404}
+{"layer":"tactician","gs":364,"brain":"rules","trigger":"skill_done","goal":"ender_pearls","options":["explore enderman"],"choice":"explore enderman","x":[1.0,0.75,0.0,0.0,0.0,1.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.438,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.2,0.615,0.167,0.692,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1791131018405}
+{"event":"skill_start","skill":"explore enderman","trigger":"skill_done","t":1791131018405}
+{"event":"skill_end","skill":"explore enderman","ok":true,"detail":"explored 119 blocks, no enderman yet","seconds":29.5,"t":1791131047901}
+{"layer":"tactician","gs":393,"brain":"rules","trigger":"skill_done","goal":"ender_pearls","options":["explore enderman"],"choice":"explore enderman","x":[1.0,0.75,0.0,0.0,1.0,1.078,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.438,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.2,0.615,0.167,0.692,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1791131047901}
+{"event":"skill_start","skill":"explore enderman","trigger":"skill_done","t":1791131047902}
+{"layer":"tactician","gs":413,"brain":"rules","trigger":"heartbeat","goal":"ender_pearls","options":["eat","collect log:3","explore enderman"],"choice":"eat","x":[1.0,0.6,0.0,0.0,0.0,1.109,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.438,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.2,0.615,0.167,0.692,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["eat"],"t":1791131067951}
+{"event":"skill_end","skill":"explore enderman","ok":false,"code":"INTERRUPTED","detail":"interrupted: brain chose eat","seconds":20.05,"t":1791131067951}
+{"event":"skill_start","skill":"eat","trigger":"heartbeat","t":1791131067951}
+{"event":"skill_end","skill":"eat","ok":true,"detail":"ate porkchop","seconds":1.8,"t":1791131069751}
+{"layer":"tactician","gs":415,"brain":"rules","trigger":"skill_done","goal":"ender_pearls","options":["explore enderman"],"choice":"explore enderman","x":[1.0,0.75,0.0,0.0,0.0,1.109,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.375,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.2,0.615,0.167,0.692,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1791131069751}
+{"event":"skill_start","skill":"explore enderman","trigger":"skill_done","t":1791131069752}
+{"layer":"tactician","gs":435,"brain":"rules","trigger":"heartbeat","goal":"ender_pearls","options":["shore"],"choice":"shore","x":[1.0,0.75,0.0,0.0,0.0,0.969,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.375,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.2,0.615,0.167,0.692,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["shore"],"t":1791131089801}
+{"event":"skill_end","skill":"explore enderman","ok":false,"code":"INTERRUPTED","detail":"interrupted: brain chose shore","seconds":20.05,"t":1791131089801}
+{"event":"skill_start","skill":"shore","trigger":"heartbeat","t":1791131089801}
+{"event":"skill_end","skill":"shore","ok":true,"detail":"reached dry ground with room to work","seconds":6.0,"t":1791131095807}
+{"layer":"tactician","gs":441,"brain":"rules","trigger":"skill_done","goal":"ender_pearls","options":["explore enderman"],"choice":"explore enderman","x":[1.0,0.75,0.0,0.0,0.0,0.984,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.375,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.2,0.615,0.167,0.692,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1791131095808}
+{"event":"skill_start","skill":"explore enderman","trigger":"skill_done","t":1791131095809}
+{"layer":"tactician","gs":461,"brain":"rules","trigger":"heartbeat","goal":"ender_pearls","options":["shore"],"choice":"shore","x":[1.0,0.75,0.0,0.0,0.0,0.969,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.375,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.2,0.615,0.167,0.692,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["shore"],"t":1791131115858}
+{"event":"skill_end","skill":"explore enderman","ok":false,"code":"INTERRUPTED","detail":"interrupted: brain chose shore","seconds":20.05,"t":1791131115858}
+{"event":"skill_start","skill":"shore","trigger":"heartbeat","t":1791131115858}
+{"event":"skill_end","skill":"shore","ok":true,"detail":"reached dry ground with room to work","seconds":5.5,"t":1791131121358}
+{"layer":"tactician","gs":467,"brain":"rules","trigger":"skill_done","goal":"ender_pearls","options":["explore enderman"],"choice":"explore enderman","x":[1.0,0.75,0.0,0.0,0.0,1.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.375,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.2,0.615,0.167,0.692,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1791131121359}
+{"event":"skill_start","skill":"explore enderman","trigger":"skill_done","t":1791131121359}
+{"layer":"tactician","gs":487,"brain":"rules","trigger":"heartbeat","goal":"ender_pearls","options":["eat","shore"],"choice":"eat","x":[1.0,0.65,0.0,0.0,0.0,0.969,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.375,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.2,0.615,0.167,0.692,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["eat","shore"],"t":1791131141411}
+{"event":"skill_end","skill":"explore enderman","ok":false,"code":"INTERRUPTED","detail":"interrupted: brain chose eat","seconds":20.05,"t":1791131141411}
+{"event":"skill_start","skill":"eat","trigger":"heartbeat","t":1791131141411}
+{"event":"skill_end","skill":"eat","ok":true,"detail":"ate porkchop","seconds":1.8,"t":1791131143208}
+{"layer":"tactician","gs":488,"brain":"rules","trigger":"skill_done","goal":"ender_pearls","options":["shore"],"choice":"shore","x":[1.0,0.8,0.0,0.0,1.0,0.953,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.313,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.2,0.615,0.167,0.692,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["shore"],"t":1791131143209}
+{"event":"skill_start","skill":"shore","trigger":"skill_done","t":1791131143209}
+{"event":"skill_end","skill":"shore","ok":true,"detail":"reached dry ground with room to work","seconds":3.0,"t":1791131146203}
+{"layer":"tactician","gs":491,"brain":"rules","trigger":"skill_done","goal":"ender_pearls","options":["explore enderman"],"choice":"explore enderman","x":[1.0,0.8,0.0,0.0,0.0,0.984,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.313,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.2,0.615,0.167,0.692,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1791131146203}
+{"event":"skill_start","skill":"explore enderman","trigger":"skill_done","t":1791131146204}
+{"layer":"tactician","gs":511,"brain":"rules","trigger":"heartbeat","goal":"ender_pearls","options":["shore"],"choice":"shore","x":[1.0,0.8,0.0,0.0,0.0,0.969,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.313,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.2,0.615,0.167,0.692,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["shore"],"t":1791131166260}
+{"event":"skill_end","skill":"explore enderman","ok":false,"code":"INTERRUPTED","detail":"interrupted: brain chose shore","seconds":20.05,"t":1791131166261}
+{"event":"skill_start","skill":"shore","trigger":"heartbeat","t":1791131166261}
+{"event":"skill_end","skill":"shore","ok":true,"detail":"reached dry ground with room to work","seconds":21.0,"t":1791131187260}
+{"layer":"tactician","gs":532,"brain":"rules","trigger":"skill_done","goal":"ender_pearls","options":["explore enderman"],"choice":"explore enderman","x":[1.0,0.8,0.0,0.0,0.0,0.984,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.313,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.2,0.615,0.167,0.692,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1791131187261}
+{"event":"skill_start","skill":"explore enderman","trigger":"skill_done","t":1791131187261}
+{"layer":"tactician","gs":553,"brain":"rules","trigger":"heartbeat","goal":"ender_pearls","options":["shore"],"choice":"shore","x":[1.0,0.8,0.0,0.0,0.0,0.969,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.313,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.2,0.615,0.167,0.692,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["shore"],"t":1791131207309}
+{"event":"skill_end","skill":"explore enderman","ok":false,"code":"INTERRUPTED","detail":"interrupted: brain chose shore","seconds":20.05,"t":1791131207309}
+{"event":"skill_start","skill":"shore","trigger":"heartbeat","t":1791131207310}
+{"event":"skill_end","skill":"shore","ok":true,"detail":"reached dry ground with room to work","seconds":8.0,"t":1791131215304}
+{"layer":"tactician","gs":561,"brain":"rules","trigger":"skill_done","goal":"ender_pearls","options":["explore enderman"],"choice":"explore enderman","x":[1.0,0.8,0.0,0.0,0.0,0.984,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.313,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.2,0.615,0.167,0.692,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1791131215305}
+{"event":"skill_start","skill":"explore enderman","trigger":"skill_done","t":1791131215305}
+{"layer":"tactician","gs":581,"brain":"rules","trigger":"heartbeat","goal":"ender_pearls","options":["shore"],"choice":"shore","x":[1.0,0.8,0.0,0.0,0.0,0.969,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.313,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.2,0.615,0.167,0.692,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["shore"],"t":1791131235362}
+{"event":"skill_end","skill":"explore enderman","ok":false,"code":"INTERRUPTED","detail":"interrupted: brain chose shore","seconds":20.05,"t":1791131235362}
+{"event":"skill_start","skill":"shore","trigger":"heartbeat","t":1791131235363}
+{"event":"skill_end","skill":"shore","ok":true,"detail":"reached dry ground with room to work","seconds":9.5,"t":1791131244860}
+{"layer":"tactician","gs":590,"brain":"rules","trigger":"skill_done","goal":"ender_pearls","options":["explore enderman","shelter"],"choice":"explore enderman","x":[1.0,0.8,0.0,1.0,0.0,1.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.313,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.2,0.615,0.167,0.692,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1791131244862}
+{"event":"skill_start","skill":"explore enderman","trigger":"skill_done","t":1791131244862}
+{"event":"skill_end","skill":"explore enderman","ok":true,"detail":"explored 121 blocks, no enderman yet","seconds":35.0,"t":1791131279860}
+{"layer":"tactician","gs":625,"brain":"rules","trigger":"skill_done","goal":"ender_pearls","options":["eat","attack chicken","collect log:3","explore enderman","shelter"],"choice":"eat","x":[1.0,0.65,0.0,1.0,0.0,1.109,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.313,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.2,0.615,0.167,0.692,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["eat"],"t":1791131279861}
+{"event":"skill_start","skill":"eat","trigger":"skill_done","t":1791131279861}
+{"event":"skill_end","skill":"eat","ok":true,"detail":"ate porkchop","seconds":1.8,"t":1791131281656}
+{"layer":"tactician","gs":627,"brain":"rules","trigger":"skill_done","goal":"ender_pearls","options":["attack chicken","explore enderman","shelter"],"choice":"attack chicken","x":[1.0,0.8,0.0,1.0,0.0,1.109,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.25,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.2,0.615,0.167,0.692,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1791131281657}
+{"event":"skill_start","skill":"attack chicken","trigger":"skill_done","t":1791131281657}
+{"event":"skill_end","skill":"attack chicken","ok":true,"detail":"killed the chicken","seconds":11.9,"t":1791131293561}
+{"layer":"tactician","gs":639,"brain":"rules","trigger":"skill_done","goal":"ender_pearls","options":["explore enderman","shelter"],"choice":"explore enderman","x":[1.0,0.8,0.0,1.0,0.0,0.906,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.313,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.2,0.615,0.167,0.692,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1791131293561}
+{"event":"skill_start","skill":"explore enderman","trigger":"skill_done","t":1791131293562}
+{"layer":"tactician","gs":658,"brain":"rules","trigger":"mob_near","goal":"ender_pearls","options":["attack zombie","shelter","explore enderman"],"choice":"attack zombie","x":[1.0,0.8,0.0,1.0,0.0,1.125,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.031,0.0,0.0,0.0,0.0,0.313,0.0,0.0,0.0,0.0,0.0,0.25,0.447,0.0,1.0,0.2,0.615,0.167,0.692,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["attack zombie","shelter"],"t":1791131313325}
+{"event":"skill_end","skill":"explore enderman","ok":false,"code":"INTERRUPTED","detail":"interrupted: brain chose attack zombie","seconds":19.65,"t":1791131313325}
+{"event":"skill_start","skill":"attack zombie","trigger":"mob_near","t":1791131313325}
+{"layer":"tactician","gs":661,"brain":"rules","trigger":"hurt","goal":"ender_pearls","options":["attack zombie","shelter","explore enderman"],"choice":"attack zombie","x":[0.775,0.8,0.0,1.0,0.0,1.125,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.031,0.0,0.0,0.0,0.0,0.313,0.0,0.0,0.0,0.0,0.0,1.0,0.06,0.0,1.0,0.2,0.615,0.167,0.692,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["attack zombie","shelter"],"t":1791131316223}
+{"layer":"reflex","gs":662,"brain":"rules","trigger":"reflex_creeper","goal":"ender_pearls","options":["retreat"],"choice":"retreat","x":[0.775,0.8,0.0,1.0,0.0,1.125,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.031,0.0,0.0,0.0,0.0,0.313,0.0,0.0,0.0,0.0,0.0,1.0,0.077,0.0,1.0,0.2,0.615,0.167,0.692,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["retreat"],"t":1791131316821}
+{"event":"skill_end","skill":"attack zombie","ok":false,"code":"INTERRUPTED","detail":"interrupted by reflex_creeper","seconds":3.5,"t":1791131316822}
+{"event":"skill_start","skill":"retreat","trigger":"reflex_creeper","t":1791131316822}
+{"event":"skill_end","skill":"retreat","ok":true,"detail":"got away","seconds":5.15,"t":1791131321971}
+{"layer":"tactician","gs":667,"brain":"rules","trigger":"skill_done","goal":"ender_pearls","options":["eat","shelter","explore enderman"],"choice":"eat","x":[0.218,0.75,0.0,1.0,0.0,1.125,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.031,0.0,0.0,0.0,0.0,0.313,0.0,0.0,0.0,0.0,0.0,0.0,0.988,0.0,1.0,0.2,0.615,0.167,0.692,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["eat","shelter"],"t":1791131321971}
+{"event":"skill_start","skill":"eat","trigger":"skill_done","t":1791131321972}
+{"event":"skill_end","skill":"eat","ok":true,"detail":"ate porkchop","seconds":1.8,"t":1791131323762}
+{"layer":"tactician","gs":669,"brain":"rules","trigger":"skill_done","goal":"ender_pearls","options":["shelter","explore enderman"],"choice":"shelter","x":[0.218,0.9,0.0,1.0,0.0,1.125,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.031,0.0,0.0,0.0,0.0,0.25,0.0,0.0,0.0,0.0,0.0,0.0,0.668,0.0,1.0,0.2,0.615,0.167,0.692,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["shelter"],"t":1791131323762}
+{"event":"skill_start","skill":"shelter","trigger":"skill_done","t":1791131323763}
+{"layer":"tactician","gs":671,"brain":"rules","trigger":"mob_near","goal":"ender_pearls","options":["retreat","shelter","explore enderman","pickup"],"choice":"retreat","x":[0.068,0.9,0.0,1.0,0.0,1.125,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.031,0.0,0.0,0.0,0.0,0.25,0.0,0.0,0.0,0.0,0.0,0.25,0.497,0.0,1.0,0.2,0.615,0.167,0.692,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["retreat","shelter"],"t":1791131325618}
+{"event":"skill_end","skill":"shelter","ok":false,"code":"INTERRUPTED","detail":"interrupted: brain chose retreat","seconds":1.8,"t":1791131325618}
+{"event":"skill_start","skill":"retreat","trigger":"mob_near","t":1791131325618}
+{"event":"skill_end","skill":"retreat","ok":true,"detail":"got away","seconds":3.0,"t":1791131328614}
+{"layer":"tactician","gs":674,"brain":"rules","trigger":"skill_done","goal":"ender_pearls","options":["explore enderman","pickup","shelter"],"choice":"explore enderman","x":[0.118,0.9,0.0,1.0,0.0,1.125,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.031,0.0,0.0,0.0,0.0,0.25,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.2,0.615,0.167,0.692,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1791131328614}
+{"event":"skill_start","skill":"explore enderman","trigger":"skill_done","t":1791131328614}
+{"layer":"tactician","gs":690,"brain":"rules","trigger":"mob_near","goal":"ender_pearls","options":["retreat","shelter","explore enderman"],"choice":"retreat","x":[0.168,0.75,0.0,1.0,0.0,1.078,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.031,0.0,0.0,0.0,0.0,0.25,0.0,0.0,0.0,0.0,0.0,0.25,0.493,0.0,1.0,0.2,0.615,0.167,0.692,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["retreat","shelter"],"t":1791131345163}
+{"event":"skill_end","skill":"explore enderman","ok":false,"code":"INTERRUPTED","detail":"interrupted: brain chose retreat","seconds":16.5,"t":1791131345164}
+{"event":"skill_start","skill":"retreat","trigger":"mob_near","t":1791131345164}
+{"event":"skill_end","skill":"retreat","ok":true,"detail":"got away","seconds":3.15,"t":1791131348322}
+{"layer":"tactician","gs":693,"brain":"rules","trigger":"skill_done","goal":"ender_pearls","options":["eat","shelter","attack sheep","collect log:3","explore enderman"],"choice":"eat","x":[0.168,0.7,0.0,1.0,0.0,1.078,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.031,0.0,0.0,0.0,0.0,0.25,0.0,0.0,0.0,0.0,0.0,0.0,0.958,0.0,1.0,0.2,0.615,0.167,0.692,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["eat","shelter"],"t":1791131348323}
+{"event":"skill_start","skill":"eat","trigger":"skill_done","t":1791131348323}
+{"event":"skill_end","skill":"eat","ok":true,"detail":"ate porkchop","seconds":1.8,"t":1791131350109}
+{"layer":"tactician","gs":695,"brain":"rules","trigger":"skill_done","goal":"ender_pearls","options":["eat","shelter","attack sheep","explore enderman"],"choice":"eat","x":[0.168,0.85,0.0,1.0,0.0,1.078,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.031,0.0,0.0,0.0,0.0,0.188,0.0,0.0,0.0,0.0,0.0,0.0,0.88,0.0,1.0,0.2,0.615,0.167,0.692,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["eat","shelter"],"t":1791131350110}
+{"event":"skill_start","skill":"eat","trigger":"skill_done","t":1791131350110}
+{"event":"skill_end","skill":"eat","ok":true,"detail":"ate porkchop","seconds":1.8,"t":1791131351907}
+{"layer":"tactician","gs":697,"brain":"rules","trigger":"skill_done","goal":"ender_pearls","options":["retreat","shelter","explore enderman"],"choice":"retreat","x":[0.168,1.0,0.0,1.0,0.0,1.078,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.031,0.0,0.0,0.0,0.0,0.125,0.0,0.0,0.0,0.0,0.0,0.0,0.55,0.0,1.0,0.2,0.615,0.167,0.692,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["retreat","shelter"],"t":1791131351908}
+{"event":"skill_start","skill":"retreat","trigger":"skill_done","t":1791131351908}
+{"event":"skill_end","skill":"retreat","ok":true,"detail":"got away","seconds":3.25,"t":1791131355157}
+{"layer":"tactician","gs":700,"brain":"rules","trigger":"skill_done","goal":"ender_pearls","options":["shelter","attack sheep","explore enderman"],"choice":"shelter","x":[0.273,1.0,0.0,1.0,0.0,1.094,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.031,0.0,0.0,0.0,0.0,0.125,0.0,0.0,0.0,0.0,0.0,0.0,0.853,0.0,1.0,0.2,0.615,0.167,0.692,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["shelter"],"t":1791131355158}
+{"event":"skill_start","skill":"shelter","trigger":"skill_done","t":1791131355158}
+{"layer":"reflex","gs":706,"brain":"rules","trigger":"reflex_creeper","goal":"ender_pearls","options":["retreat"],"choice":"retreat","x":[0.338,0.95,0.0,1.0,0.0,1.063,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.094,0.0,0.0,0.0,0.0,0.125,0.0,0.0,0.0,0.0,0.0,0.25,0.175,0.0,1.0,0.2,0.615,0.167,0.692,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["retreat"],"t":1791131360907}
+{"event":"skill_end","skill":"shelter","ok":false,"code":"INTERRUPTED","detail":"interrupted by reflex_creeper","seconds":5.75,"t":1791131360907}
+{"event":"skill_start","skill":"retreat","trigger":"reflex_creeper","t":1791131360907}
+{"event":"skill_end","skill":"retreat","ok":false,"code":"DIED","detail":"died","seconds":3.2,"t":1791131364108}
+{"event":"death","detail":"explosion.player:creeper","t":1791131364108}
+{"layer":"tactician","gs":712,"brain":"rules","trigger":"idle","goal":"ender_pearls","options":["explore enderman","shelter"],"choice":"explore enderman","x":[1.0,1.0,0.0,1.0,0.0,1.344,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.4,0.615,0.167,0.692,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1791131367160}
+{"event":"skill_start","skill":"explore enderman","trigger":"idle","t":1791131367161}
+{"layer":"tactician","gs":736,"brain":"rules","trigger":"mob_near","goal":"ender_pearls","options":["attack zombie","shelter","explore enderman"],"choice":"attack zombie","x":[1.0,1.0,0.0,1.0,0.0,1.125,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.5,0.422,0.0,1.0,0.4,0.615,0.167,0.692,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["attack zombie","shelter"],"t":1791131390924}
+{"event":"skill_end","skill":"explore enderman","ok":false,"code":"INTERRUPTED","detail":"interrupted: brain chose attack zombie","seconds":23.5,"t":1791131390924}
+{"event":"skill_start","skill":"attack zombie","trigger":"mob_near","t":1791131390924}
+{"layer":"tactician","gs":738,"brain":"rules","trigger":"hurt","goal":"ender_pearls","options":["attack spider","shelter","explore enderman"],"choice":"attack spider","x":[0.8,1.0,0.0,1.0,0.0,1.141,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.5,0.068,0.0,1.0,0.4,0.615,0.167,0.692,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["attack spider","shelter"],"t":1791131393071}
+{"event":"skill_end","skill":"attack zombie","ok":false,"code":"INTERRUPTED","detail":"interrupted: brain chose attack spider","seconds":2.15,"t":1791131393071}
+{"event":"skill_start","skill":"attack spider","trigger":"hurt","t":1791131393071}
+{"layer":"tactician","gs":740,"brain":"rules","trigger":"hurt","goal":"ender_pearls","options":["attack zombie","shelter","explore enderman"],"choice":"attack zombie","x":[0.6,1.0,0.0,1.0,0.0,1.141,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.5,0.116,0.0,1.0,0.4,0.615,0.167,0.692,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["attack zombie","shelter"],"t":1791131395182}
+{"event":"skill_end","skill":"attack spider","ok":false,"code":"INTERRUPTED","detail":"interrupted: brain chose attack zombie","seconds":2.1,"t":1791131395182}
+{"event":"skill_start","skill":"attack zombie","trigger":"hurt","t":1791131395182}
+{"layer":"tactician","gs":742,"brain":"rules","trigger":"hurt","goal":"ender_pearls","options":["attack spider","shelter","explore enderman"],"choice":"attack spider","x":[0.4,1.0,0.0,1.0,0.0,1.141,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.5,0.1,0.0,1.0,0.4,0.615,0.167,0.692,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["attack spider","shelter"],"t":1791131397515}
+{"event":"skill_end","skill":"attack zombie","ok":false,"code":"INTERRUPTED","detail":"interrupted: brain chose attack spider","seconds":2.35,"t":1791131397516}
+{"event":"skill_start","skill":"attack spider","trigger":"hurt","t":1791131397516}
+{"layer":"reflex","gs":743,"brain":"rules","trigger":"reflex_low_hp","goal":"ender_pearls","options":["retreat","attack zombie"],"choice":"retreat","x":[0.275,1.0,0.0,1.0,0.0,1.141,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.5,0.13,0.0,1.0,0.4,0.615,0.167,0.692,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["retreat","attack zombie"],"t":1791131398623}
+{"event":"skill_end","skill":"attack spider","ok":false,"code":"INTERRUPTED","detail":"interrupted by reflex_low_hp","seconds":1.1,"t":1791131398623}
+{"event":"skill_start","skill":"retreat","trigger":"reflex_low_hp","t":1791131398623}
+{"event":"skill_end","skill":"retreat","ok":true,"detail":"got away","seconds":5.1,"t":1791131403791}
+{"layer":"tactician","gs":748,"brain":"rules","trigger":"skill_done","goal":"ender_pearls","options":["shelter","explore enderman"],"choice":"shelter","x":[0.275,0.85,0.0,1.0,0.0,1.156,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.682,0.0,1.0,0.4,0.615,0.167,0.692,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["shelter"],"t":1791131403792}
+{"event":"skill_start","skill":"shelter","trigger":"skill_done","t":1791131403792}
+{"layer":"tactician","gs":749,"brain":"rules","trigger":"mob_near","goal":"ender_pearls","options":["retreat","shelter","explore enderman"],"choice":"retreat","x":[0.275,0.85,0.0,1.0,0.0,1.156,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.25,0.485,0.0,1.0,0.4,0.615,0.167,0.692,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["retreat","shelter"],"t":1791131404760}
+{"event":"skill_end","skill":"shelter","ok":false,"code":"INTERRUPTED","detail":"interrupted: brain chose retreat","seconds":0.95,"t":1791131404760}
+{"event":"skill_start","skill":"retreat","trigger":"mob_near","t":1791131404761}
+{"event":"skill_end","skill":"retreat","ok":true,"detail":"got away","seconds":3.25,"t":1791131408013}
+{"layer":"tactician","gs":753,"brain":"rules","trigger":"skill_done","goal":"ender_pearls","options":["shelter","explore enderman"],"choice":"shelter","x":[0.275,0.8,0.0,1.0,0.0,1.156,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.031,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.982,0.0,1.0,0.4,0.615,0.167,0.692,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["shelter"],"t":1791131408013}
+{"event":"skill_start","skill":"shelter","trigger":"skill_done","t":1791131408014}
+{"layer":"tactician","gs":755,"brain":"rules","trigger":"mob_near","goal":"ender_pearls","options":["retreat","shelter","explore enderman"],"choice":"retreat","x":[0.275,0.8,0.0,1.0,0.0,1.141,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.063,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.25,0.445,0.0,1.0,0.4,0.615,0.167,0.692,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["retreat","shelter"],"t":1791131410268}
+{"event":"skill_end","skill":"shelter","ok":false,"code":"INTERRUPTED","detail":"interrupted: brain chose retreat","seconds":2.25,"t":1791131410268}
+{"event":"skill_start","skill":"retreat","trigger":"mob_near","t":1791131410268}
+{"layer":"tactician","gs":755,"brain":"rules","trigger":"mob_near","goal":"ender_pearls","options":["retreat","shelter","explore enderman","pickup"],"choice":"retreat","x":[0.275,0.8,0.0,1.0,0.0,1.125,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.063,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.25,0.35,0.0,1.0,0.4,0.615,0.167,0.692,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["retreat","shelter"],"t":1791131410769}
+{"layer":"reflex","gs":756,"brain":"rules","trigger":"reflex_fight","goal":"ender_pearls","options":["attack spider","retreat"],"choice":"attack spider","x":[0.275,0.8,0.0,1.0,0.0,1.125,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.094,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.25,0.201,0.0,1.0,0.4,0.615,0.167,0.692,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["attack spider","retreat"],"t":1791131411511}
+{"event":"skill_end","skill":"retreat","ok":false,"code":"INTERRUPTED","detail":"interrupted by reflex_fight","seconds":1.25,"t":1791131411511}
+{"event":"skill_start","skill":"attack spider","trigger":"reflex_fight","t":1791131411511}
+{"event":"skill_end","skill":"attack spider","ok":false,"code":"DIED","detail":"died","seconds":8.55,"t":1791131420059}
+{"event":"death","detail":"mob:zombie","t":1791131420059}
+{"layer":"reflex","gs":768,"brain":"rules","trigger":"reflex_fight","goal":"ender_pearls","options":["attack zombie","retreat"],"choice":"attack zombie","x":[1.0,1.0,0.0,1.0,0.0,1.344,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.5,0.035,0.0,1.0,0.6,0.615,0.167,0.692,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["attack zombie","retreat"],"t":1791131423124}
+{"event":"skill_start","skill":"attack zombie","trigger":"reflex_fight","t":1791131423125}
+{"event":"skill_end","skill":"attack zombie","ok":false,"code":"NOT_FOUND","detail":"no reachable zombie in sight","seconds":0.0,"t":1791131423125}
+{"layer":"tactician","gs":768,"brain":"rules","trigger":"skill_failed","goal":"ender_pearls","options":["attack zombie","shelter","explore enderman"],"choice":"attack zombie","x":[1.0,1.0,0.0,1.0,0.0,1.344,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.5,0.035,0.0,1.0,0.6,0.615,0.167,0.692,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["attack zombie","shelter"],"t":1791131423125}
+{"event":"skill_start","skill":"attack zombie","trigger":"skill_failed","t":1791131423125}
+{"event":"skill_end","skill":"attack zombie","ok":false,"code":"NOT_FOUND","detail":"no reachable zombie in sight","seconds":0.05,"t":1791131423191}
+{"layer":"tactician","gs":768,"brain":"rules","trigger":"skill_failed","goal":"ender_pearls","options":["attack zombie","shelter","explore enderman"],"choice":"attack zombie","x":[1.0,1.0,0.0,1.0,0.0,1.344,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.5,0.035,0.0,1.0,0.6,0.615,0.167,0.692,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["attack zombie","shelter"],"t":1791131423192}
+{"event":"skill_start","skill":"attack zombie","trigger":"skill_failed","t":1791131423192}
+{"event":"skill_end","skill":"attack zombie","ok":false,"code":"NOT_FOUND","detail":"no reachable zombie in sight","seconds":0.05,"t":1791131423216}
+{"layer":"tactician","gs":768,"brain":"rules","trigger":"skill_failed","goal":"ender_pearls","options":["shelter","explore enderman"],"choice":"shelter","x":[1.0,1.0,0.0,1.0,0.0,1.344,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.5,0.035,0.0,1.0,0.6,0.615,0.167,0.692,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["shelter"],"t":1791131423221}
+{"event":"skill_start","skill":"shelter","trigger":"skill_failed","t":1791131423221}
+{"event":"skill_end","skill":"shelter","ok":true,"detail":"it\u0027s morning; climbed out","seconds":324.75,"t":1791131747967}
+{"layer":"tactician","gs":1093,"brain":"rules","trigger":"skill_done","goal":"ender_pearls","options":["goto surface","explore enderman"],"choice":"goto surface","x":[1.0,1.0,0.0,0.0,0.0,1.297,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.063,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.6,0.615,0.167,0.692,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1791131747968}
+{"event":"skill_start","skill":"goto surface","trigger":"skill_done","t":1791131747968}
+{"event":"skill_end","skill":"goto surface","ok":true,"detail":"already under open sky","seconds":0.05,"t":1791131748021}
+{"layer":"tactician","gs":1093,"brain":"rules","trigger":"skill_done","goal":"ender_pearls","options":["explore enderman","pickup"],"choice":"explore enderman","x":[1.0,1.0,0.0,0.0,0.0,1.297,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.063,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.6,0.615,0.167,0.692,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1791131748021}
+{"event":"skill_start","skill":"explore enderman","trigger":"skill_done","t":1791131748022}
+{"event":"skill_end","skill":"explore enderman","ok":true,"detail":"explored 119 blocks, no enderman yet","seconds":29.5,"t":1791131777528}
+{"layer":"tactician","gs":1122,"brain":"rules","trigger":"skill_done","goal":"ender_pearls","options":["explore enderman"],"choice":"explore enderman","x":[1.0,1.0,0.0,0.0,0.0,1.25,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.156,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.6,0.615,0.167,0.692,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1791131777529}
+{"event":"skill_start","skill":"explore enderman","trigger":"skill_done","t":1791131777529}
+{"event":"skill_end","skill":"explore enderman","ok":true,"detail":"explored 119 blocks, no enderman yet","seconds":25.0,"t":1791131802574}
+{"layer":"tactician","gs":1147,"brain":"rules","trigger":"skill_done","goal":"ender_pearls","options":["explore enderman"],"choice":"explore enderman","x":[1.0,0.95,0.0,0.0,0.0,1.031,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.156,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.6,0.615,0.167,0.692,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1791131802574}
+{"event":"skill_start","skill":"explore enderman","trigger":"skill_done","t":1791131802574}
+{"event":"skill_end","skill":"explore enderman","ok":true,"detail":"explored 119 blocks, no enderman yet","seconds":41.0,"t":1791131843627}
+{"layer":"tactician","gs":1188,"brain":"rules","trigger":"skill_done","goal":"ender_pearls","options":["explore enderman"],"choice":"explore enderman","x":[1.0,0.85,0.0,0.0,0.0,1.641,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.094,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.6,0.615,0.167,0.692,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1791131843627}
+{"event":"skill_start","skill":"explore enderman","trigger":"skill_done","t":1791131843628}
+{"event":"skill_end","skill":"explore enderman","ok":false,"code":"INTERRUPTED","detail":"test finished","seconds":11.45,"t":1791131855089}
+{"event":"autopilot_off","detail":"test finished","t":1791131855090}
