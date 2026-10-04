@@ -2860,7 +2860,7 @@
   "2026-10-01": 24,
   "2026-10-02": 23,
   "2026-10-03": 23,
-  "2026-10-04": 12
+  "2026-10-04": 13
  },
  "evolve_days": {
   "2026-09-27": 1,
@@ -3140,7 +3140,7 @@
    "result": "racing"
   }
  ],
- "gen": 177,
+ "gen": 178,
  "gene_specs": {
   "bed.table_first": {
    "def": 0.0,
@@ -15150,6 +15150,86 @@
    ],
    "parent": "g159",
    "status": "rejected"
+  },
+  "g172": {
+   "born": 178,
+   "code": {
+    "base": "edb493ed02bb044d7f07cd0165be5e40c56c1f03",
+    "branch": "evolve/g167",
+    "files": [
+     "mod/src/main/java/io/github/plrlr/autopilot/skills/CollectSkill.java"
+    ],
+    "sha": "71051cc5486ae6cc85c1c219a889a65f2aaf0596",
+    "summary": "After a flint collect fails NO_ROOM (no flat spot to place gravel), the next flint collect mines seen gravel blocks in the world directly (10% flint each), breaking the collect flint NO_ROOM / explore gravel ALREADY_DONE loop."
+   },
+   "evals": [],
+   "genes": {
+    "combat.creeper_hit": 1.0,
+    "combat.ignore_walled_mobs": 1.0,
+    "combat.shield_guard": 1.0,
+    "death.recover_night_armor": 12.0,
+    "focus.commit": 1.0,
+    "gear.sword_early": 1.0,
+    "move.shore_first": 1.0,
+    "nav.mob_avoid_radius": 7.0,
+    "nav.surface_v2": 1.0,
+    "nav.unstuck_v2": 1.0,
+    "night.shelter_exit": 1.0,
+    "night.wall_in": 1.0,
+    "plan.hide_hp": 15.0,
+    "plan.readiness": 1.0,
+    "portal.prepare_work_area": 1.0,
+    "portal.reserve_lava_bucket": 1.0,
+    "route.armor_before_portal": 1.0,
+    "skill.boat_cross": 1.0,
+    "skill.enderman_warped": 1.0,
+    "skill.portal_repair": 1.0,
+    "skill.ruined_portal": 1.0,
+    "stuck.item_progress": 1.0
+   },
+   "id": "g172",
+   "mutated": [
+    "skill.boat_cross",
+    "nav.mob_avoid_radius"
+   ],
+   "note": "skill.boat_cross 1, nav.mob_avoid_radius 7",
+   "pairs": [],
+   "parent": "g167",
+   "status": "contender"
+  },
+  "g173": {
+   "born": 178,
+   "code": null,
+   "evals": [],
+   "genes": {
+    "combat.creeper_hit": 1.0,
+    "combat.ignore_walled_mobs": 1.0,
+    "combat.shield_guard": 1.0,
+    "death.recover_night_armor": 12.0,
+    "focus.commit": 1.0,
+    "gear.sword_early": 1.0,
+    "move.shore_first": 1.0,
+    "nav.surface_v2": 1.0,
+    "nav.unstuck_v2": 1.0,
+    "night.shelter_exit": 1.0,
+    "night.wall_in": 1.0,
+    "plan.hide_hp": 15.0,
+    "plan.readiness": 1.0,
+    "portal.prepare_work_area": 1.0,
+    "route.armor_before_portal": 1.0,
+    "skill.enderman_warped": 1.0,
+    "skill.portal_repair": 1.0,
+    "skill.ruined_portal": 1.0,
+    "stuck.item_progress": 1.0
+   },
+   "id": "g173",
+   "mutated": [
+    "portal.reserve_lava_bucket"
+   ],
+   "note": "portal.reserve_lava_bucket 0",
+   "pairs": [],
+   "parent": "g159",
+   "status": "contender"
   },
   "g18": {
    "born": 20,
@@ -30459,8 +30539,87 @@
   "mean_gap_ok": -0.7552,
   "n": 1005
  },
- "next_id": 172,
- "pending": null,
+ "next_id": 174,
+ "pending": {
+  "data_tasks": [
+   {
+    "kind": "natural",
+    "seed": "D178-7en4tc",
+    "stage": "spawn",
+    "synthetic": false
+   },
+   {
+    "kind": "natural",
+    "seed": "D178-nwm5fp",
+    "stage": "spawn",
+    "synthetic": false
+   }
+  ],
+  "gen": 178,
+  "lineup": [
+   "g159",
+   "g167",
+   "g172",
+   "g173"
+  ],
+  "runs": [
+   "eval-g159-0",
+   "eval-g159-1",
+   "eval-g159-2",
+   "eval-g159-3",
+   "eval-g167-0",
+   "eval-g167-1",
+   "eval-g167-2",
+   "eval-g167-3",
+   "eval-g172-0",
+   "eval-g172-1",
+   "eval-g172-2",
+   "eval-g172-3",
+   "eval-g173-0",
+   "eval-g173-1",
+   "eval-g173-2",
+   "eval-g173-3",
+   "data-g159-0",
+   "data-g159-1"
+  ],
+  "seeds": [
+   "L178-w4bbgz",
+   "L178-96ectz",
+   "L178-ga6s35",
+   "L178-syxuxv"
+  ],
+  "sha": "edb493ed02bb044d7f07cd0165be5e40c56c1f03",
+  "started": "2026-10-04T15:26:18+00:00",
+  "tasks": [
+   {
+    "kind": "natural",
+    "seed": "L178-w4bbgz",
+    "stage": "spawn",
+    "synthetic": false
+   },
+   {
+    "kind": "natural",
+    "seed": "L178-96ectz",
+    "stage": "spawn",
+    "synthetic": false
+   },
+   {
+    "asset": "nether-gen167-eval-g155-0.zip",
+    "kind": "start",
+    "seed": "L178-ga6s35",
+    "stage": "nether",
+    "synthetic": false
+   },
+   {
+    "kind": "combat",
+    "minutes": 10,
+    "scenario": "combat",
+    "seed": "L178-syxuxv",
+    "stage": "combat",
+    "synthetic": false
+   }
+  ]
+ },
  "race_evidence_version": 1,
  "score_version": 3,
  "settings": {
