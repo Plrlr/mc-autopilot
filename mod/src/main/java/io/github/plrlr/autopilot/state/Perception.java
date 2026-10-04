@@ -46,7 +46,8 @@ public final class Perception {
 			// the local trial night2 was hit to death by one the reflexes ignored (2026-09-29).
 			boolean angryEnderman = e instanceof net.minecraft.world.entity.monster.Enderman em && em.isCreepy()
 					&& io.github.plrlr.autopilot.Tune.on("safety.enderman_gaze");
-			boolean hostile = e instanceof Enemy && (!NEUTRAL.contains(type) || angryEnderman)
+			boolean angryPiglin = angryPiglin(e, type, d);
+			boolean hostile = e instanceof Enemy && (!NEUTRAL.contains(type) || angryEnderman || angryPiglin)
 					&& !(d > 4 && io.github.plrlr.autopilot.skills.CombatSkills.unreachable(e))
 					&& !io.github.plrlr.autopilot.skills.CombatSkills.walled(e)
 					&& !(type.equals("creeper") && !Mc.canSee(e));
@@ -55,6 +56,29 @@ public final class Perception {
 		p.mobs.sort(Comparator.comparingDouble(Seen::dist));
 		p.items.sort(Comparator.comparingDouble(i -> i.distanceTo(pl)));
 		return p;
+	}
+
+	/**
+	 * Gene nether.piglin_threat. All three piglin kinds were neutral here, so a piglin hitting us was
+	 * never fought or fled: ordinary piglins made 66 of 172 first deaths in the Oct 4 audit's Nether
+	 * games. A piglin (or zombified piglin) coming for us shows it: the attack pose, arms up with a
+	 * weapon or a crossbow raised (the mob's synced aggressive flag, set while it has an attack
+	 * target: PiglinAi.updateActivity). A brute attacks a player whatever they wear, gold included.
+	 */
+	private static boolean angryPiglin(Entity e, String type, double d) {
+		boolean aggressive = e instanceof net.minecraft.world.entity.Mob m && m.isAggressive();
+		if (!piglinThreat(type, aggressive)) return false;
+		return io.github.plrlr.autopilot.Exposure.mark("nether.piglin_threat",
+				type + (aggressive ? " in attack pose" : "") + " at " + Math.round(d));
+	}
+
+	/** Which piglins are a threat (pure, for unit tests): brutes always, the others in attack pose. */
+	public static boolean piglinThreat(String type, boolean aggressive) {
+		return switch (type) {
+			case "piglin_brute" -> true;
+			case "piglin", "zombified_piglin" -> aggressive;
+			default -> false;
+		};
 	}
 
 	public Seen nearest(String type) {
