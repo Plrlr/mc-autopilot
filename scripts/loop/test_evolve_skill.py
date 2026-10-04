@@ -35,7 +35,7 @@ def test_the_target_is_a_lasting_costly_failure():
             write_gen(d, g, fails)
         with patch.object(evolve_skill, "existing_targets", return_value=set()):
             t = evolve_skill.pick_target({}, d)
-            assert t["name"] == "explore:any HAZARD" and t["metric"] == "ok:explore" and t["persistent"], t
+            assert t["name"] == "explore:any HAZARD" and t["metric"] == "resolve:explore:HAZARD" and t["persistent"], t
             assert evolve_skill.pick_target({}, d, strict=False)["name"] == "goto:surface TIMEOUT"
             lost = {"skill_attempts": [{"gen": 1, "gid": "g9", "skill": "x", "target": "explore:any HAZARD",
                                         "result": "drill failed: z -2"}]}

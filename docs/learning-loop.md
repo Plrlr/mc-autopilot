@@ -70,8 +70,13 @@ learns a new skill" means three steps, each by a different part:
 2. *The race keeps it.* Its branch `evolve/<id>` is drilled by trials.yml with drill.py's plan (3
    starts with and without the gene; trials.yml's unit-tests job is pr-check's Java check again). A
    PASS makes it a contender: it races first, as the champion plus its gene, replayed on each
-   generation's main, judged by the metric of the failure it targets (e.g. `ok:explore`) with the
-   whole-game score as a safety check. A winner is merged into main like any code change.
+   generation's main, judged by whether the failure it targets gets fixed (e.g.
+   `resolve:shore:TIMEOUT+swim_out`: the share of shore timeouts followed by an ok shore or swim_out
+   within 3 minutes), world by world, with the whole-game score as a safety check. A winner is
+   merged into main like any code change. It must run to be judged (since 2026-10-04): a skill
+   never offered and started in its drill is INCONCLUSIVE and doesn't race, and in the race one that
+   acted in no game leaves as inconclusive (g164's swim_out "passed" its drill on `ok:shore`, which
+   measured shore itself: the shore phase returned before evolved offers were asked).
 3. *The brain learns when to use it.* Its option carries its own action key, so the neural brain
    grows a head for it once it has rows (data runs try it on purpose) and can re-rank it against
    the rules' order when `learned.weight` wins its race. EvolvedSkills also benches a skill for a

@@ -153,6 +153,8 @@ def attempts_text(st):
         d = [p[2] for p in g["pairs"]]
         result = {"champion": "WON: became champion, merged", "contender": "still racing",
                   "rejected": "lost"}.get(g["status"], g["status"])
+        if g.get("inconclusive"):
+            result = "INCONCLUSIVE, never acted (%s): no evidence it helps or hurts" % g["inconclusive"]
         if d:
             result += " (%+.2f over %d worlds)" % (common.mean(d), len(d))
         lines.append("- gen %d %s: %s -> %s" % (g["born"], g["id"], (c or {}).get("summary", g["note"]), result))
