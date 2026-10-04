@@ -2860,7 +2860,7 @@
   "2026-10-01": 24,
   "2026-10-02": 23,
   "2026-10-03": 23,
-  "2026-10-04": 11
+  "2026-10-04": 12
  },
  "evolve_days": {
   "2026-09-27": 1,
@@ -3140,7 +3140,7 @@
    "result": "racing"
   }
  ],
- "gen": 176,
+ "gen": 177,
  "gene_specs": {
   "bed.table_first": {
    "def": 0.0,
@@ -14930,6 +14930,82 @@
    "pairs": [],
    "parent": "g10",
    "status": "rejected"
+  },
+  "g170": {
+   "born": 177,
+   "code": null,
+   "evals": [],
+   "genes": {
+    "combat.creeper_hit": 1.0,
+    "combat.ignore_walled_mobs": 1.0,
+    "combat.shield_guard": 1.0,
+    "death.recover_night_armor": 12.0,
+    "focus.commit": 1.0,
+    "gear.sword_early": 1.0,
+    "move.shore_first": 1.0,
+    "nav.surface_v2": 1.0,
+    "nav.unstuck_v2": 1.0,
+    "night.shelter_exit": 1.0,
+    "night.wall_in": 1.0,
+    "plan.hide_hp": 15.0,
+    "plan.readiness": 1.0,
+    "portal.prepare_work_area": 1.0,
+    "portal.reserve_lava_bucket": 1.0,
+    "route.armor_before_portal": 1.0,
+    "skill.drain_tunnel": 1.0,
+    "skill.enderman_warped": 1.0,
+    "skill.portal_repair": 1.0,
+    "skill.ruined_portal": 1.0,
+    "stuck.item_progress": 1.0
+   },
+   "id": "g170",
+   "mutated": [
+    "skill.drain_tunnel"
+   ],
+   "note": "skill.drain_tunnel 1",
+   "pairs": [],
+   "parent": "g159",
+   "status": "contender"
+  },
+  "g171": {
+   "born": 177,
+   "code": null,
+   "evals": [],
+   "genes": {
+    "bed.table_first": 1.0,
+    "combat.creeper_hit": 1.0,
+    "combat.ignore_walled_mobs": 1.0,
+    "combat.shield_guard": 1.0,
+    "death.recover_night_armor": 12.0,
+    "focus.commit": 1.0,
+    "gear.sword_early": 1.0,
+    "move.shore_first": 1.0,
+    "nav.surface_v2": 1.0,
+    "nav.unstuck_v2": 1.0,
+    "night.shelter_exit": 1.0,
+    "night.wall_in": 1.0,
+    "plan.hide_hp": 15.0,
+    "plan.readiness": 1.0,
+    "portal.prepare_work_area": 1.0,
+    "portal.reserve_lava_bucket": 1.0,
+    "route.armor_before_portal": 1.0,
+    "route.deep_for_lava": 0.0,
+    "skill.enderman_warped": 1.0,
+    "skill.portal_repair": 1.0,
+    "skill.recover_items": 1.0,
+    "skill.ruined_portal": 1.0,
+    "stuck.item_progress": 1.0
+   },
+   "id": "g171",
+   "mutated": [
+    "route.deep_for_lava",
+    "skill.recover_items",
+    "bed.table_first"
+   ],
+   "note": "route.deep_for_lava 0, skill.recover_items 1, bed.table_first 1",
+   "pairs": [],
+   "parent": "g159",
+   "status": "contender"
   },
   "g18": {
    "born": 20,
@@ -30239,8 +30315,87 @@
   "mean_gap_ok": -0.2792,
   "n": 1005
  },
- "next_id": 170,
- "pending": null,
+ "next_id": 172,
+ "pending": {
+  "data_tasks": [
+   {
+    "kind": "natural",
+    "seed": "D177-djtwfv",
+    "stage": "spawn",
+    "synthetic": false
+   },
+   {
+    "kind": "natural",
+    "seed": "D177-zaxd6b",
+    "stage": "spawn",
+    "synthetic": false
+   }
+  ],
+  "gen": 177,
+  "lineup": [
+   "g159",
+   "g167",
+   "g170",
+   "g171"
+  ],
+  "runs": [
+   "eval-g159-0",
+   "eval-g159-1",
+   "eval-g159-2",
+   "eval-g159-3",
+   "eval-g167-0",
+   "eval-g167-1",
+   "eval-g167-2",
+   "eval-g167-3",
+   "eval-g170-0",
+   "eval-g170-1",
+   "eval-g170-2",
+   "eval-g170-3",
+   "eval-g171-0",
+   "eval-g171-1",
+   "eval-g171-2",
+   "eval-g171-3",
+   "data-g159-0",
+   "data-g159-1"
+  ],
+  "seeds": [
+   "L177-bz9m8f",
+   "L177-wqh436",
+   "L177-jg7tya",
+   "L177-y8u4xt"
+  ],
+  "sha": "edb493ed02bb044d7f07cd0165be5e40c56c1f03",
+  "started": "2026-10-04T14:13:40+00:00",
+  "tasks": [
+   {
+    "kind": "natural",
+    "seed": "L177-bz9m8f",
+    "stage": "spawn",
+    "synthetic": false
+   },
+   {
+    "kind": "natural",
+    "seed": "L177-wqh436",
+    "stage": "spawn",
+    "synthetic": false
+   },
+   {
+    "asset": "nether-gen92-eval-g56-2.zip",
+    "kind": "start",
+    "seed": "L177-jg7tya",
+    "stage": "nether",
+    "synthetic": false
+   },
+   {
+    "kind": "combat",
+    "minutes": 10,
+    "scenario": "combat",
+    "seed": "L177-y8u4xt",
+    "stage": "combat",
+    "synthetic": false
+   }
+  ]
+ },
  "race_evidence_version": 1,
  "score_version": 3,
  "settings": {
