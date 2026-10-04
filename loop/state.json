@@ -2869,7 +2869,7 @@
   "2026-10-01": 12,
   "2026-10-02": 12,
   "2026-10-03": 12,
-  "2026-10-04": 3
+  "2026-10-04": 4
  },
  "evolve_log": [
   {
@@ -3125,6 +3125,13 @@
    "gid": "g159",
    "mode": "edit",
    "result": "racing"
+  },
+  {
+   "gen": 171,
+   "gid": "g164",
+   "mode": "skill",
+   "result": "drilling",
+   "target": "shore TIMEOUT"
   }
  ],
  "gen": 171,
@@ -13864,6 +13871,66 @@
    ],
    "parent": "g161",
    "status": "contender"
+  },
+  "g164": {
+   "born": 171,
+   "code": {
+    "base": "edb493ed02bb044d7f07cd0165be5e40c56c1f03",
+    "branch": "evolve/g164",
+    "files": [
+     "mod/src/main/java/io/github/plrlr/autopilot/skills/evolved/SwimOut.java",
+     "mod/src/main/java/io/github/plrlr/autopilot/skills/evolved/EvolvedSkills.java",
+     "mod/src/main/resources/evolved-genes.json"
+    ],
+    "gene": "evolved.swim_out",
+    "kind": "skill",
+    "sha": "393c98e002aa166f31e03fa234d5cc9983fda205",
+    "skill": "swim_out",
+    "summary": "swim_out steers by hand, holding forward and jump, toward the nearest dry land the bot has seen. It is offered after shore times out or gets stuck, so the bot stops repeating 90 s shore timeouts in open water.",
+    "target": "shore TIMEOUT"
+   },
+   "drill": {
+    "gen": 171,
+    "idea": {
+     "_metric": "ok:shore",
+     "evolved.swim_out": 1
+    },
+    "run": 37187946897
+   },
+   "evals": [],
+   "genes": {
+    "combat.creeper_hit": 1.0,
+    "combat.ignore_walled_mobs": 1.0,
+    "combat.shield_guard": 1.0,
+    "death.recover_night_armor": 12.0,
+    "evolved.swim_out": 1.0,
+    "focus.commit": 1.0,
+    "gear.sword_early": 1.0,
+    "move.shore_first": 1.0,
+    "nav.surface_v2": 1.0,
+    "nav.unstuck_v2": 1.0,
+    "night.shelter_exit": 1.0,
+    "night.wall_in": 1.0,
+    "plan.hide_hp": 15.0,
+    "plan.readiness": 1.0,
+    "portal.prepare_work_area": 1.0,
+    "portal.reserve_lava_bucket": 1.0,
+    "route.armor_before_portal": 1.0,
+    "skill.enderman_warped": 1.0,
+    "skill.portal_repair": 1.0,
+    "skill.ruined_portal": 1.0,
+    "stuck.item_progress": 1.0
+   },
+   "id": "g164",
+   "metric": "ok:shore",
+   "mutated": [
+    "code",
+    "evolved.swim_out"
+   ],
+   "note": "code: new skill swim_out for shore TIMEOUT: swim_out steers by hand, holding forward and jump, toward the nearest dry land the bot has seen. It is offered after shore times out or gets stuck, so the bot stops repeating 90 s shore timeouts in open water.",
+   "pairs": [],
+   "parent": "g159",
+   "status": "drilling"
   },
   "g17": {
    "born": 19,
@@ -29232,7 +29299,8 @@
   "A retreat that starts with a monster 3-4 blocks away can't get away: the mob follows and hits our back. Fleeing only makes sense past melee range, or when we can wall in on the spot.",
   "A reflex that checks only distance keeps restarting a fight the planner has already given up on (unreachable mark). The reflex's trigger should honour the same unreachable memory, with an exception for a mob that is really in reach.",
   "When the planner's inventory test (Goal.have bucket counts filled buckets) says a step is ready but the skill's own check refuses, the skill must fix the state itself (pour out the spare water), or the planner offers the same refused step forever.",
-  "Creeper HAZARD failures happened because the attack quit as soon as it saw a lit fuse. The follow-up retreat then started 2-3 blocks from the creeper and failed with NO_PROGRESS, so backing off at once inside the attack should beat handing over to a new skill."
+  "Creeper HAZARD failures happened because the attack quit as soon as it saw a lit fuse. The follow-up retreat then started 2-3 blocks from the creeper and failed with NO_PROGRESS, so backing off at once inside the attack should beat handing over to a new skill.",
+  "Repeated shore TIMEOUTs come from a 90 s pathed swim that doesn't move the bot. After one failure, swimming by hand on the surface toward seen land (or straight ahead), and switching targets when it stalls, should beat trying the same route again."
  ],
  "merge": null,
  "model_adv_lo": -0.0368,
@@ -29249,7 +29317,7 @@
   "mean_gap_ok": -0.353,
   "n": 998
  },
- "next_id": 164,
+ "next_id": 165,
  "pending": null,
  "race_evidence_version": 1,
  "score_version": 3,
@@ -29896,6 +29964,15 @@
   "tools.diamond_pick_if_found": 0.15,
   "tools.stone_axe": 0.15
  },
+ "skill_attempts": [
+  {
+   "gen": 171,
+   "gid": "g164",
+   "result": "drilling",
+   "skill": "swim_out",
+   "target": "shore TIMEOUT"
+  }
+ ],
  "skill_stats": {
   "attack:blaze": {
    "codes": {

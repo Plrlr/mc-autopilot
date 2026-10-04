@@ -1,0 +1,24 @@
+{
+ "class_name": "SwimOut",
+ "files": [
+  {
+   "content": "package io.github.plrlr.autopilot.skills.evolved;\n\nimport io.github.plrlr.autopilot.plan.Option;\nimport io.github.plrlr.autopilot.skills.Fail;\nimport net.minecraft.core.BlockPos;\nimport net.minecraft.world.phys.Vec3;\n\nimport java.util.HashSet;\nimport java.util.Set;\n\npublic class SwimOut extends EvolvedSkill {\n\tprivate static final Set<BlockPos> BAD = new HashSet<>();\n\tprivate BlockPos target;\n\tprivate float heading;\n\tprivate double bestDist;\n\tprivate Vec3 checkPos;\n\tprivate int lastCheck;\n\tprivate int dryTicks;\n\tprivate int retargets;\n\n\tpublic static Option offer(Context c) {\n\t\tif (c.main() == null || !\"shore\".equals(c.main().skill())) return null;\n\t\tif (!\"shore\".equals(c.lastSkill())) return null;\n\t\tif (!\"TIMEOUT\".equals(c.lastCode()) && !\"STUCK\".equals(c.lastCode())) return null;\n\t\tif (Player.gameSeconds() - c.lastEndSeconds() > 120) return null;\n\t\treturn new Option(\"swim_out\", null, \"shore just failed (\" + c.lastCode() + \"): swim by hand to seen land instead of repeating it\");\n\t}\n\n\t@Override\n\tpublic String name() { return \"swim_out\"; }\n\n\t@Override\n\tprotected void start() {\n\t\ttimeoutTicks = 20 * 60;\n\t\tif (BAD.size() > 64) BAD.clear();\n\t\theading = Player.yaw();\n\t\tpickTarget();\n\t\tcheckPos = Player.pos();\n\t\tlastCheck = 0;\n\t}\n\n\tprivate void pickTarget() {\n\t\tBlockPos me = Player.feet();\n\t\tSet<BlockPos> aside = new HashSet<>(BAD);\n\t\ttarget = null;\n\t\tfor (int i = 0; i < 4; i++) {\n\t\t\tBlockPos l = memory.nearestLand(aside);\n\t\t\tif (l == null) break;\n\t\t\t// On land already (tiny island / no room): look for land further away.\n\t\t\tif (!Player.inWater() && hdist(l, me) < 6) { aside.add(l); continue; }\n\t\t\ttarget = l;\n\t\t\tbreak;\n\t\t}\n\t\tbestDist = target == null ? 0 : hdist(target, me);\n\t}\n\n\tprivate static double hdist(BlockPos a, BlockPos b) {\n\t\tdouble dx = a.getX() - b.getX(), dz = a.getZ() - b.getZ();\n\t\treturn Math.sqrt(dx * dx + dz * dz);\n\t}\n\n\t@Override\n\tprotected void tick() {\n\t\tif (!Player.inWater() && Player.onGround()) {\n\t\t\tif (++dryTicks >= 10 && (target == null || hdist(target, Player.feet()) < 4 || ticks > 100)) {\n\t\t\t\tdone(\"swam out onto dry ground at \" + Player.feet());\n\t\t\t\treturn;\n\t\t\t}\n\t\t} else dryTicks = 0;\n\n\t\tVec3 p = Player.pos();\n\t\tif (target != null) {\n\t\t\tdouble dx = target.getX() + 0.5 - p.x, dz = target.getZ() + 0.5 - p.z;\n\t\t\tif (dx * dx + dz * dz > 0.25) heading = (float) (Math.atan2(dz, dx) * 180 / Math.PI) - 90f;\n\t\t\tdouble d = Math.sqrt(dx * dx + dz * dz);\n\t\t\tif (d < 1.2 && Player.inWater()) {\n\t\t\t\t// Remembered land turned out to be water here; try another.\n\t\t\t\tBAD.add(target);\n\t\t\t\tpickTarget();\n\t\t\t}\n\t\t} else if (ticks % 40 == 0) {\n\t\t\tpickTarget();\n\t\t}\n\n\t\tPlayer.stopWalking();\n\t\tPlayer.turn(heading, Player.eyesInWater() ? -20f : 0f);\n\t\tPlayer.press(Player.Key.SPRINT, false);\n\t\tPlayer.press(Player.Key.FORWARD, true);\n\t\tPlayer.press(Player.Key.JUMP, Player.inWater() || !Player.onGround() || ticks % 10 < 3);\n\n\t\tif (ticks - lastCheck >= 160) {\n\t\t\tdouble moved = Math.hypot(p.x - checkPos.x, p.z - checkPos.z);\n\t\t\tboolean closer = target != null && hdist(target, Player.feet()) < bestDist - 2;\n\t\t\tif (target != null) bestDist = Math.min(bestDist, hdist(target, Player.feet()));\n\t\t\tif (moved < 2 || (target != null && !closer)) {\n\t\t\t\tif (++retargets > 5) { fail(Fail.STUCK, \"no swimming progress after \" + retargets + \" headings\"); return; }\n\t\t\t\tif (target != null) BAD.add(target);\n\t\t\t\tpickTarget();\n\t\t\t\tif (target == null) heading += 90f;\n\t\t\t}\n\t\t\tcheckPos = p;\n\t\t\tlastCheck = ticks;\n\t\t}\n\t}\n}\n",
+   "name": "SwimOut.java"
+  }
+ ],
+ "help": "swim_out: after shore failed, swim by hand on the surface (forward+jump) to seen land, re-targeting on stalls",
+ "lesson": "Repeated shore TIMEOUTs come from a 90 s pathed swim that doesn't move the bot. After one failure, swimming by hand on the surface toward seen land (or straight ahead), and switching targets when it stalls, should beat trying the same route again.",
+ "skill": "swim_out",
+ "summary": "swim_out steers by hand, holding forward and jump, toward the nearest dry land the bot has seen. It is offered after shore times out or gets stuck, so the bot stops repeating 90 s shore timeouts in open water.",
+ "target": {
+  "action": "shore",
+  "code": "TIMEOUT",
+  "gens": 8,
+  "metric": "ok:shore",
+  "minutes": 171.0,
+  "name": "shore TIMEOUT",
+  "persistent": true,
+  "runs": 144,
+  "tries": 114
+ }
+}
