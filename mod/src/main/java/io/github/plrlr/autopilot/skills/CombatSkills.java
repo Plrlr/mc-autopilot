@@ -193,14 +193,21 @@ public final class CombatSkills {
 			// A started fuse can finish before we land the first hit. Let the retreat reflex take over.
 			if (creeperTactic && !creeperBacking && target instanceof net.minecraft.world.entity.monster.Creeper c
 					&& c.getSwellDir() > 0) {
-				fail(Fail.HAZARD, "creeper started its fuse before the hit");
-				return;
+				// A swelling creeper stands still: walking straight back outruns the blast and
+				// past 7 blocks the fuse goes out. Handing over to a retreat lost that time.
+				if (!CombatFootwork.safe(pl, -1, 0)) {
+					fail(Fail.HAZARD, "creeper started its fuse before the hit");
+					return;
+				}
+				creeperBacking = true;
+				backingTicks = 0;
 			}
 			if (creeperTactic && creeperBacking) {
 				Bari.stop();
 				Mc.lookAt(target.getBoundingBox().getCenter());
 				CombatFootwork.releaseMovement();
-				if (dist >= Tune.get("combat.creeper_gap")) {
+				boolean lit = target instanceof net.minecraft.world.entity.monster.Creeper lc && lc.getSwellDir() > 0;
+				if (dist >= Tune.get("combat.creeper_gap") && !lit) {
 					creeperBacking = false;
 					backingTicks = 0;
 				} else if (CombatFootwork.safe(pl, -1, 0) && backingTicks++ < 40) {
