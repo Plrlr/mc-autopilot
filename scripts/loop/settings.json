@@ -9,6 +9,50 @@
  "_suggest": "Ideas to race next: each entry becomes one challenger (champion + these genes), tried once. Higher-priority suggestions go first.",
  "suggest": [
   {
+   "_note": "2026-10-04 (Claude, from all 1,735 game hours, gens 1-177: patterns.py): finish one thing at a time, like a player. 12-18% of calm decisions in spawn first lives were A->B->A flips within 30 s; the top ones were food and iron taking turns on one furnace (each pulling the other's load out), packing up the crafting table between two crafts, and explore and collect disagreeing about remembered logs. The three fixes together; each also races alone below.",
+   "smelt.own_furnace": 1,
+   "stations.pickup_last": 1,
+   "explore.same_blocks": 1,
+   "_stages": [
+    "spawn"
+   ],
+   "_exposure": {
+    "gene": [
+     "smelt.own_furnace",
+     "stations.pickup_last",
+     "explore.same_blocks"
+    ]
+   },
+   "_priority": true
+  },
+  {
+   "smelt.own_furnace": 1,
+   "_stages": [
+    "spawn"
+   ],
+   "_exposure": {
+    "gene": "smelt.own_furnace"
+   }
+  },
+  {
+   "stations.pickup_last": 1,
+   "_stages": [
+    "spawn"
+   ],
+   "_exposure": {
+    "gene": "stations.pickup_last"
+   }
+  },
+  {
+   "explore.same_blocks": 1,
+   "_stages": [
+    "spawn"
+   ],
+   "_exposure": {
+    "gene": "explore.same_blocks"
+   }
+  },
+  {
    "_note": "2026-10-04 (Claude, Oct 4 audit): Baritone dug through fortress bricks during the blaze fight despite the break penalty (gen176 eval-g159-2 carried 19 bricks). No fortress block may be broken there, so it walks bridges and doorways. Judged by rods before the first death.",
    "fortress.no_tunnel": 1,
    "_stages": [

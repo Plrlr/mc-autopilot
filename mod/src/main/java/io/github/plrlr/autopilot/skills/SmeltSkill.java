@@ -52,6 +52,39 @@ public final class SmeltSkill extends Skill {
 		return false;
 	}
 
+	/** A furnace with another output of ours cooking in it. */
+	static boolean busyWithOther(BlockPos p, String output) {
+		for (Job j : JOBS.values()) if (j.pos().equals(p) && !j.output().equals(output) && j.dim().equals(Mc.dimension())) return true;
+		return false;
+	}
+
+	/**
+	 * Gene smelt.own_furnace: true when every furnace we know nearby is cooking another load of ours
+	 * and we carry none, so a second one has to be made. Loading one output pulled the other out
+	 * ("leftovers of a different item would be smelted instead"): smelting food and iron took turns
+	 * on one furnace 4,700 times in gens 118-177 and neither load finished. A player uses two furnaces.
+	 */
+	public static boolean needSecondFurnace(io.github.plrlr.autopilot.state.WorldMemory memory, String output) {
+		if (JOBS.isEmpty() || Mc.count("furnace") > 0 || job(output) != null) return false;
+		io.github.plrlr.autopilot.state.WorldMemory.Seen near = memory.nearestStation("furnace");
+		if (near == null || !busyWithOther(near.pos(), output) || freeFurnace(memory, output) != null) return false;
+		return io.github.plrlr.autopilot.Exposure.mark("smelt.own_furnace", "the furnace is cooking another load; " + output + " needs its own");
+	}
+
+	/** The nearest known furnace in range that isn't cooking another load of ours, or null. */
+	static BlockPos freeFurnace(io.github.plrlr.autopilot.state.WorldMemory memory, String output) {
+		BlockPos me = Mc.player().blockPosition(), best = null;
+		double bd = (double) io.github.plrlr.autopilot.state.WorldMemory.STATION_RANGE * io.github.plrlr.autopilot.state.WorldMemory.STATION_RANGE;
+		for (io.github.plrlr.autopilot.state.WorldMemory.Seen s : memory.all("furnace")) {
+			double d = s.pos().distSqr(me);
+			if (d < bd && !busyWithOther(s.pos(), output)) {
+				bd = d;
+				best = s.pos();
+			}
+		}
+		return best;
+	}
+
 	public static void forgetJobs() {
 		JOBS.clear();
 	}
@@ -115,6 +148,19 @@ public final class SmeltSkill extends Skill {
 		before = Mc.count(output);
 		timeoutTicks = 20 * (40 + want * 11);
 		station = new Station("furnace", AbstractFurnaceMenu.class, memory);
+		// Gene smelt.own_furnace: never take a furnace cooking another load of ours; another one we
+		// know, or the one we carry, set down here.
+		io.github.plrlr.autopilot.state.WorldMemory.Seen near = memory.nearestStation("furnace");
+		if (near != null && busyWithOther(near.pos(), output)
+				&& io.github.plrlr.autopilot.Exposure.mark("smelt.own_furnace", "the nearest furnace is cooking another load")) {
+			BlockPos free = freeFurnace(memory, output);
+			if (free != null) station = new Station("furnace", AbstractFurnaceMenu.class, memory, free);
+			else if (Mc.count("furnace") > 0) station = Station.placing("furnace", AbstractFurnaceMenu.class, memory);
+			else {
+				fail(Fail.NEED_ITEM, "the furnace is cooking another load and there's no second one");
+				return;
+			}
+		}
 	}
 
 	@Override

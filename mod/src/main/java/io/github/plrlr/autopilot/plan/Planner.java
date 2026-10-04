@@ -89,7 +89,33 @@ public final class Planner {
 		List<Option> soFar = new ArrayList<>(urgent);
 		soFar.addAll(up);
 		up.addAll(EvolvedSkills.offers(main, soFar, memory));
-		return order(urgent, recovery, surface, up, main, extras(seen, main));
+		return packUpLast(order(urgent, recovery, surface, up, main, extras(seen, main)));
+	}
+
+	/**
+	 * Gene stations.pickup_last: take the crafting table and furnace along only after the work that
+	 * needs them. Upkeep ranked "pickup stations" above the next craft, so after a wooden pickaxe the
+	 * bot packed the table, then set it down again for the sword (craft:wooden_sword and
+	 * pickup:stations took turns 345 times in gens 118-177, with "stuck" pickups among them).
+	 */
+	static List<Option> packUpLast(List<Option> list) {
+		int pickup = -1, lastUse = -1;
+		for (int i = 0; i < list.size(); i++) {
+			Option o = list.get(i);
+			if (o.skill().equals("pickup") && "stations".equals(o.arg())) pickup = i;
+			else if (o.skill().equals("craft") || o.skill().equals("smelt")) lastUse = i;
+		}
+		if (pickup < 0 || lastUse < pickup) return list;
+		if (!io.github.plrlr.autopilot.Exposure.mark("stations.pickup_last", "packing up before " + list.get(lastUse).label())) return list;
+		return packUpAfter(list, pickup, lastUse);
+	}
+
+	/** The list with the item at `from` moved to just after `after` (pure, for unit tests). */
+	static List<Option> packUpAfter(List<Option> list, int from, int after) {
+		List<Option> out = new ArrayList<>(list);
+		Option o = out.remove(from);
+		out.add(after, o);
+		return out;
 	}
 
 	/**
