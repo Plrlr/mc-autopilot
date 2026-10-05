@@ -2683,7 +2683,7 @@
   "2026-10-02": 23,
   "2026-10-03": 23,
   "2026-10-04": 18,
-  "2026-10-05": 10
+  "2026-10-05": 11
  },
  "evolve_days": {
   "2026-09-27": 1,
@@ -2715,7 +2715,7 @@
    "result": "racing"
   }
  ],
- "gen": 193,
+ "gen": 194,
  "gene_specs": {
   "bed.table_first": {
    "def": 0.0,
@@ -26634,7 +26634,94 @@
   "n": 1063
  },
  "next_id": 184,
- "pending": null,
+ "pending": {
+  "data_tasks": [
+   {
+    "kind": "scenario",
+    "late": true,
+    "scenario": "stronghold",
+    "seed": "D194-p8a9a7",
+    "stage": "eyes",
+    "synthetic": true
+   },
+   {
+    "kind": "natural",
+    "seed": "D194-ps2t39",
+    "stage": "spawn",
+    "synthetic": false
+   }
+  ],
+  "gen": 194,
+  "lineup": [
+   "g178",
+   "g180",
+   "g182"
+  ],
+  "runs": [
+   "eval-g178-0",
+   "eval-g178-1",
+   "eval-g178-2",
+   "eval-g178-3",
+   "eval-g178-4",
+   "eval-g180-0",
+   "eval-g180-1",
+   "eval-g180-2",
+   "eval-g180-3",
+   "eval-g180-4",
+   "eval-g182-0",
+   "eval-g182-1",
+   "eval-g182-2",
+   "eval-g182-3",
+   "eval-g182-4",
+   "data-g178-0",
+   "data-g178-1"
+  ],
+  "seeds": [
+   "L194-x7s9py",
+   "L194-wk7xub",
+   "L194-4nejhn",
+   "L194-6c64w4",
+   "L194-6q5skd"
+  ],
+  "sha": "18db3a1421e3bf5079ec7262cc5a8bcd01ccda80",
+  "started": "2026-10-05T12:03:45+00:00",
+  "tasks": [
+   {
+    "kind": "natural",
+    "seed": "L194-x7s9py",
+    "stage": "spawn",
+    "synthetic": false
+   },
+   {
+    "kind": "natural",
+    "seed": "L194-wk7xub",
+    "stage": "spawn",
+    "synthetic": false
+   },
+   {
+    "asset": "nether-gen92-eval-g73-2.zip",
+    "kind": "start",
+    "seed": "L194-4nejhn",
+    "stage": "nether",
+    "synthetic": false
+   },
+   {
+    "asset": "nether-gen167-eval-g155-0.zip",
+    "kind": "start",
+    "seed": "L194-6c64w4",
+    "stage": "nether",
+    "synthetic": false
+   },
+   {
+    "kind": "combat",
+    "minutes": 10,
+    "scenario": "combat",
+    "seed": "L194-6q5skd",
+    "stage": "combat",
+    "synthetic": false
+   }
+  ]
+ },
  "race_evidence_version": 2,
  "score_since_gen": 179,
  "score_version": 4,
