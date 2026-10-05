@@ -2683,7 +2683,7 @@
   "2026-10-02": 23,
   "2026-10-03": 23,
   "2026-10-04": 18,
-  "2026-10-05": 16
+  "2026-10-05": 17
  },
  "evolve_days": {
   "2026-09-27": 1,
@@ -2715,7 +2715,7 @@
    "result": "racing"
   }
  ],
- "gen": 199,
+ "gen": 200,
  "gene_specs": {
   "bed.table_first": {
    "def": 0.0,
@@ -15258,6 +15258,95 @@
    "priority": true,
    "status": "contender"
   },
+  "g186": {
+   "born": 200,
+   "code": null,
+   "evals": [],
+   "exposure_spec": {
+    "gene": "nether.piglin_threat"
+   },
+   "focus": [
+    "nether"
+   ],
+   "genes": {
+    "combat.creeper_hit": 1.0,
+    "combat.ignore_walled_mobs": 1.0,
+    "combat.shield_guard": 1.0,
+    "death.recover_night_armor": 12.0,
+    "focus.commit": 1.0,
+    "gear.sword_early": 1.0,
+    "move.shore_first": 1.0,
+    "nav.surface_v2": 1.0,
+    "nav.unstuck_v2": 1.0,
+    "nether.piglin_threat": 1.0,
+    "night.shelter_exit": 1.0,
+    "night.wall_in": 1.0,
+    "plan.hide_hp": 15.0,
+    "plan.readiness": 1.0,
+    "portal.prepare_work_area": 1.0,
+    "portal.reserve_lava_bucket": 1.0,
+    "route.armor_before_portal": 1.0,
+    "skill.enderman_warped": 1.0,
+    "skill.portal_repair": 1.0,
+    "skill.ruined_portal": 1.0,
+    "stations.pickup_last": 1.0,
+    "stuck.item_progress": 1.0
+   },
+   "id": "g186",
+   "metric": "deaths",
+   "mutated": [
+    "nether.piglin_threat"
+   ],
+   "note": "suggested: nether.piglin_threat 1",
+   "pairs": [],
+   "parent": "g178",
+   "priority": true,
+   "status": "contender"
+  },
+  "g187": {
+   "born": 200,
+   "code": null,
+   "evals": [],
+   "exposure_spec": {
+    "gene": "ready.portal_entry"
+   },
+   "focus": [
+    "diamond"
+   ],
+   "genes": {
+    "combat.creeper_hit": 1.0,
+    "combat.ignore_walled_mobs": 1.0,
+    "combat.shield_guard": 1.0,
+    "death.recover_night_armor": 12.0,
+    "focus.commit": 1.0,
+    "gear.sword_early": 1.0,
+    "move.shore_first": 1.0,
+    "nav.surface_v2": 1.0,
+    "nav.unstuck_v2": 1.0,
+    "night.shelter_exit": 1.0,
+    "night.wall_in": 1.0,
+    "plan.hide_hp": 15.0,
+    "plan.readiness": 1.0,
+    "portal.prepare_work_area": 1.0,
+    "portal.reserve_lava_bucket": 1.0,
+    "ready.portal_entry": 1.0,
+    "route.armor_before_portal": 1.0,
+    "skill.enderman_warped": 1.0,
+    "skill.portal_repair": 1.0,
+    "skill.ruined_portal": 1.0,
+    "stations.pickup_last": 1.0,
+    "stuck.item_progress": 1.0
+   },
+   "id": "g187",
+   "mutated": [
+    "ready.portal_entry"
+   ],
+   "note": "suggested: ready.portal_entry 1",
+   "pairs": [],
+   "parent": "g178",
+   "priority": true,
+   "status": "contender"
+  },
   "g19": {
    "born": 21,
    "code": {
@@ -27510,8 +27599,106 @@
   "mean_gap_ok": -0.4872,
   "n": 1146
  },
- "next_id": 186,
- "pending": null,
+ "next_id": 188,
+ "pending": {
+  "data_tasks": [
+   {
+    "kind": "scenario",
+    "late": true,
+    "scenario": "stronghold",
+    "seed": "D200-n43nrh",
+    "stage": "eyes",
+    "synthetic": true
+   },
+   {
+    "kind": "natural",
+    "seed": "D200-kjr7ps",
+    "stage": "spawn",
+    "synthetic": false
+   }
+  ],
+  "gen": 200,
+  "lineup": [
+   "g178",
+   "g185",
+   "g186"
+  ],
+  "runs": [
+   "eval-g178-0",
+   "eval-g178-1",
+   "eval-g178-2",
+   "eval-g178-3",
+   "eval-g178-4",
+   "eval-g178-5",
+   "eval-g185-0",
+   "eval-g185-1",
+   "eval-g185-2",
+   "eval-g185-3",
+   "eval-g185-4",
+   "eval-g185-5",
+   "eval-g186-0",
+   "eval-g186-1",
+   "eval-g186-2",
+   "eval-g186-3",
+   "eval-g186-4",
+   "eval-g186-5",
+   "data-g178-0",
+   "data-g178-1"
+  ],
+  "seeds": [
+   "L200-hxc8qw",
+   "L200-snj79b",
+   "L200-vjf8qe",
+   "L200-jqeytb",
+   "L200-ne97ne",
+   "L200-vp8v3p"
+  ],
+  "sha": "18db3a1421e3bf5079ec7262cc5a8bcd01ccda80",
+  "started": "2026-10-05T22:46:07+00:00",
+  "tasks": [
+   {
+    "kind": "natural",
+    "seed": "L200-hxc8qw",
+    "stage": "spawn",
+    "synthetic": false
+   },
+   {
+    "kind": "natural",
+    "seed": "L200-snj79b",
+    "stage": "spawn",
+    "synthetic": false
+   },
+   {
+    "asset": "nether-gen167-eval-g155-0.zip",
+    "kind": "start",
+    "seed": "L200-vjf8qe",
+    "stage": "nether",
+    "synthetic": false
+   },
+   {
+    "asset": "diamond-gen182-eval-g176-1.zip",
+    "kind": "start",
+    "seed": "L200-jqeytb",
+    "stage": "diamond",
+    "synthetic": false
+   },
+   {
+    "asset": "nether-gen96-eval-g77-2.zip",
+    "kind": "start",
+    "seed": "L200-ne97ne",
+    "stage": "nether",
+    "synthetic": false
+   },
+   {
+    "kind": "combat",
+    "minutes": 10,
+    "scenario": "combat",
+    "seed": "L200-vp8v3p",
+    "stage": "combat",
+    "synthetic": false
+   }
+  ]
+ },
  "race_evidence_version": 2,
  "score_since_gen": 179,
  "score_version": 4,
@@ -31038,7 +31225,9 @@
   "{\"_exposure\": {\"gene\": \"fortress.anchor_scope\"}, \"_metric\": \"rods\", \"_note\": \"2026-10-04 (Claude, Oct 4 audit): tried anchors stayed tried for the whole game (the list cleared only when a find started, never while bricks are known): fortress blazes NOT_FOUND 113 times in the audit's Nether first lives. Tries now open again after 2 minutes and belong to one life and dimension.\", \"_priority\": true, \"_stages\": [\"nether\"], \"fortress.anchor_scope\": 1}",
   "{\"_auto\": \"learned brain gate open at gen 192 (5% bound +0.0034)\", \"_priority\": true, \"learned.weight\": 1}",
   "{\"_exposure\": {\"gene\": \"fortress.spawner_check\"}, \"_metric\": \"rods\", \"_note\": \"2026-10-04 (Claude, Oct 4 audit): any spawner seen in the Nether was taken for the blaze spawner; bastions hold magma cube spawners. Only one with fortress bricks or a blaze near it.\", \"_priority\": true, \"_stages\": [\"nether\"], \"fortress.spawner_check\": 1}",
-  "{\"_drill_scenario\": \"nether_hungry\", \"_exposure\": {\"gene\": \"nether.recover_bounded\"}, \"_metric\": \"deaths\", \"_note\": \"2026-10-04 (Claude, Oct 4 audit): fortress recovery stood still while a wither skeleton hit it (gen176 eval-g159-2) and waited for health that can't come back (hunger < 18, no food). Bounded: answer a mob at arm's length, leave when healing is impossible or 45 s pass, go home through a known portal to eat.\", \"_priority\": true, \"_stages\": [\"nether\"], \"nether.recover_bounded\": 1}"
+  "{\"_drill_scenario\": \"nether_hungry\", \"_exposure\": {\"gene\": \"nether.recover_bounded\"}, \"_metric\": \"deaths\", \"_note\": \"2026-10-04 (Claude, Oct 4 audit): fortress recovery stood still while a wither skeleton hit it (gen176 eval-g159-2) and waited for health that can't come back (hunger < 18, no food). Bounded: answer a mob at arm's length, leave when healing is impossible or 45 s pass, go home through a known portal to eat.\", \"_priority\": true, \"_stages\": [\"nether\"], \"nether.recover_bounded\": 1}",
+  "{\"_drill_scenario\": \"nether_piglins\", \"_exposure\": {\"gene\": \"nether.piglin_threat\"}, \"_metric\": \"deaths\", \"_note\": \"2026-10-04 (Claude, Oct 4 audit): piglins were always neutral in Perception, so one hitting the bot was never fought or fled; ordinary piglins made 66 of 172 first deaths in the audit's Nether games. A piglin in attack pose (the synced aggressive flag) is a threat; a brute always is.\", \"_priority\": true, \"_stages\": [\"nether\"], \"nether.piglin_threat\": 1}",
+  "{\"_drill_scenario\": \"nether_entry\", \"_exposure\": {\"gene\": \"ready.portal_entry\"}, \"_note\": \"2026-10-04 (Claude, Oct 4 audit): at a known nether portal, pack the route's kit and readiness's blocks, food and flint and steel before walking in. Champion g159's plan.readiness never acted (it only ran on the strategist's path). Acts where a portal is known in the overworld: after lighting one, or after a respawn.\", \"_priority\": true, \"_stages\": [\"diamond\"], \"ready.portal_entry\": 1}"
  ],
  "version": 1
 }
