@@ -2683,7 +2683,7 @@
   "2026-10-02": 23,
   "2026-10-03": 23,
   "2026-10-04": 18,
-  "2026-10-05": 3
+  "2026-10-05": 4
  },
  "evolve_days": {
   "2026-09-27": 1,
@@ -2715,7 +2715,7 @@
    "result": "racing"
   }
  ],
- "gen": 186,
+ "gen": 187,
  "gene_specs": {
   "bed.table_first": {
    "def": 0.0,
@@ -13312,6 +13312,51 @@
    "pairs": [],
    "parent": "g10",
    "status": "rejected"
+  },
+  "g180": {
+   "born": 187,
+   "code": null,
+   "evals": [],
+   "exposure_spec": {
+    "gene": "fortress.no_tunnel"
+   },
+   "focus": [
+    "nether"
+   ],
+   "genes": {
+    "combat.creeper_hit": 1.0,
+    "combat.ignore_walled_mobs": 1.0,
+    "combat.shield_guard": 1.0,
+    "death.recover_night_armor": 12.0,
+    "focus.commit": 1.0,
+    "fortress.no_tunnel": 1.0,
+    "gear.sword_early": 1.0,
+    "move.shore_first": 1.0,
+    "nav.surface_v2": 1.0,
+    "nav.unstuck_v2": 1.0,
+    "night.shelter_exit": 1.0,
+    "night.wall_in": 1.0,
+    "plan.hide_hp": 15.0,
+    "plan.readiness": 1.0,
+    "portal.prepare_work_area": 1.0,
+    "portal.reserve_lava_bucket": 1.0,
+    "route.armor_before_portal": 1.0,
+    "skill.enderman_warped": 1.0,
+    "skill.portal_repair": 1.0,
+    "skill.ruined_portal": 1.0,
+    "stations.pickup_last": 1.0,
+    "stuck.item_progress": 1.0
+   },
+   "id": "g180",
+   "metric": "rods",
+   "mutated": [
+    "fortress.no_tunnel"
+   ],
+   "note": "suggested: fortress.no_tunnel 1",
+   "pairs": [],
+   "parent": "g178",
+   "priority": true,
+   "status": "contender"
   },
   "g19": {
    "born": 21,
@@ -25561,8 +25606,95 @@
   "mean_gap_ok": -0.04,
   "n": 1036
  },
- "next_id": 180,
- "pending": null,
+ "next_id": 181,
+ "pending": {
+  "data_tasks": [
+   {
+    "kind": "scenario",
+    "late": true,
+    "scenario": "end",
+    "seed": "D187-yunrab",
+    "stage": "end",
+    "synthetic": true
+   },
+   {
+    "kind": "natural",
+    "seed": "D187-7rsrs6",
+    "stage": "spawn",
+    "synthetic": false
+   }
+  ],
+  "gen": 187,
+  "lineup": [
+   "g178",
+   "g159",
+   "g179"
+  ],
+  "runs": [
+   "eval-g178-0",
+   "eval-g178-1",
+   "eval-g178-2",
+   "eval-g178-3",
+   "eval-g178-4",
+   "eval-g159-0",
+   "eval-g159-1",
+   "eval-g159-2",
+   "eval-g159-3",
+   "eval-g159-4",
+   "eval-g179-0",
+   "eval-g179-1",
+   "eval-g179-2",
+   "eval-g179-3",
+   "eval-g179-4",
+   "data-g178-0",
+   "data-g178-1"
+  ],
+  "seeds": [
+   "L187-t9p466",
+   "L187-w9y89t",
+   "L187-6r2uq9",
+   "L187-ng3n3u",
+   "L187-xy76jf"
+  ],
+  "sha": "18db3a1421e3bf5079ec7262cc5a8bcd01ccda80",
+  "started": "2026-10-05T03:48:07+00:00",
+  "tasks": [
+   {
+    "kind": "natural",
+    "seed": "L187-t9p466",
+    "stage": "spawn",
+    "synthetic": false
+   },
+   {
+    "kind": "natural",
+    "seed": "L187-w9y89t",
+    "stage": "spawn",
+    "synthetic": false
+   },
+   {
+    "asset": "nether-gen109-eval-g87-0.zip",
+    "kind": "start",
+    "seed": "L187-6r2uq9",
+    "stage": "nether",
+    "synthetic": false
+   },
+   {
+    "asset": "nether-gen98-eval-g78-0.zip",
+    "kind": "start",
+    "seed": "L187-ng3n3u",
+    "stage": "nether",
+    "synthetic": false
+   },
+   {
+    "kind": "combat",
+    "minutes": 10,
+    "scenario": "combat",
+    "seed": "L187-xy76jf",
+    "stage": "combat",
+    "synthetic": false
+   }
+  ]
+ },
  "race_evidence_version": 2,
  "score_since_gen": 179,
  "score_version": 4,
@@ -29019,7 +29151,8 @@
   "{\"_exposure\": {\"gene\": [\"smelt.own_furnace\", \"stations.pickup_last\", \"explore.same_blocks\"]}, \"_note\": \"2026-10-04 (Claude, from all 1,735 game hours, gens 1-177: patterns.py): finish one thing at a time, like a player. 12-18% of calm decisions in spawn first lives were A->B->A flips within 30 s; the top ones were food and iron taking turns on one furnace (each pulling the other's load out), packing up the crafting table between two crafts, and explore and collect disagreeing about remembered logs. The three fixes together; each also races alone below.\", \"_priority\": true, \"_stages\": [\"spawn\"], \"explore.same_blocks\": 1, \"smelt.own_furnace\": 1, \"stations.pickup_last\": 1}",
   "{\"_exposure\": {\"gene\": \"smelt.own_furnace\"}, \"_stages\": [\"spawn\"], \"smelt.own_furnace\": 1}",
   "{\"_exposure\": {\"gene\": \"stations.pickup_last\"}, \"_stages\": [\"spawn\"], \"stations.pickup_last\": 1}",
-  "{\"_exposure\": {\"gene\": \"explore.same_blocks\"}, \"_stages\": [\"spawn\"], \"explore.same_blocks\": 1}"
+  "{\"_exposure\": {\"gene\": \"explore.same_blocks\"}, \"_stages\": [\"spawn\"], \"explore.same_blocks\": 1}",
+  "{\"_drill_scenario\": \"nether_fortress\", \"_exposure\": {\"gene\": \"fortress.no_tunnel\"}, \"_metric\": \"rods\", \"_note\": \"2026-10-04 (Claude, Oct 4 audit): Baritone dug through fortress bricks during the blaze fight despite the break penalty (gen176 eval-g159-2 carried 19 bricks). No fortress block may be broken there, so it walks bridges and doorways. Judged by rods before the first death.\", \"_priority\": true, \"_stages\": [\"nether\"], \"fortress.no_tunnel\": 1}"
  ],
  "version": 1
 }
