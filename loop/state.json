@@ -2683,7 +2683,7 @@
   "2026-10-02": 23,
   "2026-10-03": 23,
   "2026-10-04": 18,
-  "2026-10-05": 13
+  "2026-10-05": 14
  },
  "evolve_days": {
   "2026-09-27": 1,
@@ -2715,7 +2715,7 @@
    "result": "racing"
   }
  ],
- "gen": 196,
+ "gen": 197,
  "gene_specs": {
   "bed.table_first": {
    "def": 0.0,
@@ -27132,7 +27132,94 @@
   "n": 1109
  },
  "next_id": 186,
- "pending": null,
+ "pending": {
+  "data_tasks": [
+   {
+    "kind": "scenario",
+    "late": true,
+    "scenario": "end",
+    "seed": "D197-xx5vu5",
+    "stage": "end",
+    "synthetic": true
+   },
+   {
+    "kind": "natural",
+    "seed": "D197-kzn9ht",
+    "stage": "spawn",
+    "synthetic": false
+   }
+  ],
+  "gen": 197,
+  "lineup": [
+   "g178",
+   "g183",
+   "g184"
+  ],
+  "runs": [
+   "eval-g178-0",
+   "eval-g178-1",
+   "eval-g178-2",
+   "eval-g178-3",
+   "eval-g178-4",
+   "eval-g183-0",
+   "eval-g183-1",
+   "eval-g183-2",
+   "eval-g183-3",
+   "eval-g183-4",
+   "eval-g184-0",
+   "eval-g184-1",
+   "eval-g184-2",
+   "eval-g184-3",
+   "eval-g184-4",
+   "data-g178-0",
+   "data-g178-1"
+  ],
+  "seeds": [
+   "L197-7yn8q4",
+   "L197-49aguy",
+   "L197-5ft5g2",
+   "L197-grkha8",
+   "L197-6ban27"
+  ],
+  "sha": "18db3a1421e3bf5079ec7262cc5a8bcd01ccda80",
+  "started": "2026-10-05T15:27:21+00:00",
+  "tasks": [
+   {
+    "kind": "natural",
+    "seed": "L197-7yn8q4",
+    "stage": "spawn",
+    "synthetic": false
+   },
+   {
+    "kind": "natural",
+    "seed": "L197-49aguy",
+    "stage": "spawn",
+    "synthetic": false
+   },
+   {
+    "asset": "nether-gen94-eval-g73-2.zip",
+    "kind": "start",
+    "seed": "L197-5ft5g2",
+    "stage": "nether",
+    "synthetic": false
+   },
+   {
+    "asset": "nether-gen111-eval-g87-0.zip",
+    "kind": "start",
+    "seed": "L197-grkha8",
+    "stage": "nether",
+    "synthetic": false
+   },
+   {
+    "kind": "combat",
+    "minutes": 10,
+    "scenario": "combat",
+    "seed": "L197-6ban27",
+    "stage": "combat",
+    "synthetic": false
+   }
+  ]
+ },
  "race_evidence_version": 2,
  "score_since_gen": 179,
  "score_version": 4,
