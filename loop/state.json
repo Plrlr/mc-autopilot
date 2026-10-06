@@ -2684,7 +2684,7 @@
   "2026-10-03": 23,
   "2026-10-04": 18,
   "2026-10-05": 18,
-  "2026-10-06": 16
+  "2026-10-06": 17
  },
  "evolve_days": {
   "2026-09-27": 1,
@@ -2716,7 +2716,7 @@
    "result": "racing"
   }
  ],
- "gen": 217,
+ "gen": 218,
  "gene_specs": {
   "bed.table_first": {
    "def": 0.0,
@@ -29795,7 +29795,94 @@
   "n": 1225
  },
  "next_id": 191,
- "pending": null,
+ "pending": {
+  "data_tasks": [
+   {
+    "kind": "scenario",
+    "late": true,
+    "scenario": "end",
+    "seed": "D218-fhvysk",
+    "stage": "end",
+    "synthetic": true
+   },
+   {
+    "kind": "natural",
+    "seed": "D218-xk5b4m",
+    "stage": "spawn",
+    "synthetic": false
+   }
+  ],
+  "gen": 218,
+  "lineup": [
+   "g178",
+   "g187",
+   "g188"
+  ],
+  "runs": [
+   "eval-g178-0",
+   "eval-g178-1",
+   "eval-g178-2",
+   "eval-g178-3",
+   "eval-g178-4",
+   "eval-g187-0",
+   "eval-g187-1",
+   "eval-g187-2",
+   "eval-g187-3",
+   "eval-g187-4",
+   "eval-g188-0",
+   "eval-g188-1",
+   "eval-g188-2",
+   "eval-g188-3",
+   "eval-g188-4",
+   "data-g178-0",
+   "data-g178-1"
+  ],
+  "seeds": [
+   "L218-53q9za",
+   "L218-wxuxya",
+   "L218-e4yszq",
+   "L218-hc7jsk",
+   "L218-24kbea"
+  ],
+  "sha": "18db3a1421e3bf5079ec7262cc5a8bcd01ccda80",
+  "started": "2026-10-06T20:31:46+00:00",
+  "tasks": [
+   {
+    "kind": "natural",
+    "seed": "L218-53q9za",
+    "stage": "spawn",
+    "synthetic": false
+   },
+   {
+    "kind": "natural",
+    "seed": "L218-wxuxya",
+    "stage": "spawn",
+    "synthetic": false
+   },
+   {
+    "asset": "diamond-gen167-eval-g155-0.zip",
+    "kind": "start",
+    "seed": "L218-e4yszq",
+    "stage": "diamond",
+    "synthetic": false
+   },
+   {
+    "asset": "diamond-gen177-eval-g171-1.zip",
+    "kind": "start",
+    "seed": "L218-hc7jsk",
+    "stage": "diamond",
+    "synthetic": false
+   },
+   {
+    "kind": "combat",
+    "minutes": 10,
+    "scenario": "combat",
+    "seed": "L218-24kbea",
+    "stage": "combat",
+    "synthetic": false
+   }
+  ]
+ },
  "race_evidence_version": 2,
  "score_since_gen": 179,
  "score_version": 4,
