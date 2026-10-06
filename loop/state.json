@@ -2684,7 +2684,7 @@
   "2026-10-03": 23,
   "2026-10-04": 18,
   "2026-10-05": 18,
-  "2026-10-06": 17
+  "2026-10-06": 18
  },
  "evolve_days": {
   "2026-09-27": 1,
@@ -2716,7 +2716,7 @@
    "result": "racing"
   }
  ],
- "gen": 218,
+ "gen": 219,
  "gene_specs": {
   "bed.table_first": {
    "def": 0.0,
@@ -17715,6 +17715,48 @@
    "priority": true,
    "status": "contender"
   },
+  "g191": {
+   "born": 219,
+   "code": null,
+   "evals": [],
+   "exposure_spec": {
+    "gene": "brain.skill_stats"
+   },
+   "genes": {
+    "brain.situations": 1.0,
+    "brain.skill_stats": 1.0,
+    "combat.creeper_hit": 1.0,
+    "combat.ignore_walled_mobs": 1.0,
+    "combat.shield_guard": 1.0,
+    "death.recover_night_armor": 12.0,
+    "focus.commit": 1.0,
+    "gear.sword_early": 1.0,
+    "move.shore_first": 1.0,
+    "nav.surface_v2": 1.0,
+    "nav.unstuck_v2": 1.0,
+    "night.shelter_exit": 1.0,
+    "night.wall_in": 1.0,
+    "plan.hide_hp": 15.0,
+    "plan.readiness": 1.0,
+    "portal.prepare_work_area": 1.0,
+    "portal.reserve_lava_bucket": 1.0,
+    "route.armor_before_portal": 1.0,
+    "skill.enderman_warped": 1.0,
+    "skill.portal_repair": 1.0,
+    "skill.ruined_portal": 1.0,
+    "stations.pickup_last": 1.0,
+    "stuck.item_progress": 1.0
+   },
+   "id": "g191",
+   "mutated": [
+    "brain.skill_stats",
+    "brain.situations"
+   ],
+   "note": "suggested: brain.skill_stats 1, brain.situations 1",
+   "pairs": [],
+   "parent": "g178",
+   "status": "contender"
+  },
   "g2": {
    "born": 1,
    "code": null,
@@ -29889,8 +29931,89 @@
   "mean_gap_ok": -0.1658,
   "n": 1225
  },
- "next_id": 191,
- "pending": null,
+ "next_id": 192,
+ "pending": {
+  "data_tasks": [
+   {
+    "asset": "nether-gen206-eval-g185-2.zip",
+    "kind": "start",
+    "late": true,
+    "seed": "D219-wft7az",
+    "stage": "nether",
+    "synthetic": false
+   },
+   {
+    "kind": "natural",
+    "seed": "D219-e84vzf",
+    "stage": "spawn",
+    "synthetic": false
+   }
+  ],
+  "gen": 219,
+  "lineup": [
+   "g178",
+   "g190",
+   "g189",
+   "g191"
+  ],
+  "runs": [
+   "eval-g178-0",
+   "eval-g178-1",
+   "eval-g178-2",
+   "eval-g178-3",
+   "eval-g190-0",
+   "eval-g190-1",
+   "eval-g190-2",
+   "eval-g190-3",
+   "eval-g189-0",
+   "eval-g189-1",
+   "eval-g189-2",
+   "eval-g189-3",
+   "eval-g191-0",
+   "eval-g191-1",
+   "eval-g191-2",
+   "eval-g191-3",
+   "data-g178-0",
+   "data-g178-1"
+  ],
+  "seeds": [
+   "L219-bnavzm",
+   "L219-aqzrjd",
+   "L219-crj5wy",
+   "L219-7rmyub"
+  ],
+  "sha": "18db3a1421e3bf5079ec7262cc5a8bcd01ccda80",
+  "started": "2026-10-06T21:48:44+00:00",
+  "tasks": [
+   {
+    "kind": "natural",
+    "seed": "L219-bnavzm",
+    "stage": "spawn",
+    "synthetic": false
+   },
+   {
+    "kind": "natural",
+    "seed": "L219-aqzrjd",
+    "stage": "spawn",
+    "synthetic": false
+   },
+   {
+    "asset": "diamond-gen169-eval-g160-0.zip",
+    "kind": "start",
+    "seed": "L219-crj5wy",
+    "stage": "diamond",
+    "synthetic": false
+   },
+   {
+    "kind": "combat",
+    "minutes": 10,
+    "scenario": "combat",
+    "seed": "L219-7rmyub",
+    "stage": "combat",
+    "synthetic": false
+   }
+  ]
+ },
  "race_evidence_version": 2,
  "score_since_gen": 179,
  "score_version": 4,
@@ -33521,7 +33644,8 @@
   "{\"_drill_scenario\": \"nether_entry\", \"_exposure\": {\"gene\": \"ready.portal_entry\"}, \"_note\": \"2026-10-04 (Claude, Oct 4 audit): at a known nether portal, pack the route's kit and readiness's blocks, food and flint and steel before walking in. Champion g159's plan.readiness never acted (it only ran on the strategist's path). Acts where a portal is known in the overworld: after lighting one, or after a respawn.\", \"_priority\": true, \"_stages\": [\"diamond\"], \"ready.portal_entry\": 1}",
   "{\"_drill_scenario\": \"nether_entry\", \"_exposure\": {\"gene\": \"ready.nether_gold\"}, \"_note\": \"2026-10-04 (Claude, Oct 4 audit): a gold helmet carried in and worn in the Nether. Ordinary piglins made 66 of 172 first deaths in the audit's Nether games; piglins leave a player in gold alone (brutes do not).\", \"_priority\": true, \"_stages\": [\"diamond\"], \"ready.nether_gold\": 1}",
   "{\"_exposure\": {\"gene\": \"brain.death_avoid\"}, \"_metric\": \"deaths\", \"brain.death_avoid\": 1, \"brain.situations\": 1}",
-  "{\"_auto\": \"learned brain gate open at gen 210 (5% bound +0.0028)\", \"_priority\": true, \"learned.weight\": 1}"
+  "{\"_auto\": \"learned brain gate open at gen 210 (5% bound +0.0028)\", \"_priority\": true, \"learned.weight\": 1}",
+  "{\"_exposure\": {\"gene\": \"brain.skill_stats\"}, \"brain.situations\": 1, \"brain.skill_stats\": 1}"
  ],
  "version": 1
 }
