@@ -2684,7 +2684,7 @@
   "2026-10-03": 23,
   "2026-10-04": 18,
   "2026-10-05": 18,
-  "2026-10-06": 18
+  "2026-10-06": 19
  },
  "evolve_days": {
   "2026-09-27": 1,
@@ -2716,7 +2716,7 @@
    "result": "racing"
   }
  ],
- "gen": 219,
+ "gen": 220,
  "gene_specs": {
   "bed.table_first": {
    "def": 0.0,
@@ -30145,7 +30145,88 @@
   "n": 1269
  },
  "next_id": 192,
- "pending": null,
+ "pending": {
+  "data_tasks": [
+   {
+    "kind": "scenario",
+    "late": true,
+    "scenario": "stronghold",
+    "seed": "D220-m6cc66",
+    "stage": "eyes",
+    "synthetic": true
+   },
+   {
+    "kind": "natural",
+    "seed": "D220-v8qr3x",
+    "stage": "spawn",
+    "synthetic": false
+   }
+  ],
+  "gen": 220,
+  "lineup": [
+   "g178",
+   "g190",
+   "g189",
+   "g191"
+  ],
+  "runs": [
+   "eval-g178-0",
+   "eval-g178-1",
+   "eval-g178-2",
+   "eval-g178-3",
+   "eval-g190-0",
+   "eval-g190-1",
+   "eval-g190-2",
+   "eval-g190-3",
+   "eval-g189-0",
+   "eval-g189-1",
+   "eval-g189-2",
+   "eval-g189-3",
+   "eval-g191-0",
+   "eval-g191-1",
+   "eval-g191-2",
+   "eval-g191-3",
+   "data-g178-0",
+   "data-g178-1"
+  ],
+  "seeds": [
+   "L220-egeq86",
+   "L220-rtvam3",
+   "L220-s34qat",
+   "L220-4zn9qp"
+  ],
+  "sha": "18db3a1421e3bf5079ec7262cc5a8bcd01ccda80",
+  "started": "2026-10-06T22:54:51+00:00",
+  "tasks": [
+   {
+    "kind": "natural",
+    "seed": "L220-egeq86",
+    "stage": "spawn",
+    "synthetic": false
+   },
+   {
+    "kind": "natural",
+    "seed": "L220-rtvam3",
+    "stage": "spawn",
+    "synthetic": false
+   },
+   {
+    "asset": "diamond-gen194-eval-g182-0.zip",
+    "kind": "start",
+    "seed": "L220-s34qat",
+    "stage": "diamond",
+    "synthetic": false
+   },
+   {
+    "kind": "combat",
+    "minutes": 10,
+    "scenario": "combat",
+    "seed": "L220-4zn9qp",
+    "stage": "combat",
+    "synthetic": false
+   }
+  ]
+ },
  "race_evidence_version": 2,
  "score_since_gen": 179,
  "score_version": 4,
