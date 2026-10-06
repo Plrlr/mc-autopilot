@@ -2684,7 +2684,7 @@
   "2026-10-03": 23,
   "2026-10-04": 18,
   "2026-10-05": 18,
-  "2026-10-06": 12
+  "2026-10-06": 13
  },
  "evolve_days": {
   "2026-09-27": 1,
@@ -2716,7 +2716,7 @@
    "result": "racing"
   }
  ],
- "gen": 213,
+ "gen": 214,
  "gene_specs": {
   "bed.table_first": {
    "def": 0.0,
@@ -29465,7 +29465,94 @@
   "n": 1207
  },
  "next_id": 191,
- "pending": null,
+ "pending": {
+  "data_tasks": [
+   {
+    "kind": "scenario",
+    "late": true,
+    "scenario": "stronghold",
+    "seed": "D214-vyjtew",
+    "stage": "eyes",
+    "synthetic": true
+   },
+   {
+    "kind": "natural",
+    "seed": "D214-44gjbc",
+    "stage": "spawn",
+    "synthetic": false
+   }
+  ],
+  "gen": 214,
+  "lineup": [
+   "g178",
+   "g187",
+   "g188"
+  ],
+  "runs": [
+   "eval-g178-0",
+   "eval-g178-1",
+   "eval-g178-2",
+   "eval-g178-3",
+   "eval-g178-4",
+   "eval-g187-0",
+   "eval-g187-1",
+   "eval-g187-2",
+   "eval-g187-3",
+   "eval-g187-4",
+   "eval-g188-0",
+   "eval-g188-1",
+   "eval-g188-2",
+   "eval-g188-3",
+   "eval-g188-4",
+   "data-g178-0",
+   "data-g178-1"
+  ],
+  "seeds": [
+   "L214-ddrfca",
+   "L214-efmggd",
+   "L214-2q87da",
+   "L214-e3xhq7",
+   "L214-4txzh6"
+  ],
+  "sha": "18db3a1421e3bf5079ec7262cc5a8bcd01ccda80",
+  "started": "2026-10-06T15:17:47+00:00",
+  "tasks": [
+   {
+    "kind": "natural",
+    "seed": "L214-ddrfca",
+    "stage": "spawn",
+    "synthetic": false
+   },
+   {
+    "kind": "natural",
+    "seed": "L214-efmggd",
+    "stage": "spawn",
+    "synthetic": false
+   },
+   {
+    "asset": "diamond-gen197-eval-g178-1.zip",
+    "kind": "start",
+    "seed": "L214-2q87da",
+    "stage": "diamond",
+    "synthetic": false
+   },
+   {
+    "asset": "diamond-gen168-eval-g159-1.zip",
+    "kind": "start",
+    "seed": "L214-e3xhq7",
+    "stage": "diamond",
+    "synthetic": false
+   },
+   {
+    "kind": "combat",
+    "minutes": 10,
+    "scenario": "combat",
+    "seed": "L214-4txzh6",
+    "stage": "combat",
+    "synthetic": false
+   }
+  ]
+ },
  "race_evidence_version": 2,
  "score_since_gen": 179,
  "score_version": 4,
