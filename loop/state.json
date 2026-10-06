@@ -2684,7 +2684,7 @@
   "2026-10-03": 23,
   "2026-10-04": 18,
   "2026-10-05": 18,
-  "2026-10-06": 4
+  "2026-10-06": 5
  },
  "evolve_days": {
   "2026-09-27": 1,
@@ -2716,7 +2716,7 @@
    "result": "racing"
   }
  ],
- "gen": 205,
+ "gen": 206,
  "gene_specs": {
   "bed.table_first": {
    "def": 0.0,
@@ -28505,7 +28505,105 @@
   "n": 1146
  },
  "next_id": 188,
- "pending": null,
+ "pending": {
+  "data_tasks": [
+   {
+    "kind": "scenario",
+    "late": true,
+    "scenario": "end",
+    "seed": "D206-u8ksd7",
+    "stage": "end",
+    "synthetic": true
+   },
+   {
+    "kind": "natural",
+    "seed": "D206-br6kpd",
+    "stage": "spawn",
+    "synthetic": false
+   }
+  ],
+  "gen": 206,
+  "lineup": [
+   "g178",
+   "g185",
+   "g186"
+  ],
+  "runs": [
+   "eval-g178-0",
+   "eval-g178-1",
+   "eval-g178-2",
+   "eval-g178-3",
+   "eval-g178-4",
+   "eval-g178-5",
+   "eval-g185-0",
+   "eval-g185-1",
+   "eval-g185-2",
+   "eval-g185-3",
+   "eval-g185-4",
+   "eval-g185-5",
+   "eval-g186-0",
+   "eval-g186-1",
+   "eval-g186-2",
+   "eval-g186-3",
+   "eval-g186-4",
+   "eval-g186-5",
+   "data-g178-0",
+   "data-g178-1"
+  ],
+  "seeds": [
+   "L206-h26zcj",
+   "L206-f9guxg",
+   "L206-6kg6vw",
+   "L206-dzupg5",
+   "L206-s4s2a7",
+   "L206-t2n9v8"
+  ],
+  "sha": "18db3a1421e3bf5079ec7262cc5a8bcd01ccda80",
+  "started": "2026-10-06T05:36:19+00:00",
+  "tasks": [
+   {
+    "kind": "natural",
+    "seed": "L206-h26zcj",
+    "stage": "spawn",
+    "synthetic": false
+   },
+   {
+    "kind": "natural",
+    "seed": "L206-f9guxg",
+    "stage": "spawn",
+    "synthetic": false
+   },
+   {
+    "asset": "diamond-gen190-eval-g178-0.zip",
+    "kind": "start",
+    "seed": "L206-6kg6vw",
+    "stage": "diamond",
+    "synthetic": false
+   },
+   {
+    "asset": "diamond-gen183-eval-g159-1.zip",
+    "kind": "start",
+    "seed": "L206-dzupg5",
+    "stage": "diamond",
+    "synthetic": false
+   },
+   {
+    "asset": "nether-gen200-eval-g185-3.zip",
+    "kind": "start",
+    "seed": "L206-s4s2a7",
+    "stage": "nether",
+    "synthetic": false
+   },
+   {
+    "kind": "combat",
+    "minutes": 10,
+    "scenario": "combat",
+    "seed": "L206-t2n9v8",
+    "stage": "combat",
+    "synthetic": false
+   }
+  ]
+ },
  "race_evidence_version": 2,
  "score_since_gen": 179,
  "score_version": 4,
