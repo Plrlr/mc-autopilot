@@ -2684,7 +2684,8 @@
   "2026-10-03": 23,
   "2026-10-04": 18,
   "2026-10-05": 18,
-  "2026-10-06": 19
+  "2026-10-06": 19,
+  "2026-10-07": 1
  },
  "evolve_days": {
   "2026-09-27": 1,
@@ -2716,7 +2717,7 @@
    "result": "racing"
   }
  ],
- "gen": 220,
+ "gen": 221,
  "gene_specs": {
   "bed.table_first": {
    "def": 0.0,
@@ -11719,12 +11720,13 @@
   "g167": {
    "born": 174,
    "code": {
-    "base": "edb493ed02bb044d7f07cd0165be5e40c56c1f03",
+    "base": "18db3a1421e3bf5079ec7262cc5a8bcd01ccda80",
     "branch": "evolve/g167",
     "files": [
      "mod/src/main/java/io/github/plrlr/autopilot/skills/CollectSkill.java"
     ],
-    "sha": "71051cc5486ae6cc85c1c219a889a65f2aaf0596",
+    "first_sha": "71051cc5486ae6cc85c1c219a889a65f2aaf0596",
+    "sha": "ce723ada2f886b9d48901bec541ab81a9f3cc4b8",
     "summary": "After a flint collect fails NO_ROOM (no flat spot to place gravel), the next flint collect mines seen gravel blocks in the world directly (10% flint each), breaking the collect flint NO_ROOM / explore gravel ALREADY_DONE loop."
    },
    "evals": [
@@ -12155,12 +12157,13 @@
   "g172": {
    "born": 178,
    "code": {
-    "base": "edb493ed02bb044d7f07cd0165be5e40c56c1f03",
+    "base": "18db3a1421e3bf5079ec7262cc5a8bcd01ccda80",
     "branch": "evolve/g167",
     "files": [
      "mod/src/main/java/io/github/plrlr/autopilot/skills/CollectSkill.java"
     ],
-    "sha": "71051cc5486ae6cc85c1c219a889a65f2aaf0596",
+    "first_sha": "71051cc5486ae6cc85c1c219a889a65f2aaf0596",
+    "sha": "ce723ada2f886b9d48901bec541ab81a9f3cc4b8",
     "summary": "After a flint collect fails NO_ROOM (no flat spot to place gravel), the next flint collect mines seen gravel blocks in the world directly (10% flint each), breaking the collect flint NO_ROOM / explore gravel ALREADY_DONE loop."
    },
    "evals": [
@@ -30318,7 +30321,88 @@
   "n": 1269
  },
  "next_id": 192,
- "pending": null,
+ "pending": {
+  "data_tasks": [
+   {
+    "kind": "scenario",
+    "late": true,
+    "scenario": "end",
+    "seed": "D221-rd33v4",
+    "stage": "end",
+    "synthetic": true
+   },
+   {
+    "kind": "natural",
+    "seed": "D221-fpa2sm",
+    "stage": "spawn",
+    "synthetic": false
+   }
+  ],
+  "gen": 221,
+  "lineup": [
+   "g178",
+   "g190",
+   "g191",
+   "g172"
+  ],
+  "runs": [
+   "eval-g178-0",
+   "eval-g178-1",
+   "eval-g178-2",
+   "eval-g178-3",
+   "eval-g190-0",
+   "eval-g190-1",
+   "eval-g190-2",
+   "eval-g190-3",
+   "eval-g191-0",
+   "eval-g191-1",
+   "eval-g191-2",
+   "eval-g191-3",
+   "eval-g172-0",
+   "eval-g172-1",
+   "eval-g172-2",
+   "eval-g172-3",
+   "data-g178-0",
+   "data-g178-1"
+  ],
+  "seeds": [
+   "L221-gnjebw",
+   "L221-nu7827",
+   "L221-mu6tg2",
+   "L221-jtg7c6"
+  ],
+  "sha": "18db3a1421e3bf5079ec7262cc5a8bcd01ccda80",
+  "started": "2026-10-07T00:09:57+00:00",
+  "tasks": [
+   {
+    "kind": "natural",
+    "seed": "L221-gnjebw",
+    "stage": "spawn",
+    "synthetic": false
+   },
+   {
+    "kind": "natural",
+    "seed": "L221-nu7827",
+    "stage": "spawn",
+    "synthetic": false
+   },
+   {
+    "asset": "diamond-gen184-eval-g178-1.zip",
+    "kind": "start",
+    "seed": "L221-mu6tg2",
+    "stage": "diamond",
+    "synthetic": false
+   },
+   {
+    "kind": "combat",
+    "minutes": 10,
+    "scenario": "combat",
+    "seed": "L221-jtg7c6",
+    "stage": "combat",
+    "synthetic": false
+   }
+  ]
+ },
  "race_evidence_version": 2,
  "score_since_gen": 179,
  "score_version": 4,
