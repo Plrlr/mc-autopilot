@@ -2685,7 +2685,7 @@
   "2026-10-04": 18,
   "2026-10-05": 18,
   "2026-10-06": 19,
-  "2026-10-07": 4
+  "2026-10-07": 5
  },
  "evolve_days": {
   "2026-09-27": 1,
@@ -2731,7 +2731,7 @@
    "result": "racing"
   }
  ],
- "gen": 224,
+ "gen": 225,
  "gene_specs": {
   "bed.table_first": {
    "def": 0.0,
@@ -31136,7 +31136,88 @@
   "n": 1303
  },
  "next_id": 197,
- "pending": null,
+ "pending": {
+  "data_tasks": [
+   {
+    "asset": "nether-gen223-eval-g194-2.zip",
+    "kind": "start",
+    "late": true,
+    "seed": "D225-a46xvc",
+    "stage": "nether",
+    "synthetic": false
+   },
+   {
+    "kind": "natural",
+    "seed": "D225-jaky4q",
+    "stage": "spawn",
+    "synthetic": false
+   }
+  ],
+  "gen": 225,
+  "lineup": [
+   "g178",
+   "g196",
+   "g193",
+   "g194"
+  ],
+  "runs": [
+   "eval-g178-0",
+   "eval-g178-1",
+   "eval-g178-2",
+   "eval-g178-3",
+   "eval-g196-0",
+   "eval-g196-1",
+   "eval-g196-2",
+   "eval-g196-3",
+   "eval-g193-0",
+   "eval-g193-1",
+   "eval-g193-2",
+   "eval-g193-3",
+   "eval-g194-0",
+   "eval-g194-1",
+   "eval-g194-2",
+   "eval-g194-3",
+   "data-g178-0",
+   "data-g178-1"
+  ],
+  "seeds": [
+   "L225-bxkk98",
+   "L225-tdv4qp",
+   "L225-65v85q",
+   "L225-qyr2u8"
+  ],
+  "sha": "18db3a1421e3bf5079ec7262cc5a8bcd01ccda80",
+  "started": "2026-10-07T05:45:22+00:00",
+  "tasks": [
+   {
+    "kind": "natural",
+    "seed": "L225-bxkk98",
+    "stage": "spawn",
+    "synthetic": false
+   },
+   {
+    "kind": "natural",
+    "seed": "L225-tdv4qp",
+    "stage": "spawn",
+    "synthetic": false
+   },
+   {
+    "asset": "diamond-gen212-eval-g188-1.zip",
+    "kind": "start",
+    "seed": "L225-65v85q",
+    "stage": "diamond",
+    "synthetic": false
+   },
+   {
+    "kind": "combat",
+    "minutes": 10,
+    "scenario": "combat",
+    "seed": "L225-qyr2u8",
+    "stage": "combat",
+    "synthetic": false
+   }
+  ]
+ },
  "race_evidence_version": 2,
  "score_since_gen": 179,
  "score_version": 4,
