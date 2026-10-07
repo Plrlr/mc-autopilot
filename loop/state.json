@@ -2685,7 +2685,7 @@
   "2026-10-04": 18,
   "2026-10-05": 18,
   "2026-10-06": 19,
-  "2026-10-07": 14
+  "2026-10-07": 15
  },
  "evolve_days": {
   "2026-09-27": 1,
@@ -2757,7 +2757,7 @@
    "result": "racing"
   }
  ],
- "gen": 234,
+ "gen": 235,
  "gene_specs": {
   "bed.table_first": {
    "def": 0.0,
@@ -32760,7 +32760,88 @@
   "n": 1395
  },
  "next_id": 207,
- "pending": null,
+ "pending": {
+  "data_tasks": [
+   {
+    "kind": "scenario",
+    "late": true,
+    "scenario": "end",
+    "seed": "D235-hyt3js",
+    "stage": "end",
+    "synthetic": true
+   },
+   {
+    "kind": "natural",
+    "seed": "D235-krtv4w",
+    "stage": "spawn",
+    "synthetic": false
+   }
+  ],
+  "gen": 235,
+  "lineup": [
+   "g196",
+   "g206",
+   "g205",
+   "g204"
+  ],
+  "runs": [
+   "eval-g196-0",
+   "eval-g196-1",
+   "eval-g196-2",
+   "eval-g196-3",
+   "eval-g206-0",
+   "eval-g206-1",
+   "eval-g206-2",
+   "eval-g206-3",
+   "eval-g205-0",
+   "eval-g205-1",
+   "eval-g205-2",
+   "eval-g205-3",
+   "eval-g204-0",
+   "eval-g204-1",
+   "eval-g204-2",
+   "eval-g204-3",
+   "data-g196-0",
+   "data-g196-1"
+  ],
+  "seeds": [
+   "L235-k38r4m",
+   "L235-33uxqz",
+   "L235-yqn6ty",
+   "L235-cc7szx"
+  ],
+  "sha": "91d44de4fbc72526287a191ce432dba1a89adb1c",
+  "started": "2026-10-07T21:31:09+00:00",
+  "tasks": [
+   {
+    "kind": "natural",
+    "seed": "L235-k38r4m",
+    "stage": "spawn",
+    "synthetic": false
+   },
+   {
+    "kind": "natural",
+    "seed": "L235-33uxqz",
+    "stage": "spawn",
+    "synthetic": false
+   },
+   {
+    "asset": "nether-gen217-eval-g187-2.zip",
+    "kind": "start",
+    "seed": "L235-yqn6ty",
+    "stage": "nether",
+    "synthetic": false
+   },
+   {
+    "kind": "combat",
+    "minutes": 10,
+    "scenario": "combat",
+    "seed": "L235-cc7szx",
+    "stage": "combat",
+    "synthetic": false
+   }
+  ]
+ },
  "race_evidence_version": 2,
  "score_since_gen": 179,
  "score_version": 4,
