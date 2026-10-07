@@ -2685,7 +2685,7 @@
   "2026-10-04": 18,
   "2026-10-05": 18,
   "2026-10-06": 19,
-  "2026-10-07": 7
+  "2026-10-07": 8
  },
  "evolve_days": {
   "2026-09-27": 1,
@@ -2738,7 +2738,7 @@
    "target": "shelter STUCK"
   }
  ],
- "gen": 227,
+ "gen": 228,
  "gene_specs": {
   "bed.table_first": {
    "def": 0.0,
@@ -19272,6 +19272,43 @@
    "parent": "g196",
    "status": "drilling"
   },
+  "g198": {
+   "born": 228,
+   "code": null,
+   "evals": [],
+   "genes": {
+    "combat.creeper_hit": 1.0,
+    "combat.ignore_walled_mobs": 1.0,
+    "combat.shield_guard": 1.0,
+    "death.recover_night_armor": 12.0,
+    "focus.commit": 1.0,
+    "gear.sword_early": 1.0,
+    "move.shore_first": 1.0,
+    "nav.surface_v2": 1.0,
+    "nav.unstuck_v2": 1.0,
+    "night.shelter_exit": 1.0,
+    "night.wall_in": 1.0,
+    "plan.hide_hp": 15.0,
+    "plan.readiness": 1.0,
+    "portal.prepare_work_area": 1.0,
+    "portal.reserve_lava_bucket": 1.0,
+    "route.armor_before_portal": 1.0,
+    "skill.end_guard": 1.0,
+    "skill.enderman_warped": 1.0,
+    "skill.portal_repair": 1.0,
+    "skill.ruined_portal": 1.0,
+    "stations.pickup_last": 1.0,
+    "stuck.item_progress": 1.0
+   },
+   "id": "g198",
+   "mutated": [
+    "skill.end_guard"
+   ],
+   "note": "skill.end_guard 1",
+   "pairs": [],
+   "parent": "g196",
+   "status": "contender"
+  },
   "g2": {
    "born": 1,
    "code": null,
@@ -31449,8 +31486,89 @@
   "mean_gap_ok": -0.4678,
   "n": 1303
  },
- "next_id": 198,
- "pending": null,
+ "next_id": 199,
+ "pending": {
+  "data_tasks": [
+   {
+    "kind": "scenario",
+    "late": true,
+    "scenario": "stronghold",
+    "seed": "D228-q8sstu",
+    "stage": "eyes",
+    "synthetic": true
+   },
+   {
+    "kind": "natural",
+    "seed": "D228-vfc56u",
+    "stage": "spawn",
+    "synthetic": false
+   }
+  ],
+  "gen": 228,
+  "lineup": [
+   "g196",
+   "g178",
+   "g194",
+   "g198"
+  ],
+  "runs": [
+   "eval-g196-0",
+   "eval-g196-1",
+   "eval-g196-2",
+   "eval-g196-3",
+   "eval-g178-0",
+   "eval-g178-1",
+   "eval-g178-2",
+   "eval-g178-3",
+   "eval-g194-0",
+   "eval-g194-1",
+   "eval-g194-2",
+   "eval-g194-3",
+   "eval-g198-0",
+   "eval-g198-1",
+   "eval-g198-2",
+   "eval-g198-3",
+   "data-g196-0",
+   "data-g196-1"
+  ],
+  "seeds": [
+   "L228-uugqa2",
+   "L228-ttnty6",
+   "L228-vedaud",
+   "L228-jdkxcf"
+  ],
+  "sha": "91d44de4fbc72526287a191ce432dba1a89adb1c",
+  "started": "2026-10-07T09:37:55+00:00",
+  "tasks": [
+   {
+    "kind": "natural",
+    "seed": "L228-uugqa2",
+    "stage": "spawn",
+    "synthetic": false
+   },
+   {
+    "kind": "natural",
+    "seed": "L228-ttnty6",
+    "stage": "spawn",
+    "synthetic": false
+   },
+   {
+    "asset": "nether-gen210-eval-g187-2.zip",
+    "kind": "start",
+    "seed": "L228-vedaud",
+    "stage": "nether",
+    "synthetic": false
+   },
+   {
+    "kind": "combat",
+    "minutes": 10,
+    "scenario": "combat",
+    "seed": "L228-jdkxcf",
+    "stage": "combat",
+    "synthetic": false
+   }
+  ]
+ },
  "race_evidence_version": 2,
  "score_since_gen": 179,
  "score_version": 4,
