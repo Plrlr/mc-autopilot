@@ -36,6 +36,8 @@ public final class CollectSkill extends Skill {
 	/** Flint has its own way: one seen gravel, placed and broken until flint drops. */
 	private FlintSteps flint;
 	private Skill stoneStep;
+	/** Searching for a seen-only item (log, sand) when none is in view, before giving up. */
+	private Skill searchStep;
 	private CaveSeal caveSeal;
 	private final java.util.ArrayDeque<BlockPos> mineTrail = new java.util.ArrayDeque<>();
 	private BlockPos alternateStart;
@@ -151,6 +153,7 @@ public final class CollectSkill extends Skill {
 	@Override
 	protected void cleanup() {
 		if (stoneStep != null && stoneStep.result() == null) stoneStep.abort(Fail.INTERRUPTED, "collect ended");
+		if (searchStep != null && searchStep.result() == null) searchStep.abort(Fail.INTERRUPTED, "collect ended");
 		// Cut off as stuck on the way to a seen block: the next collect would pick the same one.
 		if (seenMiner != null && result() != null && result().code() == Fail.STUCK) seenMiner.setAsideTarget();
 		super.cleanup();
@@ -182,12 +185,26 @@ public final class CollectSkill extends Skill {
 			return;
 		}
 		if (lookGroup != null) {
+			if (searchStep != null && searchStep.result() == null) searchStep.update();
 			if (visibleOnly ? SeenMiner.anyVisible(memory, lookGroup, 8) : SeenMiner.anySeen(memory, lookGroup, SEEN_RANGE)) {
+				if (searchStep != null) {
+					if (searchStep.result() == null) searchStep.abort(Fail.INTERRUPTED, item + " in sight");
+					searchStep = null;
+					Bari.stop();
+				}
 				seenMiner = new SeenMiner(memory, lookGroup, visibleOnly ? 8 : SEEN_RANGE, visibleOnly);
 				lookGroup = null;
 				timeoutTicks = ticks + 20 * 360;
+			} else if (searchStep != null) {
+				if (searchStep.result() != null)
+					fail(Fail.NOT_FOUND, "no " + item + " seen nearby (searched: " + searchStep.result().detail() + ")");
 			} else if (ticks > 20 * 3) {
-				fail(Fail.NOT_FOUND, "no " + item + " seen nearby");
+				if (!visibleOnly && (item.equals("log") || item.equals("sand"))) {
+					// None in view: look for some ourselves instead of handing the same refusal back to the planner.
+					searchStep = new MoveSkills.Explore();
+					searchStep.begin(memory, item);
+					timeoutTicks = ticks + 20 * 110;
+				} else fail(Fail.NOT_FOUND, "no " + item + " seen nearby");
 			}
 			return;
 		}
