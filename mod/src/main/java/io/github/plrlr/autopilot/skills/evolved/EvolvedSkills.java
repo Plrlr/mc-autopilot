@@ -31,6 +31,7 @@ public final class EvolvedSkills {
 
 	static {
 		// evolve:entries (scripts/loop/evolve.py appends one add(...) line per evolved skill here)
+		add(new Entry("evolved.seek_log", "seek_log", SeekLog::new, SeekLog::offer, "seek_log: walk toward remembered or new woods until a log is within 40 blocks (after collect log saw none)"));
 		// evolve:end
 	}
 
