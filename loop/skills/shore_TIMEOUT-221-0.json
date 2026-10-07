@@ -1,0 +1,24 @@
+{
+ "class_name": "SurfaceSwim",
+ "files": [
+  {
+   "content": "package io.github.plrlr.autopilot.skills.evolved;\n\nimport io.github.plrlr.autopilot.plan.Option;\nimport io.github.plrlr.autopilot.skills.Fail;\nimport net.minecraft.core.BlockPos;\nimport net.minecraft.world.phys.Vec3;\n\nimport java.util.HashSet;\nimport java.util.Set;\n\npublic class SurfaceSwim extends EvolvedSkill {\n\tprivate final Set<BlockPos> aside = new HashSet<>();\n\tprivate BlockPos land;\n\tprivate float heading;\n\tprivate Vec3 checkpoint;\n\tprivate int stalls;\n\n\tpublic static Option offer(Context c) {\n\t\tif (!Player.inWater()) return null;\n\t\tString ls = c.lastSkill();\n\t\tString code = c.lastCode();\n\t\tboolean shoreFailed = \"shore\".equals(ls) && (\"TIMEOUT\".equals(code) || \"STUCK\".equals(code));\n\t\tboolean selfFailed = \"surface_swim\".equals(ls) && code != null && !\"INTERRUPTED\".equals(code);\n\t\tboolean mainShore = c.main() != null && \"shore\".equals(c.main().skill());\n\t\tif (!shoreFailed && !(selfFailed && mainShore)) return null;\n\t\tif (Player.gameSeconds() - c.lastEndSeconds() > 180) return null;\n\t\treturn new Option(\"surface_swim\", null, \"shore stalled in water: swim by hand to land\");\n\t}\n\n\t@Override\n\tpublic String name() { return \"surface_swim\"; }\n\n\t@Override\n\tprotected void start() {\n\t\ttimeoutTicks = 20 * 70;\n\t\tPlayer.stopWalking();\n\t\theading = Player.yaw();\n\t\tland = memory.nearestLand(aside);\n\t\tcheckpoint = Player.pos();\n\t}\n\n\t@Override\n\tprotected void tick() {\n\t\tif (!Player.inWater() && Player.onGround()) {\n\t\t\tdone(\"out of the water at \" + Player.feet());\n\t\t\treturn;\n\t\t}\n\t\tVec3 p = Player.pos();\n\t\tif (ticks > 0 && ticks % 100 == 0) {\n\t\t\tdouble dx = p.x - checkpoint.x, dz = p.z - checkpoint.z;\n\t\t\tif (dx * dx + dz * dz < 2.25) {\n\t\t\t\tstalls++;\n\t\t\t\tif (land != null) {\n\t\t\t\t\taside.add(land);\n\t\t\t\t\tland = memory.nearestLand(aside);\n\t\t\t\t} else {\n\t\t\t\t\theading += 90;\n\t\t\t\t}\n\t\t\t\tif (stalls >= 8) {\n\t\t\t\t\tfail(Fail.STUCK, \"no headway after \" + stalls + \" stalls\");\n\t\t\t\t\treturn;\n\t\t\t\t}\n\t\t\t}\n\t\t\tcheckpoint = p;\n\t\t}\n\t\tfloat yaw = heading;\n\t\tif (land != null) {\n\t\t\tdouble dx = land.getX() + 0.5 - p.x, dz = land.getZ() + 0.5 - p.z;\n\t\t\tif (dx * dx + dz * dz > 0.25) yaw = (float) (Math.toDegrees(Math.atan2(dz, dx)) - 90.0);\n\t\t}\n\t\tboolean lowAir = Player.air() < 120;\n\t\tif (lowAir && Player.eyesInWater()) {\n\t\t\t// Get a breath first: look up and rise.\n\t\t\tPlayer.turn(yaw, -70);\n\t\t\tPlayer.press(Player.Key.SPRINT, false);\n\t\t\tPlayer.press(Player.Key.FORWARD, true);\n\t\t\tPlayer.press(Player.Key.JUMP, true);\n\t\t\treturn;\n\t\t}\n\t\tPlayer.turn(yaw, -8);\n\t\tPlayer.press(Player.Key.FORWARD, true);\n\t\tPlayer.press(Player.Key.SPRINT, !Player.eyesInWater());\n\t\tPlayer.press(Player.Key.JUMP, true);\n\t}\n}\n",
+   "name": "SurfaceSwim.java"
+  }
+ ],
+ "help": "After shore fails in water: swim by hand on the surface toward seen land, switching targets on stalls",
+ "lesson": "Shore TIMEOUTs repeat because the pathed swim keeps going to the same unreachable land. Swimming by hand with a stall check every 5 s, which drops the stalled target or turns, should keep the bot moving instead of spending another 90 s in place.",
+ "skill": "surface_swim",
+ "summary": "surface_swim takes over when shore has timed out or got stuck in water. It swims by hand on the surface (forward, sprint, jump) toward seen land, and on a 5 s stall it drops that target or turns 90\u00b0.",
+ "target": {
+  "action": "shore",
+  "code": "TIMEOUT",
+  "gens": 8,
+  "metric": "resolve:shore:TIMEOUT",
+  "minutes": 102.0,
+  "name": "shore TIMEOUT",
+  "persistent": true,
+  "runs": 133,
+  "tries": 68
+ }
+}

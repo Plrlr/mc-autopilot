@@ -2694,7 +2694,8 @@
   "2026-10-01": 12,
   "2026-10-02": 12,
   "2026-10-03": 12,
-  "2026-10-04": 5
+  "2026-10-04": 5,
+  "2026-10-07": 1
  },
  "evolve_log": [
   {
@@ -2715,6 +2716,13 @@
    "gid": "g167",
    "mode": "edit",
    "result": "racing"
+  },
+  {
+   "gen": 221,
+   "gid": "g192",
+   "mode": "skill",
+   "result": "drilling",
+   "target": "shore TIMEOUT"
   }
  ],
  "gen": 221,
@@ -18287,6 +18295,70 @@
    "parent": "g178",
    "status": "contender"
   },
+  "g192": {
+   "born": 221,
+   "code": {
+    "base": "18db3a1421e3bf5079ec7262cc5a8bcd01ccda80",
+    "branch": "evolve/g192",
+    "files": [
+     "mod/src/main/java/io/github/plrlr/autopilot/skills/evolved/SurfaceSwim.java",
+     "mod/src/main/java/io/github/plrlr/autopilot/skills/evolved/EvolvedSkills.java",
+     "mod/src/main/resources/evolved-genes.json"
+    ],
+    "gene": "evolved.surface_swim",
+    "kind": "skill",
+    "sha": "ec398321a0a006b1e0cf3815b5ce77475bf428bb",
+    "skill": "surface_swim",
+    "summary": "surface_swim takes over when shore has timed out or got stuck in water. It swims by hand on the surface (forward, sprint, jump) toward seen land, and on a 5 s stall it drops that target or turns 90\u00b0.",
+    "target": "shore TIMEOUT"
+   },
+   "drill": {
+    "gen": 221,
+    "idea": {
+     "_metric": "resolve:shore:TIMEOUT+surface_swim",
+     "evolved.surface_swim": 1
+    },
+    "run": 37557525393
+   },
+   "evals": [],
+   "exposure_spec": {
+    "skill": "surface_swim"
+   },
+   "genes": {
+    "combat.creeper_hit": 1.0,
+    "combat.ignore_walled_mobs": 1.0,
+    "combat.shield_guard": 1.0,
+    "death.recover_night_armor": 12.0,
+    "evolved.surface_swim": 1.0,
+    "focus.commit": 1.0,
+    "gear.sword_early": 1.0,
+    "move.shore_first": 1.0,
+    "nav.surface_v2": 1.0,
+    "nav.unstuck_v2": 1.0,
+    "night.shelter_exit": 1.0,
+    "night.wall_in": 1.0,
+    "plan.hide_hp": 15.0,
+    "plan.readiness": 1.0,
+    "portal.prepare_work_area": 1.0,
+    "portal.reserve_lava_bucket": 1.0,
+    "route.armor_before_portal": 1.0,
+    "skill.enderman_warped": 1.0,
+    "skill.portal_repair": 1.0,
+    "skill.ruined_portal": 1.0,
+    "stations.pickup_last": 1.0,
+    "stuck.item_progress": 1.0
+   },
+   "id": "g192",
+   "metric": "resolve:shore:TIMEOUT+surface_swim",
+   "mutated": [
+    "code",
+    "evolved.surface_swim"
+   ],
+   "note": "code: new skill surface_swim for shore TIMEOUT: surface_swim takes over when shore has timed out or got stuck in water. It swims by hand on the surface (forward, sprint, jump) toward seen land, and on a 5 s stall it drops that target or turns 90\u00b0.",
+   "pairs": [],
+   "parent": "g178",
+   "status": "drilling"
+  },
   "g2": {
    "born": 1,
    "code": null,
@@ -30440,7 +30512,8 @@
   "When the planner's inventory test (Goal.have bucket counts filled buckets) says a step is ready but the skill's own check refuses, the skill must fix the state itself (pour out the spare water), or the planner offers the same refused step forever.",
   "Creeper HAZARD failures happened because the attack quit as soon as it saw a lit fuse. The follow-up retreat then started 2-3 blocks from the creeper and failed with NO_PROGRESS, so backing off at once inside the attack should beat handing over to a new skill.",
   "Repeated shore TIMEOUTs come from a 90 s pathed swim that doesn't move the bot. After one failure, swimming by hand on the surface toward seen land (or straight ahead), and switching targets when it stalls, should beat trying the same route again.",
-  "When a skill's special method needs room the spot lacks, a fallback that uses the visible resource as it stands (mine the world's gravel) should beat repeating the refusal while explore says the target is already seen."
+  "When a skill's special method needs room the spot lacks, a fallback that uses the visible resource as it stands (mine the world's gravel) should beat repeating the refusal while explore says the target is already seen.",
+  "Shore TIMEOUTs repeat because the pathed swim keeps going to the same unreachable land. Swimming by hand with a stall check every 5 s, which drops the stalled target or turns, should keep the bot moving instead of spending another 90 s in place."
  ],
  "learned_race": {
   "gen": 210,
@@ -30461,7 +30534,7 @@
   "mean_gap_ok": -0.1085,
   "n": 1269
  },
- "next_id": 192,
+ "next_id": 193,
  "pending": null,
  "race_evidence_version": 2,
  "score_since_gen": 179,
@@ -31312,6 +31385,13 @@
    "gid": "g164",
    "result": "racing",
    "skill": "swim_out",
+   "target": "shore TIMEOUT"
+  },
+  {
+   "gen": 221,
+   "gid": "g192",
+   "result": "drilling",
+   "skill": "surface_swim",
    "target": "shore TIMEOUT"
   }
  ],
