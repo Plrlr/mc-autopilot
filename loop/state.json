@@ -2685,7 +2685,7 @@
   "2026-10-04": 18,
   "2026-10-05": 18,
   "2026-10-06": 19,
-  "2026-10-07": 2
+  "2026-10-07": 3
  },
  "evolve_days": {
   "2026-09-27": 1,
@@ -2725,7 +2725,7 @@
    "target": "shore TIMEOUT"
   }
  ],
- "gen": 222,
+ "gen": 223,
  "gene_specs": {
   "bed.table_first": {
    "def": 0.0,
@@ -18459,7 +18459,9 @@
      "_metric": "resolve:shore:TIMEOUT+surface_swim",
      "evolved.surface_swim": 1
     },
-    "run": 37557525393
+    "run": 37557525393,
+    "verdict": "INCONCLUSIVE",
+    "why": "INCONCLUSIVE: on 0/0 fixed (0%), off 0/1 fixed (0%), z +0.0; exposure on its side: surface_swim offered 0, chosen 0, started 0, ended 0 (0 ok); acted in 0 of 3 games"
    },
    "evals": [],
    "exposure_spec": {
@@ -18490,6 +18492,7 @@
     "stuck.item_progress": 1.0
    },
    "id": "g192",
+   "inconclusive": "never ran in its drill",
    "metric": "resolve:shore:TIMEOUT+surface_swim",
    "mutated": [
     "code",
@@ -18498,7 +18501,125 @@
    "note": "code: new skill surface_swim for shore TIMEOUT: surface_swim takes over when shore has timed out or got stuck in water. It swims by hand on the surface (forward, sprint, jump) toward seen land, and on a 5 s stall it drops that target or turns 90\u00b0.",
    "pairs": [],
    "parent": "g178",
-   "status": "drilling"
+   "status": "rejected"
+  },
+  "g193": {
+   "born": 223,
+   "code": null,
+   "evals": [],
+   "genes": {
+    "combat.creeper_hit": 1.0,
+    "combat.ignore_walled_mobs": 1.0,
+    "combat.shield_guard": 1.0,
+    "death.recover_night_armor": 12.0,
+    "focus.commit": 1.0,
+    "gear.sword_early": 1.0,
+    "learned.weight": 1.0,
+    "move.shore_first": 1.0,
+    "nav.surface_v2": 1.0,
+    "nav.unstuck_v2": 1.0,
+    "night.shelter_exit": 1.0,
+    "night.wall_in": 1.0,
+    "plan.hide_hp": 15.0,
+    "plan.readiness": 1.0,
+    "portal.prepare_work_area": 1.0,
+    "portal.reserve_lava_bucket": 1.0,
+    "route.armor_before_portal": 1.0,
+    "skill.enderman_warped": 1.0,
+    "skill.portal_repair": 1.0,
+    "skill.ruined_portal": 1.0,
+    "stations.pickup_last": 1.0,
+    "stuck.item_progress": 1.0
+   },
+   "id": "g193",
+   "mutated": [
+    "learned.weight"
+   ],
+   "note": "suggested: learned.weight 1",
+   "pairs": [],
+   "parent": "g178",
+   "priority": true,
+   "status": "contender"
+  },
+  "g194": {
+   "born": 223,
+   "code": null,
+   "evals": [],
+   "genes": {
+    "combat.creeper_hit": 1.0,
+    "combat.ignore_walled_mobs": 1.0,
+    "combat.shield_guard": 1.0,
+    "death.recover_night_armor": 12.0,
+    "focus.commit": 1.0,
+    "gear.sword_early": 1.0,
+    "loop.stuck_s": 11.0,
+    "move.shore_first": 1.0,
+    "nav.surface_v2": 1.0,
+    "nav.unstuck_v2": 1.0,
+    "night.shelter_exit": 1.0,
+    "night.wall_in": 1.0,
+    "plan.hide_hp": 15.0,
+    "plan.readiness": 1.0,
+    "plan.upkeep_calm_radius": 14.0,
+    "portal.prepare_work_area": 1.0,
+    "portal.reserve_lava_bucket": 1.0,
+    "route.armor_before_portal": 1.0,
+    "skill.enderman_warped": 1.0,
+    "skill.portal_repair": 1.0,
+    "skill.ruined_portal": 1.0,
+    "smelt.own_furnace": 1.0,
+    "stations.pickup_last": 1.0,
+    "stuck.item_progress": 1.0
+   },
+   "id": "g194",
+   "mutated": [
+    "loop.stuck_s",
+    "plan.upkeep_calm_radius",
+    "smelt.own_furnace"
+   ],
+   "note": "loop.stuck_s 11, plan.upkeep_calm_radius 14, smelt.own_furnace 1",
+   "pairs": [],
+   "parent": "g178",
+   "status": "contender"
+  },
+  "g195": {
+   "born": 223,
+   "code": null,
+   "evals": [],
+   "genes": {
+    "combat.creeper_hit": 1.0,
+    "combat.ignore_walled_mobs": 1.0,
+    "combat.shield_guard": 1.0,
+    "death.recover_night_armor": 12.0,
+    "focus.commit": 1.0,
+    "gear.sword_early": 1.0,
+    "move.shore_first": 1.0,
+    "nav.surface_v2": 1.0,
+    "nav.unstuck_v2": 1.0,
+    "night.shelter_exit": 1.0,
+    "night.wall_in": 1.0,
+    "plan.hide_hp": 15.0,
+    "plan.readiness": 1.0,
+    "portal.prepare_work_area": 1.0,
+    "portal.reserve_lava_bucket": 1.0,
+    "reflex.lava_margin": 1.0,
+    "route.armor_before_portal": 1.0,
+    "skill.diamond_hunt": 1.0,
+    "skill.enderman_warped": 1.0,
+    "skill.portal_repair": 1.0,
+    "skill.ruined_portal": 1.0,
+    "stations.pickup_last": 1.0,
+    "stuck.item_progress": 1.0
+   },
+   "id": "g195",
+   "mutated": [
+    "skill.diamond_hunt",
+    "reflex.lava_margin"
+   ],
+   "note": "skill.diamond_hunt 1, reflex.lava_margin 1",
+   "pairs": [],
+   "parent": "g178",
+   "status": "contender"
   },
   "g2": {
    "born": 1,
@@ -30657,8 +30778,8 @@
   "Shore TIMEOUTs repeat because the pathed swim keeps going to the same unreachable land. Swimming by hand with a stall check every 5 s, which drops the stalled target or turns, should keep the bot moving instead of spending another 90 s in place."
  ],
  "learned_race": {
-  "gen": 210,
-  "gid": "g190"
+  "gen": 223,
+  "gid": "g193"
  },
  "merge": null,
  "model_adv_lo": 0.0037,
@@ -30675,8 +30796,89 @@
   "mean_gap_ok": -0.295,
   "n": 1269
  },
- "next_id": 193,
- "pending": null,
+ "next_id": 196,
+ "pending": {
+  "data_tasks": [
+   {
+    "kind": "scenario",
+    "late": true,
+    "scenario": "stronghold",
+    "seed": "D223-55mytt",
+    "stage": "eyes",
+    "synthetic": true
+   },
+   {
+    "kind": "natural",
+    "seed": "D223-esx69x",
+    "stage": "spawn",
+    "synthetic": false
+   }
+  ],
+  "gen": 223,
+  "lineup": [
+   "g178",
+   "g193",
+   "g194",
+   "g195"
+  ],
+  "runs": [
+   "eval-g178-0",
+   "eval-g178-1",
+   "eval-g178-2",
+   "eval-g178-3",
+   "eval-g193-0",
+   "eval-g193-1",
+   "eval-g193-2",
+   "eval-g193-3",
+   "eval-g194-0",
+   "eval-g194-1",
+   "eval-g194-2",
+   "eval-g194-3",
+   "eval-g195-0",
+   "eval-g195-1",
+   "eval-g195-2",
+   "eval-g195-3",
+   "data-g178-0",
+   "data-g178-1"
+  ],
+  "seeds": [
+   "L223-rsgfgs",
+   "L223-dwmyn6",
+   "L223-vmxjjh",
+   "L223-uvb7wm"
+  ],
+  "sha": "18db3a1421e3bf5079ec7262cc5a8bcd01ccda80",
+  "started": "2026-10-07T03:11:41+00:00",
+  "tasks": [
+   {
+    "kind": "natural",
+    "seed": "L223-rsgfgs",
+    "stage": "spawn",
+    "synthetic": false
+   },
+   {
+    "kind": "natural",
+    "seed": "L223-dwmyn6",
+    "stage": "spawn",
+    "synthetic": false
+   },
+   {
+    "asset": "diamond-gen198-eval-g183-0.zip",
+    "kind": "start",
+    "seed": "L223-vmxjjh",
+    "stage": "diamond",
+    "synthetic": false
+   },
+   {
+    "kind": "combat",
+    "minutes": 10,
+    "scenario": "combat",
+    "seed": "L223-uvb7wm",
+    "stage": "combat",
+    "synthetic": false
+   }
+  ]
+ },
  "race_evidence_version": 2,
  "score_since_gen": 179,
  "score_version": 4,
@@ -31531,7 +31733,7 @@
   {
    "gen": 221,
    "gid": "g192",
-   "result": "drilling",
+   "result": "inconclusive: never ran in its drill (its offer never fired): INCONCLUSIVE: on 0/0 fixed (0%), off 0/1 fixed (0%), z +0.0; exposure on its side: surface_swim offered 0, chosen 0, started 0, ended 0 (0 ok); acted in 0 of 3 games",
    "skill": "surface_swim",
    "target": "shore TIMEOUT"
   }
@@ -34319,7 +34521,8 @@
   "{\"_drill_scenario\": \"nether_entry\", \"_exposure\": {\"gene\": \"ready.nether_gold\"}, \"_note\": \"2026-10-04 (Claude, Oct 4 audit): a gold helmet carried in and worn in the Nether. Ordinary piglins made 66 of 172 first deaths in the audit's Nether games; piglins leave a player in gold alone (brutes do not).\", \"_priority\": true, \"_stages\": [\"diamond\"], \"ready.nether_gold\": 1}",
   "{\"_exposure\": {\"gene\": \"brain.death_avoid\"}, \"_metric\": \"deaths\", \"brain.death_avoid\": 1, \"brain.situations\": 1}",
   "{\"_auto\": \"learned brain gate open at gen 210 (5% bound +0.0028)\", \"_priority\": true, \"learned.weight\": 1}",
-  "{\"_exposure\": {\"gene\": \"brain.skill_stats\"}, \"brain.situations\": 1, \"brain.skill_stats\": 1}"
+  "{\"_exposure\": {\"gene\": \"brain.skill_stats\"}, \"brain.situations\": 1, \"brain.skill_stats\": 1}",
+  "{\"_auto\": \"learned brain gate open at gen 223 (5% bound +0.0037)\", \"_priority\": true, \"learned.weight\": 1}"
  ],
  "version": 1
 }
