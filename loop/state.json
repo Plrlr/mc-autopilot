@@ -2695,7 +2695,7 @@
   "2026-10-02": 12,
   "2026-10-03": 12,
   "2026-10-04": 5,
-  "2026-10-07": 4
+  "2026-10-07": 5
  },
  "evolve_log": [
   {
@@ -2742,6 +2742,13 @@
    "gid": "g200",
    "mode": "edit",
    "result": "racing"
+  },
+  {
+   "gen": 231,
+   "gid": "g202",
+   "mode": "skill",
+   "result": "drilling",
+   "target": "collect NOT_FOUND"
   }
  ],
  "gen": 231,
@@ -20104,6 +20111,70 @@
    "parent": "g196",
    "status": "rejected"
   },
+  "g202": {
+   "born": 231,
+   "code": {
+    "base": "91d44de4fbc72526287a191ce432dba1a89adb1c",
+    "branch": "evolve/g202",
+    "files": [
+     "mod/src/main/java/io/github/plrlr/autopilot/skills/evolved/SeekLog.java",
+     "mod/src/main/java/io/github/plrlr/autopilot/skills/evolved/EvolvedSkills.java",
+     "mod/src/main/resources/evolved-genes.json"
+    ],
+    "gene": "evolved.seek_log",
+    "kind": "skill",
+    "sha": "330002fb5cc31e6ce98e4cbe620d48a82eb658f6",
+    "skill": "seek_log",
+    "summary": "seek_log: after collect log fails NOT_FOUND (or explore log says ALREADY_DONE), walk to the nearest remembered log beyond collect's 64-block range, or walk 40-block legs to find one, ending once a log is within 40 blocks.",
+    "target": "collect NOT_FOUND"
+   },
+   "drill": {
+    "gen": 231,
+    "idea": {
+     "_metric": "resolve:collect:NOT_FOUND+seek_log",
+     "evolved.seek_log": 1
+    },
+    "run": 37641755636
+   },
+   "evals": [],
+   "exposure_spec": {
+    "skill": "seek_log"
+   },
+   "genes": {
+    "combat.creeper_hit": 1.0,
+    "combat.ignore_walled_mobs": 1.0,
+    "combat.shield_guard": 1.0,
+    "death.recover_night_armor": 12.0,
+    "evolved.seek_log": 1.0,
+    "focus.commit": 1.0,
+    "gear.sword_early": 1.0,
+    "move.shore_first": 1.0,
+    "nav.surface_v2": 1.0,
+    "nav.unstuck_v2": 1.0,
+    "night.shelter_exit": 1.0,
+    "night.wall_in": 1.0,
+    "plan.hide_hp": 15.0,
+    "plan.readiness": 1.0,
+    "portal.prepare_work_area": 1.0,
+    "portal.reserve_lava_bucket": 1.0,
+    "route.armor_before_portal": 1.0,
+    "skill.enderman_warped": 1.0,
+    "skill.portal_repair": 1.0,
+    "skill.ruined_portal": 1.0,
+    "stations.pickup_last": 1.0,
+    "stuck.item_progress": 1.0
+   },
+   "id": "g202",
+   "metric": "resolve:collect:NOT_FOUND+seek_log",
+   "mutated": [
+    "code",
+    "evolved.seek_log"
+   ],
+   "note": "code: new skill seek_log for collect NOT_FOUND: seek_log: after collect log fails NOT_FOUND (or explore log says ALREADY_DONE), walk to the nearest remembered log beyond collect's 64-block range, or walk 40-block legs to find one, ending once a log is within 40 blocks.",
+   "pairs": [],
+   "parent": "g196",
+   "status": "drilling"
+  },
   "g21": {
    "born": 23,
    "code": {
@@ -32122,7 +32193,8 @@
   "Shore TIMEOUTs repeat because the pathed swim keeps going to the same unreachable land. Swimming by hand with a stall check every 5 s, which drops the stalled target or turns, should keep the bot moving instead of spending another 90 s in place.",
   "When two planner phases choose the same kind of step by different rules (the furnace batch already cooking vs the largest raw stack), they swap each other's choice on every decision; give them one shared rule.",
   "The shelter exit failed because StairUp needed a block to fill a step; a climb-out that pillars when it has blocks and otherwise digs a step staircase needs no placements to succeed.",
-  "A seen-only collect that instantly refuses lets the planner hand the same refusal back over and over; folding the search into the skill (as stoneStep does with stairs) turns a 3 s fail loop into progress."
+  "A seen-only collect that instantly refuses lets the planner hand the same refusal back over and over; folding the search into the skill (as stoneStep does with stairs) turns a 3 s fail loop into progress.",
+  "collect log NOT_FOUND repeats because collect only looks 3 s within 64 blocks while explore log says ALREADY_DONE for logs seen further away; a step that closes that gap until collect's own check passes should end the two-refusal loop."
  ],
  "learned_race": {
   "gen": 223,
@@ -32143,7 +32215,7 @@
   "mean_gap_ok": -0.3376,
   "n": 1303
  },
- "next_id": 202,
+ "next_id": 203,
  "pending": null,
  "race_evidence_version": 2,
  "score_since_gen": 179,
@@ -33009,6 +33081,13 @@
    "result": "inconclusive: never ran in its drill (its offer never fired): INCONCLUSIVE: on 0/0 fixed (0%), off 0/0 fixed (0%), z +0.0; exposure on its side: shelter_climb_out offered 0, chosen 0, started 0, ended 0 (0 ok); acted in 0 of 3 games",
    "skill": "shelter_climb_out",
    "target": "shelter STUCK"
+  },
+  {
+   "gen": 231,
+   "gid": "g202",
+   "result": "drilling",
+   "skill": "seek_log",
+   "target": "collect NOT_FOUND"
   }
  ],
  "skill_stats": {
