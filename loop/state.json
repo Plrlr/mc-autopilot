@@ -2695,7 +2695,7 @@
   "2026-10-02": 12,
   "2026-10-03": 12,
   "2026-10-04": 5,
-  "2026-10-07": 3
+  "2026-10-07": 4
  },
  "evolve_log": [
   {
@@ -2736,6 +2736,12 @@
    "mode": "skill",
    "result": "drilling",
    "target": "shelter STUCK"
+  },
+  {
+   "gen": 229,
+   "gid": "g200",
+   "mode": "edit",
+   "result": "racing"
   }
  ],
  "gen": 229,
@@ -19755,6 +19761,50 @@
    "parent": "g10",
    "status": "rejected"
   },
+  "g200": {
+   "born": 229,
+   "code": {
+    "base": "91d44de4fbc72526287a191ce432dba1a89adb1c",
+    "branch": "evolve/g200",
+    "files": [
+     "mod/src/main/java/io/github/plrlr/autopilot/skills/CollectSkill.java"
+    ],
+    "sha": "01e11cad9fe10e17f67fdc61638d9dfb392e3a15",
+    "summary": "When collect log/sand sees none after its 3 s look, it runs its own explore for that item and switches to mining once it comes into view, instead of failing NOT_FOUND straight away (collect log NOT_FOUND repeated back-to-back 102 times, the top failure)."
+   },
+   "evals": [],
+   "genes": {
+    "combat.creeper_hit": 1.0,
+    "combat.ignore_walled_mobs": 1.0,
+    "combat.shield_guard": 1.0,
+    "death.recover_night_armor": 12.0,
+    "focus.commit": 1.0,
+    "gear.sword_early": 1.0,
+    "move.shore_first": 1.0,
+    "nav.surface_v2": 1.0,
+    "nav.unstuck_v2": 1.0,
+    "night.shelter_exit": 1.0,
+    "night.wall_in": 1.0,
+    "plan.hide_hp": 15.0,
+    "plan.readiness": 1.0,
+    "portal.prepare_work_area": 1.0,
+    "portal.reserve_lava_bucket": 1.0,
+    "route.armor_before_portal": 1.0,
+    "skill.enderman_warped": 1.0,
+    "skill.portal_repair": 1.0,
+    "skill.ruined_portal": 1.0,
+    "stations.pickup_last": 1.0,
+    "stuck.item_progress": 1.0
+   },
+   "id": "g200",
+   "mutated": [
+    "code"
+   ],
+   "note": "code: When collect log/sand sees none after its 3 s look, it runs its own explore for that item and switches to mining once it comes into view, instead of failing NOT_FOUND straight away (collect log NOT_FOUND repeated back-to-back 102 times, the top failure).",
+   "pairs": [],
+   "parent": "g196",
+   "status": "contender"
+  },
   "g21": {
    "born": 23,
    "code": {
@@ -31772,7 +31822,8 @@
   "When a skill's special method needs room the spot lacks, a fallback that uses the visible resource as it stands (mine the world's gravel) should beat repeating the refusal while explore says the target is already seen.",
   "Shore TIMEOUTs repeat because the pathed swim keeps going to the same unreachable land. Swimming by hand with a stall check every 5 s, which drops the stalled target or turns, should keep the bot moving instead of spending another 90 s in place.",
   "When two planner phases choose the same kind of step by different rules (the furnace batch already cooking vs the largest raw stack), they swap each other's choice on every decision; give them one shared rule.",
-  "The shelter exit failed because StairUp needed a block to fill a step; a climb-out that pillars when it has blocks and otherwise digs a step staircase needs no placements to succeed."
+  "The shelter exit failed because StairUp needed a block to fill a step; a climb-out that pillars when it has blocks and otherwise digs a step staircase needs no placements to succeed.",
+  "A seen-only collect that instantly refuses lets the planner hand the same refusal back over and over; folding the search into the skill (as stoneStep does with stairs) turns a 3 s fail loop into progress."
  ],
  "learned_race": {
   "gen": 223,
@@ -31793,7 +31844,7 @@
   "mean_gap_ok": -0.5307,
   "n": 1303
  },
- "next_id": 200,
+ "next_id": 201,
  "pending": null,
  "race_evidence_version": 2,
  "score_since_gen": 179,
