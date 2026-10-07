@@ -197,11 +197,8 @@ public final class Planner {
 		if (ready >= 8) return null;
 		// Loading the furnace removes raw meat from inventory. Keep collecting that batch instead
 		// of wandering off to hunt while its cooked food is still waiting at our station.
-		for (String meat : Items2.RAW_MEAT) {
-			String cooked = "cooked_" + meat;
-			SmeltSkill.Job job = SmeltSkill.job(cooked);
-			if (job != null) return new Option("smelt", cooked + ":" + job.count(), "collect cooked food before the iron trip");
-		}
+		Option pending = pendingCookStep("collect cooked food before the iron trip");
+		if (pending != null) return pending;
 		int raw = Mc.count("meat");
 		String most = null;
 		for (String meat : Items2.RAW_MEAT)
@@ -216,6 +213,19 @@ public final class Planner {
 				return new Option("attack", animal, "stock food before the iron trip (" + ready + "/8 cooked)");
 		}
 		// On sparse starts a compulsory animal search can replace the iron route forever.
+		return null;
+	}
+
+	/**
+	 * The cooked-meat batch already in a furnace, if any (first in RAW_MEAT order). Upkeep and the
+	 * early food step both use this, so they don't take turns loading mutton and porkchop.
+	 */
+	static Option pendingCookStep(String why) {
+		for (String meat : Items2.RAW_MEAT) {
+			String cooked = "cooked_" + meat;
+			SmeltSkill.Job job = SmeltSkill.job(cooked);
+			if (job != null) return new Option("smelt", cooked + ":" + job.count(), why);
+		}
 		return null;
 	}
 
@@ -477,7 +487,9 @@ public final class Planner {
 			int raw = Mc.count("meat");
 			String most = null;
 			for (String r : Items2.RAW_MEAT) if (Mc.count(r) > 0 && (most == null || Mc.count(r) > Mc.count(most))) most = r;
-			if (most != null && (raw >= 3 || readyFood < 2) && canSmeltNow())
+			Option cooking = pendingCookStep("collect the food already cooking");
+			if (cooking != null) out.add(cooking);
+			else if (most != null && (raw >= 3 || readyFood < 2) && canSmeltNow())
 				out.add(new Option("smelt", "cooked_" + most + ":" + Mc.count(most), "cook the raw " + most + " in one load"));
 			// Batch the hunt: animals in view get taken while the stock is short (3-5 per trip).
 			if (readyFood + raw < stock) {
