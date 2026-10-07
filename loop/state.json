@@ -2685,7 +2685,7 @@
   "2026-10-04": 18,
   "2026-10-05": 18,
   "2026-10-06": 19,
-  "2026-10-07": 8
+  "2026-10-07": 9
  },
  "evolve_days": {
   "2026-09-27": 1,
@@ -2738,7 +2738,7 @@
    "target": "shelter STUCK"
   }
  ],
- "gen": 228,
+ "gen": 229,
  "gene_specs": {
   "bed.table_first": {
    "def": 0.0,
@@ -19321,7 +19321,9 @@
      "_metric": "resolve:shelter:STUCK+shelter_climb_out",
      "evolved.shelter_climb_out": 1
     },
-    "run": 37601906410
+    "run": 37601906410,
+    "verdict": "INCONCLUSIVE",
+    "why": "INCONCLUSIVE: on 0/0 fixed (0%), off 0/0 fixed (0%), z +0.0; exposure on its side: shelter_climb_out offered 0, chosen 0, started 0, ended 0 (0 ok); acted in 0 of 3 games"
    },
    "evals": [],
    "exposure_spec": {
@@ -19352,6 +19354,7 @@
     "stuck.item_progress": 1.0
    },
    "id": "g197",
+   "inconclusive": "never ran in its drill",
    "metric": "resolve:shelter:STUCK+shelter_climb_out",
    "mutated": [
     "code",
@@ -19360,7 +19363,7 @@
    "note": "code: new skill shelter_climb_out for shelter STUCK: shelter_climb_out: after shelter fails STUCK (morning, couldn't climb out of the covered shaft), mine the lid and pillar up with blocks, or carve a blockless staircase, until a side is open.",
    "pairs": [],
    "parent": "g196",
-   "status": "drilling"
+   "status": "rejected"
   },
   "g198": {
    "born": 228,
@@ -19440,6 +19443,46 @@
    ],
    "parent": "g196",
    "status": "rejected"
+  },
+  "g199": {
+   "born": 229,
+   "code": null,
+   "evals": [],
+   "genes": {
+    "combat.creeper_hit": 1.0,
+    "combat.ignore_walled_mobs": 1.0,
+    "combat.shield_guard": 1.0,
+    "death.recover_night_armor": 12.0,
+    "focus.commit": 1.0,
+    "gear.sword_early": 1.0,
+    "loop.stuck_s": 11.0,
+    "move.shore_first": 1.0,
+    "nav.surface_v2": 1.0,
+    "nav.unstuck_v2": 1.0,
+    "night.shelter_exit": 1.0,
+    "night.wall_in": 1.0,
+    "plan.hide_hp": 15.0,
+    "plan.readiness": 1.0,
+    "plan.upkeep_calm_radius": 14.0,
+    "portal.prepare_work_area": 1.0,
+    "portal.reserve_lava_bucket": 1.0,
+    "route.armor_before_portal": 1.0,
+    "skill.blaze_farm": 1.0,
+    "skill.enderman_warped": 1.0,
+    "skill.portal_repair": 1.0,
+    "skill.ruined_portal": 1.0,
+    "smelt.own_furnace": 1.0,
+    "stations.pickup_last": 1.0,
+    "stuck.item_progress": 1.0
+   },
+   "id": "g199",
+   "mutated": [
+    "skill.blaze_farm"
+   ],
+   "note": "skill.blaze_farm 1",
+   "pairs": [],
+   "parent": "g194",
+   "status": "contender"
   },
   "g2": {
    "born": 1,
@@ -31618,8 +31661,89 @@
   "mean_gap_ok": -0.2874,
   "n": 1303
  },
- "next_id": 199,
- "pending": null,
+ "next_id": 200,
+ "pending": {
+  "data_tasks": [
+   {
+    "kind": "scenario",
+    "late": true,
+    "scenario": "end",
+    "seed": "D229-wxewm7",
+    "stage": "end",
+    "synthetic": true
+   },
+   {
+    "kind": "natural",
+    "seed": "D229-dyg5fx",
+    "stage": "spawn",
+    "synthetic": false
+   }
+  ],
+  "gen": 229,
+  "lineup": [
+   "g196",
+   "g178",
+   "g194",
+   "g199"
+  ],
+  "runs": [
+   "eval-g196-0",
+   "eval-g196-1",
+   "eval-g196-2",
+   "eval-g196-3",
+   "eval-g178-0",
+   "eval-g178-1",
+   "eval-g178-2",
+   "eval-g178-3",
+   "eval-g194-0",
+   "eval-g194-1",
+   "eval-g194-2",
+   "eval-g194-3",
+   "eval-g199-0",
+   "eval-g199-1",
+   "eval-g199-2",
+   "eval-g199-3",
+   "data-g196-0",
+   "data-g196-1"
+  ],
+  "seeds": [
+   "L229-y9gc9n",
+   "L229-6bmsv7",
+   "L229-4234y4",
+   "L229-mh76kk"
+  ],
+  "sha": "91d44de4fbc72526287a191ce432dba1a89adb1c",
+  "started": "2026-10-07T11:03:40+00:00",
+  "tasks": [
+   {
+    "kind": "natural",
+    "seed": "L229-y9gc9n",
+    "stage": "spawn",
+    "synthetic": false
+   },
+   {
+    "kind": "natural",
+    "seed": "L229-6bmsv7",
+    "stage": "spawn",
+    "synthetic": false
+   },
+   {
+    "asset": "nether-gen212-eval-g188-1.zip",
+    "kind": "start",
+    "seed": "L229-4234y4",
+    "stage": "nether",
+    "synthetic": false
+   },
+   {
+    "kind": "combat",
+    "minutes": 10,
+    "scenario": "combat",
+    "seed": "L229-mh76kk",
+    "stage": "combat",
+    "synthetic": false
+   }
+  ]
+ },
  "race_evidence_version": 2,
  "score_since_gen": 179,
  "score_version": 4,
@@ -32481,7 +32605,7 @@
   {
    "gen": 227,
    "gid": "g197",
-   "result": "drilling",
+   "result": "inconclusive: never ran in its drill (its offer never fired): INCONCLUSIVE: on 0/0 fixed (0%), off 0/0 fixed (0%), z +0.0; exposure on its side: shelter_climb_out offered 0, chosen 0, started 0, ended 0 (0 ok); acted in 0 of 3 games",
    "skill": "shelter_climb_out",
    "target": "shelter STUCK"
   }
