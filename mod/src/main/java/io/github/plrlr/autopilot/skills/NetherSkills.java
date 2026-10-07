@@ -120,6 +120,8 @@ public final class NetherSkills {
 		private static final int SWEEP_STEPS = 12;
 		private int sweep = -1;
 		private int legStart;
+		/** Headings tried again inside this run after a leg made no headway. */
+		private int legRetries;
 		private final int[] spawnerSlice = new int[SWEEP_STEPS];
 
 		// blazes mode. Tried anchors outlive one run of the skill: a reflex or an eat restarts it,
@@ -378,6 +380,15 @@ public final class NetherSkills {
 				double moved = Math.hypot(pl.getX() - startX, pl.getZ() - startZ);
 				if (moved < 16) {
 					memory.markBadAhead(startX, startZ, LEG);
+					// Turn here rather than hand the same step back to the planner (it chose fortress find
+					// again at once, 10 back-to-back UNREACHABLE fails): try another heading from this spot.
+					if (legRetries++ < 3) {
+						startX = pl.getX();
+						startZ = pl.getZ();
+						walkLeg(null);
+						legStart = ticks;
+						return;
+					}
 					fail(Fail.UNREACHABLE, "couldn't make headway that way (lava or cliffs); will turn");
 				} else {
 					done("walked " + Math.round(moved) + " blocks, no fortress in view yet");
