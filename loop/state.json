@@ -2695,7 +2695,7 @@
   "2026-10-02": 12,
   "2026-10-03": 12,
   "2026-10-04": 5,
-  "2026-10-07": 5
+  "2026-10-07": 6
  },
  "evolve_log": [
   {
@@ -2749,6 +2749,12 @@
    "mode": "skill",
    "result": "drilling",
    "target": "collect NOT_FOUND"
+  },
+  {
+   "gen": 233,
+   "gid": "g206",
+   "mode": "edit",
+   "result": "racing"
   }
  ],
  "gen": 233,
@@ -20556,6 +20562,50 @@
    "priority": true,
    "status": "contender"
   },
+  "g206": {
+   "born": 233,
+   "code": {
+    "base": "91d44de4fbc72526287a191ce432dba1a89adb1c",
+    "branch": "evolve/g206",
+    "files": [
+     "mod/src/main/java/io/github/plrlr/autopilot/skills/NetherSkills.java"
+    ],
+    "sha": "2141620d646b886a65fd99de40b6371c35364bd2",
+    "summary": "When a fortress-find leg can't make headway, it now marks that heading as bad and tries another one inside the same skill, up to 3 more times, before failing UNREACHABLE. This breaks the back-to-back fortress:find UNREACHABLE loop that was handed back to the planner each time."
+   },
+   "evals": [],
+   "genes": {
+    "combat.creeper_hit": 1.0,
+    "combat.ignore_walled_mobs": 1.0,
+    "combat.shield_guard": 1.0,
+    "death.recover_night_armor": 12.0,
+    "focus.commit": 1.0,
+    "gear.sword_early": 1.0,
+    "move.shore_first": 1.0,
+    "nav.surface_v2": 1.0,
+    "nav.unstuck_v2": 1.0,
+    "night.shelter_exit": 1.0,
+    "night.wall_in": 1.0,
+    "plan.hide_hp": 15.0,
+    "plan.readiness": 1.0,
+    "portal.prepare_work_area": 1.0,
+    "portal.reserve_lava_bucket": 1.0,
+    "route.armor_before_portal": 1.0,
+    "skill.enderman_warped": 1.0,
+    "skill.portal_repair": 1.0,
+    "skill.ruined_portal": 1.0,
+    "stations.pickup_last": 1.0,
+    "stuck.item_progress": 1.0
+   },
+   "id": "g206",
+   "mutated": [
+    "code"
+   ],
+   "note": "code: When a fortress-find leg can't make headway, it now marks that heading as bad and tries another one inside the same skill, up to 3 more times, before failing UNREACHABLE. This breaks the back-to-back fortress:find UNREACHABLE loop that was handed back to the planner each time.",
+   "pairs": [],
+   "parent": "g196",
+   "status": "contender"
+  },
   "g21": {
    "born": 23,
    "code": {
@@ -32575,7 +32625,8 @@
   "When two planner phases choose the same kind of step by different rules (the furnace batch already cooking vs the largest raw stack), they swap each other's choice on every decision; give them one shared rule.",
   "The shelter exit failed because StairUp needed a block to fill a step; a climb-out that pillars when it has blocks and otherwise digs a step staircase needs no placements to succeed.",
   "A seen-only collect that instantly refuses lets the planner hand the same refusal back over and over; folding the search into the skill (as stoneStep does with stairs) turns a 3 s fail loop into progress.",
-  "collect log NOT_FOUND repeats because collect only looks 3 s within 64 blocks while explore log says ALREADY_DONE for logs seen further away; a step that closes that gap until collect's own check passes should end the two-refusal loop."
+  "collect log NOT_FOUND repeats because collect only looks 3 s within 64 blocks while explore log says ALREADY_DONE for logs seen further away; a step that closes that gap until collect's own check passes should end the two-refusal loop.",
+  "fortress find UNREACHABLE repeated back to back because each failed leg ended the skill and the planner offered the same step again. Turning to a new heading inside the skill should be cheaper than a full re-decision and a new pie-chart sweep each time."
  ],
  "learned_race": {
   "gen": 233,
@@ -32596,7 +32647,7 @@
   "mean_gap_ok": -0.2332,
   "n": 1377
  },
- "next_id": 206,
+ "next_id": 207,
  "pending": null,
  "race_evidence_version": 2,
  "score_since_gen": 179,
