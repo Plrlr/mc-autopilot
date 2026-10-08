@@ -2710,7 +2710,7 @@
   "2026-10-03": 12,
   "2026-10-04": 5,
   "2026-10-07": 6,
-  "2026-10-08": 3
+  "2026-10-08": 4
  },
  "evolve_log": [
   {
@@ -2790,6 +2790,12 @@
    "mode": "skill",
    "result": "drilling",
    "target": "collect STUCK"
+  },
+  {
+   "gen": 246,
+   "gid": "g220",
+   "mode": "edit",
+   "result": "racing"
   }
  ],
  "gen": 246,
@@ -23159,6 +23165,50 @@
    "parent": "g10",
    "status": "rejected"
   },
+  "g220": {
+   "born": 246,
+   "code": {
+    "base": "91d44de4fbc72526287a191ce432dba1a89adb1c",
+    "branch": "evolve/g220",
+    "files": [
+     "mod/src/main/java/io/github/plrlr/autopilot/skills/NetherSkills.java"
+    ],
+    "sha": "19cf9d77c7b95e7c02c4678996d2c126b07e593a",
+    "summary": "Fortress find remembers pie-chart headings whose leg failed UNREACHABLE and ignores spawner slices within 20\u00b0 of them on later sweeps, so the sweep stops sending the bot back down the same blocked heading."
+   },
+   "evals": [],
+   "genes": {
+    "combat.creeper_hit": 1.0,
+    "combat.ignore_walled_mobs": 1.0,
+    "combat.shield_guard": 1.0,
+    "death.recover_night_armor": 12.0,
+    "focus.commit": 1.0,
+    "gear.sword_early": 1.0,
+    "move.shore_first": 1.0,
+    "nav.surface_v2": 1.0,
+    "nav.unstuck_v2": 1.0,
+    "night.shelter_exit": 1.0,
+    "night.wall_in": 1.0,
+    "plan.hide_hp": 15.0,
+    "plan.readiness": 1.0,
+    "portal.prepare_work_area": 1.0,
+    "portal.reserve_lava_bucket": 1.0,
+    "route.armor_before_portal": 1.0,
+    "skill.enderman_warped": 1.0,
+    "skill.portal_repair": 1.0,
+    "skill.ruined_portal": 1.0,
+    "stations.pickup_last": 1.0,
+    "stuck.item_progress": 1.0
+   },
+   "id": "g220",
+   "mutated": [
+    "code"
+   ],
+   "note": "code: Fortress find remembers pie-chart headings whose leg failed UNREACHABLE and ignores spawner slices within 20\u00b0 of them on later sweeps, so the sweep stops sending the bot back down the same blocked heading.",
+   "pairs": [],
+   "parent": "g196",
+   "status": "contender"
+  },
   "g23": {
    "born": 25,
    "code": {
@@ -35029,7 +35079,8 @@
   "fortress find UNREACHABLE repeated back to back because each failed leg ended the skill and the planner offered the same step again. Turning to a new heading inside the skill should be cheaper than a full re-decision and a new pie-chart sweep each time.",
   "Shore STUCK is the pathed swim pinned against a bank it can't jump onto; offering on just lastSkill=shore+STUCK while main is shore (no extra preconditions) makes sure the fallback actually runs.",
   "A fallback explore whose target is already in view can never succeed. Retarget it to new ground so the step it backs up gets a fresh place to try, rather than repeating two instant refusals.",
-  "Repeated collect STUCK happens at a spot Baritone can't path out of, and unstuck's walk barely moves the bot, so the retry stalls again. A hand-driven dig-and-walk that must reach 3 blocks of real displacement should give the next collect a new start."
+  "Repeated collect STUCK happens at a spot Baritone can't path out of, and unstuck's walk barely moves the bot, so the retry stalls again. A hand-driven dig-and-walk that must reach 3 blocks of real displacement should give the next collect a new start.",
+  "A failure mark has to cover every way a skill picks its direction: the bad-heading mark only fed exploreHeading, so the pie-chart sweep could keep choosing the heading that had just failed."
  ],
  "learned_race": {
   "gen": 244,
@@ -35050,7 +35101,7 @@
   "mean_gap_ok": -0.585,
   "n": 1400
  },
- "next_id": 220,
+ "next_id": 221,
  "pending": null,
  "race_evidence_version": 2,
  "score_since_gen": 179,
