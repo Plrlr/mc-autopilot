@@ -2710,7 +2710,7 @@
   "2026-10-03": 12,
   "2026-10-04": 5,
   "2026-10-07": 6,
-  "2026-10-08": 2
+  "2026-10-08": 3
  },
  "evolve_log": [
   {
@@ -2783,6 +2783,13 @@
    "gid": "g213",
    "mode": "edit",
    "result": "racing"
+  },
+  {
+   "gen": 244,
+   "gid": "g218",
+   "mode": "skill",
+   "result": "drilling",
+   "target": "collect STUCK"
   }
  ],
  "gen": 244,
@@ -22691,6 +22698,70 @@
    "priority": true,
    "status": "contender"
   },
+  "g218": {
+   "born": 244,
+   "code": {
+    "base": "91d44de4fbc72526287a191ce432dba1a89adb1c",
+    "branch": "evolve/g218",
+    "files": [
+     "mod/src/main/java/io/github/plrlr/autopilot/skills/evolved/CollectDigFree.java",
+     "mod/src/main/java/io/github/plrlr/autopilot/skills/evolved/EvolvedSkills.java",
+     "mod/src/main/resources/evolved-genes.json"
+    ],
+    "gene": "evolved.collect_dig_free",
+    "kind": "skill",
+    "sha": "2da591b239c82b99226177aeaec0c7769ef52b51",
+    "skill": "collect_dig_free",
+    "summary": "collect_dig_free: after collect fails STUCK, digs and walks out by hand in the four directions until 3 blocks away, so the retried collect doesn't stall in the same pocket",
+    "target": "collect STUCK"
+   },
+   "drill": {
+    "gen": 244,
+    "idea": {
+     "_metric": "resolve:collect:STUCK+collect_dig_free",
+     "evolved.collect_dig_free": 1
+    },
+    "run": 37772803971
+   },
+   "evals": [],
+   "exposure_spec": {
+    "skill": "collect_dig_free"
+   },
+   "genes": {
+    "combat.creeper_hit": 1.0,
+    "combat.ignore_walled_mobs": 1.0,
+    "combat.shield_guard": 1.0,
+    "death.recover_night_armor": 12.0,
+    "evolved.collect_dig_free": 1.0,
+    "focus.commit": 1.0,
+    "gear.sword_early": 1.0,
+    "move.shore_first": 1.0,
+    "nav.surface_v2": 1.0,
+    "nav.unstuck_v2": 1.0,
+    "night.shelter_exit": 1.0,
+    "night.wall_in": 1.0,
+    "plan.hide_hp": 15.0,
+    "plan.readiness": 1.0,
+    "portal.prepare_work_area": 1.0,
+    "portal.reserve_lava_bucket": 1.0,
+    "route.armor_before_portal": 1.0,
+    "skill.enderman_warped": 1.0,
+    "skill.portal_repair": 1.0,
+    "skill.ruined_portal": 1.0,
+    "stations.pickup_last": 1.0,
+    "stuck.item_progress": 1.0
+   },
+   "id": "g218",
+   "metric": "resolve:collect:STUCK+collect_dig_free",
+   "mutated": [
+    "code",
+    "evolved.collect_dig_free"
+   ],
+   "note": "code: new skill collect_dig_free for collect STUCK: collect_dig_free: after collect fails STUCK, digs and walks out by hand in the four directions until 3 blocks away, so the retried collect doesn't stall in the same pocket",
+   "pairs": [],
+   "parent": "g196",
+   "status": "drilling"
+  },
   "g22": {
    "born": 25,
    "code": null,
@@ -34635,7 +34706,8 @@
   "collect log NOT_FOUND repeats because collect only looks 3 s within 64 blocks while explore log says ALREADY_DONE for logs seen further away; a step that closes that gap until collect's own check passes should end the two-refusal loop.",
   "fortress find UNREACHABLE repeated back to back because each failed leg ended the skill and the planner offered the same step again. Turning to a new heading inside the skill should be cheaper than a full re-decision and a new pie-chart sweep each time.",
   "Shore STUCK is the pathed swim pinned against a bank it can't jump onto; offering on just lastSkill=shore+STUCK while main is shore (no extra preconditions) makes sure the fallback actually runs.",
-  "A fallback explore whose target is already in view can never succeed. Retarget it to new ground so the step it backs up gets a fresh place to try, rather than repeating two instant refusals."
+  "A fallback explore whose target is already in view can never succeed. Retarget it to new ground so the step it backs up gets a fresh place to try, rather than repeating two instant refusals.",
+  "Repeated collect STUCK happens at a spot Baritone can't path out of, and unstuck's walk barely moves the bot, so the retry stalls again. A hand-driven dig-and-walk that must reach 3 blocks of real displacement should give the next collect a new start."
  ],
  "learned_race": {
   "gen": 244,
@@ -34656,7 +34728,7 @@
   "mean_gap_ok": -0.3756,
   "n": 1400
  },
- "next_id": 218,
+ "next_id": 219,
  "pending": null,
  "race_evidence_version": 2,
  "score_since_gen": 179,
@@ -35536,6 +35608,13 @@
    "result": "inconclusive: never ran in its drill (its offer never fired): INCONCLUSIVE: on 0/2 fixed (0%), off 0/0 fixed (0%), z +0.0; exposure on its side: shore_climb_out offered 0, chosen 0, started 0, ended 0 (0 ok); acted in 0 of 3 games",
    "skill": "shore_climb_out",
    "target": "shore STUCK"
+  },
+  {
+   "gen": 244,
+   "gid": "g218",
+   "result": "drilling",
+   "skill": "collect_dig_free",
+   "target": "collect STUCK"
   }
  ],
  "skill_stats": {
