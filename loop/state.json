@@ -2685,7 +2685,8 @@
   "2026-10-04": 18,
   "2026-10-05": 18,
   "2026-10-06": 19,
-  "2026-10-07": 16
+  "2026-10-07": 16,
+  "2026-10-08": 1
  },
  "evolve_days": {
   "2026-09-27": 1,
@@ -2757,7 +2758,7 @@
    "result": "racing"
   }
  ],
- "gen": 236,
+ "gen": 237,
  "gene_specs": {
   "bed.table_first": {
    "def": 0.0,
@@ -33040,7 +33041,88 @@
   "n": 1395
  },
  "next_id": 207,
- "pending": null,
+ "pending": {
+  "data_tasks": [
+   {
+    "kind": "scenario",
+    "late": true,
+    "scenario": "end",
+    "seed": "D237-xdjhfg",
+    "stage": "end",
+    "synthetic": true
+   },
+   {
+    "kind": "natural",
+    "seed": "D237-reqgbm",
+    "stage": "spawn",
+    "synthetic": false
+   }
+  ],
+  "gen": 237,
+  "lineup": [
+   "g196",
+   "g206",
+   "g205",
+   "g203"
+  ],
+  "runs": [
+   "eval-g196-0",
+   "eval-g196-1",
+   "eval-g196-2",
+   "eval-g196-3",
+   "eval-g206-0",
+   "eval-g206-1",
+   "eval-g206-2",
+   "eval-g206-3",
+   "eval-g205-0",
+   "eval-g205-1",
+   "eval-g205-2",
+   "eval-g205-3",
+   "eval-g203-0",
+   "eval-g203-1",
+   "eval-g203-2",
+   "eval-g203-3",
+   "data-g196-0",
+   "data-g196-1"
+  ],
+  "seeds": [
+   "L237-mxca6z",
+   "L237-trewcc",
+   "L237-gk7fsj",
+   "L237-afm8t4"
+  ],
+  "sha": "91d44de4fbc72526287a191ce432dba1a89adb1c",
+  "started": "2026-10-08T00:52:50+00:00",
+  "tasks": [
+   {
+    "kind": "natural",
+    "seed": "L237-mxca6z",
+    "stage": "spawn",
+    "synthetic": false
+   },
+   {
+    "kind": "natural",
+    "seed": "L237-trewcc",
+    "stage": "spawn",
+    "synthetic": false
+   },
+   {
+    "asset": "nether-gen209-eval-g178-3.zip",
+    "kind": "start",
+    "seed": "L237-gk7fsj",
+    "stage": "nether",
+    "synthetic": false
+   },
+   {
+    "kind": "combat",
+    "minutes": 10,
+    "scenario": "combat",
+    "seed": "L237-afm8t4",
+    "stage": "combat",
+    "synthetic": false
+   }
+  ]
+ },
  "race_evidence_version": 2,
  "score_since_gen": 179,
  "score_version": 4,
