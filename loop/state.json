@@ -2699,7 +2699,7 @@
   "2026-10-05": 18,
   "2026-10-06": 19,
   "2026-10-07": 16,
-  "2026-10-08": 11
+  "2026-10-08": 12
  },
  "evolve_days": {
   "2026-09-27": 1,
@@ -2798,7 +2798,7 @@
    "result": "racing"
   }
  ],
- "gen": 247,
+ "gen": 248,
  "gene_specs": {
   "bed.table_first": {
    "def": 0.0,
@@ -23382,6 +23382,92 @@
    "parent": "g196",
    "status": "rejected"
   },
+  "g222": {
+   "born": 248,
+   "code": {
+    "base": "91d44de4fbc72526287a191ce432dba1a89adb1c",
+    "branch": "evolve/g220",
+    "files": [
+     "mod/src/main/java/io/github/plrlr/autopilot/skills/NetherSkills.java"
+    ],
+    "sha": "19cf9d77c7b95e7c02c4678996d2c126b07e593a",
+    "summary": "Fortress find remembers pie-chart headings whose leg failed UNREACHABLE and ignores spawner slices within 20\u00b0 of them on later sweeps, so the sweep stops sending the bot back down the same blocked heading."
+   },
+   "evals": [],
+   "genes": {
+    "combat.creeper_hit": 1.0,
+    "combat.ignore_walled_mobs": 1.0,
+    "combat.shield_guard": 1.0,
+    "death.recover_night_armor": 12.0,
+    "focus.commit": 1.0,
+    "gear.sword_early": 1.0,
+    "move.shore_first": 1.0,
+    "nav.surface_v2": 1.0,
+    "nav.unstuck_v2": 1.0,
+    "night.shelter_exit": 1.0,
+    "night.wall_in": 1.0,
+    "plan.hide_hp": 15.0,
+    "plan.readiness": 1.0,
+    "portal.prepare_work_area": 1.0,
+    "portal.reserve_lava_bucket": 1.0,
+    "route.armor_before_portal": 1.0,
+    "skill.enderman_warped": 1.0,
+    "skill.portal_repair": 1.0,
+    "skill.ruined_portal": 1.0,
+    "skill.stash": 1.0,
+    "stations.pickup_last": 1.0,
+    "stuck.item_progress": 1.0
+   },
+   "id": "g222",
+   "mutated": [
+    "skill.stash"
+   ],
+   "note": "skill.stash 1",
+   "pairs": [],
+   "parent": "g220",
+   "status": "contender"
+  },
+  "g223": {
+   "born": 248,
+   "code": null,
+   "evals": [],
+   "genes": {
+    "combat.creeper_hit": 1.0,
+    "combat.ignore_walled_mobs": 1.0,
+    "combat.shield_guard": 1.0,
+    "death.recover_night_armor": 12.0,
+    "focus.commit": 1.0,
+    "food.search_hunger": 9.0,
+    "gear.sword_early": 1.0,
+    "move.shore_first": 1.0,
+    "nav.mob_avoid_coef": 2.1791214026304755,
+    "nav.surface_v2": 1.0,
+    "nav.unstuck_v2": 1.0,
+    "night.shelter_exit": 1.0,
+    "night.wall_in": 1.0,
+    "plan.hide_hp": 15.0,
+    "plan.readiness": 1.0,
+    "portal.prepare_work_area": 1.0,
+    "portal.reserve_lava_bucket": 1.0,
+    "route.armor_before_portal": 1.0,
+    "skill.boat_cross": 1.0,
+    "skill.enderman_warped": 1.0,
+    "skill.portal_repair": 1.0,
+    "skill.ruined_portal": 1.0,
+    "stations.pickup_last": 1.0,
+    "stuck.item_progress": 1.0
+   },
+   "id": "g223",
+   "mutated": [
+    "food.search_hunger",
+    "skill.boat_cross",
+    "nav.mob_avoid_coef"
+   ],
+   "note": "food.search_hunger 9, skill.boat_cross 1, nav.mob_avoid_coef 2.17912",
+   "pairs": [],
+   "parent": "g196",
+   "status": "contender"
+  },
   "g23": {
    "born": 25,
    "code": {
@@ -35274,8 +35360,89 @@
   "mean_gap_ok": -0.49,
   "n": 1400
  },
- "next_id": 222,
- "pending": null,
+ "next_id": 224,
+ "pending": {
+  "data_tasks": [
+   {
+    "kind": "scenario",
+    "late": true,
+    "scenario": "end",
+    "seed": "D248-77ekh8",
+    "stage": "end",
+    "synthetic": true
+   },
+   {
+    "kind": "natural",
+    "seed": "D248-c6n3fv",
+    "stage": "spawn",
+    "synthetic": false
+   }
+  ],
+  "gen": 248,
+  "lineup": [
+   "g196",
+   "g220",
+   "g222",
+   "g223"
+  ],
+  "runs": [
+   "eval-g196-0",
+   "eval-g196-1",
+   "eval-g196-2",
+   "eval-g196-3",
+   "eval-g220-0",
+   "eval-g220-1",
+   "eval-g220-2",
+   "eval-g220-3",
+   "eval-g222-0",
+   "eval-g222-1",
+   "eval-g222-2",
+   "eval-g222-3",
+   "eval-g223-0",
+   "eval-g223-1",
+   "eval-g223-2",
+   "eval-g223-3",
+   "data-g196-0",
+   "data-g196-1"
+  ],
+  "seeds": [
+   "L248-raxwzy",
+   "L248-72wytu",
+   "L248-6euft8",
+   "L248-7k7wbw"
+  ],
+  "sha": "91d44de4fbc72526287a191ce432dba1a89adb1c",
+  "started": "2026-10-08T16:42:40+00:00",
+  "tasks": [
+   {
+    "kind": "natural",
+    "seed": "L248-raxwzy",
+    "stage": "spawn",
+    "synthetic": false
+   },
+   {
+    "kind": "natural",
+    "seed": "L248-72wytu",
+    "stage": "spawn",
+    "synthetic": false
+   },
+   {
+    "asset": "nether-gen222-eval-g173-2.zip",
+    "kind": "start",
+    "seed": "L248-6euft8",
+    "stage": "nether",
+    "synthetic": false
+   },
+   {
+    "kind": "combat",
+    "minutes": 10,
+    "scenario": "combat",
+    "seed": "L248-7k7wbw",
+    "stage": "combat",
+    "synthetic": false
+   }
+  ]
+ },
  "race_evidence_version": 2,
  "score_since_gen": 179,
  "score_version": 4,
