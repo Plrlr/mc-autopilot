@@ -2696,7 +2696,8 @@
   "2026-10-02": 12,
   "2026-10-03": 12,
   "2026-10-04": 5,
-  "2026-10-07": 6
+  "2026-10-07": 6,
+  "2026-10-08": 1
  },
  "evolve_log": [
   {
@@ -2756,6 +2757,13 @@
    "gid": "g206",
    "mode": "edit",
    "result": "racing"
+  },
+  {
+   "gen": 238,
+   "gid": "g208",
+   "mode": "skill",
+   "result": "drilling",
+   "target": "shore STUCK"
   }
  ],
  "gen": 238,
@@ -21319,6 +21327,70 @@
    "parent": "g203",
    "status": "contender"
   },
+  "g208": {
+   "born": 238,
+   "code": {
+    "base": "91d44de4fbc72526287a191ce432dba1a89adb1c",
+    "branch": "evolve/g208",
+    "files": [
+     "mod/src/main/java/io/github/plrlr/autopilot/skills/evolved/ShoreClimbOut.java",
+     "mod/src/main/java/io/github/plrlr/autopilot/skills/evolved/EvolvedSkills.java",
+     "mod/src/main/resources/evolved-genes.json"
+    ],
+    "gene": "evolved.shore_climb_out",
+    "kind": "skill",
+    "sha": "4769d0949ef70f2cee60a5951d1ba993fb40652e",
+    "skill": "shore_climb_out",
+    "summary": "shore_climb_out: after shore fails STUCK/TIMEOUT, swim by hand to a visible dry spot within 5 blocks, digging out the bank lip on a stall and switching targets/turning on repeat stalls.",
+    "target": "shore STUCK"
+   },
+   "drill": {
+    "gen": 238,
+    "idea": {
+     "_metric": "resolve:shore:STUCK+shore_climb_out",
+     "evolved.shore_climb_out": 1
+    },
+    "run": 37722557730
+   },
+   "evals": [],
+   "exposure_spec": {
+    "skill": "shore_climb_out"
+   },
+   "genes": {
+    "combat.creeper_hit": 1.0,
+    "combat.ignore_walled_mobs": 1.0,
+    "combat.shield_guard": 1.0,
+    "death.recover_night_armor": 12.0,
+    "evolved.shore_climb_out": 1.0,
+    "focus.commit": 1.0,
+    "gear.sword_early": 1.0,
+    "move.shore_first": 1.0,
+    "nav.surface_v2": 1.0,
+    "nav.unstuck_v2": 1.0,
+    "night.shelter_exit": 1.0,
+    "night.wall_in": 1.0,
+    "plan.hide_hp": 15.0,
+    "plan.readiness": 1.0,
+    "portal.prepare_work_area": 1.0,
+    "portal.reserve_lava_bucket": 1.0,
+    "route.armor_before_portal": 1.0,
+    "skill.enderman_warped": 1.0,
+    "skill.portal_repair": 1.0,
+    "skill.ruined_portal": 1.0,
+    "stations.pickup_last": 1.0,
+    "stuck.item_progress": 1.0
+   },
+   "id": "g208",
+   "metric": "resolve:shore:STUCK+shore_climb_out",
+   "mutated": [
+    "code",
+    "evolved.shore_climb_out"
+   ],
+   "note": "code: new skill shore_climb_out for shore STUCK: shore_climb_out: after shore fails STUCK/TIMEOUT, swim by hand to a visible dry spot within 5 blocks, digging out the bank lip on a stall and switching targets/turning on repeat stalls.",
+   "pairs": [],
+   "parent": "g196",
+   "status": "drilling"
+  },
   "g21": {
    "born": 23,
    "code": {
@@ -33339,7 +33411,8 @@
   "The shelter exit failed because StairUp needed a block to fill a step; a climb-out that pillars when it has blocks and otherwise digs a step staircase needs no placements to succeed.",
   "A seen-only collect that instantly refuses lets the planner hand the same refusal back over and over; folding the search into the skill (as stoneStep does with stairs) turns a 3 s fail loop into progress.",
   "collect log NOT_FOUND repeats because collect only looks 3 s within 64 blocks while explore log says ALREADY_DONE for logs seen further away; a step that closes that gap until collect's own check passes should end the two-refusal loop.",
-  "fortress find UNREACHABLE repeated back to back because each failed leg ended the skill and the planner offered the same step again. Turning to a new heading inside the skill should be cheaper than a full re-decision and a new pie-chart sweep each time."
+  "fortress find UNREACHABLE repeated back to back because each failed leg ended the skill and the planner offered the same step again. Turning to a new heading inside the skill should be cheaper than a full re-decision and a new pie-chart sweep each time.",
+  "Shore STUCK is the pathed swim pinned against a bank it can't jump onto; offering on just lastSkill=shore+STUCK while main is shore (no extra preconditions) makes sure the fallback actually runs."
  ],
  "learned_race": {
   "gen": 233,
@@ -33360,7 +33433,7 @@
   "mean_gap_ok": -0.6095,
   "n": 1395
  },
- "next_id": 208,
+ "next_id": 209,
  "pending": null,
  "race_evidence_version": 2,
  "score_since_gen": 179,
@@ -34233,6 +34306,13 @@
    "result": "inconclusive: never ran in its drill (its offer never fired): INCONCLUSIVE: on 0/0 fixed (0%), off 0/1 fixed (0%), z +0.0; exposure on its side: seek_log offered 0, chosen 0, started 0, ended 0 (0 ok); acted in 0 of 3 games",
    "skill": "seek_log",
    "target": "collect NOT_FOUND"
+  },
+  {
+   "gen": 238,
+   "gid": "g208",
+   "result": "drilling",
+   "skill": "shore_climb_out",
+   "target": "shore STUCK"
   }
  ],
  "skill_stats": {
