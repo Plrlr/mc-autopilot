@@ -528,7 +528,9 @@ public final class Planner {
 			if (o != null && o.skill().equals("craft")) out.add(new Option(o.skill(), o.arg(), "make a bow for the dragon fight: " + o.why()));
 		}
 		// Torches for the caves (gene cave.torches): craft a stock when coal and sticks are at hand.
-		if (Tune.on("cave.torches") && Mc.count("torch") < 4 && Mc.count("coal") > 0) {
+		// Overworld only: in the Nether light barely stops spawns, and craft torch timed out there
+		// 22 times (90 s each, 12% of Nether time) instead of finding the fortress.
+		if (Tune.on("cave.torches") && Mc.dimension().equals("overworld") && Mc.count("torch") < 4 && Mc.count("coal") > 0) {
 			Option t = itemStep("torch", 8, 0);
 			if (t != null && t.skill().equals("craft")) out.add(new Option(t.skill(), t.arg(), "torches to light caves (mobs spawn only in the dark)"));
 		}
