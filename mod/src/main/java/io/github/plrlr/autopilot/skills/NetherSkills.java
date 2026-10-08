@@ -121,6 +121,17 @@ public final class NetherSkills {
 		private int sweep = -1;
 		private int legStart;
 		private final int[] spawnerSlice = new int[SWEEP_STEPS];
+		/** Pie-chart headings whose leg made no headway: later sweeps skip them. */
+		private static final List<Float> badYaws = new ArrayList<>();
+		private Float legYaw;
+
+		private static boolean badYaw(float yaw) {
+			for (Float b : badYaws) {
+				float d = Math.abs(((yaw - b) % 360f + 540f) % 360f - 180f);
+				if (d < 20f) return true;
+			}
+			return false;
+		}
 
 		// blazes mode. Tried anchors outlive one run of the skill: a reflex or an eat restarts it,
 		// and a fresh list sent it back to the same empty corner (loop 0355).
@@ -351,10 +362,12 @@ public final class NetherSkills {
 			float yaw = sweep * (360f / SWEEP_STEPS);
 			if (sweep > 0) spawnerSlice[sweep - 1] = PieChart.spawnersInView(Mc.player().getYRot());
 			if (sweep == SWEEP_STEPS) {
+				for (int i = 0; i < SWEEP_STEPS; i++) if (badYaw(i * (360f / SWEEP_STEPS))) spawnerSlice[i] = 0;
 				int best = 0;
 				for (int i = 1; i < SWEEP_STEPS; i++) if (spawnerSlice[i] > spawnerSlice[best]) best = i;
 				sweep = -1;
 				Float toward = spawnerSlice[best] > 0 ? best * (360f / SWEEP_STEPS) : null;
+				legYaw = toward;
 				if (toward != null) Mc.say("Pie chart shows spawners that way; heading there.");
 				walkLeg(toward);
 				legStart = ticks;
@@ -378,6 +391,10 @@ public final class NetherSkills {
 				double moved = Math.hypot(pl.getX() - startX, pl.getZ() - startZ);
 				if (moved < 16) {
 					memory.markBadAhead(startX, startZ, LEG);
+					if (legYaw != null) {
+						if (badYaws.size() >= SWEEP_STEPS) badYaws.clear();
+						badYaws.add(legYaw);
+					}
 					fail(Fail.UNREACHABLE, "couldn't make headway that way (lava or cliffs); will turn");
 				} else {
 					done("walked " + Math.round(moved) + " blocks, no fortress in view yet");
