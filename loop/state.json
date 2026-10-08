@@ -2699,7 +2699,7 @@
   "2026-10-05": 18,
   "2026-10-06": 19,
   "2026-10-07": 16,
-  "2026-10-08": 7
+  "2026-10-08": 8
  },
  "evolve_days": {
   "2026-09-27": 1,
@@ -2785,7 +2785,7 @@
    "result": "racing"
   }
  ],
- "gen": 243,
+ "gen": 244,
  "gene_specs": {
   "bed.table_first": {
    "def": 0.0,
@@ -22511,6 +22511,44 @@
    "parent": "g196",
    "status": "contender"
   },
+  "g217": {
+   "born": 244,
+   "code": null,
+   "evals": [],
+   "genes": {
+    "combat.creeper_hit": 1.0,
+    "combat.ignore_walled_mobs": 1.0,
+    "combat.shield_guard": 1.0,
+    "death.recover_night_armor": 12.0,
+    "focus.commit": 1.0,
+    "gear.sword_early": 1.0,
+    "learned.weight": 1.0,
+    "move.shore_first": 1.0,
+    "nav.surface_v2": 1.0,
+    "nav.unstuck_v2": 1.0,
+    "night.shelter_exit": 1.0,
+    "night.wall_in": 1.0,
+    "plan.hide_hp": 15.0,
+    "plan.readiness": 1.0,
+    "portal.prepare_work_area": 1.0,
+    "portal.reserve_lava_bucket": 1.0,
+    "route.armor_before_portal": 1.0,
+    "skill.enderman_warped": 1.0,
+    "skill.portal_repair": 1.0,
+    "skill.ruined_portal": 1.0,
+    "stations.pickup_last": 1.0,
+    "stuck.item_progress": 1.0
+   },
+   "id": "g217",
+   "mutated": [
+    "learned.weight"
+   ],
+   "note": "suggested: learned.weight 1",
+   "pairs": [],
+   "parent": "g196",
+   "priority": true,
+   "status": "contender"
+  },
   "g22": {
    "born": 25,
    "code": null,
@@ -34458,8 +34496,8 @@
   "A fallback explore whose target is already in view can never succeed. Retarget it to new ground so the step it backs up gets a fresh place to try, rather than repeating two instant refusals."
  ],
  "learned_race": {
-  "gen": 233,
-  "gid": "g205"
+  "gen": 244,
+  "gid": "g217"
  },
  "merge": null,
  "model_adv_lo": 0.0006,
@@ -34476,8 +34514,89 @@
   "mean_gap_ok": -0.2424,
   "n": 1400
  },
- "next_id": 217,
- "pending": null,
+ "next_id": 218,
+ "pending": {
+  "data_tasks": [
+   {
+    "asset": "stronghold-gen242-data-g196-0.zip",
+    "kind": "start",
+    "late": true,
+    "seed": "D244-h9hpnw",
+    "stage": "stronghold",
+    "synthetic": true
+   },
+   {
+    "kind": "natural",
+    "seed": "D244-yeauxs",
+    "stage": "spawn",
+    "synthetic": false
+   }
+  ],
+  "gen": 244,
+  "lineup": [
+   "g196",
+   "g213",
+   "g217",
+   "g216"
+  ],
+  "runs": [
+   "eval-g196-0",
+   "eval-g196-1",
+   "eval-g196-2",
+   "eval-g196-3",
+   "eval-g213-0",
+   "eval-g213-1",
+   "eval-g213-2",
+   "eval-g213-3",
+   "eval-g217-0",
+   "eval-g217-1",
+   "eval-g217-2",
+   "eval-g217-3",
+   "eval-g216-0",
+   "eval-g216-1",
+   "eval-g216-2",
+   "eval-g216-3",
+   "data-g196-0",
+   "data-g196-1"
+  ],
+  "seeds": [
+   "L244-bvz6dg",
+   "L244-3ptpf8",
+   "L244-hgxm94",
+   "L244-7775s9"
+  ],
+  "sha": "91d44de4fbc72526287a191ce432dba1a89adb1c",
+  "started": "2026-10-08T10:24:48+00:00",
+  "tasks": [
+   {
+    "kind": "natural",
+    "seed": "L244-bvz6dg",
+    "stage": "spawn",
+    "synthetic": false
+   },
+   {
+    "kind": "natural",
+    "seed": "L244-3ptpf8",
+    "stage": "spawn",
+    "synthetic": false
+   },
+   {
+    "asset": "nether-gen217-eval-g188-2.zip",
+    "kind": "start",
+    "seed": "L244-hgxm94",
+    "stage": "nether",
+    "synthetic": false
+   },
+   {
+    "kind": "combat",
+    "minutes": 10,
+    "scenario": "combat",
+    "seed": "L244-7775s9",
+    "stage": "combat",
+    "synthetic": false
+   }
+  ]
+ },
  "race_evidence_version": 2,
  "score_since_gen": 179,
  "score_version": 4,
@@ -38161,7 +38280,8 @@
   "{\"_auto\": \"learned brain gate open at gen 210 (5% bound +0.0028)\", \"_priority\": true, \"learned.weight\": 1}",
   "{\"_exposure\": {\"gene\": \"brain.skill_stats\"}, \"brain.situations\": 1, \"brain.skill_stats\": 1}",
   "{\"_auto\": \"learned brain gate open at gen 223 (5% bound +0.0037)\", \"_priority\": true, \"learned.weight\": 1}",
-  "{\"_auto\": \"learned brain gate open at gen 233 (5% bound +0.0011)\", \"_priority\": true, \"learned.weight\": 1}"
+  "{\"_auto\": \"learned brain gate open at gen 233 (5% bound +0.0011)\", \"_priority\": true, \"learned.weight\": 1}",
+  "{\"_auto\": \"learned brain gate open at gen 244 (5% bound +0.0006)\", \"_priority\": true, \"learned.weight\": 1}"
  ],
  "version": 1
 }
