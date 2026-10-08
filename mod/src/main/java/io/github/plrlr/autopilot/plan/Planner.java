@@ -595,7 +595,14 @@ public final class Planner {
 			if (Mc.count("bed") > 0 || memory.nearestStation("bed") != null) out.add(new Option("sleep", null, "skip the night"));
 			else out.add(new Option("shelter", null, "wait out the night safely"));
 		}
-		out.add(new Option("explore", exploreTarget(main), "look for new ground"));
+		String target = exploreTarget(main);
+		// Flint's collect failing NO_ROOM next to gravel we already see: "gravel,water" only answers
+		// ALREADY_DONE (11 times at the nether frontier). Walk to new ground, where there's a flat spot.
+		if ("gravel,water".equals(target)) {
+			WorldMemory.Seen gravel = memory.nearest("gravel");
+			if (gravel != null && gravel.pos().distSqr(Mc.player().blockPosition()) < 48 * 48) target = "any";
+		}
+		out.add(new Option("explore", target, "look for new ground"));
 		return out;
 	}
 
