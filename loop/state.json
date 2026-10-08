@@ -2686,7 +2686,7 @@
   "2026-10-05": 18,
   "2026-10-06": 19,
   "2026-10-07": 16,
-  "2026-10-08": 3
+  "2026-10-08": 4
  },
  "evolve_days": {
   "2026-09-27": 1,
@@ -2766,7 +2766,7 @@
    "target": "shore STUCK"
   }
  ],
- "gen": 239,
+ "gen": 240,
  "gene_specs": {
   "bed.table_first": {
    "def": 0.0,
@@ -21450,7 +21450,9 @@
      "_metric": "resolve:shore:STUCK+shore_climb_out",
      "evolved.shore_climb_out": 1
     },
-    "run": 37722557730
+    "run": 37722557730,
+    "verdict": "INCONCLUSIVE",
+    "why": "INCONCLUSIVE: on 0/2 fixed (0%), off 0/0 fixed (0%), z +0.0; exposure on its side: shore_climb_out offered 0, chosen 0, started 0, ended 0 (0 ok); acted in 0 of 3 games"
    },
    "evals": [],
    "exposure_spec": {
@@ -21481,6 +21483,7 @@
     "stuck.item_progress": 1.0
    },
    "id": "g208",
+   "inconclusive": "never ran in its drill",
    "metric": "resolve:shore:STUCK+shore_climb_out",
    "mutated": [
     "code",
@@ -21489,7 +21492,7 @@
    "note": "code: new skill shore_climb_out for shore STUCK: shore_climb_out: after shore fails STUCK/TIMEOUT, swim by hand to a visible dry spot within 5 blocks, digging out the bank lip on a stall and switching targets/turning on repeat stalls.",
    "pairs": [],
    "parent": "g196",
-   "status": "drilling"
+   "status": "rejected"
   },
   "g209": {
    "born": 239,
@@ -21651,6 +21654,115 @@
    "pairs": [],
    "parent": "g10",
    "status": "rejected"
+  },
+  "g210": {
+   "born": 240,
+   "code": null,
+   "evals": [],
+   "genes": {
+    "combat.creeper_hit": 1.0,
+    "combat.ignore_walled_mobs": 1.0,
+    "combat.shield_guard": 1.0,
+    "death.recover_night_armor": 12.0,
+    "focus.commit": 1.0,
+    "gear.sword_early": 1.0,
+    "move.shore_first": 1.0,
+    "nav.surface_v2": 1.0,
+    "nav.unstuck_v2": 1.0,
+    "night.shelter_exit": 1.0,
+    "night.wall_in": 1.0,
+    "plan.hide_hp": 15.0,
+    "plan.readiness": 1.0,
+    "portal.prepare_work_area": 1.0,
+    "portal.reserve_lava_bucket": 1.0,
+    "route.armor_before_portal": 1.0,
+    "skill.enderman_warped": 1.0,
+    "skill.portal_repair": 1.0,
+    "skill.ruined_portal": 1.0,
+    "stations.pickup_last": 1.0
+   },
+   "id": "g210",
+   "mutated": [
+    "stuck.item_progress"
+   ],
+   "note": "stuck.item_progress 0",
+   "pairs": [],
+   "parent": "g196",
+   "status": "contender"
+  },
+  "g211": {
+   "born": 240,
+   "code": null,
+   "evals": [],
+   "genes": {
+    "combat.creeper_hit": 1.0,
+    "combat.ignore_walled_mobs": 1.0,
+    "combat.shield_guard": 1.0,
+    "death.recover_night_armor": 12.0,
+    "dragon.eat_hp": 11.0,
+    "focus.commit": 1.0,
+    "gear.sword_early": 1.0,
+    "move.shore_first": 1.0,
+    "nav.surface_v2": 1.0,
+    "nav.unstuck_v2": 1.0,
+    "night.shelter_exit": 1.0,
+    "night.wall_in": 1.0,
+    "plan.hide_hp": 15.0,
+    "plan.readiness": 1.0,
+    "portal.prepare_work_area": 1.0,
+    "portal.reserve_lava_bucket": 1.0,
+    "route.armor_before_portal": 1.0,
+    "skill.enderman_warped": 1.0,
+    "skill.portal_repair": 1.0,
+    "skill.ruined_portal": 1.0,
+    "stations.pickup_last": 1.0,
+    "stuck.item_progress": 1.0
+   },
+   "id": "g211",
+   "mutated": [
+    "dragon.eat_hp"
+   ],
+   "note": "dragon.eat_hp 11",
+   "pairs": [],
+   "parent": "g196",
+   "status": "contender"
+  },
+  "g212": {
+   "born": 240,
+   "code": null,
+   "evals": [],
+   "genes": {
+    "combat.creeper_hit": 1.0,
+    "combat.ignore_walled_mobs": 1.0,
+    "combat.shield_guard": 1.0,
+    "death.recover_night_armor": 12.0,
+    "focus.commit": 1.0,
+    "gear.sword_early": 1.0,
+    "move.shore_first": 1.0,
+    "nav.surface_v2": 1.0,
+    "nav.unstuck_v2": 1.0,
+    "night.shelter_exit": 1.0,
+    "night.wall_in": 1.0,
+    "plan.hide_hp": 15.0,
+    "plan.readiness": 1.0,
+    "portal.prepare_work_area": 1.0,
+    "portal.reserve_lava_bucket": 1.0,
+    "route.armor_before_portal": 1.0,
+    "safety.hazard": 1.0,
+    "skill.enderman_warped": 1.0,
+    "skill.portal_repair": 1.0,
+    "skill.ruined_portal": 1.0,
+    "stations.pickup_last": 1.0,
+    "stuck.item_progress": 1.0
+   },
+   "id": "g212",
+   "mutated": [
+    "safety.hazard"
+   ],
+   "note": "safety.hazard 1",
+   "pairs": [],
+   "parent": "g196",
+   "status": "contender"
   },
   "g22": {
    "born": 25,
@@ -33616,8 +33728,89 @@
   "mean_gap_ok": -0.6617,
   "n": 1395
  },
- "next_id": 210,
- "pending": null,
+ "next_id": 213,
+ "pending": {
+  "data_tasks": [
+   {
+    "kind": "scenario",
+    "late": true,
+    "scenario": "stronghold",
+    "seed": "D240-aby73k",
+    "stage": "eyes",
+    "synthetic": true
+   },
+   {
+    "kind": "natural",
+    "seed": "D240-76bagr",
+    "stage": "spawn",
+    "synthetic": false
+   }
+  ],
+  "gen": 240,
+  "lineup": [
+   "g196",
+   "g210",
+   "g211",
+   "g212"
+  ],
+  "runs": [
+   "eval-g196-0",
+   "eval-g196-1",
+   "eval-g196-2",
+   "eval-g196-3",
+   "eval-g210-0",
+   "eval-g210-1",
+   "eval-g210-2",
+   "eval-g210-3",
+   "eval-g211-0",
+   "eval-g211-1",
+   "eval-g211-2",
+   "eval-g211-3",
+   "eval-g212-0",
+   "eval-g212-1",
+   "eval-g212-2",
+   "eval-g212-3",
+   "data-g196-0",
+   "data-g196-1"
+  ],
+  "seeds": [
+   "L240-c8cs4x",
+   "L240-2dx7v6",
+   "L240-yhwda7",
+   "L240-6dpn6u"
+  ],
+  "sha": "91d44de4fbc72526287a191ce432dba1a89adb1c",
+  "started": "2026-10-08T04:55:39+00:00",
+  "tasks": [
+   {
+    "kind": "natural",
+    "seed": "L240-c8cs4x",
+    "stage": "spawn",
+    "synthetic": false
+   },
+   {
+    "kind": "natural",
+    "seed": "L240-2dx7v6",
+    "stage": "spawn",
+    "synthetic": false
+   },
+   {
+    "asset": "nether-gen205-eval-g186-3.zip",
+    "kind": "start",
+    "seed": "L240-yhwda7",
+    "stage": "nether",
+    "synthetic": false
+   },
+   {
+    "kind": "combat",
+    "minutes": 10,
+    "scenario": "combat",
+    "seed": "L240-6dpn6u",
+    "stage": "combat",
+    "synthetic": false
+   }
+  ]
+ },
  "race_evidence_version": 2,
  "score_since_gen": 179,
  "score_version": 4,
@@ -34493,7 +34686,7 @@
   {
    "gen": 238,
    "gid": "g208",
-   "result": "drilling",
+   "result": "inconclusive: never ran in its drill (its offer never fired): INCONCLUSIVE: on 0/2 fixed (0%), off 0/0 fixed (0%), z +0.0; exposure on its side: shore_climb_out offered 0, chosen 0, started 0, ended 0 (0 ok); acted in 0 of 3 games",
    "skill": "shore_climb_out",
    "target": "shore STUCK"
   }
