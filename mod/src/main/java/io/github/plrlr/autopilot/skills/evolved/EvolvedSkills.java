@@ -31,6 +31,7 @@ public final class EvolvedSkills {
 
 	static {
 		// evolve:entries (scripts/loop/evolve.py appends one add(...) line per evolved skill here)
+		add(new Entry("evolved.collect_dig_free", "collect_dig_free", CollectDigFree::new, CollectDigFree::offer, "After collect got stuck: dig and walk out by hand in the 4 directions until 3 blocks away"));
 		// evolve:end
 	}
 
