@@ -2697,7 +2697,7 @@
   "2026-10-03": 12,
   "2026-10-04": 5,
   "2026-10-07": 6,
-  "2026-10-08": 1
+  "2026-10-08": 2
  },
  "evolve_log": [
   {
@@ -2764,6 +2764,12 @@
    "mode": "skill",
    "result": "drilling",
    "target": "shore STUCK"
+  },
+  {
+   "gen": 240,
+   "gid": "g213",
+   "mode": "edit",
+   "result": "racing"
   }
  ],
  "gen": 240,
@@ -21910,6 +21916,50 @@
    "parent": "g196",
    "status": "rejected"
   },
+  "g213": {
+   "born": 240,
+   "code": {
+    "base": "91d44de4fbc72526287a191ce432dba1a89adb1c",
+    "branch": "evolve/g213",
+    "files": [
+     "mod/src/main/java/io/github/plrlr/autopilot/plan/Planner.java"
+    ],
+    "sha": "8518b2a5489ca3f7d16f456e0ba3222441b21071",
+    "summary": "When flint is the step and gravel is already remembered nearby, the fallback explore looks for new ground (\"any\") instead of \"gravel,water\", which always failed ALREADY_DONE. The bot moves somewhere a flint collect may find a flat spot to place gravel."
+   },
+   "evals": [],
+   "genes": {
+    "combat.creeper_hit": 1.0,
+    "combat.ignore_walled_mobs": 1.0,
+    "combat.shield_guard": 1.0,
+    "death.recover_night_armor": 12.0,
+    "focus.commit": 1.0,
+    "gear.sword_early": 1.0,
+    "move.shore_first": 1.0,
+    "nav.surface_v2": 1.0,
+    "nav.unstuck_v2": 1.0,
+    "night.shelter_exit": 1.0,
+    "night.wall_in": 1.0,
+    "plan.hide_hp": 15.0,
+    "plan.readiness": 1.0,
+    "portal.prepare_work_area": 1.0,
+    "portal.reserve_lava_bucket": 1.0,
+    "route.armor_before_portal": 1.0,
+    "skill.enderman_warped": 1.0,
+    "skill.portal_repair": 1.0,
+    "skill.ruined_portal": 1.0,
+    "stations.pickup_last": 1.0,
+    "stuck.item_progress": 1.0
+   },
+   "id": "g213",
+   "mutated": [
+    "code"
+   ],
+   "note": "code: When flint is the step and gravel is already remembered nearby, the fallback explore looks for new ground (\"any\") instead of \"gravel,water\", which always failed ALREADY_DONE. The bot moves somewhere a flint collect may find a flat spot to place gravel.",
+   "pairs": [],
+   "parent": "g196",
+   "status": "contender"
+  },
   "g22": {
    "born": 25,
    "code": null,
@@ -33853,7 +33903,8 @@
   "A seen-only collect that instantly refuses lets the planner hand the same refusal back over and over; folding the search into the skill (as stoneStep does with stairs) turns a 3 s fail loop into progress.",
   "collect log NOT_FOUND repeats because collect only looks 3 s within 64 blocks while explore log says ALREADY_DONE for logs seen further away; a step that closes that gap until collect's own check passes should end the two-refusal loop.",
   "fortress find UNREACHABLE repeated back to back because each failed leg ended the skill and the planner offered the same step again. Turning to a new heading inside the skill should be cheaper than a full re-decision and a new pie-chart sweep each time.",
-  "Shore STUCK is the pathed swim pinned against a bank it can't jump onto; offering on just lastSkill=shore+STUCK while main is shore (no extra preconditions) makes sure the fallback actually runs."
+  "Shore STUCK is the pathed swim pinned against a bank it can't jump onto; offering on just lastSkill=shore+STUCK while main is shore (no extra preconditions) makes sure the fallback actually runs.",
+  "A fallback explore whose target is already in view can never succeed. Retarget it to new ground so the step it backs up gets a fresh place to try, rather than repeating two instant refusals."
  ],
  "learned_race": {
   "gen": 233,
@@ -33874,7 +33925,7 @@
   "mean_gap_ok": -0.5615,
   "n": 1400
  },
- "next_id": 213,
+ "next_id": 214,
  "pending": null,
  "race_evidence_version": 2,
  "score_since_gen": 179,
