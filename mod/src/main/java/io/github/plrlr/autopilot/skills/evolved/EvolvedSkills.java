@@ -31,6 +31,7 @@ public final class EvolvedSkills {
 
 	static {
 		// evolve:entries (scripts/loop/evolve.py appends one add(...) line per evolved skill here)
+		add(new Entry("evolved.shore_climb_out", "shore_climb_out", ShoreClimbOut::new, ShoreClimbOut::offer, "After shore gets stuck: swim by hand to nearby visible dry ground, dig the bank lip if blocked, turn on stalls"));
 		// evolve:end
 	}
 

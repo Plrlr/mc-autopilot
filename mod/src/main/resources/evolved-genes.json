@@ -1,1 +1,15 @@
-{"_about": "append-only list of genes for evolved skills (scripts/loop/evolve.py appends)", "genes": []}
+{
+ "_about": "append-only list of genes for evolved skills (scripts/loop/evolve.py appends)",
+ "genes": [
+  {
+   "name": "evolved.shore_climb_out",
+   "kind": "BOOL",
+   "def": 0,
+   "skill": "shore_climb_out",
+   "why": "After shore gets stuck: swim by hand to nearby visible dry ground, dig the bank lip if blocked, turn on stalls",
+   "gen": 238,
+   "target": "shore STUCK",
+   "metric": "resolve:shore:STUCK"
+  }
+ ]
+}
