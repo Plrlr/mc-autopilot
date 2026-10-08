@@ -2699,7 +2699,7 @@
   "2026-10-05": 18,
   "2026-10-06": 19,
   "2026-10-07": 16,
-  "2026-10-08": 15
+  "2026-10-08": 16
  },
  "evolve_days": {
   "2026-09-27": 1,
@@ -2804,7 +2804,7 @@
    "result": "racing"
   }
  ],
- "gen": 251,
+ "gen": 252,
  "gene_specs": {
   "bed.table_first": {
    "def": 0.0,
@@ -24241,6 +24241,47 @@
    "parent": "g224",
    "status": "rejected"
   },
+  "g229": {
+   "born": 252,
+   "code": null,
+   "evals": [],
+   "genes": {
+    "combat.creeper_hit": 1.0,
+    "combat.ignore_walled_mobs": 1.0,
+    "combat.shield_guard": 1.0,
+    "death.recover_night_armor": 12.0,
+    "focus.commit": 1.0,
+    "gear.sword_early": 1.0,
+    "loop.stuck_s": 12.0,
+    "move.shore_first": 1.0,
+    "nav.surface_v2": 1.0,
+    "nav.unstuck_v2": 1.0,
+    "night.shelter_exit": 1.0,
+    "night.wall_in": 1.0,
+    "plan.hide_hp": 15.0,
+    "plan.readiness": 1.0,
+    "portal.prepare_work_area": 1.0,
+    "portal.reserve_lava_bucket": 1.0,
+    "route.armor_before_portal": 1.0,
+    "skill.blaze_farm": 1.0,
+    "skill.enderman_warped": 1.0,
+    "skill.portal_repair": 1.0,
+    "skill.restock": 1.0,
+    "skill.ruined_portal": 1.0,
+    "stations.pickup_last": 1.0,
+    "stuck.item_progress": 1.0
+   },
+   "id": "g229",
+   "mutated": [
+    "loop.stuck_s",
+    "skill.restock",
+    "skill.blaze_farm"
+   ],
+   "note": "loop.stuck_s 12, skill.restock 1, skill.blaze_farm 1",
+   "pairs": [],
+   "parent": "g196",
+   "status": "contender"
+  },
   "g23": {
    "born": 25,
    "code": {
@@ -36134,8 +36175,89 @@
   "mean_gap_ok": -0.5353,
   "n": 1408
  },
- "next_id": 229,
- "pending": null,
+ "next_id": 230,
+ "pending": {
+  "data_tasks": [
+   {
+    "kind": "scenario",
+    "late": true,
+    "scenario": "stronghold",
+    "seed": "D252-8xpga5",
+    "stage": "eyes",
+    "synthetic": true
+   },
+   {
+    "kind": "natural",
+    "seed": "D252-cf4egu",
+    "stage": "spawn",
+    "synthetic": false
+   }
+  ],
+  "gen": 252,
+  "lineup": [
+   "g196",
+   "g226",
+   "g224",
+   "g229"
+  ],
+  "runs": [
+   "eval-g196-0",
+   "eval-g196-1",
+   "eval-g196-2",
+   "eval-g196-3",
+   "eval-g226-0",
+   "eval-g226-1",
+   "eval-g226-2",
+   "eval-g226-3",
+   "eval-g224-0",
+   "eval-g224-1",
+   "eval-g224-2",
+   "eval-g224-3",
+   "eval-g229-0",
+   "eval-g229-1",
+   "eval-g229-2",
+   "eval-g229-3",
+   "data-g196-0",
+   "data-g196-1"
+  ],
+  "seeds": [
+   "L252-cdj8sc",
+   "L252-u4pf2c",
+   "L252-q7jvwd",
+   "L252-5wg692"
+  ],
+  "sha": "91d44de4fbc72526287a191ce432dba1a89adb1c",
+  "started": "2026-10-08T21:54:23+00:00",
+  "tasks": [
+   {
+    "kind": "natural",
+    "seed": "L252-cdj8sc",
+    "stage": "spawn",
+    "synthetic": false
+   },
+   {
+    "kind": "natural",
+    "seed": "L252-u4pf2c",
+    "stage": "spawn",
+    "synthetic": false
+   },
+   {
+    "asset": "nether-gen242-eval-g216-1.zip",
+    "kind": "start",
+    "seed": "L252-q7jvwd",
+    "stage": "nether",
+    "synthetic": false
+   },
+   {
+    "kind": "combat",
+    "minutes": 10,
+    "scenario": "combat",
+    "seed": "L252-5wg692",
+    "stage": "combat",
+    "synthetic": false
+   }
+  ]
+ },
  "race_evidence_version": 2,
  "score_since_gen": 179,
  "score_version": 4,
