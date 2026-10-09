@@ -2710,7 +2710,8 @@
   "2026-10-03": 12,
   "2026-10-04": 5,
   "2026-10-07": 6,
-  "2026-10-08": 5
+  "2026-10-08": 5,
+  "2026-10-09": 1
  },
  "evolve_log": [
   {
@@ -2800,6 +2801,12 @@
   {
    "gen": 249,
    "gid": "g226",
+   "mode": "edit",
+   "result": "racing"
+  },
+  {
+   "gen": 253,
+   "gid": "g231",
    "mode": "edit",
    "result": "racing"
   }
@@ -24682,6 +24689,50 @@
    "parent": "g196",
    "status": "rejected"
   },
+  "g231": {
+   "born": 253,
+   "code": {
+    "base": "91d44de4fbc72526287a191ce432dba1a89adb1c",
+    "branch": "evolve/g231",
+    "files": [
+     "mod/src/main/java/io/github/plrlr/autopilot/skills/CombatSkills.java"
+    ],
+    "sha": "8cdbddd11998bb126561ca17d9c917f5e826c452",
+    "summary": "Creeper fight: when straight-back footing is unsafe, back away diagonally (back-left/back-right) instead of failing HAZARD and handing off to a slow retreat while the fuse burns."
+   },
+   "evals": [],
+   "genes": {
+    "combat.creeper_hit": 1.0,
+    "combat.ignore_walled_mobs": 1.0,
+    "combat.shield_guard": 1.0,
+    "death.recover_night_armor": 12.0,
+    "focus.commit": 1.0,
+    "gear.sword_early": 1.0,
+    "move.shore_first": 1.0,
+    "nav.surface_v2": 1.0,
+    "nav.unstuck_v2": 1.0,
+    "night.shelter_exit": 1.0,
+    "night.wall_in": 1.0,
+    "plan.hide_hp": 15.0,
+    "plan.readiness": 1.0,
+    "portal.prepare_work_area": 1.0,
+    "portal.reserve_lava_bucket": 1.0,
+    "route.armor_before_portal": 1.0,
+    "skill.enderman_warped": 1.0,
+    "skill.portal_repair": 1.0,
+    "skill.ruined_portal": 1.0,
+    "stations.pickup_last": 1.0,
+    "stuck.item_progress": 1.0
+   },
+   "id": "g231",
+   "mutated": [
+    "code"
+   ],
+   "note": "code: Creeper fight: when straight-back footing is unsafe, back away diagonally (back-left/back-right) instead of failing HAZARD and handing off to a slow retreat while the fuse burns.",
+   "pairs": [],
+   "parent": "g196",
+   "status": "contender"
+  },
   "g24": {
    "born": 27,
    "code": null,
@@ -36475,7 +36526,8 @@
   "A fallback explore whose target is already in view can never succeed. Retarget it to new ground so the step it backs up gets a fresh place to try, rather than repeating two instant refusals.",
   "Repeated collect STUCK happens at a spot Baritone can't path out of, and unstuck's walk barely moves the bot, so the retry stalls again. A hand-driven dig-and-walk that must reach 3 blocks of real displacement should give the next collect a new start.",
   "A failure mark has to cover every way a skill picks its direction: the bad-heading mark only fed exploreHeading, so the pie-chart sweep could keep choosing the heading that had just failed.",
-  "An upkeep step that pays off in one dimension (cave torches) can quietly use up a large share of time in another dimension where it does little, so gate upkeep steps by the dimension where they help."
+  "An upkeep step that pays off in one dimension (cave torches) can quietly use up a large share of time in another dimension where it does little, so gate upkeep steps by the dimension where they help.",
+  "attack creeper HAZARD fires whenever the single straight-back step is unsafe; widening the escape to diagonal backsteps should keep the bot outrunning the blast in cramped terrain instead of losing time in a handoff."
  ],
  "learned_race": {
   "gen": 244,
@@ -36496,7 +36548,7 @@
   "mean_gap_ok": -0.1744,
   "n": 1408
  },
- "next_id": 231,
+ "next_id": 232,
  "pending": null,
  "race_evidence_version": 2,
  "score_since_gen": 179,
