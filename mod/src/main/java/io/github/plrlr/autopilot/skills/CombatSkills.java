@@ -213,6 +213,11 @@ public final class CombatSkills {
 				} else if (CombatFootwork.safe(pl, -1, 0) && backingTicks++ < 40) {
 					Mc.mc().options.keyDown.setDown(true);
 					return;
+				} else if (!lit) {
+					// No fuse burning: a stalled back-off isn't a hazard yet. Keep fighting; each hit's
+					// knockback makes the gap, and a lit fuse still bails out above.
+					creeperBacking = false;
+					backingTicks = 0;
 				} else {
 					fail(Fail.HAZARD, "no safe gap after hitting the creeper");
 					return;
