@@ -2700,7 +2700,7 @@
   "2026-10-06": 19,
   "2026-10-07": 16,
   "2026-10-08": 17,
-  "2026-10-09": 2
+  "2026-10-09": 3
  },
  "evolve_days": {
   "2026-09-27": 1,
@@ -2819,7 +2819,7 @@
    "target": "goto:surface UNREACHABLE"
   }
  ],
- "gen": 255,
+ "gen": 256,
  "gene_specs": {
   "bed.table_first": {
    "def": 0.0,
@@ -25249,6 +25249,122 @@
    "parent": "g196",
    "status": "drilling"
   },
+  "g237": {
+   "born": 256,
+   "code": null,
+   "evals": [],
+   "genes": {
+    "combat.creeper_hit": 1.0,
+    "combat.ignore_walled_mobs": 1.0,
+    "combat.shield_guard": 1.0,
+    "death.recover_night_armor": 12.0,
+    "focus.commit": 1.0,
+    "gear.sword_early": 1.0,
+    "learned.weight": 1.0,
+    "move.shore_first": 1.0,
+    "nav.surface_v2": 1.0,
+    "nav.unstuck_v2": 1.0,
+    "night.shelter_exit": 1.0,
+    "night.wall_in": 1.0,
+    "plan.hide_hp": 15.0,
+    "plan.readiness": 1.0,
+    "portal.prepare_work_area": 1.0,
+    "portal.reserve_lava_bucket": 1.0,
+    "route.armor_before_portal": 1.0,
+    "skill.enderman_warped": 1.0,
+    "skill.portal_repair": 1.0,
+    "skill.ruined_portal": 1.0,
+    "stations.pickup_last": 1.0,
+    "stuck.item_progress": 1.0
+   },
+   "id": "g237",
+   "mutated": [
+    "learned.weight"
+   ],
+   "note": "suggested: learned.weight 1",
+   "pairs": [],
+   "parent": "g196",
+   "priority": true,
+   "status": "contender"
+  },
+  "g238": {
+   "born": 256,
+   "code": null,
+   "evals": [],
+   "genes": {
+    "combat.creeper_hit": 1.0,
+    "combat.ignore_walled_mobs": 1.0,
+    "combat.shield_guard": 1.0,
+    "death.recover_night_armor": 12.0,
+    "focus.commit": 1.0,
+    "gear.sword_early": 1.0,
+    "move.shore_first": 1.0,
+    "nav.surface_v2": 1.0,
+    "nav.unstuck_v2": 1.0,
+    "night.shelter_exit": 1.0,
+    "night.wall_in": 1.0,
+    "plan.hide_hp": 15.0,
+    "plan.readiness": 1.0,
+    "portal.prepare_work_area": 1.0,
+    "reflex.escalate": 1.0,
+    "route.armor_before_portal": 1.0,
+    "skill.enderman_warped": 1.0,
+    "skill.ghast_defense": 1.0,
+    "skill.portal_repair": 1.0,
+    "skill.ruined_portal": 1.0,
+    "stations.pickup_last": 1.0,
+    "stuck.item_progress": 1.0
+   },
+   "id": "g238",
+   "mutated": [
+    "reflex.escalate",
+    "skill.ghast_defense",
+    "portal.reserve_lava_bucket"
+   ],
+   "note": "reflex.escalate 1, skill.ghast_defense 1, portal.reserve_lava_bucket 0",
+   "pairs": [],
+   "parent": "g196",
+   "status": "contender"
+  },
+  "g239": {
+   "born": 256,
+   "code": null,
+   "evals": [],
+   "genes": {
+    "brain.thompson": 1.0,
+    "combat.creeper_hit": 1.0,
+    "combat.ignore_walled_mobs": 1.0,
+    "combat.shield_guard": 1.0,
+    "death.recover_night_armor": 12.0,
+    "focus.commit": 1.0,
+    "gear.sword_early": 1.0,
+    "move.shore_first": 1.0,
+    "nav.surface_v2": 1.0,
+    "nav.unstuck_v2": 1.0,
+    "night.shelter_exit": 1.0,
+    "night.wall_in": 1.0,
+    "plan.hide_hp": 15.0,
+    "plan.readiness": 1.0,
+    "portal.prepare_work_area": 1.0,
+    "portal.reserve_lava_bucket": 1.0,
+    "route.armor_before_portal": 1.0,
+    "skill.end_landing": 1.0,
+    "skill.enderman_warped": 1.0,
+    "skill.portal_repair": 1.0,
+    "skill.ruined_portal": 1.0,
+    "stations.pickup_last": 1.0,
+    "stuck.item_progress": 1.0
+   },
+   "id": "g239",
+   "mutated": [
+    "brain.thompson",
+    "skill.end_landing"
+   ],
+   "note": "brain.thompson 1, skill.end_landing 1",
+   "pairs": [],
+   "parent": "g196",
+   "status": "contender"
+  },
   "g24": {
    "born": 27,
    "code": null,
@@ -37047,8 +37163,8 @@
   "The staircase climb fails on hard blocks, side hazards and slow 240 s timeouts; a vertical pillar that feeds on its own mined cobble needs only one clear column and sidesteps when that column is blocked."
  ],
  "learned_race": {
-  "gen": 244,
-  "gid": "g217"
+  "gen": 256,
+  "gid": "g237"
  },
  "merge": null,
  "model_adv_lo": 0.0001,
@@ -37065,8 +37181,89 @@
   "mean_gap_ok": -0.3871,
   "n": 1465
  },
- "next_id": 237,
- "pending": null,
+ "next_id": 240,
+ "pending": {
+  "data_tasks": [
+   {
+    "asset": "stronghold-gen242-data-g196-0.zip",
+    "kind": "start",
+    "late": true,
+    "seed": "D256-r8v2yq",
+    "stage": "stronghold",
+    "synthetic": true
+   },
+   {
+    "kind": "natural",
+    "seed": "D256-2ww7vs",
+    "stage": "spawn",
+    "synthetic": false
+   }
+  ],
+  "gen": 256,
+  "lineup": [
+   "g196",
+   "g237",
+   "g238",
+   "g239"
+  ],
+  "runs": [
+   "eval-g196-0",
+   "eval-g196-1",
+   "eval-g196-2",
+   "eval-g196-3",
+   "eval-g237-0",
+   "eval-g237-1",
+   "eval-g237-2",
+   "eval-g237-3",
+   "eval-g238-0",
+   "eval-g238-1",
+   "eval-g238-2",
+   "eval-g238-3",
+   "eval-g239-0",
+   "eval-g239-1",
+   "eval-g239-2",
+   "eval-g239-3",
+   "data-g196-0",
+   "data-g196-1"
+  ],
+  "seeds": [
+   "L256-ct8mnm",
+   "L256-98pkyd",
+   "L256-jcuvt6",
+   "L256-af7e5s"
+  ],
+  "sha": "91d44de4fbc72526287a191ce432dba1a89adb1c",
+  "started": "2026-10-09T03:31:07+00:00",
+  "tasks": [
+   {
+    "kind": "natural",
+    "seed": "L256-ct8mnm",
+    "stage": "spawn",
+    "synthetic": false
+   },
+   {
+    "kind": "natural",
+    "seed": "L256-98pkyd",
+    "stage": "spawn",
+    "synthetic": false
+   },
+   {
+    "asset": "nether-gen214-eval-g188-3.zip",
+    "kind": "start",
+    "seed": "L256-jcuvt6",
+    "stage": "nether",
+    "synthetic": false
+   },
+   {
+    "kind": "combat",
+    "minutes": 10,
+    "scenario": "combat",
+    "seed": "L256-af7e5s",
+    "stage": "combat",
+    "synthetic": false
+   }
+  ]
+ },
  "race_evidence_version": 2,
  "score_since_gen": 179,
  "score_version": 4,
@@ -40794,7 +40991,8 @@
   "{\"_exposure\": {\"gene\": \"brain.skill_stats\"}, \"brain.situations\": 1, \"brain.skill_stats\": 1}",
   "{\"_auto\": \"learned brain gate open at gen 223 (5% bound +0.0037)\", \"_priority\": true, \"learned.weight\": 1}",
   "{\"_auto\": \"learned brain gate open at gen 233 (5% bound +0.0011)\", \"_priority\": true, \"learned.weight\": 1}",
-  "{\"_auto\": \"learned brain gate open at gen 244 (5% bound +0.0006)\", \"_priority\": true, \"learned.weight\": 1}"
+  "{\"_auto\": \"learned brain gate open at gen 244 (5% bound +0.0006)\", \"_priority\": true, \"learned.weight\": 1}",
+  "{\"_auto\": \"learned brain gate open at gen 256 (5% bound +0.0001)\", \"_priority\": true, \"learned.weight\": 1}"
  ],
  "version": 1
 }
