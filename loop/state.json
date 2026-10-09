@@ -2712,7 +2712,7 @@
   "2026-10-04": 5,
   "2026-10-07": 6,
   "2026-10-08": 5,
-  "2026-10-09": 1
+  "2026-10-09": 2
  },
  "evolve_log": [
   {
@@ -2810,6 +2810,13 @@
    "gid": "g231",
    "mode": "edit",
    "result": "racing"
+  },
+  {
+   "gen": 255,
+   "gid": "g236",
+   "mode": "skill",
+   "result": "drilling",
+   "target": "goto:surface UNREACHABLE"
   }
  ],
  "gen": 255,
@@ -25178,6 +25185,70 @@
    "parent": "g196",
    "status": "rejected"
   },
+  "g236": {
+   "born": 255,
+   "code": {
+    "base": "91d44de4fbc72526287a191ce432dba1a89adb1c",
+    "branch": "evolve/g236",
+    "files": [
+     "mod/src/main/java/io/github/plrlr/autopilot/skills/evolved/ClimbShaft.java",
+     "mod/src/main/java/io/github/plrlr/autopilot/skills/evolved/EvolvedSkills.java",
+     "mod/src/main/resources/evolved-genes.json"
+    ],
+    "gene": "evolved.climb_shaft",
+    "kind": "skill",
+    "sha": "9474d6e228ef3a690d3355166457adb8d7aeb66f",
+    "skill": "climb_shaft",
+    "summary": "climb_shaft: after goto surface fails UNREACHABLE, pillar straight up by hand (mine ceiling, jump, place mined block under feet), stepping sideways around lava/bedrock/hard blocks",
+    "target": "goto:surface UNREACHABLE"
+   },
+   "drill": {
+    "gen": 255,
+    "idea": {
+     "_metric": "resolve:goto:UNREACHABLE+climb_shaft",
+     "evolved.climb_shaft": 1
+    },
+    "run": 37879614966
+   },
+   "evals": [],
+   "exposure_spec": {
+    "skill": "climb_shaft"
+   },
+   "genes": {
+    "combat.creeper_hit": 1.0,
+    "combat.ignore_walled_mobs": 1.0,
+    "combat.shield_guard": 1.0,
+    "death.recover_night_armor": 12.0,
+    "evolved.climb_shaft": 1.0,
+    "focus.commit": 1.0,
+    "gear.sword_early": 1.0,
+    "move.shore_first": 1.0,
+    "nav.surface_v2": 1.0,
+    "nav.unstuck_v2": 1.0,
+    "night.shelter_exit": 1.0,
+    "night.wall_in": 1.0,
+    "plan.hide_hp": 15.0,
+    "plan.readiness": 1.0,
+    "portal.prepare_work_area": 1.0,
+    "portal.reserve_lava_bucket": 1.0,
+    "route.armor_before_portal": 1.0,
+    "skill.enderman_warped": 1.0,
+    "skill.portal_repair": 1.0,
+    "skill.ruined_portal": 1.0,
+    "stations.pickup_last": 1.0,
+    "stuck.item_progress": 1.0
+   },
+   "id": "g236",
+   "metric": "resolve:goto:UNREACHABLE+climb_shaft",
+   "mutated": [
+    "code",
+    "evolved.climb_shaft"
+   ],
+   "note": "code: new skill climb_shaft for goto:surface UNREACHABLE: climb_shaft: after goto surface fails UNREACHABLE, pillar straight up by hand (mine ceiling, jump, place mined block under feet), stepping sideways around lava/bedrock/hard blocks",
+   "pairs": [],
+   "parent": "g196",
+   "status": "drilling"
+  },
   "g24": {
    "born": 27,
    "code": null,
@@ -36972,7 +37043,8 @@
   "Repeated collect STUCK happens at a spot Baritone can't path out of, and unstuck's walk barely moves the bot, so the retry stalls again. A hand-driven dig-and-walk that must reach 3 blocks of real displacement should give the next collect a new start.",
   "A failure mark has to cover every way a skill picks its direction: the bad-heading mark only fed exploreHeading, so the pie-chart sweep could keep choosing the heading that had just failed.",
   "An upkeep step that pays off in one dimension (cave torches) can quietly use up a large share of time in another dimension where it does little, so gate upkeep steps by the dimension where they help.",
-  "attack creeper HAZARD fires whenever the single straight-back step is unsafe; widening the escape to diagonal backsteps should keep the bot outrunning the blast in cramped terrain instead of losing time in a handoff."
+  "attack creeper HAZARD fires whenever the single straight-back step is unsafe; widening the escape to diagonal backsteps should keep the bot outrunning the blast in cramped terrain instead of losing time in a handoff.",
+  "The staircase climb fails on hard blocks, side hazards and slow 240 s timeouts; a vertical pillar that feeds on its own mined cobble needs only one clear column and sidesteps when that column is blocked."
  ],
  "learned_race": {
   "gen": 244,
@@ -36993,7 +37065,7 @@
   "mean_gap_ok": -0.3871,
   "n": 1465
  },
- "next_id": 236,
+ "next_id": 237,
  "pending": null,
  "race_evidence_version": 2,
  "score_since_gen": 179,
@@ -37880,6 +37952,13 @@
    "result": "inconclusive: never ran in its drill (its offer never fired): INCONCLUSIVE: on 0/0 fixed (0%), off 1/1 fixed (100%), z +0.0; exposure on its side: collect_dig_free offered 0, chosen 0, started 0, ended 0 (0 ok); acted in 0 of 3 games",
    "skill": "collect_dig_free",
    "target": "collect STUCK"
+  },
+  {
+   "gen": 255,
+   "gid": "g236",
+   "result": "drilling",
+   "skill": "climb_shaft",
+   "target": "goto:surface UNREACHABLE"
   }
  ],
  "skill_stats": {
