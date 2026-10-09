@@ -33,6 +33,8 @@ public final class MoveSkills {
 		private List<String> targets = List.of();
 		private int waterTicks;
 		private double startX, startZ;
+		/** Headings tried after a blocked leg, and the tick the current leg began. */
+		private int turns, legTick;
 
 		@Override
 		public String name() {
@@ -105,10 +107,21 @@ public final class MoveSkills {
 				else fail(Fail.HAZARD, "open water ahead; will turn");
 				return;
 			}
-			if (ticks > 20 && !Bari.pathing()) {
+			if (ticks > legTick + 20 && !Bari.pathing()) {
 				double moved = Math.hypot(pl.getX() - startX, pl.getZ() - startZ);
 				if (moved < 16) {
 					memory.markBadAhead(startX, startZ, DIST);
+					if (turns < 3) {
+						// Turn here instead of handing the same explore back to the planner.
+						turns++;
+						legTick = ticks;
+						startX = pl.getX();
+						startZ = pl.getZ();
+						int h = memory.exploreHeading(startX, startZ, DIST);
+						double angle = h * Math.PI / 4;
+						Bari.path(new GoalXZ((int) (startX + Math.cos(angle) * DIST), (int) (startZ + Math.sin(angle) * DIST)));
+						return;
+					}
 					fail(Fail.UNREACHABLE, "couldn't make headway that way; will turn");
 				} else {
 					done("explored " + Math.round(moved) + " blocks" + (targets.isEmpty() ? "" : ", no " + String.join("/", targets) + " yet"));
