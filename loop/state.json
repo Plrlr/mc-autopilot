@@ -2712,7 +2712,7 @@
   "2026-10-04": 5,
   "2026-10-07": 6,
   "2026-10-08": 5,
-  "2026-10-09": 3
+  "2026-10-09": 4
  },
  "evolve_log": [
   {
@@ -2821,6 +2821,12 @@
   {
    "gen": 259,
    "gid": "g242",
+   "mode": "edit",
+   "result": "racing"
+  },
+  {
+   "gen": 263,
+   "gid": "g243",
    "mode": "edit",
    "result": "racing"
   }
@@ -27552,6 +27558,52 @@
    "parent": "g237",
    "status": "rejected"
   },
+  "g243": {
+   "born": 263,
+   "code": {
+    "base": "91d44de4fbc72526287a191ce432dba1a89adb1c",
+    "branch": "evolve/g243",
+    "files": [
+     "mod/src/main/java/io/github/plrlr/autopilot/skills/CollectSkill.java",
+     "mod/src/main/java/io/github/plrlr/autopilot/skills/MoveSkills.java"
+    ],
+    "sha": "97a630e5c1dd2fe8bf9c57d84ea7702197e47def",
+    "summary": "After collect log/sand fails NOT_FOUND, the next explore for that item ignores remembered blocks at the start and until it has walked 32 blocks away. This breaks the collect NOT_FOUND / explore ALREADY_DONE loop by actually moving to new ground."
+   },
+   "evals": [],
+   "genes": {
+    "combat.creeper_hit": 1.0,
+    "combat.ignore_walled_mobs": 1.0,
+    "combat.shield_guard": 1.0,
+    "death.recover_night_armor": 12.0,
+    "focus.commit": 1.0,
+    "gear.sword_early": 1.0,
+    "learned.weight": 1.0,
+    "move.shore_first": 1.0,
+    "nav.surface_v2": 1.0,
+    "nav.unstuck_v2": 1.0,
+    "night.shelter_exit": 1.0,
+    "night.wall_in": 1.0,
+    "plan.hide_hp": 15.0,
+    "plan.readiness": 1.0,
+    "portal.prepare_work_area": 1.0,
+    "portal.reserve_lava_bucket": 1.0,
+    "route.armor_before_portal": 1.0,
+    "skill.enderman_warped": 1.0,
+    "skill.portal_repair": 1.0,
+    "skill.ruined_portal": 1.0,
+    "stations.pickup_last": 1.0,
+    "stuck.item_progress": 1.0
+   },
+   "id": "g243",
+   "mutated": [
+    "code"
+   ],
+   "note": "code: After collect log/sand fails NOT_FOUND, the next explore for that item ignores remembered blocks at the start and until it has walked 32 blocks away. This breaks the collect NOT_FOUND / explore ALREADY_DONE loop by actually moving to new ground.",
+   "pairs": [],
+   "parent": "g237",
+   "status": "contender"
+  },
   "g25": {
    "born": 27,
    "code": {
@@ -38306,7 +38358,8 @@
   "An upkeep step that pays off in one dimension (cave torches) can quietly use up a large share of time in another dimension where it does little, so gate upkeep steps by the dimension where they help.",
   "attack creeper HAZARD fires whenever the single straight-back step is unsafe; widening the escape to diagonal backsteps should keep the bot outrunning the blast in cramped terrain instead of losing time in a handoff.",
   "The staircase climb fails on hard blocks, side hazards and slow 240 s timeouts; a vertical pillar that feeds on its own mined cobble needs only one clear column and sidesteps when that column is blocked.",
-  "attack creeper HAZARD mostly fires on an unlit creeper after the backing walk stalls; failing there only hands control to retreat (the top action before deaths), so the HAZARD bail-out should be kept for a lit fuse only."
+  "attack creeper HAZARD mostly fires on an unlit creeper after the backing walk stalls; failing there only hands control to retreat (the top action before deaths), so the HAZARD bail-out should be kept for a lit fuse only.",
+  "The log loop comes from explore trusting remembered blocks that collect has just shown it can't use. Tying explore's 'already seen' check to collect's latest NOT_FOUND should make explore move instead of refusing."
  ],
  "learned_race": {
   "gen": 256,
@@ -38327,7 +38380,7 @@
   "mean_gap_ok": -0.291,
   "n": 1541
  },
- "next_id": 243,
+ "next_id": 244,
  "pending": null,
  "race_evidence_version": 2,
  "score_since_gen": 179,
