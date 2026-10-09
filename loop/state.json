@@ -477,6 +477,17 @@
   ],
   "kit": [
    {
+    "asset": "kit-gen257-eval-g239-1.zip",
+    "bytes": 21844768,
+    "dimension": "overworld",
+    "game_seconds": 1244,
+    "gen": 257,
+    "genome": "g239",
+    "inventory": "iron_pickaxe 1, stone_sword 1, cobblestone 52, torch 11, iron_sword 1, wooden_sword 1, wooden_pickaxe 1, spruce_planks 3, pointed_dripstone 6, bone 4, bow 1, arrow 5, cobblestone 64, cobblestone 64, stone_pickaxe 1, diorite 9, cobblestone 12, bucket 2, spruce_sapling 2, crafting_table 1, stick 1, fl",
+    "run": "eval-g239-1",
+    "synthetic": false
+   },
+   {
     "asset": "kit-gen256-eval-g196-0.zip",
     "bytes": 9232140,
     "dimension": "overworld",
@@ -906,17 +917,6 @@
     "synthetic": false
    },
    {
-    "asset": "kit-gen247-eval-g221-0.zip",
-    "bytes": 10087585,
-    "dimension": "overworld",
-    "game_seconds": 1063,
-    "gen": 247,
-    "genome": "g221",
-    "inventory": "stone_pickaxe 1, oak_planks 1, cobblestone 33, leaf_litter 8, torch 10, wooden_sword 1, wooden_pickaxe 1, iron_pickaxe 1, oak_log 3, diorite 15, birch_sapling 1, stone_sword 1, bucket 2, iron_sword 1, flint_and_steel 1, stick 3, ",
-    "run": "eval-g221-0",
-    "synthetic": false
-   },
-   {
     "asset": "kit-gen75-eval-g56-1.zip",
     "bytes": 3531275,
     "dimension": "overworld",
@@ -984,6 +984,17 @@
    }
   ],
   "lava": [
+   {
+    "asset": "lava-gen257-eval-g239-1.zip",
+    "bytes": 22141138,
+    "dimension": "overworld",
+    "game_seconds": 1446,
+    "gen": 257,
+    "genome": "g239",
+    "inventory": "iron_pickaxe 1, stone_sword 1, cobblestone 64, torch 3, iron_sword 1, wooden_sword 1, wooden_pickaxe 1, stone_axe 1, spruce_planks 1, pointed_dripstone 6, furnace 1, bone 4, bow 1, arrow 5, cobblestone 64, cobblestone 64, water_bucket 1, bucket 1, granite 1, cobblestone 16, spruce_log 8, crafting_ta",
+    "run": "eval-g239-1",
+    "synthetic": false
+   },
    {
     "asset": "lava-gen256-eval-g196-0.zip",
     "bytes": 9487499,
@@ -1411,17 +1422,6 @@
     "genome": "g200",
     "inventory": "iron_pickaxe 1, torch 1, water_bucket 1, stone_axe 1, wooden_pickaxe 1, wooden_sword 1, wooden_pickaxe 1, iron_sword 1, cobblestone 64, bucket 1, feather 1, furnace 1, leather 2, wooden_sword 1, spider_eye 1, cobblestone 3, bone 1, arrow 3, coal 1, string 3, stone_sword 1, spruce_log 6, cooked_beef ",
     "run": "eval-g200-1",
-    "synthetic": false
-   },
-   {
-    "asset": "lava-gen228-eval-g194-1.zip",
-    "bytes": 21472468,
-    "dimension": "overworld",
-    "game_seconds": 1865,
-    "gen": 228,
-    "genome": "g194",
-    "inventory": "stone_pickaxe 1, leaf_litter 5, cooked_porkchop 1, cobblestone 64, torch 3, wooden_sword 1, wooden_pickaxe 1, diorite 4, iron_pickaxe 1, crafting_table 2, birch_sapling 1, stone_sword 1, furnace 1, stick 5, cooked_beef 2, leather 2, bucket 1, coal 2, flint_and_steel 1, water_bucket 1, granite 1, iro",
-    "run": "eval-g194-1",
     "synthetic": false
    },
    {
@@ -1903,7 +1903,7 @@
    }
   ]
  },
- "champion": "g196",
+ "champion": "g237",
  "code_failures": [],
  "credit": {
   "bed.table_first": {
@@ -2223,8 +2223,8 @@
    "sum": 0.0
   },
   "learned.weight": {
-   "n": 5,
-   "sum": -0.46028333333333316
+   "n": 6,
+   "sum": 0.6133416666666669
   },
   "loop.lost_underground_s": {
    "n": 1,
@@ -20049,6 +20049,26 @@
      256,
      "L256-af7e5s",
      1.089
+    ],
+    [
+     257,
+     "L257-59ky5t",
+     -0.135
+    ],
+    [
+     257,
+     "L257-hezth4",
+     5.297
+    ],
+    [
+     257,
+     "L257-ppbt72",
+     -0.048
+    ],
+    [
+     257,
+     "L257-htgpb2",
+     1.542
     ]
    ],
    "genes": {
@@ -20078,51 +20098,10 @@
    "mutated": [
     "code"
    ],
-   "note": "code: Upkeep and the early food step now share one 'cooked food already in the furnace' check, so upkeep collects the batch that is cooking instead of loading a different meat. This should stop the 974 smelt:cooked_mutton<->smelt:cooked_porkchop flips.",
-   "pairs": [
-    [
-     224,
-     "L224-5q5qvu",
-     0.909
-    ],
-    [
-     224,
-     "L224-849y8w",
-     3.098
-    ],
-    [
-     224,
-     "L224-f8qmwj",
-     2.255
-    ],
-    [
-     224,
-     "L224-6vtb99",
-     -0.119
-    ],
-    [
-     225,
-     "L225-bxkk98",
-     8.057
-    ],
-    [
-     225,
-     "L225-tdv4qp",
-     4.807
-    ],
-    [
-     225,
-     "L225-65v85q",
-     1.04
-    ],
-    [
-     225,
-     "L225-qyr2u8",
-     -0.138
-    ]
-   ],
+   "note": "code: Upkeep and the early food step now share one 'cooked food already in the furnace' check, so upkeep collects the batch that is cooking instead of loading a different meat. This should stop the 974 smelt:cooked_mutton<->smelt:cooked_porkchop flips. (defending)",
+   "pairs": [],
    "parent": "g178",
-   "status": "champion"
+   "status": "contender"
   },
   "g197": {
    "born": 227,
@@ -25275,6 +25254,7 @@
   "g237": {
    "born": 256,
    "code": null,
+   "crowned": 257,
    "evals": [
     [
      256,
@@ -25295,6 +25275,26 @@
      256,
      "L256-af7e5s",
      1.381
+    ],
+    [
+     257,
+     "L257-59ky5t",
+     2.58
+    ],
+    [
+     257,
+     "L257-hezth4",
+     5.701
+    ],
+    [
+     257,
+     "L257-ppbt72",
+     0.213
+    ],
+    [
+     257,
+     "L257-htgpb2",
+     1.636
     ]
    ],
    "genes": {
@@ -25346,11 +25346,31 @@
      256,
      "L256-af7e5s",
      0.292
+    ],
+    [
+     257,
+     "L257-59ky5t",
+     2.715
+    ],
+    [
+     257,
+     "L257-hezth4",
+     0.404
+    ],
+    [
+     257,
+     "L257-ppbt72",
+     0.261
+    ],
+    [
+     257,
+     "L257-htgpb2",
+     0.094
     ]
    ],
    "parent": "g196",
    "priority": true,
-   "status": "contender"
+   "status": "champion"
   },
   "g238": {
    "born": 256,
@@ -25375,6 +25395,26 @@
      256,
      "L256-af7e5s",
      1.161
+    ],
+    [
+     257,
+     "L257-59ky5t",
+     -0.269
+    ],
+    [
+     257,
+     "L257-hezth4",
+     6.967
+    ],
+    [
+     257,
+     "L257-ppbt72",
+     -0.243
+    ],
+    [
+     257,
+     "L257-htgpb2",
+     1.713
     ]
    ],
    "genes": {
@@ -25408,28 +25448,7 @@
     "portal.reserve_lava_bucket"
    ],
    "note": "reflex.escalate 1, skill.ghast_defense 1, portal.reserve_lava_bucket 0",
-   "pairs": [
-    [
-     256,
-     "L256-ct8mnm",
-     6.32
-    ],
-    [
-     256,
-     "L256-98pkyd",
-     -3.279
-    ],
-    [
-     256,
-     "L256-jcuvt6",
-     0.088
-    ],
-    [
-     256,
-     "L256-af7e5s",
-     0.072
-    ]
-   ],
+   "pairs": [],
    "parent": "g196",
    "status": "contender"
   },
@@ -25456,6 +25475,26 @@
      256,
      "L256-af7e5s",
      1.39
+    ],
+    [
+     257,
+     "L257-59ky5t",
+     0.738
+    ],
+    [
+     257,
+     "L257-hezth4",
+     8.326
+    ],
+    [
+     257,
+     "L257-ppbt72",
+     0.874
+    ],
+    [
+     257,
+     "L257-htgpb2",
+     1.516
     ]
    ],
    "genes": {
@@ -25489,28 +25528,7 @@
     "skill.end_landing"
    ],
    "note": "brain.thompson 1, skill.end_landing 1",
-   "pairs": [
-    [
-     256,
-     "L256-ct8mnm",
-     22.213
-    ],
-    [
-     256,
-     "L256-98pkyd",
-     0.46
-    ],
-    [
-     256,
-     "L256-jcuvt6",
-     0.011
-    ],
-    [
-     256,
-     "L256-af7e5s",
-     0.301
-    ]
-   ],
+   "pairs": [],
    "parent": "g196",
    "status": "contender"
   },
@@ -37316,103 +37334,22 @@
   "gid": "g237"
  },
  "merge": null,
- "model_adv_lo": -0.0374,
- "model_adv_r2": -0.034,
+ "model_adv_lo": -0.0907,
+ "model_adv_r2": -0.063,
  "model_keys": 78,
  "model_kind": "mlp",
- "model_r2": 0.343,
- "model_rows": 460458,
+ "model_r2": 0.352,
+ "model_rows": 462107,
  "model_sign": {
-  "agree": 0.5654,
-  "games": 57,
-  "lo": 0.5415,
-  "mean_gap_bad": -0.6312,
-  "mean_gap_ok": -0.4834,
-  "n": 1484
+  "agree": 0.5151,
+  "games": 58,
+  "lo": 0.4861,
+  "mean_gap_bad": -0.3161,
+  "mean_gap_ok": -0.1059,
+  "n": 1522
  },
  "next_id": 240,
- "pending": {
-  "data_tasks": [
-   {
-    "kind": "scenario",
-    "late": true,
-    "scenario": "end",
-    "seed": "D257-x74b7p",
-    "stage": "end",
-    "synthetic": true
-   },
-   {
-    "kind": "natural",
-    "seed": "D257-k2hyb5",
-    "stage": "spawn",
-    "synthetic": false
-   }
-  ],
-  "gen": 257,
-  "lineup": [
-   "g196",
-   "g237",
-   "g239",
-   "g238"
-  ],
-  "runs": [
-   "eval-g196-0",
-   "eval-g196-1",
-   "eval-g196-2",
-   "eval-g196-3",
-   "eval-g237-0",
-   "eval-g237-1",
-   "eval-g237-2",
-   "eval-g237-3",
-   "eval-g239-0",
-   "eval-g239-1",
-   "eval-g239-2",
-   "eval-g239-3",
-   "eval-g238-0",
-   "eval-g238-1",
-   "eval-g238-2",
-   "eval-g238-3",
-   "data-g196-0",
-   "data-g196-1"
-  ],
-  "seeds": [
-   "L257-59ky5t",
-   "L257-hezth4",
-   "L257-ppbt72",
-   "L257-htgpb2"
-  ],
-  "sha": "91d44de4fbc72526287a191ce432dba1a89adb1c",
-  "started": "2026-10-09T05:09:37+00:00",
-  "tasks": [
-   {
-    "kind": "natural",
-    "seed": "L257-59ky5t",
-    "stage": "spawn",
-    "synthetic": false
-   },
-   {
-    "kind": "natural",
-    "seed": "L257-hezth4",
-    "stage": "spawn",
-    "synthetic": false
-   },
-   {
-    "asset": "nether-gen213-eval-g178-3.zip",
-    "kind": "start",
-    "seed": "L257-ppbt72",
-    "stage": "nether",
-    "synthetic": false
-   },
-   {
-    "kind": "combat",
-    "minutes": 10,
-    "scenario": "combat",
-    "seed": "L257-htgpb2",
-    "stage": "combat",
-    "synthetic": false
-   }
-  ]
- },
+ "pending": null,
  "race_evidence_version": 2,
  "score_since_gen": 179,
  "score_version": 4,
@@ -38139,7 +38076,7 @@
   "gear.sword_early": 0.0673211885390625,
   "inv.tidy": 0.15,
   "learned.explore": 0.15,
-  "learned.weight": 0.18055274999999998,
+  "learned.weight": 0.25277384999999997,
   "loop.lost_underground_s": 0.1275,
   "loop.stuck_s": 0.1785,
   "mine.tread_water": 0.1275,
@@ -38351,8 +38288,8 @@
     "UNREACHABLE": 183
    },
    "died": 23,
-   "n": 747,
-   "ok": 418,
+   "n": 752,
+   "ok": 423,
    "sec": 4.5,
    "spent": 4.4
   },
@@ -38363,8 +38300,8 @@
     "UNREACHABLE": 232
    },
    "died": 10,
-   "n": 3284,
-   "ok": 2792,
+   "n": 3299,
+   "ok": 2807,
    "sec": 6.2,
    "spent": 6.2
   },
@@ -38375,8 +38312,8 @@
     "UNREACHABLE": 198
    },
    "died": 16,
-   "n": 2734,
-   "ok": 2309,
+   "n": 2736,
+   "ok": 2311,
    "sec": 8.9,
    "spent": 8.4
   },
@@ -38395,24 +38332,24 @@
   "attack:creeper": {
    "codes": {
     "DIED": 48,
-    "HAZARD": 6945,
-    "UNREACHABLE": 93
+    "HAZARD": 6998,
+    "UNREACHABLE": 94
    },
    "died": 48,
-   "n": 8318,
-   "ok": 1220,
+   "n": 8384,
+   "ok": 1232,
    "sec": 4.8,
    "spent": 1.9
   },
   "attack:drowned": {
    "codes": {
-    "DIED": 86,
-    "NOT_FOUND": 261,
-    "UNREACHABLE": 1458
+    "DIED": 88,
+    "NOT_FOUND": 268,
+    "UNREACHABLE": 1462
    },
-   "died": 86,
-   "n": 2653,
-   "ok": 848,
+   "died": 88,
+   "n": 2668,
+   "ok": 850,
    "sec": 8.8,
    "spent": 8.3
   },
@@ -38464,59 +38401,59 @@
    "codes": {
     "DIED": 71,
     "NOT_FOUND": 157,
-    "UNREACHABLE": 49
+    "UNREACHABLE": 50
    },
    "died": 71,
-   "n": 487,
-   "ok": 210,
+   "n": 498,
+   "ok": 220,
    "sec": 6.8,
-   "spent": 4.6
+   "spent": 4.7
   },
   "attack:husk": {
    "codes": {
-    "DIED": 43,
-    "NOT_FOUND": 141,
-    "UNREACHABLE": 71
+    "DIED": 45,
+    "NOT_FOUND": 144,
+    "UNREACHABLE": 76
    },
-   "died": 43,
-   "n": 327,
-   "ok": 72,
-   "sec": 8.8,
-   "spent": 5.0
+   "died": 45,
+   "n": 346,
+   "ok": 81,
+   "sec": 10.3,
+   "spent": 5.3
   },
   "attack:magma_cube": {
    "codes": {
-    "DIED": 43,
+    "DIED": 44,
     "NOT_FOUND": 131,
-    "UNREACHABLE": 48
+    "UNREACHABLE": 49
    },
-   "died": 43,
-   "n": 540,
+   "died": 44,
+   "n": 542,
    "ok": 318,
    "sec": 3.0,
    "spent": 3.2
   },
   "attack:parched": {
    "codes": {
-    "DIED": 14,
-    "NOT_FOUND": 30,
-    "UNREACHABLE": 10
+    "DIED": 16,
+    "NOT_FOUND": 32,
+    "UNREACHABLE": 11
    },
-   "died": 14,
-   "n": 59,
+   "died": 16,
+   "n": 64,
    "ok": 4,
    "sec": 9.4,
-   "spent": 9.0
+   "spent": 9.4
   },
   "attack:pig": {
    "codes": {
     "DIED": 14,
-    "NOT_FOUND": 306,
+    "NOT_FOUND": 309,
     "UNREACHABLE": 317
    },
    "died": 14,
-   "n": 3079,
-   "ok": 2442,
+   "n": 3095,
+   "ok": 2455,
    "sec": 8.7,
    "spent": 8.2
   },
@@ -38535,13 +38472,13 @@
    "codes": {
     "DIED": 12,
     "NOT_FOUND": 47,
-    "UNREACHABLE": 25
+    "UNREACHABLE": 26
    },
    "died": 12,
-   "n": 130,
-   "ok": 46,
+   "n": 132,
+   "ok": 47,
    "sec": 8.8,
-   "spent": 6.1
+   "spent": 6.2
   },
   "attack:sheep": {
    "codes": {
@@ -38550,8 +38487,8 @@
     "UNREACHABLE": 211
    },
    "died": 24,
-   "n": 3966,
-   "ok": 3542,
+   "n": 3970,
+   "ok": 3546,
    "sec": 8.1,
    "spent": 7.9
   },
@@ -38569,13 +38506,13 @@
   },
   "attack:skeleton": {
    "codes": {
-    "DIED": 781,
-    "NOT_FOUND": 2604,
-    "UNREACHABLE": 2111
+    "DIED": 787,
+    "NOT_FOUND": 2618,
+    "UNREACHABLE": 2118
    },
-   "died": 781,
-   "n": 19091,
-   "ok": 13595,
+   "died": 787,
+   "n": 19189,
+   "ok": 13666,
    "sec": 7.4,
    "spent": 6.5
   },
@@ -38593,14 +38530,14 @@
   },
   "attack:spider": {
    "codes": {
-    "DIED": 337,
-    "NOT_FOUND": 1056,
+    "DIED": 339,
+    "NOT_FOUND": 1065,
     "UNREACHABLE": 2367
    },
-   "died": 337,
-   "n": 8165,
-   "ok": 4405,
-   "sec": 5.3,
+   "died": 339,
+   "n": 8210,
+   "ok": 4439,
+   "sec": 5.4,
    "spent": 4.9
   },
   "attack:stray": {
@@ -38629,12 +38566,12 @@
   },
   "attack:witch": {
    "codes": {
-    "DIED": 30,
+    "DIED": 31,
     "NOT_FOUND": 85,
     "UNREACHABLE": 35
    },
-   "died": 30,
-   "n": 212,
+   "died": 31,
+   "n": 213,
    "ok": 59,
    "sec": 8.3,
    "spent": 7.2
@@ -38642,24 +38579,24 @@
   "attack:wither_skeleton": {
    "codes": {
     "DIED": 6,
-    "NOT_FOUND": 91,
+    "NOT_FOUND": 94,
     "UNREACHABLE": 5
    },
    "died": 6,
-   "n": 131,
+   "n": 134,
    "ok": 29,
    "sec": 4.8,
    "spent": 1.4
   },
   "attack:zombie": {
    "codes": {
-    "DIED": 2273,
-    "NOT_FOUND": 5735,
-    "UNREACHABLE": 2763
+    "DIED": 2277,
+    "NOT_FOUND": 5752,
+    "UNREACHABLE": 2771
    },
-   "died": 2273,
-   "n": 35535,
-   "ok": 24764,
+   "died": 2277,
+   "n": 35775,
+   "ok": 24975,
    "sec": 6.0,
    "spent": 5.4
   },
@@ -38735,8 +38672,8 @@
     "DIED": 8
    },
    "died": 8,
-   "n": 641,
-   "ok": 633,
+   "n": 644,
+   "ok": 636,
    "sec": 0.3,
    "spent": 0.6
   },
@@ -38747,8 +38684,8 @@
     "STUCK": 567
    },
    "died": 76,
-   "n": 7166,
-   "ok": 6402,
+   "n": 7191,
+   "ok": 6427,
    "sec": 20.2,
    "spent": 25.3
   },
@@ -38759,34 +38696,34 @@
     "STUCK": 35
    },
    "died": 11,
-   "n": 2399,
-   "ok": 2314,
+   "n": 2400,
+   "ok": 2315,
    "sec": 3.1,
    "spent": 11.0
   },
   "collect:flint": {
    "codes": {
     "NOT_FOUND": 42,
-    "NO_ROOM": 3758,
-    "STUCK": 87
+    "NO_ROOM": 3767,
+    "STUCK": 90
    },
    "died": 32,
-   "n": 5540,
-   "ok": 1602,
+   "n": 5558,
+   "ok": 1608,
    "sec": 13.4,
    "spent": 13.0
   },
   "collect:log": {
    "codes": {
-    "NOT_FOUND": 7547,
-    "STUCK": 865,
+    "NOT_FOUND": 7656,
+    "STUCK": 866,
     "WRONG_PLACE": 1011
    },
    "died": 44,
-   "n": 20681,
-   "ok": 10897,
+   "n": 20838,
+   "ok": 10944,
    "sec": 21.4,
-   "spent": 18.7
+   "spent": 18.6
   },
   "collect:obsidian": {
    "codes": {
@@ -38814,13 +38751,13 @@
    "codes": {
     "DIED": 199,
     "NOT_FOUND": 400,
-    "STUCK": 1044
+    "STUCK": 1048
    },
    "died": 199,
-   "n": 8166,
-   "ok": 6385,
-   "sec": 27.2,
-   "spent": 42.5
+   "n": 8205,
+   "ok": 6416,
+   "sec": 27.1,
+   "spent": 42.6
   },
   "collect:stone": {
    "codes": {
@@ -38829,8 +38766,8 @@
     "TIMEOUT": 90
    },
    "died": 81,
-   "n": 5717,
-   "ok": 4739,
+   "n": 5737,
+   "ok": 4758,
    "sec": 38.2,
    "spent": 43.4
   },
@@ -38864,8 +38801,8 @@
     "UNREACHABLE": 6
    },
    "died": 1,
-   "n": 2811,
-   "ok": 2801,
+   "n": 2822,
+   "ok": 2812,
    "sec": 0.8,
    "spent": 1.5
   },
@@ -38885,8 +38822,8 @@
     "TIMEOUT": 4
    },
    "died": 0,
-   "n": 8450,
-   "ok": 8445,
+   "n": 8483,
+   "ok": 8478,
    "sec": 0.5,
    "spent": 0.5
   },
@@ -38907,8 +38844,8 @@
     "DIED": 1
    },
    "died": 1,
-   "n": 1024,
-   "ok": 1023,
+   "n": 1029,
+   "ok": 1028,
    "sec": 0.5,
    "spent": 0.5
   },
@@ -38919,8 +38856,8 @@
     "UNREACHABLE": 64
    },
    "died": 9,
-   "n": 3898,
-   "ok": 3784,
+   "n": 3914,
+   "ok": 3800,
    "sec": 0.8,
    "spent": 3.2
   },
@@ -38938,8 +38875,8 @@
     "UNREACHABLE": 1
    },
    "died": 0,
-   "n": 835,
-   "ok": 827,
+   "n": 838,
+   "ok": 830,
    "sec": 0.8,
    "spent": 1.4
   },
@@ -38949,8 +38886,8 @@
     "UNREACHABLE": 7
    },
    "died": 1,
-   "n": 1124,
-   "ok": 1116,
+   "n": 1129,
+   "ok": 1121,
    "sec": 0.8,
    "spent": 1.9
   },
@@ -38960,8 +38897,8 @@
     "UNREACHABLE": 2
    },
    "died": 1,
-   "n": 920,
-   "ok": 917,
+   "n": 925,
+   "ok": 922,
    "sec": 0.8,
    "spent": 1.6
   },
@@ -38972,8 +38909,8 @@
     "UNREACHABLE": 23
    },
    "died": 2,
-   "n": 3037,
-   "ok": 2809,
+   "n": 3051,
+   "ok": 2823,
    "sec": 0.8,
    "spent": 1.8
   },
@@ -38984,8 +38921,8 @@
     "UNREACHABLE": 2
    },
    "died": 2,
-   "n": 2093,
-   "ok": 2088,
+   "n": 2101,
+   "ok": 2096,
    "sec": 0.8,
    "spent": 1.6
   },
@@ -38996,8 +38933,8 @@
     "TIMEOUT": 3
    },
    "died": 4,
-   "n": 32251,
-   "ok": 32243,
+   "n": 32382,
+   "ok": 32374,
    "sec": 0.5,
    "spent": 0.5
   },
@@ -39008,8 +38945,8 @@
     "UNREACHABLE": 6
    },
    "died": 2,
-   "n": 2174,
-   "ok": 2159,
+   "n": 2182,
+   "ok": 2167,
    "sec": 0.8,
    "spent": 2.5
   },
@@ -39019,8 +38956,8 @@
     "TIMEOUT": 3
    },
    "died": 3,
-   "n": 17740,
-   "ok": 17734,
+   "n": 17814,
+   "ok": 17808,
    "sec": 0.5,
    "spent": 0.5
   },
@@ -39030,8 +38967,8 @@
     "UNREACHABLE": 10
    },
    "died": 0,
-   "n": 1120,
-   "ok": 1094,
+   "n": 1125,
+   "ok": 1099,
    "sec": 0.8,
    "spent": 2.4
   },
@@ -39042,8 +38979,8 @@
     "UNREACHABLE": 170
    },
    "died": 8,
-   "n": 7231,
-   "ok": 5477,
+   "n": 7249,
+   "ok": 5495,
    "sec": 0.8,
    "spent": 2.2
   },
@@ -39054,20 +38991,20 @@
     "UNREACHABLE": 35
    },
    "died": 2,
-   "n": 3413,
-   "ok": 3215,
+   "n": 3429,
+   "ok": 3231,
    "sec": 0.8,
    "spent": 2.0
   },
   "craft:torch": {
    "codes": {
     "DIED": 1,
-    "NO_RECIPE": 2161,
-    "TIMEOUT": 86
+    "NO_RECIPE": 2164,
+    "TIMEOUT": 89
    },
    "died": 1,
-   "n": 10952,
-   "ok": 8704,
+   "n": 10990,
+   "ok": 8736,
    "sec": 0.8,
    "spent": 1.4
   },
@@ -39078,8 +39015,8 @@
     "UNREACHABLE": 237
    },
    "died": 2,
-   "n": 7199,
-   "ok": 6657,
+   "n": 7221,
+   "ok": 6679,
    "sec": 0.8,
    "spent": 2.3
   },
@@ -39090,8 +39027,8 @@
     "NO_ROOM": 40
    },
    "died": 0,
-   "n": 4833,
-   "ok": 4401,
+   "n": 4854,
+   "ok": 4422,
    "sec": 0.8,
    "spent": 1.1
   },
@@ -39131,8 +39068,8 @@
     "TIMEOUT": 1
    },
    "died": 4,
-   "n": 298,
-   "ok": 185,
+   "n": 300,
+   "ok": 187,
    "sec": 55.4,
    "spent": 70.5
   },
@@ -39149,13 +39086,13 @@
   },
   "dragon": {
    "codes": {
-    "DIED": 15
+    "DIED": 16
    },
-   "died": 15,
-   "n": 15,
+   "died": 16,
+   "n": 16,
    "ok": 0,
    "sec": null,
-   "spent": 150.3
+   "spent": 142.5
   },
   "drain_tunnel": {
    "codes": {},
@@ -39167,12 +39104,12 @@
   },
   "eat": {
    "codes": {
-    "DIED": 104,
+    "DIED": 105,
     "TIMEOUT": 194
    },
-   "died": 104,
-   "n": 23577,
-   "ok": 23279,
+   "died": 105,
+   "n": 23699,
+   "ok": 23400,
    "sec": 1.8,
    "spent": 1.8
   },
@@ -39192,10 +39129,10 @@
     "TIMEOUT": 396
    },
    "died": 20,
-   "n": 615,
-   "ok": 199,
+   "n": 616,
+   "ok": 200,
    "sec": 7.0,
-   "spent": 62.9
+   "spent": 62.8
   },
   "enter_portal:overworld": {
    "codes": {
@@ -39213,28 +39150,28 @@
     "USE_FAILED": 7
    },
    "died": 1,
-   "n": 3113,
-   "ok": 3105,
+   "n": 3127,
+   "ok": 3119,
    "sec": 0.4,
    "spent": 0.4
   },
   "equip:shield": {
    "codes": {},
    "died": 0,
-   "n": 2413,
-   "ok": 2413,
+   "n": 2422,
+   "ok": 2422,
    "sec": 0.1,
    "spent": 0.1
   },
   "explore:any": {
    "codes": {
     "HAZARD": 1946,
-    "STUCK": 2031,
+    "STUCK": 2033,
     "UNREACHABLE": 8323
    },
    "died": 62,
-   "n": 18349,
-   "ok": 5807,
+   "n": 18363,
+   "ok": 5817,
    "sec": 34.5,
    "spent": 17.1
   },
@@ -39245,8 +39182,8 @@
     "UNREACHABLE": 8
    },
    "died": 9,
-   "n": 799,
-   "ok": 745,
+   "n": 805,
+   "ok": 751,
    "sec": 30.0,
    "spent": 30.7
   },
@@ -39262,14 +39199,14 @@
   },
   "explore:cow": {
    "codes": {
-    "ALREADY_DONE": 596,
+    "ALREADY_DONE": 599,
     "HAZARD": 650,
-    "STUCK": 396
+    "STUCK": 398
    },
    "died": 147,
-   "n": 7412,
-   "ok": 5119,
-   "sec": 22.5,
+   "n": 7458,
+   "ok": 5159,
+   "sec": 23.0,
    "spent": 25.7
   },
   "explore:enderman": {
@@ -39286,11 +39223,11 @@
   },
   "explore:gravel": {
    "codes": {
-    "ALREADY_DONE": 2487,
+    "ALREADY_DONE": 2498,
     "TIMEOUT": 1
    },
    "died": 0,
-   "n": 2527,
+   "n": 2538,
    "ok": 39,
    "sec": 22.0,
    "spent": 0.5
@@ -39307,15 +39244,15 @@
   },
   "explore:log": {
    "codes": {
-    "ALREADY_DONE": 3081,
+    "ALREADY_DONE": 3087,
     "HAZARD": 653,
-    "STUCK": 549
+    "STUCK": 560
    },
    "died": 24,
-   "n": 6363,
-   "ok": 1972,
-   "sec": 20.5,
-   "spent": 10.2
+   "n": 6413,
+   "ok": 2004,
+   "sec": 21.0,
+   "spent": 10.3
   },
   "explore:obsidian": {
    "codes": {
@@ -39361,13 +39298,13 @@
   },
   "fill_bucket:water": {
    "codes": {
-    "NOT_FOUND": 152,
-    "TIMEOUT": 61,
+    "NOT_FOUND": 154,
+    "TIMEOUT": 62,
     "UNREACHABLE": 108
    },
    "died": 8,
-   "n": 1238,
-   "ok": 860,
+   "n": 1245,
+   "ok": 864,
    "sec": 11.6,
    "spent": 22.3
   },
@@ -39574,25 +39511,25 @@
   },
   "fortress:blazes": {
    "codes": {
-    "DIED": 183,
+    "DIED": 184,
     "NOT_FOUND": 478,
     "TIMEOUT": 96
    },
-   "died": 183,
-   "n": 773,
+   "died": 184,
+   "n": 774,
    "ok": 3,
    "sec": 116.4,
-   "spent": 75.9
+   "spent": 76.0
   },
   "fortress:find": {
    "codes": {
-    "DIED": 179,
-    "TIMEOUT": 129,
-    "UNREACHABLE": 269
+    "DIED": 180,
+    "TIMEOUT": 130,
+    "UNREACHABLE": 274
    },
-   "died": 179,
-   "n": 1361,
-   "ok": 784,
+   "died": 180,
+   "n": 1377,
+   "ok": 793,
    "sec": 70.5,
    "spent": 69.4
   },
@@ -39628,24 +39565,24 @@
   "goto:death": {
    "codes": {
     "DIED": 50,
-    "STUCK": 172,
-    "TIMEOUT": 181
+    "STUCK": 175,
+    "TIMEOUT": 182
    },
    "died": 50,
-   "n": 2206,
-   "ok": 1755,
+   "n": 2216,
+   "ok": 1761,
    "sec": 15.2,
-   "spent": 32.6
+   "spent": 32.7
   },
   "goto:surface": {
    "codes": {
     "STUCK": 651,
     "TIMEOUT": 97,
-    "UNREACHABLE": 1385
+    "UNREACHABLE": 1387
    },
    "died": 41,
-   "n": 9445,
-   "ok": 7271,
+   "n": 9484,
+   "ok": 7308,
    "sec": 7.3,
    "spent": 24.5
   },
@@ -39740,8 +39677,8 @@
     "STUCK": 52
    },
    "died": 2,
-   "n": 3031,
-   "ok": 2977,
+   "n": 3067,
+   "ok": 3013,
    "sec": 0.1,
    "spent": 0.9
   },
@@ -39752,8 +39689,8 @@
     "TIMEOUT": 2
    },
    "died": 17,
-   "n": 25009,
-   "ok": 24834,
+   "n": 25103,
+   "ok": 24928,
    "sec": 4.5,
    "spent": 4.6
   },
@@ -39771,11 +39708,11 @@
   "portal_repair": {
    "codes": {
     "DIED": 1,
-    "NO_PROGRESS": 1150,
+    "NO_PROGRESS": 1153,
     "TIMEOUT": 2
    },
    "died": 1,
-   "n": 1157,
+   "n": 1160,
    "ok": 4,
    "sec": 4.4,
    "spent": 1.7
@@ -39814,15 +39751,15 @@
   },
   "retreat": {
    "codes": {
-    "DIED": 2256,
-    "NO_PROGRESS": 5722,
-    "TIMEOUT": 436
+    "DIED": 2264,
+    "NO_PROGRESS": 5748,
+    "TIMEOUT": 438
    },
-   "died": 2256,
-   "n": 41324,
-   "ok": 32873,
+   "died": 2264,
+   "n": 41526,
+   "ok": 33039,
    "sec": 4.8,
-   "spent": 4.8
+   "spent": 4.9
   },
   "ruined_portal": {
    "codes": {
@@ -39845,27 +39782,27 @@
   },
   "shelter": {
    "codes": {
-    "NEED_ITEM": 969,
-    "NO_ROOM": 2698,
-    "USE_FAILED": 636
+    "NEED_ITEM": 1013,
+    "NO_ROOM": 2704,
+    "USE_FAILED": 641
    },
-   "died": 62,
-   "n": 6249,
-   "ok": 1354,
-   "sec": 255.0,
-   "spent": 82.1
+   "died": 64,
+   "n": 6312,
+   "ok": 1359,
+   "sec": 254.1,
+   "spent": 81.4
   },
   "shelter:heal": {
    "codes": {
-    "DIED": 153,
+    "DIED": 154,
     "HAZARD": 66,
     "NEED_ITEM": 178
    },
-   "died": 153,
-   "n": 528,
+   "died": 154,
+   "n": 529,
    "ok": 131,
    "sec": 4.7,
-   "spent": 6.1
+   "spent": 6.0
   },
   "shoot:end_crystal": {
    "codes": {
@@ -39873,22 +39810,22 @@
     "USE_FAILED": 33
    },
    "died": 15,
-   "n": 121,
-   "ok": 73,
-   "sec": 3.0,
+   "n": 125,
+   "ok": 77,
+   "sec": 3.1,
    "spent": 7.0
   },
   "shore": {
    "codes": {
-    "DIED": 98,
-    "STUCK": 2996,
-    "TIMEOUT": 3465
+    "DIED": 105,
+    "STUCK": 3010,
+    "TIMEOUT": 3467
    },
-   "died": 98,
-   "n": 27355,
-   "ok": 20796,
+   "died": 105,
+   "n": 27580,
+   "ok": 20998,
    "sec": 6.5,
-   "spent": 20.1
+   "spent": 20.0
   },
   "sleep": {
    "codes": {
@@ -39909,8 +39846,8 @@
     "UNREACHABLE": 20
    },
    "died": 1,
-   "n": 3288,
-   "ok": 3228,
+   "n": 3289,
+   "ok": 3229,
    "sec": 0.8,
    "spent": 5.1
   },
@@ -39921,10 +39858,10 @@
     "UNREACHABLE": 25
    },
    "died": 0,
-   "n": 1682,
-   "ok": 1641,
+   "n": 1689,
+   "ok": 1648,
    "sec": 0.8,
-   "spent": 6.3
+   "spent": 6.4
   },
   "smelt:cooked_mutton": {
    "codes": {
@@ -39945,10 +39882,10 @@
     "UNREACHABLE": 43
    },
    "died": 3,
-   "n": 4335,
-   "ok": 4278,
+   "n": 4349,
+   "ok": 4292,
    "sec": 0.8,
-   "spent": 4.2
+   "spent": 4.3
   },
   "smelt:gold_ingot": {
    "codes": {
@@ -39963,15 +39900,15 @@
   },
   "smelt:iron_ingot": {
    "codes": {
-    "DIED": 81,
+    "DIED": 82,
     "NO_PROGRESS": 76,
-    "UNREACHABLE": 911
+    "UNREACHABLE": 912
    },
-   "died": 81,
-   "n": 22916,
-   "ok": 21767,
+   "died": 82,
+   "n": 22986,
+   "ok": 21835,
    "sec": 0.8,
-   "spent": 14.6
+   "spent": 14.7
   },
   "spawner_escape": {
    "codes": {
@@ -39994,12 +39931,12 @@
   "unstuck": {
    "codes": {
     "DIED": 50,
-    "STUCK": 1902,
+    "STUCK": 1904,
     "TIMEOUT": 391
    },
    "died": 50,
-   "n": 10385,
-   "ok": 8042,
+   "n": 10425,
+   "ok": 8080,
    "sec": 4.3,
    "spent": 13.4
   }
@@ -40177,10 +40114,6 @@
     0
    ],
    [
-    24,
-    0
-   ],
-   [
     27,
     0
    ],
@@ -40326,6 +40259,10 @@
    ],
    [
     254,
+    0
+   ],
+   [
+    257,
     0
    ]
   ],
@@ -40677,22 +40614,6 @@
   ],
   "nether": [
    [
-    247,
-    0
-   ],
-   [
-    247,
-    0
-   ],
-   [
-    247,
-    0
-   ],
-   [
-    247,
-    0
-   ],
-   [
     248,
     0
    ],
@@ -40834,47 +40755,27 @@
    ],
    [
     256,
+    0
+   ],
+   [
+    257,
+    0
+   ],
+   [
+    257,
+    0
+   ],
+   [
+    257,
+    0
+   ],
+   [
+    257,
     0
    ]
   ],
   "spawn": [
    [
-    252,
-    0
-   ],
-   [
-    252,
-    1
-   ],
-   [
-    252,
-    1
-   ],
-   [
-    252,
-    0
-   ],
-   [
-    253,
-    1
-   ],
-   [
-    253,
-    1
-   ],
-   [
-    253,
-    0
-   ],
-   [
-    253,
-    0
-   ],
-   [
-    253,
-    1
-   ],
-   [
     253,
     0
    ],
@@ -40996,6 +40897,42 @@
    ],
    [
     256,
+    0
+   ],
+   [
+    257,
+    0
+   ],
+   [
+    257,
+    0
+   ],
+   [
+    257,
+    0
+   ],
+   [
+    257,
+    0
+   ],
+   [
+    257,
+    0
+   ],
+   [
+    257,
+    1
+   ],
+   [
+    257,
+    0
+   ],
+   [
+    257,
+    0
+   ],
+   [
+    257,
     0
    ]
   ],
