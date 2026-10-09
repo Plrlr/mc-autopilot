@@ -2700,7 +2700,7 @@
   "2026-10-06": 19,
   "2026-10-07": 16,
   "2026-10-08": 17,
-  "2026-10-09": 1
+  "2026-10-09": 2
  },
  "evolve_days": {
   "2026-09-27": 1,
@@ -2812,7 +2812,7 @@
    "result": "racing"
   }
  ],
- "gen": 254,
+ "gen": 255,
  "gene_specs": {
   "bed.table_first": {
    "def": 0.0,
@@ -24954,6 +24954,86 @@
    "parent": "g196",
    "status": "rejected"
   },
+  "g234": {
+   "born": 255,
+   "code": null,
+   "evals": [],
+   "genes": {
+    "combat.creeper_hit": 1.0,
+    "combat.ignore_walled_mobs": 1.0,
+    "combat.shield_guard": 1.0,
+    "death.recover_night_armor": 12.0,
+    "focus.commit": 1.0,
+    "gear.sword_early": 1.0,
+    "move.shore_first": 1.0,
+    "nav.surface_v2": 1.0,
+    "nav.unstuck_v2": 1.0,
+    "night.shelter_exit": 1.0,
+    "night.wall_in": 1.0,
+    "plan.hide_hp": 15.0,
+    "plan.readiness": 1.0,
+    "portal.prepare_work_area": 1.0,
+    "portal.reserve_lava_bucket": 1.0,
+    "route.armor_before_portal": 1.0,
+    "safety.spawner_break": 1.0,
+    "skill.dragon_strike": 1.0,
+    "skill.enderman_warped": 1.0,
+    "skill.lava_scout": 1.0,
+    "skill.portal_repair": 1.0,
+    "skill.ruined_portal": 1.0,
+    "stations.pickup_last": 1.0,
+    "stuck.item_progress": 1.0
+   },
+   "id": "g234",
+   "mutated": [
+    "skill.lava_scout",
+    "safety.spawner_break",
+    "skill.dragon_strike"
+   ],
+   "note": "skill.lava_scout 1, safety.spawner_break 1, skill.dragon_strike 1",
+   "pairs": [],
+   "parent": "g196",
+   "status": "contender"
+  },
+  "g235": {
+   "born": 255,
+   "code": null,
+   "evals": [],
+   "genes": {
+    "combat.creeper_hit": 1.0,
+    "combat.ignore_walled_mobs": 1.0,
+    "combat.shield_guard": 1.0,
+    "death.recover_night_armor": 12.0,
+    "focus.commit": 1.0,
+    "gear.sword_early": 1.0,
+    "move.shore_first": 1.0,
+    "nav.surface_v2": 1.0,
+    "nav.unstuck_v2": 1.0,
+    "night.shelter_exit": 1.0,
+    "night.wall_in": 1.0,
+    "plan.hide_hp": 15.0,
+    "plan.readiness": 1.0,
+    "portal.prepare_work_area": 1.0,
+    "portal.reserve_lava_bucket": 1.0,
+    "route.armor_before_portal": 1.0,
+    "safety.hazard": 1.0,
+    "skill.enderman_warped": 1.0,
+    "skill.ruined_portal": 1.0,
+    "smelt.own_furnace": 1.0,
+    "stations.pickup_last": 1.0,
+    "stuck.item_progress": 1.0
+   },
+   "id": "g235",
+   "mutated": [
+    "smelt.own_furnace",
+    "safety.hazard",
+    "skill.portal_repair"
+   ],
+   "note": "smelt.own_furnace 1, safety.hazard 1, skill.portal_repair 0",
+   "pairs": [],
+   "parent": "g196",
+   "status": "contender"
+  },
   "g24": {
    "born": 27,
    "code": null,
@@ -36769,8 +36849,89 @@
   "mean_gap_ok": -0.3592,
   "n": 1438
  },
- "next_id": 234,
- "pending": null,
+ "next_id": 236,
+ "pending": {
+  "data_tasks": [
+   {
+    "kind": "scenario",
+    "late": true,
+    "scenario": "stronghold",
+    "seed": "D255-s32xpe",
+    "stage": "eyes",
+    "synthetic": true
+   },
+   {
+    "kind": "natural",
+    "seed": "D255-j7jege",
+    "stage": "spawn",
+    "synthetic": false
+   }
+  ],
+  "gen": 255,
+  "lineup": [
+   "g196",
+   "g231",
+   "g234",
+   "g235"
+  ],
+  "runs": [
+   "eval-g196-0",
+   "eval-g196-1",
+   "eval-g196-2",
+   "eval-g196-3",
+   "eval-g231-0",
+   "eval-g231-1",
+   "eval-g231-2",
+   "eval-g231-3",
+   "eval-g234-0",
+   "eval-g234-1",
+   "eval-g234-2",
+   "eval-g234-3",
+   "eval-g235-0",
+   "eval-g235-1",
+   "eval-g235-2",
+   "eval-g235-3",
+   "data-g196-0",
+   "data-g196-1"
+  ],
+  "seeds": [
+   "L255-ahkjdd",
+   "L255-vxqb77",
+   "L255-eqc6un",
+   "L255-hb7eck"
+  ],
+  "sha": "91d44de4fbc72526287a191ce432dba1a89adb1c",
+  "started": "2026-10-09T02:05:16+00:00",
+  "tasks": [
+   {
+    "kind": "natural",
+    "seed": "L255-ahkjdd",
+    "stage": "spawn",
+    "synthetic": false
+   },
+   {
+    "kind": "natural",
+    "seed": "L255-vxqb77",
+    "stage": "spawn",
+    "synthetic": false
+   },
+   {
+    "asset": "nether-gen222-eval-g173-2.zip",
+    "kind": "start",
+    "seed": "L255-eqc6un",
+    "stage": "nether",
+    "synthetic": false
+   },
+   {
+    "kind": "combat",
+    "minutes": 10,
+    "scenario": "combat",
+    "seed": "L255-hb7eck",
+    "stage": "combat",
+    "synthetic": false
+   }
+  ]
+ },
  "race_evidence_version": 2,
  "score_since_gen": 179,
  "score_version": 4,
