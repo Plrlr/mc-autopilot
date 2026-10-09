@@ -2725,7 +2725,7 @@
   "2026-10-04": 5,
   "2026-10-07": 6,
   "2026-10-08": 5,
-  "2026-10-09": 5
+  "2026-10-09": 6
  },
  "evolve_log": [
   {
@@ -2846,6 +2846,12 @@
   {
    "gen": 267,
    "gid": "g250",
+   "mode": "edit",
+   "result": "racing"
+  },
+  {
+   "gen": 270,
+   "gid": "g252",
    "mode": "edit",
    "result": "racing"
   }
@@ -29044,6 +29050,51 @@
    "parent": "g249",
    "status": "rejected"
   },
+  "g252": {
+   "born": 270,
+   "code": {
+    "base": "91d44de4fbc72526287a191ce432dba1a89adb1c",
+    "branch": "evolve/g252",
+    "files": [
+     "mod/src/main/java/io/github/plrlr/autopilot/skills/MoveSkills.java"
+    ],
+    "sha": "8c729317393409c4955c49182c9b8cc48158586f",
+    "summary": "Explore: when a leg can't make headway (<16 blocks before Baritone stops), mark the heading bad and start a new heading inside the same skill (up to 3 more legs) instead of failing UNREACHABLE straight back to the planner."
+   },
+   "evals": [],
+   "genes": {
+    "combat.creeper_hit": 1.0,
+    "combat.ignore_walled_mobs": 1.0,
+    "combat.shield_guard": 1.0,
+    "death.recover_night_armor": 12.0,
+    "focus.commit": 1.0,
+    "gear.sword_early": 1.0,
+    "learned.weight": 1.0,
+    "move.shore_first": 1.0,
+    "nav.surface_v2": 1.0,
+    "nav.unstuck_v2": 1.0,
+    "night.shelter_exit": 1.0,
+    "night.wall_in": 1.0,
+    "plan.hide_hp": 15.0,
+    "plan.readiness": 1.0,
+    "portal.prepare_work_area": 1.0,
+    "portal.reserve_lava_bucket": 1.0,
+    "route.armor_before_portal": 1.0,
+    "skill.enderman_warped": 1.0,
+    "skill.portal_repair": 1.0,
+    "skill.ruined_portal": 1.0,
+    "stations.pickup_last": 1.0,
+    "stuck.item_progress": 1.0
+   },
+   "id": "g252",
+   "mutated": [
+    "code"
+   ],
+   "note": "code: Explore: when a leg can't make headway (<16 blocks before Baritone stops), mark the heading bad and start a new heading inside the same skill (up to 3 more legs) instead of failing UNREACHABLE straight back to the planner.",
+   "pairs": [],
+   "parent": "g237",
+   "status": "contender"
+  },
   "g26": {
    "born": 32,
    "code": null,
@@ -39697,7 +39748,8 @@
   "The staircase climb fails on hard blocks, side hazards and slow 240 s timeouts; a vertical pillar that feeds on its own mined cobble needs only one clear column and sidesteps when that column is blocked.",
   "attack creeper HAZARD mostly fires on an unlit creeper after the backing walk stalls; failing there only hands control to retreat (the top action before deaths), so the HAZARD bail-out should be kept for a lit fuse only.",
   "The log loop comes from explore trusting remembered blocks that collect has just shown it can't use. Tying explore's 'already seen' check to collect's latest NOT_FOUND should make explore move instead of refusing.",
-  "Lava is the top cause of first-life deaths in the Nether, and 13 of those deaths came while attacking a magma cube or hoglin. In-fight movement that matters little on the overworld (jumps, strafes) can be what kills the bot beside lava, so gate footwork by dimension."
+  "Lava is the top cause of first-life deaths in the Nether, and 13 of those deaths came while attacking a magma cube or hoglin. In-fight movement that matters little on the overworld (jumps, strafes) can be what kills the bot beside lava, so gate footwork by dimension.",
+  "explore any UNREACHABLE repeats back-to-back because each blocked heading ends the skill; turning to a fresh heading within the skill should convert those instant failures into actual exploration."
  ],
  "learned_race": {
   "gen": 256,
@@ -39718,7 +39770,7 @@
   "mean_gap_ok": -0.112,
   "n": 1577
  },
- "next_id": 252,
+ "next_id": 253,
  "pending": null,
  "race_evidence_version": 2,
  "score_since_gen": 179,
