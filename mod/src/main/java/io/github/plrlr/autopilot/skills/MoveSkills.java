@@ -33,6 +33,8 @@ public final class MoveSkills {
 		private List<String> targets = List.of();
 		private int waterTicks;
 		private double startX, startZ;
+		/** Collect just found none of the remembered logs/sand usable: walk off before trusting memory again. */
+		private boolean skipRemembered;
 
 		@Override
 		public String name() {
@@ -45,6 +47,8 @@ public final class MoveSkills {
 			LocalPlayer pl = Mc.player();
 			String a = arg == null ? "any" : arg;
 			if (!a.equals("any")) targets = List.of(a.split(","));
+			for (String t : targets)
+				if ((t.equals("log") || t.equals("sand")) && CollectSkill.recentlyNotFound(t)) skipRemembered = true;
 			String already = found();
 			if (already != null) {
 				// Nothing to explore for: whatever needed this should use what's in view instead.
@@ -79,6 +83,7 @@ public final class MoveSkills {
 				// same test collect uses. Logs under deep water (a shipwreck's) were "already seen" here
 				// and "none seen" there: collect:log NOT_FOUND then explore:log ALREADY_DONE, 1,194 and
 				// 957 times in gens 118-177, while no tree was found.
+				if (remembered && skipRemembered && (t.equals("log") || t.equals("sand"))) continue;
 				if (remembered && (t.equals("log") || t.equals("sand")) && !SeenMiner.anySeen(memory, t, 48)
 						&& io.github.plrlr.autopilot.Exposure.mark("explore.same_blocks", "remembered " + t + " that collect can't use")) continue;
 				if (remembered) return t;
@@ -90,6 +95,7 @@ public final class MoveSkills {
 		protected void tick() {
 			if (ticks % 10 != 0) return;
 			LocalPlayer pl = Mc.player();
+			if (skipRemembered && Math.hypot(pl.getX() - startX, pl.getZ() - startZ) >= 32) skipRemembered = false;
 			String f = found();
 			if (f != null) {
 				done("found " + f);

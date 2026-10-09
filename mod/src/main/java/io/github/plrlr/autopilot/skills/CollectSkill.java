@@ -148,8 +148,21 @@ public final class CollectSkill extends Skill {
 		return false;
 	}
 
+	/** The item whose collect last failed NOT_FOUND, and when (ms): explore then ignores remembered blocks of it. */
+	public static volatile String notFoundItem;
+	public static volatile long notFoundAt;
+
+	/** True when collect just failed NOT_FOUND for this item (within 60 s). */
+	public static boolean recentlyNotFound(String it) {
+		return it != null && it.equals(notFoundItem) && System.currentTimeMillis() - notFoundAt < 60_000;
+	}
+
 	@Override
 	protected void cleanup() {
+		if (result() != null && result().code() == Fail.NOT_FOUND && item != null) {
+			notFoundItem = item;
+			notFoundAt = System.currentTimeMillis();
+		}
 		if (stoneStep != null && stoneStep.result() == null) stoneStep.abort(Fail.INTERRUPTED, "collect ended");
 		// Cut off as stuck on the way to a seen block: the next collect would pick the same one.
 		if (seenMiner != null && result() != null && result().code() == Fail.STUCK) seenMiner.setAsideTarget();
