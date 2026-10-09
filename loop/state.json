@@ -2700,7 +2700,7 @@
   "2026-10-06": 19,
   "2026-10-07": 16,
   "2026-10-08": 17,
-  "2026-10-09": 3
+  "2026-10-09": 4
  },
  "evolve_days": {
   "2026-09-27": 1,
@@ -2819,7 +2819,7 @@
    "target": "goto:surface UNREACHABLE"
   }
  ],
- "gen": 256,
+ "gen": 257,
  "gene_specs": {
   "bed.table_first": {
    "def": 0.0,
@@ -25228,7 +25228,9 @@
      "_metric": "resolve:goto:UNREACHABLE+climb_shaft",
      "evolved.climb_shaft": 1
     },
-    "run": 37879614966
+    "run": 37879614966,
+    "verdict": "INCONCLUSIVE",
+    "why": "INCONCLUSIVE: on 0/0 fixed (0%), off 0/0 fixed (0%), z +0.0; exposure on its side: climb_shaft offered 0, chosen 0, started 0, ended 0 (0 ok); acted in 0 of 3 games"
    },
    "evals": [],
    "exposure_spec": {
@@ -25259,6 +25261,7 @@
     "stuck.item_progress": 1.0
    },
    "id": "g236",
+   "inconclusive": "never ran in its drill",
    "metric": "resolve:goto:UNREACHABLE+climb_shaft",
    "mutated": [
     "code",
@@ -25267,7 +25270,7 @@
    "note": "code: new skill climb_shaft for goto:surface UNREACHABLE: climb_shaft: after goto surface fails UNREACHABLE, pillar straight up by hand (mine ceiling, jump, place mined block under feet), stepping sideways around lava/bedrock/hard blocks",
    "pairs": [],
    "parent": "g196",
-   "status": "drilling"
+   "status": "rejected"
   },
   "g237": {
    "born": 256,
@@ -37328,7 +37331,88 @@
   "n": 1484
  },
  "next_id": 240,
- "pending": null,
+ "pending": {
+  "data_tasks": [
+   {
+    "kind": "scenario",
+    "late": true,
+    "scenario": "end",
+    "seed": "D257-x74b7p",
+    "stage": "end",
+    "synthetic": true
+   },
+   {
+    "kind": "natural",
+    "seed": "D257-k2hyb5",
+    "stage": "spawn",
+    "synthetic": false
+   }
+  ],
+  "gen": 257,
+  "lineup": [
+   "g196",
+   "g237",
+   "g239",
+   "g238"
+  ],
+  "runs": [
+   "eval-g196-0",
+   "eval-g196-1",
+   "eval-g196-2",
+   "eval-g196-3",
+   "eval-g237-0",
+   "eval-g237-1",
+   "eval-g237-2",
+   "eval-g237-3",
+   "eval-g239-0",
+   "eval-g239-1",
+   "eval-g239-2",
+   "eval-g239-3",
+   "eval-g238-0",
+   "eval-g238-1",
+   "eval-g238-2",
+   "eval-g238-3",
+   "data-g196-0",
+   "data-g196-1"
+  ],
+  "seeds": [
+   "L257-59ky5t",
+   "L257-hezth4",
+   "L257-ppbt72",
+   "L257-htgpb2"
+  ],
+  "sha": "91d44de4fbc72526287a191ce432dba1a89adb1c",
+  "started": "2026-10-09T05:09:37+00:00",
+  "tasks": [
+   {
+    "kind": "natural",
+    "seed": "L257-59ky5t",
+    "stage": "spawn",
+    "synthetic": false
+   },
+   {
+    "kind": "natural",
+    "seed": "L257-hezth4",
+    "stage": "spawn",
+    "synthetic": false
+   },
+   {
+    "asset": "nether-gen213-eval-g178-3.zip",
+    "kind": "start",
+    "seed": "L257-ppbt72",
+    "stage": "nether",
+    "synthetic": false
+   },
+   {
+    "kind": "combat",
+    "minutes": 10,
+    "scenario": "combat",
+    "seed": "L257-htgpb2",
+    "stage": "combat",
+    "synthetic": false
+   }
+  ]
+ },
  "race_evidence_version": 2,
  "score_since_gen": 179,
  "score_version": 4,
@@ -38218,7 +38302,7 @@
   {
    "gen": 255,
    "gid": "g236",
-   "result": "drilling",
+   "result": "inconclusive: never ran in its drill (its offer never fired): INCONCLUSIVE: on 0/0 fixed (0%), off 0/0 fixed (0%), z +0.0; exposure on its side: climb_shaft offered 0, chosen 0, started 0, ended 0 (0 ok); acted in 0 of 3 games",
    "skill": "climb_shaft",
    "target": "goto:surface UNREACHABLE"
   }
