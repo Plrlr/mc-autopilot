@@ -276,7 +276,10 @@ public final class CombatSkills {
 					&& dist <= 2.3 && Mc.canSee(target) && CombatFootwork.safe(pl, 1, 0);
 			// Like a player: a jump before the swing makes it a critical hit (1.5x) when it lands on
 			// the way down; between swings, a step back takes us out of a zombie's reach.
-			boolean crits = Tune.on("combat.crits") && !sprintStrike && !creeperTactic
+			// In the Nether a jump or side step beside lava turned a small fight into a lava death
+			// (magma cube and hoglin fights: 13 of the Nether's first deaths came while attacking them).
+			boolean nether = Mc.dimension().equals("the_nether");
+			boolean crits = Tune.on("combat.crits") && !sprintStrike && !creeperTactic && !nether
 					&& !pl.isInWater() && !pl.onClimbable() && !(target instanceof EnderDragon);
 			int groupStep = !ready && pack.size() >= 2 ? groupStep(pl, pack) : -1;
 			if (groupStep >= 0) {
@@ -286,7 +289,7 @@ public final class CombatSkills {
 				o.keyLeft.setDown(groupStep == 2);
 			} else if (!ready && dist < Tune.get("combat.keep_dist") && Tune.on("combat.backstep")
 					&& CombatFootwork.safe(pl, -1, 0)) o.keyDown.setDown(true);
-			else if (!ready && Tune.i("combat.strafe") > 0) {
+			else if (!ready && Tune.i("combat.strafe") > 0 && !nether) {
 				int side = (ticks / Tune.i("combat.strafe")) % 2 == 0 ? 1 : -1;
 				if (!CombatFootwork.safe(pl, 0, side)) side = -side;
 				if (CombatFootwork.safe(pl, 0, side)) {
