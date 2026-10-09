@@ -195,7 +195,7 @@ public final class CombatSkills {
 					&& c.getSwellDir() > 0) {
 				// A swelling creeper stands still: walking straight back outruns the blast and
 				// past 7 blocks the fuse goes out. Handing over to a retreat lost that time.
-				if (!CombatFootwork.safe(pl, -1, 0)) {
+				if (!backAway(pl, false)) {
 					fail(Fail.HAZARD, "creeper started its fuse before the hit");
 					return;
 				}
@@ -210,8 +210,7 @@ public final class CombatSkills {
 				if (dist >= Tune.get("combat.creeper_gap") && !lit) {
 					creeperBacking = false;
 					backingTicks = 0;
-				} else if (CombatFootwork.safe(pl, -1, 0) && backingTicks++ < 40) {
-					Mc.mc().options.keyDown.setDown(true);
+				} else if (backingTicks++ < 40 && backAway(pl, true)) {
 					return;
 				} else {
 					fail(Fail.HAZARD, "no safe gap after hitting the creeper");
@@ -335,6 +334,26 @@ public final class CombatSkills {
 					&& (Items2.id(pl.getMainHandItem()).endsWith("_sword") || Items2.id(pl.getMainHandItem()).endsWith("_axe"))) {
 				keyUse.setDown(true);
 			}
+		}
+
+		/**
+		 * Back off from a creeper: straight back, else back-right, else back-left (still facing it).
+		 * Only straight back was tried before, so a block or drop behind us ended the fight with
+		 * HAZARD while the fuse burned. With apply, holds the keys for the first safe way.
+		 */
+		private boolean backAway(LocalPlayer pl, boolean apply) {
+			int[][] moves = {{-1, 0}, {-1, 1}, {-1, -1}};
+			for (int[] m : moves) {
+				if (!CombatFootwork.safe(pl, m[0], m[1])) continue;
+				if (apply) {
+					var o = Mc.mc().options;
+					o.keyDown.setDown(true);
+					o.keyRight.setDown(m[1] > 0);
+					o.keyLeft.setDown(m[1] < 0);
+				}
+				return true;
+			}
+			return false;
 		}
 
 		private int zombiesNear(double range) {
