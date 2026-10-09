@@ -31,6 +31,7 @@ public final class EvolvedSkills {
 
 	static {
 		// evolve:entries (scripts/loop/evolve.py appends one add(...) line per evolved skill here)
+		add(new Entry("evolved.climb_shaft", "climb_shaft", ClimbShaft::new, ClimbShaft::offer, "climb_shaft: pillar straight up by mining the ceiling and placing blocks underfoot (after goto surface fails)"));
 		// evolve:end
 	}
 

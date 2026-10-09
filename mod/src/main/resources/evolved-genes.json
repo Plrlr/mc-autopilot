@@ -1,1 +1,15 @@
-{"_about": "append-only list of genes for evolved skills (scripts/loop/evolve.py appends)", "genes": []}
+{
+ "_about": "append-only list of genes for evolved skills (scripts/loop/evolve.py appends)",
+ "genes": [
+  {
+   "name": "evolved.climb_shaft",
+   "kind": "BOOL",
+   "def": 0,
+   "skill": "climb_shaft",
+   "why": "climb_shaft: pillar straight up by mining the ceiling and placing blocks underfoot (after goto surface fails)",
+   "gen": 255,
+   "target": "goto:surface UNREACHABLE",
+   "metric": "resolve:goto:UNREACHABLE"
+  }
+ ]
+}
