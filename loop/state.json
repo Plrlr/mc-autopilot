@@ -2700,7 +2700,7 @@
   "2026-10-06": 19,
   "2026-10-07": 16,
   "2026-10-08": 17,
-  "2026-10-09": 5
+  "2026-10-09": 6
  },
  "evolve_days": {
   "2026-09-27": 1,
@@ -2819,7 +2819,7 @@
    "target": "goto:surface UNREACHABLE"
   }
  ],
- "gen": 258,
+ "gen": 259,
  "gene_specs": {
   "bed.table_first": {
    "def": 0.0,
@@ -26717,6 +26717,84 @@
    "parent": "g10",
    "status": "rejected"
   },
+  "g240": {
+   "born": 259,
+   "code": null,
+   "evals": [],
+   "genes": {
+    "combat.creeper_hit": 1.0,
+    "combat.ignore_walled_mobs": 1.0,
+    "combat.shield_guard": 1.0,
+    "death.recover_night_armor": 12.0,
+    "focus.commit": 1.0,
+    "gather.iron_in_view": 1.0,
+    "gear.sword_early": 1.0,
+    "learned.weight": 1.0,
+    "move.shore_first": 1.0,
+    "nav.surface_v2": 1.0,
+    "nav.unstuck_v2": 1.0,
+    "night.shelter_exit": 1.0,
+    "night.wall_in": 1.0,
+    "plan.hide_hp": 15.0,
+    "plan.readiness": 1.0,
+    "portal.prepare_work_area": 1.0,
+    "portal.reserve_lava_bucket": 1.0,
+    "route.armor_before_portal": 1.0,
+    "skill.enderman_warped": 1.0,
+    "skill.portal_repair": 1.0,
+    "skill.ruined_portal": 1.0,
+    "skill.silverfish_control": 1.0,
+    "stations.pickup_last": 1.0,
+    "stuck.item_progress": 1.0
+   },
+   "id": "g240",
+   "mutated": [
+    "gather.iron_in_view",
+    "skill.silverfish_control"
+   ],
+   "note": "gather.iron_in_view 1, skill.silverfish_control 1",
+   "pairs": [],
+   "parent": "g237",
+   "status": "contender"
+  },
+  "g241": {
+   "born": 259,
+   "code": null,
+   "evals": [],
+   "genes": {
+    "combat.creeper_hit": 1.0,
+    "combat.flee_hp": 9.0,
+    "combat.ignore_walled_mobs": 1.0,
+    "combat.shield_guard": 1.0,
+    "death.recover_night_armor": 12.0,
+    "focus.commit": 1.0,
+    "gear.sword_early": 1.0,
+    "learned.weight": 1.0,
+    "move.shore_first": 1.0,
+    "nav.surface_v2": 1.0,
+    "nav.unstuck_v2": 1.0,
+    "night.shelter_exit": 1.0,
+    "night.wall_in": 1.0,
+    "plan.hide_hp": 15.0,
+    "plan.readiness": 1.0,
+    "portal.prepare_work_area": 1.0,
+    "portal.reserve_lava_bucket": 1.0,
+    "route.armor_before_portal": 1.0,
+    "skill.enderman_warped": 1.0,
+    "skill.portal_repair": 1.0,
+    "skill.ruined_portal": 1.0,
+    "stations.pickup_last": 1.0,
+    "stuck.item_progress": 1.0
+   },
+   "id": "g241",
+   "mutated": [
+    "combat.flee_hp"
+   ],
+   "note": "combat.flee_hp 9",
+   "pairs": [],
+   "parent": "g237",
+   "status": "contender"
+  },
   "g25": {
    "born": 27,
    "code": {
@@ -37491,8 +37569,89 @@
   "mean_gap_ok": -0.231,
   "n": 1522
  },
- "next_id": 240,
- "pending": null,
+ "next_id": 242,
+ "pending": {
+  "data_tasks": [
+   {
+    "asset": "stronghold-gen242-data-g196-0.zip",
+    "kind": "start",
+    "late": true,
+    "seed": "D259-qbm7nd",
+    "stage": "stronghold",
+    "synthetic": true
+   },
+   {
+    "kind": "natural",
+    "seed": "D259-zu8mm4",
+    "stage": "spawn",
+    "synthetic": false
+   }
+  ],
+  "gen": 259,
+  "lineup": [
+   "g237",
+   "g196",
+   "g240",
+   "g241"
+  ],
+  "runs": [
+   "eval-g237-0",
+   "eval-g237-1",
+   "eval-g237-2",
+   "eval-g237-3",
+   "eval-g196-0",
+   "eval-g196-1",
+   "eval-g196-2",
+   "eval-g196-3",
+   "eval-g240-0",
+   "eval-g240-1",
+   "eval-g240-2",
+   "eval-g240-3",
+   "eval-g241-0",
+   "eval-g241-1",
+   "eval-g241-2",
+   "eval-g241-3",
+   "data-g237-0",
+   "data-g237-1"
+  ],
+  "seeds": [
+   "L259-hhpumw",
+   "L259-n5gngg",
+   "L259-ypx6jj",
+   "L259-74v7k4"
+  ],
+  "sha": "91d44de4fbc72526287a191ce432dba1a89adb1c",
+  "started": "2026-10-09T07:57:23+00:00",
+  "tasks": [
+   {
+    "kind": "natural",
+    "seed": "L259-hhpumw",
+    "stage": "spawn",
+    "synthetic": false
+   },
+   {
+    "kind": "natural",
+    "seed": "L259-n5gngg",
+    "stage": "spawn",
+    "synthetic": false
+   },
+   {
+    "asset": "nether-gen256-eval-g239-0.zip",
+    "kind": "start",
+    "seed": "L259-ypx6jj",
+    "stage": "nether",
+    "synthetic": false
+   },
+   {
+    "kind": "combat",
+    "minutes": 10,
+    "scenario": "combat",
+    "seed": "L259-74v7k4",
+    "stage": "combat",
+    "synthetic": false
+   }
+  ]
+ },
  "race_evidence_version": 2,
  "score_since_gen": 179,
  "score_version": 4,
