@@ -33,6 +33,8 @@ public final class MoveSkills {
 		private List<String> targets = List.of();
 		private int waterTicks;
 		private double startX, startZ;
+		/** Already swimming when the leg began: turning back only circles the same sea, so cross it. */
+		private boolean startedInWater;
 
 		@Override
 		public String name() {
@@ -53,6 +55,7 @@ public final class MoveSkills {
 			}
 			startX = pl.getX();
 			startZ = pl.getZ();
+			startedInWater = pl.isInWater();
 			int h = memory.exploreHeading(startX, startZ, DIST);
 			double angle = h * Math.PI / 4;
 			Bari.path(new GoalXZ((int) (startX + Math.cos(angle) * DIST), (int) (startZ + Math.sin(angle) * DIST)));
@@ -96,7 +99,15 @@ public final class MoveSkills {
 				return;
 			}
 			// Swimming across an ocean finds nothing we need and invites drowned; turn around.
-			if (pl.isInWater()) waterTicks += 10;
+			if (startedInWater) {
+				// Crossing from open water: dry footing is what shore needed; hand back to it.
+				if (ticks > 40 && !pl.isInWater() && pl.onGround()) {
+					Bari.stop();
+					done("reached dry ground after crossing water");
+					return;
+				}
+				waterTicks = 0;
+			} else if (pl.isInWater()) waterTicks += 10;
 			else waterTicks = Math.max(0, waterTicks - 5);
 			// Rivers take a few seconds to cross; only a long swim means open sea.
 			if (waterTicks > 20 * 20) {
