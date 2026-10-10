@@ -2727,7 +2727,7 @@
   "2026-10-07": 6,
   "2026-10-08": 5,
   "2026-10-09": 6,
-  "2026-10-10": 3
+  "2026-10-10": 4
  },
  "evolve_log": [
   {
@@ -2872,6 +2872,12 @@
   {
    "gen": 281,
    "gid": "g266",
+   "mode": "edit",
+   "result": "racing"
+  },
+  {
+   "gen": 285,
+   "gid": "g272",
    "mode": "edit",
    "result": "racing"
   }
@@ -32389,6 +32395,51 @@
    "parent": "g237",
    "status": "rejected"
   },
+  "g272": {
+   "born": 285,
+   "code": {
+    "base": "91d44de4fbc72526287a191ce432dba1a89adb1c",
+    "branch": "evolve/g272",
+    "files": [
+     "mod/src/main/java/io/github/plrlr/autopilot/skills/Unstuck.java"
+    ],
+    "sha": "4011af99ab5834b384dcaf01cec53515252cfc13",
+    "summary": "Unstuck pillar: also clear the block 3 above the feet so the jump has full height and a block can be placed underneath, fixing 'climbed 0 blocks' STUCK failures (23 at the nether frontier)."
+   },
+   "evals": [],
+   "genes": {
+    "combat.creeper_hit": 1.0,
+    "combat.ignore_walled_mobs": 1.0,
+    "combat.shield_guard": 1.0,
+    "death.recover_night_armor": 12.0,
+    "focus.commit": 1.0,
+    "gear.sword_early": 1.0,
+    "learned.weight": 1.0,
+    "move.shore_first": 1.0,
+    "nav.surface_v2": 1.0,
+    "nav.unstuck_v2": 1.0,
+    "night.shelter_exit": 1.0,
+    "night.wall_in": 1.0,
+    "plan.hide_hp": 15.0,
+    "plan.readiness": 1.0,
+    "portal.prepare_work_area": 1.0,
+    "portal.reserve_lava_bucket": 1.0,
+    "route.armor_before_portal": 1.0,
+    "skill.enderman_warped": 1.0,
+    "skill.portal_repair": 1.0,
+    "skill.ruined_portal": 1.0,
+    "stations.pickup_last": 1.0,
+    "stuck.item_progress": 1.0
+   },
+   "id": "g272",
+   "mutated": [
+    "code"
+   ],
+   "note": "code: Unstuck pillar: also clear the block 3 above the feet so the jump has full height and a block can be placed underneath, fixing 'climbed 0 blocks' STUCK failures (23 at the nether frontier).",
+   "pairs": [],
+   "parent": "g237",
+   "status": "contender"
+  },
   "g28": {
    "born": 40,
    "code": null,
@@ -42681,7 +42732,8 @@
   "explore any UNREACHABLE repeats back-to-back because each blocked heading ends the skill; turning to a fresh heading within the skill should convert those instant failures into actual exploration.",
   "The planner and the skills must judge from the same up-to-date view: a view up to 5 ticks old (and not updated at all while dead) makes the first decisions after a respawn chase mobs that are no longer in sight.",
   "When the bot is already out at sea, turning back after 20 s of swimming and marking that heading bad makes every explore leg a short loop. An explore leg that starts in water should keep going in a straight line to land and then hand back to shore.",
-  "Backing up while facing a creeper is no faster than the creeper walks, so the gap never opens. Turning away and sprinting is the only player movement that actually outruns it, and the attack should do that itself instead of failing over to retreat."
+  "Backing up while facing a creeper is no faster than the creeper walks, so the gap never opens. Turning away and sprinting is the only player movement that actually outruns it, and the attack should do that itself instead of failing over to retreat.",
+  "The 'climbed 0 blocks' STUCK message means the pillar jumped for 20 s without placing a block. A likely cause is too little headroom: a jump needs about 3 free blocks above the feet, and only the block 2 up was cleared."
  ],
  "learned_race": {
   "gen": 256,
@@ -42702,7 +42754,7 @@
   "mean_gap_ok": 0.1624,
   "n": 1693
  },
- "next_id": 272,
+ "next_id": 273,
  "pending": null,
  "race_evidence_version": 2,
  "score_since_gen": 179,
