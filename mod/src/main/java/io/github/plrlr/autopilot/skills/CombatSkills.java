@@ -213,6 +213,9 @@ public final class CombatSkills {
 				} else if (CombatFootwork.safe(pl, -1, 0) && backingTicks++ < 40) {
 					Mc.mc().options.keyDown.setDown(true);
 					return;
+				} else if (backingTicks++ < 140 && sprintAway(pl)) {
+					// Walking backwards is no faster than a creeper: turn and sprint to make the gap.
+					return;
 				} else {
 					fail(Fail.HAZARD, "no safe gap after hitting the creeper");
 					return;
@@ -335,6 +338,25 @@ public final class CombatSkills {
 					&& (Items2.id(pl.getMainHandItem()).endsWith("_sword") || Items2.id(pl.getMainHandItem()).endsWith("_axe"))) {
 				keyUse.setDown(true);
 			}
+		}
+
+		/** Face away from the target (or up to 90 degrees off it) onto safe footing and sprint. */
+		private boolean sprintAway(LocalPlayer pl) {
+			double dx = pl.getX() - target.getX(), dz = pl.getZ() - target.getZ();
+			float yaw = (float) Math.toDegrees(Math.atan2(-dx, dz));
+			float pitch = pl.getXRot();
+			for (int turn : new int[]{0, 45, -45, 90, -90}) {
+				pl.setYRot(yaw + turn);
+				pl.setXRot(0);
+				if (CombatFootwork.safe(pl, 1, 0)) {
+					var o = Mc.mc().options;
+					o.keyUp.setDown(true);
+					o.keySprint.setDown(true);
+					return true;
+				}
+			}
+			pl.setXRot(pitch);
+			return false;
 		}
 
 		private int zombiesNear(double range) {
