@@ -2727,7 +2727,7 @@
   "2026-10-07": 6,
   "2026-10-08": 5,
   "2026-10-09": 6,
-  "2026-10-10": 2
+  "2026-10-10": 3
  },
  "evolve_log": [
   {
@@ -2866,6 +2866,12 @@
   {
    "gen": 276,
    "gid": "g260",
+   "mode": "edit",
+   "result": "racing"
+  },
+  {
+   "gen": 281,
+   "gid": "g266",
    "mode": "edit",
    "result": "racing"
   }
@@ -31391,6 +31397,51 @@
    "parent": "g237",
    "status": "rejected"
   },
+  "g266": {
+   "born": 281,
+   "code": {
+    "base": "91d44de4fbc72526287a191ce432dba1a89adb1c",
+    "branch": "evolve/g266",
+    "files": [
+     "mod/src/main/java/io/github/plrlr/autopilot/skills/CombatSkills.java"
+    ],
+    "sha": "b2efebc936601eb796fd0b5086408ed7b8ebc082",
+    "summary": "Creeper fight: when backing off after a hit stalls (straight-back step unsafe or 2 s without the gap), turn away from the creeper and sprint (straight away, else 45 or 90 degrees off) for up to 5 s instead of failing HAZARD and handing off to a slow retreat."
+   },
+   "evals": [],
+   "genes": {
+    "combat.creeper_hit": 1.0,
+    "combat.ignore_walled_mobs": 1.0,
+    "combat.shield_guard": 1.0,
+    "death.recover_night_armor": 12.0,
+    "focus.commit": 1.0,
+    "gear.sword_early": 1.0,
+    "learned.weight": 1.0,
+    "move.shore_first": 1.0,
+    "nav.surface_v2": 1.0,
+    "nav.unstuck_v2": 1.0,
+    "night.shelter_exit": 1.0,
+    "night.wall_in": 1.0,
+    "plan.hide_hp": 15.0,
+    "plan.readiness": 1.0,
+    "portal.prepare_work_area": 1.0,
+    "portal.reserve_lava_bucket": 1.0,
+    "route.armor_before_portal": 1.0,
+    "skill.enderman_warped": 1.0,
+    "skill.portal_repair": 1.0,
+    "skill.ruined_portal": 1.0,
+    "stations.pickup_last": 1.0,
+    "stuck.item_progress": 1.0
+   },
+   "id": "g266",
+   "mutated": [
+    "code"
+   ],
+   "note": "code: Creeper fight: when backing off after a hit stalls (straight-back step unsafe or 2 s without the gap), turn away from the creeper and sprint (straight away, else 45 or 90 degrees off) for up to 5 s instead of failing HAZARD and handing off to a slow retreat.",
+   "pairs": [],
+   "parent": "g237",
+   "status": "contender"
+  },
   "g27": {
    "born": 36,
    "code": null,
@@ -41865,7 +41916,8 @@
   "Lava is the top cause of first-life deaths in the Nether, and 13 of those deaths came while attacking a magma cube or hoglin. In-fight movement that matters little on the overworld (jumps, strafes) can be what kills the bot beside lava, so gate footwork by dimension.",
   "explore any UNREACHABLE repeats back-to-back because each blocked heading ends the skill; turning to a fresh heading within the skill should convert those instant failures into actual exploration.",
   "The planner and the skills must judge from the same up-to-date view: a view up to 5 ticks old (and not updated at all while dead) makes the first decisions after a respawn chase mobs that are no longer in sight.",
-  "When the bot is already out at sea, turning back after 20 s of swimming and marking that heading bad makes every explore leg a short loop. An explore leg that starts in water should keep going in a straight line to land and then hand back to shore."
+  "When the bot is already out at sea, turning back after 20 s of swimming and marking that heading bad makes every explore leg a short loop. An explore leg that starts in water should keep going in a straight line to land and then hand back to shore.",
+  "Backing up while facing a creeper is no faster than the creeper walks, so the gap never opens. Turning away and sprinting is the only player movement that actually outruns it, and the attack should do that itself instead of failing over to retreat."
  ],
  "learned_race": {
   "gen": 256,
@@ -41886,7 +41938,7 @@
   "mean_gap_ok": -0.0745,
   "n": 1693
  },
- "next_id": 266,
+ "next_id": 267,
  "pending": null,
  "race_evidence_version": 2,
  "score_since_gen": 179,
