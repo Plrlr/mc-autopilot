@@ -2714,7 +2714,7 @@
   "2026-10-07": 16,
   "2026-10-08": 17,
   "2026-10-09": 18,
-  "2026-10-10": 5
+  "2026-10-10": 6
  },
  "evolve_days": {
   "2026-09-27": 1,
@@ -2870,7 +2870,7 @@
    "result": "racing"
   }
  ],
- "gen": 276,
+ "gen": 277,
  "gene_specs": {
   "bed.table_first": {
    "def": 0.0,
@@ -30471,6 +30471,42 @@
    "parent": "g237",
    "status": "contender"
   },
+  "g261": {
+   "born": 277,
+   "code": null,
+   "evals": [],
+   "genes": {
+    "combat.creeper_hit": 1.0,
+    "combat.ignore_walled_mobs": 1.0,
+    "combat.shield_guard": 1.0,
+    "death.recover_night_armor": 12.0,
+    "focus.commit": 1.0,
+    "gear.sword_early": 1.0,
+    "learned.weight": 1.0,
+    "move.shore_first": 1.0,
+    "nav.surface_v2": 1.0,
+    "nav.unstuck_v2": 1.0,
+    "night.shelter_exit": 1.0,
+    "plan.hide_hp": 15.0,
+    "plan.readiness": 1.0,
+    "portal.prepare_work_area": 1.0,
+    "portal.reserve_lava_bucket": 1.0,
+    "route.armor_before_portal": 1.0,
+    "skill.enderman_warped": 1.0,
+    "skill.portal_repair": 1.0,
+    "skill.ruined_portal": 1.0,
+    "stations.pickup_last": 1.0,
+    "stuck.item_progress": 1.0
+   },
+   "id": "g261",
+   "mutated": [
+    "night.wall_in"
+   ],
+   "note": "night.wall_in 0",
+   "pairs": [],
+   "parent": "g237",
+   "status": "contender"
+  },
   "g27": {
    "born": 36,
    "code": null,
@@ -40966,8 +41002,89 @@
   "mean_gap_ok": -0.2577,
   "n": 1659
  },
- "next_id": 261,
- "pending": null,
+ "next_id": 262,
+ "pending": {
+  "data_tasks": [
+   {
+    "asset": "stronghold-gen242-data-g196-0.zip",
+    "kind": "start",
+    "late": true,
+    "seed": "D277-68gcq9",
+    "stage": "stronghold",
+    "synthetic": true
+   },
+   {
+    "kind": "natural",
+    "seed": "D277-yjscdy",
+    "stage": "spawn",
+    "synthetic": false
+   }
+  ],
+  "gen": 277,
+  "lineup": [
+   "g237",
+   "g260",
+   "g259",
+   "g261"
+  ],
+  "runs": [
+   "eval-g237-0",
+   "eval-g237-1",
+   "eval-g237-2",
+   "eval-g237-3",
+   "eval-g260-0",
+   "eval-g260-1",
+   "eval-g260-2",
+   "eval-g260-3",
+   "eval-g259-0",
+   "eval-g259-1",
+   "eval-g259-2",
+   "eval-g259-3",
+   "eval-g261-0",
+   "eval-g261-1",
+   "eval-g261-2",
+   "eval-g261-3",
+   "data-g237-0",
+   "data-g237-1"
+  ],
+  "seeds": [
+   "L277-gwq68r",
+   "L277-z9uawd",
+   "L277-44haff",
+   "L277-dj3wqh"
+  ],
+  "sha": "91d44de4fbc72526287a191ce432dba1a89adb1c",
+  "started": "2026-10-10T08:06:18+00:00",
+  "tasks": [
+   {
+    "kind": "natural",
+    "seed": "L277-gwq68r",
+    "stage": "spawn",
+    "synthetic": false
+   },
+   {
+    "kind": "natural",
+    "seed": "L277-z9uawd",
+    "stage": "spawn",
+    "synthetic": false
+   },
+   {
+    "asset": "nether-gen222-eval-g191-2.zip",
+    "kind": "start",
+    "seed": "L277-44haff",
+    "stage": "nether",
+    "synthetic": false
+   },
+   {
+    "kind": "combat",
+    "minutes": 10,
+    "scenario": "combat",
+    "seed": "L277-dj3wqh",
+    "stage": "combat",
+    "synthetic": false
+   }
+  ]
+ },
  "race_evidence_version": 2,
  "score_since_gen": 179,
  "score_version": 4,
