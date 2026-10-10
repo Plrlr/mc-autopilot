@@ -522,6 +522,9 @@ public final class Autopilot {
 		if (testTask != null) return;
 		if (!enabled || goal == null) return;
 		if (Mc.player() == null || Mc.player().isDeadOrDying()) return;
+		// Decide from what is in view now: the 5-tick view is stale right after a respawn (it still
+		// holds the mob that killed us) and the attack it suggests fails NOT_FOUND straight away.
+		seen = Perception.look(32);
 		List<Option> options = new ArrayList<>();
 		for (Option o : planner.options(goal, seen)) {
 			long[] f = failures.get(actionKey(o));
