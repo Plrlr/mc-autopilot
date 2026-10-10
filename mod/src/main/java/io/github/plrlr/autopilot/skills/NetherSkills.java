@@ -469,6 +469,7 @@ public final class NetherSkills {
 				if (anchor != null) visit(anchor);
 				visit(pl.blockPosition().immutable());
 				anchor = pickAnchor();
+				if (anchor == null) anchor = fallbackAnchor(pl);
 				if (anchor == null) {
 					if (rods > rodsBefore) done("got " + (rods - rodsBefore) + " blaze rods; no more blazes found here");
 					else fail(Fail.NOT_FOUND, "no blazes in the parts of the fortress we know");
@@ -476,6 +477,29 @@ public final class NetherSkills {
 				}
 				walkTo(anchor);
 			}
+		}
+
+		/**
+		 * Every part of the fortress we know has been tried. Blazes respawn, so go back and wait at
+		 * the blaze spawner, else at the spot tried longest ago (we stood there, so it is reachable).
+		 */
+		private BlockPos fallbackAnchor(LocalPlayer pl) {
+			approach = false;
+			WorldMemory.Seen s = blazeSpawner(memory, null);
+			if (s != null && s.pos().distSqr(pl.blockPosition()) > 4 * 4) return s.pos();
+			BlockPos best = null;
+			long bestAt = Long.MAX_VALUE;
+			for (BlockPos v : visitedAnchors) {
+				if (v.distSqr(pl.blockPosition()) < 8 * 8) continue;
+				Long at = visitedAt.get(v);
+				long t = at == null ? 0 : at;
+				if (t < bestAt) {
+					bestAt = t;
+					best = v;
+				}
+			}
+			if (best == null && s != null) return s.pos();
+			return best;
 		}
 
 		private Entity chased;
