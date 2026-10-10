@@ -177,6 +177,14 @@ public final class Unstuck extends Skill {
 			mine(head);
 			return;
 		}
+		// A jump needs ~3 blocks of headroom: with the block 3 up solid the hop stays too low for
+		// the block underneath to free up, and nothing is ever placed ("climbed 0 blocks").
+		BlockPos roof = head.above();
+		if (pl.onGround() && !Mc.free(roof) && !dangerous(roof) && !unbreakable(roof)) {
+			Mc.mc().options.keyJump.setDown(false);
+			mine(roof);
+			return;
+		}
 		if (placed >= 6 || stepTicks > 20 * 20) {
 			fail(Fail.STUCK, "couldn't get out (walked, tunnelled and climbed " + placed + " blocks)");
 			return;
