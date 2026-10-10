@@ -2726,7 +2726,8 @@
   "2026-10-04": 5,
   "2026-10-07": 6,
   "2026-10-08": 5,
-  "2026-10-09": 6
+  "2026-10-09": 6,
+  "2026-10-10": 1
  },
  "evolve_log": [
   {
@@ -2853,6 +2854,12 @@
   {
    "gen": 270,
    "gid": "g252",
+   "mode": "edit",
+   "result": "racing"
+  },
+  {
+   "gen": 272,
+   "gid": "g257",
    "mode": "edit",
    "result": "racing"
   }
@@ -29544,6 +29551,51 @@
    "parent": "g237",
    "status": "contender"
   },
+  "g257": {
+   "born": 272,
+   "code": {
+    "base": "91d44de4fbc72526287a191ce432dba1a89adb1c",
+    "branch": "evolve/g257",
+    "files": [
+     "mod/src/main/java/io/github/plrlr/autopilot/Autopilot.java"
+    ],
+    "sha": "9853fd563e0a6fda724a03667b63b11125d97087",
+    "summary": "Refresh the bot's view of nearby mobs at the start of each decision. After a respawn it still saw the mob from where it died, so the planner offered attacks that failed NOT_FOUND straight away (the 0-second attack failures after deaths)."
+   },
+   "evals": [],
+   "genes": {
+    "combat.creeper_hit": 1.0,
+    "combat.ignore_walled_mobs": 1.0,
+    "combat.shield_guard": 1.0,
+    "death.recover_night_armor": 12.0,
+    "focus.commit": 1.0,
+    "gear.sword_early": 1.0,
+    "learned.weight": 1.0,
+    "move.shore_first": 1.0,
+    "nav.surface_v2": 1.0,
+    "nav.unstuck_v2": 1.0,
+    "night.shelter_exit": 1.0,
+    "night.wall_in": 1.0,
+    "plan.hide_hp": 15.0,
+    "plan.readiness": 1.0,
+    "portal.prepare_work_area": 1.0,
+    "portal.reserve_lava_bucket": 1.0,
+    "route.armor_before_portal": 1.0,
+    "skill.enderman_warped": 1.0,
+    "skill.portal_repair": 1.0,
+    "skill.ruined_portal": 1.0,
+    "stations.pickup_last": 1.0,
+    "stuck.item_progress": 1.0
+   },
+   "id": "g257",
+   "mutated": [
+    "code"
+   ],
+   "note": "code: Refresh the bot's view of nearby mobs at the start of each decision. After a respawn it still saw the mob from where it died, so the planner offered attacks that failed NOT_FOUND straight away (the 0-second attack failures after deaths).",
+   "pairs": [],
+   "parent": "g237",
+   "status": "contender"
+  },
   "g26": {
    "born": 32,
    "code": null,
@@ -40198,7 +40250,8 @@
   "attack creeper HAZARD mostly fires on an unlit creeper after the backing walk stalls; failing there only hands control to retreat (the top action before deaths), so the HAZARD bail-out should be kept for a lit fuse only.",
   "The log loop comes from explore trusting remembered blocks that collect has just shown it can't use. Tying explore's 'already seen' check to collect's latest NOT_FOUND should make explore move instead of refusing.",
   "Lava is the top cause of first-life deaths in the Nether, and 13 of those deaths came while attacking a magma cube or hoglin. In-fight movement that matters little on the overworld (jumps, strafes) can be what kills the bot beside lava, so gate footwork by dimension.",
-  "explore any UNREACHABLE repeats back-to-back because each blocked heading ends the skill; turning to a fresh heading within the skill should convert those instant failures into actual exploration."
+  "explore any UNREACHABLE repeats back-to-back because each blocked heading ends the skill; turning to a fresh heading within the skill should convert those instant failures into actual exploration.",
+  "The planner and the skills must judge from the same up-to-date view: a view up to 5 ticks old (and not updated at all while dead) makes the first decisions after a respawn chase mobs that are no longer in sight."
  ],
  "learned_race": {
   "gen": 256,
@@ -40219,7 +40272,7 @@
   "mean_gap_ok": -0.3131,
   "n": 1618
  },
- "next_id": 257,
+ "next_id": 258,
  "pending": null,
  "race_evidence_version": 2,
  "score_since_gen": 179,
