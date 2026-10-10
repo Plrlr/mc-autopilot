@@ -2714,7 +2714,7 @@
   "2026-10-07": 16,
   "2026-10-08": 17,
   "2026-10-09": 18,
-  "2026-10-10": 10
+  "2026-10-10": 11
  },
  "evolve_days": {
   "2026-09-27": 1,
@@ -2876,7 +2876,7 @@
    "result": "racing"
   }
  ],
- "gen": 281,
+ "gen": 282,
  "gene_specs": {
   "bed.table_first": {
    "def": 0.0,
@@ -31442,6 +31442,86 @@
    "parent": "g237",
    "status": "contender"
   },
+  "g267": {
+   "born": 282,
+   "code": null,
+   "evals": [],
+   "genes": {
+    "combat.creeper_hit": 1.0,
+    "combat.ignore_walled_mobs": 1.0,
+    "combat.shield_guard": 1.0,
+    "death.recover_night_armor": 12.0,
+    "focus.commit": 1.0,
+    "gear.sword_early": 1.0,
+    "learned.weight": 1.0,
+    "move.shore_first": 1.0,
+    "nav.surface_v2": 1.0,
+    "night.shelter_exit": 1.0,
+    "night.wall_in": 1.0,
+    "plan.hide_hp": 15.0,
+    "plan.readiness": 1.0,
+    "portal.prepare_work_area": 1.0,
+    "portal.reserve_lava_bucket": 1.0,
+    "route.armor_before_portal": 1.0,
+    "safety.enderman_gaze": 1.0,
+    "skill.enderman_warped": 1.0,
+    "skill.portal_repair": 1.0,
+    "skill.ruined_portal": 1.0,
+    "stations.pickup_last": 1.0,
+    "stuck.item_progress": 1.0
+   },
+   "id": "g267",
+   "mutated": [
+    "nav.unstuck_v2",
+    "safety.enderman_gaze"
+   ],
+   "note": "nav.unstuck_v2 0, safety.enderman_gaze 1",
+   "pairs": [],
+   "parent": "g237",
+   "status": "contender"
+  },
+  "g268": {
+   "born": 282,
+   "code": null,
+   "evals": [],
+   "genes": {
+    "combat.creeper_hit": 1.0,
+    "combat.flee_hp": 7.0,
+    "combat.ignore_walled_mobs": 1.0,
+    "combat.shield_guard": 1.0,
+    "death.recover_night_armor": 12.0,
+    "focus.commit": 1.0,
+    "gear.sword_early": 1.0,
+    "learned.weight": 1.0,
+    "move.shore_first": 1.0,
+    "nav.surface_v2": 1.0,
+    "nav.unstuck_v2": 1.0,
+    "night.shelter_exit": 1.0,
+    "night.wall_in": 1.0,
+    "pearls.boat_trap": 1.0,
+    "plan.hide_hp": 15.0,
+    "plan.readiness": 1.0,
+    "portal.prepare_work_area": 1.0,
+    "portal.reserve_lava_bucket": 1.0,
+    "portal.retry_cast_view": 1.0,
+    "route.armor_before_portal": 1.0,
+    "skill.enderman_warped": 1.0,
+    "skill.portal_repair": 1.0,
+    "skill.ruined_portal": 1.0,
+    "stations.pickup_last": 1.0,
+    "stuck.item_progress": 1.0
+   },
+   "id": "g268",
+   "mutated": [
+    "combat.flee_hp",
+    "portal.retry_cast_view",
+    "pearls.boat_trap"
+   ],
+   "note": "combat.flee_hp 7, portal.retry_cast_view 1, pearls.boat_trap 1",
+   "pairs": [],
+   "parent": "g237",
+   "status": "contender"
+  },
   "g27": {
    "born": 36,
    "code": null,
@@ -41938,8 +42018,89 @@
   "mean_gap_ok": -0.0745,
   "n": 1693
  },
- "next_id": 267,
- "pending": null,
+ "next_id": 269,
+ "pending": {
+  "data_tasks": [
+   {
+    "kind": "scenario",
+    "late": true,
+    "scenario": "stronghold",
+    "seed": "D282-eakqbw",
+    "stage": "eyes",
+    "synthetic": true
+   },
+   {
+    "kind": "natural",
+    "seed": "D282-2h9xr8",
+    "stage": "spawn",
+    "synthetic": false
+   }
+  ],
+  "gen": 282,
+  "lineup": [
+   "g237",
+   "g266",
+   "g267",
+   "g268"
+  ],
+  "runs": [
+   "eval-g237-0",
+   "eval-g237-1",
+   "eval-g237-2",
+   "eval-g237-3",
+   "eval-g266-0",
+   "eval-g266-1",
+   "eval-g266-2",
+   "eval-g266-3",
+   "eval-g267-0",
+   "eval-g267-1",
+   "eval-g267-2",
+   "eval-g267-3",
+   "eval-g268-0",
+   "eval-g268-1",
+   "eval-g268-2",
+   "eval-g268-3",
+   "data-g237-0",
+   "data-g237-1"
+  ],
+  "seeds": [
+   "L282-zyvtp4",
+   "L282-tew6yh",
+   "L282-6eyrsj",
+   "L282-9hkv2u"
+  ],
+  "sha": "91d44de4fbc72526287a191ce432dba1a89adb1c",
+  "started": "2026-10-10T14:39:32+00:00",
+  "tasks": [
+   {
+    "kind": "natural",
+    "seed": "L282-zyvtp4",
+    "stage": "spawn",
+    "synthetic": false
+   },
+   {
+    "kind": "natural",
+    "seed": "L282-tew6yh",
+    "stage": "spawn",
+    "synthetic": false
+   },
+   {
+    "asset": "nether-gen235-eval-g205-1.zip",
+    "kind": "start",
+    "seed": "L282-6eyrsj",
+    "stage": "nether",
+    "synthetic": false
+   },
+   {
+    "kind": "combat",
+    "minutes": 10,
+    "scenario": "combat",
+    "seed": "L282-9hkv2u",
+    "stage": "combat",
+    "synthetic": false
+   }
+  ]
+ },
  "race_evidence_version": 2,
  "score_since_gen": 179,
  "score_version": 4,
