@@ -2727,7 +2727,7 @@
   "2026-10-07": 6,
   "2026-10-08": 5,
   "2026-10-09": 6,
-  "2026-10-10": 1
+  "2026-10-10": 2
  },
  "evolve_log": [
   {
@@ -2860,6 +2860,12 @@
   {
    "gen": 272,
    "gid": "g257",
+   "mode": "edit",
+   "result": "racing"
+  },
+  {
+   "gen": 276,
+   "gid": "g260",
    "mode": "edit",
    "result": "racing"
   }
@@ -30420,6 +30426,51 @@
    "parent": "g24",
    "status": "rejected"
   },
+  "g260": {
+   "born": 276,
+   "code": {
+    "base": "91d44de4fbc72526287a191ce432dba1a89adb1c",
+    "branch": "evolve/g260",
+    "files": [
+     "mod/src/main/java/io/github/plrlr/autopilot/skills/MoveSkills.java"
+    ],
+    "sha": "e4b9501655b0c61fb9b62b8b54e79c1e0c39a021",
+    "summary": "Explore that starts while already swimming keeps one heading across the water (no 20 s 'open water' bail-out that marks the heading bad and turns) and ends as soon as it reaches dry ground. This should break the shore TIMEOUT / explore 'open water' loop in which the bot circled in the ocean for a whole run."
+   },
+   "evals": [],
+   "genes": {
+    "combat.creeper_hit": 1.0,
+    "combat.ignore_walled_mobs": 1.0,
+    "combat.shield_guard": 1.0,
+    "death.recover_night_armor": 12.0,
+    "focus.commit": 1.0,
+    "gear.sword_early": 1.0,
+    "learned.weight": 1.0,
+    "move.shore_first": 1.0,
+    "nav.surface_v2": 1.0,
+    "nav.unstuck_v2": 1.0,
+    "night.shelter_exit": 1.0,
+    "night.wall_in": 1.0,
+    "plan.hide_hp": 15.0,
+    "plan.readiness": 1.0,
+    "portal.prepare_work_area": 1.0,
+    "portal.reserve_lava_bucket": 1.0,
+    "route.armor_before_portal": 1.0,
+    "skill.enderman_warped": 1.0,
+    "skill.portal_repair": 1.0,
+    "skill.ruined_portal": 1.0,
+    "stations.pickup_last": 1.0,
+    "stuck.item_progress": 1.0
+   },
+   "id": "g260",
+   "mutated": [
+    "code"
+   ],
+   "note": "code: Explore that starts while already swimming keeps one heading across the water (no 20 s 'open water' bail-out that marks the heading bad and turns) and ends as soon as it reaches dry ground. This should break the shore TIMEOUT / explore 'open water' loop in which the bot circled in the ocean for a whole run.",
+   "pairs": [],
+   "parent": "g237",
+   "status": "contender"
+  },
   "g27": {
    "born": 36,
    "code": null,
@@ -40893,7 +40944,8 @@
   "The log loop comes from explore trusting remembered blocks that collect has just shown it can't use. Tying explore's 'already seen' check to collect's latest NOT_FOUND should make explore move instead of refusing.",
   "Lava is the top cause of first-life deaths in the Nether, and 13 of those deaths came while attacking a magma cube or hoglin. In-fight movement that matters little on the overworld (jumps, strafes) can be what kills the bot beside lava, so gate footwork by dimension.",
   "explore any UNREACHABLE repeats back-to-back because each blocked heading ends the skill; turning to a fresh heading within the skill should convert those instant failures into actual exploration.",
-  "The planner and the skills must judge from the same up-to-date view: a view up to 5 ticks old (and not updated at all while dead) makes the first decisions after a respawn chase mobs that are no longer in sight."
+  "The planner and the skills must judge from the same up-to-date view: a view up to 5 ticks old (and not updated at all while dead) makes the first decisions after a respawn chase mobs that are no longer in sight.",
+  "When the bot is already out at sea, turning back after 20 s of swimming and marking that heading bad makes every explore leg a short loop. An explore leg that starts in water should keep going in a straight line to land and then hand back to shore."
  ],
  "learned_race": {
   "gen": 256,
@@ -40914,7 +40966,7 @@
   "mean_gap_ok": -0.2577,
   "n": 1659
  },
- "next_id": 260,
+ "next_id": 261,
  "pending": null,
  "race_evidence_version": 2,
  "score_since_gen": 179,
