@@ -2714,7 +2714,7 @@
   "2026-10-07": 16,
   "2026-10-08": 17,
   "2026-10-09": 18,
-  "2026-10-10": 6
+  "2026-10-10": 7
  },
  "evolve_days": {
   "2026-09-27": 1,
@@ -2870,7 +2870,7 @@
    "result": "racing"
   }
  ],
- "gen": 277,
+ "gen": 278,
  "gene_specs": {
   "bed.table_first": {
    "def": 0.0,
@@ -30651,6 +30651,92 @@
    "parent": "g237",
    "status": "rejected"
   },
+  "g262": {
+   "born": 278,
+   "code": null,
+   "evals": [],
+   "genes": {
+    "combat.creeper_hit": 1.0,
+    "combat.ignore_walled_mobs": 1.0,
+    "combat.shield_guard": 1.0,
+    "death.recover_night_armor": 12.0,
+    "focus.commit": 1.0,
+    "gear.sword_early": 1.0,
+    "learned.weight": 1.0,
+    "move.shore_first": 1.0,
+    "nav.surface_v2": 1.0,
+    "nav.unstuck_v2": 1.0,
+    "night.shelter_exit": 1.0,
+    "night.wall_in": 1.0,
+    "plan.hide_hp": 15.0,
+    "plan.readiness": 1.0,
+    "portal.prepare_work_area": 1.0,
+    "portal.reserve_lava_bucket": 1.0,
+    "route.armor_before_portal": 1.0,
+    "skill.enderman_warped": 1.0,
+    "skill.portal_repair": 1.0,
+    "skill.ruined_portal": 1.0,
+    "skill.silverfish_control": 1.0,
+    "stations.pickup_last": 1.0,
+    "stuck.item_progress": 1.0,
+    "tools.diamond_pick_if_found": 0.0
+   },
+   "id": "g262",
+   "mutated": [
+    "tools.diamond_pick_if_found",
+    "skill.silverfish_control"
+   ],
+   "note": "tools.diamond_pick_if_found 0, skill.silverfish_control 1",
+   "pairs": [],
+   "parent": "g237",
+   "status": "contender"
+  },
+  "g263": {
+   "born": 278,
+   "code": {
+    "base": "91d44de4fbc72526287a191ce432dba1a89adb1c",
+    "branch": "evolve/g260",
+    "files": [
+     "mod/src/main/java/io/github/plrlr/autopilot/skills/MoveSkills.java"
+    ],
+    "sha": "e4b9501655b0c61fb9b62b8b54e79c1e0c39a021",
+    "summary": "Explore that starts while already swimming keeps one heading across the water (no 20 s 'open water' bail-out that marks the heading bad and turns) and ends as soon as it reaches dry ground. This should break the shore TIMEOUT / explore 'open water' loop in which the bot circled in the ocean for a whole run."
+   },
+   "evals": [],
+   "genes": {
+    "combat.creeper_hit": 1.0,
+    "combat.ignore_walled_mobs": 1.0,
+    "combat.shield_guard": 1.0,
+    "death.recover_night_armor": 12.0,
+    "focus.commit": 1.0,
+    "gear.sword_early": 1.0,
+    "learned.weight": 1.0,
+    "move.shore_first": 1.0,
+    "nav.surface_v2": 1.0,
+    "nav.unstuck_v2": 1.0,
+    "night.shelter_exit": 1.0,
+    "night.wall_in": 1.0,
+    "plan.hide_hp": 15.0,
+    "plan.readiness": 1.0,
+    "portal.prepare_work_area": 1.0,
+    "portal.reserve_lava_bucket": 1.0,
+    "reflex.clutch_fall": 3.449624677964561,
+    "route.armor_before_portal": 1.0,
+    "skill.enderman_warped": 1.0,
+    "skill.ruined_portal": 1.0,
+    "stations.pickup_last": 1.0,
+    "stuck.item_progress": 1.0
+   },
+   "id": "g263",
+   "mutated": [
+    "skill.portal_repair",
+    "reflex.clutch_fall"
+   ],
+   "note": "skill.portal_repair 0, reflex.clutch_fall 3.44962",
+   "pairs": [],
+   "parent": "g260",
+   "status": "contender"
+  },
   "g27": {
    "born": 36,
    "code": null,
@@ -41146,8 +41232,89 @@
   "mean_gap_ok": -0.3487,
   "n": 1659
  },
- "next_id": 262,
- "pending": null,
+ "next_id": 264,
+ "pending": {
+  "data_tasks": [
+   {
+    "asset": "end-gen265-data-g237-0.zip",
+    "kind": "start",
+    "late": true,
+    "seed": "D278-ej24y4",
+    "stage": "end",
+    "synthetic": true
+   },
+   {
+    "kind": "natural",
+    "seed": "D278-xjwc83",
+    "stage": "spawn",
+    "synthetic": false
+   }
+  ],
+  "gen": 278,
+  "lineup": [
+   "g237",
+   "g260",
+   "g262",
+   "g263"
+  ],
+  "runs": [
+   "eval-g237-0",
+   "eval-g237-1",
+   "eval-g237-2",
+   "eval-g237-3",
+   "eval-g260-0",
+   "eval-g260-1",
+   "eval-g260-2",
+   "eval-g260-3",
+   "eval-g262-0",
+   "eval-g262-1",
+   "eval-g262-2",
+   "eval-g262-3",
+   "eval-g263-0",
+   "eval-g263-1",
+   "eval-g263-2",
+   "eval-g263-3",
+   "data-g237-0",
+   "data-g237-1"
+  ],
+  "seeds": [
+   "L278-5mgeub",
+   "L278-6mthzs",
+   "L278-bxpvnj",
+   "L278-gadm93"
+  ],
+  "sha": "91d44de4fbc72526287a191ce432dba1a89adb1c",
+  "started": "2026-10-10T09:26:52+00:00",
+  "tasks": [
+   {
+    "kind": "natural",
+    "seed": "L278-5mgeub",
+    "stage": "spawn",
+    "synthetic": false
+   },
+   {
+    "kind": "natural",
+    "seed": "L278-6mthzs",
+    "stage": "spawn",
+    "synthetic": false
+   },
+   {
+    "asset": "nether-gen236-eval-g204-1.zip",
+    "kind": "start",
+    "seed": "L278-bxpvnj",
+    "stage": "nether",
+    "synthetic": false
+   },
+   {
+    "kind": "combat",
+    "minutes": 10,
+    "scenario": "combat",
+    "seed": "L278-gadm93",
+    "stage": "combat",
+    "synthetic": false
+   }
+  ]
+ },
  "race_evidence_version": 2,
  "score_since_gen": 179,
  "score_version": 4,
