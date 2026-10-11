@@ -2729,7 +2729,7 @@
   "2026-10-08": 5,
   "2026-10-09": 6,
   "2026-10-10": 5,
-  "2026-10-11": 1
+  "2026-10-11": 2
  },
  "evolve_log": [
   {
@@ -2894,6 +2894,13 @@
    "gid": "g278",
    "mode": "edit",
    "result": "racing"
+  },
+  {
+   "gen": 295,
+   "gid": "g286",
+   "mode": "skill",
+   "result": "drilling",
+   "target": "attack UNREACHABLE"
   }
  ],
  "gen": 295,
@@ -34720,6 +34727,71 @@
    "parent": "g237",
    "status": "contender"
   },
+  "g286": {
+   "born": 295,
+   "code": {
+    "base": "91d44de4fbc72526287a191ce432dba1a89adb1c",
+    "branch": "evolve/g286",
+    "files": [
+     "mod/src/main/java/io/github/plrlr/autopilot/skills/evolved/CloseIn.java",
+     "mod/src/main/java/io/github/plrlr/autopilot/skills/evolved/EvolvedSkills.java",
+     "mod/src/main/resources/evolved-genes.json"
+    ],
+    "gene": "evolved.close_in",
+    "kind": "skill",
+    "sha": "04923ab3686cbfea8593aec6212554de47cab9b7",
+    "skill": "close_in",
+    "summary": "close_in: right after attack fails UNREACHABLE with the mob still in sight nearby, walk/jump/swim straight at it by keys (mining a blocking block) until within 2.8 blocks so the next attack lands",
+    "target": "attack UNREACHABLE"
+   },
+   "drill": {
+    "gen": 295,
+    "idea": {
+     "_metric": "resolve:attack:UNREACHABLE+close_in",
+     "evolved.close_in": 1
+    },
+    "run": 38131915979
+   },
+   "evals": [],
+   "exposure_spec": {
+    "skill": "close_in"
+   },
+   "genes": {
+    "combat.creeper_hit": 1.0,
+    "combat.ignore_walled_mobs": 1.0,
+    "combat.shield_guard": 1.0,
+    "death.recover_night_armor": 12.0,
+    "evolved.close_in": 1.0,
+    "focus.commit": 1.0,
+    "gear.sword_early": 1.0,
+    "learned.weight": 1.0,
+    "move.shore_first": 1.0,
+    "nav.surface_v2": 1.0,
+    "nav.unstuck_v2": 1.0,
+    "night.shelter_exit": 1.0,
+    "night.wall_in": 1.0,
+    "plan.hide_hp": 15.0,
+    "plan.readiness": 1.0,
+    "portal.prepare_work_area": 1.0,
+    "portal.reserve_lava_bucket": 1.0,
+    "route.armor_before_portal": 1.0,
+    "skill.enderman_warped": 1.0,
+    "skill.portal_repair": 1.0,
+    "skill.ruined_portal": 1.0,
+    "stations.pickup_last": 1.0,
+    "stuck.item_progress": 1.0
+   },
+   "id": "g286",
+   "metric": "resolve:attack:UNREACHABLE+close_in",
+   "mutated": [
+    "code",
+    "evolved.close_in"
+   ],
+   "note": "code: new skill close_in for attack UNREACHABLE: close_in: right after attack fails UNREACHABLE with the mob still in sight nearby, walk/jump/swim straight at it by keys (mining a blocking block) until within 2.8 blocks so the next attack lands",
+   "pairs": [],
+   "parent": "g237",
+   "status": "drilling"
+  },
   "g29": {
    "born": 41,
    "code": {
@@ -44712,7 +44784,8 @@
   "Backing up while facing a creeper is no faster than the creeper walks, so the gap never opens. Turning away and sprinting is the only player movement that actually outruns it, and the attack should do that itself instead of failing over to retreat.",
   "The 'climbed 0 blocks' STUCK message means the pillar jumped for 20 s without placing a block. A likely cause is too little headroom: a jump needs about 3 free blocks above the feet, and only the block 2 up was cleared.",
   "Blazes keep spawning across a fortress and at its spawner. Running out of untried anchors only means the bot has to wait somewhere, so failing hands the fight back to a planner that just restarts it in the same place.",
-  "blazes NOT_FOUND means the known part of the fortress is exhausted, not the fortress; since fortress find refuses once any brick is known, the fight itself must extend what is known by walking beyond its edge."
+  "blazes NOT_FOUND means the known part of the fortress is exhausted, not the fortress; since fortress find refuses once any brick is known, the fight itself must extend what is known by walking beyond its edge.",
+  "Attack UNREACHABLE mostly fires at 3-4 blocks when the pathfinder's 'near' goal stalls on a ledge, hole or water; direct key movement toward a visible mob can close that last gap where pathing gives up."
  ],
  "learned_race": {
   "gen": 256,
@@ -44733,7 +44806,7 @@
   "mean_gap_ok": 0.2959,
   "n": 1809
  },
- "next_id": 286,
+ "next_id": 287,
  "pending": null,
  "race_evidence_version": 2,
  "score_since_gen": 179,
@@ -45627,6 +45700,13 @@
    "result": "inconclusive: never ran in its drill (its offer never fired): INCONCLUSIVE: on 0/0 fixed (0%), off 0/0 fixed (0%), z +0.0; exposure on its side: climb_shaft offered 0, chosen 0, started 0, ended 0 (0 ok); acted in 0 of 3 games",
    "skill": "climb_shaft",
    "target": "goto:surface UNREACHABLE"
+  },
+  {
+   "gen": 295,
+   "gid": "g286",
+   "result": "drilling",
+   "skill": "close_in",
+   "target": "attack UNREACHABLE"
   }
  ],
  "skill_stats": {
