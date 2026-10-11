@@ -2715,7 +2715,7 @@
   "2026-10-08": 17,
   "2026-10-09": 18,
   "2026-10-10": 17,
-  "2026-10-11": 10
+  "2026-10-11": 11
  },
  "evolve_days": {
   "2026-09-27": 1,
@@ -2909,7 +2909,7 @@
    "result": "racing"
   }
  ],
- "gen": 298,
+ "gen": 299,
  "gene_specs": {
   "bed.table_first": {
    "def": 0.0,
@@ -35377,6 +35377,82 @@
    "retired_why": "never got a race slot in 47 generations; its base is stale",
    "status": "retired"
   },
+  "g290": {
+   "born": 299,
+   "code": null,
+   "evals": [],
+   "genes": {
+    "combat.creeper_hit": 1.0,
+    "combat.ignore_walled_mobs": 1.0,
+    "combat.shield_guard": 1.0,
+    "death.recover_night_armor": 12.0,
+    "focus.commit": 1.0,
+    "gear.sword_early": 1.0,
+    "learned.weight": 1.0,
+    "move.shore_first": 1.0,
+    "nav.surface_v2": 1.0,
+    "nav.unstuck_v2": 1.0,
+    "night.shelter_exit": 1.0,
+    "night.wall_in": 1.0,
+    "plan.hide_hp": 15.0,
+    "plan.readiness": 1.0,
+    "portal.prepare_work_area": 1.0,
+    "portal.reserve_lava_bucket": 1.0,
+    "restock.stash_only": 1.0,
+    "route.armor_before_portal": 1.0,
+    "skill.enderman_warped": 1.0,
+    "skill.portal_repair": 1.0,
+    "skill.ruined_portal": 1.0,
+    "stations.pickup_last": 1.0,
+    "stuck.item_progress": 1.0
+   },
+   "id": "g290",
+   "mutated": [
+    "restock.stash_only"
+   ],
+   "note": "restock.stash_only 1",
+   "pairs": [],
+   "parent": "g237",
+   "status": "contender"
+  },
+  "g291": {
+   "born": 299,
+   "code": null,
+   "evals": [],
+   "genes": {
+    "combat.creeper_hit": 1.0,
+    "combat.ignore_walled_mobs": 1.0,
+    "combat.shield_guard": 1.0,
+    "combat.wall_in_anywhere": 1.0,
+    "death.recover_night_armor": 12.0,
+    "focus.commit": 1.0,
+    "gear.sword_early": 1.0,
+    "learned.weight": 1.0,
+    "move.shore_first": 1.0,
+    "nav.surface_v2": 1.0,
+    "nav.unstuck_v2": 1.0,
+    "night.shelter_exit": 1.0,
+    "night.wall_in": 1.0,
+    "plan.hide_hp": 15.0,
+    "plan.readiness": 1.0,
+    "portal.prepare_work_area": 1.0,
+    "portal.reserve_lava_bucket": 1.0,
+    "route.armor_before_portal": 1.0,
+    "skill.enderman_warped": 1.0,
+    "skill.portal_repair": 1.0,
+    "skill.ruined_portal": 1.0,
+    "stations.pickup_last": 1.0,
+    "stuck.item_progress": 1.0
+   },
+   "id": "g291",
+   "mutated": [
+    "combat.wall_in_anywhere"
+   ],
+   "note": "combat.wall_in_anywhere 1",
+   "pairs": [],
+   "parent": "g237",
+   "status": "contender"
+  },
   "g3": {
    "born": 1,
    "code": null,
@@ -45363,8 +45439,89 @@
   "mean_gap_ok": -0.0649,
   "n": 1842
  },
- "next_id": 290,
- "pending": null,
+ "next_id": 292,
+ "pending": {
+  "data_tasks": [
+   {
+    "asset": "end-gen265-data-g237-0.zip",
+    "kind": "start",
+    "late": true,
+    "seed": "D299-62jhxc",
+    "stage": "end",
+    "synthetic": true
+   },
+   {
+    "kind": "natural",
+    "seed": "D299-8wnxpt",
+    "stage": "spawn",
+    "synthetic": false
+   }
+  ],
+  "gen": 299,
+  "lineup": [
+   "g237",
+   "g289",
+   "g290",
+   "g291"
+  ],
+  "runs": [
+   "eval-g237-0",
+   "eval-g237-1",
+   "eval-g237-2",
+   "eval-g237-3",
+   "eval-g289-0",
+   "eval-g289-1",
+   "eval-g289-2",
+   "eval-g289-3",
+   "eval-g290-0",
+   "eval-g290-1",
+   "eval-g290-2",
+   "eval-g290-3",
+   "eval-g291-0",
+   "eval-g291-1",
+   "eval-g291-2",
+   "eval-g291-3",
+   "data-g237-0",
+   "data-g237-1"
+  ],
+  "seeds": [
+   "L299-pmk5n2",
+   "L299-d4urje",
+   "L299-vdwp6r",
+   "L299-nd75yg"
+  ],
+  "sha": "91d44de4fbc72526287a191ce432dba1a89adb1c",
+  "started": "2026-10-11T15:01:32+00:00",
+  "tasks": [
+   {
+    "kind": "natural",
+    "seed": "L299-pmk5n2",
+    "stage": "spawn",
+    "synthetic": false
+   },
+   {
+    "kind": "natural",
+    "seed": "L299-d4urje",
+    "stage": "spawn",
+    "synthetic": false
+   },
+   {
+    "asset": "nether-gen225-eval-g178-2.zip",
+    "kind": "start",
+    "seed": "L299-vdwp6r",
+    "stage": "nether",
+    "synthetic": false
+   },
+   {
+    "kind": "combat",
+    "minutes": 10,
+    "scenario": "combat",
+    "seed": "L299-nd75yg",
+    "stage": "combat",
+    "synthetic": false
+   }
+  ]
+ },
  "race_evidence_version": 2,
  "score_since_gen": 179,
  "score_version": 4,
