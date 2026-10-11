@@ -469,6 +469,13 @@ public final class NetherSkills {
 				if (anchor != null) visit(anchor);
 				visit(pl.blockPosition().immutable());
 				anchor = pickAnchor();
+				if (anchor == null && extensions < 3) {
+					anchor = beyondKnown(pl);
+					if (anchor != null) {
+						extensions++;
+						approach = true;
+					}
+				}
 				if (anchor == null) {
 					if (rods > rodsBefore) done("got " + (rods - rodsBefore) + " blaze rods; no more blazes found here");
 					else fail(Fail.NOT_FOUND, "no blazes in the parts of the fortress we know");
@@ -476,6 +483,32 @@ public final class NetherSkills {
 				}
 				walkTo(anchor);
 			}
+		}
+
+		private int extensions;
+
+		/**
+		 * Every known anchor tried: the fortress goes on past what we've seen. A spot ~24 blocks beyond
+		 * the farthest known brick, so walking there sweeps new corridors into view (null if tried).
+		 */
+		private BlockPos beyondKnown(LocalPlayer pl) {
+			BlockPos far = null;
+			double fd = -1;
+			for (WorldMemory.Seen b : memory.all("nether_bricks")) {
+				double d = b.pos().distSqr(pl.blockPosition());
+				if (d > fd) {
+					fd = d;
+					far = b.pos();
+				}
+			}
+			if (far == null) return null;
+			double dx = far.getX() + 0.5 - pl.getX(), dz = far.getZ() + 0.5 - pl.getZ();
+			double len = Math.hypot(dx, dz);
+			if (len < 4) return null;
+			BlockPos t = BlockPos.containing(far.getX() + dx / len * 24, far.getY() + 1, far.getZ() + dz / len * 24);
+			if (tried(t, 16 * 16)) return null;
+			Mc.say("Tried every part of the fortress we know; looking further along it.");
+			return t;
 		}
 
 		private Entity chased;
