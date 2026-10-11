@@ -2729,7 +2729,7 @@
   "2026-10-08": 5,
   "2026-10-09": 6,
   "2026-10-10": 5,
-  "2026-10-11": 3
+  "2026-10-11": 4
  },
  "evolve_log": [
   {
@@ -2905,6 +2905,12 @@
   {
    "gen": 297,
    "gid": "g289",
+   "mode": "edit",
+   "result": "racing"
+  },
+  {
+   "gen": 302,
+   "gid": "g294",
    "mode": "edit",
    "result": "racing"
   }
@@ -36075,6 +36081,51 @@
    "parent": "g237",
    "status": "contender"
   },
+  "g294": {
+   "born": 302,
+   "code": {
+    "base": "91d44de4fbc72526287a191ce432dba1a89adb1c",
+    "branch": "evolve/g294",
+    "files": [
+     "mod/src/main/java/io/github/plrlr/autopilot/skills/NetherSkills.java"
+    ],
+    "sha": "ad63ee6745bcc4394a76557269ab981d966d1fdc",
+    "summary": "Fortress blaze fight: don't walk toward a blaze hovering over lava or an open drop (check the blocks under it); stand, face it with the shield up, and let the existing 10 s no-progress rule set it aside. Chasing these led the bot along bridge edges into lava and fire."
+   },
+   "evals": [],
+   "genes": {
+    "combat.creeper_hit": 1.0,
+    "combat.ignore_walled_mobs": 1.0,
+    "combat.shield_guard": 1.0,
+    "death.recover_night_armor": 12.0,
+    "focus.commit": 1.0,
+    "gear.sword_early": 1.0,
+    "learned.weight": 1.0,
+    "move.shore_first": 1.0,
+    "nav.surface_v2": 1.0,
+    "nav.unstuck_v2": 1.0,
+    "night.shelter_exit": 1.0,
+    "night.wall_in": 1.0,
+    "plan.hide_hp": 15.0,
+    "plan.readiness": 1.0,
+    "portal.prepare_work_area": 1.0,
+    "portal.reserve_lava_bucket": 1.0,
+    "route.armor_before_portal": 1.0,
+    "skill.enderman_warped": 1.0,
+    "skill.portal_repair": 1.0,
+    "skill.ruined_portal": 1.0,
+    "stations.pickup_last": 1.0,
+    "stuck.item_progress": 1.0
+   },
+   "id": "g294",
+   "mutated": [
+    "code"
+   ],
+   "note": "code: Fortress blaze fight: don't walk toward a blaze hovering over lava or an open drop (check the blocks under it); stand, face it with the shield up, and let the existing 10 s no-progress rule set it aside. Chasing these led the bot along bridge edges into lava and fire.",
+   "pairs": [],
+   "parent": "g237",
+   "status": "contender"
+  },
   "g3": {
    "born": 1,
    "code": null,
@@ -46040,7 +46091,8 @@
   "Blazes keep spawning across a fortress and at its spawner. Running out of untried anchors only means the bot has to wait somewhere, so failing hands the fight back to a planner that just restarts it in the same place.",
   "blazes NOT_FOUND means the known part of the fortress is exhausted, not the fortress; since fortress find refuses once any brick is known, the fight itself must extend what is known by walking beyond its edge.",
   "Attack UNREACHABLE mostly fires at 3-4 blocks when the pathfinder's 'near' goal stalls on a ledge, hole or water; direct key movement toward a visible mob can close that last gap where pathing gives up.",
-  "The tried-anchor exclusion is a 20-block disc around both the anchor and the bot's own spot. That uses up a partly seen fortress in about 4 hops, before the 2-minute retry reopens anything. A smaller radius gets the fight more anchors without adding new walking logic."
+  "The tried-anchor exclusion is a 20-block disc around both the anchor and the bot's own spot. That uses up a partly seen fortress in about 4 hops, before the 2-minute retry reopens anything. A smaller radius gets the fight more anchors without adding new walking logic.",
+  "Most Nether first deaths (lava, onFire, inFire) come during fortress:blazes from near-full health, so they are sudden environmental deaths; where the chase leads matters more than when the bot heals."
  ],
  "learned_race": {
   "gen": 256,
@@ -46061,7 +46113,7 @@
   "mean_gap_ok": -0.3219,
   "n": 1842
  },
- "next_id": 294,
+ "next_id": 295,
  "pending": null,
  "race_evidence_version": 2,
  "score_since_gen": 179,
