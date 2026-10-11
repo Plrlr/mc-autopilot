@@ -2729,7 +2729,7 @@
   "2026-10-08": 5,
   "2026-10-09": 6,
   "2026-10-10": 5,
-  "2026-10-11": 2
+  "2026-10-11": 3
  },
  "evolve_log": [
   {
@@ -2901,6 +2901,12 @@
    "mode": "skill",
    "result": "drilling",
    "target": "attack UNREACHABLE"
+  },
+  {
+   "gen": 297,
+   "gid": "g289",
+   "mode": "edit",
+   "result": "racing"
   }
  ],
  "gen": 297,
@@ -35155,6 +35161,51 @@
    "parent": "g237",
    "status": "rejected"
   },
+  "g289": {
+   "born": 297,
+   "code": {
+    "base": "91d44de4fbc72526287a191ce432dba1a89adb1c",
+    "branch": "evolve/g289",
+    "files": [
+     "mod/src/main/java/io/github/plrlr/autopilot/skills/NetherSkills.java"
+    ],
+    "sha": "e6ef1731478c1c1dfd640cca2c15c8c1783616e7",
+    "summary": "Fortress blaze fight: a tried anchor now excludes bricks within 10 blocks instead of 20, so the known part of a fortress yields several times more anchors to hop between before 'no blazes in the parts of the fortress we know' (NOT_FOUND, top frontier failure)."
+   },
+   "evals": [],
+   "genes": {
+    "combat.creeper_hit": 1.0,
+    "combat.ignore_walled_mobs": 1.0,
+    "combat.shield_guard": 1.0,
+    "death.recover_night_armor": 12.0,
+    "focus.commit": 1.0,
+    "gear.sword_early": 1.0,
+    "learned.weight": 1.0,
+    "move.shore_first": 1.0,
+    "nav.surface_v2": 1.0,
+    "nav.unstuck_v2": 1.0,
+    "night.shelter_exit": 1.0,
+    "night.wall_in": 1.0,
+    "plan.hide_hp": 15.0,
+    "plan.readiness": 1.0,
+    "portal.prepare_work_area": 1.0,
+    "portal.reserve_lava_bucket": 1.0,
+    "route.armor_before_portal": 1.0,
+    "skill.enderman_warped": 1.0,
+    "skill.portal_repair": 1.0,
+    "skill.ruined_portal": 1.0,
+    "stations.pickup_last": 1.0,
+    "stuck.item_progress": 1.0
+   },
+   "id": "g289",
+   "mutated": [
+    "code"
+   ],
+   "note": "code: Fortress blaze fight: a tried anchor now excludes bricks within 10 blocks instead of 20, so the known part of a fortress yields several times more anchors to hop between before 'no blazes in the parts of the fortress we know' (NOT_FOUND, top frontier failure).",
+   "pairs": [],
+   "parent": "g237",
+   "status": "contender"
+  },
   "g29": {
    "born": 41,
    "code": {
@@ -45148,7 +45199,8 @@
   "The 'climbed 0 blocks' STUCK message means the pillar jumped for 20 s without placing a block. A likely cause is too little headroom: a jump needs about 3 free blocks above the feet, and only the block 2 up was cleared.",
   "Blazes keep spawning across a fortress and at its spawner. Running out of untried anchors only means the bot has to wait somewhere, so failing hands the fight back to a planner that just restarts it in the same place.",
   "blazes NOT_FOUND means the known part of the fortress is exhausted, not the fortress; since fortress find refuses once any brick is known, the fight itself must extend what is known by walking beyond its edge.",
-  "Attack UNREACHABLE mostly fires at 3-4 blocks when the pathfinder's 'near' goal stalls on a ledge, hole or water; direct key movement toward a visible mob can close that last gap where pathing gives up."
+  "Attack UNREACHABLE mostly fires at 3-4 blocks when the pathfinder's 'near' goal stalls on a ledge, hole or water; direct key movement toward a visible mob can close that last gap where pathing gives up.",
+  "The tried-anchor exclusion is a 20-block disc around both the anchor and the bot's own spot. That uses up a partly seen fortress in about 4 hops, before the 2-minute retry reopens anything. A smaller radius gets the fight more anchors without adding new walking logic."
  ],
  "learned_race": {
   "gen": 256,
@@ -45169,7 +45221,7 @@
   "mean_gap_ok": 0.1553,
   "n": 1842
  },
- "next_id": 289,
+ "next_id": 290,
  "pending": null,
  "race_evidence_version": 2,
  "score_since_gen": 179,
