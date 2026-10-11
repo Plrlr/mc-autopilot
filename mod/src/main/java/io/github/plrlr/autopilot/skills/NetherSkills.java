@@ -254,7 +254,10 @@ public final class NetherSkills {
 			java.util.Set<BlockPos> known = new java.util.HashSet<>();
 			for (WorldMemory.Seen b : bricks) known.add(b.pos());
 			for (WorldMemory.Seen b : bricks) {
-				if (tried(b.pos(), 20 * 20)) continue;
+				// 10 blocks, not 20: each 30 s wait marks both the anchor and where we stood, and a
+				// 20-block disc around each used up a partly seen fortress in ~4 hops, before the
+				// 2-minute retry reopened any (fortress blazes NOT_FOUND, top frontier failure).
+				if (tried(b.pos(), 10 * 10)) continue;
 				double d = b.pos().distSqr(pl.blockPosition());
 				if (d < bdAny) {
 					bdAny = d;
