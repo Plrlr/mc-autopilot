@@ -1,0 +1,393 @@
+	- autopilot-test 0.1.0
+[10:27:18] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test] start at 40, 68, -71
+[10:27:18] [Test thread/INFO] (Minecraft) [STDOUT]: [autopilot-test] STAGE start spawn
+[10:27:18] [Test thread/INFO] (Minecraft) [STDOUT]: [autopilot-test] FREE RUN: client and server run in parallel (no lockstep)
+[10:27:52] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test] natural 30s: brain learned none, goal wood_tools, doing shore, milestone 0/13, deaths 0
+[autopilot-test]    perf fps 22, server 5.5 ms/tick, mod 0.76 ms/tick
+[10:27:52] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    at 29 62 -88 hp 20 food 20 inv {oak_log=3, white_wool=1}
+[10:27:52] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    known water 29, 62, -88, lava none
+[10:27:52] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    collect log:3 -> ok: collected 3 log (seen blocks)
+[10:27:52] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    attack sheep -> ok: killed the sheep
+[10:28:27] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test] natural 60s: brain learned none, goal wood_tools, doing craft crafting_table:1, milestone 0/13, deaths 0
+[autopilot-test]    perf fps 65, server 4.2 ms/tick, mod 0.67 ms/tick
+[10:28:27] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    at 8 63 -93 hp 20 food 20 inv {mutton=3, oak_log=1, oak_planks=2, stick=4, white_wool=3}
+[10:28:27] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    known water 9, 62, -93, lava none
+[10:28:27] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    attack sheep -> ok: killed the sheep
+[10:28:27] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    attack sheep -> ok: killed the sheep
+[10:28:27] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    shore -> ok: reached dry ground with room to work
+[10:28:27] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    craft planks:4 -> ok: crafted 4 planks
+[10:28:27] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    craft stick:4 -> ok: crafted 4 stick
+[10:28:27] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    craft planks:4 -> ok: crafted 4 planks
+[10:28:57] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test] natural 90s: brain learned none, goal stone_tools, doing shore, milestone 1/13, deaths 0
+[autopilot-test]    perf fps 31, server 4.1 ms/tick, mod 0.65 ms/tick
+[10:28:57] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    at 7 58 -84 hp 20 food 20 inv {cobblestone=4, crafting_table=1, dirt=3, mutton=3, stick=2, white_bed=1, wooden_pickaxe=1}
+[10:28:57] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    known water 7, 58, -84, lava none
+[10:28:57] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    craft crafting_table:1 -> ok: crafted 1 crafting_table
+[10:28:57] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    craft planks:4 -> ok: crafted 4 planks
+[10:28:57] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    craft wooden_pickaxe:1 -> ok: crafted 1 wooden_pickaxe
+[10:28:57] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    craft bed:1 -> ok: crafted 1 bed
+[10:28:57] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    pickup stations -> ok: picked up 1 stacks
+[10:28:57] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    collect stone:13 -> failed INTERRUPTED: interrupted: brain chose shore
+[10:29:27] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test] natural 120s: brain learned none, goal stone_tools, doing shore, milestone 1/13, deaths 0
+[autopilot-test]    perf fps 106, server 3.9 ms/tick, mod 0.63 ms/tick
+[10:29:27] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    at 7 58 -84 hp 20 food 20 inv {cobblestone=4, crafting_table=1, diorite=1, dirt=3, mutton=3, stick=2, white_bed=1, wooden_pickaxe=1}
+[10:29:27] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    known water 7, 58, -84, lava none
+[10:29:27] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    craft wooden_pickaxe:1 -> ok: crafted 1 wooden_pickaxe
+[10:29:27] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    craft bed:1 -> ok: crafted 1 bed
+[10:29:27] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    pickup stations -> ok: picked up 1 stacks
+[10:29:27] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    collect stone:13 -> failed INTERRUPTED: interrupted: brain chose shore
+[10:29:27] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    shore -> failed STUCK: stuck: stayed inside 2.0 blocks for 12 s
+[10:29:27] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    unstuck -> ok: got out (tunnel)
+[10:29:57] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test] natural 150s: brain learned none, goal stone_tools, doing unstuck, milestone 1/13, deaths 0
+[autopilot-test]    perf fps 37, server 3.6 ms/tick, mod 0.62 ms/tick
+[10:29:57] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    at 7 59 -84 hp 20 food 20 inv {cobblestone=4, crafting_table=1, diorite=1, dirt=3, mutton=3, stick=2, white_bed=1, wooden_pickaxe=1}
+[10:29:57] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    known water 7, 58, -84, lava none
+[10:29:57] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    collect stone:13 -> failed INTERRUPTED: interrupted: brain chose shore
+[10:29:57] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    shore -> failed STUCK: stuck: stayed inside 2.0 blocks for 12 s
+[10:29:57] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    unstuck -> ok: got out (tunnel)
+[10:29:57] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    shore -> failed STUCK: stuck: stayed inside 2.0 blocks for 12 s
+[10:29:57] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    unstuck -> ok: got out (tunnel)
+[10:29:57] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    shore -> failed STUCK: stuck: stayed inside 2.0 blocks for 12 s
+[10:30:27] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test] natural 180s: brain learned none, goal stone_tools, doing unstuck, milestone 1/13, deaths 0
+[autopilot-test]    perf fps 33, server 3.6 ms/tick, mod 0.60 ms/tick
+[10:30:27] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    at 8 58 -84 hp 20 food 20 inv {cobblestone=4, crafting_table=1, diorite=1, dirt=3, mutton=3, stick=2, white_bed=1, wooden_pickaxe=1}
+[10:30:27] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    known water 8, 58, -84, lava none
+[10:30:27] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    unstuck -> ok: got out (tunnel)
+[10:30:27] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    shore -> failed STUCK: stuck: stayed inside 2.0 blocks for 12 s
+[10:30:27] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    unstuck -> ok: got out (tunnel)
+[10:30:27] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    shore -> failed STUCK: stuck: stayed inside 2.0 blocks for 12 s
+[10:30:27] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    unstuck -> ok: got out (tunnel)
+[10:30:27] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    explore any -> failed STUCK: stuck: stayed inside 2.0 blocks for 12 s
+[10:30:56] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test] natural 210s: brain learned none, goal stone_tools, doing unstuck, milestone 1/13, deaths 0
+[autopilot-test]    perf fps 34, server 3.3 ms/tick, mod 0.59 ms/tick
+[10:30:56] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    at 7 57 -84 hp 20 food 20 inv {cobblestone=4, crafting_table=1, diorite=1, dirt=3, mutton=3, stick=2, white_bed=1, wooden_pickaxe=1}
+[10:30:56] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    known water 7, 57, -84, lava none
+[10:30:56] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    unstuck -> ok: got out (tunnel)
+[10:30:56] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    shore -> failed STUCK: stuck: stayed inside 2.0 blocks for 12 s
+[10:30:56] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    unstuck -> ok: got out (tunnel)
+[10:30:56] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    explore any -> failed STUCK: stuck: stayed inside 2.0 blocks for 12 s
+[10:30:56] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    unstuck -> ok: got out (tunnel)
+[10:30:56] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    explore any -> failed STUCK: stuck: stayed inside 2.0 blocks for 12 s
+[10:31:26] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test] natural 240s: brain learned none, goal stone_tools, doing unstuck, milestone 1/13, deaths 0
+[autopilot-test]    perf fps 41, server 3.1 ms/tick, mod 0.59 ms/tick
+[10:31:26] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    at 7 55 -84 hp 20 food 20 inv {cobblestone=4, crafting_table=1, diorite=1, dirt=3, mutton=3, stick=2, white_bed=1, wooden_pickaxe=1}
+[10:31:26] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    known water 7, 56, -84, lava none
+[10:31:26] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    unstuck -> ok: got out (tunnel)
+[10:31:26] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    explore any -> failed STUCK: stuck: stayed inside 2.0 blocks for 12 s
+[10:31:26] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    unstuck -> ok: got out (tunnel)
+[10:31:26] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    explore any -> failed STUCK: stuck: stayed inside 2.0 blocks for 12 s
+[10:31:26] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    unstuck -> ok: got out (tunnel)
+[10:31:26] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    shore -> failed STUCK: stuck: stayed inside 2.0 blocks for 12 s
+[10:31:57] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test] natural 270s: brain learned none, goal iron_tools, doing pickup stations, milestone 2/13, deaths 0
+[autopilot-test]    perf fps 24, server 3.4 ms/tick, mod 0.58 ms/tick
+[10:31:57] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    at 7 65 -82 hp 20 food 20 inv {cobblestone=3, diorite=1, dirt=1, mutton=3, stone_pickaxe=1, white_bed=1, wooden_pickaxe=1}
+[10:31:57] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    known water 7, 58, -83, lava none
+[10:31:57] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    explore any -> failed STUCK: stuck: stayed inside 2.0 blocks for 12 s
+[10:31:57] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    unstuck -> ok: got out (tunnel)
+[10:31:57] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    shore -> failed STUCK: stuck: stayed inside 2.0 blocks for 12 s
+[10:31:57] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    unstuck -> ok: got out (tunnel)
+[10:31:57] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    shore -> ok: reached dry ground with room to work
+[10:31:57] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    craft stone_pickaxe:1 -> ok: crafted 1 stone_pickaxe
+[10:32:27] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test] natural 300s: brain learned none, goal iron_tools, doing collect raw_iron:13, milestone 2/13, deaths 0
+[autopilot-test]    perf fps 107, server 3.3 ms/tick, mod 0.58 ms/tick
+[10:32:27] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    at 7 35 -86 hp 20 food 20 inv {cobblestone=25, crafting_table=1, diorite=5, dirt=3, mutton=3, stone_pickaxe=1, white_bed=1, wooden_pickaxe=1}
+[10:32:27] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    known water 0, 62, -75, lava none
+[10:32:27] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    unstuck -> ok: got out (tunnel)
+[10:32:27] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    shore -> failed STUCK: stuck: stayed inside 2.0 blocks for 12 s
+[10:32:27] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    unstuck -> ok: got out (tunnel)
+[10:32:27] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    shore -> ok: reached dry ground with room to work
+[10:32:27] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    craft stone_pickaxe:1 -> ok: crafted 1 stone_pickaxe
+[10:32:27] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    pickup stations -> ok: picked up 1 stacks
+[10:32:58] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test] natural 330s: brain learned none, goal iron_tools, doing retreat, milestone 2/13, deaths 0
+[autopilot-test]    perf fps 38, server 4.0 ms/tick, mod 0.67 ms/tick
+[10:32:58] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    at 7 1 -84 hp 20 food 20 inv {cobblestone=55, crafting_table=1, diorite=5, dirt=4, mutton=3, stone_pickaxe=1, white_bed=1, wooden_pickaxe=1}
+[10:32:58] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    known water 6, 62, -73, lava 31, -27, -109
+[10:32:58] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    shore -> failed STUCK: stuck: stayed inside 2.0 blocks for 12 s
+[10:32:58] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    unstuck -> ok: got out (tunnel)
+[10:32:58] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    shore -> ok: reached dry ground with room to work
+[10:32:58] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    craft stone_pickaxe:1 -> ok: crafted 1 stone_pickaxe
+[10:32:58] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    pickup stations -> ok: picked up 1 stacks
+[10:32:58] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    collect raw_iron:13 -> failed INTERRUPTED: interrupted: brain chose retreat
+[10:33:28] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test] natural 360s: brain learned none, goal iron_tools, doing collect raw_iron:13, milestone 2/13, deaths 0
+[autopilot-test]    perf fps 84, server 4.1 ms/tick, mod 0.66 ms/tick
+[10:33:28] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    at 8 -15 -70 hp 20 food 20 inv {cobbled_deepslate=9, cobblestone=55, crafting_table=1, diorite=8, dirt=2, mutton=3, raw_iron=1, stone_pickaxe=1, white_bed=1, wooden_pickaxe=1}
+[10:33:28] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    known water -7, -27, -94, lava 11, -27, -102
+[10:33:28] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    unstuck -> ok: got out (tunnel)
+[10:33:28] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    shore -> ok: reached dry ground with room to work
+[10:33:28] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    craft stone_pickaxe:1 -> ok: crafted 1 stone_pickaxe
+[10:33:28] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    pickup stations -> ok: picked up 1 stacks
+[10:33:28] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    collect raw_iron:13 -> failed INTERRUPTED: interrupted: brain chose retreat
+[10:33:28] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    retreat -> ok: got away
+[10:33:57] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test] natural 390s: brain learned none, goal iron_tools, doing attack zombie, milestone 2/13, deaths 0
+[autopilot-test]    perf fps 55, server 4.2 ms/tick, mod 0.66 ms/tick
+[10:33:57] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    at 28 -40 -55 hp 10 food 17 inv {cobbled_deepslate=10, cobblestone=55, crafting_table=1, mutton=3, raw_iron=1, rotten_flesh=1, stone_pickaxe=1, tuff=1, white_bed=1, wooden_pickaxe=1}
+[10:33:57] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    known water -7, -27, -94, lava 17, -27, -103
+[10:33:57] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    collect raw_iron:13 -> failed INTERRUPTED: interrupted: brain chose retreat
+[10:33:57] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    retreat -> ok: got away
+[10:33:57] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    collect raw_iron:13 -> failed INTERRUPTED: interrupted: brain chose attack zombie
+[10:33:57] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    attack zombie -> ok: killed the zombie
+[10:33:57] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    collect raw_iron:12 -> failed INTERRUPTED: interrupted: brain chose eat
+[10:33:57] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    eat -> failed INTERRUPTED: interrupted: brain chose attack zombie
+[10:34:30] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test] natural 420s: brain learned none, goal iron_tools, doing pickup stations, milestone 2/13, deaths 1
+[autopilot-test]    perf fps 44, server 4.2 ms/tick, mod 0.66 ms/tick
+[10:34:30] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    at 32 63 -69 hp 20 food 20 inv {oak_planks=1, stick=1, wooden_pickaxe=1, wooden_sword=1}
+[10:34:30] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    known water 32, 62, -71, lava 41, -27, -103
+[10:34:30] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    craft stick:4 -> ok: crafted 4 stick
+[10:34:30] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    craft planks:4 -> ok: crafted 4 planks
+[10:34:30] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    craft crafting_table:1 -> ok: crafted 1 crafting_table
+[10:34:30] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    craft planks:4 -> ok: crafted 4 planks
+[10:34:30] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    craft wooden_pickaxe:1 -> ok: crafted 1 wooden_pickaxe
+[10:34:30] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    craft wooden_sword:1 -> ok: crafted 1 wooden_sword
+[10:35:00] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test] natural 450s: brain learned none, goal iron_tools, doing collect stone:13, milestone 2/13, deaths 1
+[autopilot-test]    perf fps 49, server 4.3 ms/tick, mod 0.64 ms/tick
+[10:35:00] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    at 43 60 -71 hp 20 food 20 inv {cobblestone=1, crafting_table=1, dirt=5, oak_planks=1, stick=1, wooden_pickaxe=1, wooden_sword=1}
+[10:35:00] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    known water 43, 58, -69, lava 41, -27, -103
+[10:35:00] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    craft planks:4 -> ok: crafted 4 planks
+[10:35:00] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    craft crafting_table:1 -> ok: crafted 1 crafting_table
+[10:35:00] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    craft planks:4 -> ok: crafted 4 planks
+[10:35:00] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    craft wooden_pickaxe:1 -> ok: crafted 1 wooden_pickaxe
+[10:35:00] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    craft wooden_sword:1 -> ok: crafted 1 wooden_sword
+[10:35:00] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    pickup stations -> ok: picked up 1 stacks
+[10:35:31] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test] natural 480s: brain learned none, goal iron_tools, doing collect coal:6, milestone 2/13, deaths 1
+[autopilot-test]    perf fps 43, server 6.9 ms/tick, mod 0.64 ms/tick
+[10:35:31] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    at 48 54 -72 hp 20 food 20 inv {cobblestone=1, crafting_table=1, dirt=5, oak_planks=1, stick=1, wooden_pickaxe=1, wooden_sword=1}
+[10:35:31] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    known water 45, 58, -69, lava 41, -27, -103
+[10:35:31] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    craft planks:4 -> ok: crafted 4 planks
+[10:35:31] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    craft wooden_pickaxe:1 -> ok: crafted 1 wooden_pickaxe
+[10:35:31] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    craft wooden_sword:1 -> ok: crafted 1 wooden_sword
+[10:35:31] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    pickup stations -> ok: picked up 1 stacks
+[10:35:31] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    collect stone:13 -> failed STUCK: stuck: stayed inside 2.0 blocks for 12 s
+[10:35:31] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    unstuck -> ok: got out (walk)
+[10:36:04] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test] natural 510s: brain learned none, goal iron_tools, doing collect coal:6, milestone 2/13, deaths 1
+[autopilot-test]    perf fps 20, server 4.2 ms/tick, mod 0.64 ms/tick
+[10:36:04] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    at 51 50 -72 hp 20 food 20 inv {coal=1, cobblestone=1, crafting_table=1, oak_planks=1, stick=1, wooden_pickaxe=1, wooden_sword=1}
+[10:36:04] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    known water 45, 58, -69, lava 41, -27, -103
+[10:36:04] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    craft planks:4 -> ok: crafted 4 planks
+[10:36:04] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    craft wooden_pickaxe:1 -> ok: crafted 1 wooden_pickaxe
+[10:36:04] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    craft wooden_sword:1 -> ok: crafted 1 wooden_sword
+[10:36:04] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    pickup stations -> ok: picked up 1 stacks
+[10:36:04] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    collect stone:13 -> failed STUCK: stuck: stayed inside 2.0 blocks for 12 s
+[10:36:04] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    unstuck -> ok: got out (walk)
+[10:36:34] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test] natural 540s: brain learned none, goal iron_tools, doing collect coal:6, milestone 2/13, deaths 1
+[autopilot-test]    perf fps 104, server 4.3 ms/tick, mod 0.64 ms/tick
+[10:36:34] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    at 57 46 -68 hp 20 food 20 inv {coal=3, cobblestone=3, crafting_table=1, oak_planks=1, stick=1, wooden_pickaxe=1, wooden_sword=1}
+[10:36:34] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    known water 45, 58, -69, lava 41, -27, -103
+[10:36:34] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    craft planks:4 -> ok: crafted 4 planks
+[10:36:34] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    craft wooden_pickaxe:1 -> ok: crafted 1 wooden_pickaxe
+[10:36:34] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    craft wooden_sword:1 -> ok: crafted 1 wooden_sword
+[10:36:34] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    pickup stations -> ok: picked up 1 stacks
+[10:36:34] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    collect stone:13 -> failed STUCK: stuck: stayed inside 2.0 blocks for 12 s
+[10:36:34] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    unstuck -> ok: got out (walk)
+[10:37:04] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test] natural 570s: brain learned none, goal iron_tools, doing collect log:9, milestone 2/13, deaths 1
+[autopilot-test]    perf fps 68, server 3.9 ms/tick, mod 0.64 ms/tick
+[10:37:04] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    at 58 48 -69 hp 20 food 20 inv {coal=6, cobblestone=8, crafting_table=1, oak_planks=1, stick=1, wooden_pickaxe=1, wooden_sword=1}
+[10:37:04] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    known water 52, 62, -64, lava 41, -27, -103
+[10:37:04] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    craft wooden_pickaxe:1 -> ok: crafted 1 wooden_pickaxe
+[10:37:04] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    craft wooden_sword:1 -> ok: crafted 1 wooden_sword
+[10:37:04] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    pickup stations -> ok: picked up 1 stacks
+[10:37:04] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    collect stone:13 -> failed STUCK: stuck: stayed inside 2.0 blocks for 12 s
+[10:37:04] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    unstuck -> ok: got out (walk)
+[10:37:04] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    collect coal:6 -> ok: collected 6 coal (seen blocks)
+[10:37:34] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test] natural 600s: brain learned none, goal iron_tools, doing collect log:9, milestone 2/13, deaths 1
+[autopilot-test]    perf fps 92, server 4.1 ms/tick, mod 0.64 ms/tick
+[10:37:34] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    at 63 57 -62 hp 20 food 20 inv {coal=6, cobblestone=16, crafting_table=1, dirt=2, oak_log=3, oak_planks=1, stick=1, wooden_pickaxe=1, wooden_sword=1}
+[10:37:34] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    known water 59, 62, -58, lava 41, -27, -103
+[10:37:34] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    craft wooden_pickaxe:1 -> ok: crafted 1 wooden_pickaxe
+[10:37:34] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    craft wooden_sword:1 -> ok: crafted 1 wooden_sword
+[10:37:34] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    pickup stations -> ok: picked up 1 stacks
+[10:37:34] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    collect stone:13 -> failed STUCK: stuck: stayed inside 2.0 blocks for 12 s
+[10:37:34] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    unstuck -> ok: got out (walk)
+[10:37:34] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    collect coal:6 -> ok: collected 6 coal (seen blocks)
+[10:38:04] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test] natural 630s: brain learned none, goal iron_tools, doing collect log:9, milestone 2/13, deaths 1
+[autopilot-test]    perf fps 36, server 4.3 ms/tick, mod 0.63 ms/tick
+[10:38:04] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    at 51 58 -75 hp 20 food 20 inv {coal=6, cobblestone=16, crafting_table=1, oak_log=8, oak_planks=1, oak_sapling=1, stick=1, wooden_pickaxe=1, wooden_sword=1}
+[10:38:04] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    known water 45, 58, -69, lava 41, -27, -103
+[10:38:04] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    craft wooden_pickaxe:1 -> ok: crafted 1 wooden_pickaxe
+[10:38:04] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    craft wooden_sword:1 -> ok: crafted 1 wooden_sword
+[10:38:04] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    pickup stations -> ok: picked up 1 stacks
+[10:38:04] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    collect stone:13 -> failed STUCK: stuck: stayed inside 2.0 blocks for 12 s
+[10:38:04] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    unstuck -> ok: got out (walk)
+[10:38:04] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    collect coal:6 -> ok: collected 6 coal (seen blocks)
+[10:38:34] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test] natural 660s: brain learned none, goal iron_tools, doing collect raw_iron:13, milestone 2/13, deaths 1
+[autopilot-test]    perf fps 111, server 3.7 ms/tick, mod 0.63 ms/tick
+[10:38:34] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    at 51 34 -72 hp 20 food 20 inv {andesite=8, coal=4, cobblestone=19, oak_log=8, oak_planks=3, oak_sapling=1, stone_pickaxe=1, stone_sword=1, torch=6, wooden_pickaxe=1, wooden_sword=1}
+[10:38:34] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    known water 45, 58, -69, lava 41, -27, -103
+[10:38:34] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    craft planks:4 -> ok: crafted 4 planks
+[10:38:34] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    craft stick:4 -> ok: crafted 4 stick
+[10:38:34] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    craft torch:8 -> ok: crafted 8 torch
+[10:38:34] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    craft stone_pickaxe:1 -> ok: crafted 1 stone_pickaxe
+[10:38:34] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    craft stone_sword:1 -> ok: crafted 1 stone_sword
+[10:38:34] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    pickup stations -> ok: nothing left to pick up
+[10:39:04] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test] natural 690s: brain learned none, goal iron_tools, doing collect raw_iron:13, milestone 2/13, deaths 1
+[autopilot-test]    perf fps 74, server 3.6 ms/tick, mod 0.63 ms/tick
+[10:39:04] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    at 51 21 -79 hp 20 food 20 inv {andesite=8, coal=4, cobblestone=39, diorite=8, oak_log=8, oak_planks=3, oak_sapling=1, stone_pickaxe=1, stone_sword=1, torch=4, wooden_pickaxe=1, wooden_sword=1}
+[10:39:04] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    known water 45, 58, -69, lava 41, -27, -103
+[10:39:04] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    craft planks:4 -> ok: crafted 4 planks
+[10:39:04] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    craft stick:4 -> ok: crafted 4 stick
+[10:39:04] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    craft torch:8 -> ok: crafted 8 torch
+[10:39:04] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    craft stone_pickaxe:1 -> ok: crafted 1 stone_pickaxe
+[10:39:04] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    craft stone_sword:1 -> ok: crafted 1 stone_sword
+[10:39:04] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    pickup stations -> ok: nothing left to pick up
+[10:39:34] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test] natural 720s: brain learned none, goal iron_tools, doing collect raw_iron:13, milestone 2/13, deaths 1
+[autopilot-test]    perf fps 29, server 3.7 ms/tick, mod 0.63 ms/tick
+[10:39:34] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    at 45 13 -85 hp 20 food 20 inv {andesite=8, coal=4, cobblestone=61, diorite=17, oak_log=8, oak_planks=3, oak_sapling=1, stone_pickaxe=1, stone_sword=1, torch=3, wooden_pickaxe=1, wooden_sword=1}
+[10:39:34] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    known water 45, 58, -69, lava 41, -27, -103
+[10:39:34] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    craft planks:4 -> ok: crafted 4 planks
+[10:39:34] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    craft stick:4 -> ok: crafted 4 stick
+[10:39:34] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    craft torch:8 -> ok: crafted 8 torch
+[10:39:34] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    craft stone_pickaxe:1 -> ok: crafted 1 stone_pickaxe
+[10:39:34] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    craft stone_sword:1 -> ok: crafted 1 stone_sword
+[10:39:34] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    pickup stations -> ok: nothing left to pick up
+[10:40:04] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test] natural 750s: brain learned none, goal iron_tools, doing collect raw_iron:13, milestone 2/13, deaths 1
+[autopilot-test]    perf fps 34, server 3.5 ms/tick, mod 0.63 ms/tick
+[10:40:04] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    at 32 13 -83 hp 20 food 20 inv {andesite=8, coal=4, cobblestone=93, diorite=18, oak_log=8, oak_planks=3, oak_sapling=1, stone_pickaxe=1, stone_sword=1, torch=1, wooden_pickaxe=1, wooden_sword=1}
+[10:40:04] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    known water 43, 58, -69, lava 41, -27, -103
+[10:40:04] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    craft planks:4 -> ok: crafted 4 planks
+[10:40:04] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    craft stick:4 -> ok: crafted 4 stick
+[10:40:04] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    craft torch:8 -> ok: crafted 8 torch
+[10:40:04] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    craft stone_pickaxe:1 -> ok: crafted 1 stone_pickaxe
+[10:40:04] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    craft stone_sword:1 -> ok: crafted 1 stone_sword
+[10:40:04] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    pickup stations -> ok: nothing left to pick up
+[10:40:34] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test] natural 780s: brain learned none, goal iron_tools, doing collect raw_iron:13, milestone 2/13, deaths 1
+[autopilot-test]    perf fps 34, server 3.4 ms/tick, mod 0.62 ms/tick
+[10:40:34] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    at 28 13 -82 hp 20 food 20 inv {andesite=8, coal=4, cobblestone=102, diorite=23, granite=6, oak_log=8, oak_planks=3, oak_sapling=1, raw_iron=3, stone_sword=1, wooden_pickaxe=1, wooden_sword=1}
+[10:40:34] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    known water 43, 58, -69, lava 23, -27, -105
+[10:40:34] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    craft planks:4 -> ok: crafted 4 planks
+[10:40:34] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    craft stick:4 -> ok: crafted 4 stick
+[10:40:34] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    craft torch:8 -> ok: crafted 8 torch
+[10:40:34] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    craft stone_pickaxe:1 -> ok: crafted 1 stone_pickaxe
+[10:40:34] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    craft stone_sword:1 -> ok: crafted 1 stone_sword
+[10:40:34] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    pickup stations -> ok: nothing left to pick up
+[10:41:05] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test] natural 810s: brain learned none, goal iron_tools, doing collect raw_iron:13, milestone 2/13, deaths 1
+[autopilot-test]    perf fps 26, server 3.6 ms/tick, mod 0.61 ms/tick
+[10:41:05] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    at 21 13 -85 hp 20 food 20 inv {andesite=8, coal=4, cobblestone=122, diorite=24, granite=6, oak_log=8, oak_planks=3, oak_sapling=1, raw_iron=3, stone_sword=1, wooden_pickaxe=1, wooden_sword=1}
+[10:41:05] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    known water 16, 62, -97, lava 17, -27, -103
+[10:41:05] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    craft planks:4 -> ok: crafted 4 planks
+[10:41:05] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    craft stick:4 -> ok: crafted 4 stick
+[10:41:05] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    craft torch:8 -> ok: crafted 8 torch
+[10:41:05] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    craft stone_pickaxe:1 -> ok: crafted 1 stone_pickaxe
+[10:41:05] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    craft stone_sword:1 -> ok: crafted 1 stone_sword
+[10:41:05] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    pickup stations -> ok: nothing left to pick up
+[10:41:34] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test] natural 840s: brain learned none, goal iron_tools, doing collect raw_iron:13, milestone 2/13, deaths 1
+[autopilot-test]    perf fps 34, server 3.4 ms/tick, mod 0.61 ms/tick
+[10:41:34] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    at 29 7 -81 hp 20 food 20 inv {andesite=7, coal=4, cobblestone=127, diorite=24, granite=6, oak_log=8, oak_planks=3, oak_sapling=1, raw_iron=3, stone_sword=1, wooden_sword=1}
+[10:41:34] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    known water 43, 58, -69, lava 23, -27, -105
+[10:41:34] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    craft planks:4 -> ok: crafted 4 planks
+[10:41:34] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    craft stick:4 -> ok: crafted 4 stick
+[10:41:34] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    craft torch:8 -> ok: crafted 8 torch
+[10:41:34] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    craft stone_pickaxe:1 -> ok: crafted 1 stone_pickaxe
+[10:41:34] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    craft stone_sword:1 -> ok: crafted 1 stone_sword
+[10:41:34] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    pickup stations -> ok: nothing left to pick up
+[10:42:04] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test] natural 870s: brain learned none, goal iron_tools, doing collect raw_iron:13, milestone 2/13, deaths 1
+[autopilot-test]    perf fps 50, server 3.7 ms/tick, mod 0.60 ms/tick
+[10:42:04] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    at 8 -9 -74 hp 20 food 20 inv {coal=4, cobblestone=127, diorite=9, granite=6, oak_log=8, oak_planks=3, oak_sapling=1, raw_iron=3, stone_sword=1, wooden_sword=1}
+[10:42:04] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    known water 29, 2, -57, lava -3, -3, -67
+[10:42:04] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    craft planks:4 -> ok: crafted 4 planks
+[10:42:04] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    craft stick:4 -> ok: crafted 4 stick
+[10:42:04] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    craft torch:8 -> ok: crafted 8 torch
+[10:42:04] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    craft stone_pickaxe:1 -> ok: crafted 1 stone_pickaxe
+[10:42:04] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    craft stone_sword:1 -> ok: crafted 1 stone_sword
+[10:42:04] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    pickup stations -> ok: nothing left to pick up
+[10:42:34] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test] natural 900s: brain learned none, goal iron_tools, doing collect raw_iron:13, milestone 2/13, deaths 1
+[autopilot-test]    perf fps 100, server 3.8 ms/tick, mod 0.59 ms/tick
+[10:42:34] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    at 28 -22 -74 hp 20 food 20 inv {coal=4, cobblestone=114, oak_log=8, oak_planks=3, oak_sapling=1, raw_iron=3, stone_sword=1, wooden_sword=1}
+[10:42:34] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    known water 29, 2, -57, lava 21, -27, -102
+[10:42:34] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    craft planks:4 -> ok: crafted 4 planks
+[10:42:34] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    craft stick:4 -> ok: crafted 4 stick
+[10:42:34] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    craft torch:8 -> ok: crafted 8 torch
+[10:42:34] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    craft stone_pickaxe:1 -> ok: crafted 1 stone_pickaxe
+[10:42:34] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    craft stone_sword:1 -> ok: crafted 1 stone_sword
+[10:42:34] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    pickup stations -> ok: nothing left to pick up
+[10:43:04] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test] natural 930s: brain learned none, goal iron_tools, doing collect raw_iron:13, milestone 2/13, deaths 1
+[autopilot-test]    perf fps 98, server 3.7 ms/tick, mod 0.59 ms/tick
+[10:43:04] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    at 27 -23 -66 hp 20 food 20 inv {coal=4, cobblestone=105, oak_log=8, oak_planks=3, oak_sapling=1, raw_iron=3, stone_sword=1, wooden_sword=1}
+[10:43:04] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    known water 29, 2, -57, lava -3, -3, -67
+[10:43:04] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    craft planks:4 -> ok: crafted 4 planks
+[10:43:04] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    craft stick:4 -> ok: crafted 4 stick
+[10:43:04] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    craft torch:8 -> ok: crafted 8 torch
+[10:43:04] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    craft stone_pickaxe:1 -> ok: crafted 1 stone_pickaxe
+[10:43:04] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    craft stone_sword:1 -> ok: crafted 1 stone_sword
+[10:43:04] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    pickup stations -> ok: nothing left to pick up
+[10:43:34] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test] natural 960s: brain learned none, goal iron_tools, doing collect raw_iron:13, milestone 2/13, deaths 1
+[autopilot-test]    perf fps 114, server 3.2 ms/tick, mod 0.58 ms/tick
+[10:43:34] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    at 33 -23 -59 hp 20 food 20 inv {coal=4, cobblestone=90, oak_log=8, oak_planks=3, oak_sapling=1, raw_iron=3, stone_sword=1, wooden_sword=1}
+[10:43:34] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    known water 29, 2, -57, lava 66, -35, -74
+[10:43:34] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    craft planks:4 -> ok: crafted 4 planks
+[10:43:34] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    craft stick:4 -> ok: crafted 4 stick
+[10:43:34] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    craft torch:8 -> ok: crafted 8 torch
+[10:43:34] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    craft stone_pickaxe:1 -> ok: crafted 1 stone_pickaxe
+[10:43:34] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    craft stone_sword:1 -> ok: crafted 1 stone_sword
+[10:43:34] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    pickup stations -> ok: nothing left to pick up
+[10:44:04] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test] natural 990s: brain learned none, goal iron_tools, doing collect raw_iron:13, milestone 2/13, deaths 1
+[autopilot-test]    perf fps 110, server 3.6 ms/tick, mod 0.58 ms/tick
+[10:44:04] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    at 18 -18 -52 hp 20 food 20 inv {coal=4, cobblestone=83, oak_log=8, oak_planks=3, oak_sapling=1, raw_iron=3, stone_sword=1, wooden_sword=1}
+[10:44:04] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    known water 29, 2, -57, lava -3, -3, -67
+[10:44:04] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    craft planks:4 -> ok: crafted 4 planks
+[10:44:04] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    craft stick:4 -> ok: crafted 4 stick
+[10:44:04] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    craft torch:8 -> ok: crafted 8 torch
+[10:44:04] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    craft stone_pickaxe:1 -> ok: crafted 1 stone_pickaxe
+[10:44:04] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    craft stone_sword:1 -> ok: crafted 1 stone_sword
+[10:44:04] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    pickup stations -> ok: nothing left to pick up
+[10:44:34] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test] natural 1020s: brain learned none, goal iron_tools, doing goto surface, milestone 2/13, deaths 2
+[autopilot-test]    perf fps 35, server 4.2 ms/tick, mod 0.58 ms/tick
+[10:44:34] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    at 30 -44 -79 hp 0 food 20 inv {}
+[10:44:34] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    known water -4, -27, -86, lava 36, -39, -101
+[10:44:34] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    craft torch:8 -> ok: crafted 8 torch
+[10:44:34] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    craft stone_pickaxe:1 -> ok: crafted 1 stone_pickaxe
+[10:44:34] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    craft stone_sword:1 -> ok: crafted 1 stone_sword
+[10:44:34] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    pickup stations -> ok: nothing left to pick up
+[10:44:34] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    collect raw_iron:13 -> failed TIMEOUT: timed out after 360 s
+[10:44:34] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    goto surface -> failed DIED: died
+[10:45:04] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test] natural 1050s: brain learned none, goal iron_tools, doing shelter, milestone 2/13, deaths 2
+[autopilot-test]    perf fps 110, server 3.6 ms/tick, mod 0.57 ms/tick
+[10:45:04] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    at 32 60 -65 hp 20 food 20 inv {dirt=2, leaf_litter=2}
+[10:45:04] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    known water 34, 62, -67, lava -3, -3, -67
+[10:45:04] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    craft torch:8 -> ok: crafted 8 torch
+[10:45:04] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    craft stone_pickaxe:1 -> ok: crafted 1 stone_pickaxe
+[10:45:04] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    craft stone_sword:1 -> ok: crafted 1 stone_sword
+[10:45:04] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    pickup stations -> ok: nothing left to pick up
+[10:45:04] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    collect raw_iron:13 -> failed TIMEOUT: timed out after 360 s
+[10:45:04] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    goto surface -> failed DIED: died
+[10:45:34] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test] natural 1080s: brain learned none, goal iron_tools, doing shelter, milestone 2/13, deaths 2
+[autopilot-test]    perf fps 110, server 3.5 ms/tick, mod 0.57 ms/tick
+[10:45:34] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    at 32 60 -65 hp 20 food 20 inv {dirt=2, leaf_litter=2}
+[10:45:34] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    known water 34, 62, -67, lava -3, -3, -67
+[10:45:34] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    craft torch:8 -> ok: crafted 8 torch
+[10:45:34] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    craft stone_pickaxe:1 -> ok: crafted 1 stone_pickaxe
+[10:45:34] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    craft stone_sword:1 -> ok: crafted 1 stone_sword
+[10:45:34] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    pickup stations -> ok: nothing left to pick up
+[10:45:34] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    collect raw_iron:13 -> failed TIMEOUT: timed out after 360 s
+[10:45:34] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    goto surface -> failed DIED: died
+[10:46:05] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test] natural 1110s: brain learned none, goal iron_tools, doing shelter, milestone 2/13, deaths 2
+[autopilot-test]    perf fps 110, server 3.7 ms/tick, mod 0.57 ms/tick
+[10:46:05] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    at 32 60 -65 hp 20 food 20 inv {dirt=2, leaf_litter=2}
+[10:46:05] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    known water 34, 62, -67, lava -3, -3, -67
+[10:46:05] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    craft torch:8 -> ok: crafted 8 torch
+[10:46:05] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    craft stone_pickaxe:1 -> ok: crafted 1 stone_pickaxe
+[10:46:05] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    craft stone_sword:1 -> ok: crafted 1 stone_sword
+[10:46:05] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    pickup stations -> ok: nothing left to pick up
+[10:46:05] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    collect raw_iron:13 -> failed TIMEOUT: timed out after 360 s
+[10:46:05] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    goto surface -> failed DIED: died
+[10:46:34] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test] natural 1140s: brain learned none, goal iron_tools, doing collect log:3, milestone 2/13, deaths 2
+[autopilot-test]    perf fps 31, server 3.9 ms/tick, mod 0.56 ms/tick
+[10:46:34] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    at 40 60 -71 hp 20 food 20 inv {birch_log=1, dirt=4, leaf_litter=2}
+[10:46:34] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    known water 37, 62, -68, lava -3, -3, -67
+[10:46:34] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    craft stone_pickaxe:1 -> ok: crafted 1 stone_pickaxe
+[10:46:34] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    craft stone_sword:1 -> ok: crafted 1 stone_sword
+[10:46:34] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    pickup stations -> ok: nothing left to pick up
+[10:46:34] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    collect raw_iron:13 -> failed TIMEOUT: timed out after 360 s
+[10:46:34] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    goto surface -> failed DIED: died
+[10:46:34] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    shelter -> ok: it's morning; climbed out
+[10:47:05] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test] natural 1170s: brain learned none, goal iron_tools, doing collect stone:13, milestone 2/13, deaths 2
+[autopilot-test]    perf fps 27, server 4.7 ms/tick, mod 0.56 ms/tick
+[10:47:05] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    at 71 64 -77 hp 20 food 20 inv {birch_planks=1, birch_sapling=1, crafting_table=1, dirt=3, leaf_litter=2, stick=1, string=1, wooden_pickaxe=1, wooden_sword=1}
+[10:47:05] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    known water 55, 62, -61, lava 66, -35, -74
+[10:47:05] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    attack creeper -> failed HAZARD: no safe gap after hitting the creeper
+[10:47:05] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    attack creeper -> failed HAZARD: creeper started its fuse before the hit
+[10:47:05] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    retreat -> failed INTERRUPTED: interrupted by reflex_creeper
+[10:47:05] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    retreat -> ok: got away
+[10:47:05] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    collect stone:13 -> failed INTERRUPTED: interrupted: brain chose attack spider
+[10:47:05] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test]    attack spider -> ok: killed the spider
+[autopilot-test] SPEED 0.986 game s per wall s (1200 game s in 1217 wall s), mod 0.56 ms per tick
+[10:47:35] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test] FINAL natural: brain learned none, goal iron_tools, doing collect stone:13, milestone 2/13, deaths 2, dimension overworld, milestone times m1@61s m2@268s, checkpoints lava_seen@330s at_depth@382s
+[10:47:35] [Render thread/INFO] (Minecraft) [STDOUT]: [autopilot-test] LESSON shore  failed 4 of 7 (mostly STUCK: stuck: stayed inside # blocks for # s)
