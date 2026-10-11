@@ -2728,7 +2728,8 @@
   "2026-10-07": 6,
   "2026-10-08": 5,
   "2026-10-09": 6,
-  "2026-10-10": 5
+  "2026-10-10": 5,
+  "2026-10-11": 1
  },
  "evolve_log": [
   {
@@ -2885,6 +2886,12 @@
   {
    "gen": 287,
    "gid": "g274",
+   "mode": "edit",
+   "result": "racing"
+  },
+  {
+   "gen": 291,
+   "gid": "g278",
    "mode": "edit",
    "result": "racing"
   }
@@ -33497,6 +33504,51 @@
    "parent": "g276",
    "status": "contender"
   },
+  "g278": {
+   "born": 291,
+   "code": {
+    "base": "91d44de4fbc72526287a191ce432dba1a89adb1c",
+    "branch": "evolve/g278",
+    "files": [
+     "mod/src/main/java/io/github/plrlr/autopilot/skills/NetherSkills.java"
+    ],
+    "sha": "cffb8b3b30b8fd384ba035339f9b356a61e4b599",
+    "summary": "Fortress blaze fight: when every known anchor has been tried, walk to a point ~24 blocks beyond the farthest known fortress brick (up to 3 times) so the view sweep reveals new parts of the fortress, instead of failing NOT_FOUND."
+   },
+   "evals": [],
+   "genes": {
+    "combat.creeper_hit": 1.0,
+    "combat.ignore_walled_mobs": 1.0,
+    "combat.shield_guard": 1.0,
+    "death.recover_night_armor": 12.0,
+    "focus.commit": 1.0,
+    "gear.sword_early": 1.0,
+    "learned.weight": 1.0,
+    "move.shore_first": 1.0,
+    "nav.surface_v2": 1.0,
+    "nav.unstuck_v2": 1.0,
+    "night.shelter_exit": 1.0,
+    "night.wall_in": 1.0,
+    "plan.hide_hp": 15.0,
+    "plan.readiness": 1.0,
+    "portal.prepare_work_area": 1.0,
+    "portal.reserve_lava_bucket": 1.0,
+    "route.armor_before_portal": 1.0,
+    "skill.enderman_warped": 1.0,
+    "skill.portal_repair": 1.0,
+    "skill.ruined_portal": 1.0,
+    "stations.pickup_last": 1.0,
+    "stuck.item_progress": 1.0
+   },
+   "id": "g278",
+   "mutated": [
+    "code"
+   ],
+   "note": "code: Fortress blaze fight: when every known anchor has been tried, walk to a point ~24 blocks beyond the farthest known fortress brick (up to 3 times) so the view sweep reveals new parts of the fortress, instead of failing NOT_FOUND.",
+   "pairs": [],
+   "parent": "g237",
+   "status": "contender"
+  },
   "g28": {
    "born": 40,
    "code": null,
@@ -43791,7 +43843,8 @@
   "When the bot is already out at sea, turning back after 20 s of swimming and marking that heading bad makes every explore leg a short loop. An explore leg that starts in water should keep going in a straight line to land and then hand back to shore.",
   "Backing up while facing a creeper is no faster than the creeper walks, so the gap never opens. Turning away and sprinting is the only player movement that actually outruns it, and the attack should do that itself instead of failing over to retreat.",
   "The 'climbed 0 blocks' STUCK message means the pillar jumped for 20 s without placing a block. A likely cause is too little headroom: a jump needs about 3 free blocks above the feet, and only the block 2 up was cleared.",
-  "Blazes keep spawning across a fortress and at its spawner. Running out of untried anchors only means the bot has to wait somewhere, so failing hands the fight back to a planner that just restarts it in the same place."
+  "Blazes keep spawning across a fortress and at its spawner. Running out of untried anchors only means the bot has to wait somewhere, so failing hands the fight back to a planner that just restarts it in the same place.",
+  "blazes NOT_FOUND means the known part of the fortress is exhausted, not the fortress; since fortress find refuses once any brick is known, the fight itself must extend what is known by walking beyond its edge."
  ],
  "learned_race": {
   "gen": 256,
@@ -43812,7 +43865,7 @@
   "mean_gap_ok": 0.211,
   "n": 1789
  },
- "next_id": 278,
+ "next_id": 279,
  "pending": null,
  "race_evidence_version": 2,
  "score_since_gen": 179,
