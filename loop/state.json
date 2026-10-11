@@ -2715,7 +2715,7 @@
   "2026-10-08": 17,
   "2026-10-09": 18,
   "2026-10-10": 17,
-  "2026-10-11": 4
+  "2026-10-11": 5
  },
  "evolve_days": {
   "2026-09-27": 1,
@@ -2896,7 +2896,7 @@
    "result": "racing"
   }
  ],
- "gen": 292,
+ "gen": 293,
  "gene_specs": {
   "bed.table_first": {
    "def": 0.0,
@@ -34038,6 +34038,102 @@
    "parent": "g24",
    "status": "rejected"
   },
+  "g280": {
+   "born": 293,
+   "code": {
+    "base": "91d44de4fbc72526287a191ce432dba1a89adb1c",
+    "branch": "evolve/g278",
+    "files": [
+     "mod/src/main/java/io/github/plrlr/autopilot/skills/NetherSkills.java"
+    ],
+    "sha": "cffb8b3b30b8fd384ba035339f9b356a61e4b599",
+    "summary": "Fortress blaze fight: when every known anchor has been tried, walk to a point ~24 blocks beyond the farthest known fortress brick (up to 3 times) so the view sweep reveals new parts of the fortress, instead of failing NOT_FOUND."
+   },
+   "evals": [],
+   "genes": {
+    "combat.creeper_hit": 1.0,
+    "combat.ignore_walled_mobs": 1.0,
+    "combat.shield_guard": 1.0,
+    "death.recover_night_armor": 12.0,
+    "deep.branch": 1.0,
+    "deep.stairs": 1.0,
+    "focus.commit": 1.0,
+    "gear.sword_early": 1.0,
+    "learned.weight": 1.0,
+    "move.shore_first": 1.0,
+    "nav.surface_v2": 1.0,
+    "nav.unstuck_v2": 1.0,
+    "night.shelter_exit": 1.0,
+    "night.wall_in": 1.0,
+    "plan.hide_hp": 15.0,
+    "plan.readiness": 1.0,
+    "portal.prepare_work_area": 1.0,
+    "portal.reserve_lava_bucket": 1.0,
+    "reflex.clutch_fall": 5.363447563686301,
+    "route.armor_before_portal": 1.0,
+    "skill.enderman_warped": 1.0,
+    "skill.portal_repair": 1.0,
+    "skill.ruined_portal": 1.0,
+    "stations.pickup_last": 1.0,
+    "stuck.item_progress": 1.0
+   },
+   "id": "g280",
+   "mutated": [
+    "deep.branch",
+    "deep.stairs",
+    "reflex.clutch_fall"
+   ],
+   "note": "deep.branch 1, deep.stairs 1, reflex.clutch_fall 5.36345",
+   "pairs": [],
+   "parent": "g278",
+   "status": "contender"
+  },
+  "g281": {
+   "born": 293,
+   "code": {
+    "base": "91d44de4fbc72526287a191ce432dba1a89adb1c",
+    "branch": "evolve/g278",
+    "files": [
+     "mod/src/main/java/io/github/plrlr/autopilot/skills/NetherSkills.java"
+    ],
+    "sha": "cffb8b3b30b8fd384ba035339f9b356a61e4b599",
+    "summary": "Fortress blaze fight: when every known anchor has been tried, walk to a point ~24 blocks beyond the farthest known fortress brick (up to 3 times) so the view sweep reveals new parts of the fortress, instead of failing NOT_FOUND."
+   },
+   "evals": [],
+   "genes": {
+    "combat.creeper_hit": 1.0,
+    "combat.ignore_walled_mobs": 1.0,
+    "combat.shield_guard": 1.0,
+    "death.recover_night_armor": 12.0,
+    "focus.commit": 1.0,
+    "gear.sword_early": 1.0,
+    "learned.weight": 1.0,
+    "move.shore_first": 1.0,
+    "nav.surface_v2": 1.0,
+    "nav.unstuck_v2": 1.0,
+    "night.shelter_exit": 1.0,
+    "night.wall_in": 1.0,
+    "plan.hide_hp": 15.0,
+    "plan.readiness": 1.0,
+    "portal.prepare_work_area": 1.0,
+    "portal.reserve_lava_bucket": 1.0,
+    "route.armor_before_portal": 1.0,
+    "skill.enderman_warped": 1.0,
+    "skill.portal_repair": 1.0,
+    "skill.ruined_portal": 1.0,
+    "stations.pickup_last": 1.0,
+    "stuck.item_progress": 1.0,
+    "stuck.window_s": 10.0
+   },
+   "id": "g281",
+   "mutated": [
+    "stuck.window_s"
+   ],
+   "note": "stuck.window_s 10",
+   "pairs": [],
+   "parent": "g278",
+   "status": "contender"
+  },
   "g29": {
    "born": 41,
    "code": {
@@ -44051,8 +44147,89 @@
   "mean_gap_ok": 0.1615,
   "n": 1808
  },
- "next_id": 280,
- "pending": null,
+ "next_id": 282,
+ "pending": {
+  "data_tasks": [
+   {
+    "asset": "end-gen265-data-g237-0.zip",
+    "kind": "start",
+    "late": true,
+    "seed": "D293-bura7b",
+    "stage": "end",
+    "synthetic": true
+   },
+   {
+    "kind": "natural",
+    "seed": "D293-2bx2cf",
+    "stage": "spawn",
+    "synthetic": false
+   }
+  ],
+  "gen": 293,
+  "lineup": [
+   "g237",
+   "g278",
+   "g280",
+   "g281"
+  ],
+  "runs": [
+   "eval-g237-0",
+   "eval-g237-1",
+   "eval-g237-2",
+   "eval-g237-3",
+   "eval-g278-0",
+   "eval-g278-1",
+   "eval-g278-2",
+   "eval-g278-3",
+   "eval-g280-0",
+   "eval-g280-1",
+   "eval-g280-2",
+   "eval-g280-3",
+   "eval-g281-0",
+   "eval-g281-1",
+   "eval-g281-2",
+   "eval-g281-3",
+   "data-g237-0",
+   "data-g237-1"
+  ],
+  "seeds": [
+   "L293-heusag",
+   "L293-erhvqu",
+   "L293-jxk4ed",
+   "L293-n3ufb9"
+  ],
+  "sha": "91d44de4fbc72526287a191ce432dba1a89adb1c",
+  "started": "2026-10-11T05:53:07+00:00",
+  "tasks": [
+   {
+    "kind": "natural",
+    "seed": "L293-heusag",
+    "stage": "spawn",
+    "synthetic": false
+   },
+   {
+    "kind": "natural",
+    "seed": "L293-erhvqu",
+    "stage": "spawn",
+    "synthetic": false
+   },
+   {
+    "asset": "nether-gen279-eval-g263-0.zip",
+    "kind": "start",
+    "seed": "L293-jxk4ed",
+    "stage": "nether",
+    "synthetic": false
+   },
+   {
+    "kind": "combat",
+    "minutes": 10,
+    "scenario": "combat",
+    "seed": "L293-n3ufb9",
+    "stage": "combat",
+    "synthetic": false
+   }
+  ]
+ },
  "race_evidence_version": 2,
  "score_since_gen": 179,
  "score_version": 4,
