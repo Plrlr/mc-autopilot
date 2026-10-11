@@ -31,6 +31,7 @@ public final class EvolvedSkills {
 
 	static {
 		// evolve:entries (scripts/loop/evolve.py appends one add(...) line per evolved skill here)
+		add(new Entry("evolved.close_in", "close_in", CloseIn::new, CloseIn::offer, "close_in mob: after an attack couldnt reach a visible nearby mob, step/jump/swim straight at it into reach"));
 		// evolve:end
 	}
 

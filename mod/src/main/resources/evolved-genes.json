@@ -1,1 +1,15 @@
-{"_about": "append-only list of genes for evolved skills (scripts/loop/evolve.py appends)", "genes": []}
+{
+ "_about": "append-only list of genes for evolved skills (scripts/loop/evolve.py appends)",
+ "genes": [
+  {
+   "name": "evolved.close_in",
+   "kind": "BOOL",
+   "def": 0,
+   "skill": "close_in",
+   "why": "close_in <mob>: after an attack couldn't reach a visible nearby mob, step/jump/swim straight at it into reach",
+   "gen": 295,
+   "target": "attack UNREACHABLE",
+   "metric": "resolve:attack:UNREACHABLE"
+  }
+ ]
+}
