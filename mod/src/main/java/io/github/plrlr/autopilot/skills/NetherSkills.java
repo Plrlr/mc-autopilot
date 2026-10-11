@@ -442,6 +442,17 @@ public final class NetherSkills {
 					return;
 				}
 				// Rods first if one is lying close by; otherwise close in on the blaze.
+				// A blaze over lava or an open drop: walking toward it leads to bridge edges and lava
+				// (lava and fire are the top Nether deaths, most during this fight). Hold position
+				// with the shield up; it comes over the floor to attack, or trackChase sets it aside.
+				if (overLava(e)) {
+					trackChase(blaze);
+					if (Bari.pathing()) Bari.stop();
+					walking = false;
+					Mc.lookAt(e.getBoundingBox().getCenter());
+					keyUse.setDown(Items2.id(pl.getOffhandItem()).equals("shield"));
+					return;
+				}
 				if (blaze.dist() > 6 || !rodNearby(pl, seen)) {
 					trackChase(blaze);
 					if (ticks % 10 == 0) Bari.path(new GoalNear(e.blockPosition(), 2));
@@ -501,6 +512,18 @@ public final class NetherSkills {
 				Bari.stop();
 				walking = false;
 			}
+		}
+
+		/** True when the column under the mob shows lava (any fluid) or no ground within 10 blocks. */
+		private static boolean overLava(Entity e) {
+			BlockPos p = e.blockPosition();
+			for (int i = 0; i < 10; i++) {
+				p = p.below();
+				var st = Mc.state(p);
+				if (!st.getFluidState().isEmpty()) return true;
+				if (!st.isAir()) return false;
+			}
+			return true;
 		}
 
 		/** The nearest blaze, skipping ones we couldn't reach unless they came close. */
