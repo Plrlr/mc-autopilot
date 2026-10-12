@@ -2727,7 +2727,7 @@
   "2026-10-09": 18,
   "2026-10-10": 17,
   "2026-10-11": 17,
-  "2026-10-12": 1
+  "2026-10-12": 2
  },
  "evolve_days": {
   "2026-09-27": 1,
@@ -2935,7 +2935,7 @@
    "target": "fortress DIED"
   }
  ],
- "gen": 306,
+ "gen": 307,
  "gene_specs": {
   "bed.table_first": {
    "def": 0.0,
@@ -36851,6 +36851,45 @@
    "parent": "g237",
    "status": "drilling"
   },
+  "g298": {
+   "born": 307,
+   "code": null,
+   "evals": [],
+   "genes": {
+    "combat.creeper_hit": 1.0,
+    "combat.ignore_walled_mobs": 1.0,
+    "combat.shield_guard": 1.0,
+    "death.recover_night_armor": 12.0,
+    "focus.commit": 1.0,
+    "gear.sword_early": 1.0,
+    "learned.weight": 1.0,
+    "move.shore_first": 1.0,
+    "nav.surface_v2": 1.0,
+    "nav.unstuck_v2": 1.0,
+    "night.shelter_exit": 1.0,
+    "night.wall_in": 1.0,
+    "plan.hide_hp": 15.0,
+    "plan.readiness": 1.0,
+    "portal.prepare_work_area": 1.0,
+    "portal.reserve_lava_bucket": 1.0,
+    "route.armor_before_portal": 1.0,
+    "skill.crystal_hunt": 1.0,
+    "skill.enderman_warped": 1.0,
+    "skill.nether_arrival": 1.0,
+    "skill.portal_repair": 1.0,
+    "skill.ruined_portal": 1.0,
+    "stations.pickup_last": 1.0,
+    "stuck.item_progress": 1.0
+   },
+   "id": "g298",
+   "mutated": [
+    "skill.crystal_hunt"
+   ],
+   "note": "skill.crystal_hunt 1",
+   "pairs": [],
+   "parent": "g296",
+   "status": "contender"
+  },
   "g3": {
    "born": 1,
    "code": null,
@@ -46839,8 +46878,89 @@
   "mean_gap_ok": -0.0728,
   "n": 1906
  },
- "next_id": 298,
- "pending": null,
+ "next_id": 299,
+ "pending": {
+  "data_tasks": [
+   {
+    "asset": "stronghold-gen242-data-g196-0.zip",
+    "kind": "start",
+    "late": true,
+    "seed": "D307-exn7w9",
+    "stage": "stronghold",
+    "synthetic": true
+   },
+   {
+    "kind": "natural",
+    "seed": "D307-xssa78",
+    "stage": "spawn",
+    "synthetic": false
+   }
+  ],
+  "gen": 307,
+  "lineup": [
+   "g237",
+   "g296",
+   "g295",
+   "g298"
+  ],
+  "runs": [
+   "eval-g237-0",
+   "eval-g237-1",
+   "eval-g237-2",
+   "eval-g237-3",
+   "eval-g296-0",
+   "eval-g296-1",
+   "eval-g296-2",
+   "eval-g296-3",
+   "eval-g295-0",
+   "eval-g295-1",
+   "eval-g295-2",
+   "eval-g295-3",
+   "eval-g298-0",
+   "eval-g298-1",
+   "eval-g298-2",
+   "eval-g298-3",
+   "data-g237-0",
+   "data-g237-1"
+  ],
+  "seeds": [
+   "L307-2fgfv9",
+   "L307-64j66j",
+   "L307-cgbmk9",
+   "L307-3kuwzu"
+  ],
+  "sha": "91d44de4fbc72526287a191ce432dba1a89adb1c",
+  "started": "2026-10-12T02:24:52+00:00",
+  "tasks": [
+   {
+    "kind": "natural",
+    "seed": "L307-2fgfv9",
+    "stage": "spawn",
+    "synthetic": false
+   },
+   {
+    "kind": "natural",
+    "seed": "L307-64j66j",
+    "stage": "spawn",
+    "synthetic": false
+   },
+   {
+    "asset": "nether-gen298-eval-g289-1.zip",
+    "kind": "start",
+    "seed": "L307-cgbmk9",
+    "stage": "nether",
+    "synthetic": false
+   },
+   {
+    "kind": "combat",
+    "minutes": 10,
+    "scenario": "combat",
+    "seed": "L307-3kuwzu",
+    "stage": "combat",
+    "synthetic": false
+   }
+  ]
+ },
  "race_evidence_version": 2,
  "score_since_gen": 179,
  "score_version": 4,
