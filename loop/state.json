@@ -2727,7 +2727,7 @@
   "2026-10-09": 18,
   "2026-10-10": 17,
   "2026-10-11": 17,
-  "2026-10-12": 11
+  "2026-10-12": 12
  },
  "evolve_days": {
   "2026-09-27": 1,
@@ -2947,7 +2947,7 @@
    "result": "racing"
   }
  ],
- "gen": 316,
+ "gen": 317,
  "gene_specs": {
   "bed.table_first": {
    "def": 0.0,
@@ -38841,6 +38841,54 @@
    "parent": "g301",
    "status": "contender"
   },
+  "g307": {
+   "born": 317,
+   "code": {
+    "base": "91d44de4fbc72526287a191ce432dba1a89adb1c",
+    "branch": "evolve/g305",
+    "files": [
+     "mod/src/main/java/io/github/plrlr/autopilot/skills/CollectSkill.java"
+    ],
+    "sha": "3b41bb8c6390e59b781bea2d324a75ff19ebae7f",
+    "summary": "Collect for seen-only blocks (logs, sand, obsidian) now goes to a remembered block beyond 64 blocks, up to about 190, instead of failing NOT_FOUND. This ends the collect-log NOT_FOUND / explore-log ALREADY_DONE loop, where explore refused because a log was 'already seen' that collect wouldn't consider."
+   },
+   "evals": [],
+   "genes": {
+    "combat.creeper_hit": 1.0,
+    "combat.ignore_walled_mobs": 1.0,
+    "combat.shield_guard": 1.0,
+    "death.recover_night_armor": 12.0,
+    "focus.commit": 1.0,
+    "gather.cautious_depth": 1.0,
+    "gear.sword_early": 1.0,
+    "learned.weight": 1.0,
+    "move.shore_first": 1.0,
+    "nav.surface_v2": 1.0,
+    "nav.unstuck_v2": 1.0,
+    "night.shelter_exit": 1.0,
+    "night.wall_in": 1.0,
+    "pearls.provoke_s": 19.0,
+    "plan.hide_hp": 15.0,
+    "plan.readiness": 1.0,
+    "portal.prepare_work_area": 1.0,
+    "portal.reserve_lava_bucket": 1.0,
+    "route.armor_before_portal": 1.0,
+    "skill.enderman_warped": 1.0,
+    "skill.portal_repair": 1.0,
+    "skill.ruined_portal": 1.0,
+    "stations.pickup_last": 1.0,
+    "stuck.item_progress": 1.0
+   },
+   "id": "g307",
+   "mutated": [
+    "combat.creeper_hit",
+    "gather.cautious_depth"
+   ],
+   "note": "combat.creeper_hit 1, gather.cautious_depth 1",
+   "pairs": [],
+   "parent": "g305",
+   "status": "contender"
+  },
   "g31": {
    "born": 42,
    "code": null,
@@ -48544,8 +48592,89 @@
   "mean_gap_ok": 0.0306,
   "n": 1906
  },
- "next_id": 307,
- "pending": null,
+ "next_id": 308,
+ "pending": {
+  "data_tasks": [
+   {
+    "asset": "end-gen265-data-g237-0.zip",
+    "kind": "start",
+    "late": true,
+    "seed": "D317-wffd9a",
+    "stage": "end",
+    "synthetic": true
+   },
+   {
+    "kind": "natural",
+    "seed": "D317-tfz3vb",
+    "stage": "spawn",
+    "synthetic": false
+   }
+  ],
+  "gen": 317,
+  "lineup": [
+   "g301",
+   "g305",
+   "g306",
+   "g307"
+  ],
+  "runs": [
+   "eval-g301-0",
+   "eval-g301-1",
+   "eval-g301-2",
+   "eval-g301-3",
+   "eval-g305-0",
+   "eval-g305-1",
+   "eval-g305-2",
+   "eval-g305-3",
+   "eval-g306-0",
+   "eval-g306-1",
+   "eval-g306-2",
+   "eval-g306-3",
+   "eval-g307-0",
+   "eval-g307-1",
+   "eval-g307-2",
+   "eval-g307-3",
+   "data-g301-0",
+   "data-g301-1"
+  ],
+  "seeds": [
+   "L317-z47u4m",
+   "L317-vw4dwh",
+   "L317-z4ewhw",
+   "L317-rvfzk3"
+  ],
+  "sha": "91d44de4fbc72526287a191ce432dba1a89adb1c",
+  "started": "2026-10-12T17:44:01+00:00",
+  "tasks": [
+   {
+    "kind": "natural",
+    "seed": "L317-z47u4m",
+    "stage": "spawn",
+    "synthetic": false
+   },
+   {
+    "kind": "natural",
+    "seed": "L317-vw4dwh",
+    "stage": "spawn",
+    "synthetic": false
+   },
+   {
+    "asset": "nether-gen262-eval-g240-0.zip",
+    "kind": "start",
+    "seed": "L317-z4ewhw",
+    "stage": "nether",
+    "synthetic": false
+   },
+   {
+    "kind": "combat",
+    "minutes": 10,
+    "scenario": "combat",
+    "seed": "L317-rvfzk3",
+    "stage": "combat",
+    "synthetic": false
+   }
+  ]
+ },
  "race_evidence_version": 2,
  "score_since_gen": 179,
  "score_version": 4,
