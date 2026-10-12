@@ -2727,7 +2727,7 @@
   "2026-10-09": 18,
   "2026-10-10": 17,
   "2026-10-11": 17,
-  "2026-10-12": 2
+  "2026-10-12": 3
  },
  "evolve_days": {
   "2026-09-27": 1,
@@ -2935,7 +2935,7 @@
    "target": "fortress DIED"
   }
  ],
- "gen": 307,
+ "gen": 308,
  "gene_specs": {
   "bed.table_first": {
    "def": 0.0,
@@ -36909,7 +36909,9 @@
      "_metric": "deaths",
      "evolved.fortress_rest": 1
     },
-    "run": 38195658390
+    "run": 38195658390,
+    "verdict": "INCONCLUSIVE",
+    "why": "INCONCLUSIVE: on 0 deaths in 29 min, off 5 deaths in 30 min, z +2.2; exposure on its side: fortress_rest offered 0, chosen 0, started 0, ended 0 (0 ok); acted in 0 of 3 games"
    },
    "evals": [],
    "exposure_spec": {
@@ -36941,6 +36943,7 @@
     "stuck.item_progress": 1.0
    },
    "id": "g297",
+   "inconclusive": "never ran in its drill",
    "metric": "deaths",
    "mutated": [
     "code",
@@ -36949,7 +36952,7 @@
    "note": "code: new skill fortress_rest for fortress DIED: fortress_rest: in the Nether, before fortress find/blazes starts, stand still (sneaking) and heal to full when health \u226416, eating first if needed, so each fortress leg starts at 20 HP. Targets fortress DIED.",
    "pairs": [],
    "parent": "g237",
-   "status": "drilling"
+   "status": "rejected"
   },
   "g298": {
    "born": 307,
@@ -37030,6 +37033,44 @@
     ]
    ],
    "parent": "g296",
+   "status": "contender"
+  },
+  "g299": {
+   "born": 308,
+   "code": null,
+   "evals": [],
+   "genes": {
+    "combat.creeper_hit": 1.0,
+    "combat.ignore_walled_mobs": 1.0,
+    "combat.shield_guard": 1.0,
+    "death.recover_night_armor": 12.0,
+    "fluid.enclosed_tunnel": 1.0,
+    "focus.commit": 1.0,
+    "gear.sword_early": 1.0,
+    "learned.weight": 1.0,
+    "move.shore_first": 1.0,
+    "nav.surface_v2": 1.0,
+    "nav.unstuck_v2": 1.0,
+    "night.shelter_exit": 1.0,
+    "night.wall_in": 1.0,
+    "plan.hide_hp": 15.0,
+    "plan.readiness": 1.0,
+    "portal.prepare_work_area": 1.0,
+    "portal.reserve_lava_bucket": 1.0,
+    "route.armor_before_portal": 1.0,
+    "skill.enderman_warped": 1.0,
+    "skill.portal_repair": 1.0,
+    "skill.ruined_portal": 1.0,
+    "stations.pickup_last": 1.0,
+    "stuck.item_progress": 1.0
+   },
+   "id": "g299",
+   "mutated": [
+    "fluid.enclosed_tunnel"
+   ],
+   "note": "fluid.enclosed_tunnel 1",
+   "pairs": [],
+   "parent": "g237",
    "status": "contender"
   },
   "g3": {
@@ -47020,8 +47061,89 @@
   "mean_gap_ok": -0.368,
   "n": 1906
  },
- "next_id": 299,
- "pending": null,
+ "next_id": 300,
+ "pending": {
+  "data_tasks": [
+   {
+    "asset": "end-gen265-data-g237-0.zip",
+    "kind": "start",
+    "late": true,
+    "seed": "D308-8k28hp",
+    "stage": "end",
+    "synthetic": true
+   },
+   {
+    "kind": "natural",
+    "seed": "D308-swtv6n",
+    "stage": "spawn",
+    "synthetic": false
+   }
+  ],
+  "gen": 308,
+  "lineup": [
+   "g237",
+   "g298",
+   "g296",
+   "g299"
+  ],
+  "runs": [
+   "eval-g237-0",
+   "eval-g237-1",
+   "eval-g237-2",
+   "eval-g237-3",
+   "eval-g298-0",
+   "eval-g298-1",
+   "eval-g298-2",
+   "eval-g298-3",
+   "eval-g296-0",
+   "eval-g296-1",
+   "eval-g296-2",
+   "eval-g296-3",
+   "eval-g299-0",
+   "eval-g299-1",
+   "eval-g299-2",
+   "eval-g299-3",
+   "data-g237-0",
+   "data-g237-1"
+  ],
+  "seeds": [
+   "L308-gfyq9g",
+   "L308-n7yty5",
+   "L308-49pv5j",
+   "L308-vvdj9e"
+  ],
+  "sha": "91d44de4fbc72526287a191ce432dba1a89adb1c",
+  "started": "2026-10-12T04:02:18+00:00",
+  "tasks": [
+   {
+    "kind": "natural",
+    "seed": "L308-gfyq9g",
+    "stage": "spawn",
+    "synthetic": false
+   },
+   {
+    "kind": "natural",
+    "seed": "L308-n7yty5",
+    "stage": "spawn",
+    "synthetic": false
+   },
+   {
+    "asset": "nether-gen280-eval-g260-1.zip",
+    "kind": "start",
+    "seed": "L308-49pv5j",
+    "stage": "nether",
+    "synthetic": false
+   },
+   {
+    "kind": "combat",
+    "minutes": 10,
+    "scenario": "combat",
+    "seed": "L308-vvdj9e",
+    "stage": "combat",
+    "synthetic": false
+   }
+  ]
+ },
  "race_evidence_version": 2,
  "score_since_gen": 179,
  "score_version": 4,
@@ -47925,7 +48047,7 @@
   {
    "gen": 306,
    "gid": "g297",
-   "result": "drilling",
+   "result": "inconclusive: never ran in its drill (its offer never fired): INCONCLUSIVE: on 0 deaths in 29 min, off 5 deaths in 30 min, z +2.2; exposure on its side: fortress_rest offered 0, chosen 0, started 0, ended 0 (0 ok); acted in 0 of 3 games",
    "skill": "fortress_rest",
    "target": "fortress DIED"
   }
