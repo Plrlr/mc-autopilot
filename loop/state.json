@@ -2742,7 +2742,7 @@
   "2026-10-09": 6,
   "2026-10-10": 5,
   "2026-10-11": 4,
-  "2026-10-12": 1
+  "2026-10-12": 2
  },
  "evolve_log": [
   {
@@ -2933,6 +2933,12 @@
    "mode": "skill",
    "result": "drilling",
    "target": "fortress DIED"
+  },
+  {
+   "gen": 308,
+   "gid": "g300",
+   "mode": "edit",
+   "result": "racing"
   }
  ],
  "gen": 308,
@@ -37502,6 +37508,51 @@
    "parent": "g24",
    "status": "rejected"
   },
+  "g300": {
+   "born": 308,
+   "code": {
+    "base": "91d44de4fbc72526287a191ce432dba1a89adb1c",
+    "branch": "evolve/g300",
+    "files": [
+     "mod/src/main/java/io/github/plrlr/autopilot/skills/CombatSkills.java"
+    ],
+    "sha": "30f401779bf8a21520ee74269b120956a6649277",
+    "summary": "Creeper fight: when the post-hit back-off can't open the gap (unsafe step or 2 s elapsed) but the creeper's fuse is not lit, resume attacking (up to 4 swings) instead of failing HAZARD and handing off to a retreat that often stalls."
+   },
+   "evals": [],
+   "genes": {
+    "combat.creeper_hit": 1.0,
+    "combat.ignore_walled_mobs": 1.0,
+    "combat.shield_guard": 1.0,
+    "death.recover_night_armor": 12.0,
+    "focus.commit": 1.0,
+    "gear.sword_early": 1.0,
+    "learned.weight": 1.0,
+    "move.shore_first": 1.0,
+    "nav.surface_v2": 1.0,
+    "nav.unstuck_v2": 1.0,
+    "night.shelter_exit": 1.0,
+    "night.wall_in": 1.0,
+    "plan.hide_hp": 15.0,
+    "plan.readiness": 1.0,
+    "portal.prepare_work_area": 1.0,
+    "portal.reserve_lava_bucket": 1.0,
+    "route.armor_before_portal": 1.0,
+    "skill.enderman_warped": 1.0,
+    "skill.portal_repair": 1.0,
+    "skill.ruined_portal": 1.0,
+    "stations.pickup_last": 1.0,
+    "stuck.item_progress": 1.0
+   },
+   "id": "g300",
+   "mutated": [
+    "code"
+   ],
+   "note": "code: Creeper fight: when the post-hit back-off can't open the gap (unsafe step or 2 s elapsed) but the creeper's fuse is not lit, resume attacking (up to 4 swings) instead of failing HAZARD and handing off to a retreat that often stalls.",
+   "pairs": [],
+   "parent": "g237",
+   "status": "contender"
+  },
   "g31": {
    "born": 42,
    "code": null,
@@ -47182,7 +47233,8 @@
   "Attack UNREACHABLE mostly fires at 3-4 blocks when the pathfinder's 'near' goal stalls on a ledge, hole or water; direct key movement toward a visible mob can close that last gap where pathing gives up.",
   "The tried-anchor exclusion is a 20-block disc around both the anchor and the bot's own spot. That uses up a partly seen fortress in about 4 hops, before the 2-minute retry reopens anything. A smaller radius gets the fight more anchors without adding new walking logic.",
   "Most Nether first deaths (lava, onFire, inFire) come during fortress:blazes from near-full health, so they are sudden environmental deaths; where the chase leads matters more than when the bot heals.",
-  "Nether fortress deaths are sudden hits (lava, fire, piglins) that land while the bot is chasing. The one cheap thing the bot controls is starting every fortress leg at full health instead of the median 16, because health only regenerates at 18+ hunger and only while the bot stands still and safe."
+  "Nether fortress deaths are sudden hits (lava, fire, piglins) that land while the bot is chasing. The one cheap thing the bot controls is starting every fortress leg at full health instead of the median 16, because health only regenerates at 18+ hunger and only while the bot stands still and safe.",
+  "Creeper HAZARD failures happen when the back-off stalls while the creeper is still harmless (not swelling); handing over to retreat is where the deaths happen, so the attack should keep hitting until the fuse actually lights."
  ],
  "learned_race": {
   "gen": 256,
@@ -47203,7 +47255,7 @@
   "mean_gap_ok": -0.1059,
   "n": 1906
  },
- "next_id": 300,
+ "next_id": 301,
  "pending": null,
  "race_evidence_version": 2,
  "score_since_gen": 179,
