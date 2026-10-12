@@ -94,6 +94,19 @@ public final class CollectSkill extends Skill {
 			timeoutTicks = 20 * 360;
 			return;
 		}
+		// A log seen farther than SEEN_RANGE: explore refuses ("already see log") while collect said
+		// "none seen nearby", and the two took turns (117 back-to-back NOT_FOUND). Go to the one we saw.
+		if (seenOnly && !visibleOnly && group != null) {
+			var far = memory.nearest(group);
+			if (far != null) {
+				int d = (int) Math.sqrt(far.pos().distSqr(Mc.player().blockPosition())) + 8;
+				if (d > SEEN_RANGE && d <= 192 && SeenMiner.anySeen(memory, group, d)) {
+					seenMiner = new SeenMiner(memory, group, d, false);
+					timeoutTicks = 20 * 360;
+					return;
+				}
+			}
+		}
 		if (Mc.player().isInWater() && src.mineY() == null) {
 			fail(Fail.WRONG_PLACE, "in water: " + item + " is dug from dry ground");
 			return;
