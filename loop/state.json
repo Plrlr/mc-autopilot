@@ -2741,7 +2741,8 @@
   "2026-10-08": 5,
   "2026-10-09": 6,
   "2026-10-10": 5,
-  "2026-10-11": 4
+  "2026-10-11": 4,
+  "2026-10-12": 1
  },
  "evolve_log": [
   {
@@ -2925,6 +2926,13 @@
    "gid": "g294",
    "mode": "edit",
    "result": "racing"
+  },
+  {
+   "gen": 306,
+   "gid": "g297",
+   "mode": "skill",
+   "result": "drilling",
+   "target": "fortress DIED"
   }
  ],
  "gen": 306,
@@ -36778,6 +36786,71 @@
    "parent": "g237",
    "status": "contender"
   },
+  "g297": {
+   "born": 306,
+   "code": {
+    "base": "91d44de4fbc72526287a191ce432dba1a89adb1c",
+    "branch": "evolve/g297",
+    "files": [
+     "mod/src/main/java/io/github/plrlr/autopilot/skills/evolved/FortressRest.java",
+     "mod/src/main/java/io/github/plrlr/autopilot/skills/evolved/EvolvedSkills.java",
+     "mod/src/main/resources/evolved-genes.json"
+    ],
+    "gene": "evolved.fortress_rest",
+    "kind": "skill",
+    "sha": "e7dc1262cec11f08f158d09fdf09e7109407b817",
+    "skill": "fortress_rest",
+    "summary": "fortress_rest: in the Nether, before fortress find/blazes starts, stand still (sneaking) and heal to full when health \u226416, eating first if needed, so each fortress leg starts at 20 HP. Targets fortress DIED.",
+    "target": "fortress DIED"
+   },
+   "drill": {
+    "gen": 306,
+    "idea": {
+     "_metric": "deaths",
+     "evolved.fortress_rest": 1
+    },
+    "run": 38195658390
+   },
+   "evals": [],
+   "exposure_spec": {
+    "skill": "fortress_rest"
+   },
+   "genes": {
+    "combat.creeper_hit": 1.0,
+    "combat.ignore_walled_mobs": 1.0,
+    "combat.shield_guard": 1.0,
+    "death.recover_night_armor": 12.0,
+    "evolved.fortress_rest": 1.0,
+    "focus.commit": 1.0,
+    "gear.sword_early": 1.0,
+    "learned.weight": 1.0,
+    "move.shore_first": 1.0,
+    "nav.surface_v2": 1.0,
+    "nav.unstuck_v2": 1.0,
+    "night.shelter_exit": 1.0,
+    "night.wall_in": 1.0,
+    "plan.hide_hp": 15.0,
+    "plan.readiness": 1.0,
+    "portal.prepare_work_area": 1.0,
+    "portal.reserve_lava_bucket": 1.0,
+    "route.armor_before_portal": 1.0,
+    "skill.enderman_warped": 1.0,
+    "skill.portal_repair": 1.0,
+    "skill.ruined_portal": 1.0,
+    "stations.pickup_last": 1.0,
+    "stuck.item_progress": 1.0
+   },
+   "id": "g297",
+   "metric": "deaths",
+   "mutated": [
+    "code",
+    "evolved.fortress_rest"
+   ],
+   "note": "code: new skill fortress_rest for fortress DIED: fortress_rest: in the Nether, before fortress find/blazes starts, stand still (sneaking) and heal to full when health \u226416, eating first if needed, so each fortress leg starts at 20 HP. Targets fortress DIED.",
+   "pairs": [],
+   "parent": "g237",
+   "status": "drilling"
+  },
   "g3": {
    "born": 1,
    "code": null,
@@ -46744,7 +46817,8 @@
   "blazes NOT_FOUND means the known part of the fortress is exhausted, not the fortress; since fortress find refuses once any brick is known, the fight itself must extend what is known by walking beyond its edge.",
   "Attack UNREACHABLE mostly fires at 3-4 blocks when the pathfinder's 'near' goal stalls on a ledge, hole or water; direct key movement toward a visible mob can close that last gap where pathing gives up.",
   "The tried-anchor exclusion is a 20-block disc around both the anchor and the bot's own spot. That uses up a partly seen fortress in about 4 hops, before the 2-minute retry reopens anything. A smaller radius gets the fight more anchors without adding new walking logic.",
-  "Most Nether first deaths (lava, onFire, inFire) come during fortress:blazes from near-full health, so they are sudden environmental deaths; where the chase leads matters more than when the bot heals."
+  "Most Nether first deaths (lava, onFire, inFire) come during fortress:blazes from near-full health, so they are sudden environmental deaths; where the chase leads matters more than when the bot heals.",
+  "Nether fortress deaths are sudden hits (lava, fire, piglins) that land while the bot is chasing. The one cheap thing the bot controls is starting every fortress leg at full health instead of the median 16, because health only regenerates at 18+ hunger and only while the bot stands still and safe."
  ],
  "learned_race": {
   "gen": 256,
@@ -46765,7 +46839,7 @@
   "mean_gap_ok": -0.0728,
   "n": 1906
  },
- "next_id": 297,
+ "next_id": 298,
  "pending": null,
  "race_evidence_version": 2,
  "score_since_gen": 179,
@@ -47666,6 +47740,13 @@
    "result": "inconclusive: never ran in its drill (its offer never fired): INCONCLUSIVE: on 2/4 fixed (50%), off 2/2 fixed (100%), z -1.2; exposure on its side: close_in offered 0, chosen 0, started 0, ended 0 (0 ok); acted in 0 of 3 games",
    "skill": "close_in",
    "target": "attack UNREACHABLE"
+  },
+  {
+   "gen": 306,
+   "gid": "g297",
+   "result": "drilling",
+   "skill": "fortress_rest",
+   "target": "fortress DIED"
   }
  ],
  "skill_stats": {

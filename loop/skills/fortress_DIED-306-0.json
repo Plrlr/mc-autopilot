@@ -1,0 +1,24 @@
+{
+ "class_name": "FortressRest",
+ "files": [
+  {
+   "content": "package io.github.plrlr.autopilot.skills.evolved;\n\nimport io.github.plrlr.autopilot.plan.Option;\nimport io.github.plrlr.autopilot.skills.Fail;\n\n/**\n * Nether deaths during fortress find/blazes come mostly from sudden damage (lava, fire, piglins,\n * wither skeletons) while the bot walks on with 16/20 health or less. Before the next fortress leg,\n * when nothing hostile is close, crouch in place (no stepping off edges, no magma damage) and let\n * health come back to full, eating first if hunger is under 18 (no regeneration below that).\n */\npublic class FortressRest extends EvolvedSkill {\n\tprivate float best;\n\tprivate float last;\n\tprivate int lastGain;\n\tprivate boolean eating;\n\n\tpublic FortressRest() {\n\t\ttimeoutTicks = 20 * 75;\n\t}\n\n\tpublic static Option offer(Context c) {\n\t\tif (c.main() == null || !\"fortress\".equals(c.main().skill())) return null;\n\t\tif (!\"the_nether\".equals(Player.dimension())) return null;\n\t\tif (Player.inLava()) return null;\n\t\tfloat hp = Player.health();\n\t\tif (hp > 16f || hp <= 0f) return null;\n\t\tif (Player.food() < 18 && Player.count(\"food\") == 0) return null;\n\t\tif (Player.nearestHostile(10) != null) return null;\n\t\treturn new Option(\"fortress_rest\", null,\n\t\t\t\t\"health \" + Math.round(hp) + \"/20 and nothing hostile near: heal to full before the fortress (Nether deaths come from sudden hits)\");\n\t}\n\n\t@Override\n\tpublic String name() { return \"fortress_rest\"; }\n\n\t@Override\n\tprotected void start() {\n\t\tif (!\"the_nether\".equals(Player.dimension())) { fail(Fail.WRONG_PLACE, \"only rests in the Nether\"); return; }\n\t\tPlayer.stopWalking();\n\t\tbest = Player.health();\n\t\tlast = best;\n\t\tlastGain = 0;\n\t}\n\n\t@Override\n\tprotected void tick() {\n\t\tif (Player.inLava()) { fail(Fail.HAZARD, \"in lava while resting\"); return; }\n\t\tfloat hp = Player.health();\n\t\tif (hp >= 19.5f) { done(\"healed to \" + Math.round(hp) + \" in \" + ticks / 20 + \" s\"); return; }\n\t\tif (hp < last - 0.9f) {\n\t\t\tfail(Fail.HAZARD, \"took damage while resting (\" + Math.round(last) + \" -> \" + Math.round(hp) + \"): fire, hot floor or a mob\");\n\t\t\treturn;\n\t\t}\n\t\tlast = hp;\n\t\tif (hp > best + 0.4f) { best = hp; lastGain = ticks; }\n\t\tif (ticks % 5 == 0) {\n\t\t\tPlayer.Mob m = Player.nearestHostile(8);\n\t\t\tif (m != null) {\n\t\t\t\tfail(Fail.HAZARD, m.type() + \" at \" + Math.round(m.dist()) + \" while resting\");\n\t\t\t\treturn;\n\t\t\t}\n\t\t}\n\t\tPlayer.press(Player.Key.SNEAK, true);\n\t\tif (Player.food() < 18) {\n\t\t\tif (Player.count(\"food\") == 0) { fail(Fail.NEED_ITEM, \"hunger \" + Player.food() + \" and no food: health can't come back\"); return; }\n\t\t\tif (!eating) {\n\t\t\t\tif (!Player.hold(\"food\")) { fail(Fail.USE_FAILED, \"couldn't hold food\"); return; }\n\t\t\t\teating = true;\n\t\t\t}\n\t\t\tPlayer.press(Player.Key.USE, true);\n\t\t\tlastGain = ticks;\n\t\t\treturn;\n\t\t}\n\t\tif (eating) {\n\t\t\teating = false;\n\t\t\tPlayer.press(Player.Key.USE, false);\n\t\t}\n\t\tif (ticks - lastGain > 20 * 25) {\n\t\t\tfail(Fail.NO_PROGRESS, \"no health back in 25 s (at \" + Math.round(hp) + \")\");\n\t\t}\n\t}\n}\n",
+   "name": "FortressRest.java"
+  }
+ ],
+ "help": "fortress_rest: before a fortress leg in the Nether, crouch in place and eat or regenerate to full health",
+ "lesson": "Nether fortress deaths are sudden hits (lava, fire, piglins) that land while the bot is chasing. The one cheap thing the bot controls is starting every fortress leg at full health instead of the median 16, because health only regenerates at 18+ hunger and only while the bot stands still and safe.",
+ "skill": "fortress_rest",
+ "summary": "fortress_rest: in the Nether, before fortress find/blazes starts, stand still (sneaking) and heal to full when health \u226416, eating first if needed, so each fortress leg starts at 20 HP. Targets fortress DIED.",
+ "target": {
+  "action": "fortress",
+  "code": "DIED",
+  "gens": 8,
+  "metric": "deaths",
+  "minutes": 30.9,
+  "name": "fortress DIED",
+  "persistent": true,
+  "runs": 143,
+  "tries": 17
+ }
+}
