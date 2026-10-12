@@ -31,6 +31,7 @@ public final class EvolvedSkills {
 
 	static {
 		// evolve:entries (scripts/loop/evolve.py appends one add(...) line per evolved skill here)
+		add(new Entry("evolved.fortress_rest", "fortress_rest", FortressRest::new, FortressRest::offer, "fortress_rest: before a fortress leg in the Nether, crouch in place and eat or regenerate to full health"));
 		// evolve:end
 	}
 
