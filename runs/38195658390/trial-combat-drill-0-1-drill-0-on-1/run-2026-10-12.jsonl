@@ -1,0 +1,253 @@
+{"event":"autopilot_on","detail":"brain\u003dlearned none","t":1791771978693}
+{"event":"params","detail":"params: trial (23 genes) changed\u003d{\"combat.creeper_hit\":1.0,\"combat.shield_guard\":1.0,\"stations.pickup_last\":1.0,\"route.armor_before_portal\":1.0,\"night.wall_in\":1.0,\"gear.sword_early\":1.0,\"move.shore_first\":1.0,\"portal.prepare_work_area\":1.0,\"portal.reserve_lava_bucket\":1.0,\"combat.ignore_walled_mobs\":1.0,\"night.shelter_exit\":1.0,\"nav.surface_v2\":1.0,\"nav.unstuck_v2\":1.0,\"stuck.item_progress\":1.0,\"skill.ruined_portal\":1.0,\"skill.portal_repair\":1.0,\"skill.enderman_warped\":1.0,\"learned.weight\":1.0,\"plan.readiness\":1.0,\"evolved.fortress_rest\":1.0}","t":1791771978695}
+{"layer":"strategist","brain":"rules","choice":"wood_tools","reason":"start","t":1791771978697}
+{"event":"learned","detail":"learned model: none","t":1791771978703}
+{"layer":"tactician","gs":0,"brain":"rules","trigger":"idle","goal":"wood_tools","options":["collect log:3","explore log"],"choice":"collect log:3","x":[1.0,1.0,0.0,0.0,0.0,0.984,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.0,0.0,0.0,0.077,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1791771978733}
+{"event":"skill_start","skill":"collect log:3","trigger":"idle","t":1791771978787}
+{"event":"milestone","detail":"2 at 0 s","t":1791771981095}
+{"layer":"strategist","brain":"rules","choice":"iron_tools","reason":"goal_done","t":1791771981096}
+{"layer":"tactician","gs":0,"brain":"rules","trigger":"goal_changed","goal":"iron_tools","options":["attack creeper","collect raw_iron:13","pickup","shelter","explore any"],"choice":"attack creeper","x":[1.0,1.0,0.0,1.0,1.0,0.984,0.0,0.0,0.4,0.2,0.0,0.0,0.0,1.0,0.0,0.0,0.0,0.5,0.0,0.0,0.0,0.0,0.0,0.0,0.25,0.395,0.0,1.0,0.0,0.154,0.0,0.308,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["attack creeper"],"t":1791771981098}
+{"event":"skill_end","skill":"collect log:3","ok":false,"code":"INTERRUPTED","detail":"interrupted: brain chose attack creeper","seconds":0.7,"t":1791771981100}
+{"event":"skill_start","skill":"attack creeper","trigger":"goal_changed","t":1791771981100}
+{"layer":"reflex","gs":0,"brain":"rules","trigger":"reflex_creeper","goal":"iron_tools","options":["attack creeper"],"choice":"attack creeper","x":[1.0,1.0,0.0,1.0,1.0,0.984,0.0,0.0,0.4,0.2,0.0,0.0,0.0,1.0,0.0,0.0,0.0,0.5,0.0,0.0,0.0,0.0,0.0,0.0,0.25,0.395,0.0,1.0,0.0,0.154,0.0,0.308,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["attack creeper"],"t":1791771981101}
+{"event":"skill_end","skill":"attack creeper","ok":false,"code":"INTERRUPTED","detail":"interrupted by reflex_creeper","seconds":0.0,"t":1791771981101}
+{"event":"skill_start","skill":"attack creeper","trigger":"reflex_creeper","t":1791771981101}
+{"event":"skill_end","skill":"attack creeper","ok":true,"detail":"killed the creeper","seconds":4.05,"t":1791771987288}
+{"layer":"tactician","gs":4,"brain":"rules","trigger":"skill_done","goal":"iron_tools","options":["attack zombie","collect raw_iron:13","pickup","shelter","explore any"],"choice":"attack zombie","x":[0.866,1.0,0.0,1.0,1.0,0.984,0.0,0.0,0.4,0.2,0.0,0.0,0.0,0.969,0.0,0.0,0.0,0.5,0.0,0.0,0.0,0.0,0.0,0.0,0.25,0.069,0.0,1.0,0.0,0.154,0.0,0.308,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["attack zombie"],"t":1791771987289}
+{"event":"skill_start","skill":"attack zombie","trigger":"skill_done","t":1791771987290}
+{"event":"skill_end","skill":"attack zombie","ok":true,"detail":"killed the zombie","seconds":4.8,"t":1791771992574}
+{"layer":"tactician","gs":9,"brain":"rules","trigger":"skill_done","goal":"iron_tools","options":["collect raw_iron:13","shelter","explore any"],"choice":"collect raw_iron:13","x":[1.0,1.0,0.0,1.0,1.0,0.984,0.0,0.0,0.4,0.4,0.0,0.0,0.0,1.0,0.0,0.0,0.0,0.5,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.625,0.0,1.0,0.0,0.154,0.0,0.308,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1791771992574}
+{"event":"skill_start","skill":"collect raw_iron:13","trigger":"skill_done","t":1791771992575}
+{"layer":"tactician","gs":10,"brain":"rules","trigger":"mob_near","goal":"iron_tools","options":["attack zombie","collect raw_iron:13","shelter","explore any"],"choice":"attack zombie","x":[1.0,1.0,0.0,1.0,1.0,0.984,0.0,0.0,0.4,0.4,0.0,0.0,0.0,1.0,0.0,0.0,0.0,0.5,0.0,0.0,0.0,0.0,0.0,0.0,0.25,0.5,0.0,1.0,0.0,0.154,0.0,0.308,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["attack zombie"],"t":1791771993513}
+{"event":"skill_end","skill":"collect raw_iron:13","ok":false,"code":"INTERRUPTED","detail":"interrupted: brain chose attack zombie","seconds":0.65,"t":1791771993514}
+{"event":"skill_start","skill":"attack zombie","trigger":"mob_near","t":1791771993514}
+{"event":"skill_end","skill":"attack zombie","ok":true,"detail":"killed the zombie","seconds":6.95,"t":1791772001549}
+{"layer":"tactician","gs":17,"brain":"rules","trigger":"skill_done","goal":"iron_tools","options":["attack zombie","collect raw_iron:13","shelter","explore any"],"choice":"attack zombie","x":[1.0,1.0,0.0,1.0,1.0,0.984,0.0,0.0,0.4,0.4,0.0,0.0,0.0,1.0,0.0,0.0,0.0,0.5,0.0,0.0,0.0,0.0,0.0,0.0,0.25,0.267,0.0,1.0,0.0,0.154,0.0,0.308,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["attack zombie"],"t":1791772001550}
+{"event":"skill_start","skill":"attack zombie","trigger":"skill_done","t":1791772001550}
+{"event":"skill_end","skill":"attack zombie","ok":true,"detail":"killed the zombie","seconds":6.6,"t":1791772008376}
+{"layer":"tactician","gs":23,"brain":"rules","trigger":"skill_done","goal":"iron_tools","options":["collect raw_iron:10","shelter","explore any"],"choice":"collect raw_iron:10","x":[1.0,1.0,0.4,1.0,1.0,0.984,0.0,0.0,0.4,0.6,1.0,0.0,0.0,1.0,0.0,0.0,0.0,0.5,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.635,0.0,1.0,0.0,0.154,0.0,0.308,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1791772008377}
+{"event":"skill_start","skill":"collect raw_iron:10","trigger":"skill_done","t":1791772008377}
+{"layer":"reflex","gs":24,"brain":"rules","trigger":"reflex_creeper","goal":"iron_tools","options":["attack creeper"],"choice":"attack creeper","x":[1.0,1.0,0.4,1.0,1.0,0.984,0.0,0.0,0.4,0.6,1.0,0.0,0.0,1.0,0.0,0.0,0.0,0.5,0.0,0.0,0.0,0.0,0.0,0.0,0.25,0.418,0.0,1.0,0.0,0.154,0.0,0.308,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["attack creeper"],"t":1791772009488}
+{"event":"skill_end","skill":"collect raw_iron:10","ok":false,"code":"INTERRUPTED","detail":"interrupted by reflex_creeper","seconds":0.7,"t":1791772009489}
+{"event":"skill_start","skill":"attack creeper","trigger":"reflex_creeper","t":1791772009490}
+{"event":"guard","detail":"creeper at 2","t":1791772010258}
+{"event":"skill_end","skill":"attack creeper","ok":true,"detail":"killed the creeper","seconds":4.4,"t":1791772014351}
+{"layer":"tactician","gs":28,"brain":"rules","trigger":"skill_done","goal":"iron_tools","options":["attack zombie","collect raw_iron:10","shelter","explore any"],"choice":"attack zombie","x":[1.0,1.0,0.4,1.0,1.0,0.984,0.0,0.0,0.4,0.6,1.0,0.0,0.0,0.969,0.0,0.0,0.0,0.5,0.0,0.0,0.0,0.0,0.0,0.0,0.25,0.242,0.0,1.0,0.0,0.154,0.0,0.308,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["attack zombie"],"t":1791772014352}
+{"event":"skill_start","skill":"attack zombie","trigger":"skill_done","t":1791772014352}
+{"event":"skill_end","skill":"attack zombie","ok":true,"detail":"killed the zombie","seconds":5.55,"t":1791772021225}
+{"layer":"tactician","gs":34,"brain":"rules","trigger":"skill_done","goal":"iron_tools","options":["attack zombie","collect raw_iron:13","shelter","explore any"],"choice":"attack zombie","x":[1.0,1.0,0.0,1.0,1.0,0.984,0.0,0.0,0.4,0.4,0.0,0.0,0.0,1.0,0.0,0.0,0.0,0.5,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.539,0.0,1.0,0.0,0.154,0.0,0.308,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["attack zombie"],"t":1791772021226}
+{"event":"skill_start","skill":"attack zombie","trigger":"skill_done","t":1791772021226}
+{"event":"skill_end","skill":"attack zombie","ok":true,"detail":"killed the zombie","seconds":7.55,"t":1791772029316}
+{"layer":"tactician","gs":42,"brain":"rules","trigger":"skill_done","goal":"iron_tools","options":["collect raw_iron:13","shelter","explore any"],"choice":"collect raw_iron:13","x":[1.0,1.0,0.0,1.0,1.0,0.984,0.0,0.0,0.4,0.4,0.0,0.0,0.0,1.0,0.0,0.0,0.0,0.5,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.781,0.0,1.0,0.0,0.154,0.0,0.308,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1791772029317}
+{"event":"skill_start","skill":"collect raw_iron:13","trigger":"skill_done","t":1791772029317}
+{"layer":"tactician","gs":43,"brain":"rules","trigger":"mob_near","goal":"iron_tools","options":["attack skeleton","collect raw_iron:13","shelter","explore any"],"choice":"attack skeleton","x":[1.0,1.0,0.0,1.0,1.0,0.984,0.0,0.0,0.4,0.4,0.0,0.0,0.0,1.0,0.0,0.0,0.0,0.5,0.0,0.0,0.0,0.0,0.0,0.0,0.25,0.49,0.0,1.0,0.0,0.154,0.0,0.308,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["attack skeleton"],"t":1791772031395}
+{"event":"skill_end","skill":"collect raw_iron:13","ok":false,"code":"INTERRUPTED","detail":"interrupted: brain chose attack skeleton","seconds":1.75,"t":1791772031395}
+{"event":"skill_start","skill":"attack skeleton","trigger":"mob_near","t":1791772031395}
+{"event":"skill_end","skill":"attack skeleton","ok":true,"detail":"killed the skeleton","seconds":7.85,"t":1791772041388}
+{"layer":"tactician","gs":51,"brain":"rules","trigger":"skill_done","goal":"iron_tools","options":["collect raw_iron:13","shelter","explore any"],"choice":"collect raw_iron:13","x":[1.0,1.0,0.0,1.0,1.0,0.984,0.0,0.0,0.4,0.4,0.0,0.0,0.0,1.0,0.0,0.0,0.0,0.5,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.937,0.0,1.0,0.0,0.154,0.0,0.308,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1791772041388}
+{"event":"skill_start","skill":"collect raw_iron:13","trigger":"skill_done","t":1791772041388}
+{"layer":"tactician","gs":52,"brain":"rules","trigger":"mob_near","goal":"iron_tools","options":["attack spider","collect raw_iron:13","shelter","explore any"],"choice":"attack spider","x":[1.0,1.0,0.0,1.0,1.0,0.984,0.0,0.0,0.4,0.4,0.0,0.0,0.0,1.0,0.0,0.0,0.0,0.5,0.0,0.0,0.0,0.0,0.0,0.0,0.25,0.409,0.0,1.0,0.0,0.154,0.0,0.308,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["attack spider"],"t":1791772042956}
+{"event":"skill_end","skill":"collect raw_iron:13","ok":false,"code":"INTERRUPTED","detail":"interrupted: brain chose attack spider","seconds":1.15,"t":1791772042956}
+{"event":"skill_start","skill":"attack spider","trigger":"mob_near","t":1791772042956}
+{"event":"skill_end","skill":"attack spider","ok":true,"detail":"killed the spider","seconds":5.55,"t":1791772048658}
+{"layer":"tactician","gs":58,"brain":"rules","trigger":"skill_done","goal":"iron_tools","options":["collect raw_iron:13","shelter","explore any"],"choice":"collect raw_iron:13","x":[1.0,1.0,0.0,1.0,1.0,0.984,0.0,0.0,0.4,0.2,0.0,0.0,0.0,1.0,0.0,0.0,0.0,0.5,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.677,0.0,1.0,0.0,0.154,0.0,0.308,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1791772048658}
+{"event":"skill_start","skill":"collect raw_iron:13","trigger":"skill_done","t":1791772048658}
+{"event":"checkpoint","detail":"lava_seen","t":1791772069291}
+{"layer":"tactician","gs":118,"brain":"rules","trigger":"heartbeat","goal":"iron_tools","options":["attack zombie","collect raw_iron:13","shelter","explore any"],"choice":"attack zombie","x":[1.0,1.0,0.0,1.0,1.0,0.984,0.0,0.0,0.4,0.2,0.0,0.0,0.0,1.0,0.0,0.0,0.0,0.5,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.607,1.0,1.0,0.0,0.154,0.167,0.308,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["attack zombie"],"t":1791772109687}
+{"event":"skill_end","skill":"collect raw_iron:13","ok":false,"code":"INTERRUPTED","detail":"interrupted: brain chose attack zombie","seconds":60.15,"t":1791772109687}
+{"event":"skill_start","skill":"attack zombie","trigger":"heartbeat","t":1791772109687}
+{"event":"guard","detail":"skeleton at 1","t":1791772117190}
+{"event":"skill_end","skill":"attack zombie","ok":true,"detail":"killed the zombie","seconds":8.55,"t":1791772118555}
+{"layer":"tactician","gs":127,"brain":"rules","trigger":"skill_done","goal":"iron_tools","options":["attack skeleton","collect raw_iron:10","shelter","explore any"],"choice":"attack skeleton","x":[0.889,1.0,0.4,1.0,1.0,0.984,0.0,0.0,0.4,0.6,1.0,0.0,0.0,1.0,0.0,0.0,0.0,0.5,0.0,0.0,0.0,0.0,0.0,0.0,0.25,0.115,1.0,1.0,0.0,0.154,0.167,0.308,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["attack skeleton"],"t":1791772118557}
+{"event":"skill_start","skill":"attack skeleton","trigger":"skill_done","t":1791772118557}
+{"event":"guard","detail":"skeleton at 3","t":1791772120184}
+{"event":"guard","detail":"skeleton at 8","t":1791772123240}
+{"event":"skill_end","skill":"attack skeleton","ok":true,"detail":"killed the skeleton","seconds":5.65,"t":1791772125146}
+{"layer":"tactician","gs":132,"brain":"rules","trigger":"skill_done","goal":"iron_tools","options":["collect raw_iron:10","shelter","explore any"],"choice":"collect raw_iron:10","x":[0.939,1.0,0.4,1.0,1.0,0.984,0.0,0.0,0.4,0.6,1.0,0.0,0.0,1.0,0.0,0.0,0.0,0.5,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.718,1.0,1.0,0.0,0.154,0.167,0.308,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1791772125147}
+{"event":"skill_start","skill":"collect raw_iron:10","trigger":"skill_done","t":1791772125147}
+{"event":"skill_end","skill":"collect raw_iron:10","ok":true,"detail":"collected 10 raw_iron","seconds":62.8,"t":1791772188001}
+{"layer":"tactician","gs":195,"brain":"rules","trigger":"skill_done","goal":"iron_tools","options":["goto surface","collect log:9","pickup","shelter","explore log"],"choice":"goto surface","x":[1.0,1.0,0.0,1.0,1.0,0.328,0.0,0.0,0.4,0.6,1.0,0.0,0.0,1.0,0.0,0.625,0.0,0.5,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,1.0,1.0,0.0,0.154,0.167,0.308,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1791772188002}
+{"event":"skill_start","skill":"goto surface","trigger":"skill_done","t":1791772188002}
+{"event":"skill_end","skill":"goto surface","ok":true,"detail":"back under open sky","seconds":18.5,"t":1791772206590}
+{"layer":"tactician","gs":213,"brain":"rules","trigger":"skill_done","goal":"iron_tools","options":["collect coal:6","collect raw_iron:13","shelter","explore any"],"choice":"collect coal:6","x":[1.0,1.0,0.0,1.0,0.0,0.891,0.0,0.0,0.4,0.4,0.0,0.0,0.0,1.0,0.0,0.0,0.0,0.5,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,1.0,1.0,0.0,0.154,0.167,0.308,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1791772206591}
+{"event":"skill_start","skill":"collect coal:6","trigger":"skill_done","t":1791772206592}
+{"layer":"tactician","gs":217,"brain":"rules","trigger":"mob_near","goal":"iron_tools","options":["attack skeleton","shelter","collect raw_iron:13","explore any"],"choice":"attack skeleton","x":[1.0,1.0,0.0,1.0,0.0,0.813,0.0,0.0,0.4,0.4,0.0,0.0,0.0,1.0,0.0,0.0,0.0,0.5,0.0,0.0,0.0,0.0,0.0,0.0,0.25,0.492,1.0,1.0,0.0,0.154,0.167,0.308,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["attack skeleton","shelter"],"t":1791772210399}
+{"event":"skill_end","skill":"collect coal:6","ok":false,"code":"INTERRUPTED","detail":"interrupted: brain chose attack skeleton","seconds":3.8,"t":1791772210399}
+{"event":"skill_start","skill":"attack skeleton","trigger":"mob_near","t":1791772210399}
+{"event":"guard","detail":"skeleton at 15","t":1791772221590}
+{"event":"skill_end","skill":"attack skeleton","ok":true,"detail":"killed the skeleton","seconds":12.45,"t":1791772223081}
+{"layer":"tactician","gs":230,"brain":"rules","trigger":"skill_done","goal":"iron_tools","options":["attack zombie","collect raw_iron:10","shelter","explore any"],"choice":"attack zombie","x":[1.0,1.0,0.0,1.0,1.0,0.984,0.0,0.0,0.4,0.6,1.0,0.0,0.0,1.0,0.0,0.0,0.0,0.5,0.0,0.0,0.0,0.0,0.0,0.0,0.25,0.466,1.0,1.0,0.0,0.154,0.167,0.308,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["attack zombie"],"t":1791772223081}
+{"event":"skill_start","skill":"attack zombie","trigger":"skill_done","t":1791772223081}
+{"event":"guard","detail":"skeleton at 10","t":1791772224592}
+{"event":"guard","detail":"skeleton at 6","t":1791772227626}
+{"event":"skill_end","skill":"attack zombie","ok":true,"detail":"killed the zombie","seconds":6.05,"t":1791772230111}
+{"layer":"tactician","gs":236,"brain":"rules","trigger":"skill_done","goal":"iron_tools","options":["attack skeleton","collect raw_iron:10","shelter","explore any"],"choice":"attack skeleton","x":[1.0,1.0,0.0,1.0,1.0,0.984,0.0,0.0,0.4,0.6,1.0,0.0,0.0,1.0,0.0,0.0,0.0,0.5,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.574,1.0,1.0,0.0,0.154,0.167,0.308,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["attack skeleton"],"t":1791772230112}
+{"event":"skill_start","skill":"attack skeleton","trigger":"skill_done","t":1791772230112}
+{"event":"guard","detail":"skeleton at 9","t":1791772230599}
+{"event":"guard","detail":"skeleton at 3","t":1791772233606}
+{"event":"guard","detail":"skeleton at 3","t":1791772236581}
+{"layer":"reflex","gs":245,"brain":"rules","trigger":"reflex_creeper","goal":"iron_tools","options":["attack creeper"],"choice":"attack creeper","x":[1.0,1.0,0.4,1.0,1.0,0.984,0.0,0.0,0.4,0.6,1.0,0.0,0.0,1.0,0.0,0.0,0.0,0.5,0.0,0.0,0.0,0.0,0.0,0.0,0.25,0.375,1.0,1.0,0.0,0.154,0.167,0.308,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["attack creeper"],"t":1791772241120}
+{"event":"skill_end","skill":"attack skeleton","ok":false,"code":"INTERRUPTED","detail":"interrupted by reflex_creeper","seconds":9.25,"t":1791772241121}
+{"event":"skill_start","skill":"attack creeper","trigger":"reflex_creeper","t":1791772241121}
+{"event":"guard","detail":"creeper at 3","t":1791772243398}
+{"event":"guard","detail":"creeper at 2","t":1791772245308}
+{"event":"skill_end","skill":"attack creeper","ok":false,"code":"HAZARD","detail":"no safe gap after hitting the creeper","seconds":4.65,"t":1791772246183}
+{"layer":"tactician","gs":250,"brain":"rules","trigger":"skill_failed","goal":"iron_tools","options":["attack zombie","collect raw_iron:10","shelter","explore any"],"choice":"attack zombie","x":[0.909,1.0,0.4,1.0,1.0,0.984,0.0,0.0,0.4,0.6,1.0,0.0,0.0,1.0,0.0,0.0,0.0,0.5,0.0,0.0,0.0,0.0,0.0,0.0,0.5,0.145,1.0,1.0,0.0,0.154,0.167,0.308,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["attack zombie"],"t":1791772246184}
+{"event":"skill_start","skill":"attack zombie","trigger":"skill_failed","t":1791772246184}
+{"event":"skill_end","skill":"attack zombie","ok":true,"detail":"killed the zombie","seconds":5.6,"t":1791772251927}
+{"layer":"tactician","gs":255,"brain":"rules","trigger":"skill_done","goal":"iron_tools","options":["attack zombie","collect raw_iron:13","shelter","explore any"],"choice":"attack zombie","x":[1.0,1.0,0.0,1.0,1.0,0.984,0.0,0.0,0.4,0.4,0.0,0.0,0.0,1.0,0.0,0.0,0.0,0.5,0.0,0.0,0.0,0.0,0.0,0.0,0.25,0.214,1.0,1.0,0.0,0.154,0.167,0.308,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["attack zombie"],"t":1791772251927}
+{"event":"skill_start","skill":"attack zombie","trigger":"skill_done","t":1791772251928}
+{"event":"skill_end","skill":"attack zombie","ok":true,"detail":"killed the zombie","seconds":6.5,"t":1791772258426}
+{"layer":"tactician","gs":262,"brain":"rules","trigger":"skill_done","goal":"iron_tools","options":["attack zombie","collect raw_iron:13","shelter","explore any"],"choice":"attack zombie","x":[1.0,1.0,0.0,1.0,1.0,0.984,0.0,0.0,0.4,0.4,0.0,0.0,0.0,1.0,0.0,0.0,0.0,0.5,0.0,0.0,0.0,0.0,0.0,0.0,0.25,0.225,1.0,1.0,0.0,0.154,0.167,0.308,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["attack zombie"],"t":1791772258427}
+{"event":"skill_start","skill":"attack zombie","trigger":"skill_done","t":1791772258427}
+{"event":"skill_end","skill":"attack zombie","ok":true,"detail":"killed the zombie","seconds":6.55,"t":1791772265635}
+{"layer":"tactician","gs":268,"brain":"rules","trigger":"skill_done","goal":"iron_tools","options":["attack zombie","collect raw_iron:13","shelter","explore any"],"choice":"attack zombie","x":[0.925,1.0,0.0,1.0,1.0,0.984,0.0,0.0,0.4,0.4,0.0,0.0,0.0,1.0,0.0,0.0,0.0,0.5,0.0,0.0,0.0,0.0,0.0,0.0,0.25,0.085,1.0,1.0,0.0,0.154,0.167,0.308,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["attack zombie"],"t":1791772265636}
+{"event":"skill_start","skill":"attack zombie","trigger":"skill_done","t":1791772265636}
+{"event":"skill_end","skill":"attack zombie","ok":true,"detail":"killed the zombie","seconds":6.55,"t":1791772272200}
+{"layer":"tactician","gs":275,"brain":"rules","trigger":"skill_done","goal":"iron_tools","options":["attack zombie","collect raw_iron:13","shelter","explore any"],"choice":"attack zombie","x":[1.0,1.0,0.0,1.0,1.0,0.984,0.0,0.0,0.4,0.4,0.0,0.0,0.0,1.0,0.0,0.0,0.0,0.5,0.0,0.0,0.0,0.0,0.0,0.0,0.25,0.23,1.0,1.0,0.0,0.154,0.167,0.308,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["attack zombie"],"t":1791772272201}
+{"event":"skill_start","skill":"attack zombie","trigger":"skill_done","t":1791772272201}
+{"event":"skill_end","skill":"attack zombie","ok":true,"detail":"killed the zombie","seconds":6.5,"t":1791772279853}
+{"layer":"tactician","gs":281,"brain":"rules","trigger":"skill_done","goal":"iron_tools","options":["attack skeleton","collect raw_iron:13","shelter","explore any"],"choice":"attack skeleton","x":[1.0,1.0,0.0,1.0,1.0,0.984,0.0,0.0,0.4,0.4,0.0,0.0,0.0,1.0,0.0,0.0,0.0,0.5,0.0,0.0,0.0,0.0,0.0,0.0,0.25,0.393,1.0,1.0,0.0,0.154,0.167,0.308,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["attack skeleton"],"t":1791772279854}
+{"event":"skill_start","skill":"attack skeleton","trigger":"skill_done","t":1791772279854}
+{"layer":"tactician","gs":288,"brain":"rules","trigger":"hurt","goal":"iron_tools","options":["attack zombie","collect raw_iron:13","shelter","explore any"],"choice":"attack zombie","x":[0.8,1.0,0.0,1.0,1.0,0.984,0.0,0.0,0.4,0.4,0.0,0.0,0.0,1.0,0.0,0.0,0.0,0.5,0.0,0.0,0.0,0.0,0.0,0.0,0.25,0.067,1.0,1.0,0.0,0.154,0.167,0.308,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["attack zombie"],"t":1791772288283}
+{"event":"skill_end","skill":"attack skeleton","ok":false,"code":"INTERRUPTED","detail":"interrupted: brain chose attack zombie","seconds":7.0,"t":1791772288283}
+{"event":"skill_start","skill":"attack zombie","trigger":"hurt","t":1791772288283}
+{"event":"skill_end","skill":"attack zombie","ok":true,"detail":"killed the zombie","seconds":6.35,"t":1791772294609}
+{"layer":"tactician","gs":295,"brain":"rules","trigger":"skill_done","goal":"iron_tools","options":["retreat","collect raw_iron:10","shelter","explore any"],"choice":"retreat","x":[1.0,1.0,0.4,1.0,1.0,0.984,0.0,0.0,0.4,0.6,1.0,0.0,0.0,1.0,0.0,0.0,0.0,0.5,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.535,1.0,1.0,0.0,0.154,0.167,0.308,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["retreat"],"t":1791772294610}
+{"event":"skill_start","skill":"retreat","trigger":"skill_done","t":1791772294610}
+{"event":"skill_end","skill":"retreat","ok":true,"detail":"got away","seconds":4.55,"t":1791772299198}
+{"layer":"tactician","gs":299,"brain":"rules","trigger":"skill_done","goal":"iron_tools","options":["collect coal:6","collect raw_iron:10","shelter","explore any"],"choice":"collect coal:6","x":[1.0,1.0,0.4,1.0,0.0,0.938,0.0,0.0,0.4,0.6,1.0,0.0,0.0,1.0,0.0,0.0,0.0,0.5,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,1.0,1.0,0.0,0.154,0.167,0.308,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1791772299199}
+{"event":"skill_start","skill":"collect coal:6","trigger":"skill_done","t":1791772299199}
+{"layer":"tactician","gs":328,"brain":"rules","trigger":"mob_near","goal":"iron_tools","options":["attack skeleton","collect raw_iron:10","shelter","explore any"],"choice":"attack skeleton","x":[1.0,1.0,0.4,1.0,1.0,0.719,0.0,0.0,0.4,0.6,1.0,0.0,0.0,1.0,0.0,0.0,0.063,0.5,0.0,0.0,0.0,0.0,0.0,0.0,0.25,0.352,1.0,1.0,0.0,0.154,0.167,0.308,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["attack skeleton"],"t":1791772329044}
+{"event":"skill_end","skill":"collect coal:6","ok":false,"code":"INTERRUPTED","detail":"interrupted: brain chose attack skeleton","seconds":29.0,"t":1791772329044}
+{"event":"skill_start","skill":"attack skeleton","trigger":"mob_near","t":1791772329044}
+{"event":"guard","detail":"skeleton at 4","t":1791772332093}
+{"event":"guard","detail":"skeleton at 3","t":1791772335116}
+{"event":"skill_end","skill":"attack skeleton","ok":true,"detail":"killed the skeleton","seconds":9.7,"t":1791772338792}
+{"layer":"tactician","gs":338,"brain":"rules","trigger":"skill_done","goal":"iron_tools","options":["collect raw_iron:13","shelter","explore any"],"choice":"collect raw_iron:13","x":[1.0,1.0,0.0,1.0,1.0,0.984,0.0,0.0,0.4,0.2,0.0,0.0,0.0,1.0,0.0,0.0,0.0,0.5,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,1.0,1.0,0.0,0.154,0.167,0.308,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1791772338793}
+{"event":"skill_start","skill":"collect raw_iron:13","trigger":"skill_done","t":1791772338793}
+{"layer":"tactician","gs":354,"brain":"rules","trigger":"mob_near","goal":"iron_tools","options":["retreat","collect raw_iron:13","shelter","explore any"],"choice":"retreat","x":[1.0,1.0,0.0,1.0,1.0,0.359,0.0,0.0,0.4,0.2,0.0,0.0,0.0,1.0,0.0,0.0,0.0,0.5,0.0,0.0,0.0,0.0,0.0,0.0,0.25,0.489,1.0,1.0,0.0,0.154,0.167,0.308,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["retreat"],"t":1791772354849}
+{"event":"skill_end","skill":"collect raw_iron:13","ok":false,"code":"INTERRUPTED","detail":"interrupted: brain chose retreat","seconds":16.05,"t":1791772354850}
+{"event":"skill_start","skill":"retreat","trigger":"mob_near","t":1791772354850}
+{"event":"skill_end","skill":"retreat","ok":false,"code":"NO_PROGRESS","detail":"couldn\u0027t get away (nearest monster 7 blocks)","seconds":1.05,"t":1791772355898}
+{"layer":"tactician","gs":355,"brain":"rules","trigger":"skill_failed","goal":"iron_tools","options":["collect raw_iron:10","shelter","explore any"],"choice":"collect raw_iron:10","x":[1.0,1.0,0.4,1.0,1.0,0.984,0.0,0.0,0.4,0.6,1.0,0.0,0.0,1.0,0.0,0.0,0.0,0.5,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,1.0,1.0,0.0,0.154,0.167,0.308,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1791772355899}
+{"event":"skill_start","skill":"collect raw_iron:10","trigger":"skill_failed","t":1791772355899}
+{"layer":"tactician","gs":355,"brain":"rules","trigger":"mob_near","goal":"iron_tools","options":["retreat","collect raw_iron:10","shelter","explore any"],"choice":"retreat","x":[1.0,1.0,0.4,1.0,1.0,0.984,0.0,0.0,0.4,0.6,1.0,0.0,0.0,1.0,0.0,0.0,0.0,0.5,0.0,0.0,0.0,0.0,0.0,0.0,0.25,0.442,1.0,1.0,0.0,0.154,0.167,0.308,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["retreat"],"t":1791772356140}
+{"event":"skill_end","skill":"collect raw_iron:10","ok":false,"code":"INTERRUPTED","detail":"interrupted: brain chose retreat","seconds":0.2,"t":1791772356140}
+{"event":"skill_start","skill":"retreat","trigger":"mob_near","t":1791772356140}
+{"event":"skill_end","skill":"retreat","ok":true,"detail":"got away","seconds":4.9,"t":1791772361421}
+{"layer":"tactician","gs":360,"brain":"rules","trigger":"skill_done","goal":"iron_tools","options":["collect raw_iron:10","pickup","shelter","explore any"],"choice":"collect raw_iron:10","x":[1.0,1.0,0.4,1.0,0.0,0.969,0.0,0.0,0.4,0.6,1.0,0.0,0.0,1.0,0.0,0.0,0.0,0.5,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,1.0,1.0,0.0,0.154,0.167,0.308,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1791772361421}
+{"event":"skill_start","skill":"collect raw_iron:10","trigger":"skill_done","t":1791772361422}
+{"layer":"tactician","gs":380,"brain":"rules","trigger":"heartbeat","goal":"iron_tools","options":["shore"],"choice":"shore","x":[1.0,1.0,0.4,1.0,0.0,0.969,0.0,0.0,0.4,0.6,1.0,0.0,0.0,1.0,0.0,0.0,0.0,0.5,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,1.0,1.0,0.0,0.154,0.167,0.308,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["shore"],"t":1791772385546}
+{"event":"skill_end","skill":"collect raw_iron:10","ok":false,"code":"INTERRUPTED","detail":"interrupted: brain chose shore","seconds":20.05,"t":1791772385546}
+{"event":"skill_start","skill":"shore","trigger":"heartbeat","t":1791772385546}
+{"event":"stuck","detail":"shore at 45, 62, -50 in water","t":1791772400251}
+{"event":"skill_end","skill":"shore","ok":false,"code":"STUCK","detail":"stuck: stayed inside 2.0 blocks for 12 s","seconds":14.05,"t":1791772400253}
+{"event":"skill_start","skill":"unstuck","trigger":"reflex_stuck","t":1791772400254}
+{"event":"skill_end","skill":"unstuck","ok":true,"detail":"got out (walk)","seconds":8.7,"t":1791772408958}
+{"layer":"tactician","gs":403,"brain":"rules","trigger":"skill_done","goal":"iron_tools","options":["shore"],"choice":"shore","x":[1.0,1.0,0.4,1.0,0.0,0.969,0.0,0.0,0.4,0.6,1.0,0.0,0.0,1.0,0.0,0.0,0.0,0.5,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,1.0,1.0,0.0,0.154,0.167,0.308,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["shore"],"t":1791772408959}
+{"event":"skill_start","skill":"shore","trigger":"skill_done","t":1791772408959}
+{"event":"skill_end","skill":"shore","ok":true,"detail":"reached dry ground with room to work","seconds":9.0,"t":1791772418016}
+{"layer":"tactician","gs":412,"brain":"rules","trigger":"skill_done","goal":"iron_tools","options":["collect raw_iron:10","shelter","explore any"],"choice":"collect raw_iron:10","x":[1.0,1.0,0.4,1.0,1.0,0.984,0.0,0.0,0.4,0.6,1.0,0.0,0.0,1.0,0.0,0.0,0.0,0.5,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,1.0,1.0,0.0,0.154,0.167,0.308,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1791772418017}
+{"event":"skill_start","skill":"collect raw_iron:10","trigger":"skill_done","t":1791772418017}
+{"layer":"reflex","gs":415,"brain":"rules","trigger":"reflex_creeper","goal":"iron_tools","options":["attack creeper"],"choice":"attack creeper","x":[1.0,1.0,0.4,1.0,1.0,0.984,0.0,0.0,0.4,0.6,1.0,0.0,0.0,1.0,0.0,0.0,0.0,0.5,0.0,0.0,0.0,0.0,0.0,0.0,0.25,0.413,1.0,1.0,0.0,0.154,0.167,0.308,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["attack creeper"],"t":1791772421313}
+{"event":"skill_end","skill":"collect raw_iron:10","ok":false,"code":"INTERRUPTED","detail":"interrupted by reflex_creeper","seconds":3.3,"t":1791772421313}
+{"event":"skill_start","skill":"attack creeper","trigger":"reflex_creeper","t":1791772421313}
+{"event":"guard","detail":"creeper at 3","t":1791772421856}
+{"event":"skill_end","skill":"attack creeper","ok":true,"detail":"killed the creeper","seconds":3.35,"t":1791772424710}
+{"layer":"tactician","gs":419,"brain":"rules","trigger":"skill_done","goal":"iron_tools","options":["attack zombie","collect raw_iron:10","shelter","explore any"],"choice":"attack zombie","x":[1.0,1.0,0.0,1.0,1.0,0.984,0.0,0.0,0.4,0.6,1.0,0.0,0.0,1.0,0.0,0.0,0.0,0.5,0.0,0.0,0.0,0.0,0.0,0.0,0.25,0.399,1.0,1.0,0.0,0.154,0.167,0.308,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["attack zombie"],"t":1791772424711}
+{"event":"skill_start","skill":"attack zombie","trigger":"skill_done","t":1791772424711}
+{"event":"skill_end","skill":"attack zombie","ok":true,"detail":"killed the zombie","seconds":6.1,"t":1791772430836}
+{"layer":"tactician","gs":425,"brain":"rules","trigger":"skill_done","goal":"iron_tools","options":["attack zombie","collect raw_iron:10","shelter","explore any"],"choice":"attack zombie","x":[0.875,1.0,0.0,1.0,1.0,0.984,0.0,0.0,0.4,0.6,1.0,0.0,0.0,1.0,0.0,0.0,0.0,0.563,0.0,0.0,0.0,0.0,0.0,0.0,0.25,0.142,1.0,1.0,0.0,0.154,0.167,0.308,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["attack zombie"],"t":1791772430837}
+{"event":"skill_start","skill":"attack zombie","trigger":"skill_done","t":1791772430837}
+{"event":"guard","detail":"skeleton at 14","t":1791772434202}
+{"event":"skill_end","skill":"attack zombie","ok":true,"detail":"killed the zombie","seconds":4.1,"t":1791772435558}
+{"layer":"tactician","gs":429,"brain":"rules","trigger":"skill_done","goal":"iron_tools","options":["attack zombie","collect raw_iron:10","shelter","explore any"],"choice":"attack zombie","x":[0.875,1.0,0.0,1.0,1.0,0.984,0.0,0.0,0.4,0.6,1.0,0.0,0.0,1.0,0.0,0.0,0.0,0.5,0.0,0.0,0.0,0.0,0.0,0.0,0.25,0.113,1.0,1.0,0.0,0.154,0.167,0.308,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["attack zombie"],"t":1791772435559}
+{"event":"skill_start","skill":"attack zombie","trigger":"skill_done","t":1791772435559}
+{"event":"guard","detail":"skeleton at 13","t":1791772437224}
+{"event":"skill_end","skill":"attack zombie","ok":true,"detail":"killed the zombie","seconds":3.95,"t":1791772439830}
+{"layer":"tactician","gs":433,"brain":"rules","trigger":"skill_done","goal":"iron_tools","options":["collect raw_iron:10","shelter","explore any"],"choice":"collect raw_iron:10","x":[0.975,1.0,0.0,1.0,1.0,0.984,0.0,0.0,0.4,0.6,1.0,0.0,0.0,1.0,0.0,0.0,0.0,0.5,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.8,1.0,1.0,0.0,0.154,0.167,0.308,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1791772439830}
+{"event":"skill_start","skill":"collect raw_iron:10","trigger":"skill_done","t":1791772439830}
+{"layer":"tactician","gs":435,"brain":"rules","trigger":"mob_near","goal":"iron_tools","options":["attack skeleton","collect raw_iron:10","shelter","explore any"],"choice":"attack skeleton","x":[1.0,1.0,0.0,1.0,1.0,0.984,0.0,0.0,0.4,0.6,1.0,0.0,0.0,1.0,0.0,0.0,0.0,0.5,0.0,0.0,0.0,0.0,0.0,0.0,0.25,0.493,1.0,1.0,0.0,0.154,0.167,0.308,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["attack skeleton"],"t":1791772442370}
+{"event":"skill_end","skill":"collect raw_iron:10","ok":false,"code":"INTERRUPTED","detail":"interrupted: brain chose attack skeleton","seconds":2.25,"t":1791772442370}
+{"event":"skill_start","skill":"attack skeleton","trigger":"mob_near","t":1791772442370}
+{"event":"guard","detail":"skeleton at 4","t":1791772443199}
+{"event":"guard","detail":"skeleton at 3","t":1791772446185}
+{"event":"guard","detail":"skeleton at 3","t":1791772449195}
+{"event":"skill_end","skill":"attack skeleton","ok":true,"detail":"killed the skeleton","seconds":8.5,"t":1791772452338}
+{"layer":"tactician","gs":444,"brain":"rules","trigger":"skill_done","goal":"iron_tools","options":["collect raw_iron:13","shelter","explore any"],"choice":"collect raw_iron:13","x":[1.0,1.0,0.0,1.0,1.0,0.984,0.0,0.0,0.4,0.2,0.0,0.0,0.0,1.0,0.0,0.0,0.0,0.5,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,1.0,1.0,0.0,0.154,0.167,0.308,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1791772452338}
+{"event":"skill_start","skill":"collect raw_iron:13","trigger":"skill_done","t":1791772452338}
+{"event":"stuck","detail":"collect raw_iron:13 at 56, 20, -39","t":1791772490402}
+{"event":"skill_end","skill":"collect raw_iron:13","ok":false,"code":"STUCK","detail":"stuck: stayed inside 2.0 blocks for 12 s","seconds":37.75,"t":1791772490402}
+{"event":"skill_start","skill":"unstuck","trigger":"reflex_stuck","t":1791772490403}
+{"event":"skill_end","skill":"unstuck","ok":true,"detail":"got out (walk)","seconds":5.55,"t":1791772495947}
+{"layer":"tactician","gs":487,"brain":"rules","trigger":"skill_done","goal":"iron_tools","options":["shore"],"choice":"shore","x":[1.0,1.0,0.0,1.0,1.0,0.313,0.0,0.0,0.4,0.2,0.0,0.0,0.0,1.0,0.0,0.063,0.0,0.5,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,1.0,1.0,0.0,0.154,0.167,0.308,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["shore"],"t":1791772495947}
+{"event":"skill_start","skill":"shore","trigger":"skill_done","t":1791772495948}
+{"event":"stuck","detail":"shore at 57, 20, -40 in water","t":1791772508400}
+{"event":"skill_end","skill":"shore","ok":false,"code":"STUCK","detail":"stuck: stayed inside 2.0 blocks for 12 s","seconds":12.45,"t":1791772508401}
+{"event":"skill_start","skill":"unstuck","trigger":"reflex_stuck","t":1791772508401}
+{"event":"skill_end","skill":"unstuck","ok":true,"detail":"got out (swim)","seconds":1.25,"t":1791772509652}
+{"layer":"tactician","gs":501,"brain":"rules","trigger":"skill_done","goal":"iron_tools","options":["shore"],"choice":"shore","x":[1.0,1.0,0.0,1.0,1.0,0.313,0.0,0.0,0.4,0.2,0.0,0.0,0.0,1.0,0.0,0.063,0.0,0.5,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,1.0,1.0,0.0,0.154,0.167,0.308,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["shore"],"t":1791772509652}
+{"event":"skill_start","skill":"shore","trigger":"skill_done","t":1791772509653}
+{"event":"skill_end","skill":"shore","ok":true,"detail":"reached dry ground with room to work","seconds":1.0,"t":1791772510669}
+{"layer":"tactician","gs":502,"brain":"rules","trigger":"skill_done","goal":"iron_tools","options":["collect raw_iron:10","shelter","explore any"],"choice":"collect raw_iron:10","x":[1.0,1.0,0.0,1.0,1.0,0.984,0.0,0.0,0.4,0.6,1.0,0.0,0.0,1.0,0.0,0.0,0.0,0.5,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,1.0,1.0,0.0,0.154,0.167,0.308,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1791772510670}
+{"event":"skill_start","skill":"collect raw_iron:10","trigger":"skill_done","t":1791772510670}
+{"layer":"tactician","gs":503,"brain":"rules","trigger":"mob_near","goal":"iron_tools","options":["attack zombie","collect raw_iron:10","shelter","explore any"],"choice":"attack zombie","x":[1.0,1.0,0.0,1.0,1.0,0.984,0.0,0.0,0.4,0.6,1.0,0.0,0.0,1.0,0.0,0.0,0.0,0.5,0.0,0.0,0.0,0.0,0.0,0.0,0.25,0.452,1.0,1.0,0.0,0.154,0.167,0.308,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["attack zombie"],"t":1791772511710}
+{"event":"skill_end","skill":"collect raw_iron:10","ok":false,"code":"INTERRUPTED","detail":"interrupted: brain chose attack zombie","seconds":1.0,"t":1791772511710}
+{"event":"skill_start","skill":"attack zombie","trigger":"mob_near","t":1791772511710}
+{"layer":"tactician","gs":509,"brain":"rules","trigger":"hurt","goal":"iron_tools","options":["attack zombie","collect raw_iron:10","shelter","explore any"],"choice":"attack zombie","x":[0.8,1.0,0.0,1.0,1.0,0.984,0.0,0.0,0.4,0.6,1.0,0.0,0.0,1.0,0.0,0.0,0.0,0.5,0.0,0.0,0.0,0.0,0.0,0.0,0.5,0.101,1.0,1.0,0.0,0.154,0.167,0.308,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["attack zombie"],"t":1791772518537}
+{"event":"skill_end","skill":"attack zombie","ok":true,"detail":"killed the zombie","seconds":6.5,"t":1791772519019}
+{"layer":"tactician","gs":509,"brain":"rules","trigger":"skill_done","goal":"iron_tools","options":["attack zombie","collect raw_iron:10","shelter","explore any"],"choice":"attack zombie","x":[0.85,1.0,0.0,1.0,1.0,0.984,0.0,0.0,0.4,0.6,1.0,0.0,0.0,1.0,0.0,0.0,0.0,0.5,0.0,0.0,0.0,0.0,0.0,0.0,0.5,0.094,1.0,1.0,0.0,0.154,0.167,0.308,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["attack zombie"],"t":1791772519020}
+{"event":"skill_start","skill":"attack zombie","trigger":"skill_done","t":1791772519020}
+{"event":"skill_end","skill":"attack zombie","ok":true,"detail":"killed the zombie","seconds":5.25,"t":1791772524257}
+{"layer":"tactician","gs":514,"brain":"rules","trigger":"skill_done","goal":"iron_tools","options":["attack zombie","collect raw_iron:10","shelter","explore any"],"choice":"attack zombie","x":[0.975,1.0,0.0,1.0,1.0,0.984,0.0,0.0,0.4,0.6,1.0,0.0,0.0,1.0,0.0,0.0,0.0,0.5,0.0,0.0,0.0,0.0,0.0,0.0,0.25,0.037,1.0,1.0,0.0,0.154,0.167,0.308,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["attack zombie"],"t":1791772524257}
+{"event":"skill_start","skill":"attack zombie","trigger":"skill_done","t":1791772524257}
+{"event":"skill_end","skill":"attack zombie","ok":true,"detail":"killed the zombie","seconds":4.9,"t":1791772530126}
+{"layer":"tactician","gs":519,"brain":"rules","trigger":"skill_done","goal":"iron_tools","options":["attack zombie","collect raw_iron:10","shelter","explore any"],"choice":"attack zombie","x":[1.0,1.0,0.0,1.0,1.0,0.984,0.0,0.0,0.4,0.6,1.0,0.0,0.0,1.0,0.0,0.0,0.0,0.5,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.591,1.0,1.0,0.0,0.154,0.167,0.308,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["attack zombie"],"t":1791772530127}
+{"event":"skill_start","skill":"attack zombie","trigger":"skill_done","t":1791772530127}
+{"layer":"tactician","gs":524,"brain":"rules","trigger":"hurt","goal":"iron_tools","options":["attack zombie","collect raw_iron:10","shelter","explore any"],"choice":"attack zombie","x":[0.825,1.0,0.0,1.0,1.0,0.984,0.0,0.0,0.4,0.6,1.0,0.0,0.0,1.0,0.0,0.0,0.0,0.5,0.0,0.0,0.0,0.0,0.0,0.0,0.25,0.106,1.0,1.0,0.0,0.154,0.167,0.308,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["attack zombie"],"t":1791772536305}
+{"event":"skill_end","skill":"attack zombie","ok":true,"detail":"killed the zombie","seconds":6.6,"t":1791772538112}
+{"layer":"tactician","gs":526,"brain":"rules","trigger":"skill_done","goal":"iron_tools","options":["attack zombie","collect raw_iron:10","shelter","explore any"],"choice":"attack zombie","x":[0.85,1.0,0.0,1.0,1.0,0.984,0.0,0.0,0.4,0.6,1.0,0.0,0.0,1.0,0.0,0.0,0.0,0.5,0.0,0.0,0.0,0.0,0.0,0.0,0.25,0.089,1.0,1.0,0.0,0.154,0.167,0.308,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["attack zombie"],"t":1791772538113}
+{"event":"skill_start","skill":"attack zombie","trigger":"skill_done","t":1791772538113}
+{"event":"skill_end","skill":"attack zombie","ok":true,"detail":"killed the zombie","seconds":5.1,"t":1791772543409}
+{"layer":"tactician","gs":531,"brain":"rules","trigger":"skill_done","goal":"iron_tools","options":["collect raw_iron:10","shelter","explore any"],"choice":"collect raw_iron:10","x":[1.0,1.0,0.4,1.0,1.0,0.984,0.0,0.0,0.4,0.6,1.0,0.0,0.0,1.0,0.0,0.0,0.0,0.5,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,1.0,1.0,0.0,0.154,0.167,0.308,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1791772543410}
+{"event":"skill_start","skill":"collect raw_iron:10","trigger":"skill_done","t":1791772543410}
+{"layer":"tactician","gs":533,"brain":"rules","trigger":"mob_near","goal":"iron_tools","options":["retreat","collect raw_iron:10","shelter","explore any"],"choice":"retreat","x":[1.0,1.0,0.4,1.0,1.0,0.984,0.0,0.0,0.4,0.6,1.0,0.0,0.0,1.0,0.0,0.0,0.0,0.5,0.0,0.0,0.0,0.0,0.0,0.0,0.25,0.493,1.0,1.0,0.0,0.154,0.167,0.308,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["retreat"],"t":1791772545919}
+{"event":"skill_end","skill":"collect raw_iron:10","ok":false,"code":"INTERRUPTED","detail":"interrupted: brain chose retreat","seconds":2.4,"t":1791772545920}
+{"event":"skill_start","skill":"retreat","trigger":"mob_near","t":1791772545920}
+{"layer":"tactician","gs":539,"brain":"rules","trigger":"mob_near","goal":"iron_tools","options":["retreat","shore"],"choice":"retreat","x":[1.0,1.0,0.4,1.0,0.0,0.969,0.0,0.0,0.4,0.6,1.0,0.0,0.0,1.0,0.0,0.0,0.0,0.5,0.0,0.0,0.0,0.0,0.0,0.0,0.25,0.49,1.0,1.0,0.0,0.154,0.167,0.308,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["retreat","shore"],"t":1791772551576}
+{"event":"skill_end","skill":"retreat","ok":true,"detail":"got away","seconds":6.05,"t":1791772552540}
+{"layer":"tactician","gs":539,"brain":"rules","trigger":"skill_done","goal":"iron_tools","options":["shore"],"choice":"shore","x":[1.0,1.0,0.4,1.0,0.0,0.969,0.0,0.0,0.4,0.6,1.0,0.0,0.0,1.0,0.0,0.0,0.0,0.5,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,1.0,1.0,0.0,0.154,0.167,0.308,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["shore"],"t":1791772552540}
+{"event":"skill_start","skill":"shore","trigger":"skill_done","t":1791772552540}
+{"layer":"reflex","gs":540,"brain":"rules","trigger":"reflex_creeper","goal":"iron_tools","options":["attack creeper"],"choice":"attack creeper","x":[1.0,1.0,0.4,1.0,0.0,0.969,0.0,0.0,0.4,0.6,1.0,0.0,0.0,1.0,0.0,0.0,0.0,0.5,0.0,0.0,0.0,0.0,0.0,0.0,0.25,0.224,1.0,1.0,0.0,0.154,0.167,0.308,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["attack creeper"],"t":1791772553463}
+{"event":"skill_end","skill":"shore","ok":false,"code":"INTERRUPTED","detail":"interrupted by reflex_creeper","seconds":0.7,"t":1791772553463}
+{"event":"skill_start","skill":"attack creeper","trigger":"reflex_creeper","t":1791772553463}
+{"event":"guard","detail":"creeper at 3","t":1791772553645}
+{"event":"skill_end","skill":"attack creeper","ok":false,"code":"HAZARD","detail":"creeper started its fuse before the hit","seconds":0.15,"t":1791772553645}
+{"layer":"tactician","gs":540,"brain":"rules","trigger":"skill_failed","goal":"iron_tools","options":["retreat","shore"],"choice":"retreat","x":[1.0,1.0,0.4,1.0,0.0,0.969,0.0,0.0,0.4,0.6,1.0,0.0,0.0,1.0,0.0,0.0,0.0,0.5,0.0,0.0,0.0,0.0,0.0,0.0,0.25,0.224,1.0,1.0,0.0,0.154,0.167,0.308,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["retreat","shore"],"t":1791772553646}
+{"event":"skill_start","skill":"retreat","trigger":"skill_failed","t":1791772553646}
+{"event":"skill_end","skill":"retreat","ok":false,"code":"NO_PROGRESS","detail":"couldn\u0027t get away (nearest monster 2 blocks)","seconds":1.05,"t":1791772554711}
+{"layer":"tactician","gs":541,"brain":"rules","trigger":"skill_failed","goal":"iron_tools","options":["retreat","shore"],"choice":"retreat","x":[1.0,1.0,0.4,1.0,0.0,0.969,0.0,0.0,0.4,0.6,1.0,0.0,0.0,1.0,0.0,0.0,0.0,0.5,0.0,0.0,0.0,0.0,0.0,0.0,0.25,0.139,1.0,1.0,0.0,0.154,0.167,0.308,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["retreat","shore"],"t":1791772554712}
+{"event":"skill_start","skill":"retreat","trigger":"skill_failed","t":1791772554712}
+{"event":"skill_end","skill":"retreat","ok":true,"detail":"got away","seconds":1.05,"t":1791772555761}
+{"layer":"tactician","gs":542,"brain":"rules","trigger":"skill_done","goal":"iron_tools","options":["collect raw_iron:10","shelter","explore any"],"choice":"collect raw_iron:10","x":[1.0,1.0,0.4,1.0,1.0,0.984,0.0,0.0,0.4,0.6,1.0,0.0,0.0,1.0,0.0,0.0,0.0,0.5,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,1.0,1.0,0.0,0.154,0.167,0.308,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1791772555761}
+{"event":"skill_start","skill":"collect raw_iron:10","trigger":"skill_done","t":1791772555761}
+{"layer":"tactician","gs":543,"brain":"rules","trigger":"mob_near","goal":"iron_tools","options":["attack skeleton","collect raw_iron:10","shelter","explore any"],"choice":"attack skeleton","x":[1.0,1.0,0.4,1.0,1.0,0.984,0.0,0.0,0.4,0.6,1.0,0.0,0.0,1.0,0.0,0.0,0.0,0.5,0.0,0.0,0.0,0.0,0.0,0.0,0.5,0.301,1.0,1.0,0.0,0.154,0.167,0.308,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["attack skeleton"],"t":1791772556761}
+{"event":"skill_end","skill":"collect raw_iron:10","ok":false,"code":"INTERRUPTED","detail":"interrupted: brain chose attack skeleton","seconds":1.0,"t":1791772556761}
+{"event":"skill_start","skill":"attack skeleton","trigger":"mob_near","t":1791772556761}
+{"event":"guard","detail":"skeleton at 7","t":1791772556809}
+{"event":"guard","detail":"skeleton at 7","t":1791772559739}
+{"event":"guard","detail":"skeleton at 12","t":1791772562710}
+{"event":"skill_end","skill":"attack skeleton","ok":true,"detail":"killed the skeleton","seconds":6.65,"t":1791772563583}
+{"layer":"tactician","gs":550,"brain":"rules","trigger":"skill_done","goal":"iron_tools","options":["collect raw_iron:10","shelter","explore any"],"choice":"collect raw_iron:10","x":[1.0,1.0,0.4,1.0,1.0,0.984,0.0,0.0,0.4,0.6,1.0,0.0,0.0,1.0,0.0,0.0,0.0,0.5,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.792,1.0,1.0,0.0,0.154,0.167,0.308,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1791772563583}
+{"event":"skill_start","skill":"collect raw_iron:10","trigger":"skill_done","t":1791772563583}
+{"layer":"reflex","gs":562,"brain":"rules","trigger":"reflex_creeper","goal":"iron_tools","options":["attack creeper"],"choice":"attack creeper","x":[1.0,1.0,0.0,1.0,1.0,0.984,0.0,0.0,0.4,0.6,1.0,0.0,0.0,1.0,0.0,0.0,0.0,0.5,0.0,0.0,0.0,0.0,0.0,0.0,0.25,0.358,1.0,1.0,0.0,0.154,0.167,0.308,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["attack creeper"],"t":1791772575759}
+{"event":"skill_end","skill":"collect raw_iron:10","ok":false,"code":"INTERRUPTED","detail":"interrupted by reflex_creeper","seconds":12.1,"t":1791772575759}
+{"event":"skill_start","skill":"attack creeper","trigger":"reflex_creeper","t":1791772575759}
+{"event":"guard","detail":"creeper at 3","t":1791772576483}
+{"event":"guard","detail":"creeper at 3","t":1791772578700}
+{"event":"skill_end","skill":"attack creeper","ok":true,"detail":"killed the creeper","seconds":6.6,"t":1791772582914}
+{"layer":"tactician","gs":569,"brain":"rules","trigger":"skill_done","goal":"iron_tools","options":["collect raw_iron:13","shelter","explore any"],"choice":"collect raw_iron:13","x":[1.0,1.0,0.0,1.0,1.0,0.984,0.0,0.0,0.4,0.2,0.0,0.0,0.0,1.0,0.0,0.0,0.0,0.5,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.817,1.0,1.0,0.0,0.154,0.167,0.308,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1791772582915}
+{"event":"skill_start","skill":"collect raw_iron:13","trigger":"skill_done","t":1791772582915}
+{"event":"skill_end","skill":"collect raw_iron:13","ok":false,"code":"INTERRUPTED","detail":"test finished","seconds":31.05,"t":1791772614085}
+{"event":"autopilot_off","detail":"test finished","t":1791772614087}
