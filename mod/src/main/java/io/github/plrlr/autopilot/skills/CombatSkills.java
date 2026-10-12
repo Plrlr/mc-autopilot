@@ -213,6 +213,11 @@ public final class CombatSkills {
 				} else if (CombatFootwork.safe(pl, -1, 0) && backingTicks++ < 40) {
 					Mc.mc().options.keyDown.setDown(true);
 					return;
+				} else if (!lit && swings < 4) {
+					// No gap, but its fuse isn't lit: knockback from another hit is the safest move.
+					creeperBacking = false;
+					backingTicks = 0;
+					Mc.mc().options.keyDown.setDown(false);
 				} else {
 					fail(Fail.HAZARD, "no safe gap after hitting the creeper");
 					return;
