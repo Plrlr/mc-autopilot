@@ -419,10 +419,7 @@ public final class NetherSkills {
 				if (Bari.pathing()) Bari.stop();
 				walking = false;
 				Mc.lookAt(close.entity().getBoundingBox().getCenter());
-				if (pl.getAttackStrengthScale(0.5f) >= 0.95f) {
-					Mc.mc().gameMode.attack(pl, close.entity());
-					Mc.swing();
-				}
+				guardedSwing(pl, close.entity(), keyUse);
 				return;
 			}
 			if (blaze != null) {
@@ -435,10 +432,7 @@ public final class NetherSkills {
 					if (Bari.pathing()) Bari.stop();
 					walking = false;
 					Mc.lookAt(e.getBoundingBox().getCenter());
-					if (pl.getAttackStrengthScale(0.5f) >= 0.95f) {
-						Mc.mc().gameMode.attack(pl, e);
-						Mc.swing();
-					}
+					guardedSwing(pl, e, keyUse);
 					return;
 				}
 				// Rods first if one is lying close by; otherwise close in on the blaze.
@@ -508,6 +502,23 @@ public final class NetherSkills {
 			for (Perception.Seen m : seen.mobs)
 				if (m.type().equals("blaze") && (m.dist() < 4 || !CombatSkills.unreachable(m.entity()))) return m;
 			return null;
+		}
+
+		/**
+		 * Melee with the guard up: while the swing recharges, the off-hand shield is raised (it stops
+		 * sword hits, arrows, fireballs and their knockback toward lava); it drops just before the
+		 * swing is ready, and the hit lands once the shield is down.
+		 */
+		private static void guardedSwing(LocalPlayer pl, Entity e, net.minecraft.client.KeyMapping keyUse) {
+			boolean shield = Items2.id(pl.getOffhandItem()).equals("shield");
+			float s = pl.getAttackStrengthScale(0.5f);
+			if (s >= 0.95f && !pl.isUsingItem()) {
+				keyUse.setDown(false);
+				Mc.mc().gameMode.attack(pl, e);
+				Mc.swing();
+				return;
+			}
+			keyUse.setDown(shield && s < 0.8f);
 		}
 
 		private static boolean rodNearby(LocalPlayer pl, Perception seen) {
