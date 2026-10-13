@@ -18,6 +18,7 @@ public final class InventorySkills {
 	public static final class Eat extends Skill {
 		private String food;
 		private int before;
+		private int regrab = -100;
 
 		@Override
 		public String name() {
@@ -70,7 +71,26 @@ public final class InventorySkills {
 				done("ate " + food);
 				return;
 			}
-			if (ticks < 3) return;
+			LocalPlayer pl = Mc.player();
+			if (!pl.getFoodData().needsFood()) {
+				done("not hungry any more");
+				return;
+			}
+			// Lighting, a reflex or a hotbar change may have swapped the held item: holding use on a
+			// torch or a sword never eats and the skill timed out (eat TIMEOUT, top Nether failure).
+			if (!Items2.id(pl.getMainHandItem()).equals(food)) {
+				Mc.mc().options.keyUse.setDown(false);
+				if (Mc.count(food) == 0) {
+					fail(Fail.NEED_ITEM, "the " + food + " is gone");
+					return;
+				}
+				Mc.holdItem(Items2.matcher(food));
+				pl.setXRot(-90f);
+				regrab = ticks;
+				return;
+			}
+			if (pl.getXRot() > -80f) pl.setXRot(-90f);
+			if (ticks < 3 || ticks - regrab < 3) return;
 			// Held use key = the same as a player holding right-click.
 			Mc.mc().options.keyUse.setDown(true);
 		}
