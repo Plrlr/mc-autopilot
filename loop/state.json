@@ -2728,7 +2728,7 @@
   "2026-10-10": 17,
   "2026-10-11": 17,
   "2026-10-12": 15,
-  "2026-10-13": 10
+  "2026-10-13": 11
  },
  "evolve_days": {
   "2026-09-27": 1,
@@ -2961,7 +2961,7 @@
    "result": "racing"
   }
  ],
- "gen": 330,
+ "gen": 331,
  "gene_specs": {
   "bed.table_first": {
    "def": 0.0,
@@ -51105,7 +51105,88 @@
   "n": 1923
  },
  "next_id": 320,
- "pending": null,
+ "pending": {
+  "data_tasks": [
+   {
+    "asset": "stronghold-gen242-data-g196-0.zip",
+    "kind": "start",
+    "late": true,
+    "seed": "D331-r4cq9z",
+    "stage": "stronghold",
+    "synthetic": true
+   },
+   {
+    "kind": "natural",
+    "seed": "D331-hwtqut",
+    "stage": "spawn",
+    "synthetic": false
+   }
+  ],
+  "gen": 331,
+  "lineup": [
+   "g301",
+   "g319",
+   "g318",
+   "g317"
+  ],
+  "runs": [
+   "eval-g301-0",
+   "eval-g301-1",
+   "eval-g301-2",
+   "eval-g301-3",
+   "eval-g319-0",
+   "eval-g319-1",
+   "eval-g319-2",
+   "eval-g319-3",
+   "eval-g318-0",
+   "eval-g318-1",
+   "eval-g318-2",
+   "eval-g318-3",
+   "eval-g317-0",
+   "eval-g317-1",
+   "eval-g317-2",
+   "eval-g317-3",
+   "data-g301-0",
+   "data-g301-1"
+  ],
+  "seeds": [
+   "L331-zarssv",
+   "L331-g6xms7",
+   "L331-cbzndz",
+   "L331-6kbv8j"
+  ],
+  "sha": "91d44de4fbc72526287a191ce432dba1a89adb1c",
+  "started": "2026-10-13T16:35:29+00:00",
+  "tasks": [
+   {
+    "kind": "natural",
+    "seed": "L331-zarssv",
+    "stage": "spawn",
+    "synthetic": false
+   },
+   {
+    "kind": "natural",
+    "seed": "L331-g6xms7",
+    "stage": "spawn",
+    "synthetic": false
+   },
+   {
+    "asset": "nether-gen262-eval-g240-0.zip",
+    "kind": "start",
+    "seed": "L331-cbzndz",
+    "stage": "nether",
+    "synthetic": false
+   },
+   {
+    "kind": "combat",
+    "minutes": 10,
+    "scenario": "combat",
+    "seed": "L331-6kbv8j",
+    "stage": "combat",
+    "synthetic": false
+   }
+  ]
+ },
  "race_evidence_version": 2,
  "score_since_gen": 179,
  "score_version": 4,
