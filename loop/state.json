@@ -2728,7 +2728,7 @@
   "2026-10-10": 17,
   "2026-10-11": 17,
   "2026-10-12": 15,
-  "2026-10-13": 2
+  "2026-10-13": 3
  },
  "evolve_days": {
   "2026-09-27": 1,
@@ -2955,7 +2955,7 @@
    "result": "racing"
   }
  ],
- "gen": 322,
+ "gen": 323,
  "gene_specs": {
   "bed.table_first": {
    "def": 0.0,
@@ -40029,6 +40029,56 @@
    "parent": "g310",
    "status": "contender"
   },
+  "g313": {
+   "born": 323,
+   "code": {
+    "base": "91d44de4fbc72526287a191ce432dba1a89adb1c",
+    "branch": "evolve/g311",
+    "files": [
+     "mod/src/main/java/io/github/plrlr/autopilot/skills/NetherSkills.java"
+    ],
+    "sha": "6878159fe38e472004ef653b2c495a764e51fe88",
+    "summary": "Fortress close fights (blaze in reach, wither skeleton/piglin at arm's length) now keep the off-hand shield raised while the swing recharges and drop it just before each full-strength hit, blocking melee, arrows, fireballs and their knockback into lava instead of standing unguarded between swings."
+   },
+   "evals": [],
+   "genes": {
+    "brain.situations": 1.0,
+    "brain.utility": 1.0,
+    "combat.ignore_walled_mobs": 1.0,
+    "combat.shield_guard": 1.0,
+    "death.recover_night_armor": 12.0,
+    "focus.commit": 1.0,
+    "gear.sword_early": 1.0,
+    "learned.weight": 1.0,
+    "move.shore_first": 1.0,
+    "nav.surface_v2": 1.0,
+    "nav.unstuck_v2": 1.0,
+    "night.shelter_exit": 1.0,
+    "night.wall_in": 1.0,
+    "pearls.provoke_s": 19.0,
+    "plan.hide_hp": 15.0,
+    "plan.hostile_range": 8.025460037805038,
+    "plan.readiness": 1.0,
+    "portal.prepare_work_area": 1.0,
+    "portal.reserve_lava_bucket": 1.0,
+    "route.armor_before_portal": 1.0,
+    "skill.enderman_warped": 1.0,
+    "skill.portal_repair": 1.0,
+    "skill.ruined_portal": 1.0,
+    "stations.pickup_last": 1.0,
+    "stuck.item_progress": 1.0
+   },
+   "id": "g313",
+   "mutated": [
+    "brain.utility",
+    "plan.hostile_range",
+    "brain.situations"
+   ],
+   "note": "brain.utility 1, plan.hostile_range 8.02546, brain.situations 1",
+   "pairs": [],
+   "parent": "g311",
+   "status": "contender"
+  },
   "g32": {
    "born": 42,
    "code": null,
@@ -49651,8 +49701,89 @@
   "mean_gap_ok": -0.2516,
   "n": 1923
  },
- "next_id": 313,
- "pending": null,
+ "next_id": 314,
+ "pending": {
+  "data_tasks": [
+   {
+    "asset": "end-gen265-data-g237-0.zip",
+    "kind": "start",
+    "late": true,
+    "seed": "D323-degpmn",
+    "stage": "end",
+    "synthetic": true
+   },
+   {
+    "kind": "natural",
+    "seed": "D323-yusebx",
+    "stage": "spawn",
+    "synthetic": false
+   }
+  ],
+  "gen": 323,
+  "lineup": [
+   "g301",
+   "g311",
+   "g312",
+   "g313"
+  ],
+  "runs": [
+   "eval-g301-0",
+   "eval-g301-1",
+   "eval-g301-2",
+   "eval-g301-3",
+   "eval-g311-0",
+   "eval-g311-1",
+   "eval-g311-2",
+   "eval-g311-3",
+   "eval-g312-0",
+   "eval-g312-1",
+   "eval-g312-2",
+   "eval-g312-3",
+   "eval-g313-0",
+   "eval-g313-1",
+   "eval-g313-2",
+   "eval-g313-3",
+   "data-g301-0",
+   "data-g301-1"
+  ],
+  "seeds": [
+   "L323-rntjsw",
+   "L323-r4g6ys",
+   "L323-d54d62",
+   "L323-8vy8ab"
+  ],
+  "sha": "91d44de4fbc72526287a191ce432dba1a89adb1c",
+  "started": "2026-10-13T03:56:09+00:00",
+  "tasks": [
+   {
+    "kind": "natural",
+    "seed": "L323-rntjsw",
+    "stage": "spawn",
+    "synthetic": false
+   },
+   {
+    "kind": "natural",
+    "seed": "L323-r4g6ys",
+    "stage": "spawn",
+    "synthetic": false
+   },
+   {
+    "asset": "nether-gen231-eval-g200-1.zip",
+    "kind": "start",
+    "seed": "L323-d54d62",
+    "stage": "nether",
+    "synthetic": false
+   },
+   {
+    "kind": "combat",
+    "minutes": 10,
+    "scenario": "combat",
+    "seed": "L323-8vy8ab",
+    "stage": "combat",
+    "synthetic": false
+   }
+  ]
+ },
  "race_evidence_version": 2,
  "score_since_gen": 179,
  "score_version": 4,
