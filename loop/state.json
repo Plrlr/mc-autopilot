@@ -2728,7 +2728,7 @@
   "2026-10-10": 17,
   "2026-10-11": 17,
   "2026-10-12": 15,
-  "2026-10-13": 5
+  "2026-10-13": 6
  },
  "evolve_days": {
   "2026-09-27": 1,
@@ -2955,7 +2955,7 @@
    "result": "racing"
   }
  ],
- "gen": 325,
+ "gen": 326,
  "gene_specs": {
   "bed.table_first": {
    "def": 0.0,
@@ -40554,6 +40554,98 @@
    "parent": "g313",
    "status": "contender"
   },
+  "g315": {
+   "born": 326,
+   "code": null,
+   "evals": [],
+   "genes": {
+    "combat.ignore_walled_mobs": 1.0,
+    "combat.shield_guard": 1.0,
+    "death.recover_night_armor": 12.0,
+    "focus.commit": 1.0,
+    "gear.sword_early": 1.0,
+    "learned.weight": 1.0,
+    "move.shore_first": 1.0,
+    "nav.surface_v2": 1.0,
+    "nav.unstuck_v2": 1.0,
+    "night.shelter_exit": 1.0,
+    "night.wall_in": 1.0,
+    "pearls.provoke_s": 19.0,
+    "plan.hide_hp": 15.0,
+    "plan.readiness": 1.0,
+    "portal.carve_search": 1.0,
+    "portal.prepare_work_area": 1.0,
+    "portal.reserve_lava_bucket": 1.0,
+    "route.armor_before_portal": 1.0,
+    "skill.enderman_warped": 1.0,
+    "skill.portal_repair": 1.0,
+    "skill.ruined_portal": 1.0,
+    "stations.pickup_last": 1.0,
+    "tools.diamond_pick_if_found": 0.0
+   },
+   "id": "g315",
+   "mutated": [
+    "tools.diamond_pick_if_found",
+    "stuck.item_progress",
+    "portal.carve_search"
+   ],
+   "note": "tools.diamond_pick_if_found 0, stuck.item_progress 0, portal.carve_search 1",
+   "pairs": [],
+   "parent": "g301",
+   "status": "contender"
+  },
+  "g316": {
+   "born": 326,
+   "code": {
+    "base": "91d44de4fbc72526287a191ce432dba1a89adb1c",
+    "branch": "evolve/g311",
+    "files": [
+     "mod/src/main/java/io/github/plrlr/autopilot/skills/NetherSkills.java"
+    ],
+    "sha": "6878159fe38e472004ef653b2c495a764e51fe88",
+    "summary": "Fortress close fights (blaze in reach, wither skeleton/piglin at arm's length) now keep the off-hand shield raised while the swing recharges and drop it just before each full-strength hit, blocking melee, arrows, fireballs and their knockback into lava instead of standing unguarded between swings."
+   },
+   "evals": [],
+   "genes": {
+    "brain.situations": 1.0,
+    "brain.utility": 1.0,
+    "combat.ignore_walled_mobs": 1.0,
+    "combat.shield_guard": 1.0,
+    "death.recover_night_armor": 12.0,
+    "focus.commit": 1.0,
+    "gear.sword_early": 1.0,
+    "learned.weight": 1.0,
+    "loop.stuck_s": 12.0,
+    "move.shore_first": 1.0,
+    "nav.surface_v2": 1.0,
+    "nav.unstuck_v2": 1.0,
+    "night.shelter_exit": 1.0,
+    "night.wall_in": 1.0,
+    "pearls.provoke_s": 19.0,
+    "plan.hide_hp": 15.0,
+    "plan.hostile_range": 8.025460037805038,
+    "plan.readiness": 1.0,
+    "portal.prepare_work_area": 1.0,
+    "portal.reserve_lava_bucket": 1.0,
+    "route.armor_before_portal": 1.0,
+    "skill.drain_tunnel": 1.0,
+    "skill.enderman_warped": 1.0,
+    "skill.portal_repair": 1.0,
+    "skill.ruined_portal": 1.0,
+    "stations.pickup_last": 1.0,
+    "stuck.box": 1.149599026646518,
+    "stuck.item_progress": 1.0
+   },
+   "id": "g316",
+   "mutated": [
+    "skill.drain_tunnel",
+    "loop.stuck_s"
+   ],
+   "note": "skill.drain_tunnel 1, loop.stuck_s 12",
+   "pairs": [],
+   "parent": "g314",
+   "status": "contender"
+  },
   "g32": {
    "born": 42,
    "code": null,
@@ -50176,8 +50268,89 @@
   "mean_gap_ok": -0.2521,
   "n": 1923
  },
- "next_id": 315,
- "pending": null,
+ "next_id": 317,
+ "pending": {
+  "data_tasks": [
+   {
+    "asset": "end-gen304-data-g237-0.zip",
+    "kind": "start",
+    "late": true,
+    "seed": "D326-v2ubwk",
+    "stage": "end",
+    "synthetic": true
+   },
+   {
+    "kind": "natural",
+    "seed": "D326-x6mcb8",
+    "stage": "spawn",
+    "synthetic": false
+   }
+  ],
+  "gen": 326,
+  "lineup": [
+   "g301",
+   "g314",
+   "g315",
+   "g316"
+  ],
+  "runs": [
+   "eval-g301-0",
+   "eval-g301-1",
+   "eval-g301-2",
+   "eval-g301-3",
+   "eval-g314-0",
+   "eval-g314-1",
+   "eval-g314-2",
+   "eval-g314-3",
+   "eval-g315-0",
+   "eval-g315-1",
+   "eval-g315-2",
+   "eval-g315-3",
+   "eval-g316-0",
+   "eval-g316-1",
+   "eval-g316-2",
+   "eval-g316-3",
+   "data-g301-0",
+   "data-g301-1"
+  ],
+  "seeds": [
+   "L326-b2h5w8",
+   "L326-8j97ra",
+   "L326-m6kfqz",
+   "L326-jr346t"
+  ],
+  "sha": "91d44de4fbc72526287a191ce432dba1a89adb1c",
+  "started": "2026-10-13T08:29:37+00:00",
+  "tasks": [
+   {
+    "kind": "natural",
+    "seed": "L326-b2h5w8",
+    "stage": "spawn",
+    "synthetic": false
+   },
+   {
+    "kind": "natural",
+    "seed": "L326-8j97ra",
+    "stage": "spawn",
+    "synthetic": false
+   },
+   {
+    "asset": "nether-gen234-eval-g204-1.zip",
+    "kind": "start",
+    "seed": "L326-m6kfqz",
+    "stage": "nether",
+    "synthetic": false
+   },
+   {
+    "kind": "combat",
+    "minutes": 10,
+    "scenario": "combat",
+    "seed": "L326-jr346t",
+    "stage": "combat",
+    "synthetic": false
+   }
+  ]
+ },
  "race_evidence_version": 2,
  "score_since_gen": 179,
  "score_version": 4,
