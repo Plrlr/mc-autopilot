@@ -2744,7 +2744,7 @@
   "2026-10-10": 5,
   "2026-10-11": 4,
   "2026-10-12": 3,
-  "2026-10-13": 1
+  "2026-10-13": 2
  },
  "evolve_log": [
   {
@@ -2951,6 +2951,12 @@
   {
    "gen": 320,
    "gid": "g311",
+   "mode": "edit",
+   "result": "racing"
+  },
+  {
+   "gen": 329,
+   "gid": "g319",
    "mode": "edit",
    "result": "racing"
   }
@@ -41288,6 +41294,51 @@
    "parent": "g301",
    "status": "contender"
   },
+  "g319": {
+   "born": 329,
+   "code": {
+    "base": "91d44de4fbc72526287a191ce432dba1a89adb1c",
+    "branch": "evolve/g319",
+    "files": [
+     "mod/src/main/java/io/github/plrlr/autopilot/skills/InventorySkills.java"
+    ],
+    "sha": "50c70e8991139ed5127fd527c40d20481a3da312",
+    "summary": "Eat skill: re-hold the chosen food and re-aim up whenever something else changed the held item mid-eat, and finish as soon as hunger is full, instead of holding use on the wrong item until the 5 s timeout (top Nether-stage failure, 15x)."
+   },
+   "evals": [],
+   "genes": {
+    "combat.ignore_walled_mobs": 1.0,
+    "combat.shield_guard": 1.0,
+    "death.recover_night_armor": 12.0,
+    "focus.commit": 1.0,
+    "gear.sword_early": 1.0,
+    "learned.weight": 1.0,
+    "move.shore_first": 1.0,
+    "nav.surface_v2": 1.0,
+    "nav.unstuck_v2": 1.0,
+    "night.shelter_exit": 1.0,
+    "night.wall_in": 1.0,
+    "pearls.provoke_s": 19.0,
+    "plan.hide_hp": 15.0,
+    "plan.readiness": 1.0,
+    "portal.prepare_work_area": 1.0,
+    "portal.reserve_lava_bucket": 1.0,
+    "route.armor_before_portal": 1.0,
+    "skill.enderman_warped": 1.0,
+    "skill.portal_repair": 1.0,
+    "skill.ruined_portal": 1.0,
+    "stations.pickup_last": 1.0,
+    "stuck.item_progress": 1.0
+   },
+   "id": "g319",
+   "mutated": [
+    "code"
+   ],
+   "note": "code: Eat skill: re-hold the chosen food and re-aim up whenever something else changed the held item mid-eat, and finish as soon as hunger is full, instead of holding use on the wrong item until the 5 s timeout (top Nether-stage failure, 15x).",
+   "pairs": [],
+   "parent": "g301",
+   "status": "contender"
+  },
   "g32": {
    "born": 42,
    "code": null,
@@ -50889,7 +50940,8 @@
   "Nether fortress deaths are sudden hits (lava, fire, piglins) that land while the bot is chasing. The one cheap thing the bot controls is starting every fortress leg at full health instead of the median 16, because health only regenerates at 18+ hunger and only while the bot stands still and safe.",
   "Creeper HAZARD failures happen when the back-off stalls while the creeper is still harmless (not swelling); handing over to retreat is where the deaths happen, so the attack should keep hitting until the fuse actually lights.",
   "When two skills hand off to each other, they must use the same 'seen' range. If collect only counts logs within 64 blocks and explore counts any seen log, the two fail back and forth forever.",
-  "Nether first deaths come from near-full health (piglin, wither skeleton, fireball knockback into lava). Earlier attempts changed where the bot fights, and all of them lost. This one changes how it fights: keeping the guard up between swings."
+  "Nether first deaths come from near-full health (piglin, wither skeleton, fireball knockback into lava). Earlier attempts changed where the bot fights, and all of them lost. This one changes how it fights: keeping the guard up between swings.",
+  "Skills that set up the hand or camera only once in start() can be undone by per-tick code (lighting, guard) that runs before them; eat should re-check its preconditions every tick."
  ],
  "learned_race": {
   "gen": 256,
@@ -50910,7 +50962,7 @@
   "mean_gap_ok": -0.36,
   "n": 1923
  },
- "next_id": 319,
+ "next_id": 320,
  "pending": null,
  "race_evidence_version": 2,
  "score_since_gen": 179,
