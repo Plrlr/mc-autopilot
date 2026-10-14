@@ -40,6 +40,8 @@ public final class CollectSkill extends Skill {
 	private final java.util.ArrayDeque<BlockPos> mineTrail = new java.util.ArrayDeque<>();
 	private BlockPos alternateStart;
 	private int diversionTicks;
+	/** When placing gravel for flint last failed for lack of room (ms). */
+	private static long flintNoRoomAt;
 
 	@Override
 	public String name() {
@@ -57,6 +59,18 @@ public final class CollectSkill extends Skill {
 			return;
 		}
 		if (item.equals("flint")) {
+			// The place-and-break method just failed for want of a flat spot: mine seen gravel where
+			// it lies instead (each break drops flint about one time in ten).
+			String gravel = io.github.plrlr.autopilot.state.WorldMemory.groupOf("gravel");
+			if (System.currentTimeMillis() - flintNoRoomAt < 300_000 && gravel != null
+					&& SeenMiner.anySeen(memory, gravel, SEEN_RANGE)) {
+				before = Mc.count(item);
+				lastCount = before;
+				seenOnly = true;
+				seenMiner = new SeenMiner(memory, gravel, SEEN_RANGE, false);
+				timeoutTicks = 20 * 360;
+				return;
+			}
 			flint = new FlintSteps(this, memory);
 			return;
 		}
@@ -151,6 +165,7 @@ public final class CollectSkill extends Skill {
 	@Override
 	protected void cleanup() {
 		if (stoneStep != null && stoneStep.result() == null) stoneStep.abort(Fail.INTERRUPTED, "collect ended");
+		if (flint != null && result() != null && result().code() == Fail.NO_ROOM) flintNoRoomAt = System.currentTimeMillis();
 		// Cut off as stuck on the way to a seen block: the next collect would pick the same one.
 		if (seenMiner != null && result() != null && result().code() == Fail.STUCK) seenMiner.setAsideTarget();
 		super.cleanup();
