@@ -363,7 +363,11 @@ public final class Planner {
 		// into lava, and it burned to death (freebuff nether run 0455). Blazes go to the fortress fight.
 		double range = hostile != null && Mc.dimension().equals("the_nether") && !hostile.type().equals("blaze") ? 4 : Tune.get("plan.hostile_range");
 		if (hostile != null && hostile.dist() < range) {
-			Option verdict = Tune.on("survival.danger_v2") && !NetherPlan.fightInFortress(Mc.dimension(), hostile)
+			// In the Nether the planner only reacts to a monster within 4 blocks: a retreat from there
+			// rarely gets away among lava and drops (12 'retreat NO_PROGRESS, monster 3 blocks'), so
+			// fight back unless outnumbered (handled below).
+			boolean netherClose = Mc.dimension().equals("the_nether") && !hostile.type().equals("blaze");
+			Option verdict = Tune.on("survival.danger_v2") && !netherClose && !NetherPlan.fightInFortress(Mc.dimension(), hostile)
 					? dangerOption(DangerSense.assess(seen), "visible danger") : null;
 			if (verdict != null) out.add(verdict);
 			// Creepers explode in melee range: back off instead of swinging at them.
