@@ -376,7 +376,10 @@ public final class Planner {
 			else if (NetherPlan.fightInFortress(Mc.dimension(), hostile)) out.add(NetherPlan.blazeStep(memory, seen));
 			// Low health: run when outnumbered, or while the one monster is still far enough away to
 			// get clear. One at arm's length follows and hits our back; the attack's shield does better.
-			else if (pl.getHealth() <= Tune.i("combat.flee_hp") && (seen.hostilesWithin(6) >= Tune.i("combat.outnumbered") || hostile.dist() > 4))
+			// A lone skeleton is the exception: running only gives it free shots at our back (arrows
+			// were the top first-death cause, retreat the last choice before most of them).
+			else if (pl.getHealth() <= Tune.i("combat.flee_hp") && (seen.hostilesWithin(6) >= Tune.i("combat.outnumbered")
+					|| hostile.dist() > 4 && !hostile.type().equals("skeleton")))
 				out.add(escape(seen, "low health and a " + hostile.type() + " is close"));
 			// Underground, two or more closing in wear us down in a tunnel: wall in and heal first.
 			else if (!onSurface() && pl.getHealth() <= Tune.i("plan.hide_hp") && seen.hostilesWithin(6) >= 2) out.add(escape(seen, "hurt with monsters closing in"));
