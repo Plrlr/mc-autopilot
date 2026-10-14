@@ -2746,7 +2746,7 @@
   "2026-10-11": 4,
   "2026-10-12": 3,
   "2026-10-13": 2,
-  "2026-10-14": 1
+  "2026-10-14": 2
  },
  "evolve_log": [
   {
@@ -2968,6 +2968,12 @@
    "mode": "skill",
    "result": "drilling",
    "target": "explore:cow TIMEOUT"
+  },
+  {
+   "gen": 337,
+   "gid": "g327",
+   "mode": "edit",
+   "result": "racing"
   }
  ],
  "gen": 337,
@@ -42723,6 +42729,51 @@
    "parent": "g318",
    "status": "rejected"
   },
+  "g327": {
+   "born": 337,
+   "code": {
+    "base": "91d44de4fbc72526287a191ce432dba1a89adb1c",
+    "branch": "evolve/g327",
+    "files": [
+     "mod/src/main/java/io/github/plrlr/autopilot/skills/CollectSkill.java"
+    ],
+    "sha": "fb39c9662be15665792e8fafbdbd7e1f85d3f16b",
+    "summary": "collect flint: after FlintSteps fails NO_ROOM (no flat spot to place gravel), the next flint collect within 5 minutes mines seen gravel in place (each break ~10% flint) instead of retrying the same placement that keeps failing."
+   },
+   "evals": [],
+   "genes": {
+    "brain.utility": 1.0,
+    "combat.ignore_walled_mobs": 1.0,
+    "combat.shield_guard": 1.0,
+    "death.recover_night_armor": 12.0,
+    "focus.commit": 1.0,
+    "gear.sword_early": 1.0,
+    "learned.weight": 1.0,
+    "move.shore_first": 1.0,
+    "nav.surface_v2": 1.0,
+    "nav.unstuck_v2": 1.0,
+    "night.shelter_exit": 1.0,
+    "night.wall_in": 1.0,
+    "pearls.provoke_s": 19.0,
+    "plan.hide_hp": 15.0,
+    "plan.readiness": 1.0,
+    "portal.prepare_work_area": 1.0,
+    "portal.reserve_lava_bucket": 1.0,
+    "route.armor_before_portal": 1.0,
+    "skill.enderman_warped": 1.0,
+    "skill.ruined_portal": 1.0,
+    "stations.pickup_last": 1.0,
+    "stuck.item_progress": 1.0
+   },
+   "id": "g327",
+   "mutated": [
+    "code"
+   ],
+   "note": "code: collect flint: after FlintSteps fails NO_ROOM (no flat spot to place gravel), the next flint collect within 5 minutes mines seen gravel in place (each break ~10% flint) instead of retrying the same placement that keeps failing.",
+   "pairs": [],
+   "parent": "g318",
+   "status": "contender"
+  },
   "g33": {
    "born": 45,
    "code": null,
@@ -52244,7 +52295,8 @@
   "When two skills hand off to each other, they must use the same 'seen' range. If collect only counts logs within 64 blocks and explore counts any seen log, the two fail back and forth forever.",
   "Nether first deaths come from near-full health (piglin, wither skeleton, fireball knockback into lava). Earlier attempts changed where the bot fights, and all of them lost. This one changes how it fights: keeping the guard up between swings.",
   "Skills that set up the hand or camera only once in start() can be undone by per-tick code (lighting, guard) that runs before them; eat should re-check its preconditions every tick.",
-  "An explore that times out on a 120-block path toward one spot gets better odds from a short sideways walk by keys that stops when an animal comes into view than from a long path in the same direction."
+  "An explore that times out on a 120-block path toward one spot gets better odds from a short sideways walk by keys that stops when an animal comes into view than from a long path in the same direction.",
+  "A skill that fails the same way repeatedly in one spot (flint NO_ROOM 55x back-to-back) needs a different method on retry, not the same one again."
  ],
  "learned_race": {
   "gen": 256,
@@ -52265,7 +52317,7 @@
   "mean_gap_ok": 0.1416,
   "n": 1960
  },
- "next_id": 327,
+ "next_id": 328,
  "pending": null,
  "race_evidence_version": 2,
  "score_since_gen": 179,
