@@ -2801,7 +2801,7 @@
   "2026-10-11": 4,
   "2026-10-12": 3,
   "2026-10-13": 2,
-  "2026-10-14": 3
+  "2026-10-14": 4
  },
  "evolve_log": [
   {
@@ -3033,6 +3033,12 @@
   {
    "gen": 343,
    "gid": "g337",
+   "mode": "edit",
+   "result": "racing"
+  },
+  {
+   "gen": 348,
+   "gid": "g346",
    "mode": "edit",
    "result": "racing"
   }
@@ -45258,6 +45264,51 @@
    "parent": "g330",
    "status": "contender"
   },
+  "g346": {
+   "born": 348,
+   "code": {
+    "base": "91d44de4fbc72526287a191ce432dba1a89adb1c",
+    "branch": "evolve/g346",
+    "files": [
+     "mod/src/main/java/io/github/plrlr/autopilot/plan/Planner.java"
+    ],
+    "sha": "8f92a282bdab250e7af6fdcbc6725f3b57344c24",
+    "summary": "In the Nether, a monster within 4 blocks (blazes still go to the fortress fight) skips the planner's danger check and goes to the normal rules, which usually attack; the outnumbered and hurt-and-cornered retreats still apply. Targets 12 Nether 'retreat NO_PROGRESS' with the monster still at 3 blocks."
+   },
+   "evals": [],
+   "genes": {
+    "brain.utility": 1.0,
+    "combat.ignore_walled_mobs": 1.0,
+    "combat.shield_guard": 1.0,
+    "death.recover_night_armor": 12.0,
+    "focus.commit": 1.0,
+    "fortress.anchor_scope": 1.0,
+    "gear.sword_early": 1.0,
+    "learned.weight": 1.0,
+    "move.shore_first": 1.0,
+    "nav.surface_v2": 1.0,
+    "nav.unstuck_v2": 1.0,
+    "night.shelter_exit": 1.0,
+    "pearls.provoke_s": 19.0,
+    "plan.hide_hp": 15.0,
+    "plan.readiness": 1.0,
+    "portal.prepare_work_area": 1.0,
+    "portal.reserve_lava_bucket": 1.0,
+    "route.armor_before_portal": 1.0,
+    "skill.enderman_warped": 1.0,
+    "skill.ruined_portal": 1.0,
+    "stations.pickup_last": 1.0,
+    "stuck.item_progress": 1.0
+   },
+   "id": "g346",
+   "mutated": [
+    "code"
+   ],
+   "note": "code: In the Nether, a monster within 4 blocks (blazes still go to the fortress fight) skips the planner's danger check and goes to the normal rules, which usually attack; the outnumbered and hurt-and-cornered retreats still apply. Targets 12 Nether 'retreat NO_PROGRESS' with the monster still at 3 blocks.",
+   "pairs": [],
+   "parent": "g330",
+   "status": "contender"
+  },
   "g35": {
    "born": 52,
    "code": null,
@@ -54436,7 +54487,8 @@
   "Skills that set up the hand or camera only once in start() can be undone by per-tick code (lighting, guard) that runs before them; eat should re-check its preconditions every tick.",
   "An explore that times out on a 120-block path toward one spot gets better odds from a short sideways walk by keys that stops when an animal comes into view than from a long path in the same direction.",
   "A skill that fails the same way repeatedly in one spot (flint NO_ROOM 55x back-to-back) needs a different method on retry, not the same one again.",
-  "Retreat is the last choice before most first deaths and arrows are the top killer, so running from ranged mobs on open ground hands them free shots; closing in with the shield up should do better."
+  "Retreat is the last choice before most first deaths and arrows are the top killer, so running from ranged mobs on open ground hands them free shots; closing in with the shield up should do better.",
+  "The planner only reacts to Nether monsters within 4 blocks, so any retreat it starts there begins at arm's length among lava and drops and rarely gets away; fighting back is likely the better default there."
  ],
  "learned_race": {
   "gen": 256,
@@ -54457,7 +54509,7 @@
   "mean_gap_ok": -0.2892,
   "n": 1985
  },
- "next_id": 346,
+ "next_id": 347,
  "pending": null,
  "race_evidence_version": 2,
  "score_since_gen": 179,
