@@ -2744,7 +2744,8 @@
   "2026-10-10": 5,
   "2026-10-11": 4,
   "2026-10-12": 3,
-  "2026-10-13": 2
+  "2026-10-13": 2,
+  "2026-10-14": 1
  },
  "evolve_log": [
   {
@@ -2959,6 +2960,13 @@
    "gid": "g319",
    "mode": "edit",
    "result": "racing"
+  },
+  {
+   "gen": 335,
+   "gid": "g322",
+   "mode": "skill",
+   "result": "drilling",
+   "target": "explore:cow TIMEOUT"
   }
  ],
  "gen": 335,
@@ -42204,6 +42212,71 @@
    "parent": "g318",
    "status": "contender"
   },
+  "g322": {
+   "born": 335,
+   "code": {
+    "base": "91d44de4fbc72526287a191ce432dba1a89adb1c",
+    "branch": "evolve/g322",
+    "files": [
+     "mod/src/main/java/io/github/plrlr/autopilot/skills/evolved/ExploreSideways.java",
+     "mod/src/main/java/io/github/plrlr/autopilot/skills/evolved/EvolvedSkills.java",
+     "mod/src/main/resources/evolved-genes.json"
+    ],
+    "gene": "evolved.explore_sideways",
+    "kind": "skill",
+    "sha": "73d270e27f2167391d0148a36062f58b8c4082b8",
+    "skill": "explore_sideways",
+    "summary": "explore_sideways: after explore:cow TIMEOUT in the overworld, walk to a farm animal that's in sight but farther than 32 blocks, or walk by keys up to 56 blocks at 90\u00b0 to the old heading.",
+    "target": "explore:cow TIMEOUT"
+   },
+   "drill": {
+    "gen": 335,
+    "idea": {
+     "_metric": "resolve:explore:TIMEOUT+explore_sideways",
+     "evolved.explore_sideways": 1
+    },
+    "run": 38491849826
+   },
+   "evals": [],
+   "exposure_spec": {
+    "skill": "explore_sideways"
+   },
+   "genes": {
+    "brain.utility": 1.0,
+    "combat.ignore_walled_mobs": 1.0,
+    "combat.shield_guard": 1.0,
+    "death.recover_night_armor": 12.0,
+    "evolved.explore_sideways": 1.0,
+    "focus.commit": 1.0,
+    "gear.sword_early": 1.0,
+    "learned.weight": 1.0,
+    "move.shore_first": 1.0,
+    "nav.surface_v2": 1.0,
+    "nav.unstuck_v2": 1.0,
+    "night.shelter_exit": 1.0,
+    "night.wall_in": 1.0,
+    "pearls.provoke_s": 19.0,
+    "plan.hide_hp": 15.0,
+    "plan.readiness": 1.0,
+    "portal.prepare_work_area": 1.0,
+    "portal.reserve_lava_bucket": 1.0,
+    "route.armor_before_portal": 1.0,
+    "skill.enderman_warped": 1.0,
+    "skill.ruined_portal": 1.0,
+    "stations.pickup_last": 1.0,
+    "stuck.item_progress": 1.0
+   },
+   "id": "g322",
+   "metric": "resolve:explore:TIMEOUT+explore_sideways",
+   "mutated": [
+    "code",
+    "evolved.explore_sideways"
+   ],
+   "note": "code: new skill explore_sideways for explore:cow TIMEOUT: explore_sideways: after explore:cow TIMEOUT in the overworld, walk to a farm animal that's in sight but farther than 32 blocks, or walk by keys up to 56 blocks at 90\u00b0 to the old heading.",
+   "pairs": [],
+   "parent": "g318",
+   "status": "drilling"
+  },
   "g33": {
    "born": 45,
    "code": null,
@@ -51724,7 +51797,8 @@
   "Creeper HAZARD failures happen when the back-off stalls while the creeper is still harmless (not swelling); handing over to retreat is where the deaths happen, so the attack should keep hitting until the fuse actually lights.",
   "When two skills hand off to each other, they must use the same 'seen' range. If collect only counts logs within 64 blocks and explore counts any seen log, the two fail back and forth forever.",
   "Nether first deaths come from near-full health (piglin, wither skeleton, fireball knockback into lava). Earlier attempts changed where the bot fights, and all of them lost. This one changes how it fights: keeping the guard up between swings.",
-  "Skills that set up the hand or camera only once in start() can be undone by per-tick code (lighting, guard) that runs before them; eat should re-check its preconditions every tick."
+  "Skills that set up the hand or camera only once in start() can be undone by per-tick code (lighting, guard) that runs before them; eat should re-check its preconditions every tick.",
+  "An explore that times out on a 120-block path toward one spot gets better odds from a short sideways walk by keys that stops when an animal comes into view than from a long path in the same direction."
  ],
  "learned_race": {
   "gen": 256,
@@ -51745,7 +51819,7 @@
   "mean_gap_ok": 0.0901,
   "n": 1959
  },
- "next_id": 322,
+ "next_id": 323,
  "pending": null,
  "race_evidence_version": 2,
  "score_since_gen": 179,
@@ -52653,6 +52727,13 @@
    "result": "inconclusive: never ran in its drill (its offer never fired): INCONCLUSIVE: on 0 deaths in 29 min, off 5 deaths in 30 min, z +2.2; exposure on its side: fortress_rest offered 0, chosen 0, started 0, ended 0 (0 ok); acted in 0 of 3 games",
    "skill": "fortress_rest",
    "target": "fortress DIED"
+  },
+  {
+   "gen": 335,
+   "gid": "g322",
+   "result": "drilling",
+   "skill": "explore_sideways",
+   "target": "explore:cow TIMEOUT"
   }
  ],
  "skill_stats": {
