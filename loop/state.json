@@ -2784,7 +2784,7 @@
   "2026-10-11": 17,
   "2026-10-12": 15,
   "2026-10-13": 15,
-  "2026-10-14": 12
+  "2026-10-14": 13
  },
  "evolve_days": {
   "2026-09-27": 1,
@@ -3037,7 +3037,7 @@
    "result": "racing"
   }
  ],
- "gen": 347,
+ "gen": 348,
  "gene_specs": {
   "bed.table_first": {
    "def": 0.0,
@@ -45038,6 +45038,82 @@
    "parent": "g330",
    "status": "rejected"
   },
+  "g344": {
+   "born": 348,
+   "code": null,
+   "evals": [],
+   "genes": {
+    "brain.utility": 1.0,
+    "combat.ignore_walled_mobs": 1.0,
+    "combat.shield_guard": 1.0,
+    "death.recover_night_armor": 12.0,
+    "focus.commit": 1.0,
+    "food.eat_at": 16.0,
+    "fortress.anchor_scope": 1.0,
+    "gear.sword_early": 1.0,
+    "learned.weight": 1.0,
+    "move.shore_first": 1.0,
+    "nav.surface_v2": 1.0,
+    "nav.unstuck_v2": 1.0,
+    "night.shelter_exit": 1.0,
+    "pearls.provoke_s": 19.0,
+    "plan.hide_hp": 15.0,
+    "plan.readiness": 1.0,
+    "portal.prepare_work_area": 1.0,
+    "portal.reserve_lava_bucket": 1.0,
+    "route.armor_before_portal": 1.0,
+    "skill.enderman_warped": 1.0,
+    "skill.restock": 1.0,
+    "skill.ruined_portal": 1.0,
+    "stations.pickup_last": 1.0,
+    "stuck.item_progress": 1.0
+   },
+   "id": "g344",
+   "mutated": [
+    "food.eat_at",
+    "skill.restock"
+   ],
+   "note": "food.eat_at 16, skill.restock 1",
+   "pairs": [],
+   "parent": "g330",
+   "status": "contender"
+  },
+  "g345": {
+   "born": 348,
+   "code": null,
+   "evals": [],
+   "genes": {
+    "brain.utility": 1.0,
+    "combat.ignore_walled_mobs": 1.0,
+    "combat.shield_guard": 1.0,
+    "death.recover_night_armor": 12.0,
+    "focus.commit": 1.0,
+    "fortress.anchor_scope": 1.0,
+    "gear.sword_early": 1.0,
+    "learned.weight": 1.0,
+    "nav.surface_v2": 1.0,
+    "nav.unstuck_v2": 1.0,
+    "night.shelter_exit": 1.0,
+    "pearls.provoke_s": 19.0,
+    "plan.hide_hp": 15.0,
+    "plan.readiness": 1.0,
+    "portal.prepare_work_area": 1.0,
+    "portal.reserve_lava_bucket": 1.0,
+    "route.armor_before_portal": 1.0,
+    "skill.enderman_warped": 1.0,
+    "skill.ruined_portal": 1.0,
+    "stations.pickup_last": 1.0,
+    "stuck.item_progress": 1.0
+   },
+   "id": "g345",
+   "mutated": [
+    "move.shore_first"
+   ],
+   "note": "move.shore_first 0",
+   "pairs": [],
+   "parent": "g330",
+   "status": "contender"
+  },
   "g35": {
    "born": 52,
    "code": null,
@@ -54237,8 +54313,89 @@
   "mean_gap_ok": 0.1853,
   "n": 1985
  },
- "next_id": 344,
- "pending": null,
+ "next_id": 346,
+ "pending": {
+  "data_tasks": [
+   {
+    "kind": "scenario",
+    "late": true,
+    "scenario": "stronghold",
+    "seed": "D348-7y5a6e",
+    "stage": "eyes",
+    "synthetic": true
+   },
+   {
+    "kind": "natural",
+    "seed": "D348-5gencm",
+    "stage": "spawn",
+    "synthetic": false
+   }
+  ],
+  "gen": 348,
+  "lineup": [
+   "g330",
+   "g337",
+   "g344",
+   "g345"
+  ],
+  "runs": [
+   "eval-g330-0",
+   "eval-g330-1",
+   "eval-g330-2",
+   "eval-g330-3",
+   "eval-g337-0",
+   "eval-g337-1",
+   "eval-g337-2",
+   "eval-g337-3",
+   "eval-g344-0",
+   "eval-g344-1",
+   "eval-g344-2",
+   "eval-g344-3",
+   "eval-g345-0",
+   "eval-g345-1",
+   "eval-g345-2",
+   "eval-g345-3",
+   "data-g330-0",
+   "data-g330-1"
+  ],
+  "seeds": [
+   "L348-4bfr5z",
+   "L348-xzn2qs",
+   "L348-c2tbzx",
+   "L348-gprjxc"
+  ],
+  "sha": "91d44de4fbc72526287a191ce432dba1a89adb1c",
+  "started": "2026-10-14T22:18:03+00:00",
+  "tasks": [
+   {
+    "kind": "natural",
+    "seed": "L348-4bfr5z",
+    "stage": "spawn",
+    "synthetic": false
+   },
+   {
+    "kind": "natural",
+    "seed": "L348-xzn2qs",
+    "stage": "spawn",
+    "synthetic": false
+   },
+   {
+    "asset": "nether-gen263-eval-g240-1.zip",
+    "kind": "start",
+    "seed": "L348-c2tbzx",
+    "stage": "nether",
+    "synthetic": false
+   },
+   {
+    "kind": "combat",
+    "minutes": 10,
+    "scenario": "combat",
+    "seed": "L348-gprjxc",
+    "stage": "combat",
+    "synthetic": false
+   }
+  ]
+ },
  "race_evidence_version": 2,
  "score_since_gen": 179,
  "score_version": 4,
