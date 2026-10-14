@@ -2729,7 +2729,7 @@
   "2026-10-11": 17,
   "2026-10-12": 15,
   "2026-10-13": 15,
-  "2026-10-14": 1
+  "2026-10-14": 2
  },
  "evolve_days": {
   "2026-09-27": 1,
@@ -2970,7 +2970,7 @@
    "target": "explore:cow TIMEOUT"
   }
  ],
- "gen": 336,
+ "gen": 337,
  "gene_specs": {
   "bed.table_first": {
    "def": 0.0,
@@ -42336,7 +42336,9 @@
      "_metric": "resolve:explore:TIMEOUT+explore_sideways",
      "evolved.explore_sideways": 1
     },
-    "run": 38491849826
+    "run": 38491849826,
+    "verdict": "INCONCLUSIVE",
+    "why": "INCONCLUSIVE: on 0/0 fixed (0%), off 0/0 fixed (0%), z +0.0; exposure on its side: explore_sideways offered 0, chosen 0, started 0, ended 0 (0 ok); acted in 0 of 3 games"
    },
    "evals": [],
    "exposure_spec": {
@@ -42368,6 +42370,7 @@
     "stuck.item_progress": 1.0
    },
    "id": "g322",
+   "inconclusive": "never ran in its drill",
    "metric": "resolve:explore:TIMEOUT+explore_sideways",
    "mutated": [
     "code",
@@ -42376,7 +42379,7 @@
    "note": "code: new skill explore_sideways for explore:cow TIMEOUT: explore_sideways: after explore:cow TIMEOUT in the overworld, walk to a farm animal that's in sight but farther than 32 blocks, or walk by keys up to 56 blocks at 90\u00b0 to the old heading.",
    "pairs": [],
    "parent": "g318",
-   "status": "drilling"
+   "status": "rejected"
   },
   "g323": {
    "born": 336,
@@ -42459,6 +42462,120 @@
    ],
    "parent": "g318",
    "status": "rejected"
+  },
+  "g324": {
+   "born": 337,
+   "code": null,
+   "evals": [],
+   "genes": {
+    "brain.utility": 1.0,
+    "combat.ignore_walled_mobs": 1.0,
+    "combat.shield_guard": 1.0,
+    "death.recover_night_armor": 12.0,
+    "dragon.wait_dist": 11.116909755771388,
+    "focus.commit": 1.0,
+    "gear.sword_early": 1.0,
+    "learned.weight": 1.0,
+    "move.shore_first": 1.0,
+    "nav.surface_v2": 1.0,
+    "nav.unstuck_v2": 1.0,
+    "night.shelter_exit": 1.0,
+    "night.wall_in": 1.0,
+    "pearls.provoke_s": 19.0,
+    "plan.hide_hp": 15.0,
+    "plan.readiness": 1.0,
+    "portal.prepare_work_area": 1.0,
+    "portal.reserve_lava_bucket": 1.0,
+    "route.armor_before_portal": 1.0,
+    "skill.enderman_warped": 1.0,
+    "skill.ruined_portal": 1.0,
+    "stations.pickup_last": 1.0,
+    "stuck.item_progress": 1.0
+   },
+   "id": "g324",
+   "mutated": [
+    "dragon.wait_dist"
+   ],
+   "note": "dragon.wait_dist 11.1169",
+   "pairs": [],
+   "parent": "g318",
+   "status": "contender"
+  },
+  "g325": {
+   "born": 337,
+   "code": null,
+   "evals": [],
+   "genes": {
+    "brain.utility": 1.0,
+    "combat.ignore_walled_mobs": 1.0,
+    "combat.shield_guard": 1.0,
+    "death.recover_night_armor": 12.0,
+    "focus.commit": 1.0,
+    "gear.sword_early": 1.0,
+    "learned.weight": 1.0,
+    "move.shore_first": 1.0,
+    "nav.surface_v2": 1.0,
+    "nav.unstuck_v2": 1.0,
+    "night.shelter_exit": 1.0,
+    "night.wall_in": 1.0,
+    "pearls.provoke_s": 19.0,
+    "plan.hide_hp": 15.0,
+    "plan.readiness": 1.0,
+    "portal.prepare_work_area": 1.0,
+    "portal.reserve_lava_bucket": 1.0,
+    "route.armor_before_portal": 1.0,
+    "skill.enderman_warped": 1.0,
+    "stations.pickup_last": 1.0,
+    "stuck.item_progress": 1.0
+   },
+   "id": "g325",
+   "mutated": [
+    "skill.ruined_portal"
+   ],
+   "note": "skill.ruined_portal 0",
+   "pairs": [],
+   "parent": "g318",
+   "status": "contender"
+  },
+  "g326": {
+   "born": 337,
+   "code": null,
+   "evals": [],
+   "genes": {
+    "brain.utility": 1.0,
+    "combat.flee_hp": 9.0,
+    "combat.ignore_walled_mobs": 1.0,
+    "combat.shield_guard": 1.0,
+    "death.recover_night_armor": 12.0,
+    "dragon.wait_dist": 12.825037422813008,
+    "focus.commit": 1.0,
+    "gear.sword_early": 1.0,
+    "learned.weight": 1.0,
+    "move.shore_first": 1.0,
+    "nav.surface_v2": 1.0,
+    "nav.unstuck_v2": 1.0,
+    "night.shelter_exit": 1.0,
+    "night.wall_in": 1.0,
+    "pearls.provoke_s": 19.0,
+    "plan.hide_hp": 15.0,
+    "plan.readiness": 1.0,
+    "portal.prepare_work_area": 1.0,
+    "portal.reserve_lava_bucket": 1.0,
+    "route.armor_before_portal": 1.0,
+    "skill.enderman_warped": 1.0,
+    "skill.ruined_portal": 1.0,
+    "stuck.item_progress": 1.0
+   },
+   "id": "g326",
+   "mutated": [
+    "dragon.wait_dist",
+    "combat.flee_hp",
+    "stations.pickup_last"
+   ],
+   "note": "dragon.wait_dist 12.825, combat.flee_hp 9, stations.pickup_last 0",
+   "pairs": [],
+   "parent": "g318",
+   "status": "contender"
   },
   "g33": {
    "born": 45,
@@ -52002,8 +52119,89 @@
   "mean_gap_ok": -0.1144,
   "n": 1959
  },
- "next_id": 324,
- "pending": null,
+ "next_id": 327,
+ "pending": {
+  "data_tasks": [
+   {
+    "asset": "stronghold-gen242-data-g196-0.zip",
+    "kind": "start",
+    "late": true,
+    "seed": "D337-hkbfr7",
+    "stage": "stronghold",
+    "synthetic": true
+   },
+   {
+    "kind": "natural",
+    "seed": "D337-938prv",
+    "stage": "spawn",
+    "synthetic": false
+   }
+  ],
+  "gen": 337,
+  "lineup": [
+   "g318",
+   "g324",
+   "g325",
+   "g326"
+  ],
+  "runs": [
+   "eval-g318-0",
+   "eval-g318-1",
+   "eval-g318-2",
+   "eval-g318-3",
+   "eval-g324-0",
+   "eval-g324-1",
+   "eval-g324-2",
+   "eval-g324-3",
+   "eval-g325-0",
+   "eval-g325-1",
+   "eval-g325-2",
+   "eval-g325-3",
+   "eval-g326-0",
+   "eval-g326-1",
+   "eval-g326-2",
+   "eval-g326-3",
+   "data-g318-0",
+   "data-g318-1"
+  ],
+  "seeds": [
+   "L337-nb5cn7",
+   "L337-us8ngc",
+   "L337-cyg6z3",
+   "L337-zrjjfh"
+  ],
+  "sha": "91d44de4fbc72526287a191ce432dba1a89adb1c",
+  "started": "2026-10-14T02:41:00+00:00",
+  "tasks": [
+   {
+    "kind": "natural",
+    "seed": "L337-nb5cn7",
+    "stage": "spawn",
+    "synthetic": false
+   },
+   {
+    "kind": "natural",
+    "seed": "L337-us8ngc",
+    "stage": "spawn",
+    "synthetic": false
+   },
+   {
+    "asset": "nether-gen233-eval-g204-1.zip",
+    "kind": "start",
+    "seed": "L337-cyg6z3",
+    "stage": "nether",
+    "synthetic": false
+   },
+   {
+    "kind": "combat",
+    "minutes": 10,
+    "scenario": "combat",
+    "seed": "L337-zrjjfh",
+    "stage": "combat",
+    "synthetic": false
+   }
+  ]
+ },
  "race_evidence_version": 2,
  "score_since_gen": 179,
  "score_version": 4,
@@ -52914,7 +53112,7 @@
   {
    "gen": 335,
    "gid": "g322",
-   "result": "drilling",
+   "result": "inconclusive: never ran in its drill (its offer never fired): INCONCLUSIVE: on 0/0 fixed (0%), off 0/0 fixed (0%), z +0.0; exposure on its side: explore_sideways offered 0, chosen 0, started 0, ended 0 (0 ok); acted in 0 of 3 games",
    "skill": "explore_sideways",
    "target": "explore:cow TIMEOUT"
   }
