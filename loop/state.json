@@ -2729,7 +2729,7 @@
   "2026-10-11": 17,
   "2026-10-12": 15,
   "2026-10-13": 15,
-  "2026-10-14": 6
+  "2026-10-14": 7
  },
  "evolve_days": {
   "2026-09-27": 1,
@@ -2976,7 +2976,7 @@
    "result": "racing"
   }
  ],
- "gen": 341,
+ "gen": 342,
  "gene_specs": {
   "bed.table_first": {
    "def": 0.0,
@@ -43641,6 +43641,46 @@
    "parent": "g330",
    "status": "contender"
   },
+  "g333": {
+   "born": 342,
+   "code": null,
+   "evals": [],
+   "genes": {
+    "brain.utility": 1.0,
+    "combat.ignore_walled_mobs": 1.0,
+    "combat.shield_guard": 1.0,
+    "death.recover_night_armor": 12.0,
+    "focus.commit": 1.0,
+    "food.early_stock": 1.0,
+    "fortress.anchor_scope": 1.0,
+    "gather.stone_stock": 16.0,
+    "gear.sword_early": 1.0,
+    "learned.weight": 1.0,
+    "move.shore_first": 1.0,
+    "nav.surface_v2": 1.0,
+    "nav.unstuck_v2": 1.0,
+    "night.shelter_exit": 1.0,
+    "pearls.provoke_s": 19.0,
+    "plan.hide_hp": 15.0,
+    "plan.readiness": 1.0,
+    "portal.prepare_work_area": 1.0,
+    "portal.reserve_lava_bucket": 1.0,
+    "route.armor_before_portal": 1.0,
+    "skill.enderman_warped": 1.0,
+    "skill.ruined_portal": 1.0,
+    "stations.pickup_last": 1.0,
+    "stuck.item_progress": 1.0
+   },
+   "id": "g333",
+   "mutated": [
+    "food.early_stock",
+    "gather.stone_stock"
+   ],
+   "note": "food.early_stock 1, gather.stone_stock 16",
+   "pairs": [],
+   "parent": "g330",
+   "status": "contender"
+  },
   "g34": {
    "born": 45,
    "code": null,
@@ -53002,8 +53042,89 @@
   "mean_gap_ok": 0.01,
   "n": 1961
  },
- "next_id": 333,
- "pending": null,
+ "next_id": 334,
+ "pending": {
+  "data_tasks": [
+   {
+    "kind": "scenario",
+    "late": true,
+    "scenario": "stronghold",
+    "seed": "D342-vqunkc",
+    "stage": "eyes",
+    "synthetic": true
+   },
+   {
+    "kind": "natural",
+    "seed": "D342-vunkbr",
+    "stage": "spawn",
+    "synthetic": false
+   }
+  ],
+  "gen": 342,
+  "lineup": [
+   "g330",
+   "g318",
+   "g332",
+   "g333"
+  ],
+  "runs": [
+   "eval-g330-0",
+   "eval-g330-1",
+   "eval-g330-2",
+   "eval-g330-3",
+   "eval-g318-0",
+   "eval-g318-1",
+   "eval-g318-2",
+   "eval-g318-3",
+   "eval-g332-0",
+   "eval-g332-1",
+   "eval-g332-2",
+   "eval-g332-3",
+   "eval-g333-0",
+   "eval-g333-1",
+   "eval-g333-2",
+   "eval-g333-3",
+   "data-g330-0",
+   "data-g330-1"
+  ],
+  "seeds": [
+   "L342-55mar8",
+   "L342-sk3qub",
+   "L342-j8dj6g",
+   "L342-xq44f6"
+  ],
+  "sha": "91d44de4fbc72526287a191ce432dba1a89adb1c",
+  "started": "2026-10-14T11:04:26+00:00",
+  "tasks": [
+   {
+    "kind": "natural",
+    "seed": "L342-55mar8",
+    "stage": "spawn",
+    "synthetic": false
+   },
+   {
+    "kind": "natural",
+    "seed": "L342-sk3qub",
+    "stage": "spawn",
+    "synthetic": false
+   },
+   {
+    "asset": "nether-gen279-eval-g260-0.zip",
+    "kind": "start",
+    "seed": "L342-j8dj6g",
+    "stage": "nether",
+    "synthetic": false
+   },
+   {
+    "kind": "combat",
+    "minutes": 10,
+    "scenario": "combat",
+    "seed": "L342-xq44f6",
+    "stage": "combat",
+    "synthetic": false
+   }
+  ]
+ },
  "race_evidence_version": 2,
  "score_since_gen": 179,
  "score_version": 4,
