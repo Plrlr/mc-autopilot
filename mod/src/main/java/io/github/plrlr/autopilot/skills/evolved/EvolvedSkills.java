@@ -31,6 +31,7 @@ public final class EvolvedSkills {
 
 	static {
 		// evolve:entries (scripts/loop/evolve.py appends one add(...) line per evolved skill here)
+		add(new Entry("evolved.explore_sideways", "explore_sideways", ExploreSideways::new, ExploreSideways::offer, "explore_sideways: after explore for animals timed out, walk sideways/toward a far animal until one is in view"));
 		// evolve:end
 	}
 
