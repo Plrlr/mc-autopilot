@@ -2833,7 +2833,7 @@
   "2026-10-12": 3,
   "2026-10-13": 2,
   "2026-10-14": 4,
-  "2026-10-15": 4
+  "2026-10-15": 5
  },
  "evolve_log": [
   {
@@ -3089,6 +3089,12 @@
   {
    "gen": 359,
    "gid": "g358",
+   "mode": "edit",
+   "result": "racing"
+  },
+  {
+   "gen": 362,
+   "gid": "g363",
    "mode": "edit",
    "result": "racing"
   }
@@ -47972,6 +47978,53 @@
    "parent": "g358",
    "status": "rejected"
   },
+  "g363": {
+   "born": 362,
+   "code": {
+    "base": "91d44de4fbc72526287a191ce432dba1a89adb1c",
+    "branch": "evolve/g363",
+    "files": [
+     "mod/src/main/java/io/github/plrlr/autopilot/skills/NetherSkills.java"
+    ],
+    "sha": "f632472c948ddd3b3db82ae69193bdac5a02dbdb",
+    "summary": "Fortress blazes: when every known anchor has been tried, walk to the farthest seen fortress floor (up to twice per run) to bring more of the fortress into view instead of failing NOT_FOUND at once."
+   },
+   "evals": [],
+   "genes": {
+    "brain.utility": 1.0,
+    "combat.ignore_walled_mobs": 1.0,
+    "combat.shield_guard": 1.0,
+    "death.recover_night_armor": 12.0,
+    "focus.commit": 1.0,
+    "fortress.anchor_scope": 1.0,
+    "gather.coal_extra": 3.0,
+    "gather.coal_view_dist": 16.0,
+    "gear.sword_early": 1.0,
+    "learned.weight": 1.0,
+    "move.shore_first": 1.0,
+    "nav.surface_v2": 1.0,
+    "nav.unstuck_v2": 1.0,
+    "night.shelter_exit": 1.0,
+    "pearls.provoke_s": 19.0,
+    "plan.hide_hp": 15.0,
+    "plan.readiness": 1.0,
+    "portal.prepare_work_area": 1.0,
+    "portal.reserve_lava_bucket": 1.0,
+    "route.armor_before_portal": 1.0,
+    "skill.enderman_warped": 1.0,
+    "skill.ruined_portal": 1.0,
+    "stations.pickup_last": 1.0,
+    "stuck.item_progress": 1.0
+   },
+   "id": "g363",
+   "mutated": [
+    "code"
+   ],
+   "note": "code: Fortress blazes: when every known anchor has been tried, walk to the farthest seen fortress floor (up to twice per run) to bring more of the fortress into view instead of failing NOT_FOUND at once.",
+   "pairs": [],
+   "parent": "g353",
+   "status": "contender"
+  },
   "g37": {
    "born": 53,
    "code": null,
@@ -56953,7 +57006,8 @@
   "Retreat is the last choice before most first deaths and arrows are the top killer, so running from ranged mobs on open ground hands them free shots; closing in with the shield up should do better.",
   "The planner only reacts to Nether monsters within 4 blocks, so any retreat it starts there begins at arm's length among lava and drops and rarely gets away; fighting back is likely the better default there.",
   "Skip an option when what the player can see already says it will fail (vanilla's no-sleep-with-monsters-within-8 rule); this beats letting the skill time out and get offered again.",
-  "A skill that fails NO_ROOM where it stands should move to open ground before it starts, not change how it gets the item after failing (in-place gravel mining lost in g327)."
+  "A skill that fails NO_ROOM where it stands should move to open ground before it starts, not change how it gets the item after failing (in-place gravel mining lost in g327).",
+  "The blaze fight runs out of anchors because a 20-block tried radius soon covers every brick it has seen. It needs a way to see more of the fortress, not another try at the same spots."
  ],
  "learned_race": {
   "gen": 256,
@@ -56974,7 +57028,7 @@
   "mean_gap_ok": -0.0912,
   "n": 1989
  },
- "next_id": 363,
+ "next_id": 364,
  "pending": null,
  "race_evidence_version": 2,
  "score_since_gen": 179,
