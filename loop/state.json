@@ -2815,7 +2815,7 @@
   "2026-10-12": 15,
   "2026-10-13": 15,
   "2026-10-14": 14,
-  "2026-10-15": 10
+  "2026-10-15": 11
  },
  "evolve_days": {
   "2026-09-27": 1,
@@ -3093,7 +3093,7 @@
    "result": "racing"
   }
  ],
- "gen": 359,
+ "gen": 360,
  "gene_specs": {
   "bed.table_first": {
    "def": 0.0,
@@ -47288,6 +47288,44 @@
    "parent": "g353",
    "status": "contender"
   },
+  "g359": {
+   "born": 360,
+   "code": null,
+   "evals": [],
+   "genes": {
+    "brain.utility": 1.0,
+    "combat.shield_guard": 1.0,
+    "death.recover_night_armor": 12.0,
+    "focus.commit": 1.0,
+    "fortress.anchor_scope": 1.0,
+    "gather.coal_extra": 3.0,
+    "gather.coal_view_dist": 16.0,
+    "gear.sword_early": 1.0,
+    "learned.weight": 1.0,
+    "move.shore_first": 1.0,
+    "nav.surface_v2": 1.0,
+    "nav.unstuck_v2": 1.0,
+    "night.shelter_exit": 1.0,
+    "pearls.provoke_s": 19.0,
+    "plan.hide_hp": 15.0,
+    "plan.readiness": 1.0,
+    "portal.prepare_work_area": 1.0,
+    "portal.reserve_lava_bucket": 1.0,
+    "route.armor_before_portal": 1.0,
+    "skill.enderman_warped": 1.0,
+    "skill.ruined_portal": 1.0,
+    "stations.pickup_last": 1.0,
+    "stuck.item_progress": 1.0
+   },
+   "id": "g359",
+   "mutated": [
+    "combat.ignore_walled_mobs"
+   ],
+   "note": "combat.ignore_walled_mobs 0",
+   "pairs": [],
+   "parent": "g353",
+   "status": "contender"
+  },
   "g36": {
    "born": 52,
    "code": null,
@@ -56374,8 +56412,89 @@
   "mean_gap_ok": -0.0474,
   "n": 1989
  },
- "next_id": 359,
- "pending": null,
+ "next_id": 360,
+ "pending": {
+  "data_tasks": [
+   {
+    "asset": "rods-gen350-eval-g346-2.zip",
+    "kind": "start",
+    "late": true,
+    "seed": "D360-8kw223",
+    "stage": "rods",
+    "synthetic": false
+   },
+   {
+    "kind": "natural",
+    "seed": "D360-2vxn84",
+    "stage": "spawn",
+    "synthetic": false
+   }
+  ],
+  "gen": 360,
+  "lineup": [
+   "g353",
+   "g358",
+   "g354",
+   "g359"
+  ],
+  "runs": [
+   "eval-g353-0",
+   "eval-g353-1",
+   "eval-g353-2",
+   "eval-g353-3",
+   "eval-g358-0",
+   "eval-g358-1",
+   "eval-g358-2",
+   "eval-g358-3",
+   "eval-g354-0",
+   "eval-g354-1",
+   "eval-g354-2",
+   "eval-g354-3",
+   "eval-g359-0",
+   "eval-g359-1",
+   "eval-g359-2",
+   "eval-g359-3",
+   "data-g353-0",
+   "data-g353-1"
+  ],
+  "seeds": [
+   "L360-rq5dd5",
+   "L360-y7n7nc",
+   "L360-wyg9rv",
+   "L360-m94xgt"
+  ],
+  "sha": "91d44de4fbc72526287a191ce432dba1a89adb1c",
+  "started": "2026-10-15T17:25:46+00:00",
+  "tasks": [
+   {
+    "kind": "natural",
+    "seed": "L360-rq5dd5",
+    "stage": "spawn",
+    "synthetic": false
+   },
+   {
+    "kind": "natural",
+    "seed": "L360-y7n7nc",
+    "stage": "spawn",
+    "synthetic": false
+   },
+   {
+    "asset": "nether-gen280-eval-g260-1.zip",
+    "kind": "start",
+    "seed": "L360-wyg9rv",
+    "stage": "nether",
+    "synthetic": false
+   },
+   {
+    "kind": "combat",
+    "minutes": 10,
+    "scenario": "combat",
+    "seed": "L360-m94xgt",
+    "stage": "combat",
+    "synthetic": false
+   }
+  ]
+ },
  "race_evidence_version": 2,
  "score_since_gen": 179,
  "score_version": 4,
