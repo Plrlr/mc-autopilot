@@ -2809,7 +2809,7 @@
   "2026-10-12": 15,
   "2026-10-13": 15,
   "2026-10-14": 14,
-  "2026-10-15": 1
+  "2026-10-15": 2
  },
  "evolve_days": {
   "2026-09-27": 1,
@@ -3068,7 +3068,7 @@
    "result": "racing"
   }
  ],
- "gen": 350,
+ "gen": 351,
  "gene_specs": {
   "bed.table_first": {
    "def": 0.0,
@@ -45712,6 +45712,44 @@
    "parent": "g346",
    "status": "rejected"
   },
+  "g349": {
+   "born": 351,
+   "code": null,
+   "evals": [],
+   "genes": {
+    "brain.utility": 1.0,
+    "combat.ignore_walled_mobs": 1.0,
+    "combat.shield_guard": 1.0,
+    "death.recover_night_armor": 12.0,
+    "focus.commit": 1.0,
+    "fortress.anchor_scope": 1.0,
+    "gather.coal_y": 46.0,
+    "gear.sword_early": 1.0,
+    "learned.weight": 1.0,
+    "move.shore_first": 1.0,
+    "nav.surface_v2": 1.0,
+    "nav.unstuck_v2": 1.0,
+    "night.shelter_exit": 1.0,
+    "pearls.provoke_s": 19.0,
+    "plan.hide_hp": 15.0,
+    "plan.readiness": 1.0,
+    "portal.prepare_work_area": 1.0,
+    "portal.reserve_lava_bucket": 1.0,
+    "route.armor_before_portal": 1.0,
+    "skill.enderman_warped": 1.0,
+    "skill.ruined_portal": 1.0,
+    "stations.pickup_last": 1.0,
+    "stuck.item_progress": 1.0
+   },
+   "id": "g349",
+   "mutated": [
+    "gather.coal_y"
+   ],
+   "note": "gather.coal_y 46",
+   "pairs": [],
+   "parent": "g330",
+   "status": "contender"
+  },
   "g35": {
    "born": 52,
    "code": null,
@@ -45827,6 +45865,44 @@
    "pairs": [],
    "parent": "g24",
    "status": "rejected"
+  },
+  "g350": {
+   "born": 351,
+   "code": null,
+   "evals": [],
+   "genes": {
+    "brain.utility": 1.0,
+    "combat.ignore_walled_mobs": 1.0,
+    "combat.shield_guard": 1.0,
+    "death.recover_night_armor": 12.0,
+    "focus.commit": 1.0,
+    "fortress.anchor_scope": 1.0,
+    "gather.coal_extra": 3.0,
+    "gear.sword_early": 1.0,
+    "learned.weight": 1.0,
+    "move.shore_first": 1.0,
+    "nav.surface_v2": 1.0,
+    "nav.unstuck_v2": 1.0,
+    "night.shelter_exit": 1.0,
+    "pearls.provoke_s": 19.0,
+    "plan.hide_hp": 15.0,
+    "plan.readiness": 1.0,
+    "portal.prepare_work_area": 1.0,
+    "portal.reserve_lava_bucket": 1.0,
+    "route.armor_before_portal": 1.0,
+    "skill.enderman_warped": 1.0,
+    "skill.ruined_portal": 1.0,
+    "stations.pickup_last": 1.0,
+    "stuck.item_progress": 1.0
+   },
+   "id": "g350",
+   "mutated": [
+    "gather.coal_extra"
+   ],
+   "note": "gather.coal_extra 3",
+   "pairs": [],
+   "parent": "g330",
+   "status": "contender"
   },
   "g36": {
    "born": 52,
@@ -54912,8 +54988,89 @@
   "mean_gap_ok": -0.0786,
   "n": 1985
  },
- "next_id": 349,
- "pending": null,
+ "next_id": 351,
+ "pending": {
+  "data_tasks": [
+   {
+    "asset": "end-gen304-data-g237-0.zip",
+    "kind": "start",
+    "late": true,
+    "seed": "D351-tr4fm6",
+    "stage": "end",
+    "synthetic": true
+   },
+   {
+    "kind": "natural",
+    "seed": "D351-arsgw8",
+    "stage": "spawn",
+    "synthetic": false
+   }
+  ],
+  "gen": 351,
+  "lineup": [
+   "g330",
+   "g347",
+   "g349",
+   "g350"
+  ],
+  "runs": [
+   "eval-g330-0",
+   "eval-g330-1",
+   "eval-g330-2",
+   "eval-g330-3",
+   "eval-g347-0",
+   "eval-g347-1",
+   "eval-g347-2",
+   "eval-g347-3",
+   "eval-g349-0",
+   "eval-g349-1",
+   "eval-g349-2",
+   "eval-g349-3",
+   "eval-g350-0",
+   "eval-g350-1",
+   "eval-g350-2",
+   "eval-g350-3",
+   "data-g330-0",
+   "data-g330-1"
+  ],
+  "seeds": [
+   "L351-wf9pzp",
+   "L351-a8xjt2",
+   "L351-3y5mf3",
+   "L351-7vq69g"
+  ],
+  "sha": "91d44de4fbc72526287a191ce432dba1a89adb1c",
+  "started": "2026-10-15T03:01:23+00:00",
+  "tasks": [
+   {
+    "kind": "natural",
+    "seed": "L351-wf9pzp",
+    "stage": "spawn",
+    "synthetic": false
+   },
+   {
+    "kind": "natural",
+    "seed": "L351-a8xjt2",
+    "stage": "spawn",
+    "synthetic": false
+   },
+   {
+    "asset": "nether-gen283-eval-g237-0.zip",
+    "kind": "start",
+    "seed": "L351-3y5mf3",
+    "stage": "nether",
+    "synthetic": false
+   },
+   {
+    "kind": "combat",
+    "minutes": 10,
+    "scenario": "combat",
+    "seed": "L351-7vq69g",
+    "stage": "combat",
+    "synthetic": false
+   }
+  ]
+ },
  "race_evidence_version": 2,
  "score_since_gen": 179,
  "score_version": 4,
