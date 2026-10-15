@@ -2833,7 +2833,7 @@
   "2026-10-12": 3,
   "2026-10-13": 2,
   "2026-10-14": 4,
-  "2026-10-15": 3
+  "2026-10-15": 4
  },
  "evolve_log": [
   {
@@ -3083,6 +3083,12 @@
   {
    "gen": 357,
    "gid": "g356",
+   "mode": "edit",
+   "result": "racing"
+  },
+  {
+   "gen": 359,
+   "gid": "g358",
    "mode": "edit",
    "result": "racing"
   }
@@ -47235,6 +47241,53 @@
    "parent": "g354",
    "status": "rejected"
   },
+  "g358": {
+   "born": 359,
+   "code": {
+    "base": "91d44de4fbc72526287a191ce432dba1a89adb1c",
+    "branch": "evolve/g358",
+    "files": [
+     "mod/src/main/java/io/github/plrlr/autopilot/skills/CollectSkill.java"
+    ],
+    "sha": "af67c3ad4e19f4193e837b19f6f486ab8a1aa019",
+    "summary": "Collect flint: if there's no free flat spot beside us for the gravel, first walk to nearby open ground (Station.openGround) and only then start the gravel steps, so the attempt doesn't end in NO_ROOM (top nether-frontier failure, 12x)."
+   },
+   "evals": [],
+   "genes": {
+    "brain.utility": 1.0,
+    "combat.ignore_walled_mobs": 1.0,
+    "combat.shield_guard": 1.0,
+    "death.recover_night_armor": 12.0,
+    "focus.commit": 1.0,
+    "fortress.anchor_scope": 1.0,
+    "gather.coal_extra": 3.0,
+    "gather.coal_view_dist": 16.0,
+    "gear.sword_early": 1.0,
+    "learned.weight": 1.0,
+    "move.shore_first": 1.0,
+    "nav.surface_v2": 1.0,
+    "nav.unstuck_v2": 1.0,
+    "night.shelter_exit": 1.0,
+    "pearls.provoke_s": 19.0,
+    "plan.hide_hp": 15.0,
+    "plan.readiness": 1.0,
+    "portal.prepare_work_area": 1.0,
+    "portal.reserve_lava_bucket": 1.0,
+    "route.armor_before_portal": 1.0,
+    "skill.enderman_warped": 1.0,
+    "skill.ruined_portal": 1.0,
+    "stations.pickup_last": 1.0,
+    "stuck.item_progress": 1.0
+   },
+   "id": "g358",
+   "mutated": [
+    "code"
+   ],
+   "note": "code: Collect flint: if there's no free flat spot beside us for the gravel, first walk to nearby open ground (Station.openGround) and only then start the gravel steps, so the attempt doesn't end in NO_ROOM (top nether-frontier failure, 12x).",
+   "pairs": [],
+   "parent": "g353",
+   "status": "contender"
+  },
   "g36": {
    "born": 52,
    "code": null,
@@ -56299,7 +56352,8 @@
   "A skill that fails the same way repeatedly in one spot (flint NO_ROOM 55x back-to-back) needs a different method on retry, not the same one again.",
   "Retreat is the last choice before most first deaths and arrows are the top killer, so running from ranged mobs on open ground hands them free shots; closing in with the shield up should do better.",
   "The planner only reacts to Nether monsters within 4 blocks, so any retreat it starts there begins at arm's length among lava and drops and rarely gets away; fighting back is likely the better default there.",
-  "Skip an option when what the player can see already says it will fail (vanilla's no-sleep-with-monsters-within-8 rule); this beats letting the skill time out and get offered again."
+  "Skip an option when what the player can see already says it will fail (vanilla's no-sleep-with-monsters-within-8 rule); this beats letting the skill time out and get offered again.",
+  "A skill that fails NO_ROOM where it stands should move to open ground before it starts, not change how it gets the item after failing (in-place gravel mining lost in g327)."
  ],
  "learned_race": {
   "gen": 256,
@@ -56320,7 +56374,7 @@
   "mean_gap_ok": -0.0474,
   "n": 1989
  },
- "next_id": 358,
+ "next_id": 359,
  "pending": null,
  "race_evidence_version": 2,
  "score_since_gen": 179,
