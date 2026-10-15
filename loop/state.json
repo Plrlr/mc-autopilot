@@ -2833,7 +2833,7 @@
   "2026-10-12": 3,
   "2026-10-13": 2,
   "2026-10-14": 4,
-  "2026-10-15": 2
+  "2026-10-15": 3
  },
  "evolve_log": [
   {
@@ -3079,6 +3079,12 @@
    "mode": "skill",
    "result": "no usable skill",
    "target": "collect TIMEOUT"
+  },
+  {
+   "gen": 357,
+   "gid": "g356",
+   "mode": "edit",
+   "result": "racing"
   }
  ],
  "gen": 357,
@@ -46854,6 +46860,53 @@
    "parent": "g353",
    "status": "rejected"
   },
+  "g356": {
+   "born": 357,
+   "code": {
+    "base": "91d44de4fbc72526287a191ce432dba1a89adb1c",
+    "branch": "evolve/g356",
+    "files": [
+     "mod/src/main/java/io/github/plrlr/autopilot/plan/Planner.java"
+    ],
+    "sha": "623edb7008fc159ba48b882972c2f6017c8f4462",
+    "summary": "Only offer sleep at night when no monster is within 8 blocks (vanilla refuses to let you sleep then), so the bot stops repeating sleep USE_FAILED (11 at the frontier) and lets the fight or shelter rules deal with the threat."
+   },
+   "evals": [],
+   "genes": {
+    "brain.utility": 1.0,
+    "combat.ignore_walled_mobs": 1.0,
+    "combat.shield_guard": 1.0,
+    "death.recover_night_armor": 12.0,
+    "focus.commit": 1.0,
+    "fortress.anchor_scope": 1.0,
+    "gather.coal_extra": 3.0,
+    "gather.coal_view_dist": 16.0,
+    "gear.sword_early": 1.0,
+    "learned.weight": 1.0,
+    "move.shore_first": 1.0,
+    "nav.surface_v2": 1.0,
+    "nav.unstuck_v2": 1.0,
+    "night.shelter_exit": 1.0,
+    "pearls.provoke_s": 19.0,
+    "plan.hide_hp": 15.0,
+    "plan.readiness": 1.0,
+    "portal.prepare_work_area": 1.0,
+    "portal.reserve_lava_bucket": 1.0,
+    "route.armor_before_portal": 1.0,
+    "skill.enderman_warped": 1.0,
+    "skill.ruined_portal": 1.0,
+    "stations.pickup_last": 1.0,
+    "stuck.item_progress": 1.0
+   },
+   "id": "g356",
+   "mutated": [
+    "code"
+   ],
+   "note": "code: Only offer sleep at night when no monster is within 8 blocks (vanilla refuses to let you sleep then), so the bot stops repeating sleep USE_FAILED (11 at the frontier) and lets the fight or shelter rules deal with the threat.",
+   "pairs": [],
+   "parent": "g353",
+   "status": "contender"
+  },
   "g36": {
    "born": 52,
    "code": null,
@@ -55917,7 +55970,8 @@
   "An explore that times out on a 120-block path toward one spot gets better odds from a short sideways walk by keys that stops when an animal comes into view than from a long path in the same direction.",
   "A skill that fails the same way repeatedly in one spot (flint NO_ROOM 55x back-to-back) needs a different method on retry, not the same one again.",
   "Retreat is the last choice before most first deaths and arrows are the top killer, so running from ranged mobs on open ground hands them free shots; closing in with the shield up should do better.",
-  "The planner only reacts to Nether monsters within 4 blocks, so any retreat it starts there begins at arm's length among lava and drops and rarely gets away; fighting back is likely the better default there."
+  "The planner only reacts to Nether monsters within 4 blocks, so any retreat it starts there begins at arm's length among lava and drops and rarely gets away; fighting back is likely the better default there.",
+  "Skip an option when what the player can see already says it will fail (vanilla's no-sleep-with-monsters-within-8 rule); this beats letting the skill time out and get offered again."
  ],
  "learned_race": {
   "gen": 256,
@@ -55938,7 +55992,7 @@
   "mean_gap_ok": -0.1981,
   "n": 1989
  },
- "next_id": 356,
+ "next_id": 357,
  "pending": null,
  "race_evidence_version": 2,
  "score_since_gen": 179,
