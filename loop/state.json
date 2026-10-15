@@ -2815,7 +2815,7 @@
   "2026-10-12": 15,
   "2026-10-13": 15,
   "2026-10-14": 14,
-  "2026-10-15": 5
+  "2026-10-15": 6
  },
  "evolve_days": {
   "2026-09-27": 1,
@@ -3081,7 +3081,7 @@
    "target": "collect TIMEOUT"
   }
  ],
- "gen": 354,
+ "gen": 355,
  "gene_specs": {
   "bed.table_first": {
    "def": 0.0,
@@ -55552,7 +55552,88 @@
   "n": 1985
  },
  "next_id": 354,
- "pending": null,
+ "pending": {
+  "data_tasks": [
+   {
+    "asset": "end-gen304-data-g237-0.zip",
+    "kind": "start",
+    "late": true,
+    "seed": "D355-u6mj9e",
+    "stage": "end",
+    "synthetic": true
+   },
+   {
+    "kind": "natural",
+    "seed": "D355-auu733",
+    "stage": "spawn",
+    "synthetic": false
+   }
+  ],
+  "gen": 355,
+  "lineup": [
+   "g350",
+   "g353",
+   "g351",
+   "g352"
+  ],
+  "runs": [
+   "eval-g350-0",
+   "eval-g350-1",
+   "eval-g350-2",
+   "eval-g350-3",
+   "eval-g353-0",
+   "eval-g353-1",
+   "eval-g353-2",
+   "eval-g353-3",
+   "eval-g351-0",
+   "eval-g351-1",
+   "eval-g351-2",
+   "eval-g351-3",
+   "eval-g352-0",
+   "eval-g352-1",
+   "eval-g352-2",
+   "eval-g352-3",
+   "data-g350-0",
+   "data-g350-1"
+  ],
+  "seeds": [
+   "L355-f7nrnn",
+   "L355-q2ekuh",
+   "L355-7ar2xb",
+   "L355-4eh65e"
+  ],
+  "sha": "91d44de4fbc72526287a191ce432dba1a89adb1c",
+  "started": "2026-10-15T09:30:34+00:00",
+  "tasks": [
+   {
+    "kind": "natural",
+    "seed": "L355-f7nrnn",
+    "stage": "spawn",
+    "synthetic": false
+   },
+   {
+    "kind": "natural",
+    "seed": "L355-q2ekuh",
+    "stage": "spawn",
+    "synthetic": false
+   },
+   {
+    "asset": "nether-gen326-eval-g316-1.zip",
+    "kind": "start",
+    "seed": "L355-7ar2xb",
+    "stage": "nether",
+    "synthetic": false
+   },
+   {
+    "kind": "combat",
+    "minutes": 10,
+    "scenario": "combat",
+    "seed": "L355-4eh65e",
+    "stage": "combat",
+    "synthetic": false
+   }
+  ]
+ },
  "race_evidence_version": 2,
  "score_since_gen": 179,
  "score_version": 4,
