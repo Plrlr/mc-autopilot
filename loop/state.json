@@ -2007,7 +2007,13 @@
   ]
  },
  "champion": "g350",
- "code_failures": [],
+ "code_failures": [
+  {
+   "gen": 354,
+   "summary": "(no usable skill for collect TIMEOUT)",
+   "why": "build or tests failed:\n/home/runner/work/mc-autopilot/mc-autopilot/mod/src/main/java/io/github/plrlr/autopilot/skills/evolved/StoneByHand.java:78: error: cannot find symbol\n1 error\nFAILURE: Build failed with an exception.\n  /home/runner/work/mc-autopilot/mc-autopilot/mod/src/main/java/io/github/plrlr/autopilot/skills/evolved/StoneByHand.java:78: error: cannot find symbol\n  1 error\n> Check your code and dependencies to fix the compilation error(s)\nBUILD FAILED in 14s"
+  }
+ ],
  "credit": {
   "bed.table_first": {
    "n": 4,
@@ -2826,7 +2832,8 @@
   "2026-10-11": 4,
   "2026-10-12": 3,
   "2026-10-13": 2,
-  "2026-10-14": 4
+  "2026-10-14": 4,
+  "2026-10-15": 2
  },
  "evolve_log": [
   {
@@ -3066,6 +3073,12 @@
    "gid": "g346",
    "mode": "edit",
    "result": "racing"
+  },
+  {
+   "gen": 354,
+   "mode": "skill",
+   "result": "no usable skill",
+   "target": "collect TIMEOUT"
   }
  ],
  "gen": 354,
