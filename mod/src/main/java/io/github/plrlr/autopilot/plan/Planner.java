@@ -393,9 +393,13 @@ public final class Planner {
 			boolean bed = Mc.count("bed") > 0 || memory.nearestStation("bed") != null;
 			boolean addedBedStep = false;
 			// Sleeping skips the night and sets the respawn point: always worth it.
-			if (bed) {
+			// Vanilla refuses sleep with a monster within 8 blocks: offering it then only fails (USE_FAILED x11).
+			boolean monstersClose = seen.hostilesWithin(8) > 0;
+			if (bed && !monstersClose) {
 				out.add(new Option("sleep", null, "sleep through the night"));
 				addedBedStep = true;
+			} else if (bed) {
+				// fall through to the shelter rule below
 			} else if (Items2.mostOfOneColor("wool") >= 3) {
 				// No bed but the wool for one: make it now rather than dig in or fight all night.
 				Option o = itemStep("bed", 1, 0);
@@ -592,7 +596,7 @@ public final class Planner {
 			out.add(new Option("equip", "shield", "hold the shield in the off hand"));
 		if (!seen.items.isEmpty()) out.add(new Option("pickup", null, seen.items.size() + " dropped items nearby"));
 		if (Mc.isNight() && Mc.dimension().equals("overworld")) {
-			if (Mc.count("bed") > 0 || memory.nearestStation("bed") != null) out.add(new Option("sleep", null, "skip the night"));
+			if ((Mc.count("bed") > 0 || memory.nearestStation("bed") != null) && seen.hostilesWithin(8) == 0) out.add(new Option("sleep", null, "skip the night"));
 			else out.add(new Option("shelter", null, "wait out the night safely"));
 		}
 		out.add(new Option("explore", exploreTarget(main), "look for new ground"));
