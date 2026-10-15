@@ -2784,7 +2784,8 @@
   "2026-10-11": 17,
   "2026-10-12": 15,
   "2026-10-13": 15,
-  "2026-10-14": 14
+  "2026-10-14": 14,
+  "2026-10-15": 1
  },
  "evolve_days": {
   "2026-09-27": 1,
@@ -3043,7 +3044,7 @@
    "result": "racing"
   }
  ],
- "gen": 349,
+ "gen": 350,
  "gene_specs": {
   "bed.table_first": {
    "def": 0.0,
@@ -45451,6 +45452,98 @@
    "parent": "g330",
    "status": "contender"
   },
+  "g347": {
+   "born": 350,
+   "code": {
+    "base": "91d44de4fbc72526287a191ce432dba1a89adb1c",
+    "branch": "evolve/g346",
+    "files": [
+     "mod/src/main/java/io/github/plrlr/autopilot/plan/Planner.java"
+    ],
+    "sha": "8f92a282bdab250e7af6fdcbc6725f3b57344c24",
+    "summary": "In the Nether, a monster within 4 blocks (blazes still go to the fortress fight) skips the planner's danger check and goes to the normal rules, which usually attack; the outnumbered and hurt-and-cornered retreats still apply. Targets 12 Nether 'retreat NO_PROGRESS' with the monster still at 3 blocks."
+   },
+   "evals": [],
+   "genes": {
+    "brain.utility": 1.0,
+    "combat.ignore_walled_mobs": 1.0,
+    "combat.shield_guard": 1.0,
+    "death.recover_night_armor": 12.0,
+    "focus.commit": 1.0,
+    "fortress.anchor_scope": 1.0,
+    "gather.iron_in_view": 1.0,
+    "gear.sword_early": 1.0,
+    "learned.weight": 1.0,
+    "move.shore_first": 1.0,
+    "nav.surface_v2": 1.0,
+    "nav.unstuck_v2": 1.0,
+    "night.shelter_exit": 1.0,
+    "pearls.provoke_s": 19.0,
+    "plan.hide_hp": 15.0,
+    "plan.readiness": 1.0,
+    "portal.prepare_work_area": 1.0,
+    "portal.reserve_lava_bucket": 1.0,
+    "route.armor_before_portal": 1.0,
+    "skill.enderman_warped": 1.0,
+    "skill.fluid_seal": 1.0,
+    "skill.ruined_portal": 1.0,
+    "stations.pickup_last": 1.0,
+    "stuck.item_progress": 1.0
+   },
+   "id": "g347",
+   "mutated": [
+    "gather.iron_in_view",
+    "skill.fluid_seal"
+   ],
+   "note": "gather.iron_in_view 1, skill.fluid_seal 1",
+   "pairs": [],
+   "parent": "g346",
+   "status": "contender"
+  },
+  "g348": {
+   "born": 350,
+   "code": {
+    "base": "91d44de4fbc72526287a191ce432dba1a89adb1c",
+    "branch": "evolve/g346",
+    "files": [
+     "mod/src/main/java/io/github/plrlr/autopilot/plan/Planner.java"
+    ],
+    "sha": "8f92a282bdab250e7af6fdcbc6725f3b57344c24",
+    "summary": "In the Nether, a monster within 4 blocks (blazes still go to the fortress fight) skips the planner's danger check and goes to the normal rules, which usually attack; the outnumbered and hurt-and-cornered retreats still apply. Targets 12 Nether 'retreat NO_PROGRESS' with the monster still at 3 blocks."
+   },
+   "evals": [],
+   "genes": {
+    "brain.utility": 1.0,
+    "combat.ignore_walled_mobs": 1.0,
+    "combat.shield_guard": 1.0,
+    "death.recover_night_armor": 12.0,
+    "focus.commit": 1.0,
+    "gear.sword_early": 1.0,
+    "learned.weight": 1.0,
+    "move.shore_first": 1.0,
+    "nav.surface_v2": 1.0,
+    "nav.unstuck_v2": 1.0,
+    "night.shelter_exit": 1.0,
+    "pearls.provoke_s": 19.0,
+    "plan.hide_hp": 15.0,
+    "plan.readiness": 1.0,
+    "portal.prepare_work_area": 1.0,
+    "portal.reserve_lava_bucket": 1.0,
+    "route.armor_before_portal": 1.0,
+    "skill.enderman_warped": 1.0,
+    "skill.ruined_portal": 1.0,
+    "stations.pickup_last": 1.0,
+    "stuck.item_progress": 1.0
+   },
+   "id": "g348",
+   "mutated": [
+    "fortress.anchor_scope"
+   ],
+   "note": "fortress.anchor_scope 0",
+   "pairs": [],
+   "parent": "g346",
+   "status": "contender"
+  },
   "g35": {
    "born": 52,
    "code": null,
@@ -54651,8 +54744,89 @@
   "mean_gap_ok": -0.0337,
   "n": 1985
  },
- "next_id": 347,
- "pending": null,
+ "next_id": 349,
+ "pending": {
+  "data_tasks": [
+   {
+    "asset": "end-gen265-data-g237-0.zip",
+    "kind": "start",
+    "late": true,
+    "seed": "D350-d37ajc",
+    "stage": "end",
+    "synthetic": true
+   },
+   {
+    "kind": "natural",
+    "seed": "D350-yx56j4",
+    "stage": "spawn",
+    "synthetic": false
+   }
+  ],
+  "gen": 350,
+  "lineup": [
+   "g330",
+   "g346",
+   "g347",
+   "g348"
+  ],
+  "runs": [
+   "eval-g330-0",
+   "eval-g330-1",
+   "eval-g330-2",
+   "eval-g330-3",
+   "eval-g346-0",
+   "eval-g346-1",
+   "eval-g346-2",
+   "eval-g346-3",
+   "eval-g347-0",
+   "eval-g347-1",
+   "eval-g347-2",
+   "eval-g347-3",
+   "eval-g348-0",
+   "eval-g348-1",
+   "eval-g348-2",
+   "eval-g348-3",
+   "data-g330-0",
+   "data-g330-1"
+  ],
+  "seeds": [
+   "L350-8grxys",
+   "L350-be85nm",
+   "L350-ry64bs",
+   "L350-d75y6s"
+  ],
+  "sha": "91d44de4fbc72526287a191ce432dba1a89adb1c",
+  "started": "2026-10-15T01:16:18+00:00",
+  "tasks": [
+   {
+    "kind": "natural",
+    "seed": "L350-8grxys",
+    "stage": "spawn",
+    "synthetic": false
+   },
+   {
+    "kind": "natural",
+    "seed": "L350-be85nm",
+    "stage": "spawn",
+    "synthetic": false
+   },
+   {
+    "asset": "nether-gen283-eval-g237-0.zip",
+    "kind": "start",
+    "seed": "L350-ry64bs",
+    "stage": "nether",
+    "synthetic": false
+   },
+   {
+    "kind": "combat",
+    "minutes": 10,
+    "scenario": "combat",
+    "seed": "L350-d75y6s",
+    "stage": "combat",
+    "synthetic": false
+   }
+  ]
+ },
  "race_evidence_version": 2,
  "score_since_gen": 179,
  "score_version": 4,
