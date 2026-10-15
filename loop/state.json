@@ -2815,7 +2815,7 @@
   "2026-10-12": 15,
   "2026-10-13": 15,
   "2026-10-14": 14,
-  "2026-10-15": 12
+  "2026-10-15": 13
  },
  "evolve_days": {
   "2026-09-27": 1,
@@ -3093,7 +3093,7 @@
    "result": "racing"
   }
  ],
- "gen": 361,
+ "gen": 362,
  "gene_specs": {
   "bed.table_first": {
    "def": 0.0,
@@ -47780,6 +47780,56 @@
    "parent": "g353",
    "status": "rejected"
   },
+  "g362": {
+   "born": 362,
+   "code": {
+    "base": "91d44de4fbc72526287a191ce432dba1a89adb1c",
+    "branch": "evolve/g358",
+    "files": [
+     "mod/src/main/java/io/github/plrlr/autopilot/skills/CollectSkill.java"
+    ],
+    "sha": "af67c3ad4e19f4193e837b19f6f486ab8a1aa019",
+    "summary": "Collect flint: if there's no free flat spot beside us for the gravel, first walk to nearby open ground (Station.openGround) and only then start the gravel steps, so the attempt doesn't end in NO_ROOM (top nether-frontier failure, 12x)."
+   },
+   "evals": [],
+   "genes": {
+    "brain.utility": 1.0,
+    "combat.ignore_walled_mobs": 1.0,
+    "combat.shield_guard": 1.0,
+    "death.recover_night_armor": 12.0,
+    "focus.commit": 1.0,
+    "fortress.anchor_scope": 1.0,
+    "gather.coal_extra": 3.0,
+    "gather.coal_view_dist": 16.0,
+    "gear.sword_early": 1.0,
+    "learned.weight": 1.0,
+    "move.shore_first": 1.0,
+    "nav.surface_v2": 1.0,
+    "nav.unstuck_v2": 1.0,
+    "night.shelter_exit": 1.0,
+    "pearls.provoke_s": 19.0,
+    "plan.hide_hp": 15.0,
+    "plan.readiness": 1.0,
+    "portal.prepare_work_area": 1.0,
+    "portal.reserve_lava_bucket": 1.0,
+    "route.armor_before_portal": 1.0,
+    "safety.spawner_break": 1.0,
+    "skill.enderman_warped": 1.0,
+    "skill.ruined_portal": 1.0,
+    "skill.silverfish_control": 1.0,
+    "stations.pickup_last": 1.0,
+    "stuck.item_progress": 1.0
+   },
+   "id": "g362",
+   "mutated": [
+    "skill.silverfish_control",
+    "safety.spawner_break"
+   ],
+   "note": "skill.silverfish_control 1, safety.spawner_break 1",
+   "pairs": [],
+   "parent": "g358",
+   "status": "contender"
+  },
   "g37": {
    "born": 53,
    "code": null,
@@ -56782,8 +56832,89 @@
   "mean_gap_ok": -0.3331,
   "n": 1989
  },
- "next_id": 362,
- "pending": null,
+ "next_id": 363,
+ "pending": {
+  "data_tasks": [
+   {
+    "asset": "stronghold-gen242-data-g196-0.zip",
+    "kind": "start",
+    "late": true,
+    "seed": "D362-dk3fv5",
+    "stage": "stronghold",
+    "synthetic": true
+   },
+   {
+    "kind": "natural",
+    "seed": "D362-9bjq5a",
+    "stage": "spawn",
+    "synthetic": false
+   }
+  ],
+  "gen": 362,
+  "lineup": [
+   "g353",
+   "g358",
+   "g360",
+   "g362"
+  ],
+  "runs": [
+   "eval-g353-0",
+   "eval-g353-1",
+   "eval-g353-2",
+   "eval-g353-3",
+   "eval-g358-0",
+   "eval-g358-1",
+   "eval-g358-2",
+   "eval-g358-3",
+   "eval-g360-0",
+   "eval-g360-1",
+   "eval-g360-2",
+   "eval-g360-3",
+   "eval-g362-0",
+   "eval-g362-1",
+   "eval-g362-2",
+   "eval-g362-3",
+   "data-g353-0",
+   "data-g353-1"
+  ],
+  "seeds": [
+   "L362-r4e5d9",
+   "L362-tf6m76",
+   "L362-7nyr5w",
+   "L362-dpceqc"
+  ],
+  "sha": "91d44de4fbc72526287a191ce432dba1a89adb1c",
+  "started": "2026-10-15T20:29:16+00:00",
+  "tasks": [
+   {
+    "kind": "natural",
+    "seed": "L362-r4e5d9",
+    "stage": "spawn",
+    "synthetic": false
+   },
+   {
+    "kind": "natural",
+    "seed": "L362-tf6m76",
+    "stage": "spawn",
+    "synthetic": false
+   },
+   {
+    "asset": "nether-gen242-eval-g215-1.zip",
+    "kind": "start",
+    "seed": "L362-7nyr5w",
+    "stage": "nether",
+    "synthetic": false
+   },
+   {
+    "kind": "combat",
+    "minutes": 10,
+    "scenario": "combat",
+    "seed": "L362-dpceqc",
+    "stage": "combat",
+    "synthetic": false
+   }
+  ]
+ },
  "race_evidence_version": 2,
  "score_since_gen": 179,
  "score_version": 4,
