@@ -228,6 +228,7 @@ public final class NetherSkills {
 				return;
 			}
 			anchor = pickAnchor();
+			if (anchor == null) anchor = farEdge();
 			if (anchor == null && Perception.look(32).nearest("blaze") == null) {
 				fail(Fail.NOT_FOUND, "no fortress or blaze known");
 				return;
@@ -280,6 +281,28 @@ public final class NetherSkills {
 				return neu;
 			}
 			return old;
+		}
+
+		private int extended;
+
+		/**
+		 * Every nearby part of the fortress has been tried: the farthest seen floor (two free blocks
+		 * above), at least 16 blocks off and not within 8 of a recent try. Walking there brings new
+		 * parts of the fortress into view, where blazes spawn too. Null if none.
+		 */
+		private BlockPos farEdge() {
+			LocalPlayer pl = Mc.player();
+			BlockPos best = null;
+			double bd = 16 * 16;
+			for (WorldMemory.Seen b : memory.all("nether_bricks")) {
+				double d = b.pos().distSqr(pl.blockPosition());
+				if (d <= bd || tried(b.pos(), 8 * 8)) continue;
+				if (!Mc.free(b.pos().above()) || !Mc.free(b.pos().above(2))) continue;
+				bd = d;
+				best = b.pos();
+			}
+			if (best != null) approach = false;
+			return best;
 		}
 
 		/**
@@ -469,6 +492,7 @@ public final class NetherSkills {
 				if (anchor != null) visit(anchor);
 				visit(pl.blockPosition().immutable());
 				anchor = pickAnchor();
+				if (anchor == null && extended++ < 2) anchor = farEdge();
 				if (anchor == null) {
 					if (rods > rodsBefore) done("got " + (rods - rodsBefore) + " blaze rods; no more blazes found here");
 					else fail(Fail.NOT_FOUND, "no blazes in the parts of the fortress we know");
