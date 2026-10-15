@@ -57,6 +57,16 @@ public final class CollectSkill extends Skill {
 			return;
 		}
 		if (item.equals("flint")) {
+			// No flat free spot beside us for the gravel: FlintSteps would fail NO_ROOM again and
+			// again on the same spot (12x at the nether frontier). Walk to open ground first.
+			if (!flatBeside()) {
+				BlockPos open = Station.openGround(Mc.player());
+				if (open != null && !open.equals(Mc.player().blockPosition())) {
+					flintMove = open;
+					Bari.path(new baritone.api.pathing.goals.GoalBlock(open));
+					return;
+				}
+			}
 			flint = new FlintSteps(this, memory);
 			return;
 		}
@@ -173,6 +183,14 @@ public final class CollectSkill extends Skill {
 			}
 			return;
 		}
+		if (flintMove != null) {
+			if ((ticks > 10 && !Bari.pathing()) || ticks > 20 * 25 || Mc.player().blockPosition().equals(flintMove)) {
+				Bari.stop();
+				flintMove = null;
+				flint = new FlintSteps(this, memory);
+			}
+			return;
+		}
 		if (flint != null) {
 			flint.tick();
 			return;
@@ -277,6 +295,19 @@ public final class CollectSkill extends Skill {
 			if (restarts++ < 2) Bari.get().getMineProcess().mine(blocks);
 			else fail((now - before) > 0 ? Fail.NO_PROGRESS : Fail.NOT_FOUND, (now - before) > 0 ? "found only " + (now - before) + " " + item : "can't find any " + item + " nearby");
 		}
+	}
+
+	/** Walking to open ground before the gravel steps (null when not). */
+	private BlockPos flintMove;
+
+	/** A free spot beside us with a solid floor and headroom, where gravel can be set down. */
+	private static boolean flatBeside() {
+		BlockPos feet = Mc.player().blockPosition();
+		for (Direction d : Direction.Plane.HORIZONTAL) {
+			BlockPos a = feet.relative(d);
+			if (Mc.free(a) && Mc.free(a.above()) && Mc.solid(a.below()) && Mc.clearOfPlayer(a)) return true;
+		}
+		return false;
 	}
 
 	/** A staircase starts only with dry feet and no water against the blocks it will open. */
