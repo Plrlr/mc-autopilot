@@ -2834,7 +2834,8 @@
   "2026-10-12": 3,
   "2026-10-13": 2,
   "2026-10-14": 4,
-  "2026-10-15": 5
+  "2026-10-15": 5,
+  "2026-10-16": 1
  },
  "evolve_log": [
   {
@@ -3096,6 +3097,12 @@
   {
    "gen": 362,
    "gid": "g363",
+   "mode": "edit",
+   "result": "racing"
+  },
+  {
+   "gen": 364,
+   "gid": "g365",
    "mode": "edit",
    "result": "racing"
   }
@@ -48354,6 +48361,53 @@
    "parent": "g353",
    "status": "rejected"
   },
+  "g365": {
+   "born": 364,
+   "code": {
+    "base": "91d44de4fbc72526287a191ce432dba1a89adb1c",
+    "branch": "evolve/g365",
+    "files": [
+     "mod/src/main/java/io/github/plrlr/autopilot/skills/MoveSkills.java"
+    ],
+    "sha": "c7a642d68b263248205f2dcfa2fe45a7a5945d58",
+    "summary": "Retreat: when Baritone stops without a path while a monster is still close, sprint directly away by keys (each step checked with CombatFootwork.safe, side angles tried) for up to 3 s before failing NO_PROGRESS."
+   },
+   "evals": [],
+   "genes": {
+    "brain.utility": 1.0,
+    "combat.ignore_walled_mobs": 1.0,
+    "combat.shield_guard": 1.0,
+    "death.recover_night_armor": 12.0,
+    "focus.commit": 1.0,
+    "fortress.anchor_scope": 1.0,
+    "gather.coal_extra": 3.0,
+    "gather.coal_view_dist": 16.0,
+    "gear.sword_early": 1.0,
+    "learned.weight": 1.0,
+    "move.shore_first": 1.0,
+    "nav.surface_v2": 1.0,
+    "nav.unstuck_v2": 1.0,
+    "night.shelter_exit": 1.0,
+    "pearls.provoke_s": 19.0,
+    "plan.hide_hp": 15.0,
+    "plan.readiness": 1.0,
+    "portal.prepare_work_area": 1.0,
+    "portal.reserve_lava_bucket": 1.0,
+    "route.armor_before_portal": 1.0,
+    "skill.enderman_warped": 1.0,
+    "skill.ruined_portal": 1.0,
+    "stations.pickup_last": 1.0,
+    "stuck.item_progress": 1.0
+   },
+   "id": "g365",
+   "mutated": [
+    "code"
+   ],
+   "note": "code: Retreat: when Baritone stops without a path while a monster is still close, sprint directly away by keys (each step checked with CombatFootwork.safe, side angles tried) for up to 3 s before failing NO_PROGRESS.",
+   "pairs": [],
+   "parent": "g353",
+   "status": "contender"
+  },
   "g37": {
    "born": 53,
    "code": null,
@@ -57336,7 +57390,8 @@
   "The planner only reacts to Nether monsters within 4 blocks, so any retreat it starts there begins at arm's length among lava and drops and rarely gets away; fighting back is likely the better default there.",
   "Skip an option when what the player can see already says it will fail (vanilla's no-sleep-with-monsters-within-8 rule); this beats letting the skill time out and get offered again.",
   "A skill that fails NO_ROOM where it stands should move to open ground before it starts, not change how it gets the item after failing (in-place gravel mining lost in g327).",
-  "The blaze fight runs out of anchors because a 20-block tried radius soon covers every brick it has seen. It needs a way to see more of the fortress, not another try at the same spots."
+  "The blaze fight runs out of anchors because a 20-block tried radius soon covers every brick it has seen. It needs a way to see more of the fortress, not another try at the same spots.",
+  "Retreat NO_PROGRESS at 3 blocks comes from Baritone giving up on GoalRunAway, not from the decision to flee; changing the decision lost repeatedly, so fix how the escape moves."
  ],
  "learned_race": {
   "gen": 256,
@@ -57357,7 +57412,7 @@
   "mean_gap_ok": -0.2659,
   "n": 2008
  },
- "next_id": 365,
+ "next_id": 366,
  "pending": null,
  "race_evidence_version": 2,
  "score_since_gen": 179,
