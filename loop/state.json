@@ -2816,7 +2816,7 @@
   "2026-10-13": 15,
   "2026-10-14": 14,
   "2026-10-15": 14,
-  "2026-10-16": 12
+  "2026-10-16": 13
  },
  "evolve_days": {
   "2026-09-27": 1,
@@ -3120,7 +3120,7 @@
    "target": "fortress TIMEOUT"
   }
  ],
- "gen": 375,
+ "gen": 376,
  "gene_specs": {
   "bed.table_first": {
    "def": 0.0,
@@ -50269,7 +50269,9 @@
      "_metric": "resolve:fortress:TIMEOUT+fortress_relocate",
      "evolved.fortress_relocate": 1
     },
-    "run": 38948317177
+    "run": 38948317177,
+    "verdict": "INCONCLUSIVE",
+    "why": "INCONCLUSIVE: on 0/0 fixed (0%), off 0/0 fixed (0%), z +0.0; exposure on its side: fortress_relocate offered 0, chosen 0, started 0, ended 0 (0 ok); acted in 0 of 3 games"
    },
    "evals": [],
    "exposure_spec": {
@@ -50305,6 +50307,7 @@
     "stuck.item_progress": 1.0
    },
    "id": "g375",
+   "inconclusive": "never ran in its drill",
    "metric": "resolve:fortress:TIMEOUT+fortress_relocate",
    "mutated": [
     "code",
@@ -50313,7 +50316,7 @@
    "note": "code: new skill fortress_relocate for fortress TIMEOUT: fortress_relocate: right after a fortress TIMEOUT in the Nether, walks to a different seen fortress floor 16-64 blocks away and stops once a blaze is in view. If no bricks are known, it does a look-around sweep instead.",
    "pairs": [],
    "parent": "g372",
-   "status": "drilling"
+   "status": "rejected"
   },
   "g376": {
    "born": 375,
@@ -50568,6 +50571,49 @@
    ],
    "parent": "g372",
    "status": "rejected"
+  },
+  "g379": {
+   "born": 376,
+   "code": null,
+   "evals": [],
+   "genes": {
+    "bed.table_first": 1.0,
+    "brain.utility": 1.0,
+    "combat.ignore_walled_mobs": 1.0,
+    "combat.shield_guard": 1.0,
+    "death.recover_night_armor": 12.0,
+    "focus.commit": 1.0,
+    "food.early_stock": 1.0,
+    "fortress.anchor_scope": 1.0,
+    "gather.coal_extra": 3.0,
+    "gather.coal_view_dist": 16.0,
+    "gear.sword_early": 1.0,
+    "learned.weight": 1.0,
+    "move.shore_first": 1.0,
+    "nav.surface_v2": 1.0,
+    "nav.unstuck_v2": 1.0,
+    "night.shelter_exit": 1.0,
+    "pearls.provoke_s": 19.0,
+    "plan.hide_hp": 15.0,
+    "plan.readiness": 1.0,
+    "portal.prepare_work_area": 1.0,
+    "portal.reserve_lava_bucket": 1.0,
+    "route.armor_before_portal": 1.0,
+    "skill.drain_tunnel": 1.0,
+    "skill.ruined_portal": 1.0,
+    "stations.pickup_last": 1.0,
+    "stuck.item_progress": 1.0,
+    "tools.diamond_pick_if_found": 0.0
+   },
+   "id": "g379",
+   "mutated": [
+    "tools.diamond_pick_if_found",
+    "skill.enderman_warped"
+   ],
+   "note": "tools.diamond_pick_if_found 0, skill.enderman_warped 0",
+   "pairs": [],
+   "parent": "g376",
+   "status": "contender"
   },
   "g38": {
    "born": 53,
@@ -59491,8 +59537,89 @@
   "mean_gap_ok": 0.0376,
   "n": 2075
  },
- "next_id": 379,
- "pending": null,
+ "next_id": 380,
+ "pending": {
+  "data_tasks": [
+   {
+    "asset": "rods-gen350-eval-g330-2.zip",
+    "kind": "start",
+    "late": true,
+    "seed": "D376-xu7rw6",
+    "stage": "rods",
+    "synthetic": false
+   },
+   {
+    "kind": "natural",
+    "seed": "D376-r5wnz7",
+    "stage": "spawn",
+    "synthetic": false
+   }
+  ],
+  "gen": 376,
+  "lineup": [
+   "g372",
+   "g377",
+   "g376",
+   "g379"
+  ],
+  "runs": [
+   "eval-g372-0",
+   "eval-g372-1",
+   "eval-g372-2",
+   "eval-g372-3",
+   "eval-g377-0",
+   "eval-g377-1",
+   "eval-g377-2",
+   "eval-g377-3",
+   "eval-g376-0",
+   "eval-g376-1",
+   "eval-g376-2",
+   "eval-g376-3",
+   "eval-g379-0",
+   "eval-g379-1",
+   "eval-g379-2",
+   "eval-g379-3",
+   "data-g372-0",
+   "data-g372-1"
+  ],
+  "seeds": [
+   "L376-s4j2hm",
+   "L376-8d4ssp",
+   "L376-2nfhwj",
+   "L376-qtrkm4"
+  ],
+  "sha": "76b2a838dfc2ac7974f9003a6536cd12d0aaf823",
+  "started": "2026-10-16T20:29:54+00:00",
+  "tasks": [
+   {
+    "kind": "natural",
+    "seed": "L376-s4j2hm",
+    "stage": "spawn",
+    "synthetic": false
+   },
+   {
+    "kind": "natural",
+    "seed": "L376-8d4ssp",
+    "stage": "spawn",
+    "synthetic": false
+   },
+   {
+    "asset": "nether-gen336-eval-g321-0.zip",
+    "kind": "start",
+    "seed": "L376-2nfhwj",
+    "stage": "nether",
+    "synthetic": false
+   },
+   {
+    "kind": "combat",
+    "minutes": 10,
+    "scenario": "combat",
+    "seed": "L376-qtrkm4",
+    "stage": "combat",
+    "synthetic": false
+   }
+  ]
+ },
  "race_evidence_version": 2,
  "score_since_gen": 179,
  "score_version": 4,
@@ -60410,7 +60537,7 @@
   {
    "gen": 374,
    "gid": "g375",
-   "result": "drilling",
+   "result": "inconclusive: never ran in its drill (its offer never fired): INCONCLUSIVE: on 0/0 fixed (0%), off 0/0 fixed (0%), z +0.0; exposure on its side: fortress_relocate offered 0, chosen 0, started 0, ended 0 (0 ok); acted in 0 of 3 games",
    "skill": "fortress_relocate",
    "target": "fortress TIMEOUT"
   }
