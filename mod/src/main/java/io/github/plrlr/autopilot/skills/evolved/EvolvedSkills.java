@@ -31,6 +31,7 @@ public final class EvolvedSkills {
 
 	static {
 		// evolve:entries (scripts/loop/evolve.py appends one add(...) line per evolved skill here)
+		add(new Entry("evolved.fortress_relocate", "fortress_relocate", FortressRelocate::new, FortressRelocate::offer, "After fortress TIMEOUT: walk to another seen fortress floor 16-64 blocks off, stop when a blaze shows"));
 		// evolve:end
 	}
 
