@@ -2835,7 +2835,7 @@
   "2026-10-13": 2,
   "2026-10-14": 4,
   "2026-10-15": 5,
-  "2026-10-16": 1
+  "2026-10-16": 2
  },
  "evolve_log": [
   {
@@ -3103,6 +3103,12 @@
   {
    "gen": 364,
    "gid": "g365",
+   "mode": "edit",
+   "result": "racing"
+  },
+  {
+   "gen": 368,
+   "gid": "g368",
    "mode": "edit",
    "result": "racing"
   }
@@ -49062,6 +49068,53 @@
    "parent": "g353",
    "status": "rejected"
   },
+  "g368": {
+   "born": 368,
+   "code": {
+    "base": "91d44de4fbc72526287a191ce432dba1a89adb1c",
+    "branch": "evolve/g368",
+    "files": [
+     "mod/src/main/java/io/github/plrlr/autopilot/Autopilot.java"
+    ],
+    "sha": "76b2a838dfc2ac7974f9003a6536cd12d0aaf823",
+    "summary": "During the fortress blaze fight, a visible non-blaze monster (piglin, wither skeleton) within 4 blocks now triggers a decision (at most once per 2 s), instead of the blaze fight suppressing every trigger while melee mobs kill the bot at near-full health."
+   },
+   "evals": [],
+   "genes": {
+    "brain.utility": 1.0,
+    "combat.ignore_walled_mobs": 1.0,
+    "combat.shield_guard": 1.0,
+    "death.recover_night_armor": 12.0,
+    "focus.commit": 1.0,
+    "fortress.anchor_scope": 1.0,
+    "gather.coal_extra": 3.0,
+    "gather.coal_view_dist": 16.0,
+    "gear.sword_early": 1.0,
+    "learned.weight": 1.0,
+    "move.shore_first": 1.0,
+    "nav.surface_v2": 1.0,
+    "nav.unstuck_v2": 1.0,
+    "night.shelter_exit": 1.0,
+    "pearls.provoke_s": 19.0,
+    "plan.hide_hp": 15.0,
+    "plan.readiness": 1.0,
+    "portal.prepare_work_area": 1.0,
+    "portal.reserve_lava_bucket": 1.0,
+    "route.armor_before_portal": 1.0,
+    "skill.enderman_warped": 1.0,
+    "skill.ruined_portal": 1.0,
+    "stations.pickup_last": 1.0,
+    "stuck.item_progress": 1.0
+   },
+   "id": "g368",
+   "mutated": [
+    "code"
+   ],
+   "note": "code: During the fortress blaze fight, a visible non-blaze monster (piglin, wither skeleton) within 4 blocks now triggers a decision (at most once per 2 s), instead of the blaze fight suppressing every trigger while melee mobs kill the bot at near-full health.",
+   "pairs": [],
+   "parent": "g353",
+   "status": "contender"
+  },
   "g37": {
    "born": 53,
    "code": null,
@@ -58045,7 +58098,8 @@
   "Skip an option when what the player can see already says it will fail (vanilla's no-sleep-with-monsters-within-8 rule); this beats letting the skill time out and get offered again.",
   "A skill that fails NO_ROOM where it stands should move to open ground before it starts, not change how it gets the item after failing (in-place gravel mining lost in g327).",
   "The blaze fight runs out of anchors because a 20-block tried radius soon covers every brick it has seen. It needs a way to see more of the fortress, not another try at the same spots.",
-  "Retreat NO_PROGRESS at 3 blocks comes from Baritone giving up on GoalRunAway, not from the decision to flee; changing the decision lost repeatedly, so fix how the escape moves."
+  "Retreat NO_PROGRESS at 3 blocks comes from Baritone giving up on GoalRunAway, not from the decision to flee; changing the decision lost repeatedly, so fix how the escape moves.",
+  "Nether first deaths (piglin 14, wither skeleton 9) mostly happen during fortress:blazes, which blocks all re-planning, so the bot never answered melee attackers there; letting close melee threats through tests whether that blind spot is the killer."
  ],
  "learned_race": {
   "gen": 256,
@@ -58066,7 +58120,7 @@
   "mean_gap_ok": 0.0014,
   "n": 2050
  },
- "next_id": 368,
+ "next_id": 369,
  "pending": null,
  "race_evidence_version": 2,
  "score_since_gen": 179,
