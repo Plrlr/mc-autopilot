@@ -299,12 +299,64 @@ public final class MoveSkills {
 				if (nearestThreat() >= 12 || nearestThreat() > startDist + 3) done("got away");
 				return;
 			}
+			if (manual >= 0) {
+				runByKeys();
+				return;
+			}
 			if (ticks <= 20 || Bari.pathing()) return;
 			// Baritone stopping isn't the same as getting away: with no path it stops where it
 			// stands, and 99 "got away" retreats in batch 11 (seed a) never moved the bot.
 			double now = nearestThreat();
 			if (now >= 12 || now > startDist + 3) done("got away");
+			else if (now < 8) {
+				// No path found but the monster is on us: run straight away by keys, step by checked step.
+				Bari.stop();
+				manual = 0;
+			}
 			else fail(Fail.NO_PROGRESS, "couldn't get away (nearest monster " + Math.round(now) + " blocks)");
+		}
+
+		/** Ticks of the by-keys escape (-1: not started). */
+		private int manual = -1;
+
+		private void stopKeys() {
+			var o = Mc.mc().options;
+			CombatFootwork.releaseMovement();
+			o.keyUp.setDown(false);
+			o.keySprint.setDown(false);
+			o.keyJump.setDown(false);
+		}
+
+		private void runByKeys() {
+			LocalPlayer pl = Mc.player();
+			Perception.Seen h = Perception.look(20).nearestHostile();
+			if (h == null || h.dist() >= 12 || h.dist() > startDist + 3) {
+				stopKeys();
+				done("got away");
+				return;
+			}
+			if (++manual > 60) {
+				stopKeys();
+				fail(Fail.NO_PROGRESS, "couldn't get away (nearest monster " + Math.round(h.dist()) + " blocks)");
+				return;
+			}
+			double dx = pl.getX() - h.entity().getX(), dz = pl.getZ() - h.entity().getZ();
+			float away = (float) Math.toDegrees(Math.atan2(-dx, dz));
+			for (float off : new float[]{0, 45, -45, 90, -90, 135, -135}) {
+				pl.setYRot(away + off);
+				if (CombatFootwork.safe(pl, 1, 0)) {
+					var o = Mc.mc().options;
+					o.keyDown.setDown(false);
+					o.keyLeft.setDown(false);
+					o.keyRight.setDown(false);
+					o.keyUp.setDown(true);
+					o.keySprint.setDown(true);
+					o.keyJump.setDown(pl.horizontalCollision && pl.onGround());
+					return;
+				}
+			}
+			stopKeys();
+			fail(Fail.NO_PROGRESS, "no safe step away (nearest monster " + Math.round(h.dist()) + " blocks)");
 		}
 
 		private static double nearestThreat() {
