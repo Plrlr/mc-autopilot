@@ -2816,7 +2816,7 @@
   "2026-10-13": 15,
   "2026-10-14": 14,
   "2026-10-15": 14,
-  "2026-10-16": 5
+  "2026-10-16": 6
  },
  "evolve_days": {
   "2026-09-27": 1,
@@ -3113,7 +3113,7 @@
    "result": "racing"
   }
  ],
- "gen": 368,
+ "gen": 369,
  "gene_specs": {
   "bed.table_first": {
    "def": 0.0,
@@ -49115,6 +49115,46 @@
    "parent": "g353",
    "status": "contender"
   },
+  "g369": {
+   "born": 369,
+   "code": null,
+   "evals": [],
+   "genes": {
+    "brain.situations": 1.0,
+    "brain.utility": 1.0,
+    "combat.ignore_walled_mobs": 1.0,
+    "combat.shield_guard": 1.0,
+    "death.recover_night_armor": 12.0,
+    "focus.commit": 1.0,
+    "fortress.anchor_scope": 1.0,
+    "gather.coal_extra": 3.0,
+    "gather.coal_view_dist": 16.0,
+    "gear.sword_early": 1.0,
+    "learned.weight": 1.0,
+    "move.shore_first": 1.0,
+    "nav.surface_v2": 1.0,
+    "nav.unstuck_v2": 1.0,
+    "night.shelter_exit": 1.0,
+    "pearls.provoke_s": 19.0,
+    "plan.hide_hp": 15.0,
+    "plan.readiness": 1.0,
+    "portal.prepare_work_area": 1.0,
+    "portal.reserve_lava_bucket": 1.0,
+    "route.armor_before_portal": 1.0,
+    "skill.enderman_warped": 1.0,
+    "skill.ruined_portal": 1.0,
+    "stations.pickup_last": 1.0,
+    "stuck.item_progress": 1.0
+   },
+   "id": "g369",
+   "mutated": [
+    "brain.situations"
+   ],
+   "note": "brain.situations 1",
+   "pairs": [],
+   "parent": "g353",
+   "status": "contender"
+  },
   "g37": {
    "born": 53,
    "code": null,
@@ -49198,6 +49238,46 @@
    "pairs": [],
    "parent": "g24",
    "status": "rejected"
+  },
+  "g370": {
+   "born": 369,
+   "code": null,
+   "evals": [],
+   "genes": {
+    "brain.utility": 1.0,
+    "combat.crits": 1.0,
+    "combat.ignore_walled_mobs": 1.0,
+    "combat.shield_guard": 1.0,
+    "death.recover_night_armor": 12.0,
+    "focus.commit": 1.0,
+    "fortress.anchor_scope": 1.0,
+    "gather.coal_extra": 3.0,
+    "gather.coal_view_dist": 16.0,
+    "gear.sword_early": 1.0,
+    "learned.weight": 1.0,
+    "move.shore_first": 1.0,
+    "nav.surface_v2": 1.0,
+    "nav.unstuck_v2": 1.0,
+    "night.shelter_exit": 1.0,
+    "pearls.provoke_s": 19.0,
+    "plan.hide_hp": 15.0,
+    "plan.readiness": 1.0,
+    "portal.prepare_work_area": 1.0,
+    "portal.reserve_lava_bucket": 1.0,
+    "route.armor_before_portal": 1.0,
+    "skill.enderman_warped": 1.0,
+    "stations.pickup_last": 1.0,
+    "stuck.item_progress": 1.0
+   },
+   "id": "g370",
+   "mutated": [
+    "skill.ruined_portal",
+    "combat.crits"
+   ],
+   "note": "skill.ruined_portal 0, combat.crits 1",
+   "pairs": [],
+   "parent": "g353",
+   "status": "contender"
   },
   "g38": {
    "born": 53,
@@ -58120,8 +58200,89 @@
   "mean_gap_ok": 0.0014,
   "n": 2050
  },
- "next_id": 369,
- "pending": null,
+ "next_id": 371,
+ "pending": {
+  "data_tasks": [
+   {
+    "kind": "scenario",
+    "late": true,
+    "scenario": "stronghold",
+    "seed": "D369-x995v7",
+    "stage": "eyes",
+    "synthetic": true
+   },
+   {
+    "kind": "natural",
+    "seed": "D369-gw2mtq",
+    "stage": "spawn",
+    "synthetic": false
+   }
+  ],
+  "gen": 369,
+  "lineup": [
+   "g353",
+   "g368",
+   "g369",
+   "g370"
+  ],
+  "runs": [
+   "eval-g353-0",
+   "eval-g353-1",
+   "eval-g353-2",
+   "eval-g353-3",
+   "eval-g368-0",
+   "eval-g368-1",
+   "eval-g368-2",
+   "eval-g368-3",
+   "eval-g369-0",
+   "eval-g369-1",
+   "eval-g369-2",
+   "eval-g369-3",
+   "eval-g370-0",
+   "eval-g370-1",
+   "eval-g370-2",
+   "eval-g370-3",
+   "data-g353-0",
+   "data-g353-1"
+  ],
+  "seeds": [
+   "L369-hphtpy",
+   "L369-sz2tkk",
+   "L369-cgb936",
+   "L369-kp83m5"
+  ],
+  "sha": "91d44de4fbc72526287a191ce432dba1a89adb1c",
+  "started": "2026-10-16T08:34:19+00:00",
+  "tasks": [
+   {
+    "kind": "natural",
+    "seed": "L369-hphtpy",
+    "stage": "spawn",
+    "synthetic": false
+   },
+   {
+    "kind": "natural",
+    "seed": "L369-sz2tkk",
+    "stage": "spawn",
+    "synthetic": false
+   },
+   {
+    "asset": "nether-gen295-eval-g278-0.zip",
+    "kind": "start",
+    "seed": "L369-cgb936",
+    "stage": "nether",
+    "synthetic": false
+   },
+   {
+    "kind": "combat",
+    "minutes": 10,
+    "scenario": "combat",
+    "seed": "L369-kp83m5",
+    "stage": "combat",
+    "synthetic": false
+   }
+  ]
+ },
  "race_evidence_version": 2,
  "score_since_gen": 179,
  "score_version": 4,
