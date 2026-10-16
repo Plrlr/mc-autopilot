@@ -2816,7 +2816,7 @@
   "2026-10-13": 15,
   "2026-10-14": 14,
   "2026-10-15": 14,
-  "2026-10-16": 1
+  "2026-10-16": 2
  },
  "evolve_days": {
   "2026-09-27": 1,
@@ -3107,7 +3107,7 @@
    "result": "racing"
   }
  ],
- "gen": 364,
+ "gen": 365,
  "gene_specs": {
   "bed.table_first": {
    "def": 0.0,
@@ -48408,6 +48408,94 @@
    "parent": "g353",
    "status": "contender"
   },
+  "g366": {
+   "born": 365,
+   "code": null,
+   "evals": [],
+   "genes": {
+    "brain.situations": 1.0,
+    "brain.utility": 1.0,
+    "combat.ignore_walled_mobs": 1.0,
+    "combat.keep_dist": 2.319708611913796,
+    "combat.shield_guard": 1.0,
+    "death.recover_night_armor": 12.0,
+    "explore.same_blocks": 1.0,
+    "focus.commit": 1.0,
+    "fortress.anchor_scope": 1.0,
+    "gather.coal_extra": 3.0,
+    "gather.coal_view_dist": 16.0,
+    "gear.sword_early": 1.0,
+    "learned.weight": 1.0,
+    "move.shore_first": 1.0,
+    "nav.surface_v2": 1.0,
+    "nav.unstuck_v2": 1.0,
+    "night.shelter_exit": 1.0,
+    "pearls.provoke_s": 19.0,
+    "plan.hide_hp": 15.0,
+    "plan.readiness": 1.0,
+    "portal.prepare_work_area": 1.0,
+    "portal.reserve_lava_bucket": 1.0,
+    "route.armor_before_portal": 1.0,
+    "skill.enderman_warped": 1.0,
+    "skill.ruined_portal": 1.0,
+    "stations.pickup_last": 1.0,
+    "stuck.item_progress": 1.0
+   },
+   "id": "g366",
+   "mutated": [
+    "combat.keep_dist",
+    "brain.situations",
+    "explore.same_blocks"
+   ],
+   "note": "combat.keep_dist 2.31971, brain.situations 1, explore.same_blocks 1",
+   "pairs": [],
+   "parent": "g353",
+   "status": "contender"
+  },
+  "g367": {
+   "born": 365,
+   "code": null,
+   "evals": [],
+   "genes": {
+    "brain.utility": 1.0,
+    "combat.ignore_walled_mobs": 1.0,
+    "combat.shield_guard": 1.0,
+    "death.recover_night_armor": 12.0,
+    "focus.commit": 1.0,
+    "fortress.anchor_scope": 1.0,
+    "fortress.floor_anchor": 1.0,
+    "gather.coal_extra": 3.0,
+    "gather.coal_view_dist": 16.0,
+    "gear.sword_early": 1.0,
+    "learned.weight": 1.0,
+    "move.shore_first": 1.0,
+    "nav.surface_v2": 1.0,
+    "nav.unstuck_v2": 1.0,
+    "night.shelter_exit": 1.0,
+    "pearls.provoke_s": 19.0,
+    "plan.hide_hp": 15.0,
+    "plan.readiness": 1.0,
+    "portal.prepare_work_area": 1.0,
+    "portal.reserve_lava_bucket": 1.0,
+    "route.armor_before_portal": 1.0,
+    "skill.barter_loop": 1.0,
+    "skill.enderman_warped": 1.0,
+    "skill.restock": 1.0,
+    "skill.ruined_portal": 1.0,
+    "stations.pickup_last": 1.0,
+    "stuck.item_progress": 1.0
+   },
+   "id": "g367",
+   "mutated": [
+    "skill.barter_loop",
+    "fortress.floor_anchor",
+    "skill.restock"
+   ],
+   "note": "skill.barter_loop 1, fortress.floor_anchor 1, skill.restock 1",
+   "pairs": [],
+   "parent": "g353",
+   "status": "contender"
+  },
   "g37": {
    "born": 53,
    "code": null,
@@ -57412,8 +57500,89 @@
   "mean_gap_ok": -0.2659,
   "n": 2008
  },
- "next_id": 366,
- "pending": null,
+ "next_id": 368,
+ "pending": {
+  "data_tasks": [
+   {
+    "kind": "scenario",
+    "late": true,
+    "scenario": "stronghold",
+    "seed": "D365-n34dxk",
+    "stage": "eyes",
+    "synthetic": true
+   },
+   {
+    "kind": "natural",
+    "seed": "D365-gw4aas",
+    "stage": "spawn",
+    "synthetic": false
+   }
+  ],
+  "gen": 365,
+  "lineup": [
+   "g353",
+   "g365",
+   "g366",
+   "g367"
+  ],
+  "runs": [
+   "eval-g353-0",
+   "eval-g353-1",
+   "eval-g353-2",
+   "eval-g353-3",
+   "eval-g365-0",
+   "eval-g365-1",
+   "eval-g365-2",
+   "eval-g365-3",
+   "eval-g366-0",
+   "eval-g366-1",
+   "eval-g366-2",
+   "eval-g366-3",
+   "eval-g367-0",
+   "eval-g367-1",
+   "eval-g367-2",
+   "eval-g367-3",
+   "data-g353-0",
+   "data-g353-1"
+  ],
+  "seeds": [
+   "L365-g4ywuc",
+   "L365-enad9t",
+   "L365-xz8yqz",
+   "L365-npfvqq"
+  ],
+  "sha": "91d44de4fbc72526287a191ce432dba1a89adb1c",
+  "started": "2026-10-16T01:40:18+00:00",
+  "tasks": [
+   {
+    "kind": "natural",
+    "seed": "L365-g4ywuc",
+    "stage": "spawn",
+    "synthetic": false
+   },
+   {
+    "kind": "natural",
+    "seed": "L365-enad9t",
+    "stage": "spawn",
+    "synthetic": false
+   },
+   {
+    "asset": "nether-gen356-eval-g350-1.zip",
+    "kind": "start",
+    "seed": "L365-xz8yqz",
+    "stage": "nether",
+    "synthetic": false
+   },
+   {
+    "kind": "combat",
+    "minutes": 10,
+    "scenario": "combat",
+    "seed": "L365-npfvqq",
+    "stage": "combat",
+    "synthetic": false
+   }
+  ]
+ },
  "race_evidence_version": 2,
  "score_since_gen": 179,
  "score_version": 4,
