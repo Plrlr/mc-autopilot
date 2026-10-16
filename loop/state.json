@@ -2835,7 +2835,7 @@
   "2026-10-13": 2,
   "2026-10-14": 4,
   "2026-10-15": 5,
-  "2026-10-16": 2
+  "2026-10-16": 3
  },
  "evolve_log": [
   {
@@ -3111,6 +3111,13 @@
    "gid": "g368",
    "mode": "edit",
    "result": "racing"
+  },
+  {
+   "gen": 374,
+   "gid": "g375",
+   "mode": "skill",
+   "result": "drilling",
+   "target": "fortress TIMEOUT"
   }
  ],
  "gen": 374,
@@ -50219,6 +50226,75 @@
    "parent": "g372",
    "status": "rejected"
   },
+  "g375": {
+   "born": 374,
+   "code": {
+    "base": "76b2a838dfc2ac7974f9003a6536cd12d0aaf823",
+    "branch": "evolve/g375",
+    "files": [
+     "mod/src/main/java/io/github/plrlr/autopilot/skills/evolved/FortressRelocate.java",
+     "mod/src/main/java/io/github/plrlr/autopilot/skills/evolved/EvolvedSkills.java",
+     "mod/src/main/resources/evolved-genes.json"
+    ],
+    "gene": "evolved.fortress_relocate",
+    "kind": "skill",
+    "sha": "00f117658fa2516bdefa9795d7f250da34dedd32",
+    "skill": "fortress_relocate",
+    "summary": "fortress_relocate: right after a fortress TIMEOUT in the Nether, walks to a different seen fortress floor 16-64 blocks away and stops once a blaze is in view. If no bricks are known, it does a look-around sweep instead.",
+    "target": "fortress TIMEOUT"
+   },
+   "drill": {
+    "gen": 374,
+    "idea": {
+     "_metric": "resolve:fortress:TIMEOUT+fortress_relocate",
+     "evolved.fortress_relocate": 1
+    },
+    "run": 38948317177
+   },
+   "evals": [],
+   "exposure_spec": {
+    "skill": "fortress_relocate"
+   },
+   "genes": {
+    "bed.table_first": 1.0,
+    "brain.utility": 1.0,
+    "combat.ignore_walled_mobs": 1.0,
+    "combat.shield_guard": 1.0,
+    "death.recover_night_armor": 12.0,
+    "evolved.fortress_relocate": 1.0,
+    "focus.commit": 1.0,
+    "fortress.anchor_scope": 1.0,
+    "gather.coal_extra": 3.0,
+    "gather.coal_view_dist": 16.0,
+    "gear.sword_early": 1.0,
+    "learned.weight": 1.0,
+    "move.shore_first": 1.0,
+    "nav.surface_v2": 1.0,
+    "nav.unstuck_v2": 1.0,
+    "night.shelter_exit": 1.0,
+    "pearls.provoke_s": 19.0,
+    "plan.hide_hp": 15.0,
+    "plan.readiness": 1.0,
+    "portal.prepare_work_area": 1.0,
+    "portal.reserve_lava_bucket": 1.0,
+    "route.armor_before_portal": 1.0,
+    "skill.drain_tunnel": 1.0,
+    "skill.enderman_warped": 1.0,
+    "skill.ruined_portal": 1.0,
+    "stations.pickup_last": 1.0,
+    "stuck.item_progress": 1.0
+   },
+   "id": "g375",
+   "metric": "resolve:fortress:TIMEOUT+fortress_relocate",
+   "mutated": [
+    "code",
+    "evolved.fortress_relocate"
+   ],
+   "note": "code: new skill fortress_relocate for fortress TIMEOUT: fortress_relocate: right after a fortress TIMEOUT in the Nether, walks to a different seen fortress floor 16-64 blocks away and stops once a blaze is in view. If no bricks are known, it does a look-around sweep instead.",
+   "pairs": [],
+   "parent": "g372",
+   "status": "drilling"
+  },
   "g38": {
    "born": 53,
    "code": null,
@@ -59119,7 +59195,8 @@
   "A skill that fails NO_ROOM where it stands should move to open ground before it starts, not change how it gets the item after failing (in-place gravel mining lost in g327).",
   "The blaze fight runs out of anchors because a 20-block tried radius soon covers every brick it has seen. It needs a way to see more of the fortress, not another try at the same spots.",
   "Retreat NO_PROGRESS at 3 blocks comes from Baritone giving up on GoalRunAway, not from the decision to flee; changing the decision lost repeatedly, so fix how the escape moves.",
-  "Nether first deaths (piglin 14, wither skeleton 9) mostly happen during fortress:blazes, which blocks all re-planning, so the bot never answered melee attackers there; letting close melee threats through tests whether that blind spot is the killer."
+  "Nether first deaths (piglin 14, wither skeleton 9) mostly happen during fortress:blazes, which blocks all re-planning, so the bot never answered melee attackers there; letting close melee threats through tests whether that blind spot is the killer.",
+  "When a fortress run times out, retrying from the same spot repeats the timeout; the bot should first move to a different part of the fortress it has seen (or look around), then hand back to the fortress skill."
  ],
  "learned_race": {
   "gen": 256,
@@ -59140,7 +59217,7 @@
   "mean_gap_ok": -0.0711,
   "n": 2075
  },
- "next_id": 375,
+ "next_id": 376,
  "pending": null,
  "race_evidence_version": 2,
  "score_since_gen": 179,
@@ -60055,6 +60132,13 @@
    "result": "inconclusive: never ran in its drill (its offer never fired): INCONCLUSIVE: on 0/0 fixed (0%), off 0/0 fixed (0%), z +0.0; exposure on its side: explore_sideways offered 0, chosen 0, started 0, ended 0 (0 ok); acted in 0 of 3 games",
    "skill": "explore_sideways",
    "target": "explore:cow TIMEOUT"
+  },
+  {
+   "gen": 374,
+   "gid": "g375",
+   "result": "drilling",
+   "skill": "fortress_relocate",
+   "target": "fortress TIMEOUT"
   }
  ],
  "skill_stats": {
