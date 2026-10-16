@@ -468,6 +468,14 @@ public final class Autopilot {
 		return hash;
 	}
 
+	/** A visible non-blaze monster within 4 blocks. */
+	private boolean meleeThreat() {
+		if (seen == null) return false;
+		for (Perception.Seen m : seen.mobs)
+			if (m.hostile() && !m.type().equals("blaze") && m.dist() < 4 && Mc.canSee(m.entity())) return true;
+		return false;
+	}
+
 	/** Blocks to the nearest hostile we perceive (infinite when none). */
 	private double nearestHostileDist() {
 		var h = seen == null ? null : seen.nearestHostile();
@@ -507,7 +515,12 @@ public final class Autopilot {
 		// decision picked eat and stopped it in the open while burning: the laptop's blaze run
 		// after e2e2ffe died that way 30 s in.
 		if (skill.name().equals("fortress") && skillOption != null && skillOption.arg() != null
-				&& skillOption.arg().startsWith("blazes")) return;
+				&& skillOption.arg().startsWith("blazes")) {
+			// A piglin or wither skeleton on top of us isn't part of the blaze fight: let the rules
+			// answer it (Nether first deaths: piglin 14, wither skeleton 9, mostly during this skill).
+			if (meleeThreat() && tick - lastDecisionTick >= 40) requestDecision("melee_in_blaze_fight");
+			return;
+		}
 		if (newHostile && !skill.name().equals("attack")) requestDecision("mob_near");
 		else if (pl.getHealth() < healthAtDecision - 3) requestDecision("hurt");
 		else if (Tune.on("food.keep_full") && !hostileNear && skill.interruptible() && !skill.name().equals("eat")
