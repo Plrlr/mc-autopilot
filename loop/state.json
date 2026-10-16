@@ -2835,7 +2835,7 @@
   "2026-10-13": 2,
   "2026-10-14": 4,
   "2026-10-15": 5,
-  "2026-10-16": 3
+  "2026-10-16": 4
  },
  "evolve_log": [
   {
@@ -3118,6 +3118,12 @@
    "mode": "skill",
    "result": "drilling",
    "target": "fortress TIMEOUT"
+  },
+  {
+   "gen": 376,
+   "gid": "g380",
+   "mode": "edit",
+   "result": "racing"
   }
  ],
  "gen": 376,
@@ -50859,6 +50865,55 @@
    "parent": "g24",
    "status": "rejected"
   },
+  "g380": {
+   "born": 376,
+   "code": {
+    "base": "76b2a838dfc2ac7974f9003a6536cd12d0aaf823",
+    "branch": "evolve/g380",
+    "files": [
+     "mod/src/main/java/io/github/plrlr/autopilot/skills/CollectSkill.java"
+    ],
+    "sha": "25e9231d780379810194ab2b3b0f77c2242697f3",
+    "summary": "Collect flint: after a NO_ROOM failure, the next attempt mines already-seen natural gravel blocks (each drops flint 10%) via SeenMiner instead of retrying the place-and-break method that needs a flat spot."
+   },
+   "evals": [],
+   "genes": {
+    "bed.table_first": 1.0,
+    "brain.utility": 1.0,
+    "combat.ignore_walled_mobs": 1.0,
+    "combat.shield_guard": 1.0,
+    "death.recover_night_armor": 12.0,
+    "focus.commit": 1.0,
+    "fortress.anchor_scope": 1.0,
+    "gather.coal_extra": 3.0,
+    "gather.coal_view_dist": 16.0,
+    "gear.sword_early": 1.0,
+    "learned.weight": 1.0,
+    "move.shore_first": 1.0,
+    "nav.surface_v2": 1.0,
+    "nav.unstuck_v2": 1.0,
+    "night.shelter_exit": 1.0,
+    "pearls.provoke_s": 19.0,
+    "plan.hide_hp": 15.0,
+    "plan.readiness": 1.0,
+    "portal.prepare_work_area": 1.0,
+    "portal.reserve_lava_bucket": 1.0,
+    "route.armor_before_portal": 1.0,
+    "skill.drain_tunnel": 1.0,
+    "skill.enderman_warped": 1.0,
+    "skill.ruined_portal": 1.0,
+    "stations.pickup_last": 1.0,
+    "stuck.item_progress": 1.0
+   },
+   "id": "g380",
+   "mutated": [
+    "code"
+   ],
+   "note": "code: Collect flint: after a NO_ROOM failure, the next attempt mines already-seen natural gravel blocks (each drops flint 10%) via SeenMiner instead of retrying the place-and-break method that needs a flat spot.",
+   "pairs": [],
+   "parent": "g372",
+   "status": "contender"
+  },
   "g39": {
    "born": 54,
    "code": null,
@@ -59658,7 +59713,8 @@
   "The blaze fight runs out of anchors because a 20-block tried radius soon covers every brick it has seen. It needs a way to see more of the fortress, not another try at the same spots.",
   "Retreat NO_PROGRESS at 3 blocks comes from Baritone giving up on GoalRunAway, not from the decision to flee; changing the decision lost repeatedly, so fix how the escape moves.",
   "Nether first deaths (piglin 14, wither skeleton 9) mostly happen during fortress:blazes, which blocks all re-planning, so the bot never answered melee attackers there; letting close melee threats through tests whether that blind spot is the killer.",
-  "When a fortress run times out, retrying from the same spot repeats the timeout; the bot should first move to a different part of the fortress it has seen (or look around), then hand back to the fortress skill."
+  "When a fortress run times out, retrying from the same spot repeats the timeout; the bot should first move to a different part of the fortress it has seen (or look around), then hand back to the fortress skill.",
+  "Flint NO_ROOM repeats back-to-back in one spot, so the retry should switch to a method that needs no free spot beside us (mining seen gravel) instead of walking elsewhere or retrying the same steps."
  ],
  "learned_race": {
   "gen": 256,
@@ -59679,7 +59735,7 @@
   "mean_gap_ok": -0.2223,
   "n": 2078
  },
- "next_id": 380,
+ "next_id": 381,
  "pending": null,
  "race_evidence_version": 2,
  "score_since_gen": 179,
