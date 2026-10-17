@@ -2848,7 +2848,7 @@
   "2026-10-14": 4,
   "2026-10-15": 5,
   "2026-10-16": 4,
-  "2026-10-17": 2
+  "2026-10-17": 3
  },
  "evolve_log": [
   {
@@ -3150,6 +3150,12 @@
    "mode": "skill",
    "result": "drilling",
    "target": "collect NO_ROOM"
+  },
+  {
+   "gen": 387,
+   "gid": "g392",
+   "mode": "edit",
+   "result": "racing"
   }
  ],
  "gen": 387,
@@ -53229,6 +53235,55 @@
    "parent": "g372",
    "status": "rejected"
   },
+  "g392": {
+   "born": 387,
+   "code": {
+    "base": "76b2a838dfc2ac7974f9003a6536cd12d0aaf823",
+    "branch": "evolve/g392",
+    "files": [
+     "mod/src/main/java/io/github/plrlr/autopilot/Autopilot.java"
+    ],
+    "sha": "da954b835b7ff5dbb2c6e5bf1da68f949cd2432a",
+    "summary": "While walking into a lit nether portal within 12 blocks and above 6 health, mob-near, hurt and heartbeat triggers no longer interrupt it. Reflexes still run. In the worst run, enter_portal was interrupted about 15 times by attack or retreat choices and the bot never got through."
+   },
+   "evals": [],
+   "genes": {
+    "bed.table_first": 1.0,
+    "brain.utility": 1.0,
+    "combat.ignore_walled_mobs": 1.0,
+    "combat.shield_guard": 1.0,
+    "death.recover_night_armor": 12.0,
+    "focus.commit": 1.0,
+    "fortress.anchor_scope": 1.0,
+    "gather.coal_extra": 3.0,
+    "gather.coal_view_dist": 16.0,
+    "gear.sword_early": 1.0,
+    "learned.weight": 1.0,
+    "move.shore_first": 1.0,
+    "nav.surface_v2": 1.0,
+    "nav.unstuck_v2": 1.0,
+    "night.shelter_exit": 1.0,
+    "pearls.provoke_s": 19.0,
+    "plan.hide_hp": 15.0,
+    "plan.readiness": 1.0,
+    "portal.prepare_work_area": 1.0,
+    "portal.reserve_lava_bucket": 1.0,
+    "route.armor_before_portal": 1.0,
+    "skill.drain_tunnel": 1.0,
+    "skill.enderman_warped": 1.0,
+    "skill.ruined_portal": 1.0,
+    "stations.pickup_last": 1.0,
+    "stuck.item_progress": 1.0
+   },
+   "id": "g392",
+   "mutated": [
+    "code"
+   ],
+   "note": "code: While walking into a lit nether portal within 12 blocks and above 6 health, mob-near, hurt and heartbeat triggers no longer interrupt it. Reflexes still run. In the worst run, enter_portal was interrupted about 15 times by attack or retreat choices and the bot never got through.",
+   "pairs": [],
+   "parent": "g372",
+   "status": "contender"
+  },
   "g4": {
    "born": 2,
    "code": null,
@@ -61969,7 +62024,8 @@
   "When a fortress run times out, retrying from the same spot repeats the timeout; the bot should first move to a different part of the fortress it has seen (or look around), then hand back to the fortress skill.",
   "Flint NO_ROOM repeats back-to-back in one spot, so the retry should switch to a method that needs no free spot beside us (mining seen gravel) instead of walking elsewhere or retrying the same steps.",
   "Blazes only spawn at the spawner, so when the fight runs out of anchors, returning to the known spawner should beat walking toward unseen floors (g363) or giving up NOT_FOUND.",
-  "Flint NO_ROOM repeats in tight underground spots. Walking to open ground and mining seen gravel both lost, so this tries making the room in place by digging one side cell, a few seconds of work, then hands back to the normal flint steps."
+  "Flint NO_ROOM repeats in tight underground spots. Walking to open ground and mining seen gravel both lost, so this tries making the room in place by digging one side cell, a few seconds of work, then hands back to the normal flint steps.",
+  "At the nether frontier, the worst run lost its whole time to enter_portal being cut short over and over by mob decisions. Going through the portal also gets away from overworld mobs, so finishing the trip should beat fighting near it."
  ],
  "learned_race": {
   "gen": 256,
@@ -61990,7 +62046,7 @@
   "mean_gap_ok": -0.222,
   "n": 2176
  },
- "next_id": 392,
+ "next_id": 393,
  "pending": null,
  "race_evidence_version": 2,
  "score_since_gen": 179,
