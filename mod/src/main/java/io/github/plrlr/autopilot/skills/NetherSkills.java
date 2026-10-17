@@ -133,6 +133,7 @@ public final class NetherSkills {
 		/** Approaching a wall face (no floor known yet): stand off it instead of walking into it. */
 		private boolean approach;
 		private int sinceBlaze;
+		private int spawnerReturns;
 		private int rodsBefore;
 		private boolean walking;
 
@@ -469,6 +470,18 @@ public final class NetherSkills {
 				if (anchor != null) visit(anchor);
 				visit(pl.blockPosition().immutable());
 				anchor = pickAnchor();
+				if (anchor == null && spawnerReturns < 3) {
+					// Blazes only spawn beside the spawner (and only with us within 16 blocks): one quiet
+					// 30 s there doesn't mean it's empty. Go back and wait again before giving up.
+					WorldMemory.Seen sp = blazeSpawner(memory, seen);
+					if (sp != null) {
+						spawnerReturns++;
+						anchor = sp.pos();
+						approach = false;
+						walkTo(anchor);
+						return;
+					}
+				}
 				if (anchor == null) {
 					if (rods > rodsBefore) done("got " + (rods - rodsBefore) + " blaze rods; no more blazes found here");
 					else fail(Fail.NOT_FOUND, "no blazes in the parts of the fortress we know");
