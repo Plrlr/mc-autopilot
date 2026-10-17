@@ -2828,7 +2828,7 @@
   "2026-10-14": 14,
   "2026-10-15": 14,
   "2026-10-16": 14,
-  "2026-10-17": 7
+  "2026-10-17": 8
  },
  "evolve_days": {
   "2026-09-27": 1,
@@ -3152,7 +3152,7 @@
    "target": "collect NO_ROOM"
   }
  ],
- "gen": 384,
+ "gen": 385,
  "gene_specs": {
   "bed.table_first": {
    "def": 0.0,
@@ -61475,7 +61475,88 @@
   "n": 2150
  },
  "next_id": 392,
- "pending": null,
+ "pending": {
+  "data_tasks": [
+   {
+    "kind": "scenario",
+    "late": true,
+    "scenario": "stronghold",
+    "seed": "D385-hjrsrk",
+    "stage": "eyes",
+    "synthetic": true
+   },
+   {
+    "kind": "natural",
+    "seed": "D385-h8h55t",
+    "stage": "spawn",
+    "synthetic": false
+   }
+  ],
+  "gen": 385,
+  "lineup": [
+   "g372",
+   "g388",
+   "g390",
+   "g391"
+  ],
+  "runs": [
+   "eval-g372-0",
+   "eval-g372-1",
+   "eval-g372-2",
+   "eval-g372-3",
+   "eval-g388-0",
+   "eval-g388-1",
+   "eval-g388-2",
+   "eval-g388-3",
+   "eval-g390-0",
+   "eval-g390-1",
+   "eval-g390-2",
+   "eval-g390-3",
+   "eval-g391-0",
+   "eval-g391-1",
+   "eval-g391-2",
+   "eval-g391-3",
+   "data-g372-0",
+   "data-g372-1"
+  ],
+  "seeds": [
+   "L385-dad866",
+   "L385-8t995r",
+   "L385-nw2pq8",
+   "L385-329f4y"
+  ],
+  "sha": "76b2a838dfc2ac7974f9003a6536cd12d0aaf823",
+  "started": "2026-10-17T11:36:31+00:00",
+  "tasks": [
+   {
+    "kind": "natural",
+    "seed": "L385-dad866",
+    "stage": "spawn",
+    "synthetic": false
+   },
+   {
+    "kind": "natural",
+    "seed": "L385-8t995r",
+    "stage": "spawn",
+    "synthetic": false
+   },
+   {
+    "asset": "nether-gen262-eval-g240-0.zip",
+    "kind": "start",
+    "seed": "L385-nw2pq8",
+    "stage": "nether",
+    "synthetic": false
+   },
+   {
+    "kind": "combat",
+    "minutes": 10,
+    "scenario": "combat",
+    "seed": "L385-329f4y",
+    "stage": "combat",
+    "synthetic": false
+   }
+  ]
+ },
  "race_evidence_version": 2,
  "score_since_gen": 179,
  "score_version": 4,
