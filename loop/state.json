@@ -2828,7 +2828,7 @@
   "2026-10-14": 14,
   "2026-10-15": 14,
   "2026-10-16": 14,
-  "2026-10-17": 10
+  "2026-10-17": 11
  },
  "evolve_days": {
   "2026-09-27": 1,
@@ -3158,7 +3158,7 @@
    "result": "racing"
   }
  ],
- "gen": 387,
+ "gen": 388,
  "gene_specs": {
   "bed.table_first": {
    "def": 0.0,
@@ -53284,6 +53284,94 @@
    "parent": "g372",
    "status": "contender"
   },
+  "g393": {
+   "born": 388,
+   "code": null,
+   "evals": [],
+   "genes": {
+    "bed.table_first": 1.0,
+    "brain.utility": 1.0,
+    "combat.ignore_walled_mobs": 1.0,
+    "combat.shield_guard": 1.0,
+    "death.recover_night_armor": 12.0,
+    "focus.commit": 1.0,
+    "fortress.anchor_scope": 1.0,
+    "gather.coal_extra": 3.0,
+    "gather.coal_view_dist": 16.0,
+    "gear.sword_early": 1.0,
+    "learned.weight": 1.0,
+    "move.shore_first": 1.0,
+    "nav.surface_v2": 1.0,
+    "nav.unstuck_v2": 1.0,
+    "nether.piglin_threat": 1.0,
+    "night.shelter_exit": 1.0,
+    "pearls.provoke_s": 19.0,
+    "plan.hide_hp": 15.0,
+    "plan.readiness": 1.0,
+    "portal.prepare_work_area": 1.0,
+    "portal.reserve_lava_bucket": 1.0,
+    "reflex.melee_dist": 3.8750061833815583,
+    "route.armor_before_portal": 1.0,
+    "skill.drain_tunnel": 1.0,
+    "skill.enderman_warped": 1.0,
+    "skill.ruined_portal": 1.0,
+    "stations.pickup_last": 1.0,
+    "stuck.item_progress": 1.0
+   },
+   "id": "g393",
+   "mutated": [
+    "nether.piglin_threat",
+    "reflex.melee_dist"
+   ],
+   "note": "nether.piglin_threat 1, reflex.melee_dist 3.87501",
+   "pairs": [],
+   "parent": "g372",
+   "status": "contender"
+  },
+  "g394": {
+   "born": 388,
+   "code": null,
+   "evals": [],
+   "genes": {
+    "bed.table_first": 1.0,
+    "brain.thompson": 1.0,
+    "brain.utility": 1.0,
+    "combat.ignore_walled_mobs": 1.0,
+    "combat.shield_guard": 1.0,
+    "death.recover_night_armor": 12.0,
+    "focus.commit": 1.0,
+    "fortress.anchor_scope": 1.0,
+    "gather.coal_extra": 3.0,
+    "gather.coal_view_dist": 16.0,
+    "gear.sword_early": 1.0,
+    "learned.weight": 1.0,
+    "move.shore_first": 1.0,
+    "nav.surface_v2": 1.0,
+    "nav.unstuck_v2": 1.0,
+    "night.shelter_exit": 1.0,
+    "pearls.provoke_s": 19.0,
+    "plan.hide_hp": 15.0,
+    "plan.readiness": 1.0,
+    "portal.prepare_work_area": 1.0,
+    "portal.reserve_lava_bucket": 1.0,
+    "route.armor_before_portal": 1.0,
+    "route.boots_before_portal": 0.0,
+    "skill.drain_tunnel": 1.0,
+    "skill.enderman_warped": 1.0,
+    "skill.ruined_portal": 1.0,
+    "stations.pickup_last": 1.0,
+    "stuck.item_progress": 1.0
+   },
+   "id": "g394",
+   "mutated": [
+    "route.boots_before_portal",
+    "brain.thompson"
+   ],
+   "note": "route.boots_before_portal 0, brain.thompson 1",
+   "pairs": [],
+   "parent": "g372",
+   "status": "contender"
+  },
   "g4": {
    "born": 2,
    "code": null,
@@ -62046,8 +62134,89 @@
   "mean_gap_ok": -0.222,
   "n": 2176
  },
- "next_id": 393,
- "pending": null,
+ "next_id": 395,
+ "pending": {
+  "data_tasks": [
+   {
+    "asset": "rods-gen350-eval-g346-2.zip",
+    "kind": "start",
+    "late": true,
+    "seed": "D388-8enwre",
+    "stage": "rods",
+    "synthetic": false
+   },
+   {
+    "kind": "natural",
+    "seed": "D388-g7fwtf",
+    "stage": "spawn",
+    "synthetic": false
+   }
+  ],
+  "gen": 388,
+  "lineup": [
+   "g372",
+   "g392",
+   "g393",
+   "g394"
+  ],
+  "runs": [
+   "eval-g372-0",
+   "eval-g372-1",
+   "eval-g372-2",
+   "eval-g372-3",
+   "eval-g392-0",
+   "eval-g392-1",
+   "eval-g392-2",
+   "eval-g392-3",
+   "eval-g393-0",
+   "eval-g393-1",
+   "eval-g393-2",
+   "eval-g393-3",
+   "eval-g394-0",
+   "eval-g394-1",
+   "eval-g394-2",
+   "eval-g394-3",
+   "data-g372-0",
+   "data-g372-1"
+  ],
+  "seeds": [
+   "L388-hsncau",
+   "L388-avmbhn",
+   "L388-dnuzyz",
+   "L388-ryr7du"
+  ],
+  "sha": "76b2a838dfc2ac7974f9003a6536cd12d0aaf823",
+  "started": "2026-10-17T17:59:51+00:00",
+  "tasks": [
+   {
+    "kind": "natural",
+    "seed": "L388-hsncau",
+    "stage": "spawn",
+    "synthetic": false
+   },
+   {
+    "kind": "natural",
+    "seed": "L388-avmbhn",
+    "stage": "spawn",
+    "synthetic": false
+   },
+   {
+    "asset": "nether-gen279-eval-g260-0.zip",
+    "kind": "start",
+    "seed": "L388-dnuzyz",
+    "stage": "nether",
+    "synthetic": false
+   },
+   {
+    "kind": "combat",
+    "minutes": 10,
+    "scenario": "combat",
+    "seed": "L388-ryr7du",
+    "stage": "combat",
+    "synthetic": false
+   }
+  ]
+ },
  "race_evidence_version": 2,
  "score_since_gen": 179,
  "score_version": 4,
