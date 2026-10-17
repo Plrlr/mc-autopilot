@@ -31,6 +31,7 @@ public final class EvolvedSkills {
 
 	static {
 		// evolve:entries (scripts/loop/evolve.py appends one add(...) line per evolved skill here)
+		add(new Entry("evolved.flint_clearing", "flint_clearing", FlintClearing::new, FlintClearing::offer, "Dig a free flat cell beside us (feet+head) so collect flint can place its gravel; after flint NO_ROOM"));
 		// evolve:end
 	}
 
