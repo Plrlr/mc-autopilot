@@ -521,6 +521,13 @@ public final class Autopilot {
 			if (meleeThreat() && tick - lastDecisionTick >= 40) requestDecision("melee_in_blaze_fight");
 			return;
 		}
+		// Walking into a lit portal close by: going through leaves the overworld mobs behind. The worst
+		// nether-frontier run had enter_portal broken off ~15 times by attack/retreat and never crossed.
+		// Reflexes (creeper, low health, lava) still act; only the brain's re-decisions wait.
+		if (skillOption != null && skillOption.skill().equals("enter_portal") && pl.getHealth() > 6) {
+			WorldMemory.Seen portal = memory.nearest("nether_portal");
+			if (portal != null && portal.pos().distSqr(pl.blockPosition()) < 12 * 12) return;
+		}
 		if (newHostile && !skill.name().equals("attack")) requestDecision("mob_near");
 		else if (pl.getHealth() < healthAtDecision - 3) requestDecision("hurt");
 		else if (Tune.on("food.keep_full") && !hostileNear && skill.interruptible() && !skill.name().equals("eat")
