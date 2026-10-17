@@ -2828,7 +2828,7 @@
   "2026-10-14": 14,
   "2026-10-15": 14,
   "2026-10-16": 14,
-  "2026-10-17": 6
+  "2026-10-17": 7
  },
  "evolve_days": {
   "2026-09-27": 1,
@@ -3152,7 +3152,7 @@
    "target": "collect NO_ROOM"
   }
  ],
- "gen": 383,
+ "gen": 384,
  "gene_specs": {
   "bed.table_first": {
    "def": 0.0,
@@ -52224,7 +52224,9 @@
      "_metric": "resolve:collect:NO_ROOM+flint_clearing",
      "evolved.flint_clearing": 1
     },
-    "run": 39016450940
+    "run": 39016450940,
+    "verdict": "PASS",
+    "why": "PASS: on 2/2 fixed (100%), off 0/3 fixed (0%), z +2.2; exposure on its side: flint_clearing offered 2, chosen 2, started 2, ended 2 (2 ok); acted in 2 of 3 games"
    },
    "evals": [],
    "exposure_spec": {
@@ -52268,7 +52270,7 @@
    "note": "code: new skill flint_clearing for collect NO_ROOM: flint_clearing: right after collect flint fails NO_ROOM, digs out one side cell (feet and head height) with a solid floor so the retry has a free flat spot, without walking away or switching methods",
    "pairs": [],
    "parent": "g372",
-   "status": "drilling"
+   "status": "contender"
   },
   "g389": {
    "born": 383,
@@ -52420,6 +52422,94 @@
    "pairs": [],
    "parent": "g24",
    "status": "rejected"
+  },
+  "g390": {
+   "born": 384,
+   "code": null,
+   "evals": [],
+   "genes": {
+    "bed.table_first": 1.0,
+    "brain.utility": 1.0,
+    "combat.ignore_walled_mobs": 1.0,
+    "combat.shield_guard": 1.0,
+    "death.recover_night_armor": 12.0,
+    "focus.commit": 1.0,
+    "fortress.anchor_scope": 1.0,
+    "gather.coal_extra": 3.0,
+    "gather.coal_view_dist": 16.0,
+    "gear.sword_early": 1.0,
+    "learned.weight": 1.0,
+    "move.shore_first": 1.0,
+    "nav.surface_v2": 1.0,
+    "nav.unstuck_v2": 1.0,
+    "night.shelter_exit": 1.0,
+    "pearls.provoke_s": 19.0,
+    "plan.hide_hp": 15.0,
+    "plan.readiness": 1.0,
+    "portal.prepare_work_area": 1.0,
+    "portal.reserve_lava_bucket": 1.0,
+    "route.armor_before_portal": 1.0,
+    "skill.drain_tunnel": 1.0,
+    "skill.enderman_warped": 1.0,
+    "skill.ruined_portal": 1.0,
+    "skill.silverfish_control": 1.0,
+    "stations.pickup_last": 1.0,
+    "stuck.item_progress": 1.0
+   },
+   "id": "g390",
+   "mutated": [
+    "skill.silverfish_control"
+   ],
+   "note": "skill.silverfish_control 1",
+   "pairs": [],
+   "parent": "g372",
+   "status": "contender"
+  },
+  "g391": {
+   "born": 384,
+   "code": null,
+   "evals": [],
+   "genes": {
+    "bed.table_first": 1.0,
+    "brain.utility": 1.0,
+    "combat.ignore_walled_mobs": 1.0,
+    "combat.keep_dist": 2.673251884930933,
+    "combat.shield_guard": 1.0,
+    "death.recover_night_armor": 12.0,
+    "focus.commit": 1.0,
+    "fortress.anchor_scope": 1.0,
+    "gather.coal_extra": 3.0,
+    "gather.coal_view_dist": 16.0,
+    "gear.sword_early": 1.0,
+    "learned.weight": 1.0,
+    "move.shore_first": 1.0,
+    "nav.surface_v2": 1.0,
+    "nav.unstuck_v2": 1.0,
+    "night.shelter_exit": 1.0,
+    "pearls.provoke_s": 19.0,
+    "plan.hide_hp": 15.0,
+    "plan.readiness": 1.0,
+    "portal.prepare_work_area": 1.0,
+    "portal.reserve_lava_bucket": 1.0,
+    "reflex.melee_dist": 3.098033244828216,
+    "route.armor_before_portal": 1.0,
+    "safety.spawner_room": 1.0,
+    "skill.drain_tunnel": 1.0,
+    "skill.enderman_warped": 1.0,
+    "skill.ruined_portal": 1.0,
+    "stations.pickup_last": 1.0,
+    "stuck.item_progress": 1.0
+   },
+   "id": "g391",
+   "mutated": [
+    "combat.keep_dist",
+    "safety.spawner_room",
+    "reflex.melee_dist"
+   ],
+   "note": "combat.keep_dist 2.67325, safety.spawner_room 1, reflex.melee_dist 3.09803",
+   "pairs": [],
+   "parent": "g372",
+   "status": "contender"
   },
   "g4": {
    "born": 2,
@@ -61182,8 +61272,89 @@
   "mean_gap_ok": -0.0172,
   "n": 2150
  },
- "next_id": 390,
- "pending": null,
+ "next_id": 392,
+ "pending": {
+  "data_tasks": [
+   {
+    "asset": "rods-gen350-eval-g330-2.zip",
+    "kind": "start",
+    "late": true,
+    "seed": "D384-4w3pk4",
+    "stage": "rods",
+    "synthetic": false
+   },
+   {
+    "kind": "natural",
+    "seed": "D384-cd8pfw",
+    "stage": "spawn",
+    "synthetic": false
+   }
+  ],
+  "gen": 384,
+  "lineup": [
+   "g372",
+   "g388",
+   "g390",
+   "g391"
+  ],
+  "runs": [
+   "eval-g372-0",
+   "eval-g372-1",
+   "eval-g372-2",
+   "eval-g372-3",
+   "eval-g388-0",
+   "eval-g388-1",
+   "eval-g388-2",
+   "eval-g388-3",
+   "eval-g390-0",
+   "eval-g390-1",
+   "eval-g390-2",
+   "eval-g390-3",
+   "eval-g391-0",
+   "eval-g391-1",
+   "eval-g391-2",
+   "eval-g391-3",
+   "data-g372-0",
+   "data-g372-1"
+  ],
+  "seeds": [
+   "L384-vwveys",
+   "L384-txv7t6",
+   "L384-84farw",
+   "L384-9x4jkx"
+  ],
+  "sha": "76b2a838dfc2ac7974f9003a6536cd12d0aaf823",
+  "started": "2026-10-17T10:08:37+00:00",
+  "tasks": [
+   {
+    "kind": "natural",
+    "seed": "L384-vwveys",
+    "stage": "spawn",
+    "synthetic": false
+   },
+   {
+    "kind": "natural",
+    "seed": "L384-txv7t6",
+    "stage": "spawn",
+    "synthetic": false
+   },
+   {
+    "asset": "nether-gen262-eval-g240-0.zip",
+    "kind": "start",
+    "seed": "L384-84farw",
+    "stage": "nether",
+    "synthetic": false
+   },
+   {
+    "kind": "combat",
+    "minutes": 10,
+    "scenario": "combat",
+    "seed": "L384-9x4jkx",
+    "stage": "combat",
+    "synthetic": false
+   }
+  ]
+ },
  "race_evidence_version": 2,
  "score_since_gen": 179,
  "score_version": 4,
@@ -62108,7 +62279,7 @@
   {
    "gen": 382,
    "gid": "g388",
-   "result": "drilling",
+   "result": "racing",
    "skill": "flint_clearing",
    "target": "collect NO_ROOM"
   }
