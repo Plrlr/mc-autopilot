@@ -2847,7 +2847,8 @@
   "2026-10-13": 2,
   "2026-10-14": 4,
   "2026-10-15": 5,
-  "2026-10-16": 4
+  "2026-10-16": 4,
+  "2026-10-17": 1
  },
  "evolve_log": [
   {
@@ -3134,6 +3135,12 @@
   {
    "gen": 376,
    "gid": "g380",
+   "mode": "edit",
+   "result": "racing"
+  },
+  {
+   "gen": 378,
+   "gid": "g383",
    "mode": "edit",
    "result": "racing"
   }
@@ -51298,6 +51305,55 @@
    "parent": "g372",
    "status": "rejected"
   },
+  "g383": {
+   "born": 378,
+   "code": {
+    "base": "76b2a838dfc2ac7974f9003a6536cd12d0aaf823",
+    "branch": "evolve/g383",
+    "files": [
+     "mod/src/main/java/io/github/plrlr/autopilot/skills/NetherSkills.java"
+    ],
+    "sha": "a904d96abb32e7f0b61052f7ba454644a2771070",
+    "summary": "Fortress blazes: when every known anchor has been tried, go back to the known blaze spawner (blazes only spawn there, with us within 16 blocks) and wait again, up to 3 times per run, instead of failing NOT_FOUND and leaving the fortress."
+   },
+   "evals": [],
+   "genes": {
+    "bed.table_first": 1.0,
+    "brain.utility": 1.0,
+    "combat.ignore_walled_mobs": 1.0,
+    "combat.shield_guard": 1.0,
+    "death.recover_night_armor": 12.0,
+    "focus.commit": 1.0,
+    "fortress.anchor_scope": 1.0,
+    "gather.coal_extra": 3.0,
+    "gather.coal_view_dist": 16.0,
+    "gear.sword_early": 1.0,
+    "learned.weight": 1.0,
+    "move.shore_first": 1.0,
+    "nav.surface_v2": 1.0,
+    "nav.unstuck_v2": 1.0,
+    "night.shelter_exit": 1.0,
+    "pearls.provoke_s": 19.0,
+    "plan.hide_hp": 15.0,
+    "plan.readiness": 1.0,
+    "portal.prepare_work_area": 1.0,
+    "portal.reserve_lava_bucket": 1.0,
+    "route.armor_before_portal": 1.0,
+    "skill.drain_tunnel": 1.0,
+    "skill.enderman_warped": 1.0,
+    "skill.ruined_portal": 1.0,
+    "stations.pickup_last": 1.0,
+    "stuck.item_progress": 1.0
+   },
+   "id": "g383",
+   "mutated": [
+    "code"
+   ],
+   "note": "code: Fortress blazes: when every known anchor has been tried, go back to the known blaze spawner (blazes only spawn there, with us within 16 blocks) and wait again, up to 3 times per run, instead of failing NOT_FOUND and leaving the fortress.",
+   "pairs": [],
+   "parent": "g372",
+   "status": "contender"
+  },
   "g39": {
    "born": 54,
    "code": null,
@@ -60098,7 +60154,8 @@
   "Retreat NO_PROGRESS at 3 blocks comes from Baritone giving up on GoalRunAway, not from the decision to flee; changing the decision lost repeatedly, so fix how the escape moves.",
   "Nether first deaths (piglin 14, wither skeleton 9) mostly happen during fortress:blazes, which blocks all re-planning, so the bot never answered melee attackers there; letting close melee threats through tests whether that blind spot is the killer.",
   "When a fortress run times out, retrying from the same spot repeats the timeout; the bot should first move to a different part of the fortress it has seen (or look around), then hand back to the fortress skill.",
-  "Flint NO_ROOM repeats back-to-back in one spot, so the retry should switch to a method that needs no free spot beside us (mining seen gravel) instead of walking elsewhere or retrying the same steps."
+  "Flint NO_ROOM repeats back-to-back in one spot, so the retry should switch to a method that needs no free spot beside us (mining seen gravel) instead of walking elsewhere or retrying the same steps.",
+  "Blazes only spawn at the spawner, so when the fight runs out of anchors, returning to the known spawner should beat walking toward unseen floors (g363) or giving up NOT_FOUND."
  ],
  "learned_race": {
   "gen": 256,
@@ -60119,7 +60176,7 @@
   "mean_gap_ok": -0.1669,
   "n": 2112
  },
- "next_id": 383,
+ "next_id": 384,
  "pending": null,
  "race_evidence_version": 2,
  "score_since_gen": 179,
