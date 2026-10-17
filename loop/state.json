@@ -2828,7 +2828,7 @@
   "2026-10-14": 14,
   "2026-10-15": 14,
   "2026-10-16": 14,
-  "2026-10-17": 11
+  "2026-10-17": 12
  },
  "evolve_days": {
   "2026-09-27": 1,
@@ -3158,7 +3158,7 @@
    "result": "racing"
   }
  ],
- "gen": 388,
+ "gen": 389,
  "gene_specs": {
   "bed.table_first": {
    "def": 0.0,
@@ -53518,6 +53518,90 @@
    "parent": "g372",
    "status": "rejected"
   },
+  "g395": {
+   "born": 389,
+   "code": null,
+   "evals": [],
+   "genes": {
+    "bed.table_first": 1.0,
+    "brain.utility": 1.0,
+    "combat.ignore_walled_mobs": 1.0,
+    "combat.shield_guard": 1.0,
+    "death.recover_night_armor": 12.0,
+    "focus.commit": 1.0,
+    "fortress.anchor_scope": 1.0,
+    "gather.coal_extra": 3.0,
+    "gather.coal_view_dist": 16.0,
+    "gather.iron_y": 10.0,
+    "gear.sword_early": 1.0,
+    "learned.weight": 1.0,
+    "move.shore_first": 1.0,
+    "nav.surface_v2": 1.0,
+    "nav.unstuck_v2": 1.0,
+    "night.shelter_exit": 1.0,
+    "pearls.provoke_s": 19.0,
+    "plan.hide_hp": 15.0,
+    "plan.readiness": 1.0,
+    "portal.prepare_work_area": 1.0,
+    "portal.reserve_lava_bucket": 1.0,
+    "route.armor_before_portal": 1.0,
+    "skill.drain_tunnel": 1.0,
+    "skill.enderman_warped": 1.0,
+    "skill.ruined_portal": 1.0,
+    "stations.pickup_last": 1.0,
+    "stuck.item_progress": 1.0
+   },
+   "id": "g395",
+   "mutated": [
+    "gather.iron_y"
+   ],
+   "note": "gather.iron_y 10",
+   "pairs": [],
+   "parent": "g372",
+   "status": "contender"
+  },
+  "g396": {
+   "born": 389,
+   "code": null,
+   "evals": [],
+   "genes": {
+    "bed.table_first": 1.0,
+    "brain.utility": 1.0,
+    "combat.creeper_hit": 1.0,
+    "combat.ignore_walled_mobs": 1.0,
+    "combat.shield_guard": 1.0,
+    "death.recover_night_armor": 12.0,
+    "focus.commit": 1.0,
+    "fortress.anchor_scope": 1.0,
+    "gather.coal_extra": 3.0,
+    "gather.coal_view_dist": 16.0,
+    "gear.sword_early": 1.0,
+    "learned.weight": 1.0,
+    "move.shore_first": 1.0,
+    "nav.surface_v2": 1.0,
+    "nav.unstuck_v2": 1.0,
+    "night.shelter_exit": 1.0,
+    "pearls.provoke_s": 19.0,
+    "plan.hide_hp": 15.0,
+    "plan.readiness": 1.0,
+    "portal.prepare_work_area": 1.0,
+    "portal.reserve_lava_bucket": 1.0,
+    "route.armor_before_portal": 1.0,
+    "skill.enderman_warped": 1.0,
+    "skill.ruined_portal": 1.0,
+    "stations.pickup_last": 1.0,
+    "stuck.item_progress": 1.0
+   },
+   "id": "g396",
+   "mutated": [
+    "skill.drain_tunnel",
+    "combat.creeper_hit"
+   ],
+   "note": "skill.drain_tunnel 0, combat.creeper_hit 1",
+   "pairs": [],
+   "parent": "g372",
+   "status": "contender"
+  },
   "g4": {
    "born": 2,
    "code": null,
@@ -62280,8 +62364,89 @@
   "mean_gap_ok": 0.2196,
   "n": 2176
  },
- "next_id": 395,
- "pending": null,
+ "next_id": 397,
+ "pending": {
+  "data_tasks": [
+   {
+    "kind": "scenario",
+    "late": true,
+    "scenario": "stronghold",
+    "seed": "D389-cx67q6",
+    "stage": "eyes",
+    "synthetic": true
+   },
+   {
+    "kind": "natural",
+    "seed": "D389-rgnk3r",
+    "stage": "spawn",
+    "synthetic": false
+   }
+  ],
+  "gen": 389,
+  "lineup": [
+   "g372",
+   "g392",
+   "g395",
+   "g396"
+  ],
+  "runs": [
+   "eval-g372-0",
+   "eval-g372-1",
+   "eval-g372-2",
+   "eval-g372-3",
+   "eval-g392-0",
+   "eval-g392-1",
+   "eval-g392-2",
+   "eval-g392-3",
+   "eval-g395-0",
+   "eval-g395-1",
+   "eval-g395-2",
+   "eval-g395-3",
+   "eval-g396-0",
+   "eval-g396-1",
+   "eval-g396-2",
+   "eval-g396-3",
+   "data-g372-0",
+   "data-g372-1"
+  ],
+  "seeds": [
+   "L389-n477hq",
+   "L389-fuq9yr",
+   "L389-7ghct4",
+   "L389-cphe5b"
+  ],
+  "sha": "76b2a838dfc2ac7974f9003a6536cd12d0aaf823",
+  "started": "2026-10-17T19:42:44+00:00",
+  "tasks": [
+   {
+    "kind": "natural",
+    "seed": "L389-n477hq",
+    "stage": "spawn",
+    "synthetic": false
+   },
+   {
+    "kind": "natural",
+    "seed": "L389-fuq9yr",
+    "stage": "spawn",
+    "synthetic": false
+   },
+   {
+    "asset": "nether-gen262-eval-g240-0.zip",
+    "kind": "start",
+    "seed": "L389-7ghct4",
+    "stage": "nether",
+    "synthetic": false
+   },
+   {
+    "kind": "combat",
+    "minutes": 10,
+    "scenario": "combat",
+    "seed": "L389-cphe5b",
+    "stage": "combat",
+    "synthetic": false
+   }
+  ]
+ },
  "race_evidence_version": 2,
  "score_since_gen": 179,
  "score_version": 4,
