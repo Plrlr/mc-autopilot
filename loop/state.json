@@ -2840,7 +2840,7 @@
   "2026-10-15": 14,
   "2026-10-16": 14,
   "2026-10-17": 14,
-  "2026-10-18": 9
+  "2026-10-18": 10
  },
  "evolve_days": {
   "2026-09-27": 1,
@@ -3184,7 +3184,7 @@
    "target": "shore TIMEOUT"
   }
  ],
- "gen": 400,
+ "gen": 401,
  "gene_specs": {
   "bed.table_first": {
    "def": 0.0,
@@ -56127,6 +56127,107 @@
    "parent": "g372",
    "status": "rejected"
   },
+  "g407": {
+   "born": 401,
+   "code": {
+    "base": "76b2a838dfc2ac7974f9003a6536cd12d0aaf823",
+    "branch": "evolve/g403",
+    "files": [
+     "mod/src/main/java/io/github/plrlr/autopilot/skills/evolved/SwimToLand.java",
+     "mod/src/main/java/io/github/plrlr/autopilot/skills/evolved/EvolvedSkills.java",
+     "mod/src/main/resources/evolved-genes.json"
+    ],
+    "gene": "evolved.swim_to_land",
+    "kind": "skill",
+    "sha": "d2e56381785abb192e4fd40aa60fc5d8f7cb59cc",
+    "skill": "swim_to_land",
+    "summary": "swim_to_land: after shore times out or gets stuck, swim to seen land by direct keys (no pathfinder), surfacing for air, to break the repeated shore TIMEOUT loop",
+    "target": "shore TIMEOUT"
+   },
+   "evals": [],
+   "genes": {
+    "bed.table_first": 1.0,
+    "brain.utility": 1.0,
+    "combat.ignore_walled_mobs": 1.0,
+    "combat.shield_guard": 1.0,
+    "death.recover_night_armor": 12.0,
+    "evolved.swim_to_land": 1.0,
+    "focus.commit": 1.0,
+    "fortress.anchor_scope": 1.0,
+    "gather.coal_extra": 3.0,
+    "gather.coal_view_dist": 16.0,
+    "gather.log_stock": 6.0,
+    "gear.sword_early": 1.0,
+    "learned.weight": 1.0,
+    "move.shore_first": 1.0,
+    "nav.surface_v2": 1.0,
+    "nav.unstuck_v2": 1.0,
+    "night.shelter_exit": 1.0,
+    "pearls.provoke_s": 19.0,
+    "plan.hide_hp": 15.0,
+    "plan.readiness": 1.0,
+    "portal.prepare_work_area": 1.0,
+    "portal.reserve_lava_bucket": 1.0,
+    "route.armor_before_portal": 1.0,
+    "skill.drain_tunnel": 1.0,
+    "skill.enderman_warped": 1.0,
+    "skill.nether_bridge": 1.0,
+    "skill.ruined_portal": 1.0,
+    "stations.pickup_last": 1.0,
+    "stuck.item_progress": 1.0
+   },
+   "id": "g407",
+   "mutated": [
+    "skill.nether_bridge",
+    "gather.log_stock"
+   ],
+   "note": "skill.nether_bridge 1, gather.log_stock 6",
+   "pairs": [],
+   "parent": "g403",
+   "status": "contender"
+  },
+  "g408": {
+   "born": 401,
+   "code": null,
+   "evals": [],
+   "genes": {
+    "bed.table_first": 1.0,
+    "brain.utility": 1.0,
+    "combat.ignore_walled_mobs": 1.0,
+    "combat.shield_guard": 1.0,
+    "death.recover_night_armor": 12.0,
+    "focus.commit": 1.0,
+    "fortress.anchor_scope": 1.0,
+    "gather.coal_extra": 3.0,
+    "gather.coal_view_dist": 16.0,
+    "gear.sword_early": 1.0,
+    "learned.weight": 1.0,
+    "move.shore_first": 1.0,
+    "nav.surface_v2": 1.0,
+    "nav.unstuck_v2": 1.0,
+    "night.shelter_exit": 1.0,
+    "pearls.provoke_s": 19.0,
+    "plan.hide_hp": 15.0,
+    "plan.readiness": 1.0,
+    "portal.prepare_work_area": 1.0,
+    "portal.reserve_lava_bucket": 1.0,
+    "route.armor_before_portal": 1.0,
+    "skill.dragon_strike": 1.0,
+    "skill.drain_tunnel": 1.0,
+    "skill.enderman_warped": 1.0,
+    "skill.ruined_portal": 1.0,
+    "stations.pickup_last": 1.0,
+    "stuck.item_progress": 1.0
+   },
+   "id": "g408",
+   "mutated": [
+    "skill.dragon_strike"
+   ],
+   "note": "skill.dragon_strike 1",
+   "pairs": [],
+   "parent": "g372",
+   "status": "contender"
+  },
   "g41": {
    "born": 56,
    "code": null,
@@ -64655,8 +64756,89 @@
   "mean_gap_ok": 0.2831,
   "n": 2247
  },
- "next_id": 407,
- "pending": null,
+ "next_id": 409,
+ "pending": {
+  "data_tasks": [
+   {
+    "kind": "scenario",
+    "late": true,
+    "scenario": "stronghold",
+    "seed": "D401-7a239f",
+    "stage": "eyes",
+    "synthetic": true
+   },
+   {
+    "kind": "natural",
+    "seed": "D401-2rvzcg",
+    "stage": "spawn",
+    "synthetic": false
+   }
+  ],
+  "gen": 401,
+  "lineup": [
+   "g372",
+   "g403",
+   "g407",
+   "g408"
+  ],
+  "runs": [
+   "eval-g372-0",
+   "eval-g372-1",
+   "eval-g372-2",
+   "eval-g372-3",
+   "eval-g403-0",
+   "eval-g403-1",
+   "eval-g403-2",
+   "eval-g403-3",
+   "eval-g407-0",
+   "eval-g407-1",
+   "eval-g407-2",
+   "eval-g407-3",
+   "eval-g408-0",
+   "eval-g408-1",
+   "eval-g408-2",
+   "eval-g408-3",
+   "data-g372-0",
+   "data-g372-1"
+  ],
+  "seeds": [
+   "L401-2b9f8q",
+   "L401-fksdv3",
+   "L401-yhkv36",
+   "L401-5hv9xe"
+  ],
+  "sha": "76b2a838dfc2ac7974f9003a6536cd12d0aaf823",
+  "started": "2026-10-18T16:34:35+00:00",
+  "tasks": [
+   {
+    "kind": "natural",
+    "seed": "L401-2b9f8q",
+    "stage": "spawn",
+    "synthetic": false
+   },
+   {
+    "kind": "natural",
+    "seed": "L401-fksdv3",
+    "stage": "spawn",
+    "synthetic": false
+   },
+   {
+    "asset": "nether-gen393-eval-g399-1.zip",
+    "kind": "start",
+    "seed": "L401-yhkv36",
+    "stage": "nether",
+    "synthetic": false
+   },
+   {
+    "kind": "combat",
+    "minutes": 10,
+    "scenario": "combat",
+    "seed": "L401-5hv9xe",
+    "stage": "combat",
+    "synthetic": false
+   }
+  ]
+ },
  "race_evidence_version": 2,
  "score_since_gen": 179,
  "score_version": 4,
