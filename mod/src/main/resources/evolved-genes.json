@@ -1,1 +1,15 @@
-{"_about": "append-only list of genes for evolved skills (scripts/loop/evolve.py appends)", "genes": []}
+{
+ "_about": "append-only list of genes for evolved skills (scripts/loop/evolve.py appends)",
+ "genes": [
+  {
+   "name": "evolved.swim_to_land",
+   "kind": "BOOL",
+   "def": 0,
+   "skill": "swim_to_land",
+   "why": "Swim by keys straight to seen dry land (surfacing for air) after shore timed out or got stuck",
+   "gen": 396,
+   "target": "shore TIMEOUT",
+   "metric": "resolve:shore:TIMEOUT"
+  }
+ ]
+}
