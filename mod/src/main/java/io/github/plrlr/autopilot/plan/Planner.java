@@ -299,7 +299,10 @@ public final class Planner {
 		if (Mc.count("throwaway") < CastPortal.BLOCKS_NEEDED)
 			// collect n means n more: the stone we carry is already in "throwaway".
 			return new Option("collect", "stone:" + (CastPortal.BLOCKS_NEEDED - Mc.count("throwaway")), "blocks for the portal wall");
-		if (Mc.count("flint_and_steel") == 0 && Mc.count("flint") == 0) return new Option("collect", "flint:1", "flint for flint and steel");
+		// Underground beside the furnace there's rarely a free flat spot for the gravel: flint as side
+		// work there failed NO_ROOM over and over. The route step collects it later instead.
+		if (Mc.count("flint_and_steel") == 0 && Mc.count("flint") == 0 && onSurface())
+			return new Option("collect", "flint:1", "flint for flint and steel");
 		return null;
 	}
 
