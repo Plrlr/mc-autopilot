@@ -2850,7 +2850,7 @@
   "2026-10-15": 5,
   "2026-10-16": 4,
   "2026-10-17": 3,
-  "2026-10-18": 1
+  "2026-10-18": 2
  },
  "evolve_log": [
   {
@@ -3164,6 +3164,13 @@
    "gid": "g399",
    "mode": "edit",
    "result": "racing"
+  },
+  {
+   "gen": 396,
+   "gid": "g403",
+   "mode": "skill",
+   "result": "drilling",
+   "target": "shore TIMEOUT"
   }
  ],
  "gen": 396,
@@ -55223,6 +55230,75 @@
    "parent": "g372",
    "status": "contender"
   },
+  "g403": {
+   "born": 396,
+   "code": {
+    "base": "76b2a838dfc2ac7974f9003a6536cd12d0aaf823",
+    "branch": "evolve/g403",
+    "files": [
+     "mod/src/main/java/io/github/plrlr/autopilot/skills/evolved/SwimToLand.java",
+     "mod/src/main/java/io/github/plrlr/autopilot/skills/evolved/EvolvedSkills.java",
+     "mod/src/main/resources/evolved-genes.json"
+    ],
+    "gene": "evolved.swim_to_land",
+    "kind": "skill",
+    "sha": "d2e56381785abb192e4fd40aa60fc5d8f7cb59cc",
+    "skill": "swim_to_land",
+    "summary": "swim_to_land: after shore times out or gets stuck, swim to seen land by direct keys (no pathfinder), surfacing for air, to break the repeated shore TIMEOUT loop",
+    "target": "shore TIMEOUT"
+   },
+   "drill": {
+    "gen": 396,
+    "idea": {
+     "_metric": "resolve:shore:TIMEOUT+swim_to_land",
+     "evolved.swim_to_land": 1
+    },
+    "run": 39116626152
+   },
+   "evals": [],
+   "exposure_spec": {
+    "skill": "swim_to_land"
+   },
+   "genes": {
+    "bed.table_first": 1.0,
+    "brain.utility": 1.0,
+    "combat.ignore_walled_mobs": 1.0,
+    "combat.shield_guard": 1.0,
+    "death.recover_night_armor": 12.0,
+    "evolved.swim_to_land": 1.0,
+    "focus.commit": 1.0,
+    "fortress.anchor_scope": 1.0,
+    "gather.coal_extra": 3.0,
+    "gather.coal_view_dist": 16.0,
+    "gear.sword_early": 1.0,
+    "learned.weight": 1.0,
+    "move.shore_first": 1.0,
+    "nav.surface_v2": 1.0,
+    "nav.unstuck_v2": 1.0,
+    "night.shelter_exit": 1.0,
+    "pearls.provoke_s": 19.0,
+    "plan.hide_hp": 15.0,
+    "plan.readiness": 1.0,
+    "portal.prepare_work_area": 1.0,
+    "portal.reserve_lava_bucket": 1.0,
+    "route.armor_before_portal": 1.0,
+    "skill.drain_tunnel": 1.0,
+    "skill.enderman_warped": 1.0,
+    "skill.ruined_portal": 1.0,
+    "stations.pickup_last": 1.0,
+    "stuck.item_progress": 1.0
+   },
+   "id": "g403",
+   "metric": "resolve:shore:TIMEOUT+swim_to_land",
+   "mutated": [
+    "code",
+    "evolved.swim_to_land"
+   ],
+   "note": "code: new skill swim_to_land for shore TIMEOUT: swim_to_land: after shore times out or gets stuck, swim to seen land by direct keys (no pathfinder), surfacing for air, to break the repeated shore TIMEOUT loop",
+   "pairs": [],
+   "parent": "g372",
+   "status": "drilling"
+  },
   "g41": {
    "born": 56,
    "code": null,
@@ -63729,7 +63805,8 @@
   "Blazes only spawn at the spawner, so when the fight runs out of anchors, returning to the known spawner should beat walking toward unseen floors (g363) or giving up NOT_FOUND.",
   "Flint NO_ROOM repeats in tight underground spots. Walking to open ground and mining seen gravel both lost, so this tries making the room in place by digging one side cell, a few seconds of work, then hands back to the normal flint steps.",
   "At the nether frontier, the worst run lost its whole time to enter_portal being cut short over and over by mob decisions. Going through the portal also gets away from overworld mobs, so finishing the trip should beat fighting near it.",
-  "Flint NO_ROOM may come from where flint gets offered (side work in a cramped mine) rather than from the flint skill's steps. Earlier fixes changed the skill after it failed and all lost; this one changes when the planner offers it."
+  "Flint NO_ROOM may come from where flint gets offered (side work in a cramped mine) rather than from the flint skill's steps. Earlier fixes changed the skill after it failed and all lost; this one changes when the planner offers it.",
+  "Shore TIMEOUT repeats up to seven times in a row in the same water, so retrying the same pathfinder route doesn't work; the follow-up should move a different way (direct key swimming) and stop going for a target once it stops getting closer."
  ],
  "learned_race": {
   "gen": 256,
@@ -63750,7 +63827,7 @@
   "mean_gap_ok": 0.0035,
   "n": 2208
  },
- "next_id": 403,
+ "next_id": 404,
  "pending": null,
  "race_evidence_version": 2,
  "score_since_gen": 179,
@@ -64679,6 +64756,13 @@
    "result": "racing",
    "skill": "flint_clearing",
    "target": "collect NO_ROOM"
+  },
+  {
+   "gen": 396,
+   "gid": "g403",
+   "result": "drilling",
+   "skill": "swim_to_land",
+   "target": "shore TIMEOUT"
   }
  ],
  "skill_stats": {

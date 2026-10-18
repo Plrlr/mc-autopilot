@@ -1,0 +1,24 @@
+{
+ "class_name": "SwimToLand",
+ "files": [
+  {
+   "content": "package io.github.plrlr.autopilot.skills.evolved;\n\nimport io.github.plrlr.autopilot.plan.Option;\nimport io.github.plrlr.autopilot.skills.Fail;\nimport net.minecraft.core.BlockPos;\nimport net.minecraft.world.phys.Vec3;\n\nimport java.util.HashSet;\nimport java.util.Set;\n\npublic class SwimToLand extends EvolvedSkill {\n\tprivate static final Set<BlockPos> TRIED = new HashSet<>();\n\tprivate BlockPos land;\n\tprivate double bestDist;\n\tprivate int lastGain;\n\tprivate int switches;\n\tprivate float blindYaw;\n\n\tpublic SwimToLand() {\n\t\ttimeoutTicks = 20 * 45;\n\t}\n\n\tpublic static Option offer(Context c) {\n\t\tif (!\"shore\".equals(c.lastSkill())) return null;\n\t\tif (!\"TIMEOUT\".equals(c.lastCode()) && !\"STUCK\".equals(c.lastCode())) return null;\n\t\tif (Player.gameSeconds() - c.lastEndSeconds() > 240) return null;\n\t\tboolean shoreMain = c.main() != null && \"shore\".equals(c.main().skill());\n\t\tif (!shoreMain && !Player.inWater()) return null;\n\t\treturn new Option(\"swim_to_land\", null,\n\t\t\t\t\"shore just failed \" + c.lastCode() + \": swim straight to seen land by keys instead of pathing\");\n\t}\n\n\t@Override\n\tpublic String name() { return \"swim_to_land\"; }\n\n\t@Override\n\tprotected void start() {\n\t\tif (TRIED.size() > 32) TRIED.clear();\n\t\tblindYaw = Player.yaw();\n\t\tpick();\n\t}\n\n\tprivate void pick() {\n\t\tland = memory.nearestLand(TRIED);\n\t\tbestDist = land == null ? Double.MAX_VALUE : hdist(land);\n\t\tlastGain = ticks;\n\t}\n\n\tprivate static double hdist(BlockPos p) {\n\t\tVec3 v = Player.pos();\n\t\tdouble dx = p.getX() + 0.5 - v.x, dz = p.getZ() + 0.5 - v.z;\n\t\treturn Math.sqrt(dx * dx + dz * dz);\n\t}\n\n\t@Override\n\tprotected void tick() {\n\t\tif (!Player.inWater() && Player.onGround() && ticks > 2) {\n\t\t\tdone(\"on dry ground at \" + Player.feet());\n\t\t\treturn;\n\t\t}\n\t\tif (Player.walking()) Player.stopWalking();\n\t\tif (land == null && ticks % 20 == 0) pick();\n\n\t\tboolean lowAir = Player.air() < 100 && Player.eyesInWater();\n\t\tfloat yaw = blindYaw;\n\t\tif (land != null) {\n\t\t\tVec3 v = Player.pos();\n\t\t\tdouble dx = land.getX() + 0.5 - v.x, dz = land.getZ() + 0.5 - v.z;\n\t\t\tyaw = (float) Math.toDegrees(Math.atan2(-dx, dz));\n\t\t\tdouble d = hdist(land);\n\t\t\tif (d < bestDist - 0.5) { bestDist = d; lastGain = ticks; }\n\t\t\tif (ticks - lastGain > 60) {\n\t\t\t\tTRIED.add(land.immutable());\n\t\t\t\tif (++switches > 4) {\n\t\t\t\t\tfail(Fail.STUCK, \"no progress toward 4 seen land spots by swimming\");\n\t\t\t\t\treturn;\n\t\t\t\t}\n\t\t\t\tpick();\n\t\t\t\tif (land == null) blindYaw = Player.yaw() + 90f;\n\t\t\t}\n\t\t} else if (ticks - lastGain > 100) {\n\t\t\tblindYaw += 90f;\n\t\t\tlastGain = ticks;\n\t\t}\n\n\t\tif (lowAir) {\n\t\t\tPlayer.turn(yaw, -90f);\n\t\t\tPlayer.press(Player.Key.SPRINT, false);\n\t\t\tPlayer.press(Player.Key.FORWARD, true);\n\t\t\tPlayer.press(Player.Key.JUMP, true);\n\t\t\treturn;\n\t\t}\n\t\tPlayer.turn(yaw, Player.eyesInWater() ? -25f : 0f);\n\t\tPlayer.press(Player.Key.FORWARD, true);\n\t\tPlayer.press(Player.Key.SPRINT, true);\n\t\tPlayer.press(Player.Key.JUMP, Player.inWater() || ticks % 10 < 5);\n\t}\n}\n",
+   "name": "SwimToLand.java"
+  }
+ ],
+ "help": "Swim by keys straight to seen dry land (surfacing for air) after shore timed out or got stuck",
+ "lesson": "Shore TIMEOUT repeats up to seven times in a row in the same water, so retrying the same pathfinder route doesn't work; the follow-up should move a different way (direct key swimming) and stop going for a target once it stops getting closer.",
+ "skill": "swim_to_land",
+ "summary": "swim_to_land: after shore times out or gets stuck, swim to seen land by direct keys (no pathfinder), surfacing for air, to break the repeated shore TIMEOUT loop",
+ "target": {
+  "action": "shore",
+  "code": "TIMEOUT",
+  "gens": 8,
+  "metric": "resolve:shore:TIMEOUT",
+  "minutes": 141.0,
+  "name": "shore TIMEOUT",
+  "persistent": true,
+  "runs": 143,
+  "tries": 94
+ }
+}
