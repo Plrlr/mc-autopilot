@@ -2972,7 +2972,8 @@
   "2026-10-15": 5,
   "2026-10-16": 4,
   "2026-10-17": 3,
-  "2026-10-18": 3
+  "2026-10-18": 3,
+  "2026-10-19": 1
  },
  "evolve_log": [
   {
@@ -3299,6 +3300,13 @@
    "gid": "g409",
    "mode": "edit",
    "result": "racing"
+  },
+  {
+   "gen": 408,
+   "gid": "g415",
+   "mode": "skill",
+   "result": "drilling",
+   "target": "shore TIMEOUT"
   }
  ],
  "gen": 408,
@@ -57660,6 +57668,75 @@
    "parent": "g412",
    "status": "rejected"
   },
+  "g415": {
+   "born": 408,
+   "code": {
+    "base": "76b2a838dfc2ac7974f9003a6536cd12d0aaf823",
+    "branch": "evolve/g415",
+    "files": [
+     "mod/src/main/java/io/github/plrlr/autopilot/skills/evolved/ShoreCarve.java",
+     "mod/src/main/java/io/github/plrlr/autopilot/skills/evolved/EvolvedSkills.java",
+     "mod/src/main/resources/evolved-genes.json"
+    ],
+    "gene": "evolved.shore_carve",
+    "kind": "skill",
+    "sha": "eb6aa854ec4c2c12365145dcc5bec61100092e40",
+    "skill": "shore_carve",
+    "summary": "shore_carve: after shore TIMEOUT/STUCK in water, swims by keys to the nearest visible dry stand spot and digs through the wall when it stops closing, so the bot gets out of pits it can't climb.",
+    "target": "shore TIMEOUT"
+   },
+   "drill": {
+    "gen": 408,
+    "idea": {
+     "_metric": "resolve:shore:TIMEOUT+shore_carve",
+     "evolved.shore_carve": 1
+    },
+    "run": 39213865585
+   },
+   "evals": [],
+   "exposure_spec": {
+    "skill": "shore_carve"
+   },
+   "genes": {
+    "bed.table_first": 1.0,
+    "brain.utility": 1.0,
+    "combat.ignore_walled_mobs": 1.0,
+    "combat.shield_guard": 1.0,
+    "death.recover_night_armor": 12.0,
+    "evolved.shore_carve": 1.0,
+    "focus.commit": 1.0,
+    "fortress.anchor_scope": 1.0,
+    "gather.coal_extra": 3.0,
+    "gather.coal_view_dist": 16.0,
+    "gear.sword_early": 1.0,
+    "learned.weight": 1.0,
+    "move.shore_first": 1.0,
+    "nav.surface_v2": 1.0,
+    "nav.unstuck_v2": 1.0,
+    "night.shelter_exit": 1.0,
+    "pearls.provoke_s": 19.0,
+    "plan.hide_hp": 15.0,
+    "plan.readiness": 1.0,
+    "portal.prepare_work_area": 1.0,
+    "portal.reserve_lava_bucket": 1.0,
+    "route.armor_before_portal": 1.0,
+    "skill.drain_tunnel": 1.0,
+    "skill.enderman_warped": 1.0,
+    "skill.ruined_portal": 1.0,
+    "stations.pickup_last": 1.0,
+    "stuck.item_progress": 1.0
+   },
+   "id": "g415",
+   "metric": "resolve:shore:TIMEOUT+shore_carve",
+   "mutated": [
+    "code",
+    "evolved.shore_carve"
+   ],
+   "note": "code: new skill shore_carve for shore TIMEOUT: shore_carve: after shore TIMEOUT/STUCK in water, swims by keys to the nearest visible dry stand spot and digs through the wall when it stops closing, so the bot gets out of pits it can't climb.",
+   "pairs": [],
+   "parent": "g372",
+   "status": "drilling"
+  },
   "g42": {
    "born": 56,
    "code": null,
@@ -66028,7 +66105,8 @@
   "At the nether frontier, the worst run lost its whole time to enter_portal being cut short over and over by mob decisions. Going through the portal also gets away from overworld mobs, so finishing the trip should beat fighting near it.",
   "Flint NO_ROOM may come from where flint gets offered (side work in a cramped mine) rather than from the flint skill's steps. Earlier fixes changed the skill after it failed and all lost; this one changes when the planner offers it.",
   "Shore TIMEOUT repeats up to seven times in a row in the same water, so retrying the same pathfinder route doesn't work; the follow-up should move a different way (direct key swimming) and stop going for a target once it stops getting closer.",
-  "When two skills hand a job back and forth, they are using different tests for \"seen\": make the explore check use exactly the collect skill's test (the same function and range)."
+  "When two skills hand a job back and forth, they are using different tests for \"seen\": make the explore check use exactly the collect skill's test (the same function and range).",
+  "Shore times out in the same water again and again after underground drowning, so the follow-up should pick a nearby dry spot it can see and dig through the wall that blocks it, not only swim harder toward remembered land."
  ],
  "learned_race": {
   "gen": 256,
@@ -66049,7 +66127,7 @@
   "mean_gap_ok": -0.0188,
   "n": 2278
  },
- "next_id": 415,
+ "next_id": 416,
  "pending": null,
  "race_evidence_version": 2,
  "score_since_gen": 179,
@@ -66984,6 +67062,13 @@
    "gid": "g403",
    "result": "racing",
    "skill": "swim_to_land",
+   "target": "shore TIMEOUT"
+  },
+  {
+   "gen": 408,
+   "gid": "g415",
+   "result": "drilling",
+   "skill": "shore_carve",
    "target": "shore TIMEOUT"
   }
  ],
