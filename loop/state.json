@@ -3073,7 +3073,7 @@
   "2026-10-17": 14,
   "2026-10-18": 13,
   "2026-10-19": 12,
-  "2026-10-20": 4
+  "2026-10-20": 5
  },
  "evolve_days": {
   "2026-09-27": 1,
@@ -3445,7 +3445,7 @@
    "target": "shore TIMEOUT"
   }
  ],
- "gen": 420,
+ "gen": 421,
  "gene_specs": {
   "bed.table_first": {
    "def": 0.0,
@@ -59949,6 +59949,92 @@
    "parent": "g372",
    "status": "drilling"
   },
+  "g428": {
+   "born": 421,
+   "code": null,
+   "evals": [],
+   "genes": {
+    "bed.table_first": 1.0,
+    "brain.utility": 1.0,
+    "combat.ignore_walled_mobs": 1.0,
+    "combat.shield_guard": 1.0,
+    "death.recover_night_armor": 12.0,
+    "focus.commit": 1.0,
+    "fortress.anchor_scope": 1.0,
+    "gather.coal_extra": 3.0,
+    "gather.coal_view_dist": 16.0,
+    "gear.sword_early": 1.0,
+    "learned.weight": 1.0,
+    "move.shore_first": 1.0,
+    "nav.surface_v2": 1.0,
+    "nav.unstuck_v2": 1.0,
+    "night.mine_instead": 1.0,
+    "night.shelter_exit": 1.0,
+    "pearls.provoke_s": 19.0,
+    "plan.hide_hp": 15.0,
+    "plan.readiness": 1.0,
+    "portal.prepare_work_area": 1.0,
+    "portal.reserve_lava_bucket": 1.0,
+    "route.armor_before_portal": 1.0,
+    "skill.drain_tunnel": 1.0,
+    "skill.enderman_warped": 1.0,
+    "skill.ruined_portal": 1.0,
+    "stations.pickup_last": 1.0,
+    "stuck.item_progress": 1.0
+   },
+   "id": "g428",
+   "mutated": [
+    "night.mine_instead"
+   ],
+   "note": "night.mine_instead 1",
+   "pairs": [],
+   "parent": "g372",
+   "status": "contender"
+  },
+  "g429": {
+   "born": 421,
+   "code": null,
+   "evals": [],
+   "genes": {
+    "bed.table_first": 1.0,
+    "brain.utility": 1.0,
+    "combat.ignore_walled_mobs": 1.0,
+    "combat.shield_guard": 1.0,
+    "death.recover_night_armor": 12.0,
+    "focus.commit": 1.0,
+    "fortress.anchor_scope": 1.0,
+    "gather.coal_extra": 3.0,
+    "gather.coal_view_dist": 16.0,
+    "gear.sword_early": 1.0,
+    "learned.weight": 1.0,
+    "move.shore_first": 1.0,
+    "nav.surface_v2": 1.0,
+    "nav.unstuck_v2": 1.0,
+    "night.shelter_exit": 1.0,
+    "pearls.provoke_s": 19.0,
+    "plan.hide_hp": 15.0,
+    "plan.readiness": 1.0,
+    "portal.prepare_work_area": 1.0,
+    "portal.reserve_lava_bucket": 1.0,
+    "route.armor_before_portal": 1.0,
+    "skill.cast_portal": 1.0,
+    "skill.drain_tunnel": 1.0,
+    "skill.enderman_warped": 1.0,
+    "skill.portal_repair": 1.0,
+    "skill.ruined_portal": 1.0,
+    "stations.pickup_last": 1.0,
+    "stuck.item_progress": 1.0
+   },
+   "id": "g429",
+   "mutated": [
+    "skill.cast_portal",
+    "skill.portal_repair"
+   ],
+   "note": "skill.cast_portal 1, skill.portal_repair 1",
+   "pairs": [],
+   "parent": "g372",
+   "status": "contender"
+  },
   "g43": {
    "born": 57,
    "code": null,
@@ -60050,6 +60136,46 @@
    "pairs": [],
    "parent": "g24",
    "status": "rejected"
+  },
+  "g430": {
+   "born": 421,
+   "code": null,
+   "evals": [],
+   "genes": {
+    "bed.table_first": 1.0,
+    "brain.utility": 1.0,
+    "combat.ignore_walled_mobs": 1.0,
+    "combat.shield_guard": 1.0,
+    "death.recover_night_armor": 12.0,
+    "focus.commit": 1.0,
+    "fortress.anchor_scope": 1.0,
+    "gather.coal_extra": 3.0,
+    "gather.coal_view_dist": 16.0,
+    "gear.sword_early": 1.0,
+    "learned.weight": 1.0,
+    "move.shore_first": 1.0,
+    "nav.surface_v2": 1.0,
+    "nav.unstuck_v2": 1.0,
+    "night.shelter_exit": 1.0,
+    "pearls.provoke_s": 19.0,
+    "plan.hide_hp": 15.0,
+    "plan.readiness": 1.0,
+    "portal.prepare_work_area": 1.0,
+    "portal.reserve_lava_bucket": 1.0,
+    "route.armor_before_portal": 1.0,
+    "skill.drain_tunnel": 1.0,
+    "skill.enderman_warped": 1.0,
+    "skill.ruined_portal": 1.0,
+    "stations.pickup_last": 1.0
+   },
+   "id": "g430",
+   "mutated": [
+    "stuck.item_progress"
+   ],
+   "note": "stuck.item_progress 0",
+   "pairs": [],
+   "parent": "g372",
+   "status": "contender"
   },
   "g44": {
    "born": 60,
@@ -68237,8 +68363,89 @@
   "mean_gap_ok": 0.0664,
   "n": 2302
  },
- "next_id": 428,
- "pending": null,
+ "next_id": 431,
+ "pending": {
+  "data_tasks": [
+   {
+    "kind": "scenario",
+    "late": true,
+    "scenario": "stronghold",
+    "seed": "D421-uaphgb",
+    "stage": "eyes",
+    "synthetic": true
+   },
+   {
+    "kind": "natural",
+    "seed": "D421-9k4652",
+    "stage": "spawn",
+    "synthetic": false
+   }
+  ],
+  "gen": 421,
+  "lineup": [
+   "g372",
+   "g428",
+   "g429",
+   "g430"
+  ],
+  "runs": [
+   "eval-g372-0",
+   "eval-g372-1",
+   "eval-g372-2",
+   "eval-g372-3",
+   "eval-g428-0",
+   "eval-g428-1",
+   "eval-g428-2",
+   "eval-g428-3",
+   "eval-g429-0",
+   "eval-g429-1",
+   "eval-g429-2",
+   "eval-g429-3",
+   "eval-g430-0",
+   "eval-g430-1",
+   "eval-g430-2",
+   "eval-g430-3",
+   "data-g372-0",
+   "data-g372-1"
+  ],
+  "seeds": [
+   "L421-r36944",
+   "L421-swwbq8",
+   "L421-ax4z4x",
+   "L421-72rm73"
+  ],
+  "sha": "76b2a838dfc2ac7974f9003a6536cd12d0aaf823",
+  "started": "2026-10-20T07:25:43+00:00",
+  "tasks": [
+   {
+    "kind": "natural",
+    "seed": "L421-r36944",
+    "stage": "spawn",
+    "synthetic": false
+   },
+   {
+    "kind": "natural",
+    "seed": "L421-swwbq8",
+    "stage": "spawn",
+    "synthetic": false
+   },
+   {
+    "asset": "nether-gen400-eval-g372-0.zip",
+    "kind": "start",
+    "seed": "L421-ax4z4x",
+    "stage": "nether",
+    "synthetic": false
+   },
+   {
+    "kind": "combat",
+    "minutes": 10,
+    "scenario": "combat",
+    "seed": "L421-72rm73",
+    "stage": "combat",
+    "synthetic": false
+   }
+  ]
+ },
  "race_evidence_version": 2,
  "score_since_gen": 179,
  "score_version": 4,
