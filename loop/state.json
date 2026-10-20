@@ -3073,7 +3073,7 @@
   "2026-10-17": 14,
   "2026-10-18": 13,
   "2026-10-19": 12,
-  "2026-10-20": 5
+  "2026-10-20": 6
  },
  "evolve_days": {
   "2026-09-27": 1,
@@ -3445,7 +3445,7 @@
    "target": "shore TIMEOUT"
   }
  ],
- "gen": 421,
+ "gen": 422,
  "gene_specs": {
   "bed.table_first": {
    "def": 0.0,
@@ -59923,7 +59923,9 @@
      "_metric": "resolve:shore:TIMEOUT+pillar_out",
      "evolved.pillar_out": 1
     },
-    "run": 39386393931
+    "run": 39386393931,
+    "verdict": "PASS",
+    "why": "PASS: on 0/1 fixed (0%), off 0/5 fixed (0%), z +0.0; exposure on its side: pillar_out offered 1, chosen 1, started 1, ended 1 (0 ok); acted in 1 of 3 games"
    },
    "evals": [],
    "exposure_spec": {
@@ -59967,7 +59969,7 @@
    "note": "code: new skill pillar_out for shore TIMEOUT: pillar_out: after shore TIMEOUT/STUCK while in water, jumps and places blocks under its own feet (mining a ceiling block if needed) to stand up out of shallow/underground water instead of retrying routes",
    "pairs": [],
    "parent": "g372",
-   "status": "drilling"
+   "status": "contender"
   },
   "g428": {
    "born": 421,
@@ -60322,6 +60324,96 @@
    ],
    "parent": "g372",
    "status": "rejected"
+  },
+  "g431": {
+   "born": 422,
+   "code": null,
+   "evals": [],
+   "genes": {
+    "bed.table_first": 1.0,
+    "brain.utility": 1.0,
+    "combat.ignore_walled_mobs": 1.0,
+    "combat.shield_guard": 1.0,
+    "death.recover_night_armor": 12.0,
+    "focus.commit": 1.0,
+    "fortress.anchor_scope": 1.0,
+    "gather.coal_extra": 3.0,
+    "gather.coal_view_dist": 16.0,
+    "gear.sword_early": 1.0,
+    "learned.weight": 1.0,
+    "move.shore_first": 1.0,
+    "nav.surface_v2": 1.0,
+    "nav.unstuck_v2": 1.0,
+    "night.shelter_exit": 1.0,
+    "pearls.provoke_s": 19.0,
+    "plan.hide_hp": 15.0,
+    "plan.readiness": 1.0,
+    "portal.prepare_work_area": 1.0,
+    "portal.reserve_lava_bucket": 1.0,
+    "route.armor_before_portal": 1.0,
+    "skill.drain_tunnel": 1.0,
+    "skill.end_landing": 1.0,
+    "skill.enderman_warped": 1.0,
+    "skill.ruined_portal": 1.0,
+    "smelt.own_furnace": 1.0,
+    "stations.pickup_last": 1.0,
+    "stuck.item_progress": 1.0
+   },
+   "id": "g431",
+   "mutated": [
+    "skill.end_landing",
+    "smelt.own_furnace"
+   ],
+   "note": "skill.end_landing 1, smelt.own_furnace 1",
+   "pairs": [],
+   "parent": "g372",
+   "status": "contender"
+  },
+  "g432": {
+   "born": 422,
+   "code": null,
+   "evals": [],
+   "genes": {
+    "bed.table_first": 1.0,
+    "brain.utility": 1.0,
+    "combat.ignore_walled_mobs": 1.0,
+    "combat.shield_guard": 1.0,
+    "death.recover_night_armor": 12.0,
+    "focus.commit": 1.0,
+    "fortress.anchor_scope": 1.0,
+    "gather.coal_extra": 3.0,
+    "gather.coal_view_dist": 16.0,
+    "gear.sword_early": 1.0,
+    "learned.weight": 1.0,
+    "move.shore_first": 1.0,
+    "nav.surface_v2": 1.0,
+    "nav.unstuck_v2": 1.0,
+    "nether.pie_chart": 0.0,
+    "night.shelter_exit": 1.0,
+    "pearls.provoke_s": 19.0,
+    "plan.hide_hp": 15.0,
+    "plan.readiness": 1.0,
+    "portal.prepare_work_area": 1.0,
+    "portal.reserve_lava_bucket": 1.0,
+    "portal.retry_cast_view": 1.0,
+    "ready.end_food": 8.0,
+    "route.armor_before_portal": 1.0,
+    "skill.drain_tunnel": 1.0,
+    "skill.enderman_warped": 1.0,
+    "skill.ruined_portal": 1.0,
+    "stations.pickup_last": 1.0,
+    "stuck.item_progress": 1.0
+   },
+   "id": "g432",
+   "mutated": [
+    "portal.retry_cast_view",
+    "ready.end_food",
+    "nether.pie_chart"
+   ],
+   "note": "portal.retry_cast_view 1, ready.end_food 8, nether.pie_chart 0",
+   "pairs": [],
+   "parent": "g372",
+   "status": "contender"
   },
   "g44": {
    "born": 60,
@@ -68509,8 +68601,89 @@
   "mean_gap_ok": -0.2315,
   "n": 2302
  },
- "next_id": 431,
- "pending": null,
+ "next_id": 433,
+ "pending": {
+  "data_tasks": [
+   {
+    "asset": "stronghold-gen242-data-g196-0.zip",
+    "kind": "start",
+    "late": true,
+    "seed": "D422-w6g3ck",
+    "stage": "stronghold",
+    "synthetic": true
+   },
+   {
+    "kind": "natural",
+    "seed": "D422-wg56e2",
+    "stage": "spawn",
+    "synthetic": false
+   }
+  ],
+  "gen": 422,
+  "lineup": [
+   "g372",
+   "g427",
+   "g431",
+   "g432"
+  ],
+  "runs": [
+   "eval-g372-0",
+   "eval-g372-1",
+   "eval-g372-2",
+   "eval-g372-3",
+   "eval-g427-0",
+   "eval-g427-1",
+   "eval-g427-2",
+   "eval-g427-3",
+   "eval-g431-0",
+   "eval-g431-1",
+   "eval-g431-2",
+   "eval-g431-3",
+   "eval-g432-0",
+   "eval-g432-1",
+   "eval-g432-2",
+   "eval-g432-3",
+   "data-g372-0",
+   "data-g372-1"
+  ],
+  "seeds": [
+   "L422-8mrk6t",
+   "L422-jpjrp5",
+   "L422-wmmgvb",
+   "L422-h5j2g6"
+  ],
+  "sha": "76b2a838dfc2ac7974f9003a6536cd12d0aaf823",
+  "started": "2026-10-20T09:26:04+00:00",
+  "tasks": [
+   {
+    "kind": "natural",
+    "seed": "L422-8mrk6t",
+    "stage": "spawn",
+    "synthetic": false
+   },
+   {
+    "kind": "natural",
+    "seed": "L422-jpjrp5",
+    "stage": "spawn",
+    "synthetic": false
+   },
+   {
+    "asset": "nether-gen400-eval-g406-0.zip",
+    "kind": "start",
+    "seed": "L422-wmmgvb",
+    "stage": "nether",
+    "synthetic": false
+   },
+   {
+    "kind": "combat",
+    "minutes": 10,
+    "scenario": "combat",
+    "seed": "L422-h5j2g6",
+    "stage": "combat",
+    "synthetic": false
+   }
+  ]
+ },
  "race_evidence_version": 2,
  "score_since_gen": 179,
  "score_version": 4,
@@ -69456,7 +69629,7 @@
   {
    "gen": 420,
    "gid": "g427",
-   "result": "drilling",
+   "result": "racing",
    "skill": "pillar_out",
    "target": "shore TIMEOUT"
   }
