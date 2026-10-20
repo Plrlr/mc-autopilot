@@ -31,6 +31,7 @@ public final class EvolvedSkills {
 
 	static {
 		// evolve:entries (scripts/loop/evolve.py appends one add(...) line per evolved skill here)
+		add(new Entry("evolved.shore_step_out", "shore_step_out", ShoreStepOut::new, ShoreStepOut::offer, "In water after shore failed: dig a dry pocket into the wall just above the waterline and climb into it"));
 		// evolve:end
 	}
 
