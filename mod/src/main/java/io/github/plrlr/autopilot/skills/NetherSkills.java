@@ -279,7 +279,22 @@ public final class NetherSkills {
 				approach = bestPatch == null;
 				return neu;
 			}
-			return old;
+			if (old != null) return old;
+			// Out of untried anchors: blazes keep spawning at the spawner, so go back there rather than
+			// giving up NOT_FOUND (27 nether-frontier failures). Without one, revisit the spot tried
+			// longest ago that isn't where we stand.
+			if (s != null) return s.pos();
+			BlockPos oldest = null;
+			long oldestAt = Long.MAX_VALUE;
+			for (BlockPos v : visitedAnchors) {
+				if (v.distSqr(pl.blockPosition()) < 16 * 16) continue;
+				Long at = visitedAt.get(v);
+				if (at != null && at < oldestAt) {
+					oldestAt = at;
+					oldest = v;
+				}
+			}
+			return oldest;
 		}
 
 		/**
