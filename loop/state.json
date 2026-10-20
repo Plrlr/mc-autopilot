@@ -3216,7 +3216,7 @@
   "2026-10-17": 14,
   "2026-10-18": 13,
   "2026-10-19": 12,
-  "2026-10-20": 12
+  "2026-10-20": 13
  },
  "evolve_days": {
   "2026-09-27": 1,
@@ -3601,7 +3601,7 @@
    "target": "shore TIMEOUT"
   }
  ],
- "gen": 428,
+ "gen": 429,
  "gene_specs": {
   "bed.table_first": {
    "def": 0.0,
@@ -62061,6 +62061,87 @@
    "parent": "g24",
    "status": "rejected"
   },
+  "g440": {
+   "born": 429,
+   "code": null,
+   "evals": [],
+   "genes": {
+    "bed.table_first": 1.0,
+    "brain.utility": 1.0,
+    "combat.ignore_walled_mobs": 1.0,
+    "combat.shield_guard": 1.0,
+    "death.recover_night_armor": 12.0,
+    "focus.commit": 1.0,
+    "fortress.anchor_scope": 1.0,
+    "gather.coal_extra": 3.0,
+    "gather.coal_view_dist": 16.0,
+    "gear.sword_early": 1.0,
+    "learned.weight": 1.0,
+    "move.shore_first": 1.0,
+    "nav.surface_v2": 1.0,
+    "night.shelter_exit": 1.0,
+    "pearls.provoke_s": 19.0,
+    "plan.hide_hp": 15.0,
+    "plan.readiness": 1.0,
+    "portal.reserve_lava_bucket": 1.0,
+    "route.armor_before_portal": 1.0,
+    "skill.drain_tunnel": 1.0,
+    "skill.enderman_warped": 1.0,
+    "skill.ruined_portal": 1.0,
+    "stations.pickup_last": 1.0,
+    "stuck.item_progress": 1.0
+   },
+   "id": "g440",
+   "mutated": [
+    "portal.prepare_work_area",
+    "nav.unstuck_v2"
+   ],
+   "note": "portal.prepare_work_area 0, nav.unstuck_v2 0",
+   "pairs": [],
+   "parent": "g372",
+   "status": "contender"
+  },
+  "g441": {
+   "born": 429,
+   "code": null,
+   "evals": [],
+   "genes": {
+    "bed.table_first": 1.0,
+    "brain.utility": 1.0,
+    "combat.ignore_walled_mobs": 1.0,
+    "combat.shield_guard": 1.0,
+    "death.recover_night_armor": 12.0,
+    "focus.commit": 1.0,
+    "fortress.anchor_scope": 1.0,
+    "gather.coal_extra": 3.0,
+    "gather.coal_view_dist": 16.0,
+    "gear.sword_early": 1.0,
+    "learned.weight": 1.0,
+    "move.shore_first": 1.0,
+    "nav.surface_v2": 1.0,
+    "nav.unstuck_v2": 1.0,
+    "night.shelter_exit": 1.0,
+    "pearls.provoke_s": 19.0,
+    "plan.hide_hp": 15.0,
+    "plan.readiness": 1.0,
+    "portal.prepare_work_area": 1.0,
+    "portal.reserve_lava_bucket": 1.0,
+    "route.armor_before_portal": 1.0,
+    "skill.diamond_hunt": 1.0,
+    "skill.drain_tunnel": 1.0,
+    "skill.enderman_warped": 1.0,
+    "skill.ruined_portal": 1.0,
+    "stuck.item_progress": 1.0
+   },
+   "id": "g441",
+   "mutated": [
+    "skill.diamond_hunt"
+   ],
+   "note": "skill.diamond_hunt 1",
+   "pairs": [],
+   "parent": "g438",
+   "status": "contender"
+  },
   "g45": {
    "born": 60,
    "code": null,
@@ -70127,8 +70208,89 @@
   "mean_gap_ok": -0.1341,
   "n": 2344
  },
- "next_id": 440,
- "pending": null,
+ "next_id": 442,
+ "pending": {
+  "data_tasks": [
+   {
+    "kind": "scenario",
+    "late": true,
+    "scenario": "stronghold",
+    "seed": "D429-pjk33j",
+    "stage": "eyes",
+    "synthetic": true
+   },
+   {
+    "kind": "natural",
+    "seed": "D429-7m3jkm",
+    "stage": "spawn",
+    "synthetic": false
+   }
+  ],
+  "gen": 429,
+  "lineup": [
+   "g372",
+   "g438",
+   "g440",
+   "g441"
+  ],
+  "runs": [
+   "eval-g372-0",
+   "eval-g372-1",
+   "eval-g372-2",
+   "eval-g372-3",
+   "eval-g438-0",
+   "eval-g438-1",
+   "eval-g438-2",
+   "eval-g438-3",
+   "eval-g440-0",
+   "eval-g440-1",
+   "eval-g440-2",
+   "eval-g440-3",
+   "eval-g441-0",
+   "eval-g441-1",
+   "eval-g441-2",
+   "eval-g441-3",
+   "data-g372-0",
+   "data-g372-1"
+  ],
+  "seeds": [
+   "L429-9qgk2n",
+   "L429-dw62y5",
+   "L429-c5f49p",
+   "L429-xcx7vw"
+  ],
+  "sha": "76b2a838dfc2ac7974f9003a6536cd12d0aaf823",
+  "started": "2026-10-20T21:33:11+00:00",
+  "tasks": [
+   {
+    "kind": "natural",
+    "seed": "L429-9qgk2n",
+    "stage": "spawn",
+    "synthetic": false
+   },
+   {
+    "kind": "natural",
+    "seed": "L429-dw62y5",
+    "stage": "spawn",
+    "synthetic": false
+   },
+   {
+    "asset": "nether-gen416-eval-g372-1.zip",
+    "kind": "start",
+    "seed": "L429-c5f49p",
+    "stage": "nether",
+    "synthetic": false
+   },
+   {
+    "kind": "combat",
+    "minutes": 10,
+    "scenario": "combat",
+    "seed": "L429-xcx7vw",
+    "stage": "combat",
+    "synthetic": false
+   }
+  ]
+ },
  "race_evidence_version": 2,
  "score_since_gen": 179,
  "score_version": 4,
