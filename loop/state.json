@@ -3239,7 +3239,7 @@
   "2026-10-17": 3,
   "2026-10-18": 3,
   "2026-10-19": 1,
-  "2026-10-20": 3
+  "2026-10-20": 4
  },
  "evolve_log": [
   {
@@ -3592,6 +3592,13 @@
    "gid": "g437",
    "mode": "edit",
    "result": "racing"
+  },
+  {
+   "gen": 428,
+   "gid": "g439",
+   "mode": "skill",
+   "result": "drilling",
+   "target": "shore TIMEOUT"
   }
  ],
  "gen": 428,
@@ -61863,6 +61870,75 @@
    "parent": "g372",
    "status": "contender"
   },
+  "g439": {
+   "born": 428,
+   "code": {
+    "base": "76b2a838dfc2ac7974f9003a6536cd12d0aaf823",
+    "branch": "evolve/g439",
+    "files": [
+     "mod/src/main/java/io/github/plrlr/autopilot/skills/evolved/ShoreStepOut.java",
+     "mod/src/main/java/io/github/plrlr/autopilot/skills/evolved/EvolvedSkills.java",
+     "mod/src/main/resources/evolved-genes.json"
+    ],
+    "gene": "evolved.shore_step_out",
+    "kind": "skill",
+    "sha": "eb243fd57162910d6987e511c722ec7db408e915",
+    "skill": "shore_step_out",
+    "summary": "shore_step_out: after shore TIMEOUT/STUCK in (underground) water, digs a dry 2-high pocket into the adjacent wall one block above the waterline and climbs into it, instead of routing elsewhere",
+    "target": "shore TIMEOUT"
+   },
+   "drill": {
+    "gen": 428,
+    "idea": {
+     "_metric": "resolve:shore:TIMEOUT+shore_step_out",
+     "evolved.shore_step_out": 1
+    },
+    "run": 39501234890
+   },
+   "evals": [],
+   "exposure_spec": {
+    "skill": "shore_step_out"
+   },
+   "genes": {
+    "bed.table_first": 1.0,
+    "brain.utility": 1.0,
+    "combat.ignore_walled_mobs": 1.0,
+    "combat.shield_guard": 1.0,
+    "death.recover_night_armor": 12.0,
+    "evolved.shore_step_out": 1.0,
+    "focus.commit": 1.0,
+    "fortress.anchor_scope": 1.0,
+    "gather.coal_extra": 3.0,
+    "gather.coal_view_dist": 16.0,
+    "gear.sword_early": 1.0,
+    "learned.weight": 1.0,
+    "move.shore_first": 1.0,
+    "nav.surface_v2": 1.0,
+    "nav.unstuck_v2": 1.0,
+    "night.shelter_exit": 1.0,
+    "pearls.provoke_s": 19.0,
+    "plan.hide_hp": 15.0,
+    "plan.readiness": 1.0,
+    "portal.prepare_work_area": 1.0,
+    "portal.reserve_lava_bucket": 1.0,
+    "route.armor_before_portal": 1.0,
+    "skill.drain_tunnel": 1.0,
+    "skill.enderman_warped": 1.0,
+    "skill.ruined_portal": 1.0,
+    "stations.pickup_last": 1.0,
+    "stuck.item_progress": 1.0
+   },
+   "id": "g439",
+   "metric": "resolve:shore:TIMEOUT+shore_step_out",
+   "mutated": [
+    "code",
+    "evolved.shore_step_out"
+   ],
+   "note": "code: new skill shore_step_out for shore TIMEOUT: shore_step_out: after shore TIMEOUT/STUCK in (underground) water, digs a dry 2-high pocket into the adjacent wall one block above the waterline and climbs into it, instead of routing elsewhere",
+   "pairs": [],
+   "parent": "g372",
+   "status": "drilling"
+  },
   "g44": {
    "born": 60,
    "code": null,
@@ -70029,7 +70105,8 @@
   "Shore times out in the same water again and again after underground drowning, so the follow-up should pick a nearby dry spot it can see and dig through the wall that blocks it, not only swim harder toward remembered land.",
   "Attack UNREACHABLE at '3 blocks' came from comparing centre-to-centre distance with 3.0, while the game measures reach from the eyes to the hitbox. Mobs that could be hit got chased until the 8 s give-up.",
   "Shore keeps timing out in the same underground water after interrupting collect; two swim-toward-land fixes lost, so this one doesn't move sideways at all and stacks blocks under itself to get out of the water where it is.",
-  "fortress blazes NOT_FOUND came from pickAnchor running out of untried anchors, including the spawner. Blazes only respawn at the spawner, so an anchor list that is used up should send the bot back there, not end the fight."
+  "fortress blazes NOT_FOUND came from pickAnchor running out of untried anchors, including the spawner. Blazes only respawn at the spawner, so an anchor list that is used up should send the bot back there, not end the fight.",
+  "Shore keeps timing out in enclosed underground water where swimming to remembered land and pillaring both lost; making dry ground right beside the bot above the waterline (where water can't flow in) needs no route at all."
  ],
  "learned_race": {
   "gen": 256,
@@ -70050,7 +70127,7 @@
   "mean_gap_ok": -0.1341,
   "n": 2344
  },
- "next_id": 439,
+ "next_id": 440,
  "pending": null,
  "race_evidence_version": 2,
  "score_since_gen": 179,
@@ -70999,6 +71076,13 @@
    "gid": "g427",
    "result": "racing",
    "skill": "pillar_out",
+   "target": "shore TIMEOUT"
+  },
+  {
+   "gen": 428,
+   "gid": "g439",
+   "result": "drilling",
+   "skill": "shore_step_out",
    "target": "shore TIMEOUT"
   }
  ],
