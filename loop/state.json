@@ -3096,7 +3096,7 @@
   "2026-10-17": 3,
   "2026-10-18": 3,
   "2026-10-19": 1,
-  "2026-10-20": 1
+  "2026-10-20": 2
  },
  "evolve_log": [
   {
@@ -3436,6 +3436,13 @@
    "gid": "g424",
    "mode": "edit",
    "result": "racing"
+  },
+  {
+   "gen": 420,
+   "gid": "g427",
+   "mode": "skill",
+   "result": "drilling",
+   "target": "shore TIMEOUT"
   }
  ],
  "gen": 420,
@@ -59873,6 +59880,75 @@
    "parent": "g372",
    "status": "rejected"
   },
+  "g427": {
+   "born": 420,
+   "code": {
+    "base": "76b2a838dfc2ac7974f9003a6536cd12d0aaf823",
+    "branch": "evolve/g427",
+    "files": [
+     "mod/src/main/java/io/github/plrlr/autopilot/skills/evolved/PillarOut.java",
+     "mod/src/main/java/io/github/plrlr/autopilot/skills/evolved/EvolvedSkills.java",
+     "mod/src/main/resources/evolved-genes.json"
+    ],
+    "gene": "evolved.pillar_out",
+    "kind": "skill",
+    "sha": "e2a8a01b74cbc09ad2d4a41899cc7b1939583c68",
+    "skill": "pillar_out",
+    "summary": "pillar_out: after shore TIMEOUT/STUCK while in water, jumps and places blocks under its own feet (mining a ceiling block if needed) to stand up out of shallow/underground water instead of retrying routes",
+    "target": "shore TIMEOUT"
+   },
+   "drill": {
+    "gen": 420,
+    "idea": {
+     "_metric": "resolve:shore:TIMEOUT+pillar_out",
+     "evolved.pillar_out": 1
+    },
+    "run": 39386393931
+   },
+   "evals": [],
+   "exposure_spec": {
+    "skill": "pillar_out"
+   },
+   "genes": {
+    "bed.table_first": 1.0,
+    "brain.utility": 1.0,
+    "combat.ignore_walled_mobs": 1.0,
+    "combat.shield_guard": 1.0,
+    "death.recover_night_armor": 12.0,
+    "evolved.pillar_out": 1.0,
+    "focus.commit": 1.0,
+    "fortress.anchor_scope": 1.0,
+    "gather.coal_extra": 3.0,
+    "gather.coal_view_dist": 16.0,
+    "gear.sword_early": 1.0,
+    "learned.weight": 1.0,
+    "move.shore_first": 1.0,
+    "nav.surface_v2": 1.0,
+    "nav.unstuck_v2": 1.0,
+    "night.shelter_exit": 1.0,
+    "pearls.provoke_s": 19.0,
+    "plan.hide_hp": 15.0,
+    "plan.readiness": 1.0,
+    "portal.prepare_work_area": 1.0,
+    "portal.reserve_lava_bucket": 1.0,
+    "route.armor_before_portal": 1.0,
+    "skill.drain_tunnel": 1.0,
+    "skill.enderman_warped": 1.0,
+    "skill.ruined_portal": 1.0,
+    "stations.pickup_last": 1.0,
+    "stuck.item_progress": 1.0
+   },
+   "id": "g427",
+   "metric": "resolve:shore:TIMEOUT+pillar_out",
+   "mutated": [
+    "code",
+    "evolved.pillar_out"
+   ],
+   "note": "code: new skill pillar_out for shore TIMEOUT: pillar_out: after shore TIMEOUT/STUCK while in water, jumps and places blocks under its own feet (mining a ceiling block if needed) to stand up out of shallow/underground water instead of retrying routes",
+   "pairs": [],
+   "parent": "g372",
+   "status": "drilling"
+  },
   "g43": {
    "born": 57,
    "code": null,
@@ -68139,7 +68215,8 @@
   "Shore TIMEOUT repeats up to seven times in a row in the same water, so retrying the same pathfinder route doesn't work; the follow-up should move a different way (direct key swimming) and stop going for a target once it stops getting closer.",
   "When two skills hand a job back and forth, they are using different tests for \"seen\": make the explore check use exactly the collect skill's test (the same function and range).",
   "Shore times out in the same water again and again after underground drowning, so the follow-up should pick a nearby dry spot it can see and dig through the wall that blocks it, not only swim harder toward remembered land.",
-  "Attack UNREACHABLE at '3 blocks' came from comparing centre-to-centre distance with 3.0, while the game measures reach from the eyes to the hitbox. Mobs that could be hit got chased until the 8 s give-up."
+  "Attack UNREACHABLE at '3 blocks' came from comparing centre-to-centre distance with 3.0, while the game measures reach from the eyes to the hitbox. Mobs that could be hit got chased until the 8 s give-up.",
+  "Shore keeps timing out in the same underground water after interrupting collect; two swim-toward-land fixes lost, so this one doesn't move sideways at all and stacks blocks under itself to get out of the water where it is."
  ],
  "learned_race": {
   "gen": 256,
@@ -68160,7 +68237,7 @@
   "mean_gap_ok": 0.0664,
   "n": 2302
  },
- "next_id": 427,
+ "next_id": 428,
  "pending": null,
  "race_evidence_version": 2,
  "score_since_gen": 179,
@@ -69102,6 +69179,13 @@
    "gid": "g415",
    "result": "racing",
    "skill": "shore_carve",
+   "target": "shore TIMEOUT"
+  },
+  {
+   "gen": 420,
+   "gid": "g427",
+   "result": "drilling",
+   "skill": "pillar_out",
    "target": "shore TIMEOUT"
   }
  ],
