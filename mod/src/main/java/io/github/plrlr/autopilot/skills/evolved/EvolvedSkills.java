@@ -31,6 +31,7 @@ public final class EvolvedSkills {
 
 	static {
 		// evolve:entries (scripts/loop/evolve.py appends one add(...) line per evolved skill here)
+		add(new Entry("evolved.pillar_out", "pillar_out", PillarOut::new, PillarOut::offer, "Stuck in water after shore timed out: jump and place blocks under your feet to stand up out of the water"));
 		// evolve:end
 	}
 

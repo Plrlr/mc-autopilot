@@ -1,1 +1,15 @@
-{"_about": "append-only list of genes for evolved skills (scripts/loop/evolve.py appends)", "genes": []}
+{
+ "_about": "append-only list of genes for evolved skills (scripts/loop/evolve.py appends)",
+ "genes": [
+  {
+   "name": "evolved.pillar_out",
+   "kind": "BOOL",
+   "def": 0,
+   "skill": "pillar_out",
+   "why": "Stuck in water after shore timed out: jump and place blocks under your feet to stand up out of the water",
+   "gen": 420,
+   "target": "shore TIMEOUT",
+   "metric": "resolve:shore:TIMEOUT"
+  }
+ ]
+}
