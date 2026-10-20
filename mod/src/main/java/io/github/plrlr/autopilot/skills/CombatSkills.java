@@ -234,7 +234,7 @@ public final class CombatSkills {
 				Mc.mc().options.keySprint.setDown(true);
 				return;
 			}
-			if (dist > 3.0) {
+			if (dist > 3.0 && !inReach(pl, hitBox)) {
 				// Not getting any closer for 8 s: it's across water or down a hole. Give up on
 				// this one for a minute instead of chasing it until the 45 s timeout (trials lost
 				// 8 minutes to one zombie that way).
@@ -335,6 +335,16 @@ public final class CombatSkills {
 					&& (Items2.id(pl.getMainHandItem()).endsWith("_sword") || Items2.id(pl.getMainHandItem()).endsWith("_axe"))) {
 				keyUse.setDown(true);
 			}
+		}
+
+		/** Like the game's own reach test: eye to the nearest point of the hitbox, with a sightline. */
+		private static boolean inReach(LocalPlayer pl, Entity e) {
+			var box = e.getBoundingBox();
+			Vec3 eye = pl.getEyePosition();
+			double dx = Math.max(Math.max(box.minX - eye.x, 0), eye.x - box.maxX);
+			double dy = Math.max(Math.max(box.minY - eye.y, 0), eye.y - box.maxY);
+			double dz = Math.max(Math.max(box.minZ - eye.z, 0), eye.z - box.maxZ);
+			return dx * dx + dy * dy + dz * dz <= 2.9 * 2.9 && Mc.canSee(e);
 		}
 
 		private int zombiesNear(double range) {
