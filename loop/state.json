@@ -3241,7 +3241,7 @@
   "2026-10-18": 3,
   "2026-10-19": 1,
   "2026-10-20": 4,
-  "2026-10-21": 3
+  "2026-10-21": 4
  },
  "evolve_log": [
   {
@@ -3620,6 +3620,12 @@
    "mode": "skill",
    "result": "drilling",
    "target": "shelter STUCK"
+  },
+  {
+   "gen": 440,
+   "gid": "g454",
+   "mode": "edit",
+   "result": "racing"
   }
  ],
  "gen": 440,
@@ -64572,6 +64578,55 @@
    "parent": "g372",
    "status": "contender"
   },
+  "g454": {
+   "born": 440,
+   "code": {
+    "base": "76b2a838dfc2ac7974f9003a6536cd12d0aaf823",
+    "branch": "evolve/g454",
+    "files": [
+     "mod/src/main/java/io/github/plrlr/autopilot/plan/Planner.java"
+    ],
+    "sha": "688185ed6dbf7936a317a93e9ad45d23c2d38425",
+    "summary": "Planner no longer offers attack/retreat for a monster more than 6 blocks away that we can't see and that isn't hurting us (creepers and blazes excepted), so walled-off cave monsters stop starting retreats that fail NO_PROGRESS and attacks that fail NOT_FOUND."
+   },
+   "evals": [],
+   "genes": {
+    "bed.table_first": 1.0,
+    "brain.utility": 1.0,
+    "combat.ignore_walled_mobs": 1.0,
+    "combat.shield_guard": 1.0,
+    "death.recover_night_armor": 12.0,
+    "focus.commit": 1.0,
+    "fortress.anchor_scope": 1.0,
+    "gather.coal_extra": 3.0,
+    "gather.coal_view_dist": 16.0,
+    "gear.sword_early": 1.0,
+    "learned.weight": 1.0,
+    "move.shore_first": 1.0,
+    "nav.surface_v2": 1.0,
+    "nav.unstuck_v2": 1.0,
+    "night.shelter_exit": 1.0,
+    "pearls.provoke_s": 19.0,
+    "plan.hide_hp": 15.0,
+    "plan.readiness": 1.0,
+    "portal.prepare_work_area": 1.0,
+    "portal.reserve_lava_bucket": 1.0,
+    "route.armor_before_portal": 1.0,
+    "skill.drain_tunnel": 1.0,
+    "skill.enderman_warped": 1.0,
+    "skill.ruined_portal": 1.0,
+    "stations.pickup_last": 1.0,
+    "stuck.item_progress": 1.0
+   },
+   "id": "g454",
+   "mutated": [
+    "code"
+   ],
+   "note": "code: Planner no longer offers attack/retreat for a monster more than 6 blocks away that we can't see and that isn't hurting us (creepers and blazes excepted), so walled-off cave monsters stop starting retreats that fail NO_PROGRESS and attacks that fail NOT_FOUND.",
+   "pairs": [],
+   "parent": "g372",
+   "status": "contender"
+  },
   "g46": {
    "born": 60,
    "code": null,
@@ -72375,7 +72430,8 @@
   "Shore keeps timing out in enclosed underground water where swimming to remembered land and pillaring both lost; making dry ground right beside the bot above the waterline (where water can't flow in) needs no route at all.",
   "Nether first deaths are mostly onFire during fortress:blazes, and the fight's healing either eats first or stands still, so it never leaves the fire block it is standing in. Checking the visible block at the feet comes before any healing.",
   "Shore keeps failing in the same water, and five fixes to how it moves lost (a sixth never ran); this tries limiting how long the planner insists on shore in one spot instead.",
-  "Shelter STUCK comes from the morning exit needing a block to fill a stair step, so the follow-up should climb using only mining (a dug staircase into the shaft wall), with a block placed only if one is carried."
+  "Shelter STUCK comes from the morning exit needing a block to fill a stair step, so the follow-up should climb using only mining (a dug staircase into the shaft wall), with a block placed only if one is carried.",
+  "Retreat NO_PROGRESS with the monster still about 9 blocks away probably means the planner is reacting to monsters behind rock that the client knows about. Only a seen, close or hurting monster should get a fight-or-flee option."
  ],
  "learned_race": {
   "gen": 256,
@@ -72396,7 +72452,7 @@
   "mean_gap_ok": -0.2744,
   "n": 2400
  },
- "next_id": 454,
+ "next_id": 455,
  "pending": null,
  "race_evidence_version": 2,
  "score_since_gen": 179,
