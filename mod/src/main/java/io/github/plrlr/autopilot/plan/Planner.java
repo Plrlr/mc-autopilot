@@ -66,7 +66,7 @@ public final class Planner {
 		Option cross = SurvivalPlan.cross();
 		if (cross != null && urgent.isEmpty()) urgent.add(cross);
 		if (Tune.on("move.shore_first") && ShoreSkill.needed()
-				&& (groundWork(main) || urgent.stream().anyMatch(Planner::groundWork))) {
+				&& (groundWork(main) || urgent.stream().anyMatch(Planner::groundWork)) && !shoreStale()) {
 			// One shared decision prevents collect, station, shelter and explore from handing the
 			// same watery spot back and forth. Combat and eating can still take precedence.
 			List<Option> safety = new ArrayList<>();
@@ -127,6 +127,30 @@ public final class Planner {
 		for (Option o : fallbacks) if (!o.skill().equals(move.skill())) out.add(o);
 		out.add(move);
 		return out;
+	}
+
+	private static net.minecraft.core.BlockPos shoreSpot;
+	private static long shoreSince, shoreLast, shoreSkipUntil;
+
+	/**
+	 * Shore TIMEOUT repeated up to 51 times in a row in the same water: after ~4 minutes of the
+	 * shore phase around one spot, leave the list to normal planning for 2 minutes.
+	 */
+	private static boolean shoreStale() {
+		long now = System.currentTimeMillis();
+		if (now < shoreSkipUntil) return true;
+		net.minecraft.core.BlockPos here = Mc.player().blockPosition();
+		if (shoreSpot == null || shoreSpot.distSqr(here) > 64 || now - shoreLast > 30_000) {
+			shoreSpot = here;
+			shoreSince = now;
+		}
+		shoreLast = now;
+		if (now - shoreSince > 240_000) {
+			shoreSkipUntil = now + 120_000;
+			shoreSpot = null;
+			return true;
+		}
+		return false;
 	}
 
 	private static boolean groundWork(Option o) {
