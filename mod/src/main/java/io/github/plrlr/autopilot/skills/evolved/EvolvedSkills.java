@@ -31,6 +31,7 @@ public final class EvolvedSkills {
 
 	static {
 		// evolve:entries (scripts/loop/evolve.py appends one add(...) line per evolved skill here)
+		add(new Entry("evolved.shelter_dig_out", "shelter_dig_out", ShelterDigOut::new, ShelterDigOut::offer, "After shelter fails STUCK underground: mine a staircase up out of the shaft without needing blocks"));
 		// evolve:end
 	}
 
