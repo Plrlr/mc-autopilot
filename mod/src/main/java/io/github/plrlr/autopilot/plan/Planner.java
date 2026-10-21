@@ -359,6 +359,11 @@ public final class Planner {
 		// A monster an attack just failed to reach: offering to attack it again only fails again
 		// (10 NOT_FOUND fails in batch 6). The reflexes still handle it if it comes close.
 		if (hostile != null && io.github.plrlr.autopilot.skills.CombatSkills.unreachable(hostile.entity())) hostile = null;
+		// A monster out of sight and not close (behind cave rock) isn't a fight or a reason to run:
+		// retreat from one failed NO_PROGRESS ("nearest monster 9 blocks") again and again and attacks
+		// failed NOT_FOUND. Seen, close or hurting monsters are still answered; creepers and blazes too.
+		if (hostile != null && hostile.dist() > 6 && pl.hurtTime == 0 && !hostile.type().equals("creeper")
+				&& !hostile.type().equals("blaze") && !Mc.canSee(hostile.entity())) hostile = null;
 		// In the Nether only what's on top of us: chasing a magma cube 8 blocks off walked the bot
 		// into lava, and it burned to death (freebuff nether run 0455). Blazes go to the fortress fight.
 		double range = hostile != null && Mc.dimension().equals("the_nether") && !hostile.type().equals("blaze") ? 4 : Tune.get("plan.hostile_range");
