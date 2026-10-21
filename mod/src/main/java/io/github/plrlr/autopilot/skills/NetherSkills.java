@@ -392,6 +392,17 @@ public final class NetherSkills {
 				done("have " + rods + " blaze rods (+" + (rods - rodsBefore) + ")");
 				return;
 			}
+			// Fireballs set the ground alight: standing in that fire keeps us burning while we eat or
+			// shield (onFire was the top Nether death, mostly in this fight). Step out first.
+			if (standingInFire(pl)) {
+				var ku = Mc.mc().options.keyUse;
+				stopEating(ku);
+				stopShielding(ku);
+				if (ticks % 10 == 0 || !Bari.pathing())
+					Bari.path(new baritone.api.pathing.goals.GoalRunAway(3, pl.blockPosition()));
+				walking = true;
+				return;
+			}
 			// A better anchor came into view (the spawner itself): go there instead.
 			WorldMemory.Seen spawner = blazeSpawner(memory, null);
 			if (spawner != null && !spawner.pos().equals(anchor) && !tried(spawner.pos(), 0)) {
@@ -476,6 +487,12 @@ public final class NetherSkills {
 				}
 				walkTo(anchor);
 			}
+		}
+
+		/** Fire (or soul fire) in the block at our feet: visible, and it keeps relighting us. */
+		private static boolean standingInFire(LocalPlayer pl) {
+			String id = Mc.id(Mc.state(pl.blockPosition()).getBlock());
+			return id.equals("fire") || id.equals("soul_fire");
 		}
 
 		private Entity chased;
