@@ -3217,7 +3217,7 @@
   "2026-10-18": 13,
   "2026-10-19": 12,
   "2026-10-20": 14,
-  "2026-10-21": 13
+  "2026-10-21": 14
  },
  "evolve_days": {
   "2026-09-27": 1,
@@ -3628,7 +3628,7 @@
    "result": "racing"
   }
  ],
- "gen": 443,
+ "gen": 444,
  "gene_specs": {
   "bed.table_first": {
    "def": 0.0,
@@ -65137,6 +65137,48 @@
    "parent": "g372",
    "status": "rejected"
   },
+  "g457": {
+   "born": 444,
+   "code": null,
+   "evals": [],
+   "genes": {
+    "bed.table_first": 1.0,
+    "brain.utility": 1.0,
+    "combat.ignore_walled_mobs": 1.0,
+    "combat.shield_guard": 1.0,
+    "death.recover_night_armor": 12.0,
+    "focus.commit": 1.0,
+    "fortress.anchor_scope": 1.0,
+    "gather.coal_extra": 3.0,
+    "gather.coal_view_dist": 16.0,
+    "gear.sword_early": 1.0,
+    "learned.weight": 1.0,
+    "move.shore_first": 1.0,
+    "nav.surface_v2": 1.0,
+    "nav.unstuck_v2": 1.0,
+    "night.shelter_exit": 1.0,
+    "pearls.provoke_s": 19.0,
+    "plan.hide_hp": 15.0,
+    "plan.readiness": 1.0,
+    "portal.prepare_work_area": 1.0,
+    "portal.reserve_lava_bucket": 1.0,
+    "route.armor_before_portal": 1.0,
+    "skill.drain_tunnel": 1.0,
+    "skill.enderman_warped": 1.0,
+    "skill.ruined_portal": 1.0,
+    "skill.stronghold_navigate": 1.0,
+    "stations.pickup_last": 1.0,
+    "stuck.item_progress": 1.0
+   },
+   "id": "g457",
+   "mutated": [
+    "skill.stronghold_navigate"
+   ],
+   "note": "skill.stronghold_navigate 1",
+   "pairs": [],
+   "parent": "g372",
+   "status": "contender"
+  },
   "g46": {
    "born": 60,
    "code": null,
@@ -72962,8 +73004,89 @@
   "mean_gap_ok": -0.0929,
   "n": 2400
  },
- "next_id": 457,
- "pending": null,
+ "next_id": 458,
+ "pending": {
+  "data_tasks": [
+   {
+    "asset": "rods-gen350-eval-g330-2.zip",
+    "kind": "start",
+    "late": true,
+    "seed": "D444-5vq77n",
+    "stage": "rods",
+    "synthetic": false
+   },
+   {
+    "kind": "natural",
+    "seed": "D444-m6cjj8",
+    "stage": "spawn",
+    "synthetic": false
+   }
+  ],
+  "gen": 444,
+  "lineup": [
+   "g372",
+   "g454",
+   "g455",
+   "g457"
+  ],
+  "runs": [
+   "eval-g372-0",
+   "eval-g372-1",
+   "eval-g372-2",
+   "eval-g372-3",
+   "eval-g454-0",
+   "eval-g454-1",
+   "eval-g454-2",
+   "eval-g454-3",
+   "eval-g455-0",
+   "eval-g455-1",
+   "eval-g455-2",
+   "eval-g455-3",
+   "eval-g457-0",
+   "eval-g457-1",
+   "eval-g457-2",
+   "eval-g457-3",
+   "data-g372-0",
+   "data-g372-1"
+  ],
+  "seeds": [
+   "L444-vxrkj9",
+   "L444-5e639t",
+   "L444-ben5ed",
+   "L444-7wc47k"
+  ],
+  "sha": "76b2a838dfc2ac7974f9003a6536cd12d0aaf823",
+  "started": "2026-10-21T23:59:02+00:00",
+  "tasks": [
+   {
+    "kind": "natural",
+    "seed": "L444-vxrkj9",
+    "stage": "spawn",
+    "synthetic": false
+   },
+   {
+    "kind": "natural",
+    "seed": "L444-5e639t",
+    "stage": "spawn",
+    "synthetic": false
+   },
+   {
+    "asset": "nether-gen431-eval-g440-0.zip",
+    "kind": "start",
+    "seed": "L444-ben5ed",
+    "stage": "nether",
+    "synthetic": false
+   },
+   {
+    "kind": "combat",
+    "minutes": 10,
+    "scenario": "combat",
+    "seed": "L444-7wc47k",
+    "stage": "combat",
+    "synthetic": false
+   }
+  ]
+ },
  "race_evidence_version": 2,
  "score_since_gen": 179,
  "score_version": 4,
