@@ -158,7 +158,10 @@ public final class NetherSkills {
 			savedAllowPlace = st.allowPlace.value;
 			st.allowPlace.value = false;
 			savedBreakPenalty = st.blockBreakAdditionalPenalty.value;
-			st.blockBreakAdditionalPenalty.value = 12.0;
+			// Find mode: netherrack hides lava pockets, and tunnelling through it opened them (lava and
+			// onFire are most Nether first deaths, mostly during fortress find). Walk the open caves;
+			// a leg with no open way fails and turns.
+			st.blockBreakAdditionalPenalty.value = findMode ? 40.0 : 12.0;
 			if (!findMode) {
 				savedSpawnerAvoid = st.mobSpawnerAvoidanceCoefficient.value;
 				st.mobSpawnerAvoidanceCoefficient.value = 1.0;
