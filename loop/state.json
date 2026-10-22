@@ -3350,7 +3350,7 @@
   "2026-10-19": 12,
   "2026-10-20": 14,
   "2026-10-21": 14,
-  "2026-10-22": 3
+  "2026-10-22": 4
  },
  "evolve_days": {
   "2026-09-27": 1,
@@ -3768,7 +3768,7 @@
    "result": "racing"
   }
  ],
- "gen": 447,
+ "gen": 448,
  "gene_specs": {
   "bed.table_first": {
    "def": 0.0,
@@ -73421,7 +73421,88 @@
   "n": 2400
  },
  "next_id": 460,
- "pending": null,
+ "pending": {
+  "data_tasks": [
+   {
+    "asset": "rods-gen350-eval-g346-2.zip",
+    "kind": "start",
+    "late": true,
+    "seed": "D448-fs5rhh",
+    "stage": "rods",
+    "synthetic": false
+   },
+   {
+    "kind": "natural",
+    "seed": "D448-epkcte",
+    "stage": "spawn",
+    "synthetic": false
+   }
+  ],
+  "gen": 448,
+  "lineup": [
+   "g455",
+   "g372",
+   "g458",
+   "g459"
+  ],
+  "runs": [
+   "eval-g455-0",
+   "eval-g455-1",
+   "eval-g455-2",
+   "eval-g455-3",
+   "eval-g372-0",
+   "eval-g372-1",
+   "eval-g372-2",
+   "eval-g372-3",
+   "eval-g458-0",
+   "eval-g458-1",
+   "eval-g458-2",
+   "eval-g458-3",
+   "eval-g459-0",
+   "eval-g459-1",
+   "eval-g459-2",
+   "eval-g459-3",
+   "data-g455-0",
+   "data-g455-1"
+  ],
+  "seeds": [
+   "L448-dyq8r9",
+   "L448-ur3d9m",
+   "L448-wbwgrt",
+   "L448-ypcvd5"
+  ],
+  "sha": "76b2a838dfc2ac7974f9003a6536cd12d0aaf823",
+  "started": "2026-10-22T09:28:06+00:00",
+  "tasks": [
+   {
+    "kind": "natural",
+    "seed": "L448-dyq8r9",
+    "stage": "spawn",
+    "synthetic": false
+   },
+   {
+    "kind": "natural",
+    "seed": "L448-ur3d9m",
+    "stage": "spawn",
+    "synthetic": false
+   },
+   {
+    "asset": "nether-gen387-eval-g372-1.zip",
+    "kind": "start",
+    "seed": "L448-wbwgrt",
+    "stage": "nether",
+    "synthetic": false
+   },
+   {
+    "kind": "combat",
+    "minutes": 10,
+    "scenario": "combat",
+    "seed": "L448-ypcvd5",
+    "stage": "combat",
+    "synthetic": false
+   }
+  ]
+ },
  "race_evidence_version": 2,
  "score_since_gen": 179,
  "score_version": 4,
