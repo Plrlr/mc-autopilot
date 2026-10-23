@@ -40,6 +40,9 @@ public final class CollectSkill extends Skill {
 	private final java.util.ArrayDeque<BlockPos> mineTrail = new java.util.ArrayDeque<>();
 	private BlockPos alternateStart;
 	private int diversionTicks;
+	/** A remembered block of the group beyond SEEN_RANGE we walk toward before giving up. */
+	private BlockPos farWalk;
+	private int farWalkTicks;
 
 	@Override
 	public String name() {
@@ -183,11 +186,31 @@ public final class CollectSkill extends Skill {
 		}
 		if (lookGroup != null) {
 			if (visibleOnly ? SeenMiner.anyVisible(memory, lookGroup, 8) : SeenMiner.anySeen(memory, lookGroup, SEEN_RANGE)) {
+				if (farWalk != null) {
+					Bari.stop();
+					farWalk = null;
+				}
 				seenMiner = new SeenMiner(memory, lookGroup, visibleOnly ? 8 : SEEN_RANGE, visibleOnly);
 				lookGroup = null;
 				timeoutTicks = ticks + 20 * 360;
+			} else if (farWalk != null) {
+				farWalkTicks++;
+				if (farWalkTicks > 20 * 45 || (farWalkTicks > 40 && !Bari.pathing())
+						|| Mc.player().blockPosition().distSqr(farWalk) <= 16) {
+					Bari.stop();
+					fail(Fail.NOT_FOUND, "walked toward a far " + item + " but none usable in range");
+				}
 			} else if (ticks > 20 * 3) {
-				fail(Fail.NOT_FOUND, "no " + item + " seen nearby");
+				var far = visibleOnly ? null : memory.nearest(lookGroup);
+				if (far != null && !Mc.player().isInWater()
+						&& far.pos().distSqr(Mc.player().blockPosition()) > (double) SEEN_RANGE * SEEN_RANGE) {
+					farWalk = far.pos();
+					farWalkTicks = 0;
+					timeoutTicks = ticks + 20 * 60;
+					Bari.path(new GoalNear(farWalk, 3));
+				} else {
+					fail(Fail.NOT_FOUND, "no " + item + " seen nearby");
+				}
 			}
 			return;
 		}
