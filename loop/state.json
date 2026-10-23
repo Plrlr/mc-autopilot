@@ -3641,7 +3641,7 @@
   "2026-10-20": 4,
   "2026-10-21": 4,
   "2026-10-22": 1,
-  "2026-10-23": 1
+  "2026-10-23": 2
  },
  "evolve_log": [
   {
@@ -4039,6 +4039,12 @@
    "mode": "skill",
    "result": "drilling",
    "target": "collect STUCK"
+  },
+  {
+   "gen": 458,
+   "gid": "g466",
+   "mode": "edit",
+   "result": "racing"
   }
  ],
  "gen": 458,
@@ -67234,6 +67240,55 @@
    "parent": "g462",
    "status": "contender"
   },
+  "g466": {
+   "born": 458,
+   "code": {
+    "base": "76b2a838dfc2ac7974f9003a6536cd12d0aaf823",
+    "branch": "evolve/g466",
+    "files": [
+     "mod/src/main/java/io/github/plrlr/autopilot/skills/CollectSkill.java"
+    ],
+    "sha": "bc5f3711839d745de33a46be10ef988ddb36fba6",
+    "summary": "Collect log/sand/obsidian: instead of failing NOT_FOUND when the only remembered block lies beyond the 64-block seen range, walk toward it (\u226445 s) until one is in range, then mine; breaks the collect NOT_FOUND / explore ALREADY_DONE handoff loop."
+   },
+   "evals": [],
+   "genes": {
+    "bed.table_first": 1.0,
+    "brain.utility": 1.0,
+    "combat.ignore_walled_mobs": 1.0,
+    "combat.shield_guard": 1.0,
+    "death.recover_night_armor": 12.0,
+    "focus.commit": 1.0,
+    "fortress.anchor_scope": 1.0,
+    "gather.coal_extra": 3.0,
+    "gather.coal_view_dist": 16.0,
+    "gear.sword_early": 1.0,
+    "learned.weight": 1.0,
+    "move.shore_first": 1.0,
+    "nav.surface_v2": 1.0,
+    "nav.unstuck_v2": 1.0,
+    "night.shelter_exit": 1.0,
+    "pearls.provoke_s": 19.0,
+    "plan.hide_hp": 15.0,
+    "plan.readiness": 1.0,
+    "portal.prepare_work_area": 1.0,
+    "portal.reserve_lava_bucket": 1.0,
+    "route.armor_before_portal": 1.0,
+    "skill.drain_tunnel": 1.0,
+    "skill.enderman_warped": 1.0,
+    "skill.ruined_portal": 1.0,
+    "skill.stash": 1.0,
+    "stuck.item_progress": 1.0
+   },
+   "id": "g466",
+   "mutated": [
+    "code"
+   ],
+   "note": "code: Collect log/sand/obsidian: instead of failing NOT_FOUND when the only remembered block lies beyond the 64-block seen range, walk toward it (\u226445 s) until one is in range, then mine; breaks the collect NOT_FOUND / explore ALREADY_DONE handoff loop.",
+   "pairs": [],
+   "parent": "g455",
+   "status": "contender"
+  },
   "g47": {
    "born": 61,
    "code": null,
@@ -74778,7 +74833,8 @@
   "Shelter STUCK comes from the morning exit needing a block to fill a stair step, so the follow-up should climb using only mining (a dug staircase into the shaft wall), with a block placed only if one is carried.",
   "Retreat NO_PROGRESS with the monster still about 9 blocks away probably means the planner is reacting to monsters behind rock that the client knows about. Only a seen, close or hurting monster should get a fight-or-flee option.",
   "Nether first deaths are mostly lava or fire during fortress:find (the log shows \"in lava\" x11), and Baritone digging netherrack there opens lava a player couldn't see. Making the search dig less goes after where lava gets reached, not after the escape.",
-  "Collect STUCK repeats right after unstuck/goto failures because the same pathfinder stalls; going straight at a remembered block with keys and hand-mining bypasses the route that keeps stalling."
+  "Collect STUCK repeats right after unstuck/goto failures because the same pathfinder stalls; going straight at a remembered block with keys and hand-mining bypasses the route that keeps stalling.",
+  "The collect-log/explore-log loop comes from explore seeing remembered logs farther than collect's 64-block range; walking to the far remembered log from inside collect sidesteps the mismatch without touching explore."
  ],
  "learned_race": {
   "gen": 256,
@@ -74799,7 +74855,7 @@
   "mean_gap_ok": -0.1933,
   "n": 2467
  },
- "next_id": 466,
+ "next_id": 467,
  "pending": null,
  "race_evidence_version": 2,
  "score_since_gen": 179,
