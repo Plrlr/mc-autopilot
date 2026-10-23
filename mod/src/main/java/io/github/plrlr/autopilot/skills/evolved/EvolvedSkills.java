@@ -31,6 +31,7 @@ public final class EvolvedSkills {
 
 	static {
 		// evolve:entries (scripts/loop/evolve.py appends one add(...) line per evolved skill here)
+		add(new Entry("evolved.dig_to_target", "dig_to_target", DigToTarget::new, DigToTarget::offer, "After collect STUCK: hand-mine the nearest remembered target block, tunnelling straight toward it by keys"));
 		// evolve:end
 	}
 
