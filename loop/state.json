@@ -3519,7 +3519,8 @@
   "2026-10-19": 1,
   "2026-10-20": 4,
   "2026-10-21": 4,
-  "2026-10-22": 1
+  "2026-10-22": 1,
+  "2026-10-23": 1
  },
  "evolve_log": [
   {
@@ -3910,6 +3911,13 @@
    "gid": "g458",
    "mode": "edit",
    "result": "racing"
+  },
+  {
+   "gen": 455,
+   "gid": "g460",
+   "mode": "skill",
+   "result": "drilling",
+   "target": "collect STUCK"
   }
  ],
  "gen": 455,
@@ -66563,6 +66571,75 @@
    "parent": "g24",
    "status": "rejected"
   },
+  "g460": {
+   "born": 455,
+   "code": {
+    "base": "76b2a838dfc2ac7974f9003a6536cd12d0aaf823",
+    "branch": "evolve/g460",
+    "files": [
+     "mod/src/main/java/io/github/plrlr/autopilot/skills/evolved/DigToTarget.java",
+     "mod/src/main/java/io/github/plrlr/autopilot/skills/evolved/EvolvedSkills.java",
+     "mod/src/main/resources/evolved-genes.json"
+    ],
+    "gene": "evolved.dig_to_target",
+    "kind": "skill",
+    "sha": "3b76a84d573dbcedfa47cba4a86e9190708dc41e",
+    "skill": "dig_to_target",
+    "summary": "dig_to_target: right after collect fails STUCK, mines the nearest remembered target block by hand, digging a 1x2 key-driven tunnel toward it instead of re-pathing with Baritone",
+    "target": "collect STUCK"
+   },
+   "drill": {
+    "gen": 455,
+    "idea": {
+     "_metric": "resolve:collect:STUCK+dig_to_target",
+     "evolved.dig_to_target": 1
+    },
+    "run": 39896167887
+   },
+   "evals": [],
+   "exposure_spec": {
+    "skill": "dig_to_target"
+   },
+   "genes": {
+    "bed.table_first": 1.0,
+    "brain.utility": 1.0,
+    "combat.ignore_walled_mobs": 1.0,
+    "combat.shield_guard": 1.0,
+    "death.recover_night_armor": 12.0,
+    "evolved.dig_to_target": 1.0,
+    "focus.commit": 1.0,
+    "fortress.anchor_scope": 1.0,
+    "gather.coal_extra": 3.0,
+    "gather.coal_view_dist": 16.0,
+    "gear.sword_early": 1.0,
+    "learned.weight": 1.0,
+    "move.shore_first": 1.0,
+    "nav.surface_v2": 1.0,
+    "nav.unstuck_v2": 1.0,
+    "night.shelter_exit": 1.0,
+    "pearls.provoke_s": 19.0,
+    "plan.hide_hp": 15.0,
+    "plan.readiness": 1.0,
+    "portal.prepare_work_area": 1.0,
+    "portal.reserve_lava_bucket": 1.0,
+    "route.armor_before_portal": 1.0,
+    "skill.drain_tunnel": 1.0,
+    "skill.enderman_warped": 1.0,
+    "skill.ruined_portal": 1.0,
+    "skill.stash": 1.0,
+    "stuck.item_progress": 1.0
+   },
+   "id": "g460",
+   "metric": "resolve:collect:STUCK+dig_to_target",
+   "mutated": [
+    "code",
+    "evolved.dig_to_target"
+   ],
+   "note": "code: new skill dig_to_target for collect STUCK: dig_to_target: right after collect fails STUCK, mines the nearest remembered target block by hand, digging a 1x2 key-driven tunnel toward it instead of re-pathing with Baritone",
+   "pairs": [],
+   "parent": "g455",
+   "status": "drilling"
+  },
   "g47": {
    "born": 61,
    "code": null,
@@ -74106,7 +74183,8 @@
   "Shore keeps failing in the same water, and five fixes to how it moves lost (a sixth never ran); this tries limiting how long the planner insists on shore in one spot instead.",
   "Shelter STUCK comes from the morning exit needing a block to fill a stair step, so the follow-up should climb using only mining (a dug staircase into the shaft wall), with a block placed only if one is carried.",
   "Retreat NO_PROGRESS with the monster still about 9 blocks away probably means the planner is reacting to monsters behind rock that the client knows about. Only a seen, close or hurting monster should get a fight-or-flee option.",
-  "Nether first deaths are mostly lava or fire during fortress:find (the log shows \"in lava\" x11), and Baritone digging netherrack there opens lava a player couldn't see. Making the search dig less goes after where lava gets reached, not after the escape."
+  "Nether first deaths are mostly lava or fire during fortress:find (the log shows \"in lava\" x11), and Baritone digging netherrack there opens lava a player couldn't see. Making the search dig less goes after where lava gets reached, not after the escape.",
+  "Collect STUCK repeats right after unstuck/goto failures because the same pathfinder stalls; going straight at a remembered block with keys and hand-mining bypasses the route that keeps stalling."
  ],
  "learned_race": {
   "gen": 256,
@@ -74127,7 +74205,7 @@
   "mean_gap_ok": -0.3955,
   "n": 2440
  },
- "next_id": 460,
+ "next_id": 461,
  "pending": null,
  "race_evidence_version": 2,
  "score_since_gen": 179,
@@ -75091,6 +75169,13 @@
    "result": "inconclusive: never ran in its drill (its offer never fired): INCONCLUSIVE: on 0/0 fixed (0%), off 0/0 fixed (0%), z +0.0; exposure on its side: shelter_dig_out offered 0, chosen 0, started 0, ended 0 (0 ok); acted in 0 of 3 games",
    "skill": "shelter_dig_out",
    "target": "shelter STUCK"
+  },
+  {
+   "gen": 455,
+   "gid": "g460",
+   "result": "drilling",
+   "skill": "dig_to_target",
+   "target": "collect STUCK"
   }
  ],
  "skill_stats": {
