@@ -3571,7 +3571,7 @@
   "2026-10-20": 14,
   "2026-10-21": 14,
   "2026-10-22": 10,
-  "2026-10-23": 2
+  "2026-10-23": 3
  },
  "evolve_days": {
   "2026-09-27": 1,
@@ -3997,7 +3997,7 @@
    "target": "collect STUCK"
   }
  ],
- "gen": 456,
+ "gen": 457,
  "gene_specs": {
   "bed.table_first": {
    "def": 0.0,
@@ -66691,7 +66691,9 @@
      "_metric": "resolve:collect:STUCK+dig_to_target",
      "evolved.dig_to_target": 1
     },
-    "run": 39896167887
+    "run": 39896167887,
+    "verdict": "INCONCLUSIVE",
+    "why": "INCONCLUSIVE: on 0/0 fixed (0%), off 1/1 fixed (100%), z +0.0; exposure on its side: dig_to_target offered 0, chosen 0, started 0, ended 0 (0 ok); acted in 0 of 3 games"
    },
    "evals": [],
    "exposure_spec": {
@@ -66727,6 +66729,7 @@
     "stuck.item_progress": 1.0
    },
    "id": "g460",
+   "inconclusive": "never ran in its drill",
    "metric": "resolve:collect:STUCK+dig_to_target",
    "mutated": [
     "code",
@@ -66735,7 +66738,7 @@
    "note": "code: new skill dig_to_target for collect STUCK: dig_to_target: right after collect fails STUCK, mines the nearest remembered target block by hand, digging a 1x2 key-driven tunnel toward it instead of re-pathing with Baritone",
    "pairs": [],
    "parent": "g455",
-   "status": "drilling"
+   "status": "rejected"
   },
   "g461": {
    "born": 456,
@@ -66990,6 +66993,93 @@
    ],
    "parent": "g455",
    "status": "rejected"
+  },
+  "g464": {
+   "born": 457,
+   "code": null,
+   "evals": [],
+   "genes": {
+    "bed.table_first": 1.0,
+    "brain.utility": 1.0,
+    "combat.ignore_walled_mobs": 1.0,
+    "combat.shield_guard": 1.0,
+    "death.recover_night_armor": 12.0,
+    "focus.commit": 1.0,
+    "fortress.anchor_scope": 1.0,
+    "gather.coal_extra": 3.0,
+    "gather.coal_view_dist": 16.0,
+    "gear.sword_early": 1.0,
+    "learned.weight": 1.0,
+    "move.shore_first": 1.0,
+    "nav.surface_v2": 1.0,
+    "nav.unstuck_v2": 1.0,
+    "night.shelter_exit": 1.0,
+    "pearls.provoke_s": 19.0,
+    "plan.hide_hp": 15.0,
+    "plan.readiness": 1.0,
+    "portal.prepare_work_area": 1.0,
+    "portal.reserve_lava_bucket": 1.0,
+    "ready.nether_blocks": 13.0,
+    "route.armor_before_portal": 1.0,
+    "skill.drain_tunnel": 1.0,
+    "skill.enderman_warped": 1.0,
+    "skill.ruined_portal": 1.0,
+    "skill.stash": 1.0,
+    "stuck.item_progress": 1.0
+   },
+   "id": "g464",
+   "mutated": [
+    "ready.nether_blocks"
+   ],
+   "note": "ready.nether_blocks 13",
+   "pairs": [],
+   "parent": "g455",
+   "status": "contender"
+  },
+  "g465": {
+   "born": 457,
+   "code": null,
+   "evals": [],
+   "genes": {
+    "bed.table_first": 1.0,
+    "combat.ignore_walled_mobs": 1.0,
+    "combat.shield_guard": 1.0,
+    "death.recover_night_armor": 12.0,
+    "focus.commit": 1.0,
+    "fortress.anchor_scope": 1.0,
+    "gather.coal_extra": 3.0,
+    "gather.coal_view_dist": 16.0,
+    "gear.sword_early": 1.0,
+    "learned.weight": 1.0,
+    "move.shore_first": 1.0,
+    "nav.surface_v2": 1.0,
+    "nav.unstuck_v2": 1.0,
+    "night.shelter_exit": 1.0,
+    "night.shelter_radius": 21.0,
+    "pearls.provoke_s": 19.0,
+    "plan.hide_hp": 15.0,
+    "plan.readiness": 1.0,
+    "portal.prepare_work_area": 1.0,
+    "portal.reserve_lava_bucket": 1.0,
+    "route.armor_before_portal": 1.0,
+    "skill.drain_tunnel": 1.0,
+    "skill.enderman_warped": 1.0,
+    "skill.lava_scout": 1.0,
+    "skill.nether_arrival": 1.0,
+    "skill.ruined_portal": 1.0,
+    "skill.stash": 1.0,
+    "stuck.item_progress": 1.0
+   },
+   "id": "g465",
+   "mutated": [
+    "skill.nether_arrival",
+    "skill.lava_scout",
+    "brain.utility"
+   ],
+   "note": "skill.nether_arrival 1, skill.lava_scout 1, brain.utility 0",
+   "pairs": [],
+   "parent": "g462",
+   "status": "contender"
   },
   "g47": {
    "born": 61,
@@ -74556,8 +74646,89 @@
   "mean_gap_ok": -0.1015,
   "n": 2467
  },
- "next_id": 464,
- "pending": null,
+ "next_id": 466,
+ "pending": {
+  "data_tasks": [
+   {
+    "kind": "scenario",
+    "late": true,
+    "scenario": "stronghold",
+    "seed": "D457-mt87ws",
+    "stage": "eyes",
+    "synthetic": true
+   },
+   {
+    "kind": "natural",
+    "seed": "D457-sgcawm",
+    "stage": "spawn",
+    "synthetic": false
+   }
+  ],
+  "gen": 457,
+  "lineup": [
+   "g455",
+   "g462",
+   "g464",
+   "g465"
+  ],
+  "runs": [
+   "eval-g455-0",
+   "eval-g455-1",
+   "eval-g455-2",
+   "eval-g455-3",
+   "eval-g462-0",
+   "eval-g462-1",
+   "eval-g462-2",
+   "eval-g462-3",
+   "eval-g464-0",
+   "eval-g464-1",
+   "eval-g464-2",
+   "eval-g464-3",
+   "eval-g465-0",
+   "eval-g465-1",
+   "eval-g465-2",
+   "eval-g465-3",
+   "data-g455-0",
+   "data-g455-1"
+  ],
+  "seeds": [
+   "L457-xyhd4a",
+   "L457-wpwvuk",
+   "L457-e2ykv4",
+   "L457-hcrncv"
+  ],
+  "sha": "76b2a838dfc2ac7974f9003a6536cd12d0aaf823",
+  "started": "2026-10-23T05:28:56+00:00",
+  "tasks": [
+   {
+    "kind": "natural",
+    "seed": "L457-xyhd4a",
+    "stage": "spawn",
+    "synthetic": false
+   },
+   {
+    "kind": "natural",
+    "seed": "L457-wpwvuk",
+    "stage": "spawn",
+    "synthetic": false
+   },
+   {
+    "asset": "nether-gen356-eval-g350-1.zip",
+    "kind": "start",
+    "seed": "L457-e2ykv4",
+    "stage": "nether",
+    "synthetic": false
+   },
+   {
+    "kind": "combat",
+    "minutes": 10,
+    "scenario": "combat",
+    "seed": "L457-hcrncv",
+    "stage": "combat",
+    "synthetic": false
+   }
+  ]
+ },
  "race_evidence_version": 2,
  "score_since_gen": 179,
  "score_version": 4,
@@ -75524,7 +75695,7 @@
   {
    "gen": 455,
    "gid": "g460",
-   "result": "drilling",
+   "result": "inconclusive: never ran in its drill (its offer never fired): INCONCLUSIVE: on 0/0 fixed (0%), off 1/1 fixed (100%), z +0.0; exposure on its side: dig_to_target offered 0, chosen 0, started 0, ended 0 (0 ok); acted in 0 of 3 games",
    "skill": "dig_to_target",
    "target": "collect STUCK"
   }
