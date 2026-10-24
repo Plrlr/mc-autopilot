@@ -3616,7 +3616,7 @@
   "2026-10-21": 14,
   "2026-10-22": 10,
   "2026-10-23": 8,
-  "2026-10-24": 2
+  "2026-10-24": 3
  },
  "evolve_days": {
   "2026-09-27": 1,
@@ -4048,7 +4048,7 @@
    "result": "racing"
   }
  ],
- "gen": 464,
+ "gen": 465,
  "gene_specs": {
   "bed.table_first": {
    "def": 0.0,
@@ -67288,7 +67288,8 @@
    "note": "code: Collect log/sand/obsidian: instead of failing NOT_FOUND when the only remembered block lies beyond the 64-block seen range, walk toward it (\u226445 s) until one is in range, then mine; breaks the collect NOT_FOUND / explore ALREADY_DONE handoff loop.",
    "pairs": [],
    "parent": "g455",
-   "status": "contender"
+   "retired_why": "never got a race slot in 7 generations; its base is stale",
+   "status": "retired"
   },
   "g47": {
    "born": 61,
@@ -74860,36 +74861,32 @@
  "pending": {
   "data_tasks": [
    {
-    "asset": "rods-gen350-eval-g330-2.zip",
-    "kind": "start",
+    "kind": "scenario",
     "late": true,
-    "seed": "D464-u9jw4v",
-    "stage": "rods",
-    "synthetic": false
+    "scenario": "stronghold",
+    "seed": "D465-n9dawr",
+    "stage": "eyes",
+    "synthetic": true
    },
    {
     "kind": "natural",
-    "seed": "D464-zk9jkw",
+    "seed": "D465-3h9r6q",
     "stage": "spawn",
     "synthetic": false
    }
   ],
-  "gen": 464,
+  "gen": 465,
   "lineup": [
    "g455",
-   "g466",
    "g462",
-   "g464"
+   "g464",
+   "g465"
   ],
   "runs": [
    "eval-g455-0",
    "eval-g455-1",
    "eval-g455-2",
    "eval-g455-3",
-   "eval-g466-0",
-   "eval-g466-1",
-   "eval-g466-2",
-   "eval-g466-3",
    "eval-g462-0",
    "eval-g462-1",
    "eval-g462-2",
@@ -74898,34 +74895,38 @@
    "eval-g464-1",
    "eval-g464-2",
    "eval-g464-3",
+   "eval-g465-0",
+   "eval-g465-1",
+   "eval-g465-2",
+   "eval-g465-3",
    "data-g455-0",
    "data-g455-1"
   ],
   "seeds": [
-   "L464-dvz674",
-   "L464-tprm3d",
-   "L464-p6egha",
-   "L464-5z4wn5"
+   "L465-4ha7bh",
+   "L465-d2bnqb",
+   "L465-z4uc4t",
+   "L465-y9n6an"
   ],
   "sha": "76b2a838dfc2ac7974f9003a6536cd12d0aaf823",
-  "started": "2026-10-24T06:00:30+00:00",
+  "started": "2026-10-24T11:17:20+00:00",
   "tasks": [
    {
     "kind": "natural",
-    "seed": "L464-dvz674",
+    "seed": "L465-4ha7bh",
     "stage": "spawn",
     "synthetic": false
    },
    {
     "kind": "natural",
-    "seed": "L464-tprm3d",
+    "seed": "L465-d2bnqb",
     "stage": "spawn",
     "synthetic": false
    },
    {
-    "asset": "nether-gen387-eval-g372-1.zip",
+    "asset": "nether-gen438-eval-g372-0.zip",
     "kind": "start",
-    "seed": "L464-p6egha",
+    "seed": "L465-z4uc4t",
     "stage": "nether",
     "synthetic": false
    },
@@ -74933,7 +74934,7 @@
     "kind": "combat",
     "minutes": 10,
     "scenario": "combat",
-    "seed": "L464-5z4wn5",
+    "seed": "L465-y9n6an",
     "stage": "combat",
     "synthetic": false
    }
