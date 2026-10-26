@@ -234,7 +234,10 @@ public final class CombatSkills {
 				Mc.mc().options.keySprint.setDown(true);
 				return;
 			}
-			if (dist > 3.0) {
+			// Reach is measured from the eyes to the hitbox (as the game does), not centre to centre:
+			// a mob on a ledge or step can be 3.4 blocks away by centre distance yet within reach.
+			double reach = Math.sqrt(hitBox.getBoundingBox().distanceToSqr(pl.getEyePosition()));
+			if (dist > 3.0 && reach > 2.9) {
 				// Not getting any closer for 8 s: it's across water or down a hole. Give up on
 				// this one for a minute instead of chasing it until the 45 s timeout (trials lost
 				// 8 minutes to one zombie that way).
