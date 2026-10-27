@@ -3953,7 +3953,7 @@
   "2026-10-24": 8,
   "2026-10-25": 7,
   "2026-10-26": 7,
-  "2026-10-27": 2
+  "2026-10-27": 3
  },
  "evolve_days": {
   "2026-09-27": 1,
@@ -4411,7 +4411,7 @@
    "result": "racing"
   }
  ],
- "gen": 486,
+ "gen": 487,
  "gene_specs": {
   "bed.table_first": {
    "def": 0.0,
@@ -68932,6 +68932,56 @@
    "parent": "g455",
    "status": "contender"
   },
+  "g471": {
+   "born": 487,
+   "code": {
+    "base": "76b2a838dfc2ac7974f9003a6536cd12d0aaf823",
+    "branch": "evolve/g470",
+    "files": [
+     "mod/src/main/java/io/github/plrlr/autopilot/skills/CombatSkills.java"
+    ],
+    "sha": "243454288de527f9a9e1ef50bb2a5d609499024f",
+    "summary": "Attack decides it's in range by measuring from the eyes to the mob's hitbox, as the game does, instead of centre-to-centre distance over 3.0. Mobs on a ledge or step about 3.1\u20133.5 blocks away now get hit instead of being chased in place until the 8 s UNREACHABLE give-up."
+   },
+   "evals": [],
+   "genes": {
+    "bed.table_first": 1.0,
+    "brain.utility": 1.0,
+    "combat.ignore_walled_mobs": 1.0,
+    "combat.shield_guard": 1.0,
+    "death.recover_night_armor": 12.0,
+    "focus.commit": 1.0,
+    "fortress.anchor_scope": 1.0,
+    "gather.coal_extra": 3.0,
+    "gather.coal_view_dist": 16.0,
+    "gear.sword_early": 1.0,
+    "learned.weight": 1.0,
+    "move.shore_first": 1.0,
+    "nav.surface_v2": 1.0,
+    "nav.unstuck_v2": 1.0,
+    "night.shelter_exit": 1.0,
+    "pearls.provoke_s": 19.0,
+    "plan.hide_hp": 15.0,
+    "plan.readiness": 1.0,
+    "portal.carve_search": 1.0,
+    "portal.prepare_work_area": 1.0,
+    "portal.reserve_lava_bucket": 1.0,
+    "route.armor_before_portal": 1.0,
+    "skill.drain_tunnel": 1.0,
+    "skill.enderman_warped": 1.0,
+    "skill.ruined_portal": 1.0,
+    "skill.stash": 1.0,
+    "stuck.item_progress": 1.0
+   },
+   "id": "g471",
+   "mutated": [
+    "portal.carve_search"
+   ],
+   "note": "portal.carve_search 1",
+   "pairs": [],
+   "parent": "g470",
+   "status": "contender"
+  },
   "g48": {
    "born": 63,
    "code": null,
@@ -76377,8 +76427,89 @@
   "mean_gap_ok": -0.0341,
   "n": 2543
  },
- "next_id": 471,
- "pending": null,
+ "next_id": 472,
+ "pending": {
+  "data_tasks": [
+   {
+    "asset": "end-gen304-data-g237-0.zip",
+    "kind": "start",
+    "late": true,
+    "seed": "D487-u6xt94",
+    "stage": "end",
+    "synthetic": true
+   },
+   {
+    "kind": "natural",
+    "seed": "D487-z7rg6p",
+    "stage": "spawn",
+    "synthetic": false
+   }
+  ],
+  "gen": 487,
+  "lineup": [
+   "g455",
+   "g470",
+   "g469",
+   "g471"
+  ],
+  "runs": [
+   "eval-g455-0",
+   "eval-g455-1",
+   "eval-g455-2",
+   "eval-g455-3",
+   "eval-g470-0",
+   "eval-g470-1",
+   "eval-g470-2",
+   "eval-g470-3",
+   "eval-g469-0",
+   "eval-g469-1",
+   "eval-g469-2",
+   "eval-g469-3",
+   "eval-g471-0",
+   "eval-g471-1",
+   "eval-g471-2",
+   "eval-g471-3",
+   "data-g455-0",
+   "data-g455-1"
+  ],
+  "seeds": [
+   "L487-arx3hg",
+   "L487-8tq7ev",
+   "L487-5vxdyg",
+   "L487-bq4b8q"
+  ],
+  "sha": "76b2a838dfc2ac7974f9003a6536cd12d0aaf823",
+  "started": "2026-10-27T08:14:12+00:00",
+  "tasks": [
+   {
+    "kind": "natural",
+    "seed": "L487-arx3hg",
+    "stage": "spawn",
+    "synthetic": false
+   },
+   {
+    "kind": "natural",
+    "seed": "L487-8tq7ev",
+    "stage": "spawn",
+    "synthetic": false
+   },
+   {
+    "asset": "nether-gen362-eval-g358-1.zip",
+    "kind": "start",
+    "seed": "L487-5vxdyg",
+    "stage": "nether",
+    "synthetic": false
+   },
+   {
+    "kind": "combat",
+    "minutes": 10,
+    "scenario": "combat",
+    "seed": "L487-bq4b8q",
+    "stage": "combat",
+    "synthetic": false
+   }
+  ]
+ },
  "race_evidence_version": 2,
  "score_since_gen": 179,
  "score_version": 4,
