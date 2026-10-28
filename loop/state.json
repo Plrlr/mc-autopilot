@@ -4127,7 +4127,7 @@
   "2026-10-24": 2,
   "2026-10-25": 1,
   "2026-10-26": 1,
-  "2026-10-28": 1
+  "2026-10-28": 2
  },
  "evolve_log": [
   {
@@ -4561,6 +4561,12 @@
    "mode": "skill",
    "result": "drilling",
    "target": "goto:surface UNREACHABLE"
+  },
+  {
+   "gen": 492,
+   "gid": "g476",
+   "mode": "edit",
+   "result": "racing"
   }
  ],
  "gen": 492,
@@ -69766,6 +69772,55 @@
    "parent": "g455",
    "status": "contender"
   },
+  "g476": {
+   "born": 492,
+   "code": {
+    "base": "76b2a838dfc2ac7974f9003a6536cd12d0aaf823",
+    "branch": "evolve/g476",
+    "files": [
+     "mod/src/main/java/io/github/plrlr/autopilot/plan/Planner.java"
+    ],
+    "sha": "1134fbcf2bf2395d2199e2c66c76ed8bb3c36842",
+    "summary": "In the Nether, keep_full no longer wants food below 18 hunger while at full health, so fortress find isn't cut off mid-walk (often near lava) by an eat that gives no regeneration; hurt or genuinely hungry still eats."
+   },
+   "evals": [],
+   "genes": {
+    "bed.table_first": 1.0,
+    "brain.utility": 1.0,
+    "combat.ignore_walled_mobs": 1.0,
+    "combat.shield_guard": 1.0,
+    "death.recover_night_armor": 12.0,
+    "focus.commit": 1.0,
+    "fortress.anchor_scope": 1.0,
+    "gather.coal_extra": 3.0,
+    "gather.coal_view_dist": 16.0,
+    "gear.sword_early": 1.0,
+    "learned.weight": 1.0,
+    "move.shore_first": 1.0,
+    "nav.surface_v2": 1.0,
+    "nav.unstuck_v2": 1.0,
+    "night.shelter_exit": 1.0,
+    "pearls.provoke_s": 19.0,
+    "plan.hide_hp": 15.0,
+    "plan.readiness": 1.0,
+    "portal.prepare_work_area": 1.0,
+    "portal.reserve_lava_bucket": 1.0,
+    "route.armor_before_portal": 1.0,
+    "skill.drain_tunnel": 1.0,
+    "skill.enderman_warped": 1.0,
+    "skill.ruined_portal": 1.0,
+    "skill.stash": 1.0,
+    "stuck.item_progress": 1.0
+   },
+   "id": "g476",
+   "mutated": [
+    "code"
+   ],
+   "note": "code: In the Nether, keep_full no longer wants food below 18 hunger while at full health, so fortress find isn't cut off mid-walk (often near lava) by an eat that gives no regeneration; hurt or genuinely hungry still eats.",
+   "pairs": [],
+   "parent": "g455",
+   "status": "contender"
+  },
   "g48": {
    "born": 63,
    "code": null,
@@ -77191,7 +77246,8 @@
   "Collect STUCK repeats right after unstuck/goto failures because the same pathfinder stalls; going straight at a remembered block with keys and hand-mining bypasses the route that keeps stalling.",
   "The collect-log/explore-log loop comes from explore seeing remembered logs farther than collect's 64-block range; walking to the far remembered log from inside collect sidesteps the mismatch without touching explore.",
   "The 'can't reach the zombie (3 blocks away)' failures come from the walk-closer branch using centre-to-centre distance; Baritone's GoalNear radius 1 is already met, so the bot stands still and never swings at a mob within reach.",
-  "goto surface's staircase judges the cells at the feet, which are all water when the bot is swimming underground; starting the staircase one block up, from the waterline into the dry wall, avoids the water entirely."
+  "goto surface's staircase judges the cells at the feet, which are all water when the bot is swimming underground; starting the staircase one block up, from the waterline into the dry wall, avoids the water entirely.",
+  "Nether first deaths cluster right after 'fortress:find interrupted: brain chose eat' (x10); eating at full health to stay above 18 hunger only stops the walk in dangerous terrain without healing anything."
  ],
  "learned_race": {
   "gen": 256,
@@ -77212,7 +77268,7 @@
   "mean_gap_ok": -0.1547,
   "n": 2570
  },
- "next_id": 476,
+ "next_id": 477,
  "pending": null,
  "race_evidence_version": 2,
  "score_since_gen": 179,
