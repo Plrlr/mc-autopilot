@@ -31,6 +31,7 @@ public final class EvolvedSkills {
 
 	static {
 		// evolve:entries (scripts/loop/evolve.py appends one add(...) line per evolved skill here)
+		add(new Entry("evolved.water_stair_out", "water_stair_out", WaterStairOut::new, WaterStairOut::offer, "Stuck in cave water and goto surface found no way up: rise to the waterline and dig steps up into the dry wall"));
 		// evolve:end
 	}
 
