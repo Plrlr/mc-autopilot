@@ -4097,7 +4097,7 @@
   "2026-10-25": 7,
   "2026-10-26": 7,
   "2026-10-27": 6,
-  "2026-10-28": 4
+  "2026-10-28": 5
  },
  "evolve_days": {
   "2026-09-27": 1,
@@ -4569,7 +4569,7 @@
    "result": "racing"
   }
  ],
- "gen": 494,
+ "gen": 495,
  "gene_specs": {
   "bed.table_first": {
    "def": 0.0,
@@ -70103,6 +70103,102 @@
    "parent": "g455",
    "status": "contender"
   },
+  "g477": {
+   "born": 495,
+   "code": {
+    "base": "76b2a838dfc2ac7974f9003a6536cd12d0aaf823",
+    "branch": "evolve/g476",
+    "files": [
+     "mod/src/main/java/io/github/plrlr/autopilot/plan/Planner.java"
+    ],
+    "sha": "1134fbcf2bf2395d2199e2c66c76ed8bb3c36842",
+    "summary": "In the Nether, keep_full no longer wants food below 18 hunger while at full health, so fortress find isn't cut off mid-walk (often near lava) by an eat that gives no regeneration; hurt or genuinely hungry still eats."
+   },
+   "evals": [],
+   "genes": {
+    "bed.table_first": 1.0,
+    "brain.utility": 1.0,
+    "combat.backstep": 1.0,
+    "combat.ignore_walled_mobs": 1.0,
+    "combat.shield_guard": 1.0,
+    "death.recover_night_armor": 12.0,
+    "focus.commit": 1.0,
+    "fortress.anchor_scope": 1.0,
+    "gather.coal_extra": 3.0,
+    "gather.coal_view_dist": 16.0,
+    "gear.sword_early": 1.0,
+    "learned.weight": 1.0,
+    "move.shore_first": 1.0,
+    "nav.surface_v2": 1.0,
+    "nav.unstuck_v2": 1.0,
+    "night.shelter_exit": 1.0,
+    "pearls.provoke_s": 19.0,
+    "plan.hide_hp": 15.0,
+    "plan.readiness": 1.0,
+    "portal.prepare_work_area": 1.0,
+    "portal.reserve_lava_bucket": 1.0,
+    "route.armor_before_portal": 1.0,
+    "skill.drain_tunnel": 1.0,
+    "skill.enderman_warped": 1.0,
+    "skill.ruined_portal": 1.0,
+    "skill.stash": 1.0,
+    "stuck.item_progress": 1.0,
+    "survival.melee_lock": 3.1066540950442283
+   },
+   "id": "g477",
+   "mutated": [
+    "combat.backstep",
+    "survival.melee_lock"
+   ],
+   "note": "combat.backstep 1, survival.melee_lock 3.10665",
+   "pairs": [],
+   "parent": "g476",
+   "status": "contender"
+  },
+  "g478": {
+   "born": 495,
+   "code": null,
+   "evals": [],
+   "genes": {
+    "bed.table_first": 1.0,
+    "brain.utility": 1.0,
+    "combat.ignore_walled_mobs": 1.0,
+    "combat.shield_guard": 1.0,
+    "death.recover_night_armor": 12.0,
+    "focus.commit": 1.0,
+    "fortress.anchor_scope": 1.0,
+    "gather.coal_extra": 3.0,
+    "gather.coal_view_dist": 16.0,
+    "gear.sword_early": 1.0,
+    "learned.weight": 1.0,
+    "move.shore_first": 1.0,
+    "nav.surface_v2": 1.0,
+    "nav.unstuck_v2": 1.0,
+    "night.shelter_exit": 1.0,
+    "pearls.provoke_s": 19.0,
+    "plan.hide_hp": 15.0,
+    "plan.readiness": 1.0,
+    "portal.prepare_work_area": 1.0,
+    "portal.reserve_lava_bucket": 1.0,
+    "restock.stash_only": 1.0,
+    "route.armor_before_portal": 1.0,
+    "skill.drain_tunnel": 1.0,
+    "skill.enderman_warped": 1.0,
+    "skill.ruined_portal": 1.0,
+    "skill.stash": 1.0,
+    "stuck.item_progress": 1.0,
+    "stuck.window_s": 18.0
+   },
+   "id": "g478",
+   "mutated": [
+    "stuck.window_s",
+    "restock.stash_only"
+   ],
+   "note": "stuck.window_s 18, restock.stash_only 1",
+   "pairs": [],
+   "parent": "g455",
+   "status": "contender"
+  },
   "g48": {
    "born": 63,
    "code": null,
@@ -77550,8 +77646,89 @@
   "mean_gap_ok": -0.0854,
   "n": 2594
  },
- "next_id": 477,
- "pending": null,
+ "next_id": 479,
+ "pending": {
+  "data_tasks": [
+   {
+    "asset": "end-gen304-data-g237-0.zip",
+    "kind": "start",
+    "late": true,
+    "seed": "D495-yhrs35",
+    "stage": "end",
+    "synthetic": true
+   },
+   {
+    "kind": "natural",
+    "seed": "D495-zez9zt",
+    "stage": "spawn",
+    "synthetic": false
+   }
+  ],
+  "gen": 495,
+  "lineup": [
+   "g455",
+   "g476",
+   "g477",
+   "g478"
+  ],
+  "runs": [
+   "eval-g455-0",
+   "eval-g455-1",
+   "eval-g455-2",
+   "eval-g455-3",
+   "eval-g476-0",
+   "eval-g476-1",
+   "eval-g476-2",
+   "eval-g476-3",
+   "eval-g477-0",
+   "eval-g477-1",
+   "eval-g477-2",
+   "eval-g477-3",
+   "eval-g478-0",
+   "eval-g478-1",
+   "eval-g478-2",
+   "eval-g478-3",
+   "data-g455-0",
+   "data-g455-1"
+  ],
+  "seeds": [
+   "L495-gnky8m",
+   "L495-2eegbb",
+   "L495-fuscb6",
+   "L495-dynzx7"
+  ],
+  "sha": "76b2a838dfc2ac7974f9003a6536cd12d0aaf823",
+  "started": "2026-10-28T09:51:08+00:00",
+  "tasks": [
+   {
+    "kind": "natural",
+    "seed": "L495-gnky8m",
+    "stage": "spawn",
+    "synthetic": false
+   },
+   {
+    "kind": "natural",
+    "seed": "L495-2eegbb",
+    "stage": "spawn",
+    "synthetic": false
+   },
+   {
+    "asset": "nether-gen413-eval-g421-1.zip",
+    "kind": "start",
+    "seed": "L495-fuscb6",
+    "stage": "nether",
+    "synthetic": false
+   },
+   {
+    "kind": "combat",
+    "minutes": 10,
+    "scenario": "combat",
+    "seed": "L495-dynzx7",
+    "stage": "combat",
+    "synthetic": false
+   }
+  ]
+ },
  "race_evidence_version": 2,
  "score_since_gen": 179,
  "score_version": 4,
