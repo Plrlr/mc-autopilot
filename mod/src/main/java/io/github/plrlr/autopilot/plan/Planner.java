@@ -427,7 +427,9 @@ public final class Planner {
 		if (Tune.on("food.keep_full")) {
 			// Raw chicken and other risky food are a last resort, not routine regeneration fuel.
 			if (Mc.count(s -> Items2.isGoodFood(s) || food <= 6 && Items2.isAnyFood(s)) == 0) return false;
-			if (food < 18) return true;
+			// In the Nether, topping up at full health only stops the walk on a lava ledge: regeneration
+			// needs 18+ hunger, but there is nothing to regenerate yet.
+			if (food < 18 && (pl.getHealth() < pl.getMaxHealth() || !Mc.dimension().equals("the_nether"))) return true;
 		} else if (Mc.count(Items2::isAnyFood) == 0) return false;
 		return food <= Tune.i("food.eat_at") || (food <= Tune.i("food.eat_hurt_at") && pl.getHealth() < pl.getMaxHealth());
 	}
