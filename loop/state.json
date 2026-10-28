@@ -4125,7 +4125,8 @@
   "2026-10-23": 2,
   "2026-10-24": 2,
   "2026-10-25": 1,
-  "2026-10-26": 1
+  "2026-10-26": 1,
+  "2026-10-28": 1
  },
  "evolve_log": [
   {
@@ -4552,6 +4553,13 @@
    "gid": "g470",
    "mode": "edit",
    "result": "racing"
+  },
+  {
+   "gen": 490,
+   "gid": "g472",
+   "mode": "skill",
+   "result": "drilling",
+   "target": "goto:surface UNREACHABLE"
   }
  ],
  "gen": 490,
@@ -69267,6 +69275,75 @@
    "parent": "g470",
    "status": "rejected"
   },
+  "g472": {
+   "born": 490,
+   "code": {
+    "base": "76b2a838dfc2ac7974f9003a6536cd12d0aaf823",
+    "branch": "evolve/g472",
+    "files": [
+     "mod/src/main/java/io/github/plrlr/autopilot/skills/evolved/WaterStairOut.java",
+     "mod/src/main/java/io/github/plrlr/autopilot/skills/evolved/EvolvedSkills.java",
+     "mod/src/main/resources/evolved-genes.json"
+    ],
+    "gene": "evolved.water_stair_out",
+    "kind": "skill",
+    "sha": "b94f0555fa576d3cbbe114a6ebb37d358a20782c",
+    "skill": "water_stair_out",
+    "summary": "water_stair_out: after goto surface fails UNREACHABLE because stairs see water on every side, swim to the waterline and dig a staircase starting above the water",
+    "target": "goto:surface UNREACHABLE"
+   },
+   "drill": {
+    "gen": 490,
+    "idea": {
+     "_metric": "resolve:goto:UNREACHABLE+water_stair_out",
+     "evolved.water_stair_out": 1
+    },
+    "run": 40610114970
+   },
+   "evals": [],
+   "exposure_spec": {
+    "skill": "water_stair_out"
+   },
+   "genes": {
+    "bed.table_first": 1.0,
+    "brain.utility": 1.0,
+    "combat.ignore_walled_mobs": 1.0,
+    "combat.shield_guard": 1.0,
+    "death.recover_night_armor": 12.0,
+    "evolved.water_stair_out": 1.0,
+    "focus.commit": 1.0,
+    "fortress.anchor_scope": 1.0,
+    "gather.coal_extra": 3.0,
+    "gather.coal_view_dist": 16.0,
+    "gear.sword_early": 1.0,
+    "learned.weight": 1.0,
+    "move.shore_first": 1.0,
+    "nav.surface_v2": 1.0,
+    "nav.unstuck_v2": 1.0,
+    "night.shelter_exit": 1.0,
+    "pearls.provoke_s": 19.0,
+    "plan.hide_hp": 15.0,
+    "plan.readiness": 1.0,
+    "portal.prepare_work_area": 1.0,
+    "portal.reserve_lava_bucket": 1.0,
+    "route.armor_before_portal": 1.0,
+    "skill.drain_tunnel": 1.0,
+    "skill.enderman_warped": 1.0,
+    "skill.ruined_portal": 1.0,
+    "skill.stash": 1.0,
+    "stuck.item_progress": 1.0
+   },
+   "id": "g472",
+   "metric": "resolve:goto:UNREACHABLE+water_stair_out",
+   "mutated": [
+    "code",
+    "evolved.water_stair_out"
+   ],
+   "note": "code: new skill water_stair_out for goto:surface UNREACHABLE: water_stair_out: after goto surface fails UNREACHABLE because stairs see water on every side, swim to the waterline and dig a staircase starting above the water",
+   "pairs": [],
+   "parent": "g455",
+   "status": "drilling"
+  },
   "g48": {
    "born": 63,
    "code": null,
@@ -76691,7 +76768,8 @@
   "Nether first deaths are mostly lava or fire during fortress:find (the log shows \"in lava\" x11), and Baritone digging netherrack there opens lava a player couldn't see. Making the search dig less goes after where lava gets reached, not after the escape.",
   "Collect STUCK repeats right after unstuck/goto failures because the same pathfinder stalls; going straight at a remembered block with keys and hand-mining bypasses the route that keeps stalling.",
   "The collect-log/explore-log loop comes from explore seeing remembered logs farther than collect's 64-block range; walking to the far remembered log from inside collect sidesteps the mismatch without touching explore.",
-  "The 'can't reach the zombie (3 blocks away)' failures come from the walk-closer branch using centre-to-centre distance; Baritone's GoalNear radius 1 is already met, so the bot stands still and never swings at a mob within reach."
+  "The 'can't reach the zombie (3 blocks away)' failures come from the walk-closer branch using centre-to-centre distance; Baritone's GoalNear radius 1 is already met, so the bot stands still and never swings at a mob within reach.",
+  "goto surface's staircase judges the cells at the feet, which are all water when the bot is swimming underground; starting the staircase one block up, from the waterline into the dry wall, avoids the water entirely."
  ],
  "learned_race": {
   "gen": 256,
@@ -76712,7 +76790,7 @@
   "mean_gap_ok": -0.0937,
   "n": 2550
  },
- "next_id": 472,
+ "next_id": 473,
  "pending": null,
  "race_evidence_version": 2,
  "score_since_gen": 179,
@@ -77683,6 +77761,13 @@
    "result": "inconclusive: never ran in its drill (its offer never fired): INCONCLUSIVE: on 0/0 fixed (0%), off 1/1 fixed (100%), z +0.0; exposure on its side: dig_to_target offered 0, chosen 0, started 0, ended 0 (0 ok); acted in 0 of 3 games",
    "skill": "dig_to_target",
    "target": "collect STUCK"
+  },
+  {
+   "gen": 490,
+   "gid": "g472",
+   "result": "drilling",
+   "skill": "water_stair_out",
+   "target": "goto:surface UNREACHABLE"
   }
  ],
  "skill_stats": {
