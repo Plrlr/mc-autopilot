@@ -4097,7 +4097,7 @@
   "2026-10-25": 7,
   "2026-10-26": 7,
   "2026-10-27": 6,
-  "2026-10-28": 1
+  "2026-10-28": 2
  },
  "evolve_days": {
   "2026-09-27": 1,
@@ -4563,7 +4563,7 @@
    "target": "goto:surface UNREACHABLE"
   }
  ],
- "gen": 491,
+ "gen": 492,
  "gene_specs": {
   "bed.table_first": {
    "def": 0.0,
@@ -69319,7 +69319,9 @@
      "_metric": "resolve:goto:UNREACHABLE+water_stair_out",
      "evolved.water_stair_out": 1
     },
-    "run": 40610114970
+    "run": 40610114970,
+    "verdict": "INCONCLUSIVE",
+    "why": "INCONCLUSIVE: on 0/0 fixed (0%), off 0/0 fixed (0%), z +0.0; exposure on its side: water_stair_out offered 0, chosen 0, started 0, ended 0 (0 ok); acted in 0 of 3 games"
    },
    "evals": [],
    "exposure_spec": {
@@ -69355,6 +69357,7 @@
     "stuck.item_progress": 1.0
    },
    "id": "g472",
+   "inconclusive": "never ran in its drill",
    "metric": "resolve:goto:UNREACHABLE+water_stair_out",
    "mutated": [
     "code",
@@ -69363,7 +69366,7 @@
    "note": "code: new skill water_stair_out for goto:surface UNREACHABLE: water_stair_out: after goto surface fails UNREACHABLE because stairs see water on every side, swim to the waterline and dig a staircase starting above the water",
    "pairs": [],
    "parent": "g455",
-   "status": "drilling"
+   "status": "rejected"
   },
   "g473": {
    "born": 491,
@@ -77070,7 +77073,88 @@
   "n": 2550
  },
  "next_id": 476,
- "pending": null,
+ "pending": {
+  "data_tasks": [
+   {
+    "asset": "rods-gen398-eval-g372-2.zip",
+    "kind": "start",
+    "late": true,
+    "seed": "D492-tjmxgf",
+    "stage": "rods",
+    "synthetic": false
+   },
+   {
+    "kind": "natural",
+    "seed": "D492-xxcbu9",
+    "stage": "spawn",
+    "synthetic": false
+   }
+  ],
+  "gen": 492,
+  "lineup": [
+   "g455",
+   "g475",
+   "g474",
+   "g473"
+  ],
+  "runs": [
+   "eval-g455-0",
+   "eval-g455-1",
+   "eval-g455-2",
+   "eval-g455-3",
+   "eval-g475-0",
+   "eval-g475-1",
+   "eval-g475-2",
+   "eval-g475-3",
+   "eval-g474-0",
+   "eval-g474-1",
+   "eval-g474-2",
+   "eval-g474-3",
+   "eval-g473-0",
+   "eval-g473-1",
+   "eval-g473-2",
+   "eval-g473-3",
+   "data-g455-0",
+   "data-g455-1"
+  ],
+  "seeds": [
+   "L492-3kcq28",
+   "L492-mktevs",
+   "L492-p394r4",
+   "L492-vvyenb"
+  ],
+  "sha": "76b2a838dfc2ac7974f9003a6536cd12d0aaf823",
+  "started": "2026-10-28T02:40:16+00:00",
+  "tasks": [
+   {
+    "kind": "natural",
+    "seed": "L492-3kcq28",
+    "stage": "spawn",
+    "synthetic": false
+   },
+   {
+    "kind": "natural",
+    "seed": "L492-mktevs",
+    "stage": "spawn",
+    "synthetic": false
+   },
+   {
+    "asset": "nether-gen374-eval-g372-0.zip",
+    "kind": "start",
+    "seed": "L492-p394r4",
+    "stage": "nether",
+    "synthetic": false
+   },
+   {
+    "kind": "combat",
+    "minutes": 10,
+    "scenario": "combat",
+    "seed": "L492-vvyenb",
+    "stage": "combat",
+    "synthetic": false
+   }
+  ]
+ },
  "race_evidence_version": 2,
  "score_since_gen": 179,
  "score_version": 4,
@@ -78044,7 +78128,7 @@
   {
    "gen": 490,
    "gid": "g472",
-   "result": "drilling",
+   "result": "inconclusive: never ran in its drill (its offer never fired): INCONCLUSIVE: on 0/0 fixed (0%), off 0/0 fixed (0%), z +0.0; exposure on its side: water_stair_out offered 0, chosen 0, started 0, ended 0 (0 ok); acted in 0 of 3 games",
    "skill": "water_stair_out",
    "target": "goto:surface UNREACHABLE"
   }
