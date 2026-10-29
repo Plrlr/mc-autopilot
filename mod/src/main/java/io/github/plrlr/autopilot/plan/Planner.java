@@ -361,7 +361,10 @@ public final class Planner {
 		if (hostile != null && io.github.plrlr.autopilot.skills.CombatSkills.unreachable(hostile.entity())) hostile = null;
 		// In the Nether only what's on top of us: chasing a magma cube 8 blocks off walked the bot
 		// into lava, and it burned to death (freebuff nether run 0455). Blazes go to the fortress fight.
-		double range = hostile != null && Mc.dimension().equals("the_nether") && !hostile.type().equals("blaze") ? 4 : Tune.get("plan.hostile_range");
+		// Except one that is hurting us right now and in sight (a crossbow piglin shooting from 8
+		// blocks): ignoring it during fortress:find let it kill us (mob:piglin, the top Nether death).
+		boolean hitNow = hostile != null && pl.hurtTime > 0 && Mc.canSee(hostile.entity());
+		double range = hostile != null && Mc.dimension().equals("the_nether") && !hostile.type().equals("blaze") && !hitNow ? 4 : Tune.get("plan.hostile_range");
 		if (hostile != null && hostile.dist() < range) {
 			Option verdict = Tune.on("survival.danger_v2") && !NetherPlan.fightInFortress(Mc.dimension(), hostile)
 					? dangerOption(DangerSense.assess(seen), "visible danger") : null;
