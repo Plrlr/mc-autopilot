@@ -4363,7 +4363,7 @@
   "2026-10-27": 6,
   "2026-10-28": 8,
   "2026-10-29": 6,
-  "2026-10-30": 6
+  "2026-10-30": 7
  },
  "evolve_days": {
   "2026-09-27": 1,
@@ -4850,7 +4850,7 @@
    "target": "fortress DIED"
   }
  ],
- "gen": 510,
+ "gen": 511,
  "gene_specs": {
   "bed.table_first": {
    "def": 0.0,
@@ -71665,7 +71665,9 @@
      "_metric": "deaths",
      "evolved.nether_heal_first": 1
     },
-    "run": 41086251401
+    "run": 41086251401,
+    "verdict": "INCONCLUSIVE",
+    "why": "INCONCLUSIVE: on 4 deaths in 30 min, off 3 deaths in 30 min, z -0.4; exposure on its side: nether_heal_first offered 0, chosen 0, started 0, ended 0 (0 ok); acted in 0 of 3 games"
    },
    "evals": [],
    "exposure_spec": {
@@ -71701,6 +71703,7 @@
     "stuck.item_progress": 1.0
    },
    "id": "g485",
+   "inconclusive": "never ran in its drill",
    "metric": "deaths",
    "mutated": [
     "code",
@@ -71709,7 +71712,7 @@
    "note": "code: new skill nether_heal_first for fortress DIED: nether_heal_first: before fortress find resumes in the Nether with health under 14, step off visible lava/fire, eat to full hunger and stand still until health is 18 again, so the bot doesn't go back to walking at low health after a fight",
    "pairs": [],
    "parent": "g455",
-   "status": "drilling"
+   "status": "rejected"
   },
   "g486": {
    "born": 510,
@@ -79134,21 +79137,21 @@
  "pending": {
   "data_tasks": [
    {
-    "asset": "stronghold-gen242-data-g196-0.zip",
+    "asset": "end-gen378-data-g372-0.zip",
     "kind": "start",
     "late": true,
-    "seed": "D510-tztuc3",
-    "stage": "stronghold",
+    "seed": "D511-shz5fj",
+    "stage": "end",
     "synthetic": true
    },
    {
     "kind": "natural",
-    "seed": "D510-4znfe8",
+    "seed": "D511-zne6zp",
     "stage": "spawn",
     "synthetic": false
    }
   ],
-  "gen": 510,
+  "gen": 511,
   "lineup": [
    "g455",
    "g484",
@@ -79176,30 +79179,30 @@
    "data-g455-1"
   ],
   "seeds": [
-   "L510-gmdzpd",
-   "L510-azx6ja",
-   "L510-nxvxrz",
-   "L510-feyad9"
+   "L511-edew5n",
+   "L511-ufy5rr",
+   "L511-25fejc",
+   "L511-xuqcsj"
   ],
   "sha": "76b2a838dfc2ac7974f9003a6536cd12d0aaf823",
-  "started": "2026-10-30T16:03:02+00:00",
+  "started": "2026-10-30T19:31:26+00:00",
   "tasks": [
    {
     "kind": "natural",
-    "seed": "L510-gmdzpd",
+    "seed": "L511-edew5n",
     "stage": "spawn",
     "synthetic": false
    },
    {
     "kind": "natural",
-    "seed": "L510-azx6ja",
+    "seed": "L511-ufy5rr",
     "stage": "spawn",
     "synthetic": false
    },
    {
-    "asset": "nether-gen346-eval-g330-0.zip",
+    "asset": "nether-gen298-eval-g289-1.zip",
     "kind": "start",
-    "seed": "L510-nxvxrz",
+    "seed": "L511-25fejc",
     "stage": "nether",
     "synthetic": false
    },
@@ -79207,7 +79210,7 @@
     "kind": "combat",
     "minutes": 10,
     "scenario": "combat",
-    "seed": "L510-feyad9",
+    "seed": "L511-xuqcsj",
     "stage": "combat",
     "synthetic": false
    }
@@ -80193,7 +80196,7 @@
   {
    "gen": 509,
    "gid": "g485",
-   "result": "drilling",
+   "result": "inconclusive: never ran in its drill (its offer never fired): INCONCLUSIVE: on 4 deaths in 30 min, off 3 deaths in 30 min, z -0.4; exposure on its side: nether_heal_first offered 0, chosen 0, started 0, ended 0 (0 ok); acted in 0 of 3 games",
    "skill": "nether_heal_first",
    "target": "fortress DIED"
   }
