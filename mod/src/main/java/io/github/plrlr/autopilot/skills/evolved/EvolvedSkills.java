@@ -31,6 +31,7 @@ public final class EvolvedSkills {
 
 	static {
 		// evolve:entries (scripts/loop/evolve.py appends one add(...) line per evolved skill here)
+		add(new Entry("evolved.nether_heal_first", "nether_heal_first", NetherHealFirst::new, NetherHealFirst::offer, "In the Nether, hurt (14 hp) before fortress find: step off lava/fire, eat to full, wait until health is 18"));
 		// evolve:end
 	}
 
