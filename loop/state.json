@@ -4417,7 +4417,8 @@
   "2026-10-26": 1,
   "2026-10-28": 2,
   "2026-10-29": 1,
-  "2026-10-30": 1
+  "2026-10-30": 1,
+  "2026-10-31": 1
  },
  "evolve_log": [
   {
@@ -4870,6 +4871,12 @@
    "mode": "skill",
    "result": "drilling",
    "target": "fortress DIED"
+  },
+  {
+   "gen": 512,
+   "gid": "g487",
+   "mode": "edit",
+   "result": "racing"
   }
  ],
  "gen": 512,
@@ -71912,6 +71919,55 @@
    "parent": "g484",
    "status": "contender"
   },
+  "g487": {
+   "born": 512,
+   "code": {
+    "base": "76b2a838dfc2ac7974f9003a6536cd12d0aaf823",
+    "branch": "evolve/g487",
+    "files": [
+     "mod/src/main/java/io/github/plrlr/autopilot/skills/MoveSkills.java"
+    ],
+    "sha": "baa744110895ea6013b3377eb7046beac3a9cc77",
+    "summary": "In the Nether, explore runs the fortress view-ray sweep (96 blocks) while walking and stops when it first sees fortress bricks. The explore-any fallback after fortress find fails can then actually find a fortress instead of walking blind with a 16-block scan."
+   },
+   "evals": [],
+   "genes": {
+    "bed.table_first": 1.0,
+    "brain.utility": 1.0,
+    "combat.ignore_walled_mobs": 1.0,
+    "combat.shield_guard": 1.0,
+    "death.recover_night_armor": 12.0,
+    "focus.commit": 1.0,
+    "fortress.anchor_scope": 1.0,
+    "gather.coal_extra": 3.0,
+    "gather.coal_view_dist": 16.0,
+    "gear.sword_early": 1.0,
+    "learned.weight": 1.0,
+    "move.shore_first": 1.0,
+    "nav.surface_v2": 1.0,
+    "nav.unstuck_v2": 1.0,
+    "night.shelter_exit": 1.0,
+    "pearls.provoke_s": 19.0,
+    "plan.hide_hp": 15.0,
+    "plan.readiness": 1.0,
+    "portal.prepare_work_area": 1.0,
+    "portal.reserve_lava_bucket": 1.0,
+    "route.armor_before_portal": 1.0,
+    "skill.drain_tunnel": 1.0,
+    "skill.enderman_warped": 1.0,
+    "skill.ruined_portal": 1.0,
+    "skill.stash": 1.0,
+    "stuck.item_progress": 1.0
+   },
+   "id": "g487",
+   "mutated": [
+    "code"
+   ],
+   "note": "code: In the Nether, explore runs the fortress view-ray sweep (96 blocks) while walking and stops when it first sees fortress bricks. The explore-any fallback after fortress find fails can then actually find a fortress instead of walking blind with a 16-block scan.",
+   "pairs": [],
+   "parent": "g455",
+   "status": "contender"
+  },
   "g49": {
    "born": 63,
    "code": null,
@@ -79266,7 +79322,8 @@
   "goto surface's staircase judges the cells at the feet, which are all water when the bot is swimming underground; starting the staircase one block up, from the waterline into the dry wall, avoids the water entirely.",
   "Nether first deaths cluster right after 'fortress:find interrupted: brain chose eat' (x10); eating at full health to stay above 18 hunger only stops the walk in dangerous terrain without healing anything.",
   "Nether first deaths are led by mob:piglin during fortress:find, and the planner's Nether-only 4-block hostile range ignores attackers hitting us from further off; widening it only when we're being hurt by a seen mob keeps the anti-chase-into-lava rule for passive mobs.",
-  "Fortress find DIED at 0 s right after a run of magma-cube fights suggests the search restarts wounded. Healing in a safe spot between the fight and the walk goes after the death itself, not the route."
+  "Fortress find DIED at 0 s right after a run of magma-cube fights suggests the search restarts wounded. Healing in a safe spot between the fight and the walk goes after the death itself, not the route.",
+  "Nether explore-any walks (the top Nether failure) never looked for fortresses beyond the 16-block close scan, so the fallback after fortress find failed couldn't help reach the next stage."
  ],
  "learned_race": {
   "gen": 256,
@@ -79287,7 +79344,7 @@
   "mean_gap_ok": -0.01,
   "n": 2648
  },
- "next_id": 487,
+ "next_id": 488,
  "pending": null,
  "race_evidence_version": 2,
  "score_since_gen": 179,
