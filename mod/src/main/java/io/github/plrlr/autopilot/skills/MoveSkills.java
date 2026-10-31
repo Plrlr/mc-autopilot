@@ -33,6 +33,9 @@ public final class MoveSkills {
 		private List<String> targets = List.of();
 		private int waterTicks;
 		private double startX, startZ;
+		/** Nether: the fortress view-ray sweep's position, and whether bricks were known at the start. */
+		private int ray;
+		private boolean hadBricks;
 
 		@Override
 		public String name() {
@@ -53,6 +56,7 @@ public final class MoveSkills {
 			}
 			startX = pl.getX();
 			startZ = pl.getZ();
+			hadBricks = memory.nearest("nether_bricks") != null;
 			int h = memory.exploreHeading(startX, startZ, DIST);
 			double angle = h * Math.PI / 4;
 			Bari.path(new GoalXZ((int) (startX + Math.cos(angle) * DIST), (int) (startZ + Math.sin(angle) * DIST)));
@@ -88,6 +92,15 @@ public final class MoveSkills {
 
 		@Override
 		protected void tick() {
+			// In the Nether, look around like fortress find does: a fortress is visible from far off,
+			// and explore any is what runs after fortress find fails to make headway.
+			if (Mc.dimension().equals("the_nether")) {
+				ray = NetherSkills.look(memory, ray, 16, 96);
+				if (ticks % 10 == 0 && !hadBricks && memory.nearest("nether_bricks") != null) {
+					done("saw a fortress while exploring");
+					return;
+				}
+			}
 			if (ticks % 10 != 0) return;
 			LocalPlayer pl = Mc.player();
 			String f = found();
