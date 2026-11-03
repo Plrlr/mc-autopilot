@@ -4499,7 +4499,7 @@
   "2026-10-31": 6,
   "2026-11-01": 6,
   "2026-11-02": 3,
-  "2026-11-03": 1
+  "2026-11-03": 2
  },
  "evolve_days": {
   "2026-09-27": 1,
@@ -4993,7 +4993,7 @@
    "result": "racing"
   }
  ],
- "gen": 528,
+ "gen": 529,
  "gene_specs": {
   "bed.table_first": {
    "def": 0.0,
@@ -72335,6 +72335,102 @@
    "parent": "g455",
    "status": "contender"
   },
+  "g488": {
+   "born": 529,
+   "code": null,
+   "evals": [],
+   "genes": {
+    "bed.table_first": 1.0,
+    "brain.utility": 1.0,
+    "combat.ignore_walled_mobs": 1.0,
+    "combat.shield_guard": 1.0,
+    "death.recover_night_armor": 12.0,
+    "death.recover_value": 1.0,
+    "focus.commit": 1.0,
+    "fortress.anchor_scope": 1.0,
+    "gather.coal_extra": 3.0,
+    "gather.coal_view_dist": 16.0,
+    "gear.sword_early": 1.0,
+    "learned.weight": 1.0,
+    "loop.stuck_s": 17.0,
+    "move.shore_first": 1.0,
+    "nav.surface_v2": 1.0,
+    "nav.unstuck_v2": 1.0,
+    "night.shelter_exit": 1.0,
+    "pearls.provoke_s": 19.0,
+    "plan.hide_hp": 15.0,
+    "plan.readiness": 1.0,
+    "portal.prepare_work_area": 1.0,
+    "portal.reserve_lava_bucket": 1.0,
+    "portal.site_maker": 1.0,
+    "route.armor_before_portal": 1.0,
+    "skill.enderman_warped": 1.0,
+    "skill.ruined_portal": 1.0,
+    "skill.silverfish_control": 1.0,
+    "skill.stash": 1.0,
+    "stations.pickup_last": 1.0,
+    "stuck.item_progress": 1.0
+   },
+   "id": "g488",
+   "mutated": [
+    "stations.pickup_last",
+    "skill.silverfish_control"
+   ],
+   "note": "stations.pickup_last 1, skill.silverfish_control 1",
+   "pairs": [],
+   "parent": "g486",
+   "status": "contender"
+  },
+  "g489": {
+   "born": 529,
+   "code": {
+    "base": "76b2a838dfc2ac7974f9003a6536cd12d0aaf823",
+    "branch": "evolve/g487",
+    "files": [
+     "mod/src/main/java/io/github/plrlr/autopilot/skills/MoveSkills.java"
+    ],
+    "sha": "baa744110895ea6013b3377eb7046beac3a9cc77",
+    "summary": "In the Nether, explore runs the fortress view-ray sweep (96 blocks) while walking and stops when it first sees fortress bricks. The explore-any fallback after fortress find fails can then actually find a fortress instead of walking blind with a 16-block scan."
+   },
+   "evals": [],
+   "genes": {
+    "bed.table_first": 1.0,
+    "brain.utility": 1.0,
+    "combat.ignore_walled_mobs": 1.0,
+    "combat.shield_guard": 1.0,
+    "death.recover_night_armor": 12.0,
+    "focus.commit": 1.0,
+    "fortress.anchor_scope": 1.0,
+    "gather.coal_extra": 3.0,
+    "gather.coal_view_dist": 16.0,
+    "gear.sword_early": 1.0,
+    "learned.weight": 1.0,
+    "move.shore_first": 1.0,
+    "nav.surface_v2": 1.0,
+    "nav.unstuck_v2": 1.0,
+    "night.shelter_exit": 1.0,
+    "pearls.provoke_s": 19.0,
+    "plan.hide_hp": 15.0,
+    "plan.readiness": 1.0,
+    "portal.prepare_work_area": 1.0,
+    "portal.reserve_lava_bucket": 1.0,
+    "reflex.melee_dist": 3.404547718180987,
+    "route.armor_before_portal": 1.0,
+    "skill.drain_tunnel": 1.0,
+    "skill.enderman_warped": 1.0,
+    "skill.ruined_portal": 1.0,
+    "skill.stash": 1.0,
+    "stuck.item_progress": 1.0
+   },
+   "id": "g489",
+   "mutated": [
+    "reflex.melee_dist"
+   ],
+   "note": "reflex.melee_dist 3.40455",
+   "pairs": [],
+   "parent": "g487",
+   "status": "contender"
+  },
   "g49": {
    "born": 63,
    "code": null,
@@ -79711,8 +79807,89 @@
   "mean_gap_ok": -0.2606,
   "n": 2648
  },
- "next_id": 488,
- "pending": null,
+ "next_id": 490,
+ "pending": {
+  "data_tasks": [
+   {
+    "kind": "scenario",
+    "late": true,
+    "scenario": "stronghold",
+    "seed": "D529-75cv86",
+    "stage": "eyes",
+    "synthetic": true
+   },
+   {
+    "kind": "natural",
+    "seed": "D529-54qy3z",
+    "stage": "spawn",
+    "synthetic": false
+   }
+  ],
+  "gen": 529,
+  "lineup": [
+   "g486",
+   "g487",
+   "g488",
+   "g489"
+  ],
+  "runs": [
+   "eval-g486-0",
+   "eval-g486-1",
+   "eval-g486-2",
+   "eval-g486-3",
+   "eval-g487-0",
+   "eval-g487-1",
+   "eval-g487-2",
+   "eval-g487-3",
+   "eval-g488-0",
+   "eval-g488-1",
+   "eval-g488-2",
+   "eval-g488-3",
+   "eval-g489-0",
+   "eval-g489-1",
+   "eval-g489-2",
+   "eval-g489-3",
+   "data-g486-0",
+   "data-g486-1"
+  ],
+  "seeds": [
+   "L529-4nuph4",
+   "L529-4r6mpz",
+   "L529-frvsnj",
+   "L529-m2s5s5"
+  ],
+  "sha": "76b2a838dfc2ac7974f9003a6536cd12d0aaf823",
+  "started": "2026-11-03T08:41:53+00:00",
+  "tasks": [
+   {
+    "kind": "natural",
+    "seed": "L529-4nuph4",
+    "stage": "spawn",
+    "synthetic": false
+   },
+   {
+    "kind": "natural",
+    "seed": "L529-4r6mpz",
+    "stage": "spawn",
+    "synthetic": false
+   },
+   {
+    "asset": "nether-gen425-eval-g436-1.zip",
+    "kind": "start",
+    "seed": "L529-frvsnj",
+    "stage": "nether",
+    "synthetic": false
+   },
+   {
+    "kind": "combat",
+    "minutes": 10,
+    "scenario": "combat",
+    "seed": "L529-m2s5s5",
+    "stage": "combat",
+    "synthetic": false
+   }
+  ]
+ },
  "race_evidence_version": 2,
  "score_since_gen": 179,
  "score_version": 4,
