@@ -1,29 +1,52 @@
 # Marathons: the loop's current champion (genes + learned model) plays full games from a fresh
-# world, 2 game hours each, every 8 hours. The honest "how far does it get" number: no staged
-# starts, no commands. Each game goes to the loop through loop/inbox (training data, checkpoints
-# for the bank, the dashboard's full games), never to the race.
-#   gh workflow run marathon.yml                   (2 games)
-#   gh workflow run marathon.yml -f games=1 -f minutes=150
+# world, every 24 hours. The honest "how far does it get" number: no staged starts, no commands.
+# Since 2026-11-09 a game is a chain of legs: each leg plays `minutes` game minutes, saves the world
+# 30 game seconds before its end, uploads that save (checkpoints release, marathon-<chain>-leg<k>.zip)
+# and starts the next leg from it, so one game runs past GitHub's 6-hour job limit and across deaths.
+# Each leg goes to the loop through loop/inbox (training data, checkpoints for the bank, the chain's
+# record and the dashboard's "Long run"), never to the race.
+#   gh workflow run marathon.yml                   (2 games of 3 legs)
+#   gh workflow run marathon.yml -f games=1 -f legs=1 -f minutes=150
 name: Marathon
 
 on:
   workflow_dispatch:
     inputs:
       games:
-        description: 'Games to play at once'
+        description: 'Games to play at once (a later leg plays 1)'
         default: '2'
       minutes:
-        description: 'Game minutes per game'
+        description: 'Game minutes per leg'
         default: '120'
+      legs:
+        description: 'Legs per game (each one job, resumed from the last save)'
+        default: '3'
+      leg:
+        description: 'This leg (set by the previous leg)'
+        default: '1'
+      chain:
+        description: 'The game this leg belongs to (empty: a new one)'
+        default: ''
+      start:
+        description: 'The previous leg save (checkpoints release asset)'
+        default: ''
+      genome:
+        description: 'The genome the chain plays (empty: the champion)'
+        default: ''
   schedule:
-    - cron: '41 */8 * * *'
+    # Once a day (it was every 8 hours): a 3-leg game takes ~12 hours, and overlapping chains would
+    # take jobs from the loop (GitHub's free plan runs 20 at once).
+    - cron: '41 3 * * *'
 
+# One group per chain, never cancelled: a chain's next leg must not be dropped for a newer run
+# (a pending run in a shared group is replaced by the next one that queues).
 concurrency:
-  group: marathon
+  group: marathon-${{ inputs.chain || github.run_id }}
   cancel-in-progress: false
 
 permissions:
   contents: write
+  actions: write
 
 jobs:
   plan:
@@ -34,9 +57,15 @@ jobs:
     steps:
       - id: p
         env:
-          GAMES: ${{ inputs.games || '2' }}
+          GAMES: ${{ inputs.chain && '1' || inputs.games || '2' }}
+          CHAIN: ${{ inputs.chain }}
+          RUN_ID: ${{ github.run_id }}
         run: |
-          games=$(python3 -c "import json,random,string; n=int('$GAMES'); print(json.dumps([{'i': i, 'seed': 'M-' + ''.join(random.choice(string.ascii_lowercase) for _ in range(8))} for i in range(n)]))")
+          games=$(python3 -c "
+          import json, os, random, string
+          n, chain, run = int(os.environ['GAMES']), os.environ['CHAIN'], os.environ['RUN_ID']
+          print(json.dumps([{'i': i, 'chain': chain or '%s-%d' % (run, i),
+                             'seed': 'M-' + ''.join(random.choice(string.ascii_lowercase) for _ in range(8))} for i in range(n)]))")
           echo "games=$games" >> "$GITHUB_OUTPUT"
 
   game:
@@ -48,32 +77,106 @@ jobs:
       fail-fast: false
       matrix:
         include: ${{ fromJSON(needs.plan.outputs.games) }}
+    env:
+      CHAIN: ${{ matrix.chain }}
+      LEG: ${{ inputs.leg || '1' }}
+      LEGS: ${{ inputs.legs || '3' }}
+      MINUTES: ${{ inputs.minutes || '120' }}
+      START: ${{ inputs.start }}
+      NAME: marathon-${{ matrix.chain }}-leg${{ inputs.leg || '1' }}
     steps:
       - uses: actions/checkout@v7
       - name: The champion
         id: champ
+        env:
+          GENOME: ${{ inputs.genome }}
         run: |
           git fetch -q --depth 1 origin trial-results
           mkdir -p "$RUNNER_TEMP/loop"
           git show FETCH_HEAD:loop/state.json > "$RUNNER_TEMP/loop/state.json" 2>/dev/null || true
           git show FETCH_HEAD:loop/learned.json > "$RUNNER_TEMP/learned.json" 2>/dev/null || rm -f "$RUNNER_TEMP/learned.json"
-          genome=$(python3 scripts/loop/loop.py export --state "$RUNNER_TEMP/loop" --out "$RUNNER_TEMP/params.json")
+          # Later legs play the genome their chain started with, even if the champion changed since.
+          genome=$(python3 scripts/loop/loop.py export --state "$RUNNER_TEMP/loop" --out "$RUNNER_TEMP/params.json" --genome "$GENOME")
           echo "genome=$genome" >> "$GITHUB_OUTPUT"
           echo "PARAMS_FILE=$RUNNER_TEMP/params.json" >> "$GITHUB_ENV"
           echo "LEARNED_FILE=$([ -f "$RUNNER_TEMP/learned.json" ] && echo "$RUNNER_TEMP/learned.json")" >> "$GITHUB_ENV"
+          echo "SAVE_AT=$(( MINUTES * 60 - 30 ))" >> "$GITHUB_ENV"
       - uses: ./.github/actions/play
         with:
-          name: marathon-${{ github.run_id }}-${{ matrix.i }}
+          name: ${{ env.NAME }}
           seed: ${{ matrix.seed }}
-          minutes: ${{ inputs.minutes || '120' }}
+          minutes: ${{ env.MINUTES }}
           params: ${{ env.PARAMS_FILE }}
           learned: ${{ env.LEARNED_FILE }}
+          start: ${{ env.START }}
+          token: ${{ github.token }}
+          save_at: ${{ env.SAVE_AT }}
           retention: '14'
-      - name: Send the game to the loop
+      # The save_at checkpoint is written as checkpoints/kit.zip whatever the stage (the bank's
+      # self-test, AutopilotClientTest): it is the chain's save, not a kit start, so it leaves the
+      # bank's folder and its CHECKPOINT line leaves the log before the leg goes to the loop.
+      - name: Keep the leg's save
+        id: save
+        if: always()
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          ck=mod/build/run/clientGameTest/checkpoints
+          saved=$(python3 - "$SAVE_AT" <<'PY'
+          import re, sys
+          at, path = int(sys.argv[1]), "mod/autopilot-test.log"
+          try:
+              lines = open(path, errors="replace").read().splitlines(True)
+          except OSError:
+              print(0); sys.exit()
+          keep, saved = [], 0
+          for l in lines:
+              m = re.search(r"CHECKPOINT kit at (\d+)s", l)
+              if m and int(m.group(1)) >= at:
+                  saved = 1
+                  continue
+              keep.append(l)
+          open(path, "w").writelines(keep)
+          print(saved)
+          PY
+          )
+          last=true
+          if [ "$saved" = 1 ] && [ -f "$ck/kit.zip" ]; then
+            asset="marathon-$CHAIN-leg$LEG.zip"
+            mv "$ck/kit.zip" "$RUNNER_TEMP/$asset"
+            rm -f "$ck/kit.json"
+            if [ "$LEG" -lt "$LEGS" ] && timeout 900 gh release upload checkpoints "$RUNNER_TEMP/$asset" --clobber; then
+              last=false
+              echo "asset=$asset" >> "$GITHUB_OUTPUT"
+            fi
+          fi
+          echo "last=$last" >> "$GITHUB_OUTPUT"
+      - name: Send the leg to the loop
         if: always()
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
           chmod +x scripts/loop/*.sh
-          scripts/loop/send_run.sh "marathon-${{ github.run_id }}-${{ matrix.i }}" "${{ steps.champ.outputs.genome }}" \
-            "${{ inputs.minutes || '120' }}" marathon
+          last=${{ steps.save.outputs.last || 'true' }}
+          scripts/loop/send_run.sh "$NAME" "${{ steps.champ.outputs.genome }}" "$MINUTES" marathon \
+            ", \"chain\": \"$CHAIN\", \"leg\": $LEG, \"legs\": $LEGS, \"save_at\": $SAVE_AT, \"last\": $last"
+      - name: Next leg
+        if: steps.save.outputs.asset != ''
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          timeout 120 gh workflow run marathon.yml --ref "$GITHUB_REF_NAME" -f games=1 -f minutes="$MINUTES" \
+            -f legs="$LEGS" -f leg=$(( LEG + 1 )) -f chain="$CHAIN" -f start="${{ steps.save.outputs.asset }}" \
+            -f genome="${{ steps.champ.outputs.genome }}"
+      # The save this leg started from is used up; a finished chain leaves nothing behind (best effort).
+      - name: Clean up the chain's saves
+        if: always()
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          if [ -n "$START" ]; then timeout 120 gh release delete-asset checkpoints "$START" -y || true; fi
+          if [ "${{ steps.save.outputs.last }}" = true ]; then
+            for k in $(seq 1 "$LEGS"); do
+              timeout 120 gh release delete-asset checkpoints "marathon-$CHAIN-leg$k.zip" -y 2>/dev/null || true
+            done
+          fi

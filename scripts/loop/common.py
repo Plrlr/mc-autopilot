@@ -78,44 +78,51 @@ MILESTONE_POINTS = {1: 1, 2: 1, 3: 0.25, 4: 2, 5: 0.25, 6: 0.5, 7: 3, 8: 3, 9: 2
 CHECKPOINT_POINTS = {"two_buckets": 0.5, "flint_and_steel": 0.5, "lava_seen": 0.5, "at_depth": 0.5,
                      "diamond_pickaxe": 1.5, "obsidian_10": 2, "obsidian_placed": 2,
                      "frame_complete": 2, "portal_lit": 3}
-# One life (since 2026-09-28): only what comes before the first death scores. Deaths were 0.75
-# each, cheaper than iron (2), and 152 of 162 runs in gens 28-37 died (median at 7.6 game minutes),
-# so the search was paid to trade lives for progress. Now a death ends the scoring, and staying
-# alive earns up to SURVIVE_POINTS (the fraction of the run lived), so a bot that lives longer
-# with the same progress wins the pair. Play after a death still feeds the learned brain's data.
+# One life (2026-09-28 to 2026-11-09): only what came before the first death scored. Deaths were
+# 0.75 each, cheaper than iron (2), and 152 of 162 runs in gens 28-37 died (median at 7.6 game
+# minutes), so the search was paid to trade lives for progress.
+# Across lives (version 5, 2026-11-09): progress after a respawn counts again, because the late
+# game is only reachable across deaths: the portal was lit in 2-5% of spawn runs, 7 blaze-rod
+# milestones came in 8,396 runs, and deaths stayed at ~2 per run for 450 generations. What stops
+# the search trading lives for progress (the reason for the one-life rule) is that every death now
+# costs DEATH_PENALTY (1.0, it was 0.75 before one-life), up to DEATH_CAP deaths so a respawn-trap
+# loop doesn't swamp the rest, and the survival share (up to SURVIVE_POINTS) still ends at the
+# first death. Same progress with fewer deaths still wins the pair.
 DEATH_PENALTY = 1.0
+DEATH_CAP = 5
 SURVIVE_POINTS = 2.0
 # Version 4 (2026-10-04): a death's game second comes from clock.py (decision rows and the test's
 # progress lines, interpolated), not the last decision before it, which could end a life minutes
 # early during one long skill (gen176 eval-g159-2: scored dead at 11 s, alive at 300 s).
-SCORE_VERSION = 4  # pairs measured under another version are cleared (loop.load_state)
+SCORE_VERSION = 5  # pairs measured under another version are cleared (loop.load_state)
 
 
 def score_run(run, length_s, skip_before=0):
-    """One number per run: points for each milestone and checkpoint reached before the first
-    death, up to 50% more the earlier it came, plus up to SURVIVE_POINTS for the share of the run
-    lived; a death costs DEATH_PENALTY once. Higher is better.
+    """One number per run: points for each milestone and checkpoint reached in any life, up to 50%
+    more the earlier it came, plus up to SURVIVE_POINTS for the share of the run lived before the
+    first death, minus DEATH_PENALTY per death (counted up to DEATH_CAP). Higher is better.
     `run` is summarize_batch.read_run's dict. Runs started from a checkpoint or scenario pass
     skip_before: what they already had at the start (reported in the first seconds) scores nothing."""
     s = 0.0
     T = max(1, length_s)
     times = run.get("death_times") or []
-    # A death with no known time (no decision rows) ends the life at the start: nothing scores.
-    died = min(times) if times else (skip_before if run["deaths"] else None)
+    deaths = run.get("deaths")
+    n_deaths = len(deaths) if isinstance(deaths, list) else len(times)
+    # A death with no known time (no decision rows) ends the first life at the start.
+    died = min(times) if times else (skip_before if n_deaths else None)
     alive = T if died is None else died
 
-    def counts(t):
-        return skip_before < t and (died is None or t <= died)
+    def bonus(t):
+        return 1 + 0.5 * max(0.0, 1 - t / T)
 
     for m, t in run["milestones"]:
-        if counts(t):
-            s += MILESTONE_POINTS.get(m, 0) * (1 + 0.5 * max(0.0, 1 - t / T))
+        if skip_before < t:
+            s += MILESTONE_POINTS.get(m, 0) * bonus(t)
     for name, t in run["checkpoints"].items():
-        if counts(t):
-            s += CHECKPOINT_POINTS.get(name, 0) * (1 + 0.5 * max(0.0, 1 - t / T))
+        if skip_before < t:
+            s += CHECKPOINT_POINTS.get(name, 0) * bonus(t)
     s += SURVIVE_POINTS * min(1.0, max(0.0, alive - skip_before) / max(1, T - skip_before))
-    if died is not None:
-        s -= DEATH_PENALTY
+    s -= DEATH_PENALTY * min(n_deaths, DEATH_CAP)
     return round(s, 3)
 
 

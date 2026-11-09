@@ -2,10 +2,12 @@
 # Sends one finished run played outside the loop's generations (a marathon game on the cloud) to
 # the loop: checkpoints go straight to the checkpoints release, the small files to loop/inbox/<name>/
 # on trial-results, where the next generation takes them in (training data, bank, dashboard).
-#   scripts/loop/send_run.sh NAME GENOME MINUTES MACHINE        (run from the repo root, after a play)
+#   scripts/loop/send_run.sh NAME GENOME MINUTES MACHINE [EXTRA]   (run from the repo root, after a play)
+# EXTRA: more run.json fields as a JSON fragment starting with a comma (a marathon leg's chain, leg,
+# legs, save_at, last; since 2026-11-09).
 # Needs GH_TOKEN. The run's files are where the play action leaves them (mod/...).
 set -euo pipefail
-name=$1 genome=$2 minutes=$3 machine=$4
+name=$1 genome=$2 minutes=$3 machine=$4 extra=${5:-}
 run=mod/build/run/clientGameTest
 grep -aq "FINAL" mod/autopilot-test.log || { echo "the run didn't finish; nothing sent"; exit 0; }
 scripts/loop/results.sh checkout results
@@ -31,5 +33,6 @@ PY
     fi
   done
 fi
-printf '{"genome": "%s", "minutes": %s, "machine": "%s", "commit": "%s"}\n' "$genome" "$minutes" "$machine" "${GITHUB_SHA:0:7}" > "$inbox/run.json"
+printf '{"genome": "%s", "minutes": %s, "machine": "%s", "commit": "%s"%s}\n' "$genome" "$minutes" "$machine" "${GITHUB_SHA:0:7}" "$extra" > "$inbox/run.json"
+python3 -c "import json, sys; json.load(open(sys.argv[1]))" "$inbox/run.json" || { echo "run.json is not JSON"; exit 1; }
 scripts/loop/results.sh commit results "$machine run $name ($genome)"
