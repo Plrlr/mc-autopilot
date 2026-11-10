@@ -18,6 +18,10 @@ public final class ShoreSkill extends Skill {
 	private int lastPathTick;
 	private double lastX, lastZ;
 	private int fallbackHeading = -1;
+	// Gene water.swim (2026-11-10): swimming by hand when Baritone can't.
+	private int manualUntil = -1, still, under;
+	private double watchX, watchZ;
+	private float manualYaw;
 
 	@Override public String name() { return "shore"; }
 
@@ -97,7 +101,74 @@ public final class ShoreSkill extends Skill {
 		Bari.path(new GoalXZ((int) (pl.getX() + Math.cos(a) * 32), (int) (pl.getZ() + Math.sin(a) * 32)));
 	}
 
+	/**
+	 * Gene water.swim (2026-11-10). Shore left all the swimming to Baritone, and under water Baritone
+	 * finds no path at all (its log: "open set size 0", one node): the bot sank, the drowning reflex
+	 * cut the skill off, shore started again and sank again (a laptop game ended on 25 such rounds;
+	 * 386 game minutes lost to shore in 171 loop games). A player holds jump to stay up and swims at
+	 * the land. So: head under water for a second, or no headway for two, and we swim by hand toward
+	 * the seen shore for 6 s, turning 45 degrees when that way is blocked; then Baritone gets the
+	 * path back, from the surface, where it can plan. True = this tick was swum by hand.
+	 */
+	private boolean swim(LocalPlayer pl) {
+		if (!pl.isInWater()) {
+			if (manualUntil >= 0) endManual();
+			under = still = 0;
+			return false;
+		}
+		under = pl.isUnderWater() ? under + 1 : 0;
+		if (ticks % 20 == 0) {
+			still = Math.hypot(pl.getX() - watchX, pl.getZ() - watchZ) < 1.0 ? still + 1 : 0;
+			watchX = pl.getX();
+			watchZ = pl.getZ();
+		}
+		if (manualUntil < 0) {
+			if (under <= 20 && still < 2) return false;
+			if (!io.github.plrlr.autopilot.Exposure.mark("water.swim", under > 20 ? "head under water" : "no headway in water")) return false;
+			Bari.stop();
+			double dx, dz;
+			if (target != null) {
+				dx = target.getX() + 0.5 - pl.getX();
+				dz = target.getZ() + 0.5 - pl.getZ();
+			} else {
+				double a = Math.max(0, fallbackHeading) * Math.PI / 4;
+				dx = Math.cos(a);
+				dz = Math.sin(a);
+			}
+			// Minecraft's yaw: 0 faces +z, 90 faces -x.
+			manualYaw = (float) Math.toDegrees(Math.atan2(-dx, dz));
+			manualUntil = ticks + 20 * 6;
+			still = 0;
+		} else if (ticks > manualUntil) {
+			endManual();
+			path();
+			return true;
+		} else if (still >= 2) {
+			// A wall or a bank too high to climb: try the next direction round.
+			manualYaw += 45;
+			still = 0;
+		}
+		pl.setYRot(manualYaw);
+		pl.setXRot(0);
+		Mc.mc().options.keyJump.setDown(true);
+		Mc.mc().options.keyUp.setDown(true);
+		return true;
+	}
+
+	private void endManual() {
+		manualUntil = -1;
+		Mc.mc().options.keyJump.setDown(false);
+		Mc.mc().options.keyUp.setDown(false);
+		lastPathTick = ticks;
+	}
+
+	/** Shore is swimming by hand and holds jump itself: the drowning reflex needn't cut it off. */
+	public boolean swimming() {
+		return manualUntil >= 0;
+	}
+
 	@Override protected void tick() {
+		if (io.github.plrlr.autopilot.Tune.on("water.swim") && !workArea("away_from_water".equals(arg)) && swim(Mc.player())) return;
 		if (ticks % 10 != 0) return;
 		if (workArea("away_from_water".equals(arg))) { done("reached dry ground with room to work"); return; }
 		if (ticks - lastPathTick < 20 * 5) return;
