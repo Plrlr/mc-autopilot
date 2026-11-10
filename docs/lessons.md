@@ -215,3 +215,8 @@ workflow's unit-tests job compiles and tests in about a minute, the trial jobs t
   ALREADY_DONE in 171 games. `explore.same_blocks` raced alone acted in 0 of 8 games, so the
   deep-water test it shares is not where the two disagree; the cause is still not pinned down.
   Gene `explore.trust_collect` breaks the loop from the outside instead.
+- Water (2026-11-10): from under water Baritone plans nothing (its log shows "Open set size: 0"
+  with one node), so `shore`, which left all swimming to Baritone, sank; the drowning reflex then
+  aborted it (INTERRUPTED never counts as a failure, so nothing paused it) and it started again
+  under water. One laptop game ended on 25 such rounds. A player holds jump and swims at the
+  land: gene `water.swim` does that by hand and gives the path back to Baritone at the surface.

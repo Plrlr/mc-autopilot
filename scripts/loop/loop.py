@@ -340,6 +340,11 @@ def cmd_propose(a):
         # A child of a code change (not yet merged into main) plays that code too.
         st["genomes"][gid]["code"] = st["genomes"][parent].get("code")
         lineup.append(gid)
+    # The bank only offers starts whose file is really in the release (bank.reconcile, 2026-11-10).
+    if not os.environ.get("LOOP_NO_UPLOAD"):
+        gone = bank.reconcile(st, bank.release_assets())
+        if gone:
+            print("bank: dropped %d entries whose checkpoint file is gone" % gone)
     # Tasks every genome plays (paired): fresh worlds from spawn, plus starts at the frontier stage
     # from the checkpoint bank (or its staged scenario until real checkpoints exist).
     tasks = [{"kind": "natural", "stage": "spawn", "synthetic": False} for _ in range(s["seeds_per_gen"])]

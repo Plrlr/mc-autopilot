@@ -149,6 +149,7 @@ def _propose(state_dir, out_path, minutes=None, suggest=None):
     override = {"suggest": suggest or [], "seeds_per_gen": 2, "stage_seeds": 0, "combat_seeds": 0, "data_runs": 0,
                 "max_genomes": 3, "focus_stage_seeds": 3, "max_jobs": 100, "max_gens_per_day": 1000}
     a = argparse.Namespace(state=state_dir, sha="abc1234", out=out_path, override=json.dumps(override))
+    os.environ["LOOP_NO_UPLOAD"] = "1"  # offline: the fake bank isn't checked against the real release
     loop.cmd_propose(a)
     return common.read_json(out_path), common.read_json(os.path.join(state_dir, "state.json"))
 

@@ -81,6 +81,11 @@ final class Reflexes {
 			a.log.event("reflex", "lava");
 			return;
 		}
+		// Gene water.swim (2026-11-10): shore swimming by hand is already heading up and out; cutting
+		// it off here only restarted it under water, over and over.
+		if (pl.isUnderWater() && pl.getAirSupply() < 120 && a.skill instanceof io.github.plrlr.autopilot.skills.ShoreSkill sh && sh.swimming()) {
+			Mc.mc().options.keyJump.setDown(true);
+		} else
 		if (pl.isUnderWater() && pl.getAirSupply() < 120) {
 			// Out of breath: stop and swim straight up for a moment (holding jump rises in water).
 			a.abortSkill("running out of air", false);
