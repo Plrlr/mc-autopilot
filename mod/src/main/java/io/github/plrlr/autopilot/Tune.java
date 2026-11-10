@@ -106,6 +106,7 @@ public final class Tune {
 		gene("gather.iron_in_view", 0, 0, 1, Kind.BOOL, "take iron ore in view while the route still needs iron");
 		// 2026-10-04 (Claude, from gens 118-177's first lives: patterns.py): finish one thing at a time.
 		gene("explore.same_blocks", 0, 0, 1, Kind.BOOL, "explore counts a remembered block only if collect would use it (no 'already seen' for logs under water)");
+		gene("explore.trust_collect", 0, 0, 1, Kind.BOOL, "for a minute after collect found none it could take, explore doesn't answer 'already see one' for that block");
 		gene("stations.pickup_last", 0, 0, 1, Kind.BOOL, "pick the crafting table and furnace up only after the crafting and smelting that need them");
 		gene("smelt.own_furnace", 0, 0, 1, Kind.BOOL, "never pull another load of ours out of a furnace: use or make a second furnace");
 		gene("gather.iron_y", 16, -16, 64, Kind.INT, "height to branch-mine iron at (16: most ore, most caves)");

@@ -696,6 +696,29 @@
    "_exposure": {
     "gene": "focus.hurt_reset"
    }
+  },
+  {
+   "_note": "2026-11-09 (Claude): collect:log NOT_FOUND 489 and explore:log ALREADY_DONE 201 times in 171 games (the same pair in a laptop game). explore.same_blocks alone acted in 0 of 8 games, so its test is not where they disagree: for a minute after collect comes up empty, explore takes its word.",
+   "explore.trust_collect": 1,
+   "_exposure": {
+    "gene": "explore.trust_collect"
+   },
+   "_priority": true
+  },
+  {
+   "_note": "2026-11-09 (Claude): g176 (these three together) left at +2.41 over 16 pairs under the old race's pair limit; raced again under score v5, where a promising idea gets more seeds.",
+   "smelt.own_furnace": 1,
+   "stations.pickup_last": 1,
+   "explore.same_blocks": 1,
+   "_exposure": {
+    "gene": [
+     "smelt.own_furnace",
+     "stations.pickup_last",
+     "explore.same_blocks"
+    ]
+   },
+   "_priority": true,
+   "_max_pairs": 24
   }
  ],
  "window": "427x240",

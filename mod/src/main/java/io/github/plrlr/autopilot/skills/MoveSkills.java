@@ -81,6 +81,8 @@ public final class MoveSkills {
 				// 957 times in gens 118-177, while no tree was found.
 				if (remembered && (t.equals("log") || t.equals("sand")) && !SeenMiner.anySeen(memory, t, 48)
 						&& io.github.plrlr.autopilot.Exposure.mark("explore.same_blocks", "remembered " + t + " that collect can't use")) continue;
+				if (remembered && SeenMiner.collectFoundNone(t)
+						&& io.github.plrlr.autopilot.Exposure.mark("explore.trust_collect", "collect just found no " + t)) continue;
 				if (remembered) return t;
 			}
 			return null;
