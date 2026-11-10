@@ -192,3 +192,8 @@ workflow's unit-tests job compiles and tests in about a minute, the trial jobs t
   dying during a recovery re-marked the spot, because only `goto death` counted as "on the way
   back". In those games 44% of respawns died again within 3 minutes and 54% of games with a
   death never regained their gear; the champion never ran `recover_items` (its gene was off).
+- After a respawn (2026-11-09, 171 loop games): 85 of 193 respawns died again within 3 minutes
+  (zombie 27, skeleton 18, fall 13); the last choice before that death was `attack:zombie` 29
+  times and `retreat` 18. `retreat` ended NO_PROGRESS 263 times: Baritone's run-away goal stops
+  where it stands when it finds no path, and the skill then gave up with the monster still close.
+  Genes `respawn.no_fights_s` and `combat.retreat_fallback` race the two fixes.

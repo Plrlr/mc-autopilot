@@ -184,6 +184,10 @@ public final class Tune {
 		gene("nav.surface_v2", 0, 0, 1, Kind.BOOL, "goto surface: judge Baritone by height gained, fall back to digging a staircase up");
 		gene("nav.unstuck_v2", 0, 0, 1, Kind.BOOL, "unstuck: climb a staircase first in a pit or under a roof, and before tunnelling");
 		gene("combat.commit_target", 0, 0, 1, Kind.BOOL, "while fighting a mob in reach, reflexes may pull us out but not switch us to another fight");
+		// 2026-11-09: 44% of respawns died again within 3 minutes (171 games), mostly swinging bare hands at a zombie.
+		gene("respawn.no_fights_s", 0, 0, 600, Kind.INT, "seconds after a respawn in which a poor kit backs off from a mob beyond arm's length instead of attacking (0 = off)");
+		gene("respawn.no_fights_kit", 3, 0, 20, Kind.INT, "kit worth (iron ingots) below which respawn.no_fights_s applies");
+		gene("combat.retreat_fallback", 0, 0, 1, Kind.BOOL, "when Baritone finds no way to run, sprint straight away from the nearest monster over safe ground");
 		gene("plan.livelock_break", 0, 0, 1, Kind.BOOL, "a minute of actions with no movement, item or kill is a loop: leave those mobs, pause those actions");
 		gene("gather.vein_follow", 0, 0, 1, Kind.BOOL, "after breaking a seen block, take a visible block of the same kind touching it first (follow the vein)");
 		gene("gather.cautious_depth", 0, 0, 1, Kind.BOOL, "without armor mine iron no deeper than y 40 (y 48 after a deep death); armor 10+ uses gather.iron_y");
