@@ -436,6 +436,8 @@ public final class NightSkills {
 				return;
 			}
 			if (pl.isSleeping()) {
+				// Sleeping sets the respawn point here (run notes, 2026-11-09).
+				if (!slept) io.github.plrlr.autopilot.state.Notes.spawn(bed);
 				slept = true;
 				return;
 			}

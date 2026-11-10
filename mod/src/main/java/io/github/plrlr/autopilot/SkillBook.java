@@ -117,6 +117,7 @@ final class SkillBook {
 		} else if (r.ok() && !instantRepeat) {
 			a.lastGainTick = a.tick;
 			a.failures.remove(a.actionKey(a.skillOption));
+			placeResult(a, true);
 		} else if (instantRepeat) {
 			long[] f = a.failures.computeIfAbsent(a.actionKey(a.skillOption), k -> new long[2]);
 			if (++f[0] >= 2) {
@@ -129,6 +130,7 @@ final class SkillBook {
 			if (++f[0] >= pauseAfter) {
 				f[0] = 0;
 				f[1] = a.tick + 20 * 60;
+				placeResult(a, false);
 			}
 		}
 		if (a.testTask != null && a.skillOption == a.testTask) a.testTaskResult = r;
@@ -161,4 +163,17 @@ final class SkillBook {
 		a.log.write(o);
 	}
 
+	/**
+	 * Place memory (gene plan.place_backoff, 2026-11-09): each minute-long pause earned here, in this
+	 * chunk, is remembered, so the next one at the same place lasts longer; a success clears it.
+	 * Recorded with the gene off too (cheap), so the off side can log the same moments.
+	 */
+	private static void placeResult(Autopilot a, boolean ok) {
+		var pl = Mc.player();
+		if (pl == null || a.skillOption == null) return;
+		String key = a.actionKey(a.skillOption);
+		int cx = pl.getBlockX() >> 4, cz = pl.getBlockZ() >> 4;
+		if (ok) a.places.succeeded(key, Mc.dimension(), cx, cz);
+		else a.places.failed(key, Mc.dimension(), cx, cz, a.tick, 20L * Tune.i("plan.backoff_max_s"));
+	}
 }

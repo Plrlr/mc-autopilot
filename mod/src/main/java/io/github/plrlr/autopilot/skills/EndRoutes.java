@@ -27,9 +27,34 @@ import net.minecraft.world.phys.Vec3;
 public final class EndRoutes {
 	private EndRoutes() {}
 
+	/**
+	 * The dragon was seen in its DYING phase. 2026-11-09: "no dragon entity" was taken for a dead
+	 * dragon, but it is also a dragon out of tracking range over the void, or us respawned in the
+	 * overworld. Like DragonFight, a kill counts only after the death itself was seen.
+	 */
+	private static boolean dyingSeen;
+
 	static EnderDragon dragon() {
-		for (Entity e : Mc.mc().level.entitiesForRendering()) if (e instanceof EnderDragon d && d.isAlive()) return d;
+		for (Entity e : Mc.mc().level.entitiesForRendering())
+			if (e instanceof EnderDragon d && d.isAlive()) {
+				if (d.getPhaseManager().getCurrentPhase().getPhase() == EnderDragonPhase.DYING) dyingSeen = true;
+				return d;
+			}
 		return null;
+	}
+
+	static void noteDying() {
+		dyingSeen = true;
+	}
+
+	/** Dead for sure: we're in the End, saw it dying, and it's gone now. */
+	static boolean dragonDead() {
+		// Outside the End the sighting is stale (another world, or a respawn): forget it.
+		if (!Mc.dimension().equals("the_end")) {
+			dyingSeen = false;
+			return false;
+		}
+		return dragon() == null && dyingSeen;
 	}
 
 	static boolean perched(EnderDragon d) {
@@ -202,7 +227,7 @@ public final class EndRoutes {
 	 * under the head, use it. Each blast hits the head hard. Health 14 or more between bombs.
 	 */
 	public static final class BedBomb extends Skill {
-		private int bombs, wait;
+		private int bombs, wait, unseen;
 		private BlockPos bedAt;
 
 		@Override
@@ -227,10 +252,14 @@ public final class EndRoutes {
 			LocalPlayer pl = Mc.player();
 			EnderDragon d = dragon();
 			if (d == null) {
-				Facts.report("dragon_dead");
-				done("the dragon is gone after " + bombs + " bed blasts");
+				if (!Mc.dimension().equals("the_end")) fail(Fail.WRONG_PLACE, "no longer in the End");
+				else if (dragonDead()) {
+					Facts.report("dragon_dead");
+					done("the dragon died after " + bombs + " bed blasts");
+				} else if (++unseen > 20 * 60) fail(Fail.NOT_FOUND, "the dragon is out of sight (not seen dying)");
 				return;
 			}
+			unseen = 0;
 			if (Mc.count(Items2.matcher("bed")) == 0 && bedAt == null) {
 				fail(Fail.NEED_ITEM, "out of beds after " + bombs + " blasts (the dragon lives)");
 				return;
@@ -276,7 +305,7 @@ public final class EndRoutes {
 
 	/** dragon_strike: arrows at the dragon while it circles in range, the head fight (DragonFight) while it perches. */
 	public static final class DragonStrike extends Composite {
-		private int shots;
+		private int shots, waits;
 
 		@Override
 		public String name() {
@@ -298,7 +327,9 @@ public final class EndRoutes {
 		@Override
 		protected Option next() {
 			EnderDragon d = dragon();
-			if (d == null) return null;
+			if (!Mc.dimension().equals("the_end") || d == null && (dragonDead() || waits++ >= 3)) return null;
+			// Out of tracking range, not seen dying: the fight waits by the fountain for it to come back.
+			if (d == null) return new Option("dragon", null, "the dragon is out of sight: wait by the fountain");
 			boolean bow = Mc.count("bow") > 0 && Mc.count("arrow") > 0;
 			if (!perched(d) && bow && d.distanceTo(Mc.player()) < 48 && shots++ < 200)
 				return new Option("shoot", "ender_dragon", "arrows while it circles");
@@ -307,10 +338,11 @@ public final class EndRoutes {
 
 		@Override
 		protected void finish() {
-			if (dragon() == null) {
+			if (dragonDead()) {
 				Facts.report("dragon_dead");
 				done("the dragon is dead");
-			} else fail(Fail.NO_PROGRESS, "the dragon lives");
+			} else if (!Mc.dimension().equals("the_end")) fail(Fail.WRONG_PLACE, "no longer in the End");
+			else fail(Fail.NO_PROGRESS, dragon() == null ? "the dragon is out of sight, not seen dying" : "the dragon lives");
 		}
 	}
 

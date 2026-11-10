@@ -187,6 +187,7 @@ public final class CollectSkill extends Skill {
 				lookGroup = null;
 				timeoutTicks = ticks + 20 * 360;
 			} else if (ticks > 20 * 3) {
+				SeenMiner.noneFound(item); // explore takes our word for a minute (gene explore.trust_collect)
 				fail(Fail.NOT_FOUND, "no " + item + " seen nearby");
 			}
 			return;
@@ -204,6 +205,7 @@ public final class CollectSkill extends Skill {
 				} else if (got > 0) {
 					fail(Fail.NO_PROGRESS, "found only " + got + " " + item + " in sight");
 				} else {
+					SeenMiner.noneFound(item);
 					fail(Fail.NOT_FOUND, "no " + item + " seen nearby");
 				}
 			}

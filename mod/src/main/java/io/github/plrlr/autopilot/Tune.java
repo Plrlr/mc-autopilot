@@ -90,6 +90,10 @@ public final class Tune {
 		gene("night.mine_instead", 0, 0, 1, Kind.BOOL, "at night, skip the shelter when the next step is mining underground anyway");
 		gene("night.shelter_max_s", 720, 60, 720, Kind.INT, "longest wait in a night shelter before going back to work");
 		gene("death.recover_night_armor", 12, 0, 20, Kind.INT, "go back for dropped items at night only with this much armor");
+		// 2026-11-09: persistence without a language model (walk back before the despawn, re-arm, keep notes).
+		gene("death.recovery_v2", 0, 0, 1, Kind.BOOL, "death_recovery: loaded-chunk despawn clock, re-arm, portal back to another dimension's drops, verified pickup");
+		gene("notes.persist", 0, 0, 1, Kind.BOOL, "keep run notes (portals, stash, deaths, fortress, eye readings, spawn) per world on disk across restarts");
+		gene("death.avoid_radius", 0, 0, 48, Kind.INT, "no item recovery where 2+ deaths lie within this many blocks of each other (0 = off)");
 		gene("night.no_shaft_wall", 0, 0, 1, Kind.BOOL, "wall in on safe footing when no nearby shelter shaft can be dug");
 		// Planner: gathering amounts
 		gene("gather.first_logs", 2, 1, 6, Kind.INT, "extra logs on the very first wood trip");
@@ -102,6 +106,7 @@ public final class Tune {
 		gene("gather.iron_in_view", 0, 0, 1, Kind.BOOL, "take iron ore in view while the route still needs iron");
 		// 2026-10-04 (Claude, from gens 118-177's first lives: patterns.py): finish one thing at a time.
 		gene("explore.same_blocks", 0, 0, 1, Kind.BOOL, "explore counts a remembered block only if collect would use it (no 'already seen' for logs under water)");
+		gene("explore.trust_collect", 0, 0, 1, Kind.BOOL, "for a minute after collect found none it could take, explore doesn't answer 'already see one' for that block");
 		gene("stations.pickup_last", 0, 0, 1, Kind.BOOL, "pick the crafting table and furnace up only after the crafting and smelting that need them");
 		gene("smelt.own_furnace", 0, 0, 1, Kind.BOOL, "never pull another load of ours out of a furnace: use or make a second furnace");
 		gene("gather.iron_y", 16, -16, 64, Kind.INT, "height to branch-mine iron at (16: most ore, most caves)");
@@ -158,6 +163,8 @@ public final class Tune {
 		gene("fortress.anchor_scope", 0, 0, 1, Kind.BOOL, "tried anchors open again after 2 minutes and belong to one life and dimension");
 		gene("fortress.spawner_check", 0, 0, 1, Kind.BOOL, "a spawner is the blaze spawner only with fortress bricks or a blaze near it");
 		gene("nether.recover_bounded", 0, 0, 1, Kind.BOOL, "fortress recovery answers a mob at arm's length, leaves when healing can't come (no food, hunger < 18) or 45 s pass, and goes home to eat");
+		// 2026-11-09 (Claude, the Nov 9 Nether audit): 0 of 40 saved Nether starts reached blaze rods.
+		gene("ready.nether_gold_wear", 0, 0, 1, Kind.BOOL, "wear the golden helmet before stepping off the portal (swap out the worn one); never mine gold near piglins");
 		gene("portal.prepare_work_area", 0, 0, 1, Kind.BOOL, "prepare a dry floor for the portal frame when no natural site fits");
 		gene("portal.reserve_lava_bucket", 0, 0, 1, Kind.BOOL, "retired 2026-09-29 (always on: two water buckets deadlocked the cast); kept so old genomes load");
 		gene("brain.death_avoid", 0, 0, 1, Kind.BOOL, "options that clearly kill us in this context (every game's deaths) go behind the safe ones");
@@ -180,6 +187,10 @@ public final class Tune {
 		gene("nav.surface_v2", 0, 0, 1, Kind.BOOL, "goto surface: judge Baritone by height gained, fall back to digging a staircase up");
 		gene("nav.unstuck_v2", 0, 0, 1, Kind.BOOL, "unstuck: climb a staircase first in a pit or under a roof, and before tunnelling");
 		gene("combat.commit_target", 0, 0, 1, Kind.BOOL, "while fighting a mob in reach, reflexes may pull us out but not switch us to another fight");
+		// 2026-11-09: 44% of respawns died again within 3 minutes (171 games), mostly swinging bare hands at a zombie.
+		gene("respawn.no_fights_s", 0, 0, 600, Kind.INT, "seconds after a respawn in which a poor kit backs off from a mob beyond arm's length instead of attacking (0 = off)");
+		gene("respawn.no_fights_kit", 3, 0, 20, Kind.INT, "kit worth (iron ingots) below which respawn.no_fights_s applies");
+		gene("combat.retreat_fallback", 0, 0, 1, Kind.BOOL, "when Baritone finds no way to run, sprint straight away from the nearest monster over safe ground");
 		gene("plan.livelock_break", 0, 0, 1, Kind.BOOL, "a minute of actions with no movement, item or kill is a loop: leave those mobs, pause those actions");
 		gene("gather.vein_follow", 0, 0, 1, Kind.BOOL, "after breaking a seen block, take a visible block of the same kind touching it first (follow the vein)");
 		gene("gather.cautious_depth", 0, 0, 1, Kind.BOOL, "without armor mine iron no deeper than y 40 (y 48 after a deep death); armor 10+ uses gather.iron_y");
@@ -236,6 +247,14 @@ public final class Tune {
 		// The learned brain (brains/Learned): how far it may overrule the rules' order.
 		gene("learned.weight", 0, 0, 3, Kind.REAL, "0 = rules order only; higher trusts the learned model more");
 		gene("learned.explore", 0, 0, 0.3, Kind.REAL, "chance to try a non-first option (data for learning)");
+		// 2026-11-09: the model gate (brains/ModelGate), place memory (plan/PlaceMemory).
+		gene("learned.gate", 0, 0, 1, Kind.BOOL, "use learned.weight only while the model passes its held-out check");
+		gene("learned.gate_r2", 0.05, 0, 0.3, Kind.REAL, "held-out advantage R2 the model must beat for the gate to open");
+		gene("learned.gate_sign", 0.6, 0.5, 0.8, Kind.REAL, "held-out sign agreement the model must beat for the gate to open");
+		gene("learned.gate_n", 500, 50, 5000, Kind.INT, "fewer checked choices than this = not proven, the gate stays closed");
+		gene("focus.hurt_reset", 0, 0, 1, Kind.BOOL, "a hurt check that focus.commit answers resets the health mark (no replanning every tick)");
+		gene("plan.place_backoff", 0, 0, 1, Kind.BOOL, "a failed action pauses longer each time it fails at the same place (chunk)");
+		gene("plan.backoff_max_s", 480, 60, 1800, Kind.INT, "longest pause for an action that keeps failing at one place, in seconds");
 		gene("safety.hazard", 0, 0, 1, Kind.BOOL, "the learned danger model may swap a pick (emergencies too) for a clearly safer option");
 		gene("safety.hazard_margin", 0.1, 0.03, 0.4, Kind.REAL, "how much lower the death risk must be to swap (0.1 = 10 points)");
 		// Brain v2 (docs/brain-v2.md): routes by learned cost, skill stats, escalation, readiness.

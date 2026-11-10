@@ -73,7 +73,10 @@ public final class NetherSkills {
 			if (r.getType() != HitResult.Type.BLOCK) continue;
 			BlockPos p = r.getBlockPos();
 			String id = Mc.id(Mc.state(p).getBlock());
-			if (fortressBlock(id)) memory.remember("nether_bricks", p.immutable(), id);
+			if (fortressBlock(id)) {
+				memory.remember("nether_bricks", p.immutable(), id);
+				io.github.plrlr.autopilot.state.Notes.fortress(p.immutable()); // run notes keep only the first (2026-11-09)
+			}
 			else if (id.equals("spawner")) memory.remember("spawner", p.immutable(), id);
 		}
 		return n;

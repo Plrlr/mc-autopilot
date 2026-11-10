@@ -131,7 +131,7 @@ final class Reflexes {
 		if (h != null && (fortressFight || h.type().equals("blaze") && a.skill != null && a.skill.name().equals("fortress"))) h = null;
 		// A lone mob still several blocks away need not reset the trip for dropped gear. The
 		// planner resumes retrieval after a real close-range interruption when the way clears.
-		boolean recoverySafe = Tune.on("death.trip_commit") && a.skill != null && (a.skill.name().equals("recover_items")
+		boolean recoverySafe = Tune.on("death.trip_commit") && a.skill != null && (a.skill.name().equals("recover_items") || a.skill.name().equals("death_recovery")
 				|| a.skill.name().equals("goto") && a.skillOption != null && "death".equals(a.skillOption.arg()))
 				&& !io.github.plrlr.autopilot.plan.SurvivalPlan.recoveryThreat(a.seen);
 		if (recoverySafe) h = null;

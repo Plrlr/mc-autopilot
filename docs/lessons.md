@@ -185,3 +185,33 @@ workflow's unit-tests job compiles and tests in about a minute, the trial jobs t
   is uniform from -64 to -4. The overworld bottom is -64 and `material_rule/bedrock_floor.json`
   ends bedrock at bottom +5. Feet at -58 retain a floor at -59 above that band; this is a
   practical mining level, not a claim that the mathematical ore-density peak is -58.
+- Death recovery (2026-11-09, from a code audit and 171 loop games): dropped items age only while
+  their chunk is loaded, so a wall-clock timer from the death forgets drops that are still there
+  (after a far respawn, a pause, or a death in the other dimension). `recover_items` reported
+  "ok" after any walk back, even with an empty bag: its children's results were ignored. And
+  dying during a recovery re-marked the spot, because only `goto death` counted as "on the way
+  back". In those games 44% of respawns died again within 3 minutes and 54% of games with a
+  death never regained their gear; the champion never ran `recover_items` (its gene was off).
+- After a respawn (2026-11-09, 171 loop games): 85 of 193 respawns died again within 3 minutes
+  (zombie 27, skeleton 18, fall 13); the last choice before that death was `attack:zombie` 29
+  times and `retreat` 18. `retreat` ended NO_PROGRESS 263 times: Baritone's run-away goal stops
+  where it stands when it finds no path, and the skill then gave up with the monster still close.
+  Genes `respawn.no_fights_s` and `combat.retreat_fallback` race the two fixes.
+- Composite skills and stale results (2026-11-09): `lastResult()`/`lastOption()` keep the last
+  child forever, so "was the last child X?" stays true after X is long over. `fortress_scout`
+  walked one leg, pillared three times on the spot and gave up; `blaze_farm` and
+  `enderman_warped` picked up the first drop only. Use a flag set when the child is sent.
+- "No dragon entity" is not a dead dragon (out of tracking range over the void, or we respawned
+  in the overworld): a kill counts only after the DYING phase was seen in the End.
+- `SearchStronghold.inStronghold` counted stone bricks through walls and floors (x-ray); it now
+  counts only bricks a view ray from the eye reaches.
+- Right-clicking a helmet in hand swaps it with the worn one, so a carried golden helmet can go
+  on over iron at the Nether portal (gene `ready.nether_gold_wear`).
+- Stash churn (2026-11-09): `stashWorthIt` added up spare items (8+), but `stash` moves whole
+  stacks only (10 iron in one stack with 3 to keep is 7 spare and nothing to move), and the
+  skill then said "ok: 0 stacks". 4,657 such oks in 10 games, alternating with `pickup:stations`
+  220 times. Both now use one test, and a stash that moved nothing fails.
+- collect/explore on logs (2026-11-09): still 489 `collect:log` NOT_FOUND and 201 `explore:log`
+  ALREADY_DONE in 171 games. `explore.same_blocks` raced alone acted in 0 of 8 games, so the
+  deep-water test it shares is not where the two disagree; the cause is still not pinned down.
+  Gene `explore.trust_collect` breaks the loop from the outside instead.

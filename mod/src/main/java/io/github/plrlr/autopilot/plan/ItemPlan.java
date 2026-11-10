@@ -109,8 +109,10 @@ final class ItemPlan {
 		// Fuel: coal smelts 8 items, planks 1.5. Use whatever we have, else make planks.
 		int coalNeed = (missing + 7) / 8;
 		int planksNeed = (missing * 2 + 2) / 3;
+		// A log smelts 1.5 items like a plank (SmeltSkill.loadFuel), so it needs as many logs as planks.
+		// 2026-11-09 bug fix: this said coalNeed * 2 (2 logs "enough" for 8 iron, which smelt 3).
 		boolean fuelOk = Mc.count("coal") >= coalNeed || Mc.count("planks") >= planksNeed
-				|| (!input.equals("log") && Mc.count("log") >= coalNeed * 2);
+				|| (!input.equals("log") && Mc.count("log") >= planksNeed);
 		if (!fuelOk) {
 			Option o = itemStep(p,"planks", planksNeed, depth + 1);
 			if (o != null) return o;

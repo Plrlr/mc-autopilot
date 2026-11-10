@@ -105,6 +105,8 @@ public final class Autopilot {
 	long dangerReflexUntil;
 	long lavaMarginTick = -1000;
 	final Map<String, long[]> failures = new HashMap<>(); // label -> {count, blockedUntilTick}
+	/** Gene plan.place_backoff (2026-11-09): pauses per action and place that grow with each repeat. */
+	final io.github.plrlr.autopilot.plan.PlaceMemory places = new io.github.plrlr.autopilot.plan.PlaceMemory();
 	final LivelockWatch livelock = new LivelockWatch();
 	String lastEndedKey = "";
 	String lastNoopKey = "";
@@ -170,6 +172,7 @@ public final class Autopilot {
 		String paramsLine = Tune.load(params.isBlank() ? home.resolve("params.json") : Path.of(params));
 		String model = System.getProperty("autopilot.learned", "");
 		learned.loadAsync(model.isBlank() ? home.resolve("learned.json") : Path.of(model));
+		brain.gate.loadAsync(model.isBlank() ? home.resolve("learned.json") : Path.of(model)); // gene learned.gate (2026-11-09)
 		Bari.applyFairPlay();
 		savedPauseOnLostFocus = mc.options.pauseOnLostFocus;
 		// The autopilot's key presses aren't input to the game's AFK check: after ~10 minutes it capped
@@ -182,6 +185,7 @@ public final class Autopilot {
 		mc.options.pauseOnLostFocus = false;
 		goal = null;
 		failures.clear();
+		places.clear();
 		stuckWatch.resetPosition();
 		status = "starting";
 		Mc.say("ON (" + brain.label() + "). Any movement key takes control back; K opens the panel.");
@@ -264,10 +268,12 @@ public final class Autopilot {
 		if (tick % 5 == 0) seen = Perception.look(32);
 		if (tick % 5 == 0 && Tune.on("safety.spawner_room")) io.github.plrlr.autopilot.skills.SpawnerRoom.observe(memory, seen, tick);
 		if (tick % 20 == 0) Bari.updateThrowaway();
-		if (deathItemsUntilTick >= 0 && tick > deathItemsUntilTick) {
+		if (Tune.on("death.recovery_v2")) io.github.plrlr.autopilot.skills.DeathRecovery.clockTick(memory, pl, tick);
+		else if (deathItemsUntilTick >= 0 && tick > deathItemsUntilTick) {
 			deathItemsUntilTick = -1;
 			for (WorldMemory.Seen d : memory.all("death")) memory.forget("death", d.pos());
 		}
+		io.github.plrlr.autopilot.state.Notes.tick(memory);
 		Checkpoints.tick(tick);
 		if (tick % 20 == 0) checkpoints();
 		// Room in the bag (Tidy): not while a skill is moving items around itself.
@@ -322,6 +328,9 @@ public final class Autopilot {
 			io.github.plrlr.autopilot.brains.Thompson.clear();
 			io.github.plrlr.autopilot.plan.Escalation.clear();
 			progress.load(name);
+			// Run notes (gene notes.persist): read in the background, re-seeded into memory when ready.
+			io.github.plrlr.autopilot.state.Notes.load(home, name);
+			io.github.plrlr.autopilot.state.DeathClock.shared().stop();
 			goal = null;
 		}
 	}
@@ -331,8 +340,10 @@ public final class Autopilot {
 			if (deathTick < 0) {
 				deathTick = tick;
 				// Died again on the way back for our items: they aren't worth a third trip.
-				boolean onTheWayBack = skill != null && skill.name().equals("goto") && skillOption != null
-						&& "death".equals(skillOption.arg());
+				// 2026-11-09: recover_items and death_recovery are trips back too (Reflexes treats them
+				// alike); only "goto" counted, so dying during a recovery re-marked the spot forever.
+				boolean onTheWayBack = skill != null && (skill.name().equals("goto") && skillOption != null
+						&& "death".equals(skillOption.arg()) || skill.name().equals("recover_items") || skill.name().equals("death_recovery"));
 				// What we drop now decides whether walking back is worth it (gene death.recover_value).
 				io.github.plrlr.autopilot.plan.SurvivalPlan.noteDeath(io.github.plrlr.autopilot.plan.SurvivalPlan.kitValue(Mc::count));
 				abortSkill("died", false);
@@ -346,12 +357,26 @@ public final class Autopilot {
 				// in every death table (the local trial night2's enderman death read "mob").
 				if (src != null && src.getEntity() != null && !(src.getEntity() instanceof LocalPlayer)) cause += ":" + Mc.id(src.getEntity());
 				log.event("death", cause);
+				// Gene death.recovery_v2: dying on the way back gives that place up (dangerous) before the marks go.
+				if (onTheWayBack && Tune.on("death.recovery_v2")) io.github.plrlr.autopilot.skills.DeathRecovery.giveUp(memory, "died on the way back");
 				// Drops survive 5 minutes unless lava or the void took them; go back for them.
 				for (WorldMemory.Seen d : memory.all("death")) memory.forget("death", d.pos());
-				if (!onTheWayBack && !cause.equals("lava") && !cause.equals("outOfWorld") && pl.getY() > pl.level().getMinY()) {
+				boolean dropsKept = !onTheWayBack && !cause.equals("lava") && !cause.equals("outOfWorld") && pl.getY() > pl.level().getMinY();
+				// Where and why, kept in RAM (death.avoid_radius) and on disk with notes.persist (2026-11-09).
+				int colon = cause.indexOf(':');
+				io.github.plrlr.autopilot.state.RunNotes.Death noted = io.github.plrlr.autopilot.state.Notes.get().death(
+						io.github.plrlr.autopilot.state.Notes.here(pl.blockPosition()), colon < 0 ? cause : cause.substring(0, colon),
+						colon < 0 ? "" : cause.substring(colon + 1), pl.level().getGameTime(),
+						io.github.plrlr.autopilot.plan.SurvivalPlan.lostValue());
+				// Lava, the void or a second death on the way back: nothing to fetch there, and a bad place.
+				if (!dropsKept) noted.dangerous = true;
+				if (dropsKept) {
 					memory.remember("death", pl.blockPosition(), "death");
 					deathItemsUntilTick = tick + 20 * 60 * 4 + 20 * 30;
-				}
+					if (Tune.on("death.recovery_v2"))
+						io.github.plrlr.autopilot.state.DeathClock.shared().start(Mc.dimension(), pl.getBlockX(), pl.getBlockY(), pl.getBlockZ(), 0);
+				} else if (Tune.on("death.recovery_v2")) io.github.plrlr.autopilot.state.DeathClock.shared().stop();
+				io.github.plrlr.autopilot.state.Notes.save();
 				Mc.say("Died. Respawning and carrying on.");
 			}
 			if (tick - deathTick == 60) {
@@ -468,6 +493,14 @@ public final class Autopilot {
 		return hash;
 	}
 
+	/** A visible non-blaze monster within 4 blocks. */
+	private boolean meleeThreat() {
+		if (seen == null) return false;
+		for (Perception.Seen m : seen.mobs)
+			if (m.hostile() && !m.type().equals("blaze") && m.dist() < 4 && Mc.canSee(m.entity())) return true;
+		return false;
+	}
+
 	/** Blocks to the nearest hostile we perceive (infinite when none). */
 	private double nearestHostileDist() {
 		var h = seen == null ? null : seen.nearestHostile();
@@ -507,7 +540,12 @@ public final class Autopilot {
 		// decision picked eat and stopped it in the open while burning: the laptop's blaze run
 		// after e2e2ffe died that way 30 s in.
 		if (skill.name().equals("fortress") && skillOption != null && skillOption.arg() != null
-				&& skillOption.arg().startsWith("blazes")) return;
+				&& skillOption.arg().startsWith("blazes")) {
+			// A piglin or wither skeleton on top of us isn't part of the blaze fight: let the rules
+			// answer it (Nether first deaths: piglin 14, wither skeleton 9, mostly during this skill).
+			if (meleeThreat() && tick - lastDecisionTick >= 40) requestDecision("melee_in_blaze_fight");
+			return;
+		}
 		if (newHostile && !skill.name().equals("attack")) requestDecision("mob_near");
 		else if (pl.getHealth() < healthAtDecision - 3) requestDecision("hurt");
 		else if (Tune.on("food.keep_full") && !hostileNear && skill.interruptible() && !skill.name().equals("eat")
@@ -527,6 +565,7 @@ public final class Autopilot {
 			long[] f = failures.get(actionKey(o));
 			if (f == null || tick >= f[1]) options.add(o);
 		}
+		options = placeBackoff(options);
 		if (options.isEmpty()) options.add(new Option("explore", "any", "everything else failed recently"));
 		// Brain v2: options that clearly fail here (learned skill stats) go behind the ones that work.
 		List<String> ctx = skillContextsNow();
@@ -538,6 +577,9 @@ public final class Autopilot {
 		// every iron trip into ~9 pieces of ~20 s: each heartbeat let upkeep or a furnace check win.
 		if (skill != null && !skillIsReflex && Tune.on("focus.commit") && !planner.lastUrgent.contains(options.get(0).label())) {
 			lastDecisionTick = tick;
+			// Gene focus.hurt_reset (2026-11-09): the health mark only moved after a real decision, so
+			// a hurt bot that stays committed asked "hurt" again every tick: the whole planner per tick.
+			if (trigger.equals("hurt") && Exposure.mark("focus.hurt_reset", "committed while hurt")) healthAtDecision = Mc.player().getHealth();
 			return;
 		}
 		// Routine re-checks while the rules still want what we're doing: nothing to decide,
@@ -570,6 +612,27 @@ public final class Autopilot {
 			abortSkill("interrupted: brain chose " + c.option().label(), false);
 		}
 		startSkill(c.option(), trigger, false);
+	}
+
+	/**
+	 * Gene plan.place_backoff: also drop options PlaceMemory still pauses where we stand. Never an
+	 * urgent one, never the last one left; one exposure mark per decision at most.
+	 */
+	private List<Option> placeBackoff(List<Option> options) {
+		var pl = Mc.player();
+		List<Option> out = new ArrayList<>(options);
+		boolean marked = false;
+		for (Option o : options) {
+			if (out.size() <= 1) break;
+			if (planner.lastUrgent.contains(o.label())) continue;
+			String key = actionKey(o);
+			if (!places.paused(key, Mc.dimension(), pl.getBlockX() >> 4, pl.getBlockZ() >> 4, tick)) continue;
+			boolean on = marked ? Tune.on("plan.place_backoff") : Exposure.mark("plan.place_backoff", key);
+			marked = true;
+			if (!on) return options;
+			out.remove(o);
+		}
+		return out;
 	}
 
 	/**
