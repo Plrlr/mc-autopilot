@@ -162,6 +162,8 @@ public final class Tune {
 		gene("fortress.anchor_scope", 0, 0, 1, Kind.BOOL, "tried anchors open again after 2 minutes and belong to one life and dimension");
 		gene("fortress.spawner_check", 0, 0, 1, Kind.BOOL, "a spawner is the blaze spawner only with fortress bricks or a blaze near it");
 		gene("nether.recover_bounded", 0, 0, 1, Kind.BOOL, "fortress recovery answers a mob at arm's length, leaves when healing can't come (no food, hunger < 18) or 45 s pass, and goes home to eat");
+		// 2026-11-09 (Claude, the Nov 9 Nether audit): 0 of 40 saved Nether starts reached blaze rods.
+		gene("ready.nether_gold_wear", 0, 0, 1, Kind.BOOL, "wear the golden helmet before stepping off the portal (swap out the worn one); never mine gold near piglins");
 		gene("portal.prepare_work_area", 0, 0, 1, Kind.BOOL, "prepare a dry floor for the portal frame when no natural site fits");
 		gene("portal.reserve_lava_bucket", 0, 0, 1, Kind.BOOL, "retired 2026-09-29 (always on: two water buckets deadlocked the cast); kept so old genomes load");
 		gene("brain.death_avoid", 0, 0, 1, Kind.BOOL, "options that clearly kill us in this context (every game's deaths) go behind the safe ones");

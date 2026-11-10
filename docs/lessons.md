@@ -197,3 +197,13 @@ workflow's unit-tests job compiles and tests in about a minute, the trial jobs t
   times and `retreat` 18. `retreat` ended NO_PROGRESS 263 times: Baritone's run-away goal stops
   where it stands when it finds no path, and the skill then gave up with the monster still close.
   Genes `respawn.no_fights_s` and `combat.retreat_fallback` race the two fixes.
+- Composite skills and stale results (2026-11-09): `lastResult()`/`lastOption()` keep the last
+  child forever, so "was the last child X?" stays true after X is long over. `fortress_scout`
+  walked one leg, pillared three times on the spot and gave up; `blaze_farm` and
+  `enderman_warped` picked up the first drop only. Use a flag set when the child is sent.
+- "No dragon entity" is not a dead dragon (out of tracking range over the void, or we respawned
+  in the overworld): a kill counts only after the DYING phase was seen in the End.
+- `SearchStronghold.inStronghold` counted stone bricks through walls and floors (x-ray); it now
+  counts only bricks a view ray from the eye reaches.
+- Right-clicking a helmet in hand swaps it with the worn one, so a carried golden helmet can go
+  on over iron at the Nether portal (gene `ready.nether_gold_wear`).

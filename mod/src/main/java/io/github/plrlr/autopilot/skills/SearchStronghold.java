@@ -44,20 +44,33 @@ public final class SearchStronghold extends Skill {
 			fail(Fail.WRONG_PLACE, "strongholds are in the overworld");
 			return;
 		}
-		if (bricksNear(Mc.player().blockPosition(), 8) < 6) fail(Fail.WRONG_PLACE, "not inside a stronghold");
+		if (bricksNear(Mc.player().blockPosition(), 8, 6) < 6) fail(Fail.WRONG_PLACE, "not inside a stronghold");
 	}
 
 	/** True when the player is in or right beside a stronghold (the planner's check). */
 	public static boolean inStronghold() {
-		return Mc.dimension().equals("overworld") && bricksNear(Mc.player().blockPosition(), 8) >= 6;
+		return Mc.dimension().equals("overworld") && bricksNear(Mc.player().blockPosition(), 8, 6) >= 6;
 	}
 
-	private static int bricksNear(BlockPos c, int r) {
-		int n = 0;
+	/** Line-of-sight checks one count may spend: the planner asks every decision. */
+	private static final int MAX_RAYS = 48;
+
+	/**
+	 * Stronghold bricks around c that the player can see, counted up to `need`. 2026-11-09: this
+	 * counted every brick in the box, through walls and floors (x-ray: a stronghold under our feet
+	 * said "in_stronghold" through 8 blocks of stone). Now a brick counts only if a view ray from
+	 * the eye reaches it, like a player looking around.
+	 */
+	private static int bricksNear(BlockPos c, int r, int need) {
+		int n = 0, rays = 0;
 		for (int dx = -r; dx <= r; dx += 2)
 			for (int dy = -3; dy <= 3; dy += 2)
-				for (int dz = -r; dz <= r; dz += 2)
-					if (BRICKS.contains(Mc.id(Mc.state(c.offset(dx, dy, dz)).getBlock()))) n++;
+				for (int dz = -r; dz <= r; dz += 2) {
+					BlockPos p = c.offset(dx, dy, dz);
+					if (!BRICKS.contains(Mc.id(Mc.state(p).getBlock()))) continue;
+					if (++rays > MAX_RAYS) return n;
+					if (Mc.canSee(p) && ++n >= need) return n;
+				}
 		return n;
 	}
 
@@ -105,7 +118,7 @@ public final class SearchStronghold extends Skill {
 					double d = dx * dx + dy * dy * 2 + dz * dz;
 					if (d >= bestD || d < 9 || VISITED.contains(cell(p))) continue;
 					if (!Mc.free(p) || !Mc.free(p.above()) || !Mc.solid(p.below())) continue;
-					if (!BRICKS.contains(Mc.id(Mc.state(p.below()).getBlock())) && bricksNear(p, 2) < 2) continue;
+					if (!BRICKS.contains(Mc.id(Mc.state(p.below()).getBlock())) && bricksNear(p, 2, 2) < 2) continue;
 					if (++rays > 400) return best;
 					if (!Mc.canSee(p) && !Mc.canSee(p.above())) continue; // only corridors in sight
 					best = p.immutable();
