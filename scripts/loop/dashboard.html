@@ -437,6 +437,13 @@ function render(data) {
     ["Champion", champ ? champ.id : "g0", champ ? (champ.id === "g0" ? "hand-tuned defaults" : champ.note) : ""],
     ["Furthest step", furthest, "reached in any run"],
   ];
+  // Marathon chains (since 2026-11-09): one full natural game across deaths and legs, the headline.
+  // History lines from before then have no "marathon" field.
+  const lastLong = [...history].reverse().map((h) => h && h.marathon).find((m) => m && m.furthest);
+  if (lastLong) {
+    tiles.unshift(["Long run", `furthest step ${STAGE_NAMES[lastLong.furthest] || lastLong.furthest}`,
+      `in ${fmt(lastLong.game_hours, 1)} game hours, ${fmt(lastLong.deaths)} deaths: a full natural run across deaths (${lastLong.legs} legs, ${lastLong.genome || "?"})`]);
+  }
   $("tiles").innerHTML = tiles.map(([k, v, n]) => `<div class="tile"><div class="k">${esc(k)}</div><div class="v">${esc(v)}</div><div class="n">${esc(n)}</div></div>`).join("");
   const hz = (model && model.hazard) || null;
   const nSkills = state && state.skill_stats ? Object.keys(state.skill_stats).length : 0;
