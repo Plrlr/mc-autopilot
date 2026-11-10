@@ -176,3 +176,20 @@ rules still want the running action. Reflexes never wait for an AI.
   public: never include the .env file or keys.
 - Cap the cycles per day and log what each cycle cost.
 
+
+## Model gate and place memory (2026-11-09)
+
+- **`brains/ModelGate`** (gene `learned.gate`, thresholds `learned.gate_r2` 0.05,
+  `learned.gate_sign` 0.6, `learned.gate_n` 500): reads the held-out check `train.py` writes into
+  `learned.json` (`adv_r2_heldout`, `sign_check`), off the game thread, closed by default. With
+  the gate closed and `learned.weight` > 0, `Brain` plays the rules' first option; the hazard swap
+  and the skill stats are untouched, and exploration (data runs) plays as before.
+- **The mirror race** (`loop.rules_only_idea`): a champion with `learned.weight` > 0 whose latest
+  model fails adv_r2 > 0.05 or sign > 0.6 races itself rules-only, once per champion.
+- **`plan/PlaceMemory`** (gene `plan.place_backoff`, cap `plan.backoff_max_s`): each minute-long
+  pause an action earns is remembered per chunk; the next one there lasts 120 s, then 240 s, up to
+  the cap. A success there clears it, and another chunk gets a fresh chance.
+- **`focus.hurt_reset`**: with `focus.commit`, a hurt check answered by commitment resets the
+  health mark, so the planner is not re-run every tick while hurt.
+- Without a gene: the logs-as-fuel count in `ItemPlan` (a log smelts 1.5 items, not 4), and
+  `disable()` failing inside the tick's catch can no longer crash the game.

@@ -236,6 +236,14 @@ public final class Tune {
 		// The learned brain (brains/Learned): how far it may overrule the rules' order.
 		gene("learned.weight", 0, 0, 3, Kind.REAL, "0 = rules order only; higher trusts the learned model more");
 		gene("learned.explore", 0, 0, 0.3, Kind.REAL, "chance to try a non-first option (data for learning)");
+		// 2026-11-09: the model gate (brains/ModelGate), place memory (plan/PlaceMemory).
+		gene("learned.gate", 0, 0, 1, Kind.BOOL, "use learned.weight only while the model passes its held-out check");
+		gene("learned.gate_r2", 0.05, 0, 0.3, Kind.REAL, "held-out advantage R2 the model must beat for the gate to open");
+		gene("learned.gate_sign", 0.6, 0.5, 0.8, Kind.REAL, "held-out sign agreement the model must beat for the gate to open");
+		gene("learned.gate_n", 500, 50, 5000, Kind.INT, "fewer checked choices than this = not proven, the gate stays closed");
+		gene("focus.hurt_reset", 0, 0, 1, Kind.BOOL, "a hurt check that focus.commit answers resets the health mark (no replanning every tick)");
+		gene("plan.place_backoff", 0, 0, 1, Kind.BOOL, "a failed action pauses longer each time it fails at the same place (chunk)");
+		gene("plan.backoff_max_s", 480, 60, 1800, Kind.INT, "longest pause for an action that keeps failing at one place, in seconds");
 		gene("safety.hazard", 0, 0, 1, Kind.BOOL, "the learned danger model may swap a pick (emergencies too) for a clearly safer option");
 		gene("safety.hazard_margin", 0.1, 0.03, 0.4, Kind.REAL, "how much lower the death risk must be to swap (0.1 = 10 points)");
 		// Brain v2 (docs/brain-v2.md): routes by learned cost, skill stats, escalation, readiness.

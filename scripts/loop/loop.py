@@ -386,6 +386,9 @@ def learned_idea(st):
     data runs (explore_data): deliberate tries cost the score a race is judged on."""
     lo = st.get("model_adv_lo")
     champ = st["genomes"][st["champion"]]
+    rules = rules_only_idea(st, champ)
+    if rules:
+        return rules
     if lo is None or lo <= 0 or champ["genes"].get("learned.weight", 0) > 0:
         return []
     last = st.get("learned_race")
@@ -395,6 +398,26 @@ def learned_idea(st):
             return []
     return [{"learned.weight": 1, "_priority": True,
              "_auto": "learned brain gate open at gen %d (5%% bound %+.4f)" % (st["gen"], lo)}]
+
+
+def rules_only_idea(st, champ):
+    """2026-11-09 (Claude): the mirror race. A champion that plays learned.weight > 0 while the latest
+    model fails its held-out check (adv_r2 > 0.05 and sign agreement > 0.6) races the same champion
+    rules-only ({"learned.weight": 0}: enter() drops a default, so it's the champion minus the weight).
+    The note names the champion, so `tried` runs it once per champion. "_auto" must not start with
+    "learned": enter() would take it for the forward race (st["learned_race"])."""
+    if champ["genes"].get("learned.weight", 0) <= 0:
+        return []
+    r2, sign = st.get("model_adv_r2"), st.get("model_sign")
+    agree = sign.get("agree") if isinstance(sign, dict) else None
+    if r2 is None and agree is None:
+        return []  # no stats yet: nothing says the model fails
+    if r2 is not None and r2 > 0.05 and agree is not None and agree > 0.6:
+        return []
+    return [{"learned.weight": 0, "_priority": True, "_auto": "rules-only",
+             # Stable text (no live numbers): a changing note would queue a new race every training.
+             "_note": "rules-only against champion %s: its learned model fails the held-out check "
+                      "(adv_r2 > 0.05, sign > 0.6)" % st["champion"]}]
 
 
 def rebase_code(st, gid, main_sha, gen):

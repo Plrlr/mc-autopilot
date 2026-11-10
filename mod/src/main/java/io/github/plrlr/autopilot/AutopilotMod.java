@@ -45,7 +45,13 @@ public class AutopilotMod implements ClientModInitializer {
 			} catch (Exception e) {
 				// Fail safe: never crash the game, stand still instead.
 				LOGGER.error("Autopilot tick failed; turning it off", e);
-				autopilot.disable("internal error: " + e.getClass().getSimpleName());
+				// 2026-11-09: disable() itself can throw (a half-ended skill, a closed log); that would
+				// escape this catch and crash the game, the one thing fail-safe must never do.
+				try {
+					autopilot.disable("internal error: " + e.getClass().getSimpleName());
+				} catch (Exception e2) {
+					LOGGER.error("Autopilot disable failed too", e2);
+				}
 			}
 		});
 

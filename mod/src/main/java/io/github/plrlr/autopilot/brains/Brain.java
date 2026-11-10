@@ -20,6 +20,8 @@ public final class Brain {
 	public record Choice(Option option, int index, double propensity, String by, String why) {}
 
 	private final Learned learned;
+	/** 2026-11-09, gene learned.gate: the model's held-out check, loaded beside it (Autopilot.enable). */
+	public final ModelGate gate = new ModelGate();
 
 	public Brain(Learned learned) {
 		this.learned = learned;
@@ -36,6 +38,14 @@ public final class Brain {
 	private Choice rank(List<Option> options, double[] features, Set<String> urgent) {
 		boolean active = Tune.get("learned.weight") > 0 || Tune.get("learned.explore") > 0;
 		if (!active || features == null) return new Choice(options.get(0), 0, 1, "rules", options.get(0).why());
+		// Gene learned.gate: a model that fails its held-out check doesn't re-rank scored play. With
+		// exploration on (the loop's data runs) it plays as before: those tries are how a model gets proven.
+		if (Tune.get("learned.weight") > 0) {
+			boolean open = gate.open();
+			if (io.github.plrlr.autopilot.Exposure.mark("learned.gate", open ? "open" : "closed") && !open
+					&& Tune.get("learned.explore") <= 0)
+				return new Choice(options.get(0), 0, 1, "rules", options.get(0).why());
+		}
 		Learned.Pick p = learned.choose(options, features, urgent);
 		Option o = options.get(p.index());
 		boolean rules = p.index() == 0 && p.why().equals("rules");
@@ -94,6 +104,7 @@ public final class Brain {
 	public String label() {
 		boolean active = Tune.get("learned.weight") > 0 || Tune.get("learned.explore") > 0;
 		String safety = Tune.on("safety.hazard") ? " + safety" : "";
-		return (active ? "learned " + learned.modelId() : "rules") + safety;
+		String gated = active && Tune.on("learned.gate") && Tune.get("learned.weight") > 0 && !gate.open() ? " (gate closed)" : "";
+		return (active ? "learned " + learned.modelId() + gated : "rules") + safety;
 	}
 }

@@ -71,6 +71,30 @@ def test_learned_idea_only_when_the_gate_is_open():
     assert loop.learned_idea(st2)  # lost, gate still open, 10 generations later: again
 
 
+def test_rules_only_race_when_the_champion_trusts_a_failing_model():
+    # 2026-11-09: the mirror of the learned race (loop.rules_only_idea).
+    st = base_state(90, [])
+    st["model_adv_r2"], st["model_sign"] = -0.007, {"agree": 0.557, "lo": 0.5, "n": 2700, "games": 40}
+    assert loop.learned_idea(st) == []  # champion plays the rules: nothing to undo
+    st["genomes"]["g0"]["genes"]["learned.weight"] = 1.0
+    idea = loop.learned_idea(st)
+    assert idea and idea[0]["learned.weight"] == 0 and idea[0]["_priority"] and idea[0]["_auto"] == "rules-only"
+    st2, _ = propose(st)
+    assert "learned_race" not in st2  # not mistaken for the forward race
+    gid = [g for g in st2["pending"]["lineup"] if g != "g0"][0]
+    assert "learned.weight" not in st2["genomes"][gid]["genes"]  # the champion minus the weight
+    assert st2["genomes"][gid].get("priority")
+    st3, _ = propose(st2)
+    assert sum(g["note"].startswith("suggested: learned.weight 0") for g in st3["genomes"].values()) == 1  # once
+    st["model_adv_r2"], st["model_sign"]["agree"] = 0.08, 0.66
+    assert loop.learned_idea(st) == []  # a model that passes keeps its weight
+    st["model_adv_r2"] = 0.08
+    st["model_sign"] = {"agree": None, "n": 12}
+    assert loop.learned_idea(st)  # unproven sign = failing
+    st["model_adv_r2"], st["model_sign"] = None, None
+    assert loop.learned_idea(st) == []  # no stats at all
+
+
 def git(*a, cwd):
     return subprocess.run(["git", *a], cwd=cwd, check=True, capture_output=True, text=True).stdout.strip()
 
