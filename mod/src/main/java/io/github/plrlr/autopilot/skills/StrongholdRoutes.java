@@ -186,7 +186,9 @@ public final class StrongholdRoutes {
 
 		@Override
 		protected void finish() {
-			if (SearchStronghold.inStronghold() || bricksInSight() != null) {
+			// 2026-11-09: one stone brick in sight was "in the stronghold" (any ruin or igloo basement
+			// has some); the same visible-brick count as the planner's in_stronghold fact now.
+			if (SearchStronghold.inStronghold()) {
 				Facts.report("in_stronghold");
 				done("in the stronghold");
 			} else fail(Fail.NOT_FOUND, "dug down to y " + Mc.player().getBlockY() + " without finding it");
@@ -230,7 +232,8 @@ public final class StrongholdRoutes {
 	/** silverfish_control: break the spawner by the portal frames; hit silverfish that reach us meanwhile. */
 	public static final class Silverfish extends Skill {
 		private final Act.Breaker breaker = new Act.Breaker();
-		private BlockPos spawner;
+		private BlockPos spawner, frame;
+		private int lookTicks;
 
 		@Override
 		public String name() {
@@ -245,12 +248,46 @@ public final class StrongholdRoutes {
 		@Override
 		protected void start() {
 			timeoutTicks = 20 * 60;
+			// 2026-11-09: with no frame known this took the last spawner in memory (any dungeon's) as the
+			// silverfish spawner; now only the nearest one within 16 blocks of a frame we saw.
 			WorldMemory.Seen f = memory.nearest("end_portal_frame");
-			for (WorldMemory.Seen s : memory.all("spawner"))
-				if (f == null || s.pos().distSqr(f.pos()) < 16 * 16) spawner = s.pos();
-			if (spawner == null) {
+			if (f == null) {
+				fail(Fail.NOT_FOUND, "no portal frame seen: no portal room to clear");
+				return;
+			}
+			frame = f.pos();
+			spawner = nearSpawner();
+		}
+
+		private BlockPos nearSpawner() {
+			BlockPos best = null;
+			double bd = 16 * 16;
+			for (WorldMemory.Seen s : memory.all("spawner")) {
+				double d = s.pos().distSqr(frame);
+				if (d < bd) {
+					bd = d;
+					best = s.pos();
+				}
+			}
+			return best;
+		}
+
+		/**
+		 * No spawner known yet is not a safe room (2026-11-09: it said room_safe at once): go stand by
+		 * the frames and turn round for 3 s, so the room is in view; safe only if none shows up.
+		 */
+		private void inspect(LocalPlayer pl) {
+			spawner = nearSpawner();
+			if (spawner != null) return;
+			if (pl.blockPosition().distSqr(frame) > 6 * 6) {
+				if (!Bari.pathing()) Bari.path(new GoalNear(frame, 4));
+				return;
+			}
+			Bari.stop();
+			pl.setYRot(pl.getYRot() + 12f);
+			if (++lookTicks > 60) {
 				Facts.report("room_safe");
-				done("no spawner in the portal room");
+				done("looked round the portal room: no spawner");
 			}
 		}
 
@@ -259,6 +296,10 @@ public final class StrongholdRoutes {
 			LocalPlayer pl = Mc.player();
 			Perception.Seen fish = Perception.look(4).nearest("silverfish");
 			if (fish != null && Act.strike(fish.entity())) return;
+			if (spawner == null) {
+				inspect(pl);
+				return;
+			}
 			if (Mc.free(spawner)) {
 				breaker.stop();
 				memory.forget("spawner", spawner);

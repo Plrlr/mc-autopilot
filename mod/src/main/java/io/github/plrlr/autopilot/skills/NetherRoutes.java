@@ -39,7 +39,7 @@ public final class NetherRoutes {
 	 * so the first step out isn't into lava or off a ledge.
 	 */
 	public static final class Arrival extends Skill {
-		private int placed;
+		private int placed, wearTries;
 
 		@Override
 		public String name() {
@@ -76,6 +76,16 @@ public final class NetherRoutes {
 						return;
 					}
 				}
+			// Gene ready.nether_gold_wear (2026-11-09): ready.nether_gold only put the helmet in the bag,
+			// and wearing it waited for an "equip armor" choice that an iron helmet never lets win.
+			// Right-clicking a helmet swaps it with the worn one; checked on the head before moving on.
+			if (!wearingGold() && Mc.count("golden_helmet") > 0 && wearTries < 5
+					&& io.github.plrlr.autopilot.Exposure.mark("ready.nether_gold_wear", "helmet on arrival")) {
+				wearTries++;
+				Mc.holdItem(st -> Items2.id(st).equals("golden_helmet"));
+				Mc.useItem();
+				return;
+			}
 			memory.remember("nether_portal", feet, "nether_portal");
 			Facts.report("nether_base");
 			Facts.report("portal_known");
@@ -178,6 +188,7 @@ public final class NetherRoutes {
 
 		private Phase phase = Phase.RISE;
 		private int baseY, phaseTicks, rounds, tries;
+		private boolean legOut;
 
 		@Override
 		public String name() {
@@ -241,7 +252,11 @@ public final class NetherRoutes {
 		@Override
 		protected Option next() {
 			if (phase != Phase.SEARCH) return WAIT;
-			if (lastResult() != null && lastOption() != null && lastOption().skill().equals("fortress")) {
+			// 2026-11-09: this asked "was the last child a leg?", which stays true through the rise and
+			// the look that follow, so the scout walked one leg, pillared three times on the spot and
+			// gave up. A flag set when a leg goes out and cleared when it's back.
+			if (legOut) {
+				legOut = false;
 				// Back from a leg: look again from a new vantage.
 				if (++rounds >= 3) return null;
 				baseY = Mc.player().getBlockY();
@@ -250,6 +265,7 @@ public final class NetherRoutes {
 				return WAIT;
 			}
 			if (tries++ >= 4) return null;
+			legOut = true;
 			return new Option("fortress", "find", "walk a long leg looking for fortress bricks");
 		}
 
@@ -276,6 +292,7 @@ public final class NetherRoutes {
 		private Direction front;
 		private int want, buildTries;
 		private boolean sealed, collecting;
+		private boolean pickupOut;
 
 		@Override
 		public String name() {
@@ -400,10 +417,14 @@ public final class NetherRoutes {
 		protected Option next() {
 			if (rods() >= want) return null;
 			if (collecting) {
-				if (lastOption() != null && lastOption().skill().equals("pickup") && lastResult() != null) {
+				// 2026-11-09: "the last child was a pickup" stays true after the first one, so every
+				// later drop cleared `collecting` at once and lay there. A flag per pickup sent.
+				if (pickupOut) {
+					pickupOut = false;
 					collecting = false;
 					return WAIT;
 				}
+				pickupOut = true;
 				return new Option("pickup", null, "pick up the blaze rods");
 			}
 			return WAIT;
@@ -516,7 +537,11 @@ public final class NetherRoutes {
 				return;
 			}
 			LocalPlayer pl = Mc.player();
-			piece = pl.getItemBySlot(EquipmentSlot.HEAD).isEmpty() ? "golden_helmet"
+			boolean wear = io.github.plrlr.autopilot.Tune.on("ready.nether_gold_wear");
+			// With the gene a carried gold piece goes on over whatever is worn (right-click swaps them).
+			piece = wear && Mc.count("golden_helmet") > 0 ? "golden_helmet"
+					: wear && Mc.count("golden_boots") > 0 ? "golden_boots"
+					: pl.getItemBySlot(EquipmentSlot.HEAD).isEmpty() ? "golden_helmet"
 					: pl.getItemBySlot(EquipmentSlot.FEET).isEmpty() ? "golden_boots" : null;
 			if (piece == null) fail(Fail.NO_ROOM, "head and feet already armored");
 		}
@@ -536,6 +561,9 @@ public final class NetherRoutes {
 			if (Mc.count("gold_ingot") >= ingotsNeeded()) return new Option("craft", piece + ":1", "gold armor keeps piglins calm");
 			if (Mc.count("gold_nugget") >= 9) return new Option("craft", "gold_ingot:" + Math.min(ingotsNeeded(), Mc.count("gold_nugget") / 9), "nuggets into ingots");
 			if (Mc.count("raw_gold") > 0) return new Option("smelt", "gold_ingot:" + Mc.count("raw_gold"), "smelt the raw gold");
+			// Mining gold in a piglin's sight turns every one of them on us: not while one is near (gene).
+			if (Perception.look(16).nearest("piglin") != null
+					&& io.github.plrlr.autopilot.Exposure.mark("ready.nether_gold_wear", "no gold mining beside piglins")) return null;
 			return new Option("collect", "gold_nugget:" + (9 * (ingotsNeeded() - Mc.count("gold_ingot")) - Mc.count("gold_nugget")), "mine nether gold ore");
 		}
 
@@ -641,6 +669,7 @@ public final class NetherRoutes {
 		private BlockPos hut;
 		private int want, buildTries;
 		private boolean built, collecting;
+		private boolean pickupOut;
 
 		@Override
 		public String name() {
@@ -720,10 +749,14 @@ public final class NetherRoutes {
 		protected Option next() {
 			if (pearls() >= want) return null;
 			if (collecting) {
-				if (lastOption() != null && lastOption().skill().equals("pickup") && lastResult() != null) {
+				// 2026-11-09: "the last child was a pickup" stays true after the first one, so every
+				// later drop cleared `collecting` at once and lay there. A flag per pickup sent.
+				if (pickupOut) {
+					pickupOut = false;
 					collecting = false;
 					return WAIT;
 				}
+				pickupOut = true;
 				return new Option("pickup", null, "pick up the pearl");
 			}
 			return WAIT;

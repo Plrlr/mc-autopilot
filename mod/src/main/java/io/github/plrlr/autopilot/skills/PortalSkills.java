@@ -427,7 +427,8 @@ public final class PortalSkills {
 						}
 						go(Phase.DIG);
 						BlockPos below = pl.blockPosition();
-						Bari.path(new GoalBlock(below.getX(), Math.max(pl.level().getMinY() + 10, 20), below.getZ()));
+						digY = Math.max(pl.level().getMinY() + 10, 20);
+						Bari.path(new GoalBlock(below.getX(), digY, below.getZ()));
 						timeoutTicks = ticks + 20 * 120;
 						return;
 					}
@@ -479,12 +480,18 @@ public final class PortalSkills {
 					}
 				}
 				case DIG -> {
-					if (phaseTicks > 40 && !Bari.pathing()) done("dug down where the eye went into the ground");
+					// 2026-11-09: Baritone stopping is not arriving (a failed path stops it too): ok only
+					// at the depth we were digging to.
+					if (phaseTicks > 40 && !Bari.pathing()) {
+						if (pl.getBlockY() <= digY + 1) done("dug down where the eye went into the ground");
+						else fail(Fail.UNREACHABLE, "the dig stopped at y " + pl.getBlockY() + ", short of y " + digY);
+					}
 				}
 			}
 		}
 
 		private Vec3 target;
+		private int digY;
 
 		private void startLeg() {
 			Bari.path(new GoalXZ((int) target.x, (int) target.z));
@@ -512,6 +519,10 @@ public final class PortalSkills {
 			double dx = b.from.x - a.from.x, dz = b.from.z - a.from.z;
 			double t = (dx * b.dir.z - dz * b.dir.x) / cross;
 			if (t < 0 || t > 4000) return null;
+			// 2026-11-09: the crossing must lie ahead of the second throw too; behind it the
+			// bearings point away from each other and the "stronghold" is where neither eye flew.
+			double sB = (dx * a.dir.z - dz * a.dir.x) / cross;
+			if (sB < 0) return null;
 			return a.from.add(a.dir.scale(t));
 		}
 	}
@@ -539,15 +550,17 @@ public final class PortalSkills {
 
 		@Override
 		protected void tick() {
-			if (memory.nearest("end_portal") != null) {
+			if (ticks % 10 != 0) return;
+			// 2026-11-09: ok only with an end portal block in sight now; memory alone (or "every frame
+			// we know has an eye", with frames we never saw still empty) isn't an open portal.
+			if (portalInSight()) {
 				done("the end portal is open");
 				return;
 			}
-			if (ticks % 10 != 0) return;
 			if (current == null) {
 				current = nextEmptyFrame();
 				if (current == null) {
-					if (ticks > 60) done("all known frames have eyes; look for more frames");
+					if (ticks > 60) fail(Fail.NOT_FOUND, "all known frames have eyes but no portal in sight; look for more frames");
 					return;
 				}
 				tries = 0;
@@ -571,6 +584,22 @@ public final class PortalSkills {
 			Bari.stop();
 			Mc.holdItem(s -> Items2.id(s).equals("ender_eye"));
 			Mc.useOn(current, Direction.UP);
+		}
+
+		/**
+		 * An end portal block in line of sight now: a remembered one, or one inside the ring of known
+		 * frames (the portal opens the tick the last eye goes in, before memory's next scan sees it).
+		 */
+		private boolean portalInSight() {
+			for (WorldMemory.Seen s : memory.all("end_portal"))
+				if (Mc.id(Mc.state(s.pos()).getBlock()).equals("end_portal") && Mc.canSee(s.pos())) return true;
+			for (WorldMemory.Seen f : memory.all("end_portal_frame"))
+				for (int dx = -3; dx <= 3; dx++)
+					for (int dz = -3; dz <= 3; dz++) {
+						BlockPos p = f.pos().offset(dx, 0, dz);
+						if (Mc.id(Mc.state(p).getBlock()).equals("end_portal") && Mc.canSee(p)) return true;
+					}
+			return false;
 		}
 
 		private BlockPos nextEmptyFrame() {
