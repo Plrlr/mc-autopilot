@@ -37,6 +37,23 @@ final class SeenMiner {
 	 */
 	private static final Map<BlockPos, Long> UNREACHABLE = new HashMap<>();
 	private static final long UNREACHABLE_MS = 3 * 60 * 1000;
+	/**
+	 * When collect last found nothing it could take, per group (ms). Gene explore.trust_collect
+	 * (2026-11-09): explore's own "already see one" test and collect's "none seen nearby" still
+	 * disagree (489 and 201 times in 171 games), whatever the reason on the day; for a minute after
+	 * collect came up empty, explore takes its word and walks on.
+	 */
+	private static final Map<String, Long> NONE_FOUND = new HashMap<>();
+	private static final long NONE_FOUND_MS = 60 * 1000;
+
+	static void noneFound(String group) {
+		if (group != null) NONE_FOUND.put(group, System.currentTimeMillis());
+	}
+
+	static boolean collectFoundNone(String group) {
+		Long t = NONE_FOUND.get(group);
+		return t != null && System.currentTimeMillis() - t < NONE_FOUND_MS;
+	}
 	private Phase phase = Phase.FIND;
 	private BlockPos target;
 	/** The last block of our kind we broke: its neighbours are where the vein goes on (gene gather.vein_follow). */

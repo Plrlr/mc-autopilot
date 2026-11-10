@@ -185,3 +185,11 @@ workflow's unit-tests job compiles and tests in about a minute, the trial jobs t
   is uniform from -64 to -4. The overworld bottom is -64 and `material_rule/bedrock_floor.json`
   ends bedrock at bottom +5. Feet at -58 retain a floor at -59 above that band; this is a
   practical mining level, not a claim that the mathematical ore-density peak is -58.
+- Stash churn (2026-11-09): `stashWorthIt` added up spare items (8+), but `stash` moves whole
+  stacks only (10 iron in one stack with 3 to keep is 7 spare and nothing to move), and the
+  skill then said "ok: 0 stacks". 4,657 such oks in 10 games, alternating with `pickup:stations`
+  220 times. Both now use one test, and a stash that moved nothing fails.
+- collect/explore on logs (2026-11-09): still 489 `collect:log` NOT_FOUND and 201 `explore:log`
+  ALREADY_DONE in 171 games. `explore.same_blocks` raced alone acted in 0 of 8 games, so the
+  deep-water test it shares is not where the two disagree; the cause is still not pinned down.
+  Gene `explore.trust_collect` breaks the loop from the outside instead.
