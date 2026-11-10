@@ -64,10 +64,25 @@ public final class SurvivalPlan {
 	/** A fight the rules chose (attack or the creeper response): the skill made for that mob instead. */
 	public static Option fight(Perception.Seen mob, Option old) {
 		if (mob == null || old == null) return old;
+		// Gene respawn.no_fights_s (2026-11-09): fresh from a respawn with nothing, a fight beyond
+		// arm's length is one we chose, and lose. Every chosen fight comes through here (planner and reflex).
+		if (Tune.i("respawn.no_fights_s") > 0 && old.skill().equals("attack") && skipFreshFight(respawnMs == 0 ? -1 : System.currentTimeMillis() - respawnMs,
+				Tune.i("respawn.no_fights_s"), kitValue(Mc::count), Tune.i("respawn.no_fights_kit"), mob.dist())
+				&& io.github.plrlr.autopilot.Exposure.mark("respawn.no_fights_s", "skipped attack:" + mob.type()))
+			return new Option("retreat", null, old.why() + ": just respawned with nothing, not this fight");
 		if (Tune.on("skill.creeper_defuse") && CreeperDefuse.suits(mob)) return new Option("creeper_defuse", null, old.why());
 		if (Tune.on("skill.block_arrows") && BlockArrows.suits(mob) && old.skill().equals("attack"))
 			return new Option("block_arrows", null, old.why() + ": shield up and close in");
 		return old;
+	}
+
+	/**
+	 * True when a chosen attack should be a retreat: within `seconds` of a respawn (sinceMs < 0: no
+	 * respawn yet), with a kit worth less than kitMin, and the mob still beyond arm's length. One at
+	 * arm's length follows and hits our back (batch 10), so that fight stays. Pure, unit-tested.
+	 */
+	static boolean skipFreshFight(long sinceMs, int seconds, int kit, int kitMin, double dist) {
+		return seconds > 0 && sinceMs >= 0 && sinceMs < seconds * 1000L && kit < kitMin && dist > 2.5;
 	}
 
 	// ---- water and lava in the way (wave 6)

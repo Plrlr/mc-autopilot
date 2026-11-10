@@ -256,6 +256,8 @@ public final class MoveSkills {
 	/** retreat: run away from nearby hostiles. */
 	public static final class Retreat extends Skill {
 		private double startDist;
+		/** Ticks spent sprinting straight away (gene combat.retreat_fallback); 0 = not doing that. */
+		private int dashTicks;
 
 		@Override
 		public String name() {
@@ -299,12 +301,46 @@ public final class MoveSkills {
 				if (nearestThreat() >= 12 || nearestThreat() > startDist + 3) done("got away");
 				return;
 			}
+			if (dashTicks > 0) {
+				dash();
+				return;
+			}
 			if (ticks <= 20 || Bari.pathing()) return;
 			// Baritone stopping isn't the same as getting away: with no path it stops where it
 			// stands, and 99 "got away" retreats in batch 11 (seed a) never moved the bot.
 			double now = nearestThreat();
 			if (now >= 12 || now > startDist + 3) done("got away");
+			// Gene combat.retreat_fallback (2026-11-09): retreat ended this way 263 times in 171 games
+			// and 70 more in death. No path isn't no way: run from it on foot while the ground is safe.
+			else if (Tune.on("combat.retreat_fallback") && io.github.plrlr.autopilot.Exposure.mark("combat.retreat_fallback", "dash")) {
+				dashTicks = 1;
+				dash();
+			}
 			else fail(Fail.NO_PROGRESS, "couldn't get away (nearest monster " + Math.round(now) + " blocks)");
+		}
+
+		/** Face away from the nearest monster and sprint while the next step is safe, for up to 4 s. */
+		private void dash() {
+			LocalPlayer pl = Mc.player();
+			Perception.Seen h = Perception.look(20).nearestHostile();
+			double now = h == null ? Double.MAX_VALUE : h.dist();
+			if (now >= 12 || now > startDist + 3) {
+				CombatFootwork.releaseMovement();
+				done("got away on foot");
+				return;
+			}
+			double dx = pl.getX() - h.entity().getX(), dz = pl.getZ() - h.entity().getZ();
+			pl.setYRot((float) Math.toDegrees(Math.atan2(-dx, dz)));
+			// In the air the footing can't be judged: keep the keys as they are until we land.
+			boolean safe = !pl.onGround() || CombatFootwork.safe(pl, 1, 0);
+			if (dashTicks++ > 20 * 4 || !safe) {
+				CombatFootwork.releaseMovement();
+				fail(Fail.NO_PROGRESS, safe ? "ran but couldn't get away (nearest monster " + Math.round(now) + " blocks)"
+						: "no safe ground to run to (nearest monster " + Math.round(now) + " blocks)");
+				return;
+			}
+			Mc.mc().options.keyUp.setDown(true);
+			Mc.mc().options.keySprint.setDown(true);
 		}
 
 		private static double nearestThreat() {

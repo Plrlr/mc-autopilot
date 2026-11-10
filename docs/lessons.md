@@ -185,3 +185,8 @@ workflow's unit-tests job compiles and tests in about a minute, the trial jobs t
   is uniform from -64 to -4. The overworld bottom is -64 and `material_rule/bedrock_floor.json`
   ends bedrock at bottom +5. Feet at -58 retain a floor at -59 above that band; this is a
   practical mining level, not a claim that the mathematical ore-density peak is -58.
+- After a respawn (2026-11-09, 171 loop games): 85 of 193 respawns died again within 3 minutes
+  (zombie 27, skeleton 18, fall 13); the last choice before that death was `attack:zombie` 29
+  times and `retreat` 18. `retreat` ended NO_PROGRESS 263 times: Baritone's run-away goal stops
+  where it stands when it finds no path, and the skill then gave up with the monster still close.
+  Genes `respawn.no_fights_s` and `combat.retreat_fallback` race the two fixes.
