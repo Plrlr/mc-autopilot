@@ -674,6 +674,28 @@
     "gene": "ready.nether_gold_wear"
    },
    "_priority": true
+  },
+  {
+   "_note": "2026-11-09 (Claude): use learned.weight only while the model passes its held-out check (adv_r2 > 0.05, sign > 0.6, 500+ checked choices).",
+   "learned.gate": 1,
+   "_exposure": {
+    "gene": "learned.gate"
+   },
+   "_priority": true
+  },
+  {
+   "_note": "2026-11-09 (Claude): a failed action is paused longer each time it fails at the same place, instead of every 60 s forever.",
+   "plan.place_backoff": 1,
+   "_exposure": {
+    "gene": "plan.place_backoff"
+   }
+  },
+  {
+   "_note": "2026-11-09 (Claude): a hurt bot that stays committed to its skill re-ran the whole planner every tick; the health mark now resets when commitment answers the check.",
+   "focus.hurt_reset": 1,
+   "_exposure": {
+    "gene": "focus.hurt_reset"
+   }
   }
  ],
  "window": "427x240",

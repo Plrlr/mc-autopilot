@@ -105,6 +105,8 @@ public final class Autopilot {
 	long dangerReflexUntil;
 	long lavaMarginTick = -1000;
 	final Map<String, long[]> failures = new HashMap<>(); // label -> {count, blockedUntilTick}
+	/** Gene plan.place_backoff (2026-11-09): pauses per action and place that grow with each repeat. */
+	final io.github.plrlr.autopilot.plan.PlaceMemory places = new io.github.plrlr.autopilot.plan.PlaceMemory();
 	final LivelockWatch livelock = new LivelockWatch();
 	String lastEndedKey = "";
 	String lastNoopKey = "";
@@ -170,6 +172,7 @@ public final class Autopilot {
 		String paramsLine = Tune.load(params.isBlank() ? home.resolve("params.json") : Path.of(params));
 		String model = System.getProperty("autopilot.learned", "");
 		learned.loadAsync(model.isBlank() ? home.resolve("learned.json") : Path.of(model));
+		brain.gate.loadAsync(model.isBlank() ? home.resolve("learned.json") : Path.of(model)); // gene learned.gate (2026-11-09)
 		Bari.applyFairPlay();
 		savedPauseOnLostFocus = mc.options.pauseOnLostFocus;
 		// The autopilot's key presses aren't input to the game's AFK check: after ~10 minutes it capped
@@ -182,6 +185,7 @@ public final class Autopilot {
 		mc.options.pauseOnLostFocus = false;
 		goal = null;
 		failures.clear();
+		places.clear();
 		stuckWatch.resetPosition();
 		status = "starting";
 		Mc.say("ON (" + brain.label() + "). Any movement key takes control back; K opens the panel.");
@@ -561,6 +565,7 @@ public final class Autopilot {
 			long[] f = failures.get(actionKey(o));
 			if (f == null || tick >= f[1]) options.add(o);
 		}
+		options = placeBackoff(options);
 		if (options.isEmpty()) options.add(new Option("explore", "any", "everything else failed recently"));
 		// Brain v2: options that clearly fail here (learned skill stats) go behind the ones that work.
 		List<String> ctx = skillContextsNow();
@@ -572,6 +577,9 @@ public final class Autopilot {
 		// every iron trip into ~9 pieces of ~20 s: each heartbeat let upkeep or a furnace check win.
 		if (skill != null && !skillIsReflex && Tune.on("focus.commit") && !planner.lastUrgent.contains(options.get(0).label())) {
 			lastDecisionTick = tick;
+			// Gene focus.hurt_reset (2026-11-09): the health mark only moved after a real decision, so
+			// a hurt bot that stays committed asked "hurt" again every tick: the whole planner per tick.
+			if (trigger.equals("hurt") && Exposure.mark("focus.hurt_reset", "committed while hurt")) healthAtDecision = Mc.player().getHealth();
 			return;
 		}
 		// Routine re-checks while the rules still want what we're doing: nothing to decide,
@@ -604,6 +612,27 @@ public final class Autopilot {
 			abortSkill("interrupted: brain chose " + c.option().label(), false);
 		}
 		startSkill(c.option(), trigger, false);
+	}
+
+	/**
+	 * Gene plan.place_backoff: also drop options PlaceMemory still pauses where we stand. Never an
+	 * urgent one, never the last one left; one exposure mark per decision at most.
+	 */
+	private List<Option> placeBackoff(List<Option> options) {
+		var pl = Mc.player();
+		List<Option> out = new ArrayList<>(options);
+		boolean marked = false;
+		for (Option o : options) {
+			if (out.size() <= 1) break;
+			if (planner.lastUrgent.contains(o.label())) continue;
+			String key = actionKey(o);
+			if (!places.paused(key, Mc.dimension(), pl.getBlockX() >> 4, pl.getBlockZ() >> 4, tick)) continue;
+			boolean on = marked ? Tune.on("plan.place_backoff") : Exposure.mark("plan.place_backoff", key);
+			marked = true;
+			if (!on) return options;
+			out.remove(o);
+		}
+		return out;
 	}
 
 	/**
