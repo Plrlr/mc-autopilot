@@ -81,6 +81,8 @@ public final class MoveSkills {
 				// 957 times in gens 118-177, while no tree was found.
 				if (remembered && (t.equals("log") || t.equals("sand")) && !SeenMiner.anySeen(memory, t, 48)
 						&& io.github.plrlr.autopilot.Exposure.mark("explore.same_blocks", "remembered " + t + " that collect can't use")) continue;
+				if (remembered && SeenMiner.collectFoundNone(t)
+						&& io.github.plrlr.autopilot.Exposure.mark("explore.trust_collect", "collect just found no " + t)) continue;
 				if (remembered) return t;
 			}
 			return null;
@@ -240,9 +242,12 @@ public final class MoveSkills {
 			if (ticks > 20 && !Bari.pathing()) {
 				if ("death".equals(arg)) {
 					WorldMemory.Seen d = memory.nearest("death");
-					// Reached or not, don't try again: pickup handles what's in view from here.
-					if (d != null) memory.forget("death", d.pos());
 					LocalPlayer pl = Mc.player();
+					// Gene death.recovery_v2 (2026-11-09): Baritone stopping short isn't the spot being
+					// gone; keep the mark so death_recovery can retry (it forgets the spot itself).
+					boolean keep = io.github.plrlr.autopilot.Tune.on("death.recovery_v2") && d != null && d.pos().distSqr(pl.blockPosition()) > 6 * 6;
+					// Reached or not, don't try again: pickup handles what's in view from here.
+					if (d != null && !keep) memory.forget("death", d.pos());
 					if (d != null && d.pos().distSqr(pl.blockPosition()) > 6 * 6) {
 						fail(Fail.UNREACHABLE, "couldn't reach the death spot");
 						return;
@@ -256,6 +261,8 @@ public final class MoveSkills {
 	/** retreat: run away from nearby hostiles. */
 	public static final class Retreat extends Skill {
 		private double startDist;
+		/** Ticks spent sprinting straight away (gene combat.retreat_fallback); 0 = not doing that. */
+		private int dashTicks;
 
 		@Override
 		public String name() {
@@ -299,12 +306,46 @@ public final class MoveSkills {
 				if (nearestThreat() >= 12 || nearestThreat() > startDist + 3) done("got away");
 				return;
 			}
+			if (dashTicks > 0) {
+				dash();
+				return;
+			}
 			if (ticks <= 20 || Bari.pathing()) return;
 			// Baritone stopping isn't the same as getting away: with no path it stops where it
 			// stands, and 99 "got away" retreats in batch 11 (seed a) never moved the bot.
 			double now = nearestThreat();
 			if (now >= 12 || now > startDist + 3) done("got away");
+			// Gene combat.retreat_fallback (2026-11-09): retreat ended this way 263 times in 171 games
+			// and 70 more in death. No path isn't no way: run from it on foot while the ground is safe.
+			else if (Tune.on("combat.retreat_fallback") && io.github.plrlr.autopilot.Exposure.mark("combat.retreat_fallback", "dash")) {
+				dashTicks = 1;
+				dash();
+			}
 			else fail(Fail.NO_PROGRESS, "couldn't get away (nearest monster " + Math.round(now) + " blocks)");
+		}
+
+		/** Face away from the nearest monster and sprint while the next step is safe, for up to 4 s. */
+		private void dash() {
+			LocalPlayer pl = Mc.player();
+			Perception.Seen h = Perception.look(20).nearestHostile();
+			double now = h == null ? Double.MAX_VALUE : h.dist();
+			if (now >= 12 || now > startDist + 3) {
+				CombatFootwork.releaseMovement();
+				done("got away on foot");
+				return;
+			}
+			double dx = pl.getX() - h.entity().getX(), dz = pl.getZ() - h.entity().getZ();
+			pl.setYRot((float) Math.toDegrees(Math.atan2(-dx, dz)));
+			// In the air the footing can't be judged: keep the keys as they are until we land.
+			boolean safe = !pl.onGround() || CombatFootwork.safe(pl, 1, 0);
+			if (dashTicks++ > 20 * 4 || !safe) {
+				CombatFootwork.releaseMovement();
+				fail(Fail.NO_PROGRESS, safe ? "ran but couldn't get away (nearest monster " + Math.round(now) + " blocks)"
+						: "no safe ground to run to (nearest monster " + Math.round(now) + " blocks)");
+				return;
+			}
+			Mc.mc().options.keyUp.setDown(true);
+			Mc.mc().options.keySprint.setDown(true);
 		}
 
 		private static double nearestThreat() {
@@ -332,6 +373,8 @@ public final class MoveSkills {
 		@Override
 		protected void start() {
 			timeoutTicks = 20 * 30;
+			// "all" (death_recovery, 2026-11-09): every drop in view, for up to 90 s, not 12 stacks.
+			if ("all".equals(arg)) timeoutTicks = 20 * 90;
 		}
 
 		/** Breaks our stations one by one; true while there's still one to break. */
@@ -385,7 +428,7 @@ public final class MoveSkills {
 				List<ItemEntity> items = new java.util.ArrayList<>(Perception.look(16).items);
 				// Not the junk we tossed ourselves (Tidy), or it would be picked straight back up.
 				if (io.github.plrlr.autopilot.Tune.on("inv.tidy")) items.removeIf(it -> io.github.plrlr.autopilot.Tidy.unwanted(it.getItem()));
-				if (items.isEmpty() || picked >= 12) {
+				if (items.isEmpty() || picked >= 12 && !"all".equals(arg)) {
 					done(picked > 0 ? "picked up " + picked + " stacks" : "nothing left to pick up");
 					return;
 				}

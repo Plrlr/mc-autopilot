@@ -607,6 +607,126 @@
    "route.diamond_portal": 0,
    "_max_pairs": 24,
    "_note": "control: the old bucket-cast route, raced once the diamond route has had its tuning"
+  },
+  {
+   "_note": "2026-11-09 (Claude, stage race v5): gold helmet against piglins, re-raced on diamond-depth starts with 60-minute games scored across lives, spawn games as a no-harm check only. Raced 4 times under the old race (g188, g270, g387, g474), never told apart from noise.",
+   "ready.nether_gold": 1,
+   "_stages": [
+    "diamond"
+   ],
+   "_minutes": 60,
+   "_exposure": {
+    "gene": "ready.nether_gold"
+   },
+   "_priority": true
+  },
+  {
+   "_note": "2026-11-09 (Claude, stage race v5): bartering for pearls on its own, on saved Nether starts.",
+   "route.barter": 1,
+   "_stages": [
+    "nether"
+   ],
+   "_minutes": 60,
+   "_priority": true
+  },
+  {
+   "_note": "2026-11-09 (Claude): death recovery v2 with run notes: loaded-chunk despawn clock, cross-dimension return, re-arm, verified pickup, notes that survive a restart. Scored across lives.",
+   "death.recovery_v2": 1,
+   "notes.persist": 1,
+   "_exposure": {
+    "gene": "death.recovery_v2"
+   },
+   "_priority": true
+  },
+  {
+   "_note": "2026-11-09 (Claude): skip item recoveries at a place that already killed the bot twice.",
+   "death.recovery_v2": 1,
+   "notes.persist": 1,
+   "death.avoid_radius": 24,
+   "_exposure": {
+    "gene": "death.avoid_radius"
+   }
+  },
+  {
+   "_note": "2026-11-09 (Claude): 85 of 193 respawns (44%) died again within 3 minutes, the last choice most often attack:zombie with nothing in hand. For 3 minutes after a respawn a poor kit backs off from a mob beyond arm's length.",
+   "respawn.no_fights_s": 180,
+   "_exposure": {
+    "gene": "respawn.no_fights_s"
+   },
+   "_priority": true
+  },
+  {
+   "_note": "2026-11-09 (Claude): retreat ended NO_PROGRESS 263 times in 171 games (and in death 70 times) when Baritone found no way to run: sprint straight away over safe ground instead.",
+   "combat.retreat_fallback": 1,
+   "_exposure": {
+    "gene": "combat.retreat_fallback"
+   }
+  },
+  {
+   "_note": "2026-11-09 (Claude): the gold helmet is put on at the Nether portal (it was only carried, and an iron helmet kept it off); gold_armor swaps instead of failing with a helmet on, and never mines gold beside piglins. Piglins were 11 of 37 Nether deaths in 171 games.",
+   "ready.nether_gold": 1,
+   "ready.nether_gold_wear": 1,
+   "_stages": [
+    "diamond"
+   ],
+   "_minutes": 60,
+   "_exposure": {
+    "gene": "ready.nether_gold_wear"
+   },
+   "_priority": true
+  },
+  {
+   "_note": "2026-11-09 (Claude): use learned.weight only while the model passes its held-out check (adv_r2 > 0.05, sign > 0.6, 500+ checked choices).",
+   "learned.gate": 1,
+   "_exposure": {
+    "gene": "learned.gate"
+   },
+   "_priority": true
+  },
+  {
+   "_note": "2026-11-09 (Claude): a failed action is paused longer each time it fails at the same place, instead of every 60 s forever.",
+   "plan.place_backoff": 1,
+   "_exposure": {
+    "gene": "plan.place_backoff"
+   }
+  },
+  {
+   "_note": "2026-11-09 (Claude): a hurt bot that stays committed to its skill re-ran the whole planner every tick; the health mark now resets when commitment answers the check.",
+   "focus.hurt_reset": 1,
+   "_exposure": {
+    "gene": "focus.hurt_reset"
+   }
+  },
+  {
+   "_note": "2026-11-09 (Claude): collect:log NOT_FOUND 489 and explore:log ALREADY_DONE 201 times in 171 games (the same pair in a laptop game). explore.same_blocks alone acted in 0 of 8 games, so its test is not where they disagree: for a minute after collect comes up empty, explore takes its word.",
+   "explore.trust_collect": 1,
+   "_exposure": {
+    "gene": "explore.trust_collect"
+   },
+   "_priority": true
+  },
+  {
+   "_note": "2026-11-09 (Claude): g176 (these three together) left at +2.41 over 16 pairs under the old race's pair limit; raced again under score v5, where a promising idea gets more seeds.",
+   "smelt.own_furnace": 1,
+   "stations.pickup_last": 1,
+   "explore.same_blocks": 1,
+   "_exposure": {
+    "gene": [
+     "smelt.own_furnace",
+     "stations.pickup_last",
+     "explore.same_blocks"
+    ]
+   },
+   "_priority": true,
+   "_max_pairs": 24
+  },
+  {
+   "_note": "2026-11-10 (Claude): shore swims by hand when the head is under water or there is no headway (Baritone plans nothing from under water, and the drowning reflex kept cutting shore off: 25 rounds in one laptop game; shore TIMEOUT 221 and STUCK 211 in 171 loop games).",
+   "water.swim": 1,
+   "_exposure": {
+    "gene": "water.swim"
+   },
+   "_priority": true
   }
  ],
  "window": "427x240",
@@ -632,7 +752,8 @@
  "_suggest_order": "2026-09-29 (Claude): wave 2 (the portal) races first: its first drill found a cast site at once and cast 4 obsidian with no deaths, where the old portal drill placed obsidian in 1 of 26 tries. Then wave 1 (survival; its combat drill: 87% kills, 1 death in 23 fights), then the danger model, escalation, skill-stat demotion, the strategist, and waves 3-5. The race lineup was full (a new champion, two defenders, two ideas), so queued ideas start as slots free up. A crowned bundle of 3+ skills queues its own trim races (loop.py). 2026-09-29 later: wave 6 (water and lava: fluid_seal, lava_guard, fluid_cross, drain_tunnel, Baritone laying blocks across fluids) races right after wave 1.",
  "minutes": 40,
  "_minutes": "2026-09-29 (later): 40 game minutes per run (was 30, and 20 before). The diamond route (the default since then) takes the iron kit (~6 min), stairs to y -54, three diamonds, a lava pool and 10 obsidian: 30 minutes was too short to reach the Nether from a fresh world. ~70 min per generation, ~100 generations in 5 days.",
- "focus_stage_seeds": 1,
+ "focus_stage_seeds": 3,
+ "_focus_stage_seeds": "2026-11-09 (Claude, stage race v5): 3 starts per focused stage, played only by the champion and the genomes focused there (task \"only\"), so a late-game idea is judged where it acts.",
  "max_jobs": 20,
  "_focus_races": "2026-09-29 (Claude), after gens 50-58 crowned nothing: an idea that acts at one stage races on that stage only (suggestion key \"_stages\"), and each generation adds focus_stage_seeds more starts there. The 8-skill portal bundle g35 was +3.4 on its 4 lava starts (lit one of the night's two portals) but dropped at +0.54 over 16 pairs, 12 of them fresh worlds that never reached lava. So the two cast pieces race alone first, on lava starts. 4 genomes x 5 tasks (2 fresh, 1 lava, 1 focus lava, 1 combat) = 20 jobs; a lineup over max_jobs sits its last unfocused contender out for a generation.",
  "_metric_races": "2026-09-29 (Claude): a suggestion with \"_metric\" is judged by the thing it fixes (scripts/loop/metrics.py): a skill's success rate (\"ok:explore\") or deaths per game minute (\"deaths\"), counted over every paired task, both sides. Crowned at z >= metric_z once each side has metric_min tries, while its whole-game pairs stay above metric_safety_t; dropped at z <= 0 or when the game score says it hurts. Whole-game races alone crowned nothing in gens 50-58 (paired sd 3-4.7). 2026-10-04 (Claude, after g164): judged world by world (paired t over worlds where both sides had tries, metric_min_worlds), not pooled tries; an idea that logs its exposure (an evolved skill, or \"_exposure\") must have acted in exposure_min_games games to win, and one that never acted leaves as inconclusive, not as a loss.",

@@ -72,6 +72,12 @@ DEFAULT_SETTINGS = {
     "metric_z": 2.5,           # ...and the paired t over those worlds the challenger must reach (many looks)
     "exposure_min_games": 3,   # games its change must have acted in before an idea with logged exposure can win
     "metric_safety_t": -1.5,   # ...while its whole-game pairs aren't worse than this paired t (a safety check)            # genomes x tasks per generation (GitHub's free plan runs 20 jobs at once)
+    # Stage race (2026-11-09): a focused idea's spawn games are a no-harm check (guard_pairs), not its verdict.
+    "guard_min_pairs": 4,      # spawn pairs a focused idea needs before it can be crowned
+    "guard_drop_t": -2.0,      # ...and out when its spawn pairs are below zero at this paired t (it breaks the early game)
+    "extend_t": 1.0,           # at max_pairs, a mean above min_gain with at least this t races on (promising, not noise)...
+    "extend_pairs": 8,         # ...for this many more pairs, once
+    "focus_minutes_max": 60,   # cap on a suggestion's "_minutes" (the trial job times out at 150 real minutes)
 }
 
 
@@ -119,8 +125,15 @@ def new_genome(gid, parent, changed, gen, mutated, note):
 def reset_race(g):
     """Both kinds of evidence belong to one opponent and one scoring version."""
     g["pairs"] = []
-    for k in ("metric_tally", "metric_z", "metric_worlds", "exposure"):
+    for k in ("metric_tally", "metric_z", "metric_worlds", "exposure", "guard_pairs"):
         g.pop(k, None)
+    if g.pop("extended", None):
+        # The extension belongs to this race too: back to the genome's own pair limit.
+        before = g.pop("max_pairs_before", None)
+        if before is None:
+            g.pop("max_pairs", None)
+        else:
+            g["max_pairs"] = before
 
 
 # ---------------------------------------------------------------------------------- mutation
@@ -257,6 +270,9 @@ def cmd_propose(a):
             # g35 was +3.4 on its lava starts (it lit one of two portals all night) and dropped at
             # +0.54 over 16 pairs, 12 of them from runs that never reached lava.
             st["genomes"][gid]["focus"] = list(sug["_stages"])
+        if sug.get("_minutes") and sug.get("_stages"):
+            # Late-game ideas need time to act once they get there (2026-11-09): longer focus starts.
+            st["genomes"][gid]["focus_minutes"] = min(int(sug["_minutes"]), int(s.get("focus_minutes_max", 60)))
         if sug.get("_priority"):
             st["genomes"][gid]["priority"] = True  # races ahead of unfocused ideas, never sits out
         if sug.get("_max_pairs"):
@@ -324,17 +340,22 @@ def cmd_propose(a):
         # A child of a code change (not yet merged into main) plays that code too.
         st["genomes"][gid]["code"] = st["genomes"][parent].get("code")
         lineup.append(gid)
+    # The bank only offers starts whose file is really in the release (bank.reconcile, 2026-11-10).
+    if not os.environ.get("LOOP_NO_UPLOAD"):
+        gone = bank.reconcile(st, bank.release_assets())
+        if gone:
+            print("bank: dropped %d entries whose checkpoint file is gone" % gone)
     # Tasks every genome plays (paired): fresh worlds from spawn, plus starts at the frontier stage
     # from the checkpoint bank (or its staged scenario until real checkpoints exist).
     tasks = [{"kind": "natural", "stage": "spawn", "synthetic": False} for _ in range(s["seeds_per_gen"])]
     tasks += bank.pick_tasks(st, rng, s.get("stage_seeds", 0), s.get("stage_lookahead", True))
     # A focused challenger in the race: more starts at its stages, so its pairs come faster.
+    # Since 2026-11-09 only the champion and the genomes focused on that stage play them ("only"), so
+    # starts are cheap and plentiful, and a "_minutes" idea gets the game time to act there.
     focus = sorted({f for gid in lineup for f in st["genomes"][gid].get("focus", [])})
     for stage in focus:
-        for _ in range(s.get("focus_stage_seeds", 0)):
-            t = bank.pick_stage(st, rng, stage)
-            if t:
-                tasks.append(t)
+        for t in focus_tasks(st, s, rng, lineup, champ, stage):
+            tasks.append(t)
     # Combat drills: many short fights, scored on their own (common.score_fights). Deaths to mobs
     # are the wall (152 of 162 runs in gens 28-37 died), and a full run holds too few fights to
     # tell a better fighter from luck.
@@ -344,7 +365,7 @@ def cmd_propose(a):
         t["seed"] = bank.random_seed(rng, "L%d" % gen)
     # Stay within the job limit: the last genomes in the lineup (unfocused contenders or fresh
     # mutations) sit this generation out and keep their place.
-    while len(lineup) > 2 and len(lineup) * len(tasks) + s["data_runs"] > s.get("max_jobs", 10 ** 6):
+    while len(lineup) > 2 and count_runs(lineup, tasks) + s["data_runs"] > s.get("max_jobs", 10 ** 6):
         out_of_turn = [x for x in lineup[1:] if not first(st["genomes"][x])] or lineup[1:]
         lineup.remove(out_of_turn[-1])
     data_tasks = [{"kind": "natural", "stage": "spawn", "synthetic": False, "seed": bank.random_seed(rng, "D%d" % gen)}
@@ -357,9 +378,12 @@ def cmd_propose(a):
     for gid in list(lineup):
         if st["genomes"][gid].get("code") and not rebase_code(st, gid, a.sha, gen) and gid != champ:
             lineup.remove(gid)
+    tasks = trim_only(tasks, lineup, champ)
     runs = []
     for gid in lineup:
         for i, t in enumerate(tasks):
+            if not plays(gid, t):
+                continue
             runs.append(run_entry(s, gid, t, "eval", st["genomes"][gid]["genes"], gen, i, ref_of(st, gid, a.sha)))
     # Data runs: the champion with exploration on, on their own seeds (never scored for the race).
     for i, t in enumerate(data_tasks):
@@ -378,6 +402,45 @@ def cmd_propose(a):
           ", ".join(t["stage"] + ("*" if t["synthetic"] else "") for t in tasks), s["data_runs"]))
 
 
+def focus_tasks(st, s, rng, lineup, champ, stage):
+    """focus_stage_seeds starts at a focused stage, played only by the champion and the lineup's
+    genomes focused there; game minutes from the longest "_minutes" among them (capped)."""
+    who = [gid for gid in lineup[1:] if stage in (st["genomes"][gid].get("focus") or [])]
+    mins = [st["genomes"][gid]["focus_minutes"] for gid in who if st["genomes"][gid].get("focus_minutes")]
+    out = []
+    for _ in range(s.get("focus_stage_seeds", 0)):
+        t = bank.pick_stage(st, rng, stage)
+        if not t:
+            continue
+        t["only"] = [champ] + who
+        if mins:
+            t["minutes"] = min(max(mins), int(s.get("focus_minutes_max", 60)))
+        out.append(t)
+    return out
+
+
+def plays(gid, task):
+    """A task with "only" is played by those genomes alone; others by the whole lineup."""
+    return "only" not in task or gid in task["only"]
+
+
+def count_runs(lineup, tasks):
+    return sum(1 for gid in lineup for t in tasks if plays(gid, t))
+
+
+def trim_only(tasks, lineup, champ):
+    """After the job limit and rebases benched genomes: "only" lists keep the lineup's genomes, and a
+    focus task left with the champion alone (nothing to pair it with) is not played."""
+    out = []
+    for t in tasks:
+        if "only" in t:
+            t["only"] = [g for g in t["only"] if g in lineup]
+            if not any(g != champ for g in t["only"]):
+                continue
+        out.append(t)
+    return out
+
+
 def learned_idea(st):
     """The learned brain's race, queued first once its gate opens (model_adv_lo > 0: on unseen games
     its choices explain progress the state alone doesn't): the champion with learned.weight 1. Waiting
@@ -386,6 +449,9 @@ def learned_idea(st):
     data runs (explore_data): deliberate tries cost the score a race is judged on."""
     lo = st.get("model_adv_lo")
     champ = st["genomes"][st["champion"]]
+    rules = rules_only_idea(st, champ)
+    if rules:
+        return rules
     if lo is None or lo <= 0 or champ["genes"].get("learned.weight", 0) > 0:
         return []
     last = st.get("learned_race")
@@ -395,6 +461,26 @@ def learned_idea(st):
             return []
     return [{"learned.weight": 1, "_priority": True,
              "_auto": "learned brain gate open at gen %d (5%% bound %+.4f)" % (st["gen"], lo)}]
+
+
+def rules_only_idea(st, champ):
+    """2026-11-09 (Claude): the mirror race. A champion that plays learned.weight > 0 while the latest
+    model fails its held-out check (adv_r2 > 0.05 and sign agreement > 0.6) races the same champion
+    rules-only ({"learned.weight": 0}: enter() drops a default, so it's the champion minus the weight).
+    The note names the champion, so `tried` runs it once per champion. "_auto" must not start with
+    "learned": enter() would take it for the forward race (st["learned_race"])."""
+    if champ["genes"].get("learned.weight", 0) <= 0:
+        return []
+    r2, sign = st.get("model_adv_r2"), st.get("model_sign")
+    agree = sign.get("agree") if isinstance(sign, dict) else None
+    if r2 is None and agree is None:
+        return []  # no stats yet: nothing says the model fails
+    if r2 is not None and r2 > 0.05 and agree is not None and agree > 0.6:
+        return []
+    return [{"learned.weight": 0, "_priority": True, "_auto": "rules-only",
+             # Stable text (no live numbers): a changing note would queue a new race every training.
+             "_note": "rules-only against champion %s: its learned model fails the held-out check "
+                      "(adv_r2 > 0.05, sign > 0.6)" % st["champion"]}]
 
 
 def rebase_code(st, gid, main_sha, gen):
@@ -494,11 +580,13 @@ def cmd_update(a):
         task = pool[int(i)] if int(i) < len(pool) else {}
         skip = 0 if task.get("kind", "natural") == "natural" else 10
         combat = task.get("kind") == "combat"
-        score = common.score_fights(r) if combat else common.score_run(r, length, skip)
+        # Each game against its own length (2026-11-09): a 60-minute focus start isn't a 20-minute one.
+        run_len = int(task.get("minutes", s["minutes"])) * 60
+        score = common.score_fights(r) if combat else common.score_run(r, run_len, skip)
         results[name] = {"score": score, "milestones": r["milestones"], "fights": r["fights"],
                          "checkpoints": r["checkpoints"], "deaths": len(r["deaths"]),
                          "death_causes": [c for c, _ in r["deaths"]], "stage": task.get("stage", "spawn"),
-                         "natural": task.get("kind", "natural") == "natural"}
+                         "natural": task.get("kind", "natural") == "natural", "length": run_len}
         sp = read_speed(d)
         if sp:
             speeds.append(sp)
@@ -521,29 +609,33 @@ def cmd_update(a):
     # Paired differences against the champion on the same seeds.
     for gid in p["lineup"][1:]:
         g = st["genomes"][gid]
-        focus = g.get("focus")
         for i in range(len(tasks)):
-            if focus and tasks[i].get("stage") not in focus:
+            if (gid, i) not in by or (champ, i) not in by:
                 continue
-            if (gid, i) in by and (champ, i) in by:
-                g["pairs"].append([gen, seeds[i], round(by[(gid, i)] - by[(champ, i)], 3)])
-                if g.get("metric"):
-                    t = g.setdefault("metric_tally", {"on": [0, 0], "off": [0, 0]})
-                    world = [gen, seeds[i]]
-                    for side, who in (("on", gid), ("off", champ)):
-                        h, n = metrics.tally_run(os.path.join(a.batch, "trial-eval-%s-%d" % (who, i)), g["metric"])
-                        t[side][0] += h
-                        t[side][1] = round(t[side][1] + n, 2)
-                        world += [h, round(n, 2)]
-                    # One row per world: tries within a game aren't independent (metrics.world_diffs).
-                    g.setdefault("metric_worlds", []).append(world)
-                if g.get("exposure_spec"):
-                    ex = metrics.exposure_run(os.path.join(a.batch, "trial-eval-%s-%d" % (gid, i)), g["exposure_spec"])
-                    e = g.setdefault("exposure", {"games": 0, "acted": 0})
-                    e["games"] += 1
-                    e["acted"] += 1 if metrics.acted(g["exposure_spec"], ex) else 0
-                    for k, v in ex.items():
-                        e[k] = e.get(k, 0) + v
+            diff = round(by[(gid, i)] - by[(champ, i)], 3)
+            where = pair_list(g, tasks[i])
+            if where == "guard_pairs":
+                g.setdefault("guard_pairs", []).append([gen, seeds[i], diff])
+            if where != "pairs":
+                continue
+            g["pairs"].append([gen, seeds[i], diff])
+            if g.get("metric"):
+                t = g.setdefault("metric_tally", {"on": [0, 0], "off": [0, 0]})
+                world = [gen, seeds[i]]
+                for side, who in (("on", gid), ("off", champ)):
+                    h, n = metrics.tally_run(os.path.join(a.batch, "trial-eval-%s-%d" % (who, i)), g["metric"])
+                    t[side][0] += h
+                    t[side][1] = round(t[side][1] + n, 2)
+                    world += [h, round(n, 2)]
+                # One row per world: tries within a game aren't independent (metrics.world_diffs).
+                g.setdefault("metric_worlds", []).append(world)
+            if g.get("exposure_spec"):
+                ex = metrics.exposure_run(os.path.join(a.batch, "trial-eval-%s-%d" % (gid, i)), g["exposure_spec"])
+                e = g.setdefault("exposure", {"games": 0, "acted": 0})
+                e["games"] += 1
+                e["acted"] += 1 if metrics.acted(g["exposure_spec"], ex) else 0
+                for k, v in ex.items():
+                    e[k] = e.get(k, 0) + v
     decisions = race(st, genes, p["lineup"][1:], champ, gen)
     showcase = ingest_inbox(a.state, st, sb, gen, upload)
     # History line for the dashboard.
@@ -573,13 +665,14 @@ def cmd_update(a):
         "reached": reached, "deaths": sum(r["deaths"] for r in all_ok if not r["fights"]),
         "speed": round(common.mean(speeds), 3) if speeds else None,
         "total_runs": (prev.get("total_runs", 0) if prev else 0) + len(all_ok),
-        "game_hours": round((prev.get("game_hours", 0) if prev else 0) + len(all_ok) * length / 3600, 2),
+        "game_hours": round((prev.get("game_hours", 0) if prev else 0) + sum(r.get("length", length) for r in all_ok) / 3600, 2),
         "model_rows": st.get("model_rows", 0),
         # The learned model that played this generation (trained at the end of the one before):
         # its gate (5% bound, > 0 opens it) and its choice check on held-out deviations.
         "model": {"kind": st.get("model_kind"), "adv_lo": st.get("model_adv_lo"), "adv_r2": st.get("model_adv_r2"),
                   "sign": st.get("model_sign"), "heads": st.get("model_keys")},
         "showcase": showcase,
+        "marathon": st.get("marathon_latest"),
         "tasks": [t["stage"] + ("*" if t.get("synthetic") else "") for t in tasks],
         "data_tasks": [t["stage"] + ("*" if t.get("synthetic") else "") for t in data_tasks],
         "banked": banked, "frontier": bank.frontier(st), "bank": bank.summary(st),
@@ -592,6 +685,19 @@ def cmd_update(a):
     st["pending"] = None
     common.write_json(os.path.join(a.state, "state.json"), st)
     print("generation %d scored: champion %s (%s)" % (gen, st["champion"], "; ".join(decisions) or "no change"))
+
+
+def pair_list(g, task):
+    """Where a paired difference goes: "pairs" (it judges the genome), "guard_pairs" or None.
+    Off-stage pairs of a focused idea (since 2026-11-09): its spawn games check it doesn't break the
+    early game (guard_verdict) but don't judge the idea; its other off-stage pairs (combat drills,
+    other stages) are thrown away as before."""
+    focus = g.get("focus")
+    if not focus or task.get("stage") in focus:
+        return "pairs"
+    if task.get("kind", "natural") == "natural" and task.get("stage", "spawn") == "spawn":
+        return "guard_pairs"
+    return None
 
 
 def race(st, genes, challengers, champ, gen):
@@ -609,6 +715,16 @@ def race(st, genes, challengers, champ, gen):
         min_pairs = s["accept_pairs"] if g["note"].startswith(("suggested", "code:")) else s["drop_after_pairs"]
         max_pairs = g.get("max_pairs", s["max_pairs"])
         gate = exposure_gate(s, g, max_pairs)
+        guard = guard_verdict(s, g)
+        if guard == "broken":
+            gd = [x[2] for x in g["guard_pairs"]]
+            gm = common.mean(gd)
+            g["status"] = "rejected"
+            g["dropped_why"] = "breaks the early game: %+.2f over %d spawn seeds, t %.1f; %+.2f over %d %s seeds" % (
+                gm, len(gd), common.paired_t(gd), m, len(diffs), "/".join(g["focus"]))
+            out.append("%s dropped (%s)" % (gid, g["dropped_why"]))
+            learn_from(st, g, gm)
+            continue
         if gate == "inconclusive":
             # Its change never got the chance to act: the pairs measured the champion's behavior.
             # Not a loss (no gene credit) and not a win: out, marked so evolve's memory says so.
@@ -619,7 +735,7 @@ def race(st, genes, challengers, champ, gen):
             continue
         if g.get("metric"):
             verdict = metric_verdict(s, g, t)
-            if verdict == "crown" and gate != "ok":
+            if verdict == "crown" and (gate != "ok" or guard != "ok"):
                 verdict = "wait"
             # Ranked by its metric's z (2.5+ is strong evidence); a whole-game t 2+ ranks alongside.
             if verdict == "crown" and g["metric_z"] > best_t:
@@ -627,21 +743,29 @@ def race(st, genes, challengers, champ, gen):
             elif verdict == "drop":
                 g["status"] = "rejected"
                 on, off = metric_sums(g)
-                out.append("%s dropped (%s: %s vs %s, world t %.1f)" % (gid, g["metric"], metrics.describe(g["metric"], on),
-                                                                     metrics.describe(g["metric"], off), g.get("metric_z", 0)))
+                g["dropped_why"] = "%s: %s vs %s, world t %.1f" % (g["metric"], metrics.describe(g["metric"], on),
+                                                                 metrics.describe(g["metric"], off), g.get("metric_z", 0))
+                out.append("%s dropped (%s)" % (gid, g["dropped_why"]))
                 learn_from(st, g, m)
             continue
-        if len(diffs) >= s["accept_pairs"] and m >= s["min_gain"] and t >= s["accept_t"] and t > best_t and gate == "ok":
+        if (len(diffs) >= s["accept_pairs"] and m >= s["min_gain"] and t >= s["accept_t"] and t > best_t
+                and gate == "ok" and guard == "ok"):
             best, best_t = gid, t
             continue
         # A queued idea is dropped early only on evidence it hurts (t <= drop_t), not on a mean just
         # under zero: g47 (reflex.lava_margin) went out at -0.13 over 8 worlds (t -0.1, sd ~3 per
         # world), a coin flip. A neutral idea still leaves at max_pairs. Mutations stay cheap to drop.
         hurts = m <= 0 and (t <= s.get("drop_t", -1.0) or not g["note"].startswith(("suggested", "code:")))
-        if (len(diffs) >= min_pairs and hurts) or len(diffs) >= max_pairs:
+        if len(diffs) >= min_pairs and hurts:
             g["status"] = "rejected"
-            out.append("%s dropped (%+.2f over %d seeds)" % (gid, m, len(diffs)))
+            g["dropped_why"] = "%+.2f over %d seeds, t %.1f" % (m, len(diffs), t)
+            out.append("%s dropped (%s)" % (gid, g["dropped_why"]))
             learn_from(st, g, m)
+        elif len(diffs) >= max_pairs and guard != "wait":
+            # (A focused idea still short of spawn pairs waits for them: its focus starts come three
+            # times as fast, and leaving as "unproven" for want of a no-harm check would be the same
+            # mislabel as g475's.)
+            out.append(at_pair_limit(st, g, m, t, len(diffs)))
     if best:
         g = st["genomes"][best]
         m = common.mean([x[2] for x in g["pairs"]])
@@ -676,6 +800,42 @@ def race(st, genes, challengers, champ, gen):
             if other["status"] == "contender" and other["id"] != champ:
                 reset_race(other)
     return out
+
+
+def at_pair_limit(st, g, m, t, n):
+    """The max_pairs exit, apart from the "hurts" one (2026-11-09). g475 left at +0.97 over 16 pairs
+    (t 0.82, sd ~4.7) as "dropped", read as a loser when it was noise. A promising one (mean above
+    min_gain, t >= extend_t) races extend_pairs more, once; otherwise out as "unproven" if ahead,
+    "dropped" if not. Returns the decision text."""
+    s = st["settings"]
+    max_pairs = g.get("max_pairs", s["max_pairs"])
+    if m >= s["min_gain"] and t >= s.get("extend_t", 1.0) and not g.get("extended"):
+        g["extended"] = True
+        g["max_pairs_before"] = g.get("max_pairs")
+        g["max_pairs"] = max_pairs + s.get("extend_pairs", 8)
+        return "%s keeps racing (%+.2f over %d seeds, t %.1f: promising, %d more seeds)" % (
+            g["id"], m, n, t, s.get("extend_pairs", 8))
+    g["status"] = "rejected"
+    # Gene credit as before (learn_from with the mean): a positive mean was never punished there.
+    learn_from(st, g, m)
+    if m > 0:
+        g["inconclusive"] = "%+.2f over %d seeds, t %.1f: not told apart from noise" % (m, n, t)
+        return "%s unproven (%s)" % (g["id"], g["inconclusive"])
+    g["dropped_why"] = "%+.2f over %d seeds, t %.1f" % (m, n, t)
+    return "%s dropped (%s)" % (g["id"], g["dropped_why"])
+
+
+def guard_verdict(s, g):
+    """ok / wait / broken for a focused idea's spawn games (guard_pairs): it only has to not get
+    worse there, not win. Unfocused genomes: ok (their spawn games are their verdict)."""
+    if not g.get("focus"):
+        return "ok"
+    gd = [x[2] for x in g.get("guard_pairs") or []]
+    if len(gd) < s.get("guard_min_pairs", 4):
+        return "wait"
+    if common.mean(gd) < 0 and common.paired_t(gd) <= s.get("guard_drop_t", -2.0):
+        return "broken"
+    return "ok"
 
 
 def metric_sums(g):
@@ -894,16 +1054,89 @@ def ingest_inbox(state_dir, st, sb, gen, upload=True):
         if r["final"]:
             length = int(info.get("minutes", 20)) * 60
             start, reached, _ = bank.read_stages(d)
+            # A marathon's later legs start from the last leg's save: the gear they carry in (reported
+            # in the first seconds) isn't theirs, as in the race's stage starts.
+            skip = 10 if int(info.get("leg", 1)) > 1 else 0
             out.append({"name": name, "genome": info.get("genome", "?"), "machine": info.get("machine", "?"),
-                        "minutes": info.get("minutes"), "score": common.score_run(r, length),
+                        "minutes": info.get("minutes"), "score": common.score_run(r, length, skip),
                         "milestones": r["milestones"], "checkpoints": r["checkpoints"], "deaths": len(r["deaths"]),
                         "furthest": reached[-1] if reached else start})
+            if info.get("chain"):
+                out[-1].update(chain=info["chain"], leg=int(info.get("leg", 1)))
+                add_marathon_leg(st, info, r, start, reached, length)
             save_training_rows(state_dir, gen, name, d)
             bank.record_result(st, start, reached, gen)
             bank.ingest(st, d, name, gen, info.get("genome", "?"), False, upload)
 
         shutil.rmtree(d, ignore_errors=True)
     st["showcase_runs"] = st.get("showcase_runs", 0) + len(out)
+    return out
+
+
+def add_marathon_leg(st, info, r, start, reached, length):
+    """One leg of a marathon chain (marathon.yml: legs of a game, each resumed from the last one's
+    save) into st["marathons"][chain]; once the chain is finished and whole, it becomes the
+    dashboard's headline (st["marathon_latest"]). A leg delivered twice replaces itself."""
+    chain = str(info["chain"])
+    chains = st.setdefault("marathons", {})
+    rec = chains.setdefault(chain, {"legs_planned": int(info.get("legs", 1)), "genome": info.get("genome", "?"), "legs": {}})
+    rec["legs"][str(int(info.get("leg", 1)))] = {
+        "milestones": r["milestones"], "checkpoints": r["checkpoints"], "deaths": len(r["deaths"]),
+        "death_times": r.get("death_times") or [], "start": start, "reached": reached, "seconds": length,
+        "save_at": info.get("save_at"), "last": bool(info.get("last"))}
+    c = combine_legs(rec)
+    rec["summary"] = c
+    if c["status"] == "complete":
+        st["marathon_latest"] = dict(c, chain=chain, genome=rec["genome"])
+    for old in list(chains)[:-20]:  # the record stays small: the last 20 chains
+        chains.pop(old)
+
+
+def combine_legs(rec):
+    """A marathon chain as one game: {"status": running | complete | incomplete, legs, game_hours,
+    deaths, furthest (bank stage), milestones/checkpoints at their chain game second, score}.
+    Leg k's events after its save (save_at) are a fork the next leg doesn't continue: dropped; a
+    later leg's first 10 s are carried gear. Each milestone counts once, at its first time; deaths
+    add up (one with no known time counts at its leg's start). The score is score_run over the
+    chain (planned legs x leg length). A missing leg before the end: incomplete, no score."""
+    legs = rec.get("legs") or {}
+    planned = int(rec.get("legs_planned") or 1)
+    seen = sorted(int(k) for k in legs)
+    ends = [k for k in seen if legs[str(k)].get("last")] + ([planned] if planned in seen else [])
+    end = min(ends) if ends else None
+    upto = end if end is not None else (max(seen) if seen else 0)
+    whole = all(str(k) in legs for k in range(1, upto + 1))
+    status = "running" if end is None else ("complete" if whole else "incomplete")
+    offset, ms, cps, dts, furthest = 0, {}, {}, [], "spawn"
+    for k in range(1, upto + 1):
+        leg = legs.get(str(k))
+        if leg is None:
+            continue
+        cut = leg.get("save_at") if k < upto else None
+        skip = 0 if k == 1 else 10
+
+        def keep(t):
+            return t > skip and (cut is None or t <= cut)
+        for m, t in leg["milestones"]:
+            if keep(t) and m not in ms:
+                ms[m] = offset + t
+        for name, t in leg["checkpoints"].items():
+            if keep(t) and name not in cps:
+                cps[name] = offset + t
+        times = [t for t in leg.get("death_times") or [] if cut is None or t <= cut]
+        unknown = max(0, leg["deaths"] - len(leg.get("death_times") or []))
+        dts += [offset + t for t in times] + [offset] * unknown
+        for stg in [leg.get("start", "spawn")] + list(leg.get("reached") or []):
+            if stg in bank.STAGES and bank.STAGES.index(stg) > bank.STAGES.index(furthest):
+                furthest = stg
+        offset += cut if cut else leg["seconds"]
+    out = {"status": status, "legs": upto, "legs_planned": planned, "game_hours": round(offset / 3600, 2),
+           "deaths": len(dts), "furthest": furthest, "milestones": sorted([m, t] for m, t in ms.items()),
+           "checkpoints": cps, "score": None}
+    if status == "complete":
+        T = planned * int(legs["1"]["seconds"])
+        run = {"milestones": out["milestones"], "checkpoints": cps, "deaths": [None] * len(dts), "death_times": dts}
+        out["score"] = common.score_run(run, T)
     return out
 
 
@@ -960,7 +1193,7 @@ def cmd_export(a):
     """The champion's genes as a params file (for the laptop, or the user's own game)."""
     genes = common.load_genes()
     st = load_state(a.state, genes)
-    ch = st["genomes"][st["champion"]]
+    ch = st["genomes"].get(a.genome or st["champion"]) or st["genomes"][st["champion"]]
     common.write_json(a.out, {"id": "%s@gen%d" % (ch["id"], st["gen"]), "genes": ch["genes"]})
     print(ch["id"])
 
@@ -998,6 +1231,7 @@ def main():
     p4 = sub.add_parser("export")
     p4.add_argument("--state", required=True)
     p4.add_argument("--out", required=True)
+    p4.add_argument("--genome", default="", help="this genome instead of the champion (a marathon's later legs)")
     p5 = sub.add_parser("merge")
     p5.add_argument("--state", required=True)
     a = ap.parse_args()

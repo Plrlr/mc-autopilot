@@ -450,6 +450,7 @@ public final class CastPortal extends Skill {
 				BlockPos inside = cell(1, 1);
 				if (Mc.id(Mc.state(inside).getBlock()).equals("nether_portal")) {
 					memory.remember("nether_portal", inside, "nether_portal");
+					io.github.plrlr.autopilot.state.Notes.portal(inside); // run notes (2026-11-09)
 					origin = null;
 					log("portal lit");
 					done("cast and lit a nether portal");

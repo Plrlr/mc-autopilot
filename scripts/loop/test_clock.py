@@ -119,7 +119,7 @@ def test_midnight_rollover_in_the_test_log():
     assert abs(c.game_second(t0 + 200000) - 200) < 1.5
 
 
-def test_multiple_lives_score_only_the_first():
+def test_multiple_lives_end_survival_at_the_first_and_each_death_costs():
     rows, log = gen176_like()
     rows.insert(5, {"event": "death", "detail": "lava", "t": T0 + 640000})
     with tempfile.TemporaryDirectory() as d:
@@ -135,9 +135,10 @@ def test_multiple_lives_score_only_the_first():
     assert len(r["death_times"]) == 2
     first, second = r["death_times"]
     assert 300 <= first <= 307 and 570 <= second <= 600, r["death_times"]
-    # The first death sets the score: the life lived ~300 of 2400 s, not 11.
+    # The first death ends the survival share (~300 of 2400 s lived, not 11); score v5 (2026-11-09)
+    # charges both deaths. m7@5s is starting gear (before skip_before): nothing.
     s = common.score_run(r, 2400, skip_before=10)
-    assert s > -1 + 2.0 * (290 - 1) / 2390 - 0.01, s
+    assert -2 + 2.0 * (290 - 1) / 2390 - 0.01 < s < -1.5, s
 
 
 if __name__ == "__main__":

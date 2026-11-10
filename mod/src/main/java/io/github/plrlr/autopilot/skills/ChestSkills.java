@@ -69,6 +69,12 @@ public final class ChestSkills {
 				return;
 			}
 			finished(at, moves);
+			// 2026-11-09: a stash that moved nothing said "ok: 0 stacks", 4,657 times in 10 games, and
+			// was offered again at once. Nothing moved is not done.
+			if (moves == 0 && this instanceof Stash) {
+				fail(Fail.NO_PROGRESS, "nothing went into the chest");
+				return;
+			}
 			done(what() + ": " + moves + " stacks");
 		}
 
@@ -89,7 +95,7 @@ public final class ChestSkills {
 			return Mc.dimension().equals(stashedDim) ? stashedAt : null;
 		}
 		@Override void finished(BlockPos at, int moved) {
-			if (moved > 0 && at != null) { stashedAt = at.immutable(); stashedDim = Mc.dimension(); }
+			if (moved > 0 && at != null) { stashedAt = at.immutable(); stashedDim = Mc.dimension(); io.github.plrlr.autopilot.state.Notes.stash(stashedAt); }
 		}
 		@Override
 		public String name() {
@@ -120,6 +126,19 @@ public final class ChestSkills {
 				if (have <= keep(id)) continue;
 				Predicate<ItemStack> p = s -> Items2.id(s).equals(id);
 				if (have - keep(id) >= smallestStack(p) && ChestOps.putOne(m, p)) return true;
+			}
+			return false;
+		}
+
+		/**
+		 * True when move() would put at least one stack away now. 2026-11-09: stashWorthIt added up
+		 * spare items (8+), but only whole stacks move: 10 iron in one stack with 3 to keep is 7 spare
+		 * and no stack to move, so the planner kept offering a stash that could do nothing.
+		 */
+		static boolean anyMovable() {
+			for (String id : SPARES) {
+				int have = Mc.count(id);
+				if (have > keep(id) && have - keep(id) >= smallestStack(s -> Items2.id(s).equals(id))) return true;
 			}
 			return false;
 		}
@@ -176,6 +195,6 @@ public final class ChestSkills {
 	public static boolean stashWorthIt() {
 		int spare = 0;
 		for (String id : SPARES) spare += Math.max(0, Mc.count(id) - Stash.keep(id));
-		return spare >= 8 && Mc.dimension().equals("overworld");
+		return spare >= 8 && Mc.dimension().equals("overworld") && Stash.anyMovable();
 	}
 }

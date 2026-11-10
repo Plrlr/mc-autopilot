@@ -143,9 +143,10 @@ cascade), and more parallel seeds once the cloud's speed is fixed (the renderer 
 2. **trial**: each run plays 20 game minutes of plain vanilla drawing, which already keeps up
    with real time on the cloud (0.98x). A 10 fps cap halved the game speed, so it isn't used.
 3. **update**: scores every run (`common.score_run`: points per milestone and portal step, up to
-   50% more the earlier; one life: only what came before the first death counts, plus up to 2
-   points for the share of the run lived, minus 1 for dying; a death's game second comes from
-   `clock.py`, score v4 since 2026-10-04), races, retrains the model, merges a winning code
+   50% more the earlier, in any life (score v5 since 2026-11-09; one life only from 2026-09-28),
+   plus up to 2 points for the share of the run lived before the first death, minus 1 per death
+   (at most 5); a death's game second comes from `clock.py` (since v4), each game scored against
+   its own length), races, retrains the model, merges a winning code
    change, maybe asks Claude for one, writes `loop/history.jsonl` and the dashboard, and starts
    the next generation.
 
@@ -156,6 +157,30 @@ generation. The dethroned champion races the new one from scratch, so a lucky pr
 reversed by the same rule. Genes whose changes won get picked more often and mutated in bigger
 steps (and vice versa). Noise is large (same code: iron 8/8 then 4/8), which is why nothing
 is decided on one batch.
+
+## Stage race and across-lives score (2026-11-09, score v5)
+
+- **Score across lives.** `common.score_run` counts every milestone and checkpoint in any life,
+  not only before the first death. The late game is only reachable across deaths (portal lit in
+  2-5% of spawn runs, 7 blaze-rod milestones in 8,396 runs, ~2 deaths per run for 450
+  generations). What keeps the search from trading lives for progress: each death costs 1.0 (up
+  to 5 deaths), and the survival share still ends at the first death. Version 5 clears all race
+  pairs; the champion keeps its crown. Each game is scored against its own length.
+- **Stage race.** A focused idea (`"_stages"`) is judged on its stage's starts. Its spawn games now
+  go to `guard_pairs`, a no-harm check: it can't be crowned before `guard_min_pairs` (4) of them,
+  and is dropped as "breaks the early game" when they are below zero at t <= `guard_drop_t` (-2).
+  Focus starts are `focus_stage_seeds` (3) per stage, played only by the champion and the genomes
+  focused there (task `"only"`). A suggestion's `"_minutes"` (capped at `focus_minutes_max`, 60)
+  sets those starts' game minutes.
+- **The pair limit.** g475 left as "dropped" at +0.97 over 16 pairs (t 0.82, sd 4.7): that is
+  noise, not a loss. Now a genome at `max_pairs` with a mean of at least `min_gain` and t >=
+  `extend_t` (1.0) races `extend_pairs` (8) more, once; otherwise it leaves as "unproven" when
+  ahead (its reason in `inconclusive`) and "dropped" when not (`dropped_why`).
+- **Marathon legs.** `marathon.yml` plays a game as `legs` (3) jobs: each saves 30 game seconds
+  before its end, uploads the save as `marathon-<chain>-leg<k>.zip` and starts the next leg from
+  it. The loop joins the legs (`loop.combine_legs`: carried gear and the save's fork not counted
+  twice, deaths summed, a missing leg makes the chain "incomplete" with no score) and the
+  dashboard shows the latest whole chain as "Long run", a full natural run across deaths.
 
 ## Running it
 - Start (runs until the daily cap of 36 generations, restarts itself hourly after that):

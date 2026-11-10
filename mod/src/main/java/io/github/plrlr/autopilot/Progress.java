@@ -12,6 +12,9 @@ import net.minecraft.world.entity.boss.enderdragon.EnderDragon;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.StandardCopyOption;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 /**
  * Tracks the furthest milestone (1-13) this world has reached, saved per world so the number
@@ -25,6 +28,13 @@ public final class Progress {
 	private boolean sawNight;
 	private int nightsSurvived;
 	private boolean dragonKilled;
+	// 2026-11-09: saves ran on the game thread (every death and milestone). One background writer,
+	// as log/Lessons does: the tick snapshots the numbers, the disk work happens here.
+	private final ExecutorService writer = Executors.newSingleThreadExecutor(r -> {
+		Thread t = new Thread(r, "autopilot-progress");
+		t.setDaemon(true);
+		return t;
+	});
 
 	public Progress(Path dir) {
 		this.dir = dir;
@@ -113,16 +123,22 @@ public final class Progress {
 
 	private void save() {
 		if (world.isEmpty()) return;
-		try {
-			Files.createDirectories(dir);
-			JsonObject o = new JsonObject();
-			o.addProperty("furthest", furthest);
-			o.addProperty("deaths", deaths);
-			o.addProperty("nights", nightsSurvived);
-			o.addProperty("dragon", dragonKilled);
-			Files.writeString(file(), new Gson().toJson(o), StandardCharsets.UTF_8);
-		} catch (Exception e) {
-			AutopilotMod.LOGGER.warn("Could not save progress: {}", e.toString());
-		}
+		JsonObject o = new JsonObject();
+		o.addProperty("furthest", furthest);
+		o.addProperty("deaths", deaths);
+		o.addProperty("nights", nightsSurvived);
+		o.addProperty("dragon", dragonKilled);
+		String text = new Gson().toJson(o);
+		Path f = file();
+		writer.execute(() -> {
+			try {
+				Files.createDirectories(dir);
+				Path tmp = f.resolveSibling(f.getFileName() + ".tmp");
+				Files.writeString(tmp, text, StandardCharsets.UTF_8);
+				Files.move(tmp, f, StandardCopyOption.REPLACE_EXISTING, StandardCopyOption.ATOMIC_MOVE);
+			} catch (Exception e) {
+				AutopilotMod.LOGGER.warn("Could not save progress: {}", e.toString());
+			}
+		});
 	}
 }

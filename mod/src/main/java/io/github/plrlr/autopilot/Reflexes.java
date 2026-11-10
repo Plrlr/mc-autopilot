@@ -81,6 +81,11 @@ final class Reflexes {
 			a.log.event("reflex", "lava");
 			return;
 		}
+		// Gene water.swim (2026-11-10): shore swimming by hand is already heading up and out; cutting
+		// it off here only restarted it under water, over and over.
+		if (pl.isUnderWater() && pl.getAirSupply() < 120 && a.skill instanceof io.github.plrlr.autopilot.skills.ShoreSkill sh && sh.swimming()) {
+			Mc.mc().options.keyJump.setDown(true);
+		} else
 		if (pl.isUnderWater() && pl.getAirSupply() < 120) {
 			// Out of breath: stop and swim straight up for a moment (holding jump rises in water).
 			a.abortSkill("running out of air", false);
@@ -131,7 +136,7 @@ final class Reflexes {
 		if (h != null && (fortressFight || h.type().equals("blaze") && a.skill != null && a.skill.name().equals("fortress"))) h = null;
 		// A lone mob still several blocks away need not reset the trip for dropped gear. The
 		// planner resumes retrieval after a real close-range interruption when the way clears.
-		boolean recoverySafe = Tune.on("death.trip_commit") && a.skill != null && (a.skill.name().equals("recover_items")
+		boolean recoverySafe = Tune.on("death.trip_commit") && a.skill != null && (a.skill.name().equals("recover_items") || a.skill.name().equals("death_recovery")
 				|| a.skill.name().equals("goto") && a.skillOption != null && "death".equals(a.skillOption.arg()))
 				&& !io.github.plrlr.autopilot.plan.SurvivalPlan.recoveryThreat(a.seen);
 		if (recoverySafe) h = null;

@@ -77,7 +77,10 @@ public final class DragonFight extends Skill {
 		LocalPlayer pl = Mc.player();
 		EnderDragon d = dragon();
 		var o = Mc.mc().options;
-		if (d != null && d.getPhaseManager().getCurrentPhase().getPhase() == EnderDragonPhase.DYING) sawDying = true;
+		if (d != null && d.getPhaseManager().getCurrentPhase().getPhase() == EnderDragonPhase.DYING) {
+			sawDying = true;
+			EndRoutes.noteDying(); // the End's other skills trust a kill only after this (2026-11-09)
+		}
 		if (sawDying && (d == null || !d.isAlive())) {
 			done("the dragon is dead (" + hits + " hits)");
 			return;

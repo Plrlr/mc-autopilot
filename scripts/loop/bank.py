@@ -190,6 +190,31 @@ def prune(st, keep=40, upload=True):
         st["bank"][stage] = retained
 
 
+def release_assets():
+    """The names of the checkpoints release's files, or None when the listing failed."""
+    r = gh("release", "view", RELEASE, "--json", "assets", "--jq", ".assets[].name")
+    if r.returncode != 0:
+        return None
+    return set(r.stdout.split())
+
+
+def reconcile(st, names):
+    """Drops bank entries whose file is no longer in the release; returns how many.
+    2026-11-10: prune keeps an entry when its delete fails "so the next generation can retry", but a
+    delete also fails when the file is already gone (a cancelled run deleted it and never saved the
+    state). 192 of 347 entries pointed at nothing; each generation that drew one lost that start's
+    games for every genome (gen 560: "no assets match the file pattern", 4 jobs), and the workflow
+    run failed. `names` None or empty (the listing failed): nothing is dropped."""
+    if not names:
+        return 0
+    dropped = 0
+    for stage, items in st.get("bank", {}).items():
+        kept = [c for c in items if c.get("asset") in names]
+        dropped += len(items) - len(kept)
+        st["bank"][stage] = kept
+    return dropped
+
+
 def summary(st):
     out = {}
     for stage in STAGES[1:]:
