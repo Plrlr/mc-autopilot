@@ -67,6 +67,9 @@ final class Bank {
 	 * Saves the world and zips it to checkpoints/<stage>.zip with a small description next to it.
 	 * ctx is null during a free run (FreeRun): then the server's own task queue does the saving.
 	 */
+	/** The run notes' entry in a checkpoint zip (not a vanilla file; the game ignores it). */
+	private static final String NOTES_ENTRY = "mc-autopilot-notes.json";
+
 	static void save(ClientGameTestContext ctx, TestSingleplayerContext sp, int stage, long gameSeconds) {
 		String name = STAGES.get(stage);
 		if (ctx == null) {
@@ -93,6 +96,14 @@ final class Bank {
 					} catch (IOException e) {
 						// A file the server is writing right now: skip it (region files were flushed).
 					}
+					out.closeEntry();
+				}
+				// The bot's run notes live outside the save (mc-autopilot/notes-<world>.json): carry them
+				// in the zip so a marathon's next leg still knows its portals and deaths (2026-11-09).
+				Path notes = io.github.plrlr.autopilot.state.Notes.file();
+				if (notes != null && Files.isRegularFile(notes)) {
+					out.putNextEntry(new ZipEntry(NOTES_ENTRY));
+					Files.copy(notes, out);
 					out.closeEntry();
 				}
 			}
@@ -146,6 +157,17 @@ final class Bank {
 			}
 		} catch (IOException e) {
 			throw new AssertionError("couldn't restore checkpoint " + zip + ": " + e, e);
+		}
+		// Run notes back to where the mod reads them (the restored world keeps the fresh world's name).
+		try {
+			Path packed = dir.resolve(NOTES_ENTRY), notes = io.github.plrlr.autopilot.state.Notes.file();
+			if (Files.isRegularFile(packed)) {
+				if (notes != null) Files.move(packed, notes, java.nio.file.StandardCopyOption.REPLACE_EXISTING);
+				else Files.delete(packed);
+				io.github.plrlr.autopilot.state.Notes.reloadNext();
+			}
+		} catch (IOException e) {
+			System.out.println("[autopilot-test] run notes not restored: " + e);
 		}
 		System.out.println("[autopilot-test] START from checkpoint " + zip.getFileName());
 		TestSingleplayerContext reopened = save.open();

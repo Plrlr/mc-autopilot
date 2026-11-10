@@ -43,6 +43,8 @@ public final class SkillSpecs {
 				.gene("skill.respawn_reset").help("after a night respawn, hide until morning").build());
 		s.add(SkillSpec.of("recover_items", null).stage("any").makes("items_recovered").prior(90, 0.5)
 				.gene("skill.recover_items").help("go back for dropped items carefully").build());
+		s.add(SkillSpec.of("death_recovery", null).stage("any").makes("items_recovered").prior(120, 0.5)
+				.gene("death.recovery_v2").help("go back for dropped items: re-arm, portal back, verify the pickup").build());
 		s.add(SkillSpec.of("make_bed", null).stage("early").facts("overworld").gives("bed", 1).prior(120, 0.5)
 				.gene("skill.make_bed").help("wool from sheep, then a bed").build());
 		s.add(SkillSpec.of("food_secure", "6").stage("early").facts("overworld").gives("food", 6).prior(150, 0.6)

@@ -434,6 +434,21 @@ public final class WorldMemory {
 		if (m != null) m.remove(pos);
 	}
 
+	/** A mark in a named dimension: run notes (state/Notes) re-seed what we saw before a restart (2026-11-09). */
+	public void rememberIn(String group, BlockPos pos, String block, String dim) {
+		byGroup.computeIfAbsent(group, k -> new LinkedHashMap<>()).put(pos, new Seen(pos, block, dim, scanTick));
+	}
+
+	/** Marks of a group in every dimension (all() sees only the current one). */
+	public List<Seen> everywhere(String group) {
+		Map<BlockPos, Seen> m = byGroup.get(group);
+		return m == null ? List.of() : new ArrayList<>(m.values());
+	}
+
+	public void forgetEverywhere(String group) {
+		byGroup.remove(group);
+	}
+
 	/** Nearest remembered block of a group in the current dimension, or null. */
 	public Seen nearest(String group) {
 		LocalPlayer pl = Mc.player();

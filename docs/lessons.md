@@ -185,3 +185,10 @@ workflow's unit-tests job compiles and tests in about a minute, the trial jobs t
   is uniform from -64 to -4. The overworld bottom is -64 and `material_rule/bedrock_floor.json`
   ends bedrock at bottom +5. Feet at -58 retain a floor at -59 above that band; this is a
   practical mining level, not a claim that the mathematical ore-density peak is -58.
+- Death recovery (2026-11-09, from a code audit and 171 loop games): dropped items age only while
+  their chunk is loaded, so a wall-clock timer from the death forgets drops that are still there
+  (after a far respawn, a pause, or a death in the other dimension). `recover_items` reported
+  "ok" after any walk back, even with an empty bag: its children's results were ignored. And
+  dying during a recovery re-marked the spot, because only `goto death` counted as "on the way
+  back". In those games 44% of respawns died again within 3 minutes and 54% of games with a
+  death never regained their gear; the champion never ran `recover_items` (its gene was off).

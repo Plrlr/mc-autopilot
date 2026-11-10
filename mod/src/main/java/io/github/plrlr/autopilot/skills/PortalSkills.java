@@ -184,6 +184,7 @@ public final class PortalSkills {
 					BlockPos inside = at(frameOrigin, frameAlong, new int[]{1, 1});
 					if (Mc.id(Mc.state(inside).getBlock()).equals("nether_portal")) {
 						memory.remember("nether_portal", inside, "nether_portal");
+						io.github.plrlr.autopilot.state.Notes.portal(inside); // run notes (2026-11-09)
 						frameOrigin = null;
 						done("nether portal lit");
 						return;
@@ -433,6 +434,8 @@ public final class PortalSkills {
 					}
 					Vec3 dir = flat.normalize();
 					THROWS.add(new Throw(from, dir));
+					// Run notes (2026-11-09): the reading itself, so a restart still knows the bearing.
+					io.github.plrlr.autopilot.state.Notes.eye(from.x, from.y, from.z, dir.x, dir.z, pl.level().getGameTime());
 					Vec3 goal = triangulate();
 					if (goal != null) {
 						// Two crossing bearings: walk there, then one close throw to confirm.

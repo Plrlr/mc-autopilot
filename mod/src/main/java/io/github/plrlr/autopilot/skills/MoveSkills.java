@@ -240,9 +240,12 @@ public final class MoveSkills {
 			if (ticks > 20 && !Bari.pathing()) {
 				if ("death".equals(arg)) {
 					WorldMemory.Seen d = memory.nearest("death");
-					// Reached or not, don't try again: pickup handles what's in view from here.
-					if (d != null) memory.forget("death", d.pos());
 					LocalPlayer pl = Mc.player();
+					// Gene death.recovery_v2 (2026-11-09): Baritone stopping short isn't the spot being
+					// gone; keep the mark so death_recovery can retry (it forgets the spot itself).
+					boolean keep = io.github.plrlr.autopilot.Tune.on("death.recovery_v2") && d != null && d.pos().distSqr(pl.blockPosition()) > 6 * 6;
+					// Reached or not, don't try again: pickup handles what's in view from here.
+					if (d != null && !keep) memory.forget("death", d.pos());
 					if (d != null && d.pos().distSqr(pl.blockPosition()) > 6 * 6) {
 						fail(Fail.UNREACHABLE, "couldn't reach the death spot");
 						return;
@@ -332,6 +335,8 @@ public final class MoveSkills {
 		@Override
 		protected void start() {
 			timeoutTicks = 20 * 30;
+			// "all" (death_recovery, 2026-11-09): every drop in view, for up to 90 s, not 12 stacks.
+			if ("all".equals(arg)) timeoutTicks = 20 * 90;
 		}
 
 		/** Breaks our stations one by one; true while there's still one to break. */
@@ -385,7 +390,7 @@ public final class MoveSkills {
 				List<ItemEntity> items = new java.util.ArrayList<>(Perception.look(16).items);
 				// Not the junk we tossed ourselves (Tidy), or it would be picked straight back up.
 				if (io.github.plrlr.autopilot.Tune.on("inv.tidy")) items.removeIf(it -> io.github.plrlr.autopilot.Tidy.unwanted(it.getItem()));
-				if (items.isEmpty() || picked >= 12) {
+				if (items.isEmpty() || picked >= 12 && !"all".equals(arg)) {
 					done(picked > 0 ? "picked up " + picked + " stacks" : "nothing left to pick up");
 					return;
 				}

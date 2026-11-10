@@ -264,10 +264,12 @@ public final class Autopilot {
 		if (tick % 5 == 0) seen = Perception.look(32);
 		if (tick % 5 == 0 && Tune.on("safety.spawner_room")) io.github.plrlr.autopilot.skills.SpawnerRoom.observe(memory, seen, tick);
 		if (tick % 20 == 0) Bari.updateThrowaway();
-		if (deathItemsUntilTick >= 0 && tick > deathItemsUntilTick) {
+		if (Tune.on("death.recovery_v2")) io.github.plrlr.autopilot.skills.DeathRecovery.clockTick(memory, pl, tick);
+		else if (deathItemsUntilTick >= 0 && tick > deathItemsUntilTick) {
 			deathItemsUntilTick = -1;
 			for (WorldMemory.Seen d : memory.all("death")) memory.forget("death", d.pos());
 		}
+		io.github.plrlr.autopilot.state.Notes.tick(memory);
 		Checkpoints.tick(tick);
 		if (tick % 20 == 0) checkpoints();
 		// Room in the bag (Tidy): not while a skill is moving items around itself.
@@ -322,6 +324,9 @@ public final class Autopilot {
 			io.github.plrlr.autopilot.brains.Thompson.clear();
 			io.github.plrlr.autopilot.plan.Escalation.clear();
 			progress.load(name);
+			// Run notes (gene notes.persist): read in the background, re-seeded into memory when ready.
+			io.github.plrlr.autopilot.state.Notes.load(home, name);
+			io.github.plrlr.autopilot.state.DeathClock.shared().stop();
 			goal = null;
 		}
 	}
@@ -331,8 +336,10 @@ public final class Autopilot {
 			if (deathTick < 0) {
 				deathTick = tick;
 				// Died again on the way back for our items: they aren't worth a third trip.
-				boolean onTheWayBack = skill != null && skill.name().equals("goto") && skillOption != null
-						&& "death".equals(skillOption.arg());
+				// 2026-11-09: recover_items and death_recovery are trips back too (Reflexes treats them
+				// alike); only "goto" counted, so dying during a recovery re-marked the spot forever.
+				boolean onTheWayBack = skill != null && (skill.name().equals("goto") && skillOption != null
+						&& "death".equals(skillOption.arg()) || skill.name().equals("recover_items") || skill.name().equals("death_recovery"));
 				// What we drop now decides whether walking back is worth it (gene death.recover_value).
 				io.github.plrlr.autopilot.plan.SurvivalPlan.noteDeath(io.github.plrlr.autopilot.plan.SurvivalPlan.kitValue(Mc::count));
 				abortSkill("died", false);
@@ -346,12 +353,26 @@ public final class Autopilot {
 				// in every death table (the local trial night2's enderman death read "mob").
 				if (src != null && src.getEntity() != null && !(src.getEntity() instanceof LocalPlayer)) cause += ":" + Mc.id(src.getEntity());
 				log.event("death", cause);
+				// Gene death.recovery_v2: dying on the way back gives that place up (dangerous) before the marks go.
+				if (onTheWayBack && Tune.on("death.recovery_v2")) io.github.plrlr.autopilot.skills.DeathRecovery.giveUp(memory, "died on the way back");
 				// Drops survive 5 minutes unless lava or the void took them; go back for them.
 				for (WorldMemory.Seen d : memory.all("death")) memory.forget("death", d.pos());
-				if (!onTheWayBack && !cause.equals("lava") && !cause.equals("outOfWorld") && pl.getY() > pl.level().getMinY()) {
+				boolean dropsKept = !onTheWayBack && !cause.equals("lava") && !cause.equals("outOfWorld") && pl.getY() > pl.level().getMinY();
+				// Where and why, kept in RAM (death.avoid_radius) and on disk with notes.persist (2026-11-09).
+				int colon = cause.indexOf(':');
+				io.github.plrlr.autopilot.state.RunNotes.Death noted = io.github.plrlr.autopilot.state.Notes.get().death(
+						io.github.plrlr.autopilot.state.Notes.here(pl.blockPosition()), colon < 0 ? cause : cause.substring(0, colon),
+						colon < 0 ? "" : cause.substring(colon + 1), pl.level().getGameTime(),
+						io.github.plrlr.autopilot.plan.SurvivalPlan.lostValue());
+				// Lava, the void or a second death on the way back: nothing to fetch there, and a bad place.
+				if (!dropsKept) noted.dangerous = true;
+				if (dropsKept) {
 					memory.remember("death", pl.blockPosition(), "death");
 					deathItemsUntilTick = tick + 20 * 60 * 4 + 20 * 30;
-				}
+					if (Tune.on("death.recovery_v2"))
+						io.github.plrlr.autopilot.state.DeathClock.shared().start(Mc.dimension(), pl.getBlockX(), pl.getBlockY(), pl.getBlockZ(), 0);
+				} else if (Tune.on("death.recovery_v2")) io.github.plrlr.autopilot.state.DeathClock.shared().stop();
+				io.github.plrlr.autopilot.state.Notes.save();
 				Mc.say("Died. Respawning and carrying on.");
 			}
 			if (tick - deathTick == 60) {
@@ -468,6 +489,14 @@ public final class Autopilot {
 		return hash;
 	}
 
+	/** A visible non-blaze monster within 4 blocks. */
+	private boolean meleeThreat() {
+		if (seen == null) return false;
+		for (Perception.Seen m : seen.mobs)
+			if (m.hostile() && !m.type().equals("blaze") && m.dist() < 4 && Mc.canSee(m.entity())) return true;
+		return false;
+	}
+
 	/** Blocks to the nearest hostile we perceive (infinite when none). */
 	private double nearestHostileDist() {
 		var h = seen == null ? null : seen.nearestHostile();
@@ -507,7 +536,12 @@ public final class Autopilot {
 		// decision picked eat and stopped it in the open while burning: the laptop's blaze run
 		// after e2e2ffe died that way 30 s in.
 		if (skill.name().equals("fortress") && skillOption != null && skillOption.arg() != null
-				&& skillOption.arg().startsWith("blazes")) return;
+				&& skillOption.arg().startsWith("blazes")) {
+			// A piglin or wither skeleton on top of us isn't part of the blaze fight: let the rules
+			// answer it (Nether first deaths: piglin 14, wither skeleton 9, mostly during this skill).
+			if (meleeThreat() && tick - lastDecisionTick >= 40) requestDecision("melee_in_blaze_fight");
+			return;
+		}
 		if (newHostile && !skill.name().equals("attack")) requestDecision("mob_near");
 		else if (pl.getHealth() < healthAtDecision - 3) requestDecision("hurt");
 		else if (Tune.on("food.keep_full") && !hostileNear && skill.interruptible() && !skill.name().equals("eat")

@@ -89,7 +89,7 @@ public final class ChestSkills {
 			return Mc.dimension().equals(stashedDim) ? stashedAt : null;
 		}
 		@Override void finished(BlockPos at, int moved) {
-			if (moved > 0 && at != null) { stashedAt = at.immutable(); stashedDim = Mc.dimension(); }
+			if (moved > 0 && at != null) { stashedAt = at.immutable(); stashedDim = Mc.dimension(); io.github.plrlr.autopilot.state.Notes.stash(stashedAt); }
 		}
 		@Override
 		public String name() {
