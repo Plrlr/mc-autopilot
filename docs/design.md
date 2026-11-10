@@ -176,3 +176,25 @@ rules still want the running action. Reflexes never wait for an AI.
   public: never include the .env file or keys.
 - Cap the cycles per day and log what each cycle cost.
 
+
+## Death recovery v2 and run notes (2026-11-09)
+
+Genes `death.recovery_v2`, `notes.persist`, `death.avoid_radius`, all off by default.
+
+- **`skills/DeathRecovery`** (`death_recovery`, extends `RecoverItems`): re-arm with a cheap
+  sword or pickaxe when the spot is far and time allows; if the drops are in the other dimension,
+  go back through the known portal (none known: fail, not "dangerous"); then `RecoverItems`'
+  approach and clear; `goto death` retried twice when Baritone stops short; pick up every drop in
+  view; **done only if the bag gained**. It gives up, notes the place dangerous and forgets the
+  mark after two UNREACHABLE results, when the clock runs out, or when it dies on the way.
+- **`state/DeathClock`**: the drops' 4.5 minutes count only ticks the bot is alive, unpaused, in
+  the death's dimension and within 128 blocks. The planner skips the respawn shelter and the
+  night-armor rule while that clock is running (the drops are the armor).
+- **`state/RunNotes` + `state/Notes`**: what the bot saw or did, per world, in
+  `notes-<world>.json`: portals, stashes, the first fortress block, eye readings, the bed, and
+  deaths (place, cause, killer, kit value, recovered, dangerous, age of the drops). Read and
+  written on one background thread; a load puts the marks back into `WorldMemory`. The test
+  harness carries the file inside a checkpoint zip, so a marathon's next leg has it.
+- **`death.avoid_radius`**: no recovery trip to a place with two deaths within that radius.
+- Without a gene (wrong either way): `RecoverItems` reports ok only if the bag gained; dying
+  during `recover_items` counts as "on the way back"; `Progress.save` writes off the game thread.

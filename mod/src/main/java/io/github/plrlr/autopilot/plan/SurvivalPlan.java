@@ -122,6 +122,8 @@ public final class SurvivalPlan {
 
 	/** Going back for dropped items: carefully (gene skill.recover_items). */
 	public static Option recover(Option old) {
+		// Gene death.recovery_v2 (2026-11-09): re-arm, portal back if need be, verify the pickup.
+		if (old != null && Tune.on("death.recovery_v2")) return new Option("death_recovery", null, old.why() + ": re-arm, clear, verify");
 		if (old == null || !Tune.on("skill.recover_items")) return old;
 		return new Option("recover_items", null, old.why() + ", carefully");
 	}
@@ -131,6 +133,10 @@ public final class SurvivalPlan {
 
 	public static void noteDeath(int value) {
 		lostValue = value;
+	}
+
+	public static int lostValue() {
+		return lostValue;
 	}
 
 	/**

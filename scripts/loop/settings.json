@@ -607,6 +607,24 @@
    "route.diamond_portal": 0,
    "_max_pairs": 24,
    "_note": "control: the old bucket-cast route, raced once the diamond route has had its tuning"
+  },
+  {
+   "_note": "2026-11-09 (Claude): death recovery v2 with run notes: loaded-chunk despawn clock, cross-dimension return, re-arm, verified pickup, notes that survive a restart. Scored across lives.",
+   "death.recovery_v2": 1,
+   "notes.persist": 1,
+   "_exposure": {
+    "gene": "death.recovery_v2"
+   },
+   "_priority": true
+  },
+  {
+   "_note": "2026-11-09 (Claude): skip item recoveries at a place that already killed the bot twice.",
+   "death.recovery_v2": 1,
+   "notes.persist": 1,
+   "death.avoid_radius": 24,
+   "_exposure": {
+    "gene": "death.avoid_radius"
+   }
   }
  ],
  "window": "427x240",

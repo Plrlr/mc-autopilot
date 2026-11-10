@@ -77,6 +77,7 @@ public final class NetherRoutes {
 					}
 				}
 			memory.remember("nether_portal", feet, "nether_portal");
+			io.github.plrlr.autopilot.state.Notes.portal(feet); // run notes (2026-11-09)
 			Facts.report("nether_base");
 			Facts.report("portal_known");
 			done("looked around; laid " + placed + " floor blocks at the portal");

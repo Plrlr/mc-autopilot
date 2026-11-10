@@ -1,6 +1,7 @@
 package io.github.plrlr.autopilot.plan;
 
 import io.github.plrlr.autopilot.Items2;
+import io.github.plrlr.autopilot.Exposure;
 import io.github.plrlr.autopilot.Mc;
 import io.github.plrlr.autopilot.Tune;
 import io.github.plrlr.autopilot.skills.CastPortal;
@@ -60,6 +61,13 @@ public final class Planner {
 		if (Tune.on("death.trip_commit") && recovery != null && !SurvivalPlan.recoveryThreat(seen))
 			urgent.removeIf(o -> java.util.Set.of("attack", "retreat", "shelter", "panic_box", "kite").contains(o.skill()));
 		Option respawn = SurvivalPlan.respawn();
+		// Recovery v2: no hiding in a shelter while the drops are aging (their chunks are loaded) and
+		// a recovery is on offer: the items are the armor the shelter would make up for (2026-11-09).
+		if (respawn != null && recovery != null && Tune.on("death.recovery_v2") && io.github.plrlr.autopilot.state.DeathClock.shared().running()) {
+			Exposure.mark("death.recovery_v2", "skip respawn shelter");
+			SurvivalPlan.respawnHandled();
+			respawn = null;
+		}
 		if (respawn != null) urgent.add(0, respawn);
 		Option arrival = NetherPlan.arrival();
 		if (arrival != null) urgent.add(0, arrival);
@@ -445,11 +453,24 @@ public final class Planner {
 	/** Items dropped at the last death, while they still exist (they vanish after 5 minutes). */
 	private Option recoverStep() {
 		WorldMemory.Seen death = memory.nearest("death");
-		if (death == null) return null;
+		boolean v2 = Tune.on("death.recovery_v2");
+		// Gene death.recovery_v2 (2026-11-09): drops in the other dimension are reached through a known portal.
+		if (death == null) return v2 ? io.github.plrlr.autopilot.skills.DeathRecovery.crossOption(memory) : null;
 		if (Tune.on("safety.spawner_room") && io.github.plrlr.autopilot.skills.SpawnerRoom.near(memory, death.pos(), 8)) return null;
+		// Gene death.avoid_radius: a place that already killed us twice isn't worth a third visit.
+		// The off side logs the same moment at the race's radius (24) so exposure compares like with like.
+		int avoid = Tune.i("death.avoid_radius");
+		var here = io.github.plrlr.autopilot.state.Notes.here(death.pos());
+		if (io.github.plrlr.autopilot.state.Notes.get().dangerousPlace(here, avoid > 0 ? avoid : 24)) {
+			Exposure.mark("death.avoid_radius", "skip");
+			if (avoid > 0) return null;
+		}
 		// Not back into the dark without armor: the monsters that killed us are still there, and
 		// batch 10's runs died 4-6 times each walking back (goto death interrupted 86 times).
-		if (Mc.dimension().equals("overworld") && Mc.isNight() && Mc.player().getArmorValue() < Tune.i("death.recover_night_armor")) return null;
+		// With recovery v2 the drops ARE the armor: go anyway once their clock runs or when close.
+		boolean nightOk = v2 && (io.github.plrlr.autopilot.state.DeathClock.shared().running()
+				|| death.pos().distSqr(Mc.player().blockPosition()) <= 48 * 48);
+		if (Mc.dimension().equals("overworld") && Mc.isNight() && Mc.player().getArmorValue() < Tune.i("death.recover_night_armor") && !nightOk) return null;
 		// Not back down a mine without a stone pickaxe: a trip down there can't climb out again
 		// (batch 11, seed d: four deaths at y 0-11, then 12 minutes of goto surface STUCK at y 2).
 		// Rebuilding the tools takes about a minute; the items keep for five.
@@ -457,6 +478,7 @@ public final class Planner {
 		// Gene death.recover_value: only when the drops are worth the walk back and we can take a fight.
 		if (Tune.on("death.recover_value") && !SurvivalPlan.recoveryWorthIt(Mc.player().getHealth(), Mc.count(Items2.matcher("food")) > 0))
 			return null;
+		if (v2) Exposure.mark("death.recovery_v2", "offer");
 		return SurvivalPlan.recover(new Option("goto", "death", "get back the items dropped when we died"));
 	}
 

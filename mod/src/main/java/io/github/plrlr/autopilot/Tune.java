@@ -90,6 +90,10 @@ public final class Tune {
 		gene("night.mine_instead", 0, 0, 1, Kind.BOOL, "at night, skip the shelter when the next step is mining underground anyway");
 		gene("night.shelter_max_s", 720, 60, 720, Kind.INT, "longest wait in a night shelter before going back to work");
 		gene("death.recover_night_armor", 12, 0, 20, Kind.INT, "go back for dropped items at night only with this much armor");
+		// 2026-11-09: persistence without a language model (walk back before the despawn, re-arm, keep notes).
+		gene("death.recovery_v2", 0, 0, 1, Kind.BOOL, "death_recovery: loaded-chunk despawn clock, re-arm, portal back to another dimension's drops, verified pickup");
+		gene("notes.persist", 0, 0, 1, Kind.BOOL, "keep run notes (portals, stash, deaths, fortress, eye readings, spawn) per world on disk across restarts");
+		gene("death.avoid_radius", 0, 0, 48, Kind.INT, "no item recovery where 2+ deaths lie within this many blocks of each other (0 = off)");
 		gene("night.no_shaft_wall", 0, 0, 1, Kind.BOOL, "wall in on safe footing when no nearby shelter shaft can be dug");
 		// Planner: gathering amounts
 		gene("gather.first_logs", 2, 1, 6, Kind.INT, "extra logs on the very first wood trip");
