@@ -2701,7 +2701,7 @@
   "2026-11-08": 6,
   "2026-11-09": 4,
   "2026-11-10": 6,
-  "2026-11-11": 4
+  "2026-11-11": 5
  },
  "evolve_days": {
   "2026-09-27": 1,
@@ -3195,7 +3195,7 @@
    "result": "racing"
   }
  ],
- "gen": 568,
+ "gen": 569,
  "gene_specs": {
   "bed.table_first": {
    "def": 0.0,
@@ -63292,7 +63292,123 @@
   "n": 2744
  },
  "next_id": 500,
- "pending": null,
+ "pending": {
+  "data_tasks": [
+   {
+    "kind": "scenario",
+    "late": true,
+    "scenario": "stronghold",
+    "seed": "D569-y8j86n",
+    "stage": "eyes",
+    "synthetic": true
+   },
+   {
+    "kind": "natural",
+    "seed": "D569-jtsmxz",
+    "stage": "spawn",
+    "synthetic": false
+   }
+  ],
+  "gen": 569,
+  "lineup": [
+   "g486",
+   "g497"
+  ],
+  "runs": [
+   "eval-g486-0",
+   "eval-g486-1",
+   "eval-g486-2",
+   "eval-g486-3",
+   "eval-g486-4",
+   "eval-g486-5",
+   "eval-g486-6",
+   "eval-g497-0",
+   "eval-g497-1",
+   "eval-g497-2",
+   "eval-g497-3",
+   "eval-g497-4",
+   "eval-g497-5",
+   "eval-g497-6",
+   "data-g486-0",
+   "data-g486-1"
+  ],
+  "seeds": [
+   "L569-pmt57d",
+   "L569-wjyk52",
+   "L569-ahznsx",
+   "L569-x939jg",
+   "L569-bvhecw",
+   "L569-f2gzd5",
+   "L569-d3f7k6"
+  ],
+  "sha": "cd02a2b64d9b92c1f9695439651f5f63de2d3663",
+  "started": "2026-11-11T16:44:57+00:00",
+  "tasks": [
+   {
+    "kind": "natural",
+    "seed": "L569-pmt57d",
+    "stage": "spawn",
+    "synthetic": false
+   },
+   {
+    "kind": "natural",
+    "seed": "L569-wjyk52",
+    "stage": "spawn",
+    "synthetic": false
+   },
+   {
+    "asset": "nether-gen480-eval-g465-0.zip",
+    "kind": "start",
+    "seed": "L569-ahznsx",
+    "stage": "nether",
+    "synthetic": false
+   },
+   {
+    "asset": "diamond-gen490-eval-g469-0.zip",
+    "kind": "start",
+    "minutes": 60,
+    "only": [
+     "g486",
+     "g497"
+    ],
+    "seed": "L569-x939jg",
+    "stage": "diamond",
+    "synthetic": false
+   },
+   {
+    "asset": "diamond-gen493-eval-g475-1.zip",
+    "kind": "start",
+    "minutes": 60,
+    "only": [
+     "g486",
+     "g497"
+    ],
+    "seed": "L569-bvhecw",
+    "stage": "diamond",
+    "synthetic": false
+   },
+   {
+    "asset": "diamond-gen505-eval-g483-1.zip",
+    "kind": "start",
+    "minutes": 60,
+    "only": [
+     "g486",
+     "g497"
+    ],
+    "seed": "L569-f2gzd5",
+    "stage": "diamond",
+    "synthetic": false
+   },
+   {
+    "kind": "combat",
+    "minutes": 10,
+    "scenario": "combat",
+    "seed": "L569-d3f7k6",
+    "stage": "combat",
+    "synthetic": false
+   }
+  ]
+ },
  "race_evidence_version": 2,
  "score_since_gen": 560,
  "score_version": 5,
