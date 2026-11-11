@@ -2733,7 +2733,8 @@
   "2026-11-07": 5,
   "2026-11-08": 6,
   "2026-11-09": 4,
-  "2026-11-10": 6
+  "2026-11-10": 6,
+  "2026-11-11": 1
  },
  "evolve_days": {
   "2026-09-27": 1,
@@ -3227,7 +3228,7 @@
    "result": "racing"
   }
  ],
- "gen": 564,
+ "gen": 565,
  "gene_specs": {
   "bed.table_first": {
    "def": 0.0,
@@ -56062,6 +56063,56 @@
    "priority": true,
    "status": "contender"
   },
+  "g499": {
+   "born": 565,
+   "code": null,
+   "evals": [],
+   "exposure_spec": {
+    "gene": "death.recovery_v2"
+   },
+   "genes": {
+    "bed.table_first": 1.0,
+    "brain.utility": 1.0,
+    "combat.ignore_walled_mobs": 1.0,
+    "combat.shield_guard": 1.0,
+    "death.recover_night_armor": 12.0,
+    "death.recover_value": 1.0,
+    "death.recovery_v2": 1.0,
+    "focus.commit": 1.0,
+    "fortress.anchor_scope": 1.0,
+    "gather.coal_extra": 3.0,
+    "gather.coal_view_dist": 16.0,
+    "gear.sword_early": 1.0,
+    "learned.weight": 1.0,
+    "loop.stuck_s": 17.0,
+    "move.shore_first": 1.0,
+    "nav.surface_v2": 1.0,
+    "nav.unstuck_v2": 1.0,
+    "night.shelter_exit": 1.0,
+    "notes.persist": 1.0,
+    "pearls.provoke_s": 19.0,
+    "plan.hide_hp": 15.0,
+    "plan.readiness": 1.0,
+    "portal.prepare_work_area": 1.0,
+    "portal.reserve_lava_bucket": 1.0,
+    "portal.site_maker": 1.0,
+    "route.armor_before_portal": 1.0,
+    "skill.enderman_warped": 1.0,
+    "skill.ruined_portal": 1.0,
+    "skill.stash": 1.0,
+    "stuck.item_progress": 1.0
+   },
+   "id": "g499",
+   "mutated": [
+    "death.recovery_v2",
+    "notes.persist"
+   ],
+   "note": "suggested: death.recovery_v2 1, notes.persist 1",
+   "pairs": [],
+   "parent": "g486",
+   "priority": true,
+   "status": "contender"
+  },
   "g5": {
    "born": 2,
    "code": null,
@@ -62947,8 +62998,124 @@
   "mean_gap_ok": -0.3184,
   "n": 2744
  },
- "next_id": 499,
- "pending": null,
+ "next_id": 500,
+ "pending": {
+  "data_tasks": [
+   {
+    "kind": "scenario",
+    "late": true,
+    "scenario": "stronghold",
+    "seed": "D565-5ay9m6",
+    "stage": "eyes",
+    "synthetic": true
+   },
+   {
+    "kind": "natural",
+    "seed": "D565-4fku47",
+    "stage": "spawn",
+    "synthetic": false
+   }
+  ],
+  "gen": 565,
+  "lineup": [
+   "g486",
+   "g497"
+  ],
+  "runs": [
+   "eval-g486-0",
+   "eval-g486-1",
+   "eval-g486-2",
+   "eval-g486-3",
+   "eval-g486-4",
+   "eval-g486-5",
+   "eval-g486-6",
+   "eval-g497-0",
+   "eval-g497-1",
+   "eval-g497-2",
+   "eval-g497-3",
+   "eval-g497-4",
+   "eval-g497-5",
+   "eval-g497-6",
+   "data-g486-0",
+   "data-g486-1"
+  ],
+  "seeds": [
+   "L565-hhgkjx",
+   "L565-ra4nym",
+   "L565-gehn5e",
+   "L565-euqakt",
+   "L565-zx32y7",
+   "L565-qy94fv",
+   "L565-cnn2r7"
+  ],
+  "sha": "cd02a2b64d9b92c1f9695439651f5f63de2d3663",
+  "started": "2026-11-11T01:19:23+00:00",
+  "tasks": [
+   {
+    "kind": "natural",
+    "seed": "L565-hhgkjx",
+    "stage": "spawn",
+    "synthetic": false
+   },
+   {
+    "kind": "natural",
+    "seed": "L565-ra4nym",
+    "stage": "spawn",
+    "synthetic": false
+   },
+   {
+    "asset": "nether-gen425-eval-g436-1.zip",
+    "kind": "start",
+    "seed": "L565-gehn5e",
+    "stage": "nether",
+    "synthetic": false
+   },
+   {
+    "asset": "diamond-gen516-eval-g484-0.zip",
+    "kind": "start",
+    "minutes": 60,
+    "only": [
+     "g486",
+     "g497"
+    ],
+    "seed": "L565-euqakt",
+    "stage": "diamond",
+    "synthetic": false
+   },
+   {
+    "asset": "diamond-gen505-eval-g481-0.zip",
+    "kind": "start",
+    "minutes": 60,
+    "only": [
+     "g486",
+     "g497"
+    ],
+    "seed": "L565-zx32y7",
+    "stage": "diamond",
+    "synthetic": false
+   },
+   {
+    "asset": "diamond-gen480-eval-g465-0.zip",
+    "kind": "start",
+    "minutes": 60,
+    "only": [
+     "g486",
+     "g497"
+    ],
+    "seed": "L565-qy94fv",
+    "stage": "diamond",
+    "synthetic": false
+   },
+   {
+    "kind": "combat",
+    "minutes": 10,
+    "scenario": "combat",
+    "seed": "L565-cnn2r7",
+    "stage": "combat",
+    "synthetic": false
+   }
+  ]
+ },
  "race_evidence_version": 2,
  "score_since_gen": 560,
  "score_version": 5,
@@ -67305,7 +67472,8 @@
   "{\"_auto\": \"learned brain gate open at gen 256 (5% bound +0.0001)\", \"_priority\": true, \"learned.weight\": 1}",
   "{\"_auto\": \"rules-only\", \"_note\": \"rules-only against champion g486: its learned model fails the held-out check (adv_r2 > 0.05, sign > 0.6)\", \"_priority\": true, \"learned.weight\": 0}",
   "{\"_exposure\": {\"gene\": \"ready.nether_gold\"}, \"_minutes\": 60, \"_note\": \"2026-11-09 (Claude, stage race v5): gold helmet against piglins, re-raced on diamond-depth starts with 60-minute games scored across lives, spawn games as a no-harm check only. Raced 4 times under the old race (g188, g270, g387, g474), never told apart from noise.\", \"_priority\": true, \"_stages\": [\"diamond\"], \"ready.nether_gold\": 1}",
-  "{\"_minutes\": 60, \"_note\": \"2026-11-09 (Claude, stage race v5): bartering for pearls on its own, on saved Nether starts.\", \"_priority\": true, \"_stages\": [\"nether\"], \"route.barter\": 1}"
+  "{\"_minutes\": 60, \"_note\": \"2026-11-09 (Claude, stage race v5): bartering for pearls on its own, on saved Nether starts.\", \"_priority\": true, \"_stages\": [\"nether\"], \"route.barter\": 1}",
+  "{\"_exposure\": {\"gene\": \"death.recovery_v2\"}, \"_note\": \"2026-11-09 (Claude): death recovery v2 with run notes: loaded-chunk despawn clock, cross-dimension return, re-arm, verified pickup, notes that survive a restart. Scored across lives.\", \"_priority\": true, \"death.recovery_v2\": 1, \"notes.persist\": 1}"
  ],
  "version": 1
 }
