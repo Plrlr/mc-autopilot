@@ -2835,7 +2835,7 @@
   "2026-11-10": 6,
   "2026-11-11": 6,
   "2026-11-12": 4,
-  "2026-11-13": 1
+  "2026-11-13": 2
  },
  "evolve_days": {
   "2026-09-27": 1,
@@ -3329,7 +3329,7 @@
    "result": "racing"
   }
  ],
- "gen": 575,
+ "gen": 576,
  "gene_specs": {
   "bed.table_first": {
    "def": 0.0,
@@ -64041,7 +64041,123 @@
   "n": 2745
  },
  "next_id": 500,
- "pending": null,
+ "pending": {
+  "data_tasks": [
+   {
+    "asset": "rods-gen350-eval-g330-2.zip",
+    "kind": "start",
+    "late": true,
+    "seed": "D576-auyjwt",
+    "stage": "rods",
+    "synthetic": false
+   },
+   {
+    "kind": "natural",
+    "seed": "D576-6zbb4n",
+    "stage": "spawn",
+    "synthetic": false
+   }
+  ],
+  "gen": 576,
+  "lineup": [
+   "g486",
+   "g497"
+  ],
+  "runs": [
+   "eval-g486-0",
+   "eval-g486-1",
+   "eval-g486-2",
+   "eval-g486-3",
+   "eval-g486-4",
+   "eval-g486-5",
+   "eval-g486-6",
+   "eval-g497-0",
+   "eval-g497-1",
+   "eval-g497-2",
+   "eval-g497-3",
+   "eval-g497-4",
+   "eval-g497-5",
+   "eval-g497-6",
+   "data-g486-0",
+   "data-g486-1"
+  ],
+  "seeds": [
+   "L576-uks5zd",
+   "L576-ap7gsx",
+   "L576-ea742m",
+   "L576-traaak",
+   "L576-xghngc",
+   "L576-d4sxgv",
+   "L576-g7q37s"
+  ],
+  "sha": "cd02a2b64d9b92c1f9695439651f5f63de2d3663",
+  "started": "2026-11-13T04:02:37+00:00",
+  "tasks": [
+   {
+    "kind": "natural",
+    "seed": "L576-uks5zd",
+    "stage": "spawn",
+    "synthetic": false
+   },
+   {
+    "kind": "natural",
+    "seed": "L576-ap7gsx",
+    "stage": "spawn",
+    "synthetic": false
+   },
+   {
+    "asset": "diamond-gen458-eval-g462-0.zip",
+    "kind": "start",
+    "seed": "L576-ea742m",
+    "stage": "diamond",
+    "synthetic": false
+   },
+   {
+    "asset": "diamond-gen447-eval-g458-1.zip",
+    "kind": "start",
+    "minutes": 60,
+    "only": [
+     "g486",
+     "g497"
+    ],
+    "seed": "L576-traaak",
+    "stage": "diamond",
+    "synthetic": false
+   },
+   {
+    "asset": "diamond-gen450-eval-g459-1.zip",
+    "kind": "start",
+    "minutes": 60,
+    "only": [
+     "g486",
+     "g497"
+    ],
+    "seed": "L576-xghngc",
+    "stage": "diamond",
+    "synthetic": false
+   },
+   {
+    "asset": "diamond-gen445-eval-g455-1.zip",
+    "kind": "start",
+    "minutes": 60,
+    "only": [
+     "g486",
+     "g497"
+    ],
+    "seed": "L576-d4sxgv",
+    "stage": "diamond",
+    "synthetic": false
+   },
+   {
+    "kind": "combat",
+    "minutes": 10,
+    "scenario": "combat",
+    "seed": "L576-g7q37s",
+    "stage": "combat",
+    "synthetic": false
+   }
+  ]
+ },
  "race_evidence_version": 2,
  "score_since_gen": 560,
  "score_version": 5,
