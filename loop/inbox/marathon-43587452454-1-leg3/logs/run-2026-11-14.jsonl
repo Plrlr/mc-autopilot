@@ -1,0 +1,803 @@
+{"event":"autopilot_on","detail":"brain\u003dlearned none","t":1794669347938}
+{"event":"params","detail":"params: g486@gen584 (28 genes) changed\u003d{\"death.recover_value\":1.0,\"combat.shield_guard\":1.0,\"gather.coal_extra\":3.0,\"gather.coal_view_dist\":16.0,\"route.armor_before_portal\":1.0,\"pearls.provoke_s\":19.0,\"gear.sword_early\":1.0,\"move.shore_first\":1.0,\"fortress.anchor_scope\":1.0,\"portal.prepare_work_area\":1.0,\"portal.reserve_lava_bucket\":1.0,\"brain.utility\":1.0,\"portal.site_maker\":1.0,\"combat.ignore_walled_mobs\":1.0,\"night.shelter_exit\":1.0,\"nav.surface_v2\":1.0,\"nav.unstuck_v2\":1.0,\"stuck.item_progress\":1.0,\"bed.table_first\":1.0,\"skill.ruined_portal\":1.0,\"skill.stash\":1.0,\"skill.enderman_warped\":1.0,\"loop.stuck_s\":17.0,\"learned.weight\":1.0,\"plan.readiness\":1.0}","t":1794669347939}
+{"layer":"strategist","brain":"rules","choice":"wood_tools","reason":"start","t":1794669347941}
+{"event":"learned","detail":"learned model: m582 (neural, 119246 parameters, 78 heads, danger model AUC 0.86, skill stats for 972 keys)","t":1794669347949}
+{"event":"gene","detail":"learned.gate off: closed","t":1794669347968}
+{"layer":"tactician","gs":0,"brain":"rules","trigger":"idle","goal":"wood_tools","options":["explore cow,pig,sheep,chicken","collect log:3","explore log"],"choice":"explore cow,pig,sheep,chicken","x":[0.951,0.15,0.0,0.0,1.0,-0.687,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,0.0,0.0,0.077,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1794669347971}
+{"event":"plan","detail":"1 wooden_pickaxe (plain) (0.7 min)","t":1794669347972}
+{"event":"skill_start","skill":"explore cow,pig,sheep,chicken","trigger":"idle","t":1794669348001}
+{"event":"checkpoint","detail":"at_depth","t":1794669348120}
+{"event":"skill_end","skill":"explore cow,pig,sheep,chicken","ok":false,"code":"UNREACHABLE","detail":"couldn\u0027t make headway that way; will turn","seconds":1.5,"t":1794669349722}
+{"layer":"tactician","gs":1,"brain":"rules","trigger":"skill_failed","goal":"wood_tools","options":["explore cow,pig,sheep,chicken","collect log:3","explore log"],"choice":"explore cow,pig,sheep,chicken","x":[0.951,0.15,0.0,0.0,1.0,-0.687,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,0.0,0.167,0.077,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1794669349725}
+{"event":"skill_start","skill":"explore cow,pig,sheep,chicken","trigger":"skill_failed","t":1794669349725}
+{"event":"skill_end","skill":"explore cow,pig,sheep,chicken","ok":false,"code":"UNREACHABLE","detail":"couldn\u0027t make headway that way; will turn","seconds":1.5,"t":1794669351229}
+{"layer":"tactician","gs":3,"brain":"rules","trigger":"skill_failed","goal":"wood_tools","options":["explore cow,pig,sheep,chicken","collect log:3","explore log"],"choice":"explore cow,pig,sheep,chicken","x":[0.951,0.15,0.0,0.0,1.0,-0.687,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,0.0,0.167,0.077,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1794669351230}
+{"event":"skill_start","skill":"explore cow,pig,sheep,chicken","trigger":"skill_failed","t":1794669351230}
+{"event":"skill_end","skill":"explore cow,pig,sheep,chicken","ok":false,"code":"UNREACHABLE","detail":"couldn\u0027t make headway that way; will turn","seconds":1.5,"t":1794669352726}
+{"layer":"tactician","gs":4,"brain":"rules","trigger":"skill_failed","goal":"wood_tools","options":["collect log:3","explore log"],"choice":"collect log:3","x":[0.951,0.15,0.0,0.0,1.0,-0.687,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,0.0,0.167,0.077,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1794669352728}
+{"event":"skill_start","skill":"collect log:3","trigger":"skill_failed","t":1794669352730}
+{"event":"skill_end","skill":"collect log:3","ok":false,"code":"NOT_FOUND","detail":"no log seen nearby","seconds":3.05,"t":1794669355776}
+{"layer":"tactician","gs":7,"brain":"rules","trigger":"skill_failed","goal":"wood_tools","options":["collect log:3","explore log"],"choice":"collect log:3","x":[0.951,0.15,0.0,0.0,1.0,-0.687,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,0.0,0.167,0.077,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1794669355778}
+{"event":"skill_start","skill":"collect log:3","trigger":"skill_failed","t":1794669355778}
+{"event":"skill_end","skill":"collect log:3","ok":false,"code":"NOT_FOUND","detail":"no log seen nearby","seconds":3.05,"t":1794669358826}
+{"event":"gene","detail":"learned.gate off: closed","t":1794669358827}
+{"layer":"tactician","gs":10,"brain":"rules","trigger":"skill_failed","goal":"wood_tools","options":["collect log:3","explore log"],"choice":"collect log:3","x":[0.951,0.15,0.0,0.0,1.0,-0.687,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,0.0,0.167,0.077,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1794669358827}
+{"event":"skill_start","skill":"collect log:3","trigger":"skill_failed","t":1794669358828}
+{"event":"stuck","detail":"collect log:3 at 368, -44, 98","t":1794669360275}
+{"event":"skill_end","skill":"collect log:3","ok":false,"code":"STUCK","detail":"stuck: stayed inside 2.0 blocks for 12 s","seconds":1.45,"t":1794669360276}
+{"event":"skill_start","skill":"unstuck","trigger":"reflex_stuck","t":1794669360277}
+{"event":"skill_end","skill":"unstuck","ok":false,"code":"TIMEOUT","detail":"timed out after 60 s","seconds":60.05,"t":1794669420320}
+{"event":"gene","detail":"learned.gate off: closed","t":1794669420321}
+{"layer":"tactician","gs":72,"brain":"rules","trigger":"skill_failed","goal":"wood_tools","options":["goto surface","explore cow,pig,sheep,chicken","collect log:3","explore log"],"choice":"goto surface","x":[0.951,0.15,0.0,0.0,1.0,-0.687,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,0.0,0.167,0.077,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1794669420321}
+{"event":"skill_start","skill":"goto surface","trigger":"skill_failed","t":1794669420326}
+{"event":"stuck","detail":"goto surface at 368, -44, 98","t":1794669435274}
+{"event":"skill_end","skill":"goto surface","ok":false,"code":"STUCK","detail":"stuck: stayed inside 2.0 blocks for 12 s","seconds":14.95,"t":1794669435274}
+{"event":"skill_start","skill":"unstuck","trigger":"reflex_stuck","t":1794669435274}
+{"event":"skill_end","skill":"unstuck","ok":false,"code":"TIMEOUT","detail":"timed out after 60 s","seconds":60.05,"t":1794669495377}
+{"event":"gene","detail":"learned.gate off: closed","t":1794669495378}
+{"layer":"tactician","gs":147,"brain":"rules","trigger":"skill_failed","goal":"wood_tools","options":["explore cow,pig,sheep,chicken","collect log:3","explore log"],"choice":"explore cow,pig,sheep,chicken","x":[0.951,0.15,0.0,0.0,1.0,-0.687,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,0.0,0.167,0.077,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1794669495379}
+{"event":"skill_start","skill":"explore cow,pig,sheep,chicken","trigger":"skill_failed","t":1794669495379}
+{"event":"skill_end","skill":"explore cow,pig,sheep,chicken","ok":false,"code":"UNREACHABLE","detail":"couldn\u0027t make headway that way; will turn","seconds":1.5,"t":1794669496875}
+{"layer":"tactician","gs":148,"brain":"rules","trigger":"skill_failed","goal":"wood_tools","options":["explore cow,pig,sheep,chicken","collect log:3","explore log"],"choice":"explore cow,pig,sheep,chicken","x":[0.951,0.15,0.0,0.0,1.0,-0.687,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,0.0,0.167,0.077,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1794669496877}
+{"event":"skill_start","skill":"explore cow,pig,sheep,chicken","trigger":"skill_failed","t":1794669496877}
+{"event":"stuck","detail":"explore cow,pig,sheep,chicken at 368, -44, 98","t":1794669507328}
+{"event":"skill_end","skill":"explore cow,pig,sheep,chicken","ok":false,"code":"STUCK","detail":"stuck: stayed inside 2.0 blocks for 12 s","seconds":10.45,"t":1794669507329}
+{"event":"skill_start","skill":"unstuck","trigger":"reflex_stuck","t":1794669507329}
+{"event":"skill_end","skill":"unstuck","ok":false,"code":"TIMEOUT","detail":"timed out after 60 s","seconds":60.05,"t":1794669567422}
+{"event":"gene","detail":"plan.place_backoff off: explore cow,pig,sheep,chicken","t":1794669567423}
+{"event":"gene","detail":"learned.gate off: closed","t":1794669567423}
+{"layer":"tactician","gs":219,"brain":"rules","trigger":"skill_failed","goal":"wood_tools","options":["goto surface","explore cow,pig,sheep,chicken","collect log:3","explore log"],"choice":"goto surface","x":[0.951,0.1,0.0,0.0,1.0,-0.687,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,0.0,0.167,0.077,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1794669567424}
+{"event":"skill_start","skill":"goto surface","trigger":"skill_failed","t":1794669567424}
+{"event":"stuck","detail":"goto surface at 368, -44, 98","t":1794669582372}
+{"event":"skill_end","skill":"goto surface","ok":false,"code":"STUCK","detail":"stuck: stayed inside 2.0 blocks for 12 s","seconds":14.95,"t":1794669582372}
+{"event":"skill_start","skill":"unstuck","trigger":"reflex_stuck","t":1794669582372}
+{"event":"skill_end","skill":"unstuck","ok":false,"code":"TIMEOUT","detail":"timed out after 60 s","seconds":60.05,"t":1794669642429}
+{"event":"gene","detail":"learned.gate off: closed","t":1794669642431}
+{"layer":"tactician","gs":294,"brain":"rules","trigger":"skill_failed","goal":"wood_tools","options":["explore cow,pig,sheep,chicken","collect log:3","explore log"],"choice":"explore cow,pig,sheep,chicken","x":[0.951,0.1,0.0,0.0,1.0,-0.687,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,0.0,0.167,0.077,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1794669642431}
+{"event":"skill_start","skill":"explore cow,pig,sheep,chicken","trigger":"skill_failed","t":1794669642431}
+{"event":"stuck","detail":"explore cow,pig,sheep,chicken at 368, -44, 98","t":1794669654376}
+{"event":"skill_end","skill":"explore cow,pig,sheep,chicken","ok":false,"code":"STUCK","detail":"stuck: stayed inside 2.0 blocks for 12 s","seconds":11.95,"t":1794669654376}
+{"event":"skill_start","skill":"unstuck","trigger":"reflex_stuck","t":1794669654376}
+{"event":"skill_end","skill":"unstuck","ok":false,"code":"TIMEOUT","detail":"timed out after 60 s","seconds":60.05,"t":1794669714432}
+{"event":"gene","detail":"learned.gate off: closed","t":1794669714433}
+{"layer":"tactician","gs":366,"brain":"rules","trigger":"skill_failed","goal":"wood_tools","options":["goto surface","explore cow,pig,sheep,chicken","collect log:3","explore log"],"choice":"goto surface","x":[0.951,0.1,0.0,0.0,1.0,-0.687,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,0.0,0.167,0.077,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1794669714433}
+{"event":"skill_start","skill":"goto surface","trigger":"skill_failed","t":1794669714433}
+{"event":"stuck","detail":"goto surface at 368, -44, 98","t":1794669729379}
+{"event":"skill_end","skill":"goto surface","ok":false,"code":"STUCK","detail":"stuck: stayed inside 2.0 blocks for 12 s","seconds":14.95,"t":1794669729379}
+{"event":"skill_start","skill":"unstuck","trigger":"reflex_stuck","t":1794669729379}
+{"event":"skill_end","skill":"unstuck","ok":false,"code":"TIMEOUT","detail":"timed out after 60 s","seconds":60.05,"t":1794669789427}
+{"event":"gene","detail":"learned.gate off: closed","t":1794669789428}
+{"layer":"tactician","gs":441,"brain":"rules","trigger":"skill_failed","goal":"wood_tools","options":["explore cow,pig,sheep,chicken","collect log:3","explore log"],"choice":"explore cow,pig,sheep,chicken","x":[0.951,0.1,0.0,0.0,1.0,-0.687,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,0.0,0.167,0.077,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1794669789429}
+{"event":"skill_start","skill":"explore cow,pig,sheep,chicken","trigger":"skill_failed","t":1794669789429}
+{"event":"stuck","detail":"explore cow,pig,sheep,chicken at 368, -44, 98","t":1794669801385}
+{"event":"skill_end","skill":"explore cow,pig,sheep,chicken","ok":false,"code":"STUCK","detail":"stuck: stayed inside 2.0 blocks for 12 s","seconds":11.95,"t":1794669801385}
+{"event":"skill_start","skill":"unstuck","trigger":"reflex_stuck","t":1794669801386}
+{"event":"skill_end","skill":"unstuck","ok":false,"code":"TIMEOUT","detail":"timed out after 60 s","seconds":60.05,"t":1794669861482}
+{"event":"gene","detail":"plan.place_backoff off: explore cow,pig,sheep,chicken","t":1794669861485}
+{"event":"gene","detail":"learned.gate off: closed","t":1794669861485}
+{"layer":"tactician","gs":513,"brain":"rules","trigger":"skill_failed","goal":"wood_tools","options":["goto surface","explore cow,pig,sheep,chicken","collect log:3","shelter","explore log"],"choice":"goto surface","x":[0.951,0.1,0.0,1.0,1.0,-0.687,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,0.0,0.167,0.077,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1794669861485}
+{"event":"skill_start","skill":"goto surface","trigger":"skill_failed","t":1794669861486}
+{"event":"stuck","detail":"goto surface at 368, -44, 98","t":1794669876484}
+{"event":"skill_end","skill":"goto surface","ok":false,"code":"STUCK","detail":"stuck: stayed inside 2.0 blocks for 12 s","seconds":14.95,"t":1794669876485}
+{"event":"skill_start","skill":"unstuck","trigger":"reflex_stuck","t":1794669876485}
+{"event":"skill_end","skill":"unstuck","ok":false,"code":"TIMEOUT","detail":"timed out after 60 s","seconds":60.05,"t":1794669936540}
+{"event":"gene","detail":"plan.place_backoff off: explore cow,pig,sheep,chicken","t":1794669936541}
+{"event":"gene","detail":"learned.gate off: closed","t":1794669936542}
+{"layer":"tactician","gs":588,"brain":"rules","trigger":"skill_failed","goal":"wood_tools","options":["explore cow,pig,sheep,chicken","collect log:3","shelter","explore log"],"choice":"explore cow,pig,sheep,chicken","x":[0.951,0.1,0.0,1.0,1.0,-0.687,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,0.0,0.167,0.077,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1794669936542}
+{"event":"skill_start","skill":"explore cow,pig,sheep,chicken","trigger":"skill_failed","t":1794669936542}
+{"event":"stuck","detail":"explore cow,pig,sheep,chicken at 368, -44, 98","t":1794669948484}
+{"event":"skill_end","skill":"explore cow,pig,sheep,chicken","ok":false,"code":"STUCK","detail":"stuck: stayed inside 2.0 blocks for 12 s","seconds":11.95,"t":1794669948485}
+{"event":"skill_start","skill":"unstuck","trigger":"reflex_stuck","t":1794669948485}
+{"event":"skill_end","skill":"unstuck","ok":false,"code":"TIMEOUT","detail":"timed out after 60 s","seconds":60.05,"t":1794670008537}
+{"event":"gene","detail":"plan.place_backoff off: explore cow,pig,sheep,chicken","t":1794670008538}
+{"event":"gene","detail":"learned.gate off: closed","t":1794670008539}
+{"layer":"tactician","gs":660,"brain":"rules","trigger":"skill_failed","goal":"wood_tools","options":["goto surface","explore cow,pig,sheep,chicken","collect log:3","shelter","explore log"],"choice":"goto surface","x":[0.951,0.1,0.0,1.0,1.0,-0.687,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,0.0,0.167,0.077,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1794670008539}
+{"event":"skill_start","skill":"goto surface","trigger":"skill_failed","t":1794670008539}
+{"event":"stuck","detail":"goto surface at 368, -44, 98","t":1794670023534}
+{"event":"skill_end","skill":"goto surface","ok":false,"code":"STUCK","detail":"stuck: stayed inside 2.0 blocks for 12 s","seconds":14.95,"t":1794670023535}
+{"event":"skill_start","skill":"unstuck","trigger":"reflex_stuck","t":1794670023535}
+{"event":"skill_end","skill":"unstuck","ok":false,"code":"TIMEOUT","detail":"timed out after 60 s","seconds":60.05,"t":1794670083585}
+{"event":"gene","detail":"learned.gate off: closed","t":1794670083586}
+{"layer":"tactician","gs":735,"brain":"rules","trigger":"skill_failed","goal":"wood_tools","options":["explore cow,pig,sheep,chicken","collect log:3","shelter","explore log"],"choice":"explore cow,pig,sheep,chicken","x":[0.951,0.05,0.0,1.0,1.0,-0.687,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,0.0,0.167,0.077,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1794670083586}
+{"event":"skill_start","skill":"explore cow,pig,sheep,chicken","trigger":"skill_failed","t":1794670083587}
+{"event":"stuck","detail":"explore cow,pig,sheep,chicken at 368, -44, 98","t":1794670095549}
+{"event":"skill_end","skill":"explore cow,pig,sheep,chicken","ok":false,"code":"STUCK","detail":"stuck: stayed inside 2.0 blocks for 12 s","seconds":11.95,"t":1794670095549}
+{"event":"skill_start","skill":"unstuck","trigger":"reflex_stuck","t":1794670095550}
+{"event":"skill_end","skill":"unstuck","ok":false,"code":"TIMEOUT","detail":"timed out after 60 s","seconds":60.05,"t":1794670155586}
+{"event":"gene","detail":"plan.place_backoff off: explore cow,pig,sheep,chicken","t":1794670155587}
+{"event":"gene","detail":"learned.gate off: closed","t":1794670155587}
+{"layer":"tactician","gs":807,"brain":"rules","trigger":"skill_failed","goal":"wood_tools","options":["goto surface","explore cow,pig,sheep,chicken","collect log:3","shelter","explore log"],"choice":"goto surface","x":[0.951,0.05,0.0,1.0,1.0,-0.687,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,0.0,0.167,0.077,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1794670155588}
+{"event":"skill_start","skill":"goto surface","trigger":"skill_failed","t":1794670155588}
+{"event":"stuck","detail":"goto surface at 368, -44, 98","t":1794670170535}
+{"event":"skill_end","skill":"goto surface","ok":false,"code":"STUCK","detail":"stuck: stayed inside 2.0 blocks for 12 s","seconds":14.95,"t":1794670170535}
+{"event":"skill_start","skill":"unstuck","trigger":"reflex_stuck","t":1794670170536}
+{"event":"skill_end","skill":"unstuck","ok":false,"code":"TIMEOUT","detail":"timed out after 60 s","seconds":60.05,"t":1794670230635}
+{"event":"gene","detail":"plan.place_backoff off: explore cow,pig,sheep,chicken","t":1794670230637}
+{"event":"gene","detail":"learned.gate off: closed","t":1794670230637}
+{"layer":"tactician","gs":882,"brain":"rules","trigger":"skill_failed","goal":"wood_tools","options":["explore cow,pig,sheep,chicken","collect log:3","shelter","explore log"],"choice":"explore cow,pig,sheep,chicken","x":[0.951,0.05,0.0,1.0,1.0,-0.687,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,0.0,0.167,0.077,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1794670230637}
+{"event":"skill_start","skill":"explore cow,pig,sheep,chicken","trigger":"skill_failed","t":1794670230638}
+{"event":"stuck","detail":"explore cow,pig,sheep,chicken at 368, -44, 98","t":1794670242610}
+{"event":"skill_end","skill":"explore cow,pig,sheep,chicken","ok":false,"code":"STUCK","detail":"stuck: stayed inside 2.0 blocks for 12 s","seconds":11.95,"t":1794670242610}
+{"event":"skill_start","skill":"unstuck","trigger":"reflex_stuck","t":1794670242610}
+{"event":"skill_end","skill":"unstuck","ok":false,"code":"TIMEOUT","detail":"timed out after 60 s","seconds":60.05,"t":1794670302685}
+{"event":"gene","detail":"plan.place_backoff off: explore cow,pig,sheep,chicken","t":1794670302686}
+{"event":"gene","detail":"learned.gate off: closed","t":1794670302687}
+{"layer":"tactician","gs":954,"brain":"rules","trigger":"skill_failed","goal":"wood_tools","options":["goto surface","explore cow,pig,sheep,chicken","collect log:3","shelter","explore log"],"choice":"goto surface","x":[0.951,0.05,0.0,1.0,1.0,-0.687,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,0.0,0.167,0.077,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1794670302687}
+{"event":"skill_start","skill":"goto surface","trigger":"skill_failed","t":1794670302687}
+{"event":"stuck","detail":"goto surface at 368, -44, 98","t":1794670317638}
+{"event":"skill_end","skill":"goto surface","ok":false,"code":"STUCK","detail":"stuck: stayed inside 2.0 blocks for 12 s","seconds":14.95,"t":1794670317639}
+{"event":"skill_start","skill":"unstuck","trigger":"reflex_stuck","t":1794670317639}
+{"event":"skill_end","skill":"unstuck","ok":false,"code":"TIMEOUT","detail":"timed out after 60 s","seconds":60.05,"t":1794670377691}
+{"event":"gene","detail":"plan.place_backoff off: explore cow,pig,sheep,chicken","t":1794670377692}
+{"event":"gene","detail":"learned.gate off: closed","t":1794670377692}
+{"layer":"tactician","gs":1029,"brain":"rules","trigger":"skill_failed","goal":"wood_tools","options":["explore cow,pig,sheep,chicken","collect log:3","explore log"],"choice":"explore cow,pig,sheep,chicken","x":[0.951,0.05,0.0,0.0,1.0,-0.687,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,0.0,0.167,0.077,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1794670377692}
+{"event":"skill_start","skill":"explore cow,pig,sheep,chicken","trigger":"skill_failed","t":1794670377692}
+{"event":"stuck","detail":"explore cow,pig,sheep,chicken at 368, -44, 98","t":1794670389637}
+{"event":"skill_end","skill":"explore cow,pig,sheep,chicken","ok":false,"code":"STUCK","detail":"stuck: stayed inside 2.0 blocks for 12 s","seconds":11.95,"t":1794670389637}
+{"event":"skill_start","skill":"unstuck","trigger":"reflex_stuck","t":1794670389637}
+{"event":"skill_end","skill":"unstuck","ok":false,"code":"TIMEOUT","detail":"timed out after 60 s","seconds":60.05,"t":1794670449745}
+{"event":"gene","detail":"plan.place_backoff off: goto surface","t":1794670449746}
+{"event":"gene","detail":"learned.gate off: closed","t":1794670449746}
+{"layer":"tactician","gs":1101,"brain":"rules","trigger":"skill_failed","goal":"wood_tools","options":["goto surface","explore cow,pig,sheep,chicken","collect log:3","explore log"],"choice":"goto surface","x":[0.951,0.05,0.0,0.0,1.0,-0.687,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,0.0,0.167,0.077,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1794670449746}
+{"event":"skill_start","skill":"goto surface","trigger":"skill_failed","t":1794670449746}
+{"event":"stuck","detail":"goto surface at 368, -44, 98","t":1794670464692}
+{"event":"skill_end","skill":"goto surface","ok":false,"code":"STUCK","detail":"stuck: stayed inside 2.0 blocks for 12 s","seconds":14.95,"t":1794670464692}
+{"event":"skill_start","skill":"unstuck","trigger":"reflex_stuck","t":1794670464692}
+{"event":"skill_end","skill":"unstuck","ok":false,"code":"TIMEOUT","detail":"timed out after 60 s","seconds":60.05,"t":1794670524744}
+{"event":"gene","detail":"plan.place_backoff off: explore cow,pig,sheep,chicken","t":1794670524746}
+{"event":"gene","detail":"learned.gate off: closed","t":1794670524746}
+{"layer":"tactician","gs":1176,"brain":"rules","trigger":"skill_failed","goal":"wood_tools","options":["explore cow,pig,sheep,chicken","collect log:3","explore log"],"choice":"explore cow,pig,sheep,chicken","x":[0.951,0.05,0.0,0.0,1.0,-0.687,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,0.0,0.167,0.077,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1794670524746}
+{"event":"skill_start","skill":"explore cow,pig,sheep,chicken","trigger":"skill_failed","t":1794670524746}
+{"event":"stuck","detail":"explore cow,pig,sheep,chicken at 368, -44, 98","t":1794670536739}
+{"event":"skill_end","skill":"explore cow,pig,sheep,chicken","ok":false,"code":"STUCK","detail":"stuck: stayed inside 2.0 blocks for 12 s","seconds":11.95,"t":1794670536740}
+{"event":"skill_start","skill":"unstuck","trigger":"reflex_stuck","t":1794670536740}
+{"event":"skill_end","skill":"unstuck","ok":false,"code":"TIMEOUT","detail":"timed out after 60 s","seconds":60.05,"t":1794670596795}
+{"event":"gene","detail":"plan.place_backoff off: explore cow,pig,sheep,chicken","t":1794670596796}
+{"event":"gene","detail":"learned.gate off: closed","t":1794670596796}
+{"layer":"tactician","gs":1248,"brain":"rules","trigger":"skill_failed","goal":"wood_tools","options":["goto surface","explore cow,pig,sheep,chicken","collect log:3","explore log"],"choice":"goto surface","x":[0.451,0.0,0.0,0.0,1.0,-0.687,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,0.0,0.167,0.077,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1794670596797}
+{"event":"skill_start","skill":"goto surface","trigger":"skill_failed","t":1794670596797}
+{"event":"stuck","detail":"goto surface at 368, -44, 98","t":1794670611741}
+{"event":"skill_end","skill":"goto surface","ok":false,"code":"STUCK","detail":"stuck: stayed inside 2.0 blocks for 12 s","seconds":14.95,"t":1794670611742}
+{"event":"skill_start","skill":"unstuck","trigger":"reflex_stuck","t":1794670611742}
+{"event":"skill_end","skill":"unstuck","ok":false,"code":"TIMEOUT","detail":"timed out after 60 s","seconds":60.05,"t":1794670671794}
+{"event":"gene","detail":"plan.place_backoff off: explore cow,pig,sheep,chicken","t":1794670671795}
+{"event":"gene","detail":"learned.gate off: closed","t":1794670671795}
+{"layer":"tactician","gs":1323,"brain":"rules","trigger":"skill_failed","goal":"wood_tools","options":["explore cow,pig,sheep,chicken","collect log:3","explore log"],"choice":"explore cow,pig,sheep,chicken","x":[0.451,0.0,0.0,0.0,1.0,-0.687,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,0.0,0.167,0.077,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1794670671795}
+{"event":"skill_start","skill":"explore cow,pig,sheep,chicken","trigger":"skill_failed","t":1794670671796}
+{"event":"stuck","detail":"explore cow,pig,sheep,chicken at 368, -44, 98","t":1794670683748}
+{"event":"skill_end","skill":"explore cow,pig,sheep,chicken","ok":false,"code":"STUCK","detail":"stuck: stayed inside 2.0 blocks for 12 s","seconds":11.95,"t":1794670683748}
+{"event":"skill_start","skill":"unstuck","trigger":"reflex_stuck","t":1794670683749}
+{"event":"skill_end","skill":"unstuck","ok":false,"code":"TIMEOUT","detail":"timed out after 60 s","seconds":60.05,"t":1794670743836}
+{"event":"gene","detail":"plan.place_backoff off: goto surface","t":1794670743838}
+{"event":"gene","detail":"learned.gate off: closed","t":1794670743838}
+{"layer":"tactician","gs":1395,"brain":"rules","trigger":"skill_failed","goal":"wood_tools","options":["goto surface","explore cow,pig,sheep,chicken","collect log:3","explore log"],"choice":"goto surface","x":[0.451,0.0,0.0,0.0,1.0,-0.687,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,0.0,0.167,0.077,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1794670743838}
+{"event":"skill_start","skill":"goto surface","trigger":"skill_failed","t":1794670743838}
+{"event":"stuck","detail":"goto surface at 368, -44, 98","t":1794670758746}
+{"event":"skill_end","skill":"goto surface","ok":false,"code":"STUCK","detail":"stuck: stayed inside 2.0 blocks for 12 s","seconds":14.95,"t":1794670758746}
+{"event":"skill_start","skill":"unstuck","trigger":"reflex_stuck","t":1794670758747}
+{"event":"skill_end","skill":"unstuck","ok":false,"code":"TIMEOUT","detail":"timed out after 60 s","seconds":60.05,"t":1794670818803}
+{"event":"gene","detail":"plan.place_backoff off: explore cow,pig,sheep,chicken","t":1794670818804}
+{"event":"gene","detail":"learned.gate off: closed","t":1794670818804}
+{"layer":"tactician","gs":1470,"brain":"rules","trigger":"skill_failed","goal":"wood_tools","options":["explore cow,pig,sheep,chicken","collect log:3","explore log"],"choice":"explore cow,pig,sheep,chicken","x":[0.451,0.0,0.0,0.0,1.0,-0.687,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,0.0,0.167,0.077,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1794670818804}
+{"event":"skill_start","skill":"explore cow,pig,sheep,chicken","trigger":"skill_failed","t":1794670818804}
+{"event":"stuck","detail":"explore cow,pig,sheep,chicken at 368, -44, 98","t":1794670830751}
+{"event":"skill_end","skill":"explore cow,pig,sheep,chicken","ok":false,"code":"STUCK","detail":"stuck: stayed inside 2.0 blocks for 12 s","seconds":11.95,"t":1794670830751}
+{"event":"skill_start","skill":"unstuck","trigger":"reflex_stuck","t":1794670830752}
+{"event":"skill_end","skill":"unstuck","ok":false,"code":"TIMEOUT","detail":"timed out after 60 s","seconds":60.05,"t":1794670890802}
+{"event":"gene","detail":"plan.place_backoff off: goto surface","t":1794670890803}
+{"event":"gene","detail":"learned.gate off: closed","t":1794670890803}
+{"layer":"tactician","gs":1542,"brain":"rules","trigger":"skill_failed","goal":"wood_tools","options":["goto surface","explore cow,pig,sheep,chicken","collect log:3","explore log"],"choice":"goto surface","x":[0.451,0.0,0.0,0.0,1.0,-0.687,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,0.0,0.167,0.077,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1794670890804}
+{"event":"skill_start","skill":"goto surface","trigger":"skill_failed","t":1794670890804}
+{"event":"stuck","detail":"goto surface at 368, -44, 98","t":1794670905752}
+{"event":"skill_end","skill":"goto surface","ok":false,"code":"STUCK","detail":"stuck: stayed inside 2.0 blocks for 12 s","seconds":14.95,"t":1794670905753}
+{"event":"skill_start","skill":"unstuck","trigger":"reflex_stuck","t":1794670905753}
+{"event":"skill_end","skill":"unstuck","ok":false,"code":"TIMEOUT","detail":"timed out after 60 s","seconds":60.05,"t":1794670965800}
+{"event":"gene","detail":"plan.place_backoff off: explore cow,pig,sheep,chicken","t":1794670965802}
+{"event":"gene","detail":"learned.gate off: closed","t":1794670965802}
+{"layer":"tactician","gs":1617,"brain":"rules","trigger":"skill_failed","goal":"wood_tools","options":["explore cow,pig,sheep,chicken","collect log:3","explore log"],"choice":"explore cow,pig,sheep,chicken","x":[0.451,0.0,0.0,0.0,1.0,-0.687,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,0.0,0.167,0.077,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1794670965802}
+{"event":"skill_start","skill":"explore cow,pig,sheep,chicken","trigger":"skill_failed","t":1794670965802}
+{"event":"stuck","detail":"explore cow,pig,sheep,chicken at 368, -44, 98","t":1794670977749}
+{"event":"skill_end","skill":"explore cow,pig,sheep,chicken","ok":false,"code":"STUCK","detail":"stuck: stayed inside 2.0 blocks for 12 s","seconds":11.95,"t":1794670977750}
+{"event":"skill_start","skill":"unstuck","trigger":"reflex_stuck","t":1794670977750}
+{"event":"skill_end","skill":"unstuck","ok":false,"code":"TIMEOUT","detail":"timed out after 60 s","seconds":60.05,"t":1794671037799}
+{"event":"gene","detail":"plan.place_backoff off: goto surface","t":1794671037800}
+{"event":"gene","detail":"learned.gate off: closed","t":1794671037800}
+{"layer":"tactician","gs":1689,"brain":"rules","trigger":"skill_failed","goal":"wood_tools","options":["goto surface","explore cow,pig,sheep,chicken","collect log:3","shelter","explore log"],"choice":"goto surface","x":[0.451,0.0,0.0,1.0,1.0,-0.687,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,0.0,0.167,0.077,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1794671037800}
+{"event":"skill_start","skill":"goto surface","trigger":"skill_failed","t":1794671037800}
+{"event":"stuck","detail":"goto surface at 368, -44, 98","t":1794671052751}
+{"event":"skill_end","skill":"goto surface","ok":false,"code":"STUCK","detail":"stuck: stayed inside 2.0 blocks for 12 s","seconds":14.95,"t":1794671052752}
+{"event":"skill_start","skill":"unstuck","trigger":"reflex_stuck","t":1794671052752}
+{"event":"skill_end","skill":"unstuck","ok":false,"code":"TIMEOUT","detail":"timed out after 60 s","seconds":60.05,"t":1794671112804}
+{"event":"gene","detail":"plan.place_backoff off: explore cow,pig,sheep,chicken","t":1794671112805}
+{"event":"gene","detail":"learned.gate off: closed","t":1794671112806}
+{"layer":"tactician","gs":1764,"brain":"rules","trigger":"skill_failed","goal":"wood_tools","options":["explore cow,pig,sheep,chicken","collect log:3","shelter","explore log"],"choice":"explore cow,pig,sheep,chicken","x":[0.451,0.0,0.0,1.0,1.0,-0.687,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,0.0,0.167,0.077,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1794671112806}
+{"event":"skill_start","skill":"explore cow,pig,sheep,chicken","trigger":"skill_failed","t":1794671112806}
+{"event":"stuck","detail":"explore cow,pig,sheep,chicken at 368, -44, 98","t":1794671124757}
+{"event":"skill_end","skill":"explore cow,pig,sheep,chicken","ok":false,"code":"STUCK","detail":"stuck: stayed inside 2.0 blocks for 12 s","seconds":11.95,"t":1794671124757}
+{"event":"skill_start","skill":"unstuck","trigger":"reflex_stuck","t":1794671124757}
+{"event":"skill_end","skill":"unstuck","ok":false,"code":"TIMEOUT","detail":"timed out after 60 s","seconds":60.05,"t":1794671184801}
+{"event":"gene","detail":"plan.place_backoff off: goto surface","t":1794671184802}
+{"event":"gene","detail":"learned.gate off: closed","t":1794671184803}
+{"layer":"tactician","gs":1836,"brain":"rules","trigger":"skill_failed","goal":"wood_tools","options":["goto surface","explore cow,pig,sheep,chicken","collect log:3","shelter","explore log"],"choice":"goto surface","x":[0.451,0.0,0.0,1.0,1.0,-0.687,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,0.0,0.167,0.077,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1794671184803}
+{"event":"skill_start","skill":"goto surface","trigger":"skill_failed","t":1794671184803}
+{"event":"stuck","detail":"goto surface at 368, -44, 98","t":1794671199752}
+{"event":"skill_end","skill":"goto surface","ok":false,"code":"STUCK","detail":"stuck: stayed inside 2.0 blocks for 12 s","seconds":14.95,"t":1794671199752}
+{"event":"skill_start","skill":"unstuck","trigger":"reflex_stuck","t":1794671199752}
+{"event":"skill_end","skill":"unstuck","ok":false,"code":"TIMEOUT","detail":"timed out after 60 s","seconds":60.05,"t":1794671259857}
+{"event":"gene","detail":"plan.place_backoff off: explore cow,pig,sheep,chicken","t":1794671259858}
+{"event":"gene","detail":"learned.gate off: closed","t":1794671259858}
+{"layer":"tactician","gs":1911,"brain":"rules","trigger":"skill_failed","goal":"wood_tools","options":["explore cow,pig,sheep,chicken","collect log:3","shelter","explore log"],"choice":"explore cow,pig,sheep,chicken","x":[0.451,0.0,0.0,1.0,1.0,-0.687,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,0.0,0.167,0.077,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1794671259858}
+{"event":"skill_start","skill":"explore cow,pig,sheep,chicken","trigger":"skill_failed","t":1794671259858}
+{"event":"stuck","detail":"explore cow,pig,sheep,chicken at 368, -44, 98","t":1794671271807}
+{"event":"skill_end","skill":"explore cow,pig,sheep,chicken","ok":false,"code":"STUCK","detail":"stuck: stayed inside 2.0 blocks for 12 s","seconds":11.95,"t":1794671271807}
+{"event":"skill_start","skill":"unstuck","trigger":"reflex_stuck","t":1794671271807}
+{"event":"skill_end","skill":"unstuck","ok":false,"code":"TIMEOUT","detail":"timed out after 60 s","seconds":60.05,"t":1794671331858}
+{"event":"gene","detail":"plan.place_backoff off: goto surface","t":1794671331860}
+{"event":"gene","detail":"learned.gate off: closed","t":1794671331860}
+{"layer":"tactician","gs":1983,"brain":"rules","trigger":"skill_failed","goal":"wood_tools","options":["goto surface","explore cow,pig,sheep,chicken","collect log:3","shelter","explore log"],"choice":"goto surface","x":[0.451,0.0,0.0,1.0,1.0,-0.687,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,0.0,0.167,0.077,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1794671331860}
+{"event":"skill_start","skill":"goto surface","trigger":"skill_failed","t":1794671331860}
+{"event":"stuck","detail":"goto surface at 368, -44, 98","t":1794671346809}
+{"event":"skill_end","skill":"goto surface","ok":false,"code":"STUCK","detail":"stuck: stayed inside 2.0 blocks for 12 s","seconds":14.95,"t":1794671346809}
+{"event":"skill_start","skill":"unstuck","trigger":"reflex_stuck","t":1794671346809}
+{"event":"skill_end","skill":"unstuck","ok":false,"code":"TIMEOUT","detail":"timed out after 60 s","seconds":60.05,"t":1794671406860}
+{"event":"gene","detail":"plan.place_backoff off: explore cow,pig,sheep,chicken","t":1794671406861}
+{"event":"gene","detail":"learned.gate off: closed","t":1794671406861}
+{"layer":"tactician","gs":2058,"brain":"rules","trigger":"skill_failed","goal":"wood_tools","options":["explore cow,pig,sheep,chicken","collect log:3","shelter","explore log"],"choice":"explore cow,pig,sheep,chicken","x":[0.451,0.0,0.0,1.0,1.0,-0.687,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,0.0,0.167,0.077,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1794671406861}
+{"event":"skill_start","skill":"explore cow,pig,sheep,chicken","trigger":"skill_failed","t":1794671406861}
+{"event":"stuck","detail":"explore cow,pig,sheep,chicken at 368, -44, 98","t":1794671418811}
+{"event":"skill_end","skill":"explore cow,pig,sheep,chicken","ok":false,"code":"STUCK","detail":"stuck: stayed inside 2.0 blocks for 12 s","seconds":11.95,"t":1794671418812}
+{"event":"skill_start","skill":"unstuck","trigger":"reflex_stuck","t":1794671418812}
+{"event":"skill_end","skill":"unstuck","ok":false,"code":"TIMEOUT","detail":"timed out after 60 s","seconds":60.05,"t":1794671478857}
+{"event":"gene","detail":"plan.place_backoff off: goto surface","t":1794671478858}
+{"event":"gene","detail":"learned.gate off: closed","t":1794671478859}
+{"layer":"tactician","gs":2130,"brain":"rules","trigger":"skill_failed","goal":"wood_tools","options":["goto surface","explore cow,pig,sheep,chicken","collect log:3","shelter","explore log"],"choice":"goto surface","x":[0.451,0.0,0.0,1.0,1.0,-0.687,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,0.0,0.167,0.077,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1794671478859}
+{"event":"skill_start","skill":"goto surface","trigger":"skill_failed","t":1794671478859}
+{"event":"stuck","detail":"goto surface at 368, -44, 98","t":1794671493807}
+{"event":"skill_end","skill":"goto surface","ok":false,"code":"STUCK","detail":"stuck: stayed inside 2.0 blocks for 12 s","seconds":14.95,"t":1794671493808}
+{"event":"skill_start","skill":"unstuck","trigger":"reflex_stuck","t":1794671493808}
+{"event":"skill_end","skill":"unstuck","ok":false,"code":"TIMEOUT","detail":"timed out after 60 s","seconds":60.05,"t":1794671553865}
+{"event":"gene","detail":"plan.place_backoff off: explore cow,pig,sheep,chicken","t":1794671553866}
+{"event":"gene","detail":"learned.gate off: closed","t":1794671553866}
+{"layer":"tactician","gs":2205,"brain":"rules","trigger":"skill_failed","goal":"wood_tools","options":["explore cow,pig,sheep,chicken","collect log:3","explore log"],"choice":"explore cow,pig,sheep,chicken","x":[0.451,0.0,0.0,0.0,1.0,-0.687,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,0.0,0.167,0.077,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1794671553866}
+{"event":"skill_start","skill":"explore cow,pig,sheep,chicken","trigger":"skill_failed","t":1794671553866}
+{"event":"stuck","detail":"explore cow,pig,sheep,chicken at 368, -44, 98","t":1794671565810}
+{"event":"skill_end","skill":"explore cow,pig,sheep,chicken","ok":false,"code":"STUCK","detail":"stuck: stayed inside 2.0 blocks for 12 s","seconds":11.95,"t":1794671565810}
+{"event":"skill_start","skill":"unstuck","trigger":"reflex_stuck","t":1794671565810}
+{"event":"skill_end","skill":"unstuck","ok":false,"code":"TIMEOUT","detail":"timed out after 60 s","seconds":60.05,"t":1794671625863}
+{"event":"gene","detail":"plan.place_backoff off: goto surface","t":1794671625864}
+{"event":"gene","detail":"learned.gate off: closed","t":1794671625865}
+{"layer":"tactician","gs":2277,"brain":"rules","trigger":"skill_failed","goal":"wood_tools","options":["goto surface","explore cow,pig,sheep,chicken","collect log:3","explore log"],"choice":"goto surface","x":[0.451,0.0,0.0,0.0,1.0,-0.687,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,0.0,0.167,0.077,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1794671625865}
+{"event":"skill_start","skill":"goto surface","trigger":"skill_failed","t":1794671625865}
+{"event":"stuck","detail":"goto surface at 368, -44, 98","t":1794671640812}
+{"event":"skill_end","skill":"goto surface","ok":false,"code":"STUCK","detail":"stuck: stayed inside 2.0 blocks for 12 s","seconds":14.95,"t":1794671640812}
+{"event":"skill_start","skill":"unstuck","trigger":"reflex_stuck","t":1794671640812}
+{"event":"skill_end","skill":"unstuck","ok":false,"code":"TIMEOUT","detail":"timed out after 60 s","seconds":60.05,"t":1794671700864}
+{"event":"gene","detail":"plan.place_backoff off: explore cow,pig,sheep,chicken","t":1794671700865}
+{"event":"gene","detail":"learned.gate off: closed","t":1794671700865}
+{"layer":"tactician","gs":2352,"brain":"rules","trigger":"skill_failed","goal":"wood_tools","options":["explore cow,pig,sheep,chicken","collect log:3","explore log"],"choice":"explore cow,pig,sheep,chicken","x":[0.451,0.0,0.0,0.0,1.0,-0.687,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,0.0,0.167,0.077,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1794671700865}
+{"event":"skill_start","skill":"explore cow,pig,sheep,chicken","trigger":"skill_failed","t":1794671700865}
+{"event":"stuck","detail":"explore cow,pig,sheep,chicken at 368, -44, 98","t":1794671712812}
+{"event":"skill_end","skill":"explore cow,pig,sheep,chicken","ok":false,"code":"STUCK","detail":"stuck: stayed inside 2.0 blocks for 12 s","seconds":11.95,"t":1794671712812}
+{"event":"skill_start","skill":"unstuck","trigger":"reflex_stuck","t":1794671712812}
+{"event":"skill_end","skill":"unstuck","ok":false,"code":"TIMEOUT","detail":"timed out after 60 s","seconds":60.05,"t":1794671772867}
+{"event":"gene","detail":"plan.place_backoff off: goto surface","t":1794671772869}
+{"event":"gene","detail":"learned.gate off: closed","t":1794671772869}
+{"layer":"tactician","gs":2424,"brain":"rules","trigger":"skill_failed","goal":"wood_tools","options":["goto surface","explore cow,pig,sheep,chicken","collect log:3","explore log"],"choice":"goto surface","x":[0.451,0.0,0.0,0.0,1.0,-0.687,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,0.0,0.167,0.077,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1794671772869}
+{"event":"skill_start","skill":"goto surface","trigger":"skill_failed","t":1794671772869}
+{"event":"stuck","detail":"goto surface at 368, -44, 98","t":1794671787817}
+{"event":"skill_end","skill":"goto surface","ok":false,"code":"STUCK","detail":"stuck: stayed inside 2.0 blocks for 12 s","seconds":14.95,"t":1794671787817}
+{"event":"skill_start","skill":"unstuck","trigger":"reflex_stuck","t":1794671787817}
+{"event":"skill_end","skill":"unstuck","ok":false,"code":"TIMEOUT","detail":"timed out after 60 s","seconds":60.05,"t":1794671847865}
+{"event":"gene","detail":"plan.place_backoff off: explore cow,pig,sheep,chicken","t":1794671847866}
+{"event":"gene","detail":"learned.gate off: closed","t":1794671847866}
+{"layer":"tactician","gs":2499,"brain":"rules","trigger":"skill_failed","goal":"wood_tools","options":["explore cow,pig,sheep,chicken","collect log:3","explore log"],"choice":"explore cow,pig,sheep,chicken","x":[0.451,0.0,0.0,0.0,1.0,-0.687,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,0.0,0.167,0.077,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1794671847866}
+{"event":"skill_start","skill":"explore cow,pig,sheep,chicken","trigger":"skill_failed","t":1794671847866}
+{"event":"stuck","detail":"explore cow,pig,sheep,chicken at 368, -44, 98","t":1794671859814}
+{"event":"skill_end","skill":"explore cow,pig,sheep,chicken","ok":false,"code":"STUCK","detail":"stuck: stayed inside 2.0 blocks for 12 s","seconds":11.95,"t":1794671859814}
+{"event":"skill_start","skill":"unstuck","trigger":"reflex_stuck","t":1794671859815}
+{"event":"skill_end","skill":"unstuck","ok":false,"code":"TIMEOUT","detail":"timed out after 60 s","seconds":60.05,"t":1794671919866}
+{"event":"gene","detail":"plan.place_backoff off: goto surface","t":1794671919867}
+{"event":"gene","detail":"learned.gate off: closed","t":1794671919868}
+{"layer":"tactician","gs":2571,"brain":"rules","trigger":"skill_failed","goal":"wood_tools","options":["goto surface","explore cow,pig,sheep,chicken","collect log:3","explore log"],"choice":"goto surface","x":[0.451,0.0,0.0,0.0,1.0,-0.687,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,0.0,0.167,0.077,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1794671919868}
+{"event":"skill_start","skill":"goto surface","trigger":"skill_failed","t":1794671919868}
+{"event":"stuck","detail":"goto surface at 368, -44, 98","t":1794671934819}
+{"event":"skill_end","skill":"goto surface","ok":false,"code":"STUCK","detail":"stuck: stayed inside 2.0 blocks for 12 s","seconds":14.95,"t":1794671934819}
+{"event":"skill_start","skill":"unstuck","trigger":"reflex_stuck","t":1794671934819}
+{"event":"skill_end","skill":"unstuck","ok":false,"code":"TIMEOUT","detail":"timed out after 60 s","seconds":60.05,"t":1794671994865}
+{"event":"gene","detail":"plan.place_backoff off: explore cow,pig,sheep,chicken","t":1794671994865}
+{"event":"gene","detail":"learned.gate off: closed","t":1794671994865}
+{"layer":"tactician","gs":2646,"brain":"rules","trigger":"skill_failed","goal":"wood_tools","options":["explore cow,pig,sheep,chicken","collect log:3","explore log"],"choice":"explore cow,pig,sheep,chicken","x":[0.451,0.0,0.0,0.0,1.0,-0.687,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,0.0,0.167,0.077,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1794671994866}
+{"event":"skill_start","skill":"explore cow,pig,sheep,chicken","trigger":"skill_failed","t":1794671994866}
+{"event":"stuck","detail":"explore cow,pig,sheep,chicken at 368, -44, 98","t":1794672006821}
+{"event":"skill_end","skill":"explore cow,pig,sheep,chicken","ok":false,"code":"STUCK","detail":"stuck: stayed inside 2.0 blocks for 12 s","seconds":11.95,"t":1794672006821}
+{"event":"skill_start","skill":"unstuck","trigger":"reflex_stuck","t":1794672006822}
+{"event":"skill_end","skill":"unstuck","ok":false,"code":"TIMEOUT","detail":"timed out after 60 s","seconds":60.05,"t":1794672066867}
+{"event":"gene","detail":"plan.place_backoff off: goto surface","t":1794672066868}
+{"event":"gene","detail":"learned.gate off: closed","t":1794672066868}
+{"layer":"tactician","gs":2718,"brain":"rules","trigger":"skill_failed","goal":"wood_tools","options":["goto surface","explore cow,pig,sheep,chicken","collect log:3","explore log"],"choice":"goto surface","x":[0.451,0.0,0.0,0.0,1.0,-0.687,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,0.0,0.167,0.077,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1794672066868}
+{"event":"skill_start","skill":"goto surface","trigger":"skill_failed","t":1794672066869}
+{"event":"stuck","detail":"goto surface at 368, -44, 98","t":1794672081821}
+{"event":"skill_end","skill":"goto surface","ok":false,"code":"STUCK","detail":"stuck: stayed inside 2.0 blocks for 12 s","seconds":14.95,"t":1794672081821}
+{"event":"skill_start","skill":"unstuck","trigger":"reflex_stuck","t":1794672081821}
+{"event":"skill_end","skill":"unstuck","ok":false,"code":"TIMEOUT","detail":"timed out after 60 s","seconds":60.05,"t":1794672141868}
+{"event":"gene","detail":"plan.place_backoff off: explore cow,pig,sheep,chicken","t":1794672141868}
+{"event":"gene","detail":"learned.gate off: closed","t":1794672141868}
+{"layer":"tactician","gs":2793,"brain":"rules","trigger":"skill_failed","goal":"wood_tools","options":["explore cow,pig,sheep,chicken","collect log:3","explore log"],"choice":"explore cow,pig,sheep,chicken","x":[0.451,0.0,0.0,0.0,1.0,-0.687,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,0.0,0.167,0.077,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1794672141869}
+{"event":"skill_start","skill":"explore cow,pig,sheep,chicken","trigger":"skill_failed","t":1794672141869}
+{"event":"stuck","detail":"explore cow,pig,sheep,chicken at 368, -44, 98","t":1794672153820}
+{"event":"skill_end","skill":"explore cow,pig,sheep,chicken","ok":false,"code":"STUCK","detail":"stuck: stayed inside 2.0 blocks for 12 s","seconds":11.95,"t":1794672153820}
+{"event":"skill_start","skill":"unstuck","trigger":"reflex_stuck","t":1794672153820}
+{"event":"skill_end","skill":"unstuck","ok":false,"code":"TIMEOUT","detail":"timed out after 60 s","seconds":60.05,"t":1794672213875}
+{"event":"gene","detail":"plan.place_backoff off: goto surface","t":1794672213876}
+{"event":"gene","detail":"learned.gate off: closed","t":1794672213876}
+{"layer":"tactician","gs":2865,"brain":"rules","trigger":"skill_failed","goal":"wood_tools","options":["goto surface","explore cow,pig,sheep,chicken","collect log:3","explore log"],"choice":"goto surface","x":[0.451,0.0,0.0,0.0,1.0,-0.687,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,0.0,0.167,0.077,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1794672213876}
+{"event":"skill_start","skill":"goto surface","trigger":"skill_failed","t":1794672213877}
+{"event":"stuck","detail":"goto surface at 368, -44, 98","t":1794672228819}
+{"event":"skill_end","skill":"goto surface","ok":false,"code":"STUCK","detail":"stuck: stayed inside 2.0 blocks for 12 s","seconds":14.95,"t":1794672228819}
+{"event":"skill_start","skill":"unstuck","trigger":"reflex_stuck","t":1794672228819}
+{"event":"skill_end","skill":"unstuck","ok":false,"code":"TIMEOUT","detail":"timed out after 60 s","seconds":60.05,"t":1794672288870}
+{"event":"gene","detail":"plan.place_backoff off: explore cow,pig,sheep,chicken","t":1794672288871}
+{"event":"gene","detail":"learned.gate off: closed","t":1794672288871}
+{"layer":"tactician","gs":2940,"brain":"rules","trigger":"skill_failed","goal":"wood_tools","options":["explore cow,pig,sheep,chicken","collect log:3","shelter","explore log"],"choice":"explore cow,pig,sheep,chicken","x":[0.451,0.0,0.0,1.0,1.0,-0.687,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,0.0,0.167,0.077,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1794672288871}
+{"event":"skill_start","skill":"explore cow,pig,sheep,chicken","trigger":"skill_failed","t":1794672288872}
+{"event":"stuck","detail":"explore cow,pig,sheep,chicken at 368, -44, 98","t":1794672300824}
+{"event":"skill_end","skill":"explore cow,pig,sheep,chicken","ok":false,"code":"STUCK","detail":"stuck: stayed inside 2.0 blocks for 12 s","seconds":11.95,"t":1794672300825}
+{"event":"skill_start","skill":"unstuck","trigger":"reflex_stuck","t":1794672300825}
+{"event":"skill_end","skill":"unstuck","ok":false,"code":"TIMEOUT","detail":"timed out after 60 s","seconds":60.05,"t":1794672360877}
+{"event":"gene","detail":"plan.place_backoff off: goto surface","t":1794672360878}
+{"event":"gene","detail":"learned.gate off: closed","t":1794672360878}
+{"layer":"tactician","gs":3012,"brain":"rules","trigger":"skill_failed","goal":"wood_tools","options":["goto surface","explore cow,pig,sheep,chicken","collect log:3","shelter","explore log"],"choice":"goto surface","x":[0.451,0.0,0.0,1.0,1.0,-0.687,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,0.0,0.167,0.077,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1794672360878}
+{"event":"skill_start","skill":"goto surface","trigger":"skill_failed","t":1794672360878}
+{"event":"stuck","detail":"goto surface at 368, -44, 98","t":1794672375826}
+{"event":"skill_end","skill":"goto surface","ok":false,"code":"STUCK","detail":"stuck: stayed inside 2.0 blocks for 12 s","seconds":14.95,"t":1794672375826}
+{"event":"skill_start","skill":"unstuck","trigger":"reflex_stuck","t":1794672375827}
+{"event":"skill_end","skill":"unstuck","ok":false,"code":"TIMEOUT","detail":"timed out after 60 s","seconds":60.05,"t":1794672435931}
+{"event":"gene","detail":"plan.place_backoff off: explore cow,pig,sheep,chicken","t":1794672435932}
+{"event":"gene","detail":"learned.gate off: closed","t":1794672435932}
+{"layer":"tactician","gs":3087,"brain":"rules","trigger":"skill_failed","goal":"wood_tools","options":["explore cow,pig,sheep,chicken","collect log:3","shelter","explore log"],"choice":"explore cow,pig,sheep,chicken","x":[0.451,0.0,0.0,1.0,1.0,-0.687,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,0.0,0.167,0.077,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1794672435932}
+{"event":"skill_start","skill":"explore cow,pig,sheep,chicken","trigger":"skill_failed","t":1794672435932}
+{"event":"stuck","detail":"explore cow,pig,sheep,chicken at 368, -44, 98","t":1794672447880}
+{"event":"skill_end","skill":"explore cow,pig,sheep,chicken","ok":false,"code":"STUCK","detail":"stuck: stayed inside 2.0 blocks for 12 s","seconds":11.95,"t":1794672447880}
+{"event":"skill_start","skill":"unstuck","trigger":"reflex_stuck","t":1794672447880}
+{"event":"skill_end","skill":"unstuck","ok":false,"code":"TIMEOUT","detail":"timed out after 60 s","seconds":60.05,"t":1794672507925}
+{"event":"gene","detail":"plan.place_backoff off: goto surface","t":1794672507926}
+{"event":"gene","detail":"learned.gate off: closed","t":1794672507926}
+{"layer":"tactician","gs":3159,"brain":"rules","trigger":"skill_failed","goal":"wood_tools","options":["goto surface","explore cow,pig,sheep,chicken","collect log:3","shelter","explore log"],"choice":"goto surface","x":[0.451,0.0,0.0,1.0,1.0,-0.687,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,0.0,0.167,0.077,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1794672507927}
+{"event":"skill_start","skill":"goto surface","trigger":"skill_failed","t":1794672507927}
+{"event":"stuck","detail":"goto surface at 368, -44, 98","t":1794672522880}
+{"event":"skill_end","skill":"goto surface","ok":false,"code":"STUCK","detail":"stuck: stayed inside 2.0 blocks for 12 s","seconds":14.95,"t":1794672522881}
+{"event":"skill_start","skill":"unstuck","trigger":"reflex_stuck","t":1794672522881}
+{"event":"skill_end","skill":"unstuck","ok":false,"code":"TIMEOUT","detail":"timed out after 60 s","seconds":60.05,"t":1794672582932}
+{"event":"gene","detail":"plan.place_backoff off: explore cow,pig,sheep,chicken","t":1794672582933}
+{"event":"gene","detail":"learned.gate off: closed","t":1794672582933}
+{"layer":"tactician","gs":3234,"brain":"rules","trigger":"skill_failed","goal":"wood_tools","options":["explore cow,pig,sheep,chicken","collect log:3","shelter","explore log"],"choice":"explore cow,pig,sheep,chicken","x":[0.451,0.0,0.0,1.0,1.0,-0.687,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,0.0,0.167,0.077,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1794672582933}
+{"event":"skill_start","skill":"explore cow,pig,sheep,chicken","trigger":"skill_failed","t":1794672582933}
+{"event":"stuck","detail":"explore cow,pig,sheep,chicken at 368, -44, 98","t":1794672594877}
+{"event":"skill_end","skill":"explore cow,pig,sheep,chicken","ok":false,"code":"STUCK","detail":"stuck: stayed inside 2.0 blocks for 12 s","seconds":11.95,"t":1794672594877}
+{"event":"skill_start","skill":"unstuck","trigger":"reflex_stuck","t":1794672594878}
+{"event":"skill_end","skill":"unstuck","ok":false,"code":"TIMEOUT","detail":"timed out after 60 s","seconds":60.05,"t":1794672654931}
+{"event":"gene","detail":"plan.place_backoff off: goto surface","t":1794672654932}
+{"event":"gene","detail":"learned.gate off: closed","t":1794672654932}
+{"layer":"tactician","gs":3306,"brain":"rules","trigger":"skill_failed","goal":"wood_tools","options":["goto surface","explore cow,pig,sheep,chicken","collect log:3","shelter","explore log"],"choice":"goto surface","x":[0.451,0.0,0.0,1.0,1.0,-0.687,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,0.0,0.167,0.077,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1794672654932}
+{"event":"skill_start","skill":"goto surface","trigger":"skill_failed","t":1794672654933}
+{"event":"stuck","detail":"goto surface at 368, -44, 98","t":1794672669881}
+{"event":"skill_end","skill":"goto surface","ok":false,"code":"STUCK","detail":"stuck: stayed inside 2.0 blocks for 12 s","seconds":14.95,"t":1794672669881}
+{"event":"skill_start","skill":"unstuck","trigger":"reflex_stuck","t":1794672669881}
+{"event":"skill_end","skill":"unstuck","ok":false,"code":"TIMEOUT","detail":"timed out after 60 s","seconds":60.05,"t":1794672729931}
+{"event":"gene","detail":"plan.place_backoff off: explore cow,pig,sheep,chicken","t":1794672729932}
+{"event":"gene","detail":"learned.gate off: closed","t":1794672729932}
+{"layer":"tactician","gs":3381,"brain":"rules","trigger":"skill_failed","goal":"wood_tools","options":["explore cow,pig,sheep,chicken","collect log:3","shelter","explore log"],"choice":"explore cow,pig,sheep,chicken","x":[0.451,0.0,0.0,1.0,1.0,-0.687,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,0.0,0.167,0.077,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1794672729932}
+{"event":"skill_start","skill":"explore cow,pig,sheep,chicken","trigger":"skill_failed","t":1794672729932}
+{"event":"stuck","detail":"explore cow,pig,sheep,chicken at 368, -44, 98","t":1794672741886}
+{"event":"skill_end","skill":"explore cow,pig,sheep,chicken","ok":false,"code":"STUCK","detail":"stuck: stayed inside 2.0 blocks for 12 s","seconds":11.95,"t":1794672741886}
+{"event":"skill_start","skill":"unstuck","trigger":"reflex_stuck","t":1794672741886}
+{"event":"skill_end","skill":"unstuck","ok":false,"code":"TIMEOUT","detail":"timed out after 60 s","seconds":60.05,"t":1794672801933}
+{"event":"gene","detail":"plan.place_backoff off: goto surface","t":1794672801934}
+{"event":"gene","detail":"learned.gate off: closed","t":1794672801934}
+{"layer":"tactician","gs":3453,"brain":"rules","trigger":"skill_failed","goal":"wood_tools","options":["goto surface","explore cow,pig,sheep,chicken","collect log:3","explore log"],"choice":"goto surface","x":[0.451,0.0,0.0,0.0,1.0,-0.687,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,0.0,0.167,0.077,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1794672801935}
+{"event":"skill_start","skill":"goto surface","trigger":"skill_failed","t":1794672801935}
+{"event":"stuck","detail":"goto surface at 368, -44, 98","t":1794672816879}
+{"event":"skill_end","skill":"goto surface","ok":false,"code":"STUCK","detail":"stuck: stayed inside 2.0 blocks for 12 s","seconds":14.95,"t":1794672816879}
+{"event":"skill_start","skill":"unstuck","trigger":"reflex_stuck","t":1794672816880}
+{"event":"skill_end","skill":"unstuck","ok":false,"code":"TIMEOUT","detail":"timed out after 60 s","seconds":60.05,"t":1794672876935}
+{"event":"gene","detail":"plan.place_backoff off: explore cow,pig,sheep,chicken","t":1794672876936}
+{"event":"gene","detail":"learned.gate off: closed","t":1794672876936}
+{"layer":"tactician","gs":3528,"brain":"rules","trigger":"skill_failed","goal":"wood_tools","options":["explore cow,pig,sheep,chicken","collect log:3","explore log"],"choice":"explore cow,pig,sheep,chicken","x":[0.451,0.0,0.0,0.0,1.0,-0.687,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,0.0,0.167,0.077,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1794672876936}
+{"event":"skill_start","skill":"explore cow,pig,sheep,chicken","trigger":"skill_failed","t":1794672876937}
+{"event":"stuck","detail":"explore cow,pig,sheep,chicken at 368, -44, 98","t":1794672888882}
+{"event":"skill_end","skill":"explore cow,pig,sheep,chicken","ok":false,"code":"STUCK","detail":"stuck: stayed inside 2.0 blocks for 12 s","seconds":11.95,"t":1794672888882}
+{"event":"skill_start","skill":"unstuck","trigger":"reflex_stuck","t":1794672888882}
+{"event":"skill_end","skill":"unstuck","ok":false,"code":"TIMEOUT","detail":"timed out after 60 s","seconds":60.05,"t":1794672948937}
+{"event":"gene","detail":"plan.place_backoff off: goto surface","t":1794672948938}
+{"event":"gene","detail":"learned.gate off: closed","t":1794672948938}
+{"layer":"tactician","gs":3600,"brain":"rules","trigger":"skill_failed","goal":"wood_tools","options":["goto surface","explore cow,pig,sheep,chicken","collect log:3","explore log"],"choice":"goto surface","x":[0.451,0.0,0.0,0.0,1.0,-0.687,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,0.0,0.167,0.077,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1794672948938}
+{"event":"skill_start","skill":"goto surface","trigger":"skill_failed","t":1794672948938}
+{"event":"stuck","detail":"goto surface at 368, -44, 98","t":1794672963884}
+{"event":"skill_end","skill":"goto surface","ok":false,"code":"STUCK","detail":"stuck: stayed inside 2.0 blocks for 12 s","seconds":14.95,"t":1794672963884}
+{"event":"skill_start","skill":"unstuck","trigger":"reflex_stuck","t":1794672963885}
+{"event":"skill_end","skill":"unstuck","ok":false,"code":"TIMEOUT","detail":"timed out after 60 s","seconds":60.05,"t":1794673023937}
+{"event":"gene","detail":"plan.place_backoff off: explore cow,pig,sheep,chicken","t":1794673023938}
+{"event":"gene","detail":"learned.gate off: closed","t":1794673023938}
+{"layer":"tactician","gs":3675,"brain":"rules","trigger":"skill_failed","goal":"wood_tools","options":["explore cow,pig,sheep,chicken","collect log:3","explore log"],"choice":"explore cow,pig,sheep,chicken","x":[0.451,0.0,0.0,0.0,1.0,-0.687,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,0.0,0.167,0.077,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1794673023938}
+{"event":"skill_start","skill":"explore cow,pig,sheep,chicken","trigger":"skill_failed","t":1794673023938}
+{"event":"stuck","detail":"explore cow,pig,sheep,chicken at 368, -44, 98","t":1794673035894}
+{"event":"skill_end","skill":"explore cow,pig,sheep,chicken","ok":false,"code":"STUCK","detail":"stuck: stayed inside 2.0 blocks for 12 s","seconds":11.95,"t":1794673035894}
+{"event":"skill_start","skill":"unstuck","trigger":"reflex_stuck","t":1794673035895}
+{"event":"skill_end","skill":"unstuck","ok":false,"code":"TIMEOUT","detail":"timed out after 60 s","seconds":60.05,"t":1794673095938}
+{"event":"gene","detail":"plan.place_backoff off: goto surface","t":1794673095939}
+{"event":"gene","detail":"learned.gate off: closed","t":1794673095939}
+{"layer":"tactician","gs":3747,"brain":"rules","trigger":"skill_failed","goal":"wood_tools","options":["goto surface","explore cow,pig,sheep,chicken","collect log:3","explore log"],"choice":"goto surface","x":[0.451,0.0,0.0,0.0,1.0,-0.687,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,0.0,0.167,0.077,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1794673095939}
+{"event":"skill_start","skill":"goto surface","trigger":"skill_failed","t":1794673095939}
+{"event":"stuck","detail":"goto surface at 368, -44, 98","t":1794673110885}
+{"event":"skill_end","skill":"goto surface","ok":false,"code":"STUCK","detail":"stuck: stayed inside 2.0 blocks for 12 s","seconds":14.95,"t":1794673110886}
+{"event":"skill_start","skill":"unstuck","trigger":"reflex_stuck","t":1794673110886}
+{"event":"skill_end","skill":"unstuck","ok":false,"code":"TIMEOUT","detail":"timed out after 60 s","seconds":60.05,"t":1794673170940}
+{"event":"gene","detail":"plan.place_backoff off: explore cow,pig,sheep,chicken","t":1794673170941}
+{"event":"gene","detail":"learned.gate off: closed","t":1794673170941}
+{"layer":"tactician","gs":3822,"brain":"rules","trigger":"skill_failed","goal":"wood_tools","options":["explore cow,pig,sheep,chicken","collect log:3","explore log"],"choice":"explore cow,pig,sheep,chicken","x":[0.451,0.0,0.0,0.0,1.0,-0.687,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,0.0,0.167,0.077,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1794673170941}
+{"event":"skill_start","skill":"explore cow,pig,sheep,chicken","trigger":"skill_failed","t":1794673170942}
+{"event":"stuck","detail":"explore cow,pig,sheep,chicken at 368, -44, 98","t":1794673182899}
+{"event":"skill_end","skill":"explore cow,pig,sheep,chicken","ok":false,"code":"STUCK","detail":"stuck: stayed inside 2.0 blocks for 12 s","seconds":11.95,"t":1794673182899}
+{"event":"skill_start","skill":"unstuck","trigger":"reflex_stuck","t":1794673182899}
+{"event":"skill_end","skill":"unstuck","ok":false,"code":"TIMEOUT","detail":"timed out after 60 s","seconds":60.05,"t":1794673242939}
+{"event":"gene","detail":"plan.place_backoff off: goto surface","t":1794673242939}
+{"event":"gene","detail":"learned.gate off: closed","t":1794673242940}
+{"layer":"tactician","gs":3894,"brain":"rules","trigger":"skill_failed","goal":"wood_tools","options":["goto surface","explore cow,pig,sheep,chicken","collect log:3","explore log"],"choice":"goto surface","x":[0.451,0.0,0.0,0.0,1.0,-0.687,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,0.0,0.167,0.077,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1794673242940}
+{"event":"skill_start","skill":"goto surface","trigger":"skill_failed","t":1794673242940}
+{"event":"stuck","detail":"goto surface at 368, -44, 98","t":1794673257894}
+{"event":"skill_end","skill":"goto surface","ok":false,"code":"STUCK","detail":"stuck: stayed inside 2.0 blocks for 12 s","seconds":14.95,"t":1794673257894}
+{"event":"skill_start","skill":"unstuck","trigger":"reflex_stuck","t":1794673257894}
+{"event":"skill_end","skill":"unstuck","ok":false,"code":"TIMEOUT","detail":"timed out after 60 s","seconds":60.05,"t":1794673317945}
+{"event":"gene","detail":"plan.place_backoff off: explore cow,pig,sheep,chicken","t":1794673317946}
+{"event":"gene","detail":"learned.gate off: closed","t":1794673317946}
+{"layer":"tactician","gs":3969,"brain":"rules","trigger":"skill_failed","goal":"wood_tools","options":["explore cow,pig,sheep,chicken","collect log:3","explore log"],"choice":"explore cow,pig,sheep,chicken","x":[0.451,0.0,0.0,0.0,1.0,-0.687,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,0.0,0.167,0.077,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1794673317946}
+{"event":"skill_start","skill":"explore cow,pig,sheep,chicken","trigger":"skill_failed","t":1794673317946}
+{"event":"stuck","detail":"explore cow,pig,sheep,chicken at 368, -44, 98","t":1794673329896}
+{"event":"skill_end","skill":"explore cow,pig,sheep,chicken","ok":false,"code":"STUCK","detail":"stuck: stayed inside 2.0 blocks for 12 s","seconds":11.95,"t":1794673329896}
+{"event":"skill_start","skill":"unstuck","trigger":"reflex_stuck","t":1794673329897}
+{"event":"skill_end","skill":"unstuck","ok":false,"code":"TIMEOUT","detail":"timed out after 60 s","seconds":60.05,"t":1794673389944}
+{"event":"gene","detail":"plan.place_backoff off: goto surface","t":1794673389945}
+{"event":"gene","detail":"learned.gate off: closed","t":1794673389945}
+{"layer":"tactician","gs":4041,"brain":"rules","trigger":"skill_failed","goal":"wood_tools","options":["goto surface","explore cow,pig,sheep,chicken","collect log:3","explore log"],"choice":"goto surface","x":[0.451,0.0,0.0,0.0,1.0,-0.687,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,0.0,0.167,0.077,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1794673389946}
+{"event":"skill_start","skill":"goto surface","trigger":"skill_failed","t":1794673389946}
+{"event":"stuck","detail":"goto surface at 368, -44, 98","t":1794673404922}
+{"event":"skill_end","skill":"goto surface","ok":false,"code":"STUCK","detail":"stuck: stayed inside 2.0 blocks for 12 s","seconds":14.95,"t":1794673404923}
+{"event":"skill_start","skill":"unstuck","trigger":"reflex_stuck","t":1794673404923}
+{"event":"skill_end","skill":"unstuck","ok":false,"code":"TIMEOUT","detail":"timed out after 60 s","seconds":60.05,"t":1794673464949}
+{"event":"gene","detail":"plan.place_backoff off: explore cow,pig,sheep,chicken","t":1794673464950}
+{"event":"gene","detail":"learned.gate off: closed","t":1794673464950}
+{"layer":"tactician","gs":4116,"brain":"rules","trigger":"skill_failed","goal":"wood_tools","options":["explore cow,pig,sheep,chicken","collect log:3","shelter","explore log"],"choice":"explore cow,pig,sheep,chicken","x":[0.451,0.0,0.0,1.0,1.0,-0.687,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,0.0,0.167,0.077,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1794673464950}
+{"event":"skill_start","skill":"explore cow,pig,sheep,chicken","trigger":"skill_failed","t":1794673464951}
+{"event":"stuck","detail":"explore cow,pig,sheep,chicken at 368, -44, 98","t":1794673476896}
+{"event":"skill_end","skill":"explore cow,pig,sheep,chicken","ok":false,"code":"STUCK","detail":"stuck: stayed inside 2.0 blocks for 12 s","seconds":11.95,"t":1794673476896}
+{"event":"skill_start","skill":"unstuck","trigger":"reflex_stuck","t":1794673476896}
+{"event":"skill_end","skill":"unstuck","ok":false,"code":"TIMEOUT","detail":"timed out after 60 s","seconds":60.05,"t":1794673536943}
+{"event":"gene","detail":"plan.place_backoff off: goto surface","t":1794673536944}
+{"event":"gene","detail":"learned.gate off: closed","t":1794673536944}
+{"layer":"tactician","gs":4188,"brain":"rules","trigger":"skill_failed","goal":"wood_tools","options":["goto surface","explore cow,pig,sheep,chicken","collect log:3","shelter","explore log"],"choice":"goto surface","x":[0.451,0.0,0.0,1.0,1.0,-0.687,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,0.0,0.167,0.077,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1794673536944}
+{"event":"skill_start","skill":"goto surface","trigger":"skill_failed","t":1794673536944}
+{"event":"stuck","detail":"goto surface at 368, -44, 98","t":1794673551901}
+{"event":"skill_end","skill":"goto surface","ok":false,"code":"STUCK","detail":"stuck: stayed inside 2.0 blocks for 12 s","seconds":14.95,"t":1794673551901}
+{"event":"skill_start","skill":"unstuck","trigger":"reflex_stuck","t":1794673551901}
+{"event":"skill_end","skill":"unstuck","ok":false,"code":"TIMEOUT","detail":"timed out after 60 s","seconds":60.05,"t":1794673611997}
+{"event":"gene","detail":"plan.place_backoff off: explore cow,pig,sheep,chicken","t":1794673611998}
+{"event":"gene","detail":"learned.gate off: closed","t":1794673611998}
+{"layer":"tactician","gs":4263,"brain":"rules","trigger":"skill_failed","goal":"wood_tools","options":["explore cow,pig,sheep,chicken","collect log:3","shelter","explore log"],"choice":"explore cow,pig,sheep,chicken","x":[0.451,0.0,0.0,1.0,1.0,-0.687,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,0.0,0.167,0.077,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1794673611998}
+{"event":"skill_start","skill":"explore cow,pig,sheep,chicken","trigger":"skill_failed","t":1794673611998}
+{"event":"stuck","detail":"explore cow,pig,sheep,chicken at 368, -44, 98","t":1794673623946}
+{"event":"skill_end","skill":"explore cow,pig,sheep,chicken","ok":false,"code":"STUCK","detail":"stuck: stayed inside 2.0 blocks for 12 s","seconds":11.95,"t":1794673623947}
+{"event":"skill_start","skill":"unstuck","trigger":"reflex_stuck","t":1794673623947}
+{"event":"skill_end","skill":"unstuck","ok":false,"code":"TIMEOUT","detail":"timed out after 60 s","seconds":60.05,"t":1794673683996}
+{"event":"gene","detail":"plan.place_backoff off: goto surface","t":1794673683997}
+{"event":"gene","detail":"learned.gate off: closed","t":1794673683997}
+{"layer":"tactician","gs":4335,"brain":"rules","trigger":"skill_failed","goal":"wood_tools","options":["goto surface","explore cow,pig,sheep,chicken","collect log:3","shelter","explore log"],"choice":"goto surface","x":[0.451,0.0,0.0,1.0,1.0,-0.687,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,0.0,0.167,0.077,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1794673683997}
+{"event":"skill_start","skill":"goto surface","trigger":"skill_failed","t":1794673683997}
+{"event":"stuck","detail":"goto surface at 368, -44, 98","t":1794673698952}
+{"event":"skill_end","skill":"goto surface","ok":false,"code":"STUCK","detail":"stuck: stayed inside 2.0 blocks for 12 s","seconds":14.95,"t":1794673698952}
+{"event":"skill_start","skill":"unstuck","trigger":"reflex_stuck","t":1794673698952}
+{"event":"skill_end","skill":"unstuck","ok":false,"code":"TIMEOUT","detail":"timed out after 60 s","seconds":60.05,"t":1794673759002}
+{"event":"gene","detail":"plan.place_backoff off: explore cow,pig,sheep,chicken","t":1794673759003}
+{"event":"gene","detail":"learned.gate off: closed","t":1794673759003}
+{"layer":"tactician","gs":4410,"brain":"rules","trigger":"skill_failed","goal":"wood_tools","options":["explore cow,pig,sheep,chicken","collect log:3","shelter","explore log"],"choice":"explore cow,pig,sheep,chicken","x":[0.451,0.0,0.0,1.0,1.0,-0.687,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,0.0,0.167,0.077,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1794673759003}
+{"event":"skill_start","skill":"explore cow,pig,sheep,chicken","trigger":"skill_failed","t":1794673759003}
+{"event":"stuck","detail":"explore cow,pig,sheep,chicken at 368, -44, 98","t":1794673770952}
+{"event":"skill_end","skill":"explore cow,pig,sheep,chicken","ok":false,"code":"STUCK","detail":"stuck: stayed inside 2.0 blocks for 12 s","seconds":11.95,"t":1794673770952}
+{"event":"skill_start","skill":"unstuck","trigger":"reflex_stuck","t":1794673770952}
+{"event":"skill_end","skill":"unstuck","ok":false,"code":"TIMEOUT","detail":"timed out after 60 s","seconds":60.05,"t":1794673831005}
+{"event":"gene","detail":"plan.place_backoff off: goto surface","t":1794673831006}
+{"event":"gene","detail":"learned.gate off: closed","t":1794673831006}
+{"layer":"tactician","gs":4482,"brain":"rules","trigger":"skill_failed","goal":"wood_tools","options":["goto surface","explore cow,pig,sheep,chicken","collect log:3","shelter","explore log"],"choice":"goto surface","x":[0.451,0.0,0.0,1.0,1.0,-0.687,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,0.0,0.167,0.077,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1794673831006}
+{"event":"skill_start","skill":"goto surface","trigger":"skill_failed","t":1794673831006}
+{"event":"stuck","detail":"goto surface at 368, -44, 98","t":1794673845949}
+{"event":"skill_end","skill":"goto surface","ok":false,"code":"STUCK","detail":"stuck: stayed inside 2.0 blocks for 12 s","seconds":14.95,"t":1794673845949}
+{"event":"skill_start","skill":"unstuck","trigger":"reflex_stuck","t":1794673845949}
+{"event":"skill_end","skill":"unstuck","ok":false,"code":"TIMEOUT","detail":"timed out after 60 s","seconds":60.05,"t":1794673906006}
+{"event":"gene","detail":"plan.place_backoff off: explore cow,pig,sheep,chicken","t":1794673906007}
+{"event":"gene","detail":"learned.gate off: closed","t":1794673906007}
+{"layer":"tactician","gs":4557,"brain":"rules","trigger":"skill_failed","goal":"wood_tools","options":["explore cow,pig,sheep,chicken","collect log:3","shelter","explore log"],"choice":"explore cow,pig,sheep,chicken","x":[0.451,0.0,0.0,1.0,1.0,-0.687,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,0.0,0.167,0.077,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1794673906008}
+{"event":"skill_start","skill":"explore cow,pig,sheep,chicken","trigger":"skill_failed","t":1794673906008}
+{"event":"stuck","detail":"explore cow,pig,sheep,chicken at 368, -44, 98","t":1794673917951}
+{"event":"skill_end","skill":"explore cow,pig,sheep,chicken","ok":false,"code":"STUCK","detail":"stuck: stayed inside 2.0 blocks for 12 s","seconds":11.95,"t":1794673917952}
+{"event":"skill_start","skill":"unstuck","trigger":"reflex_stuck","t":1794673917952}
+{"event":"skill_end","skill":"unstuck","ok":false,"code":"TIMEOUT","detail":"timed out after 60 s","seconds":60.05,"t":1794673978002}
+{"event":"gene","detail":"plan.place_backoff off: goto surface","t":1794673978003}
+{"event":"gene","detail":"learned.gate off: closed","t":1794673978003}
+{"layer":"tactician","gs":4629,"brain":"rules","trigger":"skill_failed","goal":"wood_tools","options":["goto surface","explore cow,pig,sheep,chicken","collect log:3","explore log"],"choice":"goto surface","x":[0.451,0.0,0.0,0.0,1.0,-0.687,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,0.0,0.167,0.077,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1794673978003}
+{"event":"skill_start","skill":"goto surface","trigger":"skill_failed","t":1794673978003}
+{"event":"stuck","detail":"goto surface at 368, -44, 98","t":1794673992958}
+{"event":"skill_end","skill":"goto surface","ok":false,"code":"STUCK","detail":"stuck: stayed inside 2.0 blocks for 12 s","seconds":14.95,"t":1794673992958}
+{"event":"skill_start","skill":"unstuck","trigger":"reflex_stuck","t":1794673992958}
+{"event":"skill_end","skill":"unstuck","ok":false,"code":"TIMEOUT","detail":"timed out after 60 s","seconds":60.05,"t":1794674053005}
+{"event":"gene","detail":"plan.place_backoff off: explore cow,pig,sheep,chicken","t":1794674053006}
+{"event":"gene","detail":"learned.gate off: closed","t":1794674053006}
+{"layer":"tactician","gs":4704,"brain":"rules","trigger":"skill_failed","goal":"wood_tools","options":["explore cow,pig,sheep,chicken","collect log:3","explore log"],"choice":"explore cow,pig,sheep,chicken","x":[0.451,0.0,0.0,0.0,1.0,-0.687,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,0.0,0.167,0.077,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1794674053006}
+{"event":"skill_start","skill":"explore cow,pig,sheep,chicken","trigger":"skill_failed","t":1794674053006}
+{"event":"stuck","detail":"explore cow,pig,sheep,chicken at 368, -44, 98","t":1794674064959}
+{"event":"skill_end","skill":"explore cow,pig,sheep,chicken","ok":false,"code":"STUCK","detail":"stuck: stayed inside 2.0 blocks for 12 s","seconds":11.95,"t":1794674064959}
+{"event":"skill_start","skill":"unstuck","trigger":"reflex_stuck","t":1794674064960}
+{"event":"skill_end","skill":"unstuck","ok":false,"code":"TIMEOUT","detail":"timed out after 60 s","seconds":60.05,"t":1794674125006}
+{"event":"gene","detail":"plan.place_backoff off: goto surface","t":1794674125007}
+{"event":"gene","detail":"learned.gate off: closed","t":1794674125007}
+{"layer":"tactician","gs":4776,"brain":"rules","trigger":"skill_failed","goal":"wood_tools","options":["goto surface","explore cow,pig,sheep,chicken","collect log:3","explore log"],"choice":"goto surface","x":[0.451,0.0,0.0,0.0,1.0,-0.687,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,0.0,0.167,0.077,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1794674125007}
+{"event":"skill_start","skill":"goto surface","trigger":"skill_failed","t":1794674125008}
+{"event":"stuck","detail":"goto surface at 368, -44, 98","t":1794674139961}
+{"event":"skill_end","skill":"goto surface","ok":false,"code":"STUCK","detail":"stuck: stayed inside 2.0 blocks for 12 s","seconds":14.95,"t":1794674139961}
+{"event":"skill_start","skill":"unstuck","trigger":"reflex_stuck","t":1794674139961}
+{"event":"skill_end","skill":"unstuck","ok":false,"code":"TIMEOUT","detail":"timed out after 60 s","seconds":60.05,"t":1794674200009}
+{"event":"gene","detail":"plan.place_backoff off: explore cow,pig,sheep,chicken","t":1794674200010}
+{"event":"gene","detail":"learned.gate off: closed","t":1794674200010}
+{"layer":"tactician","gs":4851,"brain":"rules","trigger":"skill_failed","goal":"wood_tools","options":["explore cow,pig,sheep,chicken","collect log:3","explore log"],"choice":"explore cow,pig,sheep,chicken","x":[0.451,0.0,0.0,0.0,1.0,-0.687,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,0.0,0.167,0.077,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1794674200010}
+{"event":"skill_start","skill":"explore cow,pig,sheep,chicken","trigger":"skill_failed","t":1794674200010}
+{"event":"stuck","detail":"explore cow,pig,sheep,chicken at 368, -44, 98","t":1794674211958}
+{"event":"skill_end","skill":"explore cow,pig,sheep,chicken","ok":false,"code":"STUCK","detail":"stuck: stayed inside 2.0 blocks for 12 s","seconds":11.95,"t":1794674211959}
+{"event":"skill_start","skill":"unstuck","trigger":"reflex_stuck","t":1794674211960}
+{"event":"skill_end","skill":"unstuck","ok":false,"code":"TIMEOUT","detail":"timed out after 60 s","seconds":60.05,"t":1794674272006}
+{"event":"gene","detail":"plan.place_backoff off: goto surface","t":1794674272007}
+{"event":"gene","detail":"learned.gate off: closed","t":1794674272007}
+{"layer":"tactician","gs":4923,"brain":"rules","trigger":"skill_failed","goal":"wood_tools","options":["goto surface","explore cow,pig,sheep,chicken","collect log:3","explore log"],"choice":"goto surface","x":[0.451,0.0,0.0,0.0,1.0,-0.687,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,0.0,0.167,0.077,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1794674272007}
+{"event":"skill_start","skill":"goto surface","trigger":"skill_failed","t":1794674272007}
+{"event":"stuck","detail":"goto surface at 368, -44, 98","t":1794674286958}
+{"event":"skill_end","skill":"goto surface","ok":false,"code":"STUCK","detail":"stuck: stayed inside 2.0 blocks for 12 s","seconds":14.95,"t":1794674286958}
+{"event":"skill_start","skill":"unstuck","trigger":"reflex_stuck","t":1794674286958}
+{"event":"skill_end","skill":"unstuck","ok":false,"code":"TIMEOUT","detail":"timed out after 60 s","seconds":60.05,"t":1794674347012}
+{"event":"gene","detail":"plan.place_backoff off: explore cow,pig,sheep,chicken","t":1794674347013}
+{"event":"gene","detail":"learned.gate off: closed","t":1794674347013}
+{"layer":"tactician","gs":4998,"brain":"rules","trigger":"skill_failed","goal":"wood_tools","options":["explore cow,pig,sheep,chicken","collect log:3","explore log"],"choice":"explore cow,pig,sheep,chicken","x":[0.451,0.0,0.0,0.0,1.0,-0.687,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,0.0,0.167,0.077,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1794674347013}
+{"event":"skill_start","skill":"explore cow,pig,sheep,chicken","trigger":"skill_failed","t":1794674347013}
+{"event":"stuck","detail":"explore cow,pig,sheep,chicken at 368, -44, 98","t":1794674358958}
+{"event":"skill_end","skill":"explore cow,pig,sheep,chicken","ok":false,"code":"STUCK","detail":"stuck: stayed inside 2.0 blocks for 12 s","seconds":11.95,"t":1794674358958}
+{"event":"skill_start","skill":"unstuck","trigger":"reflex_stuck","t":1794674358958}
+{"event":"skill_end","skill":"unstuck","ok":false,"code":"TIMEOUT","detail":"timed out after 60 s","seconds":60.05,"t":1794674419015}
+{"event":"gene","detail":"plan.place_backoff off: goto surface","t":1794674419016}
+{"event":"gene","detail":"learned.gate off: closed","t":1794674419016}
+{"layer":"tactician","gs":5070,"brain":"rules","trigger":"skill_failed","goal":"wood_tools","options":["goto surface","explore cow,pig,sheep,chicken","collect log:3","explore log"],"choice":"goto surface","x":[0.451,0.0,0.0,0.0,1.0,-0.687,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,0.0,0.167,0.077,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1794674419016}
+{"event":"skill_start","skill":"goto surface","trigger":"skill_failed","t":1794674419016}
+{"event":"stuck","detail":"goto surface at 368, -44, 98","t":1794674433962}
+{"event":"skill_end","skill":"goto surface","ok":false,"code":"STUCK","detail":"stuck: stayed inside 2.0 blocks for 12 s","seconds":14.95,"t":1794674433962}
+{"event":"skill_start","skill":"unstuck","trigger":"reflex_stuck","t":1794674433963}
+{"event":"skill_end","skill":"unstuck","ok":false,"code":"TIMEOUT","detail":"timed out after 60 s","seconds":60.05,"t":1794674494014}
+{"event":"gene","detail":"plan.place_backoff off: explore cow,pig,sheep,chicken","t":1794674494015}
+{"event":"gene","detail":"learned.gate off: closed","t":1794674494015}
+{"layer":"tactician","gs":5145,"brain":"rules","trigger":"skill_failed","goal":"wood_tools","options":["explore cow,pig,sheep,chicken","collect log:3","explore log"],"choice":"explore cow,pig,sheep,chicken","x":[0.451,0.0,0.0,0.0,1.0,-0.687,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,0.0,0.167,0.077,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1794674494015}
+{"event":"skill_start","skill":"explore cow,pig,sheep,chicken","trigger":"skill_failed","t":1794674494015}
+{"event":"stuck","detail":"explore cow,pig,sheep,chicken at 368, -44, 98","t":1794674505965}
+{"event":"skill_end","skill":"explore cow,pig,sheep,chicken","ok":false,"code":"STUCK","detail":"stuck: stayed inside 2.0 blocks for 12 s","seconds":11.95,"t":1794674505965}
+{"event":"skill_start","skill":"unstuck","trigger":"reflex_stuck","t":1794674505965}
+{"event":"skill_end","skill":"unstuck","ok":false,"code":"TIMEOUT","detail":"timed out after 60 s","seconds":60.05,"t":1794674566013}
+{"event":"gene","detail":"plan.place_backoff off: goto surface","t":1794674566014}
+{"event":"gene","detail":"learned.gate off: closed","t":1794674566014}
+{"layer":"tactician","gs":5217,"brain":"rules","trigger":"skill_failed","goal":"wood_tools","options":["goto surface","explore cow,pig,sheep,chicken","collect log:3","explore log"],"choice":"goto surface","x":[0.451,0.0,0.0,0.0,1.0,-0.687,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,0.0,0.167,0.077,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1794674566014}
+{"event":"skill_start","skill":"goto surface","trigger":"skill_failed","t":1794674566014}
+{"event":"stuck","detail":"goto surface at 368, -44, 98","t":1794674581014}
+{"event":"skill_end","skill":"goto surface","ok":false,"code":"STUCK","detail":"stuck: stayed inside 2.0 blocks for 12 s","seconds":14.95,"t":1794674581015}
+{"event":"skill_start","skill":"unstuck","trigger":"reflex_stuck","t":1794674581015}
+{"event":"skill_end","skill":"unstuck","ok":false,"code":"TIMEOUT","detail":"timed out after 60 s","seconds":60.05,"t":1794674641063}
+{"event":"gene","detail":"plan.place_backoff off: explore cow,pig,sheep,chicken","t":1794674641064}
+{"event":"gene","detail":"learned.gate off: closed","t":1794674641064}
+{"layer":"tactician","gs":5292,"brain":"rules","trigger":"skill_failed","goal":"wood_tools","options":["explore cow,pig,sheep,chicken","collect log:3","shelter","explore log"],"choice":"explore cow,pig,sheep,chicken","x":[0.451,0.0,0.0,1.0,1.0,-0.687,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,0.0,0.167,0.077,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1794674641065}
+{"event":"skill_start","skill":"explore cow,pig,sheep,chicken","trigger":"skill_failed","t":1794674641065}
+{"event":"stuck","detail":"explore cow,pig,sheep,chicken at 368, -44, 98","t":1794674653021}
+{"event":"skill_end","skill":"explore cow,pig,sheep,chicken","ok":false,"code":"STUCK","detail":"stuck: stayed inside 2.0 blocks for 12 s","seconds":11.95,"t":1794674653021}
+{"event":"skill_start","skill":"unstuck","trigger":"reflex_stuck","t":1794674653021}
+{"event":"skill_end","skill":"unstuck","ok":false,"code":"TIMEOUT","detail":"timed out after 60 s","seconds":60.05,"t":1794674713065}
+{"event":"gene","detail":"plan.place_backoff off: goto surface","t":1794674713066}
+{"event":"gene","detail":"learned.gate off: closed","t":1794674713066}
+{"layer":"tactician","gs":5364,"brain":"rules","trigger":"skill_failed","goal":"wood_tools","options":["goto surface","explore cow,pig,sheep,chicken","collect log:3","shelter","explore log"],"choice":"goto surface","x":[0.451,0.0,0.0,1.0,1.0,-0.687,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,0.0,0.167,0.077,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1794674713066}
+{"event":"skill_start","skill":"goto surface","trigger":"skill_failed","t":1794674713067}
+{"event":"stuck","detail":"goto surface at 368, -44, 98","t":1794674728017}
+{"event":"skill_end","skill":"goto surface","ok":false,"code":"STUCK","detail":"stuck: stayed inside 2.0 blocks for 12 s","seconds":14.95,"t":1794674728017}
+{"event":"skill_start","skill":"unstuck","trigger":"reflex_stuck","t":1794674728018}
+{"event":"skill_end","skill":"unstuck","ok":false,"code":"TIMEOUT","detail":"timed out after 60 s","seconds":60.05,"t":1794674788070}
+{"event":"gene","detail":"plan.place_backoff off: explore cow,pig,sheep,chicken","t":1794674788071}
+{"event":"gene","detail":"learned.gate off: closed","t":1794674788071}
+{"layer":"tactician","gs":5439,"brain":"rules","trigger":"skill_failed","goal":"wood_tools","options":["explore cow,pig,sheep,chicken","collect log:3","shelter","explore log"],"choice":"explore cow,pig,sheep,chicken","x":[0.451,0.0,0.0,1.0,1.0,-0.687,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,0.0,0.167,0.077,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1794674788071}
+{"event":"skill_start","skill":"explore cow,pig,sheep,chicken","trigger":"skill_failed","t":1794674788071}
+{"event":"stuck","detail":"explore cow,pig,sheep,chicken at 368, -44, 98","t":1794674800024}
+{"event":"skill_end","skill":"explore cow,pig,sheep,chicken","ok":false,"code":"STUCK","detail":"stuck: stayed inside 2.0 blocks for 12 s","seconds":11.95,"t":1794674800024}
+{"event":"skill_start","skill":"unstuck","trigger":"reflex_stuck","t":1794674800025}
+{"event":"skill_end","skill":"unstuck","ok":false,"code":"TIMEOUT","detail":"timed out after 60 s","seconds":60.05,"t":1794674860072}
+{"event":"gene","detail":"plan.place_backoff off: goto surface","t":1794674860073}
+{"event":"gene","detail":"learned.gate off: closed","t":1794674860073}
+{"layer":"tactician","gs":5511,"brain":"rules","trigger":"skill_failed","goal":"wood_tools","options":["goto surface","explore cow,pig,sheep,chicken","collect log:3","shelter","explore log"],"choice":"goto surface","x":[0.451,0.0,0.0,1.0,1.0,-0.687,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,0.0,0.167,0.077,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1794674860073}
+{"event":"skill_start","skill":"goto surface","trigger":"skill_failed","t":1794674860073}
+{"event":"stuck","detail":"goto surface at 368, -44, 98","t":1794674875023}
+{"event":"skill_end","skill":"goto surface","ok":false,"code":"STUCK","detail":"stuck: stayed inside 2.0 blocks for 12 s","seconds":14.95,"t":1794674875023}
+{"event":"skill_start","skill":"unstuck","trigger":"reflex_stuck","t":1794674875024}
+{"event":"skill_end","skill":"unstuck","ok":false,"code":"TIMEOUT","detail":"timed out after 60 s","seconds":60.05,"t":1794674935074}
+{"event":"gene","detail":"plan.place_backoff off: explore cow,pig,sheep,chicken","t":1794674935074}
+{"event":"gene","detail":"learned.gate off: closed","t":1794674935075}
+{"layer":"tactician","gs":5586,"brain":"rules","trigger":"skill_failed","goal":"wood_tools","options":["explore cow,pig,sheep,chicken","collect log:3","shelter","explore log"],"choice":"explore cow,pig,sheep,chicken","x":[0.451,0.0,0.0,1.0,1.0,-0.687,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,0.0,0.167,0.077,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1794674935075}
+{"event":"skill_start","skill":"explore cow,pig,sheep,chicken","trigger":"skill_failed","t":1794674935075}
+{"event":"stuck","detail":"explore cow,pig,sheep,chicken at 368, -44, 98","t":1794674947046}
+{"event":"skill_end","skill":"explore cow,pig,sheep,chicken","ok":false,"code":"STUCK","detail":"stuck: stayed inside 2.0 blocks for 12 s","seconds":11.95,"t":1794674947046}
+{"event":"skill_start","skill":"unstuck","trigger":"reflex_stuck","t":1794674947047}
+{"event":"skill_end","skill":"unstuck","ok":false,"code":"TIMEOUT","detail":"timed out after 60 s","seconds":60.05,"t":1794675007075}
+{"event":"gene","detail":"plan.place_backoff off: goto surface","t":1794675007076}
+{"event":"gene","detail":"learned.gate off: closed","t":1794675007076}
+{"layer":"tactician","gs":5658,"brain":"rules","trigger":"skill_failed","goal":"wood_tools","options":["goto surface","explore cow,pig,sheep,chicken","collect log:3","shelter","explore log"],"choice":"goto surface","x":[0.451,0.0,0.0,1.0,1.0,-0.687,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,0.0,0.167,0.077,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1794675007076}
+{"event":"skill_start","skill":"goto surface","trigger":"skill_failed","t":1794675007076}
+{"event":"stuck","detail":"goto surface at 368, -44, 98","t":1794675022022}
+{"event":"skill_end","skill":"goto surface","ok":false,"code":"STUCK","detail":"stuck: stayed inside 2.0 blocks for 12 s","seconds":14.95,"t":1794675022022}
+{"event":"skill_start","skill":"unstuck","trigger":"reflex_stuck","t":1794675022022}
+{"event":"skill_end","skill":"unstuck","ok":false,"code":"TIMEOUT","detail":"timed out after 60 s","seconds":60.05,"t":1794675082072}
+{"event":"gene","detail":"plan.place_backoff off: explore cow,pig,sheep,chicken","t":1794675082073}
+{"event":"gene","detail":"learned.gate off: closed","t":1794675082073}
+{"layer":"tactician","gs":5733,"brain":"rules","trigger":"skill_failed","goal":"wood_tools","options":["explore cow,pig,sheep,chicken","collect log:3","shelter","explore log"],"choice":"explore cow,pig,sheep,chicken","x":[0.451,0.0,0.0,1.0,1.0,-0.687,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,0.0,0.167,0.077,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1794675082073}
+{"event":"skill_start","skill":"explore cow,pig,sheep,chicken","trigger":"skill_failed","t":1794675082074}
+{"event":"stuck","detail":"explore cow,pig,sheep,chicken at 368, -44, 98","t":1794675094057}
+{"event":"skill_end","skill":"explore cow,pig,sheep,chicken","ok":false,"code":"STUCK","detail":"stuck: stayed inside 2.0 blocks for 12 s","seconds":11.95,"t":1794675094057}
+{"event":"skill_start","skill":"unstuck","trigger":"reflex_stuck","t":1794675094058}
+{"event":"skill_end","skill":"unstuck","ok":false,"code":"TIMEOUT","detail":"timed out after 60 s","seconds":60.05,"t":1794675154127}
+{"event":"gene","detail":"plan.place_backoff off: goto surface","t":1794675154129}
+{"event":"gene","detail":"learned.gate off: closed","t":1794675154129}
+{"layer":"tactician","gs":5805,"brain":"rules","trigger":"skill_failed","goal":"wood_tools","options":["goto surface","explore cow,pig,sheep,chicken","collect log:3","explore log"],"choice":"goto surface","x":[0.451,0.0,0.0,0.0,1.0,-0.687,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,0.0,0.167,0.077,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1794675154129}
+{"event":"skill_start","skill":"goto surface","trigger":"skill_failed","t":1794675154130}
+{"event":"stuck","detail":"goto surface at 368, -44, 98","t":1794675169076}
+{"event":"skill_end","skill":"goto surface","ok":false,"code":"STUCK","detail":"stuck: stayed inside 2.0 blocks for 12 s","seconds":14.95,"t":1794675169076}
+{"event":"skill_start","skill":"unstuck","trigger":"reflex_stuck","t":1794675169076}
+{"event":"skill_end","skill":"unstuck","ok":false,"code":"TIMEOUT","detail":"timed out after 60 s","seconds":60.05,"t":1794675229124}
+{"event":"gene","detail":"plan.place_backoff off: explore cow,pig,sheep,chicken","t":1794675229125}
+{"event":"gene","detail":"learned.gate off: closed","t":1794675229125}
+{"layer":"tactician","gs":5880,"brain":"rules","trigger":"skill_failed","goal":"wood_tools","options":["explore cow,pig,sheep,chicken","collect log:3","explore log"],"choice":"explore cow,pig,sheep,chicken","x":[0.451,0.0,0.0,0.0,1.0,-0.687,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,0.0,0.167,0.077,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1794675229125}
+{"event":"skill_start","skill":"explore cow,pig,sheep,chicken","trigger":"skill_failed","t":1794675229125}
+{"event":"stuck","detail":"explore cow,pig,sheep,chicken at 368, -44, 98","t":1794675241083}
+{"event":"skill_end","skill":"explore cow,pig,sheep,chicken","ok":false,"code":"STUCK","detail":"stuck: stayed inside 2.0 blocks for 12 s","seconds":11.95,"t":1794675241083}
+{"event":"skill_start","skill":"unstuck","trigger":"reflex_stuck","t":1794675241083}
+{"event":"skill_end","skill":"unstuck","ok":false,"code":"TIMEOUT","detail":"timed out after 60 s","seconds":60.05,"t":1794675301144}
+{"event":"gene","detail":"plan.place_backoff off: goto surface","t":1794675301145}
+{"event":"gene","detail":"learned.gate off: closed","t":1794675301145}
+{"layer":"tactician","gs":5952,"brain":"rules","trigger":"skill_failed","goal":"wood_tools","options":["goto surface","explore cow,pig,sheep,chicken","collect log:3","explore log"],"choice":"goto surface","x":[0.451,0.0,0.0,0.0,1.0,-0.687,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,0.0,0.167,0.077,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1794675301145}
+{"event":"skill_start","skill":"goto surface","trigger":"skill_failed","t":1794675301145}
+{"event":"stuck","detail":"goto surface at 368, -44, 98","t":1794675316082}
+{"event":"skill_end","skill":"goto surface","ok":false,"code":"STUCK","detail":"stuck: stayed inside 2.0 blocks for 12 s","seconds":14.95,"t":1794675316082}
+{"event":"skill_start","skill":"unstuck","trigger":"reflex_stuck","t":1794675316083}
+{"event":"skill_end","skill":"unstuck","ok":false,"code":"TIMEOUT","detail":"timed out after 60 s","seconds":60.05,"t":1794675376126}
+{"event":"gene","detail":"plan.place_backoff off: explore cow,pig,sheep,chicken","t":1794675376127}
+{"event":"gene","detail":"learned.gate off: closed","t":1794675376127}
+{"layer":"tactician","gs":6027,"brain":"rules","trigger":"skill_failed","goal":"wood_tools","options":["explore cow,pig,sheep,chicken","collect log:3","explore log"],"choice":"explore cow,pig,sheep,chicken","x":[0.451,0.0,0.0,0.0,1.0,-0.687,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,0.0,0.167,0.077,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1794675376128}
+{"event":"skill_start","skill":"explore cow,pig,sheep,chicken","trigger":"skill_failed","t":1794675376128}
+{"event":"stuck","detail":"explore cow,pig,sheep,chicken at 368, -44, 98","t":1794675388079}
+{"event":"skill_end","skill":"explore cow,pig,sheep,chicken","ok":false,"code":"STUCK","detail":"stuck: stayed inside 2.0 blocks for 12 s","seconds":11.95,"t":1794675388079}
+{"event":"skill_start","skill":"unstuck","trigger":"reflex_stuck","t":1794675388079}
+{"event":"skill_end","skill":"unstuck","ok":false,"code":"TIMEOUT","detail":"timed out after 60 s","seconds":60.05,"t":1794675448135}
+{"event":"gene","detail":"plan.place_backoff off: goto surface","t":1794675448136}
+{"event":"gene","detail":"learned.gate off: closed","t":1794675448136}
+{"layer":"tactician","gs":6099,"brain":"rules","trigger":"skill_failed","goal":"wood_tools","options":["goto surface","explore cow,pig,sheep,chicken","collect log:3","explore log"],"choice":"goto surface","x":[0.451,0.0,0.0,0.0,1.0,-0.687,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,0.0,0.167,0.077,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1794675448136}
+{"event":"skill_start","skill":"goto surface","trigger":"skill_failed","t":1794675448136}
+{"event":"stuck","detail":"goto surface at 368, -44, 98","t":1794675463084}
+{"event":"skill_end","skill":"goto surface","ok":false,"code":"STUCK","detail":"stuck: stayed inside 2.0 blocks for 12 s","seconds":14.95,"t":1794675463084}
+{"event":"skill_start","skill":"unstuck","trigger":"reflex_stuck","t":1794675463085}
+{"event":"skill_end","skill":"unstuck","ok":false,"code":"TIMEOUT","detail":"timed out after 60 s","seconds":60.05,"t":1794675523129}
+{"event":"gene","detail":"plan.place_backoff off: explore cow,pig,sheep,chicken","t":1794675523130}
+{"event":"gene","detail":"learned.gate off: closed","t":1794675523130}
+{"layer":"tactician","gs":6174,"brain":"rules","trigger":"skill_failed","goal":"wood_tools","options":["explore cow,pig,sheep,chicken","collect log:3","explore log"],"choice":"explore cow,pig,sheep,chicken","x":[0.451,0.0,0.0,0.0,1.0,-0.687,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,0.0,0.167,0.077,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1794675523130}
+{"event":"skill_start","skill":"explore cow,pig,sheep,chicken","trigger":"skill_failed","t":1794675523130}
+{"event":"stuck","detail":"explore cow,pig,sheep,chicken at 368, -44, 98","t":1794675535080}
+{"event":"skill_end","skill":"explore cow,pig,sheep,chicken","ok":false,"code":"STUCK","detail":"stuck: stayed inside 2.0 blocks for 12 s","seconds":11.95,"t":1794675535081}
+{"event":"skill_start","skill":"unstuck","trigger":"reflex_stuck","t":1794675535081}
+{"event":"skill_end","skill":"unstuck","ok":false,"code":"TIMEOUT","detail":"timed out after 60 s","seconds":60.05,"t":1794675595137}
+{"event":"gene","detail":"plan.place_backoff off: goto surface","t":1794675595138}
+{"event":"gene","detail":"learned.gate off: closed","t":1794675595138}
+{"layer":"tactician","gs":6246,"brain":"rules","trigger":"skill_failed","goal":"wood_tools","options":["goto surface","explore cow,pig,sheep,chicken","collect log:3","explore log"],"choice":"goto surface","x":[0.451,0.0,0.0,0.0,1.0,-0.687,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,0.0,0.167,0.077,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1794675595138}
+{"event":"skill_start","skill":"goto surface","trigger":"skill_failed","t":1794675595138}
+{"event":"stuck","detail":"goto surface at 368, -44, 98","t":1794675610087}
+{"event":"skill_end","skill":"goto surface","ok":false,"code":"STUCK","detail":"stuck: stayed inside 2.0 blocks for 12 s","seconds":14.95,"t":1794675610087}
+{"event":"skill_start","skill":"unstuck","trigger":"reflex_stuck","t":1794675610088}
+{"event":"skill_end","skill":"unstuck","ok":false,"code":"TIMEOUT","detail":"timed out after 60 s","seconds":60.05,"t":1794675670131}
+{"event":"gene","detail":"plan.place_backoff off: explore cow,pig,sheep,chicken","t":1794675670133}
+{"event":"gene","detail":"learned.gate off: closed","t":1794675670133}
+{"layer":"tactician","gs":6321,"brain":"rules","trigger":"skill_failed","goal":"wood_tools","options":["explore cow,pig,sheep,chicken","collect log:3","explore log"],"choice":"explore cow,pig,sheep,chicken","x":[0.451,0.0,0.0,0.0,1.0,-0.687,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,0.0,0.167,0.077,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1794675670133}
+{"event":"skill_start","skill":"explore cow,pig,sheep,chicken","trigger":"skill_failed","t":1794675670133}
+{"event":"stuck","detail":"explore cow,pig,sheep,chicken at 368, -44, 98","t":1794675682083}
+{"event":"skill_end","skill":"explore cow,pig,sheep,chicken","ok":false,"code":"STUCK","detail":"stuck: stayed inside 2.0 blocks for 12 s","seconds":11.95,"t":1794675682083}
+{"event":"skill_start","skill":"unstuck","trigger":"reflex_stuck","t":1794675682083}
+{"event":"skill_end","skill":"unstuck","ok":false,"code":"TIMEOUT","detail":"timed out after 60 s","seconds":60.05,"t":1794675742133}
+{"event":"gene","detail":"plan.place_backoff off: goto surface","t":1794675742134}
+{"event":"gene","detail":"learned.gate off: closed","t":1794675742134}
+{"layer":"tactician","gs":6393,"brain":"rules","trigger":"skill_failed","goal":"wood_tools","options":["goto surface","explore cow,pig,sheep,chicken","collect log:3","explore log"],"choice":"goto surface","x":[0.451,0.0,0.0,0.0,1.0,-0.687,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,0.0,0.167,0.077,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1794675742134}
+{"event":"skill_start","skill":"goto surface","trigger":"skill_failed","t":1794675742134}
+{"event":"stuck","detail":"goto surface at 368, -44, 98","t":1794675757085}
+{"event":"skill_end","skill":"goto surface","ok":false,"code":"STUCK","detail":"stuck: stayed inside 2.0 blocks for 12 s","seconds":14.95,"t":1794675757085}
+{"event":"skill_start","skill":"unstuck","trigger":"reflex_stuck","t":1794675757085}
+{"event":"skill_end","skill":"unstuck","ok":false,"code":"TIMEOUT","detail":"timed out after 60 s","seconds":60.05,"t":1794675817139}
+{"event":"gene","detail":"plan.place_backoff off: explore cow,pig,sheep,chicken","t":1794675817140}
+{"event":"gene","detail":"learned.gate off: closed","t":1794675817140}
+{"layer":"tactician","gs":6468,"brain":"rules","trigger":"skill_failed","goal":"wood_tools","options":["explore cow,pig,sheep,chicken","collect log:3","explore log"],"choice":"explore cow,pig,sheep,chicken","x":[0.451,0.0,0.0,0.0,1.0,-0.687,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,0.0,0.167,0.077,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1794675817140}
+{"event":"skill_start","skill":"explore cow,pig,sheep,chicken","trigger":"skill_failed","t":1794675817140}
+{"event":"stuck","detail":"explore cow,pig,sheep,chicken at 368, -44, 98","t":1794675829089}
+{"event":"skill_end","skill":"explore cow,pig,sheep,chicken","ok":false,"code":"STUCK","detail":"stuck: stayed inside 2.0 blocks for 12 s","seconds":11.95,"t":1794675829090}
+{"event":"skill_start","skill":"unstuck","trigger":"reflex_stuck","t":1794675829090}
+{"event":"skill_end","skill":"unstuck","ok":false,"code":"TIMEOUT","detail":"timed out after 60 s","seconds":60.05,"t":1794675889136}
+{"event":"gene","detail":"plan.place_backoff off: goto surface","t":1794675889137}
+{"event":"gene","detail":"learned.gate off: closed","t":1794675889137}
+{"layer":"tactician","gs":6540,"brain":"rules","trigger":"skill_failed","goal":"wood_tools","options":["goto surface","explore cow,pig,sheep,chicken","collect log:3","shelter","explore log"],"choice":"goto surface","x":[0.451,0.0,0.0,1.0,1.0,-0.687,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,0.0,0.167,0.077,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1794675889137}
+{"event":"skill_start","skill":"goto surface","trigger":"skill_failed","t":1794675889137}
+{"event":"stuck","detail":"goto surface at 368, -44, 98","t":1794675904088}
+{"event":"skill_end","skill":"goto surface","ok":false,"code":"STUCK","detail":"stuck: stayed inside 2.0 blocks for 12 s","seconds":14.95,"t":1794675904089}
+{"event":"skill_start","skill":"unstuck","trigger":"reflex_stuck","t":1794675904089}
+{"event":"skill_end","skill":"unstuck","ok":false,"code":"TIMEOUT","detail":"timed out after 60 s","seconds":60.05,"t":1794675964139}
+{"event":"gene","detail":"plan.place_backoff off: explore cow,pig,sheep,chicken","t":1794675964140}
+{"event":"gene","detail":"learned.gate off: closed","t":1794675964140}
+{"layer":"tactician","gs":6615,"brain":"rules","trigger":"skill_failed","goal":"wood_tools","options":["explore cow,pig,sheep,chicken","collect log:3","shelter","explore log"],"choice":"explore cow,pig,sheep,chicken","x":[0.451,0.0,0.0,1.0,1.0,-0.687,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,0.0,0.167,0.077,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1794675964140}
+{"event":"skill_start","skill":"explore cow,pig,sheep,chicken","trigger":"skill_failed","t":1794675964140}
+{"event":"stuck","detail":"explore cow,pig,sheep,chicken at 368, -44, 98","t":1794675976090}
+{"event":"skill_end","skill":"explore cow,pig,sheep,chicken","ok":false,"code":"STUCK","detail":"stuck: stayed inside 2.0 blocks for 12 s","seconds":11.95,"t":1794675976091}
+{"event":"skill_start","skill":"unstuck","trigger":"reflex_stuck","t":1794675976091}
+{"event":"skill_end","skill":"unstuck","ok":false,"code":"TIMEOUT","detail":"timed out after 60 s","seconds":60.05,"t":1794676036139}
+{"event":"gene","detail":"plan.place_backoff off: goto surface","t":1794676036140}
+{"event":"gene","detail":"learned.gate off: closed","t":1794676036140}
+{"layer":"tactician","gs":6687,"brain":"rules","trigger":"skill_failed","goal":"wood_tools","options":["goto surface","explore cow,pig,sheep,chicken","collect log:3","shelter","explore log"],"choice":"goto surface","x":[0.451,0.0,0.0,1.0,1.0,-0.687,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,0.0,0.167,0.077,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1794676036140}
+{"event":"skill_start","skill":"goto surface","trigger":"skill_failed","t":1794676036140}
+{"event":"stuck","detail":"goto surface at 368, -44, 98","t":1794676051094}
+{"event":"skill_end","skill":"goto surface","ok":false,"code":"STUCK","detail":"stuck: stayed inside 2.0 blocks for 12 s","seconds":14.95,"t":1794676051094}
+{"event":"skill_start","skill":"unstuck","trigger":"reflex_stuck","t":1794676051094}
+{"event":"skill_end","skill":"unstuck","ok":false,"code":"TIMEOUT","detail":"timed out after 60 s","seconds":60.05,"t":1794676111147}
+{"event":"gene","detail":"plan.place_backoff off: explore cow,pig,sheep,chicken","t":1794676111148}
+{"event":"gene","detail":"learned.gate off: closed","t":1794676111149}
+{"layer":"tactician","gs":6762,"brain":"rules","trigger":"skill_failed","goal":"wood_tools","options":["explore cow,pig,sheep,chicken","collect log:3","shelter","explore log"],"choice":"explore cow,pig,sheep,chicken","x":[0.451,0.0,0.0,1.0,1.0,-0.687,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,0.0,0.167,0.077,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1794676111149}
+{"event":"skill_start","skill":"explore cow,pig,sheep,chicken","trigger":"skill_failed","t":1794676111149}
+{"event":"stuck","detail":"explore cow,pig,sheep,chicken at 368, -44, 98","t":1794676123095}
+{"event":"skill_end","skill":"explore cow,pig,sheep,chicken","ok":false,"code":"STUCK","detail":"stuck: stayed inside 2.0 blocks for 12 s","seconds":11.95,"t":1794676123095}
+{"event":"skill_start","skill":"unstuck","trigger":"reflex_stuck","t":1794676123095}
+{"event":"skill_end","skill":"unstuck","ok":false,"code":"TIMEOUT","detail":"timed out after 60 s","seconds":60.05,"t":1794676183143}
+{"event":"gene","detail":"plan.place_backoff off: goto surface","t":1794676183145}
+{"event":"gene","detail":"learned.gate off: closed","t":1794676183145}
+{"layer":"tactician","gs":6834,"brain":"rules","trigger":"skill_failed","goal":"wood_tools","options":["goto surface","explore cow,pig,sheep,chicken","collect log:3","shelter","explore log"],"choice":"goto surface","x":[0.451,0.0,0.0,1.0,1.0,-0.687,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,0.0,0.167,0.077,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1794676183145}
+{"event":"skill_start","skill":"goto surface","trigger":"skill_failed","t":1794676183145}
+{"event":"stuck","detail":"goto surface at 368, -44, 98","t":1794676198094}
+{"event":"skill_end","skill":"goto surface","ok":false,"code":"STUCK","detail":"stuck: stayed inside 2.0 blocks for 12 s","seconds":14.95,"t":1794676198094}
+{"event":"skill_start","skill":"unstuck","trigger":"reflex_stuck","t":1794676198095}
+{"event":"skill_end","skill":"unstuck","ok":false,"code":"TIMEOUT","detail":"timed out after 60 s","seconds":60.05,"t":1794676258148}
+{"event":"gene","detail":"plan.place_backoff off: explore cow,pig,sheep,chicken","t":1794676258149}
+{"event":"gene","detail":"learned.gate off: closed","t":1794676258149}
+{"layer":"tactician","gs":6909,"brain":"rules","trigger":"skill_failed","goal":"wood_tools","options":["explore cow,pig,sheep,chicken","collect log:3","shelter","explore log"],"choice":"explore cow,pig,sheep,chicken","x":[0.451,0.0,0.0,1.0,1.0,-0.687,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,0.0,0.167,0.077,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1794676258150}
+{"event":"skill_start","skill":"explore cow,pig,sheep,chicken","trigger":"skill_failed","t":1794676258150}
+{"event":"stuck","detail":"explore cow,pig,sheep,chicken at 368, -44, 98","t":1794676270101}
+{"event":"skill_end","skill":"explore cow,pig,sheep,chicken","ok":false,"code":"STUCK","detail":"stuck: stayed inside 2.0 blocks for 12 s","seconds":11.95,"t":1794676270101}
+{"event":"skill_start","skill":"unstuck","trigger":"reflex_stuck","t":1794676270102}
+{"event":"skill_end","skill":"unstuck","ok":false,"code":"TIMEOUT","detail":"timed out after 60 s","seconds":60.05,"t":1794676330150}
+{"event":"gene","detail":"plan.place_backoff off: goto surface","t":1794676330152}
+{"event":"gene","detail":"learned.gate off: closed","t":1794676330152}
+{"layer":"tactician","gs":6981,"brain":"rules","trigger":"skill_failed","goal":"wood_tools","options":["goto surface","explore cow,pig,sheep,chicken","collect log:3","shelter","explore log"],"choice":"goto surface","x":[0.451,0.0,0.0,1.0,1.0,-0.687,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,0.0,0.167,0.077,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1794676330152}
+{"event":"skill_start","skill":"goto surface","trigger":"skill_failed","t":1794676330152}
+{"event":"stuck","detail":"goto surface at 368, -44, 98","t":1794676345098}
+{"event":"skill_end","skill":"goto surface","ok":false,"code":"STUCK","detail":"stuck: stayed inside 2.0 blocks for 12 s","seconds":14.95,"t":1794676345098}
+{"event":"skill_start","skill":"unstuck","trigger":"reflex_stuck","t":1794676345098}
+{"event":"skill_end","skill":"unstuck","ok":false,"code":"TIMEOUT","detail":"timed out after 60 s","seconds":60.05,"t":1794676405166}
+{"event":"gene","detail":"plan.place_backoff off: explore cow,pig,sheep,chicken","t":1794676405167}
+{"event":"gene","detail":"learned.gate off: closed","t":1794676405167}
+{"layer":"tactician","gs":7056,"brain":"rules","trigger":"skill_failed","goal":"wood_tools","options":["explore cow,pig,sheep,chicken","collect log:3","explore log"],"choice":"explore cow,pig,sheep,chicken","x":[0.451,0.0,0.0,0.0,1.0,-0.687,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,0.0,0.167,0.077,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1794676405167}
+{"event":"skill_start","skill":"explore cow,pig,sheep,chicken","trigger":"skill_failed","t":1794676405168}
+{"event":"stuck","detail":"explore cow,pig,sheep,chicken at 368, -44, 98","t":1794676417100}
+{"event":"skill_end","skill":"explore cow,pig,sheep,chicken","ok":false,"code":"STUCK","detail":"stuck: stayed inside 2.0 blocks for 12 s","seconds":11.95,"t":1794676417101}
+{"event":"skill_start","skill":"unstuck","trigger":"reflex_stuck","t":1794676417101}
+{"event":"skill_end","skill":"unstuck","ok":false,"code":"TIMEOUT","detail":"timed out after 60 s","seconds":60.05,"t":1794676477152}
+{"event":"gene","detail":"plan.place_backoff off: goto surface","t":1794676477153}
+{"event":"gene","detail":"learned.gate off: closed","t":1794676477153}
+{"layer":"tactician","gs":7128,"brain":"rules","trigger":"skill_failed","goal":"wood_tools","options":["goto surface","explore cow,pig,sheep,chicken","collect log:3","explore log"],"choice":"goto surface","x":[0.451,0.0,0.0,0.0,1.0,-0.687,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,0.0,0.167,0.077,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1794676477153}
+{"event":"skill_start","skill":"goto surface","trigger":"skill_failed","t":1794676477154}
+{"event":"stuck","detail":"goto surface at 368, -44, 98","t":1794676492096}
+{"event":"skill_end","skill":"goto surface","ok":false,"code":"STUCK","detail":"stuck: stayed inside 2.0 blocks for 12 s","seconds":14.95,"t":1794676492096}
+{"event":"skill_start","skill":"unstuck","trigger":"reflex_stuck","t":1794676492096}
+{"event":"skill_end","skill":"unstuck","ok":false,"code":"INTERRUPTED","detail":"test finished","seconds":57.85,"t":1794676549985}
+{"event":"autopilot_off","detail":"test finished","t":1794676549986}
