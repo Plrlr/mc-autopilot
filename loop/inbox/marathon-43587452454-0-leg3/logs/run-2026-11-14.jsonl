@@ -1,0 +1,928 @@
+{"event":"autopilot_on","detail":"brain\u003dlearned none","t":1794670138102}
+{"event":"params","detail":"params: g486@gen584 (28 genes) changed\u003d{\"death.recover_value\":1.0,\"combat.shield_guard\":1.0,\"gather.coal_extra\":3.0,\"gather.coal_view_dist\":16.0,\"route.armor_before_portal\":1.0,\"pearls.provoke_s\":19.0,\"gear.sword_early\":1.0,\"move.shore_first\":1.0,\"fortress.anchor_scope\":1.0,\"portal.prepare_work_area\":1.0,\"portal.reserve_lava_bucket\":1.0,\"brain.utility\":1.0,\"portal.site_maker\":1.0,\"combat.ignore_walled_mobs\":1.0,\"night.shelter_exit\":1.0,\"nav.surface_v2\":1.0,\"nav.unstuck_v2\":1.0,\"stuck.item_progress\":1.0,\"bed.table_first\":1.0,\"skill.ruined_portal\":1.0,\"skill.stash\":1.0,\"skill.enderman_warped\":1.0,\"loop.stuck_s\":17.0,\"learned.weight\":1.0,\"plan.readiness\":1.0}","t":1794670138103}
+{"layer":"strategist","brain":"rules","choice":"wood_tools","reason":"start","t":1794670138105}
+{"event":"gene","detail":"learned.gate off: closed","t":1794670138144}
+{"layer":"tactician","gs":0,"brain":"rules","trigger":"idle","goal":"wood_tools","options":["collect log:3","shelter","explore log"],"choice":"collect log:3","x":[1.0,0.8,0.0,1.0,1.0,0.938,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.063,0.0,0.0,0.0,0.0,0.063,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,0.0,0.0,0.077,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1794670138147}
+{"event":"plan","detail":"1 wooden_pickaxe (plain) (0.7 min)","t":1794670138147}
+{"event":"skill_start","skill":"collect log:3","trigger":"idle","t":1794670138189}
+{"event":"learned","detail":"learned model: m582 (neural, 119246 parameters, 78 heads, danger model AUC 0.86, skill stats for 972 keys)","t":1794670138250}
+{"event":"skill_end","skill":"collect log:3","ok":false,"code":"NOT_FOUND","detail":"no log seen nearby","seconds":3.05,"t":1794670141244}
+{"layer":"tactician","gs":3,"brain":"rules","trigger":"skill_failed","goal":"wood_tools","options":["collect log:3","shelter","explore log"],"choice":"collect log:3","x":[1.0,0.8,0.0,1.0,1.0,0.938,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.063,0.0,0.0,0.0,0.0,0.063,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,0.0,0.0,0.077,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1794670141248}
+{"event":"skill_start","skill":"collect log:3","trigger":"skill_failed","t":1794670141249}
+{"event":"skill_end","skill":"collect log:3","ok":false,"code":"NOT_FOUND","detail":"no log seen nearby","seconds":3.05,"t":1794670144290}
+{"layer":"tactician","gs":6,"brain":"rules","trigger":"skill_failed","goal":"wood_tools","options":["collect log:3","shelter","explore log"],"choice":"collect log:3","x":[1.0,0.8,0.0,1.0,1.0,0.938,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.063,0.0,0.0,0.0,0.0,0.063,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,0.0,0.0,0.077,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1794670144291}
+{"event":"skill_start","skill":"collect log:3","trigger":"skill_failed","t":1794670144292}
+{"event":"skill_end","skill":"collect log:3","ok":false,"code":"NOT_FOUND","detail":"no log seen nearby","seconds":3.05,"t":1794670147336}
+{"layer":"tactician","gs":9,"brain":"rules","trigger":"skill_failed","goal":"wood_tools","options":["shelter","explore log"],"choice":"shelter","x":[1.0,0.8,0.0,1.0,1.0,0.938,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.063,0.0,0.0,0.0,0.0,0.063,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,0.0,0.0,0.077,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1794670147338}
+{"event":"skill_start","skill":"shelter","trigger":"skill_failed","t":1794670147338}
+{"event":"skill_end","skill":"shelter","ok":false,"code":"INTERRUPTED","detail":"running out of air","seconds":46.35,"t":1794670194253}
+{"event":"reflex","detail":"drowning","t":1794670194253}
+{"event":"gene","detail":"learned.gate off: closed","t":1794670195754}
+{"layer":"tactician","gs":57,"brain":"rules","trigger":"idle","goal":"wood_tools","options":["shore"],"choice":"shore","x":[1.0,0.8,0.0,0.0,1.0,0.891,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.188,0.0,0.0,0.0,0.0,0.063,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.0,0.0,0.0,0.077,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["shore"],"t":1794670195754}
+{"event":"skill_start","skill":"shore","trigger":"idle","t":1794670195755}
+{"event":"skill_end","skill":"shore","ok":false,"code":"INTERRUPTED","detail":"running out of air","seconds":8.5,"t":1794670204742}
+{"event":"reflex","detail":"drowning","t":1794670204742}
+{"event":"gene","detail":"learned.gate off: closed","t":1794670206307}
+{"layer":"tactician","gs":67,"brain":"rules","trigger":"idle","goal":"wood_tools","options":["shore"],"choice":"shore","x":[1.0,0.8,0.0,0.0,1.0,0.891,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.188,0.0,0.0,0.0,0.0,0.063,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.0,0.0,0.0,0.077,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["shore"],"t":1794670206307}
+{"event":"skill_start","skill":"shore","trigger":"idle","t":1794670206307}
+{"event":"skill_end","skill":"shore","ok":false,"code":"INTERRUPTED","detail":"running out of air","seconds":9.85,"t":1794670216403}
+{"event":"reflex","detail":"drowning","t":1794670216403}
+{"event":"gene","detail":"learned.gate off: closed","t":1794670217906}
+{"layer":"tactician","gs":78,"brain":"rules","trigger":"idle","goal":"wood_tools","options":["shore"],"choice":"shore","x":[1.0,0.8,0.0,0.0,1.0,0.891,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.188,0.0,0.0,0.0,0.0,0.063,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.0,0.0,0.0,0.077,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["shore"],"t":1794670217906}
+{"event":"skill_start","skill":"shore","trigger":"idle","t":1794670217906}
+{"event":"skill_end","skill":"shore","ok":false,"code":"INTERRUPTED","detail":"running out of air","seconds":8.9,"t":1794670226851}
+{"event":"reflex","detail":"drowning","t":1794670226851}
+{"event":"gene","detail":"learned.gate off: closed","t":1794670228389}
+{"layer":"tactician","gs":88,"brain":"rules","trigger":"idle","goal":"wood_tools","options":["shore"],"choice":"shore","x":[1.0,0.8,0.0,0.0,1.0,0.891,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.188,0.0,0.0,0.0,0.0,0.063,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.0,0.0,0.0,0.077,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["shore"],"t":1794670228389}
+{"event":"skill_start","skill":"shore","trigger":"idle","t":1794670228390}
+{"event":"skill_end","skill":"shore","ok":false,"code":"TIMEOUT","detail":"timed out after 90 s","seconds":90.05,"t":1794670318831}
+{"event":"gene","detail":"learned.gate off: closed","t":1794670318832}
+{"layer":"tactician","gs":178,"brain":"rules","trigger":"skill_failed","goal":"wood_tools","options":["shore"],"choice":"shore","x":[1.0,0.8,0.0,0.0,1.0,0.906,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.188,0.0,0.0,0.0,0.0,0.063,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.0,0.0,0.0,0.077,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["shore"],"t":1794670318832}
+{"event":"skill_start","skill":"shore","trigger":"skill_failed","t":1794670318833}
+{"event":"skill_end","skill":"shore","ok":false,"code":"TIMEOUT","detail":"timed out after 90 s","seconds":90.05,"t":1794670409298}
+{"event":"gene","detail":"learned.gate off: closed","t":1794670409299}
+{"layer":"tactician","gs":268,"brain":"rules","trigger":"skill_failed","goal":"wood_tools","options":["shore"],"choice":"shore","x":[1.0,0.8,0.0,0.0,1.0,0.906,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.188,0.0,0.0,0.0,0.0,0.063,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.0,0.0,0.0,0.077,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["shore"],"t":1794670409299}
+{"event":"skill_start","skill":"shore","trigger":"skill_failed","t":1794670409300}
+{"event":"skill_end","skill":"shore","ok":false,"code":"TIMEOUT","detail":"timed out after 90 s","seconds":90.05,"t":1794670499992}
+{"event":"gene","detail":"learned.gate off: closed","t":1794670499993}
+{"layer":"tactician","gs":358,"brain":"rules","trigger":"skill_failed","goal":"wood_tools","options":["explore any"],"choice":"explore any","x":[1.0,0.8,0.0,0.0,1.0,0.891,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.188,0.0,0.0,0.0,0.0,0.063,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.0,0.0,0.0,0.077,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1794670499993}
+{"event":"skill_start","skill":"explore any","trigger":"skill_failed","t":1794670499994}
+{"event":"skill_end","skill":"explore any","ok":true,"detail":"open water ahead; find shore","seconds":37.5,"t":1794670537734}
+{"event":"gene","detail":"learned.gate off: closed","t":1794670537735}
+{"layer":"tactician","gs":396,"brain":"rules","trigger":"skill_done","goal":"wood_tools","options":["explore any"],"choice":"explore any","x":[1.0,0.8,0.0,0.0,1.0,0.891,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.188,0.0,0.0,0.0,0.0,0.063,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.0,0.0,0.0,0.077,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1794670537735}
+{"event":"skill_start","skill":"explore any","trigger":"skill_done","t":1794670537735}
+{"event":"skill_end","skill":"explore any","ok":true,"detail":"open water ahead; find shore","seconds":35.0,"t":1794670572838}
+{"event":"gene","detail":"learned.gate off: closed","t":1794670572839}
+{"layer":"tactician","gs":431,"brain":"rules","trigger":"skill_done","goal":"wood_tools","options":["shore"],"choice":"shore","x":[1.0,0.8,0.0,0.0,1.0,0.891,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.188,0.0,0.0,0.0,0.0,0.063,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.0,0.0,0.0,0.077,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["shore"],"t":1794670572839}
+{"event":"skill_start","skill":"shore","trigger":"skill_done","t":1794670572839}
+{"event":"skill_end","skill":"shore","ok":false,"code":"TIMEOUT","detail":"timed out after 90 s","seconds":90.05,"t":1794670663227}
+{"event":"gene","detail":"learned.gate off: closed","t":1794670663227}
+{"layer":"tactician","gs":521,"brain":"rules","trigger":"skill_failed","goal":"wood_tools","options":["shore"],"choice":"shore","x":[1.0,0.8,0.0,0.0,1.0,0.891,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.188,0.0,0.0,0.0,0.0,0.063,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.0,0.0,0.0,0.077,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["shore"],"t":1794670663228}
+{"event":"skill_start","skill":"shore","trigger":"skill_failed","t":1794670663228}
+{"event":"skill_end","skill":"shore","ok":false,"code":"TIMEOUT","detail":"timed out after 90 s","seconds":90.05,"t":1794670753839}
+{"event":"gene","detail":"learned.gate off: closed","t":1794670753841}
+{"layer":"tactician","gs":611,"brain":"rules","trigger":"skill_failed","goal":"wood_tools","options":["explore any"],"choice":"explore any","x":[1.0,0.8,0.0,0.0,1.0,0.906,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.188,0.0,0.0,0.0,0.0,0.063,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.0,0.0,0.0,0.077,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1794670753842}
+{"event":"skill_start","skill":"explore any","trigger":"skill_failed","t":1794670753842}
+{"event":"skill_end","skill":"explore any","ok":true,"detail":"open water ahead; find shore","seconds":34.5,"t":1794670788775}
+{"event":"gene","detail":"learned.gate off: closed","t":1794670788776}
+{"layer":"tactician","gs":646,"brain":"rules","trigger":"skill_done","goal":"wood_tools","options":["explore any"],"choice":"explore any","x":[1.0,0.8,0.0,0.0,1.0,0.906,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.188,0.0,0.0,0.0,0.0,0.063,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.0,0.0,0.0,0.077,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1794670788776}
+{"event":"skill_start","skill":"explore any","trigger":"skill_done","t":1794670788776}
+{"event":"skill_end","skill":"explore any","ok":true,"detail":"open water ahead; find shore","seconds":38.5,"t":1794670827635}
+{"event":"gene","detail":"learned.gate off: closed","t":1794670827636}
+{"layer":"tactician","gs":684,"brain":"rules","trigger":"skill_done","goal":"wood_tools","options":["shore"],"choice":"shore","x":[1.0,0.75,0.0,0.0,1.0,0.891,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.188,0.0,0.0,0.0,0.0,0.063,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.0,0.0,0.0,0.077,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["shore"],"t":1794670827636}
+{"event":"skill_start","skill":"shore","trigger":"skill_done","t":1794670827636}
+{"event":"skill_end","skill":"shore","ok":false,"code":"TIMEOUT","detail":"timed out after 90 s","seconds":90.05,"t":1794670918487}
+{"event":"gene","detail":"learned.gate off: closed","t":1794670918488}
+{"layer":"tactician","gs":774,"brain":"rules","trigger":"skill_failed","goal":"wood_tools","options":["goto surface","collect log:3","shelter","explore log"],"choice":"goto surface","x":[1.0,0.75,0.0,1.0,1.0,0.922,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.188,0.0,0.0,0.0,0.0,0.063,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.0,0.0,0.0,0.077,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1794670918489}
+{"event":"skill_start","skill":"goto surface","trigger":"skill_failed","t":1794670918489}
+{"event":"gene","detail":"learned.gate off: closed","t":1794670938804}
+{"layer":"tactician","gs":794,"brain":"rules","trigger":"heartbeat","goal":"wood_tools","options":["shore"],"choice":"shore","x":[1.0,0.75,0.0,1.0,1.0,0.891,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.188,0.0,0.0,0.0,0.0,0.063,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.0,0.0,0.0,0.077,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["shore"],"t":1794670938804}
+{"event":"skill_end","skill":"goto surface","ok":false,"code":"INTERRUPTED","detail":"interrupted: brain chose shore","seconds":20.05,"t":1794670938804}
+{"event":"skill_start","skill":"shore","trigger":"heartbeat","t":1794670938804}
+{"event":"skill_end","skill":"shore","ok":false,"code":"TIMEOUT","detail":"timed out after 90 s","seconds":90.05,"t":1794671029293}
+{"event":"gene","detail":"learned.gate off: closed","t":1794671029294}
+{"layer":"tactician","gs":884,"brain":"rules","trigger":"skill_failed","goal":"wood_tools","options":["explore any"],"choice":"explore any","x":[1.0,0.75,0.0,1.0,1.0,0.891,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.188,0.0,0.0,0.0,0.0,0.063,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.0,0.0,0.0,0.077,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1794671029294}
+{"event":"skill_start","skill":"explore any","trigger":"skill_failed","t":1794671029294}
+{"event":"skill_end","skill":"explore any","ok":true,"detail":"open water ahead; find shore","seconds":39.0,"t":1794671068584}
+{"event":"gene","detail":"learned.gate off: closed","t":1794671068585}
+{"layer":"tactician","gs":923,"brain":"rules","trigger":"skill_done","goal":"wood_tools","options":["explore any"],"choice":"explore any","x":[1.0,0.75,0.0,1.0,1.0,0.891,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.188,0.0,0.0,0.0,0.0,0.063,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.0,0.0,0.0,0.077,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1794671068585}
+{"event":"skill_start","skill":"explore any","trigger":"skill_done","t":1794671068585}
+{"event":"skill_end","skill":"explore any","ok":true,"detail":"open water ahead; find shore","seconds":37.0,"t":1794671105577}
+{"event":"gene","detail":"learned.gate off: closed","t":1794671105578}
+{"layer":"tactician","gs":960,"brain":"rules","trigger":"skill_done","goal":"wood_tools","options":["shore"],"choice":"shore","x":[1.0,0.75,0.0,1.0,1.0,0.906,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.188,0.0,0.0,0.0,0.0,0.063,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.0,0.0,0.0,0.077,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["shore"],"t":1794671105579}
+{"event":"skill_start","skill":"shore","trigger":"skill_done","t":1794671105579}
+{"event":"stuck","detail":"shore at -738, 57, 213 in water","t":1794671115433}
+{"event":"skill_end","skill":"shore","ok":false,"code":"STUCK","detail":"stuck: stayed inside 2.0 blocks for 12 s","seconds":9.85,"t":1794671115437}
+{"event":"skill_start","skill":"unstuck","trigger":"reflex_stuck","t":1794671115439}
+{"event":"skill_end","skill":"unstuck","ok":true,"detail":"got out (swim)","seconds":0.85,"t":1794671116271}
+{"event":"gene","detail":"learned.gate off: closed","t":1794671116272}
+{"layer":"tactician","gs":971,"brain":"rules","trigger":"skill_done","goal":"wood_tools","options":["collect log:3","shelter","explore log"],"choice":"collect log:3","x":[1.0,0.75,0.0,1.0,1.0,0.922,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.188,0.0,0.0,0.0,0.0,0.063,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.0,0.0,0.0,0.077,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1794671116272}
+{"event":"skill_start","skill":"collect log:3","trigger":"skill_done","t":1794671116273}
+{"event":"skill_end","skill":"collect log:3","ok":false,"code":"NOT_FOUND","detail":"no log seen nearby","seconds":3.05,"t":1794671119337}
+{"layer":"tactician","gs":974,"brain":"rules","trigger":"skill_failed","goal":"wood_tools","options":["shore"],"choice":"shore","x":[1.0,0.75,0.0,1.0,1.0,0.891,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.188,0.0,0.0,0.0,0.0,0.063,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.0,0.0,0.0,0.077,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["shore"],"t":1794671119338}
+{"event":"skill_start","skill":"shore","trigger":"skill_failed","t":1794671119338}
+{"event":"skill_end","skill":"shore","ok":false,"code":"INTERRUPTED","detail":"running out of air","seconds":4.25,"t":1794671123601}
+{"event":"reflex","detail":"drowning","t":1794671123601}
+{"layer":"tactician","gs":980,"brain":"rules","trigger":"idle","goal":"wood_tools","options":["shore"],"choice":"shore","x":[1.0,0.75,0.0,1.0,1.0,0.891,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.188,0.0,0.0,0.0,0.0,0.063,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.0,0.0,0.0,0.077,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["shore"],"t":1794671125072}
+{"event":"skill_start","skill":"shore","trigger":"idle","t":1794671125072}
+{"event":"skill_end","skill":"shore","ok":false,"code":"INTERRUPTED","detail":"running out of air","seconds":9.45,"t":1794671134641}
+{"event":"reflex","detail":"drowning","t":1794671134641}
+{"event":"gene","detail":"learned.gate off: closed","t":1794671136131}
+{"layer":"tactician","gs":991,"brain":"rules","trigger":"idle","goal":"wood_tools","options":["shore"],"choice":"shore","x":[1.0,0.75,0.0,1.0,1.0,0.891,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.188,0.0,0.0,0.0,0.0,0.063,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.0,0.0,0.0,0.077,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["shore"],"t":1794671136131}
+{"event":"skill_start","skill":"shore","trigger":"idle","t":1794671136132}
+{"event":"skill_end","skill":"shore","ok":false,"code":"INTERRUPTED","detail":"running out of air","seconds":8.7,"t":1794671144891}
+{"event":"reflex","detail":"drowning","t":1794671144891}
+{"event":"gene","detail":"learned.gate off: closed","t":1794671146371}
+{"layer":"tactician","gs":1001,"brain":"rules","trigger":"idle","goal":"wood_tools","options":["shore"],"choice":"shore","x":[1.0,0.75,0.0,1.0,1.0,0.891,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.188,0.0,0.0,0.0,0.0,0.063,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.0,0.0,0.0,0.077,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["shore"],"t":1794671146371}
+{"event":"skill_start","skill":"shore","trigger":"idle","t":1794671146372}
+{"event":"skill_end","skill":"shore","ok":false,"code":"TIMEOUT","detail":"timed out after 90 s","seconds":90.05,"t":1794671237094}
+{"event":"gene","detail":"learned.gate off: closed","t":1794671237095}
+{"layer":"tactician","gs":1091,"brain":"rules","trigger":"skill_failed","goal":"wood_tools","options":["explore any"],"choice":"explore any","x":[1.0,0.75,0.0,1.0,1.0,0.906,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.188,0.0,0.0,0.0,0.0,0.063,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.0,0.0,0.0,0.077,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1794671237095}
+{"event":"skill_start","skill":"explore any","trigger":"skill_failed","t":1794671237095}
+{"event":"skill_end","skill":"explore any","ok":true,"detail":"open water ahead; find shore","seconds":37.5,"t":1794671274937}
+{"event":"gene","detail":"learned.gate off: closed","t":1794671274938}
+{"layer":"tactician","gs":1128,"brain":"rules","trigger":"skill_done","goal":"wood_tools","options":["explore any"],"choice":"explore any","x":[1.0,0.75,0.0,1.0,1.0,0.891,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.188,0.0,0.0,0.0,0.0,0.063,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.0,0.0,0.0,0.077,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1794671274938}
+{"event":"skill_start","skill":"explore any","trigger":"skill_done","t":1794671274938}
+{"event":"skill_end","skill":"explore any","ok":true,"detail":"open water ahead; find shore","seconds":35.0,"t":1794671310385}
+{"event":"gene","detail":"learned.gate off: closed","t":1794671310386}
+{"layer":"tactician","gs":1163,"brain":"rules","trigger":"skill_done","goal":"wood_tools","options":["shore"],"choice":"shore","x":[1.0,0.75,0.0,1.0,1.0,0.891,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.188,0.0,0.0,0.0,0.0,0.063,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.0,0.0,0.0,0.077,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["shore"],"t":1794671310386}
+{"event":"skill_start","skill":"shore","trigger":"skill_done","t":1794671310386}
+{"event":"stuck","detail":"shore at -738, 57, 213 in water","t":1794671319081}
+{"event":"skill_end","skill":"shore","ok":false,"code":"STUCK","detail":"stuck: stayed inside 2.0 blocks for 12 s","seconds":8.65,"t":1794671319081}
+{"event":"skill_start","skill":"unstuck","trigger":"reflex_stuck","t":1794671319081}
+{"event":"skill_end","skill":"unstuck","ok":true,"detail":"got out (swim)","seconds":0.85,"t":1794671319940}
+{"layer":"tactician","gs":1173,"brain":"rules","trigger":"skill_done","goal":"wood_tools","options":["collect log:3","shelter","explore log"],"choice":"collect log:3","x":[1.0,0.75,0.0,1.0,1.0,0.922,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.188,0.0,0.0,0.0,0.0,0.063,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.0,0.0,0.0,0.077,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1794671319941}
+{"event":"skill_start","skill":"collect log:3","trigger":"skill_done","t":1794671319941}
+{"event":"skill_end","skill":"collect log:3","ok":false,"code":"NOT_FOUND","detail":"no log seen nearby","seconds":3.05,"t":1794671322976}
+{"event":"gene","detail":"learned.gate off: closed","t":1794671322976}
+{"layer":"tactician","gs":1176,"brain":"rules","trigger":"skill_failed","goal":"wood_tools","options":["shore"],"choice":"shore","x":[1.0,0.75,0.0,1.0,1.0,0.891,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.188,0.0,0.0,0.0,0.0,0.063,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.0,0.0,0.0,0.077,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["shore"],"t":1794671322976}
+{"event":"skill_start","skill":"shore","trigger":"skill_failed","t":1794671322976}
+{"event":"skill_end","skill":"shore","ok":false,"code":"INTERRUPTED","detail":"running out of air","seconds":3.8,"t":1794671326777}
+{"event":"reflex","detail":"drowning","t":1794671326777}
+{"layer":"tactician","gs":1181,"brain":"rules","trigger":"idle","goal":"wood_tools","options":["shore"],"choice":"shore","x":[1.0,0.75,0.0,1.0,1.0,0.891,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.188,0.0,0.0,0.0,0.0,0.063,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.0,0.0,0.0,0.077,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["shore"],"t":1794671328271}
+{"event":"skill_start","skill":"shore","trigger":"idle","t":1794671328271}
+{"event":"skill_end","skill":"shore","ok":false,"code":"TIMEOUT","detail":"timed out after 90 s","seconds":90.05,"t":1794671418768}
+{"event":"gene","detail":"learned.gate off: closed","t":1794671418769}
+{"layer":"tactician","gs":1271,"brain":"rules","trigger":"skill_failed","goal":"wood_tools","options":["explore any"],"choice":"explore any","x":[1.0,0.75,0.0,0.0,1.0,0.906,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.188,0.0,0.0,0.0,0.0,0.063,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.0,0.0,0.0,0.077,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1794671418769}
+{"event":"skill_start","skill":"explore any","trigger":"skill_failed","t":1794671418770}
+{"event":"gene","detail":"plan.place_backoff off: collect log","t":1794671438821}
+{"event":"skill_end","skill":"explore any","ok":true,"detail":"open water ahead; find shore","seconds":38.5,"t":1794671457468}
+{"event":"gene","detail":"learned.gate off: closed","t":1794671457469}
+{"layer":"tactician","gs":1310,"brain":"rules","trigger":"skill_done","goal":"wood_tools","options":["explore any"],"choice":"explore any","x":[1.0,0.75,0.0,0.0,1.0,0.891,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.188,0.0,0.0,0.0,0.0,0.063,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.0,0.0,0.0,0.077,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1794671457469}
+{"event":"skill_start","skill":"explore any","trigger":"skill_done","t":1794671457469}
+{"event":"skill_end","skill":"explore any","ok":true,"detail":"open water ahead; find shore","seconds":37.5,"t":1794671495122}
+{"event":"gene","detail":"learned.gate off: closed","t":1794671495123}
+{"layer":"tactician","gs":1347,"brain":"rules","trigger":"skill_done","goal":"wood_tools","options":["shore"],"choice":"shore","x":[1.0,0.75,0.0,0.0,1.0,0.906,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.188,0.0,0.0,0.0,0.0,0.063,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.0,0.0,0.0,0.077,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["shore"],"t":1794671495123}
+{"event":"skill_start","skill":"shore","trigger":"skill_done","t":1794671495123}
+{"event":"skill_end","skill":"shore","ok":false,"code":"INTERRUPTED","detail":"running out of air","seconds":9.85,"t":1794671504975}
+{"event":"reflex","detail":"drowning","t":1794671504975}
+{"event":"gene","detail":"learned.gate off: closed","t":1794671506475}
+{"layer":"tactician","gs":1359,"brain":"rules","trigger":"idle","goal":"wood_tools","options":["shore"],"choice":"shore","x":[1.0,0.75,0.0,0.0,1.0,0.891,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.188,0.0,0.0,0.0,0.0,0.063,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.0,0.0,0.0,0.077,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["shore"],"t":1794671506475}
+{"event":"skill_start","skill":"shore","trigger":"idle","t":1794671506475}
+{"event":"skill_end","skill":"shore","ok":false,"code":"INTERRUPTED","detail":"running out of air","seconds":9.25,"t":1794671515726}
+{"event":"reflex","detail":"drowning","t":1794671515727}
+{"event":"gene","detail":"learned.gate off: closed","t":1794671517226}
+{"layer":"tactician","gs":1369,"brain":"rules","trigger":"idle","goal":"wood_tools","options":["shore"],"choice":"shore","x":[1.0,0.75,0.0,0.0,1.0,0.891,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.188,0.0,0.0,0.0,0.0,0.063,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.0,0.0,0.0,0.077,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["shore"],"t":1794671517226}
+{"event":"skill_start","skill":"shore","trigger":"idle","t":1794671517226}
+{"event":"skill_end","skill":"shore","ok":false,"code":"INTERRUPTED","detail":"running out of air","seconds":8.65,"t":1794671525972}
+{"event":"reflex","detail":"drowning","t":1794671525973}
+{"event":"gene","detail":"learned.gate off: closed","t":1794671527530}
+{"layer":"tactician","gs":1380,"brain":"rules","trigger":"idle","goal":"wood_tools","options":["shore"],"choice":"shore","x":[1.0,0.75,0.0,0.0,1.0,0.891,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.188,0.0,0.0,0.0,0.0,0.063,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.0,0.0,0.0,0.077,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["shore"],"t":1794671527530}
+{"event":"skill_start","skill":"shore","trigger":"idle","t":1794671527531}
+{"event":"skill_end","skill":"shore","ok":false,"code":"INTERRUPTED","detail":"running out of air","seconds":9.1,"t":1794671536725}
+{"event":"reflex","detail":"drowning","t":1794671536725}
+{"event":"gene","detail":"learned.gate off: closed","t":1794671538236}
+{"layer":"tactician","gs":1390,"brain":"rules","trigger":"idle","goal":"wood_tools","options":["shore"],"choice":"shore","x":[1.0,0.75,0.0,0.0,1.0,0.891,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.188,0.0,0.0,0.0,0.0,0.063,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.0,0.0,0.0,0.077,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["shore"],"t":1794671538236}
+{"event":"skill_start","skill":"shore","trigger":"idle","t":1794671538236}
+{"event":"skill_end","skill":"shore","ok":false,"code":"TIMEOUT","detail":"timed out after 90 s","seconds":90.05,"t":1794671628683}
+{"event":"gene","detail":"learned.gate off: closed","t":1794671628684}
+{"layer":"tactician","gs":1480,"brain":"rules","trigger":"skill_failed","goal":"wood_tools","options":["shore"],"choice":"shore","x":[1.0,0.75,0.0,0.0,1.0,0.891,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.188,0.0,0.0,0.0,0.0,0.063,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.0,0.0,0.0,0.077,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["shore"],"t":1794671628684}
+{"event":"skill_start","skill":"shore","trigger":"skill_failed","t":1794671628684}
+{"event":"skill_end","skill":"shore","ok":false,"code":"TIMEOUT","detail":"timed out after 90 s","seconds":90.05,"t":1794671719074}
+{"event":"gene","detail":"learned.gate off: closed","t":1794671719076}
+{"layer":"tactician","gs":1570,"brain":"rules","trigger":"skill_failed","goal":"wood_tools","options":["explore any"],"choice":"explore any","x":[1.0,0.75,0.0,0.0,1.0,0.906,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.188,0.0,0.0,0.0,0.0,0.063,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.0,0.0,0.0,0.077,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1794671719076}
+{"event":"skill_start","skill":"explore any","trigger":"skill_failed","t":1794671719076}
+{"event":"skill_end","skill":"explore any","ok":true,"detail":"open water ahead; find shore","seconds":37.0,"t":1794671756171}
+{"event":"gene","detail":"learned.gate off: closed","t":1794671756172}
+{"layer":"tactician","gs":1607,"brain":"rules","trigger":"skill_done","goal":"wood_tools","options":["explore any"],"choice":"explore any","x":[1.0,0.75,0.0,0.0,1.0,0.906,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.188,0.0,0.0,0.0,0.0,0.063,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.0,0.0,0.0,0.077,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1794671756172}
+{"event":"skill_start","skill":"explore any","trigger":"skill_done","t":1794671756172}
+{"event":"skill_end","skill":"explore any","ok":true,"detail":"open water ahead; find shore","seconds":35.0,"t":1794671791435}
+{"event":"gene","detail":"learned.gate off: closed","t":1794671791436}
+{"layer":"tactician","gs":1642,"brain":"rules","trigger":"skill_done","goal":"wood_tools","options":["shore"],"choice":"shore","x":[1.0,0.75,0.0,0.0,1.0,0.891,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.188,0.0,0.0,0.0,0.0,0.063,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.0,0.0,0.0,0.077,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["shore"],"t":1794671791436}
+{"event":"skill_start","skill":"shore","trigger":"skill_done","t":1794671791436}
+{"event":"stuck","detail":"shore at -738, 57, 213 in water","t":1794671800222}
+{"event":"skill_end","skill":"shore","ok":false,"code":"STUCK","detail":"stuck: stayed inside 2.0 blocks for 12 s","seconds":8.8,"t":1794671800222}
+{"event":"skill_start","skill":"unstuck","trigger":"reflex_stuck","t":1794671800222}
+{"event":"skill_end","skill":"unstuck","ok":true,"detail":"got out (swim)","seconds":0.85,"t":1794671801071}
+{"layer":"tactician","gs":1652,"brain":"rules","trigger":"skill_done","goal":"wood_tools","options":["collect log:3","explore log"],"choice":"collect log:3","x":[1.0,0.75,0.0,0.0,1.0,0.922,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.188,0.0,0.0,0.0,0.0,0.063,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.0,0.0,0.0,0.077,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1794671801072}
+{"event":"skill_start","skill":"collect log:3","trigger":"skill_done","t":1794671801073}
+{"event":"skill_end","skill":"collect log:3","ok":false,"code":"NOT_FOUND","detail":"no log seen nearby","seconds":3.05,"t":1794671804127}
+{"event":"gene","detail":"learned.gate off: closed","t":1794671804127}
+{"layer":"tactician","gs":1655,"brain":"rules","trigger":"skill_failed","goal":"wood_tools","options":["shore"],"choice":"shore","x":[1.0,0.75,0.0,0.0,1.0,0.891,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.188,0.0,0.0,0.0,0.0,0.063,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.0,0.0,0.0,0.077,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["shore"],"t":1794671804127}
+{"event":"skill_start","skill":"shore","trigger":"skill_failed","t":1794671804127}
+{"event":"skill_end","skill":"shore","ok":false,"code":"INTERRUPTED","detail":"running out of air","seconds":3.0,"t":1794671807121}
+{"event":"reflex","detail":"drowning","t":1794671807121}
+{"layer":"tactician","gs":1659,"brain":"rules","trigger":"idle","goal":"wood_tools","options":["shore"],"choice":"shore","x":[1.0,0.75,0.0,0.0,1.0,0.891,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.188,0.0,0.0,0.0,0.0,0.063,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.0,0.0,0.0,0.077,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["shore"],"t":1794671808624}
+{"event":"skill_start","skill":"shore","trigger":"idle","t":1794671808624}
+{"event":"skill_end","skill":"shore","ok":false,"code":"INTERRUPTED","detail":"running out of air","seconds":9.1,"t":1794671817880}
+{"event":"reflex","detail":"drowning","t":1794671817880}
+{"event":"gene","detail":"learned.gate off: closed","t":1794671819369}
+{"layer":"tactician","gs":1670,"brain":"rules","trigger":"idle","goal":"wood_tools","options":["shore"],"choice":"shore","x":[1.0,0.75,0.0,0.0,1.0,0.891,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.188,0.0,0.0,0.0,0.0,0.063,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.0,0.0,0.0,0.077,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["shore"],"t":1794671819369}
+{"event":"skill_start","skill":"shore","trigger":"idle","t":1794671819369}
+{"event":"skill_end","skill":"shore","ok":false,"code":"TIMEOUT","detail":"timed out after 90 s","seconds":90.05,"t":1794671909729}
+{"event":"gene","detail":"learned.gate off: closed","t":1794671909730}
+{"layer":"tactician","gs":1760,"brain":"rules","trigger":"skill_failed","goal":"wood_tools","options":["explore any"],"choice":"explore any","x":[1.0,0.75,0.0,0.0,1.0,0.906,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.188,0.0,0.0,0.0,0.0,0.063,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.0,0.0,0.0,0.077,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1794671909730}
+{"event":"skill_start","skill":"explore any","trigger":"skill_failed","t":1794671909730}
+{"event":"skill_end","skill":"explore any","ok":true,"detail":"open water ahead; find shore","seconds":36.0,"t":1794671945924}
+{"event":"gene","detail":"learned.gate off: closed","t":1794671945924}
+{"layer":"tactician","gs":1796,"brain":"rules","trigger":"skill_done","goal":"wood_tools","options":["explore any"],"choice":"explore any","x":[1.0,0.75,0.0,0.0,1.0,0.906,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.188,0.0,0.0,0.0,0.0,0.063,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.0,0.0,0.0,0.077,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1794671945924}
+{"event":"skill_start","skill":"explore any","trigger":"skill_done","t":1794671945924}
+{"event":"skill_end","skill":"explore any","ok":true,"detail":"open water ahead; find shore","seconds":42.5,"t":1794671988461}
+{"event":"gene","detail":"learned.gate off: closed","t":1794671988461}
+{"layer":"tactician","gs":1839,"brain":"rules","trigger":"skill_done","goal":"wood_tools","options":["shore"],"choice":"shore","x":[1.0,0.75,0.0,0.0,1.0,0.906,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.188,0.0,0.0,0.0,0.0,0.063,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.0,0.0,0.0,0.077,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["shore"],"t":1794671988461}
+{"event":"skill_start","skill":"shore","trigger":"skill_done","t":1794671988461}
+{"event":"skill_end","skill":"shore","ok":false,"code":"INTERRUPTED","detail":"running out of air","seconds":9.9,"t":1794671998365}
+{"event":"reflex","detail":"drowning","t":1794671998365}
+{"event":"gene","detail":"learned.gate off: closed","t":1794671999881}
+{"layer":"tactician","gs":1850,"brain":"rules","trigger":"idle","goal":"wood_tools","options":["shore"],"choice":"shore","x":[1.0,0.75,0.0,0.0,1.0,0.891,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.188,0.0,0.0,0.0,0.0,0.063,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.0,0.0,0.0,0.077,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["shore"],"t":1794671999881}
+{"event":"skill_start","skill":"shore","trigger":"idle","t":1794671999881}
+{"event":"skill_end","skill":"shore","ok":false,"code":"INTERRUPTED","detail":"running out of air","seconds":8.95,"t":1794672008881}
+{"event":"reflex","detail":"drowning","t":1794672008881}
+{"event":"gene","detail":"learned.gate off: closed","t":1794672010372}
+{"layer":"tactician","gs":1860,"brain":"rules","trigger":"idle","goal":"wood_tools","options":["shore"],"choice":"shore","x":[1.0,0.75,0.0,0.0,1.0,0.891,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.188,0.0,0.0,0.0,0.0,0.063,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.0,0.0,0.0,0.077,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["shore"],"t":1794672010372}
+{"event":"skill_start","skill":"shore","trigger":"idle","t":1794672010373}
+{"event":"skill_end","skill":"shore","ok":false,"code":"INTERRUPTED","detail":"running out of air","seconds":8.55,"t":1794672019079}
+{"event":"reflex","detail":"drowning","t":1794672019079}
+{"event":"gene","detail":"learned.gate off: closed","t":1794672020580}
+{"layer":"tactician","gs":1871,"brain":"rules","trigger":"idle","goal":"wood_tools","options":["shore"],"choice":"shore","x":[1.0,0.75,0.0,0.0,1.0,0.891,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.188,0.0,0.0,0.0,0.0,0.063,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.0,0.0,0.0,0.077,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["shore"],"t":1794672020580}
+{"event":"skill_start","skill":"shore","trigger":"idle","t":1794672020580}
+{"event":"skill_end","skill":"shore","ok":false,"code":"INTERRUPTED","detail":"running out of air","seconds":8.9,"t":1794672029612}
+{"event":"reflex","detail":"drowning","t":1794672029613}
+{"event":"gene","detail":"learned.gate off: closed","t":1794672031113}
+{"layer":"tactician","gs":1881,"brain":"rules","trigger":"idle","goal":"wood_tools","options":["shore"],"choice":"shore","x":[1.0,0.75,0.0,0.0,1.0,0.891,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.188,0.0,0.0,0.0,0.0,0.063,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.0,0.0,0.0,0.077,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["shore"],"t":1794672031113}
+{"event":"skill_start","skill":"shore","trigger":"idle","t":1794672031113}
+{"event":"skill_end","skill":"shore","ok":false,"code":"TIMEOUT","detail":"timed out after 90 s","seconds":90.05,"t":1794672121875}
+{"event":"gene","detail":"learned.gate off: closed","t":1794672121876}
+{"layer":"tactician","gs":1971,"brain":"rules","trigger":"skill_failed","goal":"wood_tools","options":["shore"],"choice":"shore","x":[1.0,0.75,0.0,1.0,1.0,0.906,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.188,0.0,0.0,0.0,0.0,0.063,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.0,0.0,0.0,0.077,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["shore"],"t":1794672121876}
+{"event":"skill_start","skill":"shore","trigger":"skill_failed","t":1794672121877}
+{"event":"skill_end","skill":"shore","ok":false,"code":"TIMEOUT","detail":"timed out after 90 s","seconds":90.05,"t":1794672212477}
+{"event":"gene","detail":"learned.gate off: closed","t":1794672212478}
+{"layer":"tactician","gs":2061,"brain":"rules","trigger":"skill_failed","goal":"wood_tools","options":["explore any"],"choice":"explore any","x":[1.0,0.75,0.0,1.0,1.0,0.906,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.188,0.0,0.0,0.0,0.0,0.063,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.0,0.0,0.0,0.077,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1794672212478}
+{"event":"skill_start","skill":"explore any","trigger":"skill_failed","t":1794672212478}
+{"event":"skill_end","skill":"explore any","ok":true,"detail":"open water ahead; find shore","seconds":33.0,"t":1794672246126}
+{"event":"gene","detail":"learned.gate off: closed","t":1794672246127}
+{"layer":"tactician","gs":2094,"brain":"rules","trigger":"skill_done","goal":"wood_tools","options":["explore any"],"choice":"explore any","x":[1.0,0.75,0.0,1.0,1.0,0.906,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.188,0.0,0.0,0.0,0.0,0.063,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.0,0.0,0.0,0.077,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1794672246127}
+{"event":"skill_start","skill":"explore any","trigger":"skill_done","t":1794672246127}
+{"event":"skill_end","skill":"explore any","ok":true,"detail":"open water ahead; find shore","seconds":36.0,"t":1794672282169}
+{"event":"gene","detail":"learned.gate off: closed","t":1794672282170}
+{"layer":"tactician","gs":2130,"brain":"rules","trigger":"skill_done","goal":"wood_tools","options":["shore"],"choice":"shore","x":[1.0,0.75,0.0,1.0,1.0,0.891,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.188,0.0,0.0,0.0,0.0,0.063,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.0,0.0,0.0,0.077,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["shore"],"t":1794672282171}
+{"event":"skill_start","skill":"shore","trigger":"skill_done","t":1794672282171}
+{"event":"stuck","detail":"shore at -738, 57, 213 in water","t":1794672292375}
+{"event":"skill_end","skill":"shore","ok":false,"code":"STUCK","detail":"stuck: stayed inside 2.0 blocks for 12 s","seconds":10.05,"t":1794672292376}
+{"event":"skill_start","skill":"unstuck","trigger":"reflex_stuck","t":1794672292376}
+{"event":"skill_end","skill":"unstuck","ok":true,"detail":"got out (swim)","seconds":0.85,"t":1794672293207}
+{"event":"gene","detail":"learned.gate off: closed","t":1794672293208}
+{"layer":"tactician","gs":2141,"brain":"rules","trigger":"skill_done","goal":"wood_tools","options":["collect log:3","shelter","explore log"],"choice":"collect log:3","x":[1.0,0.75,0.0,1.0,1.0,0.922,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.188,0.0,0.0,0.0,0.0,0.063,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.0,0.0,0.0,0.077,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1794672293208}
+{"event":"skill_start","skill":"collect log:3","trigger":"skill_done","t":1794672293209}
+{"event":"skill_end","skill":"collect log:3","ok":false,"code":"NOT_FOUND","detail":"no log seen nearby","seconds":3.05,"t":1794672296257}
+{"layer":"tactician","gs":2144,"brain":"rules","trigger":"skill_failed","goal":"wood_tools","options":["shore"],"choice":"shore","x":[1.0,0.75,0.0,1.0,1.0,0.891,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.188,0.0,0.0,0.0,0.0,0.063,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.0,0.0,0.0,0.077,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["shore"],"t":1794672296258}
+{"event":"skill_start","skill":"shore","trigger":"skill_failed","t":1794672296258}
+{"event":"skill_end","skill":"shore","ok":false,"code":"INTERRUPTED","detail":"running out of air","seconds":2.55,"t":1794672298911}
+{"event":"reflex","detail":"drowning","t":1794672298911}
+{"layer":"tactician","gs":2148,"brain":"rules","trigger":"idle","goal":"wood_tools","options":["shore"],"choice":"shore","x":[1.0,0.75,0.0,1.0,1.0,0.891,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.188,0.0,0.0,0.0,0.0,0.063,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.0,0.0,0.0,0.077,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["shore"],"t":1794672300423}
+{"event":"skill_start","skill":"shore","trigger":"idle","t":1794672300424}
+{"event":"skill_end","skill":"shore","ok":false,"code":"TIMEOUT","detail":"timed out after 90 s","seconds":90.05,"t":1794672390807}
+{"event":"gene","detail":"learned.gate off: closed","t":1794672390808}
+{"layer":"tactician","gs":2238,"brain":"rules","trigger":"skill_failed","goal":"wood_tools","options":["explore any"],"choice":"explore any","x":[1.0,0.75,0.0,1.0,1.0,0.891,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.188,0.0,0.0,0.0,0.0,0.063,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.0,0.0,0.0,0.077,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1794672390808}
+{"event":"skill_start","skill":"explore any","trigger":"skill_failed","t":1794672390808}
+{"event":"skill_end","skill":"explore any","ok":true,"detail":"open water ahead; find shore","seconds":38.5,"t":1794672429427}
+{"event":"gene","detail":"learned.gate off: closed","t":1794672429428}
+{"layer":"tactician","gs":2277,"brain":"rules","trigger":"skill_done","goal":"wood_tools","options":["explore any"],"choice":"explore any","x":[1.0,0.75,0.0,1.0,1.0,0.906,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.188,0.0,0.0,0.0,0.0,0.063,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.0,0.0,0.0,0.077,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1794672429428}
+{"event":"skill_start","skill":"explore any","trigger":"skill_done","t":1794672429428}
+{"event":"gene","detail":"learned.gate off: closed","t":1794672449821}
+{"layer":"tactician","gs":2297,"brain":"rules","trigger":"heartbeat","goal":"wood_tools","options":["eat"],"choice":"eat","x":[1.0,0.7,0.0,1.0,1.0,0.891,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.188,0.0,0.0,0.0,0.0,0.063,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.0,0.0,0.0,0.077,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["eat"],"t":1794672449822}
+{"event":"skill_end","skill":"explore any","ok":false,"code":"INTERRUPTED","detail":"interrupted: brain chose eat","seconds":20.05,"t":1794672449822}
+{"event":"skill_start","skill":"eat","trigger":"heartbeat","t":1794672449822}
+{"event":"skill_end","skill":"eat","ok":true,"detail":"ate rotten_flesh","seconds":1.75,"t":1794672451595}
+{"layer":"tactician","gs":2298,"brain":"rules","trigger":"skill_done","goal":"wood_tools","options":["shore"],"choice":"shore","x":[1.0,0.9,0.0,1.0,1.0,0.891,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.188,0.0,0.0,0.0,0.0,0.063,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.0,0.0,0.0,0.077,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["shore"],"t":1794672451596}
+{"event":"skill_start","skill":"shore","trigger":"skill_done","t":1794672451596}
+{"event":"skill_end","skill":"shore","ok":false,"code":"INTERRUPTED","detail":"running out of air","seconds":8.65,"t":1794672460213}
+{"event":"reflex","detail":"drowning","t":1794672460214}
+{"event":"gene","detail":"learned.gate off: closed","t":1794672461710}
+{"layer":"tactician","gs":2309,"brain":"rules","trigger":"idle","goal":"wood_tools","options":["shore"],"choice":"shore","x":[1.0,0.9,0.0,1.0,1.0,0.891,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.188,0.0,0.0,0.0,0.0,0.063,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.0,0.0,0.0,0.077,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["shore"],"t":1794672461710}
+{"event":"skill_start","skill":"shore","trigger":"idle","t":1794672461710}
+{"event":"skill_end","skill":"shore","ok":false,"code":"INTERRUPTED","detail":"running out of air","seconds":9.0,"t":1794672470710}
+{"event":"reflex","detail":"drowning","t":1794672470710}
+{"event":"gene","detail":"learned.gate off: closed","t":1794672472211}
+{"layer":"tactician","gs":2319,"brain":"rules","trigger":"idle","goal":"wood_tools","options":["shore"],"choice":"shore","x":[1.0,0.9,0.0,1.0,1.0,0.891,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.188,0.0,0.0,0.0,0.0,0.063,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.0,0.0,0.0,0.077,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["shore"],"t":1794672472211}
+{"event":"skill_start","skill":"shore","trigger":"idle","t":1794672472211}
+{"event":"skill_end","skill":"shore","ok":false,"code":"INTERRUPTED","detail":"running out of air","seconds":9.0,"t":1794672481219}
+{"event":"reflex","detail":"drowning","t":1794672481220}
+{"event":"gene","detail":"learned.gate off: closed","t":1794672482710}
+{"layer":"tactician","gs":2330,"brain":"rules","trigger":"idle","goal":"wood_tools","options":["shore"],"choice":"shore","x":[1.0,0.9,0.0,1.0,1.0,0.891,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.188,0.0,0.0,0.0,0.0,0.063,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.0,0.0,0.0,0.077,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["shore"],"t":1794672482710}
+{"event":"skill_start","skill":"shore","trigger":"idle","t":1794672482710}
+{"event":"gene","detail":"plan.place_backoff off: collect log","t":1794672523075}
+{"event":"skill_end","skill":"shore","ok":false,"code":"TIMEOUT","detail":"timed out after 90 s","seconds":90.05,"t":1794672573213}
+{"event":"gene","detail":"learned.gate off: closed","t":1794672573214}
+{"layer":"tactician","gs":2420,"brain":"rules","trigger":"skill_failed","goal":"wood_tools","options":["shore"],"choice":"shore","x":[1.0,0.9,0.0,0.0,1.0,0.906,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.188,0.0,0.0,0.0,0.0,0.063,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.0,0.0,0.0,0.077,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["shore"],"t":1794672573214}
+{"event":"skill_start","skill":"shore","trigger":"skill_failed","t":1794672573214}
+{"event":"skill_end","skill":"shore","ok":false,"code":"TIMEOUT","detail":"timed out after 90 s","seconds":90.05,"t":1794672663720}
+{"event":"gene","detail":"learned.gate off: closed","t":1794672663721}
+{"layer":"tactician","gs":2510,"brain":"rules","trigger":"skill_failed","goal":"wood_tools","options":["explore any"],"choice":"explore any","x":[1.0,0.9,0.0,0.0,1.0,0.906,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.188,0.0,0.0,0.0,0.0,0.063,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.0,0.0,0.0,0.077,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1794672663721}
+{"event":"skill_start","skill":"explore any","trigger":"skill_failed","t":1794672663721}
+{"event":"skill_end","skill":"explore any","ok":true,"detail":"open water ahead; find shore","seconds":37.5,"t":1794672701360}
+{"event":"gene","detail":"learned.gate off: closed","t":1794672701360}
+{"layer":"tactician","gs":2547,"brain":"rules","trigger":"skill_done","goal":"wood_tools","options":["explore any"],"choice":"explore any","x":[1.0,0.9,0.0,0.0,1.0,0.891,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.188,0.0,0.0,0.0,0.0,0.063,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.0,0.0,0.0,0.077,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1794672701360}
+{"event":"skill_start","skill":"explore any","trigger":"skill_done","t":1794672701361}
+{"event":"skill_end","skill":"explore any","ok":true,"detail":"open water ahead; find shore","seconds":38.5,"t":1794672740007}
+{"event":"gene","detail":"learned.gate off: closed","t":1794672740008}
+{"layer":"tactician","gs":2586,"brain":"rules","trigger":"skill_done","goal":"wood_tools","options":["shore"],"choice":"shore","x":[1.0,0.9,0.0,0.0,1.0,0.906,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.188,0.0,0.0,0.0,0.0,0.063,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.0,0.0,0.0,0.077,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["shore"],"t":1794672740008}
+{"event":"skill_start","skill":"shore","trigger":"skill_done","t":1794672740008}
+{"event":"skill_end","skill":"shore","ok":false,"code":"INTERRUPTED","detail":"running out of air","seconds":9.9,"t":1794672749958}
+{"event":"reflex","detail":"drowning","t":1794672749958}
+{"event":"gene","detail":"learned.gate off: closed","t":1794672751470}
+{"layer":"tactician","gs":2597,"brain":"rules","trigger":"idle","goal":"wood_tools","options":["shore"],"choice":"shore","x":[1.0,0.9,0.0,0.0,1.0,0.891,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.188,0.0,0.0,0.0,0.0,0.063,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.0,0.0,0.0,0.077,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["shore"],"t":1794672751470}
+{"event":"skill_start","skill":"shore","trigger":"idle","t":1794672751470}
+{"event":"skill_end","skill":"shore","ok":false,"code":"INTERRUPTED","detail":"running out of air","seconds":9.2,"t":1794672760704}
+{"event":"reflex","detail":"drowning","t":1794672760704}
+{"event":"gene","detail":"learned.gate off: closed","t":1794672762214}
+{"layer":"tactician","gs":2608,"brain":"rules","trigger":"idle","goal":"wood_tools","options":["shore"],"choice":"shore","x":[1.0,0.9,0.0,0.0,1.0,0.891,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.188,0.0,0.0,0.0,0.0,0.063,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.0,0.0,0.0,0.077,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["shore"],"t":1794672762214}
+{"event":"skill_start","skill":"shore","trigger":"idle","t":1794672762214}
+{"event":"skill_end","skill":"shore","ok":false,"code":"INTERRUPTED","detail":"running out of air","seconds":8.9,"t":1794672771170}
+{"event":"reflex","detail":"drowning","t":1794672771171}
+{"event":"gene","detail":"learned.gate off: closed","t":1794672772669}
+{"layer":"tactician","gs":2618,"brain":"rules","trigger":"idle","goal":"wood_tools","options":["shore"],"choice":"shore","x":[1.0,0.9,0.0,0.0,1.0,0.891,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.188,0.0,0.0,0.0,0.0,0.063,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.0,0.0,0.0,0.077,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["shore"],"t":1794672772669}
+{"event":"skill_start","skill":"shore","trigger":"idle","t":1794672772669}
+{"event":"skill_end","skill":"shore","ok":false,"code":"INTERRUPTED","detail":"running out of air","seconds":9.0,"t":1794672781705}
+{"event":"reflex","detail":"drowning","t":1794672781705}
+{"event":"gene","detail":"learned.gate off: closed","t":1794672783253}
+{"layer":"tactician","gs":2629,"brain":"rules","trigger":"idle","goal":"wood_tools","options":["shore"],"choice":"shore","x":[1.0,0.9,0.0,0.0,1.0,0.891,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.188,0.0,0.0,0.0,0.0,0.063,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.0,0.0,0.0,0.077,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["shore"],"t":1794672783253}
+{"event":"skill_start","skill":"shore","trigger":"idle","t":1794672783253}
+{"event":"skill_end","skill":"shore","ok":false,"code":"TIMEOUT","detail":"timed out after 90 s","seconds":90.05,"t":1794672873517}
+{"event":"gene","detail":"learned.gate off: closed","t":1794672873518}
+{"layer":"tactician","gs":2719,"brain":"rules","trigger":"skill_failed","goal":"wood_tools","options":["shore"],"choice":"shore","x":[1.0,0.9,0.0,0.0,1.0,0.906,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.188,0.0,0.0,0.0,0.0,0.063,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.0,0.0,0.0,0.077,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["shore"],"t":1794672873518}
+{"event":"skill_start","skill":"shore","trigger":"skill_failed","t":1794672873518}
+{"event":"skill_end","skill":"shore","ok":false,"code":"TIMEOUT","detail":"timed out after 90 s","seconds":90.05,"t":1794672964061}
+{"event":"gene","detail":"learned.gate off: closed","t":1794672964062}
+{"layer":"tactician","gs":2809,"brain":"rules","trigger":"skill_failed","goal":"wood_tools","options":["goto surface","collect log:3","explore log"],"choice":"goto surface","x":[1.0,0.9,0.0,0.0,1.0,0.922,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.188,0.0,0.0,0.0,0.0,0.063,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.0,0.0,0.0,0.077,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1794672964062}
+{"event":"skill_start","skill":"goto surface","trigger":"skill_failed","t":1794672964062}
+{"event":"skill_end","skill":"goto surface","ok":false,"code":"INTERRUPTED","detail":"running out of air","seconds":24.15,"t":1794672988735}
+{"event":"reflex","detail":"drowning","t":1794672988735}
+{"event":"gene","detail":"learned.gate off: closed","t":1794672990285}
+{"layer":"tactician","gs":2834,"brain":"rules","trigger":"idle","goal":"wood_tools","options":["explore any"],"choice":"explore any","x":[1.0,0.9,0.0,0.0,1.0,0.891,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.188,0.0,0.0,0.0,0.0,0.063,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.0,0.0,0.0,0.077,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1794672990286}
+{"event":"skill_start","skill":"explore any","trigger":"idle","t":1794672990286}
+{"event":"skill_end","skill":"explore any","ok":true,"detail":"open water ahead; find shore","seconds":33.0,"t":1794673023407}
+{"event":"gene","detail":"learned.gate off: closed","t":1794673023408}
+{"layer":"tactician","gs":2867,"brain":"rules","trigger":"skill_done","goal":"wood_tools","options":["explore any"],"choice":"explore any","x":[1.0,0.9,0.0,0.0,1.0,0.891,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.188,0.0,0.0,0.0,0.0,0.063,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.0,0.0,0.0,0.077,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1794673023408}
+{"event":"skill_start","skill":"explore any","trigger":"skill_done","t":1794673023408}
+{"event":"skill_end","skill":"explore any","ok":true,"detail":"open water ahead; find shore","seconds":36.0,"t":1794673059707}
+{"event":"gene","detail":"learned.gate off: closed","t":1794673059708}
+{"layer":"tactician","gs":2903,"brain":"rules","trigger":"skill_done","goal":"wood_tools","options":["shore"],"choice":"shore","x":[1.0,0.9,0.0,0.0,1.0,0.891,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.188,0.0,0.0,0.0,0.0,0.063,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.0,0.0,0.0,0.077,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["shore"],"t":1794673059708}
+{"event":"skill_start","skill":"shore","trigger":"skill_done","t":1794673059708}
+{"event":"stuck","detail":"shore at -738, 57, 213 in water","t":1794673068518}
+{"event":"skill_end","skill":"shore","ok":false,"code":"STUCK","detail":"stuck: stayed inside 2.0 blocks for 12 s","seconds":8.7,"t":1794673068519}
+{"event":"skill_start","skill":"unstuck","trigger":"reflex_stuck","t":1794673068519}
+{"event":"skill_end","skill":"unstuck","ok":true,"detail":"got out (swim)","seconds":0.85,"t":1794673069357}
+{"layer":"tactician","gs":2913,"brain":"rules","trigger":"skill_done","goal":"wood_tools","options":["collect log:3","explore log"],"choice":"collect log:3","x":[1.0,0.9,0.0,0.0,1.0,0.922,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.188,0.0,0.0,0.0,0.0,0.063,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.0,0.0,0.0,0.077,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1794673069358}
+{"event":"skill_start","skill":"collect log:3","trigger":"skill_done","t":1794673069359}
+{"event":"skill_end","skill":"collect log:3","ok":false,"code":"NOT_FOUND","detail":"no log seen nearby","seconds":3.05,"t":1794673072403}
+{"event":"gene","detail":"learned.gate off: closed","t":1794673072403}
+{"layer":"tactician","gs":2916,"brain":"rules","trigger":"skill_failed","goal":"wood_tools","options":["shore"],"choice":"shore","x":[1.0,0.9,0.0,0.0,1.0,0.891,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.188,0.0,0.0,0.0,0.0,0.063,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.0,0.0,0.0,0.077,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["shore"],"t":1794673072403}
+{"event":"skill_start","skill":"shore","trigger":"skill_failed","t":1794673072403}
+{"event":"skill_end","skill":"shore","ok":false,"code":"INTERRUPTED","detail":"running out of air","seconds":4.55,"t":1794673076954}
+{"event":"reflex","detail":"drowning","t":1794673076954}
+{"layer":"tactician","gs":2922,"brain":"rules","trigger":"idle","goal":"wood_tools","options":["shore"],"choice":"shore","x":[1.0,0.9,0.0,0.0,1.0,0.891,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.188,0.0,0.0,0.0,0.0,0.063,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.0,0.0,0.0,0.077,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["shore"],"t":1794673078451}
+{"event":"skill_start","skill":"shore","trigger":"idle","t":1794673078451}
+{"event":"skill_end","skill":"shore","ok":false,"code":"INTERRUPTED","detail":"running out of air","seconds":9.3,"t":1794673087957}
+{"event":"reflex","detail":"drowning","t":1794673087957}
+{"event":"gene","detail":"learned.gate off: closed","t":1794673089461}
+{"layer":"tactician","gs":2933,"brain":"rules","trigger":"idle","goal":"wood_tools","options":["shore"],"choice":"shore","x":[1.0,0.9,0.0,0.0,1.0,0.891,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.188,0.0,0.0,0.0,0.0,0.063,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.0,0.0,0.0,0.077,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["shore"],"t":1794673089461}
+{"event":"skill_start","skill":"shore","trigger":"idle","t":1794673089461}
+{"event":"skill_end","skill":"shore","ok":false,"code":"TIMEOUT","detail":"timed out after 90 s","seconds":90.05,"t":1794673179860}
+{"event":"gene","detail":"learned.gate off: closed","t":1794673179862}
+{"layer":"tactician","gs":3023,"brain":"rules","trigger":"skill_failed","goal":"wood_tools","options":["explore any"],"choice":"explore any","x":[1.0,0.9,0.0,0.0,1.0,0.906,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.188,0.0,0.0,0.0,0.0,0.063,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.0,0.0,0.0,0.077,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1794673179862}
+{"event":"skill_start","skill":"explore any","trigger":"skill_failed","t":1794673179862}
+{"event":"skill_end","skill":"explore any","ok":true,"detail":"open water ahead; find shore","seconds":39.0,"t":1794673219110}
+{"event":"gene","detail":"learned.gate off: closed","t":1794673219111}
+{"layer":"tactician","gs":3062,"brain":"rules","trigger":"skill_done","goal":"wood_tools","options":["explore any"],"choice":"explore any","x":[1.0,0.9,0.0,0.0,1.0,0.906,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.188,0.0,0.0,0.0,0.0,0.063,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.0,0.0,0.0,0.077,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1794673219111}
+{"event":"skill_start","skill":"explore any","trigger":"skill_done","t":1794673219111}
+{"event":"skill_end","skill":"explore any","ok":true,"detail":"open water ahead; find shore","seconds":34.5,"t":1794673253834}
+{"event":"gene","detail":"learned.gate off: closed","t":1794673253835}
+{"layer":"tactician","gs":3096,"brain":"rules","trigger":"skill_done","goal":"wood_tools","options":["shore"],"choice":"shore","x":[1.0,0.9,0.0,1.0,1.0,0.891,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.188,0.0,0.0,0.0,0.0,0.063,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.0,0.0,0.0,0.077,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["shore"],"t":1794673253835}
+{"event":"skill_start","skill":"shore","trigger":"skill_done","t":1794673253835}
+{"event":"stuck","detail":"shore at -738, 57, 213 in water","t":1794673263559}
+{"event":"skill_end","skill":"shore","ok":false,"code":"STUCK","detail":"stuck: stayed inside 2.0 blocks for 12 s","seconds":9.7,"t":1794673263559}
+{"event":"skill_start","skill":"unstuck","trigger":"reflex_stuck","t":1794673263560}
+{"event":"skill_end","skill":"unstuck","ok":true,"detail":"got out (swim)","seconds":0.85,"t":1794673264399}
+{"event":"gene","detail":"learned.gate off: closed","t":1794673264400}
+{"layer":"tactician","gs":3107,"brain":"rules","trigger":"skill_done","goal":"wood_tools","options":["collect log:3","shelter","explore log"],"choice":"collect log:3","x":[1.0,0.9,0.0,1.0,1.0,0.922,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.188,0.0,0.0,0.0,0.0,0.063,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.0,0.0,0.0,0.077,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1794673264400}
+{"event":"skill_start","skill":"collect log:3","trigger":"skill_done","t":1794673264401}
+{"event":"skill_end","skill":"collect log:3","ok":false,"code":"NOT_FOUND","detail":"no log seen nearby","seconds":3.05,"t":1794673267447}
+{"layer":"tactician","gs":3110,"brain":"rules","trigger":"skill_failed","goal":"wood_tools","options":["shore"],"choice":"shore","x":[1.0,0.9,0.0,1.0,1.0,0.891,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.188,0.0,0.0,0.0,0.0,0.063,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.0,0.0,0.0,0.077,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["shore"],"t":1794673267448}
+{"event":"skill_start","skill":"shore","trigger":"skill_failed","t":1794673267448}
+{"event":"skill_end","skill":"shore","ok":false,"code":"INTERRUPTED","detail":"running out of air","seconds":3.95,"t":1794673271411}
+{"event":"reflex","detail":"drowning","t":1794673271411}
+{"layer":"tactician","gs":3115,"brain":"rules","trigger":"idle","goal":"wood_tools","options":["shore"],"choice":"shore","x":[1.0,0.9,0.0,1.0,1.0,0.891,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.188,0.0,0.0,0.0,0.0,0.063,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.0,0.0,0.0,0.077,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["shore"],"t":1794673272917}
+{"event":"skill_start","skill":"shore","trigger":"idle","t":1794673272917}
+{"event":"skill_end","skill":"shore","ok":false,"code":"INTERRUPTED","detail":"running out of air","seconds":9.1,"t":1794673282147}
+{"event":"reflex","detail":"drowning","t":1794673282147}
+{"event":"gene","detail":"learned.gate off: closed","t":1794673283714}
+{"layer":"tactician","gs":3126,"brain":"rules","trigger":"idle","goal":"wood_tools","options":["shore"],"choice":"shore","x":[1.0,0.9,0.0,1.0,1.0,0.891,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.188,0.0,0.0,0.0,0.0,0.063,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.0,0.0,0.0,0.077,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["shore"],"t":1794673283714}
+{"event":"skill_start","skill":"shore","trigger":"idle","t":1794673283714}
+{"event":"skill_end","skill":"shore","ok":false,"code":"TIMEOUT","detail":"timed out after 90 s","seconds":90.05,"t":1794673374248}
+{"event":"gene","detail":"learned.gate off: closed","t":1794673374249}
+{"layer":"tactician","gs":3216,"brain":"rules","trigger":"skill_failed","goal":"wood_tools","options":["explore any"],"choice":"explore any","x":[1.0,0.9,0.0,1.0,1.0,0.906,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.188,0.0,0.0,0.0,0.0,0.063,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.0,0.0,0.0,0.077,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1794673374249}
+{"event":"skill_start","skill":"explore any","trigger":"skill_failed","t":1794673374249}
+{"event":"skill_end","skill":"explore any","ok":true,"detail":"open water ahead; find shore","seconds":34.0,"t":1794673408564}
+{"event":"gene","detail":"learned.gate off: closed","t":1794673408565}
+{"layer":"tactician","gs":3250,"brain":"rules","trigger":"skill_done","goal":"wood_tools","options":["explore any"],"choice":"explore any","x":[1.0,0.9,0.0,1.0,1.0,0.906,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.188,0.0,0.0,0.0,0.0,0.063,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.0,0.0,0.0,0.077,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1794673408565}
+{"event":"skill_start","skill":"explore any","trigger":"skill_done","t":1794673408565}
+{"event":"skill_end","skill":"explore any","ok":true,"detail":"open water ahead; find shore","seconds":37.5,"t":1794673446315}
+{"event":"gene","detail":"learned.gate off: closed","t":1794673446316}
+{"layer":"tactician","gs":3288,"brain":"rules","trigger":"skill_done","goal":"wood_tools","options":["shore"],"choice":"shore","x":[1.0,0.9,0.0,1.0,1.0,0.906,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.188,0.0,0.0,0.0,0.0,0.063,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.0,0.0,0.0,0.077,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["shore"],"t":1794673446317}
+{"event":"skill_start","skill":"shore","trigger":"skill_done","t":1794673446317}
+{"event":"skill_end","skill":"shore","ok":false,"code":"INTERRUPTED","detail":"running out of air","seconds":9.95,"t":1794673456253}
+{"event":"reflex","detail":"drowning","t":1794673456253}
+{"event":"gene","detail":"learned.gate off: closed","t":1794673457747}
+{"layer":"tactician","gs":3299,"brain":"rules","trigger":"idle","goal":"wood_tools","options":["shore"],"choice":"shore","x":[1.0,0.9,0.0,1.0,1.0,0.891,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.188,0.0,0.0,0.0,0.0,0.063,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.0,0.0,0.0,0.077,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["shore"],"t":1794673457748}
+{"event":"skill_start","skill":"shore","trigger":"idle","t":1794673457748}
+{"event":"skill_end","skill":"shore","ok":false,"code":"INTERRUPTED","detail":"running out of air","seconds":9.2,"t":1794673467031}
+{"event":"reflex","detail":"drowning","t":1794673467031}
+{"event":"gene","detail":"learned.gate off: closed","t":1794673468514}
+{"layer":"tactician","gs":3310,"brain":"rules","trigger":"idle","goal":"wood_tools","options":["shore"],"choice":"shore","x":[1.0,0.9,0.0,1.0,1.0,0.891,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.188,0.0,0.0,0.0,0.0,0.063,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.0,0.0,0.0,0.077,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["shore"],"t":1794673468514}
+{"event":"skill_start","skill":"shore","trigger":"idle","t":1794673468514}
+{"event":"skill_end","skill":"shore","ok":false,"code":"INTERRUPTED","detail":"running out of air","seconds":8.9,"t":1794673477514}
+{"event":"reflex","detail":"drowning","t":1794673477514}
+{"event":"gene","detail":"learned.gate off: closed","t":1794673479009}
+{"layer":"tactician","gs":3320,"brain":"rules","trigger":"idle","goal":"wood_tools","options":["shore"],"choice":"shore","x":[1.0,0.9,0.0,1.0,1.0,0.891,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.188,0.0,0.0,0.0,0.0,0.063,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.0,0.0,0.0,0.077,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["shore"],"t":1794673479009}
+{"event":"skill_start","skill":"shore","trigger":"idle","t":1794673479009}
+{"event":"skill_end","skill":"shore","ok":false,"code":"INTERRUPTED","detail":"running out of air","seconds":9.0,"t":1794673487998}
+{"event":"reflex","detail":"drowning","t":1794673487998}
+{"event":"gene","detail":"learned.gate off: closed","t":1794673489516}
+{"layer":"tactician","gs":3331,"brain":"rules","trigger":"idle","goal":"wood_tools","options":["shore"],"choice":"shore","x":[1.0,0.9,0.0,1.0,1.0,0.891,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.188,0.0,0.0,0.0,0.0,0.063,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.0,0.0,0.0,0.077,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["shore"],"t":1794673489516}
+{"event":"skill_start","skill":"shore","trigger":"idle","t":1794673489516}
+{"event":"gene","detail":"plan.place_backoff off: collect log","t":1794673529864}
+{"event":"skill_end","skill":"shore","ok":false,"code":"TIMEOUT","detail":"timed out after 90 s","seconds":90.05,"t":1794673580152}
+{"event":"gene","detail":"learned.gate off: closed","t":1794673580153}
+{"layer":"tactician","gs":3421,"brain":"rules","trigger":"skill_failed","goal":"wood_tools","options":["shore"],"choice":"shore","x":[1.0,0.9,0.0,1.0,1.0,0.906,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.188,0.0,0.0,0.0,0.0,0.063,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.0,0.0,0.0,0.077,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["shore"],"t":1794673580153}
+{"event":"skill_start","skill":"shore","trigger":"skill_failed","t":1794673580153}
+{"event":"skill_end","skill":"shore","ok":false,"code":"TIMEOUT","detail":"timed out after 90 s","seconds":90.05,"t":1794673670943}
+{"event":"gene","detail":"learned.gate off: closed","t":1794673670944}
+{"layer":"tactician","gs":3511,"brain":"rules","trigger":"skill_failed","goal":"wood_tools","options":["explore any"],"choice":"explore any","x":[1.0,0.9,0.0,1.0,1.0,0.906,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.188,0.0,0.0,0.0,0.0,0.063,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.0,0.0,0.0,0.077,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1794673670944}
+{"event":"skill_start","skill":"explore any","trigger":"skill_failed","t":1794673670944}
+{"event":"gene","detail":"plan.place_backoff off: collect log","t":1794673691062}
+{"event":"skill_end","skill":"explore any","ok":true,"detail":"open water ahead; find shore","seconds":38.5,"t":1794673709652}
+{"event":"gene","detail":"learned.gate off: closed","t":1794673709653}
+{"layer":"tactician","gs":3549,"brain":"rules","trigger":"skill_done","goal":"wood_tools","options":["explore any"],"choice":"explore any","x":[1.0,0.9,0.0,1.0,1.0,0.906,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.188,0.0,0.0,0.0,0.0,0.063,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.0,0.0,0.0,0.077,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1794673709653}
+{"event":"skill_start","skill":"explore any","trigger":"skill_done","t":1794673709653}
+{"event":"skill_end","skill":"explore any","ok":true,"detail":"open water ahead; find shore","seconds":35.0,"t":1794673744863}
+{"event":"gene","detail":"learned.gate off: closed","t":1794673744864}
+{"layer":"tactician","gs":3584,"brain":"rules","trigger":"skill_done","goal":"wood_tools","options":["shore"],"choice":"shore","x":[1.0,0.9,0.0,1.0,1.0,0.891,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.188,0.0,0.0,0.0,0.0,0.063,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.0,0.0,0.0,0.077,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["shore"],"t":1794673744864}
+{"event":"skill_start","skill":"shore","trigger":"skill_done","t":1794673744864}
+{"event":"stuck","detail":"shore at -738, 57, 213 in water","t":1794673754699}
+{"event":"skill_end","skill":"shore","ok":false,"code":"STUCK","detail":"stuck: stayed inside 2.0 blocks for 12 s","seconds":9.85,"t":1794673754699}
+{"event":"skill_start","skill":"unstuck","trigger":"reflex_stuck","t":1794673754699}
+{"event":"skill_end","skill":"unstuck","ok":true,"detail":"got out (swim)","seconds":0.85,"t":1794673755612}
+{"event":"gene","detail":"learned.gate off: closed","t":1794673755613}
+{"layer":"tactician","gs":3595,"brain":"rules","trigger":"skill_done","goal":"wood_tools","options":["collect log:3","shelter","explore log"],"choice":"collect log:3","x":[1.0,0.9,0.0,1.0,1.0,0.922,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.188,0.0,0.0,0.0,0.0,0.063,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.0,0.0,0.0,0.077,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1794673755613}
+{"event":"skill_start","skill":"collect log:3","trigger":"skill_done","t":1794673755614}
+{"event":"skill_end","skill":"collect log:3","ok":false,"code":"NOT_FOUND","detail":"no log seen nearby","seconds":3.05,"t":1794673758651}
+{"layer":"tactician","gs":3598,"brain":"rules","trigger":"skill_failed","goal":"wood_tools","options":["shore"],"choice":"shore","x":[1.0,0.9,0.0,1.0,1.0,0.891,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.188,0.0,0.0,0.0,0.0,0.063,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.0,0.0,0.0,0.077,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["shore"],"t":1794673758651}
+{"event":"skill_start","skill":"shore","trigger":"skill_failed","t":1794673758651}
+{"event":"skill_end","skill":"shore","ok":false,"code":"INTERRUPTED","detail":"running out of air","seconds":2.95,"t":1794673761611}
+{"event":"reflex","detail":"drowning","t":1794673761611}
+{"layer":"tactician","gs":3602,"brain":"rules","trigger":"idle","goal":"wood_tools","options":["shore"],"choice":"shore","x":[1.0,0.9,0.0,0.0,1.0,0.891,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.188,0.0,0.0,0.0,0.0,0.063,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.0,0.0,0.0,0.077,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["shore"],"t":1794673763092}
+{"event":"skill_start","skill":"shore","trigger":"idle","t":1794673763092}
+{"event":"skill_end","skill":"shore","ok":false,"code":"INTERRUPTED","detail":"running out of air","seconds":9.7,"t":1794673772900}
+{"event":"reflex","detail":"drowning","t":1794673772900}
+{"event":"gene","detail":"learned.gate off: closed","t":1794673774403}
+{"layer":"tactician","gs":3614,"brain":"rules","trigger":"idle","goal":"wood_tools","options":["shore"],"choice":"shore","x":[1.0,0.9,0.0,0.0,1.0,0.891,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.188,0.0,0.0,0.0,0.0,0.063,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.0,0.0,0.0,0.077,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["shore"],"t":1794673774403}
+{"event":"skill_start","skill":"shore","trigger":"idle","t":1794673774403}
+{"event":"skill_end","skill":"shore","ok":false,"code":"TIMEOUT","detail":"timed out after 90 s","seconds":90.05,"t":1794673864851}
+{"event":"gene","detail":"learned.gate off: closed","t":1794673864852}
+{"layer":"tactician","gs":3704,"brain":"rules","trigger":"skill_failed","goal":"wood_tools","options":["explore any"],"choice":"explore any","x":[1.0,0.9,0.0,0.0,1.0,0.906,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.188,0.0,0.0,0.0,0.0,0.063,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.0,0.0,0.0,0.077,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1794673864852}
+{"event":"skill_start","skill":"explore any","trigger":"skill_failed","t":1794673864852}
+{"event":"skill_end","skill":"explore any","ok":true,"detail":"open water ahead; find shore","seconds":36.0,"t":1794673901012}
+{"event":"gene","detail":"learned.gate off: closed","t":1794673901012}
+{"layer":"tactician","gs":3740,"brain":"rules","trigger":"skill_done","goal":"wood_tools","options":["explore any"],"choice":"explore any","x":[1.0,0.9,0.0,0.0,1.0,0.891,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.188,0.0,0.0,0.0,0.0,0.063,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.0,0.0,0.0,0.077,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1794673901012}
+{"event":"skill_start","skill":"explore any","trigger":"skill_done","t":1794673901013}
+{"event":"skill_end","skill":"explore any","ok":true,"detail":"open water ahead; find shore","seconds":34.5,"t":1794673935708}
+{"event":"gene","detail":"learned.gate off: closed","t":1794673935709}
+{"layer":"tactician","gs":3774,"brain":"rules","trigger":"skill_done","goal":"wood_tools","options":["shore"],"choice":"shore","x":[1.0,0.9,0.0,0.0,1.0,0.891,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.188,0.0,0.0,0.0,0.0,0.063,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.0,0.0,0.0,0.077,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["shore"],"t":1794673935709}
+{"event":"skill_start","skill":"shore","trigger":"skill_done","t":1794673935709}
+{"event":"stuck","detail":"shore at -738, 57, 213 in water","t":1794673945710}
+{"event":"skill_end","skill":"shore","ok":false,"code":"STUCK","detail":"stuck: stayed inside 2.0 blocks for 12 s","seconds":9.9,"t":1794673945711}
+{"event":"skill_start","skill":"unstuck","trigger":"reflex_stuck","t":1794673945711}
+{"event":"skill_end","skill":"unstuck","ok":true,"detail":"got out (swim)","seconds":0.85,"t":1794673946548}
+{"event":"gene","detail":"learned.gate off: closed","t":1794673946548}
+{"layer":"tactician","gs":3785,"brain":"rules","trigger":"skill_done","goal":"wood_tools","options":["collect log:3","explore log"],"choice":"collect log:3","x":[1.0,0.9,0.0,0.0,1.0,0.922,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.188,0.0,0.0,0.0,0.0,0.063,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.0,0.0,0.0,0.077,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1794673946549}
+{"event":"skill_start","skill":"collect log:3","trigger":"skill_done","t":1794673946549}
+{"event":"skill_end","skill":"collect log:3","ok":false,"code":"NOT_FOUND","detail":"no log seen nearby","seconds":3.05,"t":1794673949611}
+{"layer":"tactician","gs":3788,"brain":"rules","trigger":"skill_failed","goal":"wood_tools","options":["shore"],"choice":"shore","x":[1.0,0.9,0.0,0.0,1.0,0.891,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.188,0.0,0.0,0.0,0.0,0.063,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.0,0.0,0.0,0.077,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["shore"],"t":1794673949611}
+{"event":"skill_start","skill":"shore","trigger":"skill_failed","t":1794673949612}
+{"event":"skill_end","skill":"shore","ok":false,"code":"INTERRUPTED","detail":"running out of air","seconds":3.25,"t":1794673952861}
+{"event":"reflex","detail":"drowning","t":1794673952861}
+{"layer":"tactician","gs":3793,"brain":"rules","trigger":"idle","goal":"wood_tools","options":["shore"],"choice":"shore","x":[1.0,0.9,0.0,0.0,1.0,0.891,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.188,0.0,0.0,0.0,0.0,0.063,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.0,0.0,0.0,0.077,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["shore"],"t":1794673954356}
+{"event":"skill_start","skill":"shore","trigger":"idle","t":1794673954356}
+{"event":"skill_end","skill":"shore","ok":false,"code":"INTERRUPTED","detail":"running out of air","seconds":9.2,"t":1794673963641}
+{"event":"reflex","detail":"drowning","t":1794673963642}
+{"event":"gene","detail":"learned.gate off: closed","t":1794673965154}
+{"layer":"tactician","gs":3803,"brain":"rules","trigger":"idle","goal":"wood_tools","options":["shore"],"choice":"shore","x":[1.0,0.9,0.0,0.0,1.0,0.891,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.188,0.0,0.0,0.0,0.0,0.063,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.0,0.0,0.0,0.077,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["shore"],"t":1794673965154}
+{"event":"skill_start","skill":"shore","trigger":"idle","t":1794673965154}
+{"event":"skill_end","skill":"shore","ok":false,"code":"TIMEOUT","detail":"timed out after 90 s","seconds":90.05,"t":1794674055460}
+{"event":"gene","detail":"learned.gate off: closed","t":1794674055461}
+{"layer":"tactician","gs":3893,"brain":"rules","trigger":"skill_failed","goal":"wood_tools","options":["explore any"],"choice":"explore any","x":[1.0,0.9,0.0,0.0,1.0,0.906,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.188,0.0,0.0,0.0,0.0,0.063,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.0,0.0,0.0,0.077,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1794674055461}
+{"event":"skill_start","skill":"explore any","trigger":"skill_failed","t":1794674055461}
+{"event":"skill_end","skill":"explore any","ok":true,"detail":"open water ahead; find shore","seconds":39.0,"t":1794674094738}
+{"event":"gene","detail":"learned.gate off: closed","t":1794674094739}
+{"layer":"tactician","gs":3932,"brain":"rules","trigger":"skill_done","goal":"wood_tools","options":["explore any"],"choice":"explore any","x":[1.0,0.9,0.0,0.0,1.0,0.891,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.188,0.0,0.0,0.0,0.0,0.063,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.0,0.0,0.0,0.077,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1794674094739}
+{"event":"skill_start","skill":"explore any","trigger":"skill_done","t":1794674094739}
+{"event":"gene","detail":"plan.place_backoff off: collect log","t":1794674114796}
+{"event":"gene","detail":"learned.gate off: closed","t":1794674134997}
+{"layer":"tactician","gs":3973,"brain":"rules","trigger":"heartbeat","goal":"wood_tools","options":["shore"],"choice":"shore","x":[1.0,0.9,0.0,0.0,1.0,0.906,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.188,0.0,0.0,0.0,0.0,0.063,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.0,0.0,0.0,0.077,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["shore"],"t":1794674134997}
+{"event":"skill_end","skill":"explore any","ok":false,"code":"INTERRUPTED","detail":"interrupted: brain chose shore","seconds":40.1,"t":1794674134997}
+{"event":"skill_start","skill":"shore","trigger":"heartbeat","t":1794674134997}
+{"event":"stuck","detail":"shore at -738, 57, 213 in water","t":1794674144487}
+{"event":"skill_end","skill":"shore","ok":false,"code":"STUCK","detail":"stuck: stayed inside 2.0 blocks for 12 s","seconds":9.5,"t":1794674144487}
+{"event":"skill_start","skill":"unstuck","trigger":"reflex_stuck","t":1794674144487}
+{"event":"skill_end","skill":"unstuck","ok":true,"detail":"got out (swim)","seconds":0.85,"t":1794674145358}
+{"event":"gene","detail":"plan.place_backoff off: collect log","t":1794674145359}
+{"event":"gene","detail":"learned.gate off: closed","t":1794674145359}
+{"layer":"tactician","gs":3983,"brain":"rules","trigger":"skill_done","goal":"wood_tools","options":["collect log:3","explore log"],"choice":"collect log:3","x":[1.0,0.9,0.0,0.0,1.0,0.922,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.188,0.0,0.0,0.0,0.0,0.063,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.0,0.0,0.0,0.077,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1794674145359}
+{"event":"skill_start","skill":"collect log:3","trigger":"skill_done","t":1794674145360}
+{"event":"skill_end","skill":"collect log:3","ok":false,"code":"NOT_FOUND","detail":"no log seen nearby","seconds":3.05,"t":1794674148389}
+{"layer":"tactician","gs":3986,"brain":"rules","trigger":"skill_failed","goal":"wood_tools","options":["shore"],"choice":"shore","x":[1.0,0.9,0.0,0.0,1.0,0.891,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.188,0.0,0.0,0.0,0.0,0.063,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.0,0.0,0.0,0.077,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["shore"],"t":1794674148389}
+{"event":"skill_start","skill":"shore","trigger":"skill_failed","t":1794674148390}
+{"event":"skill_end","skill":"shore","ok":false,"code":"INTERRUPTED","detail":"running out of air","seconds":2.65,"t":1794674151095}
+{"event":"reflex","detail":"drowning","t":1794674151096}
+{"layer":"tactician","gs":3990,"brain":"rules","trigger":"idle","goal":"wood_tools","options":["shore"],"choice":"shore","x":[1.0,0.9,0.0,0.0,1.0,0.891,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.188,0.0,0.0,0.0,0.0,0.063,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.0,0.0,0.0,0.077,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["shore"],"t":1794674152599}
+{"event":"skill_start","skill":"shore","trigger":"idle","t":1794674152600}
+{"event":"skill_end","skill":"shore","ok":false,"code":"INTERRUPTED","detail":"running out of air","seconds":8.7,"t":1794674161384}
+{"event":"reflex","detail":"drowning","t":1794674161385}
+{"event":"gene","detail":"learned.gate off: closed","t":1794674162850}
+{"layer":"tactician","gs":4000,"brain":"rules","trigger":"idle","goal":"wood_tools","options":["shore"],"choice":"shore","x":[1.0,0.9,0.0,0.0,1.0,0.891,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.188,0.0,0.0,0.0,0.0,0.063,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.0,0.0,0.0,0.077,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["shore"],"t":1794674162850}
+{"event":"skill_start","skill":"shore","trigger":"idle","t":1794674162850}
+{"event":"skill_end","skill":"shore","ok":false,"code":"INTERRUPTED","detail":"running out of air","seconds":9.45,"t":1794674172337}
+{"event":"reflex","detail":"drowning","t":1794674172337}
+{"event":"gene","detail":"learned.gate off: closed","t":1794674173848}
+{"layer":"tactician","gs":4011,"brain":"rules","trigger":"idle","goal":"wood_tools","options":["shore"],"choice":"shore","x":[1.0,0.9,0.0,0.0,1.0,0.891,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.188,0.0,0.0,0.0,0.0,0.063,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.0,0.0,0.0,0.077,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["shore"],"t":1794674173848}
+{"event":"skill_start","skill":"shore","trigger":"idle","t":1794674173848}
+{"event":"gene","detail":"plan.place_backoff off: collect log","t":1794674214184}
+{"event":"skill_end","skill":"shore","ok":false,"code":"TIMEOUT","detail":"timed out after 90 s","seconds":90.05,"t":1794674264345}
+{"event":"gene","detail":"learned.gate off: closed","t":1794674264347}
+{"layer":"tactician","gs":4101,"brain":"rules","trigger":"skill_failed","goal":"wood_tools","options":["explore any"],"choice":"explore any","x":[1.0,0.9,0.0,0.0,1.0,0.906,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.188,0.0,0.0,0.0,0.0,0.063,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.0,0.0,0.0,0.077,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1794674264347}
+{"event":"skill_start","skill":"explore any","trigger":"skill_failed","t":1794674264347}
+{"event":"skill_end","skill":"explore any","ok":true,"detail":"open water ahead; find shore","seconds":40.5,"t":1794674305405}
+{"event":"gene","detail":"learned.gate off: closed","t":1794674305405}
+{"layer":"tactician","gs":4142,"brain":"rules","trigger":"skill_done","goal":"wood_tools","options":["explore any"],"choice":"explore any","x":[1.0,0.9,0.0,0.0,1.0,0.906,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.188,0.0,0.0,0.0,0.0,0.063,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.0,0.0,0.0,0.077,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1794674305406}
+{"event":"skill_start","skill":"explore any","trigger":"skill_done","t":1794674305406}
+{"event":"gene","detail":"plan.place_backoff off: collect log","t":1794674325605}
+{"event":"skill_end","skill":"explore any","ok":true,"detail":"open water ahead; find shore","seconds":36.0,"t":1794674341679}
+{"event":"gene","detail":"learned.gate off: closed","t":1794674341680}
+{"layer":"tactician","gs":4178,"brain":"rules","trigger":"skill_done","goal":"wood_tools","options":["shore"],"choice":"shore","x":[1.0,0.9,0.0,0.0,1.0,0.906,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.188,0.0,0.0,0.0,0.0,0.063,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.0,0.0,0.0,0.077,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["shore"],"t":1794674341680}
+{"event":"skill_start","skill":"shore","trigger":"skill_done","t":1794674341680}
+{"event":"skill_end","skill":"shore","ok":false,"code":"INTERRUPTED","detail":"running out of air","seconds":10.0,"t":1794674351693}
+{"event":"reflex","detail":"drowning","t":1794674351693}
+{"event":"gene","detail":"learned.gate off: closed","t":1794674353194}
+{"layer":"tactician","gs":4189,"brain":"rules","trigger":"idle","goal":"wood_tools","options":["shore"],"choice":"shore","x":[1.0,0.9,0.0,0.0,1.0,0.891,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.188,0.0,0.0,0.0,0.0,0.063,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.0,0.0,0.0,0.077,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["shore"],"t":1794674353194}
+{"event":"skill_start","skill":"shore","trigger":"idle","t":1794674353195}
+{"event":"skill_end","skill":"shore","ok":false,"code":"INTERRUPTED","detail":"running out of air","seconds":9.2,"t":1794674362438}
+{"event":"reflex","detail":"drowning","t":1794674362438}
+{"event":"gene","detail":"learned.gate off: closed","t":1794674363997}
+{"layer":"tactician","gs":4200,"brain":"rules","trigger":"idle","goal":"wood_tools","options":["shore"],"choice":"shore","x":[1.0,0.9,0.0,0.0,1.0,0.891,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.188,0.0,0.0,0.0,0.0,0.063,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.0,0.0,0.0,0.077,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["shore"],"t":1794674363998}
+{"event":"skill_start","skill":"shore","trigger":"idle","t":1794674363998}
+{"event":"skill_end","skill":"shore","ok":false,"code":"INTERRUPTED","detail":"running out of air","seconds":9.3,"t":1794674373443}
+{"event":"reflex","detail":"drowning","t":1794674373444}
+{"event":"gene","detail":"learned.gate off: closed","t":1794674374955}
+{"layer":"tactician","gs":4211,"brain":"rules","trigger":"idle","goal":"wood_tools","options":["shore"],"choice":"shore","x":[1.0,0.9,0.0,0.0,1.0,0.891,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.188,0.0,0.0,0.0,0.0,0.063,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.0,0.0,0.0,0.077,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["shore"],"t":1794674374956}
+{"event":"skill_start","skill":"shore","trigger":"idle","t":1794674374956}
+{"event":"skill_end","skill":"shore","ok":false,"code":"INTERRUPTED","detail":"running out of air","seconds":9.15,"t":1794674384196}
+{"event":"reflex","detail":"drowning","t":1794674384196}
+{"event":"gene","detail":"learned.gate off: closed","t":1794674385690}
+{"layer":"tactician","gs":4221,"brain":"rules","trigger":"idle","goal":"wood_tools","options":["shore"],"choice":"shore","x":[1.0,0.9,0.0,0.0,1.0,0.891,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.188,0.0,0.0,0.0,0.0,0.063,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.0,0.0,0.0,0.077,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["shore"],"t":1794674385690}
+{"event":"skill_start","skill":"shore","trigger":"idle","t":1794674385690}
+{"event":"gene","detail":"plan.place_backoff off: collect log","t":1794674426055}
+{"event":"skill_end","skill":"shore","ok":false,"code":"TIMEOUT","detail":"timed out after 90 s","seconds":90.05,"t":1794674476147}
+{"event":"gene","detail":"learned.gate off: closed","t":1794674476148}
+{"layer":"tactician","gs":4312,"brain":"rules","trigger":"skill_failed","goal":"wood_tools","options":["shore"],"choice":"shore","x":[1.0,0.9,0.0,1.0,1.0,0.906,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.188,0.0,0.0,0.0,0.0,0.063,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.0,0.0,0.0,0.077,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["shore"],"t":1794674476148}
+{"event":"skill_start","skill":"shore","trigger":"skill_failed","t":1794674476148}
+{"event":"skill_end","skill":"shore","ok":false,"code":"TIMEOUT","detail":"timed out after 90 s","seconds":90.05,"t":1794674566991}
+{"event":"gene","detail":"learned.gate off: closed","t":1794674566991}
+{"layer":"tactician","gs":4402,"brain":"rules","trigger":"skill_failed","goal":"wood_tools","options":["explore any"],"choice":"explore any","x":[1.0,0.9,0.0,1.0,1.0,0.906,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.188,0.0,0.0,0.0,0.0,0.063,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.0,0.0,0.0,0.077,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1794674566991}
+{"event":"skill_start","skill":"explore any","trigger":"skill_failed","t":1794674566991}
+{"event":"skill_end","skill":"explore any","ok":true,"detail":"open water ahead; find shore","seconds":37.0,"t":1794674604240}
+{"event":"gene","detail":"learned.gate off: closed","t":1794674604241}
+{"layer":"tactician","gs":4439,"brain":"rules","trigger":"skill_done","goal":"wood_tools","options":["explore any"],"choice":"explore any","x":[1.0,0.85,0.0,1.0,1.0,0.906,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.188,0.0,0.0,0.0,0.0,0.063,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.0,0.0,0.0,0.077,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1794674604241}
+{"event":"skill_start","skill":"explore any","trigger":"skill_done","t":1794674604241}
+{"event":"skill_end","skill":"explore any","ok":true,"detail":"open water ahead; find shore","seconds":37.5,"t":1794674641990}
+{"event":"gene","detail":"learned.gate off: closed","t":1794674641990}
+{"layer":"tactician","gs":4476,"brain":"rules","trigger":"skill_done","goal":"wood_tools","options":["shore"],"choice":"shore","x":[1.0,0.85,0.0,1.0,1.0,0.906,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.188,0.0,0.0,0.0,0.0,0.063,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.0,0.0,0.0,0.077,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["shore"],"t":1794674641991}
+{"event":"skill_start","skill":"shore","trigger":"skill_done","t":1794674641991}
+{"event":"skill_end","skill":"shore","ok":false,"code":"INTERRUPTED","detail":"running out of air","seconds":9.8,"t":1794674651888}
+{"event":"reflex","detail":"drowning","t":1794674651888}
+{"event":"gene","detail":"learned.gate off: closed","t":1794674653396}
+{"layer":"tactician","gs":4487,"brain":"rules","trigger":"idle","goal":"wood_tools","options":["shore"],"choice":"shore","x":[1.0,0.85,0.0,1.0,1.0,0.891,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.188,0.0,0.0,0.0,0.0,0.063,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.0,0.0,0.0,0.077,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["shore"],"t":1794674653397}
+{"event":"skill_start","skill":"shore","trigger":"idle","t":1794674653397}
+{"event":"skill_end","skill":"shore","ok":false,"code":"INTERRUPTED","detail":"running out of air","seconds":8.95,"t":1794674662402}
+{"event":"reflex","detail":"drowning","t":1794674662402}
+{"event":"gene","detail":"learned.gate off: closed","t":1794674663882}
+{"layer":"tactician","gs":4498,"brain":"rules","trigger":"idle","goal":"wood_tools","options":["shore"],"choice":"shore","x":[1.0,0.85,0.0,1.0,1.0,0.891,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.188,0.0,0.0,0.0,0.0,0.063,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.0,0.0,0.0,0.077,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["shore"],"t":1794674663883}
+{"event":"skill_start","skill":"shore","trigger":"idle","t":1794674663883}
+{"event":"skill_end","skill":"shore","ok":false,"code":"INTERRUPTED","detail":"running out of air","seconds":8.9,"t":1794674672884}
+{"event":"reflex","detail":"drowning","t":1794674672884}
+{"event":"gene","detail":"learned.gate off: closed","t":1794674674400}
+{"layer":"tactician","gs":4508,"brain":"rules","trigger":"idle","goal":"wood_tools","options":["shore"],"choice":"shore","x":[1.0,0.85,0.0,1.0,1.0,0.891,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.188,0.0,0.0,0.0,0.0,0.063,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.0,0.0,0.0,0.077,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["shore"],"t":1794674674401}
+{"event":"skill_start","skill":"shore","trigger":"idle","t":1794674674401}
+{"event":"skill_end","skill":"shore","ok":false,"code":"INTERRUPTED","detail":"running out of air","seconds":8.65,"t":1794674683141}
+{"event":"reflex","detail":"drowning","t":1794674683141}
+{"event":"gene","detail":"learned.gate off: closed","t":1794674684631}
+{"layer":"tactician","gs":4518,"brain":"rules","trigger":"idle","goal":"wood_tools","options":["shore"],"choice":"shore","x":[1.0,0.85,0.0,1.0,1.0,0.891,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.188,0.0,0.0,0.0,0.0,0.063,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.0,0.0,0.0,0.077,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["shore"],"t":1794674684631}
+{"event":"skill_start","skill":"shore","trigger":"idle","t":1794674684631}
+{"event":"skill_end","skill":"shore","ok":false,"code":"TIMEOUT","detail":"timed out after 90 s","seconds":90.05,"t":1794674775145}
+{"event":"gene","detail":"learned.gate off: closed","t":1794674775146}
+{"layer":"tactician","gs":4608,"brain":"rules","trigger":"skill_failed","goal":"wood_tools","options":["shore"],"choice":"shore","x":[1.0,0.85,0.0,1.0,1.0,0.906,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.188,0.0,0.0,0.0,0.0,0.063,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.0,0.0,0.0,0.077,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["shore"],"t":1794674775146}
+{"event":"skill_start","skill":"shore","trigger":"skill_failed","t":1794674775147}
+{"event":"skill_end","skill":"shore","ok":false,"code":"TIMEOUT","detail":"timed out after 90 s","seconds":90.05,"t":1794674865643}
+{"event":"gene","detail":"learned.gate off: closed","t":1794674865644}
+{"layer":"tactician","gs":4698,"brain":"rules","trigger":"skill_failed","goal":"wood_tools","options":["explore any"],"choice":"explore any","x":[1.0,0.85,0.0,1.0,1.0,0.906,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.188,0.0,0.0,0.0,0.0,0.063,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.0,0.0,0.0,0.077,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1794674865644}
+{"event":"skill_start","skill":"explore any","trigger":"skill_failed","t":1794674865644}
+{"event":"skill_end","skill":"explore any","ok":true,"detail":"open water ahead; find shore","seconds":37.5,"t":1794674903383}
+{"event":"gene","detail":"learned.gate off: closed","t":1794674903384}
+{"layer":"tactician","gs":4736,"brain":"rules","trigger":"skill_done","goal":"wood_tools","options":["explore any"],"choice":"explore any","x":[1.0,0.85,0.0,1.0,1.0,0.891,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.188,0.0,0.0,0.0,0.0,0.063,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.0,0.0,0.0,0.077,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1794674903384}
+{"event":"skill_start","skill":"explore any","trigger":"skill_done","t":1794674903384}
+{"event":"skill_end","skill":"explore any","ok":true,"detail":"open water ahead; find shore","seconds":36.0,"t":1794674939534}
+{"event":"gene","detail":"learned.gate off: closed","t":1794674939535}
+{"layer":"tactician","gs":4772,"brain":"rules","trigger":"skill_done","goal":"wood_tools","options":["shore"],"choice":"shore","x":[1.0,0.85,0.0,1.0,1.0,0.891,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.188,0.0,0.0,0.0,0.0,0.063,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.0,0.0,0.0,0.077,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["shore"],"t":1794674939535}
+{"event":"skill_start","skill":"shore","trigger":"skill_done","t":1794674939536}
+{"event":"skill_end","skill":"shore","ok":false,"code":"INTERRUPTED","detail":"running out of air","seconds":9.2,"t":1794674948890}
+{"event":"reflex","detail":"drowning","t":1794674948890}
+{"event":"gene","detail":"learned.gate off: closed","t":1794674950381}
+{"layer":"tactician","gs":4783,"brain":"rules","trigger":"idle","goal":"wood_tools","options":["shore"],"choice":"shore","x":[1.0,0.85,0.0,1.0,1.0,0.891,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.188,0.0,0.0,0.0,0.0,0.063,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.0,0.0,0.0,0.077,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["shore"],"t":1794674950381}
+{"event":"skill_start","skill":"shore","trigger":"idle","t":1794674950381}
+{"event":"skill_end","skill":"shore","ok":false,"code":"INTERRUPTED","detail":"running out of air","seconds":9.3,"t":1794674959885}
+{"event":"reflex","detail":"drowning","t":1794674959886}
+{"event":"gene","detail":"learned.gate off: closed","t":1794674961386}
+{"layer":"tactician","gs":4793,"brain":"rules","trigger":"idle","goal":"wood_tools","options":["shore"],"choice":"shore","x":[1.0,0.85,0.0,0.0,1.0,0.891,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.188,0.0,0.0,0.0,0.0,0.063,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.0,0.0,0.0,0.077,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["shore"],"t":1794674961386}
+{"event":"skill_start","skill":"shore","trigger":"idle","t":1794674961386}
+{"event":"skill_end","skill":"shore","ok":false,"code":"INTERRUPTED","detail":"running out of air","seconds":8.6,"t":1794674970138}
+{"event":"reflex","detail":"drowning","t":1794674970138}
+{"event":"gene","detail":"learned.gate off: closed","t":1794674971633}
+{"layer":"tactician","gs":4804,"brain":"rules","trigger":"idle","goal":"wood_tools","options":["shore"],"choice":"shore","x":[1.0,0.85,0.0,0.0,1.0,0.891,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.188,0.0,0.0,0.0,0.0,0.063,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.0,0.0,0.0,0.077,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["shore"],"t":1794674971633}
+{"event":"skill_start","skill":"shore","trigger":"idle","t":1794674971633}
+{"event":"skill_end","skill":"shore","ok":false,"code":"TIMEOUT","detail":"timed out after 90 s","seconds":90.05,"t":1794675061991}
+{"event":"gene","detail":"learned.gate off: closed","t":1794675061992}
+{"layer":"tactician","gs":4894,"brain":"rules","trigger":"skill_failed","goal":"wood_tools","options":["shore"],"choice":"shore","x":[1.0,0.85,0.0,0.0,1.0,0.906,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.188,0.0,0.0,0.0,0.0,0.063,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.0,0.0,0.0,0.077,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["shore"],"t":1794675061992}
+{"event":"skill_start","skill":"shore","trigger":"skill_failed","t":1794675061992}
+{"event":"skill_end","skill":"shore","ok":false,"code":"TIMEOUT","detail":"timed out after 90 s","seconds":90.05,"t":1794675152793}
+{"event":"gene","detail":"learned.gate off: closed","t":1794675152794}
+{"layer":"tactician","gs":4984,"brain":"rules","trigger":"skill_failed","goal":"wood_tools","options":["explore any"],"choice":"explore any","x":[1.0,0.85,0.0,0.0,1.0,0.891,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.188,0.0,0.0,0.0,0.0,0.063,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.0,0.0,0.0,0.077,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1794675152794}
+{"event":"skill_start","skill":"explore any","trigger":"skill_failed","t":1794675152794}
+{"event":"skill_end","skill":"explore any","ok":true,"detail":"open water ahead; find shore","seconds":41.5,"t":1794675194436}
+{"event":"gene","detail":"learned.gate off: closed","t":1794675194436}
+{"layer":"tactician","gs":5025,"brain":"rules","trigger":"skill_done","goal":"wood_tools","options":["explore any"],"choice":"explore any","x":[1.0,0.85,0.0,0.0,1.0,0.906,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.188,0.0,0.0,0.0,0.0,0.063,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.0,0.0,0.0,0.077,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1794675194436}
+{"event":"skill_start","skill":"explore any","trigger":"skill_done","t":1794675194437}
+{"event":"gene","detail":"learned.gate off: closed","t":1794675214636}
+{"layer":"tactician","gs":5045,"brain":"rules","trigger":"heartbeat","goal":"wood_tools","options":["shore"],"choice":"shore","x":[1.0,0.85,0.0,0.0,1.0,0.891,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.188,0.0,0.0,0.0,0.0,0.063,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.0,0.0,0.0,0.077,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["shore"],"t":1794675214637}
+{"event":"skill_end","skill":"explore any","ok":false,"code":"INTERRUPTED","detail":"interrupted: brain chose shore","seconds":20.05,"t":1794675214637}
+{"event":"skill_start","skill":"shore","trigger":"heartbeat","t":1794675214637}
+{"event":"skill_end","skill":"shore","ok":false,"code":"INTERRUPTED","detail":"running out of air","seconds":9.4,"t":1794675224075}
+{"event":"reflex","detail":"drowning","t":1794675224075}
+{"event":"gene","detail":"learned.gate off: closed","t":1794675225545}
+{"layer":"tactician","gs":5056,"brain":"rules","trigger":"idle","goal":"wood_tools","options":["shore"],"choice":"shore","x":[1.0,0.85,0.0,0.0,1.0,0.891,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.188,0.0,0.0,0.0,0.0,0.063,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.0,0.0,0.0,0.077,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["shore"],"t":1794675225545}
+{"event":"skill_start","skill":"shore","trigger":"idle","t":1794675225545}
+{"event":"skill_end","skill":"shore","ok":false,"code":"INTERRUPTED","detail":"running out of air","seconds":9.35,"t":1794675235030}
+{"event":"reflex","detail":"drowning","t":1794675235030}
+{"event":"gene","detail":"learned.gate off: closed","t":1794675236538}
+{"layer":"tactician","gs":5067,"brain":"rules","trigger":"idle","goal":"wood_tools","options":["shore"],"choice":"shore","x":[1.0,0.85,0.0,0.0,1.0,0.891,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.188,0.0,0.0,0.0,0.0,0.063,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.0,0.0,0.0,0.077,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["shore"],"t":1794675236538}
+{"event":"skill_start","skill":"shore","trigger":"idle","t":1794675236538}
+{"event":"skill_end","skill":"shore","ok":false,"code":"INTERRUPTED","detail":"running out of air","seconds":8.8,"t":1794675245491}
+{"event":"reflex","detail":"drowning","t":1794675245492}
+{"event":"gene","detail":"learned.gate off: closed","t":1794675246983}
+{"layer":"tactician","gs":5077,"brain":"rules","trigger":"idle","goal":"wood_tools","options":["shore"],"choice":"shore","x":[1.0,0.85,0.0,0.0,1.0,0.891,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.188,0.0,0.0,0.0,0.0,0.063,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.0,0.0,0.0,0.077,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["shore"],"t":1794675246983}
+{"event":"skill_start","skill":"shore","trigger":"idle","t":1794675246983}
+{"event":"skill_end","skill":"shore","ok":false,"code":"TIMEOUT","detail":"timed out after 90 s","seconds":90.05,"t":1794675337327}
+{"event":"gene","detail":"learned.gate off: closed","t":1794675337328}
+{"layer":"tactician","gs":5167,"brain":"rules","trigger":"skill_failed","goal":"wood_tools","options":["shore"],"choice":"shore","x":[1.0,0.85,0.0,0.0,1.0,0.906,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.188,0.0,0.0,0.0,0.0,0.063,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.0,0.0,0.0,0.077,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["shore"],"t":1794675337328}
+{"event":"skill_start","skill":"shore","trigger":"skill_failed","t":1794675337329}
+{"event":"skill_end","skill":"shore","ok":false,"code":"TIMEOUT","detail":"timed out after 90 s","seconds":90.05,"t":1794675427936}
+{"event":"gene","detail":"learned.gate off: closed","t":1794675427937}
+{"layer":"tactician","gs":5257,"brain":"rules","trigger":"skill_failed","goal":"wood_tools","options":["explore any"],"choice":"explore any","x":[1.0,0.85,0.0,0.0,1.0,0.906,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.188,0.0,0.0,0.0,0.0,0.063,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.0,0.0,0.0,0.077,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1794675427937}
+{"event":"skill_start","skill":"explore any","trigger":"skill_failed","t":1794675427937}
+{"event":"skill_end","skill":"explore any","ok":true,"detail":"open water ahead; find shore","seconds":37.0,"t":1794675465033}
+{"event":"gene","detail":"learned.gate off: closed","t":1794675465034}
+{"layer":"tactician","gs":5294,"brain":"rules","trigger":"skill_done","goal":"wood_tools","options":["explore any"],"choice":"explore any","x":[1.0,0.85,0.0,0.0,1.0,0.891,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.188,0.0,0.0,0.0,0.0,0.063,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.0,0.0,0.0,0.077,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1794675465034}
+{"event":"skill_start","skill":"explore any","trigger":"skill_done","t":1794675465034}
+{"event":"skill_end","skill":"explore any","ok":true,"detail":"open water ahead; find shore","seconds":34.5,"t":1794675499891}
+{"event":"gene","detail":"learned.gate off: closed","t":1794675499891}
+{"layer":"tactician","gs":5329,"brain":"rules","trigger":"skill_done","goal":"wood_tools","options":["shore"],"choice":"shore","x":[1.0,0.85,0.0,0.0,1.0,0.906,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.188,0.0,0.0,0.0,0.0,0.063,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.0,0.0,0.0,0.077,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["shore"],"t":1794675499892}
+{"event":"skill_start","skill":"shore","trigger":"skill_done","t":1794675499892}
+{"event":"skill_end","skill":"shore","ok":false,"code":"INTERRUPTED","detail":"running out of air","seconds":9.9,"t":1794675509781}
+{"event":"reflex","detail":"drowning","t":1794675509781}
+{"event":"gene","detail":"learned.gate off: closed","t":1794675511286}
+{"layer":"tactician","gs":5340,"brain":"rules","trigger":"idle","goal":"wood_tools","options":["shore"],"choice":"shore","x":[1.0,0.85,0.0,0.0,1.0,0.891,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.188,0.0,0.0,0.0,0.0,0.063,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.0,0.0,0.0,0.077,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["shore"],"t":1794675511287}
+{"event":"skill_start","skill":"shore","trigger":"idle","t":1794675511287}
+{"event":"skill_end","skill":"shore","ok":false,"code":"INTERRUPTED","detail":"running out of air","seconds":8.9,"t":1794675520289}
+{"event":"reflex","detail":"drowning","t":1794675520289}
+{"event":"gene","detail":"learned.gate off: closed","t":1794675521825}
+{"layer":"tactician","gs":5351,"brain":"rules","trigger":"idle","goal":"wood_tools","options":["shore"],"choice":"shore","x":[1.0,0.85,0.0,0.0,1.0,0.891,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.188,0.0,0.0,0.0,0.0,0.063,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.0,0.0,0.0,0.077,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["shore"],"t":1794675521825}
+{"event":"skill_start","skill":"shore","trigger":"idle","t":1794675521826}
+{"event":"skill_end","skill":"shore","ok":false,"code":"INTERRUPTED","detail":"running out of air","seconds":9.15,"t":1794675531022}
+{"event":"reflex","detail":"drowning","t":1794675531022}
+{"event":"gene","detail":"learned.gate off: closed","t":1794675532541}
+{"layer":"tactician","gs":5361,"brain":"rules","trigger":"idle","goal":"wood_tools","options":["shore"],"choice":"shore","x":[1.0,0.85,0.0,0.0,1.0,0.891,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.188,0.0,0.0,0.0,0.0,0.063,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.0,0.0,0.0,0.077,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["shore"],"t":1794675532541}
+{"event":"skill_start","skill":"shore","trigger":"idle","t":1794675532541}
+{"event":"skill_end","skill":"shore","ok":false,"code":"INTERRUPTED","detail":"running out of air","seconds":8.6,"t":1794675541283}
+{"event":"reflex","detail":"drowning","t":1794675541284}
+{"event":"gene","detail":"learned.gate off: closed","t":1794675542787}
+{"layer":"tactician","gs":5371,"brain":"rules","trigger":"idle","goal":"wood_tools","options":["shore"],"choice":"shore","x":[1.0,0.85,0.0,0.0,1.0,0.891,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.188,0.0,0.0,0.0,0.0,0.063,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.0,0.0,0.0,0.077,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["shore"],"t":1794675542787}
+{"event":"skill_start","skill":"shore","trigger":"idle","t":1794675542787}
+{"event":"skill_end","skill":"shore","ok":false,"code":"TIMEOUT","detail":"timed out after 90 s","seconds":90.05,"t":1794675633135}
+{"event":"gene","detail":"learned.gate off: closed","t":1794675633136}
+{"layer":"tactician","gs":5461,"brain":"rules","trigger":"skill_failed","goal":"wood_tools","options":["shore"],"choice":"shore","x":[1.0,0.85,0.0,0.0,1.0,0.906,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.188,0.0,0.0,0.0,0.0,0.063,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.0,0.0,0.0,0.077,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["shore"],"t":1794675633136}
+{"event":"skill_start","skill":"shore","trigger":"skill_failed","t":1794675633136}
+{"event":"skill_end","skill":"shore","ok":false,"code":"TIMEOUT","detail":"timed out after 90 s","seconds":90.05,"t":1794675723778}
+{"event":"gene","detail":"learned.gate off: closed","t":1794675723779}
+{"layer":"tactician","gs":5552,"brain":"rules","trigger":"skill_failed","goal":"wood_tools","options":["explore any"],"choice":"explore any","x":[1.0,0.85,0.0,1.0,1.0,0.906,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.188,0.0,0.0,0.0,0.0,0.063,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.0,0.0,0.0,0.077,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1794675723779}
+{"event":"skill_start","skill":"explore any","trigger":"skill_failed","t":1794675723779}
+{"event":"skill_end","skill":"explore any","ok":true,"detail":"open water ahead; find shore","seconds":39.0,"t":1794675763073}
+{"event":"gene","detail":"learned.gate off: closed","t":1794675763074}
+{"layer":"tactician","gs":5591,"brain":"rules","trigger":"skill_done","goal":"wood_tools","options":["explore any"],"choice":"explore any","x":[1.0,0.85,0.0,1.0,1.0,0.906,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.188,0.0,0.0,0.0,0.0,0.063,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.0,0.0,0.0,0.077,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1794675763074}
+{"event":"skill_start","skill":"explore any","trigger":"skill_done","t":1794675763074}
+{"event":"skill_end","skill":"explore any","ok":true,"detail":"open water ahead; find shore","seconds":33.0,"t":1794675796689}
+{"event":"gene","detail":"learned.gate off: closed","t":1794675796690}
+{"layer":"tactician","gs":5624,"brain":"rules","trigger":"skill_done","goal":"wood_tools","options":["shore"],"choice":"shore","x":[1.0,0.85,0.0,1.0,1.0,0.906,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.188,0.0,0.0,0.0,0.0,0.063,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.0,0.0,0.0,0.077,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["shore"],"t":1794675796690}
+{"event":"skill_start","skill":"shore","trigger":"skill_done","t":1794675796690}
+{"event":"skill_end","skill":"shore","ok":false,"code":"INTERRUPTED","detail":"running out of air","seconds":9.4,"t":1794675806085}
+{"event":"reflex","detail":"drowning","t":1794675806085}
+{"event":"gene","detail":"learned.gate off: closed","t":1794675807584}
+{"layer":"tactician","gs":5634,"brain":"rules","trigger":"idle","goal":"wood_tools","options":["shore"],"choice":"shore","x":[1.0,0.85,0.0,1.0,1.0,0.891,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.188,0.0,0.0,0.0,0.0,0.063,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.0,0.0,0.0,0.077,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["shore"],"t":1794675807584}
+{"event":"skill_start","skill":"shore","trigger":"idle","t":1794675807584}
+{"event":"skill_end","skill":"shore","ok":false,"code":"INTERRUPTED","detail":"running out of air","seconds":9.2,"t":1794675816823}
+{"event":"reflex","detail":"drowning","t":1794675816824}
+{"event":"gene","detail":"learned.gate off: closed","t":1794675818333}
+{"layer":"tactician","gs":5645,"brain":"rules","trigger":"idle","goal":"wood_tools","options":["shore"],"choice":"shore","x":[1.0,0.85,0.0,1.0,1.0,0.891,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.188,0.0,0.0,0.0,0.0,0.063,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.0,0.0,0.0,0.077,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["shore"],"t":1794675818333}
+{"event":"skill_start","skill":"shore","trigger":"idle","t":1794675818334}
+{"event":"skill_end","skill":"shore","ok":false,"code":"INTERRUPTED","detail":"running out of air","seconds":8.6,"t":1794675827073}
+{"event":"reflex","detail":"drowning","t":1794675827073}
+{"event":"gene","detail":"learned.gate off: closed","t":1794675828626}
+{"layer":"tactician","gs":5655,"brain":"rules","trigger":"idle","goal":"wood_tools","options":["shore"],"choice":"shore","x":[1.0,0.85,0.0,1.0,1.0,0.891,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.188,0.0,0.0,0.0,0.0,0.063,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.0,0.0,0.0,0.077,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["shore"],"t":1794675828626}
+{"event":"skill_start","skill":"shore","trigger":"idle","t":1794675828626}
+{"event":"skill_end","skill":"shore","ok":false,"code":"INTERRUPTED","detail":"running out of air","seconds":9.4,"t":1794675838073}
+{"event":"reflex","detail":"drowning","t":1794675838074}
+{"event":"gene","detail":"learned.gate off: closed","t":1794675839573}
+{"layer":"tactician","gs":5666,"brain":"rules","trigger":"idle","goal":"wood_tools","options":["shore"],"choice":"shore","x":[1.0,0.85,0.0,1.0,1.0,0.891,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.188,0.0,0.0,0.0,0.0,0.063,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.0,0.0,0.0,0.077,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["shore"],"t":1794675839573}
+{"event":"skill_start","skill":"shore","trigger":"idle","t":1794675839574}
+{"event":"skill_end","skill":"shore","ok":false,"code":"TIMEOUT","detail":"timed out after 90 s","seconds":90.05,"t":1794675930087}
+{"event":"gene","detail":"learned.gate off: closed","t":1794675930088}
+{"layer":"tactician","gs":5756,"brain":"rules","trigger":"skill_failed","goal":"wood_tools","options":["shore"],"choice":"shore","x":[1.0,0.85,0.0,1.0,1.0,0.906,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.188,0.0,0.0,0.0,0.0,0.063,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.0,0.0,0.0,0.077,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["shore"],"t":1794675930088}
+{"event":"skill_start","skill":"shore","trigger":"skill_failed","t":1794675930088}
+{"event":"skill_end","skill":"shore","ok":false,"code":"TIMEOUT","detail":"timed out after 90 s","seconds":90.05,"t":1794676020678}
+{"event":"gene","detail":"learned.gate off: closed","t":1794676020679}
+{"layer":"tactician","gs":5846,"brain":"rules","trigger":"skill_failed","goal":"wood_tools","options":["explore any"],"choice":"explore any","x":[1.0,0.85,0.0,1.0,1.0,0.906,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.188,0.0,0.0,0.0,0.0,0.063,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.0,0.0,0.0,0.077,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1794676020679}
+{"event":"skill_start","skill":"explore any","trigger":"skill_failed","t":1794676020679}
+{"event":"skill_end","skill":"explore any","ok":true,"detail":"open water ahead; find shore","seconds":42.0,"t":1794676062920}
+{"event":"gene","detail":"learned.gate off: closed","t":1794676062921}
+{"layer":"tactician","gs":5888,"brain":"rules","trigger":"skill_done","goal":"wood_tools","options":["explore any"],"choice":"explore any","x":[1.0,0.85,0.0,1.0,1.0,0.891,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.188,0.0,0.0,0.0,0.0,0.063,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.0,0.0,0.0,0.077,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1794676062921}
+{"event":"skill_start","skill":"explore any","trigger":"skill_done","t":1794676062921}
+{"event":"gene","detail":"learned.gate off: closed","t":1794676083124}
+{"layer":"tactician","gs":5908,"brain":"rules","trigger":"heartbeat","goal":"wood_tools","options":["shore"],"choice":"shore","x":[1.0,0.85,0.0,1.0,1.0,0.891,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.188,0.0,0.0,0.0,0.0,0.063,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.0,0.0,0.0,0.077,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["shore"],"t":1794676083124}
+{"event":"skill_end","skill":"explore any","ok":false,"code":"INTERRUPTED","detail":"interrupted: brain chose shore","seconds":20.05,"t":1794676083125}
+{"event":"skill_start","skill":"shore","trigger":"heartbeat","t":1794676083125}
+{"event":"skill_end","skill":"shore","ok":false,"code":"INTERRUPTED","detail":"running out of air","seconds":9.35,"t":1794676092519}
+{"event":"reflex","detail":"drowning","t":1794676092519}
+{"event":"gene","detail":"learned.gate off: closed","t":1794676094023}
+{"layer":"tactician","gs":5919,"brain":"rules","trigger":"idle","goal":"wood_tools","options":["shore"],"choice":"shore","x":[1.0,0.85,0.0,1.0,1.0,0.891,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.188,0.0,0.0,0.0,0.0,0.063,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.0,0.0,0.0,0.077,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["shore"],"t":1794676094023}
+{"event":"skill_start","skill":"shore","trigger":"idle","t":1794676094023}
+{"event":"skill_end","skill":"shore","ok":false,"code":"INTERRUPTED","detail":"running out of air","seconds":8.95,"t":1794676103021}
+{"event":"reflex","detail":"drowning","t":1794676103021}
+{"event":"gene","detail":"learned.gate off: closed","t":1794676104519}
+{"layer":"tactician","gs":5930,"brain":"rules","trigger":"idle","goal":"wood_tools","options":["shore"],"choice":"shore","x":[1.0,0.85,0.0,1.0,1.0,0.891,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.188,0.0,0.0,0.0,0.0,0.063,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.0,0.0,0.0,0.077,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["shore"],"t":1794676104519}
+{"event":"skill_start","skill":"shore","trigger":"idle","t":1794676104519}
+{"event":"skill_end","skill":"shore","ok":false,"code":"INTERRUPTED","detail":"running out of air","seconds":9.2,"t":1794676113773}
+{"event":"reflex","detail":"drowning","t":1794676113773}
+{"event":"gene","detail":"learned.gate off: closed","t":1794676115284}
+{"layer":"tactician","gs":5940,"brain":"rules","trigger":"idle","goal":"wood_tools","options":["shore"],"choice":"shore","x":[1.0,0.85,0.0,1.0,1.0,0.891,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.188,0.0,0.0,0.0,0.0,0.063,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.0,0.0,0.0,0.077,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["shore"],"t":1794676115284}
+{"event":"skill_start","skill":"shore","trigger":"idle","t":1794676115284}
+{"event":"skill_end","skill":"shore","ok":false,"code":"TIMEOUT","detail":"timed out after 90 s","seconds":90.05,"t":1794676205816}
+{"event":"gene","detail":"learned.gate off: closed","t":1794676205816}
+{"layer":"tactician","gs":6030,"brain":"rules","trigger":"skill_failed","goal":"wood_tools","options":["shore"],"choice":"shore","x":[1.0,0.85,0.0,0.0,1.0,0.906,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.188,0.0,0.0,0.0,0.0,0.063,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.0,0.0,0.0,0.077,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["shore"],"t":1794676205817}
+{"event":"skill_start","skill":"shore","trigger":"skill_failed","t":1794676205817}
+{"event":"skill_end","skill":"shore","ok":false,"code":"TIMEOUT","detail":"timed out after 90 s","seconds":90.05,"t":1794676296485}
+{"event":"gene","detail":"learned.gate off: closed","t":1794676296485}
+{"layer":"tactician","gs":6120,"brain":"rules","trigger":"skill_failed","goal":"wood_tools","options":["explore any"],"choice":"explore any","x":[1.0,0.8,0.0,0.0,1.0,0.906,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.188,0.0,0.0,0.0,0.0,0.063,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.0,0.0,0.0,0.077,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1794676296485}
+{"event":"skill_start","skill":"explore any","trigger":"skill_failed","t":1794676296486}
+{"event":"skill_end","skill":"explore any","ok":true,"detail":"open water ahead; find shore","seconds":36.0,"t":1794676332615}
+{"event":"gene","detail":"learned.gate off: closed","t":1794676332615}
+{"layer":"tactician","gs":6156,"brain":"rules","trigger":"skill_done","goal":"wood_tools","options":["explore any"],"choice":"explore any","x":[1.0,0.8,0.0,0.0,1.0,0.906,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.188,0.0,0.0,0.0,0.0,0.063,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.0,0.0,0.0,0.077,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1794676332615}
+{"event":"skill_start","skill":"explore any","trigger":"skill_done","t":1794676332616}
+{"event":"skill_end","skill":"explore any","ok":true,"detail":"open water ahead; find shore","seconds":36.5,"t":1794676369274}
+{"event":"gene","detail":"learned.gate off: closed","t":1794676369275}
+{"layer":"tactician","gs":6193,"brain":"rules","trigger":"skill_done","goal":"wood_tools","options":["shore"],"choice":"shore","x":[1.0,0.8,0.0,0.0,1.0,0.891,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.188,0.0,0.0,0.0,0.0,0.063,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.0,0.0,0.0,0.077,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["shore"],"t":1794676369275}
+{"event":"skill_start","skill":"shore","trigger":"skill_done","t":1794676369275}
+{"event":"skill_end","skill":"shore","ok":false,"code":"INTERRUPTED","detail":"running out of air","seconds":10.6,"t":1794676379881}
+{"event":"reflex","detail":"drowning","t":1794676379882}
+{"event":"gene","detail":"learned.gate off: closed","t":1794676381363}
+{"layer":"tactician","gs":6205,"brain":"rules","trigger":"idle","goal":"wood_tools","options":["shore"],"choice":"shore","x":[1.0,0.8,0.0,0.0,1.0,0.891,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.188,0.0,0.0,0.0,0.0,0.063,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.0,0.0,0.0,0.077,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["shore"],"t":1794676381363}
+{"event":"skill_start","skill":"shore","trigger":"idle","t":1794676381363}
+{"event":"skill_end","skill":"shore","ok":false,"code":"INTERRUPTED","detail":"running out of air","seconds":9.2,"t":1794676390662}
+{"event":"reflex","detail":"drowning","t":1794676390662}
+{"event":"gene","detail":"learned.gate off: closed","t":1794676392172}
+{"layer":"tactician","gs":6216,"brain":"rules","trigger":"idle","goal":"wood_tools","options":["shore"],"choice":"shore","x":[1.0,0.8,0.0,0.0,1.0,0.891,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.188,0.0,0.0,0.0,0.0,0.063,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.0,0.0,0.0,0.077,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["shore"],"t":1794676392172}
+{"event":"skill_start","skill":"shore","trigger":"idle","t":1794676392172}
+{"event":"skill_end","skill":"shore","ok":false,"code":"TIMEOUT","detail":"timed out after 90 s","seconds":90.05,"t":1794676482471}
+{"event":"gene","detail":"learned.gate off: closed","t":1794676482472}
+{"layer":"tactician","gs":6306,"brain":"rules","trigger":"skill_failed","goal":"wood_tools","options":["shore"],"choice":"shore","x":[1.0,0.8,0.0,0.0,1.0,0.906,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.188,0.0,0.0,0.0,0.0,0.063,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.0,0.0,0.0,0.077,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["shore"],"t":1794676482472}
+{"event":"skill_start","skill":"shore","trigger":"skill_failed","t":1794676482472}
+{"event":"stuck","detail":"shore at -738, 57, 213 in water","t":1794676516174}
+{"event":"skill_end","skill":"shore","ok":false,"code":"STUCK","detail":"stuck: stayed inside 2.0 blocks for 12 s","seconds":33.35,"t":1794676516174}
+{"event":"skill_start","skill":"unstuck","trigger":"reflex_stuck","t":1794676516175}
+{"event":"skill_end","skill":"unstuck","ok":true,"detail":"got out (swim)","seconds":0.85,"t":1794676517083}
+{"event":"gene","detail":"learned.gate off: closed","t":1794676517084}
+{"layer":"tactician","gs":6340,"brain":"rules","trigger":"skill_done","goal":"wood_tools","options":["goto surface","collect log:3","explore log"],"choice":"goto surface","x":[1.0,0.8,0.0,0.0,1.0,0.922,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.188,0.0,0.0,0.0,0.0,0.063,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.0,0.0,0.0,0.077,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1794676517084}
+{"event":"skill_start","skill":"goto surface","trigger":"skill_done","t":1794676517084}
+{"event":"skill_end","skill":"goto surface","ok":false,"code":"INTERRUPTED","detail":"running out of air","seconds":24.2,"t":1794676541740}
+{"event":"reflex","detail":"drowning","t":1794676541740}
+{"event":"gene","detail":"learned.gate off: closed","t":1794676543275}
+{"layer":"tactician","gs":6366,"brain":"rules","trigger":"idle","goal":"wood_tools","options":["explore any"],"choice":"explore any","x":[1.0,0.8,0.0,0.0,1.0,0.891,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.188,0.0,0.0,0.0,0.0,0.063,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.0,0.0,0.0,0.077,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1794676543275}
+{"event":"skill_start","skill":"explore any","trigger":"idle","t":1794676543275}
+{"event":"skill_end","skill":"explore any","ok":true,"detail":"open water ahead; find shore","seconds":36.0,"t":1794676579419}
+{"event":"gene","detail":"learned.gate off: closed","t":1794676579420}
+{"layer":"tactician","gs":6402,"brain":"rules","trigger":"skill_done","goal":"wood_tools","options":["shore"],"choice":"shore","x":[1.0,0.8,0.0,0.0,1.0,0.906,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.188,0.0,0.0,0.0,0.0,0.063,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.0,0.0,0.0,0.077,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["shore"],"t":1794676579420}
+{"event":"skill_start","skill":"shore","trigger":"skill_done","t":1794676579420}
+{"event":"stuck","detail":"shore at -738, 57, 213 in water","t":1794676643111}
+{"event":"skill_end","skill":"shore","ok":false,"code":"STUCK","detail":"stuck: stayed inside 2.0 blocks for 12 s","seconds":63.45,"t":1794676643111}
+{"event":"skill_start","skill":"unstuck","trigger":"reflex_stuck","t":1794676643112}
+{"event":"skill_end","skill":"unstuck","ok":true,"detail":"got out (swim)","seconds":0.85,"t":1794676643979}
+{"event":"gene","detail":"learned.gate off: closed","t":1794676643979}
+{"layer":"tactician","gs":6466,"brain":"rules","trigger":"skill_done","goal":"wood_tools","options":["goto surface","collect log:3","explore log"],"choice":"goto surface","x":[1.0,0.8,0.0,0.0,1.0,0.922,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.188,0.0,0.0,0.0,0.0,0.063,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.0,0.0,0.0,0.077,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1794676643979}
+{"event":"skill_start","skill":"goto surface","trigger":"skill_done","t":1794676643979}
+{"event":"gene","detail":"learned.gate off: closed","t":1794676664237}
+{"layer":"tactician","gs":6486,"brain":"rules","trigger":"heartbeat","goal":"wood_tools","options":["shore"],"choice":"shore","x":[1.0,0.8,0.0,0.0,1.0,0.891,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.188,0.0,0.0,0.0,0.0,0.063,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.0,0.0,0.0,0.077,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["shore"],"t":1794676664237}
+{"event":"skill_end","skill":"goto surface","ok":false,"code":"INTERRUPTED","detail":"interrupted: brain chose shore","seconds":20.05,"t":1794676664237}
+{"event":"skill_start","skill":"shore","trigger":"heartbeat","t":1794676664237}
+{"event":"skill_end","skill":"shore","ok":false,"code":"TIMEOUT","detail":"timed out after 90 s","seconds":90.05,"t":1794676754575}
+{"event":"gene","detail":"learned.gate off: closed","t":1794676754576}
+{"layer":"tactician","gs":6576,"brain":"rules","trigger":"skill_failed","goal":"wood_tools","options":["goto surface","collect log:3","explore log"],"choice":"goto surface","x":[1.0,0.8,0.0,0.0,1.0,0.922,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.188,0.0,0.0,0.0,0.0,0.063,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.0,0.0,0.0,0.077,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1794676754576}
+{"event":"skill_start","skill":"goto surface","trigger":"skill_failed","t":1794676754576}
+{"event":"skill_end","skill":"goto surface","ok":false,"code":"INTERRUPTED","detail":"running out of air","seconds":24.35,"t":1794676779163}
+{"event":"reflex","detail":"drowning","t":1794676779163}
+{"event":"gene","detail":"learned.gate off: closed","t":1794676780719}
+{"layer":"tactician","gs":6602,"brain":"rules","trigger":"idle","goal":"wood_tools","options":["explore any"],"choice":"explore any","x":[1.0,0.8,0.0,0.0,1.0,0.891,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.188,0.0,0.0,0.0,0.0,0.063,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.0,0.0,0.0,0.077,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1794676780719}
+{"event":"skill_start","skill":"explore any","trigger":"idle","t":1794676780719}
+{"event":"skill_end","skill":"explore any","ok":true,"detail":"open water ahead; find shore","seconds":37.0,"t":1794676817971}
+{"event":"gene","detail":"learned.gate off: closed","t":1794676817972}
+{"layer":"tactician","gs":6639,"brain":"rules","trigger":"skill_done","goal":"wood_tools","options":["shore"],"choice":"shore","x":[1.0,0.8,0.0,0.0,1.0,0.906,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.188,0.0,0.0,0.0,0.0,0.063,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.0,0.0,0.0,0.077,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["shore"],"t":1794676817972}
+{"event":"skill_start","skill":"shore","trigger":"skill_done","t":1794676817972}
+{"event":"skill_end","skill":"shore","ok":false,"code":"TIMEOUT","detail":"timed out after 90 s","seconds":90.05,"t":1794676908360}
+{"event":"gene","detail":"learned.gate off: closed","t":1794676908361}
+{"layer":"tactician","gs":6729,"brain":"rules","trigger":"skill_failed","goal":"wood_tools","options":["shore"],"choice":"shore","x":[1.0,0.8,0.0,1.0,1.0,0.906,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.188,0.0,0.0,0.0,0.0,0.063,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.0,0.0,0.0,0.077,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["shore"],"t":1794676908361}
+{"event":"skill_start","skill":"shore","trigger":"skill_failed","t":1794676908361}
+{"event":"skill_end","skill":"shore","ok":false,"code":"INTERRUPTED","detail":"running out of air","seconds":45.05,"t":1794676953624}
+{"event":"reflex","detail":"drowning","t":1794676953624}
+{"event":"gene","detail":"learned.gate off: closed","t":1794676955107}
+{"layer":"tactician","gs":6775,"brain":"rules","trigger":"idle","goal":"wood_tools","options":["shore"],"choice":"shore","x":[1.0,0.8,0.0,1.0,1.0,0.891,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.188,0.0,0.0,0.0,0.0,0.063,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.0,0.0,0.0,0.077,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["shore"],"t":1794676955107}
+{"event":"skill_start","skill":"shore","trigger":"idle","t":1794676955107}
+{"event":"skill_end","skill":"shore","ok":false,"code":"INTERRUPTED","detail":"running out of air","seconds":9.05,"t":1794676964175}
+{"event":"reflex","detail":"drowning","t":1794676964175}
+{"event":"gene","detail":"learned.gate off: closed","t":1794676965675}
+{"layer":"tactician","gs":6786,"brain":"rules","trigger":"idle","goal":"wood_tools","options":["shore"],"choice":"shore","x":[1.0,0.8,0.0,1.0,1.0,0.891,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.188,0.0,0.0,0.0,0.0,0.063,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.0,0.0,0.0,0.077,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["shore"],"t":1794676965675}
+{"event":"skill_start","skill":"shore","trigger":"idle","t":1794676965675}
+{"event":"skill_end","skill":"shore","ok":false,"code":"TIMEOUT","detail":"timed out after 90 s","seconds":90.05,"t":1794677056111}
+{"event":"gene","detail":"learned.gate off: closed","t":1794677056112}
+{"layer":"tactician","gs":6876,"brain":"rules","trigger":"skill_failed","goal":"wood_tools","options":["explore any"],"choice":"explore any","x":[1.0,0.8,0.0,1.0,1.0,0.906,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.188,0.0,0.0,0.0,0.0,0.063,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.0,0.0,0.0,0.077,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1794677056112}
+{"event":"skill_start","skill":"explore any","trigger":"skill_failed","t":1794677056113}
+{"event":"skill_end","skill":"explore any","ok":true,"detail":"open water ahead; find shore","seconds":34.5,"t":1794677090921}
+{"event":"gene","detail":"learned.gate off: closed","t":1794677090922}
+{"layer":"tactician","gs":6911,"brain":"rules","trigger":"skill_done","goal":"wood_tools","options":["explore any"],"choice":"explore any","x":[1.0,0.8,0.0,1.0,1.0,0.891,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.188,0.0,0.0,0.0,0.0,0.063,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.0,0.0,0.0,0.077,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1794677090922}
+{"event":"skill_start","skill":"explore any","trigger":"skill_done","t":1794677090922}
+{"event":"skill_end","skill":"explore any","ok":true,"detail":"open water ahead; find shore","seconds":31.5,"t":1794677122513}
+{"event":"gene","detail":"learned.gate off: closed","t":1794677122514}
+{"layer":"tactician","gs":6942,"brain":"rules","trigger":"skill_done","goal":"wood_tools","options":["shore"],"choice":"shore","x":[1.0,0.8,0.0,1.0,1.0,0.906,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.188,0.0,0.0,0.0,0.0,0.063,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.0,0.0,0.0,0.077,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["shore"],"t":1794677122515}
+{"event":"skill_start","skill":"shore","trigger":"skill_done","t":1794677122515}
+{"event":"stuck","detail":"shore at -738, 57, 213 in water","t":1794677131513}
+{"event":"skill_end","skill":"shore","ok":false,"code":"STUCK","detail":"stuck: stayed inside 2.0 blocks for 12 s","seconds":9.0,"t":1794677131513}
+{"event":"skill_start","skill":"unstuck","trigger":"reflex_stuck","t":1794677131513}
+{"event":"skill_end","skill":"unstuck","ok":true,"detail":"got out (swim)","seconds":0.85,"t":1794677132370}
+{"layer":"tactician","gs":6952,"brain":"rules","trigger":"skill_done","goal":"wood_tools","options":["collect log:3","shelter","explore log"],"choice":"collect log:3","x":[1.0,0.8,0.0,1.0,1.0,0.922,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.188,0.0,0.0,0.0,0.0,0.063,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.0,0.0,0.0,0.077,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1794677132371}
+{"event":"skill_start","skill":"collect log:3","trigger":"skill_done","t":1794677132371}
+{"event":"skill_end","skill":"collect log:3","ok":false,"code":"NOT_FOUND","detail":"no log seen nearby","seconds":3.05,"t":1794677135421}
+{"event":"gene","detail":"learned.gate off: closed","t":1794677135421}
+{"layer":"tactician","gs":6955,"brain":"rules","trigger":"skill_failed","goal":"wood_tools","options":["shore"],"choice":"shore","x":[1.0,0.8,0.0,1.0,1.0,0.891,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.188,0.0,0.0,0.0,0.0,0.063,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.0,0.0,0.0,0.077,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["shore"],"t":1794677135421}
+{"event":"skill_start","skill":"shore","trigger":"skill_failed","t":1794677135421}
+{"event":"skill_end","skill":"shore","ok":false,"code":"INTERRUPTED","detail":"running out of air","seconds":3.25,"t":1794677138660}
+{"event":"reflex","detail":"drowning","t":1794677138660}
+{"layer":"tactician","gs":6960,"brain":"rules","trigger":"idle","goal":"wood_tools","options":["shore"],"choice":"shore","x":[1.0,0.8,0.0,1.0,1.0,0.891,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.188,0.0,0.0,0.0,0.0,0.063,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.0,0.0,0.0,0.077,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["shore"],"t":1794677140158}
+{"event":"skill_start","skill":"shore","trigger":"idle","t":1794677140158}
+{"event":"skill_end","skill":"shore","ok":false,"code":"INTERRUPTED","detail":"running out of air","seconds":9.2,"t":1794677149418}
+{"event":"reflex","detail":"drowning","t":1794677149419}
+{"event":"gene","detail":"learned.gate off: closed","t":1794677150920}
+{"layer":"tactician","gs":6970,"brain":"rules","trigger":"idle","goal":"wood_tools","options":["shore"],"choice":"shore","x":[1.0,0.8,0.0,1.0,1.0,0.891,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.188,0.0,0.0,0.0,0.0,0.063,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.0,0.0,0.0,0.077,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["shore"],"t":1794677150920}
+{"event":"skill_start","skill":"shore","trigger":"idle","t":1794677150920}
+{"event":"skill_end","skill":"shore","ok":false,"code":"TIMEOUT","detail":"timed out after 90 s","seconds":90.05,"t":1794677241461}
+{"event":"gene","detail":"learned.gate off: closed","t":1794677241462}
+{"layer":"tactician","gs":7060,"brain":"rules","trigger":"skill_failed","goal":"wood_tools","options":["explore any"],"choice":"explore any","x":[1.0,0.8,0.0,1.0,1.0,0.906,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.188,0.0,0.0,0.0,0.0,0.063,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.0,0.0,0.0,0.077,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1794677241462}
+{"event":"skill_start","skill":"explore any","trigger":"skill_failed","t":1794677241462}
+{"event":"skill_end","skill":"explore any","ok":true,"detail":"open water ahead; find shore","seconds":38.5,"t":1794677280121}
+{"event":"gene","detail":"learned.gate off: closed","t":1794677280121}
+{"layer":"tactician","gs":7099,"brain":"rules","trigger":"skill_done","goal":"wood_tools","options":["explore any"],"choice":"explore any","x":[1.0,0.8,0.0,1.0,1.0,0.891,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.188,0.0,0.0,0.0,0.0,0.063,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.0,0.0,0.0,0.077,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1794677280121}
+{"event":"skill_start","skill":"explore any","trigger":"skill_done","t":1794677280121}
+{"event":"skill_end","skill":"explore any","ok":true,"detail":"open water ahead; find shore","seconds":37.5,"t":1794677317915}
+{"event":"gene","detail":"learned.gate off: closed","t":1794677317916}
+{"layer":"tactician","gs":7136,"brain":"rules","trigger":"skill_done","goal":"wood_tools","options":["shore"],"choice":"shore","x":[1.0,0.8,0.0,1.0,1.0,0.891,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.188,0.0,0.0,0.0,0.0,0.063,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.0,0.0,0.0,0.077,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["shore"],"t":1794677317916}
+{"event":"skill_start","skill":"shore","trigger":"skill_done","t":1794677317916}
+{"event":"stuck","detail":"shore at -738, 57, 213 in water","t":1794677326554}
+{"event":"skill_end","skill":"shore","ok":false,"code":"STUCK","detail":"stuck: stayed inside 2.0 blocks for 12 s","seconds":8.6,"t":1794677326554}
+{"event":"skill_start","skill":"unstuck","trigger":"reflex_stuck","t":1794677326554}
+{"event":"skill_end","skill":"unstuck","ok":true,"detail":"got out (swim)","seconds":0.85,"t":1794677327458}
+{"layer":"tactician","gs":7146,"brain":"rules","trigger":"skill_done","goal":"wood_tools","options":["collect log:3","shelter","explore log"],"choice":"collect log:3","x":[1.0,0.8,0.0,1.0,1.0,0.922,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.188,0.0,0.0,0.0,0.0,0.063,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.0,0.0,0.0,0.077,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1794677327459}
+{"event":"skill_start","skill":"collect log:3","trigger":"skill_done","t":1794677327460}
+{"event":"skill_end","skill":"collect log:3","ok":false,"code":"NOT_FOUND","detail":"no log seen nearby","seconds":3.05,"t":1794677330516}
+{"event":"gene","detail":"learned.gate off: closed","t":1794677330516}
+{"layer":"tactician","gs":7149,"brain":"rules","trigger":"skill_failed","goal":"wood_tools","options":["shore"],"choice":"shore","x":[1.0,0.8,0.0,1.0,1.0,0.891,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.188,0.0,0.0,0.0,0.0,0.063,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.0,0.0,0.0,0.077,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["shore"],"t":1794677330516}
+{"event":"skill_start","skill":"shore","trigger":"skill_failed","t":1794677330516}
+{"event":"skill_end","skill":"shore","ok":false,"code":"INTERRUPTED","detail":"running out of air","seconds":5.2,"t":1794677335784}
+{"event":"reflex","detail":"drowning","t":1794677335784}
+{"layer":"tactician","gs":7156,"brain":"rules","trigger":"idle","goal":"wood_tools","options":["shore"],"choice":"shore","x":[1.0,0.8,0.0,1.0,1.0,0.891,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.188,0.0,0.0,0.0,0.0,0.063,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.0,0.0,0.0,0.077,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["shore"],"t":1794677337325}
+{"event":"skill_start","skill":"shore","trigger":"idle","t":1794677337325}
+{"event":"skill_end","skill":"shore","ok":false,"code":"INTERRUPTED","detail":"test finished","seconds":44.8,"t":1794677382317}
+{"event":"autopilot_off","detail":"test finished","t":1794677382318}
