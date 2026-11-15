@@ -2782,7 +2782,7 @@
   "2026-11-12": 4,
   "2026-11-13": 5,
   "2026-11-14": 8,
-  "2026-11-15": 4
+  "2026-11-15": 5
  },
  "evolve_days": {
   "2026-09-27": 1,
@@ -3276,7 +3276,7 @@
    "result": "racing"
   }
  ],
- "gen": 591,
+ "gen": 592,
  "gene_specs": {
   "bed.table_first": {
    "def": 0.0,
@@ -57639,6 +57639,54 @@
    "priority": true,
    "status": "contender"
   },
+  "g502": {
+   "born": 592,
+   "code": null,
+   "evals": [],
+   "exposure_spec": {
+    "gene": "learned.gate"
+   },
+   "genes": {
+    "bed.table_first": 1.0,
+    "brain.utility": 1.0,
+    "combat.ignore_walled_mobs": 1.0,
+    "combat.shield_guard": 1.0,
+    "death.recover_night_armor": 12.0,
+    "death.recover_value": 1.0,
+    "focus.commit": 1.0,
+    "fortress.anchor_scope": 1.0,
+    "gather.coal_extra": 3.0,
+    "gather.coal_view_dist": 16.0,
+    "gear.sword_early": 1.0,
+    "learned.gate": 1.0,
+    "learned.weight": 1.0,
+    "loop.stuck_s": 17.0,
+    "move.shore_first": 1.0,
+    "nav.surface_v2": 1.0,
+    "nav.unstuck_v2": 1.0,
+    "night.shelter_exit": 1.0,
+    "pearls.provoke_s": 19.0,
+    "plan.hide_hp": 15.0,
+    "plan.readiness": 1.0,
+    "portal.prepare_work_area": 1.0,
+    "portal.reserve_lava_bucket": 1.0,
+    "portal.site_maker": 1.0,
+    "route.armor_before_portal": 1.0,
+    "skill.enderman_warped": 1.0,
+    "skill.ruined_portal": 1.0,
+    "skill.stash": 1.0,
+    "stuck.item_progress": 1.0
+   },
+   "id": "g502",
+   "mutated": [
+    "learned.gate"
+   ],
+   "note": "suggested: learned.gate 1",
+   "pairs": [],
+   "parent": "g486",
+   "priority": true,
+   "status": "contender"
+  },
   "g51": {
    "born": 66,
    "code": null,
@@ -65729,8 +65777,129 @@
   "mean_gap_ok": -0.3746,
   "n": 2816
  },
- "next_id": 502,
- "pending": null,
+ "next_id": 503,
+ "pending": {
+  "data_tasks": [
+   {
+    "asset": "rods-gen350-eval-g346-2.zip",
+    "kind": "start",
+    "late": true,
+    "seed": "D592-ffjb7t",
+    "stage": "rods",
+    "synthetic": false
+   },
+   {
+    "kind": "natural",
+    "seed": "D592-4quqyk",
+    "stage": "spawn",
+    "synthetic": false
+   }
+  ],
+  "gen": 592,
+  "lineup": [
+   "g486",
+   "g500",
+   "g501"
+  ],
+  "runs": [
+   "eval-g486-0",
+   "eval-g486-1",
+   "eval-g486-2",
+   "eval-g486-3",
+   "eval-g486-4",
+   "eval-g486-5",
+   "eval-g486-6",
+   "eval-g500-0",
+   "eval-g500-1",
+   "eval-g500-2",
+   "eval-g500-6",
+   "eval-g501-0",
+   "eval-g501-1",
+   "eval-g501-2",
+   "eval-g501-3",
+   "eval-g501-4",
+   "eval-g501-5",
+   "eval-g501-6",
+   "data-g486-0",
+   "data-g486-1"
+  ],
+  "seeds": [
+   "L592-sw3y4f",
+   "L592-4azatn",
+   "L592-c6xp72",
+   "L592-53vvnr",
+   "L592-mefbgv",
+   "L592-z2nc3p",
+   "L592-drph6b"
+  ],
+  "sha": "cd02a2b64d9b92c1f9695439651f5f63de2d3663",
+  "started": "2026-11-15T14:44:02+00:00",
+  "tasks": [
+   {
+    "kind": "natural",
+    "seed": "L592-sw3y4f",
+    "stage": "spawn",
+    "synthetic": false
+   },
+   {
+    "kind": "natural",
+    "seed": "L592-4azatn",
+    "stage": "spawn",
+    "synthetic": false
+   },
+   {
+    "asset": "nether-marathon-43212340884-0-leg1.zip",
+    "kind": "start",
+    "seed": "L592-c6xp72",
+    "stage": "nether",
+    "synthetic": false
+   },
+   {
+    "asset": "diamond-marathon-43417648034-0-leg1.zip",
+    "kind": "start",
+    "minutes": 60,
+    "only": [
+     "g486",
+     "g501"
+    ],
+    "seed": "L592-53vvnr",
+    "stage": "diamond",
+    "synthetic": false
+   },
+   {
+    "asset": "diamond-gen493-eval-g475-1.zip",
+    "kind": "start",
+    "minutes": 60,
+    "only": [
+     "g486",
+     "g501"
+    ],
+    "seed": "L592-mefbgv",
+    "stage": "diamond",
+    "synthetic": false
+   },
+   {
+    "asset": "diamond-gen480-eval-g465-0.zip",
+    "kind": "start",
+    "minutes": 60,
+    "only": [
+     "g486",
+     "g501"
+    ],
+    "seed": "L592-z2nc3p",
+    "stage": "diamond",
+    "synthetic": false
+   },
+   {
+    "kind": "combat",
+    "minutes": 10,
+    "scenario": "combat",
+    "seed": "L592-drph6b",
+    "stage": "combat",
+    "synthetic": false
+   }
+  ]
+ },
  "race_evidence_version": 2,
  "score_since_gen": 560,
  "score_version": 5,
@@ -70118,7 +70287,8 @@
   "{\"_minutes\": 60, \"_note\": \"2026-11-09 (Claude, stage race v5): bartering for pearls on its own, on saved Nether starts.\", \"_priority\": true, \"_stages\": [\"nether\"], \"route.barter\": 1}",
   "{\"_exposure\": {\"gene\": \"death.recovery_v2\"}, \"_note\": \"2026-11-09 (Claude): death recovery v2 with run notes: loaded-chunk despawn clock, cross-dimension return, re-arm, verified pickup, notes that survive a restart. Scored across lives.\", \"_priority\": true, \"death.recovery_v2\": 1, \"notes.persist\": 1}",
   "{\"_exposure\": {\"gene\": \"respawn.no_fights_s\"}, \"_note\": \"2026-11-09 (Claude): 85 of 193 respawns (44%) died again within 3 minutes, the last choice most often attack:zombie with nothing in hand. For 3 minutes after a respawn a poor kit backs off from a mob beyond arm's length.\", \"_priority\": true, \"respawn.no_fights_s\": 180}",
-  "{\"_exposure\": {\"gene\": \"ready.nether_gold_wear\"}, \"_minutes\": 60, \"_note\": \"2026-11-09 (Claude): the gold helmet is put on at the Nether portal (it was only carried, and an iron helmet kept it off); gold_armor swaps instead of failing with a helmet on, and never mines gold beside piglins. Piglins were 11 of 37 Nether deaths in 171 games.\", \"_priority\": true, \"_stages\": [\"diamond\"], \"ready.nether_gold\": 1, \"ready.nether_gold_wear\": 1}"
+  "{\"_exposure\": {\"gene\": \"ready.nether_gold_wear\"}, \"_minutes\": 60, \"_note\": \"2026-11-09 (Claude): the gold helmet is put on at the Nether portal (it was only carried, and an iron helmet kept it off); gold_armor swaps instead of failing with a helmet on, and never mines gold beside piglins. Piglins were 11 of 37 Nether deaths in 171 games.\", \"_priority\": true, \"_stages\": [\"diamond\"], \"ready.nether_gold\": 1, \"ready.nether_gold_wear\": 1}",
+  "{\"_exposure\": {\"gene\": \"learned.gate\"}, \"_note\": \"2026-11-09 (Claude): use learned.weight only while the model passes its held-out check (adv_r2 > 0.05, sign > 0.6, 500+ checked choices).\", \"_priority\": true, \"learned.gate\": 1}"
  ],
  "version": 1
 }
