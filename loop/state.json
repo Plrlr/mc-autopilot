@@ -2771,7 +2771,7 @@
   "2026-11-12": 4,
   "2026-11-13": 5,
   "2026-11-14": 8,
-  "2026-11-15": 1
+  "2026-11-15": 2
  },
  "evolve_days": {
   "2026-09-27": 1,
@@ -3265,7 +3265,7 @@
    "result": "racing"
   }
  ],
- "gen": 588,
+ "gen": 589,
  "gene_specs": {
   "bed.table_first": {
    "def": 0.0,
@@ -57360,6 +57360,60 @@
    "priority": true,
    "status": "contender"
   },
+  "g501": {
+   "born": 589,
+   "code": null,
+   "evals": [],
+   "exposure_spec": {
+    "gene": "ready.nether_gold_wear"
+   },
+   "focus": [
+    "diamond"
+   ],
+   "focus_minutes": 60,
+   "genes": {
+    "bed.table_first": 1.0,
+    "brain.utility": 1.0,
+    "combat.ignore_walled_mobs": 1.0,
+    "combat.shield_guard": 1.0,
+    "death.recover_night_armor": 12.0,
+    "death.recover_value": 1.0,
+    "focus.commit": 1.0,
+    "fortress.anchor_scope": 1.0,
+    "gather.coal_extra": 3.0,
+    "gather.coal_view_dist": 16.0,
+    "gear.sword_early": 1.0,
+    "learned.weight": 1.0,
+    "loop.stuck_s": 17.0,
+    "move.shore_first": 1.0,
+    "nav.surface_v2": 1.0,
+    "nav.unstuck_v2": 1.0,
+    "night.shelter_exit": 1.0,
+    "pearls.provoke_s": 19.0,
+    "plan.hide_hp": 15.0,
+    "plan.readiness": 1.0,
+    "portal.prepare_work_area": 1.0,
+    "portal.reserve_lava_bucket": 1.0,
+    "portal.site_maker": 1.0,
+    "ready.nether_gold": 1.0,
+    "ready.nether_gold_wear": 1.0,
+    "route.armor_before_portal": 1.0,
+    "skill.enderman_warped": 1.0,
+    "skill.ruined_portal": 1.0,
+    "skill.stash": 1.0,
+    "stuck.item_progress": 1.0
+   },
+   "id": "g501",
+   "mutated": [
+    "ready.nether_gold",
+    "ready.nether_gold_wear"
+   ],
+   "note": "suggested: ready.nether_gold 1, ready.nether_gold_wear 1",
+   "pairs": [],
+   "parent": "g486",
+   "priority": true,
+   "status": "contender"
+  },
   "g51": {
    "born": 66,
    "code": null,
@@ -65291,8 +65345,84 @@
   "mean_gap_ok": -0.1138,
   "n": 2815
  },
- "next_id": 501,
- "pending": null,
+ "next_id": 502,
+ "pending": {
+  "data_tasks": [
+   {
+    "kind": "scenario",
+    "late": true,
+    "scenario": "stronghold",
+    "seed": "D589-dxr98u",
+    "stage": "eyes",
+    "synthetic": true
+   },
+   {
+    "kind": "natural",
+    "seed": "D589-735ruq",
+    "stage": "spawn",
+    "synthetic": false
+   }
+  ],
+  "gen": 589,
+  "lineup": [
+   "g486",
+   "g499",
+   "g500"
+  ],
+  "runs": [
+   "eval-g486-0",
+   "eval-g486-1",
+   "eval-g486-2",
+   "eval-g486-3",
+   "eval-g499-0",
+   "eval-g499-1",
+   "eval-g499-2",
+   "eval-g499-3",
+   "eval-g500-0",
+   "eval-g500-1",
+   "eval-g500-2",
+   "eval-g500-3",
+   "data-g486-0",
+   "data-g486-1"
+  ],
+  "seeds": [
+   "L589-94sqyt",
+   "L589-4k6h3p",
+   "L589-gsrd8s",
+   "L589-zmgq5q"
+  ],
+  "sha": "cd02a2b64d9b92c1f9695439651f5f63de2d3663",
+  "started": "2026-11-15T03:13:49+00:00",
+  "tasks": [
+   {
+    "kind": "natural",
+    "seed": "L589-94sqyt",
+    "stage": "spawn",
+    "synthetic": false
+   },
+   {
+    "kind": "natural",
+    "seed": "L589-4k6h3p",
+    "stage": "spawn",
+    "synthetic": false
+   },
+   {
+    "asset": "nether-gen575-eval-g486-3.zip",
+    "kind": "start",
+    "seed": "L589-gsrd8s",
+    "stage": "nether",
+    "synthetic": false
+   },
+   {
+    "kind": "combat",
+    "minutes": 10,
+    "scenario": "combat",
+    "seed": "L589-zmgq5q",
+    "stage": "combat",
+    "synthetic": false
+   }
+  ]
+ },
  "race_evidence_version": 2,
  "score_since_gen": 560,
  "score_version": 5,
@@ -69679,7 +69809,8 @@
   "{\"_exposure\": {\"gene\": \"ready.nether_gold\"}, \"_minutes\": 60, \"_note\": \"2026-11-09 (Claude, stage race v5): gold helmet against piglins, re-raced on diamond-depth starts with 60-minute games scored across lives, spawn games as a no-harm check only. Raced 4 times under the old race (g188, g270, g387, g474), never told apart from noise.\", \"_priority\": true, \"_stages\": [\"diamond\"], \"ready.nether_gold\": 1}",
   "{\"_minutes\": 60, \"_note\": \"2026-11-09 (Claude, stage race v5): bartering for pearls on its own, on saved Nether starts.\", \"_priority\": true, \"_stages\": [\"nether\"], \"route.barter\": 1}",
   "{\"_exposure\": {\"gene\": \"death.recovery_v2\"}, \"_note\": \"2026-11-09 (Claude): death recovery v2 with run notes: loaded-chunk despawn clock, cross-dimension return, re-arm, verified pickup, notes that survive a restart. Scored across lives.\", \"_priority\": true, \"death.recovery_v2\": 1, \"notes.persist\": 1}",
-  "{\"_exposure\": {\"gene\": \"respawn.no_fights_s\"}, \"_note\": \"2026-11-09 (Claude): 85 of 193 respawns (44%) died again within 3 minutes, the last choice most often attack:zombie with nothing in hand. For 3 minutes after a respawn a poor kit backs off from a mob beyond arm's length.\", \"_priority\": true, \"respawn.no_fights_s\": 180}"
+  "{\"_exposure\": {\"gene\": \"respawn.no_fights_s\"}, \"_note\": \"2026-11-09 (Claude): 85 of 193 respawns (44%) died again within 3 minutes, the last choice most often attack:zombie with nothing in hand. For 3 minutes after a respawn a poor kit backs off from a mob beyond arm's length.\", \"_priority\": true, \"respawn.no_fights_s\": 180}",
+  "{\"_exposure\": {\"gene\": \"ready.nether_gold_wear\"}, \"_minutes\": 60, \"_note\": \"2026-11-09 (Claude): the gold helmet is put on at the Nether portal (it was only carried, and an iron helmet kept it off); gold_armor swaps instead of failing with a helmet on, and never mines gold beside piglins. Piglins were 11 of 37 Nether deaths in 171 games.\", \"_priority\": true, \"_stages\": [\"diamond\"], \"ready.nether_gold\": 1, \"ready.nether_gold_wear\": 1}"
  ],
  "version": 1
 }
