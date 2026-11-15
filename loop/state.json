@@ -2737,7 +2737,8 @@
   "2026-11-11": 6,
   "2026-11-12": 4,
   "2026-11-13": 5,
-  "2026-11-14": 8
+  "2026-11-14": 8,
+  "2026-11-15": 1
  },
  "evolve_days": {
   "2026-09-27": 1,
@@ -3231,7 +3232,7 @@
    "result": "racing"
   }
  ],
- "gen": 587,
+ "gen": 588,
  "gene_specs": {
   "bed.table_first": {
    "def": 0.0,
@@ -65114,7 +65115,128 @@
   "n": 2815
  },
  "next_id": 501,
- "pending": null,
+ "pending": {
+  "data_tasks": [
+   {
+    "asset": "rods-gen350-eval-g346-2.zip",
+    "kind": "start",
+    "late": true,
+    "seed": "D588-h6efs9",
+    "stage": "rods",
+    "synthetic": false
+   },
+   {
+    "kind": "natural",
+    "seed": "D588-7448e5",
+    "stage": "spawn",
+    "synthetic": false
+   }
+  ],
+  "gen": 588,
+  "lineup": [
+   "g486",
+   "g498",
+   "g499"
+  ],
+  "runs": [
+   "eval-g486-0",
+   "eval-g486-1",
+   "eval-g486-2",
+   "eval-g486-3",
+   "eval-g486-4",
+   "eval-g486-5",
+   "eval-g486-6",
+   "eval-g498-0",
+   "eval-g498-1",
+   "eval-g498-2",
+   "eval-g498-3",
+   "eval-g498-4",
+   "eval-g498-5",
+   "eval-g498-6",
+   "eval-g499-0",
+   "eval-g499-1",
+   "eval-g499-2",
+   "eval-g499-6",
+   "data-g486-0",
+   "data-g486-1"
+  ],
+  "seeds": [
+   "L588-72xdpp",
+   "L588-4seg6z",
+   "L588-9uycza",
+   "L588-dt4hpm",
+   "L588-ws4zrg",
+   "L588-rffaqy",
+   "L588-nuqubm"
+  ],
+  "sha": "cd02a2b64d9b92c1f9695439651f5f63de2d3663",
+  "started": "2026-11-15T01:15:36+00:00",
+  "tasks": [
+   {
+    "kind": "natural",
+    "seed": "L588-72xdpp",
+    "stage": "spawn",
+    "synthetic": false
+   },
+   {
+    "kind": "natural",
+    "seed": "L588-4seg6z",
+    "stage": "spawn",
+    "synthetic": false
+   },
+   {
+    "asset": "nether-gen481-eval-g455-0.zip",
+    "kind": "start",
+    "seed": "L588-9uycza",
+    "stage": "nether",
+    "synthetic": false
+   },
+   {
+    "asset": "nether-gen575-eval-g486-3.zip",
+    "kind": "start",
+    "minutes": 60,
+    "only": [
+     "g486",
+     "g498"
+    ],
+    "seed": "L588-dt4hpm",
+    "stage": "nether",
+    "synthetic": false
+   },
+   {
+    "asset": "nether-gen579-eval-g486-4.zip",
+    "kind": "start",
+    "minutes": 60,
+    "only": [
+     "g486",
+     "g498"
+    ],
+    "seed": "L588-ws4zrg",
+    "stage": "nether",
+    "synthetic": false
+   },
+   {
+    "asset": "nether-gen575-eval-g497-3.zip",
+    "kind": "start",
+    "minutes": 60,
+    "only": [
+     "g486",
+     "g498"
+    ],
+    "seed": "L588-rffaqy",
+    "stage": "nether",
+    "synthetic": false
+   },
+   {
+    "kind": "combat",
+    "minutes": 10,
+    "scenario": "combat",
+    "seed": "L588-nuqubm",
+    "stage": "combat",
+    "synthetic": false
+   }
+  ]
+ },
  "race_evidence_version": 2,
  "score_since_gen": 560,
  "score_version": 5,
