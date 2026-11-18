@@ -1,0 +1,764 @@
+{"event":"autopilot_on","detail":"brain\u003dlearned none","t":1795020007866}
+{"event":"params","detail":"params: g486@gen603 (28 genes) changed\u003d{\"death.recover_value\":1.0,\"combat.shield_guard\":1.0,\"gather.coal_extra\":3.0,\"gather.coal_view_dist\":16.0,\"route.armor_before_portal\":1.0,\"pearls.provoke_s\":19.0,\"gear.sword_early\":1.0,\"move.shore_first\":1.0,\"fortress.anchor_scope\":1.0,\"portal.prepare_work_area\":1.0,\"portal.reserve_lava_bucket\":1.0,\"brain.utility\":1.0,\"portal.site_maker\":1.0,\"combat.ignore_walled_mobs\":1.0,\"night.shelter_exit\":1.0,\"nav.surface_v2\":1.0,\"nav.unstuck_v2\":1.0,\"stuck.item_progress\":1.0,\"bed.table_first\":1.0,\"skill.ruined_portal\":1.0,\"skill.stash\":1.0,\"skill.enderman_warped\":1.0,\"loop.stuck_s\":17.0,\"learned.weight\":1.0,\"plan.readiness\":1.0}","t":1795020007868}
+{"layer":"strategist","brain":"rules","choice":"iron_tools","reason":"start","t":1795020007871}
+{"event":"gene","detail":"learned.gate off: closed","t":1795020007903}
+{"layer":"tactician","gs":0,"brain":"rules","trigger":"idle","goal":"iron_tools","options":["shore"],"choice":"shore","x":[1.0,0.95,0.0,0.0,1.0,0.391,0.0,0.0,0.6,0.4,0.0,0.0,0.563,1.0,0.0,0.063,0.25,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,0.0,0.0,0.308,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["shore"],"t":1795020007905}
+{"event":"plan","detail":"1 shield (plain) (0.2 min)","t":1795020007905}
+{"event":"skill_start","skill":"shore","trigger":"idle","t":1795020007954}
+{"event":"learned","detail":"learned model: m597 (neural, 119375 parameters, 79 heads, danger model AUC 0.86, skill stats for 975 keys)","t":1795020008092}
+{"event":"milestone","detail":"4 at 0 s","t":1795020009093}
+{"layer":"strategist","brain":"rules","choice":"nether_portal","reason":"goal_done","t":1795020009093}
+{"event":"stuck","detail":"shore at -174, 26, 275","t":1795020021252}
+{"event":"skill_end","skill":"shore","ok":false,"code":"STUCK","detail":"stuck: stayed inside 2.0 blocks for 12 s","seconds":12.55,"t":1795020021255}
+{"event":"skill_start","skill":"unstuck","trigger":"reflex_stuck","t":1795020021257}
+{"event":"skill_end","skill":"unstuck","ok":false,"code":"TIMEOUT","detail":"timed out after 60 s","seconds":60.05,"t":1795020081798}
+{"event":"gene","detail":"learned.gate off: closed","t":1795020081799}
+{"layer":"tactician","gs":72,"brain":"rules","trigger":"skill_failed","goal":"nether_portal","options":["goto surface","smelt iron_ingot:1","explore any"],"choice":"goto surface","x":[1.0,0.95,0.0,0.0,1.0,0.406,0.0,0.0,0.6,0.4,0.0,0.0,0.563,1.0,0.0,0.063,0.25,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,0.308,0.0,0.538,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1795020081801}
+{"event":"skill_start","skill":"goto surface","trigger":"skill_failed","t":1795020081806}
+{"event":"gene","detail":"learned.gate off: closed","t":1795020122644}
+{"layer":"tactician","gs":112,"brain":"rules","trigger":"heartbeat","goal":"nether_portal","options":["shore"],"choice":"shore","x":[1.0,0.95,0.0,0.0,1.0,0.391,0.0,0.0,0.6,0.4,0.0,0.0,0.563,1.0,0.0,0.063,0.25,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,0.308,0.0,0.538,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["shore"],"t":1795020122644}
+{"event":"skill_end","skill":"goto surface","ok":false,"code":"INTERRUPTED","detail":"interrupted: brain chose shore","seconds":40.1,"t":1795020122644}
+{"event":"skill_start","skill":"shore","trigger":"heartbeat","t":1795020122645}
+{"event":"stuck","detail":"shore at -174, 26, 275","t":1795020134653}
+{"event":"skill_end","skill":"shore","ok":false,"code":"STUCK","detail":"stuck: stayed inside 2.0 blocks for 12 s","seconds":11.85,"t":1795020134653}
+{"event":"skill_start","skill":"unstuck","trigger":"reflex_stuck","t":1795020134654}
+{"event":"skill_end","skill":"unstuck","ok":false,"code":"TIMEOUT","detail":"timed out after 60 s","seconds":60.05,"t":1795020195050}
+{"event":"gene","detail":"learned.gate off: closed","t":1795020195051}
+{"layer":"tactician","gs":184,"brain":"rules","trigger":"skill_failed","goal":"nether_portal","options":["goto surface","smelt iron_ingot:1","explore any"],"choice":"goto surface","x":[1.0,0.95,0.0,0.0,1.0,0.406,0.0,0.0,0.6,0.4,0.0,0.0,0.563,1.0,0.0,0.063,0.25,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,0.308,0.0,0.538,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1795020195052}
+{"event":"skill_start","skill":"goto surface","trigger":"skill_failed","t":1795020195052}
+{"event":"gene","detail":"learned.gate off: closed","t":1795020235440}
+{"layer":"tactician","gs":224,"brain":"rules","trigger":"heartbeat","goal":"nether_portal","options":["shore"],"choice":"shore","x":[1.0,0.95,0.0,0.0,1.0,0.391,0.0,0.0,0.6,0.4,0.0,0.0,0.563,1.0,0.0,0.063,0.25,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,0.308,0.0,0.538,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["shore"],"t":1795020235440}
+{"event":"skill_end","skill":"goto surface","ok":false,"code":"INTERRUPTED","detail":"interrupted: brain chose shore","seconds":40.1,"t":1795020235441}
+{"event":"skill_start","skill":"shore","trigger":"heartbeat","t":1795020235441}
+{"event":"stuck","detail":"shore at -174, 26, 275","t":1795020247302}
+{"event":"skill_end","skill":"shore","ok":false,"code":"STUCK","detail":"stuck: stayed inside 2.0 blocks for 12 s","seconds":11.85,"t":1795020247302}
+{"event":"skill_start","skill":"unstuck","trigger":"reflex_stuck","t":1795020247303}
+{"event":"skill_end","skill":"unstuck","ok":false,"code":"TIMEOUT","detail":"timed out after 60 s","seconds":60.05,"t":1795020307650}
+{"event":"gene","detail":"learned.gate off: closed","t":1795020307651}
+{"layer":"tactician","gs":296,"brain":"rules","trigger":"skill_failed","goal":"nether_portal","options":["goto surface","smelt iron_ingot:1","explore any"],"choice":"goto surface","x":[1.0,0.95,0.0,0.0,1.0,0.406,0.0,0.0,0.6,0.4,0.0,0.0,0.563,1.0,0.0,0.063,0.25,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,0.308,0.0,0.538,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1795020307651}
+{"event":"skill_start","skill":"goto surface","trigger":"skill_failed","t":1795020307651}
+{"event":"gene","detail":"learned.gate off: closed","t":1795020348263}
+{"layer":"tactician","gs":336,"brain":"rules","trigger":"heartbeat","goal":"nether_portal","options":["shore"],"choice":"shore","x":[1.0,0.95,0.0,0.0,1.0,0.391,0.0,0.0,0.6,0.4,0.0,0.0,0.563,1.0,0.0,0.063,0.25,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,0.308,0.0,0.538,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["shore"],"t":1795020348264}
+{"event":"skill_end","skill":"goto surface","ok":false,"code":"INTERRUPTED","detail":"interrupted: brain chose shore","seconds":40.1,"t":1795020348264}
+{"event":"skill_start","skill":"shore","trigger":"heartbeat","t":1795020348264}
+{"event":"stuck","detail":"shore at -174, 26, 275","t":1795020360297}
+{"event":"skill_end","skill":"shore","ok":false,"code":"STUCK","detail":"stuck: stayed inside 2.0 blocks for 12 s","seconds":11.85,"t":1795020360297}
+{"event":"skill_start","skill":"unstuck","trigger":"reflex_stuck","t":1795020360298}
+{"event":"skill_end","skill":"unstuck","ok":false,"code":"TIMEOUT","detail":"timed out after 60 s","seconds":60.05,"t":1795020420565}
+{"event":"gene","detail":"learned.gate off: closed","t":1795020420566}
+{"layer":"tactician","gs":408,"brain":"rules","trigger":"skill_failed","goal":"nether_portal","options":["goto surface","smelt iron_ingot:1","explore any"],"choice":"goto surface","x":[1.0,0.95,0.0,0.0,1.0,0.406,0.0,0.0,0.6,0.4,0.0,0.0,0.563,1.0,0.0,0.063,0.25,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,0.308,0.0,0.538,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1795020420567}
+{"event":"skill_start","skill":"goto surface","trigger":"skill_failed","t":1795020420567}
+{"event":"gene","detail":"learned.gate off: closed","t":1795020461088}
+{"layer":"tactician","gs":448,"brain":"rules","trigger":"heartbeat","goal":"nether_portal","options":["shore"],"choice":"shore","x":[1.0,0.95,0.0,0.0,1.0,0.391,0.0,0.0,0.6,0.4,0.0,0.0,0.563,1.0,0.0,0.063,0.25,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,0.308,0.0,0.538,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["shore"],"t":1795020461089}
+{"event":"skill_end","skill":"goto surface","ok":false,"code":"INTERRUPTED","detail":"interrupted: brain chose shore","seconds":40.1,"t":1795020461089}
+{"event":"skill_start","skill":"shore","trigger":"heartbeat","t":1795020461089}
+{"event":"stuck","detail":"shore at -174, 26, 275","t":1795020473014}
+{"event":"skill_end","skill":"shore","ok":false,"code":"STUCK","detail":"stuck: stayed inside 2.0 blocks for 12 s","seconds":11.85,"t":1795020473014}
+{"event":"skill_start","skill":"unstuck","trigger":"reflex_stuck","t":1795020473015}
+{"event":"skill_end","skill":"unstuck","ok":false,"code":"TIMEOUT","detail":"timed out after 60 s","seconds":60.05,"t":1795020533343}
+{"event":"gene","detail":"learned.gate off: closed","t":1795020533345}
+{"layer":"tactician","gs":520,"brain":"rules","trigger":"skill_failed","goal":"nether_portal","options":["goto surface","smelt iron_ingot:1","shelter","explore any"],"choice":"goto surface","x":[1.0,0.95,0.0,1.0,1.0,0.406,0.0,0.0,0.6,0.4,0.0,0.0,0.563,1.0,0.0,0.063,0.25,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,0.308,0.0,0.538,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1795020533345}
+{"event":"skill_start","skill":"goto surface","trigger":"skill_failed","t":1795020533346}
+{"event":"gene","detail":"learned.gate off: closed","t":1795020573840}
+{"layer":"tactician","gs":560,"brain":"rules","trigger":"heartbeat","goal":"nether_portal","options":["shore"],"choice":"shore","x":[1.0,0.95,0.0,1.0,1.0,0.391,0.0,0.0,0.6,0.4,0.0,0.0,0.563,1.0,0.0,0.063,0.25,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,0.308,0.0,0.538,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["shore"],"t":1795020573840}
+{"event":"skill_end","skill":"goto surface","ok":false,"code":"INTERRUPTED","detail":"interrupted: brain chose shore","seconds":40.1,"t":1795020573840}
+{"event":"skill_start","skill":"shore","trigger":"heartbeat","t":1795020573840}
+{"event":"stuck","detail":"shore at -174, 26, 275","t":1795020585745}
+{"event":"skill_end","skill":"shore","ok":false,"code":"STUCK","detail":"stuck: stayed inside 2.0 blocks for 12 s","seconds":11.85,"t":1795020585746}
+{"event":"skill_start","skill":"unstuck","trigger":"reflex_stuck","t":1795020585746}
+{"event":"skill_end","skill":"unstuck","ok":false,"code":"TIMEOUT","detail":"timed out after 60 s","seconds":60.05,"t":1795020645837}
+{"event":"gene","detail":"learned.gate off: closed","t":1795020645838}
+{"layer":"tactician","gs":632,"brain":"rules","trigger":"skill_failed","goal":"nether_portal","options":["goto surface","smelt iron_ingot:1","shelter","explore any"],"choice":"goto surface","x":[1.0,0.95,0.0,1.0,1.0,0.406,0.0,0.0,0.6,0.4,0.0,0.0,0.563,1.0,0.0,0.063,0.25,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,0.308,0.0,0.538,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1795020645838}
+{"event":"skill_start","skill":"goto surface","trigger":"skill_failed","t":1795020645838}
+{"event":"gene","detail":"learned.gate off: closed","t":1795020686654}
+{"layer":"tactician","gs":672,"brain":"rules","trigger":"heartbeat","goal":"nether_portal","options":["shore"],"choice":"shore","x":[1.0,0.95,0.0,1.0,1.0,0.391,0.0,0.0,0.6,0.4,0.0,0.0,0.563,1.0,0.0,0.063,0.25,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,0.308,0.0,0.538,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["shore"],"t":1795020686654}
+{"event":"skill_end","skill":"goto surface","ok":false,"code":"INTERRUPTED","detail":"interrupted: brain chose shore","seconds":40.1,"t":1795020686654}
+{"event":"skill_start","skill":"shore","trigger":"heartbeat","t":1795020686654}
+{"event":"stuck","detail":"shore at -174, 26, 275","t":1795020698490}
+{"event":"skill_end","skill":"shore","ok":false,"code":"STUCK","detail":"stuck: stayed inside 2.0 blocks for 12 s","seconds":11.85,"t":1795020698491}
+{"event":"skill_start","skill":"unstuck","trigger":"reflex_stuck","t":1795020698491}
+{"event":"skill_end","skill":"unstuck","ok":false,"code":"TIMEOUT","detail":"timed out after 60 s","seconds":60.05,"t":1795020758793}
+{"event":"gene","detail":"learned.gate off: closed","t":1795020758795}
+{"layer":"tactician","gs":744,"brain":"rules","trigger":"skill_failed","goal":"nether_portal","options":["goto surface","smelt iron_ingot:1","shelter","explore any"],"choice":"goto surface","x":[1.0,0.95,0.0,1.0,1.0,0.406,0.0,0.0,0.6,0.4,0.0,0.0,0.563,1.0,0.0,0.063,0.25,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,0.308,0.0,0.538,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1795020758795}
+{"event":"skill_start","skill":"goto surface","trigger":"skill_failed","t":1795020758795}
+{"event":"gene","detail":"learned.gate off: closed","t":1795020799441}
+{"layer":"tactician","gs":784,"brain":"rules","trigger":"heartbeat","goal":"nether_portal","options":["shore"],"choice":"shore","x":[1.0,0.95,0.0,1.0,1.0,0.391,0.0,0.0,0.6,0.4,0.0,0.0,0.563,1.0,0.0,0.063,0.25,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,0.308,0.0,0.538,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["shore"],"t":1795020799442}
+{"event":"skill_end","skill":"goto surface","ok":false,"code":"INTERRUPTED","detail":"interrupted: brain chose shore","seconds":40.1,"t":1795020799442}
+{"event":"skill_start","skill":"shore","trigger":"heartbeat","t":1795020799442}
+{"event":"stuck","detail":"shore at -174, 26, 275","t":1795020811455}
+{"event":"skill_end","skill":"shore","ok":false,"code":"STUCK","detail":"stuck: stayed inside 2.0 blocks for 12 s","seconds":11.85,"t":1795020811456}
+{"event":"skill_start","skill":"unstuck","trigger":"reflex_stuck","t":1795020811456}
+{"event":"skill_end","skill":"unstuck","ok":false,"code":"TIMEOUT","detail":"timed out after 60 s","seconds":60.05,"t":1795020871811}
+{"event":"gene","detail":"learned.gate off: closed","t":1795020871812}
+{"layer":"tactician","gs":856,"brain":"rules","trigger":"skill_failed","goal":"nether_portal","options":["goto surface","smelt iron_ingot:1","shelter","explore any"],"choice":"goto surface","x":[1.0,0.95,0.0,1.0,1.0,0.406,0.0,0.0,0.6,0.4,0.0,0.0,0.563,1.0,0.0,0.063,0.25,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,0.308,0.0,0.538,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1795020871812}
+{"event":"skill_start","skill":"goto surface","trigger":"skill_failed","t":1795020871812}
+{"event":"gene","detail":"learned.gate off: closed","t":1795020912263}
+{"layer":"tactician","gs":896,"brain":"rules","trigger":"heartbeat","goal":"nether_portal","options":["shore"],"choice":"shore","x":[1.0,0.95,0.0,1.0,1.0,0.391,0.0,0.0,0.6,0.4,0.0,0.0,0.563,1.0,0.0,0.063,0.25,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,0.308,0.0,0.538,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["shore"],"t":1795020912263}
+{"event":"skill_end","skill":"goto surface","ok":false,"code":"INTERRUPTED","detail":"interrupted: brain chose shore","seconds":40.1,"t":1795020912263}
+{"event":"skill_start","skill":"shore","trigger":"heartbeat","t":1795020912263}
+{"event":"stuck","detail":"shore at -174, 26, 275","t":1795020924193}
+{"event":"skill_end","skill":"shore","ok":false,"code":"STUCK","detail":"stuck: stayed inside 2.0 blocks for 12 s","seconds":11.85,"t":1795020924195}
+{"event":"skill_start","skill":"unstuck","trigger":"reflex_stuck","t":1795020924196}
+{"event":"skill_end","skill":"unstuck","ok":false,"code":"TIMEOUT","detail":"timed out after 60 s","seconds":60.05,"t":1795020984553}
+{"event":"gene","detail":"learned.gate off: closed","t":1795020984553}
+{"layer":"tactician","gs":968,"brain":"rules","trigger":"skill_failed","goal":"nether_portal","options":["goto surface","smelt iron_ingot:1","explore any"],"choice":"goto surface","x":[1.0,0.95,0.0,0.0,1.0,0.406,0.0,0.0,0.6,0.4,0.0,0.0,0.563,1.0,0.0,0.063,0.25,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,0.308,0.0,0.538,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1795020984554}
+{"event":"skill_start","skill":"goto surface","trigger":"skill_failed","t":1795020984554}
+{"event":"gene","detail":"learned.gate off: closed","t":1795021024900}
+{"layer":"tactician","gs":1008,"brain":"rules","trigger":"heartbeat","goal":"nether_portal","options":["shore"],"choice":"shore","x":[1.0,0.95,0.0,0.0,1.0,0.391,0.0,0.0,0.6,0.4,0.0,0.0,0.563,1.0,0.0,0.063,0.25,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,0.308,0.0,0.538,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["shore"],"t":1795021024901}
+{"event":"skill_end","skill":"goto surface","ok":false,"code":"INTERRUPTED","detail":"interrupted: brain chose shore","seconds":40.1,"t":1795021024901}
+{"event":"skill_start","skill":"shore","trigger":"heartbeat","t":1795021024901}
+{"event":"stuck","detail":"shore at -174, 26, 275","t":1795021036751}
+{"event":"skill_end","skill":"shore","ok":false,"code":"STUCK","detail":"stuck: stayed inside 2.0 blocks for 12 s","seconds":11.85,"t":1795021036751}
+{"event":"skill_start","skill":"unstuck","trigger":"reflex_stuck","t":1795021036752}
+{"event":"skill_end","skill":"unstuck","ok":false,"code":"TIMEOUT","detail":"timed out after 60 s","seconds":60.05,"t":1795021096964}
+{"event":"gene","detail":"learned.gate off: closed","t":1795021096965}
+{"layer":"tactician","gs":1080,"brain":"rules","trigger":"skill_failed","goal":"nether_portal","options":["goto surface","smelt iron_ingot:1","explore any"],"choice":"goto surface","x":[1.0,0.95,0.0,0.0,1.0,0.406,0.0,0.0,0.6,0.4,0.0,0.0,0.563,1.0,0.0,0.063,0.25,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,0.308,0.0,0.538,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1795021096966}
+{"event":"skill_start","skill":"goto surface","trigger":"skill_failed","t":1795021096966}
+{"event":"gene","detail":"learned.gate off: closed","t":1795021137445}
+{"layer":"tactician","gs":1120,"brain":"rules","trigger":"heartbeat","goal":"nether_portal","options":["shore"],"choice":"shore","x":[1.0,0.95,0.0,0.0,1.0,0.391,0.0,0.0,0.6,0.4,0.0,0.0,0.563,1.0,0.0,0.063,0.25,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,0.308,0.0,0.538,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["shore"],"t":1795021137446}
+{"event":"skill_end","skill":"goto surface","ok":false,"code":"INTERRUPTED","detail":"interrupted: brain chose shore","seconds":40.1,"t":1795021137446}
+{"event":"skill_start","skill":"shore","trigger":"heartbeat","t":1795021137446}
+{"event":"stuck","detail":"shore at -174, 26, 275","t":1795021149300}
+{"event":"skill_end","skill":"shore","ok":false,"code":"STUCK","detail":"stuck: stayed inside 2.0 blocks for 12 s","seconds":11.85,"t":1795021149300}
+{"event":"skill_start","skill":"unstuck","trigger":"reflex_stuck","t":1795021149300}
+{"event":"skill_end","skill":"unstuck","ok":false,"code":"TIMEOUT","detail":"timed out after 60 s","seconds":60.05,"t":1795021209542}
+{"event":"gene","detail":"learned.gate off: closed","t":1795021209543}
+{"layer":"tactician","gs":1192,"brain":"rules","trigger":"skill_failed","goal":"nether_portal","options":["goto surface","smelt iron_ingot:1","explore any"],"choice":"goto surface","x":[1.0,0.95,0.0,0.0,1.0,0.406,0.0,0.0,0.6,0.4,0.0,0.0,0.563,1.0,0.0,0.063,0.25,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,0.308,0.0,0.538,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1795021209544}
+{"event":"skill_start","skill":"goto surface","trigger":"skill_failed","t":1795021209544}
+{"event":"gene","detail":"learned.gate off: closed","t":1795021249809}
+{"layer":"tactician","gs":1232,"brain":"rules","trigger":"heartbeat","goal":"nether_portal","options":["shore"],"choice":"shore","x":[1.0,0.95,0.0,0.0,1.0,0.391,0.0,0.0,0.6,0.4,0.0,0.0,0.563,1.0,0.0,0.063,0.25,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,0.308,0.0,0.538,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["shore"],"t":1795021249809}
+{"event":"skill_end","skill":"goto surface","ok":false,"code":"INTERRUPTED","detail":"interrupted: brain chose shore","seconds":40.1,"t":1795021249809}
+{"event":"skill_start","skill":"shore","trigger":"heartbeat","t":1795021249809}
+{"event":"stuck","detail":"shore at -174, 26, 275","t":1795021261655}
+{"event":"skill_end","skill":"shore","ok":false,"code":"STUCK","detail":"stuck: stayed inside 2.0 blocks for 12 s","seconds":11.85,"t":1795021261656}
+{"event":"skill_start","skill":"unstuck","trigger":"reflex_stuck","t":1795021261656}
+{"event":"skill_end","skill":"unstuck","ok":false,"code":"TIMEOUT","detail":"timed out after 60 s","seconds":60.05,"t":1795021321793}
+{"event":"gene","detail":"learned.gate off: closed","t":1795021321794}
+{"layer":"tactician","gs":1304,"brain":"rules","trigger":"skill_failed","goal":"nether_portal","options":["goto surface","smelt iron_ingot:1","explore any"],"choice":"goto surface","x":[1.0,0.95,0.0,0.0,1.0,0.406,0.0,0.0,0.6,0.4,0.0,0.0,0.563,1.0,0.0,0.063,0.25,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,0.308,0.0,0.538,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1795021321795}
+{"event":"skill_start","skill":"goto surface","trigger":"skill_failed","t":1795021321795}
+{"event":"gene","detail":"learned.gate off: closed","t":1795021362512}
+{"layer":"tactician","gs":1344,"brain":"rules","trigger":"heartbeat","goal":"nether_portal","options":["shore"],"choice":"shore","x":[1.0,0.95,0.0,0.0,1.0,0.391,0.0,0.0,0.6,0.4,0.0,0.0,0.563,1.0,0.0,0.063,0.25,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,0.308,0.0,0.538,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["shore"],"t":1795021362512}
+{"event":"skill_end","skill":"goto surface","ok":false,"code":"INTERRUPTED","detail":"interrupted: brain chose shore","seconds":40.1,"t":1795021362512}
+{"event":"skill_start","skill":"shore","trigger":"heartbeat","t":1795021362512}
+{"event":"stuck","detail":"shore at -174, 26, 275","t":1795021374401}
+{"event":"skill_end","skill":"shore","ok":false,"code":"STUCK","detail":"stuck: stayed inside 2.0 blocks for 12 s","seconds":11.85,"t":1795021374402}
+{"event":"skill_start","skill":"unstuck","trigger":"reflex_stuck","t":1795021374402}
+{"event":"skill_end","skill":"unstuck","ok":false,"code":"TIMEOUT","detail":"timed out after 60 s","seconds":60.05,"t":1795021434901}
+{"event":"gene","detail":"learned.gate off: closed","t":1795021434902}
+{"layer":"tactician","gs":1416,"brain":"rules","trigger":"skill_failed","goal":"nether_portal","options":["goto surface","smelt iron_ingot:1","explore any"],"choice":"goto surface","x":[1.0,0.95,0.0,0.0,1.0,0.406,0.0,0.0,0.6,0.4,0.0,0.0,0.563,1.0,0.0,0.063,0.25,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,0.308,0.0,0.538,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1795021434902}
+{"event":"skill_start","skill":"goto surface","trigger":"skill_failed","t":1795021434902}
+{"event":"gene","detail":"learned.gate off: closed","t":1795021475594}
+{"layer":"tactician","gs":1456,"brain":"rules","trigger":"heartbeat","goal":"nether_portal","options":["shore"],"choice":"shore","x":[1.0,0.95,0.0,0.0,1.0,0.391,0.0,0.0,0.6,0.4,0.0,0.0,0.563,1.0,0.0,0.063,0.25,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,0.308,0.0,0.538,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["shore"],"t":1795021475594}
+{"event":"skill_end","skill":"goto surface","ok":false,"code":"INTERRUPTED","detail":"interrupted: brain chose shore","seconds":40.1,"t":1795021475594}
+{"event":"skill_start","skill":"shore","trigger":"heartbeat","t":1795021475594}
+{"event":"stuck","detail":"shore at -174, 26, 275","t":1795021487551}
+{"event":"skill_end","skill":"shore","ok":false,"code":"STUCK","detail":"stuck: stayed inside 2.0 blocks for 12 s","seconds":11.85,"t":1795021487551}
+{"event":"skill_start","skill":"unstuck","trigger":"reflex_stuck","t":1795021487551}
+{"event":"skill_end","skill":"unstuck","ok":false,"code":"TIMEOUT","detail":"timed out after 60 s","seconds":60.05,"t":1795021547744}
+{"event":"gene","detail":"learned.gate off: closed","t":1795021547745}
+{"layer":"tactician","gs":1528,"brain":"rules","trigger":"skill_failed","goal":"nether_portal","options":["goto surface","smelt iron_ingot:1","explore any"],"choice":"goto surface","x":[1.0,0.95,0.0,0.0,1.0,0.406,0.0,0.0,0.6,0.4,0.0,0.0,0.563,1.0,0.0,0.063,0.25,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,0.308,0.0,0.538,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1795021547746}
+{"event":"skill_start","skill":"goto surface","trigger":"skill_failed","t":1795021547746}
+{"event":"gene","detail":"learned.gate off: closed","t":1795021588299}
+{"layer":"tactician","gs":1568,"brain":"rules","trigger":"heartbeat","goal":"nether_portal","options":["shore"],"choice":"shore","x":[1.0,0.95,0.0,0.0,1.0,0.391,0.0,0.0,0.6,0.4,0.0,0.0,0.563,1.0,0.0,0.063,0.25,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,0.308,0.0,0.538,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["shore"],"t":1795021588299}
+{"event":"skill_end","skill":"goto surface","ok":false,"code":"INTERRUPTED","detail":"interrupted: brain chose shore","seconds":40.1,"t":1795021588299}
+{"event":"skill_start","skill":"shore","trigger":"heartbeat","t":1795021588299}
+{"event":"stuck","detail":"shore at -174, 26, 275","t":1795021600245}
+{"event":"skill_end","skill":"shore","ok":false,"code":"STUCK","detail":"stuck: stayed inside 2.0 blocks for 12 s","seconds":11.85,"t":1795021600246}
+{"event":"skill_start","skill":"unstuck","trigger":"reflex_stuck","t":1795021600246}
+{"event":"skill_end","skill":"unstuck","ok":false,"code":"TIMEOUT","detail":"timed out after 60 s","seconds":60.05,"t":1795021660454}
+{"event":"gene","detail":"learned.gate off: closed","t":1795021660455}
+{"layer":"tactician","gs":1640,"brain":"rules","trigger":"skill_failed","goal":"nether_portal","options":["goto surface","smelt iron_ingot:1","explore any"],"choice":"goto surface","x":[1.0,0.95,0.0,0.0,1.0,0.406,0.0,0.0,0.6,0.4,0.0,0.0,0.563,1.0,0.0,0.063,0.25,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,0.308,0.0,0.538,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1795021660456}
+{"event":"skill_start","skill":"goto surface","trigger":"skill_failed","t":1795021660456}
+{"event":"gene","detail":"learned.gate off: closed","t":1795021700920}
+{"layer":"tactician","gs":1680,"brain":"rules","trigger":"heartbeat","goal":"nether_portal","options":["shore"],"choice":"shore","x":[1.0,0.95,0.0,1.0,1.0,0.391,0.0,0.0,0.6,0.4,0.0,0.0,0.563,1.0,0.0,0.063,0.25,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,0.308,0.0,0.538,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["shore"],"t":1795021700920}
+{"event":"skill_end","skill":"goto surface","ok":false,"code":"INTERRUPTED","detail":"interrupted: brain chose shore","seconds":40.1,"t":1795021700921}
+{"event":"skill_start","skill":"shore","trigger":"heartbeat","t":1795021700921}
+{"event":"stuck","detail":"shore at -174, 26, 275","t":1795021712846}
+{"event":"skill_end","skill":"shore","ok":false,"code":"STUCK","detail":"stuck: stayed inside 2.0 blocks for 12 s","seconds":11.85,"t":1795021712847}
+{"event":"skill_start","skill":"unstuck","trigger":"reflex_stuck","t":1795021712847}
+{"event":"skill_end","skill":"unstuck","ok":false,"code":"TIMEOUT","detail":"timed out after 60 s","seconds":60.05,"t":1795021773253}
+{"event":"gene","detail":"learned.gate off: closed","t":1795021773254}
+{"layer":"tactician","gs":1752,"brain":"rules","trigger":"skill_failed","goal":"nether_portal","options":["goto surface","smelt iron_ingot:1","shelter","explore any"],"choice":"goto surface","x":[1.0,0.95,0.0,1.0,1.0,0.406,0.0,0.0,0.6,0.4,0.0,0.0,0.563,1.0,0.0,0.063,0.25,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,0.308,0.0,0.538,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1795021773254}
+{"event":"skill_start","skill":"goto surface","trigger":"skill_failed","t":1795021773254}
+{"event":"gene","detail":"learned.gate off: closed","t":1795021813663}
+{"layer":"tactician","gs":1792,"brain":"rules","trigger":"heartbeat","goal":"nether_portal","options":["shore"],"choice":"shore","x":[1.0,0.95,0.0,1.0,1.0,0.391,0.0,0.0,0.6,0.4,0.0,0.0,0.563,1.0,0.0,0.063,0.25,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,0.308,0.0,0.538,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["shore"],"t":1795021813664}
+{"event":"skill_end","skill":"goto surface","ok":false,"code":"INTERRUPTED","detail":"interrupted: brain chose shore","seconds":40.1,"t":1795021813664}
+{"event":"skill_start","skill":"shore","trigger":"heartbeat","t":1795021813664}
+{"event":"stuck","detail":"shore at -174, 26, 275","t":1795021825647}
+{"event":"skill_end","skill":"shore","ok":false,"code":"STUCK","detail":"stuck: stayed inside 2.0 blocks for 12 s","seconds":11.85,"t":1795021825647}
+{"event":"skill_start","skill":"unstuck","trigger":"reflex_stuck","t":1795021825648}
+{"event":"skill_end","skill":"unstuck","ok":false,"code":"TIMEOUT","detail":"timed out after 60 s","seconds":60.05,"t":1795021886007}
+{"event":"gene","detail":"learned.gate off: closed","t":1795021886008}
+{"layer":"tactician","gs":1864,"brain":"rules","trigger":"skill_failed","goal":"nether_portal","options":["goto surface","smelt iron_ingot:1","shelter","explore any"],"choice":"goto surface","x":[1.0,0.95,0.0,1.0,1.0,0.406,0.0,0.0,0.6,0.4,0.0,0.0,0.563,1.0,0.0,0.063,0.25,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,0.308,0.0,0.538,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1795021886009}
+{"event":"skill_start","skill":"goto surface","trigger":"skill_failed","t":1795021886009}
+{"event":"gene","detail":"learned.gate off: closed","t":1795021926861}
+{"layer":"tactician","gs":1904,"brain":"rules","trigger":"heartbeat","goal":"nether_portal","options":["shore"],"choice":"shore","x":[1.0,0.95,0.0,1.0,1.0,0.391,0.0,0.0,0.6,0.4,0.0,0.0,0.563,1.0,0.0,0.063,0.25,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,0.308,0.0,0.538,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["shore"],"t":1795021926862}
+{"event":"skill_end","skill":"goto surface","ok":false,"code":"INTERRUPTED","detail":"interrupted: brain chose shore","seconds":40.1,"t":1795021926862}
+{"event":"skill_start","skill":"shore","trigger":"heartbeat","t":1795021926862}
+{"event":"stuck","detail":"shore at -174, 26, 275","t":1795021938898}
+{"event":"skill_end","skill":"shore","ok":false,"code":"STUCK","detail":"stuck: stayed inside 2.0 blocks for 12 s","seconds":11.85,"t":1795021938898}
+{"event":"skill_start","skill":"unstuck","trigger":"reflex_stuck","t":1795021938898}
+{"event":"skill_end","skill":"unstuck","ok":false,"code":"TIMEOUT","detail":"timed out after 60 s","seconds":60.05,"t":1795021999263}
+{"event":"gene","detail":"learned.gate off: closed","t":1795021999264}
+{"layer":"tactician","gs":1976,"brain":"rules","trigger":"skill_failed","goal":"nether_portal","options":["goto surface","smelt iron_ingot:1","shelter","explore any"],"choice":"goto surface","x":[1.0,0.95,0.0,1.0,1.0,0.406,0.0,0.0,0.6,0.4,0.0,0.0,0.563,1.0,0.0,0.063,0.25,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,0.308,0.0,0.538,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1795021999264}
+{"event":"skill_start","skill":"goto surface","trigger":"skill_failed","t":1795021999265}
+{"event":"gene","detail":"learned.gate off: closed","t":1795022039736}
+{"layer":"tactician","gs":2016,"brain":"rules","trigger":"heartbeat","goal":"nether_portal","options":["shore"],"choice":"shore","x":[1.0,0.95,0.0,1.0,1.0,0.391,0.0,0.0,0.6,0.4,0.0,0.0,0.563,1.0,0.0,0.063,0.25,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,0.308,0.0,0.538,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["shore"],"t":1795022039737}
+{"event":"skill_end","skill":"goto surface","ok":false,"code":"INTERRUPTED","detail":"interrupted: brain chose shore","seconds":40.1,"t":1795022039737}
+{"event":"skill_start","skill":"shore","trigger":"heartbeat","t":1795022039737}
+{"event":"stuck","detail":"shore at -174, 26, 275","t":1795022051660}
+{"event":"skill_end","skill":"shore","ok":false,"code":"STUCK","detail":"stuck: stayed inside 2.0 blocks for 12 s","seconds":11.85,"t":1795022051661}
+{"event":"skill_start","skill":"unstuck","trigger":"reflex_stuck","t":1795022051661}
+{"event":"skill_end","skill":"unstuck","ok":false,"code":"TIMEOUT","detail":"timed out after 60 s","seconds":60.05,"t":1795022111971}
+{"event":"gene","detail":"learned.gate off: closed","t":1795022111972}
+{"layer":"tactician","gs":2088,"brain":"rules","trigger":"skill_failed","goal":"nether_portal","options":["goto surface","smelt iron_ingot:1","shelter","explore any"],"choice":"goto surface","x":[1.0,0.95,0.0,1.0,1.0,0.406,0.0,0.0,0.6,0.4,0.0,0.0,0.563,1.0,0.0,0.063,0.25,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,0.308,0.0,0.538,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1795022111972}
+{"event":"skill_start","skill":"goto surface","trigger":"skill_failed","t":1795022111972}
+{"event":"gene","detail":"learned.gate off: closed","t":1795022152718}
+{"layer":"tactician","gs":2128,"brain":"rules","trigger":"heartbeat","goal":"nether_portal","options":["shore"],"choice":"shore","x":[1.0,0.95,0.0,1.0,1.0,0.391,0.0,0.0,0.6,0.4,0.0,0.0,0.563,1.0,0.0,0.063,0.25,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,0.308,0.0,0.538,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["shore"],"t":1795022152718}
+{"event":"skill_end","skill":"goto surface","ok":false,"code":"INTERRUPTED","detail":"interrupted: brain chose shore","seconds":40.1,"t":1795022152719}
+{"event":"skill_start","skill":"shore","trigger":"heartbeat","t":1795022152719}
+{"event":"stuck","detail":"shore at -174, 26, 275","t":1795022164605}
+{"event":"skill_end","skill":"shore","ok":false,"code":"STUCK","detail":"stuck: stayed inside 2.0 blocks for 12 s","seconds":11.85,"t":1795022164605}
+{"event":"skill_start","skill":"unstuck","trigger":"reflex_stuck","t":1795022164606}
+{"event":"skill_end","skill":"unstuck","ok":false,"code":"TIMEOUT","detail":"timed out after 60 s","seconds":60.05,"t":1795022225125}
+{"event":"gene","detail":"learned.gate off: closed","t":1795022225126}
+{"layer":"tactician","gs":2200,"brain":"rules","trigger":"skill_failed","goal":"nether_portal","options":["goto surface","smelt iron_ingot:1","explore any"],"choice":"goto surface","x":[1.0,0.95,0.0,0.0,1.0,0.406,0.0,0.0,0.6,0.4,0.0,0.0,0.563,1.0,0.0,0.063,0.25,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,0.308,0.0,0.538,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1795022225126}
+{"event":"skill_start","skill":"goto surface","trigger":"skill_failed","t":1795022225126}
+{"event":"gene","detail":"learned.gate off: closed","t":1795022265676}
+{"layer":"tactician","gs":2240,"brain":"rules","trigger":"heartbeat","goal":"nether_portal","options":["shore"],"choice":"shore","x":[1.0,0.95,0.0,0.0,1.0,0.391,0.0,0.0,0.6,0.4,0.0,0.0,0.563,1.0,0.0,0.063,0.25,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,0.308,0.0,0.538,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["shore"],"t":1795022265676}
+{"event":"skill_end","skill":"goto surface","ok":false,"code":"INTERRUPTED","detail":"interrupted: brain chose shore","seconds":40.1,"t":1795022265677}
+{"event":"skill_start","skill":"shore","trigger":"heartbeat","t":1795022265677}
+{"event":"stuck","detail":"shore at -174, 26, 275","t":1795022277666}
+{"event":"skill_end","skill":"shore","ok":false,"code":"STUCK","detail":"stuck: stayed inside 2.0 blocks for 12 s","seconds":11.85,"t":1795022277667}
+{"event":"skill_start","skill":"unstuck","trigger":"reflex_stuck","t":1795022277667}
+{"event":"skill_end","skill":"unstuck","ok":false,"code":"TIMEOUT","detail":"timed out after 60 s","seconds":60.05,"t":1795022338172}
+{"event":"gene","detail":"learned.gate off: closed","t":1795022338173}
+{"layer":"tactician","gs":2312,"brain":"rules","trigger":"skill_failed","goal":"nether_portal","options":["goto surface","smelt iron_ingot:1","explore any"],"choice":"goto surface","x":[1.0,0.95,0.0,0.0,1.0,0.406,0.0,0.0,0.6,0.4,0.0,0.0,0.563,1.0,0.0,0.063,0.25,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,0.308,0.0,0.538,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1795022338173}
+{"event":"skill_start","skill":"goto surface","trigger":"skill_failed","t":1795022338173}
+{"event":"gene","detail":"learned.gate off: closed","t":1795022378620}
+{"layer":"tactician","gs":2352,"brain":"rules","trigger":"heartbeat","goal":"nether_portal","options":["shore"],"choice":"shore","x":[1.0,0.95,0.0,0.0,1.0,0.391,0.0,0.0,0.6,0.4,0.0,0.0,0.563,1.0,0.0,0.063,0.25,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,0.308,0.0,0.538,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["shore"],"t":1795022378620}
+{"event":"skill_end","skill":"goto surface","ok":false,"code":"INTERRUPTED","detail":"interrupted: brain chose shore","seconds":40.1,"t":1795022378620}
+{"event":"skill_start","skill":"shore","trigger":"heartbeat","t":1795022378620}
+{"event":"stuck","detail":"shore at -174, 26, 275","t":1795022390467}
+{"event":"skill_end","skill":"shore","ok":false,"code":"STUCK","detail":"stuck: stayed inside 2.0 blocks for 12 s","seconds":11.85,"t":1795022390467}
+{"event":"skill_start","skill":"unstuck","trigger":"reflex_stuck","t":1795022390468}
+{"event":"skill_end","skill":"unstuck","ok":false,"code":"TIMEOUT","detail":"timed out after 60 s","seconds":60.05,"t":1795022450708}
+{"event":"gene","detail":"learned.gate off: closed","t":1795022450709}
+{"layer":"tactician","gs":2424,"brain":"rules","trigger":"skill_failed","goal":"nether_portal","options":["goto surface","smelt iron_ingot:1","explore any"],"choice":"goto surface","x":[1.0,0.95,0.0,0.0,1.0,0.406,0.0,0.0,0.6,0.4,0.0,0.0,0.563,1.0,0.0,0.063,0.25,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,0.308,0.0,0.538,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1795022450709}
+{"event":"skill_start","skill":"goto surface","trigger":"skill_failed","t":1795022450709}
+{"event":"gene","detail":"learned.gate off: closed","t":1795022491076}
+{"layer":"tactician","gs":2464,"brain":"rules","trigger":"heartbeat","goal":"nether_portal","options":["shore"],"choice":"shore","x":[1.0,0.95,0.0,0.0,1.0,0.391,0.0,0.0,0.6,0.4,0.0,0.0,0.563,1.0,0.0,0.063,0.25,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,0.308,0.0,0.538,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["shore"],"t":1795022491076}
+{"event":"skill_end","skill":"goto surface","ok":false,"code":"INTERRUPTED","detail":"interrupted: brain chose shore","seconds":40.1,"t":1795022491077}
+{"event":"skill_start","skill":"shore","trigger":"heartbeat","t":1795022491077}
+{"event":"stuck","detail":"shore at -174, 26, 275","t":1795022502954}
+{"event":"skill_end","skill":"shore","ok":false,"code":"STUCK","detail":"stuck: stayed inside 2.0 blocks for 12 s","seconds":11.85,"t":1795022502954}
+{"event":"skill_start","skill":"unstuck","trigger":"reflex_stuck","t":1795022502955}
+{"event":"skill_end","skill":"unstuck","ok":false,"code":"TIMEOUT","detail":"timed out after 60 s","seconds":60.05,"t":1795022563237}
+{"event":"gene","detail":"learned.gate off: closed","t":1795022563238}
+{"layer":"tactician","gs":2536,"brain":"rules","trigger":"skill_failed","goal":"nether_portal","options":["goto surface","smelt iron_ingot:1","explore any"],"choice":"goto surface","x":[1.0,0.95,0.0,0.0,1.0,0.406,0.0,0.0,0.6,0.4,0.0,0.0,0.563,1.0,0.0,0.063,0.25,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,0.308,0.0,0.538,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1795022563238}
+{"event":"skill_start","skill":"goto surface","trigger":"skill_failed","t":1795022563239}
+{"event":"gene","detail":"learned.gate off: closed","t":1795022603812}
+{"layer":"tactician","gs":2576,"brain":"rules","trigger":"heartbeat","goal":"nether_portal","options":["shore"],"choice":"shore","x":[1.0,0.95,0.0,0.0,1.0,0.391,0.0,0.0,0.6,0.4,0.0,0.0,0.563,1.0,0.0,0.063,0.25,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,0.308,0.0,0.538,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["shore"],"t":1795022603812}
+{"event":"skill_end","skill":"goto surface","ok":false,"code":"INTERRUPTED","detail":"interrupted: brain chose shore","seconds":40.1,"t":1795022603813}
+{"event":"skill_start","skill":"shore","trigger":"heartbeat","t":1795022603813}
+{"event":"stuck","detail":"shore at -174, 26, 275","t":1795022615715}
+{"event":"skill_end","skill":"shore","ok":false,"code":"STUCK","detail":"stuck: stayed inside 2.0 blocks for 12 s","seconds":11.85,"t":1795022615715}
+{"event":"skill_start","skill":"unstuck","trigger":"reflex_stuck","t":1795022615716}
+{"event":"skill_end","skill":"unstuck","ok":false,"code":"TIMEOUT","detail":"timed out after 60 s","seconds":60.05,"t":1795022676064}
+{"event":"gene","detail":"learned.gate off: closed","t":1795022676065}
+{"layer":"tactician","gs":2648,"brain":"rules","trigger":"skill_failed","goal":"nether_portal","options":["goto surface","smelt iron_ingot:1","explore any"],"choice":"goto surface","x":[1.0,0.95,0.0,0.0,1.0,0.406,0.0,0.0,0.6,0.4,0.0,0.0,0.563,1.0,0.0,0.063,0.25,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,0.308,0.0,0.538,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1795022676065}
+{"event":"skill_start","skill":"goto surface","trigger":"skill_failed","t":1795022676065}
+{"event":"gene","detail":"learned.gate off: closed","t":1795022716679}
+{"layer":"tactician","gs":2688,"brain":"rules","trigger":"heartbeat","goal":"nether_portal","options":["shore"],"choice":"shore","x":[1.0,0.95,0.0,0.0,1.0,0.391,0.0,0.0,0.6,0.4,0.0,0.0,0.563,1.0,0.0,0.063,0.25,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,0.308,0.0,0.538,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["shore"],"t":1795022716680}
+{"event":"skill_end","skill":"goto surface","ok":false,"code":"INTERRUPTED","detail":"interrupted: brain chose shore","seconds":40.1,"t":1795022716680}
+{"event":"skill_start","skill":"shore","trigger":"heartbeat","t":1795022716680}
+{"event":"stuck","detail":"shore at -174, 26, 275","t":1795022728668}
+{"event":"skill_end","skill":"shore","ok":false,"code":"STUCK","detail":"stuck: stayed inside 2.0 blocks for 12 s","seconds":11.85,"t":1795022728668}
+{"event":"skill_start","skill":"unstuck","trigger":"reflex_stuck","t":1795022728669}
+{"event":"skill_end","skill":"unstuck","ok":false,"code":"TIMEOUT","detail":"timed out after 60 s","seconds":60.05,"t":1795022789202}
+{"event":"gene","detail":"learned.gate off: closed","t":1795022789204}
+{"layer":"tactician","gs":2760,"brain":"rules","trigger":"skill_failed","goal":"nether_portal","options":["goto surface","smelt iron_ingot:1","explore any"],"choice":"goto surface","x":[1.0,0.95,0.0,0.0,1.0,0.406,0.0,0.0,0.6,0.4,0.0,0.0,0.563,1.0,0.0,0.063,0.25,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,0.308,0.0,0.538,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1795022789204}
+{"event":"skill_start","skill":"goto surface","trigger":"skill_failed","t":1795022789204}
+{"event":"gene","detail":"learned.gate off: closed","t":1795022829928}
+{"layer":"tactician","gs":2800,"brain":"rules","trigger":"heartbeat","goal":"nether_portal","options":["shore"],"choice":"shore","x":[1.0,0.95,0.0,0.0,1.0,0.391,0.0,0.0,0.6,0.4,0.0,0.0,0.563,1.0,0.0,0.063,0.25,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,0.308,0.0,0.538,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["shore"],"t":1795022829928}
+{"event":"skill_end","skill":"goto surface","ok":false,"code":"INTERRUPTED","detail":"interrupted: brain chose shore","seconds":40.1,"t":1795022829928}
+{"event":"skill_start","skill":"shore","trigger":"heartbeat","t":1795022829929}
+{"event":"stuck","detail":"shore at -174, 26, 275","t":1795022841875}
+{"event":"skill_end","skill":"shore","ok":false,"code":"STUCK","detail":"stuck: stayed inside 2.0 blocks for 12 s","seconds":11.85,"t":1795022841875}
+{"event":"skill_start","skill":"unstuck","trigger":"reflex_stuck","t":1795022841875}
+{"event":"skill_end","skill":"unstuck","ok":false,"code":"TIMEOUT","detail":"timed out after 60 s","seconds":60.05,"t":1795022902264}
+{"event":"gene","detail":"learned.gate off: closed","t":1795022902265}
+{"layer":"tactician","gs":2872,"brain":"rules","trigger":"skill_failed","goal":"nether_portal","options":["goto surface","smelt iron_ingot:1","shelter","explore any"],"choice":"goto surface","x":[1.0,0.95,0.0,1.0,1.0,0.406,0.0,0.0,0.6,0.4,0.0,0.0,0.563,1.0,0.0,0.063,0.25,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,0.308,0.0,0.538,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1795022902265}
+{"event":"skill_start","skill":"goto surface","trigger":"skill_failed","t":1795022902265}
+{"event":"gene","detail":"learned.gate off: closed","t":1795022943005}
+{"layer":"tactician","gs":2912,"brain":"rules","trigger":"heartbeat","goal":"nether_portal","options":["shore"],"choice":"shore","x":[1.0,0.95,0.0,1.0,1.0,0.391,0.0,0.0,0.6,0.4,0.0,0.0,0.563,1.0,0.0,0.063,0.25,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,0.308,0.0,0.538,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["shore"],"t":1795022943005}
+{"event":"skill_end","skill":"goto surface","ok":false,"code":"INTERRUPTED","detail":"interrupted: brain chose shore","seconds":40.1,"t":1795022943005}
+{"event":"skill_start","skill":"shore","trigger":"heartbeat","t":1795022943005}
+{"event":"stuck","detail":"shore at -174, 26, 275","t":1795022954921}
+{"event":"skill_end","skill":"shore","ok":false,"code":"STUCK","detail":"stuck: stayed inside 2.0 blocks for 12 s","seconds":11.85,"t":1795022954921}
+{"event":"skill_start","skill":"unstuck","trigger":"reflex_stuck","t":1795022954922}
+{"event":"skill_end","skill":"unstuck","ok":false,"code":"TIMEOUT","detail":"timed out after 60 s","seconds":60.05,"t":1795023015324}
+{"event":"gene","detail":"learned.gate off: closed","t":1795023015325}
+{"layer":"tactician","gs":2984,"brain":"rules","trigger":"skill_failed","goal":"nether_portal","options":["goto surface","smelt iron_ingot:1","shelter","explore any"],"choice":"goto surface","x":[1.0,0.95,0.0,1.0,1.0,0.391,0.0,0.0,0.6,0.4,0.0,0.0,0.563,1.0,0.0,0.063,0.25,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,0.308,0.0,0.538,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1795023015326}
+{"event":"skill_start","skill":"goto surface","trigger":"skill_failed","t":1795023015326}
+{"event":"gene","detail":"learned.gate off: closed","t":1795023035680}
+{"layer":"tactician","gs":3004,"brain":"rules","trigger":"heartbeat","goal":"nether_portal","options":["shore"],"choice":"shore","x":[1.0,0.95,0.0,1.0,1.0,0.391,0.0,0.0,0.6,0.4,0.0,0.0,0.563,1.0,0.0,0.063,0.25,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,0.308,0.0,0.538,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["shore"],"t":1795023035680}
+{"event":"skill_end","skill":"goto surface","ok":false,"code":"INTERRUPTED","detail":"interrupted: brain chose shore","seconds":20.05,"t":1795023035681}
+{"event":"skill_start","skill":"shore","trigger":"heartbeat","t":1795023035681}
+{"event":"stuck","detail":"shore at -174, 26, 275","t":1795023047563}
+{"event":"skill_end","skill":"shore","ok":false,"code":"STUCK","detail":"stuck: stayed inside 2.0 blocks for 12 s","seconds":11.9,"t":1795023047563}
+{"event":"skill_start","skill":"unstuck","trigger":"reflex_stuck","t":1795023047563}
+{"event":"skill_end","skill":"unstuck","ok":false,"code":"TIMEOUT","detail":"timed out after 60 s","seconds":60.05,"t":1795023107825}
+{"event":"gene","detail":"learned.gate off: closed","t":1795023107826}
+{"layer":"tactician","gs":3076,"brain":"rules","trigger":"skill_failed","goal":"nether_portal","options":["goto surface","smelt iron_ingot:1","shelter","explore any"],"choice":"goto surface","x":[1.0,0.95,0.0,1.0,1.0,0.391,0.0,0.0,0.6,0.4,0.0,0.0,0.563,1.0,0.0,0.063,0.25,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,0.308,0.0,0.538,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1795023107826}
+{"event":"skill_start","skill":"goto surface","trigger":"skill_failed","t":1795023107826}
+{"event":"gene","detail":"learned.gate off: closed","t":1795023128330}
+{"layer":"tactician","gs":3096,"brain":"rules","trigger":"heartbeat","goal":"nether_portal","options":["shore"],"choice":"shore","x":[1.0,0.95,0.0,1.0,1.0,0.391,0.0,0.0,0.6,0.4,0.0,0.0,0.563,1.0,0.0,0.063,0.25,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,0.308,0.0,0.538,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["shore"],"t":1795023128330}
+{"event":"skill_end","skill":"goto surface","ok":false,"code":"INTERRUPTED","detail":"interrupted: brain chose shore","seconds":20.05,"t":1795023128330}
+{"event":"skill_start","skill":"shore","trigger":"heartbeat","t":1795023128330}
+{"event":"stuck","detail":"shore at -174, 26, 275","t":1795023140205}
+{"event":"skill_end","skill":"shore","ok":false,"code":"STUCK","detail":"stuck: stayed inside 2.0 blocks for 12 s","seconds":11.9,"t":1795023140205}
+{"event":"skill_start","skill":"unstuck","trigger":"reflex_stuck","t":1795023140205}
+{"event":"skill_end","skill":"unstuck","ok":false,"code":"TIMEOUT","detail":"timed out after 60 s","seconds":60.05,"t":1795023200905}
+{"event":"gene","detail":"learned.gate off: closed","t":1795023200906}
+{"layer":"tactician","gs":3168,"brain":"rules","trigger":"skill_failed","goal":"nether_portal","options":["goto surface","smelt iron_ingot:1","shelter","explore any"],"choice":"goto surface","x":[1.0,0.95,0.0,1.0,1.0,0.391,0.0,0.0,0.6,0.4,0.0,0.0,0.563,1.0,0.0,0.063,0.25,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,0.308,0.0,0.538,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1795023200906}
+{"event":"skill_start","skill":"goto surface","trigger":"skill_failed","t":1795023200906}
+{"event":"gene","detail":"learned.gate off: closed","t":1795023221272}
+{"layer":"tactician","gs":3188,"brain":"rules","trigger":"heartbeat","goal":"nether_portal","options":["shore"],"choice":"shore","x":[1.0,0.95,0.0,1.0,1.0,0.391,0.0,0.0,0.6,0.4,0.0,0.0,0.563,1.0,0.0,0.063,0.25,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,0.308,0.0,0.538,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["shore"],"t":1795023221272}
+{"event":"skill_end","skill":"goto surface","ok":false,"code":"INTERRUPTED","detail":"interrupted: brain chose shore","seconds":20.05,"t":1795023221272}
+{"event":"skill_start","skill":"shore","trigger":"heartbeat","t":1795023221272}
+{"event":"stuck","detail":"shore at -174, 26, 275","t":1795023233165}
+{"event":"skill_end","skill":"shore","ok":false,"code":"STUCK","detail":"stuck: stayed inside 2.0 blocks for 12 s","seconds":11.9,"t":1795023233165}
+{"event":"skill_start","skill":"unstuck","trigger":"reflex_stuck","t":1795023233165}
+{"event":"skill_end","skill":"unstuck","ok":false,"code":"TIMEOUT","detail":"timed out after 60 s","seconds":60.05,"t":1795023293700}
+{"event":"gene","detail":"learned.gate off: closed","t":1795023293701}
+{"layer":"tactician","gs":3260,"brain":"rules","trigger":"skill_failed","goal":"nether_portal","options":["goto surface","smelt iron_ingot:1","shelter","explore any"],"choice":"goto surface","x":[1.0,0.95,0.0,1.0,1.0,0.391,0.0,0.0,0.6,0.4,0.0,0.0,0.563,1.0,0.0,0.063,0.25,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,0.308,0.0,0.538,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1795023293701}
+{"event":"skill_start","skill":"goto surface","trigger":"skill_failed","t":1795023293701}
+{"event":"gene","detail":"learned.gate off: closed","t":1795023314025}
+{"layer":"tactician","gs":3280,"brain":"rules","trigger":"heartbeat","goal":"nether_portal","options":["shore"],"choice":"shore","x":[1.0,0.95,0.0,1.0,1.0,0.391,0.0,0.0,0.6,0.4,0.0,0.0,0.563,1.0,0.0,0.063,0.25,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,0.308,0.0,0.538,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["shore"],"t":1795023314025}
+{"event":"skill_end","skill":"goto surface","ok":false,"code":"INTERRUPTED","detail":"interrupted: brain chose shore","seconds":20.05,"t":1795023314026}
+{"event":"skill_start","skill":"shore","trigger":"heartbeat","t":1795023314026}
+{"event":"stuck","detail":"shore at -174, 25, 275","t":1795023326008}
+{"event":"skill_end","skill":"shore","ok":false,"code":"STUCK","detail":"stuck: stayed inside 2.0 blocks for 12 s","seconds":11.9,"t":1795023326009}
+{"event":"skill_start","skill":"unstuck","trigger":"reflex_stuck","t":1795023326009}
+{"event":"skill_end","skill":"unstuck","ok":false,"code":"TIMEOUT","detail":"timed out after 60 s","seconds":60.05,"t":1795023386311}
+{"event":"gene","detail":"learned.gate off: closed","t":1795023386312}
+{"layer":"tactician","gs":3352,"brain":"rules","trigger":"skill_failed","goal":"nether_portal","options":["shore"],"choice":"shore","x":[1.0,0.95,0.0,0.0,1.0,0.391,0.0,0.0,0.6,0.4,0.0,0.0,0.563,1.0,0.0,0.063,0.25,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,0.308,0.0,0.538,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["shore"],"t":1795023386312}
+{"event":"skill_start","skill":"shore","trigger":"skill_failed","t":1795023386312}
+{"event":"stuck","detail":"shore at -174, 25, 275","t":1795023398277}
+{"event":"skill_end","skill":"shore","ok":false,"code":"STUCK","detail":"stuck: stayed inside 2.0 blocks for 12 s","seconds":11.95,"t":1795023398277}
+{"event":"skill_start","skill":"unstuck","trigger":"reflex_stuck","t":1795023398278}
+{"event":"skill_end","skill":"unstuck","ok":false,"code":"TIMEOUT","detail":"timed out after 60 s","seconds":60.05,"t":1795023458621}
+{"event":"gene","detail":"learned.gate off: closed","t":1795023458621}
+{"layer":"tactician","gs":3424,"brain":"rules","trigger":"skill_failed","goal":"nether_portal","options":["shore"],"choice":"shore","x":[1.0,0.95,0.0,0.0,1.0,0.391,0.0,0.0,0.6,0.4,0.0,0.0,0.563,1.0,0.0,0.063,0.25,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,0.308,0.0,0.538,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["shore"],"t":1795023458621}
+{"event":"skill_start","skill":"shore","trigger":"skill_failed","t":1795023458621}
+{"event":"stuck","detail":"shore at -174, 25, 275","t":1795023470620}
+{"event":"skill_end","skill":"shore","ok":false,"code":"STUCK","detail":"stuck: stayed inside 2.0 blocks for 12 s","seconds":11.95,"t":1795023470620}
+{"event":"skill_start","skill":"unstuck","trigger":"reflex_stuck","t":1795023470620}
+{"event":"skill_end","skill":"unstuck","ok":false,"code":"TIMEOUT","detail":"timed out after 60 s","seconds":60.05,"t":1795023530916}
+{"event":"gene","detail":"learned.gate off: closed","t":1795023530917}
+{"layer":"tactician","gs":3496,"brain":"rules","trigger":"skill_failed","goal":"nether_portal","options":["shore"],"choice":"shore","x":[1.0,0.95,0.0,0.0,1.0,0.391,0.0,0.0,0.6,0.4,0.0,0.0,0.563,1.0,0.0,0.063,0.25,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,0.308,0.0,0.538,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["shore"],"t":1795023530917}
+{"event":"skill_start","skill":"shore","trigger":"skill_failed","t":1795023530917}
+{"event":"stuck","detail":"shore at -174, 25, 275","t":1795023542971}
+{"event":"skill_end","skill":"shore","ok":false,"code":"STUCK","detail":"stuck: stayed inside 2.0 blocks for 12 s","seconds":11.95,"t":1795023542972}
+{"event":"skill_start","skill":"unstuck","trigger":"reflex_stuck","t":1795023542972}
+{"event":"skill_end","skill":"unstuck","ok":false,"code":"TIMEOUT","detail":"timed out after 60 s","seconds":60.05,"t":1795023603414}
+{"event":"gene","detail":"learned.gate off: closed","t":1795023603414}
+{"layer":"tactician","gs":3568,"brain":"rules","trigger":"skill_failed","goal":"nether_portal","options":["shore"],"choice":"shore","x":[1.0,0.95,0.0,0.0,1.0,0.391,0.0,0.0,0.6,0.4,0.0,0.0,0.563,1.0,0.0,0.063,0.25,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,0.308,0.0,0.538,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["shore"],"t":1795023603415}
+{"event":"skill_start","skill":"shore","trigger":"skill_failed","t":1795023603415}
+{"event":"stuck","detail":"shore at -174, 25, 275","t":1795023615420}
+{"event":"skill_end","skill":"shore","ok":false,"code":"STUCK","detail":"stuck: stayed inside 2.0 blocks for 12 s","seconds":11.95,"t":1795023615420}
+{"event":"skill_start","skill":"unstuck","trigger":"reflex_stuck","t":1795023615421}
+{"event":"skill_end","skill":"unstuck","ok":false,"code":"TIMEOUT","detail":"timed out after 60 s","seconds":60.05,"t":1795023676022}
+{"event":"gene","detail":"learned.gate off: closed","t":1795023676023}
+{"layer":"tactician","gs":3640,"brain":"rules","trigger":"skill_failed","goal":"nether_portal","options":["shore"],"choice":"shore","x":[1.0,0.95,0.0,0.0,1.0,0.391,0.0,0.0,0.6,0.4,0.0,0.0,0.563,1.0,0.0,0.063,0.25,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,0.308,0.0,0.538,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["shore"],"t":1795023676023}
+{"event":"skill_start","skill":"shore","trigger":"skill_failed","t":1795023676023}
+{"event":"stuck","detail":"shore at -174, 25, 275 in water","t":1795023688025}
+{"event":"skill_end","skill":"shore","ok":false,"code":"STUCK","detail":"stuck: stayed inside 2.0 blocks for 12 s","seconds":11.95,"t":1795023688025}
+{"event":"skill_start","skill":"unstuck","trigger":"reflex_stuck","t":1795023688026}
+{"event":"skill_end","skill":"unstuck","ok":true,"detail":"got out (walk)","seconds":9.15,"t":1795023697325}
+{"event":"gene","detail":"learned.gate off: closed","t":1795023697325}
+{"layer":"tactician","gs":3661,"brain":"rules","trigger":"skill_done","goal":"nether_portal","options":["shore"],"choice":"shore","x":[1.0,0.95,0.0,0.0,1.0,0.406,0.0,0.0,0.6,0.4,0.0,0.0,0.563,1.0,0.0,0.063,0.25,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,0.308,0.0,0.538,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["shore"],"t":1795023697325}
+{"event":"skill_start","skill":"shore","trigger":"skill_done","t":1795023697326}
+{"event":"stuck","detail":"shore at -174, 26, 275 in water","t":1795023714311}
+{"event":"skill_end","skill":"shore","ok":false,"code":"STUCK","detail":"stuck: stayed inside 2.0 blocks for 12 s","seconds":16.85,"t":1795023714311}
+{"event":"skill_start","skill":"unstuck","trigger":"reflex_stuck","t":1795023714311}
+{"event":"skill_end","skill":"unstuck","ok":false,"code":"TIMEOUT","detail":"timed out after 60 s","seconds":60.05,"t":1795023774917}
+{"event":"gene","detail":"learned.gate off: closed","t":1795023774918}
+{"layer":"tactician","gs":3738,"brain":"rules","trigger":"skill_failed","goal":"nether_portal","options":["goto surface","smelt iron_ingot:1","explore any"],"choice":"goto surface","x":[1.0,0.95,0.0,0.0,1.0,0.406,0.0,0.0,0.6,0.4,0.0,0.0,0.563,1.0,0.0,0.063,0.25,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,0.308,0.0,0.538,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1795023774918}
+{"event":"skill_start","skill":"goto surface","trigger":"skill_failed","t":1795023774918}
+{"event":"gene","detail":"learned.gate off: closed","t":1795023835769}
+{"layer":"tactician","gs":3798,"brain":"rules","trigger":"heartbeat","goal":"nether_portal","options":["shore"],"choice":"shore","x":[1.0,0.95,0.0,0.0,1.0,0.391,0.0,0.0,0.6,0.4,0.0,0.0,0.563,1.0,0.0,0.063,0.25,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,0.308,0.0,0.538,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["shore"],"t":1795023835769}
+{"event":"skill_end","skill":"goto surface","ok":false,"code":"INTERRUPTED","detail":"interrupted: brain chose shore","seconds":60.15,"t":1795023835769}
+{"event":"skill_start","skill":"shore","trigger":"heartbeat","t":1795023835769}
+{"event":"stuck","detail":"shore at -174, 25, 275 in water","t":1795023847560}
+{"event":"skill_end","skill":"shore","ok":false,"code":"STUCK","detail":"stuck: stayed inside 2.0 blocks for 12 s","seconds":11.8,"t":1795023847561}
+{"event":"skill_start","skill":"unstuck","trigger":"reflex_stuck","t":1795023847561}
+{"event":"skill_end","skill":"unstuck","ok":true,"detail":"got out (walk)","seconds":9.15,"t":1795023856768}
+{"event":"gene","detail":"learned.gate off: closed","t":1795023856769}
+{"layer":"tactician","gs":3819,"brain":"rules","trigger":"skill_done","goal":"nether_portal","options":["shore"],"choice":"shore","x":[1.0,0.95,0.0,0.0,1.0,0.406,0.0,0.0,0.6,0.4,0.0,0.0,0.563,1.0,0.0,0.063,0.25,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,0.308,0.0,0.538,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["shore"],"t":1795023856769}
+{"event":"skill_start","skill":"shore","trigger":"skill_done","t":1795023856769}
+{"event":"stuck","detail":"shore at -174, 25, 275","t":1795023877777}
+{"event":"skill_end","skill":"shore","ok":false,"code":"STUCK","detail":"stuck: stayed inside 2.0 blocks for 12 s","seconds":20.85,"t":1795023877778}
+{"event":"skill_start","skill":"unstuck","trigger":"reflex_stuck","t":1795023877778}
+{"event":"skill_end","skill":"unstuck","ok":false,"code":"TIMEOUT","detail":"timed out after 60 s","seconds":60.05,"t":1795023938077}
+{"event":"gene","detail":"learned.gate off: closed","t":1795023938078}
+{"layer":"tactician","gs":3900,"brain":"rules","trigger":"skill_failed","goal":"nether_portal","options":["shore"],"choice":"shore","x":[1.0,0.95,0.0,0.0,1.0,0.391,0.0,0.0,0.6,0.4,0.0,0.0,0.563,1.0,0.0,0.063,0.25,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,0.308,0.0,0.538,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["shore"],"t":1795023938078}
+{"event":"skill_start","skill":"shore","trigger":"skill_failed","t":1795023938078}
+{"event":"stuck","detail":"shore at -174, 26, 275","t":1795023950017}
+{"event":"skill_end","skill":"shore","ok":false,"code":"STUCK","detail":"stuck: stayed inside 2.0 blocks for 12 s","seconds":11.95,"t":1795023950017}
+{"event":"skill_start","skill":"unstuck","trigger":"reflex_stuck","t":1795023950017}
+{"event":"skill_end","skill":"unstuck","ok":false,"code":"TIMEOUT","detail":"timed out after 60 s","seconds":60.05,"t":1795024010386}
+{"event":"gene","detail":"learned.gate off: closed","t":1795024010388}
+{"layer":"tactician","gs":3972,"brain":"rules","trigger":"skill_failed","goal":"nether_portal","options":["goto surface","smelt iron_ingot:1","explore any"],"choice":"goto surface","x":[1.0,0.95,0.0,0.0,1.0,0.391,0.0,0.0,0.6,0.4,0.0,0.0,0.563,1.0,0.0,0.063,0.25,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,0.308,0.0,0.538,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1795024010388}
+{"event":"skill_start","skill":"goto surface","trigger":"skill_failed","t":1795024010388}
+{"event":"gene","detail":"learned.gate off: closed","t":1795024030614}
+{"layer":"tactician","gs":3992,"brain":"rules","trigger":"heartbeat","goal":"nether_portal","options":["shore"],"choice":"shore","x":[1.0,0.95,0.0,0.0,1.0,0.391,0.0,0.0,0.6,0.4,0.0,0.0,0.563,1.0,0.0,0.063,0.25,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,0.308,0.0,0.538,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["shore"],"t":1795024030614}
+{"event":"skill_end","skill":"goto surface","ok":false,"code":"INTERRUPTED","detail":"interrupted: brain chose shore","seconds":20.05,"t":1795024030614}
+{"event":"skill_start","skill":"shore","trigger":"heartbeat","t":1795024030615}
+{"event":"stuck","detail":"shore at -174, 26, 275","t":1795024042580}
+{"event":"skill_end","skill":"shore","ok":false,"code":"STUCK","detail":"stuck: stayed inside 2.0 blocks for 12 s","seconds":11.9,"t":1795024042581}
+{"event":"skill_start","skill":"unstuck","trigger":"reflex_stuck","t":1795024042581}
+{"event":"skill_end","skill":"unstuck","ok":false,"code":"TIMEOUT","detail":"timed out after 60 s","seconds":60.05,"t":1795024102966}
+{"event":"gene","detail":"learned.gate off: closed","t":1795024102967}
+{"layer":"tactician","gs":4064,"brain":"rules","trigger":"skill_failed","goal":"nether_portal","options":["goto surface","smelt iron_ingot:1","shelter","explore any"],"choice":"goto surface","x":[1.0,0.95,0.0,1.0,1.0,0.391,0.0,0.0,0.6,0.4,0.0,0.0,0.563,1.0,0.0,0.063,0.25,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,0.308,0.0,0.538,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1795024102967}
+{"event":"skill_start","skill":"goto surface","trigger":"skill_failed","t":1795024102967}
+{"event":"gene","detail":"learned.gate off: closed","t":1795024123288}
+{"layer":"tactician","gs":4084,"brain":"rules","trigger":"heartbeat","goal":"nether_portal","options":["shore"],"choice":"shore","x":[1.0,0.95,0.0,1.0,1.0,0.391,0.0,0.0,0.6,0.4,0.0,0.0,0.563,1.0,0.0,0.063,0.25,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,0.308,0.0,0.538,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["shore"],"t":1795024123288}
+{"event":"skill_end","skill":"goto surface","ok":false,"code":"INTERRUPTED","detail":"interrupted: brain chose shore","seconds":20.05,"t":1795024123288}
+{"event":"skill_start","skill":"shore","trigger":"heartbeat","t":1795024123288}
+{"event":"stuck","detail":"shore at -174, 26, 275","t":1795024135331}
+{"event":"skill_end","skill":"shore","ok":false,"code":"STUCK","detail":"stuck: stayed inside 2.0 blocks for 12 s","seconds":11.9,"t":1795024135331}
+{"event":"skill_start","skill":"unstuck","trigger":"reflex_stuck","t":1795024135331}
+{"event":"skill_end","skill":"unstuck","ok":false,"code":"TIMEOUT","detail":"timed out after 60 s","seconds":60.05,"t":1795024195866}
+{"event":"gene","detail":"learned.gate off: closed","t":1795024195867}
+{"layer":"tactician","gs":4156,"brain":"rules","trigger":"skill_failed","goal":"nether_portal","options":["goto surface","smelt iron_ingot:1","shelter","explore any"],"choice":"goto surface","x":[1.0,0.95,0.0,1.0,1.0,0.391,0.0,0.0,0.6,0.4,0.0,0.0,0.563,1.0,0.0,0.063,0.25,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,0.308,0.0,0.538,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1795024195867}
+{"event":"skill_start","skill":"goto surface","trigger":"skill_failed","t":1795024195867}
+{"event":"gene","detail":"learned.gate off: closed","t":1795024216085}
+{"layer":"tactician","gs":4176,"brain":"rules","trigger":"heartbeat","goal":"nether_portal","options":["shore"],"choice":"shore","x":[1.0,0.95,0.0,1.0,1.0,0.391,0.0,0.0,0.6,0.4,0.0,0.0,0.563,1.0,0.0,0.063,0.25,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,0.308,0.0,0.538,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["shore"],"t":1795024216085}
+{"event":"skill_end","skill":"goto surface","ok":false,"code":"INTERRUPTED","detail":"interrupted: brain chose shore","seconds":20.05,"t":1795024216085}
+{"event":"skill_start","skill":"shore","trigger":"heartbeat","t":1795024216086}
+{"event":"stuck","detail":"shore at -174, 26, 275","t":1795024228050}
+{"event":"skill_end","skill":"shore","ok":false,"code":"STUCK","detail":"stuck: stayed inside 2.0 blocks for 12 s","seconds":11.9,"t":1795024228050}
+{"event":"skill_start","skill":"unstuck","trigger":"reflex_stuck","t":1795024228051}
+{"event":"skill_end","skill":"unstuck","ok":false,"code":"TIMEOUT","detail":"timed out after 60 s","seconds":60.05,"t":1795024288627}
+{"event":"gene","detail":"learned.gate off: closed","t":1795024288627}
+{"layer":"tactician","gs":4248,"brain":"rules","trigger":"skill_failed","goal":"nether_portal","options":["goto surface","smelt iron_ingot:1","shelter","explore any"],"choice":"goto surface","x":[1.0,0.95,0.0,1.0,1.0,0.391,0.0,0.0,0.6,0.4,0.0,0.0,0.563,1.0,0.0,0.063,0.25,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,0.308,0.0,0.538,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1795024288628}
+{"event":"skill_start","skill":"goto surface","trigger":"skill_failed","t":1795024288628}
+{"event":"gene","detail":"learned.gate off: closed","t":1795024309032}
+{"layer":"tactician","gs":4268,"brain":"rules","trigger":"heartbeat","goal":"nether_portal","options":["shore"],"choice":"shore","x":[1.0,0.95,0.0,1.0,1.0,0.391,0.0,0.0,0.6,0.4,0.0,0.0,0.563,1.0,0.0,0.063,0.25,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,0.308,0.0,0.538,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["shore"],"t":1795024309032}
+{"event":"skill_end","skill":"goto surface","ok":false,"code":"INTERRUPTED","detail":"interrupted: brain chose shore","seconds":20.05,"t":1795024309032}
+{"event":"skill_start","skill":"shore","trigger":"heartbeat","t":1795024309032}
+{"event":"stuck","detail":"shore at -174, 26, 275","t":1795024320922}
+{"event":"skill_end","skill":"shore","ok":false,"code":"STUCK","detail":"stuck: stayed inside 2.0 blocks for 12 s","seconds":11.9,"t":1795024320922}
+{"event":"skill_start","skill":"unstuck","trigger":"reflex_stuck","t":1795024320922}
+{"event":"skill_end","skill":"unstuck","ok":false,"code":"TIMEOUT","detail":"timed out after 60 s","seconds":60.05,"t":1795024381236}
+{"event":"gene","detail":"learned.gate off: closed","t":1795024381236}
+{"layer":"tactician","gs":4340,"brain":"rules","trigger":"skill_failed","goal":"nether_portal","options":["goto surface","smelt iron_ingot:1","shelter","explore any"],"choice":"goto surface","x":[1.0,0.95,0.0,1.0,1.0,0.391,0.0,0.0,0.6,0.4,0.0,0.0,0.563,1.0,0.0,0.063,0.25,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,0.308,0.0,0.538,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1795024381237}
+{"event":"skill_start","skill":"goto surface","trigger":"skill_failed","t":1795024381237}
+{"event":"gene","detail":"learned.gate off: closed","t":1795024401525}
+{"layer":"tactician","gs":4360,"brain":"rules","trigger":"heartbeat","goal":"nether_portal","options":["shore"],"choice":"shore","x":[1.0,0.95,0.0,1.0,1.0,0.391,0.0,0.0,0.6,0.4,0.0,0.0,0.563,1.0,0.0,0.063,0.25,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,0.308,0.0,0.538,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["shore"],"t":1795024401525}
+{"event":"skill_end","skill":"goto surface","ok":false,"code":"INTERRUPTED","detail":"interrupted: brain chose shore","seconds":20.05,"t":1795024401525}
+{"event":"skill_start","skill":"shore","trigger":"heartbeat","t":1795024401526}
+{"event":"stuck","detail":"shore at -174, 26, 275","t":1795024413633}
+{"event":"skill_end","skill":"shore","ok":false,"code":"STUCK","detail":"stuck: stayed inside 2.0 blocks for 12 s","seconds":11.9,"t":1795024413634}
+{"event":"skill_start","skill":"unstuck","trigger":"reflex_stuck","t":1795024413634}
+{"event":"skill_end","skill":"unstuck","ok":false,"code":"TIMEOUT","detail":"timed out after 60 s","seconds":60.05,"t":1795024473964}
+{"event":"gene","detail":"learned.gate off: closed","t":1795024473965}
+{"layer":"tactician","gs":4432,"brain":"rules","trigger":"skill_failed","goal":"nether_portal","options":["goto surface","smelt iron_ingot:1","shelter","explore any"],"choice":"goto surface","x":[1.0,0.95,0.0,1.0,1.0,0.391,0.0,0.0,0.6,0.4,0.0,0.0,0.563,1.0,0.0,0.063,0.25,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,0.308,0.0,0.538,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1795024473966}
+{"event":"skill_start","skill":"goto surface","trigger":"skill_failed","t":1795024473966}
+{"event":"gene","detail":"learned.gate off: closed","t":1795024494319}
+{"layer":"tactician","gs":4452,"brain":"rules","trigger":"heartbeat","goal":"nether_portal","options":["shore"],"choice":"shore","x":[1.0,0.95,0.0,1.0,1.0,0.391,0.0,0.0,0.6,0.4,0.0,0.0,0.563,1.0,0.0,0.063,0.25,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,0.308,0.0,0.538,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["shore"],"t":1795024494319}
+{"event":"skill_end","skill":"goto surface","ok":false,"code":"INTERRUPTED","detail":"interrupted: brain chose shore","seconds":20.05,"t":1795024494319}
+{"event":"skill_start","skill":"shore","trigger":"heartbeat","t":1795024494320}
+{"event":"stuck","detail":"shore at -174, 26, 275","t":1795024506271}
+{"event":"skill_end","skill":"shore","ok":false,"code":"STUCK","detail":"stuck: stayed inside 2.0 blocks for 12 s","seconds":11.9,"t":1795024506272}
+{"event":"skill_start","skill":"unstuck","trigger":"reflex_stuck","t":1795024506272}
+{"event":"skill_end","skill":"unstuck","ok":false,"code":"TIMEOUT","detail":"timed out after 60 s","seconds":60.05,"t":1795024566850}
+{"event":"gene","detail":"learned.gate off: closed","t":1795024566851}
+{"layer":"tactician","gs":4524,"brain":"rules","trigger":"skill_failed","goal":"nether_portal","options":["goto surface","smelt iron_ingot:1","shelter","explore any"],"choice":"goto surface","x":[1.0,0.95,0.0,1.0,1.0,0.391,0.0,0.0,0.6,0.4,0.0,0.0,0.563,1.0,0.0,0.063,0.25,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,0.308,0.0,0.538,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1795024566851}
+{"event":"skill_start","skill":"goto surface","trigger":"skill_failed","t":1795024566851}
+{"event":"gene","detail":"learned.gate off: closed","t":1795024587092}
+{"layer":"tactician","gs":4544,"brain":"rules","trigger":"heartbeat","goal":"nether_portal","options":["shore"],"choice":"shore","x":[1.0,0.95,0.0,0.0,1.0,0.391,0.0,0.0,0.6,0.4,0.0,0.0,0.563,1.0,0.0,0.063,0.25,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,0.308,0.0,0.538,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["shore"],"t":1795024587093}
+{"event":"skill_end","skill":"goto surface","ok":false,"code":"INTERRUPTED","detail":"interrupted: brain chose shore","seconds":20.05,"t":1795024587093}
+{"event":"skill_start","skill":"shore","trigger":"heartbeat","t":1795024587093}
+{"event":"stuck","detail":"shore at -174, 26, 275","t":1795024598978}
+{"event":"skill_end","skill":"shore","ok":false,"code":"STUCK","detail":"stuck: stayed inside 2.0 blocks for 12 s","seconds":11.9,"t":1795024598978}
+{"event":"skill_start","skill":"unstuck","trigger":"reflex_stuck","t":1795024598978}
+{"event":"skill_end","skill":"unstuck","ok":false,"code":"TIMEOUT","detail":"timed out after 60 s","seconds":60.05,"t":1795024659235}
+{"event":"gene","detail":"learned.gate off: closed","t":1795024659236}
+{"layer":"tactician","gs":4616,"brain":"rules","trigger":"skill_failed","goal":"nether_portal","options":["goto surface","smelt iron_ingot:1","explore any"],"choice":"goto surface","x":[1.0,0.95,0.0,0.0,1.0,0.391,0.0,0.0,0.6,0.4,0.0,0.0,0.563,1.0,0.0,0.063,0.25,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,0.308,0.0,0.538,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1795024659236}
+{"event":"skill_start","skill":"goto surface","trigger":"skill_failed","t":1795024659236}
+{"event":"gene","detail":"learned.gate off: closed","t":1795024679621}
+{"layer":"tactician","gs":4636,"brain":"rules","trigger":"heartbeat","goal":"nether_portal","options":["shore"],"choice":"shore","x":[1.0,0.95,0.0,0.0,1.0,0.391,0.0,0.0,0.6,0.4,0.0,0.0,0.563,1.0,0.0,0.063,0.25,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,0.308,0.0,0.538,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["shore"],"t":1795024679621}
+{"event":"skill_end","skill":"goto surface","ok":false,"code":"INTERRUPTED","detail":"interrupted: brain chose shore","seconds":20.05,"t":1795024679621}
+{"event":"skill_start","skill":"shore","trigger":"heartbeat","t":1795024679621}
+{"event":"stuck","detail":"shore at -174, 26, 275","t":1795024691585}
+{"event":"skill_end","skill":"shore","ok":false,"code":"STUCK","detail":"stuck: stayed inside 2.0 blocks for 12 s","seconds":11.9,"t":1795024691586}
+{"event":"skill_start","skill":"unstuck","trigger":"reflex_stuck","t":1795024691586}
+{"event":"skill_end","skill":"unstuck","ok":false,"code":"TIMEOUT","detail":"timed out after 60 s","seconds":60.05,"t":1795024752068}
+{"event":"gene","detail":"learned.gate off: closed","t":1795024752069}
+{"layer":"tactician","gs":4708,"brain":"rules","trigger":"skill_failed","goal":"nether_portal","options":["goto surface","smelt iron_ingot:1","explore any"],"choice":"goto surface","x":[1.0,0.95,0.0,0.0,1.0,0.391,0.0,0.0,0.6,0.4,0.0,0.0,0.563,1.0,0.0,0.063,0.25,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,0.308,0.0,0.538,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1795024752069}
+{"event":"skill_start","skill":"goto surface","trigger":"skill_failed","t":1795024752069}
+{"event":"gene","detail":"learned.gate off: closed","t":1795024772518}
+{"layer":"tactician","gs":4728,"brain":"rules","trigger":"heartbeat","goal":"nether_portal","options":["shore"],"choice":"shore","x":[1.0,0.95,0.0,0.0,1.0,0.391,0.0,0.0,0.6,0.4,0.0,0.0,0.563,1.0,0.0,0.063,0.25,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,0.308,0.0,0.538,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["shore"],"t":1795024772518}
+{"event":"skill_end","skill":"goto surface","ok":false,"code":"INTERRUPTED","detail":"interrupted: brain chose shore","seconds":20.05,"t":1795024772518}
+{"event":"skill_start","skill":"shore","trigger":"heartbeat","t":1795024772518}
+{"event":"stuck","detail":"shore at -174, 26, 275","t":1795024784578}
+{"event":"skill_end","skill":"shore","ok":false,"code":"STUCK","detail":"stuck: stayed inside 2.0 blocks for 12 s","seconds":11.9,"t":1795024784578}
+{"event":"skill_start","skill":"unstuck","trigger":"reflex_stuck","t":1795024784579}
+{"event":"skill_end","skill":"unstuck","ok":false,"code":"TIMEOUT","detail":"timed out after 60 s","seconds":60.05,"t":1795024845069}
+{"event":"gene","detail":"learned.gate off: closed","t":1795024845070}
+{"layer":"tactician","gs":4800,"brain":"rules","trigger":"skill_failed","goal":"nether_portal","options":["goto surface","smelt iron_ingot:1","explore any"],"choice":"goto surface","x":[1.0,0.95,0.0,0.0,1.0,0.391,0.0,0.0,0.6,0.4,0.0,0.0,0.563,1.0,0.0,0.063,0.25,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,0.308,0.0,0.538,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1795024845070}
+{"event":"skill_start","skill":"goto surface","trigger":"skill_failed","t":1795024845070}
+{"event":"gene","detail":"learned.gate off: closed","t":1795024865457}
+{"layer":"tactician","gs":4820,"brain":"rules","trigger":"heartbeat","goal":"nether_portal","options":["shore"],"choice":"shore","x":[1.0,0.95,0.0,0.0,1.0,0.391,0.0,0.0,0.6,0.4,0.0,0.0,0.563,1.0,0.0,0.063,0.25,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,0.308,0.0,0.538,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["shore"],"t":1795024865457}
+{"event":"skill_end","skill":"goto surface","ok":false,"code":"INTERRUPTED","detail":"interrupted: brain chose shore","seconds":20.05,"t":1795024865458}
+{"event":"skill_start","skill":"shore","trigger":"heartbeat","t":1795024865458}
+{"event":"stuck","detail":"shore at -174, 26, 275","t":1795024877385}
+{"event":"skill_end","skill":"shore","ok":false,"code":"STUCK","detail":"stuck: stayed inside 2.0 blocks for 12 s","seconds":11.9,"t":1795024877385}
+{"event":"skill_start","skill":"unstuck","trigger":"reflex_stuck","t":1795024877386}
+{"event":"skill_end","skill":"unstuck","ok":false,"code":"TIMEOUT","detail":"timed out after 60 s","seconds":60.05,"t":1795024937728}
+{"event":"gene","detail":"learned.gate off: closed","t":1795024937729}
+{"layer":"tactician","gs":4892,"brain":"rules","trigger":"skill_failed","goal":"nether_portal","options":["goto surface","smelt iron_ingot:1","explore any"],"choice":"goto surface","x":[1.0,0.95,0.0,0.0,1.0,0.391,0.0,0.0,0.6,0.4,0.0,0.0,0.563,1.0,0.0,0.063,0.25,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,0.308,0.0,0.538,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1795024937729}
+{"event":"skill_start","skill":"goto surface","trigger":"skill_failed","t":1795024937729}
+{"event":"gene","detail":"learned.gate off: closed","t":1795024957994}
+{"layer":"tactician","gs":4912,"brain":"rules","trigger":"heartbeat","goal":"nether_portal","options":["shore"],"choice":"shore","x":[1.0,0.95,0.0,0.0,1.0,0.391,0.0,0.0,0.6,0.4,0.0,0.0,0.563,1.0,0.0,0.063,0.25,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,0.308,0.0,0.538,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["shore"],"t":1795024957994}
+{"event":"skill_end","skill":"goto surface","ok":false,"code":"INTERRUPTED","detail":"interrupted: brain chose shore","seconds":20.05,"t":1795024957995}
+{"event":"skill_start","skill":"shore","trigger":"heartbeat","t":1795024957995}
+{"event":"stuck","detail":"shore at -174, 26, 275","t":1795024969936}
+{"event":"skill_end","skill":"shore","ok":false,"code":"STUCK","detail":"stuck: stayed inside 2.0 blocks for 12 s","seconds":11.9,"t":1795024969937}
+{"event":"skill_start","skill":"unstuck","trigger":"reflex_stuck","t":1795024969937}
+{"event":"skill_end","skill":"unstuck","ok":false,"code":"TIMEOUT","detail":"timed out after 60 s","seconds":60.05,"t":1795025030334}
+{"event":"gene","detail":"learned.gate off: closed","t":1795025030335}
+{"layer":"tactician","gs":4984,"brain":"rules","trigger":"skill_failed","goal":"nether_portal","options":["goto surface","smelt iron_ingot:1","explore any"],"choice":"goto surface","x":[1.0,0.95,0.0,0.0,1.0,0.391,0.0,0.0,0.6,0.4,0.0,0.0,0.563,1.0,0.0,0.063,0.25,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,0.308,0.0,0.538,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1795025030335}
+{"event":"skill_start","skill":"goto surface","trigger":"skill_failed","t":1795025030335}
+{"event":"gene","detail":"learned.gate off: closed","t":1795025050787}
+{"layer":"tactician","gs":5004,"brain":"rules","trigger":"heartbeat","goal":"nether_portal","options":["shore"],"choice":"shore","x":[1.0,0.95,0.0,0.0,1.0,0.391,0.0,0.0,0.6,0.4,0.0,0.0,0.563,1.0,0.0,0.063,0.25,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,0.308,0.0,0.538,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["shore"],"t":1795025050787}
+{"event":"skill_end","skill":"goto surface","ok":false,"code":"INTERRUPTED","detail":"interrupted: brain chose shore","seconds":20.05,"t":1795025050787}
+{"event":"skill_start","skill":"shore","trigger":"heartbeat","t":1795025050788}
+{"event":"stuck","detail":"shore at -174, 26, 275","t":1795025062723}
+{"event":"skill_end","skill":"shore","ok":false,"code":"STUCK","detail":"stuck: stayed inside 2.0 blocks for 12 s","seconds":11.9,"t":1795025062723}
+{"event":"skill_start","skill":"unstuck","trigger":"reflex_stuck","t":1795025062723}
+{"event":"skill_end","skill":"unstuck","ok":false,"code":"TIMEOUT","detail":"timed out after 60 s","seconds":60.05,"t":1795025122977}
+{"event":"gene","detail":"learned.gate off: closed","t":1795025122978}
+{"layer":"tactician","gs":5076,"brain":"rules","trigger":"skill_failed","goal":"nether_portal","options":["goto surface","smelt iron_ingot:1","explore any"],"choice":"goto surface","x":[1.0,0.95,0.0,0.0,1.0,0.391,0.0,0.0,0.6,0.4,0.0,0.0,0.563,1.0,0.0,0.063,0.25,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,0.308,0.0,0.538,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1795025122978}
+{"event":"skill_start","skill":"goto surface","trigger":"skill_failed","t":1795025122978}
+{"event":"gene","detail":"learned.gate off: closed","t":1795025143418}
+{"layer":"tactician","gs":5096,"brain":"rules","trigger":"heartbeat","goal":"nether_portal","options":["shore"],"choice":"shore","x":[1.0,0.95,0.0,0.0,1.0,0.391,0.0,0.0,0.6,0.4,0.0,0.0,0.563,1.0,0.0,0.063,0.25,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,0.308,0.0,0.538,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["shore"],"t":1795025143418}
+{"event":"skill_end","skill":"goto surface","ok":false,"code":"INTERRUPTED","detail":"interrupted: brain chose shore","seconds":20.05,"t":1795025143418}
+{"event":"skill_start","skill":"shore","trigger":"heartbeat","t":1795025143418}
+{"event":"stuck","detail":"shore at -174, 26, 275","t":1795025155371}
+{"event":"skill_end","skill":"shore","ok":false,"code":"STUCK","detail":"stuck: stayed inside 2.0 blocks for 12 s","seconds":11.9,"t":1795025155371}
+{"event":"skill_start","skill":"unstuck","trigger":"reflex_stuck","t":1795025155371}
+{"event":"skill_end","skill":"unstuck","ok":false,"code":"TIMEOUT","detail":"timed out after 60 s","seconds":60.05,"t":1795025215746}
+{"event":"gene","detail":"learned.gate off: closed","t":1795025215747}
+{"layer":"tactician","gs":5168,"brain":"rules","trigger":"skill_failed","goal":"nether_portal","options":["goto surface","smelt iron_ingot:1","explore any"],"choice":"goto surface","x":[1.0,0.95,0.0,0.0,1.0,0.391,0.0,0.0,0.6,0.4,0.0,0.0,0.563,1.0,0.0,0.063,0.25,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,0.308,0.0,0.538,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1795025215747}
+{"event":"skill_start","skill":"goto surface","trigger":"skill_failed","t":1795025215747}
+{"event":"gene","detail":"learned.gate off: closed","t":1795025235994}
+{"layer":"tactician","gs":5188,"brain":"rules","trigger":"heartbeat","goal":"nether_portal","options":["shore"],"choice":"shore","x":[1.0,0.95,0.0,0.0,1.0,0.391,0.0,0.0,0.6,0.4,0.0,0.0,0.563,1.0,0.0,0.063,0.25,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,0.308,0.0,0.538,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["shore"],"t":1795025235994}
+{"event":"skill_end","skill":"goto surface","ok":false,"code":"INTERRUPTED","detail":"interrupted: brain chose shore","seconds":20.05,"t":1795025235994}
+{"event":"skill_start","skill":"shore","trigger":"heartbeat","t":1795025235995}
+{"event":"stuck","detail":"shore at -174, 26, 275","t":1795025247919}
+{"event":"skill_end","skill":"shore","ok":false,"code":"STUCK","detail":"stuck: stayed inside 2.0 blocks for 12 s","seconds":11.9,"t":1795025247919}
+{"event":"skill_start","skill":"unstuck","trigger":"reflex_stuck","t":1795025247919}
+{"event":"skill_end","skill":"unstuck","ok":false,"code":"TIMEOUT","detail":"timed out after 60 s","seconds":60.05,"t":1795025308232}
+{"event":"gene","detail":"learned.gate off: closed","t":1795025308233}
+{"layer":"tactician","gs":5260,"brain":"rules","trigger":"skill_failed","goal":"nether_portal","options":["goto surface","smelt iron_ingot:1","shelter","explore any"],"choice":"goto surface","x":[1.0,0.95,0.0,1.0,1.0,0.391,0.0,0.0,0.6,0.4,0.0,0.0,0.563,1.0,0.0,0.063,0.25,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,0.308,0.0,0.538,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1795025308233}
+{"event":"skill_start","skill":"goto surface","trigger":"skill_failed","t":1795025308233}
+{"event":"gene","detail":"learned.gate off: closed","t":1795025328631}
+{"layer":"tactician","gs":5280,"brain":"rules","trigger":"heartbeat","goal":"nether_portal","options":["shore"],"choice":"shore","x":[1.0,0.95,0.0,1.0,1.0,0.391,0.0,0.0,0.6,0.4,0.0,0.0,0.563,1.0,0.0,0.063,0.25,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,0.308,0.0,0.538,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["shore"],"t":1795025328631}
+{"event":"skill_end","skill":"goto surface","ok":false,"code":"INTERRUPTED","detail":"interrupted: brain chose shore","seconds":20.05,"t":1795025328631}
+{"event":"skill_start","skill":"shore","trigger":"heartbeat","t":1795025328632}
+{"event":"stuck","detail":"shore at -174, 26, 275","t":1795025340651}
+{"event":"skill_end","skill":"shore","ok":false,"code":"STUCK","detail":"stuck: stayed inside 2.0 blocks for 12 s","seconds":11.9,"t":1795025340651}
+{"event":"skill_start","skill":"unstuck","trigger":"reflex_stuck","t":1795025340652}
+{"event":"skill_end","skill":"unstuck","ok":false,"code":"TIMEOUT","detail":"timed out after 60 s","seconds":60.05,"t":1795025401084}
+{"event":"gene","detail":"learned.gate off: closed","t":1795025401085}
+{"layer":"tactician","gs":5352,"brain":"rules","trigger":"skill_failed","goal":"nether_portal","options":["goto surface","smelt iron_ingot:1","shelter","explore any"],"choice":"goto surface","x":[1.0,0.95,0.0,1.0,1.0,0.391,0.0,0.0,0.6,0.4,0.0,0.0,0.563,1.0,0.0,0.063,0.25,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,0.308,0.0,0.538,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1795025401085}
+{"event":"skill_start","skill":"goto surface","trigger":"skill_failed","t":1795025401085}
+{"event":"gene","detail":"learned.gate off: closed","t":1795025421279}
+{"layer":"tactician","gs":5372,"brain":"rules","trigger":"heartbeat","goal":"nether_portal","options":["shore"],"choice":"shore","x":[1.0,0.95,0.0,1.0,1.0,0.391,0.0,0.0,0.6,0.4,0.0,0.0,0.563,1.0,0.0,0.063,0.25,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,0.308,0.0,0.538,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["shore"],"t":1795025421279}
+{"event":"skill_end","skill":"goto surface","ok":false,"code":"INTERRUPTED","detail":"interrupted: brain chose shore","seconds":20.05,"t":1795025421280}
+{"event":"skill_start","skill":"shore","trigger":"heartbeat","t":1795025421280}
+{"event":"stuck","detail":"shore at -174, 26, 275","t":1795025433283}
+{"event":"skill_end","skill":"shore","ok":false,"code":"STUCK","detail":"stuck: stayed inside 2.0 blocks for 12 s","seconds":11.9,"t":1795025433283}
+{"event":"skill_start","skill":"unstuck","trigger":"reflex_stuck","t":1795025433283}
+{"event":"skill_end","skill":"unstuck","ok":false,"code":"TIMEOUT","detail":"timed out after 60 s","seconds":60.05,"t":1795025493683}
+{"event":"gene","detail":"learned.gate off: closed","t":1795025493683}
+{"layer":"tactician","gs":5444,"brain":"rules","trigger":"skill_failed","goal":"nether_portal","options":["goto surface","smelt iron_ingot:1","shelter","explore any"],"choice":"goto surface","x":[1.0,0.95,0.0,1.0,1.0,0.391,0.0,0.0,0.6,0.4,0.0,0.0,0.563,1.0,0.0,0.063,0.25,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,0.308,0.0,0.538,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1795025493683}
+{"event":"skill_start","skill":"goto surface","trigger":"skill_failed","t":1795025493684}
+{"event":"gene","detail":"learned.gate off: closed","t":1795025514143}
+{"layer":"tactician","gs":5464,"brain":"rules","trigger":"heartbeat","goal":"nether_portal","options":["shore"],"choice":"shore","x":[1.0,0.95,0.0,1.0,1.0,0.391,0.0,0.0,0.6,0.4,0.0,0.0,0.563,1.0,0.0,0.063,0.25,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,0.308,0.0,0.538,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["shore"],"t":1795025514143}
+{"event":"skill_end","skill":"goto surface","ok":false,"code":"INTERRUPTED","detail":"interrupted: brain chose shore","seconds":20.05,"t":1795025514143}
+{"event":"skill_start","skill":"shore","trigger":"heartbeat","t":1795025514144}
+{"event":"stuck","detail":"shore at -174, 25, 275","t":1795025526175}
+{"event":"skill_end","skill":"shore","ok":false,"code":"STUCK","detail":"stuck: stayed inside 2.0 blocks for 12 s","seconds":11.9,"t":1795025526175}
+{"event":"skill_start","skill":"unstuck","trigger":"reflex_stuck","t":1795025526176}
+{"event":"skill_end","skill":"unstuck","ok":false,"code":"TIMEOUT","detail":"timed out after 60 s","seconds":60.05,"t":1795025586676}
+{"event":"gene","detail":"learned.gate off: closed","t":1795025586677}
+{"layer":"tactician","gs":5536,"brain":"rules","trigger":"skill_failed","goal":"nether_portal","options":["shore"],"choice":"shore","x":[1.0,0.95,0.0,1.0,1.0,0.391,0.0,0.0,0.6,0.4,0.0,0.0,0.563,1.0,0.0,0.063,0.25,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,0.308,0.0,0.538,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["shore"],"t":1795025586677}
+{"event":"skill_start","skill":"shore","trigger":"skill_failed","t":1795025586677}
+{"event":"stuck","detail":"shore at -174, 25, 275","t":1795025598741}
+{"event":"skill_end","skill":"shore","ok":false,"code":"STUCK","detail":"stuck: stayed inside 2.0 blocks for 12 s","seconds":11.95,"t":1795025598742}
+{"event":"skill_start","skill":"unstuck","trigger":"reflex_stuck","t":1795025598742}
+{"event":"skill_end","skill":"unstuck","ok":false,"code":"TIMEOUT","detail":"timed out after 60 s","seconds":60.05,"t":1795025659124}
+{"event":"gene","detail":"learned.gate off: closed","t":1795025659125}
+{"layer":"tactician","gs":5608,"brain":"rules","trigger":"skill_failed","goal":"nether_portal","options":["shore"],"choice":"shore","x":[1.0,0.95,0.0,1.0,1.0,0.391,0.0,0.0,0.6,0.4,0.0,0.0,0.563,1.0,0.0,0.063,0.25,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,0.308,0.0,0.538,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["shore"],"t":1795025659125}
+{"event":"skill_start","skill":"shore","trigger":"skill_failed","t":1795025659125}
+{"event":"stuck","detail":"shore at -174, 25, 275","t":1795025671172}
+{"event":"skill_end","skill":"shore","ok":false,"code":"STUCK","detail":"stuck: stayed inside 2.0 blocks for 12 s","seconds":11.95,"t":1795025671172}
+{"event":"skill_start","skill":"unstuck","trigger":"reflex_stuck","t":1795025671173}
+{"event":"skill_end","skill":"unstuck","ok":false,"code":"TIMEOUT","detail":"timed out after 60 s","seconds":60.05,"t":1795025731622}
+{"event":"gene","detail":"learned.gate off: closed","t":1795025731623}
+{"layer":"tactician","gs":5680,"brain":"rules","trigger":"skill_failed","goal":"nether_portal","options":["shore"],"choice":"shore","x":[1.0,0.95,0.0,1.0,1.0,0.391,0.0,0.0,0.6,0.4,0.0,0.0,0.563,1.0,0.0,0.063,0.25,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,0.308,0.0,0.538,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["shore"],"t":1795025731623}
+{"event":"skill_start","skill":"shore","trigger":"skill_failed","t":1795025731623}
+{"event":"stuck","detail":"shore at -174, 25, 275","t":1795025743628}
+{"event":"skill_end","skill":"shore","ok":false,"code":"STUCK","detail":"stuck: stayed inside 2.0 blocks for 12 s","seconds":11.95,"t":1795025743628}
+{"event":"skill_start","skill":"unstuck","trigger":"reflex_stuck","t":1795025743628}
+{"event":"skill_end","skill":"unstuck","ok":false,"code":"TIMEOUT","detail":"timed out after 60 s","seconds":60.05,"t":1795025804126}
+{"event":"gene","detail":"learned.gate off: closed","t":1795025804127}
+{"layer":"tactician","gs":5752,"brain":"rules","trigger":"skill_failed","goal":"nether_portal","options":["shore"],"choice":"shore","x":[1.0,0.95,0.0,0.0,1.0,0.391,0.0,0.0,0.6,0.4,0.0,0.0,0.563,1.0,0.0,0.063,0.25,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,0.308,0.0,0.538,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["shore"],"t":1795025804127}
+{"event":"skill_start","skill":"shore","trigger":"skill_failed","t":1795025804127}
+{"event":"stuck","detail":"shore at -174, 25, 275","t":1795025816189}
+{"event":"skill_end","skill":"shore","ok":false,"code":"STUCK","detail":"stuck: stayed inside 2.0 blocks for 12 s","seconds":11.95,"t":1795025816190}
+{"event":"skill_start","skill":"unstuck","trigger":"reflex_stuck","t":1795025816190}
+{"event":"skill_end","skill":"unstuck","ok":false,"code":"TIMEOUT","detail":"timed out after 60 s","seconds":60.05,"t":1795025876542}
+{"event":"gene","detail":"learned.gate off: closed","t":1795025876543}
+{"layer":"tactician","gs":5824,"brain":"rules","trigger":"skill_failed","goal":"nether_portal","options":["shore"],"choice":"shore","x":[1.0,0.95,0.0,0.0,1.0,0.391,0.0,0.0,0.6,0.4,0.0,0.0,0.563,1.0,0.0,0.063,0.25,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,0.308,0.0,0.538,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["shore"],"t":1795025876543}
+{"event":"skill_start","skill":"shore","trigger":"skill_failed","t":1795025876543}
+{"event":"stuck","detail":"shore at -174, 25, 275","t":1795025888530}
+{"event":"skill_end","skill":"shore","ok":false,"code":"STUCK","detail":"stuck: stayed inside 2.0 blocks for 12 s","seconds":11.95,"t":1795025888530}
+{"event":"skill_start","skill":"unstuck","trigger":"reflex_stuck","t":1795025888530}
+{"event":"skill_end","skill":"unstuck","ok":false,"code":"TIMEOUT","detail":"timed out after 60 s","seconds":60.05,"t":1795025948939}
+{"event":"gene","detail":"learned.gate off: closed","t":1795025948940}
+{"layer":"tactician","gs":5896,"brain":"rules","trigger":"skill_failed","goal":"nether_portal","options":["shore"],"choice":"shore","x":[1.0,0.95,0.0,0.0,1.0,0.391,0.0,0.0,0.6,0.4,0.0,0.0,0.563,1.0,0.0,0.063,0.25,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,0.308,0.0,0.538,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["shore"],"t":1795025948940}
+{"event":"skill_start","skill":"shore","trigger":"skill_failed","t":1795025948940}
+{"event":"stuck","detail":"shore at -174, 25, 275","t":1795025960978}
+{"event":"skill_end","skill":"shore","ok":false,"code":"STUCK","detail":"stuck: stayed inside 2.0 blocks for 12 s","seconds":11.95,"t":1795025960979}
+{"event":"skill_start","skill":"unstuck","trigger":"reflex_stuck","t":1795025960979}
+{"event":"skill_end","skill":"unstuck","ok":false,"code":"TIMEOUT","detail":"timed out after 60 s","seconds":60.05,"t":1795026021435}
+{"event":"gene","detail":"learned.gate off: closed","t":1795026021435}
+{"layer":"tactician","gs":5968,"brain":"rules","trigger":"skill_failed","goal":"nether_portal","options":["shore"],"choice":"shore","x":[1.0,0.95,0.0,0.0,1.0,0.391,0.0,0.0,0.6,0.4,0.0,0.0,0.563,1.0,0.0,0.063,0.25,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,0.308,0.0,0.538,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["shore"],"t":1795026021435}
+{"event":"skill_start","skill":"shore","trigger":"skill_failed","t":1795026021435}
+{"event":"stuck","detail":"shore at -174, 25, 275","t":1795026033439}
+{"event":"skill_end","skill":"shore","ok":false,"code":"STUCK","detail":"stuck: stayed inside 2.0 blocks for 12 s","seconds":11.95,"t":1795026033439}
+{"event":"skill_start","skill":"unstuck","trigger":"reflex_stuck","t":1795026033440}
+{"event":"skill_end","skill":"unstuck","ok":false,"code":"TIMEOUT","detail":"timed out after 60 s","seconds":60.05,"t":1795026093836}
+{"event":"gene","detail":"learned.gate off: closed","t":1795026093837}
+{"layer":"tactician","gs":6040,"brain":"rules","trigger":"skill_failed","goal":"nether_portal","options":["shore"],"choice":"shore","x":[1.0,0.95,0.0,0.0,1.0,0.391,0.0,0.0,0.6,0.4,0.0,0.0,0.563,1.0,0.0,0.063,0.25,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,0.308,0.0,0.538,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["shore"],"t":1795026093837}
+{"event":"skill_start","skill":"shore","trigger":"skill_failed","t":1795026093837}
+{"event":"stuck","detail":"shore at -174, 25, 275","t":1795026105777}
+{"event":"skill_end","skill":"shore","ok":false,"code":"STUCK","detail":"stuck: stayed inside 2.0 blocks for 12 s","seconds":11.95,"t":1795026105778}
+{"event":"skill_start","skill":"unstuck","trigger":"reflex_stuck","t":1795026105778}
+{"event":"skill_end","skill":"unstuck","ok":false,"code":"TIMEOUT","detail":"timed out after 60 s","seconds":60.05,"t":1795026166173}
+{"event":"gene","detail":"learned.gate off: closed","t":1795026166174}
+{"layer":"tactician","gs":6112,"brain":"rules","trigger":"skill_failed","goal":"nether_portal","options":["shore"],"choice":"shore","x":[1.0,0.95,0.0,0.0,1.0,0.391,0.0,0.0,0.6,0.4,0.0,0.0,0.563,1.0,0.0,0.063,0.25,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,0.308,0.0,0.538,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["shore"],"t":1795026166174}
+{"event":"skill_start","skill":"shore","trigger":"skill_failed","t":1795026166174}
+{"event":"stuck","detail":"shore at -174, 25, 275","t":1795026178085}
+{"event":"skill_end","skill":"shore","ok":false,"code":"STUCK","detail":"stuck: stayed inside 2.0 blocks for 12 s","seconds":11.95,"t":1795026178085}
+{"event":"skill_start","skill":"unstuck","trigger":"reflex_stuck","t":1795026178085}
+{"event":"skill_end","skill":"unstuck","ok":false,"code":"TIMEOUT","detail":"timed out after 60 s","seconds":60.05,"t":1795026238726}
+{"event":"gene","detail":"learned.gate off: closed","t":1795026238727}
+{"layer":"tactician","gs":6184,"brain":"rules","trigger":"skill_failed","goal":"nether_portal","options":["shore"],"choice":"shore","x":[1.0,0.95,0.0,0.0,1.0,0.391,0.0,0.0,0.6,0.4,0.0,0.0,0.563,1.0,0.0,0.063,0.25,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,0.308,0.0,0.538,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["shore"],"t":1795026238727}
+{"event":"skill_start","skill":"shore","trigger":"skill_failed","t":1795026238727}
+{"event":"stuck","detail":"shore at -174, 25, 275","t":1795026250682}
+{"event":"skill_end","skill":"shore","ok":false,"code":"STUCK","detail":"stuck: stayed inside 2.0 blocks for 12 s","seconds":11.95,"t":1795026250682}
+{"event":"skill_start","skill":"unstuck","trigger":"reflex_stuck","t":1795026250682}
+{"event":"skill_end","skill":"unstuck","ok":false,"code":"TIMEOUT","detail":"timed out after 60 s","seconds":60.05,"t":1795026311096}
+{"event":"gene","detail":"learned.gate off: closed","t":1795026311096}
+{"layer":"tactician","gs":6256,"brain":"rules","trigger":"skill_failed","goal":"nether_portal","options":["shore"],"choice":"shore","x":[1.0,0.95,0.0,0.0,1.0,0.391,0.0,0.0,0.6,0.4,0.0,0.0,0.563,1.0,0.0,0.063,0.25,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,0.308,0.0,0.538,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["shore"],"t":1795026311096}
+{"event":"skill_start","skill":"shore","trigger":"skill_failed","t":1795026311097}
+{"event":"stuck","detail":"shore at -174, 25, 275 in water","t":1795026323088}
+{"event":"skill_end","skill":"shore","ok":false,"code":"STUCK","detail":"stuck: stayed inside 2.0 blocks for 12 s","seconds":11.95,"t":1795026323088}
+{"event":"skill_start","skill":"unstuck","trigger":"reflex_stuck","t":1795026323089}
+{"event":"skill_end","skill":"unstuck","ok":false,"code":"TIMEOUT","detail":"timed out after 60 s","seconds":60.05,"t":1795026383893}
+{"event":"gene","detail":"learned.gate off: closed","t":1795026383894}
+{"layer":"tactician","gs":6328,"brain":"rules","trigger":"skill_failed","goal":"nether_portal","options":["goto surface","smelt iron_ingot:1","explore any"],"choice":"goto surface","x":[1.0,0.95,0.0,0.0,1.0,0.391,0.0,0.0,0.6,0.4,0.0,0.0,0.563,1.0,0.0,0.063,0.25,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,0.308,0.0,0.538,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1795026383894}
+{"event":"skill_start","skill":"goto surface","trigger":"skill_failed","t":1795026383894}
+{"event":"gene","detail":"learned.gate off: closed","t":1795026404203}
+{"layer":"tactician","gs":6348,"brain":"rules","trigger":"heartbeat","goal":"nether_portal","options":["shore"],"choice":"shore","x":[1.0,0.95,0.0,0.0,1.0,0.391,0.0,0.0,0.6,0.4,0.0,0.0,0.563,1.0,0.0,0.063,0.25,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,0.308,0.0,0.538,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["shore"],"t":1795026404203}
+{"event":"skill_end","skill":"goto surface","ok":false,"code":"INTERRUPTED","detail":"interrupted: brain chose shore","seconds":20.05,"t":1795026404203}
+{"event":"skill_start","skill":"shore","trigger":"heartbeat","t":1795026404203}
+{"event":"stuck","detail":"shore at -174, 25, 275 in water","t":1795026416084}
+{"event":"skill_end","skill":"shore","ok":false,"code":"STUCK","detail":"stuck: stayed inside 2.0 blocks for 12 s","seconds":11.9,"t":1795026416085}
+{"event":"skill_start","skill":"unstuck","trigger":"reflex_stuck","t":1795026416085}
+{"event":"skill_end","skill":"unstuck","ok":false,"code":"TIMEOUT","detail":"timed out after 60 s","seconds":60.05,"t":1795026477138}
+{"event":"gene","detail":"learned.gate off: closed","t":1795026477139}
+{"layer":"tactician","gs":6420,"brain":"rules","trigger":"skill_failed","goal":"nether_portal","options":["goto surface","smelt iron_ingot:1","shelter","explore any"],"choice":"goto surface","x":[1.0,0.95,0.0,1.0,1.0,0.406,0.0,0.0,0.6,0.4,0.0,0.0,0.563,1.0,0.0,0.063,0.25,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,0.308,0.0,0.538,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1795026477140}
+{"event":"skill_start","skill":"goto surface","trigger":"skill_failed","t":1795026477140}
+{"event":"gene","detail":"learned.gate off: closed","t":1795026538401}
+{"layer":"tactician","gs":6480,"brain":"rules","trigger":"heartbeat","goal":"nether_portal","options":["shore"],"choice":"shore","x":[1.0,0.95,0.0,1.0,1.0,0.391,0.0,0.0,0.6,0.4,0.0,0.0,0.563,1.0,0.0,0.063,0.25,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,0.308,0.0,0.538,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["shore"],"t":1795026538402}
+{"event":"skill_end","skill":"goto surface","ok":false,"code":"INTERRUPTED","detail":"interrupted: brain chose shore","seconds":60.15,"t":1795026538402}
+{"event":"skill_start","skill":"shore","trigger":"heartbeat","t":1795026538402}
+{"event":"stuck","detail":"shore at -174, 25, 275 in water","t":1795026550190}
+{"event":"skill_end","skill":"shore","ok":false,"code":"STUCK","detail":"stuck: stayed inside 2.0 blocks for 12 s","seconds":11.8,"t":1795026550191}
+{"event":"skill_start","skill":"unstuck","trigger":"reflex_stuck","t":1795026550191}
+{"event":"skill_end","skill":"unstuck","ok":false,"code":"TIMEOUT","detail":"timed out after 60 s","seconds":60.05,"t":1795026611055}
+{"event":"gene","detail":"learned.gate off: closed","t":1795026611056}
+{"layer":"tactician","gs":6552,"brain":"rules","trigger":"skill_failed","goal":"nether_portal","options":["goto surface","smelt iron_ingot:1","shelter","explore any"],"choice":"goto surface","x":[1.0,0.95,0.0,1.0,1.0,0.391,0.0,0.0,0.6,0.4,0.0,0.0,0.563,1.0,0.0,0.063,0.25,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,0.308,0.0,0.538,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1795026611056}
+{"event":"skill_start","skill":"goto surface","trigger":"skill_failed","t":1795026611056}
+{"event":"gene","detail":"learned.gate off: closed","t":1795026631383}
+{"layer":"tactician","gs":6572,"brain":"rules","trigger":"heartbeat","goal":"nether_portal","options":["shore"],"choice":"shore","x":[1.0,0.95,0.0,1.0,1.0,0.391,0.0,0.0,0.6,0.4,0.0,0.0,0.563,1.0,0.0,0.063,0.25,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,0.308,0.0,0.538,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["shore"],"t":1795026631383}
+{"event":"skill_end","skill":"goto surface","ok":false,"code":"INTERRUPTED","detail":"interrupted: brain chose shore","seconds":20.05,"t":1795026631384}
+{"event":"skill_start","skill":"shore","trigger":"heartbeat","t":1795026631384}
+{"event":"stuck","detail":"shore at -174, 25, 275 in water","t":1795026643280}
+{"event":"skill_end","skill":"shore","ok":false,"code":"STUCK","detail":"stuck: stayed inside 2.0 blocks for 12 s","seconds":11.9,"t":1795026643280}
+{"event":"skill_start","skill":"unstuck","trigger":"reflex_stuck","t":1795026643280}
+{"event":"skill_end","skill":"unstuck","ok":false,"code":"TIMEOUT","detail":"timed out after 60 s","seconds":60.05,"t":1795026703954}
+{"event":"gene","detail":"learned.gate off: closed","t":1795026703955}
+{"layer":"tactician","gs":6644,"brain":"rules","trigger":"skill_failed","goal":"nether_portal","options":["goto surface","smelt iron_ingot:1","shelter","explore any"],"choice":"goto surface","x":[1.0,0.95,0.0,1.0,1.0,0.406,0.0,0.0,0.6,0.4,0.0,0.0,0.563,1.0,0.0,0.063,0.25,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,0.308,0.0,0.538,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1795026703955}
+{"event":"skill_start","skill":"goto surface","trigger":"skill_failed","t":1795026703955}
+{"event":"gene","detail":"learned.gate off: closed","t":1795026764609}
+{"layer":"tactician","gs":6704,"brain":"rules","trigger":"heartbeat","goal":"nether_portal","options":["shore"],"choice":"shore","x":[1.0,0.95,0.0,1.0,1.0,0.391,0.0,0.0,0.6,0.4,0.0,0.0,0.563,1.0,0.0,0.063,0.25,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,0.308,0.0,0.538,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["shore"],"t":1795026764609}
+{"event":"skill_end","skill":"goto surface","ok":false,"code":"INTERRUPTED","detail":"interrupted: brain chose shore","seconds":60.15,"t":1795026764609}
+{"event":"skill_start","skill":"shore","trigger":"heartbeat","t":1795026764609}
+{"event":"stuck","detail":"shore at -174, 25, 275 in water","t":1795026776379}
+{"event":"skill_end","skill":"shore","ok":false,"code":"STUCK","detail":"stuck: stayed inside 2.0 blocks for 12 s","seconds":11.8,"t":1795026776379}
+{"event":"skill_start","skill":"unstuck","trigger":"reflex_stuck","t":1795026776380}
+{"event":"skill_end","skill":"unstuck","ok":false,"code":"TIMEOUT","detail":"timed out after 60 s","seconds":60.05,"t":1795026837281}
+{"event":"gene","detail":"learned.gate off: closed","t":1795026837282}
+{"layer":"tactician","gs":6776,"brain":"rules","trigger":"skill_failed","goal":"nether_portal","options":["goto surface","smelt iron_ingot:1","shelter","explore any"],"choice":"goto surface","x":[1.0,0.95,0.0,1.0,1.0,0.391,0.0,0.0,0.6,0.4,0.0,0.0,0.563,1.0,0.0,0.063,0.25,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,0.308,0.0,0.538,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1795026837283}
+{"event":"skill_start","skill":"goto surface","trigger":"skill_failed","t":1795026837283}
+{"event":"gene","detail":"learned.gate off: closed","t":1795026857766}
+{"layer":"tactician","gs":6796,"brain":"rules","trigger":"heartbeat","goal":"nether_portal","options":["shore"],"choice":"shore","x":[1.0,0.95,0.0,1.0,1.0,0.391,0.0,0.0,0.6,0.4,0.0,0.0,0.563,1.0,0.0,0.063,0.25,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,0.308,0.0,0.538,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["shore"],"t":1795026857766}
+{"event":"skill_end","skill":"goto surface","ok":false,"code":"INTERRUPTED","detail":"interrupted: brain chose shore","seconds":20.05,"t":1795026857766}
+{"event":"skill_start","skill":"shore","trigger":"heartbeat","t":1795026857767}
+{"event":"stuck","detail":"shore at -174, 25, 275 in water","t":1795026869737}
+{"event":"skill_end","skill":"shore","ok":false,"code":"STUCK","detail":"stuck: stayed inside 2.0 blocks for 12 s","seconds":11.9,"t":1795026869737}
+{"event":"skill_start","skill":"unstuck","trigger":"reflex_stuck","t":1795026869738}
+{"event":"skill_end","skill":"unstuck","ok":false,"code":"TIMEOUT","detail":"timed out after 60 s","seconds":60.05,"t":1795026930595}
+{"event":"gene","detail":"learned.gate off: closed","t":1795026930596}
+{"layer":"tactician","gs":6868,"brain":"rules","trigger":"skill_failed","goal":"nether_portal","options":["goto surface","smelt iron_ingot:1","shelter","explore any"],"choice":"goto surface","x":[1.0,0.95,0.0,1.0,1.0,0.406,0.0,0.0,0.6,0.4,0.0,0.0,0.563,1.0,0.0,0.063,0.25,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,0.308,0.0,0.538,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1795026930596}
+{"event":"skill_start","skill":"goto surface","trigger":"skill_failed","t":1795026930597}
+{"event":"gene","detail":"learned.gate off: closed","t":1795026991334}
+{"layer":"tactician","gs":6928,"brain":"rules","trigger":"heartbeat","goal":"nether_portal","options":["shore"],"choice":"shore","x":[1.0,0.95,0.0,0.0,1.0,0.391,0.0,0.0,0.6,0.4,0.0,0.0,0.563,1.0,0.0,0.063,0.25,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,0.308,0.0,0.538,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["shore"],"t":1795026991335}
+{"event":"skill_end","skill":"goto surface","ok":false,"code":"INTERRUPTED","detail":"interrupted: brain chose shore","seconds":60.15,"t":1795026991335}
+{"event":"skill_start","skill":"shore","trigger":"heartbeat","t":1795026991335}
+{"event":"stuck","detail":"shore at -174, 25, 275 in water","t":1795027003148}
+{"event":"skill_end","skill":"shore","ok":false,"code":"STUCK","detail":"stuck: stayed inside 2.0 blocks for 12 s","seconds":11.8,"t":1795027003148}
+{"event":"skill_start","skill":"unstuck","trigger":"reflex_stuck","t":1795027003149}
+{"event":"skill_end","skill":"unstuck","ok":false,"code":"TIMEOUT","detail":"timed out after 60 s","seconds":60.05,"t":1795027064136}
+{"event":"gene","detail":"learned.gate off: closed","t":1795027064137}
+{"layer":"tactician","gs":7000,"brain":"rules","trigger":"skill_failed","goal":"nether_portal","options":["goto surface","smelt iron_ingot:1","explore any"],"choice":"goto surface","x":[1.0,0.95,0.0,0.0,1.0,0.391,0.0,0.0,0.6,0.4,0.0,0.0,0.563,1.0,0.0,0.063,0.25,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,0.308,0.0,0.538,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1795027064137}
+{"event":"skill_start","skill":"goto surface","trigger":"skill_failed","t":1795027064137}
+{"event":"gene","detail":"learned.gate off: closed","t":1795027084345}
+{"layer":"tactician","gs":7020,"brain":"rules","trigger":"heartbeat","goal":"nether_portal","options":["shore"],"choice":"shore","x":[1.0,0.95,0.0,0.0,1.0,0.391,0.0,0.0,0.6,0.4,0.0,0.0,0.563,1.0,0.0,0.063,0.25,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,0.308,0.0,0.538,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["shore"],"t":1795027084345}
+{"event":"skill_end","skill":"goto surface","ok":false,"code":"INTERRUPTED","detail":"interrupted: brain chose shore","seconds":20.05,"t":1795027084346}
+{"event":"skill_start","skill":"shore","trigger":"heartbeat","t":1795027084346}
+{"event":"stuck","detail":"shore at -174, 25, 275 in water","t":1795027096291}
+{"event":"skill_end","skill":"shore","ok":false,"code":"STUCK","detail":"stuck: stayed inside 2.0 blocks for 12 s","seconds":11.9,"t":1795027096291}
+{"event":"skill_start","skill":"unstuck","trigger":"reflex_stuck","t":1795027096291}
+{"event":"skill_end","skill":"unstuck","ok":false,"code":"TIMEOUT","detail":"timed out after 60 s","seconds":60.05,"t":1795027157207}
+{"event":"gene","detail":"learned.gate off: closed","t":1795027157208}
+{"layer":"tactician","gs":7092,"brain":"rules","trigger":"skill_failed","goal":"nether_portal","options":["goto surface","smelt iron_ingot:1","explore any"],"choice":"goto surface","x":[1.0,0.95,0.0,0.0,1.0,0.406,0.0,0.0,0.6,0.4,0.0,0.0,0.563,1.0,0.0,0.063,0.25,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,0.308,0.0,0.538,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"t":1795027157208}
+{"event":"skill_start","skill":"goto surface","trigger":"skill_failed","t":1795027157208}
+{"event":"gene","detail":"learned.gate off: closed","t":1795027217991}
+{"layer":"tactician","gs":7152,"brain":"rules","trigger":"heartbeat","goal":"nether_portal","options":["shore"],"choice":"shore","x":[1.0,0.95,0.0,0.0,1.0,0.391,0.0,0.0,0.6,0.4,0.0,0.0,0.563,1.0,0.0,0.063,0.25,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,0.308,0.0,0.538,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"idx":0,"prop":1.0,"urgent":["shore"],"t":1795027217991}
+{"event":"skill_end","skill":"goto surface","ok":false,"code":"INTERRUPTED","detail":"interrupted: brain chose shore","seconds":60.15,"t":1795027217991}
+{"event":"skill_start","skill":"shore","trigger":"heartbeat","t":1795027217992}
+{"event":"stuck","detail":"shore at -174, 25, 275 in water","t":1795027229850}
+{"event":"skill_end","skill":"shore","ok":false,"code":"STUCK","detail":"stuck: stayed inside 2.0 blocks for 12 s","seconds":11.8,"t":1795027229850}
+{"event":"skill_start","skill":"unstuck","trigger":"reflex_stuck","t":1795027229850}
+{"event":"skill_end","skill":"unstuck","ok":false,"code":"INTERRUPTED","detail":"test finished","seconds":35.45,"t":1795027265896}
+{"event":"autopilot_off","detail":"test finished","t":1795027265897}
